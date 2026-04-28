@@ -220,12 +220,10 @@ const TemplateSbbTimeInput = ({
       })}
     >
       <div style="display: flex; gap: 1em; margin-block-start: 2rem;">
-        <sbb-secondary-button size="m" @click=${setValueAsDate}>
+        <sbb-secondary-button @click=${setValueAsDate}>
           Set valueAsDate to current time
         </sbb-secondary-button>
-        <sbb-secondary-button size="m" @click=${setValue}>
-          Set value to 00:00
-        </sbb-secondary-button>
+        <sbb-secondary-button @click=${setValue}> Set value to 00:00 </sbb-secondary-button>
       </div>
       <p style="margin-block-start: 1rem;">
         Time in input:

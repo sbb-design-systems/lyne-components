@@ -9,11 +9,9 @@ snapshots["sbb-step renders DOM"] =
 /* end snapshot sbb-step renders DOM */
 
 snapshots["sbb-step renders Shadow DOM"] = 
-`<div class="sbb-step--wrapper">
-  <div class="sbb-step">
-    <slot>
-    </slot>
-  </div>
+`<div class="sbb-step">
+  <slot>
+  </slot>
 </div>
 `;
 /* end snapshot sbb-step renders Shadow DOM */

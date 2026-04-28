@@ -28,11 +28,11 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
 
 ### Button-size and link-size
 
-The two props `button-size` and `link-size` can be used to override, respectively, the size of the inner `<sbb-button>` and `<sbb-block-link>`.
-The accepted values are `s`, `m` and `l` (default) for `<sbb-button>` and `xs`, `s` and `m` (default) for `<sbb-block-link>`.
+The two props `button-size` and `link-size` can be used to override the size of the inner `<sbb-button>` and `<sbb-block-link>`.
+The accepted values are `s`, `m` and `l` for `<sbb-button>` and `xs`, `s` and `m` for `<sbb-block-link>`.
 
 ```html
-<sbb-action-group button-size="m" link-size="s">
+<sbb-action-group button-size="s" link-size="s">
   <sbb-secondary-button>Action 1</sbb-secondary-button>
   <sbb-block-link
     icon-name="chevron-small-left-small"
@@ -124,13 +124,13 @@ The values for `align-group` and `align-self` for the various allocations are as
 
 #### Properties
 
-| Name             | Attribute         | Privacy | Type                                        | Default             | Description                                                                                                             |
-| ---------------- | ----------------- | ------- | ------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'` | `'start'`           | Set the slotted `<sbb-action-group>` children's alignment.                                                              |
-| `buttonSize`     | `button-size`     | public  | `SbbButtonSize`                             | `'l' / 's' (lean)`  | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.         |
-| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                         | `'large'`           | Overrides the behavior of `orientation` property.                                                                       |
-| `linkSize`       | `link-size`       | public  | `SbbLinkSize`                               | `'m' / 'xs' (lean)` | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
-| `orientation`    | `orientation`     | public  | `SbbOrientation`                            | `'horizontal'`      | Indicates the orientation of the components inside the `<sbb-action-group>`.                                            |
+| Name             | Attribute         | Privacy | Type                                        | Default        | Description                                                                                                             |
+| ---------------- | ----------------- | ------- | ------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'` | `'start'`      | Set the slotted `<sbb-action-group>` children's alignment.                                                              |
+| `buttonSize`     | `button-size`     | public  | `SbbButtonSize \| null`                     | `null`         | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.         |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                         | `'large'`      | Overrides the behavior of `orientation` property.                                                                       |
+| `linkSize`       | `link-size`       | public  | `SbbLinkSize \| null`                       | `null`         | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
+| `orientation`    | `orientation`     | public  | `SbbOrientation`                            | `'horizontal'` | Indicates the orientation of the components inside the `<sbb-action-group>`.                                            |
 
 #### Slots
 

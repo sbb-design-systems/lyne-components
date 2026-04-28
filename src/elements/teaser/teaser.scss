@@ -119,8 +119,9 @@
 }
 
 ::slotted(sbb-chip-label) {
-  display: block;
-  max-width: fit-content;
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
   margin-block-end: var(--sbb-spacing-fixed-1x);
 }
 

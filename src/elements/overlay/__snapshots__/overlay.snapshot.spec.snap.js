@@ -19,7 +19,6 @@ snapshots["sbb-overlay renders Shadow DOM"] =
           sbb-overlay-close=""
           size="m"
           tabindex="0"
-          type="button"
         >
         </sbb-secondary-button>
       </div>

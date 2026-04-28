@@ -96,8 +96,8 @@ const Template = ({ trip, tripBack, now, ...args }: Args): TemplateResult => htm
     ${sbbSpread(args)}
   >
     <div style="display: flex; padding-top: 24px; justify-content: space-between;" slot="content">
-      <sbb-secondary-button icon-name="context-menu-small"></sbb-secondary-button>
-      <sbb-button>Button label</sbb-button>
+      <sbb-secondary-button icon-name="context-menu-small" size="l"></sbb-secondary-button>
+      <sbb-button size="l">Button label</sbb-button>
     </div>
   </sbb-journey-summary>
 `;

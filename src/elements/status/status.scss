@@ -8,6 +8,7 @@
   color: var(--sbb-status-text-color);
   font-size: var(--sbb-status-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 :host([type='error']) {

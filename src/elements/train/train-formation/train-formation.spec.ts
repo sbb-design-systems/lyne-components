@@ -318,4 +318,204 @@ describe(`sbb-train-formation`, () => {
       expect(extractAggregatedSectors(element)).to.be.eql([]);
     });
   });
+
+  describe('has-sectors state', () => {
+    it('should set has-sectors state when wagons have a sector', async () => {
+      element = await fixture(html`
+        <sbb-train-formation>
+          <sbb-train>
+            <sbb-train-wagon sector="A"></sbb-train-wagon>
+          </sbb-train>
+        </sbb-train-formation>
+      `);
+
+      expect(element).to.match(':state(has-sectors)');
+    });
+
+    it('should not set has-sectors state when no wagon has a sector', async () => {
+      element = await fixture(html`
+        <sbb-train-formation>
+          <sbb-train>
+            <sbb-train-wagon></sbb-train-wagon>
+          </sbb-train>
+        </sbb-train-formation>
+      `);
+
+      expect(element).not.to.match(':state(has-sectors)');
+    });
+
+    it('should set has-sectors state when sector property is added at runtime', async () => {
+      element = await fixture(html`
+        <sbb-train-formation>
+          <sbb-train>
+            <sbb-train-wagon></sbb-train-wagon>
+          </sbb-train>
+        </sbb-train-formation>
+      `);
+
+      expect(element).not.to.match(':state(has-sectors)');
+
+      element.querySelector('sbb-train-wagon')!.sector = 'A';
+      await waitForLitRender(element);
+
+      expect(element).to.match(':state(has-sectors)');
+    });
+
+    it('should remove has-sectors state when last sector is removed at runtime', async () => {
+      element = await fixture(html`
+        <sbb-train-formation>
+          <sbb-train>
+            <sbb-train-wagon sector="A"></sbb-train-wagon>
+          </sbb-train>
+        </sbb-train-formation>
+      `);
+
+      expect(element).to.match(':state(has-sectors)');
+
+      element.querySelector('sbb-train-wagon')!.sector = '';
+      await waitForLitRender(element);
+
+      expect(element).not.to.match(':state(has-sectors)');
+    });
+
+    it('should remove has-sectors state when the wagon with a sector is removed', async () => {
+      element = await fixture(html`
+        <sbb-train-formation>
+          <sbb-train>
+            <sbb-train-wagon sector="A"></sbb-train-wagon>
+            <sbb-train-wagon></sbb-train-wagon>
+          </sbb-train>
+        </sbb-train-formation>
+      `);
+
+      expect(element).to.match(':state(has-sectors)');
+
+      element.querySelector('sbb-train-wagon')!.remove();
+      await waitForLitRender(element);
+
+      expect(element).not.to.match(':state(has-sectors)');
+    });
+
+    it('should set has-sectors state when a new train with sectored wagons is slotted', async () => {
+      element = await fixture(html`
+        <sbb-train-formation>
+          <sbb-train>
+            <sbb-train-wagon></sbb-train-wagon>
+          </sbb-train>
+        </sbb-train-formation>
+      `);
+
+      expect(element).not.to.match(':state(has-sectors)');
+
+      const train = document.createElement('sbb-train');
+      const wagon = document.createElement('sbb-train-wagon');
+      wagon.sector = 'B';
+      train.appendChild(wagon);
+      element.appendChild(train);
+      await waitForLitRender(element);
+
+      expect(element).to.match(':state(has-sectors)');
+    });
+  });
+
+  describe('has-direction-label state', () => {
+    it('should set has-direction-label state when a train has a direction-label', async () => {
+      element = await fixture(html`
+        <sbb-train-formation>
+          <sbb-train direction-label="Direction of travel"></sbb-train>
+        </sbb-train-formation>
+      `);
+
+      expect(element).to.match(':state(has-direction-label)');
+    });
+
+    it('should not set has-direction-label state when no train has a direction-label', async () => {
+      element = await fixture(html`
+        <sbb-train-formation>
+          <sbb-train></sbb-train>
+        </sbb-train-formation>
+      `);
+
+      expect(element).not.to.match(':state(has-direction-label)');
+    });
+
+    it('should set has-direction-label state when direction-label property is added at runtime', async () => {
+      element = await fixture(html`
+        <sbb-train-formation>
+          <sbb-train></sbb-train>
+        </sbb-train-formation>
+      `);
+
+      expect(element).not.to.match(':state(has-direction-label)');
+
+      element.querySelector('sbb-train')!.directionLabel = 'Direction of travel';
+      await waitForLitRender(element);
+
+      expect(element).to.match(':state(has-direction-label)');
+    });
+
+    it('should remove has-direction-label state when direction-label property is cleared at runtime', async () => {
+      element = await fixture(html`
+        <sbb-train-formation>
+          <sbb-train direction-label="Direction of travel"></sbb-train>
+        </sbb-train-formation>
+      `);
+
+      expect(element).to.match(':state(has-direction-label)');
+
+      element.querySelector('sbb-train')!.directionLabel = '';
+      await waitForLitRender(element);
+
+      expect(element).not.to.match(':state(has-direction-label)');
+    });
+
+    it('should remove has-direction-label state when train with direction-label is removed', async () => {
+      element = await fixture(html`
+        <sbb-train-formation>
+          <sbb-train direction-label="Direction of travel"></sbb-train>
+          <sbb-train></sbb-train>
+        </sbb-train-formation>
+      `);
+
+      expect(element).to.match(':state(has-direction-label)');
+
+      element.querySelector('sbb-train')!.remove();
+      await waitForLitRender(element);
+
+      expect(element).not.to.match(':state(has-direction-label)');
+    });
+
+    it('should keep has-direction-label state when a train without direction-label is removed', async () => {
+      element = await fixture(html`
+        <sbb-train-formation>
+          <sbb-train direction-label="Direction of travel"></sbb-train>
+          <sbb-train></sbb-train>
+        </sbb-train-formation>
+      `);
+
+      expect(element).to.match(':state(has-direction-label)');
+
+      element.querySelectorAll('sbb-train')[1].remove();
+      await waitForLitRender(element);
+
+      expect(element).to.match(':state(has-direction-label)');
+    });
+
+    it('should set has-direction-label state when a new train with direction-label is slotted', async () => {
+      element = await fixture(html`
+        <sbb-train-formation>
+          <sbb-train></sbb-train>
+        </sbb-train-formation>
+      `);
+
+      expect(element).not.to.match(':state(has-direction-label)');
+
+      const train = document.createElement('sbb-train');
+      train.directionLabel = 'Direction of travel';
+      element.appendChild(train);
+      await waitForLitRender(element);
+
+      expect(element).to.match(':state(has-direction-label)');
+    });
+  });
 });

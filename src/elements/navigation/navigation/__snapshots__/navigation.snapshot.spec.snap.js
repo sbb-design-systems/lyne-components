@@ -45,7 +45,6 @@ snapshots["sbb-navigation renders Shadow DOM"] =
         sbb-navigation-close=""
         size="m"
         tabindex="0"
-        type="button"
       >
       </sbb-transparent-button>
     </div>

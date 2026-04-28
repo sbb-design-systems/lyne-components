@@ -319,7 +319,9 @@ export function createManifestConfig(library = '') {
           );
 
           classes?.forEach((klass) => {
-            if (!klass?.members) return;
+            if (!klass?.members) {
+              return;
+            }
             klass.members = klass?.members?.filter(
               (member) => !memberDenyList.includes(member.name),
             );

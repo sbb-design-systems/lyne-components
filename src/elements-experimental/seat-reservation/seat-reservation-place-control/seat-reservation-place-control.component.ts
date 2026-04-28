@@ -204,8 +204,9 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
       this.travelDirection === 'NONE' ||
       this.placeType !== 'SEAT' ||
       !rotationValue
-    )
+    ) {
       return undefined;
+    }
     const rotation = Number(rotationValue);
 
     if (rotation === 90 || rotation === 270) {

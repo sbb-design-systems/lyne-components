@@ -5,7 +5,9 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
+import type { SbbJourneyHeaderElement } from './journey-header.component.ts';
 import readme from './readme.md?raw';
+
 import '../journey-header.ts';
 
 const origin: InputType = {
@@ -30,14 +32,14 @@ const level: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['1', '2', '3', '4', '5', '6'],
+  options: ['1', '2', '3', '4', '5', '6'] satisfies SbbJourneyHeaderElement['level'][],
 };
 
-const size: InputType = {
+const visualLevel: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm', 'l'],
+  options: ['1', '2', '3', '4', '5', '6'] satisfies SbbJourneyHeaderElement['visualLevel'][],
 };
 
 const negative: InputType = {
@@ -51,7 +53,7 @@ const defaultArgTypes: ArgTypes = {
   destination,
   'round-trip': roundTrip,
   level,
-  size,
+  'visual-level': visualLevel,
   negative,
 };
 
@@ -60,32 +62,44 @@ const defaultArgs: Args = {
   destination: 'Loèche-les-Bains',
   'round-trip': false,
   level: level.options![2],
-  size: size.options![1],
+  'visual-level': visualLevel.options![4],
   negative: false,
 };
 
 const Template = (args: Args): TemplateResult =>
   html`<sbb-journey-header ${sbbSpread(args)}></sbb-journey-header>`;
 
-export const SizeM: StoryObj = {
+export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
 
-export const SizeMRoundTrip: StoryObj = {
+export const VisualLevel4: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'visual-level': visualLevel.options![3] },
+};
+
+export const VisualLevel6: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'visual-level': visualLevel.options![5] },
+};
+
+export const RoundTrip: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'round-trip': true },
 };
 
-export const SizeMNegative: StoryObj = {
+export const Negative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true },
 };
 
-export const SizeMRoundTripShortText: StoryObj = {
+export const ShortText: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -93,42 +107,6 @@ export const SizeMRoundTripShortText: StoryObj = {
     origin: 'Bern',
     destination: 'Thun',
     'round-trip': true,
-  },
-};
-
-export const SizeL: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![2] },
-};
-
-export const SizeLRoundTripShortText: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    origin: 'Bern',
-    destination: 'Thun',
-    'round-trip': true,
-    size: size.options![2],
-  },
-};
-
-export const SizeS: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![0] },
-};
-
-export const SizeSRoundTripShortText: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    origin: 'Bern',
-    destination: 'Thun',
-    'round-trip': true,
-    size: size.options![0],
   },
 };
 

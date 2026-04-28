@@ -105,7 +105,6 @@ const appendNotification = (event: Event, args: Args): void => {
 
 const trigger = (args: Args): TemplateResult => html`
   <sbb-secondary-button
-    size="m"
     style="max-width: fit-content"
     @click=${(event: Event) => appendNotification(event, args)}
     icon-name="circle-plus-small"

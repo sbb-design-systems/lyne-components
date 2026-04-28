@@ -5,6 +5,10 @@
     var(--sbb-color-metal),
     var(--sbb-color-smoke)
   );
+  --sbb-options-panel-internal-z-index: var(
+    --sbb-select-z-index,
+    var(--sbb-overlay-default-z-index)
+  );
 
   display: block;
 }

@@ -27,7 +27,7 @@ describe(`sbb-train-wagon`, () => {
     properties: Partial<
       Pick<
         SbbTrainWagonElement,
-        | 'type'
+        | 'wagonType'
         | 'occupancy'
         | 'sector'
         | 'blockedPassage'
@@ -40,7 +40,7 @@ describe(`sbb-train-wagon`, () => {
     // attributes
     (
       [
-        'type',
+        'wagonType',
         'occupancy',
         'sector',
         'blockedPassage',
@@ -51,7 +51,7 @@ describe(`sbb-train-wagon`, () => {
     ).forEach((attr) => {
       const defaultValueMap = new Map<string, string | null>();
 
-      defaultValueMap.set('type', 'wagon');
+      defaultValueMap.set('wagonType', 'wagon');
       defaultValueMap.set('occupancy', null);
       defaultValueMap.set('sector', '');
       defaultValueMap.set('blockedPassage', 'none');
@@ -91,7 +91,7 @@ describe(`sbb-train-wagon`, () => {
 
   it('should emit sectorChange', async () => {
     element = await fixture(html`<sbb-train-wagon sector="A"></sbb-train-wagon>`);
-    const sectorChangeSpy = new EventSpy(SbbTrainWagonElement.events.sectorchange);
+    const sectorChangeSpy = new EventSpy('sectorchange');
     element.sector = 'B';
 
     await sectorChangeSpy.calledOnce();
@@ -122,32 +122,36 @@ describe(`sbb-train-wagon`, () => {
   it('should set aria labels correctly', async () => {
     element = await fixture(html`<sbb-train-wagon></sbb-train-wagon>`);
 
-    expect(await extractAriaLabels({ type: 'wagon' })).to.be.eql([i18nWagonLabel.en]);
-    expect(await extractAriaLabels({ type: 'locomotive' })).to.be.eql([i18nLocomotiveLabel.en]);
-    expect(await extractAriaLabels({ type: 'sleeping' })).to.be.eql([i18nSleepingWagonLabel.en]);
-    expect(await extractAriaLabels({ type: 'restaurant' })).to.be.eql([
+    expect(await extractAriaLabels({ wagonType: 'wagon' })).to.be.eql([i18nWagonLabel.en]);
+    expect(await extractAriaLabels({ wagonType: 'locomotive' })).to.be.eql([
+      i18nLocomotiveLabel.en,
+    ]);
+    expect(await extractAriaLabels({ wagonType: 'sleeping' })).to.be.eql([
+      i18nSleepingWagonLabel.en,
+    ]);
+    expect(await extractAriaLabels({ wagonType: 'restaurant' })).to.be.eql([
       i18nRestaurantWagonLabel.en,
     ]);
 
     expect(
-      await extractAriaLabels({ type: 'closed', additionalAccessibilityText: `Don't enter` }),
+      await extractAriaLabels({ wagonType: 'closed', additionalAccessibilityText: `Don't enter` }),
     ).to.be.eql(['Closed train coach', `, Don't enter`]);
-    expect(await extractAriaLabels({ type: 'wagon' })).to.be.eql([i18nWagonLabel.en]);
+    expect(await extractAriaLabels({ wagonType: 'wagon' })).to.be.eql([i18nWagonLabel.en]);
 
-    expect(await extractAriaLabels({ sector: 'A', type: 'locomotive' })).to.be.eql([
+    expect(await extractAriaLabels({ sector: 'A', wagonType: 'locomotive' })).to.be.eql([
       'Locomotive, Sector, A',
     ]);
-    expect(await extractAriaLabels({ sector: 'A', type: 'closed' })).to.be.eql([
+    expect(await extractAriaLabels({ sector: 'A', wagonType: 'closed' })).to.be.eql([
       'Closed train coach, Sector, A',
     ]);
-    expect(await extractAriaLabels({ sector: 'A', type: 'wagon' })).to.be.eql([
+    expect(await extractAriaLabels({ sector: 'A', wagonType: 'wagon' })).to.be.eql([
       'Train coach, Sector, A',
     ]);
 
     expect(
       await extractAriaLabels({
         sector: 'A',
-        type: 'wagon',
+        wagonType: 'wagon',
         label: '38',
         wagonClass: '1',
         occupancy: 'none',
@@ -162,65 +166,68 @@ describe(`sbb-train-wagon`, () => {
       i18nBlockedPassage.previous.en,
     ]);
 
-    expect(await extractAriaLabels({ type: 'wagon', wagonClass: '2' })).to.be.eql([
+    expect(await extractAriaLabels({ wagonType: 'wagon', wagonClass: '2' })).to.be.eql([
       i18nWagonLabel.en,
       i18nClass.second.en,
     ]);
 
-    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'low' })).to.be.eql([
+    expect(await extractAriaLabels({ wagonType: 'wagon', occupancy: 'low' })).to.be.eql([
       i18nWagonLabel.en,
       i18nOccupancy.low.en,
     ]);
-    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'medium' })).to.be.eql([
+    expect(await extractAriaLabels({ wagonType: 'wagon', occupancy: 'medium' })).to.be.eql([
       i18nWagonLabel.en,
       i18nOccupancy.medium.en,
     ]);
-    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'high' })).to.be.eql([
+    expect(await extractAriaLabels({ wagonType: 'wagon', occupancy: 'high' })).to.be.eql([
       i18nWagonLabel.en,
       i18nOccupancy.high.en,
     ]);
 
-    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'next' })).to.be.eql([
+    expect(await extractAriaLabels({ wagonType: 'wagon', blockedPassage: 'next' })).to.be.eql([
       i18nWagonLabel.en,
       i18nBlockedPassage.next.en,
     ]);
-    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'both' })).to.be.eql([
+    expect(await extractAriaLabels({ wagonType: 'wagon', blockedPassage: 'both' })).to.be.eql([
       i18nWagonLabel.en,
       i18nBlockedPassage.both.en,
     ]);
-    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'none' })).to.be.eql([
+    expect(await extractAriaLabels({ wagonType: 'wagon', blockedPassage: 'none' })).to.be.eql([
       i18nWagonLabel.en,
     ]);
 
-    expect(await extractAriaLabels({ type: 'wagon-end-left' })).to.be.eql([
+    expect(await extractAriaLabels({ wagonType: 'wagon-end-left' })).to.be.eql([
       i18nWagonLabel.en,
       i18nBlockedPassage.previous.en,
     ]);
 
-    expect(await extractAriaLabels({ type: 'wagon-end-right' })).to.be.eql([
+    expect(await extractAriaLabels({ wagonType: 'wagon-end-right' })).to.be.eql([
       i18nWagonLabel.en,
       i18nBlockedPassage.next.en,
     ]);
 
-    expect(await extractAriaLabels({ type: 'wagon-end-right', blockedPassage: 'both' })).to.be.eql([
-      i18nWagonLabel.en,
-      i18nBlockedPassage.both.en,
-    ]);
+    expect(
+      await extractAriaLabels({ wagonType: 'wagon-end-right', blockedPassage: 'both' }),
+    ).to.be.eql([i18nWagonLabel.en, i18nBlockedPassage.both.en]);
 
-    expect(await extractAriaLabels({ type: 'wagon-end-left', sector: 'A' })).to.be.eql([
+    expect(await extractAriaLabels({ wagonType: 'wagon-end-left', sector: 'A' })).to.be.eql([
       i18nWagonLabel.en,
       'Sector, A',
       i18nBlockedPassage.previous.en,
     ]);
 
-    expect(await extractAriaLabels({ type: 'wagon-end-right', sector: 'A' })).to.be.eql([
+    expect(await extractAriaLabels({ wagonType: 'wagon-end-right', sector: 'A' })).to.be.eql([
       i18nWagonLabel.en,
       'Sector, A',
       i18nBlockedPassage.next.en,
     ]);
 
     expect(
-      await extractAriaLabels({ type: 'wagon-end-right', blockedPassage: 'both', sector: 'A' }),
+      await extractAriaLabels({
+        wagonType: 'wagon-end-right',
+        blockedPassage: 'both',
+        sector: 'A',
+      }),
     ).to.be.eql([i18nWagonLabel.en, 'Sector, A', i18nBlockedPassage.both.en]);
   });
 });

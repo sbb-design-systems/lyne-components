@@ -2,7 +2,11 @@
 export const snapshots = {};
 
 snapshots["sbb-train-formation should render with one train DOM"] = 
-`<sbb-train-formation view="side">
+`<sbb-train-formation
+  class="sbb-scrollbar"
+  orientation="horizontal"
+  view="side"
+>
   <sbb-train
     direction="left"
     slot="li-0"
@@ -10,7 +14,7 @@ snapshots["sbb-train-formation should render with one train DOM"] =
     <sbb-train-wagon
       sector="A"
       slot="li-0"
-      type="wagon"
+      wagon-type="wagon"
     >
     </sbb-train-wagon>
   </sbb-train>
@@ -19,41 +23,43 @@ snapshots["sbb-train-formation should render with one train DOM"] =
 /* end snapshot sbb-train-formation should render with one train DOM */
 
 snapshots["sbb-train-formation should render with one train Shadow DOM"] = 
-`<div class="sbb-train-formation">
-  <div
-    aria-hidden="true"
-    class="sbb-train-formation__sectors"
+`<div
+  aria-hidden="true"
+  class="sbb-train-formation__sectors"
+>
+  <span
+    class="sbb-train-formation__sector"
+    style="--sbb-train-formation-wagon-count:1;--sbb-train-formation-wagon-blocked-passage-count:0;"
   >
-    <span
-      class="sbb-train-formation__sector"
-      style="--sbb-train-formation-wagon-count:1;--sbb-train-formation-wagon-blocked-passage-count:0;"
-    >
-      <span class="sbb-train-formation__sector-sticky-wrapper">
-        Sec. A
-      </span>
+    <span class="sbb-train-formation__sector-sticky-wrapper">
+      Sec. A
     </span>
-  </div>
-  <div class="sbb-train-formation__trains">
-    <sbb-screen-reader-only>
-      Trains
-    </sbb-screen-reader-only>
-    <span class="sbb-train-formation__train-list">
-      <span>
-        <slot name="li-0">
-        </slot>
-      </span>
-    </span>
-    <span hidden="">
-      <slot>
+  </span>
+</div>
+<div class="sbb-train-formation__trains">
+  <sbb-screen-reader-only>
+    Trains
+  </sbb-screen-reader-only>
+  <span class="sbb-train-formation__train-list">
+    <span>
+      <slot name="li-0">
       </slot>
     </span>
-  </div>
+  </span>
+  <span hidden="">
+    <slot>
+    </slot>
+  </span>
 </div>
 `;
 /* end snapshot sbb-train-formation should render with one train Shadow DOM */
 
 snapshots["sbb-train-formation should render with multiple trains DOM"] = 
-`<sbb-train-formation view="side">
+`<sbb-train-formation
+  class="sbb-scrollbar"
+  orientation="horizontal"
+  view="side"
+>
   <sbb-train
     direction="left"
     slot="li-0"
@@ -61,7 +67,7 @@ snapshots["sbb-train-formation should render with multiple trains DOM"] =
     <sbb-train-wagon
       sector="A"
       slot="li-0"
-      type="wagon"
+      wagon-type="wagon"
     >
     </sbb-train-wagon>
   </sbb-train>
@@ -72,7 +78,7 @@ snapshots["sbb-train-formation should render with multiple trains DOM"] =
     <sbb-train-wagon
       sector="B"
       slot="li-0"
-      type="wagon"
+      wagon-type="wagon"
     >
     </sbb-train-wagon>
   </sbb-train>
@@ -81,47 +87,45 @@ snapshots["sbb-train-formation should render with multiple trains DOM"] =
 /* end snapshot sbb-train-formation should render with multiple trains DOM */
 
 snapshots["sbb-train-formation should render with multiple trains Shadow DOM"] = 
-`<div class="sbb-train-formation">
-  <div
-    aria-hidden="true"
-    class="sbb-train-formation__sectors"
+`<div
+  aria-hidden="true"
+  class="sbb-train-formation__sectors"
+>
+  <span
+    class="sbb-train-formation__sector"
+    style="--sbb-train-formation-wagon-count:1;--sbb-train-formation-wagon-blocked-passage-count:0;"
   >
-    <span
-      class="sbb-train-formation__sector"
-      style="--sbb-train-formation-wagon-count:1;--sbb-train-formation-wagon-blocked-passage-count:0;"
-    >
-      <span class="sbb-train-formation__sector-sticky-wrapper">
-        Sec. A
-      </span>
+    <span class="sbb-train-formation__sector-sticky-wrapper">
+      Sec. A
     </span>
-    <span
-      class="sbb-train-formation__sector"
-      style="--sbb-train-formation-wagon-count:1;--sbb-train-formation-wagon-blocked-passage-count:0;"
-    >
-      <span class="sbb-train-formation__sector-sticky-wrapper">
-        Sec. B
-      </span>
+  </span>
+  <span
+    class="sbb-train-formation__sector"
+    style="--sbb-train-formation-wagon-count:1;--sbb-train-formation-wagon-blocked-passage-count:0;"
+  >
+    <span class="sbb-train-formation__sector-sticky-wrapper">
+      Sec. B
     </span>
-  </div>
-  <div class="sbb-train-formation__trains">
-    <ul
-      aria-label="Trains"
-      class="sbb-train-formation__train-list"
-    >
-      <li>
-        <slot name="li-0">
-        </slot>
-      </li>
-      <li>
-        <slot name="li-1">
-        </slot>
-      </li>
-    </ul>
-    <span hidden="">
-      <slot>
+  </span>
+</div>
+<div class="sbb-train-formation__trains">
+  <ul
+    aria-label="Trains"
+    class="sbb-train-formation__train-list"
+  >
+    <li>
+      <slot name="li-0">
       </slot>
-    </span>
-  </div>
+    </li>
+    <li>
+      <slot name="li-1">
+      </slot>
+    </li>
+  </ul>
+  <span hidden="">
+    <slot>
+    </slot>
+  </span>
 </div>
 `;
 /* end snapshot sbb-train-formation should render with multiple trains Shadow DOM */
@@ -133,14 +137,8 @@ snapshots["sbb-train-formation should render with multiple trains A11y tree Chro
   "name": "Fixture Container",
   "children": [
     {
-      "ignored": true,
-      "role": "none",
-      "children": [
-        {
-          "role": "generic",
-          "name": ""
-        }
-      ]
+      "role": "generic",
+      "name": ""
     }
   ]
 }

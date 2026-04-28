@@ -7,6 +7,9 @@
   gap: var(--sbb-chip-group-gap);
   align-items: center;
   margin-block: var(--sbb-chip-group-margin-block);
+
+  // Set the line-height for adjacent elements in order to prevent from influence of a consumer-set line-height.
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 :host(:is(:state(size-s), :state(empty))) {

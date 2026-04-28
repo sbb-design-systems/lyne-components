@@ -349,7 +349,6 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
         aria-controls="sbb-navigation-overlay"
         negative
         size="m"
-        type="button"
         icon-name="cross-small"
         sbb-navigation-close
       ></sbb-transparent-button>

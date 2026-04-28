@@ -3,7 +3,17 @@
 :host {
   --sbb-journey-header-gap: var(--sbb-spacing-fixed-1x);
 
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--sbb-journey-header-gap);
+  width: fit-content;
+}
+
+:host(:dir(rtl)) {
+  sbb-icon {
+    rotate: -180deg;
+  }
 }
 
 :host([id]) {
@@ -17,22 +27,4 @@
 sbb-icon {
   // Avoid layout shift after loading the icon
   min-width: var(--sbb-size-icon-ui-small);
-}
-
-.sbb-journey-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  column-gap: var(--sbb-journey-header-gap);
-  width: fit-content;
-
-  &:dir(rtl) {
-    sbb-icon {
-      transform: rotate(-180deg);
-    }
-  }
-
-  > span {
-    max-width: 100%;
-  }
 }
