@@ -5,9 +5,9 @@ $theme: 'standard' !default;
 @mixin base {
   --sbb-options-panel-border-radius: var(--sbb-border-radius-4x);
   --sbb-options-panel-animation-timing-function: ease;
-  --sbb-options-panel-background-color: var(--sbb-background-color-1);
+  --sbb-options-panel-background-color: var(--sbb-background-color-2);
   --sbb-options-panel-divider-margin-block: var(--sbb-spacing-fixed-3x);
-  --sbb-options-panel-box-shadow: var(--sbb-box-shadow-level-5-hard);
+  --sbb-options-panel-box-shadow: var(--sbb-box-shadow-level-9-hard);
   --sbb-options-panel-margin-block-start: var(--sbb-spacing-fixed-2x);
   --sbb-options-panel-padding-block: #{sbb.theme-pattern-select(
       (

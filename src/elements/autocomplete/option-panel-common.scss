@@ -40,8 +40,8 @@
 :host([negative]) {
   @include sbb.scrollbar-variables--color-negative;
 
-  --sbb-options-panel-box-shadow: var(--sbb-box-shadow-level-5-hard-negative);
-  --sbb-options-panel-background-color: var(--sbb-background-color-1-negative);
+  --sbb-options-panel-box-shadow: var(--sbb-box-shadow-level-9-hard-negative);
+  --sbb-options-panel-background-color: var(--sbb-background-color-2-negative);
 
   // As the overlays have always a white background, we have to fix the focus outline color
   // to default color for cases where the overlays are used in a negative context.
