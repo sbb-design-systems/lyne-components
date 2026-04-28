@@ -1,5 +1,5 @@
 @use '../../core/styles' as sbb;
 
-#status-container {
+.sbb-screen-reader-only {
   @include sbb.screen-reader-only;
 }

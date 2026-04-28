@@ -362,7 +362,7 @@ export const SbbFileSelectorCommonElementMixin = <
         >
           ${this.renderTemplate(
             html`<input
-              class="sbb-file-selector__visually-hidden"
+              class="sbb-screen-reader-only"
               type="file"
               ?disabled=${this.disabled || this.formDisabled}
               ?multiple=${this.multiple}
@@ -379,7 +379,7 @@ export const SbbFileSelectorCommonElementMixin = <
         </div>
         <p
           role="status"
-          class="sbb-file-selector__visually-hidden"
+          class="sbb-screen-reader-only"
           ${ref((p?: Element) => (this._liveRegion = p as HTMLParagraphElement))}
         ></p>
         ${this.files.length > 0 ? this._renderFileList() : nothing}

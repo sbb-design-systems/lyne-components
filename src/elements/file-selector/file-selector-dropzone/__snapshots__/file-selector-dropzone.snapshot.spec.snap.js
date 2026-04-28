@@ -1,13 +1,13 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-file-selector-dropzone renders DOM"] = 
+snapshots["sbb-file-selector-dropzone renders DOM"] =
 `<sbb-file-selector-dropzone size="m">
 </sbb-file-selector-dropzone>
 `;
 /* end snapshot sbb-file-selector-dropzone renders DOM */
 
-snapshots["sbb-file-selector-dropzone renders Shadow DOM"] = 
+snapshots["sbb-file-selector-dropzone renders Shadow DOM"] =
 `<div class="sbb-file-selector__input-container">
   <label>
     <span class="sbb-file-selector__dropzone-area">
@@ -29,13 +29,13 @@ snapshots["sbb-file-selector-dropzone renders Shadow DOM"] =
       </span>
     </span>
     <input
-      class="sbb-file-selector__visually-hidden"
+      class="sbb-screen-reader-only"
       type="file"
     >
   </label>
 </div>
 <p
-  class="sbb-file-selector__visually-hidden"
+  class="sbb-screen-reader-only"
   role="status"
 >
 </p>
@@ -46,7 +46,7 @@ snapshots["sbb-file-selector-dropzone renders Shadow DOM"] =
 `;
 /* end snapshot sbb-file-selector-dropzone renders Shadow DOM */
 
-snapshots["sbb-file-selector-dropzone renders multiple DOM"] = 
+snapshots["sbb-file-selector-dropzone renders multiple DOM"] =
 `<sbb-file-selector-dropzone
   multiple=""
   size="m"
@@ -55,7 +55,7 @@ snapshots["sbb-file-selector-dropzone renders multiple DOM"] =
 `;
 /* end snapshot sbb-file-selector-dropzone renders multiple DOM */
 
-snapshots["sbb-file-selector-dropzone renders multiple Shadow DOM"] = 
+snapshots["sbb-file-selector-dropzone renders multiple Shadow DOM"] =
 `<div class="sbb-file-selector__input-container">
   <label>
     <span class="sbb-file-selector__dropzone-area">
@@ -77,14 +77,14 @@ snapshots["sbb-file-selector-dropzone renders multiple Shadow DOM"] =
       </span>
     </span>
     <input
-      class="sbb-file-selector__visually-hidden"
+      class="sbb-screen-reader-only"
       multiple=""
       type="file"
     >
   </label>
 </div>
 <p
-  class="sbb-file-selector__visually-hidden"
+  class="sbb-screen-reader-only"
   role="status"
 >
 </p>
@@ -95,7 +95,7 @@ snapshots["sbb-file-selector-dropzone renders multiple Shadow DOM"] =
 `;
 /* end snapshot sbb-file-selector-dropzone renders multiple Shadow DOM */
 
-snapshots["sbb-file-selector-dropzone renders A11y tree Chrome"] = 
+snapshots["sbb-file-selector-dropzone renders A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",
@@ -134,7 +134,7 @@ snapshots["sbb-file-selector-dropzone renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-file-selector-dropzone renders A11y tree Chrome */
 
-snapshots["sbb-file-selector-dropzone renders multiple A11y tree Chrome"] = 
+snapshots["sbb-file-selector-dropzone renders multiple A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",

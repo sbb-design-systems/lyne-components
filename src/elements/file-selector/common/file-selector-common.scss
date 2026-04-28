@@ -33,7 +33,7 @@
   flex-direction: column;
 }
 
-.sbb-file-selector__visually-hidden {
+.sbb-screen-reader-only {
   @include sbb.screen-reader-only;
 }
 

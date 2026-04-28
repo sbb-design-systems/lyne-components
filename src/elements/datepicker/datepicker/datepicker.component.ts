@@ -145,7 +145,7 @@ export class SbbDatepickerElement<T = Date>
 
   protected override renderContent(): TemplateResult {
     return html`
-      <p id="status-container" role="status"></p>
+      <p id="status-container" class="sbb-screen-reader-only" role="status"></p>
       <sbb-calendar
         .view=${this.view}
         .min=${this.input?.min ?? null}

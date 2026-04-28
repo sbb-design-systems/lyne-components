@@ -44,7 +44,7 @@ export class SbbFooterElement extends SbbNegativeMixin(SbbElement) {
     const TITLE_TAG_NAME = `h${this.accessibilityTitleLevel}`;
 
     /* eslint-disable lit/binding-positions */
-    const accessibilityTitle = html`<${unsafeStatic(TITLE_TAG_NAME)} class="sbb-footer__title"
+    const accessibilityTitle = html`<${unsafeStatic(TITLE_TAG_NAME)} class="sbb-screen-reader-only"
         >${this.accessibilityTitle}</${unsafeStatic(TITLE_TAG_NAME)}>`;
     /* eslint-enable lit/binding-positions */
 

@@ -69,7 +69,7 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
     /* eslint-disable lit/binding-positions */
     return html`
       <${unsafeStatic(TITLE_TAG_NAME)}
-        class="sbb-skiplink-list-title"
+        class="sbb-screen-reader-only"
         id="sbb-skiplink-list-title-id"
       >
         <slot name="title">${this.titleContent}</slot>

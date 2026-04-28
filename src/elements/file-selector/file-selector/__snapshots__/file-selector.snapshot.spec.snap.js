@@ -1,13 +1,13 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-file-selector renders DOM"] = 
+snapshots["sbb-file-selector renders DOM"] =
 `<sbb-file-selector size="m">
 </sbb-file-selector>
 `;
 /* end snapshot sbb-file-selector renders DOM */
 
-snapshots["sbb-file-selector renders Shadow DOM"] = 
+snapshots["sbb-file-selector renders Shadow DOM"] =
 `<div class="sbb-file-selector__input-container">
   <label>
     <sbb-secondary-button-static
@@ -17,13 +17,13 @@ snapshots["sbb-file-selector renders Shadow DOM"] =
       Choose a file
     </sbb-secondary-button-static>
     <input
-      class="sbb-file-selector__visually-hidden"
+      class="sbb-screen-reader-only"
       type="file"
     >
   </label>
 </div>
 <p
-  class="sbb-file-selector__visually-hidden"
+  class="sbb-screen-reader-only"
   role="status"
 >
 </p>
@@ -34,7 +34,7 @@ snapshots["sbb-file-selector renders Shadow DOM"] =
 `;
 /* end snapshot sbb-file-selector renders Shadow DOM */
 
-snapshots["sbb-file-selector renders A11y tree Chrome"] = 
+snapshots["sbb-file-selector renders A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",
