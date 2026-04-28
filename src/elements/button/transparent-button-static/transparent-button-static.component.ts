@@ -1,11 +1,7 @@
 import type { CSSResultGroup } from 'lit';
 
-import { boxSizingStyles, SbbActionBaseElement, SbbDisabledMixin } from '../../core.ts';
-import {
-  buttonCommonStyle,
-  buttonTransparentStyle,
-  SbbButtonCommonElementMixin,
-} from '../common/button-common.ts';
+import { SbbActionBaseElement, SbbDisabledMixin } from '../../core.ts';
+import { buttonTransparentStyle, SbbButtonCommonElementMixin } from '../common/button-common.ts';
 
 /**
  * It displays a static button enhanced with the SBB Design in the 'transparent' variant.
@@ -18,11 +14,7 @@ export class SbbTransparentButtonStaticElement extends SbbButtonCommonElementMix
   SbbDisabledMixin(SbbActionBaseElement),
 ) {
   public static override readonly elementName: string = 'sbb-transparent-button-static';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    buttonCommonStyle,
-    buttonTransparentStyle,
-  ];
+  public static override styles: CSSResultGroup = [super.styles ?? [], buttonTransparentStyle];
 }
 
 declare global {
