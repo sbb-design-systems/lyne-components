@@ -1,9 +1,11 @@
 @use '../core/styles' as sbb;
 
 :host {
-  @include sbb.title-rules;
-
   display: block;
+  font-weight: bold;
+  font-size: var(--sbb-title-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-heading);
+  line-height: var(--sbb-title-line-height, var(--sbb-typo-line-height-heading));
   color: var(--sbb-title-color);
 }
 

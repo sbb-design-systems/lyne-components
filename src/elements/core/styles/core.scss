@@ -295,6 +295,9 @@ $theme: 'standard' !default;
 @use '../../title/title-common.global' as title-common with (
   $theme: $theme
 );
+@use '../../title/title.global' as title with (
+  $theme: $theme
+);
 @use '../../toggle-check/toggle-check.global' as toggle-check with (
   $theme: $theme
 );
@@ -407,6 +410,7 @@ $theme: 'standard' !default;
   @include timetable-occupancy.base;
   @include time-input.base;
   @include title-common.base;
+  @include title.base;
   @include toggle-check.base;
   @include toggle.base;
   @include toggle-option.base;

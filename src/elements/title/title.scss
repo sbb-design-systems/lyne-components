@@ -1,7 +1,7 @@
 @use '../core/styles' as sbb;
 
 :host {
-  @include sbb.title--level-1-spacing;
+  margin-block: var(--sbb-title-margin-block, 0);
 }
 
 :host([negative]) {
