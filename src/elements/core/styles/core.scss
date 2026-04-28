@@ -292,6 +292,9 @@ $theme: 'standard' !default;
 @use '../../time-input/time-input.global' as time-input with (
   $theme: $theme
 );
+@use '../../title/title-common.global' as title-common with (
+  $theme: $theme
+);
 @use '../../toggle-check/toggle-check.global' as toggle-check with (
   $theme: $theme
 );
@@ -403,6 +406,7 @@ $theme: 'standard' !default;
   @include timetable-form-field.base;
   @include timetable-occupancy.base;
   @include time-input.base;
+  @include title-common.base;
   @include toggle-check.base;
   @include toggle.base;
   @include toggle-option.base;

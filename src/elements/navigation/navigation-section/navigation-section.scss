@@ -133,9 +133,10 @@
 }
 
 .sbb-navigation-section__title {
-  @include sbb.title-rules;
-
+  font-weight: bold;
   font-size: var(--sbb-navigation-section-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-heading);
+  line-height: var(--sbb-typo-line-height-heading);
 }
 
 .sbb-navigation-section__content {

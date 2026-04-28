@@ -1,0 +1,7 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-title-color: var(--sbb-color-3);
+}

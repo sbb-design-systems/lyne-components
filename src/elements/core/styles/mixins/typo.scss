@@ -128,7 +128,7 @@
 }
 
 @mixin title--negative {
-  --sbb-title-text-color-normal: var(--sbb-color-3-negative);
+  --sbb-title-color: var(--sbb-color-3-negative);
 }
 
 // ----------------------------------------------------------------------------------------------------
