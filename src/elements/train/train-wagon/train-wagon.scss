@@ -120,8 +120,9 @@
 }
 
 .sbb-train-wagon__class {
-  @include sbb.title-6($exclude-spacing: true);
-
+  font-weight: bold;
+  font-size: var(--sbb-heading-font-size-6);
+  letter-spacing: var(--sbb-typo-letter-spacing-heading);
   grid-area: class;
 }
 
