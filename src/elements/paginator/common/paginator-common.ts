@@ -60,12 +60,14 @@ export const SbbPaginatorCommonElementMixin = <
 >(
   superClass: T,
 ): AbstractConstructor<SbbPaginatorCommonElementMixinType> & T => {
+  const baseClass = SbbNegativeMixin(SbbDisabledMixin(superClass));
+
   abstract class SbbPaginatorCommonElement
-    extends SbbNegativeMixin(SbbDisabledMixin(superClass))
+    extends baseClass
     implements Partial<SbbPaginatorCommonElementMixinType>
   {
     public static styles: CSSResultGroup = [
-      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
+      (baseClass as unknown as { styles: CSSResultGroup }).styles ?? [],
       boxSizingStyles,
       screenReaderOnlyStyles,
     ];

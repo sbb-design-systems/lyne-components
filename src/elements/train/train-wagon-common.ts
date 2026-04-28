@@ -88,8 +88,12 @@ export declare class SbbTrainWagonMixinType extends SbbElement {
 export const SbbTrainWagonMixin = <T extends AbstractConstructor<SbbElement>>(
   superClass: T,
 ): AbstractConstructor<SbbTrainWagonMixinType> & T => {
+  const baseClass = SbbTrainFormationOrientationMixin(
+    SbbNamedSlotListMixin<SbbIconElement, T>(superClass),
+  );
+
   abstract class SbbTrainWagonMixinElement
-    extends SbbTrainFormationOrientationMixin(SbbNamedSlotListMixin<SbbIconElement, T>(superClass))
+    extends baseClass
     implements Partial<SbbTrainWagonMixinType>
   {
     public static elementDependencies: SbbElementType[] = [
@@ -98,7 +102,7 @@ export const SbbTrainWagonMixin = <T extends AbstractConstructor<SbbElement>>(
       SbbDividerElement,
     ];
     public static styles: CSSResultGroup = [
-      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
+      (baseClass as unknown as { styles: CSSResultGroup }).styles ?? [],
       boxSizingStyles,
       unsafeCSS(style),
     ];

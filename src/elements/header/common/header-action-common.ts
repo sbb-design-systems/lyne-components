@@ -20,12 +20,14 @@ export const SbbHeaderActionCommonElementMixin = <
 >(
   superClass: T,
 ): AbstractConstructor<SbbHeaderActionCommonElementMixinType> & T => {
+  const baseClass = SbbIconNameMixin(superClass);
+
   abstract class SbbHeaderActionCommonElement
-    extends SbbIconNameMixin(superClass)
+    extends baseClass
     implements Partial<SbbHeaderActionCommonElementMixinType>
   {
     public static styles: CSSResultGroup = [
-      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
+      (baseClass as unknown as { styles: CSSResultGroup }).styles ?? [],
       boxSizingStyles,
       unsafeCSS(style),
     ];
