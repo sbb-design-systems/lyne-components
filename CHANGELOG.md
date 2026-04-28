@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-next.2](https://github.com/sbb-design-systems/lyne-components/compare/v5.0.0-next.1...v5.0.0-next.2) (2026-04-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **train:** In order to mitigate the new requirements the following breaking changes were introduced:
+    - The property `type` of `sbb-train-wagon` has been renamed to`wagon-type`
+    - The default inline padding of `sbb-train-formation` was changed from 0 to `var(--sbb-spacing-fixed-1x)`
+    - The CSS variable `--sbb-train-formation-padding-inline` was renamed to `--sbb-train-formation-scroll-padding`
+* **journey-header:** The `size` property of the `sbb-journey-header` has been removed. Use the `visualLevel` property to set the font-size by using the following mapping from `size` to `visualLevel`: `s` -> 6, `m` -> 5, `l` > 4.
+
+### Features
+
+* **train:** vertical orientation and interactive wagon ([#4796](https://github.com/sbb-design-systems/lyne-components/issues/4796)) ([e0e2268](https://github.com/sbb-design-systems/lyne-components/commit/e0e2268a4de4e0cb79f5a13e4fc080026e9fcc05)), closes [#4277](https://github.com/sbb-design-systems/lyne-components/issues/4277)
+
+
+### Code Refactoring
+
+* **journey-header:** remove size property ([#4842](https://github.com/sbb-design-systems/lyne-components/issues/4842)) ([8a3172b](https://github.com/sbb-design-systems/lyne-components/commit/8a3172b6d6195c53989ff5d1e03ac19e07b70026))
+
+
+### Miscellaneous Chores
+
+* prepare release ([1f2e2f3](https://github.com/sbb-design-systems/lyne-components/commit/1f2e2f3be2e6a4ae751a9676bd737990d3a83a72))
+
 ## [4.12.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.11.0...v4.12.0) (2026-04-27)
 
 
