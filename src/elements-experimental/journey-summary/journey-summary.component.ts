@@ -176,7 +176,7 @@ export class SbbJourneySummaryElement extends SbbElement {
       <div class="sbb-journey-summary">
         ${origin
           ? html`<sbb-journey-header
-              size="l"
+              visual-level="4"
               .level=${this.headerLevel || nothing}
               .origin=${origin}
               .destination=${destination}
