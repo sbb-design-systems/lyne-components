@@ -26,9 +26,13 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
     extends SbbNegativeMixin(superClass)
     implements Partial<SbbLinkCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [
+      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
+      boxSizingStyles,
+      unsafeCSS(style),
+    ];
 
-    public constructor() {
+    protected constructor() {
       super();
       this.internals.states.add('sbb-link');
     }

@@ -24,7 +24,11 @@ export const SbbHeaderActionCommonElementMixin = <
     extends SbbIconNameMixin(superClass)
     implements Partial<SbbHeaderActionCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [
+      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
+      boxSizingStyles,
+      unsafeCSS(style),
+    ];
 
     /**
      * Used to set the minimum breakpoint from which the text is displayed.

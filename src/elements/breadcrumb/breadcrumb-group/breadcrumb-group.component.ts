@@ -40,7 +40,11 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   public static override readonly elementName: string = 'sbb-breadcrumb-group';
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static override readonly role = 'navigation';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    super.styles ?? [],
+    boxSizingStyles,
+    unsafeCSS(style),
+  ];
   protected override readonly listChildLocalNames = ['sbb-breadcrumb'];
 
   /** The state of the breadcrumb group. */

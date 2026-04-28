@@ -19,7 +19,6 @@ import {
   type SbbElementType,
   SbbLanguageController,
   SbbNamedSlotListMixin,
-  screenReaderOnlyStyles,
   type WithListChildren,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
@@ -43,8 +42,8 @@ export class SbbTrainElement extends SbbTrainFormationOrientationMixin(
   public static override readonly elementName: string = 'sbb-train';
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static override styles: CSSResultGroup = [
+    super.styles ?? [],
     boxSizingStyles,
-    screenReaderOnlyStyles,
     unsafeCSS(style),
   ];
 

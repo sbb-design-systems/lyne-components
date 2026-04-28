@@ -10,14 +10,12 @@ import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
 import {
-  boxSizingStyles,
   forceType,
   i18nItemsPerPage,
   i18nPage,
   SbbElement,
   type SbbElementType,
   sbbInputModalityDetector,
-  screenReaderOnlyStyles,
 } from '../../core.ts';
 import { SbbFormFieldElement } from '../../form-field.pure.ts';
 import { SbbOptionElement } from '../../option.pure.ts';
@@ -38,12 +36,7 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(SbbEleme
     SbbSelectElement,
     SbbOptionElement,
   ];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    // Needed for sbb-select
-    screenReaderOnlyStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [super.styles ?? [], unsafeCSS(style)];
   public static readonly events: Record<string, string> = {
     page: 'page',
   } as const;

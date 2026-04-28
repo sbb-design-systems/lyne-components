@@ -1,9 +1,10 @@
-import { html, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbMiniButtonElement, SbbMiniButtonGroupElement } from '../../button.pure.ts';
 import {
   type AbstractConstructor,
+  boxSizingStyles,
   forceType,
   i18nNextPage,
   i18nPage,
@@ -17,7 +18,7 @@ import {
   sbbInputModalityDetector,
   SbbLanguageController,
   SbbNegativeMixin,
-  SbbScreenReaderOnlyElement,
+  screenReaderOnlyStyles,
 } from '../../core.ts';
 import { SbbDividerElement } from '../../divider.pure.ts';
 
@@ -63,11 +64,15 @@ export const SbbPaginatorCommonElementMixin = <
     extends SbbNegativeMixin(SbbDisabledMixin(superClass))
     implements Partial<SbbPaginatorCommonElementMixinType>
   {
+    public static styles: CSSResultGroup = [
+      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
+      boxSizingStyles,
+      screenReaderOnlyStyles,
+    ];
     public static override elementDependencies: SbbElementType[] = [
       SbbMiniButtonGroupElement,
       SbbMiniButtonElement,
       SbbDividerElement,
-      SbbScreenReaderOnlyElement,
     ];
 
     public static override role = 'group';
@@ -177,7 +182,7 @@ export const SbbPaginatorCommonElementMixin = <
       super.updated(changedProperties);
 
       // To reliably announce page change, we have to set the label in updated() (a tick later than the other changes).
-      this.shadowRoot!.querySelector('sbb-screen-reader-only#status')!.textContent =
+      this.shadowRoot!.querySelector('.sbb-screen-reader-only#status')!.textContent =
         this._currentPageLabel();
     }
 
@@ -303,7 +308,7 @@ export const SbbPaginatorCommonElementMixin = <
     protected override render(): TemplateResult {
       return html`
         ${this.renderPaginator()}
-        <sbb-screen-reader-only id="status" role="status"></sbb-screen-reader-only>
+        <span class="sbb-screen-reader-only" id="status" role="status"></span>
       `;
     }
   }

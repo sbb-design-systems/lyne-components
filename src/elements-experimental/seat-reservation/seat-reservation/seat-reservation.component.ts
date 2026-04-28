@@ -1,10 +1,6 @@
 import { SbbSecondaryButtonElement } from '@sbb-esta/lyne-elements/button.pure.js';
 import type { SbbElementType } from '@sbb-esta/lyne-elements/core.js';
-import {
-  boxSizingStyles,
-  SbbLanguageController,
-  SbbScreenReaderOnlyElement,
-} from '@sbb-esta/lyne-elements/core.js';
+import { boxSizingStyles, SbbLanguageController } from '@sbb-esta/lyne-elements/core.js';
 import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.pure.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, isServer, nothing, unsafeCSS } from 'lit';
@@ -39,7 +35,6 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
   public static override readonly elementName: string = 'sbb-seat-reservation';
   public static override elementDependencies: SbbElementType[] = [
     SbbSecondaryButtonElement,
-    SbbScreenReaderOnlyElement,
     SbbPopoverElement,
     SbbSeatReservationAreaElement,
     SbbSeatReservationGraphicElement,
@@ -310,7 +305,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
         tabindex="-1"
       >
         <caption id="sbb-sr-coach-caption-${coachIndex}" tabindex="-1">
-          <sbb-screen-reader-only>${descriptionTableCoachWithServices}</sbb-screen-reader-only>
+          <span class="sbb-screen-reader-only">${descriptionTableCoachWithServices}</span>
         </caption>
         ${this._getRenderedRowPlaces(coachItem, coachIndex, coachDeckIndex, placeCoachDeckIndex)}
       </table>

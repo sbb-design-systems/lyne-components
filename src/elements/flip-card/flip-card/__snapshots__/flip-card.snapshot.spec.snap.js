@@ -39,9 +39,9 @@ snapshots["sbb-flip-card Shadow DOM"] =
     class="sbb-flip-card-button"
     type="button"
   >
-    <sbb-screen-reader-only>
+    <span class="sbb-screen-reader-only">
       Summary, Click on this card for details
-    </sbb-screen-reader-only>
+    </span>
   </button>
   <slot name="summary">
   </slot>

@@ -24,7 +24,11 @@ export const SbbMenuActionCommonElementMixin = <
     extends SbbIconNameMixin(SbbDisabledMixin(superClass))
     implements SbbMenuActionCommonElementMixinType
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [
+      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
+      boxSizingStyles,
+      unsafeCSS(style),
+    ];
 
     protected override renderTemplate(): TemplateResult {
       return html`

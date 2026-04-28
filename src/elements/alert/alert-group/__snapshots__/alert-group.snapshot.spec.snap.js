@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-alert-group renders DOM"] =
+snapshots["sbb-alert-group renders DOM"] = 
 `<sbb-alert-group
   accessibility-title="Disruptions"
   accessibility-title-level="3"
@@ -25,7 +25,7 @@ snapshots["sbb-alert-group renders DOM"] =
 `;
 /* end snapshot sbb-alert-group renders DOM */
 
-snapshots["sbb-alert-group renders Shadow DOM"] =
+snapshots["sbb-alert-group renders Shadow DOM"] = 
 `<h3 class="sbb-screen-reader-only">
   <slot name="accessibility-title">
     Disruptions
@@ -36,7 +36,7 @@ snapshots["sbb-alert-group renders Shadow DOM"] =
 `;
 /* end snapshot sbb-alert-group renders Shadow DOM */
 
-snapshots["sbb-alert-group renders with slotted DOM"] =
+snapshots["sbb-alert-group renders with slotted DOM"] = 
 `<sbb-alert-group
   accessibility-title-level="3"
   role="status"
@@ -62,7 +62,7 @@ snapshots["sbb-alert-group renders with slotted DOM"] =
 `;
 /* end snapshot sbb-alert-group renders with slotted DOM */
 
-snapshots["sbb-alert-group renders with slotted Shadow DOM"] =
+snapshots["sbb-alert-group renders with slotted Shadow DOM"] = 
 `<h3 class="sbb-screen-reader-only">
   <slot name="accessibility-title">
   </slot>
@@ -72,7 +72,7 @@ snapshots["sbb-alert-group renders with slotted Shadow DOM"] =
 `;
 /* end snapshot sbb-alert-group renders with slotted Shadow DOM */
 
-snapshots["sbb-alert-group renders A11y tree Chrome"] =
+snapshots["sbb-alert-group renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "generic",

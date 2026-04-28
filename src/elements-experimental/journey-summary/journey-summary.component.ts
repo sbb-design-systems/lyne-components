@@ -6,7 +6,7 @@ import {
   SbbElement,
   type SbbElementType,
   SbbLanguageController,
-  SbbScreenReaderOnlyElement,
+  screenReaderOnlyStyles,
 } from '@sbb-esta/lyne-elements/core.js';
 import { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.pure.js';
 import { SbbJourneyHeaderElement } from '@sbb-esta/lyne-elements/journey-header.pure.js';
@@ -43,9 +43,12 @@ export class SbbJourneySummaryElement extends SbbElement {
     SbbDividerElement,
     SbbJourneyHeaderElement,
     SbbPearlChainTimeElement,
-    SbbScreenReaderOnlyElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
 
   /**  The trip prop */
   @property({ type: Object }) public accessor trip: InterfaceSbbJourneySummaryAttributes = null!;
@@ -117,9 +120,9 @@ export class SbbJourneySummaryElement extends SbbElement {
           ${dateAdapter.format(departureTime).replace(',', '.')}</time
         >${duration && duration > 0
           ? html`,<time>
-                <sbb-screen-reader-only>
+                <span class="sbb-screen-reader-only">
                   ${i18nTripDuration[this._language.current]} ${durationObj!.long}
-                </sbb-screen-reader-only>
+                </span>
                 <span aria-hidden="true">${durationObj!.short}</span>
               </time>`
           : nothing}

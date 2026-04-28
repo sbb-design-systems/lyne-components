@@ -2,9 +2,8 @@ import { type CSSResultGroup, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbHorizontalFrom, SbbOrientation } from '../core.ts';
-import { boxSizingStyles } from '../core.ts';
 
-import { linkListBaseStyle, SbbLinkListBaseElement } from './common/link-list-base.ts';
+import { SbbLinkListBaseElement } from './common/link-list-base.ts';
 import style from './link-list.scss?inline';
 
 /**
@@ -15,11 +14,7 @@ import style from './link-list.scss?inline';
  */
 export class SbbLinkListElement extends SbbLinkListBaseElement {
   public static override readonly elementName: string = 'sbb-link-list';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    linkListBaseStyle,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
 
   /** Selected breakpoint from which the list is rendered horizontally. */
   @property({ attribute: 'horizontal-from', reflect: true })

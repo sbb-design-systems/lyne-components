@@ -7,13 +7,8 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { SbbCheckboxCommonElementMixin } from '../checkbox/common/checkbox-common.ts';
 import {
-  checkboxCommonStyle,
-  SbbCheckboxCommonElementMixin,
-} from '../checkbox/common/checkbox-common.ts';
-import {
-  boxSizingStyles,
-  panelCommonStyle,
   SbbElement,
   type SbbElementType,
   SbbPanelMixin,
@@ -38,12 +33,7 @@ export class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
 ) {
   public static override readonly elementName: string = 'sbb-checkbox-panel';
   public static override elementDependencies: SbbElementType[] = [SbbVisualCheckboxElement];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    screenReaderOnlyStyles,
-    checkboxCommonStyle,
-    panelCommonStyle,
-  ];
+  public static override styles: CSSResultGroup = [super.styles ?? [], screenReaderOnlyStyles];
 
   /** Value of the form element. */
   @property()

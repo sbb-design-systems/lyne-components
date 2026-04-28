@@ -1,8 +1,4 @@
-import {
-  boxSizingStyles,
-  SbbPropertyWatcherController,
-  ɵstateController,
-} from '@sbb-esta/lyne-elements/core.js';
+import { SbbPropertyWatcherController, ɵstateController } from '@sbb-esta/lyne-elements/core.js';
 import { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option.pure.js';
 import { type CSSResultGroup, type PropertyValues, unsafeCSS } from 'lit';
 
@@ -22,7 +18,7 @@ export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
 export class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override readonly elementName: string = 'sbb-autocomplete-grid-option';
   public static override readonly role = 'gridcell';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
 
   protected optionId = autocompleteGridOptionId;
 

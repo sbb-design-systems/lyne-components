@@ -9,9 +9,9 @@ snapshots["sbb-seat-reservation-navigation-services renders DOM"] =
 
 snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] = 
 `<div class="sbb-sr-navigation__signs">
-  <sbb-screen-reader-only>
+  <span class="sbb-screen-reader-only">
     Available services:Bike area, Quiet zone
-  </sbb-screen-reader-only>
+  </span>
   <sbb-seat-reservation-graphic
     aria-hidden="true"
     class="auto-width"
@@ -39,8 +39,14 @@ snapshots["sbb-seat-reservation-navigation-services renders A11y tree Chrome"] =
       "role": "none",
       "children": [
         {
-          "role": "generic",
-          "name": ""
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "StaticText",
+              "name": "Available services:Bike area, Quiet zone"
+            }
+          ]
         },
         {
           "ignored": true,

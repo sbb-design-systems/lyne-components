@@ -1,4 +1,4 @@
-import { type PropertyValues, unsafeCSS } from 'lit';
+import { type CSSResultGroup, type PropertyValues, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
@@ -9,8 +9,6 @@ import {
 import type { SbbRadioButtonGroupElement } from '../../radio-button-group.pure.ts';
 
 import radioButtonCommonStyleString from './radio-button-common.scss?inline';
-
-export const radioButtonCommonStyle = unsafeCSS(radioButtonCommonStyleString);
 
 export type SbbRadioButtonSize = 'xs' | 's' | 'm';
 
@@ -31,6 +29,10 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<S
     extends SbbFormAssociatedRadioButtonMixin(superClass)
     implements Partial<SbbRadioButtonCommonElementMixinType>
   {
+    public static styles: CSSResultGroup = [
+      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
+      unsafeCSS(radioButtonCommonStyleString),
+    ];
     public static readonly events = {
       change: 'change',
       input: 'input',
@@ -56,7 +58,7 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<S
     }
     private _group: SbbRadioButtonGroupElement | null = null;
 
-    public constructor() {
+    protected constructor() {
       super();
       this.addEventListener?.('click', (e) => this._handleClick(e));
       this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));

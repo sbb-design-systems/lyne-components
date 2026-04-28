@@ -49,15 +49,16 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
   </sbb-divider>
   10
 </span>
-<sbb-screen-reader-only>
+<span class="sbb-screen-reader-only">
   Page 1 of 10
-</sbb-screen-reader-only>
-<sbb-screen-reader-only
+</span>
+<span
+  class="sbb-screen-reader-only"
   id="status"
   role="status"
 >
   Page 1 selected.
-</sbb-screen-reader-only>
+</span>
 `;
 /* end snapshot sbb-compact-paginator renders Shadow DOM */
 
@@ -128,15 +129,16 @@ snapshots["sbb-compact-paginator renders accessibility labels Shadow DOM"] =
   </sbb-divider>
   10
 </span>
-<sbb-screen-reader-only>
+<span class="sbb-screen-reader-only">
   Slide 1 of 10
-</sbb-screen-reader-only>
-<sbb-screen-reader-only
+</span>
+<span
+  class="sbb-screen-reader-only"
   id="status"
   role="status"
 >
   Slide 1 selected.
-</sbb-screen-reader-only>
+</span>
 `;
 /* end snapshot sbb-compact-paginator renders accessibility labels Shadow DOM */
 

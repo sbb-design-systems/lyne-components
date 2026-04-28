@@ -54,7 +54,7 @@ describe('sbb-dialog', () => {
           </sbb-dialog-actions>
         </sbb-dialog>
       `);
-      ariaLiveRef = element.shadowRoot!.querySelector('sbb-screen-reader-only')!;
+      ariaLiveRef = element.shadowRoot!.querySelector('.sbb-screen-reader-only')!;
     });
 
     it('renders', () => {
@@ -899,7 +899,7 @@ describe('sbb-dialog', () => {
     element.open();
 
     await waitForLitRender(element);
-    expect(element.shadowRoot?.querySelector('sbb-screen-reader-only')).to.have.trimmed.text(
+    expect(element.shadowRoot?.querySelector('.sbb-screen-reader-only')).to.have.trimmed.text(
       'Dialog',
     );
 

@@ -1,9 +1,8 @@
-import { isServer, type PropertyDeclaration, type PropertyValues } from 'lit';
+import { type CSSResultGroup, isServer, type PropertyDeclaration, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbScreenReaderOnlyElement } from '../core/screen-reader-only/screen-reader-only.component.ts';
-import type { SbbOverlayCloseEventDetails } from '../core.ts';
 import {
+  boxSizingStyles,
   forceType,
   i18nDialog,
   idReference,
@@ -14,7 +13,9 @@ import {
   SbbLanguageController,
   SbbNegativeMixin,
   SbbOpenCloseBaseElement,
+  type SbbOverlayCloseEventDetails,
   SbbScrollHandler,
+  screenReaderOnlyStyles,
   setAriaOverlayTriggerProperties,
 } from '../core.ts';
 
@@ -67,6 +68,8 @@ export function assignOverlayResult<T>(element: HTMLElement, result: T): void {
 export const overlayRefs: SbbOverlayBaseElement[] = [];
 
 export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
+  public static override styles: CSSResultGroup = [boxSizingStyles, screenReaderOnlyStyles];
+
   /**
    * The element that will trigger the menu overlay.
    *
@@ -104,7 +107,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   protected escapableOverlayController = new SbbEscapableOverlayController(this);
 
   private _ariaLiveRefToggle = false;
-  private _ariaLiveRef?: SbbScreenReaderOnlyElement;
+  private _ariaLiveRef?: HTMLElement;
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController?: AbortController;
 
@@ -229,8 +232,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    this._ariaLiveRef =
-      this.shadowRoot!.querySelector<SbbScreenReaderOnlyElement>('sbb-screen-reader-only')!;
+    this._ariaLiveRef = this.shadowRoot!.querySelector<HTMLElement>('.sbb-screen-reader-only')!;
     this._configureTrigger();
 
     // If the component is already open on firstUpdate, fix the focus

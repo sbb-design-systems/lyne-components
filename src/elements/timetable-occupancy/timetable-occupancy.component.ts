@@ -9,7 +9,7 @@ import {
   SbbLanguageController,
   SbbNegativeMixin,
   type SbbOccupancy,
-  SbbScreenReaderOnlyElement,
+  screenReaderOnlyStyles,
 } from '../core.ts';
 import { SbbTimetableOccupancyIconElement } from '../timetable-occupancy-icon.pure.ts';
 
@@ -20,11 +20,12 @@ import style from './timetable-occupancy.scss?inline';
  */
 export class SbbTimetableOccupancyElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-timetable-occupancy';
-  public static override elementDependencies: SbbElementType[] = [
-    SbbTimetableOccupancyIconElement,
-    SbbScreenReaderOnlyElement,
+  public static override elementDependencies: SbbElementType[] = [SbbTimetableOccupancyIconElement];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Occupancy for first class wagons. */
   @property({ attribute: 'first-class-occupancy' })
@@ -51,13 +52,13 @@ export class SbbTimetableOccupancyElement extends SbbNegativeMixin(SbbElement) {
                 <span class="sbb-timetable-occupancy__list-item-class" aria-hidden="true">
                   ${this.firstClassOccupancy && index === 0 ? '1' : '2'}.
                 </span>
-                <sbb-screen-reader-only>
+                <span class="sbb-screen-reader-only">
                   ${`${
                     i18nClass[this.firstClassOccupancy && index === 0 ? 'first' : 'second'][
                       this._language.current
                     ]
                   }.`}
-                </sbb-screen-reader-only>
+                </span>
                 <sbb-timetable-occupancy-icon
                   class="sbb-timetable-occupancy__list-item-icon"
                   ?negative=${this.negative}

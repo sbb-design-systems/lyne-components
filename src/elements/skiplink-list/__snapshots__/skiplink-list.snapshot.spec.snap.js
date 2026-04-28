@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-skiplink-list should render named slots if data-ssr-child-count attribute is set"] =
+snapshots["sbb-skiplink-list should render named slots if data-ssr-child-count attribute is set"] = 
 `<h2
   class="sbb-screen-reader-only"
   id="sbb-skiplink-list-title-id"
@@ -33,7 +33,7 @@ snapshots["sbb-skiplink-list should render named slots if data-ssr-child-count a
 `;
 /* end snapshot sbb-skiplink-list should render named slots if data-ssr-child-count attribute is set */
 
-snapshots["sbb-skiplink-list renders DOM"] =
+snapshots["sbb-skiplink-list renders DOM"] = 
 `<sbb-skiplink-list>
   <sbb-block-link
     href="#"
@@ -66,7 +66,7 @@ snapshots["sbb-skiplink-list renders DOM"] =
 `;
 /* end snapshot sbb-skiplink-list renders DOM */
 
-snapshots["sbb-skiplink-list renders Shadow DOM"] =
+snapshots["sbb-skiplink-list renders Shadow DOM"] = 
 `<h2
   class="sbb-screen-reader-only"
   id="sbb-skiplink-list-title-id"
@@ -98,7 +98,7 @@ snapshots["sbb-skiplink-list renders Shadow DOM"] =
 `;
 /* end snapshot sbb-skiplink-list renders Shadow DOM */
 
-snapshots["sbb-skiplink-list renders with title DOM"] =
+snapshots["sbb-skiplink-list renders with title DOM"] = 
 `<sbb-skiplink-list
   title-content="Skip to"
   title-level="3"
@@ -134,7 +134,7 @@ snapshots["sbb-skiplink-list renders with title DOM"] =
 `;
 /* end snapshot sbb-skiplink-list renders with title DOM */
 
-snapshots["sbb-skiplink-list renders with title Shadow DOM"] =
+snapshots["sbb-skiplink-list renders with title Shadow DOM"] = 
 `<h3
   class="sbb-screen-reader-only"
   id="sbb-skiplink-list-title-id"
@@ -167,7 +167,7 @@ snapshots["sbb-skiplink-list renders with title Shadow DOM"] =
 `;
 /* end snapshot sbb-skiplink-list renders with title Shadow DOM */
 
-snapshots["sbb-skiplink-list renders with title A11y tree Chrome"] =
+snapshots["sbb-skiplink-list renders with title A11y tree Chrome"] = 
 `<p>
   {
   "role": "generic",

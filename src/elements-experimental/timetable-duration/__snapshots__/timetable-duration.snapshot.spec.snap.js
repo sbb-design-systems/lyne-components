@@ -20,7 +20,7 @@ snapshots["sbb-timetable-duration renders Shadow DOM"] =
   >
     3 h 12 min
   </span>
-  <span class="duration__text--visually-hidden">
+  <span class="sbb-screen-reader-only">
     3 Hours 12 Minutes.
   </span>
 </p>

@@ -27,7 +27,6 @@ import {
   SbbNamedSlotListMixin,
   type SbbOccupancy,
   SbbPropertyWatcherController,
-  screenReaderOnlyStyles,
 } from '../core.ts';
 import { SbbDividerElement } from '../divider.pure.ts';
 import { SbbIconElement } from '../icon.pure.ts';
@@ -99,8 +98,8 @@ export const SbbTrainWagonMixin = <T extends AbstractConstructor<SbbElement>>(
       SbbDividerElement,
     ];
     public static styles: CSSResultGroup = [
+      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
       boxSizingStyles,
-      screenReaderOnlyStyles,
       unsafeCSS(style),
     ];
 

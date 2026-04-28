@@ -10,7 +10,6 @@ import {
   SbbDarkModeController,
   SbbElement,
   SbbNamedSlotListMixin,
-  screenReaderOnlyStyles,
   type WithListChildren,
 } from '../core.ts';
 import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.pure.ts';
@@ -33,8 +32,8 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-skiplink-list';
   public static override styles: CSSResultGroup = [
+    super.styles ?? [],
     boxSizingStyles,
-    screenReaderOnlyStyles,
     unsafeCSS(style),
   ];
   protected override readonly listChildLocalNames = ['sbb-block-link', 'sbb-block-link-button'];

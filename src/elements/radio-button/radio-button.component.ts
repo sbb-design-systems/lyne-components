@@ -1,10 +1,9 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { boxSizingStyles, getOverride, isLean, SbbElement } from '../core.ts';
+import { getOverride, isLean, SbbElement } from '../core.ts';
 
 import {
-  radioButtonCommonStyle,
   SbbRadioButtonCommonElementMixin,
   type SbbRadioButtonSize,
 } from './common/radio-button-common.ts';
@@ -22,11 +21,7 @@ export class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonEleme
   SbbElement,
 ) {
   public static override readonly elementName: string = 'sbb-radio-button';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    radioButtonCommonStyle,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [super.styles ?? [], unsafeCSS(style)];
   public static readonly events = {
     change: 'change',
     input: 'input',

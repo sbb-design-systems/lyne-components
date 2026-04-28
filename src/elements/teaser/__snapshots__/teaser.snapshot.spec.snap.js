@@ -18,9 +18,9 @@ snapshots["sbb-teaser renders after centered Shadow DOM"] =
     class="sbb-action-base sbb-teaser"
     href="https://github.com/sbb-design-systems/lyne-components"
   >
-    <sbb-screen-reader-only>
+    <span class="sbb-screen-reader-only">
       SBB teaser
-    </sbb-screen-reader-only>
+    </span>
   </a>
   <span class="sbb-teaser__container">
     <span class="sbb-teaser__image-wrapper">
@@ -124,9 +124,9 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
     class="sbb-action-base sbb-teaser"
     href="https://github.com/sbb-design-systems/lyne-components"
   >
-    <sbb-screen-reader-only>
+    <span class="sbb-screen-reader-only">
       SBB teaser
-    </sbb-screen-reader-only>
+    </span>
   </a>
   <span class="sbb-teaser__container">
     <span class="sbb-teaser__image-wrapper">
@@ -188,9 +188,9 @@ snapshots["sbb-teaser renders after with title set Shadow DOM"] =
     class="sbb-action-base sbb-teaser"
     href="https://github.com/sbb-design-systems/lyne-components"
   >
-    <sbb-screen-reader-only>
+    <span class="sbb-screen-reader-only">
       SBB teaser
-    </sbb-screen-reader-only>
+    </span>
   </a>
   <span class="sbb-teaser__container">
     <span class="sbb-teaser__image-wrapper">
