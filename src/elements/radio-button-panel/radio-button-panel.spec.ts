@@ -22,7 +22,7 @@ describe(`sbb-radio-button-panel`, () => {
   });
 
   it('should not render accessibility label about containing state', async () => {
-    element = element.shadowRoot!.querySelector('.sbb-screen-reader-only:not(input)')!;
+    element = element.shadowRoot!.querySelector('sbb-screen-reader-only:not(input)')!;
     expect(element).not.to.be.ok;
   });
 

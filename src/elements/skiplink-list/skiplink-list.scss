@@ -9,10 +9,6 @@
   z-index: calc(var(--sbb-skiplink-list-z-index, var(--sbb-overlay-default-z-index)) + 1);
 }
 
-.sbb-screen-reader-only {
-  @include sbb.screen-reader-only;
-}
-
 .sbb-skiplink-list {
   @include sbb.list-reset;
 

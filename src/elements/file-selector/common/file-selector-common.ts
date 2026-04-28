@@ -1,4 +1,4 @@
-import { nothing, type TemplateResult, unsafeCSS } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
@@ -25,12 +25,16 @@ import {
   SbbFormAssociatedMixin,
   sbbInputModalityDetector,
   SbbLanguageController,
+  screenReaderOnlyStyles,
   ɵstateController,
 } from '../../core.ts';
 
 import fileSelectorCommonStyleString from './file-selector-common.scss?inline';
 
-export const fileSelectorCommonStyle = unsafeCSS(fileSelectorCommonStyleString);
+export const fileSelectorCommonStyle: CSSResultGroup = [
+  screenReaderOnlyStyles,
+  unsafeCSS(fileSelectorCommonStyleString),
+];
 
 export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbDisabledMixin(
   SbbFormAssociatedMixin(SbbElement),

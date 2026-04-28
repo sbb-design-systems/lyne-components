@@ -5,6 +5,7 @@ import {
   i18nDurationMinute,
   SbbElement,
   SbbLanguageController,
+  screenReaderOnlyStyles,
 } from '@sbb-esta/lyne-elements/core.js';
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -16,7 +17,11 @@ import style from './timetable-duration.scss?inline';
  */
 export class SbbTimetableDurationElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-timetable-duration';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
 
   /**
    * Stringified JSON which defines most of the

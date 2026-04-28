@@ -3,6 +3,7 @@ import {
   defaultDateAdapter,
   forceType,
   SbbElement,
+  screenReaderOnlyStyles,
 } from '@sbb-esta/lyne-elements/core.js';
 import { addMinutes, differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
@@ -25,7 +26,11 @@ interface Time {
  */
 export class SbbPearlChainElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
 
   /**
    * Define the legs of the pearl-chain.

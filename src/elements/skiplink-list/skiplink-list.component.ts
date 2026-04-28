@@ -10,6 +10,7 @@ import {
   SbbDarkModeController,
   SbbElement,
   SbbNamedSlotListMixin,
+  screenReaderOnlyStyles,
   type WithListChildren,
 } from '../core.ts';
 import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.pure.ts';
@@ -31,7 +32,11 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-skiplink-list';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
   protected override readonly listChildLocalNames = ['sbb-block-link', 'sbb-block-link-button'];
 
   /** The title text we want to place before the list. */

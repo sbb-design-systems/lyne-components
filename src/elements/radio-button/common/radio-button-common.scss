@@ -61,10 +61,6 @@
   --sbb-radio-button-dimension: var(--sbb-radio-button-dimension-m);
 }
 
-.sbb-screen-reader-only {
-  @include sbb.screen-reader-only;
-}
-
 .sbb-radio-button {
   font-size: var(--sbb-radio-button-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);

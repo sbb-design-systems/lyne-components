@@ -26,6 +26,7 @@ import {
   type SbbElementType,
   SbbLanguageController,
   type SbbOccupancy,
+  screenReaderOnlyStyles,
   setOrRemoveAttribute,
 } from '@sbb-esta/lyne-elements/core.js';
 import { SbbIconElement } from '@sbb-esta/lyne-elements/icon.pure.js';
@@ -246,7 +247,11 @@ export class SbbTimetableRowElement extends SbbElement {
     SbbTimetableOccupancyElement,
     SbbPearlChainTimeElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
 
   /** The trip Prop. */
   @property({ type: Object }) public accessor trip: ITripItem = null!;
