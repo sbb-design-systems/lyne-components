@@ -561,7 +561,9 @@ export class SeatReservationBaseElement extends SbbElement {
    */
   protected preselectPlaceInCoach(): void {
     // No preselect place by manual seatmap scrolling
-    if (!this.isAutoScrolling) return;
+    if (!this.isAutoScrolling) {
+      return;
+    }
 
     // No auto place preselection by running the preselect coach index
     if (this._isRunningInitPreselectCoachIndex) {
@@ -949,8 +951,9 @@ export class SeatReservationBaseElement extends SbbElement {
       !this.currSelectedPlace ||
       pressedKey === this.keyboardNavigationEvents.ArrowRight ||
       pressedKey === this.keyboardNavigationEvents.ArrowLeft
-    )
+    ) {
       return null;
+    }
 
     //CHECK DECK SWITCH DOWN
     if (
@@ -1276,13 +1279,17 @@ export class SeatReservationBaseElement extends SbbElement {
     const placeDeckIndex = this._getDeckIndexByPlaceId(placeSelection.id);
     const coachIndex = placeSelection.coachIndex;
 
-    if (placeDeckIndex === null) return;
+    if (placeDeckIndex === null) {
+      return;
+    }
 
     const place = this.seatReservations[placeDeckIndex].coachItems[coachIndex].places?.find(
       (place) => place.number == placeSelection.number,
     );
 
-    if (!place) return;
+    if (!place) {
+      return;
+    }
 
     this.currSelectedDeckIndex = placeDeckIndex;
     this.currSelectedCoachIndex = coachIndex;
@@ -1303,7 +1310,9 @@ export class SeatReservationBaseElement extends SbbElement {
 
   protected updateCurrentSelectedCoach(): void {
     //Only if the selectedCoachIndex has changed, an update needs to be carried out
-    if (this.currSelectedCoachIndex == this.selectedCoachIndex) return;
+    if (this.currSelectedCoachIndex == this.selectedCoachIndex) {
+      return;
+    }
 
     // If a focusindex has been set (!= -1), it can be updated with the current selectedCoachIndex
     if (this.focusedCoachIndex != -1) {
@@ -1446,7 +1455,9 @@ export class SeatReservationBaseElement extends SbbElement {
     currSelectedPlace: PlaceSelection,
     coachDeckIndex: number | null,
   ): SeatReservationPlaceSelection | null {
-    if (coachDeckIndex === null) return null;
+    if (coachDeckIndex === null) {
+      return null;
+    }
 
     const coach = this.seatReservations[coachDeckIndex].coachItems[currSelectedPlace.coachIndex];
     const place = coach.places?.find((place) => place.number === currSelectedPlace.number);
@@ -1465,7 +1476,9 @@ export class SeatReservationBaseElement extends SbbElement {
   private _getSeatReservationSelectedCoach(
     coachIndex: number,
   ): SeatReservationSelectedCoach | null {
-    if (!this.seatReservations[this.currSelectedDeckIndex].coachItems[coachIndex]) return null;
+    if (!this.seatReservations[this.currSelectedDeckIndex].coachItems[coachIndex]) {
+      return null;
+    }
 
     const coach = this.seatReservations[this.currSelectedDeckIndex].coachItems[coachIndex];
     const coachNumberOfFreePlaces = this.getAvailableFreePlacesNumFromCoach(coach.places);
@@ -1558,9 +1571,13 @@ export class SeatReservationBaseElement extends SbbElement {
             if (dim1 && dim2) {
               const maxDim1 = dim1.w + dim1.h;
               const maxDim2 = dim2.w + dim2.h;
-              if (maxDim1 > maxDim2) return 1;
-              else if (maxDim1 < maxDim2) return -1;
-              else return 0;
+              if (maxDim1 > maxDim2) {
+                return 1;
+              } else if (maxDim1 < maxDim2) {
+                return -1;
+              } else {
+                return 0;
+              }
             }
             return 0;
           },
@@ -1587,8 +1604,12 @@ export class SeatReservationBaseElement extends SbbElement {
   }
 
   private _prepareTravelClassNavigation(travelClasses: PlaceTravelClass[]): PlaceTravelClass {
-    if (travelClasses.indexOf('FIRST') !== -1) return 'FIRST';
-    if (travelClasses.indexOf('SECOND') !== -1) return 'SECOND';
+    if (travelClasses.indexOf('FIRST') !== -1) {
+      return 'FIRST';
+    }
+    if (travelClasses.indexOf('SECOND') !== -1) {
+      return 'SECOND';
+    }
     return 'ANY_CLASS';
   }
 
@@ -1776,8 +1797,8 @@ export class SeatReservationBaseElement extends SbbElement {
     ).sort((a, b) => {
       const posA = a.position.x;
       const posB = b.position.x;
-      if (posA > posB) return 1;
-      if (posA < posB) return -1;
+      if (posA > posB) {return 1;}
+      if (posA < posB) {return -1;}
       return 0;
     });
 

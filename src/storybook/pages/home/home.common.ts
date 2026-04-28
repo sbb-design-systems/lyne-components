@@ -95,7 +95,7 @@ export const navigation = (): TemplateResult => html`
         <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
-      <sbb-button size="m" class="navigation-button"> All Tickets & Offers </sbb-button>
+      <sbb-button class="navigation-button"> All Tickets & Offers </sbb-button>
     </sbb-navigation-section>
 
     <sbb-navigation-section title-content="Title two" trigger="nav-2">
@@ -149,7 +149,7 @@ export const navigation = (): TemplateResult => html`
         <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
-      <sbb-secondary-button size="m" icon-name="circle-information-small" class="navigation-button">
+      <sbb-secondary-button icon-name="circle-information-small" class="navigation-button">
         Travel Information
       </sbb-secondary-button>
     </sbb-navigation-section>
@@ -168,7 +168,7 @@ export const dailyTicketProduct = (): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Daily ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
+      <sbb-secondary-button-static> Buy </sbb-secondary-button-static>
     </span>
   </sbb-card>
 `;
@@ -185,7 +185,7 @@ export const bikeProduct = (): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Bike day pass </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
+      <sbb-secondary-button-static> Buy </sbb-secondary-button-static>
     </span>
   </sbb-card>
 `;
@@ -202,7 +202,7 @@ export const liberoProduct = (): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Libero short distance ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
+      <sbb-secondary-button-static> Buy </sbb-secondary-button-static>
     </span>
   </sbb-card>
 `;
@@ -258,7 +258,6 @@ export const footer = (args: Args): TemplateResult => html`
       </sbb-link-list>
       <sbb-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        size="m"
       >
         All help topics
       </sbb-button-link>
@@ -306,7 +305,6 @@ export const footer = (args: Args): TemplateResult => html`
       </span>
       <sbb-secondary-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        size="m"
       >
         Subscribe
       </sbb-secondary-button-link>

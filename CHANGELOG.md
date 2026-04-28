@@ -2,6 +2,96 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.12.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.11.0...v4.12.0) (2026-04-27)
+
+
+### Features
+
+* new CSS color-pair `sbb-color-6` ([#4839](https://github.com/sbb-design-systems/lyne-components/issues/4839)) ([79619ae](https://github.com/sbb-design-systems/lyne-components/commit/79619ae5e031a3a15bde656641271c3ae999782f)), closes [#4828](https://github.com/sbb-design-systems/lyne-components/issues/4828)
+
+
+### Bug Fixes
+
+* **autocomplete:** prevent opening on untrusted input events ([#4817](https://github.com/sbb-design-systems/lyne-components/issues/4817)) ([313fef6](https://github.com/sbb-design-systems/lyne-components/commit/313fef6890aabad4aac76bee4dca475c97e739ae))
+* **autocomplete:** reposition correctly on dynamically adding options ([#4793](https://github.com/sbb-design-systems/lyne-components/issues/4793)) ([17d3020](https://github.com/sbb-design-systems/lyne-components/commit/17d30200cfc27037d3c696060a70d82be42f57cb))
+* ensure slot connection for children ([#4801](https://github.com/sbb-design-systems/lyne-components/issues/4801)) ([f4ac832](https://github.com/sbb-design-systems/lyne-components/commit/f4ac8323ab242300dbef5fcaf0d6ae4e8123188d))
+* **form-field:** layout for Angular custom components in size=s ([#4802](https://github.com/sbb-design-systems/lyne-components/issues/4802)) ([#4824](https://github.com/sbb-design-systems/lyne-components/issues/4824)) ([69ff289](https://github.com/sbb-design-systems/lyne-components/commit/69ff2895fadbbb7c6505e67ff51f5ba35e4c1999))
+* missing theme in visual-regression-app ([#4780](https://github.com/sbb-design-systems/lyne-components/issues/4780)) ([#4827](https://github.com/sbb-design-systems/lyne-components/issues/4827)) ([f4d5460](https://github.com/sbb-design-systems/lyne-components/commit/f4d546082221c243a9cf370bafb5fbe46f6a456a))
+* **popover, option:** improved contrast ([#4832](https://github.com/sbb-design-systems/lyne-components/issues/4832)) ([63e9e31](https://github.com/sbb-design-systems/lyne-components/commit/63e9e31eddd02d010e8b8487e206fd8244212b0f)), closes [#4791](https://github.com/sbb-design-systems/lyne-components/issues/4791)
+* **popover:** re-position on content change ([#4838](https://github.com/sbb-design-systems/lyne-components/issues/4838)) ([64eae91](https://github.com/sbb-design-systems/lyne-components/commit/64eae912da9a5e3799fbd38bdcf4cdc939140d02))
+* **select:** force update value ([#4814](https://github.com/sbb-design-systems/lyne-components/issues/4814)) ([56624af](https://github.com/sbb-design-systems/lyne-components/commit/56624af4fb053b952134b5619f2d662178da55f0))
+
+
+### Documentation
+
+* add missing documentation for input and change events ([#4788](https://github.com/sbb-design-systems/lyne-components/issues/4788)) ([c9305c6](https://github.com/sbb-design-systems/lyne-components/commit/c9305c6fdbdacf868d42f766efd359753750ce1c))
+
+
+### Code Refactoring
+
+* **file-selector:** css refactoring ([#4521](https://github.com/sbb-design-systems/lyne-components/issues/4521)) ([52f747b](https://github.com/sbb-design-systems/lyne-components/commit/52f747b42988765a3ad38e5eb118cafadd18b023))
+* **tabs:** replace throttle with debounce mechanism ([#4795](https://github.com/sbb-design-systems/lyne-components/issues/4795)) ([b573cbf](https://github.com/sbb-design-systems/lyne-components/commit/b573cbffa3cab6ddee5eb6555ce548ba81e0d94b))
+* **timetable-form, timetable-occupancy:** css refactoring ([#4741](https://github.com/sbb-design-systems/lyne-components/issues/4741)) ([3b61da6](https://github.com/sbb-design-systems/lyne-components/commit/3b61da6a45ad4a71324825e97ef7b93b35dd821e))
+* **toast:** css refactoring ([#4758](https://github.com/sbb-design-systems/lyne-components/issues/4758)) ([bd9b169](https://github.com/sbb-design-systems/lyne-components/commit/bd9b1699867e8a10613e456b8318255ae67474c9))
+* **toggle-check:** css refactoring ([#4815](https://github.com/sbb-design-systems/lyne-components/issues/4815)) ([b6a0ca8](https://github.com/sbb-design-systems/lyne-components/commit/b6a0ca83a2589efbad9977ce77172a77bc9d2a02))
+* **toggle:** css refactoring ([#4745](https://github.com/sbb-design-systems/lyne-components/issues/4745)) ([f9e8726](https://github.com/sbb-design-systems/lyne-components/commit/f9e87268d38187771ecf82030aaca42592216e94))
+* **tooltip:** css refactoring ([#4752](https://github.com/sbb-design-systems/lyne-components/issues/4752)) ([7c5a3af](https://github.com/sbb-design-systems/lyne-components/commit/7c5a3af225c8aafd5bfd668797261b5a18b1e57b))
+
+## [5.0.0-next.1](https://github.com/sbb-design-systems/lyne-components/compare/v5.0.0-next...v5.0.0-next.1) (2026-04-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **dialog:** the `sbb-dialog` is not full size in 'zero' breakpoint anymore, but it opens from the bottom like the menu, adapting its height to the slotted content. From 'small' breakpoint, the width adapts to the content too.
+* **button, action-group:** The default size of the buttons has changed from `l` to `m` in standard theme. The `sbb-action-group` doesn't have a default `buttonSize` and `linkSize` applied anymore but delegates the default size choice to slotted button and links.
+* **sbb-chip-label:** chip-label Sass mixins were removed. As the chip-label styles were moved to the host, the chip-label can behave slightly different in text flow.
+* removed the automatic ID assignment from the following components: `sbb-tab`, `sbb-menu`, `sbb-dialog`, `sbb-popover`, `sbb-tooltip`, `sbb-stepper`, `sbb-datepicker`, `sbb-overlay`, `sbb-navigation`, `sbb-navigation-section`.
+* **core:** deleted `setAriaOverlayTriggerAttributes` and `removeAriaOverlayTriggerAttributes` methods.
+
+### Features
+
+* **dialog:** adapt sizing ([#4774](https://github.com/sbb-design-systems/lyne-components/issues/4774)) ([7962982](https://github.com/sbb-design-systems/lyne-components/commit/79629820ea7c6c89b49e922a55eab4052c744a23))
+* new CSS color-pair `sbb-color-6` ([#4839](https://github.com/sbb-design-systems/lyne-components/issues/4839)) ([d9a2689](https://github.com/sbb-design-systems/lyne-components/commit/d9a26893276803d7f6a1cfe109c4f2b3c4248aca)), closes [#4828](https://github.com/sbb-design-systems/lyne-components/issues/4828)
+* **sbb-chip-label:** add size `xxxs` and css refactoring ([#4650](https://github.com/sbb-design-systems/lyne-components/issues/4650)) ([a809369](https://github.com/sbb-design-systems/lyne-components/commit/a809369c96e4e075fe9c7b7c163890f794e4e887)), closes [#4800](https://github.com/sbb-design-systems/lyne-components/issues/4800)
+* **teaser-panel:** component implementation ([#4779](https://github.com/sbb-design-systems/lyne-components/issues/4779)) ([49749de](https://github.com/sbb-design-systems/lyne-components/commit/49749de1a8fe0b4669a0ddb8465b02afb294a062))
+
+
+### Bug Fixes
+
+* **autocomplete:** prevent opening on untrusted input events ([#4817](https://github.com/sbb-design-systems/lyne-components/issues/4817)) ([0aaa40e](https://github.com/sbb-design-systems/lyne-components/commit/0aaa40ea8b0b74e0da8669bce3fd645278562505))
+* **autocomplete:** reposition correctly on dynamically adding options ([#4793](https://github.com/sbb-design-systems/lyne-components/issues/4793)) ([fbc2af2](https://github.com/sbb-design-systems/lyne-components/commit/fbc2af2f5fc65c4f1b94fff6f0a7589a629e04f8))
+* ensure slot connection for children ([#4801](https://github.com/sbb-design-systems/lyne-components/issues/4801)) ([74ff19a](https://github.com/sbb-design-systems/lyne-components/commit/74ff19ab002cd406add06e532794be098e1db300))
+* **form-field:** layout for Angular custom components in size=s ([#4802](https://github.com/sbb-design-systems/lyne-components/issues/4802)) ([1802ff3](https://github.com/sbb-design-systems/lyne-components/commit/1802ff3eee995918ef27bd85ed935331c6fecc4e))
+* **popover, option:** improved contrast ([#4832](https://github.com/sbb-design-systems/lyne-components/issues/4832)) ([ceddb99](https://github.com/sbb-design-systems/lyne-components/commit/ceddb99fe05fba85ea14198ab5cf4b6d0a6e1f09)), closes [#4791](https://github.com/sbb-design-systems/lyne-components/issues/4791)
+* **popover:** re-position on content change ([#4838](https://github.com/sbb-design-systems/lyne-components/issues/4838)) ([b12a913](https://github.com/sbb-design-systems/lyne-components/commit/b12a913e56fe1bc64b0779884b7242eca84f985f)), closes [#4830](https://github.com/sbb-design-systems/lyne-components/issues/4830)
+* **select:** force update value ([#4814](https://github.com/sbb-design-systems/lyne-components/issues/4814)) ([f52b29d](https://github.com/sbb-design-systems/lyne-components/commit/f52b29d1da8378437f128d2f3f2f29e598e9319f))
+
+
+### Documentation
+
+* add missing documentation for input and change events ([#4788](https://github.com/sbb-design-systems/lyne-components/issues/4788)) ([00b318a](https://github.com/sbb-design-systems/lyne-components/commit/00b318a01f55cf85d083f15e96f1320c425db7a5))
+
+
+### Code Refactoring
+
+* **button, action-group:** change default size value from `l` to `m` ([#4825](https://github.com/sbb-design-systems/lyne-components/issues/4825)) ([963894a](https://github.com/sbb-design-systems/lyne-components/commit/963894a5ab164d3418be82542aa636f9ae0fb96f))
+* **core:** delete aria-attributes util functions ([057f98b](https://github.com/sbb-design-systems/lyne-components/commit/057f98b2eb9f3fb6ca64ca3208e2ad3c3b446678))
+* **file-selector:** css refactoring ([#4521](https://github.com/sbb-design-systems/lyne-components/issues/4521)) ([680d92f](https://github.com/sbb-design-systems/lyne-components/commit/680d92fc621a7c7dc2731425cff976e041079d2f))
+* improve support for scrollbar styles in shadow DOM ([#4811](https://github.com/sbb-design-systems/lyne-components/issues/4811)) ([1bf4726](https://github.com/sbb-design-systems/lyne-components/commit/1bf4726a6f21dcbe56ec3e27531ac55dd4115cbc))
+* **navigation:** css refactoring ([#4622](https://github.com/sbb-design-systems/lyne-components/issues/4622)) ([aee15d0](https://github.com/sbb-design-systems/lyne-components/commit/aee15d097bf0dbfc0219d6924bba1f11c380f8f7))
+* remove automatic ID assignment ([057f98b](https://github.com/sbb-design-systems/lyne-components/commit/057f98b2eb9f3fb6ca64ca3208e2ad3c3b446678))
+* **sbb-alert:** css refactoring ([#4376](https://github.com/sbb-design-systems/lyne-components/issues/4376)) ([96cd622](https://github.com/sbb-design-systems/lyne-components/commit/96cd622b2e0f1db25b89e0b29ab2b91242c6fc68))
+* **stepper:** remove pre-defined font-size of sbb-step ([#4819](https://github.com/sbb-design-systems/lyne-components/issues/4819)) ([c08f2ee](https://github.com/sbb-design-systems/lyne-components/commit/c08f2ee0b06a9e30239772ad0362e47750a35868))
+* **tabs:** replace throttle with debounce mechanism ([#4795](https://github.com/sbb-design-systems/lyne-components/issues/4795)) ([dc600e9](https://github.com/sbb-design-systems/lyne-components/commit/dc600e9ce275f2387b6b714e7fcd9ee30124f5ce))
+* **toast:** css refactoring ([#4758](https://github.com/sbb-design-systems/lyne-components/issues/4758)) ([f604ff4](https://github.com/sbb-design-systems/lyne-components/commit/f604ff49705e28595a914ee9d1a09974aa5aada9))
+* **toggle-check:** css refactoring ([#4815](https://github.com/sbb-design-systems/lyne-components/issues/4815)) ([c807fa7](https://github.com/sbb-design-systems/lyne-components/commit/c807fa7d298597cfcf77b13a895bb1d03229505c))
+* **toggle:** css refactoring ([#4745](https://github.com/sbb-design-systems/lyne-components/issues/4745)) ([1a58a6c](https://github.com/sbb-design-systems/lyne-components/commit/1a58a6c9fcde044d2f6a7afb8d55a6768b2f4a12))
+
+
+### Miscellaneous Chores
+
+* prepare next prerelease version ([17306f6](https://github.com/sbb-design-systems/lyne-components/commit/17306f6bb04740795be750a617fd491630346c8b))
+
 ## [4.11.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.10.0...v4.11.0) (2026-04-13)
 
 

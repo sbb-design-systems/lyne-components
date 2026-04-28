@@ -20,7 +20,7 @@ snapshots["sbb-message renders DOM"] =
   </p>
   <sbb-button
     icon-name="arrows-circle-small"
-    size="l"
+    size="m"
     slot="action"
     tabindex="0"
   >

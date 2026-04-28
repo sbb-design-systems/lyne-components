@@ -27,8 +27,8 @@ describe(`sbb-button`, () => {
     darkMode: [false, true],
   };
 
-  // 'l' as default is covered by other cases.
-  const sizeCases = { size: ['s', 'm'], icon: [undefined, 'arrow-right-small'] };
+  // 'm' as default is covered by other cases.
+  const sizeCases = { size: ['s', 'l'], icon: [undefined, 'arrow-right-small'] };
 
   const forcedColorCases = {
     disabled: [false, true],

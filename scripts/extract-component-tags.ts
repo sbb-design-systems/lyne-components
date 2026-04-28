@@ -61,7 +61,9 @@ function getGlobalAttributes(projectRoot: string): string[] {
   const content = readFileSync(join(projectRoot, 'tsconfig.json'), 'utf-8');
   const match = content.match(/"globalAttributes"\s*:\s*\[([\s\S]*?)]/);
 
-  if (!match) return [];
+  if (!match) {
+    return [];
+  }
 
   return Array.from(match[1].matchAll(/"([^"]+)"/g), (m) => m[1])
     .filter((attr) => attr.startsWith('sbb-'))

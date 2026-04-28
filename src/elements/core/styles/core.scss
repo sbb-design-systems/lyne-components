@@ -39,6 +39,12 @@ $theme: 'standard' !default;
 @use '../../card/card/card.global' as card with (
   $theme: $theme
 );
+@use '../../alert/alert/alert.global' as alert with (
+  $theme: $theme
+);
+@use '../../alert/alert-group/alert-group.global' as alert-group with (
+  $theme: $theme
+);
 @use '../../chip-label/chip-label.global' as chip-label with (
   $theme: $theme
 );
@@ -96,6 +102,9 @@ $theme: 'standard' !default;
 );
 @use '../../expansion-panel/expansion-panel-header/expansion-panel-header.global' as
   expansion-panel-header with (
+  $theme: $theme
+);
+@use '../../file-selector/common/file-selector.global' as file-selector with (
   $theme: $theme
 );
 @use '../../flip-card/flip-card/flip-card.global' as flip-card with (
@@ -161,6 +170,21 @@ $theme: 'standard' !default;
 );
 @use '../../mini-calendar/mini-calendar-month/mini-calendar-month.global' as mini-calendar-month
   with (
+  $theme: $theme
+);
+@use '../../navigation/navigation/navigation.global' as navigation with (
+  $theme: $theme
+);
+@use '../../navigation/common/navigation-action.global' as navigation-action with (
+  $theme: $theme
+);
+@use '../../navigation/navigation-list/navigation-list.global' as navigation-list with (
+  $theme: $theme
+);
+@use '../../navigation/navigation-marker/navigation-marker.global' as navigation-marker with (
+  $theme: $theme
+);
+@use '../../navigation/navigation-section/navigation-section.global' as navigation-section with (
   $theme: $theme
 );
 @use '../../notification/notification.global' as notification with (
@@ -230,6 +254,15 @@ $theme: 'standard' !default;
 @use '../../tabs/common/tab-group-common.global' as tab-group-common with (
   $theme: $theme
 );
+@use '../../train/train-blocked-passage/train-blocked-passage.global' as train-blocked-passage with (
+  $theme: $theme
+);
+@use '../../train/train-formation/train-formation.global' as train-formation with (
+  $theme: $theme
+);
+@use '../../train/train-wagon-common.global' as train-wagon-common with (
+  $theme: $theme
+);
 @use '../../tabs/common/tab-label-common.global' as tab-label-common with (
   $theme: $theme
 );
@@ -280,6 +313,9 @@ $theme: 'standard' !default;
 @use '../../tooltip/tooltip.global' as tooltip with (
   $theme: $theme
 );
+@use '../../toast/toast.global' as toast with (
+  $theme: $theme
+);
 @use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
   $theme: $theme
 );
@@ -291,6 +327,8 @@ $theme: 'standard' !default;
   // Grab CSS vars defined by `@sbb-esta/lyne-design-tokens` package
   @include sbb-css-tokens.base;
 
+  @include alert.base;
+  @include alert-group.base;
   @include breadcrumb.base;
   @include breadcrumb-group.base;
   @include button.base;
@@ -317,6 +355,7 @@ $theme: 'standard' !default;
   @include expansion-panel.base;
   @include expansion-panel-content.base;
   @include expansion-panel-header.base;
+  @include file-selector.base;
   @include flip-card.base;
   @include flip-card-details.base;
   @include footer.base;
@@ -334,6 +373,11 @@ $theme: 'standard' !default;
   @include menu.base;
   @include menu-action.base;
   @include message.base;
+  @include navigation.base;
+  @include navigation-action.base;
+  @include navigation-list.base;
+  @include navigation-marker.base;
+  @include navigation-section.base;
   @include mini-calendar-day.base;
   @include mini-calendar-month.base;
   @include notification.base;
@@ -358,6 +402,9 @@ $theme: 'standard' !default;
   @include stepper.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
+  @include train-blocked-passage.base;
+  @include train-formation.base;
+  @include train-wagon-common.base;
   @include tag.base;
   @include teaser.base;
   @include teaser-hero.base;
@@ -372,11 +419,13 @@ $theme: 'standard' !default;
   @include toggle.base;
   @include toggle-option.base;
   @include tooltip.base;
+  @include toast.base;
   @include visual-checkbox.base;
 
   @include a11y.if-forced-colors {
     @include sbb-css-tokens.forced-colors;
 
+    @include alert.base-forced-colors;
     @include breadcrumb.base-forced-colors;
     @include card.base-forced-colors;
     @include card-badge.base-forced-colors;
@@ -393,12 +442,10 @@ $theme: 'standard' !default;
     @include tag.base-forced-colors;
     @include toggle-check.base-forced-colors;
     @include toggle.base-forced-colors;
+    @include train-blocked-passage.forced-colors;
+    @include train-formation.forced-colors;
+    @include train-wagon-common.forced-colors;
   }
-
-  // Train formation
-  --sbb-train-formation-wagon-width: #{functions.px-to-rem-build(80)};
-  --sbb-train-formation-wagon-height: #{functions.px-to-rem-build(40)};
-  --sbb-train-formation-wagon-gap: var(--sbb-spacing-fixed-1x);
 
   // Overlay
   --sbb-overlay-default-z-index: 1000;
@@ -446,6 +493,7 @@ $theme: 'standard' !default;
   @include mediaqueries.mq($from: small) {
     @include sbb-css-tokens.breakpoint-small;
 
+    @include alert.base-breakpoint-small;
     @include dialog.base-breakpoint-small;
     @include footer.base-breakpoint-small;
     @include notification.base-breakpoint-small;
@@ -454,12 +502,14 @@ $theme: 'standard' !default;
   @include mediaqueries.mq($from: large) {
     @include sbb-css-tokens.breakpoint-large;
 
+    @include alert.base-breakpoint-large;
     @include button.base-breakpoint-large;
     @include chip-group.base-breakpoint-large;
-    @include dialog.base-breakpoint-large;
     @include flip-card.base-breakpoint-large;
     @include form-field.base-breakpoint-large;
     @include header.base-breakpoint-large;
+    @include navigation.base-breakpoint-large;
+    @include navigation-section.base-breakpoint-large;
     @include menu.base-breakpoint-large;
     @include teaser-panel.base-breakpoint-large;
     @include teaser-product-common.base-breakpoint-large;
@@ -479,6 +529,8 @@ $theme: 'standard' !default;
 
     @include lead-container.base-breakpoint-ultra;
     @include map-container.base-breakpoint-ultra;
+    @include navigation.base-breakpoint-ultra;
+    @include navigation-section.base-breakpoint-ultra;
     @include teaser-panel.base-breakpoint-ultra;
   }
 }
@@ -609,39 +661,6 @@ img {
     transition: filter var(--sbb-teaser-image-animation-duration)
       var(--sbb-teaser-image-animation-easing);
   }
-}
-
-// TODO: move to train formation after CSS refactoring
-sbb-train-formation:has(sbb-train[direction-label]) {
-  --sbb-train-formation-reserve-spacing-display: block;
-}
-
-// TODO: move to train formation after CSS refactoring
-sbb-train-formation:has(sbb-train-wagon[sector]) {
-  --sbb-train-formation-show-sectors-gap: 1;
-}
-
-// TODO: move to train formation after CSS refactoring
-sbb-train-formation:not(:has(sbb-train-wagon[label])) {
-  --sbb-train-formation-wagon-label-display: none;
-}
-
-// TODO: Move to sbb-train-wagon after CSS refactoring
-sbb-train-formation[view='side'] sbb-train-wagon {
-  --sbb-train-wagon-wagon-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M12.5,0.5 h55 a12,12 0 0 1 12,12 v15 a12,12 0 0 1 -12,12 h-55 a12,12 0 0 1 -12,-12 v-15 a12,12 0 0 1 12,-12 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E");
-  --sbb-train-wagon-wagon-closed-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Crect x='0.5' y='0.5' width='79' height='39' rx='11.5' stroke='%23000000'/%3E%3Cpath d='M76 4L4 36' stroke='%23000000'/%3E%3Cpath d='M76 36L4 4' stroke='%23000000'/%3E%3C/svg%3E");
-  --sbb-train-wagon-wagon-end-left-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M10.745 7.90416C13.5624 3.30431 18.5686 0.5 23.9627 0.5H68C74.3513 0.5 79.5 5.64873 79.5 12V28C79.5 34.3513 74.3513 39.5 68 39.5H11.922C2.93614 39.5 -2.57807 29.6562 2.11537 21.9934L10.745 7.90416Z' stroke='%23000000'/%3E%3C/svg%3E");
-  --sbb-train-wagon-locomotive-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M10.745 7.90416C13.5624 3.30431 18.5686 0.5 23.9627 0.5H56.0373C61.4314 0.5 66.4376 3.30432 69.255 7.90416L77.8846 21.9934C82.5781 29.6562 77.0639 39.5 68.078 39.5H11.922C2.93615 39.5 -2.57807 29.6562 2.11537 21.9934L10.745 7.90416Z' stroke='%23000000'/%3E%3C/svg%3E");
-  --sbb-train-wagon-wagon-end-right-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M0.5 12C0.5 5.64873 5.64873 0.5 12 0.5H56.0373C61.4314 0.5 66.4376 3.30432 69.255 7.90416L77.8846 21.9934C82.5781 29.6562 77.0638 39.5 68.0779 39.5H12C5.64873 39.5 0.5 34.3513 0.5 28V12Z' stroke='%23000000'/%3E%3C/svg%3E");
-}
-
-// TODO: Move to sbb-train-wagon after CSS refactoring
-sbb-train-formation[view='top'] sbb-train-wagon {
-  --sbb-train-wagon-wagon-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M8.5,0.5 h63 a8,8 0 0 1 8,8 v23 a8,8 0 0 1 -8,8 h-63 a8,8 0 0 1 -8,-8 v-23 a8,8 0 0 1 8,-8 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E%0A");
-  --sbb-train-wagon-wagon-closed-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Crect x='0.5' y='0.5' width='79' height='39' rx='7.5' stroke='%23000000'/%3E%3Cpath d='M77.5 2.5L2.5 37.5' stroke='%23000000'/%3E%3Cpath d='M77.5 37.5L2.5 2.5' stroke='%23000000'/%3E%3C/svg%3E");
-  --sbb-train-wagon-wagon-end-left-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath transform='translate(80,40) rotate(180)' d='M8.5,0.5 h51.5 a19.5,19.5 0 0 1 19.5,19.5 v0 a19.5,19.5 0 0 1 -19.5,19.5 h-51.5 a8,8 0 0 1 -8,-8 v-23 a8,8 0 0 1 8,-8 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E");
-  --sbb-train-wagon-locomotive-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M20,0.5 h40 a19.5,19.5 0 0 1 19.5,19.5 v0 a19.5,19.5 0 0 1 -19.5,19.5 h-40 a19.5,19.5 0 0 1 -19.5,-19.5 v0 a19.5,19.5 0 0 1 19.5,-19.5 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E%0A");
-  --sbb-train-wagon-wagon-end-right-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M8.5,0.5 h51.5 a19.5,19.5 0 0 1 19.5,19.5 v0 a19.5,19.5 0 0 1 -19.5,19.5 h-51.5 a8,8 0 0 1 -8,-8 v-23 a8,8 0 0 1 8,-8 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E");
 }
 
 .sbb-overlay-outlet {

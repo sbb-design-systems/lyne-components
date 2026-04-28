@@ -116,7 +116,6 @@ export class SbbMapContainerElement extends SbbElement {
               class="sbb-map-container__sidebar-button"
               size="l"
               icon-name="location-pin-map-small"
-              type="button"
               @click=${() => this._onScrollButtonClick()}
               ?inert=${!this._scrollUpButtonVisible}
             >

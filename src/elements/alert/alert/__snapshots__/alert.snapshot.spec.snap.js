@@ -21,40 +21,38 @@ snapshots["sbb-alert should render default properties DOM"] =
 
 snapshots["sbb-alert should render default properties Shadow DOM"] = 
 `<div class="sbb-alert__transition-wrapper">
-  <div class="sbb-alert__transition-sub-wrapper">
-    <div class="sbb-alert">
-      <span class="sbb-alert__icon">
-        <slot name="icon">
-          <sbb-icon name="info">
-          </sbb-icon>
+  <div class="sbb-alert">
+    <span class="sbb-alert__icon">
+      <slot name="icon">
+        <sbb-icon name="info">
+        </sbb-icon>
+      </slot>
+    </span>
+    <span class="sbb-alert__content">
+      <slot name="title">
+      </slot>
+      <p class="sbb-alert__content-slot">
+        <slot>
         </slot>
-      </span>
-      <span class="sbb-alert__content">
-        <slot name="title">
-        </slot>
-        <p class="sbb-alert__content-slot">
-          <slot>
-          </slot>
-        </p>
-      </span>
-      <span class="sbb-alert__close-button-wrapper">
-        <sbb-divider
-          class="sbb-alert__close-button-divider"
-          negative=""
-          orientation="vertical"
-        >
-        </sbb-divider>
-        <sbb-transparent-button
-          aria-label="Close message"
-          class="sbb-alert__close-button"
-          icon-name="cross-small"
-          negative=""
-          size="m"
-          tabindex="0"
-        >
-        </sbb-transparent-button>
-      </span>
-    </div>
+      </p>
+    </span>
+    <span class="sbb-alert__close-button-wrapper">
+      <sbb-divider
+        class="sbb-alert__close-button-divider"
+        negative=""
+        orientation="vertical"
+      >
+      </sbb-divider>
+      <sbb-transparent-button
+        aria-label="Close message"
+        class="sbb-alert__close-button"
+        icon-name="cross-small"
+        negative=""
+        size="m"
+        tabindex="0"
+      >
+      </sbb-transparent-button>
+    </span>
   </div>
 </div>
 `;
@@ -87,40 +85,38 @@ snapshots["sbb-alert should render customized properties DOM"] =
 
 snapshots["sbb-alert should render customized properties Shadow DOM"] = 
 `<div class="sbb-alert__transition-wrapper">
-  <div class="sbb-alert__transition-sub-wrapper">
-    <div class="sbb-alert">
-      <span class="sbb-alert__icon">
-        <slot name="icon">
-          <sbb-icon name="disruption">
-          </sbb-icon>
+  <div class="sbb-alert">
+    <span class="sbb-alert__icon">
+      <slot name="icon">
+        <sbb-icon name="disruption">
+        </sbb-icon>
+      </slot>
+    </span>
+    <span class="sbb-alert__content">
+      <slot name="title">
+      </slot>
+      <p class="sbb-alert__content-slot">
+        <slot>
         </slot>
-      </span>
-      <span class="sbb-alert__content">
-        <slot name="title">
-        </slot>
-        <p class="sbb-alert__content-slot">
-          <slot>
-          </slot>
-        </p>
-      </span>
-      <span class="sbb-alert__close-button-wrapper">
-        <sbb-divider
-          class="sbb-alert__close-button-divider"
-          negative=""
-          orientation="vertical"
-        >
-        </sbb-divider>
-        <sbb-transparent-button
-          aria-label="Close message"
-          class="sbb-alert__close-button"
-          icon-name="cross-small"
-          negative=""
-          size="m"
-          tabindex="0"
-        >
-        </sbb-transparent-button>
-      </span>
-    </div>
+      </p>
+    </span>
+    <span class="sbb-alert__close-button-wrapper">
+      <sbb-divider
+        class="sbb-alert__close-button-divider"
+        negative=""
+        orientation="vertical"
+      >
+      </sbb-divider>
+      <sbb-transparent-button
+        aria-label="Close message"
+        class="sbb-alert__close-button"
+        icon-name="cross-small"
+        negative=""
+        size="m"
+        tabindex="0"
+      >
+      </sbb-transparent-button>
+    </span>
   </div>
 </div>
 `;
@@ -150,50 +146,44 @@ snapshots["sbb-alert should render customized properties A11y tree Chrome"] =
                   "children": [
                     {
                       "ignored": true,
-                      "role": "none",
-                      "children": [
-                        {
-                          "ignored": true,
-                          "role": "none"
-                        }
-                      ]
+                      "role": "none"
+                    }
+                  ]
+                },
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "role": "heading",
+                      "name": "Interruption",
+                      "level": 2
                     },
                     {
-                      "ignored": true,
-                      "role": "none",
-                      "children": [
-                        {
-                          "role": "heading",
-                          "name": "Interruption",
-                          "level": 2
-                        },
-                        {
-                          "role": "StaticText",
-                          "name": "Alert content Alert content "
-                        },
-                        {
-                          "role": "generic",
-                          "name": ""
-                        }
-                      ]
+                      "role": "StaticText",
+                      "name": "Alert content Alert content "
                     },
                     {
-                      "ignored": true,
-                      "role": "none",
-                      "children": [
-                        {
-                          "role": "separator",
-                          "name": "",
-                          "settable": true,
-                          "orientation": "vertical"
-                        },
-                        {
-                          "role": "button",
-                          "name": "Close message",
-                          "invalid": false,
-                          "focusable": true
-                        }
-                      ]
+                      "role": "generic",
+                      "name": ""
+                    }
+                  ]
+                },
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "role": "separator",
+                      "name": "",
+                      "settable": true,
+                      "orientation": "vertical"
+                    },
+                    {
+                      "role": "button",
+                      "name": "Close message",
+                      "invalid": false,
+                      "focusable": true
                     }
                   ]
                 }
