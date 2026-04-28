@@ -75,7 +75,3 @@
 
   color: var(--sbb-color-2);
 }
-
-.sbb-screen-reader-only {
-  @include sbb.screen-reader-only;
-}

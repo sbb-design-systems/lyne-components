@@ -17,7 +17,7 @@ import {
   SbbLanguageController,
   SbbNegativeMixin,
   SbbReadonlyMixin,
-  SbbScreenReaderOnlyElement,
+  screenReaderOnlyStyles,
 } from '../../core.ts';
 
 import style from './chip.scss?inline';
@@ -32,12 +32,13 @@ export class SbbChipElement<T = string> extends SbbNegativeMixin(
   SbbDisabledMixin(SbbReadonlyMixin(SbbElement)),
 ) {
   public static override readonly elementName: string = 'sbb-chip';
-  public static override elementDependencies: SbbElementType[] = [
-    SbbMiniButtonElement,
-    SbbScreenReaderOnlyElement,
-  ];
+  public static override elementDependencies: SbbElementType[] = [SbbMiniButtonElement];
   public static override readonly role = 'option';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
   public static readonly events = {
     requestdelete: 'requestdelete',
   } as const;
@@ -90,7 +91,7 @@ export class SbbChipElement<T = string> extends SbbNegativeMixin(
         @click=${this._handleDeleteButtonClick}
       >
       </sbb-mini-button>
-      <sbb-screen-reader-only>, ${i18nChipDelete[this._language.current]}</sbb-screen-reader-only>
+      <span class="sbb-screen-reader-only">, ${i18nChipDelete[this._language.current]}</span>
     `;
   }
 }

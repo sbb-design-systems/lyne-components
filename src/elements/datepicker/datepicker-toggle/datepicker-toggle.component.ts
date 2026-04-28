@@ -1,9 +1,8 @@
-import type { CSSResultGroup, PropertyDeclaration } from 'lit';
+import type { PropertyDeclaration } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { miniButtonStyle } from '../../button.pure.ts';
-import { boxSizingStyles, i18nShowCalendar, idReference } from '../../core.ts';
-import { datepickerButtonStyle, SbbDatepickerButtonBase } from '../common/datepicker-button.ts';
+import { i18nShowCalendar, idReference } from '../../core.ts';
+import { SbbDatepickerButtonBase } from '../common/datepicker-button.ts';
 import type { SbbDatepickerElement } from '../datepicker/datepicker.component.ts';
 
 /**
@@ -11,11 +10,6 @@ import type { SbbDatepickerElement } from '../datepicker/datepicker.component.ts
  */
 export class SbbDatepickerToggleElement<T = Date> extends SbbDatepickerButtonBase<T> {
   public static override readonly elementName: string = 'sbb-datepicker-toggle';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    miniButtonStyle,
-    datepickerButtonStyle,
-  ];
 
   protected override iconName = 'calendar-small';
 

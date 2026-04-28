@@ -1,16 +1,7 @@
 import type { CSSResultGroup } from 'lit';
 
-import {
-  boxSizingStyles,
-  SbbDisabledInteractiveMixin,
-  SbbDisabledMixin,
-  SbbLinkBaseElement,
-} from '../../core.ts';
-import {
-  buttonAccentStyle,
-  buttonCommonStyle,
-  SbbButtonCommonElementMixin,
-} from '../common/button-common.ts';
+import { SbbDisabledInteractiveMixin, SbbDisabledMixin, SbbLinkBaseElement } from '../../core.ts';
+import { buttonAccentStyle, SbbButtonCommonElementMixin } from '../common/button-common.ts';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'accent' variant, which will behave as a link.
@@ -23,11 +14,7 @@ export class SbbAccentButtonLinkElement extends SbbButtonCommonElementMixin(
   SbbDisabledInteractiveMixin(SbbDisabledMixin(SbbLinkBaseElement)),
 ) {
   public static override readonly elementName: string = 'sbb-accent-button-link';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    buttonCommonStyle,
-    buttonAccentStyle,
-  ];
+  public static override styles: CSSResultGroup = [super.styles ?? [], buttonAccentStyle];
 }
 
 declare global {

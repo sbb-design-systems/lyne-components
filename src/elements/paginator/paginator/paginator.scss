@@ -209,8 +209,3 @@
     var(--sbb-paginator-animation-easing);
   transform: translateY(var(--sbb-paginator-translate-y-content-hover, #{sbb.px-to-rem-build(0)}));
 }
-
-// Needed for the sbb-select
-.sbb-screen-reader-only {
-  @include sbb.screen-reader-only;
-}

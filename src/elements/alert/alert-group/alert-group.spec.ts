@@ -57,7 +57,7 @@ describe(`sbb-alert-group`, () => {
 
     // Then two alerts should be rendered and accessibility title should be displayed
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(2);
-    const alertGroupTitle = element.shadowRoot!.querySelector('.sbb-alert-group__title')!;
+    const alertGroupTitle = element.shadowRoot!.querySelector('.sbb-screen-reader-only')!;
     expect(alertGroupTitle.textContent!.trim()).to.be.equal(accessibilityTitle);
     expect(alertGroupTitle.localName).to.be.equal(`h${accessibilityTitleLevel}`);
 
@@ -77,7 +77,7 @@ describe(`sbb-alert-group`, () => {
     expect(element.tabIndex).to.be.equal(0);
     expect(document.activeElement!.id).to.be.equal(alertGroupId);
     expect(
-      element.shadowRoot!.querySelector('.sbb-alert-group__title')!.textContent!.trim(),
+      element.shadowRoot!.querySelector('.sbb-screen-reader-only')!.textContent!.trim(),
     ).to.be.equal(accessibilityTitle);
     expect(emptySpy.count).to.be.equal(0);
 
@@ -96,7 +96,7 @@ describe(`sbb-alert-group`, () => {
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(0);
     expect(element.tabIndex).to.be.equal(0);
     expect(document.activeElement!.id).to.be.equal(alertGroupId);
-    expect(element.shadowRoot!.querySelector('.sbb-alert-group__title')).to.be.null;
+    expect(element.shadowRoot!.querySelector('.sbb-screen-reader-only')).to.be.null;
 
     // When clicking away
     await sendMouse({ type: 'click', position: [0, 0] });
@@ -115,7 +115,7 @@ describe(`sbb-alert-group`, () => {
     const emptySpy = new EventSpy(SbbAlertGroupElement.events.empty);
 
     // Then no title should be rendered and no empty event fired
-    expect(element.shadowRoot!.querySelector('.sbb-alert-group__title')).to.be.null;
+    expect(element.shadowRoot!.querySelector('.sbb-screen-reader-only')).to.be.null;
     expect(emptySpy.count).not.to.be.greaterThan(0);
   });
 });

@@ -34,8 +34,11 @@ snapshots["sbb-overlay renders Shadow DOM"] =
     </div>
   </div>
 </div>
-<sbb-screen-reader-only aria-live="polite">
-</sbb-screen-reader-only>
+<span
+  aria-live="polite"
+  class="sbb-screen-reader-only"
+>
+</span>
 `;
 /* end snapshot sbb-overlay renders Shadow DOM */
 

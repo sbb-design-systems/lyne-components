@@ -10,7 +10,3 @@
   margin: 0;
   white-space: nowrap;
 }
-
-.duration__text--visually-hidden {
-  @include sbb.screen-reader-only;
-}

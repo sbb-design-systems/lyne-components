@@ -1,17 +1,16 @@
-import { type PropertyValues, unsafeCSS } from 'lit';
+import { type CSSResultGroup, type PropertyValues, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbCheckboxGroupElement } from '../../checkbox-group/checkbox-group.component.ts';
 import {
   type AbstractConstructor,
+  boxSizingStyles,
   forceType,
   SbbElement,
   SbbFormAssociatedCheckboxMixin,
 } from '../../core.ts';
 
-import checkboxCommonStyleString from './checkbox-common.scss?inline';
-
-export const checkboxCommonStyle = unsafeCSS(checkboxCommonStyleString);
+import style from './checkbox-common.scss?inline';
 
 export type SbbCheckboxSize = 'xs' | 's' | 'm';
 
@@ -27,10 +26,18 @@ export declare abstract class SbbCheckboxCommonElementMixinType extends SbbFormA
 export const SbbCheckboxCommonElementMixin = <T extends AbstractConstructor<SbbElement>>(
   superClass: T,
 ): AbstractConstructor<SbbCheckboxCommonElementMixinType> & T => {
+  const baseClass = SbbFormAssociatedCheckboxMixin(superClass);
+
   abstract class SbbCheckboxCommonElement
-    extends SbbFormAssociatedCheckboxMixin(superClass)
+    extends baseClass
     implements Partial<SbbCheckboxCommonElementMixinType>
   {
+    public static styles: CSSResultGroup = [
+      (baseClass as unknown as { styles: CSSResultGroup }).styles ?? [],
+      boxSizingStyles,
+      unsafeCSS(style),
+    ];
+
     /** Whether the checkbox is indeterminate. */
     @forceType()
     @property({ type: Boolean })

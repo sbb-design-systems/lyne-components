@@ -23,7 +23,7 @@ import style from './mini-calendar-day.scss?inline';
  */
 export class SbbMiniCalendarDayElement<T = Date> extends SbbButtonBaseElement {
   public static override readonly elementName: string = 'sbb-mini-calendar-day';
-  public static override styles: CSSResultGroup = unsafeCSS(style);
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 

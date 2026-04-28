@@ -28,8 +28,11 @@ snapshots["sbb-dialog renders an open dialog Shadow DOM"] =
     </div>
   </div>
 </div>
-<sbb-screen-reader-only aria-live="polite">
-</sbb-screen-reader-only>
+<span
+  aria-live="polite"
+  class="sbb-screen-reader-only"
+>
+</span>
 `;
 /* end snapshot sbb-dialog renders an open dialog Shadow DOM */
 
@@ -68,8 +71,11 @@ snapshots["sbb-dialog renders an open dialog with close button negative Shadow D
     </div>
   </div>
 </div>
-<sbb-screen-reader-only aria-live="polite">
-</sbb-screen-reader-only>
+<span
+  aria-live="polite"
+  class="sbb-screen-reader-only"
+>
+</span>
 `;
 /* end snapshot sbb-dialog renders an open dialog with close button negative Shadow DOM */
 

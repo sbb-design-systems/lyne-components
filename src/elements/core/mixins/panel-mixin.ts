@@ -1,4 +1,4 @@
-import { type LitElement, unsafeCSS } from 'lit';
+import { type CSSResultGroup, type LitElement, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbCheckboxSize } from '../../checkbox/common/checkbox-common.ts';
@@ -8,11 +8,10 @@ import type { SbbRadioButtonGroupElement } from '../../radio-button-group.pure.t
 import { forceType } from '../decorators/force-type.ts';
 import { getOverride } from '../decorators/get-override.ts';
 import { isLean } from '../dom/lean-context.ts';
+import { boxSizingStyles } from '../styles/styles.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
-import panelCommonStyleString from './panel-common.scss?inline';
-
-export const panelCommonStyle = unsafeCSS(panelCommonStyleString);
+import style from './panel-common.scss?inline';
 
 interface SbbPanelWithGroup {
   group: SbbCheckboxGroupElement | SbbRadioButtonGroupElement | null;
@@ -33,6 +32,12 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement & SbbPane
   superClass: T,
 ): AbstractConstructor<SbbPanelMixinType> & T => {
   abstract class SbbPanelElement extends superClass implements SbbPanelMixinType {
+    public static styles: CSSResultGroup = [
+      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
+      boxSizingStyles,
+      unsafeCSS(style),
+    ];
+
     /** The background color of the panel. */
     @property({ reflect: true }) public accessor color: 'white' | 'milk' = 'white';
 

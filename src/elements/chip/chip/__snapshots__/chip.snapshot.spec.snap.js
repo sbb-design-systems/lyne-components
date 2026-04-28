@@ -25,9 +25,9 @@ snapshots["sbb-chip renders Shadow DOM"] =
   tabindex="0"
 >
 </sbb-mini-button>
-<sbb-screen-reader-only>
+<span class="sbb-screen-reader-only">
   , Press the Delete button to remove the chip
-</sbb-screen-reader-only>
+</span>
 `;
 /* end snapshot sbb-chip renders Shadow DOM */
 
@@ -56,9 +56,9 @@ snapshots["sbb-chip renders with label Shadow DOM"] =
   tabindex="0"
 >
 </sbb-mini-button>
-<sbb-screen-reader-only>
+<span class="sbb-screen-reader-only">
   , Press the Delete button to remove the chip
-</sbb-screen-reader-only>
+</span>
 `;
 /* end snapshot sbb-chip renders with label Shadow DOM */
 
@@ -86,9 +86,9 @@ snapshots["sbb-chip renders disabled Shadow DOM"] =
   tabindex="0"
 >
 </sbb-mini-button>
-<sbb-screen-reader-only>
+<span class="sbb-screen-reader-only">
   , Press the Delete button to remove the chip
-</sbb-screen-reader-only>
+</span>
 `;
 /* end snapshot sbb-chip renders disabled Shadow DOM */
 

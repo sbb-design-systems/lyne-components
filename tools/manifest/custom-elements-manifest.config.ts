@@ -3,6 +3,8 @@ import type {
   JSDoc,
   LiteralTypeNode,
   TypeReferenceNode,
+  Node,
+  ClassDeclaration as AnalyzerClassDeclaration,
 } from '@custom-elements-manifest/analyzer/node_modules/typescript';
 import { FEATURES } from '@custom-elements-manifest/analyzer/src/features/index.js';
 import { resolveModuleOrPackageSpecifier } from '@custom-elements-manifest/analyzer/src/utils/index.js';
@@ -23,6 +25,17 @@ import type {
   Reference,
   Type,
 } from 'custom-elements-manifest';
+
+/**
+ * Resolves a heritage expression node to its original mixin-call source text,
+ * using local variable aliases tracked per module file.
+ *
+ * For example, `const baseClass = SbbIconNameMixin(superClass)` followed by
+ * `extends baseClass` will be resolved to `SbbIconNameMixin(superClass)`.
+ *
+ * This map is keyed by file path and maps variable name -> initializer source text.
+ */
+const localVarAliasMap = new Map<string, Map<string, string>>();
 
 const overrideTypeKey = 'overrideType' as const;
 const classGenericsTypeKey = 'classGenerics' as const;
@@ -153,6 +166,134 @@ export function createManifestConfig(library = '') {
               });
             });
           };
+
+          /**
+           * Patch the CORE-MIXINS plugin to resolve local variable aliases used in
+           * `extends baseClass` where `const baseClass = SomeMixin(superClass)`.
+           * The standard plugin calls `handleHeritage` which sets superclass to the
+           * local variable name, then `turnClassDocIntoMixin` deletes superclass.
+           * We patch the `analyzePhase` to run our fix after the standard one.
+           */
+          const mixinsPlugin = FEATURES.find((p) => p.name === 'CORE - MIXINS');
+          if (mixinsPlugin) {
+            const originalAnalyzePhase = mixinsPlugin.analyzePhase?.bind(mixinsPlugin);
+            mixinsPlugin.analyzePhase = (params) => {
+              const { ts, node, moduleDoc } = params;
+
+              // Step 1: Pre-scan the entire node subtree for local variable aliases
+              // (e.g. `const baseClass = SomeMixin(superClass)` nested inside arrow fns)
+              // This must run BEFORE the original plugin creates the mixin declaration.
+              const filePath = node.getSourceFile?.()?.fileName;
+              if (filePath && ts.isVariableStatement(node)) {
+                const collectAliases = (n: Node): void => {
+                  if (ts.isVariableStatement(n) && n !== node) {
+                    n.declarationList.declarations.forEach((varDecl) => {
+                      if (
+                        varDecl.name &&
+                        ts.isIdentifier(varDecl.name) &&
+                        varDecl.initializer &&
+                        ts.isCallExpression(varDecl.initializer)
+                      ) {
+                        if (!localVarAliasMap.has(filePath)) {
+                          localVarAliasMap.set(filePath, new Map());
+                        }
+                        localVarAliasMap
+                          .get(filePath)!
+                          .set(varDecl.name.text, varDecl.initializer.getText());
+                      }
+                    });
+                  }
+                  ts.forEachChild(n, collectAliases);
+                };
+                collectAliases(node);
+              }
+
+              // Step 2: run original to create mixin declaration
+              originalAnalyzePhase?.(params);
+
+              // Step 3: fix mixin mixins list if inner class extends a local alias
+              if (!filePath || !ts.isVariableStatement(node)) {
+                return;
+              }
+              const aliases = localVarAliasMap.get(filePath);
+              if (!aliases) {
+                return;
+              }
+
+              node.declarationList.declarations.forEach((varDecl) => {
+                if (!varDecl.initializer || !ts.isArrowFunction(varDecl.initializer)) {
+                  return;
+                }
+                const mixinName =
+                  varDecl.name && ts.isIdentifier(varDecl.name) ? varDecl.name.text : null;
+                if (!mixinName) {
+                  return;
+                }
+                const mixinDoc = moduleDoc.declarations?.find(
+                  (d: Declaration) => d.name === mixinName && d.kind === 'mixin',
+                );
+                if (!mixinDoc || mixinDoc.mixins?.length) {
+                  return;
+                }
+
+                const findClass = (n: Node): AnalyzerClassDeclaration | undefined => {
+                  if (ts.isClassDeclaration(n)) {
+                    return n;
+                  }
+                  let found: AnalyzerClassDeclaration | undefined;
+                  ts.forEachChild(n, (child) => {
+                    if (!found) {
+                      found = findClass(child);
+                    }
+                  });
+                  return found;
+                };
+                const innerClass = findClass(varDecl.initializer.body);
+                if (!innerClass) {
+                  return;
+                }
+
+                const extendsClause = innerClass.heritageClauses?.find(
+                  (c) => c.token === ts.SyntaxKind.ExtendsKeyword,
+                );
+                if (!extendsClause) {
+                  return;
+                }
+
+                extendsClause.types.forEach((heritageType) => {
+                  const expr = heritageType.expression;
+                  if (!ts.isIdentifier(expr)) {
+                    return;
+                  }
+                  const aliasName = expr.text;
+                  const initText = aliases.get(aliasName);
+                  if (!initText) {
+                    return;
+                  }
+
+                  const stripGenerics = (s: string): string => s.replace(/[<>]/g, '');
+                  const mixinChain: string[] = [];
+                  let remaining = initText;
+                  const callPattern = /^(\w+)\((.+)\)$/;
+                  while (callPattern.test(stripGenerics(remaining))) {
+                    const parenIdx = remaining.indexOf('(');
+                    const lastParen = remaining.lastIndexOf(')');
+                    const outerName = stripGenerics(remaining.slice(0, parenIdx)).trim();
+                    mixinChain.push(outerName);
+                    remaining = stripGenerics(remaining.slice(parenIdx + 1, lastParen)).trim();
+                  }
+
+                  if (mixinChain.length > 0) {
+                    // Overwrite, deduplicating by name (original plugin may have partially set mixins)
+                    const seen = new Set<string>();
+                    mixinDoc.mixins = mixinChain
+                      .map((name) => ({ name }))
+                      .filter(({ name }) => (seen.has(name) ? false : seen.add(name)));
+                  }
+                });
+              });
+            };
+          }
         },
         analyzePhase({ ts, node, moduleDoc }) {
           if (ts.isClassDeclaration(node)) {
@@ -325,6 +466,61 @@ export function createManifestConfig(library = '') {
             klass.members = klass?.members?.filter(
               (member) => !memberDenyList.includes(member.name),
             );
+          });
+
+          /**
+           * Resolve local variable aliases in superclass/mixins.
+           * When code uses `const baseClass = SomeMixin(superClass)` followed by
+           * `extends baseClass`, the CEM analyzer sets superclass.name to "baseClass"
+           * (an unresolvable local variable). Here we look up the alias map and
+           * re-parse the mixin chain from the initializer expression text.
+           */
+          const modulePath = moduleDoc?.path;
+          if (!modulePath) {
+            return;
+          }
+          // Find the matching file path in the alias map (moduleDoc.path may be relative)
+          const aliasEntry = [...localVarAliasMap.entries()].find(([filePath]) =>
+            filePath.endsWith(modulePath.replace(/\.js$/, '.ts')),
+          );
+          if (!aliasEntry) {
+            return;
+          }
+          const aliases = aliasEntry[1];
+
+          const allDeclarations = moduleDoc?.declarations as
+            | undefined
+            | (ClassDeclaration & {
+                mixins?: { name: string }[];
+                superclass?: { name: string };
+              })[];
+
+          allDeclarations?.forEach((decl) => {
+            if (decl.kind !== 'class' && decl.kind !== 'mixin') {
+              return;
+            }
+            const superclassName = decl.superclass?.name;
+            if (superclassName && aliases.has(superclassName)) {
+              // Parse the mixin chain from the alias initializer
+              // e.g. "SbbIconNameMixin(superClass)" -> mixin: SbbIconNameMixin, superClass: superClass
+              const initText = aliases.get(superclassName)!;
+              const mixinChain: string[] = [];
+              let remaining = initText;
+              // Unwrap nested calls: OuterMixin(InnerMixin(base)) -> [OuterMixin, InnerMixin], base
+              const callPattern = /^(\w+)\((.+)\)$/;
+              while (callPattern.test(remaining)) {
+                const match = remaining.match(callPattern)!;
+                mixinChain.push(match[1]);
+                remaining = match[2];
+              }
+              // remaining is now the final superClass argument
+              if (mixinChain.length > 0) {
+                decl.superclass = { name: remaining };
+                const existingMixins = decl.mixins ?? [];
+                // Prepend newly discovered mixins (outermost first)
+                decl.mixins = [...mixinChain.map((name) => ({ name })), ...existingMixins];
+              }
+            }
           });
         },
         packageLinkPhase({ customElementsManifest }) {

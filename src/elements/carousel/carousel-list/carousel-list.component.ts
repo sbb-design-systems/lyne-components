@@ -22,7 +22,7 @@ import style from './carousel-list.scss?inline';
  */
 export class SbbCarouselListElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-carousel-list';
-  public static override styles: CSSResultGroup = unsafeCSS(style);
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   private _currentIndex = 0;
   private _language = new SbbLanguageController(this);

@@ -17,7 +17,7 @@ export interface SbbCarouselItemEventDetail {
  */
 export class SbbCarouselItemElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-carousel-item';
-  public static override styles: CSSResultGroup = unsafeCSS(style);
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events: Record<string, string> = {
     beforeshow: 'beforeshow',
     show: 'show',

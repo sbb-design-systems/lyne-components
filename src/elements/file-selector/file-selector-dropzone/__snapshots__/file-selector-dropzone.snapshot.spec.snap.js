@@ -29,13 +29,13 @@ snapshots["sbb-file-selector-dropzone renders Shadow DOM"] =
       </span>
     </span>
     <input
-      class="sbb-file-selector__visually-hidden"
+      class="sbb-screen-reader-only"
       type="file"
     >
   </label>
 </div>
 <p
-  class="sbb-file-selector__visually-hidden"
+  class="sbb-screen-reader-only"
   role="status"
 >
 </p>
@@ -77,14 +77,14 @@ snapshots["sbb-file-selector-dropzone renders multiple Shadow DOM"] =
       </span>
     </span>
     <input
-      class="sbb-file-selector__visually-hidden"
+      class="sbb-screen-reader-only"
       multiple=""
       type="file"
     >
   </label>
 </div>
 <p
-  class="sbb-file-selector__visually-hidden"
+  class="sbb-screen-reader-only"
   role="status"
 >
 </p>

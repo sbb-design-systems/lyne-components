@@ -26,7 +26,7 @@ snapshots["sbb-alert-group renders DOM"] =
 /* end snapshot sbb-alert-group renders DOM */
 
 snapshots["sbb-alert-group renders Shadow DOM"] = 
-`<h3 class="sbb-alert-group__title">
+`<h3 class="sbb-screen-reader-only">
   <slot name="accessibility-title">
     Disruptions
   </slot>
@@ -63,7 +63,7 @@ snapshots["sbb-alert-group renders with slotted DOM"] =
 /* end snapshot sbb-alert-group renders with slotted DOM */
 
 snapshots["sbb-alert-group renders with slotted Shadow DOM"] = 
-`<h3 class="sbb-alert-group__title">
+`<h3 class="sbb-screen-reader-only">
   <slot name="accessibility-title">
   </slot>
 </h3>

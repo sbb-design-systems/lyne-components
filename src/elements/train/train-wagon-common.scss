@@ -339,7 +339,3 @@
 .sbb-train-wagon__attribute-icon-list > :is(li, span) {
   display: inline-flex;
 }
-
-.sbb-screen-reader-only {
-  @include sbb.screen-reader-only;
-}

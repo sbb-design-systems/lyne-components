@@ -1656,9 +1656,15 @@ describe(`sbb-calendar`, () => {
             const rows = calendar.shadowRoot!.querySelectorAll('tbody tr');
             const cells = Array.from(rows).map((e) => e.querySelector('td')!);
             expect(cells.length).to.be.equal(5);
-            expect(cells[0].querySelector('span')!.textContent!.trim()).to.be.equal('14');
-            expect(cells[1].querySelector('span')!.textContent!.trim()).to.be.equal('15');
-            expect(cells[4].querySelector('span')!.textContent!.trim()).to.be.equal('18');
+            expect(
+              cells[0].querySelector('span:not(.sbb-screen-reader-only)')!.textContent!.trim(),
+            ).to.be.equal('14');
+            expect(
+              cells[1].querySelector('span:not(.sbb-screen-reader-only)')!.textContent!.trim(),
+            ).to.be.equal('15');
+            expect(
+              cells[4].querySelector('span:not(.sbb-screen-reader-only)')!.textContent!.trim(),
+            ).to.be.equal('18');
           });
 
           it('renders multiple', async () => {
@@ -1893,10 +1899,16 @@ describe(`sbb-calendar`, () => {
             expect(cells.length).to.be.equal(6);
             // The first cell is empty
             expect(cells[0].className).to.be.equal('sbb-calendar__table-data');
-            expect(cells[0].querySelector('span')).to.be.null;
-            expect(cells[1].querySelector('span')!.textContent!.trim()).to.be.equal('14');
-            expect(cells[2].querySelector('span')!.textContent!.trim()).to.be.equal('15');
-            expect(cells[5].querySelector('span')!.textContent!.trim()).to.be.equal('18');
+            expect(cells[0].querySelector('span:not(.sbb-screen-reader-only)')).to.be.null;
+            expect(
+              cells[1].querySelector('span:not(.sbb-screen-reader-only)')!.textContent!.trim(),
+            ).to.be.equal('14');
+            expect(
+              cells[2].querySelector('span:not(.sbb-screen-reader-only)')!.textContent!.trim(),
+            ).to.be.equal('15');
+            expect(
+              cells[5].querySelector('span:not(.sbb-screen-reader-only)')!.textContent!.trim(),
+            ).to.be.equal('18');
           });
 
           it('renders multiple', async () => {

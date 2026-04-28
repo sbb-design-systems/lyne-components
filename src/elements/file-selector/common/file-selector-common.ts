@@ -1,4 +1,4 @@
-import { nothing, type TemplateResult, unsafeCSS } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
@@ -25,12 +25,16 @@ import {
   SbbFormAssociatedMixin,
   sbbInputModalityDetector,
   SbbLanguageController,
+  screenReaderOnlyStyles,
   ɵstateController,
 } from '../../core.ts';
 
 import fileSelectorCommonStyleString from './file-selector-common.scss?inline';
 
-export const fileSelectorCommonStyle = unsafeCSS(fileSelectorCommonStyleString);
+export const fileSelectorCommonStyle: CSSResultGroup = [
+  screenReaderOnlyStyles,
+  unsafeCSS(fileSelectorCommonStyleString),
+];
 
 export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbDisabledMixin(
   SbbFormAssociatedMixin(SbbElement),
@@ -362,7 +366,7 @@ export const SbbFileSelectorCommonElementMixin = <
         >
           ${this.renderTemplate(
             html`<input
-              class="sbb-file-selector__visually-hidden"
+              class="sbb-screen-reader-only"
               type="file"
               ?disabled=${this.disabled || this.formDisabled}
               ?multiple=${this.multiple}
@@ -379,7 +383,7 @@ export const SbbFileSelectorCommonElementMixin = <
         </div>
         <p
           role="status"
-          class="sbb-file-selector__visually-hidden"
+          class="sbb-screen-reader-only"
           ${ref((p?: Element) => (this._liveRegion = p as HTMLParagraphElement))}
         ></p>
         ${this.files.length > 0 ? this._renderFileList() : nothing}

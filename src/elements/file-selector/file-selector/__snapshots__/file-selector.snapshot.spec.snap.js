@@ -17,13 +17,13 @@ snapshots["sbb-file-selector renders Shadow DOM"] =
       Choose a file
     </sbb-secondary-button-static>
     <input
-      class="sbb-file-selector__visually-hidden"
+      class="sbb-screen-reader-only"
       type="file"
     >
   </label>
 </div>
 <p
-  class="sbb-file-selector__visually-hidden"
+  class="sbb-screen-reader-only"
   role="status"
 >
 </p>

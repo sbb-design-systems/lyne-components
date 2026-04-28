@@ -48,7 +48,7 @@ describe('sbb-seat-reservation-navigation-services', () => {
     it('should render the service label description in the sbb-screen-reader-only element', async () => {
       element.setAttribute('property-ids', '["BISTRO"]');
       await waitForLitRender(element);
-      const screenReaderOnlyElement = element.shadowRoot?.querySelector('sbb-screen-reader-only');
+      const screenReaderOnlyElement = element.shadowRoot?.querySelector('.sbb-screen-reader-only');
       expect(screenReaderOnlyElement?.innerHTML).to.include('Bistro');
     });
   });
