@@ -271,7 +271,7 @@ export function createManifestConfig(library = '') {
                     return;
                   }
 
-                  const stripGenerics = (s: string): string => s.replace(/<[^>]*>/g, '');
+                  const stripGenerics = (s: string): string => s.replace(/[<>]/g, '');
                   const mixinChain: string[] = [];
                   let remaining = initText;
                   const callPattern = /^(\w+)\((.+)\)$/;

@@ -237,7 +237,7 @@ describe(`sbb-seat-reservation`, () => {
 
       const selectedScreenreaderElement: HTMLElement | null =
         element.shadowRoot!.querySelector<HTMLElement>(
-          `#sbb-sr-coach-caption-${element.preselectCoachIndex} sbb-screen-reader-only`,
+          `#sbb-sr-coach-caption-${element.preselectCoachIndex} .sbb-screen-reader-only`,
         );
 
       expect(selectedScreenreaderElement?.textContent).to.include(' selected.');
