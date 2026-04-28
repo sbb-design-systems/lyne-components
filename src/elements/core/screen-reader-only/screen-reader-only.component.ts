@@ -11,7 +11,7 @@ import style from './screen-reader-only.scss?inline';
  */
 export class SbbScreenReaderOnlyElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-screen-reader-only';
-  public static override styles: CSSResultGroup = unsafeCSS(style);
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`<slot></slot>`;
