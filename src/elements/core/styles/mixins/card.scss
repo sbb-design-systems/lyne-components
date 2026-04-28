@@ -155,9 +155,6 @@
     var(--sbb-focus-outline-color-default),
     var(--sbb-focus-outline-color-dark)
   );
-
-  // Propagate card text color to title text color to ensure correct color in forced colors mode
-  --sbb-title-color: var(--sbb-card-color);
   --sbb-card-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-1x)
@@ -182,6 +179,11 @@
     border: var(--sbb-card-border-width) var(--sbb-card-border-style) var(--sbb-card-border-color);
     border-radius: var(--sbb-card-border-radius);
     pointer-events: none;
+  }
+
+  @include a11y.if-forced-colors {
+    // Propagate card text color to title text color to ensure correct color in forced colors mode
+    --sbb-title-color: var(--sbb-card-color);
   }
 }
 
