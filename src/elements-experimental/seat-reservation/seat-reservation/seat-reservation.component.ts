@@ -1,5 +1,5 @@
 import { SbbSecondaryButtonElement } from '@sbb-esta/lyne-elements/button.pure.js';
-import type { SbbElementType } from '@sbb-esta/lyne-elements/core.js';
+import { type SbbElementType, screenReaderOnlyStyles } from '@sbb-esta/lyne-elements/core.js';
 import { boxSizingStyles, SbbLanguageController } from '@sbb-esta/lyne-elements/core.js';
 import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.pure.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
@@ -42,7 +42,11 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     SbbSeatReservationNavigationCoachElement,
     SbbSeatReservationScopedElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
 
   private _language = new SbbLanguageController(this);
   private _coachesHtmlTemplate?: TemplateResult;
