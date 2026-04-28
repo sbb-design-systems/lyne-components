@@ -3,6 +3,7 @@ import {
   isArrowKeyOrPageKeysPressed,
   SbbElement,
 } from '@sbb-esta/lyne-elements/core.js';
+import type { SbbTrainWagonButtonElement } from '@sbb-esta/lyne-elements/train/train-wagon-button/train-wagon-button.component.js';
 import { isServer, type PropertyValues } from 'lit';
 import { eventOptions, property, state } from 'lit/decorators.js';
 
@@ -123,8 +124,6 @@ export class SeatReservationBaseElement extends SbbElement {
   protected coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
   // Describes the gap between the coaches decks by multiple deck visualization
   protected gapBetweenCoachDecks = 48;
-  // Describes the fix width of coach navigation button
-  protected coachNavButtonDim: number = 0;
   // Describes the calculated dimension for the area icons, which is used to set the max width and height of the area icons
   protected globalAreaIconDim: ElementDimension = { w: 2, h: 2 };
   // #TIMO-45858
@@ -135,9 +134,7 @@ export class SeatReservationBaseElement extends SbbElement {
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
   protected maxCalcCoachesWidth: number = 0;
   protected scrollCoachesAreaWidth: number = 0;
-  protected scrollNavigationAreaDim: number = 0;
   protected triggerCoachPositionsCollection: CoachScrollTriggerPoint[] = [];
-  protected navigationScrollArea: HTMLElement = null!;
   protected coachScrollArea: HTMLElement = null!;
   protected currSelectedPlace: Place | null = null;
   protected currSelectedPlaceElementId: string | null = null;
@@ -277,9 +274,6 @@ export class SeatReservationBaseElement extends SbbElement {
     this.coachScrollArea = this.shadowRoot?.querySelector(
       '#sbb-sr__wrapper-scrollarea',
     ) as HTMLElement;
-    this.navigationScrollArea = this.shadowRoot?.querySelector(
-      '#sbb-sr__navigation-list-coaches',
-    ) as HTMLElement;
 
     const seatReservationDeck = this.seatReservations
       ? this.seatReservations[this.currSelectedDeckIndex]
@@ -298,21 +292,6 @@ export class SeatReservationBaseElement extends SbbElement {
         `${coachHeightWithBorderPadding * this.seatReservations.length + gapBetweenCoachDecks}`,
       );
       this.style?.setProperty('--sbb-seat-reservation-decks', `${this.seatReservations.length}`);
-    }
-
-    if (this.navigationScrollArea) {
-      this.scrollNavigationAreaDim = this.alignVertical
-        ? this.navigationScrollArea.getBoundingClientRect().height
-        : this.navigationScrollArea.getBoundingClientRect().width;
-
-      // Init the coachNavButtonDim dimension, which is needed to calculate the correct scroll navigation later
-      const navCoachesList = this.navigationScrollArea.querySelector('ul > li') as HTMLUListElement;
-      if (navCoachesList) {
-        const firstLiEleDimension = navCoachesList?.getBoundingClientRect();
-        this.coachNavButtonDim = this.alignVertical
-          ? firstLiEleDimension.height
-          : firstLiEleDimension.width;
-      }
     }
 
     if (this.coachScrollArea && seatReservationDeck) {
@@ -798,13 +777,24 @@ export class SeatReservationBaseElement extends SbbElement {
   private _scrollToSelectedNavigationButton(selectedNavCoachIndex: number): void {
     //Time delay to not interfere with other executing calling scrollTo functions (coaches scrolling)
     setTimeout(() => {
-      if (this.hasNavigation && this.navigationScrollArea) {
-        const navigationAreaCenteredPosX = this.scrollNavigationAreaDim / 2;
-        const scrollButtonOffsetX = selectedNavCoachIndex * this.coachNavButtonDim;
+      const trainFormation = this.shadowRoot?.querySelector<HTMLElement>('sbb-train-formation');
+      if (this.hasNavigation && trainFormation) {
+        const selectedCoach = trainFormation.querySelector<SbbTrainWagonButtonElement>(
+          `sbb-train-wagon-button:nth-child(${selectedNavCoachIndex + 1})`,
+        );
+
+        if (!selectedCoach) {
+          return;
+        }
+
         const scrollOffsetX =
-          scrollButtonOffsetX - navigationAreaCenteredPosX + this.coachNavButtonDim;
-        this.navigationScrollArea.scrollTo({
-          top: this.alignVertical ? scrollOffsetX : 0,
+          selectedCoach.offsetLeft - trainFormation.scrollWidth / 2 + selectedCoach.offsetWidth;
+
+        const scrollOffsetY =
+          selectedCoach.offsetTop - trainFormation.scrollHeight / 2 + selectedCoach.offsetHeight;
+
+        trainFormation.scrollTo({
+          top: this.alignVertical ? scrollOffsetY : 0,
           left: this.alignVertical ? 0 : scrollOffsetX,
           behavior: 'smooth',
         });
