@@ -1,12 +1,8 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
-import {
-  calendarCellBaseStyle,
-  SbbCalendarCellBaseElement,
-} from '../common/calendar-cell-base-element.ts';
+import { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-element.ts';
 
 import style from './calendar-day.scss?inline';
 
@@ -17,11 +13,7 @@ import style from './calendar-day.scss?inline';
  */
 export class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<T> {
   public static override readonly elementName: string = 'sbb-calendar-day';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    calendarCellBaseStyle,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [super.styles ?? [], unsafeCSS(style)];
 
   @property()
   public override set slot(value: string) {
