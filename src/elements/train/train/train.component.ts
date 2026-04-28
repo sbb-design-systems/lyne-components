@@ -11,6 +11,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import {
   boxSizingStyles,
   forceType,
+  handleDistinctChange,
   i18nTrain,
   i18nWagonsLabel,
   omitEmptyConverter,
@@ -23,7 +24,8 @@ import {
 import { SbbIconElement } from '../../icon.pure.ts';
 import type { SbbTitleLevel } from '../../title.pure.ts';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage/train-blocked-passage.component.ts';
-import type { SbbTrainWagonElement } from '../train-wagon/train-wagon.component.ts';
+import { SbbTrainFormationOrientationMixin } from '../train-formation-orientation-mixin.ts';
+import type { SbbTrainWagonMixinType } from '../train-wagon-common.ts';
 
 import style from './train.scss?inline';
 
@@ -32,23 +34,30 @@ import style from './train.scss?inline';
  *
  * @slot - Use the unnamed slot to add 'sbb-train-wagon' elements to the `sbb-train`.
  */
-export class SbbTrainElement extends SbbNamedSlotListMixin<
-  SbbTrainWagonElement | SbbTrainBlockedPassageElement,
-  typeof SbbElement
->(SbbElement) {
+export class SbbTrainElement extends SbbTrainFormationOrientationMixin(
+  SbbNamedSlotListMixin<SbbTrainWagonMixinType | SbbTrainBlockedPassageElement, typeof SbbElement>(
+    SbbElement,
+  ),
+) {
   public static override readonly elementName: string = 'sbb-train';
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
-  public static readonly events = {
-    trainslotchange: 'trainslotchange',
-  } as const;
+
   protected override readonly listChildLocalNames = [
     'sbb-train-wagon',
+    'sbb-train-wagon-button',
+    'sbb-train-wagon-link',
     'sbb-train-blocked-passage',
   ];
 
   /** General label for "driving direction". */
   @forceType()
+  @handleDistinctChange((e: SbbTrainElement) => {
+    e.dispatchEvent(
+      /** @internal */
+      new Event('directionlabelchange', { bubbles: true, composed: true }),
+    );
+  })
   @property({ attribute: 'direction-label', reflect: true, converter: omitEmptyConverter })
   public accessor directionLabel: string = '';
 
@@ -102,25 +111,17 @@ export class SbbTrainElement extends SbbNamedSlotListMixin<
 
     /* eslint-disable lit/binding-positions */
     return html`
-      <div class="sbb-train">
-        <${unsafeStatic(TITLE_TAG_NAME)} class="sbb-train__direction-label-sr">
+        <${unsafeStatic(TITLE_TAG_NAME)} class="sbb-screen-reader-only">
           ${this._getDirectionAriaLabel()}
         </${unsafeStatic(TITLE_TAG_NAME)}>
         ${
           this.directionLabel
             ? html`<div class="sbb-train__direction-heading" aria-hidden="true">
                 <span class="sbb-train__direction-sticky-wrapper">
-                  ${this.direction === 'left'
-                    ? html`<sbb-icon name="chevron-small-left-small"></sbb-icon>`
-                    : nothing}
-
+                  <sbb-icon class="sbb-train__direction-arrow" name="arrow-left-small"></sbb-icon>
                   <span class="sbb-train__direction-label">
                     ${this.directionLabel} ${this.station}
                   </span>
-
-                  ${this.direction === 'right'
-                    ? html`<sbb-icon name="chevron-small-right-small"></sbb-icon>`
-                    : nothing}
                 </span>
               </div>`
             : nothing
@@ -129,7 +130,6 @@ export class SbbTrainElement extends SbbNamedSlotListMixin<
           class: 'sbb-train__wagons',
           ariaLabel: i18nWagonsLabel[this._language.current],
         })}
-      </div>
     `;
   }
 }

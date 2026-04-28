@@ -1,0 +1,345 @@
+@use '../core/styles' as sbb;
+
+:host {
+  --sbb-train-wagon-transition-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-2x)
+  );
+
+  display: block;
+  font-size: var(--sbb-train-wagon-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize CSS of several frameworks.
+  outline: none !important;
+}
+
+:host([wagon-type='closed']) {
+  --sbb-train-wagon-crossed-shape-display: block;
+
+  @include sbb.if-forced-colors {
+    --sbb-train-wagon-shape-color: GrayText;
+  }
+}
+
+:host(:state(view-side)[wagon-type='wagon-end-left']) {
+  --sbb-train-wagon-padding-inline: var(--sbb-spacing-fixed-4x) var(--sbb-spacing-fixed-3x);
+}
+
+:host(:state(view-side)[wagon-type='wagon-end-right']) {
+  --sbb-train-wagon-padding-inline: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-4x);
+}
+
+:host(:state(view-side)[wagon-type='locomotive']) {
+  --sbb-train-wagon-padding-inline: var(--sbb-spacing-fixed-4x);
+}
+
+:host(:state(view-top)) {
+  --sbb-train-wagon-border-radius: var(--sbb-border-radius-4x);
+}
+
+:host([label]) {
+  --_sbb-train-wagon-attributes-max-width: var(--sbb-train-wagon-attributes-max-width);
+}
+
+:host(:not([label])) {
+  --_sbb-train-wagon-attributes-justify-content: center;
+}
+
+:host(.sbb-active) {
+  --sbb-train-wagon-border-width: var(--sbb-border-width-3x);
+}
+
+:host(:state(action)) {
+  cursor: var(--sbb-cursor-pointer);
+}
+
+:host(:state(link)) {
+  @include sbb.if-forced-colors {
+    --sbb-train-wagon-shape-color: LinkText;
+  }
+}
+
+.sbb-train-wagon-link {
+  outline: none;
+  color: inherit;
+  text-decoration: none;
+}
+
+.sbb-train-wagon {
+  display: flex;
+  flex-direction: var(--_sbb-train-formation-flex-direction-inverted);
+  align-items: center;
+  width: var(--_sbb-train-formation-wagon-width);
+  gap: var(--sbb-train-wagon-vertical-gap);
+  position: relative;
+
+  :host(:state(orientation-vertical)) & {
+    width: auto;
+    height: var(--_sbb-train-formation-wagon-height);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: var(--_sbb-train-formation-wagon-width);
+    height: var(--_sbb-train-formation-wagon-height);
+    border-radius: var(--sbb-train-wagon-border-radius);
+
+    :host(:state(button):focus-visible) &,
+    .sbb-train-wagon-link:focus-visible & {
+      @include sbb.focus-outline;
+    }
+  }
+}
+
+.sbb-train-wagon__compartment {
+  @include sbb.list-reset;
+
+  display: flex;
+  flex-direction: var(--_sbb-train-formation-flex-direction);
+  justify-content: center;
+  padding-inline: var(--sbb-train-wagon-padding-inline);
+  mask-image: var(--_sbb-train-wagon-clip-shape-compartment);
+  transition: background-color var(--sbb-train-wagon-transition-duration)
+    var(--sbb-animation-easing);
+
+  :host(:state(action):hover) & {
+    @include sbb.hover-mq($hover: true) {
+      background-color: var(--sbb-train-wagon-background-color-hover);
+    }
+  }
+
+  :host(:state(action):is(:active, :state(active))) & {
+    background-color: var(--sbb-train-wagon-background-color-active);
+  }
+
+  &:has(.sbb-train-wagon__occupancy):has(.sbb-train-wagon__class) {
+    justify-content: space-between;
+  }
+
+  :host(:state(orientation-vertical)) & {
+    padding-inline: 0;
+    padding-block: var(--sbb-train-wagon-padding-inline);
+  }
+}
+
+.sbb-train-wagon__compartment,
+.sbb-train-wagon__main-icon {
+  width: var(--_sbb-train-formation-wagon-width);
+  height: var(--_sbb-train-formation-wagon-height);
+}
+
+.sbb-train-wagon__shape {
+  position: absolute;
+  inset: 0;
+  width: var(--sbb-train-formation-wagon-dimension-long);
+  height: var(--sbb-train-formation-wagon-dimension-short);
+  transform-origin: 0 0;
+
+  // Need in order to correctly render in Safari
+  will-change: transform;
+
+  :host(:state(orientation-vertical)) & {
+    rotate: -90deg;
+    transform: scale(-1, 1);
+  }
+}
+
+.sbb-train-wagon__shape {
+  // We have to clip the shape, because the path can be larger than the wagon shape and would overflow otherwise.
+  mask-image: var(--_sbb-train-wagon-clip-shape);
+  pointer-events: none;
+  fill: none;
+  stroke: var(--sbb-train-wagon-shape-color);
+
+  // We have to multiply by factor 2 because the border grows from the bounding box lines
+  stroke-width: calc(var(--sbb-train-wagon-border-width) * 2);
+}
+
+.sbb-train-wagon__main-icon {
+  --sbb-icon-svg-height: var(--sbb-train-wagon-main-icon-height);
+
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sbb-train-wagon__shape-closed {
+  display: var(--sbb-train-wagon-crossed-shape-display, none);
+  stroke-width: var(--sbb-border-width-1x);
+}
+
+.sbb-train-wagon__occupancy,
+.sbb-train-wagon__class {
+  height: var(--_sbb-train-formation-wagon-height);
+  flex-direction: var(--_sbb-train-formation-flex-direction);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  :host(:state(orientation-vertical)) & {
+    height: auto;
+    width: var(--_sbb-train-formation-wagon-width);
+  }
+}
+
+.sbb-train-wagon__occupancy {
+  --sbb-icon-svg-height: var(--sbb-train-wagon-occupancy-height);
+
+  grid-area: occupancy;
+}
+
+.sbb-train-wagon__class {
+  gap: #{sbb.px-to-rem-build(1)};
+  order: 1;
+}
+
+.sbb-train-wagon__class-entry {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sbb-train-wagon-class-dimension);
+  height: var(--sbb-train-wagon-class-dimension);
+  border: var(--sbb-train-wagon-class-border);
+  background-color: var(--sbb-train-wagon-class-background-color);
+  border-radius: var(--sbb-train-wagon-class-border-radius);
+  font-weight: var(--sbb-train-wagon-class-font-weight);
+  color: var(--sbb-train-wagon-class-color);
+  position: relative;
+
+  // Needed to fix Safari vertical centering
+  line-height: 1;
+
+  &.first {
+    &::before {
+      content: '';
+      position: absolute;
+      background-color: var(--sbb-train-wagon-class-first-color);
+      border-end-end-radius: var(--sbb-train-wagon-class-first-border-radius);
+
+      :host(:not(:state(orientation-vertical))) & {
+        height: var(--sbb-train-wagon-class-first-thickness);
+        width: var(--sbb-train-wagon-class-dimension);
+        inset: calc(
+            -0.5 *
+              (var(--_sbb-train-formation-wagon-height) - var(--sbb-train-wagon-class-dimension)) +
+              var(--sbb-train-wagon-border-width) - var(--sbb-train-wagon-class-border-width)
+          )
+          0 auto calc(-1 * var(--sbb-train-wagon-class-border-width));
+        border-end-start-radius: var(--sbb-train-wagon-class-first-border-radius);
+      }
+
+      :host(:state(orientation-vertical)) & {
+        width: var(--sbb-train-wagon-class-first-thickness);
+        height: var(--sbb-train-wagon-class-dimension);
+        inset: calc(-1 * var(--sbb-train-wagon-class-border-width)) auto 0
+          calc(
+            -0.5 *
+              (var(--_sbb-train-formation-wagon-width) - var(--sbb-train-wagon-class-dimension)) +
+              var(--sbb-train-wagon-border-width) - var(--sbb-train-wagon-class-border-width)
+          );
+        border-start-end-radius: var(--sbb-train-wagon-class-first-border-radius);
+      }
+    }
+  }
+}
+
+.sbb-train-wagon__information-wrapper {
+  display: flex;
+  align-items: start;
+  flex-direction: var(--_sbb-train-formation-flex-direction);
+  gap: var(--sbb-train-wagon-information-gap);
+
+  :host(:state(orientation-vertical)) & {
+    min-width: var(--sbb-train-wagon-information-min-width);
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+:is(.sbb-train-wagon__label, .sbb-train-wagon__label-divider) {
+  margin-block-start: calc(
+    0.5 * (1em * var(--sbb-typo-line-height-text) - var(--sbb-train-wagon-font-size))
+  );
+
+  :host(:state(orientation-vertical)) & {
+    margin-block-start: 0;
+  }
+}
+
+.sbb-train-wagon__label {
+  line-height: 1;
+
+  // In vertical orientation, the label is horizontally centered in a fixed width box of 32px by design.
+  // As the box can grow to the side if there are many attribute icons, we have to re-apply this width as max-width here.
+  :host(:state(orientation-vertical)) & {
+    max-width: var(--sbb-train-wagon-information-min-width);
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.sbb-train-wagon__label-divider {
+  height: var(--sbb-train-wagon-font-size);
+
+  :host(:state(orientation-vertical)) & {
+    height: auto;
+    width: var(--sbb-train-wagon-font-size);
+    margin-inline-start: calc(
+      0.5 * (var(--sbb-train-wagon-information-min-width) - var(--sbb-train-wagon-font-size))
+    );
+  }
+}
+
+.sbb-train-wagon__attribute-icon-list {
+  @include sbb.list-reset;
+
+  --sbb-icon-svg-height: var(--sbb-train-wagon-attribute-icon-height);
+
+  display: flex;
+  justify-content: var(--_sbb-train-wagon-attributes-justify-content, start);
+  flex-wrap: wrap;
+  gap: var(--sbb-train-wagon-attribute-icon-gap);
+  color: var(--sbb-train-wagon-attribute-icon-color);
+  padding-block-start: calc(
+    0.5 * (1em * var(--sbb-typo-line-height-text) - var(--sbb-train-wagon-attribute-icon-height))
+  );
+  max-width: var(--_sbb-train-wagon-attributes-max-width);
+
+  :host(:state(orientation-vertical)) & {
+    // We have to ensure that the icons stay as long as possible to the side of the shape and only then use a second column.
+    // However, the order of the icons should be row wise. To mitigate this problem, we programmatically get the amount of
+    // slotted icons and can therefore calculate, how many columns approximately are needed.
+    // To move the icons against the shape, we control the max-width.
+    // The max-height is given by the fact, that 3 rows fit into the design. For the calculation,
+    // also two times the gap has to be included.
+    max-width: calc(
+      var(--_sbb-train-wagon-attributes-icon-columns) * var(--sbb-train-wagon-attributes-mean-width)
+    );
+    max-height: calc(
+      var(--_sbb-train-wagon-attributes-icon-rows, 3) *
+        var(--sbb-train-wagon-attribute-icon-height) +
+        (var(--_sbb-train-wagon-attributes-icon-rows, 3) - 1) *
+        var(--sbb-train-wagon-attribute-icon-gap)
+    );
+    padding-block-start: 0;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+// Using ... li selector, because the li generation
+// is handled in the component base class.
+.sbb-train-wagon__attribute-icon-list > :is(li, span) {
+  display: inline-flex;
+}
+
+.sbb-screen-reader-only {
+  @include sbb.screen-reader-only;
+}
