@@ -3,12 +3,13 @@ import { property } from 'lit/decorators.js';
 
 import {
   type AbstractConstructor,
+  boxSizingStyles,
   SbbElement,
   SbbFormAssociatedRadioButtonMixin,
 } from '../../core.ts';
 import type { SbbRadioButtonGroupElement } from '../../radio-button-group.pure.ts';
 
-import radioButtonCommonStyleString from './radio-button-common.scss?inline';
+import style from './radio-button-common.scss?inline';
 
 export type SbbRadioButtonSize = 'xs' | 's' | 'm';
 
@@ -31,7 +32,8 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<S
   {
     public static styles: CSSResultGroup = [
       (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
-      unsafeCSS(radioButtonCommonStyleString),
+      boxSizingStyles,
+      unsafeCSS(style),
     ];
     public static readonly events = {
       change: 'change',
