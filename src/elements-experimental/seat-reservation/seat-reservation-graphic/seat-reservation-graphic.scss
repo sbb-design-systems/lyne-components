@@ -9,6 +9,7 @@
   --sbb-seat-reservation-graphic-inverse-rotation: 0;
   --sbb-seat-reservation-graphic-padding-percent: 1;
   --sbb-seat-reservation-graphic-position: initial;
+  --sbb-seat-reservation-graphic-z-index: 0;
   --sbb-seat-reservation-graphic-left: 0;
   --sbb-seat-reservation-graphic-top: 0;
   --sbb-icon-svg-width: calc(
@@ -32,6 +33,7 @@
       var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
   );
   position: var(--sbb-seat-reservation-graphic-position);
+  z-index: var(--sbb-seat-reservation-graphic-z-index);
   inset-inline-start: calc(
     var(--sbb-seat-reservation-graphic-left) *
       var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})

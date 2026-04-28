@@ -761,7 +761,6 @@ const defaultCoachItemDetailsNavigationCoach: CoachItemDetails = {
   propertyIds: mappedSeatReservationTrain.coachItems[0].propertyIds || [],
   freePlaces: { seats: 0, bicycles: 0 },
   isDriverArea: false,
-  driverAreaElements: { driverArea: undefined, driverAreaNoVerticalWall: undefined },
 };
 
 const defaultArgsNavigationCoach: Args = {

@@ -36,7 +36,6 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     travelClass: 'FIRST',
     propertyIds: propertyIds,
     freePlaces: { seats: 0, bycicles: 0 },
-    driverAreaElements: { driverArea: undefined, driverAreaNoVerticalWall: undefined },
   };
 
   // large only viewport because we don't use any other breakpoint media queries
