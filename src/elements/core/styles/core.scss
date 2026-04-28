@@ -301,6 +301,12 @@ $theme: 'standard' !default;
 @use '../../time-input/time-input.global' as time-input with (
   $theme: $theme
 );
+@use '../../title/title-common.global' as title-common with (
+  $theme: $theme
+);
+@use '../../title/title.global' as title with (
+  $theme: $theme
+);
 @use '../../toggle-check/toggle-check.global' as toggle-check with (
   $theme: $theme
 );
@@ -415,6 +421,8 @@ $theme: 'standard' !default;
   @include timetable-form-field.base;
   @include timetable-occupancy.base;
   @include time-input.base;
+  @include title-common.base;
+  @include title.base;
   @include toggle-check.base;
   @include toggle.base;
   @include toggle-option.base;
@@ -457,31 +465,6 @@ $theme: 'standard' !default;
   // Infinity border radius, can be used to achieve rounded border on start and end
   --sbb-border-radius-infinity: calc(infinity * 1px);
 
-  // TODO: Remove complete block when new lean theme is complete
-  // TODO: Also remove all occurrences of the variables in lyne-components (e.g. --sbb-title-font-size-level-1-lean)
-  // Only render the block in standard theme as fallback for CSS class usage
-  @if not string.index($theme, 'lean') {
-    &.sbb-lean {
-      --sbb-title-font-size-level-1-lean: var(--sbb-heading-font-size-2);
-      --sbb-title-font-size-level-2-lean: var(--sbb-heading-font-size-3);
-      --sbb-title-font-size-level-3-lean: var(--sbb-heading-font-size-4);
-      --sbb-title-font-size-level-4-lean: var(--sbb-heading-font-size-5);
-      --sbb-title-font-size-level-5-lean: var(--sbb-heading-font-size-6);
-      --sbb-title-font-size-level-6-lean: var(--sbb-typo-scale-0-75x);
-      --sbb-heading-margin-block-1-lean: var(--sbb-spacing-responsive-s)
-        var(--sbb-spacing-fixed-3x);
-      --sbb-heading-margin-block-2-lean: var(--sbb-spacing-responsive-s)
-        var(--sbb-spacing-fixed-3x);
-      --sbb-heading-margin-block-3-lean: var(--sbb-spacing-responsive-s)
-        var(--sbb-spacing-responsive-xxxs);
-      --sbb-heading-margin-block-4-lean: var(--sbb-spacing-responsive-s)
-        var(--sbb-spacing-fixed-2x);
-      --sbb-heading-margin-block-5-lean: var(--sbb-spacing-responsive-s)
-        var(--sbb-spacing-fixed-1x);
-      --sbb-heading-margin-block-6-lean: var(--sbb-spacing-responsive-s) 0;
-    }
-  }
-
   // When the input modality is either mouse or touch,
   // the focus outline should be hidden.
   // We achieve this by setting the outline style to none.
@@ -514,14 +497,6 @@ $theme: 'standard' !default;
     @include teaser-panel.base-breakpoint-large;
     @include teaser-product-common.base-breakpoint-large;
     @include time-input.base-breakpoint-large;
-
-    // TODO: Remove complete block when new lean theme is complete
-    // Only render the block in standard theme as fallback for CSS class usage
-    @if not string.index($theme, 'lean') {
-      &.sbb-lean {
-        --sbb-title-font-size-level-6-lean: var(--sbb-typo-scale-0-875x);
-      }
-    }
   }
 
   @include mediaqueries.mq($from: ultra) {

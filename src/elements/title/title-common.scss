@@ -1,20 +1,16 @@
 @use '../core/styles' as sbb;
 
 :host {
-  @include sbb.title-rules;
-
-  --sbb-title-text-color-normal: var(--sbb-title-text-color-normal-override, var(--sbb-color-3));
-
   display: block;
-  color: var(--sbb-title-text-color-normal);
+  font-weight: bold;
+  font-size: var(--sbb-title-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-heading);
+  line-height: var(--sbb-title-line-height, var(--sbb-typo-line-height-heading));
+  color: var(--sbb-title-color);
 }
 
 :host([id]) {
   @include sbb.scroll-margin-block-start;
-}
-
-:host(:where([level='1']:not([visual-level]), [visual-level='1'])) {
-  @include sbb.title--level-1;
 }
 
 :host(:where([level='2']:not([visual-level]), [visual-level='2'])) {
