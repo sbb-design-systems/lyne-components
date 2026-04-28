@@ -59,7 +59,9 @@ describe(`sbb-select`, () => {
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       const beforeCloseSpy = new EventSpy(SbbSelectElement.events.beforeclose, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
-      const overlayContainerElement = element.shadowRoot!.querySelector('.sbb-select__container')!;
+      const overlayContainerElement = element.shadowRoot!.querySelector(
+        '.sbb-option-panel__overlay-container',
+      )!;
 
       element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
@@ -1291,7 +1293,9 @@ describe(`sbb-select`, () => {
 
       const beforeOpenSpy = new EventSpy(SbbSelectElement.events.beforeopen, element);
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
-      const overlayContainerElement = element.shadowRoot!.querySelector('.sbb-select__container')!;
+      const overlayContainerElement = element.shadowRoot!.querySelector(
+        '.sbb-option-panel__overlay-container',
+      )!;
 
       element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
@@ -1335,7 +1339,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await openSpy.calledOnce();
 
-      const selectPanel = element.shadowRoot!.querySelector('.sbb-select__panel')!;
+      const selectPanel = element.shadowRoot!.querySelector('.sbb-option-panel__overlay')!;
       const oldPanelSize = selectPanel.clientWidth;
 
       formField.style.width = '200px';

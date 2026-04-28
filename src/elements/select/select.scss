@@ -1,76 +1,20 @@
 @use '../core/styles' as sbb;
 
-// Fixes the gap between the origin and the overlay by creating conjunction
-// corners based on the origin element border radius
-@include sbb.overlay-gap-fix;
-
 :host {
-  @include sbb.options-panel-overlay-variables;
-
+  --sbb-select-placeholder-fallback-color: light-dark(
+    var(--sbb-color-metal),
+    var(--sbb-color-smoke)
+  );
   --sbb-options-panel-internal-z-index: var(
     --sbb-select-z-index,
     var(--sbb-overlay-default-z-index)
   );
 
   display: block;
-  font-weight: normal;
-  line-height: var(--sbb-typo-line-height-text);
-}
-
-:host([size='s']) {
-  @include sbb.options-panel-overlay-size-s-variables;
-}
-
-:host([size='m']) {
-  @include sbb.options-panel-overlay-size-m-variables;
 }
 
 :host([negative]) {
-  @include sbb.options-panel-overlay-negative-variables;
-
   --sbb-select-placeholder-fallback-color: var(--sbb-color-5);
-}
-
-:host(:not(:state(state-opening), :state(state-opened), :state(state-closing))),
-:host(:state(state-closed)) {
-  --sbb-options-panel-visibility: hidden;
-}
-
-:host(:state(state-opening)) {
-  --sbb-options-panel-animation-name: open;
-}
-
-:host(:state(state-closing)) {
-  --sbb-options-panel-animation-name: close;
-}
-
-:host(:state(state-opened)),
-:host(:state(state-opening)) {
-  --sbb-options-panel-gap-fix-opacity: 1;
-}
-
-:host(:state(options-panel-position-below)) {
-  --sbb-options-panel-animation-transform: translateY(
-    calc((var(--sbb-options-panel-origin-height) / 2) * -1)
-  );
-}
-
-:host(:state(options-panel-position-above)) {
-  --sbb-options-panel-options-border-radius: var(--sbb-options-panel-border-radius)
-    var(--sbb-options-panel-border-radius) 0 0;
-  --sbb-options-panel-gap-fix-top: var(--_sbb-options-panel-max-height);
-  --sbb-options-panel-gap-fix-transform: rotate(180deg);
-  --sbb-options-panel-animation-transform: translateY(
-    calc(var(--sbb-options-panel-origin-height) / 2)
-  );
-}
-
-::slotted(sbb-divider) {
-  margin-block: var(--sbb-options-panel-divider-margin-block);
-}
-
-:host([preserve-icon-space]) {
-  --sbb-option-icon-container-display: block;
 }
 
 .sbb-select__trigger {
@@ -92,106 +36,11 @@
   }
 }
 
-.sbb-select__container {
-  @include sbb.options-panel-overlay-container;
-
-  // Hide popover artifacts
-  &[popover] {
-    margin: 0;
-    padding: 0;
-    border: none;
-    width: auto;
-    height: auto;
-    background-color: transparent;
-  }
-}
-
-.sbb-select__gap-fix {
-  @include sbb.options-panel-overlay-gap;
-}
-
-.sbb-select__panel {
-  @include sbb.options-panel-overlay;
-
-  :host(:state(options-panel-position-below)) & {
-    inset-block-start: calc(
-      var(--sbb-options-panel-position-y) - var(--sbb-options-panel-origin-height)
-    );
-  }
-
-  :host(:is(:state(state-opened), :state(state-opening))) & {
-    box-shadow: var(--sbb-box-shadow-level-9-hard);
-  }
-
-  :host(:is(:state(state-opened), :state(state-opening))[negative]) & {
-    box-shadow: var(--sbb-box-shadow-level-9-hard-negative);
-  }
-
-  &::before {
-    :host(:state(options-panel-position-below)) & {
-      display: block;
-    }
-  }
-
-  &::after {
-    :host(:state(options-panel-position-above)) & {
-      display: block;
-    }
-  }
-
-  // stylelint-disable-next-line no-descending-specificity
-  &::before,
-  &::after {
-    :host(:is(:state(state-opened), :state(state-opening)):state(option-panel-origin-borderless))
-      & {
-      box-shadow: var(--sbb-box-shadow-level-9-hard);
-    }
-
-    :host(
-        :is(:state(state-opened), :state(state-opening)):state(
-            option-panel-origin-borderless
-          )[negative]
-      )
-      & {
-      box-shadow: var(--sbb-box-shadow-level-9-hard-negative);
-    }
-  }
-}
-
-.sbb-select__wrapper {
-  overflow: hidden;
-}
-
-.sbb-select__options {
-  @include sbb.optionsOverlay;
-  @include sbb.scrollbar-rules;
-
-  @include sbb.if-forced-colors {
-    border: var(--sbb-border-width-1x) solid CanvasText;
-    border-block-start: none;
-  }
-}
-
-@keyframes open {
-  from {
-    transform: var(--sbb-options-panel-animation-transform);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes close {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  to {
-    transform: var(--sbb-options-panel-animation-transform);
-    opacity: 0;
-  }
+.sbb-option-panel__overlay-container[popover] {
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: auto;
+  height: auto;
+  background-color: transparent;
 }

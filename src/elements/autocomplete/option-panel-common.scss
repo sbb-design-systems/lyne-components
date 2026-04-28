@@ -1,0 +1,194 @@
+@use '../core/styles' as sbb;
+
+:host {
+  @include sbb.scrollbar-variables;
+
+  --sbb-options-panel-position-x: 0;
+  --sbb-options-panel-position-y: 0;
+  --sbb-options-pointer-events: all;
+
+  // In order to have a valid value, we need a big integer to not fall into the minimum
+  --_sbb-options-panel-max-height: min(
+    var(--sbb-options-panel-max-height-calculated),
+    var(--sbb-options-panel-max-height, 100000em)
+  );
+  --sbb-options-panel-min-height: var(--sbb-options-panel-origin-height);
+  --sbb-options-panel-options-border-radius: 0 0 var(--sbb-options-panel-border-radius)
+    var(--sbb-options-panel-border-radius);
+  --sbb-options-panel-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-4x)
+  );
+  --sbb-options-panel-gap-fix-top: calc(
+    var(--sbb-options-panel-position-y) - var(--sbb-options-panel-border-radius)
+  );
+
+  // As the overlays have always a white background, we have to fix the focus outline color
+  // to default color for cases where the overlays are used in a negative context.
+  --sbb-focus-outline-color: light-dark(
+    var(--sbb-focus-outline-color-default),
+    var(--sbb-focus-outline-color-dark)
+  );
+  --sbb-options-panel-internal-z-index: var(
+    --sbb-select-z-index,
+    var(--sbb-overlay-default-z-index)
+  );
+
+  font-weight: normal;
+}
+
+:host([negative]) {
+  @include sbb.scrollbar-variables--color-negative;
+
+  --sbb-options-panel-box-shadow: var(--sbb-box-shadow-level-9-hard-negative);
+  --sbb-options-panel-background-color: var(--sbb-background-color-2-negative);
+
+  // As the overlays have always a white background, we have to fix the focus outline color
+  // to default color for cases where the overlays are used in a negative context.
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+
+:host([size='s']) {
+  --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-1x);
+}
+
+:host([size='m']) {
+  --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-2x);
+}
+
+:host(:not(:state(state-opening), :state(state-opened), :state(state-closing))),
+:host(:state(state-closed)) {
+  --sbb-options-panel-visibility: hidden;
+  --sbb-options-pointer-events: none;
+}
+
+:host(:state(state-opening)) {
+  --sbb-options-panel-animation-name: open;
+}
+
+:host(:state(state-closing)) {
+  --sbb-options-panel-animation-name: close;
+}
+
+:host(:state(options-panel-position-below)) {
+  --sbb-options-panel-animation-transform: translateY(
+    calc((var(--sbb-options-panel-origin-height) / 2) * -1)
+  );
+}
+
+:host(:state(options-panel-position-above)) {
+  --sbb-options-panel-options-border-radius: var(--sbb-options-panel-border-radius)
+    var(--sbb-options-panel-border-radius) 0 0;
+  --sbb-options-panel-gap-fix-top: var(--_sbb-options-panel-max-height);
+  --sbb-options-panel-gap-fix-transform: rotate(180deg);
+  --sbb-options-panel-animation-transform: translateY(
+    calc(var(--sbb-options-panel-origin-height) / 2)
+  );
+  --sbb-options-panel-margin-block-start: calc(-1 * var(--sbb-spacing-fixed-2x));
+}
+
+:host([preserve-icon-space]) {
+  --sbb-option-icon-container-display: block;
+}
+
+::slotted(sbb-divider) {
+  margin-block: var(--sbb-options-panel-divider-margin-block);
+}
+
+.sbb-option-panel__overlay-container {
+  position: fixed;
+  pointer-events: none;
+  inset: 0;
+  z-index: var(--sbb-options-panel-internal-z-index);
+
+  // Needed to add the box-shadow on the origin element (only if borderless)
+  &::after,
+  &::before {
+    content: '';
+    display: none;
+    position: absolute;
+    top: calc(var(--sbb-options-panel-position-y) - var(--sbb-options-panel-origin-height));
+    left: var(--sbb-options-panel-position-x);
+    width: var(--sbb-options-panel-width);
+    height: var(--sbb-options-panel-origin-height);
+    background-color: transparent;
+    border-radius: var(--sbb-options-panel-border-radius);
+    transition: box-shadow var(--sbb-options-panel-animation-duration)
+      var(--sbb-options-panel-animation-timing-function);
+
+    :host(:is(:state(state-opened), :state(state-opening)):state(option-panel-origin-borderless))
+      & {
+      box-shadow: var(--sbb-options-panel-box-shadow);
+    }
+  }
+
+  &::before {
+    :host(:state(options-panel-position-below)) & {
+      display: block;
+    }
+  }
+
+  &::after {
+    :host(:state(options-panel-position-above)) & {
+      display: block;
+    }
+  }
+}
+
+.sbb-option-panel__overlay {
+  @include sbb.scrollbar-rules;
+
+  display: block;
+  position: absolute;
+  visibility: var(--sbb-options-panel-visibility, 'visible');
+  border: none;
+  border-radius: var(--sbb-options-panel-border-radius);
+  top: var(--sbb-options-panel-position-y);
+  left: var(--sbb-options-panel-position-x);
+  width: var(--sbb-options-panel-width, fit-content);
+  transition: box-shadow var(--sbb-options-panel-animation-duration)
+    var(--sbb-options-panel-animation-timing-function);
+  box-shadow: var(--sbb-options-panel-box-shadow);
+  background-color: var(--sbb-options-panel-background-color);
+  margin-block-start: var(--sbb-options-panel-margin-block-start);
+  padding-block: var(--sbb-options-panel-padding-block);
+  padding-inline: 0;
+  max-height: var(--_sbb-options-panel-max-height);
+  min-height: var(--sbb-options-panel-min-height);
+  pointer-events: var(--sbb-options-pointer-events);
+  overflow: hidden auto;
+  animation: {
+    name: var(--sbb-options-panel-animation-name);
+    duration: var(--sbb-options-panel-animation-duration);
+    timing-function: var(--sbb-options-panel-animation-timing-function);
+  }
+
+  @include sbb.if-forced-colors {
+    border: var(--sbb-border-width-1x) solid CanvasText;
+    border-block-start: none;
+  }
+}
+
+@keyframes open {
+  from {
+    transform: var(--sbb-options-panel-animation-transform);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes close {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: var(--sbb-options-panel-animation-transform);
+    opacity: 0;
+  }
+}

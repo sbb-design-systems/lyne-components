@@ -29,37 +29,15 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
 /* end snapshot sbb-autocomplete-grid Chrome-Firefox DOM */
 
 snapshots["sbb-autocomplete-grid Chrome-Firefox Shadow DOM"] = 
-`<div class="sbb-autocomplete__gap-fix">
-</div>
-<div class="sbb-autocomplete__container">
-  <div class="sbb-autocomplete__gap-fix">
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="left"
-      >
-      </div>
-    </div>
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="right"
-      >
-      </div>
-    </div>
-  </div>
-  <div class="sbb-autocomplete__panel">
-    <div class="sbb-autocomplete__wrapper">
-      <div
-        class="sbb-autocomplete__options"
-        id="sbb-autocomplete-grid-2"
-        role="grid"
-        tabindex="-1"
-      >
-        <slot>
-        </slot>
-      </div>
-    </div>
+`<div class="sbb-option-panel__overlay-container">
+  <div
+    class="sbb-option-panel__overlay"
+    id="sbb-autocomplete-grid-2"
+    role="grid"
+    tabindex="-1"
+  >
+    <slot>
+    </slot>
   </div>
 </div>
 `;
@@ -93,35 +71,13 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
 /* end snapshot sbb-autocomplete-grid Safari DOM */
 
 snapshots["sbb-autocomplete-grid Safari Shadow DOM"] = 
-`<div class="sbb-autocomplete__gap-fix">
-</div>
-<div class="sbb-autocomplete__container">
-  <div class="sbb-autocomplete__gap-fix">
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="left"
-      >
-      </div>
-    </div>
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="right"
-      >
-      </div>
-    </div>
-  </div>
-  <div class="sbb-autocomplete__panel">
-    <div class="sbb-autocomplete__wrapper">
-      <div
-        class="sbb-autocomplete__options"
-        tabindex="-1"
-      >
-        <slot>
-        </slot>
-      </div>
-    </div>
+`<div class="sbb-option-panel__overlay-container">
+  <div
+    class="sbb-option-panel__overlay"
+    tabindex="-1"
+  >
+    <slot>
+    </slot>
   </div>
 </div>
 `;
