@@ -17,7 +17,6 @@ import type {
   BaseElement,
   CoachItem,
   CoachItemDetails,
-  ElementDimension,
   Place,
   PlaceSelection,
   SeatReservation,
@@ -51,9 +50,6 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _language = new SbbLanguageController(this);
   private _coachesHtmlTemplate?: TemplateResult;
-
-  // Area icons that should not be fixed during rotation when vertical mode is selected
-  private _notFixedRotatableAreaIcons = ['ENTRY_EXIT'];
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -285,14 +281,10 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
         '--sbb-seat-reservation-scoped-height': calculatedCoachDimension.h,
       })}
     >
-      ${this._getRenderedCoachBorders(coachItem, coachIndex)}
-      ${this._getRenderedGraphicalElements(
-        coachItem.graphicElements || [],
-        coachItem.dimension,
-        coachIndex,
-        coachDeckIndex,
-      )}
-      ${this._getRenderedServiceElements(coachIndex, coachDeckIndex, coachItem.serviceElements)}
+      ${this._getRenderedCoachBorders(coachItem, coachDeckIndex, coachIndex)}
+      ${this._getRenderedCoachElements(coachDeckIndex, coachIndex)}
+      ${this._getRenderedAreaElements(coachDeckIndex, coachIndex)}
+      ${this._getRenderedServiceElements(coachDeckIndex, coachIndex)}
 
       <table
         @focus=${() => this.onFocusTableCoachAndPreselectPlace(coachIndex)}
@@ -315,67 +307,26 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
    */
   private _getRenderedCoachBorders(
     coachItem: CoachItem,
+    deckCoachIndex: number,
     coachIndex: number,
   ): TemplateResult | null {
     if (!coachItem.graphicElements) return null;
 
-    const COACH_PASSAGE_WIDTH = 1;
-    const driverArea = this.coachItemDetailsElements[coachIndex]?.driverAreaElements?.driverArea;
-    const driverAreaNoVerticalWall =
-      this.coachItemDetailsElements[coachIndex]?.driverAreaElements?.driverAreaNoVerticalWall;
-
-    let borderWidth = driverArea
-      ? coachItem.dimension.w - driverArea.dimension.w - COACH_PASSAGE_WIDTH
-      : coachItem.dimension.w - COACH_PASSAGE_WIDTH * 2;
-
-    //multiply with base grid size always for all kind of borderWidth
-    borderWidth *= this.baseGridSize;
-
-    const borderHeight = (coachItem.dimension.h + this.coachBorderOffset * 2) * this.baseGridSize;
-    let borderOffsetX =
-      driverArea && driverArea.position.x === 0
-        ? driverArea?.dimension.w * this.baseGridSize
-        : this.baseGridSize;
-
-    //recalculate the border width and offset if there is a driver area without vertical wall on both sides
-    if (driverAreaNoVerticalWall) {
-      const coachWidth = this.getCalculatedDimension(coachItem.dimension).w;
-
-      //recalculated borderWidth = coachWidth - 2 * driver area width, since the driver area is on both sides
-      borderWidth = coachWidth - 2 * (driverAreaNoVerticalWall.dimension.w * this.baseGridSize);
-
-      //recalculated borderOffsetX = driver area width, since the border starts after the driver area on the left side
-      borderOffsetX = driverAreaNoVerticalWall.dimension.w * this.baseGridSize;
-    }
-
-    const currentCoachOverlappingInfo = this.overHangingElementInformation.find(
-      (el) => el.coachId === coachItem.id,
-    );
-
-    // check if there are overhanging places or graphical elements to adjust the border width and offset + gap
-    // We do not differentiate whether there is something to be done on both sides as this would lead to unnecessary
-    // complexity. So if there is something on one side, we just increase the coach-border on both sides.
-    if (
-      currentCoachOverlappingInfo?.overhangingPlaces ||
-      currentCoachOverlappingInfo?.overhangingGraphicAreas
-    ) {
-      borderWidth += 2 * this.baseGridSize; // we increase the width by 2 grid sizes to have enough space for protruded places on both sides
-      borderOffsetX = 0; // we start at 0 to have enough space on the left side as well
-    }
+    const currCoachStructure =
+      this.seatReservationStructure.decks[deckCoachIndex].deckCoaches[coachIndex];
+    const coachBorderElement = currCoachStructure.borderMiddleElement;
+    const hasOverhangingElements = currCoachStructure.hasOverhangingElements;
 
     return html`
       <sbb-seat-reservation-graphic
         class="${classMap({
-          'sbb-sr-coach-has-overhanging-elements':
-            currentCoachOverlappingInfo?.overhangingPlaces ||
-            currentCoachOverlappingInfo?.overhangingGraphicAreas ||
-            false,
+          'sbb-sr-coach-has-overhanging-elements': hasOverhangingElements || false,
         })}"
         style=${styleMap({
-          '--sbb-seat-reservation-graphic-width': borderWidth,
-          '--sbb-seat-reservation-graphic-height': borderHeight,
-          '--sbb-seat-reservation-graphic-top': this.coachBorderPadding * -1,
-          '--sbb-seat-reservation-graphic-left': borderOffsetX,
+          '--sbb-seat-reservation-graphic-width': coachBorderElement.dimension.w,
+          '--sbb-seat-reservation-graphic-height': coachBorderElement.dimension.h,
+          '--sbb-seat-reservation-graphic-top': coachBorderElement.position.y,
+          '--sbb-seat-reservation-graphic-left': coachBorderElement.position.x,
           '--sbb-seat-reservation-graphic-position': 'absolute',
         })}
         name="COACH_BORDER_MIDDLE"
@@ -394,7 +345,6 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     if (!coach.places) {
       return null;
     }
-
     // Prepare rows with the places to render a table
     const tableRowPlaces: Record<number, Place[]> = {};
     for (const place of coach.places) {
@@ -483,207 +433,111 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     )}`;
   }
 
-  private _getRenderedGraphicalElements(
-    graphicalElements: BaseElement[],
-    coachDimension: ElementDimension,
-    coachIndex: number,
+  private _getRenderedCoachElements(
     coachDeckIndex: number,
+    coachIndex: number,
   ): TemplateResult[] | null {
-    if (!graphicalElements) return null;
+    const currCoachStructure =
+      this.seatReservationStructure.decks[coachDeckIndex].deckCoaches[coachIndex];
 
-    return graphicalElements?.map((graphicalElement: BaseElement) => {
-      const icon = graphicalElement.icon ?? '';
-      const elementRotation = graphicalElement.rotation || 0;
-      const isNotFixedRotationGraphicalElement =
-        this._notFixedRotatableAreaIcons.indexOf(graphicalElement.icon!) === -1;
-      const elementFixedRotation =
-        this.alignVertical && isNotFixedRotationGraphicalElement
-          ? elementRotation - 90
-          : elementRotation;
-
-      //check if the current element is not an area element, since this element is drawn without an area component
-      if (this.notAreaElements.findIndex((notAreaElement) => notAreaElement === icon) > -1) {
-        return this._getRenderElementWithoutArea(graphicalElement, elementRotation, coachDimension);
-      }
-      return this._getRenderElementWithArea(
-        graphicalElement,
-        elementFixedRotation,
-        coachDimension,
-        coachIndex,
-        coachDeckIndex,
-      );
+    return currCoachStructure.otherElements.map((graphicElement) => {
+      return html` <sbb-seat-reservation-graphic
+        style=${styleMap({
+          '--sbb-seat-reservation-graphic-width': graphicElement.dimension.w,
+          '--sbb-seat-reservation-graphic-height': graphicElement.dimension.h,
+          '--sbb-seat-reservation-graphic-top': graphicElement.position.y,
+          '--sbb-seat-reservation-graphic-left': graphicElement.position.x,
+          '--sbb-seat-reservation-graphic-position': 'absolute',
+          '--sbb-seat-reservation-graphic-rotation': graphicElement.rotation,
+        })}
+        name=${graphicElement.icon ?? nothing}
+        aria-hidden="true"
+        ?stretch=${true}
+      ></sbb-seat-reservation-graphic>`;
     });
   }
 
-  /**
-   * creates a rendered element with an area component
-   * @param graphicalElement
-   * @param rotation
-   * @param coachDimension
-   * @param coachIndex used to generate a unique id for the popover trigger
-   * @param coachDeckIndex used to generate a unique id
-   * @private
-   */
-  private _getRenderElementWithArea(
-    graphicalElement: BaseElement,
-    rotation: number,
-    coachDimension: ElementDimension,
-    coachIndex: number,
+  private _getRenderedAreaElements(
     coachDeckIndex: number,
-  ): TemplateResult {
-    // for TABLE, we use the area component itself to display the table instead of the SVG graphic.
-    // Due to different heights and widths, it wouldn't show correctly. To correct this, we would
-    // need difficult calculations for position, rotation and dimension.
-    const isNotTableGraphic = graphicalElement.icon?.indexOf('TABLE') === -1;
-    const areaProperty = graphicalElement.icon && isNotTableGraphic ? graphicalElement.icon : null;
-    const stretchHeight =
-      this.isElementDirectlyOnBorder(graphicalElement, coachDimension) &&
-      areaProperty !== 'ENTRY_EXIT';
-    const ariaLabelForArea = graphicalElement.icon
-      ? getI18nSeatReservation(graphicalElement.icon, this._language.current)
-      : nothing;
+    coachIndex: number,
+  ): TemplateResult[] | null {
+    const currCoachStructure =
+      this.seatReservationStructure.decks[coachDeckIndex].deckCoaches[coachIndex];
 
-    const calculatedDimension = this.getCalculatedDimension(
-      graphicalElement.dimension,
-      coachDimension,
-      true,
-      stretchHeight,
-    );
+    return currCoachStructure.areaElements.map((graphicElement) => {
+      const triggerId = `popover-trigger-${coachDeckIndex}-${coachIndex}-${graphicElement.position.x}-${graphicElement.position.y}`;
+      const isNotTableGraphic = graphicElement.icon?.indexOf('TABLE') === -1;
+      const areaProperty = graphicElement.icon && isNotTableGraphic ? graphicElement.icon : null;
+      const ariaLabelForArea = graphicElement.icon
+        ? getI18nSeatReservation(graphicElement.icon, this._language.current)
+        : nothing;
 
-    const calculatedPosition = this.getCalculatedPosition(
-      graphicalElement.position,
-      graphicalElement.dimension,
-      coachDimension,
-      true,
-    );
-
-    //generate unique index number for the trigger element
-    const triggerId = `popover-trigger-${coachDeckIndex}-${coachIndex}-${calculatedPosition.x}-${calculatedPosition.y}`;
-    let elementMounting = 'free';
-
-    if (graphicalElement.position.y === this.coachBorderOffset * -1) {
-      elementMounting = 'upper-border';
-    } else if (
-      graphicalElement.position.y + graphicalElement.dimension.h ===
-      coachDimension.h + this.coachBorderOffset
-    ) {
-      elementMounting = 'lower-border';
-    }
-
-    // TIMO-45830
-    // If area elements are located at the border of coach,
-    // we have to manually modify the position and height of the area element,
-    // so that we get a gap from the visuel coach border
-    if (elementMounting !== 'free') {
-      calculatedPosition.y += elementMounting === 'upper-border' ? 2 : 1;
-      calculatedDimension.h -= 3;
-    }
-    return html`
-      <sbb-seat-reservation-area
-        id="${triggerId}"
-        class="${classMap({ 'sbb-seat-reservation-area--cursor-pointer': areaProperty !== null })}"
-        style=${styleMap({
-          '--sbb-seat-reservation-area-width': calculatedDimension.w,
-          '--sbb-seat-reservation-area-height': calculatedDimension.h,
-          '--sbb-seat-reservation-area-top': calculatedPosition.y,
-          '--sbb-seat-reservation-area-left': calculatedPosition.x,
-        })}
-        mounting=${elementMounting}
-        background="dark"
-        aria-hidden="true"
-      >
-        ${areaProperty
-          ? html`
-              <sbb-seat-reservation-graphic
-                style=${styleMap({
-                  '--sbb-seat-reservation-graphic-max-width': this.globalAreaIconDim.w,
-                  '--sbb-seat-reservation-graphic-max-height': this.globalAreaIconDim.h,
-                  '--sbb-seat-reservation-graphic-width': calculatedDimension.w,
-                  '--sbb-seat-reservation-graphic-height': calculatedDimension.h,
-                  '--sbb-seat-reservation-graphic-rotation': rotation,
-                  '--sbb-seat-reservation-graphic-padding-percent':
-                    areaProperty !== 'ENTRY_EXIT' ? this.globalAreaIconPadding : 1,
-                })}
-                name=${areaProperty}
-                role="img"
-                aria-hidden="true"
-                class="sbb-sr-graphic__dimension--square-dim"
-              ></sbb-seat-reservation-graphic>
-            `
-          : nothing}
-      </sbb-seat-reservation-area>
-      ${areaProperty ? this._popover(triggerId, ariaLabelForArea) : nothing}
-    `;
-  }
-
-  private _getRenderElementWithoutArea(
-    graphicalElement: BaseElement,
-    rotation: number,
-    coachDimension: ElementDimension,
-  ): TemplateResult {
-    const calculatedDimension = this.getCalculatedDimension(
-      graphicalElement.dimension,
-      coachDimension,
-    );
-    const calculatedPosition = this.getCalculatedPosition(
-      graphicalElement.position,
-      graphicalElement.dimension,
-      coachDimension,
-    );
-
-    // If the icon is the driver area, then here concat the vehicle type to get the right vehicle chassis icon
-    const icon =
-      graphicalElement.icon && graphicalElement.icon.endsWith('DRIVER_AREA')
-        ? graphicalElement.icon?.concat(
-            '_',
-            this.seatReservations[this.currSelectedDeckIndex].vehicleType,
-          )
-        : graphicalElement.icon;
-
-    return html` <sbb-seat-reservation-graphic
-      style=${styleMap({
-        '--sbb-seat-reservation-graphic-width': calculatedDimension.w,
-        '--sbb-seat-reservation-graphic-height': calculatedDimension.h,
-        '--sbb-seat-reservation-graphic-top': calculatedPosition.y,
-        '--sbb-seat-reservation-graphic-left': calculatedPosition.x,
-        '--sbb-seat-reservation-graphic-position': 'absolute',
-        '--sbb-seat-reservation-graphic-rotation': rotation,
-      })}
-      name=${icon ?? nothing}
-      aria-hidden="true"
-      ?stretch=${true}
-    ></sbb-seat-reservation-graphic>`;
+      return html`
+        <sbb-seat-reservation-area
+          id="${triggerId}"
+          class="${classMap({
+            'sbb-seat-reservation-area--cursor-pointer': areaProperty !== null,
+          })}"
+          style=${styleMap({
+            '--sbb-seat-reservation-area-width': graphicElement.dimension.w,
+            '--sbb-seat-reservation-area-height': graphicElement.dimension.h,
+            '--sbb-seat-reservation-area-top': graphicElement.position.y,
+            '--sbb-seat-reservation-area-left': graphicElement.position.x,
+            '--sbb-seat-reservation-area-z-index': graphicElement.position.z,
+          })}
+          mounting=${graphicElement.mounting ?? nothing}
+          background="dark"
+          aria-hidden="true"
+        >
+          ${areaProperty
+            ? html`
+                <sbb-seat-reservation-graphic
+                  style=${styleMap({
+                    '--sbb-seat-reservation-graphic-max-width': this.globalAreaIconDim.w,
+                    '--sbb-seat-reservation-graphic-max-height': this.globalAreaIconDim.h,
+                    '--sbb-seat-reservation-graphic-width': graphicElement.dimension.w,
+                    '--sbb-seat-reservation-graphic-height': graphicElement.dimension.h,
+                    '--sbb-seat-reservation-graphic-rotation': graphicElement.rotation,
+                    '--sbb-seat-reservation-graphic-padding-percent':
+                      areaProperty !== 'ENTRY_EXIT' ? this.globalAreaIconPadding : 1,
+                  })}
+                  name=${areaProperty}
+                  role="img"
+                  aria-hidden="true"
+                  class="sbb-sr-graphic__dimension--square-dim"
+                ></sbb-seat-reservation-graphic>
+              `
+            : nothing}
+        </sbb-seat-reservation-area>
+        ${areaProperty ? this._popover(triggerId, ariaLabelForArea) : nothing}
+      `;
+    });
   }
 
   private _getRenderedServiceElements(
-    coachIndex: number,
     coachDeckIndex: number,
-    serviceElements?: BaseElement[],
+    coachIndex: number,
   ): TemplateResult[] | null {
-    if (!serviceElements) return null;
+    const currCoachStructure =
+      this.seatReservationStructure.decks[coachDeckIndex].deckCoaches[coachIndex];
 
-    return serviceElements?.map((serviceElement: BaseElement) => {
+    return currCoachStructure.serviceElements.map((serviceElement: BaseElement) => {
+      //generate unique index number for the trigger element
+      const triggerId = `popover-trigger-${coachDeckIndex}-${coachIndex}-${serviceElement.position.x}-${serviceElement.position.y}`;
       const titleDescription = serviceElement.icon
         ? getI18nSeatReservation(serviceElement.icon, this._language.current)
         : null;
-      const calculatedDimension = this.getCalculatedDimension(serviceElement.dimension);
-      const calculatedPosition = this.getCalculatedPosition(serviceElement.position);
-      const elementRotation = serviceElement.rotation || 0;
-      const elementFixedRotation = this.alignVertical ? elementRotation - 90 : elementRotation;
-
-      //generate unique index number for the trigger element
-      const triggerId = `popover-trigger-${coachDeckIndex}-${coachIndex}-${calculatedPosition.x}-${calculatedPosition.y}`;
 
       return html`
         <sbb-seat-reservation-graphic
           id="${triggerId}"
           style=${styleMap({
-            '--sbb-seat-reservation-graphic-width': calculatedDimension.w,
-            '--sbb-seat-reservation-graphic-height': calculatedDimension.h,
-            '--sbb-seat-reservation-graphic-top': calculatedPosition.y,
-            '--sbb-seat-reservation-graphic-left': calculatedPosition.x,
+            '--sbb-seat-reservation-graphic-width': serviceElement.dimension.w,
+            '--sbb-seat-reservation-graphic-height': serviceElement.dimension.h,
+            '--sbb-seat-reservation-graphic-top': serviceElement.position.y,
+            '--sbb-seat-reservation-graphic-left': serviceElement.position.x,
             '--sbb-seat-reservation-graphic-position': 'absolute',
-            '--sbb-seat-reservation-graphic-rotation': elementFixedRotation,
+            '--sbb-seat-reservation-graphic-rotation': serviceElement.rotation,
           })}
           class="sbb-seat-reservation-graphic--cursor-pointer"
           name=${serviceElement.icon ?? nothing}
@@ -828,7 +682,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
           this._language.current,
         );
         const isValidDescription =
-          this._notFixedRotatableAreaIcons.indexOf(icon) === -1 &&
+          this.notFixedRotatableAreaIcons.indexOf(icon) === -1 &&
           this.notAreaElements.indexOf(icon) === -1;
 
         if (!descriptionAlreadyExist) {
