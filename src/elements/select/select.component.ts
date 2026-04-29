@@ -151,14 +151,22 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   /** The value displayed by the component. */
   @state() private accessor _displayValue: string | null = null;
 
-  private _originResizeObserver = new ResizeController(this, {
+  private _resizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,
-    callback: () => {
-      if (this.isOpen) {
-        this._setOverlayPosition();
-      }
-    },
+    // This is an IIFE, because we need to keep track of the timeout state
+    // for debouncing the resize callbacks.
+    callback: (() => {
+      let timeoutId: ReturnType<typeof setTimeout>;
+      return () => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          if (this.state !== 'closed') {
+            this._setOverlayPosition();
+          }
+        }, 10);
+      };
+    })(),
   });
 
   private _overlay!: HTMLElement;
@@ -303,7 +311,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this.internals.states.delete('expanded');
     this._openPanelEventsController?.abort();
     if (this._originElement) {
-      this._originResizeObserver.unobserve(this._originElement);
+      this._resizeObserver.unobserve(this._originElement);
     }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -554,7 +562,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _setupOrigin(): void {
     const formField = this.closest?.<SbbFormFieldElement>('sbb-form-field');
     if (this._originElement) {
-      this._originResizeObserver.unobserve(this._originElement);
+      this._resizeObserver.unobserve(this._originElement);
     }
     this._originElement =
       formField?.shadowRoot?.querySelector?.('#overlay-anchor') ?? this.parentElement!;
@@ -562,7 +570,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       this.toggleState('option-panel-origin-borderless', formField?.hasAttribute?.('borderless'));
 
       if (this.isOpen) {
-        this._originResizeObserver.observe(this._originElement);
+        this._resizeObserver.observe(this._originElement);
       }
     }
   }
@@ -605,7 +613,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this.state = 'opened';
     this._triggerElement?.setAttribute('aria-expanded', 'true');
     if (this._originElement) {
-      this._originResizeObserver.observe(this._originElement);
+      this._resizeObserver.observe(this._originElement);
     }
     this.dispatchOpenEvent();
   }

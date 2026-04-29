@@ -156,7 +156,11 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       let timeoutId: ReturnType<typeof setTimeout>;
       return () => {
         clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => this._setOverlayPosition(), 10);
+        timeoutId = setTimeout(() => {
+          if (this.state !== 'closed') {
+            this._setOverlayPosition();
+          }
+        }, 10);
       };
     })(),
   });
@@ -581,6 +585,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     if (!originElement) {
       return;
     }
+    console.log('eeee');
     setOverlayPosition(
       this._overlay,
       originElement,
