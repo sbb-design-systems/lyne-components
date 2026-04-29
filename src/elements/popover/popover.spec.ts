@@ -377,6 +377,15 @@ describe(`sbb-popover`, () => {
       expect(element.style.getPropertyValue('--_sbb-popover-position-y')).to.equal(positionBefore);
     });
 
+    it('should remove close button when hoverTrigger is set', async () => {
+      expect(element.shadowRoot!.querySelector('[sbb-popover-close]')).not.to.be.null;
+
+      element.hoverTrigger = true;
+      await waitForLitRender(element);
+
+      expect(element.shadowRoot!.querySelector('[sbb-popover-close]')).to.be.null;
+    });
+
     it('should update config when changing hoverTrigger', async () => {
       // Assert trigger click ok
       trigger.click();
