@@ -163,14 +163,15 @@ export function getElementPosition(
     elementXPosition = document.documentElement.clientWidth / 2 - elementRec.offsetWidth / 2;
   }
 
-  // Check if vertical alignment needs to be changed to "above":
-  const shouldOpenAbove =
-    (availableSpaceBelow - verticalOffset < elementRec.scrollHeight &&
-      availableSpaceAbove - verticalOffset >
-        (responsiveHeight ? elementRec.clientHeight : elementRec.scrollHeight)) ||
-    (availableSpaceAbove > availableSpaceBelow &&
-      availableSpaceBelow - verticalOffset < elementRec.clientHeight &&
-      !responsiveHeight);
+  // Check if vertical alignment needs to be changed to "above".
+  // When the element doesn't fit in either direction, prefer the side with more space
+  // to avoid an infinite repositioning loop (above ↔ below).
+  const fitsBelow = availableSpaceBelow - verticalOffset >= elementRec.scrollHeight;
+  const fitsAbove =
+    availableSpaceAbove - verticalOffset >=
+    (responsiveHeight ? elementRec.clientHeight : elementRec.scrollHeight);
+  const moreSpaceAbove = availableSpaceAbove > availableSpaceBelow;
+  const shouldOpenAbove = !fitsBelow && (fitsAbove || moreSpaceAbove);
 
   if (!properties?.forceBelow && (properties?.forceAbove || shouldOpenAbove)) {
     elementYPosition =

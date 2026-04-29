@@ -151,6 +151,35 @@ describe('getElementPosition', () => {
     });
   });
 
+  it('goes above when fitsBelow is false and moreSpaceAbove is true even when fitsAbove is false', () => {
+    const el = document.createElement('div');
+    Object.defineProperty(el, 'scrollHeight', { configurable: true, value: 600 });
+    Object.defineProperty(el, 'clientHeight', { configurable: true, value: 600 });
+    Object.defineProperty(el, 'offsetHeight', { configurable: true, value: 600 });
+    Object.defineProperty(el, 'offsetWidth', { configurable: true, value: 160 });
+    Object.defineProperty(el, 'clientWidth', { configurable: true, value: 160 });
+    Object.defineProperty(el, 'scrollWidth', { configurable: true, value: 160 });
+
+    // triggerTop=400, triggerHeight=48 → availableBelow=272, availableAbove=400
+    // fitsBelow=false(272<600), fitsAbove=false(400<600), moreSpaceAbove=true(400>272)
+    trigger.getBoundingClientRect.returns({
+      x: 48,
+      y: 400,
+      width: 80,
+      height: 48,
+      top: 400,
+      right: 952,
+      bottom: 272,
+      left: 48,
+      toJSON: () => {},
+    });
+
+    // New logic: shouldOpenAbove = !fitsBelow && (fitsAbove || moreSpaceAbove) = true → above
+    expect(
+      getElementPosition(el, trigger, container, { responsiveHeight: true }).alignment.vertical,
+    ).to.be.equal('above');
+  });
+
   it('changes the alignment to end/above', () => {
     trigger.getBoundingClientRect.returns({
       x: 952,
