@@ -24,7 +24,7 @@ export class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override readonly elementName: string = 'sbb-option';
   public static override elementDependencies: SbbElementType[] = [SbbVisualCheckboxElement];
   public static override readonly role = 'option';
-  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static override readonly events = {
     optionselectionchange: 'optionselectionchange',
     optionselected: 'optionselected',

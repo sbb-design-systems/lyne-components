@@ -12,7 +12,7 @@ import style from './sidebar-title.scss?inline';
  */
 export class SbbSidebarTitleElement extends SbbTitleBase {
   public static override readonly elementName: string = 'sbb-sidebar-title';
-  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Title level */
   @property({ reflect: true }) public override accessor level: SbbTitleLevel = '2';

@@ -11,7 +11,7 @@ import style from './dialog-actions.scss?inline';
  */
 export class SbbDialogActionsElement extends SbbActionGroupElement {
   public static override readonly elementName: string = 'sbb-dialog-actions';
-  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 }
 
 declare global {

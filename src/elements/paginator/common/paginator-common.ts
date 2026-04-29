@@ -66,11 +66,7 @@ export const SbbPaginatorCommonElementMixin = <
     extends baseClass
     implements Partial<SbbPaginatorCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [
-      (baseClass as unknown as { styles: CSSResultGroup }).styles ?? [],
-      boxSizingStyles,
-      screenReaderOnlyStyles,
-    ];
+    public static styles: CSSResultGroup = [boxSizingStyles, screenReaderOnlyStyles];
     public static override elementDependencies: SbbElementType[] = [
       SbbMiniButtonGroupElement,
       SbbMiniButtonElement,

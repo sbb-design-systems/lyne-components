@@ -13,7 +13,7 @@ import style from './calendar-day.scss?inline';
  */
 export class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<T> {
   public static override readonly elementName: string = 'sbb-calendar-day';
-  public static override styles: CSSResultGroup = [super.styles ?? [], unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   @property()
   public override set slot(value: string) {

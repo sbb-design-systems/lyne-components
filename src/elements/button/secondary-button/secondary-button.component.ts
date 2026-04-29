@@ -14,7 +14,7 @@ export class SbbSecondaryButtonElement extends SbbButtonCommonElementMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
 ) {
   public static override readonly elementName: string = 'sbb-secondary-button';
-  public static override styles: CSSResultGroup = [super.styles ?? [], buttonSecondaryStyle];
+  public static override styles: CSSResultGroup = [buttonSecondaryStyle];
 }
 
 declare global {

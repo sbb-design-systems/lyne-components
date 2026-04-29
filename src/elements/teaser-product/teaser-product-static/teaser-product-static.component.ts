@@ -1,5 +1,3 @@
-import type { CSSResultGroup } from 'lit';
-
 import { SbbActionBaseElement } from '../../core.ts';
 import { SbbTeaserProductCommonElementMixin } from '../common/teaser-product-common.ts';
 
@@ -16,7 +14,6 @@ export class SbbTeaserProductStaticElement extends SbbTeaserProductCommonElement
   SbbActionBaseElement,
 ) {
   public static override readonly elementName: string = 'sbb-teaser-product-static';
-  public static override styles: CSSResultGroup = [super.styles ?? []];
 }
 
 declare global {

@@ -33,7 +33,7 @@ export class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
 ) {
   public static override readonly elementName: string = 'sbb-checkbox-panel';
   public static override elementDependencies: SbbElementType[] = [SbbVisualCheckboxElement];
-  public static override styles: CSSResultGroup = [super.styles ?? [], screenReaderOnlyStyles];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles];
 
   /** Value of the form element. */
   @property()

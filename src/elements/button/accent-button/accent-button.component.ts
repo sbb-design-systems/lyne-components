@@ -14,7 +14,7 @@ export class SbbAccentButtonElement extends SbbButtonCommonElementMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
 ) {
   public static override readonly elementName: string = 'sbb-accent-button';
-  public static override styles: CSSResultGroup = [super.styles ?? [], buttonAccentStyle];
+  public static override styles: CSSResultGroup = [buttonAccentStyle];
 }
 
 declare global {

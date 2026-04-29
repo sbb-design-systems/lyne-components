@@ -50,11 +50,7 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
     extends baseClass
     implements Partial<SbbButtonCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [
-      (baseClass as unknown as { styles: CSSResultGroup }).styles ?? [],
-      boxSizingStyles,
-      unsafeCSS(style),
-    ];
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
     /**
      * Size variant, either l, m or s.
      * @default 'm' / 's' (lean)

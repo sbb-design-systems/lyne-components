@@ -24,11 +24,7 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-navigation-marker';
-  public static override styles: CSSResultGroup = [
-    super.styles ?? [],
-    boxSizingStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   protected override readonly listChildLocalNames = [
     'sbb-navigation-button',
     'sbb-navigation-link',

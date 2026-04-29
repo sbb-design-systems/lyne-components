@@ -19,7 +19,7 @@ export class SbbTeaserProductElement extends SbbTeaserProductCommonElementMixin(
   SbbLinkBaseElement,
 ) {
   public static override readonly elementName: string = 'sbb-teaser-product';
-  public static override styles: CSSResultGroup = [super.styles ?? [], unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     // We render the content outside the anchor tag to allow screen readers to navigate through it

@@ -28,11 +28,7 @@ export const SbbTeaserProductCommonElementMixin = <
     extends baseClass
     implements SbbTeaserProductCommonElementMixinType
   {
-    public static styles: CSSResultGroup = [
-      (baseClass as unknown as { styles: CSSResultGroup }).styles ?? [],
-      boxSizingStyles,
-      unsafeCSS(style),
-    ];
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
     /**
      * Whether the fully visible part of the image is aligned 'before' or 'after' the content.

@@ -32,11 +32,7 @@ export const SbbCheckboxCommonElementMixin = <T extends AbstractConstructor<SbbE
     extends baseClass
     implements Partial<SbbCheckboxCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [
-      (baseClass as unknown as { styles: CSSResultGroup }).styles ?? [],
-      boxSizingStyles,
-      unsafeCSS(style),
-    ];
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
     /** Whether the checkbox is indeterminate. */
     @forceType()

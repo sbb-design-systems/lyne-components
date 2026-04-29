@@ -101,11 +101,7 @@ export const SbbTrainWagonMixin = <T extends AbstractConstructor<SbbElement>>(
       SbbTimetableOccupancyIconElement,
       SbbDividerElement,
     ];
-    public static styles: CSSResultGroup = [
-      (baseClass as unknown as { styles: CSSResultGroup }).styles ?? [],
-      boxSizingStyles,
-      unsafeCSS(style),
-    ];
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
     /**
      * Wagon type.

@@ -28,11 +28,7 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
     extends baseClass
     implements Partial<SbbLinkCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [
-      (baseClass as unknown as { styles: CSSResultGroup }).styles ?? [],
-      boxSizingStyles,
-      unsafeCSS(style),
-    ];
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
     protected constructor() {
       super();

@@ -14,7 +14,7 @@ import style from './link-list.scss?inline';
  */
 export class SbbLinkListElement extends SbbLinkListBaseElement {
   public static override readonly elementName: string = 'sbb-link-list';
-  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Selected breakpoint from which the list is rendered horizontally. */
   @property({ attribute: 'horizontal-from', reflect: true })

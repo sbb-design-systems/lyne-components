@@ -45,7 +45,6 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-train-formation';
   public static override styles: CSSResultGroup = [
-    super.styles ?? [],
     hostScrollbarStyles,
     boxSizingStyles,
     unsafeCSS(style),

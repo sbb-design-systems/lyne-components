@@ -13,7 +13,7 @@ import style from './title.scss?inline';
  */
 export class SbbTitleElement extends SbbNegativeMixin(SbbTitleBase) {
   public static override readonly elementName: string = 'sbb-title';
-  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Visual level for the title. Optional, if not set, the value of level will be used. */
   @property({ attribute: 'visual-level', reflect: true })

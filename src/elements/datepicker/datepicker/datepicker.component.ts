@@ -39,7 +39,7 @@ export class SbbDatepickerElement<T = Date>
 {
   public static override readonly elementName: string = 'sbb-datepicker';
   public static override elementDependencies: SbbElementType[] = [SbbCalendarElement];
-  public static override styles: CSSResultGroup = [super.styles, screenReaderOnlyStyles];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles];
   public static readonly sbbDateInputAssociated = true;
 
   /** If set to true, two months are displayed. */

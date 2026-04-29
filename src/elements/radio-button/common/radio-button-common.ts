@@ -32,11 +32,7 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<S
     extends baseClass
     implements Partial<SbbRadioButtonCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [
-      (baseClass as unknown as { styles: CSSResultGroup }).styles ?? [],
-      boxSizingStyles,
-      unsafeCSS(style),
-    ];
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
     public static readonly events = {
       change: 'change',
       input: 'input',

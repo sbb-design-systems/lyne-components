@@ -36,7 +36,7 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(SbbEleme
     SbbSelectElement,
     SbbOptionElement,
   ];
-  public static override styles: CSSResultGroup = [super.styles ?? [], unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events: Record<string, string> = {
     page: 'page',
   } as const;
