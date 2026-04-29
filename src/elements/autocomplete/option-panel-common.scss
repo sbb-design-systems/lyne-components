@@ -102,13 +102,12 @@
   z-index: var(--sbb-options-panel-internal-z-index);
 
   // Needed to add the box-shadow on the origin element (only if borderless)
-  &::after,
-  &::before {
+  &::after {
     content: '';
-    display: none;
+    display: block;
     position: absolute;
-    top: calc(var(--sbb-options-panel-position-y) - var(--sbb-options-panel-origin-height));
-    left: var(--sbb-options-panel-position-x);
+    top: var(--sbb-options-panel-origin-position-y);
+    left: var(--sbb-options-panel-origin-position-x);
     width: var(--sbb-options-panel-width);
     height: var(--sbb-options-panel-origin-height);
     background-color: transparent;
@@ -119,18 +118,6 @@
     :host(:is(:state(state-opened), :state(state-opening)):state(option-panel-origin-borderless))
       & {
       box-shadow: var(--sbb-options-panel-box-shadow);
-    }
-  }
-
-  &::before {
-    :host(:state(options-panel-position-below)) & {
-      display: block;
-    }
-  }
-
-  &::after {
-    :host(:state(options-panel-position-above)) & {
-      display: block;
     }
   }
 }
@@ -165,7 +152,6 @@
 
   @include sbb.if-forced-colors {
     border: var(--sbb-border-width-1x) solid CanvasText;
-    border-block-start: none;
   }
 }
 
