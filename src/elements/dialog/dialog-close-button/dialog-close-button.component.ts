@@ -13,10 +13,7 @@ import style from './dialog-close-button.scss?inline';
  */
 export class SbbDialogCloseButtonElement extends SbbSecondaryButtonElement {
   public static override readonly elementName: string = 'sbb-dialog-close-button';
-  public static override styles: CSSResultGroup = [
-    SbbSecondaryButtonElement.styles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
 
   private _languageController = new SbbLanguageController(this);
 
