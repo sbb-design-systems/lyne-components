@@ -22,10 +22,8 @@ export const SbbTeaserProductCommonElementMixin = <
 >(
   superClass: T,
 ): AbstractConstructor<SbbTeaserProductCommonElementMixinType> & T => {
-  const baseClass = SbbNegativeMixin(superClass);
-
   abstract class SbbTeaserProductCommonElement
-    extends baseClass
+    extends SbbNegativeMixin(superClass)
     implements SbbTeaserProductCommonElementMixinType
   {
     public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];

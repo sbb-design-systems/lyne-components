@@ -26,10 +26,8 @@ export declare abstract class SbbCheckboxCommonElementMixinType extends SbbFormA
 export const SbbCheckboxCommonElementMixin = <T extends AbstractConstructor<SbbElement>>(
   superClass: T,
 ): AbstractConstructor<SbbCheckboxCommonElementMixinType> & T => {
-  const baseClass = SbbFormAssociatedCheckboxMixin(superClass);
-
   abstract class SbbCheckboxCommonElement
-    extends baseClass
+    extends SbbFormAssociatedCheckboxMixin(superClass)
     implements Partial<SbbCheckboxCommonElementMixinType>
   {
     public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
