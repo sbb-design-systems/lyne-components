@@ -9,7 +9,7 @@ import {
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbSecondaryButtonElement } from '../button.pure.ts';
@@ -492,7 +492,7 @@ export class SbbPopoverElement extends SbbPopoverBaseElement {
   @property({ attribute: 'accessibility-close-label' })
   public accessor accessibilityCloseLabel: string = '';
 
-  private _hoverTrigger = false;
+  @state() private accessor _hoverTrigger = false;
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _language = new SbbLanguageController(this);
   private _overlayAbortController: AbortController | null = null;
