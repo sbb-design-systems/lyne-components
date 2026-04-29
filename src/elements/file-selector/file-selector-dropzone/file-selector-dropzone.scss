@@ -37,9 +37,9 @@
 }
 
 .sbb-file-selector__dropzone-area--title {
-  @include sbb.text--bold;
-  @include sbb.title-6($exclude-spacing: true);
-
+  font-weight: bold;
+  font-size: var(--sbb-heading-font-size-6);
+  letter-spacing: var(--sbb-typo-letter-spacing-heading);
   text-align: center;
   color: var(--sbb-file-selector-color);
 }
