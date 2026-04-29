@@ -1,4 +1,6 @@
-import type { SbbLanguage, SbbOccupancy } from '../interfaces/types.ts';
+import type { SbbOccupancy } from '../interfaces/types.ts';
+
+export type SbbLanguage = 'de' | 'en' | 'fr' | 'it';
 
 export const i18nDirection: Record<string, string> = {
   de: 'Richtung',

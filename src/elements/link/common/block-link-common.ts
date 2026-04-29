@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { AbstractConstructor, SbbActionBaseElement, SbbIconPlacement } from '../../core.ts';
+import type { AbstractConstructor, SbbActionBaseElement } from '../../core.ts';
 import { isLean } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
@@ -10,11 +10,12 @@ import { SbbLinkCommonElementMixin } from './link-common.ts';
 import blockStyle from './block-link.scss?inline';
 
 export type SbbLinkSize = 'xs' | 's' | 'm';
+export type SbbLinkIconPlacement = 'start' | 'end';
 
 export declare class SbbBlockLinkCommonElementMixinType extends SbbLinkCommonElementMixin(
   SbbIconNameMixin(SbbActionBaseElement),
 ) {
-  public accessor iconPlacement: SbbIconPlacement;
+  public accessor iconPlacement: SbbLinkIconPlacement;
   public accessor size: SbbLinkSize;
 }
 
@@ -36,7 +37,7 @@ export const SbbBlockLinkCommonElementMixin = <T extends AbstractConstructor<Sbb
 
     /** Moves the icon to the end of the component if set to true. */
     @property({ attribute: 'icon-placement', reflect: true })
-    public accessor iconPlacement: SbbIconPlacement = 'start';
+    public accessor iconPlacement: SbbLinkIconPlacement = 'start';
 
     protected override renderTemplate(): TemplateResult {
       return html`

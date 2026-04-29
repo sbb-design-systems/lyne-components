@@ -9,7 +9,6 @@ import {
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import type { SbbTime } from '../core.ts';
 import { boxSizingStyles, SbbElement } from '../core.ts';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
@@ -17,6 +16,8 @@ import clockHandleHoursSVG from './assets/sbb_clock_hours.svg?raw';
 import clockHandleMinutesSVG from './assets/sbb_clock_minutes.svg?raw';
 import clockHandleSecondsSVG from './assets/sbb_clock_seconds.svg?raw';
 import style from './clock.scss?inline';
+
+export type SbbTime = `${number}:${number}:${number}`;
 
 /** Number of hours on the clock face. */
 const TOTAL_HOURS_ON_CLOCK_FACE = 12;

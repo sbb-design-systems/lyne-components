@@ -3,8 +3,8 @@ import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import type { SbbTime } from '../core.ts';
 
+import type { SbbTime } from './clock.component.ts';
 import readme from './readme.md?raw';
 
 import '../clock.ts';

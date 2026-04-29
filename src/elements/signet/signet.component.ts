@@ -1,12 +1,11 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbProtectiveRoom } from '../core.ts';
 import { boxSizingStyles, forceType, SbbElement } from '../core.ts';
 
 import style from './signet.scss?inline';
 
-export type SbbSignetProtectiveRoom = SbbProtectiveRoom | 'panel';
+export type SbbSignetProtectiveRoom = 'none' | 'minimal' | 'ideal' | 'panel';
 
 /**
  * It displays the SBB signet.

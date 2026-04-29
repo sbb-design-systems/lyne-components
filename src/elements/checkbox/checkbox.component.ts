@@ -1,13 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import {
-  getOverride,
-  isLean,
-  SbbElement,
-  type SbbElementType,
-  type SbbIconPlacement,
-} from '../core.ts';
+import { getOverride, isLean, SbbElement, type SbbElementType } from '../core.ts';
 import { SbbIconNameMixin } from '../icon.pure.ts';
 import { SbbVisualCheckboxElement } from '../visual-checkbox.pure.ts';
 
@@ -44,7 +38,7 @@ export class SbbCheckboxElement<T = string> extends SbbIconNameMixin(
 
   /** The label position relative to the labelIcon. Defaults to end */
   @property({ attribute: 'icon-placement', reflect: true })
-  public accessor iconPlacement: SbbIconPlacement = 'end';
+  public accessor iconPlacement: 'start' | 'end' = 'end';
 
   protected override render(): TemplateResult {
     return html`
