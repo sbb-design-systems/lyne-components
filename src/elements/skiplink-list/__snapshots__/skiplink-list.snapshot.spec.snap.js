@@ -3,7 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-skiplink-list should render named slots if data-ssr-child-count attribute is set"] = 
 `<h2
-  class="sbb-skiplink-list-title"
+  class="sbb-screen-reader-only"
   id="sbb-skiplink-list-title-id"
 >
   <slot name="title">
@@ -68,7 +68,7 @@ snapshots["sbb-skiplink-list renders DOM"] =
 
 snapshots["sbb-skiplink-list renders Shadow DOM"] = 
 `<h2
-  class="sbb-skiplink-list-title"
+  class="sbb-screen-reader-only"
   id="sbb-skiplink-list-title-id"
 >
   <slot name="title">
@@ -136,7 +136,7 @@ snapshots["sbb-skiplink-list renders with title DOM"] =
 
 snapshots["sbb-skiplink-list renders with title Shadow DOM"] = 
 `<h3
-  class="sbb-skiplink-list-title"
+  class="sbb-screen-reader-only"
   id="sbb-skiplink-list-title-id"
 >
   <slot name="title">

@@ -1,7 +1,15 @@
-import { html, type PropertyDeclaration, type TemplateResult, unsafeCSS } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyDeclaration,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { miniButtonStyle } from '../../button/common/button-common.ts';
 import {
+  boxSizingStyles,
   type DateAdapter,
   defaultDateAdapter,
   i18nToday,
@@ -15,9 +23,7 @@ import {
 import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.pure.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 
-import datepickerButtonStyleString from './datepicker-button.scss?inline';
-
-export const datepickerButtonStyle = unsafeCSS(datepickerButtonStyleString);
+import style from './datepicker-button.scss?inline';
 
 /**
  * Base component for datepicker's buttons.
@@ -31,6 +37,11 @@ export abstract class SbbDatepickerButtonBase<T = Date>
 {
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static readonly sbbDateInputAssociated = true;
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    miniButtonStyle,
+    unsafeCSS(style),
+  ];
 
   /**
    * The associated date input element.

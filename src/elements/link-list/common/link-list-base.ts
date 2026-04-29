@@ -1,7 +1,15 @@
-import { html, nothing, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
+  boxSizingStyles,
   forceType,
   isLean,
   omitEmptyConverter,
@@ -19,9 +27,7 @@ import type {
 } from '../../link.pure.ts';
 import { SbbTitleElement, type SbbTitleLevel } from '../../title.pure.ts';
 
-import linkListBaseStyleString from './link-list-base.scss?inline';
-
-export const linkListBaseStyle = unsafeCSS(linkListBaseStyleString);
+import style from './link-list-base.scss?inline';
 
 /**
  * It displays a list of `sbb-block-link`.
@@ -36,6 +42,11 @@ export class SbbLinkListBaseElement extends SbbNegativeMixin(
   >(SbbElement),
 ) {
   public static override elementDependencies: SbbElementType[] = [SbbTitleElement];
+  public static override styles: CSSResultGroup = [
+    super.styles ?? [],
+    boxSizingStyles,
+    unsafeCSS(style),
+  ];
   protected override readonly listChildLocalNames = [
     'sbb-block-link',
     'sbb-block-link-button',

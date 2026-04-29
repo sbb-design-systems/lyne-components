@@ -4,7 +4,7 @@ import {
   SbbElement,
   type SbbElementType,
   SbbLanguageController,
-  SbbScreenReaderOnlyElement,
+  screenReaderOnlyStyles,
 } from '@sbb-esta/lyne-elements/core.js';
 import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -20,11 +20,12 @@ import style from './seat-reservation-navigation-services.scss?inline';
  */
 export class SbbSeatReservationNavigationServicesElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-navigation-services';
-  public static override elementDependencies: SbbElementType[] = [
-    SbbScreenReaderOnlyElement,
-    SbbSeatReservationGraphicElement,
+  public static override elementDependencies: SbbElementType[] = [SbbSeatReservationGraphicElement];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Coach service property ids, which are used to display the services in the navigation */
   @property({ attribute: 'property-ids', type: Array })
@@ -47,8 +48,10 @@ export class SbbSeatReservationNavigationServicesElement extends SbbElement {
       ? this._getServiceLabelDescription()
       : null;
     return html` <div class="sbb-sr-navigation__signs">
-      <sbb-screen-reader-only ${serviceLabelDescription ? serviceLabelDescription : nothing}
-        >${serviceLabelDescription}</sbb-screen-reader-only
+      <span
+        class="sbb-screen-reader-only"
+        ${serviceLabelDescription ? serviceLabelDescription : nothing}
+        >${serviceLabelDescription}</span
       >
       ${this.propertyIds?.map((signIcon: string) => {
         return html`

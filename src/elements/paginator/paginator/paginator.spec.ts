@@ -263,7 +263,7 @@ describe('sbb-paginator', () => {
     await waitForLitRender(element);
     expect(document.activeElement!.shadowRoot!.activeElement!).to.have.attribute('data-index', '4');
     expect(
-      element.shadowRoot!.querySelector('sbb-screen-reader-only')!.textContent?.trim(),
+      element.shadowRoot!.querySelector('.sbb-screen-reader-only')!.textContent?.trim(),
     ).to.be.equal('Page 5 selected.');
 
     const pageEventSpy = new EventSpy(SbbPaginatorElement.events.page);

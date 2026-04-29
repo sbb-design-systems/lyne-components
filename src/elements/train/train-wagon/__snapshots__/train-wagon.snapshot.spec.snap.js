@@ -78,9 +78,9 @@ snapshots["sbb-train-wagon should render as type wagon with one icon Shadow DOM"
     </span>
   </div>
   <span class="sbb-train-wagon__information-wrapper">
-    <sbb-screen-reader-only>
+    <span class="sbb-screen-reader-only">
       Additional wagon information
-    </sbb-screen-reader-only>
+    </span>
     <span class="sbb-train-wagon__attribute-icon-list">
       <span>
         <slot name="li-0">

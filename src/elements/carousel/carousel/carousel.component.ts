@@ -10,9 +10,8 @@ import {
   i18nPreviousSlide,
   i18nSlide,
   SbbElement,
-  type SbbElementType,
   SbbLanguageController,
-  SbbScreenReaderOnlyElement,
+  screenReaderOnlyStyles,
 } from '../../core.ts';
 import type { SbbCompactPaginatorElement } from '../../paginator.pure.ts';
 import type {
@@ -30,8 +29,11 @@ import style from './carousel.scss?inline';
  */
 export class SbbCarouselElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-carousel';
-  public static override elementDependencies: SbbElementType[] = [SbbScreenReaderOnlyElement];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
 
   /**
    * Used to display a box-shadow around the component.
@@ -157,8 +159,8 @@ export class SbbCarouselElement extends SbbElement {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-carousel">
-        <sbb-screen-reader-only id="sbb-carousel-arrows-navigation-hint"
-          >${i18nCarouselArrowsNavigationHint[this._language.current]}</sbb-screen-reader-only
+        <span class="sbb-screen-reader-only" id="sbb-carousel-arrows-navigation-hint"
+          >${i18nCarouselArrowsNavigationHint[this._language.current]}</span
         >
         <slot @slotchange=${this._handleSlotchange}></slot>
       </div>

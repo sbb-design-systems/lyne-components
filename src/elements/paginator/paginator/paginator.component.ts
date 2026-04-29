@@ -10,7 +10,6 @@ import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
 import {
-  boxSizingStyles,
   forceType,
   i18nItemsPerPage,
   i18nPage,
@@ -37,7 +36,7 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(SbbEleme
     SbbSelectElement,
     SbbOptionElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [super.styles ?? [], unsafeCSS(style)];
   public static readonly events: Record<string, string> = {
     page: 'page',
   } as const;

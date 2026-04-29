@@ -1,16 +1,8 @@
 import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import {
-  boxSizingStyles,
-  type SbbElementType,
-  SbbLinkBaseElement,
-  SbbScreenReaderOnlyElement,
-} from '../../core.ts';
-import {
-  SbbTeaserProductCommonElementMixin,
-  teaserProductCommonStyle,
-} from '../common/teaser-product-common.ts';
+import { SbbLinkBaseElement } from '../../core.ts';
+import { SbbTeaserProductCommonElementMixin } from '../common/teaser-product-common.ts';
 
 import style from './teaser-product.scss?inline';
 
@@ -27,12 +19,7 @@ export class SbbTeaserProductElement extends SbbTeaserProductCommonElementMixin(
   SbbLinkBaseElement,
 ) {
   public static override readonly elementName: string = 'sbb-teaser-product';
-  public static override elementDependencies: SbbElementType[] = [SbbScreenReaderOnlyElement];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    teaserProductCommonStyle,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [super.styles ?? [], unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     // We render the content outside the anchor tag to allow screen readers to navigate through it
@@ -40,7 +27,7 @@ export class SbbTeaserProductElement extends SbbTeaserProductCommonElementMixin(
       <div class="sbb-teaser-product__wrapper">
         ${this.renderLink(
           // For SEO, we add the accessibility hidden as hidden content of the link
-          html`<sbb-screen-reader-only>${this.accessibilityLabel}</sbb-screen-reader-only>`,
+          html`<span class="sbb-screen-reader-only">${this.accessibilityLabel}</span>`,
         )}
         ${this.renderTemplate()}
       </div>

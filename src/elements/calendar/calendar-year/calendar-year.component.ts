@@ -1,19 +1,14 @@
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { html, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
-import {
-  calendarCellBaseStyle,
-  SbbCalendarCellBaseElement,
-} from '../common/calendar-cell-base-element.ts';
+import { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-element.ts';
 
 /**
  * It displays a single year cell in the `sbb-calendar` years view.
  */
 export class SbbCalendarYearElement<T = Date> extends SbbCalendarCellBaseElement<T> {
   public static override readonly elementName: string = 'sbb-calendar-year';
-  public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle];
 
   /**
    * Value of the calendar-year element.

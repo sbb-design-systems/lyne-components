@@ -31,7 +31,11 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-skiplink-list';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    super.styles ?? [],
+    boxSizingStyles,
+    unsafeCSS(style),
+  ];
   protected override readonly listChildLocalNames = ['sbb-block-link', 'sbb-block-link-button'];
 
   /** The title text we want to place before the list. */
@@ -69,7 +73,7 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
     /* eslint-disable lit/binding-positions */
     return html`
       <${unsafeStatic(TITLE_TAG_NAME)}
-        class="sbb-skiplink-list-title"
+        class="sbb-screen-reader-only"
         id="sbb-skiplink-list-title-id"
       >
         <slot name="title">${this.titleContent}</slot>

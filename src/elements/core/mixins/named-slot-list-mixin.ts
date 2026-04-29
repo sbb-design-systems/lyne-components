@@ -1,4 +1,4 @@
-import { html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
 import type {
@@ -6,7 +6,7 @@ import type {
   SbbElementConstructor,
   SbbElementType,
 } from '../base-elements/element.ts';
-import { SbbScreenReaderOnlyElement } from '../screen-reader-only/screen-reader-only.component.ts';
+import { screenReaderOnlyStyles } from '../styles/styles.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 
@@ -67,7 +67,11 @@ export const SbbNamedSlotListMixin = <
     extends superClass
     implements Partial<SbbNamedSlotListMixinType<C>>
   {
-    public static override elementDependencies: SbbElementType[] = [SbbScreenReaderOnlyElement];
+    public static override elementDependencies: SbbElementType[] = [];
+    public static styles: CSSResultGroup = [
+      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
+      screenReaderOnlyStyles,
+    ];
     /** A list of lower-cased tag names to match against. (e.g. `sbb-link`) */
     protected abstract readonly listChildLocalNames: string[];
 
@@ -157,7 +161,7 @@ export const SbbNamedSlotListMixin = <
           ${this.renderHiddenSlot()}
         `;
       } else if (listSlotNames.length === 1) {
-        return html`<sbb-screen-reader-only>${attributes.ariaLabel}</sbb-screen-reader-only>
+        return html`<span class="sbb-screen-reader-only">${attributes.ariaLabel}</span>
           <span class=${attributes.class || this.localName}>
             <span><slot name=${listSlotNames[0].name}></slot></span>
           </span>

@@ -1,10 +1,7 @@
 import type { CSSResultGroup } from 'lit';
 
-import { boxSizingStyles, SbbActionBaseElement } from '../../core.ts';
-import {
-  SbbTeaserProductCommonElementMixin,
-  teaserProductCommonStyle,
-} from '../common/teaser-product-common.ts';
+import { SbbActionBaseElement } from '../../core.ts';
+import { SbbTeaserProductCommonElementMixin } from '../common/teaser-product-common.ts';
 
 /**
  * Displays a text and a footnote, combined with an image, to tease a product.
@@ -19,7 +16,7 @@ export class SbbTeaserProductStaticElement extends SbbTeaserProductCommonElement
   SbbActionBaseElement,
 ) {
   public static override readonly elementName: string = 'sbb-teaser-product-static';
-  public static override styles: CSSResultGroup = [boxSizingStyles, teaserProductCommonStyle];
+  public static override styles: CSSResultGroup = [super.styles ?? []];
 }
 
 declare global {

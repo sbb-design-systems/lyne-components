@@ -1,14 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import {
-  boxSizingStyles,
-  i18nPage,
-  i18nPaginatorOf,
-  SbbElement,
-  type SbbElementType,
-  SbbScreenReaderOnlyElement,
-} from '../../core.ts';
+import { i18nPage, i18nPaginatorOf, SbbElement, type SbbElementType } from '../../core.ts';
 import { SbbDividerElement } from '../../divider.pure.ts';
 import { SbbPaginatorCommonElementMixin } from '../common/paginator-common.ts';
 
@@ -19,11 +12,8 @@ import style from './compact-paginator.scss?inline';
  */
 export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-compact-paginator';
-  public static override elementDependencies: SbbElementType[] = [
-    SbbDividerElement,
-    SbbScreenReaderOnlyElement,
-  ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override elementDependencies: SbbElementType[] = [SbbDividerElement];
+  public static override styles: CSSResultGroup = [super.styles ?? [], unsafeCSS(style)];
   public static readonly events: Record<string, string> = {
     page: 'page',
   } as const;
@@ -39,9 +29,9 @@ export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(S
         ></sbb-divider
         >${this.numberOfPages()}</span
       >
-      <sbb-screen-reader-only>
+      <span class="sbb-screen-reader-only">
         ${`${this.accessibilityPageLabel ? this.accessibilityPageLabel : i18nPage[this.language.current]} ${this.pageIndex + 1} ${i18nPaginatorOf[this.language.current]} ${this.numberOfPages()}`}
-      </sbb-screen-reader-only>
+      </span>
     `;
   }
 

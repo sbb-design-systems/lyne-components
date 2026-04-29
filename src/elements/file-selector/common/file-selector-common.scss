@@ -33,10 +33,6 @@
   flex-direction: column;
 }
 
-.sbb-file-selector__visually-hidden {
-  @include sbb.screen-reader-only;
-}
-
 .sbb-file-selector__file-list {
   display: flex;
   flex-direction: column;

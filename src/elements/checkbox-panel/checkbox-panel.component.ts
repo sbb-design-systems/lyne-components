@@ -7,18 +7,13 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { SbbCheckboxCommonElementMixin } from '../checkbox/common/checkbox-common.ts';
 import {
-  checkboxCommonStyle,
-  SbbCheckboxCommonElementMixin,
-} from '../checkbox/common/checkbox-common.ts';
-import {
-  boxSizingStyles,
-  panelCommonStyle,
   SbbElement,
   type SbbElementType,
   SbbPanelMixin,
-  SbbScreenReaderOnlyElement,
   SbbUpdateSchedulerMixin,
+  screenReaderOnlyStyles,
 } from '../core.ts';
 import { SbbVisualCheckboxElement } from '../visual-checkbox.pure.ts';
 
@@ -37,15 +32,8 @@ export class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
   SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(SbbElement)),
 ) {
   public static override readonly elementName: string = 'sbb-checkbox-panel';
-  public static override elementDependencies: SbbElementType[] = [
-    SbbScreenReaderOnlyElement,
-    SbbVisualCheckboxElement,
-  ];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    checkboxCommonStyle,
-    panelCommonStyle,
-  ];
+  public static override elementDependencies: SbbElementType[] = [SbbVisualCheckboxElement];
+  public static override styles: CSSResultGroup = [super.styles ?? [], screenReaderOnlyStyles];
 
   /** Value of the form element. */
   @property()
@@ -88,7 +76,7 @@ export class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
             </span>
             <slot name="subtext"></slot>
             ${this.expansionState
-              ? html`<sbb-screen-reader-only>${this.expansionState}</sbb-screen-reader-only>`
+              ? html`<span class="sbb-screen-reader-only">${this.expansionState}</span>`
               : nothing}
           </span>
         </span>

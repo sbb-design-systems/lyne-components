@@ -37,9 +37,9 @@ snapshots["sbb-train-formation should render with one train Shadow DOM"] =
   </span>
 </div>
 <div class="sbb-train-formation__trains">
-  <sbb-screen-reader-only>
+  <span class="sbb-screen-reader-only">
     Trains
-  </sbb-screen-reader-only>
+  </span>
   <span class="sbb-train-formation__train-list">
     <span>
       <slot name="li-0">

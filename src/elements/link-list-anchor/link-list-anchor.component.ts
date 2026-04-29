@@ -1,7 +1,6 @@
 import { type CSSResultGroup, unsafeCSS } from 'lit';
 
-import { boxSizingStyles } from '../core.ts';
-import { linkListBaseStyle, SbbLinkListBaseElement } from '../link-list.pure.ts';
+import { SbbLinkListBaseElement } from '../link-list.pure.ts';
 
 import style from './link-list-anchor.scss?inline';
 
@@ -13,11 +12,7 @@ import style from './link-list-anchor.scss?inline';
  */
 export class SbbLinkListAnchorElement extends SbbLinkListBaseElement {
   public static override readonly elementName: string = 'sbb-link-list-anchor';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    linkListBaseStyle,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
 }
 
 declare global {

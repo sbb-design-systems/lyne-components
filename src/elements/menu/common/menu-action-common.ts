@@ -20,11 +20,17 @@ export const SbbMenuActionCommonElementMixin = <
 >(
   superClass: T,
 ): AbstractConstructor<SbbMenuActionCommonElementMixinType> & T => {
+  const baseClass = SbbIconNameMixin(SbbDisabledMixin(superClass));
+
   abstract class SbbMenuActionCommonElement
-    extends SbbIconNameMixin(SbbDisabledMixin(superClass))
+    extends baseClass
     implements SbbMenuActionCommonElementMixinType
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [
+      (baseClass as unknown as { styles: CSSResultGroup }).styles ?? [],
+      boxSizingStyles,
+      unsafeCSS(style),
+    ];
 
     protected override renderTemplate(): TemplateResult {
       return html`

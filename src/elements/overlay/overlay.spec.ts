@@ -44,7 +44,7 @@ describe('sbb-overlay', () => {
           <p>Overlay content</p>
         </sbb-overlay>
       `);
-      ariaLiveRef = element.shadowRoot!.querySelector('sbb-screen-reader-only')!;
+      ariaLiveRef = element.shadowRoot!.querySelector('.sbb-screen-reader-only')!;
     });
 
     it('renders', () => {

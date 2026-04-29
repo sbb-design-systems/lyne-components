@@ -6,14 +6,7 @@ import { html } from 'lit/static-html.js';
 import { SbbSecondaryButtonElement } from '../button.pure.ts';
 import { SbbContainerElement } from '../container.pure.ts';
 import type { SbbElementType, SbbOverlayCloseEventDetails } from '../core.ts';
-import {
-  boxSizingStyles,
-  forceType,
-  forwardEvent,
-  i18nCloseDialog,
-  isZeroAnimationDuration,
-  SbbScreenReaderOnlyElement,
-} from '../core.ts';
+import { forceType, forwardEvent, i18nCloseDialog, isZeroAnimationDuration } from '../core.ts';
 
 import {
   overlayRefs,
@@ -35,9 +28,8 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
   public static override elementDependencies: SbbElementType[] = [
     SbbSecondaryButtonElement,
     SbbContainerElement,
-    SbbScreenReaderOnlyElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
@@ -169,7 +161,7 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
           </div>
         </div>
       </div>
-      <sbb-screen-reader-only aria-live="polite"></sbb-screen-reader-only>
+      <span class="sbb-screen-reader-only" aria-live="polite"></span>
     `;
   }
 }

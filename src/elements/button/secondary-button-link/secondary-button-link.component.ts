@@ -1,16 +1,7 @@
 import type { CSSResultGroup } from 'lit';
 
-import {
-  boxSizingStyles,
-  SbbDisabledInteractiveMixin,
-  SbbDisabledMixin,
-  SbbLinkBaseElement,
-} from '../../core.ts';
-import {
-  buttonCommonStyle,
-  buttonSecondaryStyle,
-  SbbButtonCommonElementMixin,
-} from '../common/button-common.ts';
+import { SbbDisabledInteractiveMixin, SbbDisabledMixin, SbbLinkBaseElement } from '../../core.ts';
+import { buttonSecondaryStyle, SbbButtonCommonElementMixin } from '../common/button-common.ts';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'secondary' variant, which will behave as a link.
@@ -23,11 +14,7 @@ export class SbbSecondaryButtonLinkElement extends SbbButtonCommonElementMixin(
   SbbDisabledInteractiveMixin(SbbDisabledMixin(SbbLinkBaseElement)),
 ) {
   public static override readonly elementName: string = 'sbb-secondary-button-link';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    buttonCommonStyle,
-    buttonSecondaryStyle,
-  ];
+  public static override styles: CSSResultGroup = [super.styles ?? [], buttonSecondaryStyle];
 }
 
 declare global {

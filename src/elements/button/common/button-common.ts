@@ -1,20 +1,29 @@
-import { nothing, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
+import {
+  type CSSResultGroup,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { AbstractConstructor, SbbActionBaseElement } from '../../core.ts';
+import {
+  type AbstractConstructor,
+  boxSizingStyles,
+  type SbbActionBaseElement,
+} from '../../core.ts';
 import { forceType, isLean, SbbNegativeMixin } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
 import buttonAccentStyleString from './accent-button.scss?inline';
-import buttonCommonStyleString from './button-common.scss?inline';
+import style from './button-common.scss?inline';
 import miniButtonStyleString from './mini-button-common.scss?inline';
 import miniButtonLabelStyleString from './mini-button-label-common.scss?inline';
 import buttonPrimaryStyleString from './primary-button.scss?inline';
 import buttonSecondaryStyleString from './secondary-button.scss?inline';
 import buttonTransparentStyleString from './transparent-button.scss?inline';
 
-export const buttonCommonStyle = unsafeCSS(buttonCommonStyleString);
 export const buttonPrimaryStyle = unsafeCSS(buttonPrimaryStyleString);
 export const buttonSecondaryStyle = unsafeCSS(buttonSecondaryStyleString);
 export const buttonAccentStyle = unsafeCSS(buttonAccentStyleString);
@@ -35,10 +44,17 @@ export declare class SbbButtonCommonElementMixinType extends SbbNegativeMixin(
 export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbActionBaseElement>>(
   superClass: T,
 ): AbstractConstructor<SbbButtonCommonElementMixinType> & T => {
+  const baseClass = SbbNegativeMixin(SbbIconNameMixin(superClass));
+
   abstract class SbbButtonCommonElementClass
-    extends SbbNegativeMixin(SbbIconNameMixin(superClass))
+    extends baseClass
     implements Partial<SbbButtonCommonElementMixinType>
   {
+    public static styles: CSSResultGroup = [
+      (baseClass as unknown as { styles: CSSResultGroup }).styles ?? [],
+      boxSizingStyles,
+      unsafeCSS(style),
+    ];
     /**
      * Size variant, either l, m or s.
      * @default 'm' / 's' (lean)
