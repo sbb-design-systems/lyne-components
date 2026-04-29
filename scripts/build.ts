@@ -380,9 +380,22 @@ function stateTransform(): PluginOption {
     transform(code: string, id: string) {
       if (/.(js|ts)$/.test(id)) {
         const ms = new MagicString(code);
-        ms.replaceAll(/:state\(([^)]+)\)/g, (_match, p1) => {
-          return `:is(:state(${p1}),[state--${p1}])`;
-        });
+        // Replace :state(...) everywhere except inside CSS.supports(...) call arguments,
+        // where :state() is used intentionally to feature-detect native browser support.
+        // All other occurrences (including in selector strings like matches(':state(x)'))
+        // are replaced so that the polyfill attribute selector is also emitted.
+
+        // Collect ranges of CSS.supports(...) calls to skip
+        const skipRanges = Array.from(code.matchAll(/CSS\.supports\([^)]*\)/g), (m) => [
+          m.index,
+          m.index + m[0].length,
+        ]);
+        for (const m of code.matchAll(/:state\(([^)]+)\)/g)) {
+          // Ensure match is not inside skipRange
+          if (!skipRanges.some(([start, end]) => m.index >= start && m.index < end)) {
+            ms.overwrite(m.index, m.index + m[0].length, `:is(:state(${m[1]}),[state--${m[1]}])`);
+          }
+        }
         return {
           code: ms.toString(),
           map: ms.generateMap({ hires: true }),
