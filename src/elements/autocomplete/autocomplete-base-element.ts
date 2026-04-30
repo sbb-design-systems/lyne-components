@@ -25,6 +25,7 @@ import {
   SbbNegativeMixin,
   SbbOpenCloseBaseElement,
   SbbPropertyWatcherController,
+  scrollbarStyles,
   setOverlayPosition,
 } from '../core.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
@@ -51,6 +52,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     unsafeCSS(optionPanelStyleString),
+    scrollbarStyles,
     unsafeCSS(style),
   ];
 
@@ -723,7 +725,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     return html`
       <div class="sbb-option-panel__overlay-container">
         <div
-          class="sbb-option-panel__overlay"
+          class="sbb-option-panel__overlay ${this.negative
+            ? 'sbb-scrollbar-negative'
+            : 'sbb-scrollbar'}"
           role=${!ariaRoleOnHost ? this.panelRole : nothing}
           id=${!ariaRoleOnHost ? this.overlayId : nothing}
           tabindex="-1"

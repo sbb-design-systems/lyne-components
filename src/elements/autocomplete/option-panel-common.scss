@@ -1,8 +1,6 @@
 @use '../core/styles' as sbb;
 
 :host {
-  @include sbb.scrollbar-variables;
-
   --sbb-options-panel-position-x: 0;
   --sbb-options-panel-position-y: 0;
   --sbb-options-pointer-events: all;
@@ -38,8 +36,6 @@
 }
 
 :host([negative]) {
-  @include sbb.scrollbar-variables--color-negative;
-
   --sbb-options-panel-box-shadow: var(--sbb-box-shadow-level-9-hard-negative);
   --sbb-options-panel-background-color: var(--sbb-background-color-2-negative);
 
@@ -123,8 +119,6 @@
 }
 
 .sbb-option-panel__overlay {
-  @include sbb.scrollbar-rules;
-
   display: block;
   position: absolute;
   visibility: var(--sbb-options-panel-visibility, 'visible');

@@ -39,6 +39,7 @@ import {
   SbbReadonlyMixin,
   SbbRequiredMixin,
   SbbUpdateSchedulerMixin,
+  scrollbarStyles,
   setOrRemoveAttribute,
   setOverlayPosition,
 } from '../core.ts';
@@ -83,6 +84,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     optionPanelStyle,
+    scrollbarStyles,
     unsafeCSS(style),
   ];
 
@@ -1028,7 +1030,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
       <div class="sbb-option-panel__overlay-container" popover="manual">
         <div
-          class="sbb-option-panel__overlay"
+          class="sbb-option-panel__overlay ${this.negative
+            ? 'sbb-scrollbar-negative'
+            : 'sbb-scrollbar'}"
           id=${!ariaRoleOnHost ? this._overlayId : nothing}
           role=${!ariaRoleOnHost ? 'listbox' : nothing}
           ?aria-multiselectable=${this.multiple}
