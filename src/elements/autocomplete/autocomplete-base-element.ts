@@ -587,7 +587,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     if (!originElement) {
       return;
     }
-    console.log('eeee');
     setOverlayPosition(
       this._overlay,
       originElement,
