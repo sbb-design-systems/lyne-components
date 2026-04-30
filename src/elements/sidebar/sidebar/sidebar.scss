@@ -100,8 +100,6 @@
 }
 
 .sbb-sidebar-content-section {
-  @include sbb.scrollbar;
-
   padding-block-start: var(--_sbb-sidebar-padding-block-start);
   padding-inline: var(--sbb-sidebar-padding) var(--_sbb-sidebar-padding-inline-end);
   overflow-y: auto;

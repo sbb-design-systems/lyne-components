@@ -22,7 +22,7 @@ snapshots["sbb-overlay renders Shadow DOM"] =
         >
         </sbb-secondary-button>
       </div>
-      <div class="sbb-overlay__content">
+      <div class="sbb-overlay__content sbb-scrollbar">
         <sbb-container
           class="sbb-overlay__content-container"
           color="transparent"

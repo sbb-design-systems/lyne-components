@@ -29,6 +29,7 @@ import {
   SbbOpenCloseBaseElement,
   type SbbOpenedClosedState,
   SbbUpdateSchedulerMixin,
+  scrollbarStyles,
   setAriaOverlayTriggerProperties,
   ɵstateController,
 } from '../../core.ts';
@@ -46,7 +47,11 @@ import style from './navigation-section.scss?inline';
 export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-navigation-section';
   public static override elementDependencies: SbbElementType[] = [SbbTransparentButtonElement];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    scrollbarStyles,
+    unsafeCSS(style),
+  ];
 
   /**
    * The label to be shown before the action list.
@@ -363,7 +368,7 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpen
           aria-labelledby=${!this.accessibilityLabel ? 'title' : nothing}
           aria-label=${this.accessibilityLabel ? this.accessibilityLabel : nothing}
         >
-          <div class="sbb-navigation-section__wrapper">
+          <div class="sbb-navigation-section__wrapper sbb-scrollbar-negative">
             <div class="sbb-navigation-section__content">
               <div class="sbb-navigation-section__header">
                 <!-- Back button -->

@@ -80,10 +80,6 @@
   --sbb-scrollbar-track-color: var(--sbb-background-color-4-negative);
 }
 
-@mixin scrollbar-variables--track-invisible {
-  --sbb-scrollbar-track-color: transparent;
-}
-
 @mixin scrollbar-variables($size: thin, $negative: false, $track-visible: false) {
   --sbb-scrollbar-width: var(--sbb-spacing-fixed-3x);
 
@@ -103,8 +99,6 @@
     @include scrollbar-variables--color-negative-track-visible;
   } @else if $track-visible {
     @include scrollbar-variables--color-positive-track-visible;
-  } @else {
-    @include scrollbar-variables--track-invisible;
   }
 }
 

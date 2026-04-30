@@ -18,6 +18,7 @@ import {
   SbbElement,
   type SbbElementType,
   SbbLanguageController,
+  scrollbarStyles,
 } from '../core.ts';
 
 import style from './map-container.scss?inline';
@@ -40,7 +41,11 @@ import style from './map-container.scss?inline';
 export class SbbMapContainerElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-map-container';
   public static override elementDependencies: SbbElementType[] = [SbbAccentButtonElement];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    scrollbarStyles,
+    unsafeCSS(style),
+  ];
 
   /** Flag to show/hide the scroll up button inside the sidebar on mobile. */
   @forceType()
@@ -106,7 +111,10 @@ export class SbbMapContainerElement extends SbbElement {
       <div class="sbb-map-container__map">
         <slot name="map"></slot>
       </div>
-      <div class="sbb-map-container__sidebar" @scroll=${(e: Event) => forwardEvent(e, document)}>
+      <div
+        class="sbb-map-container__sidebar sbb-scrollbar-thick-track-visible"
+        @scroll=${(e: Event) => forwardEvent(e, document)}
+      >
         <span id="intersector"></span>
 
         <slot></slot>

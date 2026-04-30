@@ -49,7 +49,7 @@ snapshots["sbb-navigation renders Shadow DOM"] =
       </sbb-transparent-button>
     </div>
     <div class="sbb-navigation__wrapper">
-      <div class="sbb-navigation__content">
+      <div class="sbb-navigation__content sbb-scrollbar-negative">
         <slot>
         </slot>
       </div>

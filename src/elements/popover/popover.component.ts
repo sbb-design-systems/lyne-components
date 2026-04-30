@@ -33,6 +33,7 @@ import {
   SbbLanguageController,
   SbbMediaQueryPointerCoarse,
   SbbOpenCloseBaseElement,
+  scrollbarStyles,
   setAriaOverlayTriggerProperties,
   ɵstateController,
 } from '../core.ts';
@@ -445,6 +446,7 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
 export class SbbPopoverElement extends SbbPopoverBaseElement {
   public static override readonly elementName: string = 'sbb-popover';
   public static override elementDependencies: SbbElementType[] = [SbbSecondaryButtonElement];
+  public static override styles: CSSResultGroup = [scrollbarStyles];
 
   /** Whether the close button should be hidden. */
   @forceType()
@@ -622,7 +624,7 @@ export class SbbPopoverElement extends SbbPopoverBaseElement {
 
     return html`
       ${!this.hideCloseButton && !this._hoverTrigger ? closeButton : nothing}
-      <span class="sbb-popover__scrollable-content">
+      <span class="sbb-popover__scrollable-content sbb-scrollbar">
         <slot>No content</slot>
       </span>
     `;

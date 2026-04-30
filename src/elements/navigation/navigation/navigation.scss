@@ -165,7 +165,6 @@
 
 .sbb-navigation__content {
   @include transition(translate);
-  @include sbb.scrollbar($negative: true);
 
   display: flex;
   flex-direction: column;

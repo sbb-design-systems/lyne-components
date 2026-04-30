@@ -10,37 +10,32 @@
   .sbb-scrollbar-thick-track-visible,
   .sbb-scrollbar-thick-negative-track-visible
 ) {
+  @include scrollbar.scrollbar-variables;
   @include scrollbar.scrollbar-rules;
 }
 
-.sbb-scrollbar {
-  @include scrollbar.scrollbar-variables($size: thin, $negative: false, $track-visible: false);
+:is(
+  .sbb-scrollbar-negative,
+  .sbb-scrollbar-thick-negative,
+  .sbb-scrollbar-negative-track-visible,
+  .sbb-scrollbar-thick-negative-track-visible
+) {
+  @include scrollbar.scrollbar-variables--color-negative;
 }
 
-.sbb-scrollbar-negative {
-  @include scrollbar.scrollbar-variables($size: thin, $negative: true, $track-visible: false);
+:is(
+  .sbb-scrollbar-thick-negative,
+  .sbb-scrollbar-thick,
+  .sbb-scrollbar-thick-track-visible,
+  .sbb-scrollbar-thick-negative-track-visible
+) {
+  @include scrollbar.scrollbar-variables--size-thick;
 }
 
-.sbb-scrollbar-thick {
-  @include scrollbar.scrollbar-variables($size: thick, $negative: false, $track-visible: false);
+:is(.sbb-scrollbar-track-visible, .sbb-scrollbar-thick-track-visible) {
+  @include scrollbar.scrollbar-variables--color-positive-track-visible;
 }
 
-.sbb-scrollbar-thick-negative {
-  @include scrollbar.scrollbar-variables($size: thick, $negative: true, $track-visible: false);
-}
-
-.sbb-scrollbar-track-visible {
-  @include scrollbar.scrollbar-variables($size: thin, $negative: false, $track-visible: true);
-}
-
-.sbb-scrollbar-negative-track-visible {
-  @include scrollbar.scrollbar-variables($size: thin, $negative: true, $track-visible: true);
-}
-
-.sbb-scrollbar-thick-track-visible {
-  @include scrollbar.scrollbar-variables($size: thick, $negative: false, $track-visible: true);
-}
-
-.sbb-scrollbar-thick-negative-track-visible {
-  @include scrollbar.scrollbar-variables($size: thick, $negative: true, $track-visible: true);
+:is(.sbb-scrollbar-negative-track-visible, .sbb-scrollbar-thick-negative-track-visible) {
+  @include scrollbar.scrollbar-variables--color-negative-track-visible;
 }

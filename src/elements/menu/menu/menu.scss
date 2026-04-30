@@ -13,8 +13,6 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --_sbb-menu-inset: 0 auto auto 0;
 
-  @include sbb.scrollbar-variables($negative: true);
-
   @include sbb.mq($from: large) {
     --sbb-menu-back-button-display: none;
   }
@@ -37,7 +35,7 @@
   --_sbb-menu-inset: 0;
 }
 
-:host(:state(dark)) {
+:host(:state(dark)) .sbb-scrollbar-negative {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
 
   // We have to ensure that the scrollbar is visible in dark mode with non-dark mode values.
@@ -171,8 +169,6 @@ sbb-divider,
 }
 
 .sbb-menu__content {
-  @include sbb.scrollbar-rules;
-
   max-height: var(--sbb-menu-max-height);
   padding-block: var(--sbb-spacing-fixed-1x);
   overflow: auto;
