@@ -41,7 +41,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['l', 's'],
+  options: ['s', 'l'],
   table: {
     category: 'Accordion',
   },
@@ -129,7 +129,7 @@ const defaultArgs: Args = {
   numberOfPanels: 3,
   multi: false,
   'title-level': titleLevel.options![2],
-  size: size.options![0],
+  size: undefined,
   color: color.options![0],
   expanded: false,
   borderless: false,
@@ -225,13 +225,13 @@ export const Multi: StoryObj = {
 export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![1] },
+  args: { ...defaultArgs, size: size.options![0] },
 };
 
 export const SizeSWithIcon: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![1], iconName: 'swisspass-medium' },
+  args: { ...defaultArgs, size: size.options![0], iconName: 'swisspass-medium' },
 };
 
 const meta: Meta = {

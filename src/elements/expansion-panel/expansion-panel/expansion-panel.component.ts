@@ -6,7 +6,6 @@ import type { SbbOpenedClosedState } from '../../core.ts';
 import {
   boxSizingStyles,
   forceType,
-  isLean,
   isZeroAnimationDuration,
   SbbElement,
   ɵstateController,
@@ -68,10 +67,9 @@ export class SbbExpansionPanelElement extends SbbElement {
   public accessor borderless: boolean = false;
 
   /**
-   * Size variant, either l or s.
-   * @default 'l' / 's' (lean)
+   * Size variant, either s (lean default) or l (standard default).
    */
-  @property({ reflect: true }) public accessor size: 's' | 'l' = isLean() ? 's' : 'l';
+  @property({ reflect: true }) public accessor size: 's' | 'l' | null = null;
 
   /** The state of the component. */
   private set _state(state: SbbOpenedClosedState) {

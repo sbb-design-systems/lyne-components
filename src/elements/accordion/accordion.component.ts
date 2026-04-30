@@ -12,7 +12,6 @@ import {
   forceType,
   handleDistinctChange,
   isEventPrevented,
-  isLean,
   SbbElement,
   ɵstateController,
 } from '../core.ts';
@@ -31,11 +30,10 @@ export class SbbAccordionElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
-   * Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`.
-   * @default 'l' / 's' (lean)
+   * Size variant, either s (lean default) or l (standard default).; overrides the size on any projected `sbb-expansion-panel`.
    */
   @property({ reflect: true })
-  public accessor size: 's' | 'l' = isLean() ? 's' : 'l';
+  public accessor size: 's' | 'l' | null = null;
 
   /**
    * The heading level for the sbb-expansion-panel-headers within the component.

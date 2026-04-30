@@ -43,15 +43,10 @@ describe(`sbb-accordion`, () => {
 
     expect(panels[0]).to.match(':state(accordion-first)');
     expect(panels[0]).to.match(':state(accordion)');
-    expect(panels[0]).to.have.attribute('size');
-    expect(panels[0].size).to.be.equal('l');
+    expect(panels[0]).not.to.have.attribute('size');
     expect(panels[1]).to.match(':state(accordion)');
-    expect(panels[1]).to.have.attribute('size');
-    expect(panels[1].size).to.be.equal('l');
     expect(panels[2]).to.match(':state(accordion)');
     expect(panels[2]).to.match(':state(accordion-last)');
-    expect(panels[2]).to.have.attribute('size');
-    expect(panels[2].size).to.be.equal('l');
   });
 
   it('should set accordion context on expansion panel when removing and adding expansion-panels', async () => {

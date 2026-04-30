@@ -54,7 +54,7 @@ The component has two background options (`milk` and `white`, which is the defau
 <sbb-expansion-panel color="milk"> ... </sbb-expansion-panel>
 ```
 
-The component has two different sizes, `l` (default) and `s`, which can be changed using the `size` property.
+The component has two different sizes, `s` and `l`, which can be changed using the `size` property.
 The property is overridden when the component is used within a `<sbb-accordion>`.
 
 ```html
@@ -103,14 +103,14 @@ and the `aria-hidden` attribute on the content.
 
 #### Properties
 
-| Name         | Attribute     | Privacy | Type                    | Default            | Description                                                            |
-| ------------ | ------------- | ------- | ----------------------- | ------------------ | ---------------------------------------------------------------------- |
-| `borderless` | `borderless`  | public  | `boolean`               | `false`            | Whether the panel has no border.                                       |
-| `color`      | `color`       | public  | `'white' \| 'milk'`     | `'white'`          | The background color of the panel.                                     |
-| `disabled`   | `disabled`    | public  | `boolean`               | `false`            | Whether the panel is disabled, so its expanded state can't be changed. |
-| `expanded`   | `expanded`    | public  | `boolean`               | `false`            | Whether the panel is expanded.                                         |
-| `size`       | `size`        | public  | `'s' \| 'l'`            | `'l' / 's' (lean)` | Size variant, either l or s.                                           |
-| `titleLevel` | `title-level` | public  | `SbbTitleLevel \| null` | `null`             | Heading level; if unset, a `div` will be rendered.                     |
+| Name         | Attribute     | Privacy | Type                    | Default   | Description                                                            |
+| ------------ | ------------- | ------- | ----------------------- | --------- | ---------------------------------------------------------------------- |
+| `borderless` | `borderless`  | public  | `boolean`               | `false`   | Whether the panel has no border.                                       |
+| `color`      | `color`       | public  | `'white' \| 'milk'`     | `'white'` | The background color of the panel.                                     |
+| `disabled`   | `disabled`    | public  | `boolean`               | `false`   | Whether the panel is disabled, so its expanded state can't be changed. |
+| `expanded`   | `expanded`    | public  | `boolean`               | `false`   | Whether the panel is expanded.                                         |
+| `size`       | `size`        | public  | `'s' \| 'l' \| null`    | `null`    | Size variant, either s (lean default) or l (standard default).         |
+| `titleLevel` | `title-level` | public  | `SbbTitleLevel \| null` | `null`    | Heading level; if unset, a `div` will be rendered.                     |
 
 #### Events
 
