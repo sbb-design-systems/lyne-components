@@ -24,7 +24,7 @@ export class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   SbbRadioButtonCommonElementMixin(SbbUpdateSchedulerMixin(SbbElement)),
 ) {
   public static override readonly elementName: string = 'sbb-radio-button-panel';
-  public static override styles: CSSResultGroup = [super.styles ?? [], screenReaderOnlyStyles];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static readonly events = {

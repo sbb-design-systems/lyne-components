@@ -41,11 +41,7 @@ export class SbbTrainElement extends SbbTrainFormationOrientationMixin(
 ) {
   public static override readonly elementName: string = 'sbb-train';
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
-  public static override styles: CSSResultGroup = [
-    super.styles ?? [],
-    boxSizingStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   protected override readonly listChildLocalNames = [
     'sbb-train-wagon',

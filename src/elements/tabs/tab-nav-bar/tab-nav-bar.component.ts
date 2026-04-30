@@ -15,7 +15,6 @@ import style from './tab-nav-bar.scss?inline';
 export class SbbTabNavBarElement extends SbbNamedSlotListMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-tab-nav-bar';
   public static override styles: CSSResultGroup = [
-    super.styles ?? [],
     boxSizingStyles,
     tabLabelCommonStyles,
     tabGroupCommonStyles,

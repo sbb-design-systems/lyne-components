@@ -37,11 +37,7 @@ export const SbbNavigationActionCommonElementMixin = <
     implements Partial<SbbNavigationActionCommonElementMixinType>
   {
     public static override elementDependencies: SbbElementType[] = [SbbIconElement];
-    public static styles: CSSResultGroup = [
-      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
-      boxSizingStyles,
-      unsafeCSS(style),
-    ];
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
     /**
      * Action size variant, either s, m or l.

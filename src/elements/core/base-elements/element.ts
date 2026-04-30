@@ -1,4 +1,6 @@
 import {
+  type CSSResultGroup,
+  type CSSResultOrNative,
   isServer,
   LitElement,
   type PropertyDeclaration,
@@ -458,6 +460,28 @@ export class SbbElement extends LitElement {
         `The custom element with name "${this.elementName}" is already defined. Skipping.`,
       );
     }
+  }
+
+  /**
+   * Collects `styles` from every class in the prototype chain (using `Object.hasOwn`)
+   * and merges them in top-down order. This means each class/mixin only needs to declare
+   * its **own** styles — there is no need to reference `super.styles`.
+   *
+   * Lit's default behaviour already walks the chain, but fails for mixins where
+   * `super.styles` resolves to the wrong class. This override fixes that.
+   */
+  protected static override finalizeStyles(_styles: CSSResultGroup): CSSResultOrNative[] {
+    const collected: CSSResultGroup[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    let ctor: typeof SbbElement | null = this;
+    while (ctor && ctor !== LitElement) {
+      if (Object.hasOwn(ctor, 'styles') && ctor.styles) {
+        collected.unshift(ctor.styles);
+      }
+      ctor = Object.getPrototypeOf(ctor) as typeof SbbElement | null;
+    }
+    // Call LitElement.finalizeStyles which handles dedup & adoption
+    return super.finalizeStyles(collected);
   }
 
   protected override createRenderRoot(): HTMLElement | DocumentFragment {

@@ -32,11 +32,7 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement & SbbPane
   superClass: T,
 ): AbstractConstructor<SbbPanelMixinType> & T => {
   abstract class SbbPanelElement extends superClass implements SbbPanelMixinType {
-    public static styles: CSSResultGroup = [
-      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
-      boxSizingStyles,
-      unsafeCSS(style),
-    ];
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
     /** The background color of the panel. */
     @property({ reflect: true }) public accessor color: 'white' | 'milk' = 'white';

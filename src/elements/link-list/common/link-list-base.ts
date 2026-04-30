@@ -42,11 +42,7 @@ export class SbbLinkListBaseElement extends SbbNegativeMixin(
   >(SbbElement),
 ) {
   public static override elementDependencies: SbbElementType[] = [SbbTitleElement];
-  public static override styles: CSSResultGroup = [
-    super.styles ?? [],
-    boxSizingStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   protected override readonly listChildLocalNames = [
     'sbb-block-link',
     'sbb-block-link-button',

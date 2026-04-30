@@ -14,7 +14,7 @@ export class SbbTransparentButtonElement extends SbbButtonCommonElementMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
 ) {
   public static override readonly elementName: string = 'sbb-transparent-button';
-  public static override styles: CSSResultGroup = [super.styles ?? [], buttonTransparentStyle];
+  public static override styles: CSSResultGroup = [buttonTransparentStyle];
 }
 
 declare global {

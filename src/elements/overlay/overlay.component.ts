@@ -29,7 +29,7 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
     SbbSecondaryButtonElement,
     SbbContainerElement,
   ];
-  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {

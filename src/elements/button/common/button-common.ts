@@ -44,17 +44,11 @@ export declare class SbbButtonCommonElementMixinType extends SbbNegativeMixin(
 export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbActionBaseElement>>(
   superClass: T,
 ): AbstractConstructor<SbbButtonCommonElementMixinType> & T => {
-  const baseClass = SbbNegativeMixin(SbbIconNameMixin(superClass));
-
   abstract class SbbButtonCommonElementClass
-    extends baseClass
+    extends SbbNegativeMixin(SbbIconNameMixin(superClass))
     implements Partial<SbbButtonCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [
-      (baseClass as unknown as { styles: CSSResultGroup }).styles ?? [],
-      boxSizingStyles,
-      unsafeCSS(style),
-    ];
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
     /**
      * Size variant, either l, m or s.
      * @default 'm' / 's' (lean)

@@ -31,7 +31,6 @@ export const SbbCardActionCommonElementMixin = <
     implements Partial<SbbCardActionCommonElementMixinType>
   {
     public static styles: CSSResultGroup = [
-      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
       boxSizingStyles,
       screenReaderOnlyStyles,
       unsafeCSS(style),

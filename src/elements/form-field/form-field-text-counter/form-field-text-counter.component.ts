@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { state } from 'lit/decorators.js';
 
@@ -16,7 +16,6 @@ const percentagesToRead = [100, 50, 25, 10, 0];
  */
 export class SbbFormFieldTextCounterElement extends SbbHintElement {
   public static override readonly elementName: string = 'sbb-form-field-text-counter';
-  public static override styles: CSSResultGroup = [super.styles];
 
   @state() private accessor _remainingCharacters: number = 0;
 
