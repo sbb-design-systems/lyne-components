@@ -18,7 +18,7 @@ snapshots["sbb-sidebar renders Shadow DOM"] =
     <slot name="title-section">
     </slot>
   </div>
-  <div class="sbb-sidebar-content-section">
+  <div class="sbb-scrollbar sbb-sidebar-content-section">
     <slot>
     </slot>
   </div>
