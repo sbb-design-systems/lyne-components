@@ -32,12 +32,11 @@ export class SbbAccordionElement extends SbbElement {
   /**
    * Size variant, either s (lean default) or l (standard default).; overrides the size on any projected `sbb-expansion-panel`.
    */
-  @property({ reflect: true })
+  @property()
   public accessor size: 's' | 'l' | null = null;
 
   /**
    * The heading level for the sbb-expansion-panel-headers within the component.
-   * @controls SbbExpansionPanelElement.titleLevel
    */
   @handleDistinctChange((e: SbbAccordionElement) => e._setTitleLevelOnChildren())
   @property({ attribute: 'title-level' })
@@ -69,11 +68,18 @@ export class SbbAccordionElement extends SbbElement {
   }
 
   private _expansionPanels(): SbbExpansionPanelElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []);
+    return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []).filter(
+      (p) => p.closest('sbb-accordion') === this,
+    );
   }
 
   private _closePanels(e: Event): void {
-    if ((e.target as HTMLElement)?.localName !== 'sbb-expansion-panel' || this.multi) {
+    const target = e.target as HTMLElement;
+    if (
+      target?.localName !== 'sbb-expansion-panel' ||
+      this.multi ||
+      target?.closest('sbb-accordion') !== this
+    ) {
       return;
     }
 

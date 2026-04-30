@@ -2,12 +2,12 @@ import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbOpenedClosedState } from '../../core.ts';
 import {
   boxSizingStyles,
   forceType,
   isZeroAnimationDuration,
   SbbElement,
+  type SbbOpenedClosedState,
   ɵstateController,
 } from '../../core.ts';
 import type { SbbTitleLevel } from '../../title.pure.ts';
