@@ -39,7 +39,7 @@ snapshots["sbb-select renders Safari Shadow DOM"] =
   popover="manual"
 >
   <div
-    class="sbb-option-panel__overlay"
+    class="sbb-option-panel__overlay sbb-scrollbar"
     tabindex="-1"
   >
     <slot>
@@ -89,7 +89,7 @@ snapshots["sbb-select renders multiple Safari Shadow DOM"] =
 >
   <div
     aria-multiselectable=""
-    class="sbb-option-panel__overlay"
+    class="sbb-option-panel__overlay sbb-scrollbar"
     tabindex="-1"
   >
     <slot>
@@ -125,7 +125,7 @@ snapshots["sbb-select renders Chrome-Firefox Shadow DOM"] =
   popover="manual"
 >
   <div
-    class="sbb-option-panel__overlay"
+    class="sbb-option-panel__overlay sbb-scrollbar"
     id="sbb-select-2"
     role="listbox"
     tabindex="-1"
@@ -192,7 +192,7 @@ snapshots["sbb-select renders multiple Chrome-Firefox Shadow DOM"] =
 >
   <div
     aria-multiselectable=""
-    class="sbb-option-panel__overlay"
+    class="sbb-option-panel__overlay sbb-scrollbar"
     role="listbox"
     tabindex="-1"
   >
