@@ -393,7 +393,7 @@ function stateTransform(): PluginOption {
   };
 }
 
-function dts(): Plugin {
+function dts(): Plugin | Plugin[] {
   return dtsPlugin({
     entryRoot: '.',
     exclude: ['**/(*.)?{stories,spec,private}.ts', '**/private/*', 'vite.config.ts'],
