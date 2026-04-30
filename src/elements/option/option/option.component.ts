@@ -75,7 +75,7 @@ export class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   }
 
   private _isMultiple(): boolean {
-    return !this.hydrationRequired && this.internals.states.has('multiple');
+    return !this.hydrationRequired && this.matches?.(':state(multiple)');
   }
 
   private _handleNegativeChange(ancestor: SbbAutocompleteElement | SbbSelectElement): void {
