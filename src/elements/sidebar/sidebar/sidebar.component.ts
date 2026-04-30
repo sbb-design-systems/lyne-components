@@ -18,6 +18,7 @@ import {
   SbbEscapableOverlayController,
   SbbFocusTrapController,
   SbbOpenCloseBaseElement,
+  scrollbarStyles,
 } from '../../core.ts';
 import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 
@@ -31,7 +32,11 @@ import style from './sidebar.scss?inline';
  */
 export class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-sidebar';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    scrollbarStyles,
+    unsafeCSS(style),
+  ];
 
   /** Background color of the sidebar. Either `white` or `milk`. */
   @property({ reflect: true })
@@ -343,7 +348,10 @@ export class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBas
   protected override render(): TemplateResult {
     return html`<div class="sbb-sidebar" @transitionend=${this._onTransitionEnd}>
       <div class="sbb-sidebar-title-section"><slot name="title-section"></slot></div>
-      <div class="sbb-sidebar-content-section" @scroll=${() => this._detectScrolledState()}>
+      <div
+        class="sbb-sidebar-content-section sbb-scrollbar"
+        @scroll=${() => this._detectScrolledState()}
+      >
         <slot></slot>
       </div>
     </div>`;

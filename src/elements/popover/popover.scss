@@ -153,8 +153,6 @@
 }
 
 .sbb-popover__scrollable-content {
-  @include sbb.scrollbar;
-
   display: block;
   padding-block-end: var(--sbb-popover-padding);
   max-height: calc(var(--_sbb-popover-max-height));

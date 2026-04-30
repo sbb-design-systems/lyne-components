@@ -1,5 +1,9 @@
 import { SbbSecondaryButtonElement } from '@sbb-esta/lyne-elements/button.pure.js';
-import { type SbbElementType, screenReaderOnlyStyles } from '@sbb-esta/lyne-elements/core.js';
+import {
+  type SbbElementType,
+  screenReaderOnlyStyles,
+  scrollbarStyles,
+} from '@sbb-esta/lyne-elements/core.js';
 import { boxSizingStyles, SbbLanguageController } from '@sbb-esta/lyne-elements/core.js';
 import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.pure.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
@@ -43,6 +47,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
   ];
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
+    scrollbarStyles,
     screenReaderOnlyStyles,
     unsafeCSS(style),
   ];
@@ -93,7 +98,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
           <div
             @scroll=${() => this.coachAreaScrollend()}
             id="sbb-sr__wrapper-scrollarea"
-            class="sbb-sr__wrapper-scrollarea"
+            class="sbb-sr__wrapper-scrollarea sbb-scrollbar"
             tabindex="-1"
           >
             <div id="sbb-sr__parent-area" class="sbb-sr__parent">
@@ -213,7 +218,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
         ${this._renderNavigationControlButton('DIRECTION_LEFT')}
         <ul
           id="sbb-sr__navigation-list-coaches"
-          class="sbb-sr-navigation__list-coaches"
+          class="sbb-sr-navigation__list-coaches sbb-scrollbar"
           aria-label="${getI18nSeatReservation(
             'SEAT_RESERVATION_NAVIGATION',
             this._language.current,
