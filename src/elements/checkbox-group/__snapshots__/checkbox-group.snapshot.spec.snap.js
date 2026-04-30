@@ -5,7 +5,6 @@ snapshots["sbb-checkbox-group renders DOM"] =
 `<sbb-checkbox-group orientation="horizontal">
   <sbb-checkbox
     icon-placement="end"
-    size="m"
     tabindex="0"
     value="checkbox-1"
   >
@@ -13,7 +12,6 @@ snapshots["sbb-checkbox-group renders DOM"] =
   </sbb-checkbox>
   <sbb-checkbox
     icon-placement="end"
-    size="m"
     tabindex="0"
     value="checkbox-2"
   >
@@ -21,7 +19,6 @@ snapshots["sbb-checkbox-group renders DOM"] =
   </sbb-checkbox>
   <sbb-checkbox
     icon-placement="end"
-    size="m"
     tabindex="0"
     value="checkbox-3"
   >
@@ -88,7 +85,6 @@ snapshots["sbb-checkbox-group renders with panel DOM"] =
 `<sbb-checkbox-group orientation="horizontal">
   <sbb-checkbox-panel
     color="white"
-    size="m"
     tabindex="0"
     value="checkbox-1"
   >
@@ -96,7 +92,6 @@ snapshots["sbb-checkbox-group renders with panel DOM"] =
   </sbb-checkbox-panel>
   <sbb-checkbox-panel
     color="white"
-    size="m"
     tabindex="0"
     value="checkbox-2"
   >
@@ -104,7 +99,6 @@ snapshots["sbb-checkbox-group renders with panel DOM"] =
   </sbb-checkbox-panel>
   <sbb-checkbox-panel
     color="white"
-    size="m"
     tabindex="0"
     value="checkbox-3"
   >
@@ -127,7 +121,6 @@ snapshots["sbb-checkbox-group renders with selection-expansion-panel DOM"] =
   <sbb-selection-expansion-panel>
     <sbb-checkbox-panel
       color="white"
-      size="m"
       tabindex="0"
       value="checkbox-1"
     >
@@ -135,7 +128,6 @@ snapshots["sbb-checkbox-group renders with selection-expansion-panel DOM"] =
     </sbb-checkbox-panel>
     <sbb-checkbox-panel
       color="white"
-      size="m"
       tabindex="0"
       value="checkbox-2"
     >
@@ -143,7 +135,6 @@ snapshots["sbb-checkbox-group renders with selection-expansion-panel DOM"] =
     </sbb-checkbox-panel>
     <sbb-checkbox-panel
       color="white"
-      size="m"
       tabindex="0"
       value="checkbox-3"
     >

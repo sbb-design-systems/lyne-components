@@ -1,12 +1,14 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import type { SbbCheckboxSize } from '../checkbox/common/checkbox-common.ts';
+import type { SbbCheckboxGroupElement } from '../checkbox-group/checkbox-group.component.ts';
+import type { SbbCheckboxPanelElement } from '../checkbox-panel/checkbox-panel.component.ts';
 import {
   describeEach,
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
 } from '../core/testing/private.ts';
+import type { SbbRadioButtonGroupElement } from '../radio-button-group/radio-button-group.component.ts';
 
 import '../selection-action-panel.ts';
 import '../button.ts';
@@ -29,7 +31,7 @@ describe(`sbb-selection-action-panel`, () => {
 
   type ParamsType = { [K in keyof typeof cases]: (typeof cases)[K][number] } & {
     value?: string;
-    size: SbbCheckboxSize;
+    size: SbbCheckboxPanelElement['size'];
   };
 
   const withCheckboxPanel = (params: Partial<ParamsType>): TemplateResult => html`
@@ -38,7 +40,7 @@ describe(`sbb-selection-action-panel`, () => {
         ?checked=${params.checked}
         ?disabled=${params.disabled}
         value=${params.value || nothing}
-        size=${params.size || 'm'}
+        size=${params.size || nothing}
         ?borderless=${params.borderless}
         color=${params.color || nothing}
       >
@@ -61,7 +63,7 @@ describe(`sbb-selection-action-panel`, () => {
         ?checked=${params.checked}
         ?disabled=${params.disabled}
         value=${params.value || nothing}
-        size=${params.size || 'm'}
+        size=${params.size || nothing}
         ?borderless=${params.borderless}
         color=${params.color || nothing}
       >
@@ -185,12 +187,16 @@ describe(`sbb-selection-action-panel`, () => {
       });
 
       describe('checkbox-group', () => {
-        for (const size of ['s', 'm'] as ('s' | 'm')[]) {
+        for (const size of [null, 's', 'm'] as SbbCheckboxGroupElement['size'][]) {
           it(
             `size=${size}`,
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(html`
-                <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
+                <sbb-checkbox-group
+                  orientation="vertical"
+                  horizontal-from="large"
+                  size=${size || nothing}
+                >
                   ${withCheckboxPanel({ checked: true, size })} ${withCheckboxPanel({ size })}
                   ${withCheckboxPanel({ size })}
                 </sbb-checkbox-group>
@@ -201,12 +207,16 @@ describe(`sbb-selection-action-panel`, () => {
       });
 
       describe('radio-button-group', () => {
-        for (const size of ['s', 'm'] as ('s' | 'm')[]) {
+        for (const size of [null, 's', 'm'] as SbbRadioButtonGroupElement['size'][]) {
           it(
             `size=${size}`,
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(html`
-                <sbb-radio-button-group orientation="vertical" horizontal-from="large" size=${size}>
+                <sbb-radio-button-group
+                  orientation="vertical"
+                  horizontal-from="large"
+                  size=${size || nothing}
+                >
                   ${withRadioPanel({ checked: true, value: '1', size })}
                   ${withRadioPanel({ value: '2', size })} ${withRadioPanel({ value: '3', size })}
                 </sbb-radio-button-group>

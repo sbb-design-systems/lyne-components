@@ -1,5 +1,5 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -7,8 +7,11 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbCheckboxGroupElement } from '../checkbox-group/checkbox-group.component.ts';
+import type { SbbCheckboxPanelElement } from '../checkbox-panel/checkbox-panel.component.ts';
 import type { SbbErrorElement } from '../form-field.ts';
 import type { SbbRadioButtonGroupElement } from '../radio-button-group.ts';
+import type { SbbRadioButtonPanelElement } from '../radio-button-panel/radio-button-panel.component.ts';
 
 import readme from './readme.md?raw';
 import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.ts';
@@ -39,7 +42,11 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xs', 's', 'm'],
+  options: ['xs', 's', 'm'] as
+    | SbbCheckboxPanelElement['size'][]
+    | SbbCheckboxGroupElement['size'][]
+    | SbbRadioButtonPanelElement['size'][]
+    | SbbRadioButtonGroupElement['size'][],
   table: {
     category: 'Group / Input',
   },
@@ -95,7 +102,7 @@ const basicArgs: Args = {
   'force-open': false,
   color: color.options![0],
   borderless: false,
-  size: size.options![2],
+  size: undefined,
   checkedInput: false,
   disabledInput: false,
 };
@@ -112,7 +119,7 @@ const suffixAndSubtext = (size: string): TemplateResult => html`
   <span slot="subtext">Subtext</span>
   <span slot="suffix" style=${styleMap(suffixStyle)}>
     <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
-    <span class=${`sbb-text--bold sbb-text-${size}`}>CHF 40.00</span>
+    <span class=${`sbb-text--bold sbb-text-${size ?? 'm'}`}>CHF 40.00</span>
   </span>
 `;
 
@@ -137,7 +144,7 @@ const WithCheckboxTemplate = ({
     <sbb-checkbox-panel
       ?checked=${checkedInput}
       ?disabled=${disabledInput}
-      size=${size}
+      size=${size || nothing}
       ?borderless=${borderless}
       color=${color}
     >
@@ -160,7 +167,7 @@ const WithRadioButtonTemplate = ({
       value="Value one"
       ?checked=${checkedInput}
       ?disabled=${disabledInput}
-      size=${size}
+      size=${size || nothing}
       ?borderless=${borderless}
       color=${color}
     >
@@ -178,7 +185,7 @@ const WithCheckboxGroupTemplate = ({
   color,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
+  <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size || nothing}>
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-checkbox-panel ?checked=${checkedInput} ?borderless=${borderless} color=${color}>
         Value one ${suffixAndSubtext(size)} ${cardBadge()}
@@ -215,7 +222,7 @@ const WithRadioButtonGroupTemplate = ({
     orientation="vertical"
     horizontal-from="large"
     ?allow-empty-selection=${allowEmptySelection}
-    size=${size}
+    size=${size || nothing}
   >
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-radio-button-panel
@@ -258,7 +265,7 @@ const TicketsOptionsExampleTemplate = ({
   color,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
+  <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size || nothing}>
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-checkbox-panel ?checked=${checkedInput} ?borderless=${borderless} color=${color}>
         Saving ${suffixAndSubtext(size)} ${cardBadge()}
@@ -359,7 +366,7 @@ const NestedRadioTemplate = ({
   color,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-radio-button-group orientation="vertical" horizontal-from="large" size=${size}>
+  <sbb-radio-button-group orientation="vertical" horizontal-from="large" size=${size || nothing}>
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-radio-button-panel
         value="mainoption1"
@@ -369,7 +376,12 @@ const NestedRadioTemplate = ({
       >
         Main Option 1
       </sbb-radio-button-panel>
-      <sbb-radio-button-group orientation="vertical" value="suboption1" slot="content" size=${size}>
+      <sbb-radio-button-group
+        orientation="vertical"
+        value="suboption1"
+        slot="content"
+        size=${size || nothing}
+      >
         <sbb-radio-button value="suboption1">Suboption 1</sbb-radio-button>
         <sbb-radio-button value="suboption2">Suboption 2</sbb-radio-button>
       </sbb-radio-button-group>
@@ -400,7 +412,7 @@ const NestedCheckboxTemplate = ({
   color,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
+  <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size || nothing}>
     <sbb-selection-expansion-panel ${sbbSpread(args)}>
       <sbb-checkbox-panel
         value="mainoption1"
@@ -449,7 +461,7 @@ const WithCheckboxesErrorMessageTemplate = ({
     <sbb-checkbox-group
       orientation="vertical"
       horizontal-from="large"
-      size=${size}
+      size=${size || nothing}
       @change=${(event: Event) => {
         const checkboxGroup = event.currentTarget as HTMLElement;
         const hasChecked = Array.from(checkboxGroup.querySelectorAll('sbb-checkbox')).some(
@@ -503,7 +515,7 @@ const WithRadiosErrorMessageTemplate = ({
     <sbb-radio-button-group
       orientation="vertical"
       horizontal-from="large"
-      size=${size}
+      size=${size || nothing}
       allow-empty-selection
       id="sbb-radio-group"
       @change=${(event: Event) => {

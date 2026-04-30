@@ -5,7 +5,6 @@ import type { SbbCheckboxSize } from '../checkbox.pure.ts';
 import {
   boxSizingStyles,
   forceType,
-  isLean,
   SbbDisabledMixin,
   SbbElement,
   SbbNegativeMixin,
@@ -31,10 +30,9 @@ export class SbbVisualCheckboxElement extends SbbDisabledMixin(SbbNegativeMixin(
   public accessor indeterminate: boolean = false;
 
   /**
-   * Size of the checkbox, either xs, s or m.
-   * @default 'm' / 'xs' (lean)
+   * Size of the checkbox, either xs (lean default), s or m (standard default).
    */
-  @property({ reflect: true }) public accessor size: SbbCheckboxSize = isLean() ? 'xs' : 'm';
+  @property({ reflect: true }) public accessor size: SbbCheckboxSize = null;
 
   protected override render(): TemplateResult {
     return html`

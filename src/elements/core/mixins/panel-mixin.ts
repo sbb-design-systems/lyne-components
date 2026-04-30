@@ -7,7 +7,6 @@ import type { SbbRadioButtonSize } from '../../radio-button/common/radio-button-
 import type { SbbRadioButtonGroupElement } from '../../radio-button-group.pure.ts';
 import { forceType } from '../decorators/force-type.ts';
 import { getOverride } from '../decorators/get-override.ts';
-import { isLean } from '../dom/lean-context.ts';
 import { boxSizingStyles } from '../styles/styles.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
@@ -48,12 +47,11 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement & SbbPane
     public accessor expansionState: string = '';
 
     /**
-     * Size variant, either xs, s or m.
-     * @default 'm' / 'xs' (lean)
+     * Size variant, either xs (lean default), s or m (standard default).
      */
     @property({ reflect: true })
     @getOverride((p: SbbPanelElement, v) => p.group?.size ?? v)
-    public accessor size: SbbCheckboxSize | SbbRadioButtonSize = isLean() ? 'xs' : 'm';
+    public accessor size: SbbCheckboxSize | SbbRadioButtonSize = null;
 
     public override connectedCallback(): void {
       super.connectedCallback();
