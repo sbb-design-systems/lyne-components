@@ -291,7 +291,7 @@ const miniButtonGroupSize: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm', 'l', 'xl', null] satisfies (SbbMiniButtonGroupElement['size'] | null)[],
+  options: ['s', 'm', 'l', 'xl'] satisfies SbbMiniButtonGroupElement['size'][],
 };
 
 export const MiniButton: StoryObj = {
@@ -399,7 +399,7 @@ export const MiniButtonGroup: StoryObj = {
     negative,
   },
   args: {
-    size: null,
+    size: undefined,
     negative: false,
   },
 };

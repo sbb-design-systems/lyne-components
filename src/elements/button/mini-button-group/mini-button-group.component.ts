@@ -10,7 +10,6 @@ import { property } from 'lit/decorators.js';
 import {
   boxSizingStyles,
   forceType,
-  isLean,
   SbbElement,
   SbbNamedSlotListMixin,
   SbbNegativeMixin,
@@ -20,7 +19,7 @@ import type { SbbMiniButtonElement } from '../mini-button/mini-button.component.
 
 import style from './mini-button-group.scss?inline';
 
-export type SbbMiniButtonGroupSize = 's' | 'm' | 'l' | 'xl';
+export type SbbMiniButtonGroupSize = 's' | 'm' | 'l' | 'xl' | null;
 
 /**
  * Display a list of `sbb-mini-button` elements in a horizontal container,
@@ -45,10 +44,9 @@ export class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   public accessor accessibilityLabel: string = '';
 
   /**
-   * Size variant, either s, m, l or xl.
-   * @default 'm' / 's' (lean)
+   * Size variant, either s (lean default), m (standard default), l or xl.
    */
-  @property({ reflect: true }) public accessor size: SbbMiniButtonGroupSize = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: SbbMiniButtonGroupSize = null;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

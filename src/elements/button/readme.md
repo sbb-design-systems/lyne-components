@@ -142,7 +142,7 @@ optionally separated by a [sbb-divider](/docs/elements-divider--docs).
 
 The component has a negative variant which can be set using the `negative` property.
 
-There are four available sizes: `s`, `m` (default), `l` and `xl`.
+There are four available sizes: `s`, `m`, `l` and `xl`.
 
 ```html
 <sbb-mini-button-group negative size="l"> ... </sbb-mini-button-group>
@@ -392,11 +392,11 @@ to ensure that the button list is read by screen readers with the correct size.
 
 #### Properties
 
-| Name                 | Attribute             | Privacy | Type                     | Default            | Description                                                                 |
-| -------------------- | --------------------- | ------- | ------------------------ | ------------------ | --------------------------------------------------------------------------- |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`                 | `''`               | This will be forwarded as aria-label to the list that contains the buttons. |
-| `negative`           | `negative`            | public  | `boolean`                | `false`            | Negative coloring variant flag.                                             |
-| `size`               | `size`                | public  | `SbbMiniButtonGroupSize` | `'m' / 's' (lean)` | Size variant, either s, m, l or xl.                                         |
+| Name                 | Attribute             | Privacy | Type                     | Default | Description                                                                 |
+| -------------------- | --------------------- | ------- | ------------------------ | ------- | --------------------------------------------------------------------------- |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`                 | `''`    | This will be forwarded as aria-label to the list that contains the buttons. |
+| `negative`           | `negative`            | public  | `boolean`                | `false` | Negative coloring variant flag.                                             |
+| `size`               | `size`                | public  | `SbbMiniButtonGroupSize` | `null`  | Size variant, either s (lean default), m (standard default), l or xl.       |
 
 #### Slots
 

@@ -7,7 +7,6 @@ import {
   unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
@@ -187,7 +186,7 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
                 ></sbb-divider>
                 <sbb-transparent-button
                   ?negative=${this._isLightMode()}
-                  size=${ifDefined(this.size === 'l' ? 'm' : (this.size ?? undefined))}
+                  size=${this.size === 'l' ? 'm' : this.size || nothing}
                   icon-name="cross-small"
                   @click=${() => this.close()}
                   aria-label=${i18nCloseAlert[this._language.current]}
