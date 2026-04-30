@@ -19,7 +19,6 @@ describe(`sbb-seat-reservation-navigation-coach`, () => {
       propertyIds: ['BICYCLE', 'SILENCE'],
       isDriverArea: false,
       freePlaces: { seats: 0, bicycles: 0 },
-      driverAreaElements: { driverArea: undefined, driverAreaNoVerticalWall: undefined },
     };
 
     beforeEach(async () => {
