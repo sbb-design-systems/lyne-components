@@ -15,7 +15,7 @@
 
   @include sbb.if-forced-colors {
     --sbb-teaser-description-color: LinkText;
-    --sbb-title-text-color-normal-override: LinkText !important;
+    --sbb-title-color: LinkText !important;
   }
 }
 

@@ -9,7 +9,7 @@ import {
   type TemplateResult,
   unsafeCSS,
 } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbSecondaryButtonElement } from '../button.pure.ts';
@@ -33,6 +33,7 @@ import {
   SbbLanguageController,
   SbbMediaQueryPointerCoarse,
   SbbOpenCloseBaseElement,
+  scrollbarStyles,
   setAriaOverlayTriggerProperties,
   ɵstateController,
 } from '../core.ts';
@@ -445,6 +446,7 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
 export class SbbPopoverElement extends SbbPopoverBaseElement {
   public static override readonly elementName: string = 'sbb-popover';
   public static override elementDependencies: SbbElementType[] = [SbbSecondaryButtonElement];
+  public static override styles: CSSResultGroup = [scrollbarStyles];
 
   /** Whether the close button should be hidden. */
   @forceType()
@@ -491,7 +493,7 @@ export class SbbPopoverElement extends SbbPopoverBaseElement {
   @property({ attribute: 'accessibility-close-label' })
   public accessor accessibilityCloseLabel: string = '';
 
-  private _hoverTrigger = false;
+  @state() private accessor _hoverTrigger = false;
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _language = new SbbLanguageController(this);
   private _overlayAbortController: AbortController | null = null;
@@ -622,7 +624,7 @@ export class SbbPopoverElement extends SbbPopoverBaseElement {
 
     return html`
       ${!this.hideCloseButton && !this._hoverTrigger ? closeButton : nothing}
-      <span class="sbb-popover__scrollable-content">
+      <span class="sbb-popover__scrollable-content sbb-scrollbar">
         <slot>No content</slot>
       </span>
     `;

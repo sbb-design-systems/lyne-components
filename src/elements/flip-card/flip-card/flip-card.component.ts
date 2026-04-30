@@ -14,7 +14,7 @@ import {
   type SbbElementType,
   SbbLanguageController,
   SbbPropertyWatcherController,
-  SbbScreenReaderOnlyElement,
+  screenReaderOnlyStyles,
   ɵstateController,
 } from '../../core.ts';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details/flip-card-details.component.ts';
@@ -30,11 +30,12 @@ import style from './flip-card.scss?inline';
  */
 export class SbbFlipCardElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-flip-card';
-  public static override elementDependencies: SbbElementType[] = [
-    SbbSecondaryButtonStaticElement,
-    SbbScreenReaderOnlyElement,
+  public static override elementDependencies: SbbElementType[] = [SbbSecondaryButtonStaticElement];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     flip: 'flip',
   } as const;
@@ -141,7 +142,7 @@ export class SbbFlipCardElement extends SbbElement {
           aria-expanded=${this._flipped.toString()}
           type="button"
         >
-          <sbb-screen-reader-only>${until(this._accessibilityLabel(), '')}</sbb-screen-reader-only>
+          <span class="sbb-screen-reader-only">${until(this._accessibilityLabel(), '')}</span>
         </button>
         <slot name="summary" @slotchange=${() => (this.summary!.inert = this._flipped)}></slot>
         <slot name="details" @slotchange=${() => (this.details!.inert = !this._flipped)}></slot>

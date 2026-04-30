@@ -66,7 +66,7 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
       <div class="sbb-teaser__wrapper">
         ${this.renderLink(
           // For SEO, we add the accessibility hidden as hidden content of the link
-          html`<sbb-screen-reader-only>${this.accessibilityLabel}</sbb-screen-reader-only>`,
+          html`<span class="sbb-screen-reader-only">${this.accessibilityLabel}</span>`,
         )}
         ${this.renderContent()}
       </div>

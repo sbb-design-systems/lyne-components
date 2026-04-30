@@ -4,7 +4,7 @@ import {
   SbbElement,
   type SbbElementType,
   SbbLanguageController,
-  SbbScreenReaderOnlyElement,
+  screenReaderOnlyStyles,
 } from '@sbb-esta/lyne-elements/core.js';
 import {
   type CSSResultGroup,
@@ -31,10 +31,13 @@ export type SelectCoachEventDetails = number;
 export class SbbSeatReservationNavigationCoachElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-navigation-coach';
   public static override elementDependencies: SbbElementType[] = [
-    SbbScreenReaderOnlyElement,
     SbbSeatReservationNavigationServicesElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
   public static readonly events = {
     selectcoach: 'selectcoach',
     focuscoach: 'focuscoach',
@@ -158,10 +161,10 @@ export class SbbSeatReservationNavigationCoachElement extends SbbElement {
       aria-describedby="nav-coach-service-descriptions-${this.index}"
     >
       ${this._getBtnInformation(currServiceClassNumber)}
-      <sbb-screen-reader-only id="nav-coach-service-descriptions-${this.index}">
+      <span class="sbb-screen-reader-only" id="nav-coach-service-descriptions-${this.index}">
         ${!this.showTitleInfo ? html`<div>${titleDescriptionNavCoachButton}</div>` : nothing}
         ${ariaDescriptionCoachServices ? html`<div>${ariaDescriptionCoachServices}</div>` : nothing}
-      </sbb-screen-reader-only>
+      </span>
     </button>`;
   }
 
@@ -194,16 +197,13 @@ export class SbbSeatReservationNavigationCoachElement extends SbbElement {
   }
 
   private _getTitleDescriptionNavCoachButton(serviceClassNumber: number | null): string {
-    if (
-      this.coachItemDetails.isDriverArea &&
-      !this.coachItemDetails.driverAreaElements?.driverAreaNoVerticalWall
-    ) {
+    if (this.coachItemDetails.isDriverArea && !this.coachItemDetails.isLocomotive) {
       return getI18nSeatReservation('NAVIGATE_COACH_BLOCKED', this._language.current, [
         this.coachItemDetails.id,
       ]);
     }
 
-    if (this.coachItemDetails.driverAreaElements?.driverAreaNoVerticalWall) {
+    if (this.coachItemDetails.isLocomotive) {
       return getI18nSeatReservation('COACH_LOCOMOTIVE', this._language.current);
     }
 

@@ -9,12 +9,5 @@ $theme: 'standard' !default;
     sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title) > * > & {
       padding-block-start: var(--sbb-spacing-fixed-1x);
     }
-
-    // Set the negative scrollbar colors for dialog content when dialog is negative
-    // This is additionally added to the Light DOM to be more specific in overriding the variables.
-    sbb-dialog[negative] > &,
-    sbb-dialog[negative]:state(has-intermediate-element) > * > & {
-      @include sbb.scrollbar-variables--color-negative;
-    }
   }
 }

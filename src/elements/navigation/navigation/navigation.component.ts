@@ -28,6 +28,7 @@ import {
   SbbOpenCloseBaseElement,
   SbbScrollHandler,
   SbbUpdateSchedulerMixin,
+  scrollbarStyles,
   setAriaOverlayTriggerProperties,
 } from '../../core.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
@@ -50,7 +51,11 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   public static override readonly elementName: string = 'sbb-navigation';
   public static override elementDependencies: SbbElementType[] = [SbbTransparentButtonElement];
   public static override readonly role = 'navigation';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    scrollbarStyles,
+    unsafeCSS(style),
+  ];
 
   /**
    * The element that will trigger the navigation.
@@ -364,7 +369,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
         >
           <div class="sbb-navigation__header">${closeButton}</div>
           <div class="sbb-navigation__wrapper">
-            <div class="sbb-navigation__content">
+            <div class="sbb-navigation__content sbb-scrollbar-negative">
               <slot></slot>
             </div>
           </div>

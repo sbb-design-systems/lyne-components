@@ -1,5 +1,6 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import {
+  type CSSResultGroup,
   html,
   nothing,
   type PropertyDeclaration,
@@ -9,13 +10,13 @@ import {
 import { property, state } from 'lit/decorators.js';
 
 import {
+  boxSizingStyles,
   isAndroid,
   isBlink,
   isSafari,
   SbbDisabledMixin,
   SbbElement,
-  type SbbElementType,
-  SbbScreenReaderOnlyElement,
+  screenReaderOnlyStyles,
   setOrRemoveAttribute,
 } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
@@ -39,10 +40,10 @@ const optionObserverConfig: MutationObserverInit = {
 export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   SbbIconNameMixin(SbbElement),
 ) {
-  public static override elementDependencies: SbbElementType[] = [SbbScreenReaderOnlyElement];
   public static readonly events = {
     optionselected: 'optionselected',
   } as const;
+  public static override styles: CSSResultGroup = [boxSizingStyles, screenReaderOnlyStyles];
 
   protected abstract optionId: string;
 
@@ -282,7 +283,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
             ${this.renderLabel()}
           </span>
           ${this._inertAriaGroups && this.groupLabel
-            ? html`<sbb-screen-reader-only> (${this.groupLabel})</sbb-screen-reader-only>`
+            ? html`<span class="sbb-screen-reader-only"> (${this.groupLabel})</span>`
             : nothing}
         </span>
         ${this.renderTick()}

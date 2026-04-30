@@ -11,7 +11,7 @@ import style from './timetable-form-details.scss?inline';
  */
 export class SbbTimetableFormDetailsElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-timetable-form-details';
-  public static override styles: CSSResultGroup = unsafeCSS(style);
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`<slot></slot>`;

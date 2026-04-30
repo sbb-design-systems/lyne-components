@@ -1,8 +1,6 @@
 @use '../core/styles' as sbb;
 
 :host {
-  @include sbb.scrollbar-variables;
-
   --_sbb-overlay-padding-block: calc(
     var(--sbb-spacing-fixed-14x) + var(--sbb-spacing-responsive-l)
   );
@@ -27,8 +25,6 @@
 }
 
 :host([negative]) {
-  @include sbb.scrollbar-variables--color-negative;
-
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-overlay-color: var(--sbb-color-1-negative);
   --sbb-overlay-background-color: var(--sbb-background-color-3-negative);
@@ -67,7 +63,6 @@
   padding: 0;
   border: none;
   height: var(--sbb-overlay-height);
-  overflow: auto;
   color: var(--sbb-overlay-color);
 
   :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
@@ -120,8 +115,6 @@
 }
 
 .sbb-overlay__content {
-  @include sbb.scrollbar-rules;
-
   height: 100vh;
   overflow: auto;
   -webkit-overflow-scrolling: touch;

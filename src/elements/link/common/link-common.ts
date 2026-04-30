@@ -28,7 +28,7 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
   {
     public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
-    public constructor() {
+    protected constructor() {
       super();
       this.internals.states.add('sbb-link');
     }

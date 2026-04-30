@@ -65,5 +65,4 @@ export * from './core/overlay/overlay-option-panel.ts';
 export * from './core/overlay/overlay-outside-pointer-event-listener.ts';
 export * from './core/overlay/overlay-trigger-attributes.ts';
 export * from './core/overlay/position.ts';
-export * from './core/screen-reader-only/screen-reader-only.component.ts';
 export * from './core/styles/styles.ts';

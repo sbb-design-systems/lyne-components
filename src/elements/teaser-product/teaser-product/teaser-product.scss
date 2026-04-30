@@ -3,7 +3,7 @@
 :host {
   // Simulate link color optically
   @include sbb.if-forced-colors {
-    --sbb-title-text-color-normal-override: LinkText !important;
+    --sbb-title-color: LinkText !important;
     --sbb-teaser-product-content-color: LinkText !important;
     --sbb-teaser-product-footer-color: LinkText !important;
   }

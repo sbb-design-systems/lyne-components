@@ -1,14 +1,8 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import {
-  i18nRemainingCharacters,
-  type SbbElementType,
-  SbbLanguageController,
-  sbbLiveAnnouncer,
-  SbbScreenReaderOnlyElement,
-} from '../../core.ts';
+import { i18nRemainingCharacters, SbbLanguageController, sbbLiveAnnouncer } from '../../core.ts';
 import { SbbHintElement } from '../hint/hint.component.ts';
 
 const percentagesToRead = [100, 50, 25, 10, 0];
@@ -22,8 +16,6 @@ const percentagesToRead = [100, 50, 25, 10, 0];
  */
 export class SbbFormFieldTextCounterElement extends SbbHintElement {
   public static override readonly elementName: string = 'sbb-form-field-text-counter';
-  public static override elementDependencies: SbbElementType[] = [SbbScreenReaderOnlyElement];
-  public static override styles: CSSResultGroup = [SbbHintElement.styles];
 
   @state() private accessor _remainingCharacters: number = 0;
 

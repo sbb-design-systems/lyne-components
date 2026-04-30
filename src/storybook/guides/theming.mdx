@@ -313,6 +313,39 @@ where we provide CSS classes to consumers:
 - [List styles](#lists)
 - [Scrollbar styles](#scrollbar)
 - [Text styles](#text-styles)
+- [Accessibility classes](#accessibility-classes)
+
+#### Accessibility classes
+
+##### sbb-screen-reader-only
+
+The `sbb-screen-reader-only` class visually hides an element while keeping it accessible to screen readers.
+Use it to provide additional context or labels that are only meant for assistive technologies.
+
+```html
+<span class="sbb-screen-reader-only">Additional context for screen readers only</span>
+```
+
+##### sbb-focus-outline
+
+The `sbb-focus-outline` class applies the standard Lyne focus outline to an element when it receives keyboard focus (`:focus-visible`).
+Use it on custom interactive elements that need to match the Lyne focus style.
+
+```html
+<button class="sbb-focus-outline">Custom button</button>
+```
+
+##### sbb-focus-outline-dark
+
+The `sbb-focus-outline-dark` class is a variant of `sbb-focus-outline` that always uses the dark (white) outline color.
+Use it on interactive elements placed on dark backgrounds where the default focus outline color would not have enough contrast.
+
+```html
+<button class="sbb-focus-outline-dark">Custom button on dark background</button>
+```
+
+> Alternatively, you can set `--sbb-focus-outline-color: var(--sbb-focus-outline-color-dark)` on a container
+> to apply the dark focus outline to all descendant Lyne components and elements using the `sbb-focus-outline` class.
 
 ## Design Tokens
 

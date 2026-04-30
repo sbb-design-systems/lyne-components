@@ -55,12 +55,13 @@ snapshots["sbb-paginator renders Shadow DOM"] =
     </ul>
   </span>
 </div>
-<sbb-screen-reader-only
+<span
+  class="sbb-screen-reader-only"
   id="status"
   role="status"
 >
   Page 1 selected.
-</sbb-screen-reader-only>
+</span>
 `;
 /* end snapshot sbb-paginator renders Shadow DOM */
 
@@ -167,12 +168,13 @@ snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] =
     </ul>
   </span>
 </div>
-<sbb-screen-reader-only
+<span
+  class="sbb-screen-reader-only"
   id="status"
   role="status"
 >
   Page 1 selected.
-</sbb-screen-reader-only>
+</span>
 `;
 /* end snapshot sbb-paginator renders ellipsis on end side Shadow DOM */
 
@@ -280,12 +282,13 @@ snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] =
     </ul>
   </span>
 </div>
-<sbb-screen-reader-only
+<span
+  class="sbb-screen-reader-only"
   id="status"
   role="status"
 >
   Page 11 selected.
-</sbb-screen-reader-only>
+</span>
 `;
 /* end snapshot sbb-paginator renders ellipsis on start side Shadow DOM */
 
@@ -398,12 +401,13 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
     </ul>
   </span>
 </div>
-<sbb-screen-reader-only
+<span
+  class="sbb-screen-reader-only"
   id="status"
   role="status"
 >
   Page 8 selected.
-</sbb-screen-reader-only>
+</span>
 `;
 /* end snapshot sbb-paginator renders ellipsis on both side Shadow DOM */
 
@@ -550,9 +554,12 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
     </sbb-form-field>
   </div>
 </div>
-<sbb-screen-reader-only role="status">
+<span
+  class="sbb-screen-reader-only"
+  role="status"
+>
   Slide 3 selected.
-</sbb-screen-reader-only>
+</span>
 `;
 /* end snapshot sbb-paginator renders with options and accessibility labels Chrome-Firefox Shadow DOM */
 
@@ -709,12 +716,13 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
     </sbb-form-field>
   </div>
 </div>
-<sbb-screen-reader-only
+<span
+  class="sbb-screen-reader-only"
   id="status"
   role="status"
 >
   Slide 3 selected.
-</sbb-screen-reader-only>
+</span>
 `;
 /* end snapshot sbb-paginator renders with options and accessibility labels Safari Shadow DOM */
 

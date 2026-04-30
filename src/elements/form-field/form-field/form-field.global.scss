@@ -198,7 +198,7 @@ $theme: 'standard' !default;
     }
 
     &[negative] :where(textarea) {
-      @include sbb.scrollbar($negative: true);
+      @include sbb.scrollbar-variables--color-negative;
     }
 
     &:has(

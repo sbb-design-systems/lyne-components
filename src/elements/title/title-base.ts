@@ -13,7 +13,7 @@ export type SbbTitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
  */
 export abstract class SbbTitleBase extends SbbElement {
   public static override role = 'heading';
-  public static override styles: CSSResultGroup = unsafeCSS(style);
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Title level */
   @property({ reflect: true }) public accessor level: SbbTitleLevel = '1';

@@ -1,5 +1,0 @@
-@use '../../core/styles' as sbb;
-
-#status-container {
-  @include sbb.screen-reader-only;
-}

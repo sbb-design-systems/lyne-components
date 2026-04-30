@@ -8,6 +8,7 @@ import {
   boxSizingStyles,
   IS_FOCUSABLE_QUERY,
   type SbbActionBaseElement,
+  screenReaderOnlyStyles,
   ɵstateController,
 } from '../../core.ts';
 import type { SbbCardElement } from '../card/card.component.ts';
@@ -29,7 +30,11 @@ export const SbbCardActionCommonElementMixin = <
     extends superClass
     implements Partial<SbbCardActionCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [
+      boxSizingStyles,
+      screenReaderOnlyStyles,
+      unsafeCSS(style),
+    ];
 
     /** Whether the card is active. */
     @property({ reflect: true, type: Boolean })

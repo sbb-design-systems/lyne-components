@@ -49,7 +49,7 @@ snapshots["sbb-menu renders DOM"] =
 snapshots["sbb-menu renders Shadow DOM"] = 
 `<div class="sbb-menu__container">
   <div class="sbb-menu">
-    <div class="sbb-menu__content">
+    <div class="sbb-menu__content sbb-scrollbar-negative">
       <slot>
       </slot>
       <sbb-divider orientation="horizontal">
@@ -116,7 +116,7 @@ snapshots["sbb-menu renders open DOM"] =
 snapshots["sbb-menu renders open Shadow DOM"] = 
 `<div class="sbb-menu__container">
   <div class="sbb-menu">
-    <div class="sbb-menu__content">
+    <div class="sbb-menu__content sbb-scrollbar-negative">
       <slot>
       </slot>
       <sbb-divider orientation="horizontal">

@@ -1,11 +1,14 @@
-import { html, type TemplateResult, unsafeCSS } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { type AbstractConstructor, SbbActionBaseElement, SbbNegativeMixin } from '../../core.ts';
+import {
+  type AbstractConstructor,
+  boxSizingStyles,
+  SbbActionBaseElement,
+  SbbNegativeMixin,
+} from '../../core.ts';
 
-import teaserProductCommonStyleString from './teaser-product-common.scss?inline';
-
-export const teaserProductCommonStyle = unsafeCSS(teaserProductCommonStyleString);
+import style from './teaser-product-common.scss?inline';
 
 export declare class SbbTeaserProductCommonElementMixinType extends SbbNegativeMixin(
   SbbActionBaseElement,
@@ -23,6 +26,8 @@ export const SbbTeaserProductCommonElementMixin = <
     extends SbbNegativeMixin(superClass)
     implements SbbTeaserProductCommonElementMixinType
   {
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+
     /**
      * Whether the fully visible part of the image is aligned 'before' or 'after' the content.
      * Only relevant starting from large breakpoint.

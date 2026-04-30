@@ -13,7 +13,7 @@ snapshots["sbb-navigation-section renders Shadow DOM"] =
     aria-labelledby="title"
     class="sbb-navigation-section"
   >
-    <div class="sbb-navigation-section__wrapper">
+    <div class="sbb-navigation-section__wrapper sbb-scrollbar-negative">
       <div class="sbb-navigation-section__content">
         <div class="sbb-navigation-section__header">
           <sbb-transparent-button

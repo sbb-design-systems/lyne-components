@@ -36,10 +36,6 @@
   }
 }
 
-.sbb-footer__title {
-  @include sbb.screen-reader-only;
-}
-
 ::slotted(.sbb-link-list-button-group) {
   display: flex;
   flex-direction: column;

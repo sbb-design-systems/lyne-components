@@ -22,7 +22,7 @@ import style from './mini-calendar.scss?inline';
  */
 export class SbbMiniCalendarElement<T = Date> extends SbbElement {
   public static override readonly elementName: string = 'sbb-mini-calendar';
-  public static override styles: CSSResultGroup = unsafeCSS(style);
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** The orientation of days in the calendar. */
   @property({ reflect: true })
