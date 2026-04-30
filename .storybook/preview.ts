@@ -8,10 +8,14 @@ import type { Preview } from '@storybook/web-components-vite';
 import type { Parameters, StoryContext } from 'storybook/internal/types';
 import { makeDecorator } from 'storybook/preview-api';
 
+import leanOffBrandTheme from '../src/elements/core/styles/lean-off-brand-theme.scss?inline';
+import leanSafetyTheme from '../src/elements/core/styles/lean-safety-theme.scss?inline';
 import leanTheme from '../src/elements/core/styles/lean-theme.scss?inline';
 import offBrandTheme from '../src/elements/core/styles/off-brand-theme.scss?inline';
 import safetyTheme from '../src/elements/core/styles/safety-theme.scss?inline';
 import standardTheme from '../src/elements/core/styles/standard-theme.scss?inline';
+import experimentalLeanOffBrandTheme from '../src/elements-experimental/core/styles/lean-off-brand-theme.scss?inline';
+import experimentalLeanSafetyTheme from '../src/elements-experimental/core/styles/lean-safety-theme.scss?inline';
 import experimentalLeanTheme from '../src/elements-experimental/core/styles/lean-theme.scss?inline';
 import experimentalOffBrandTheme from '../src/elements-experimental/core/styles/off-brand-theme.scss?inline';
 import experimentalSafetyTheme from '../src/elements-experimental/core/styles/safety-theme.scss?inline';
@@ -26,6 +30,8 @@ const themeMap = {
   'off-brand': offBrandTheme.concat(experimentalOffBrandTheme),
   safety: safetyTheme.concat(experimentalSafetyTheme),
   lean: leanTheme.concat(experimentalLeanTheme),
+  'lean-off-brand': leanOffBrandTheme.concat(experimentalLeanOffBrandTheme),
+  'lean-safety': leanSafetyTheme.concat(experimentalLeanSafetyTheme),
 };
 
 // We need a created stylesheet to manipulate it.
@@ -39,29 +45,15 @@ const themeDecorator = makeDecorator({
   parameterName: 'theme',
   skipIfNoParametersOrOptions: false,
   wrapper: (getStory, context) => {
-    const selectedTheme = context.globals.theme as 'standard' | 'off-brand' | 'safety' | 'lean';
+    const selectedTheme = context.globals.theme as
+      | 'standard'
+      | 'off-brand'
+      | 'safety'
+      | 'lean'
+      | 'lean-off-brand'
+      | 'lean-safety';
 
     themeStyleSheet?.replaceSync(themeMap[selectedTheme]);
-
-    return getStory(context);
-  },
-});
-
-/**
- * The Lean design is applied by adding the 'sbb-lean' class to the document.
- * @deprecated
- */
-const withLeanDecorator = makeDecorator({
-  name: 'withLeanStyle',
-  parameterName: 'isLean',
-  skipIfNoParametersOrOptions: false,
-  wrapper: (getStory, context, { parameters }) => {
-    const isLean = parameters as unknown as boolean;
-    if (isLean) {
-      document.documentElement.classList.add('sbb-lean');
-    } else {
-      document.documentElement.classList.remove('sbb-lean');
-    }
 
     return getStory(context);
   },
@@ -185,12 +177,9 @@ const openCloseEventsForwarder = (event: Event): void => {
   }
 };
 
-const isDev = (): boolean => window.location.hostname === 'localhost';
-
 export default {
   decorators: [
     withBackgroundDecorator,
-    withLeanDecorator,
     lightDarkModeDecorator,
     themeDecorator,
     (story) => {
@@ -243,7 +232,9 @@ export default {
           { value: 'standard', title: 'standard', icon: 'photo' },
           { value: 'off-brand', title: 'off-brand', icon: 'paintbrush' },
           { value: 'safety', title: 'safety', icon: 'alert' },
-          ...(isDev() ? [{ value: 'lean', title: 'lean', icon: 'grow' as const }] : []),
+          { value: 'lean', title: 'lean', icon: 'grow' },
+          { value: 'lean-off-brand', title: 'lean-off-brand', icon: 'paintbrush' },
+          { value: 'lean-safety', title: 'lean-safety', icon: 'alert' },
         ],
         // Change title based on selected value
         dynamicTitle: true,

@@ -15,9 +15,8 @@ const Template = ({ text, ...args }: Args): TemplateResult =>
 const LeanTemplate = (args: Args): TemplateResult =>
   html`${Template(args)}
     <p>
-      In 'lean' mode, where the 'sbb-lean' class is applied to the
-      <html> tag, the title is given smaller sizes and spacings.
-      This story simulates the lean mode.
+      With the 'lean' theme, the title is given smaller sizes and spacings. This story simulates the
+      lean mode.
     </p>`;
 
 const level: InputType = {
