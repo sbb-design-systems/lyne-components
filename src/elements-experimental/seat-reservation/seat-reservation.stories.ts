@@ -404,7 +404,7 @@ const svgImage = (src: string): TemplateResult => {
  * @param osdmCode
  * @returns The SVG Image as TemplateResult if it matches the OSDM code, or null if it's not found.
  */
-export const svgImageByOSDMCode = (osdmCode: string): TemplateResult | null => {
+const svgImageByOSDMCode = (osdmCode: string): TemplateResult | null => {
   return mapIconToSvg[osdmCode]?.svg
     ? svgImage(mapIconToSvg[osdmCode].svg)
     : mapIconToSvg[osdmCode]?.svgName
@@ -761,7 +761,6 @@ const defaultCoachItemDetailsNavigationCoach: CoachItemDetails = {
   propertyIds: mappedSeatReservationTrain.coachItems[0].propertyIds || [],
   freePlaces: { seats: 0, bicycles: 0 },
   isDriverArea: false,
-  driverAreaElements: { driverArea: undefined, driverAreaNoVerticalWall: undefined },
 };
 
 const defaultArgsNavigationCoach: Args = {
