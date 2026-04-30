@@ -5,7 +5,6 @@ import { html } from 'lit/static-html.js';
 
 import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
 import {
-  boxSizingStyles,
   forceType,
   i18nFileSelectorSubtitleLabel,
   i18nFileSelectorSubtitleLabelMultiple,
@@ -13,10 +12,7 @@ import {
   type SbbElementType,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
-import {
-  fileSelectorCommonStyle,
-  SbbFileSelectorCommonElementMixin,
-} from '../common/file-selector-common.ts';
+import { SbbFileSelectorCommonElementMixin } from '../common/file-selector-common.ts';
 
 import style from './file-selector-dropzone.scss?inline';
 
@@ -31,11 +27,7 @@ export class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElement
     SbbIconElement,
     SbbSecondaryButtonStaticElement,
   ];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    fileSelectorCommonStyle,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     filechanged: 'filechanged',
   } as const;

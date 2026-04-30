@@ -9,6 +9,7 @@ import {
 } from '../../button.pure.ts';
 import {
   type AbstractConstructor,
+  boxSizingStyles,
   forceType,
   type FormRestoreReason,
   type FormRestoreState,
@@ -29,12 +30,7 @@ import {
   ɵstateController,
 } from '../../core.ts';
 
-import fileSelectorCommonStyleString from './file-selector-common.scss?inline';
-
-export const fileSelectorCommonStyle: CSSResultGroup = [
-  screenReaderOnlyStyles,
-  unsafeCSS(fileSelectorCommonStyleString),
-];
+import style from './file-selector-common.scss?inline';
 
 export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbDisabledMixin(
   SbbFormAssociatedMixin(SbbElement),
@@ -70,6 +66,11 @@ export const SbbFileSelectorCommonElementMixin = <
     public static readonly events = {
       filechanged: 'filechanged',
     } as const;
+    public static styles: CSSResultGroup = [
+      boxSizingStyles,
+      screenReaderOnlyStyles,
+      unsafeCSS(style),
+    ];
 
     /**
      * Size variant, either s or m.
