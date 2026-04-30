@@ -28,7 +28,7 @@ describe(`sbb-button`, () => {
   };
 
   // 'm' as default is covered by other cases.
-  const sizeCases = { size: ['s', 'l'], icon: [undefined, 'arrow-right-small'] };
+  const sizeCases = { size: [null, 's', 'l'], icon: [undefined, 'arrow-right-small'] };
 
   const forcedColorCases = {
     disabled: [false, true],
@@ -104,7 +104,7 @@ describe(`sbb-button`, () => {
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-button size=${size} .iconName=${icon}>Button</sbb-button>`,
+            html`<sbb-button .size=${size} .iconName=${icon}>Button</sbb-button>`,
           );
         }),
       );

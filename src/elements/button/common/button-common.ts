@@ -11,9 +11,10 @@ import { html } from 'lit/static-html.js';
 import {
   type AbstractConstructor,
   boxSizingStyles,
+  forceType,
   type SbbActionBaseElement,
+  SbbNegativeMixin,
 } from '../../core.ts';
-import { forceType, isLean, SbbNegativeMixin } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
 import buttonAccentStyleString from './accent-button.scss?inline';
@@ -31,7 +32,7 @@ export const buttonTransparentStyle = unsafeCSS(buttonTransparentStyleString);
 export const miniButtonStyle = unsafeCSS(miniButtonStyleString);
 export const miniButtonLabelStyle = unsafeCSS(miniButtonLabelStyleString);
 
-export type SbbButtonSize = 'l' | 'm' | 's';
+export type SbbButtonSize = 'l' | 'm' | 's' | null;
 
 export declare class SbbButtonCommonElementMixinType extends SbbNegativeMixin(
   SbbIconNameMixin(SbbActionBaseElement),
@@ -50,10 +51,9 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
   {
     public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
     /**
-     * Size variant, either l, m or s.
-     * @default 'm' / 's' (lean)
+     * Size variant, either s (lean default), m (standard default) or l.
      */
-    @property({ reflect: true }) public accessor size: SbbButtonSize = isLean() ? 's' : 'm';
+    @property({ reflect: true }) public accessor size: SbbButtonSize = null;
 
     /**
      * Whether the button indicates a loading state.
