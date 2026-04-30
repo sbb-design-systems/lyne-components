@@ -168,10 +168,7 @@ export class SbbTabGroupElement extends SbbElement {
   }
 
   private _ensureActiveTab(): void {
-    if (
-      this.internals.states.has('initialized') &&
-      !this.labels.some((tabLabel) => tabLabel.active)
-    ) {
+    if (this.matches?.(':state(initialized)') && !this.labels.some((tabLabel) => tabLabel.active)) {
       this._initSelection();
     }
   }

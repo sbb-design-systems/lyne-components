@@ -155,7 +155,7 @@ export class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElement) {
     }
 
     this._state = 'sticking';
-    if (!this.internals.states.has('sticking') || this._isZeroAnimationDuration()) {
+    if (!this.matches?.(':state(sticking)') || this._isZeroAnimationDuration()) {
       this._stickyCallback();
     }
   }
@@ -168,7 +168,7 @@ export class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElement) {
 
     this._state = 'unsticking';
 
-    if (!this.internals.states.has('sticking') || this._isZeroAnimationDuration()) {
+    if (!this.matches?.(':state(sticking)') || this._isZeroAnimationDuration()) {
       this._unstickyCallback();
     }
   }

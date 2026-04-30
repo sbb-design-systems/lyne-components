@@ -334,7 +334,7 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
        * changed under the condition that no input event has occurred since creation
        * or the last form reset.
        */
-      if (name !== 'value' || !this.internals.states.has('interacted')) {
+      if (name !== 'value' || !this.matches?.(':state(interacted)')) {
         super.attributeChangedCallback(name, old, value);
       }
     }
