@@ -7,10 +7,7 @@ snapshots["sbb-action-group renders DOM"] =
   horizontal-from="large"
   orientation="horizontal"
 >
-  <sbb-secondary-button
-    size="m"
-    tabindex="0"
-  >
+  <sbb-secondary-button tabindex="0">
     Button
   </sbb-secondary-button>
   <sbb-block-link

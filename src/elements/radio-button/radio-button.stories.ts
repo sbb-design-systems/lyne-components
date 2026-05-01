@@ -2,12 +2,12 @@ import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-c
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
-import type { SbbRadioButtonElement } from 'radio-button.component.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
+import type { SbbRadioButtonElement } from './radio-button.component.ts';
 import readme from './readme.md?raw';
 
 import '../radio-button.ts';
