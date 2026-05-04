@@ -3,14 +3,16 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
+import type { SbbNotificationElement } from './notification.component.ts';
+
 import '../link.ts';
 import '../title.ts';
 import '../notification.ts';
 
 describe(`sbb-notification`, () => {
   const defaultArgs = {
-    type: 'info',
-    size: 'm',
+    type: 'info' as SbbNotificationElement['type'],
+    size: 'm' as SbbNotificationElement['size'],
     readonly: false,
     showTitle: true,
     iconName: '',
@@ -26,7 +28,7 @@ describe(`sbb-notification`, () => {
     hasText,
   }: typeof defaultArgs): TemplateResult => html`
     <sbb-notification
-      size=${size}
+      size=${size || nothing}
       ?readonly=${readonly}
       type=${type}
       style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
@@ -56,10 +58,19 @@ describe(`sbb-notification`, () => {
     hasText: [false, true],
   };
 
-  const types = ['info', 'note', 'success', 'warn', 'error'];
+  const types = [
+    'info',
+    'note',
+    'success',
+    'warn',
+    'error',
+  ] satisfies SbbNotificationElement['type'][];
   const visualStates = {
-    state: [...types.map((type) => ({ type, multiple: false })), { multiple: true, type: 'all' }],
-    size: ['s', 'm'],
+    state: [
+      ...types.map((type) => ({ type, multiple: false })),
+      { multiple: true, type: 'all' },
+    ] satisfies { multiple: boolean; type: SbbNotificationElement['type'] | 'all' }[],
+    size: [null, 's', 'm'] satisfies SbbNotificationElement['size'][],
   };
 
   describeViewports({ viewports: ['zero', 'small', 'large'] }, () => {
@@ -83,8 +94,10 @@ describe(`sbb-notification`, () => {
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            ${repeat(state.multiple ? types : [state.type], (type: string) =>
-              notificationTemplate({ ...defaultArgs, type, size }),
+            ${repeat(
+              state.multiple ? types : [state.type],
+              (type: SbbNotificationElement['type']) =>
+                notificationTemplate({ ...defaultArgs, type, size }),
             )}
             ${textTemplate}
           `);

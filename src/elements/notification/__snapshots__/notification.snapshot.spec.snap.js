@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-notification renders DOM"] = 
 `<sbb-notification
   animation="all"
-  size="m"
   type="info"
 >
   The quick brown fox jumps over the lazy dog.
@@ -39,7 +38,6 @@ snapshots["sbb-notification renders Shadow DOM"] =
       aria-label="Close message"
       class="sbb-notification__close"
       icon-name="cross-small"
-      size="m"
       tabindex="0"
     >
     </sbb-secondary-button>
@@ -51,13 +49,11 @@ snapshots["sbb-notification renders Shadow DOM"] =
 snapshots["sbb-notification renders with a title DOM"] = 
 `<sbb-notification
   animation="all"
-  size="m"
   type="success"
 >
   <sbb-title
     level="3"
     slot="title"
-    visual-level="5"
   >
     Title
   </sbb-title>
@@ -93,7 +89,6 @@ snapshots["sbb-notification renders with a title Shadow DOM"] =
       aria-label="Close message"
       class="sbb-notification__close"
       icon-name="cross-small"
-      size="m"
       tabindex="0"
     >
     </sbb-secondary-button>
@@ -106,13 +101,11 @@ snapshots["sbb-notification renders without the close button DOM"] =
 `<sbb-notification
   animation="all"
   readonly=""
-  size="m"
   type="info"
 >
   <sbb-title
     level="3"
     slot="title"
-    visual-level="5"
   >
     Title
   </sbb-title>
@@ -153,7 +146,6 @@ snapshots["sbb-notification renders size s DOM"] =
   <sbb-title
     level="3"
     slot="title"
-    visual-level="6"
   >
     Title
   </sbb-title>

@@ -13,7 +13,6 @@ import { SbbSecondaryButtonElement } from '../button.pure.ts';
 import {
   boxSizingStyles,
   i18nCloseNotification,
-  isLean,
   isZeroAnimationDuration,
   SbbElement,
   type SbbElementType,
@@ -23,7 +22,6 @@ import {
 } from '../core.ts';
 import { SbbDividerElement } from '../divider.pure.ts';
 import { SbbIconNameMixin } from '../icon.pure.ts';
-import type { SbbTitleElement } from '../title.pure.ts';
 
 import style from './notification.scss?inline';
 
@@ -69,10 +67,9 @@ export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(Sb
     | 'error' = 'info';
 
   /**
-   * Size variant, either s or m.
-   * @default 'm' / 's' (lean)
+   * Size variant, either s (lean default) or m (standard default).
    */
-  @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
@@ -104,14 +101,6 @@ export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(Sb
   public constructor() {
     super();
     this._state = 'closed';
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('size')) {
-      this._configureTitle();
-    }
   }
 
   private _open(): void {
@@ -223,14 +212,6 @@ export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(Sb
     }
   }
 
-  private _configureTitle(): void {
-    const title = this.querySelector?.<SbbTitleElement>('sbb-title');
-    if (title) {
-      customElements.upgrade(title);
-      title.visualLevel = this.size === 'm' ? '5' : '6';
-    }
-  }
-
   protected override renderIconName(): string {
     return super.renderIconName() || notificationTypes.get(this.type)!;
   }
@@ -241,7 +222,7 @@ export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(Sb
         <div class="sbb-notification">
           ${this.renderIconSlot('sbb-notification__icon')}
           <span class="sbb-notification__content">
-            <slot name="title" @slotchange=${this._configureTitle}></slot>
+            <slot name="title"></slot>
             <p class="sbb-notification__text">
               <slot @slotchange=${this._handleSlotchange}></slot>
             </p>
@@ -251,7 +232,7 @@ export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(Sb
             ? html`
                 <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
                 <sbb-secondary-button
-                  size=${this.size}
+                  size=${this.size || nothing}
                   icon-name="cross-small"
                   @click=${() => this.close()}
                   aria-label=${i18nCloseNotification[this._language.current]}
