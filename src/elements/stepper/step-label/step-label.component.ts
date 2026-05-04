@@ -2,7 +2,6 @@ import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import {
   appendAriaElements,
-  boxSizingStyles,
   removeAriaElements,
   SbbButtonBaseElement,
   SbbDisabledMixin,
@@ -23,7 +22,7 @@ import style from './step-label.scss?inline';
 export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
   public static override readonly elementName: string = 'sbb-step-label';
   public static override readonly role = 'tab';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** The step controlled by the label. */
   public get step(): SbbStepElement | null {

@@ -10,7 +10,6 @@ import { property } from 'lit/decorators.js';
 
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core.ts';
 import {
-  boxSizingStyles,
   forceType,
   getNextElementIndex,
   isArrowKeyPressed,
@@ -70,7 +69,7 @@ export class SbbStepChangeEvent extends Event {
  */
 export class SbbStepperElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-stepper';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     stepchange: 'stepchange',
   } as const;

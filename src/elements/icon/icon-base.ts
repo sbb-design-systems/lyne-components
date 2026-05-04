@@ -6,7 +6,7 @@ import type { UnsafeHTMLDirective } from 'lit/directives/unsafe-html.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
 
-import { boxSizingStyles, forceType, SbbElement } from '../core.ts';
+import { forceType, SbbElement } from '../core.ts';
 
 import { getSvgContent } from './icon-request.ts';
 import style from './icon.scss?inline';
@@ -18,7 +18,7 @@ const defaultNamespace = 'default';
  * @cssprop [--sbb-icon-svg-height=auto] - Can be used to set a custom height.
  */
 export abstract class SbbIconBase extends SbbElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static override readonly role = 'img';
 
   @state() private accessor _svgNamespace = defaultNamespace;

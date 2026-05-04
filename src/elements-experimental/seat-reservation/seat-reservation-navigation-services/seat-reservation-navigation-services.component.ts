@@ -1,5 +1,4 @@
 import {
-  boxSizingStyles,
   forceType,
   SbbElement,
   type SbbElementType,
@@ -21,11 +20,7 @@ import style from './seat-reservation-navigation-services.scss?inline';
 export class SbbSeatReservationNavigationServicesElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-navigation-services';
   public static override elementDependencies: SbbElementType[] = [SbbSeatReservationGraphicElement];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    screenReaderOnlyStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /** Coach service property ids, which are used to display the services in the navigation */
   @property({ attribute: 'property-ids', type: Array })

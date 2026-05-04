@@ -2,13 +2,7 @@ import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'li
 import { property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import {
-  boxSizingStyles,
-  forceType,
-  isEventPrevented,
-  SbbElement,
-  screenReaderOnlyStyles,
-} from '../../core.ts';
+import { forceType, isEventPrevented, SbbElement, screenReaderOnlyStyles } from '../../core.ts';
 import type { SbbTitleLevel } from '../../title.pure.ts';
 import type { SbbAlertElement } from '../alert/alert.component.ts';
 
@@ -22,11 +16,7 @@ import style from './alert-group.scss?inline';
  */
 export class SbbAlertGroupElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-alert-group';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    screenReaderOnlyStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
   public static readonly events = {
     empty: 'empty',
   } as const;

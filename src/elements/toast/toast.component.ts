@@ -13,7 +13,6 @@ import {
   type SbbTransparentButtonLinkElement,
 } from '../button.pure.ts';
 import {
-  boxSizingStyles,
   composedPathHasAttribute,
   forceType,
   i18nCloseAlert,
@@ -53,7 +52,7 @@ export class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
     SbbTransparentButtonElement,
     SbbDividerElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.

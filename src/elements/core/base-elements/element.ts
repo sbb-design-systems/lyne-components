@@ -6,7 +6,10 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
   type ReactiveController,
+  unsafeCSS,
 } from 'lit';
+
+import style from './element.scss?inline';
 
 // Most of our target browsers support the :state() pseudo class, but not all of them.
 // We patch the states property of the element internals to use attributes instead,
@@ -346,6 +349,7 @@ export class SbbElement extends LitElement {
   public static readonly elementName: string;
   public static elementDependencies?: SbbElementType[];
   public static role?: ElementInternals['role'];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** @internal */
   protected readonly internals: ElementInternals = this.attachInternals();

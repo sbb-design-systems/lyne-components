@@ -2,7 +2,6 @@ import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } fr
 import { property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   i18nClass,
   SbbElement,
   type SbbElementType,
@@ -21,11 +20,7 @@ import style from './timetable-occupancy.scss?inline';
 export class SbbTimetableOccupancyElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-timetable-occupancy';
   public static override elementDependencies: SbbElementType[] = [SbbTimetableOccupancyIconElement];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    screenReaderOnlyStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /** Occupancy for first class wagons. */
   @property({ attribute: 'first-class-occupancy' })

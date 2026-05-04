@@ -2,13 +2,7 @@ import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import {
-  boxSizingStyles,
-  forceType,
-  omitEmptyConverter,
-  type SbbElementType,
-  SbbLinkBaseElement,
-} from '../core.ts';
+import { forceType, omitEmptyConverter, type SbbElementType, SbbLinkBaseElement } from '../core.ts';
 import { SbbBlockLinkStaticElement } from '../link.pure.ts';
 import { SbbTeaserPanelElement } from '../teaser-panel.pure.ts';
 
@@ -28,7 +22,7 @@ export class SbbTeaserHeroElement extends SbbLinkBaseElement {
     SbbBlockLinkStaticElement,
     SbbTeaserPanelElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Panel link text. */
   @forceType()

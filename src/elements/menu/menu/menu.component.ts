@@ -11,7 +11,6 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  boxSizingStyles,
   forwardEvent,
   getElementPosition,
   getElementPositionHorizontal,
@@ -73,11 +72,7 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
     SbbDividerElement,
     SbbMenuButtonElement,
   ];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    scrollbarStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [scrollbarStyles, unsafeCSS(style)];
   public static override readonly role = 'menu';
 
   /**

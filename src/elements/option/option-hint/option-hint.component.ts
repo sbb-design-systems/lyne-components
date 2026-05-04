@@ -1,6 +1,6 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { boxSizingStyles, SbbElement, SbbNegativeMixin } from '../../core.ts';
+import { SbbElement, SbbNegativeMixin } from '../../core.ts';
 
 import style from './option-hint.scss?inline';
 
@@ -11,7 +11,7 @@ import style from './option-hint.scss?inline';
  */
 export class SbbOptionHintElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-option-hint';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`

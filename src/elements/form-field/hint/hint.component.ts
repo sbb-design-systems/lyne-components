@@ -1,6 +1,6 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { boxSizingStyles, SbbElement, SbbNegativeMixin } from '../../core.ts';
+import { SbbElement, SbbNegativeMixin } from '../../core.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field.component.ts';
 
 import style from './hint.scss?inline';
@@ -12,7 +12,7 @@ import style from './hint.scss?inline';
  */
 export class SbbHintElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-hint';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   protected formField: SbbFormFieldElement | null = null;
 

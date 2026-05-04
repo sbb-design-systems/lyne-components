@@ -12,7 +12,6 @@ import { property } from 'lit/decorators.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
-  boxSizingStyles,
   forceType,
   i18nGoBack,
   idReference,
@@ -47,11 +46,7 @@ import style from './navigation-section.scss?inline';
 export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-navigation-section';
   public static override elementDependencies: SbbElementType[] = [SbbTransparentButtonElement];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    scrollbarStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [scrollbarStyles, unsafeCSS(style)];
 
   /**
    * The label to be shown before the action list.

@@ -1,12 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import {
-  type AbstractConstructor,
-  boxSizingStyles,
-  SbbActionBaseElement,
-  SbbNegativeMixin,
-} from '../../core.ts';
+import { type AbstractConstructor, SbbActionBaseElement, SbbNegativeMixin } from '../../core.ts';
 
 import style from './teaser-product-common.scss?inline';
 
@@ -26,7 +21,7 @@ export const SbbTeaserProductCommonElementMixin = <
     extends SbbNegativeMixin(superClass)
     implements SbbTeaserProductCommonElementMixinType
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
 
     /**
      * Whether the fully visible part of the image is aligned 'before' or 'after' the content.

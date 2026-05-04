@@ -1,5 +1,4 @@
 import {
-  boxSizingStyles,
   defaultDateAdapter,
   forceType,
   i18nTripDuration,
@@ -44,11 +43,7 @@ export class SbbJourneySummaryElement extends SbbElement {
     SbbJourneyHeaderElement,
     SbbPearlChainTimeElement,
   ];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    screenReaderOnlyStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /**  The trip prop */
   @property({ type: Object }) public accessor trip: InterfaceSbbJourneySummaryAttributes = null!;

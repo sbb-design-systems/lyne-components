@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { boxSizingStyles, forceType, SbbDisabledMixin, SbbElement } from '../../core.ts';
+import { forceType, SbbDisabledMixin, SbbElement } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbToggleElement } from '../toggle/toggle.component.ts';
 
@@ -27,7 +27,7 @@ export class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
 ) {
   public static override readonly elementName: string = 'sbb-toggle-option';
   public static override readonly role = 'radio';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Whether the toggle-option is checked. */
   @forceType()

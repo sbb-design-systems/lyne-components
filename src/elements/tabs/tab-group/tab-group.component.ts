@@ -10,7 +10,6 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  boxSizingStyles,
   forceType,
   getNextElementIndex,
   isArrowKeyPressed,
@@ -41,11 +40,7 @@ export interface SbbTabChangedEventDetails {
  */
 export class SbbTabGroupElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-tab-group';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    tabGroupCommonStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [tabGroupCommonStyles, unsafeCSS(style)];
   public static readonly events = {
     tabchange: 'tabchange',
   } as const;

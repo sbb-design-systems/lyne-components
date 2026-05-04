@@ -5,7 +5,7 @@ import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbOverlayCloseEventDetails } from '../../core.ts';
-import { boxSizingStyles, isZeroAnimationDuration, screenReaderOnlyStyles } from '../../core.ts';
+import { isZeroAnimationDuration, screenReaderOnlyStyles } from '../../core.ts';
 import {
   overlayRefs,
   SbbOverlayBaseElement,
@@ -30,11 +30,7 @@ export {
  */
 export class SbbDialogElement extends SbbOverlayBaseElement {
   public static override readonly elementName: string = 'sbb-dialog';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    screenReaderOnlyStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /** Backdrop click action. */
   @property({ attribute: 'backdrop-action' }) public accessor backdropAction: 'close' | 'none' =

@@ -13,7 +13,6 @@ import type { SbbAutocompleteBaseElement } from '../../autocomplete.pure.ts';
 import type { SbbChipGroupElement } from '../../chip.pure.ts';
 import {
   appendAriaElements,
-  boxSizingStyles,
   forceType,
   i18nOptional,
   isLean,
@@ -87,7 +86,7 @@ export class SbbFormFieldControlEvent extends Event {
 export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-form-field';
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['button', 'sbb-popover', 'sbb-option', 'sbb-chip'];

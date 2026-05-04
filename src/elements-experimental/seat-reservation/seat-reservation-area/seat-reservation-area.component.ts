@@ -1,4 +1,4 @@
-import { boxSizingStyles, forceType, SbbElement } from '@sbb-esta/lyne-elements/core.js';
+import { forceType, SbbElement } from '@sbb-esta/lyne-elements/core.js';
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -9,7 +9,7 @@ import style from './seat-reservation-area.scss?inline';
  */
 export class SbbSeatReservationAreaElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-area';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Mounting Prop */
   @forceType()

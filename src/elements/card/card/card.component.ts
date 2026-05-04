@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { boxSizingStyles, SbbElement } from '../../core.ts';
+import { SbbElement } from '../../core.ts';
 
 import style from './card.scss?inline';
 
@@ -14,7 +14,7 @@ import style from './card.scss?inline';
  */
 export class SbbCardElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-card';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Option to set the component's background color. */
   @property({ reflect: true }) public accessor color:

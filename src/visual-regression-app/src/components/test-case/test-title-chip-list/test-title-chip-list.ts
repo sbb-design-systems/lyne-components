@@ -1,4 +1,3 @@
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
 import {
   type CSSResultGroup,
   html,
@@ -38,7 +37,7 @@ interface DescribeEachItem {
 export
 @customElement('app-test-title-chip-list')
 class TestTitleChipList extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   @property()
   public set testCaseName(name: string) {
