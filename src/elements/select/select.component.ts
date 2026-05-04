@@ -255,9 +255,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     ) {
       this._triggerElement?.setAttribute(
         'aria-label',
-        Array.from(this.internals.labels)
-          .map((label) => label.textContent)
-          .join(', '),
+        Array.from(this.internals.labels, (label) => label.textContent).join(', '),
       );
     }
   }

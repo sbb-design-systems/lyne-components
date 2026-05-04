@@ -43,7 +43,7 @@ class TestTitleChipList extends LitElement {
   @property()
   public set testCaseName(name: string) {
     this._testName = name;
-    this._chips = Array.from(name.matchAll(paramsRegex)).map(this._mapToChip);
+    this._chips = Array.from(name.matchAll(paramsRegex), this._mapToChip);
   }
   public get testCaseName(): string {
     return this._testName;

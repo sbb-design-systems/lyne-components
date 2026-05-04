@@ -1654,7 +1654,7 @@ describe(`sbb-calendar`, () => {
             `);
             // In horizontal variant, the first cell of each row is the one with the week number
             const rows = calendar.shadowRoot!.querySelectorAll('tbody tr');
-            const cells = Array.from(rows).map((e) => e.querySelector('td')!);
+            const cells = Array.from(rows, (e) => e.querySelector('td')!);
             expect(cells.length).to.be.equal(5);
             expect(
               cells[0].querySelector('span:not(.sbb-screen-reader-only)')!.textContent!.trim(),
@@ -1687,7 +1687,7 @@ describe(`sbb-calendar`, () => {
 
             // In horizontal variant, the first cell of each row is the one with the week number
             const rows = calendar.shadowRoot!.querySelectorAll('tbody tr');
-            const cells = Array.from(rows).map((e) => e.querySelector('td')!);
+            const cells = Array.from(rows, (e) => e.querySelector('td')!);
             expect(cells.length).to.be.equal(5);
             // Due to the multiple property, cells have buttons instead than span.
             expect(cells[0].querySelector('span')).to.be.null;
@@ -1727,7 +1727,8 @@ describe(`sbb-calendar`, () => {
 
             // Click on Wed button: all missing Wednesdays are added
             const header = calendar.shadowRoot!.querySelectorAll('thead th')!;
-            const headerButtons = Array.from(header).map(
+            const headerButtons = Array.from(
+              header,
               (e) => e.querySelector<SbbCalendarWeekdayElement>('sbb-calendar-weekday')!,
             );
             expect(headerButtons.length).to.be.equal(8);
@@ -1798,7 +1799,7 @@ describe(`sbb-calendar`, () => {
 
             // In horizontal variant, the first cell of each row is the one with the week number
             const rows = calendar.shadowRoot!.querySelectorAll('tbody tr');
-            const cells = Array.from(rows).map((e) => e.querySelector('td')!);
+            const cells = Array.from(rows, (e) => e.querySelector('td')!);
             // In wide mode, we have two months displayed, so we have to consider the number of weeks in April and May
             expect(cells.length).to.be.equal(10);
             expect(
@@ -1977,7 +1978,8 @@ describe(`sbb-calendar`, () => {
 
             // Click on Wed button: all missing Wednesdays are added
             const rows = calendar.shadowRoot!.querySelectorAll('tbody tr');
-            const weekDayCells: SbbCalendarWeekdayElement[] = Array.from(rows).map(
+            const weekDayCells: SbbCalendarWeekdayElement[] = Array.from(
+              rows,
               (e) => e.querySelector('sbb-calendar-weekday')!,
             );
             expect(weekDayCells.length).to.be.equal(7);

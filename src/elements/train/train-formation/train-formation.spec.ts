@@ -11,20 +11,21 @@ import '../../train.ts';
 function extractAggregatedSectors(element: SbbTrainFormationElement): Record<string, string>[] {
   return Array.from(
     element.shadowRoot!.querySelectorAll<HTMLSpanElement>('.sbb-train-formation__sector') || [],
-  ).map((sector) => {
-    const computedStyles = getComputedStyle(sector);
+    (sector) => {
+      const computedStyles = getComputedStyle(sector);
 
-    return {
-      label:
-        sector
-          .querySelector<HTMLSpanElement>('.sbb-train-formation__sector-sticky-wrapper')!
-          .textContent!.trim() || '',
-      wagonCount: computedStyles.getPropertyValue('--sbb-train-formation-wagon-count'),
-      blockedPassageCount: computedStyles.getPropertyValue(
-        '--sbb-train-formation-wagon-blocked-passage-count',
-      ),
-    };
-  });
+      return {
+        label:
+          sector
+            .querySelector<HTMLSpanElement>('.sbb-train-formation__sector-sticky-wrapper')!
+            .textContent!.trim() || '',
+        wagonCount: computedStyles.getPropertyValue('--sbb-train-formation-wagon-count'),
+        blockedPassageCount: computedStyles.getPropertyValue(
+          '--sbb-train-formation-wagon-blocked-passage-count',
+        ),
+      };
+    },
+  );
 }
 
 describe(`sbb-train-formation`, () => {
