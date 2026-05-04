@@ -368,7 +368,7 @@ function stateTransform(): PluginOption {
     transform(code: string, id: string) {
       if (/.(js|ts)$/.test(id)) {
         const ms = new MagicString(code);
-        ms.replaceAll(/:state\(([^)]+)\)/g, (_match, p1) => {
+        ms.replaceAll(/(?<!selector\():state\(([^)]+)\)/g, (_match, p1) => {
           return `:is(:state(${p1}),[state--${p1}])`;
         });
         return {
