@@ -79,7 +79,7 @@ export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbEle
           if (this._previousSize) {
             this.internals.states.delete(`size-${this._previousSize}`);
           }
-          this._previousSize = g?.size || null;
+          this._previousSize = g.size ?? null;
           if (this._previousSize) {
             this.internals.states.add(`size-${this._previousSize}`);
           }
