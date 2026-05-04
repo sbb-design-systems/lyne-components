@@ -2,7 +2,6 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import {
-  boxSizingStyles,
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,
   SbbNegativeMixin,
@@ -21,11 +20,7 @@ export class SbbMiniButtonElement extends SbbDisabledTabIndexActionMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbButtonBaseElement)),
 ) {
   public static override readonly elementName: string = 'sbb-mini-button';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    miniButtonStyle,
-    miniButtonLabelStyle,
-  ];
+  public static override styles: CSSResultGroup = [miniButtonStyle, miniButtonLabelStyle];
 
   protected override renderTemplate(): TemplateResult {
     return html`

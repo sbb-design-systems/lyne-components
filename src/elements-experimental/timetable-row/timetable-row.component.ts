@@ -4,7 +4,6 @@ import {
   SbbCardElement,
 } from '@sbb-esta/lyne-elements/card.pure.js';
 import {
-  boxSizingStyles,
   defaultDateAdapter,
   forceType,
   i18nArrival,
@@ -247,11 +246,7 @@ export class SbbTimetableRowElement extends SbbElement {
     SbbTimetableOccupancyElement,
     SbbPearlChainTimeElement,
   ];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    screenReaderOnlyStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /** The trip Prop. */
   @property({ type: Object }) public accessor trip: ITripItem = null!;

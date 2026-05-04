@@ -3,7 +3,6 @@ import { property } from 'lit/decorators.js';
 
 import {
   type AbstractConstructor,
-  boxSizingStyles,
   SbbElement,
   SbbFormAssociatedRadioButtonMixin,
 } from '../../core.ts';
@@ -30,7 +29,7 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<S
     extends SbbFormAssociatedRadioButtonMixin(superClass)
     implements Partial<SbbRadioButtonCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
     public static readonly events = {
       change: 'change',
       input: 'input',

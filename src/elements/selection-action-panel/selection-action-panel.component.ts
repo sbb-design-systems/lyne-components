@@ -2,7 +2,7 @@ import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import type { SbbCardBadgeElement } from '../card.pure.ts';
 import type { SbbCheckboxPanelElement } from '../checkbox-panel.pure.ts';
-import { boxSizingStyles, SbbElement, SbbSelectionPanelMixin } from '../core.ts';
+import { SbbElement, SbbSelectionPanelMixin } from '../core.ts';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.pure.ts';
 
 import style from './selection-action-panel.scss?inline';
@@ -16,7 +16,7 @@ import style from './selection-action-panel.scss?inline';
  */
 export class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-selection-action-panel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   public override connectedCallback(): void {
     super.connectedCallback();

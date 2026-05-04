@@ -1,11 +1,6 @@
 import { type CSSResultGroup, unsafeCSS } from 'lit';
 
-import {
-  boxSizingStyles,
-  type DateAdapter,
-  type FormRestoreReason,
-  type FormRestoreState,
-} from '../../core.ts';
+import { type DateAdapter, type FormRestoreReason, type FormRestoreState } from '../../core.ts';
 import {
   defaultDateAdapter,
   readConfig,
@@ -20,7 +15,7 @@ import style from './calendar-cell-base-element.scss?inline';
 export abstract class SbbCalendarCellBaseElement<T = Date> extends SbbDisabledMixin(
   SbbButtonLikeBaseElement,
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   protected dateAdapter: DateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
   public constructor() {

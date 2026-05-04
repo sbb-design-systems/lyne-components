@@ -1,7 +1,7 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { boxSizingStyles, SbbElement } from '../../core.ts';
+import { SbbElement } from '../../core.ts';
 
 import style from './header-environment.scss?inline';
 
@@ -15,7 +15,7 @@ import style from './header-environment.scss?inline';
  */
 export class SbbHeaderEnvironmentElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-header-environment';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   private _env: string | null = null;
 

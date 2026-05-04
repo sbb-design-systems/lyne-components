@@ -8,7 +8,6 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   forceType,
   type FormRestoreReason,
   type FormRestoreState,
@@ -37,7 +36,7 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonLikeBaseElement),
 ) {
   public static override readonly elementName: string = 'sbb-tag';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     input: 'input',
     didChange: 'didChange',

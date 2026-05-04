@@ -8,7 +8,6 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   forceType,
   handleDistinctChange,
   isEventPrevented,
@@ -28,7 +27,7 @@ import style from './accordion.scss?inline';
  */
 export class SbbAccordionElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-accordion';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
    * Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`.

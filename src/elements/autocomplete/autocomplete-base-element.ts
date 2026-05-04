@@ -13,7 +13,6 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  boxSizingStyles,
   forceType,
   idReference,
   isEventOnElement,
@@ -48,7 +47,7 @@ const ariaRoleOnHost = isSafari;
 export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
   SbbOpenCloseBaseElement,
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
    * The element where the autocomplete will attach.

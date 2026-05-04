@@ -9,7 +9,6 @@ import {
 } from '../../button.pure.ts';
 import {
   type AbstractConstructor,
-  boxSizingStyles,
   forceType,
   type FormRestoreReason,
   type FormRestoreState,
@@ -66,11 +65,7 @@ export const SbbFileSelectorCommonElementMixin = <
     public static readonly events = {
       filechanged: 'filechanged',
     } as const;
-    public static styles: CSSResultGroup = [
-      boxSizingStyles,
-      screenReaderOnlyStyles,
-      unsafeCSS(style),
-    ];
+    public static styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
     /**
      * Size variant, either s or m.

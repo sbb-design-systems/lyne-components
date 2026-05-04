@@ -9,7 +9,6 @@ import {
 
 import {
   appendAriaElements,
-  boxSizingStyles,
   removeAriaElements,
   SbbElement,
   SbbPropertyWatcherController,
@@ -34,7 +33,7 @@ export interface SbbStepValidateEventDetails {
 export class SbbStepElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-step';
   public static override readonly role = 'tabpanel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     validate: 'validate',
     resizechange: 'resizechange',

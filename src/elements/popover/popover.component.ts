@@ -14,7 +14,6 @@ import { ref } from 'lit/directives/ref.js';
 
 import { SbbSecondaryButtonElement } from '../button.pure.ts';
 import {
-  boxSizingStyles,
   composedPathHasAttribute,
   forceType,
   getElementPosition,
@@ -47,7 +46,7 @@ const popoversRef = new Set<SbbPopoverBaseElement>();
 const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).matches;
 
 export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
    * The element that will trigger the popover overlay.

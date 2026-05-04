@@ -1,7 +1,6 @@
 import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 
 import {
-  boxSizingStyles,
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,
   SbbMediaMatcherController,
@@ -24,7 +23,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
   SbbIconNameMixin(SbbButtonBaseElement),
 ) {
   public static override readonly elementName: string = 'sbb-expansion-panel-header';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     toggleexpanded: 'toggleexpanded',
   } as const;

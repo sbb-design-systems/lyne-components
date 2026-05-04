@@ -10,7 +10,6 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  boxSizingStyles,
   forceType,
   type FormRestoreReason,
   type FormRestoreState,
@@ -42,7 +41,7 @@ class SbbSliderElement extends SbbDisabledMixin(
   public static override readonly elementName: string = 'sbb-slider';
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static override readonly role = 'slider';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     didChange: 'didChange',
   } as const;

@@ -2,7 +2,6 @@ import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } f
 
 import { miniButtonStyle } from '../../button.pure.ts';
 import {
-  boxSizingStyles,
   i18nClearInput,
   SbbButtonBaseElement,
   type SbbElementType,
@@ -21,7 +20,7 @@ import type { SbbFormFieldElement } from '../form-field/form-field.component.ts'
 export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
   public static override readonly elementName: string = 'sbb-form-field-clear';
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
-  public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle];
+  public static override styles: CSSResultGroup = [miniButtonStyle];
 
   private _formField?: SbbFormFieldElement | null;
   private _language = new SbbLanguageController(this);

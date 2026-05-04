@@ -1,5 +1,4 @@
 import {
-  boxSizingStyles,
   defaultDateAdapter,
   forceType,
   i18nArrival,
@@ -34,11 +33,7 @@ export class SbbPearlChainTimeElement extends SbbElement {
     SbbIconElement,
     SbbPearlChainElement,
   ];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    screenReaderOnlyStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /**
    * define the legs of the pearl-chain.

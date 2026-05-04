@@ -5,7 +5,6 @@ import { html } from 'lit/static-html.js';
 
 import type { AbstractConstructor } from '../core/mixins/constructor.ts';
 import {
-  boxSizingStyles,
   forceType,
   handleDistinctChange,
   i18nAdditionalWagonInformationHeading,
@@ -97,7 +96,7 @@ export const SbbTrainWagonMixin = <T extends AbstractConstructor<SbbElement>>(
       SbbTimetableOccupancyIconElement,
       SbbDividerElement,
     ];
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
 
     /**
      * Wagon type.

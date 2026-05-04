@@ -3,7 +3,6 @@ import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   forceType,
   i18nCarouselArrowsNavigationHint,
   i18nNextSlide,
@@ -29,11 +28,7 @@ import style from './carousel.scss?inline';
  */
 export class SbbCarouselElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-carousel';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    screenReaderOnlyStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /**
    * Used to display a box-shadow around the component.

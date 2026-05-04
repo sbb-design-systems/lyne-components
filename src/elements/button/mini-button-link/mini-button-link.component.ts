@@ -1,7 +1,6 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import {
-  boxSizingStyles,
   SbbDisabledInteractiveMixin,
   SbbDisabledMixin,
   SbbLinkBaseElement,
@@ -24,7 +23,6 @@ export class SbbMiniButtonLinkElement extends SbbNegativeMixin(
 ) {
   public static override readonly elementName: string = 'sbb-mini-button-link';
   public static override styles: CSSResultGroup = [
-    boxSizingStyles,
     miniButtonStyle,
     miniButtonLabelStyle,
     unsafeCSS(style),

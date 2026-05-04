@@ -8,11 +8,7 @@ import {
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import {
-  type AbstractConstructor,
-  boxSizingStyles,
-  type SbbActionBaseElement,
-} from '../../core.ts';
+import { type AbstractConstructor, type SbbActionBaseElement } from '../../core.ts';
 import { forceType, isLean, SbbNegativeMixin } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
@@ -48,7 +44,7 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
     extends SbbNegativeMixin(SbbIconNameMixin(superClass))
     implements Partial<SbbButtonCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
     /**
      * Size variant, either l, m or s.
      * @default 'm' / 's' (lean)

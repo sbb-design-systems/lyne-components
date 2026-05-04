@@ -3,7 +3,6 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { AbstractConstructor, SbbActionBaseElement, SbbHorizontalFrom } from '../../core.ts';
-import { boxSizingStyles } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
 import style from './header-action.scss?inline';
@@ -24,7 +23,7 @@ export const SbbHeaderActionCommonElementMixin = <
     extends SbbIconNameMixin(superClass)
     implements Partial<SbbHeaderActionCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
 
     /**
      * Used to set the minimum breakpoint from which the text is displayed.
