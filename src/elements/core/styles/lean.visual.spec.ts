@@ -1,11 +1,19 @@
+import { aTimeout } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing } from 'lit';
 
+import type { SbbFormFieldElement } from '../../form-field.ts';
 import type { SbbNotificationElement } from '../../notification.ts';
+import type { SbbSelectElement } from '../../select.ts';
 import type { SbbTitleElement } from '../../title.ts';
 import { describeEach, describeViewports, visualDiffDefault } from '../testing/private.ts';
 
+import '../../autocomplete.ts';
+import '../../form-field.ts';
 import '../../link.ts';
 import '../../notification.ts';
+import '../../option.ts';
+import '../../select.ts';
 import '../../title.ts';
 
 import './lean-theme.scss';
@@ -30,6 +38,84 @@ describe(`lean`, () => {
             `);
           }),
         );
+      }
+    });
+  });
+
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 500 }, () => {
+    describe('sbb-form-field', () => {
+      for (const size of [null, 's', 'm', 'l'] satisfies SbbFormFieldElement['size'][]) {
+        describe(`size=${size}`, () => {
+          describe('with input', () => {
+            it(
+              visualDiffDefault.name,
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(html`
+                  <sbb-form-field size=${size || nothing}>
+                    <label>Input label</label>
+                    <input placeholder="Placeholder" value="Input value" />
+                  </sbb-form-field>
+                `);
+              }),
+            );
+          });
+
+          describe('with sbb-select', () => {
+            it(
+              visualDiffDefault.name,
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(
+                  html`
+                    <sbb-form-field size=${size || nothing}>
+                      <label>Select label</label>
+                      <sbb-select value="Option 1">
+                        <sbb-option value="Option 1">Option 1</sbb-option>
+                        <sbb-option value="Option 2">Option 2</sbb-option>
+                        <sbb-option value="Option 3">Option 3</sbb-option>
+                      </sbb-select>
+                    </sbb-form-field>
+                  `,
+                  { minHeight: '300px' },
+                );
+                setup.withPostSetupAction(() => {
+                  const select =
+                    setup.snapshotElement.querySelector<SbbSelectElement>('sbb-select')!;
+                  select.focus();
+                  select.open();
+                });
+              }),
+            );
+          });
+
+          describe('with sbb-autocomplete', () => {
+            it(
+              visualDiffDefault.name,
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(
+                  html`
+                    <sbb-form-field size=${size || nothing}>
+                      <label>Autocomplete label</label>
+                      <input placeholder="Autocomplete placeholder" />
+                      <sbb-autocomplete>
+                        <sbb-option value="Option 1">Option 1</sbb-option>
+                        <sbb-option value="Option 2">Option 2</sbb-option>
+                        <sbb-option value="Option 3">Option 3</sbb-option>
+                      </sbb-autocomplete>
+                    </sbb-form-field>
+                  `,
+                  { minHeight: '300px' },
+                );
+                setup.withPostSetupAction(async () => {
+                  // Wait for page is rendered stable. Otherwise, the overlay can be positioned slightly off.
+                  await aTimeout(10);
+                  const input = setup.snapshotElement.querySelector('input')!;
+                  input.focus();
+                  await sendKeys({ press: 'O' });
+                });
+              }),
+            );
+          });
+        });
       }
     });
   });

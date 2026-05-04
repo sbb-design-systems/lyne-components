@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-form-field-text-counter renders DOM"] = 
 `<sbb-form-field
   error-space="none"
-  size="m"
   width="default"
 >
   <label slot="label">
@@ -85,7 +84,6 @@ snapshots["sbb-form-field-text-counter renders A11y tree Chrome"] =
 snapshots["sbb-form-field-text-counter renders with custom slot text DOM"] = 
 `<sbb-form-field
   error-space="none"
-  size="m"
   width="default"
 >
   <label slot="label">

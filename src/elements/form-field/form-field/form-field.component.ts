@@ -15,7 +15,6 @@ import {
   appendAriaElements,
   forceType,
   i18nOptional,
-  isLean,
   removeAriaElements,
   SbbElement,
   type SbbElementType,
@@ -125,10 +124,9 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   public accessor optional: boolean = false;
 
   /**
-   * Size variant, either l, m or s.
-   * @default 'm' / 's' (lean)
+   * Size variant, either s (lean default), m (standard default) or l.
    */
-  @property({ reflect: true }) public accessor size: 'l' | 'm' | 's' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | null = null;
 
   /** Whether to display the form field without a border. */
   @forceType()
@@ -618,7 +616,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   private _syncSize(): void {
     this.querySelectorAll?.<SbbAutocompleteBaseElement | SbbSelectElement>(
       'sbb-autocomplete,sbb-autocomplete-grid,sbb-select',
-    ).forEach((element) => (element.size = this.size === 's' ? 's' : 'm'));
+    ).forEach((element) => (element.size = this.size === 'l' ? 'm' : this.size));
   }
 
   protected override render(): TemplateResult {
