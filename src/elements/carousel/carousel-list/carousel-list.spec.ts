@@ -52,7 +52,7 @@ describe('sbb-carousel-list', () => {
       showSpy = new EventSpy('show', element);
 
       await Promise.all(
-        Array.from(element.querySelectorAll<HTMLImageElement>('img')).map((el) =>
+        Array.from(element.querySelectorAll<HTMLImageElement>('img'), (el) =>
           waitForImageReady(el),
         ),
       );

@@ -13,6 +13,7 @@ export const rules = (
       'missing-component-documentation-rule',
       'no-custom-element-decorator-rule',
       'no-new-expression-without-assignment-rule',
+      'prefer-array-from-iterable-map-rule',
       'needs-super-call-rule',
       'property-decorator-accessor-rule',
       'property-decorator-setter-initializer-rule',
