@@ -10,7 +10,7 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import type { SbbTime } from '../core.ts';
-import { boxSizingStyles, SbbElement } from '../core.ts';
+import { SbbElement } from '../core.ts';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg?raw';
@@ -61,7 +61,7 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
  */
 export class SbbClockElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-clock';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
    * Define a specific time which the clock should show statically.

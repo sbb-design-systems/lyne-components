@@ -1,6 +1,6 @@
 import { type CSSResultGroup, unsafeCSS } from 'lit';
 
-import { boxSizingStyles, SbbElement } from '../../core.ts';
+import { SbbElement } from '../../core.ts';
 import { SbbTrainFormationOrientationMixin } from '../train-formation-orientation-mixin.ts';
 
 import style from './train-blocked-passage.scss?inline';
@@ -10,7 +10,7 @@ import style from './train-blocked-passage.scss?inline';
  */
 export class SbbTrainBlockedPassageElement extends SbbTrainFormationOrientationMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-train-blocked-passage';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 }
 
 declare global {

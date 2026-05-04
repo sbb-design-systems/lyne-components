@@ -4,7 +4,6 @@ import { property } from 'lit/decorators.js';
 import type { SbbCheckboxGroupElement } from '../../checkbox-group/checkbox-group.component.ts';
 import {
   type AbstractConstructor,
-  boxSizingStyles,
   forceType,
   SbbElement,
   SbbFormAssociatedCheckboxMixin,
@@ -30,7 +29,7 @@ export const SbbCheckboxCommonElementMixin = <T extends AbstractConstructor<SbbE
     extends SbbFormAssociatedCheckboxMixin(superClass)
     implements Partial<SbbCheckboxCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
 
     /** Whether the checkbox is indeterminate. */
     @forceType()

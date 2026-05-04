@@ -9,7 +9,6 @@ import { property } from 'lit/decorators.js';
 
 import type { DateAdapter, SbbOrientation } from '../../core.ts';
 import {
-  boxSizingStyles,
   defaultDateAdapter,
   forceType,
   readConfig,
@@ -26,7 +25,7 @@ import style from './mini-calendar-month.scss?inline';
  */
 export class SbbMiniCalendarMonthElement<T = Date> extends SbbElement {
   public static override readonly elementName: string = 'sbb-mini-calendar-month';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Date as ISO string (YYYY-MM) */
   @forceType()

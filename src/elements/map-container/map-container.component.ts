@@ -11,7 +11,6 @@ import { property, state } from 'lit/decorators.js';
 
 import { SbbAccentButtonElement } from '../button.pure.ts';
 import {
-  boxSizingStyles,
   forceType,
   forwardEvent,
   i18nMapContainerButtonLabel,
@@ -41,11 +40,7 @@ import style from './map-container.scss?inline';
 export class SbbMapContainerElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-map-container';
   public static override elementDependencies: SbbElementType[] = [SbbAccentButtonElement];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    scrollbarStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [scrollbarStyles, unsafeCSS(style)];
 
   /** Flag to show/hide the scroll up button inside the sidebar on mobile. */
   @forceType()

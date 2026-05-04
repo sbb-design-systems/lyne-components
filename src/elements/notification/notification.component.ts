@@ -11,7 +11,6 @@ import { property } from 'lit/decorators.js';
 
 import { SbbSecondaryButtonElement } from '../button.pure.ts';
 import {
-  boxSizingStyles,
   i18nCloseNotification,
   isZeroAnimationDuration,
   SbbElement,
@@ -50,7 +49,7 @@ export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(Sb
     SbbSecondaryButtonElement,
     SbbDividerElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

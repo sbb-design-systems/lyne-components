@@ -10,7 +10,6 @@ import { property, state } from 'lit/decorators.js';
 
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.pure.ts';
 import {
-  boxSizingStyles,
   forceType,
   isSafari,
   SbbDisabledMixin,
@@ -32,7 +31,7 @@ const inertAriaGroups = isSafari;
 export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbElement) {
   public static override readonly role = !inertAriaGroups ? 'group' : null;
   public static override elementDependencies: SbbElementType[] = [SbbDividerElement];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Option group label. */
   @forceType()

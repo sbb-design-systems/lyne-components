@@ -10,7 +10,6 @@ import { property } from 'lit/decorators.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
-  boxSizingStyles,
   i18nCloseAlert,
   isZeroAnimationDuration,
   SbbDarkModeController,
@@ -39,7 +38,7 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
     SbbTransparentButtonElement,
     SbbDividerElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static override readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

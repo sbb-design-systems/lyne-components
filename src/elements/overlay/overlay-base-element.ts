@@ -2,7 +2,6 @@ import { type CSSResultGroup, isServer, type PropertyDeclaration, type PropertyV
 import { property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   forceType,
   i18nDialog,
   idReference,
@@ -68,7 +67,7 @@ export function assignOverlayResult<T>(element: HTMLElement, result: T): void {
 export const overlayRefs: SbbOverlayBaseElement[] = [];
 
 export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, screenReaderOnlyStyles];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles];
 
   /**
    * The element that will trigger the menu overlay.

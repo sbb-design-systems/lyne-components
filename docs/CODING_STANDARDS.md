@@ -464,6 +464,35 @@ public constructor() {
 
 ### CSS
 
+#### Applying styles to a component
+
+Component styles are applied via the static `styles` property on the class. Each class or mixin
+declares **only its own styles** — there is no need to reference or spread `super.styles`.
+
+`SbbElement` overrides Lit's `finalizeStyles` to automatically walk the entire prototype chain
+and merge every `styles` declaration in top-down order (base class first, subclass last).
+This fixes a Lit limitation where mixins that use `super.styles` resolve to the wrong class.
+
+```ts
+// ✅ Correct – declare only the styles owned by this class/mixin
+export class SbbFooElement extends SbbElement {
+  public static override styles: CSSResultGroup = unsafeCSS(style);
+}
+
+// ✅ Correct inside a mixin – same rule applies
+export const SbbFooMixin = <T extends AbstractConstructor<SbbElement>>(superClass: T) => {
+  abstract class SbbFooClass extends superClass {
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  }
+  return SbbFooClass as ...;
+};
+
+// ❌ Wrong – do NOT reference super.styles; it is collected automatically
+export class SbbBarElement extends SbbFooElement {
+  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
+}
+```
+
 #### BEM
 
 We use [BEM](http://getbem.com/) in our project.

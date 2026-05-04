@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { boxSizingStyles, SbbElement } from '../core.ts';
+import { SbbElement } from '../core.ts';
 
 import style from './loading-indicator-circle.scss?inline';
 
@@ -11,7 +11,7 @@ import style from './loading-indicator-circle.scss?inline';
 export class SbbLoadingIndicatorCircleElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-loading-indicator-circle';
   public static override readonly role = 'progressbar';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Color variant. */
   @property({ reflect: true }) public accessor color: 'default' | 'smoke' | 'white' = 'default';

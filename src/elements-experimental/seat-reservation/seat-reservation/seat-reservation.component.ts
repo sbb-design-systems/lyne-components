@@ -4,7 +4,7 @@ import {
   screenReaderOnlyStyles,
   scrollbarStyles,
 } from '@sbb-esta/lyne-elements/core.js';
-import { boxSizingStyles, SbbLanguageController } from '@sbb-esta/lyne-elements/core.js';
+import { SbbLanguageController } from '@sbb-esta/lyne-elements/core.js';
 import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.pure.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, isServer, nothing, unsafeCSS } from 'lit';
@@ -46,7 +46,6 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     SbbSeatReservationScopedElement,
   ];
   public static override styles: CSSResultGroup = [
-    boxSizingStyles,
     scrollbarStyles,
     screenReaderOnlyStyles,
     unsafeCSS(style),

@@ -9,7 +9,7 @@ import { property } from 'lit/decorators.js';
 
 import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.pure.ts';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core.ts';
-import { boxSizingStyles, SbbElement } from '../core.ts';
+import { SbbElement } from '../core.ts';
 import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,
@@ -26,7 +26,7 @@ import style from './action-group.scss?inline';
  */
 export class SbbActionGroupElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-action-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
    * Set the slotted `<sbb-action-group>` children's alignment.

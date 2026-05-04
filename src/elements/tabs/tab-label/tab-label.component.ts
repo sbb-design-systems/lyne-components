@@ -3,7 +3,6 @@ import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
-  boxSizingStyles,
   forceType,
   omitEmptyConverter,
   SbbDisabledMixin,
@@ -31,11 +30,7 @@ import style from './tab-label.scss?inline';
 export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbElement)) {
   public static override readonly elementName: string = 'sbb-tab-label';
   public static override role = 'tab';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    tabLabelCommonStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [tabLabelCommonStyles, unsafeCSS(style)];
 
   /** Whether the tab is selected. */
   private _selected: boolean = false;

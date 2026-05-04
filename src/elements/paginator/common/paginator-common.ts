@@ -4,7 +4,6 @@ import { property } from 'lit/decorators.js';
 import { SbbMiniButtonElement, SbbMiniButtonGroupElement } from '../../button.pure.ts';
 import {
   type AbstractConstructor,
-  boxSizingStyles,
   forceType,
   i18nNextPage,
   i18nPage,
@@ -64,7 +63,7 @@ export const SbbPaginatorCommonElementMixin = <
     extends SbbNegativeMixin(SbbDisabledMixin(superClass))
     implements Partial<SbbPaginatorCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, screenReaderOnlyStyles];
+    public static styles: CSSResultGroup = [screenReaderOnlyStyles];
     public static override elementDependencies: SbbElementType[] = [
       SbbMiniButtonGroupElement,
       SbbMiniButtonElement,

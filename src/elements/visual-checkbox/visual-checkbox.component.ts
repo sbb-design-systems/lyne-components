@@ -2,13 +2,7 @@ import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } fr
 import { property } from 'lit/decorators.js';
 
 import type { SbbCheckboxSize } from '../checkbox.pure.ts';
-import {
-  boxSizingStyles,
-  forceType,
-  SbbDisabledMixin,
-  SbbElement,
-  SbbNegativeMixin,
-} from '../core.ts';
+import { forceType, SbbDisabledMixin, SbbElement, SbbNegativeMixin } from '../core.ts';
 
 import style from './visual-checkbox.scss?inline';
 
@@ -17,7 +11,7 @@ import style from './visual-checkbox.scss?inline';
  */
 export class SbbVisualCheckboxElement extends SbbDisabledMixin(SbbNegativeMixin(SbbElement)) {
   public static override readonly elementName: string = 'sbb-visual-checkbox';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Checked state. */
   @forceType()

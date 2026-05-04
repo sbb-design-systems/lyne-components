@@ -9,7 +9,6 @@ import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
-  boxSizingStyles,
   forceType,
   handleDistinctChange,
   i18nTrain,
@@ -41,7 +40,7 @@ export class SbbTrainElement extends SbbTrainFormationOrientationMixin(
 ) {
   public static override readonly elementName: string = 'sbb-train';
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   protected override readonly listChildLocalNames = [
     'sbb-train-wagon',

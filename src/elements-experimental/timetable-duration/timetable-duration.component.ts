@@ -1,5 +1,4 @@
 import {
-  boxSizingStyles,
   forceType,
   i18nDurationHour,
   i18nDurationMinute,
@@ -17,11 +16,7 @@ import style from './timetable-duration.scss?inline';
  */
 export class SbbTimetableDurationElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-timetable-duration';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    screenReaderOnlyStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /**
    * Stringified JSON which defines most of the

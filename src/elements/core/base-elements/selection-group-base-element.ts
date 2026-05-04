@@ -11,7 +11,6 @@ import { property } from 'lit/decorators.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '../interfaces/types.ts';
 import { SbbDisabledMixin } from '../mixins/disabled-mixin.ts';
 import { SbbRequiredMixin } from '../mixins/required-mixin.ts';
-import { boxSizingStyles } from '../styles/styles.ts';
 
 import { SbbElement } from './element.ts';
 import style from './selection-group-base-element.scss?inline';
@@ -25,7 +24,7 @@ import style from './selection-group-base-element.scss?inline';
 export abstract class SbbSelectionGroupBaseElement<T extends SbbElement> extends SbbDisabledMixin(
   SbbRequiredMixin(SbbElement),
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
    * Size variant, either xs (lean default), s or m (standard default).

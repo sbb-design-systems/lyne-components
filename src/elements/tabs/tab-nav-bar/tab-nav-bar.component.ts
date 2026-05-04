@@ -2,7 +2,7 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { boxSizingStyles, SbbElement, SbbNamedSlotListMixin } from '../../core.ts';
+import { SbbElement, SbbNamedSlotListMixin } from '../../core.ts';
 import { tabGroupCommonStyles, tabLabelCommonStyles } from '../common/styles.ts';
 
 import style from './tab-nav-bar.scss?inline';
@@ -15,7 +15,6 @@ import style from './tab-nav-bar.scss?inline';
 export class SbbTabNavBarElement extends SbbNamedSlotListMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-tab-nav-bar';
   public static override styles: CSSResultGroup = [
-    boxSizingStyles,
     tabLabelCommonStyles,
     tabGroupCommonStyles,
     unsafeCSS(style),

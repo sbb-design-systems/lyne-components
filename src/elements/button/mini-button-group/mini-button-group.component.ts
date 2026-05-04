@@ -7,13 +7,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import {
-  boxSizingStyles,
-  forceType,
-  SbbElement,
-  SbbNamedSlotListMixin,
-  SbbNegativeMixin,
-} from '../../core.ts';
+import { forceType, SbbElement, SbbNamedSlotListMixin, SbbNegativeMixin } from '../../core.ts';
 import type { SbbDividerElement } from '../../divider/divider.component.ts';
 import type { SbbMiniButtonElement } from '../mini-button/mini-button.component.ts';
 
@@ -31,7 +25,7 @@ export class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   SbbNamedSlotListMixin<SbbMiniButtonElement, typeof SbbElement>(SbbElement),
 ) {
   public static override readonly elementName: string = 'sbb-mini-button-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   protected override readonly listChildLocalNames = [
     'sbb-mini-button',
     'sbb-mini-button-link',

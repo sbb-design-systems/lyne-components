@@ -9,7 +9,6 @@ import { property } from 'lit/decorators.js';
 
 import { miniButtonStyle } from '../../button/common/button-common.ts';
 import {
-  boxSizingStyles,
   type DateAdapter,
   defaultDateAdapter,
   i18nToday,
@@ -37,11 +36,7 @@ export abstract class SbbDatepickerButtonBase<T = Date>
 {
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static readonly sbbDateInputAssociated = true;
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    miniButtonStyle,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [miniButtonStyle, unsafeCSS(style)];
 
   /**
    * The associated date input element.

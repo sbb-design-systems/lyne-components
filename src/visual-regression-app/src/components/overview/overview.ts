@@ -1,4 +1,3 @@
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
 import {
   type CSSResultGroup,
   html,
@@ -31,7 +30,7 @@ import '@sbb-esta/lyne-elements/title.js';
 export
 @customElement('app-overview')
 class Overview extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`

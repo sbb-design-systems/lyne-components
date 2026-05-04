@@ -10,7 +10,6 @@ import { html } from 'lit/static-html.js';
 
 import {
   type AbstractConstructor,
-  boxSizingStyles,
   forceType,
   type SbbActionBaseElement,
   SbbNegativeMixin,
@@ -49,7 +48,7 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
     extends SbbNegativeMixin(SbbIconNameMixin(superClass))
     implements Partial<SbbButtonCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
     /**
      * Size variant, either s (lean default), m (standard default) or l.
      */

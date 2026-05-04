@@ -1,4 +1,4 @@
-import { boxSizingStyles, forceType, SbbElement } from '@sbb-esta/lyne-elements/core.js';
+import { forceType, SbbElement } from '@sbb-esta/lyne-elements/core.js';
 import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -31,7 +31,7 @@ export interface PearlChainVerticalItemAttributes {
  */
 export class SbbPearlChainVerticalItemElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain-vertical-item';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** The pearlChainVerticalItemAttributes Prop for styling the bullets and line.*/
   @property({ attribute: 'pearl-chain-vertical-item-attributes', type: Object })
