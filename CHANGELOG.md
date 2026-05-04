@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.12.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.12.0...v4.12.1) (2026-05-04)
+
+
+### Bug Fixes
+
+* avoid infinite toggling of position of overlay elements ([#4854](https://github.com/sbb-design-systems/lyne-components/issues/4854)) ([7e2e12c](https://github.com/sbb-design-systems/lyne-components/commit/7e2e12c527043069bf3850f20a1d28b367b507f1)), closes [#4848](https://github.com/sbb-design-systems/lyne-components/issues/4848)
+* avoid transform `:state()` inside `CSS.supports()` ([#4852](https://github.com/sbb-design-systems/lyne-components/issues/4852)) ([39006ad](https://github.com/sbb-design-systems/lyne-components/commit/39006ad1a1bd2aff67a83f5806511ee1a4838d2e)), closes [#4686](https://github.com/sbb-design-systems/lyne-components/issues/4686)
+* **seat-reservation:** coach border overlaps graphics ([#4851](https://github.com/sbb-design-systems/lyne-components/issues/4851)) ([bd7531c](https://github.com/sbb-design-systems/lyne-components/commit/bd7531cbbd7e2e0e846ccf4a3030ed17d83e2fda))
+* **select:** fix multiple checkbox styling ([#4858](https://github.com/sbb-design-systems/lyne-components/issues/4858)) ([2cd7dd0](https://github.com/sbb-design-systems/lyne-components/commit/2cd7dd0b9a7afbb43b39a76c92aa46c61e88342b))
+
 ## [4.12.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.11.0...v4.12.0) (2026-04-27)
 
 
