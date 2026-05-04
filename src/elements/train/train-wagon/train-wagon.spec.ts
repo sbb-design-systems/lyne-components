@@ -76,11 +76,11 @@ describe(`sbb-train-wagon`, () => {
       element.shadowRoot!.querySelectorAll<HTMLElement>(
         '[aria-label]:not(.sbb-train-wagon__attribute-icon-list), sbb-timetable-occupancy-icon, .sbb-screen-reader-only',
       ),
-    ).map((entry) =>
-      entry.hasAttribute('aria-label')
-        ? entry.getAttribute('aria-label')!
-        : (elementInternals.get(entry)?.ariaLabel ??
-          entry.textContent!.replace(/\s+/g, ' ').trim()),
+      (entry) =>
+        entry.hasAttribute('aria-label')
+          ? entry.getAttribute('aria-label')!
+          : (elementInternals.get(entry)?.ariaLabel ??
+            entry.textContent!.replace(/\s+/g, ' ').trim()),
     );
   }
 

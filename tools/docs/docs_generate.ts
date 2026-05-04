@@ -56,9 +56,9 @@ function updateFieldsTable(
     // Remove doubled spaces (unwanted artifacts)
     .replace(/  +/g, ' ');
 
-  const tableRows = Array.from(fieldsSection.matchAll(/^\|.*\|$/gm))
-    .map((match) => match[0])
-    .map((row) => row.split(/(?<!\\)\|/g)); // Split by not escaped '|'
+  const tableRows = Array.from(fieldsSection.matchAll(/^\|.*\|$/gm), (match) => match[0]).map(
+    (row) => row.split(/(?<!\\)\|/g),
+  ); // Split by not escaped '|'
 
   // Remove the 'Inherited from' column
   tableRows.forEach((row) => row.splice(inheritedFromColumnIndex, 1));

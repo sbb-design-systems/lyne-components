@@ -191,6 +191,6 @@ export class TemporalDateAdapter extends DateAdapter<Temporal.PlainDate> {
    * @param valueFunction The function of array's index used to fill the array.
    */
   private _range<T>(length: number, valueFunction: (index: number) => T): T[] {
-    return Array.from({ length }).map((_, i) => valueFunction(i));
+    return Array.from({ length }, (_, i) => valueFunction(i));
   }
 }
