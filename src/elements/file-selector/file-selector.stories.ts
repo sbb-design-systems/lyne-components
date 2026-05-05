@@ -101,7 +101,7 @@ const fileSelectorDefaultArgTypes: ArgTypes = {
  * so it must be overridden before use.
  */
 const fileSelectorDefaultArgs: Args = {
-  size: size.options![0],
+  size: undefined,
   disabled: false,
   multiple: false,
   'multiple-mode': multipleMode.options![0],
@@ -157,7 +157,7 @@ export const OnlyPDF: StoryObj = {
 export const MultiSizeS: StoryObj = {
   render: FileSelectorTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, ...fileSelectorMultipleDefaultArgs, size: 's' },
+  args: { ...defaultArgs, ...fileSelectorMultipleDefaultArgs, size: size.options![0] },
 };
 
 const fileSelectorDropzoneArgTypes: ArgTypes = {
@@ -205,10 +205,10 @@ export const DropzoneOnlyPDF: StoryObj = {
   argTypes: fileSelectorDropzoneArgTypes,
   args: { ...fileSelectorDropzoneArgs, accept: '.pdf' },
 };
-export const DropzoneMultiSizeS: StoryObj = {
+export const DropzoneMultiSizeM: StoryObj = {
   render: FileSelectorTemplate,
   argTypes: fileSelectorDropzoneArgTypes,
-  args: { ...fileSelectorDropzoneArgs, ...fileSelectorMultipleDefaultArgs, size: 's' },
+  args: { ...fileSelectorDropzoneArgs, ...fileSelectorMultipleDefaultArgs, size: size.options![1] },
 };
 
 const meta: Meta = {

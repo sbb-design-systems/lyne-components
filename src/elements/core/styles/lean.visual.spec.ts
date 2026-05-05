@@ -2,6 +2,7 @@ import { aTimeout } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing } from 'lit';
 
+import type { SbbFileSelectorElement } from '../../file-selector.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
 import type { SbbHeaderElement } from '../../header.ts';
 import type { SbbNotificationElement } from '../../notification.ts';
@@ -11,6 +12,7 @@ import { describeEach, describeViewports, visualDiffDefault } from '../testing/p
 
 import '../../autocomplete.ts';
 import '../../chip.ts';
+import '../../file-selector.ts';
 import '../../form-field.ts';
 import '../../header.ts';
 import '../../link.ts';
@@ -156,6 +158,33 @@ describe(`lean`, () => {
   });
 
   describeViewports({ viewports: ['zero', 'small'] }, () => {
+    describe('sbb-file-selector-dropzone', () => {
+      for (const size of [null, 's', 'm'] satisfies SbbFileSelectorElement['size'][]) {
+        it(
+          `size=${size}`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(html`
+              <sbb-file-selector-dropzone
+                id="fs"
+                multiple
+                size=${size || nothing}
+              ></sbb-file-selector-dropzone>
+            `);
+            const elem = setup.snapshotElement.querySelector<SbbFileSelectorElement>('#fs')!;
+            const dataTransfer = new DataTransfer();
+            for (let i = 0; i < 3; i++) {
+              dataTransfer.items.add(
+                new File([`Hello world - ${i}`], `hello${i}.txt`, { type: 'text/plain' }),
+              );
+            }
+            const input = elem.shadowRoot!.querySelector<HTMLInputElement>('input')!;
+            input.files = dataTransfer.files;
+            input.dispatchEvent(new Event('change'));
+          }),
+        );
+      }
+    });
+
     describe('sbb-notification', () => {
       const cases = {
         size: [null, 's', 'm'] satisfies SbbNotificationElement['size'][],

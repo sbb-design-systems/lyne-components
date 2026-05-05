@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-file-selector-dropzone renders DOM"] = 
-`<sbb-file-selector-dropzone size="m">
+`<sbb-file-selector-dropzone>
 </sbb-file-selector-dropzone>
 `;
 /* end snapshot sbb-file-selector-dropzone renders DOM */
@@ -23,7 +23,7 @@ snapshots["sbb-file-selector-dropzone renders Shadow DOM"] =
         Drag & Drop your file here
       </span>
       <span class="sbb-file-selector__dropzone-area--button">
-        <sbb-secondary-button-static size="m">
+        <sbb-secondary-button-static>
           Choose a file
         </sbb-secondary-button-static>
       </span>
@@ -47,10 +47,7 @@ snapshots["sbb-file-selector-dropzone renders Shadow DOM"] =
 /* end snapshot sbb-file-selector-dropzone renders Shadow DOM */
 
 snapshots["sbb-file-selector-dropzone renders multiple DOM"] = 
-`<sbb-file-selector-dropzone
-  multiple=""
-  size="m"
->
+`<sbb-file-selector-dropzone multiple="">
 </sbb-file-selector-dropzone>
 `;
 /* end snapshot sbb-file-selector-dropzone renders multiple DOM */
@@ -71,7 +68,7 @@ snapshots["sbb-file-selector-dropzone renders multiple Shadow DOM"] =
         Drag & Drop your files here
       </span>
       <span class="sbb-file-selector__dropzone-area--button">
-        <sbb-secondary-button-static size="m">
+        <sbb-secondary-button-static>
           Choose files
         </sbb-secondary-button-static>
       </span>

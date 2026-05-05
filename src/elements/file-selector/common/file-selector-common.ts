@@ -17,7 +17,6 @@ import {
   i18nFileSelectorButtonLabelMultiple,
   i18nFileSelectorCurrentlySelected,
   i18nFileSelectorDeleteFile,
-  isLean,
   SbbDisabledMixin,
   SbbElement,
   type SbbElementConstructor,
@@ -34,7 +33,7 @@ import style from './file-selector-common.scss?inline';
 export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbDisabledMixin(
   SbbFormAssociatedMixin(SbbElement),
 ) {
-  public accessor size: 's' | 'm';
+  public accessor size: 's' | 'm' | null;
   public accessor multiple: boolean;
   public accessor multipleMode: 'default' | 'persistent';
   public accessor accept: string;
@@ -68,10 +67,9 @@ export const SbbFileSelectorCommonElementMixin = <
     public static styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
     /**
-     * Size variant, either s or m.
-     * @default 'm' / 's' (lean)
+     * Size variant, either s (lean default) or m (standard default).
      */
-    @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
+    @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 
     /** Whether more than one file can be selected. */
     @forceType()
@@ -292,7 +290,7 @@ export const SbbFileSelectorCommonElementMixin = <
                   <span class="sbb-file-selector__file-size">${this._formatFileSize(file.size)}</span>
                 </span>
               <sbb-secondary-button
-                size=${this.size}
+                size=${this.size || nothing}
                 icon-name="trash-small"
                 @click=${() => this._removeFile(file)}
                 aria-label=${`${i18nFileSelectorDeleteFile[this.language.current]} - ${file.name}`}
