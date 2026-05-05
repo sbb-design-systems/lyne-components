@@ -11,6 +11,7 @@ import '../../header.ts';
 import '../../menu.ts';
 import '../../logo.ts';
 import '../../signet.ts';
+import '../../sidebar.ts';
 
 describe(`sbb-header`, () => {
   const loremIpsumTemplate = `
@@ -124,19 +125,23 @@ describe(`sbb-header`, () => {
       });
     }
 
-    it(
-      `size=null`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template({ size: null }), { padding: '0' });
-      }),
-    );
-
-    it(
-      `size=s`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template({ size: 's' }), { padding: '0' });
-      }),
-    );
+    for (const size of [null, 's', 'm'] satisfies SbbHeaderElement['size'][]) {
+      describe(`size=${size}`, () => {
+        it(
+          'with sidebar container',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`${template({ size })}
+                <sbb-sidebar-container>
+                  <sbb-sidebar>Sidebar</sbb-sidebar>
+                  <sbb-sidebar-content>Content below header</sbb-sidebar-content>
+                </sbb-sidebar-container> `,
+              { padding: '0', minHeight: '300px' },
+            );
+          }),
+        );
+      });
+    }
 
     it(
       `forcedColors=true`,
