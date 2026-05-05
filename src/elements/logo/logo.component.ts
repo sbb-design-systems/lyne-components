@@ -5,8 +5,6 @@ import { forceType, SbbElement, SbbNegativeMixin } from '../core.ts';
 
 import style from './logo.scss?inline';
 
-export type SbbLogoProtectiveRoom = 'none' | 'minimal' | 'ideal';
-
 /**
  * It displays the SBB logo.
  *
@@ -18,7 +16,7 @@ export class SbbLogoElement extends SbbNegativeMixin(SbbElement) {
 
   /** Visual protective room around logo. */
   @property({ attribute: 'protective-room', reflect: true })
-  public accessor protectiveRoom: SbbLogoProtectiveRoom = 'ideal';
+  public accessor protectiveRoom: 'none' | 'minimal' | 'ideal' = 'ideal';
 
   /** Accessibility label which will be forwarded to the SVG logo. */
   @forceType()

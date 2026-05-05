@@ -17,8 +17,6 @@ import clockHandleMinutesSVG from './assets/sbb_clock_minutes.svg?raw';
 import clockHandleSecondsSVG from './assets/sbb_clock_seconds.svg?raw';
 import style from './clock.scss?inline';
 
-export type SbbTime = `${number}:${number}:${number}`;
-
 /** Number of hours on the clock face. */
 const TOTAL_HOURS_ON_CLOCK_FACE = 12;
 
@@ -68,7 +66,7 @@ export class SbbClockElement extends SbbElement {
    * Define a specific time which the clock should show statically.
    * @param value HH:MM:ss
    */
-  @property() public accessor now: SbbTime | null = null;
+  @property() public accessor now: `${number}:${number}:${number}` | null = null;
 
   /** Whether the clock is ticking or not */
   private _state: 'running' | 'paused' = 'paused';
