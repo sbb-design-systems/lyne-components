@@ -92,18 +92,20 @@ describe(`sbb-sticky-bar`, () => {
       );
     });
 
-    it(
-      `size=s`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html` <sbb-container style="overflow: auto; height: 400px;">
-            ${containerContent()} ${containerContent()} ${containerContent()}
-            <sbb-sticky-bar color="milk" size="s">${actionGroup()}</sbb-sticky-bar>
-          </sbb-container>`,
-          { padding: '0' },
-        );
-      }),
-    );
+    for (const size of ['s', 'm'] satisfies SbbStickyBarElement['size'][]) {
+      it(
+        `size=${size}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html` <sbb-container style="overflow: auto; height: 400px;">
+              ${containerContent()} ${containerContent()} ${containerContent()}
+              <sbb-sticky-bar color="milk" size=${size}>${actionGroup()}</sbb-sticky-bar>
+            </sbb-container>`,
+            { padding: '0' },
+          );
+        }),
+      );
+    }
 
     it(
       `unstick`,

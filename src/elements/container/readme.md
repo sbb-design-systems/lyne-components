@@ -98,7 +98,7 @@ The `<sbb-sticky-bar>` inherits its variant from the `<sbb-container>` it's plac
 Optionally the user can set the `color` property on the `<sbb-sticky-bar>` in order to override the one inherited by the `<sbb-container>`.
 The color is only applied when the sticky bar is sticking, and will become transparent once it settles on the bottom of the container.
 
-The component has two sizes, `m` and `s`, that can be set using the `size` property.
+The component has two sizes, `s` and `m`, that can be set using the `size` property.
 
 <!-- Auto Generated Below -->
 
@@ -132,10 +132,10 @@ The component has two sizes, `m` and `s`, that can be set using the `size` prope
 
 #### Properties
 
-| Name    | Attribute | Privacy | Type                                                    | Default            | Description                                          |
-| ------- | --------- | ------- | ------------------------------------------------------- | ------------------ | ---------------------------------------------------- |
-| `color` | `color`   | public  | `'white' \| 'milk' \| 'midnight' \| 'charcoal' \| null` | `null`             | Color of the container, like transparent, white etc. |
-| `size`  | `size`    | public  | `'m' \| 's'`                                            | `'m' / 's' (lean)` | Size of the container.                               |
+| Name    | Attribute | Privacy | Type                                                    | Default | Description                                                              |
+| ------- | --------- | ------- | ------------------------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| `color` | `color`   | public  | `'white' \| 'milk' \| 'midnight' \| 'charcoal' \| null` | `null`  | Color of the container, like transparent, white etc.                     |
+| `size`  | `size`    | public  | `'m' \| 's' \| null`                                    | `null`  | Size of the sticky bar, either s (lean default) or m (standard default). |
 
 #### Methods
 

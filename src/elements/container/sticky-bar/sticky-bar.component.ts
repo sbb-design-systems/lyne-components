@@ -8,12 +8,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import {
-  isLean,
-  isZeroAnimationDuration,
-  SbbElement,
-  SbbUpdateSchedulerMixin,
-} from '../../core.ts';
+import { isZeroAnimationDuration, SbbElement, SbbUpdateSchedulerMixin } from '../../core.ts';
 
 import style from './sticky-bar.scss?inline';
 
@@ -50,10 +45,9 @@ export class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElement) {
     | null = null;
 
   /**
-   * Size of the container.
-   * @default 'm' / 's' (lean)
+   * Size of the sticky bar, either s (lean default) or m (standard default).
    */
-  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 'm' | 's' | null = null;
 
   /** The state of the component. */
   private set _state(state: StickyState) {
