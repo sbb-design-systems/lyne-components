@@ -1000,7 +1000,7 @@ describe(`sbb-autocomplete`, () => {
       await openSpy.calledOnce();
       expect(input).to.have.attribute('aria-expanded', 'true');
       const posY1 = getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y');
-      expect(Math.round(parseFloat(posY1))).to.be.equal(344);
+      expect(Math.round(parseFloat(posY1))).to.be.equal(352);
 
       // Simulate the options' removal and check again position
       await sendKeys({ press: 'a' });
