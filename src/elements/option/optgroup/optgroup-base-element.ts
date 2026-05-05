@@ -15,8 +15,10 @@ import {
   SbbDisabledMixin,
   SbbElement,
   type SbbElementType,
+  SbbPropertyWatcherController,
 } from '../../core.ts';
 import { SbbDividerElement } from '../../divider.pure.ts';
+import type { SbbSelectElement } from '../../select.pure.ts';
 import type { SbbOptionBaseElement } from '../option/option-base-element.ts';
 
 import style from './optgroup-base-element.scss?inline';
@@ -42,8 +44,28 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbElement
 
   protected abstract get options(): SbbOptionBaseElement[];
 
-  public constructor() {
+  private _previousSize: string | undefined;
+
+  protected constructor() {
     super();
+
+    this.addController(
+      new SbbPropertyWatcherController<SbbAutocompleteBaseElement | SbbSelectElement>(
+        this,
+        () => this.closest('sbb-autocomplete, sbb-autocomplete-grid, sbb-select'),
+        {
+          size: (e) => {
+            if (this._previousSize) {
+              this.internals.states.delete(`size-${this._previousSize}`);
+            }
+            this._previousSize = e.size;
+            if (this._previousSize) {
+              this.internals.states.add(`size-${this._previousSize}`);
+            }
+          },
+        },
+      ),
+    );
 
     if (inertAriaGroups) {
       if (this.hydrationRequired) {

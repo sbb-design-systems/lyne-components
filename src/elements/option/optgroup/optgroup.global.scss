@@ -5,6 +5,12 @@ $theme: 'standard' !default;
 @mixin base {
   --sbb-optgroup-label-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-optgroup-label-font-size: var(--sbb-text-font-size-xxs);
-  --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-2x);
+  --sbb-optgroup-label-padding-end: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-2x),
+        'lean': var(--sbb-spacing-fixed-1x),
+      ),
+      $theme
+    )};
   --sbb-optgroup-label-padding-inline: var(--sbb-spacing-responsive-xxxs);
 }
