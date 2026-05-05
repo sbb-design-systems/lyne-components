@@ -16,7 +16,6 @@ import {
   i18nChipGroupInputDescription,
   i18nSelectionRequired,
   isArrowKeyPressed,
-  isLean,
   SbbDisabledMixin,
   SbbElement,
   SbbFormAssociatedMixin,
@@ -170,7 +169,7 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   private _inputElement: HTMLInputElement | undefined;
   private _inputAbortController: AbortController | undefined;
   private _language = new SbbLanguageController(this);
-  private _previousSize?: SbbFormFieldElement['size'];
+  private _previousSize: SbbFormFieldElement['size'] = null;
 
   public constructor() {
     super();
@@ -296,8 +295,8 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
     }
 
     // Inherit size from the form-field and observe for changes
-    if (!this._previousSize || !this.closest('sbb-form-field')) {
-      this._updateSize(isLean() ? 's' : 'm');
+    if (!this.closest('sbb-form-field')) {
+      this._updateSize(null);
     }
 
     this.toggleState('empty', this.value.length === 0);

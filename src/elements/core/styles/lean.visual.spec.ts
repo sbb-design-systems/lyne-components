@@ -9,6 +9,7 @@ import type { SbbTitleElement } from '../../title.ts';
 import { describeEach, describeViewports, visualDiffDefault } from '../testing/private.ts';
 
 import '../../autocomplete.ts';
+import '../../chip.ts';
 import '../../form-field.ts';
 import '../../link.ts';
 import '../../notification.ts';
@@ -83,6 +84,24 @@ describe(`lean`, () => {
                   select.focus();
                   select.open();
                 });
+              }),
+            );
+          });
+
+          describe('with sbb-chip-group', () => {
+            it(
+              visualDiffDefault.name,
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(html`
+                  <sbb-form-field size=${size || nothing}>
+                    <label>Chip group label</label>
+                    <sbb-chip-group name="chips">
+                      <sbb-chip value="chip 1"></sbb-chip>
+                      <sbb-chip value="chip 2"></sbb-chip>
+                      <input placeholder="Placeholder" value="Value" />
+                    </sbb-chip-group>
+                  </sbb-form-field>
+                `);
               }),
             );
           });
