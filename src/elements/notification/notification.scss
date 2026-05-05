@@ -52,7 +52,7 @@ $open-anim-height-to: calc(
   @include sbb.disable-animation;
 }
 
-:host(:where(:state(slotted-title)), :state(slotted-title)[size='m']) {
+:host(:where(:state(slotted-title), :state(slotted-title)[size='m'])) {
   --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-5);
   --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-heading);
 }
