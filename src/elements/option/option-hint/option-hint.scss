@@ -13,6 +13,14 @@
   --sbb-option-hint-color: var(--sbb-color-5);
 }
 
+:host(:state(size-s)) {
+  --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-1x);
+}
+
+:host(:state(size-m)) {
+  --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-2x);
+}
+
 .sbb-optgroup__icon-space {
   // Can be overridden by the 'preserve-icon-space' on the autocomplete
   display: var(--sbb-option-icon-container-display, none);

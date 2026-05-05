@@ -56,12 +56,6 @@ export class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
     );
 
     this.addController(
-      new SbbPropertyWatcherController(this, () => this.closest('sbb-autocomplete'), {
-        negative: (e) => this._handleNegativeChange(e),
-      }),
-    );
-
-    this.addController(
       new SbbPropertyWatcherController(this, () => this.closest('sbb-select'), {
         multiple: (ancestor) => {
           this.toggleState('multiple', ancestor.multiple);

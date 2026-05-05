@@ -8,6 +8,14 @@
   --sbb-optgroup-divider-display: none;
 }
 
+:host(:state(size-s)) {
+  --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
+}
+
+:host(:state(size-m)) {
+  --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-2x);
+}
+
 :host(:state(negative)) {
   --sbb-optgroup-label-color: var(--sbb-color-5);
 }
