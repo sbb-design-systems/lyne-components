@@ -14,7 +14,6 @@ snapshots["sbb-action-group renders DOM"] =
     href="https://github.com/sbb-design-systems/lyne-components"
     icon-name="chevron-small-left-small"
     icon-placement="start"
-    size="s"
   >
     Link
   </sbb-block-link>
