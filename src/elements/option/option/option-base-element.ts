@@ -10,7 +10,6 @@ import {
 import { property, state } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   isAndroid,
   isBlink,
   isSafari,
@@ -43,7 +42,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   public static readonly events = {
     optionselected: 'optionselected',
   } as const;
-  public static override styles: CSSResultGroup = [boxSizingStyles, screenReaderOnlyStyles];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles];
 
   protected abstract optionId: string;
 

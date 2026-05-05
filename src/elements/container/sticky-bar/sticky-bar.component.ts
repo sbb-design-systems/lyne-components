@@ -9,7 +9,6 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   isLean,
   isZeroAnimationDuration,
   SbbElement,
@@ -33,7 +32,7 @@ type StickyState = 'sticking' | 'sticky' | 'unsticking' | 'unsticky';
  */
 export class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-sticky-bar';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   public static readonly events = {
     beforestick: 'beforestick',
@@ -158,7 +157,7 @@ export class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElement) {
     }
 
     this._state = 'sticking';
-    if (!this.internals.states.has('sticking') || this._isZeroAnimationDuration()) {
+    if (!this.matches?.(':state(sticking)') || this._isZeroAnimationDuration()) {
       this._stickyCallback();
     }
   }
@@ -171,7 +170,7 @@ export class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElement) {
 
     this._state = 'unsticking';
 
-    if (!this.internals.states.has('sticking') || this._isZeroAnimationDuration()) {
+    if (!this.matches?.(':state(sticking)') || this._isZeroAnimationDuration()) {
       this._unstickyCallback();
     }
   }

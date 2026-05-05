@@ -167,7 +167,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
    * @param valueFunction The function of array's index used to fill the array.
    */
   private _range<T>(length: number, valueFunction: (index: number) => T): T[] {
-    return Array.from({ length }).map((_, i) => valueFunction(i));
+    return Array.from({ length }, (_, i) => valueFunction(i));
   }
 
   /** Creates a date but allows the month and date to overflow. */

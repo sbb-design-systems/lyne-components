@@ -8,7 +8,6 @@ import {
 import { property, state } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   forceType,
   i18nCollapsed,
   i18nExpanded,
@@ -33,7 +32,7 @@ export class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(Sb
   public static override readonly elementName: string = 'sbb-selection-expansion-panel';
   public static override elementDependencies: SbbElementType[] = [SbbDividerElement];
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

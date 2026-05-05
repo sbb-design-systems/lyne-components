@@ -9,7 +9,6 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   forceType,
   isLean,
   SbbDisabledMixin,
@@ -32,11 +31,7 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
   SbbNamedSlotListMixin<SbbTagElement, typeof SbbElement>(SbbElement),
 ) {
   public static override readonly elementName: string = 'sbb-tag-group';
-  public static override styles: CSSResultGroup = [
-    super.styles ?? [],
-    boxSizingStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   // DIV is added here due to special requirements from sbb.ch.
   protected override readonly listChildLocalNames = ['sbb-tag', 'div'];
 

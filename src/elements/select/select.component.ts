@@ -15,7 +15,6 @@ import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
 
 import {
-  boxSizingStyles,
   forceType,
   type FormRestoreReason,
   type FormRestoreState,
@@ -80,7 +79,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 ) {
   public static override readonly elementName: string = 'sbb-select';
   public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
@@ -255,9 +254,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     ) {
       this._triggerElement?.setAttribute(
         'aria-label',
-        Array.from(this.internals.labels)
-          .map((label) => label.textContent)
-          .join(', '),
+        Array.from(this.internals.labels, (label) => label.textContent).join(', '),
       );
     }
   }

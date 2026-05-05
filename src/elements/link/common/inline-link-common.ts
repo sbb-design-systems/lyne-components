@@ -20,7 +20,7 @@ export const SbbInlineLinkCommonElementMixin = <
     extends SbbLinkCommonElementMixin(superClass)
     implements Partial<SbbInlineLinkCommonElementMixinType>
   {
-    public static override styles: CSSResultGroup = [super.styles, unsafeCSS(inlineStyle)];
+    public static override styles: CSSResultGroup = [unsafeCSS(inlineStyle)];
   }
   return SbbInlineLinkCommonElement as unknown as AbstractConstructor<SbbInlineLinkCommonElementMixinType> &
     T;

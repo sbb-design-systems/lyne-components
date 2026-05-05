@@ -22,7 +22,7 @@ snapshots["sbb-popover renders Shadow DOM"] =
         tabindex="0"
       >
       </sbb-secondary-button>
-      <span class="sbb-popover__scrollable-content">
+      <span class="sbb-popover__scrollable-content sbb-scrollbar">
         <slot>
           No content
         </slot>

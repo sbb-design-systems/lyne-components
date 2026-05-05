@@ -68,10 +68,7 @@ export const SbbNamedSlotListMixin = <
     implements Partial<SbbNamedSlotListMixinType<C>>
   {
     public static override elementDependencies: SbbElementType[] = [];
-    public static styles: CSSResultGroup = [
-      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
-      screenReaderOnlyStyles,
-    ];
+    public static styles: CSSResultGroup = [screenReaderOnlyStyles];
     /** A list of lower-cased tag names to match against. (e.g. `sbb-link`) */
     protected abstract readonly listChildLocalNames: string[];
 

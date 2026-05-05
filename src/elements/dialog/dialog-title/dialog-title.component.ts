@@ -12,7 +12,7 @@ import style from './dialog-title.scss?inline';
  */
 export class SbbDialogTitleElement extends SbbNegativeMixin(SbbTitleBase) {
   public static override readonly elementName: string = 'sbb-dialog-title';
-  public static override styles: CSSResultGroup = [SbbTitleBase.styles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   public constructor() {
     super();

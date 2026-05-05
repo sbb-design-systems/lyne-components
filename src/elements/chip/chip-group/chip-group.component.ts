@@ -9,7 +9,6 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   forceType,
   type FormRestoreReason,
   type FormRestoreState,
@@ -107,7 +106,7 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
 ) {
   public static override readonly elementName: string = 'sbb-chip-group';
   public static override readonly role = 'listbox';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     input: 'input',
     change: 'change',

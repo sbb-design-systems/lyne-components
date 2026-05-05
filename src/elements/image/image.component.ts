@@ -18,7 +18,7 @@ import {
 } from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
-import { boxSizingStyles, forceType, SbbElement } from '../core.ts';
+import { forceType, SbbElement } from '../core.ts';
 
 import style from './image.scss?inline';
 
@@ -139,7 +139,7 @@ const breakpointMap: Record<string, string> = {
  */
 export class SbbImageElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-image';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     error: 'error',
     load: 'load',

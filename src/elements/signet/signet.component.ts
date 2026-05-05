@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { boxSizingStyles, forceType, SbbElement } from '../core.ts';
+import { forceType, SbbElement } from '../core.ts';
 
 import style from './signet.scss?inline';
 
@@ -14,7 +14,7 @@ export type SbbSignetProtectiveRoom = 'none' | 'minimal' | 'ideal' | 'panel';
  */
 export class SbbSignetElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-signet';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Visual protective room around signet. */
   @property({ attribute: 'protective-room', reflect: true })

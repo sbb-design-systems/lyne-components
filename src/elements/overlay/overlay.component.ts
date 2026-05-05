@@ -5,8 +5,15 @@ import { html } from 'lit/static-html.js';
 
 import { SbbSecondaryButtonElement } from '../button.pure.ts';
 import { SbbContainerElement } from '../container.pure.ts';
-import type { SbbElementType, SbbOverlayCloseEventDetails } from '../core.ts';
-import { forceType, forwardEvent, i18nCloseDialog, isZeroAnimationDuration } from '../core.ts';
+import {
+  forceType,
+  forwardEvent,
+  i18nCloseDialog,
+  isZeroAnimationDuration,
+  type SbbElementType,
+  type SbbOverlayCloseEventDetails,
+  scrollbarStyles,
+} from '../core.ts';
 
 import {
   overlayRefs,
@@ -29,7 +36,7 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
     SbbSecondaryButtonElement,
     SbbContainerElement,
   ];
-  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [scrollbarStyles, unsafeCSS(style)];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
@@ -146,7 +153,9 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
               ></sbb-secondary-button>
             </div>
             <div
-              class="sbb-overlay__content"
+              class="sbb-overlay__content ${this.negative
+                ? 'sbb-scrollbar-negative'
+                : 'sbb-scrollbar'}"
               ${ref((el?: Element) => (this._overlayContentElement = el as HTMLDivElement))}
               @scroll=${(e: Event) => forwardEvent(e, document)}
             >

@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { boxSizingStyles, SbbElement } from '../../core.ts';
+import { SbbElement } from '../../core.ts';
 
 import style from './card-badge.scss?inline';
 
@@ -14,7 +14,7 @@ import style from './card-badge.scss?inline';
 export class SbbCardBadgeElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-card-badge';
   public static override readonly role = 'text';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Color of the card badge. */
   @property({ reflect: true }) public accessor color: 'charcoal' | 'white' = 'charcoal';

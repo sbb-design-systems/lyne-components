@@ -3,7 +3,6 @@ import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCS
 import { property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   SbbElement,
   SbbNamedSlotListMixin,
   type WithListChildren,
@@ -24,11 +23,7 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-navigation-marker';
-  public static override styles: CSSResultGroup = [
-    super.styles ?? [],
-    boxSizingStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   protected override readonly listChildLocalNames = [
     'sbb-navigation-button',
     'sbb-navigation-link',

@@ -1,5 +1,4 @@
 import {
-  boxSizingStyles,
   forceType,
   SbbElement,
   type SbbElementType,
@@ -33,11 +32,7 @@ export class SbbSeatReservationNavigationCoachElement extends SbbElement {
   public static override elementDependencies: SbbElementType[] = [
     SbbSeatReservationNavigationServicesElement,
   ];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    screenReaderOnlyStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
   public static readonly events = {
     selectcoach: 'selectcoach',
     focuscoach: 'focuscoach',
@@ -197,16 +192,13 @@ export class SbbSeatReservationNavigationCoachElement extends SbbElement {
   }
 
   private _getTitleDescriptionNavCoachButton(serviceClassNumber: number | null): string {
-    if (
-      this.coachItemDetails.isDriverArea &&
-      !this.coachItemDetails.driverAreaElements?.driverAreaNoVerticalWall
-    ) {
+    if (this.coachItemDetails.isDriverArea && !this.coachItemDetails.isLocomotive) {
       return getI18nSeatReservation('NAVIGATE_COACH_BLOCKED', this._language.current, [
         this.coachItemDetails.id,
       ]);
     }
 
-    if (this.coachItemDetails.driverAreaElements?.driverAreaNoVerticalWall) {
+    if (this.coachItemDetails.isLocomotive) {
       return getI18nSeatReservation('COACH_LOCOMOTIVE', this._language.current);
     }
 

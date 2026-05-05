@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { boxSizingStyles, SbbElement } from '../core.ts';
+import { SbbElement } from '../core.ts';
 import { SbbIconNameMixin } from '../icon.pure.ts';
 import type { SbbTitleElement } from '../title.pure.ts';
 
@@ -30,7 +30,7 @@ export type SbbStatusType =
  */
 export class SbbStatusElement extends SbbIconNameMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-status';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   private readonly _statusTypes: Map<SbbStatusType, string> = new Map([
     ['info', 'circle-information-small'],

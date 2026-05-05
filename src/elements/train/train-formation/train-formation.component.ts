@@ -10,7 +10,6 @@ import { property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import {
-  boxSizingStyles,
   hostScrollbarStyles,
   i18nSector,
   i18nSectorShort,
@@ -44,12 +43,7 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-train-formation';
-  public static override styles: CSSResultGroup = [
-    super.styles ?? [],
-    hostScrollbarStyles,
-    boxSizingStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [hostScrollbarStyles, unsafeCSS(style)];
   protected override readonly listChildLocalNames = ['sbb-train'];
 
   /** Whether the view of the wagons is from side or top perspective. */

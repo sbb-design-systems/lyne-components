@@ -22,7 +22,7 @@ export class SbbCheckboxElement<T = string> extends SbbIconNameMixin(
 ) {
   public static override readonly elementName: string = 'sbb-checkbox';
   public static override elementDependencies: SbbElementType[] = [SbbVisualCheckboxElement];
-  public static override styles: CSSResultGroup = [super.styles ?? [], unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Value of the form element. */
   @property()

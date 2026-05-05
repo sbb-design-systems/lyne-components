@@ -1,4 +1,4 @@
-import { boxSizingStyles, forceType } from '@sbb-esta/lyne-elements/core.js';
+import { forceType } from '@sbb-esta/lyne-elements/core.js';
 import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay/overlay.component.js';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check/toggle-check.component.js';
 import {
@@ -33,7 +33,7 @@ const getImageDimension = (img: HTMLImageElement): string =>
 export
 @customElement('app-image-diff')
 class ImageDiff extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   @property({ attribute: false }) public accessor screenshotFiles: ScreenshotFiles | null = null;
 

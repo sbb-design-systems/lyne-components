@@ -91,8 +91,6 @@
 }
 
 .sbb-navigation-section__wrapper {
-  @include sbb.scrollbar($negative: true);
-
   height: 100%;
   padding-block: var(--sbb-navigation-section-padding-block);
   outline: none;

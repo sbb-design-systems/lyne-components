@@ -174,7 +174,6 @@ $scrollbar-height: 16px;
 
 .sbb-sr-navigation__list-coaches {
   @include sbb.list-reset;
-  @include sbb.scrollbar;
 
   display: flex;
   flex-wrap: nowrap;
@@ -215,8 +214,6 @@ $scrollbar-height: 16px;
 }
 
 .sbb-sr__wrapper-scrollarea {
-  @include sbb.scrollbar;
-
   overflow: scroll hidden;
   padding-block: sbb-sr-functions.sr-px-to-rem(8) sbb-sr-functions.sr-px-to-rem(16);
 

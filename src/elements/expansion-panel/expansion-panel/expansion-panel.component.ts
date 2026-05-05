@@ -4,7 +4,6 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import type { SbbOpenedClosedState } from '../../core.ts';
 import {
-  boxSizingStyles,
   forceType,
   isLean,
   isZeroAnimationDuration,
@@ -26,7 +25,7 @@ let nextId = 0;
  */
 export class SbbExpansionPanelElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-expansion-panel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

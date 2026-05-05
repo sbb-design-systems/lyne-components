@@ -39,9 +39,7 @@ describe('sbb-carousel', () => {
     `);
 
     await Promise.all(
-      Array.from(element.querySelectorAll<HTMLImageElement>('img')).map((el) =>
-        waitForImageReady(el),
-      ),
+      Array.from(element.querySelectorAll<HTMLImageElement>('img'), (el) => waitForImageReady(el)),
     );
 
     beforeShowSpy = new EventSpy('beforeshow', element);

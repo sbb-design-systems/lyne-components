@@ -8,7 +8,6 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   forceType,
   i18nConnectionFrom,
   i18nConnectionRoundtrip,
@@ -28,11 +27,7 @@ import style from './journey-header.scss?inline';
 export class SbbJourneyHeaderElement extends SbbNegativeMixin(SbbTitleBase) {
   public static override readonly elementName: string = 'sbb-journey-header';
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    SbbTitleBase.styles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Origin location for the journey header. */
   @forceType()

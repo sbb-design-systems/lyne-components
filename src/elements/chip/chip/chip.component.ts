@@ -9,7 +9,6 @@ import { property } from 'lit/decorators.js';
 
 import { SbbMiniButtonElement } from '../../button.pure.ts';
 import {
-  boxSizingStyles,
   i18nChipDelete,
   SbbDisabledMixin,
   SbbElement,
@@ -34,11 +33,7 @@ export class SbbChipElement<T = string> extends SbbNegativeMixin(
   public static override readonly elementName: string = 'sbb-chip';
   public static override elementDependencies: SbbElementType[] = [SbbMiniButtonElement];
   public static override readonly role = 'option';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    screenReaderOnlyStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
   public static readonly events = {
     requestdelete: 'requestdelete',
   } as const;

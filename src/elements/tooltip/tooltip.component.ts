@@ -11,7 +11,6 @@ import { property } from 'lit/decorators.js';
 
 import {
   appendAriaElements,
-  boxSizingStyles,
   idReference,
   isAndroid,
   isIOS,
@@ -58,7 +57,7 @@ const tooltipTriggers = new WeakMap<HTMLElement, SbbTooltipElement>();
 export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-tooltip';
   public static override readonly role = 'tooltip';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   private static _tooltipOutlet: Element;
 

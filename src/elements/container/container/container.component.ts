@@ -7,7 +7,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { boxSizingStyles, forceType, SbbElement, ɵstateController } from '../../core.ts';
+import { forceType, SbbElement, ɵstateController } from '../../core.ts';
 
 import style from './container.scss?inline';
 
@@ -22,7 +22,7 @@ import style from './container.scss?inline';
  */
 export class SbbContainerElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-container';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Whether the container is expanded. */
   @forceType()

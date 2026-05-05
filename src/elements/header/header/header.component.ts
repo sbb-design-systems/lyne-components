@@ -10,7 +10,6 @@ import {
 import { property, state } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   forceType,
   idReference,
   isLean,
@@ -32,7 +31,7 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  */
 export class SbbHeaderElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-header';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   private static _headerScrollOrigins = new Set<HTMLElement>();
   private static _headerElements = new Set<SbbHeaderElement>();

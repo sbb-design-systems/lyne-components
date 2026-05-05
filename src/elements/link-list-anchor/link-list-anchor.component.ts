@@ -12,7 +12,7 @@ import style from './link-list-anchor.scss?inline';
  */
 export class SbbLinkListAnchorElement extends SbbLinkListBaseElement {
   public static override readonly elementName: string = 'sbb-link-list-anchor';
-  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 }
 
 declare global {

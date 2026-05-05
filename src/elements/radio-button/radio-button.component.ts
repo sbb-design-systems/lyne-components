@@ -21,7 +21,7 @@ export class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonEleme
   SbbElement,
 ) {
   public static override readonly elementName: string = 'sbb-radio-button';
-  public static override styles: CSSResultGroup = [super.styles ?? [], unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     change: 'change',
     input: 'input',

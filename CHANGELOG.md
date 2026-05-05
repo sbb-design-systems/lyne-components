@@ -2,6 +2,61 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.12.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.12.0...v4.12.1) (2026-05-04)
+
+
+### Bug Fixes
+
+* avoid infinite toggling of position of overlay elements ([#4854](https://github.com/sbb-design-systems/lyne-components/issues/4854)) ([7e2e12c](https://github.com/sbb-design-systems/lyne-components/commit/7e2e12c527043069bf3850f20a1d28b367b507f1)), closes [#4848](https://github.com/sbb-design-systems/lyne-components/issues/4848)
+* avoid transform `:state()` inside `CSS.supports()` ([#4852](https://github.com/sbb-design-systems/lyne-components/issues/4852)) ([39006ad](https://github.com/sbb-design-systems/lyne-components/commit/39006ad1a1bd2aff67a83f5806511ee1a4838d2e)), closes [#4686](https://github.com/sbb-design-systems/lyne-components/issues/4686)
+* **seat-reservation:** coach border overlaps graphics ([#4851](https://github.com/sbb-design-systems/lyne-components/issues/4851)) ([bd7531c](https://github.com/sbb-design-systems/lyne-components/commit/bd7531cbbd7e2e0e846ccf4a3030ed17d83e2fda))
+* **select:** fix multiple checkbox styling ([#4858](https://github.com/sbb-design-systems/lyne-components/issues/4858)) ([2cd7dd0](https://github.com/sbb-design-systems/lyne-components/commit/2cd7dd0b9a7afbb43b39a76c92aa46c61e88342b))
+
+## [5.0.0-next.2](https://github.com/sbb-design-systems/lyne-components/compare/v5.0.0-next.1...v5.0.0-next.2) (2026-05-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* `<sbb-screen-reader-only>` component has been removed. Use the CSS class `sbb-screen-reader-only` as a replacement.
+* **title:** the CSS variables `--sbb-title-text-color-normal` and `--sbb-title-text-color-normal-override` have been renamed to `--sbb-title-color`.
+* **train:** In order to mitigate the new requirements the following breaking changes were introduced:
+    - The property `type` of `sbb-train-wagon` has been renamed to`wagon-type`
+    - The default inline padding of `sbb-train-formation` was changed from 0 to `var(--sbb-spacing-fixed-1x)`
+    - The CSS variable `--sbb-train-formation-padding-inline` was renamed to `--sbb-train-formation-scroll-padding`
+* **journey-header:** The `size` property of the `sbb-journey-header` has been removed. Use the `visualLevel` property to set the font-size by using the following mapping from `size` to `visualLevel`: `s` -> 6, `m` -> 5, `l` > 4.
+
+### Features
+
+* **train:** vertical orientation and interactive wagon ([#4796](https://github.com/sbb-design-systems/lyne-components/issues/4796)) ([e0e2268](https://github.com/sbb-design-systems/lyne-components/commit/e0e2268a4de4e0cb79f5a13e4fc080026e9fcc05)), closes [#4277](https://github.com/sbb-design-systems/lyne-components/issues/4277)
+
+
+### Bug Fixes
+
+* avoid infinite toggling of position of overlay elements ([#4854](https://github.com/sbb-design-systems/lyne-components/issues/4854)) ([af1886f](https://github.com/sbb-design-systems/lyne-components/commit/af1886f019eb34d46855abebe0e56ed562c54b20)), closes [#4848](https://github.com/sbb-design-systems/lyne-components/issues/4848)
+* avoid transform `:state()` inside `CSS.supports()` ([#4852](https://github.com/sbb-design-systems/lyne-components/issues/4852)) ([bf9bb25](https://github.com/sbb-design-systems/lyne-components/commit/bf9bb25bf7f0ef5041dd43811769e66a0af7424e)), closes [#4686](https://github.com/sbb-design-systems/lyne-components/issues/4686)
+* **seat-reservation:** coach border overlaps graphics ([#4851](https://github.com/sbb-design-systems/lyne-components/issues/4851)) ([530dffe](https://github.com/sbb-design-systems/lyne-components/commit/530dffe8c8f42141eda83bd4e0abe0534f0e2017))
+* **select:** fix multiple checkbox styling ([#4858](https://github.com/sbb-design-systems/lyne-components/issues/4858)) ([7f06978](https://github.com/sbb-design-systems/lyne-components/commit/7f06978af919f8b01e2992fc8fb4c6bf4d76767b))
+
+
+### Performance Improvements
+
+* inline map function in `Array.from` ([#4869](https://github.com/sbb-design-systems/lyne-components/issues/4869)) ([cfc34a3](https://github.com/sbb-design-systems/lyne-components/commit/cfc34a34a7dbece89a27fc8e34e7d80c014a2aa0))
+
+
+### Code Refactoring
+
+* avoid duplicating scrollbar styles in shadow DOM ([#4860](https://github.com/sbb-design-systems/lyne-components/issues/4860)) ([df9c718](https://github.com/sbb-design-systems/lyne-components/commit/df9c7184648b124ad517912ea84175bfe360ff0a))
+* **journey-header:** remove size property ([#4842](https://github.com/sbb-design-systems/lyne-components/issues/4842)) ([8a3172b](https://github.com/sbb-design-systems/lyne-components/commit/8a3172b6d6195c53989ff5d1e03ac19e07b70026))
+* merge styles in SbbElement ([#4856](https://github.com/sbb-design-systems/lyne-components/issues/4856)) ([b87b86b](https://github.com/sbb-design-systems/lyne-components/commit/b87b86b3a894ba94d958a1f2f4707317877f3ed0)), closes [#4647](https://github.com/sbb-design-systems/lyne-components/issues/4647)
+* minimize payload of sbb-screen-reader-only styles ([#4849](https://github.com/sbb-design-systems/lyne-components/issues/4849)) ([4e5f34f](https://github.com/sbb-design-systems/lyne-components/commit/4e5f34f64916487b7dabc2c38f5db2033c2d4998))
+* move box-sizing to SbbElement ([#4871](https://github.com/sbb-design-systems/lyne-components/issues/4871)) ([599a638](https://github.com/sbb-design-systems/lyne-components/commit/599a638a45558cbdc9a36af31f704d771f7c1931))
+* **title:** CSS refactoring ([#4847](https://github.com/sbb-design-systems/lyne-components/issues/4847)) ([7993f82](https://github.com/sbb-design-systems/lyne-components/commit/7993f82d5fbf3baffe5258eaaa716052c91ef4de))
+
+
+### Miscellaneous Chores
+
+* prepare release ([1f2e2f3](https://github.com/sbb-design-systems/lyne-components/commit/1f2e2f3be2e6a4ae751a9676bd737990d3a83a72))
+
 ## [4.12.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.11.0...v4.12.0) (2026-04-27)
 
 

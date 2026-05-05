@@ -1,5 +1,4 @@
 import {
-  boxSizingStyles,
   forceType,
   SbbElement,
   type SbbElementType,
@@ -21,7 +20,7 @@ import style from './seat-reservation-graphic.scss?inline';
 export class SbbSeatReservationGraphicElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-graphic';
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Name of the SVG graphic to be displayed. */
   @forceType()

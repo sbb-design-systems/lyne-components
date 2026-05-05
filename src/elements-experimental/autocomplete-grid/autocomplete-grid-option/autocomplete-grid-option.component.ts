@@ -18,7 +18,7 @@ export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
 export class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override readonly elementName: string = 'sbb-autocomplete-grid-option';
   public static override readonly role = 'gridcell';
-  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   protected optionId = autocompleteGridOptionId;
 

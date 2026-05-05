@@ -247,9 +247,7 @@ describe('sbb-chip-group', () => {
         element.value = newValue;
         await waitForLitRender(element);
 
-        let slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip')).map(
-          (c) => c.value,
-        );
+        let slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip'), (c) => c.value);
         expect(slottedChipsValue).to.be.eql(newValue);
 
         // Remove a chip ('chip 3')
@@ -257,7 +255,7 @@ describe('sbb-chip-group', () => {
         element.value = newValue;
         await waitForLitRender(element);
 
-        slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip')).map((c) => c.value);
+        slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip'), (c) => c.value);
         expect(slottedChipsValue).to.be.eql(newValue);
 
         // Add and remove chips
@@ -265,7 +263,7 @@ describe('sbb-chip-group', () => {
         element.value = newValue;
         await waitForLitRender(element);
 
-        slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip')).map((c) => c.value);
+        slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip'), (c) => c.value);
         expect(slottedChipsValue).to.be.eql(newValue);
 
         // Empty value

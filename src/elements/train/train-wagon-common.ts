@@ -5,7 +5,6 @@ import { html } from 'lit/static-html.js';
 
 import type { AbstractConstructor } from '../core/mixins/constructor.ts';
 import {
-  boxSizingStyles,
   forceType,
   handleDistinctChange,
   i18nAdditionalWagonInformationHeading,
@@ -88,12 +87,8 @@ export declare class SbbTrainWagonMixinType extends SbbElement {
 export const SbbTrainWagonMixin = <T extends AbstractConstructor<SbbElement>>(
   superClass: T,
 ): AbstractConstructor<SbbTrainWagonMixinType> & T => {
-  const baseClass = SbbTrainFormationOrientationMixin(
-    SbbNamedSlotListMixin<SbbIconElement, T>(superClass),
-  );
-
   abstract class SbbTrainWagonMixinElement
-    extends baseClass
+    extends SbbTrainFormationOrientationMixin(SbbNamedSlotListMixin<SbbIconElement, T>(superClass))
     implements Partial<SbbTrainWagonMixinType>
   {
     public static elementDependencies: SbbElementType[] = [
@@ -101,11 +96,7 @@ export const SbbTrainWagonMixin = <T extends AbstractConstructor<SbbElement>>(
       SbbTimetableOccupancyIconElement,
       SbbDividerElement,
     ];
-    public static styles: CSSResultGroup = [
-      (baseClass as unknown as { styles: CSSResultGroup }).styles ?? [],
-      boxSizingStyles,
-      unsafeCSS(style),
-    ];
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
 
     /**
      * Wagon type.

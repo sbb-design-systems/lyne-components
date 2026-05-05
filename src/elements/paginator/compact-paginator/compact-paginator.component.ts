@@ -13,7 +13,7 @@ import style from './compact-paginator.scss?inline';
 export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-compact-paginator';
   public static override elementDependencies: SbbElementType[] = [SbbDividerElement];
-  public static override styles: CSSResultGroup = [super.styles ?? [], unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events: Record<string, string> = {
     page: 'page',
   } as const;

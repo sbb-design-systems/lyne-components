@@ -27,7 +27,7 @@ export const SbbBlockLinkCommonElementMixin = <T extends AbstractConstructor<Sbb
     extends SbbLinkCommonElementMixin(SbbIconNameMixin(superClass))
     implements Partial<SbbBlockLinkCommonElementMixinType>
   {
-    public static override styles: CSSResultGroup = [super.styles, unsafeCSS(blockStyle)];
+    public static override styles: CSSResultGroup = [unsafeCSS(blockStyle)];
 
     /**
      * Size variant, either xs, s or m.

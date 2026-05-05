@@ -5,7 +5,6 @@ import { html } from 'lit/static-html.js';
 
 import {
   type AbstractConstructor,
-  boxSizingStyles,
   IS_FOCUSABLE_QUERY,
   type SbbActionBaseElement,
   screenReaderOnlyStyles,
@@ -30,12 +29,7 @@ export const SbbCardActionCommonElementMixin = <
     extends superClass
     implements Partial<SbbCardActionCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [
-      (superClass as unknown as { styles: CSSResultGroup }).styles ?? [],
-      boxSizingStyles,
-      screenReaderOnlyStyles,
-      unsafeCSS(style),
-    ];
+    public static styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
     /** Whether the card is active. */
     @property({ reflect: true, type: Boolean })
