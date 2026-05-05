@@ -9,16 +9,19 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.pure.ts';
 import {
   isAndroid,
   isBlink,
   isSafari,
   SbbDisabledMixin,
   SbbElement,
+  SbbPropertyWatcherController,
   screenReaderOnlyStyles,
   setOrRemoveAttribute,
 } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
+import type { SbbSelectElement } from '../../select.pure.ts';
 
 let nextId = 0;
 
@@ -94,7 +97,9 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
 
   @state() private accessor _inertAriaGroups = false;
 
-  public constructor() {
+  private _previousSize: string | undefined;
+
+  protected constructor() {
     super();
     this.addEventListener?.('click', (e: MouseEvent) => this.selectByClick(e), {
       passive: true,
@@ -109,6 +114,34 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
           this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
         },
       }),
+    );
+
+    this.addController(
+      new SbbPropertyWatcherController(
+        this,
+        () => this.closest('sbb-autocomplete, sbb-autocomplete-grid') as SbbAutocompleteBaseElement,
+        {
+          negative: (e) => this.toggleState('negative', e.negative),
+        },
+      ),
+    );
+
+    this.addController(
+      new SbbPropertyWatcherController<SbbAutocompleteBaseElement | SbbSelectElement>(
+        this,
+        () => this.closest('sbb-autocomplete, sbb-autocomplete-grid, sbb-select'),
+        {
+          size: (e) => {
+            if (this._previousSize) {
+              this.internals.states.delete(`size-${this._previousSize}`);
+            }
+            this._previousSize = e.size;
+            if (this._previousSize) {
+              this.internals.states.add(`size-${this._previousSize}`);
+            }
+          },
+        },
+      ),
     );
 
     if (inertAriaGroups) {

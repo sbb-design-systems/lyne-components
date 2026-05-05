@@ -37,12 +37,6 @@ export class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseE
         label: (p) => (this.groupLabel = p.label),
       }),
     );
-
-    this.addController(
-      new SbbPropertyWatcherController(this, () => this.closest('sbb-autocomplete-grid'), {
-        negative: (e) => this.toggleState('negative', e.negative),
-      }),
-    );
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

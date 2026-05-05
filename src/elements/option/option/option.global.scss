@@ -11,34 +11,37 @@ $theme: 'standard' !default;
   --sbb-option-disabled-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
   --sbb-option-disabled-background-color: var(--sbb-background-color-3);
   --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
-  --sbb-option-min-height: var(--sbb-size-element-s);
+  --sbb-option-min-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-size-element-s),
+        'lean': var(--sbb-size-element-xxs),
+      ),
+      $theme
+    )};
   --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
   --sbb-option-justify-content: start;
   --sbb-option-cursor: var(--sbb-cursor-pointer);
   --sbb-option-border-radius: var(--sbb-border-radius-4x);
   --sbb-option-icon-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-option-focus-outline-offset: #{sbb.theme-pattern-select(
+      (
+        'standard': inherit,
+        'lean': calc(-1 * var(--sbb-spacing-fixed-1x)),
+      ),
+      $theme
+    )};
   --sbb-option-focus-outline-color: transparent;
-  --sbb-option-focus-outline-inset: var(--sbb-spacing-fixed-1x);
+  --sbb-option-focus-outline-inset: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-1x),
+        'lean': 0 var(--sbb-spacing-fixed-1x),
+      ),
+      $theme
+    )};
   --sbb-option-font-size: var(--sbb-text-font-size-s);
 }
 
 @mixin rules {
-  :where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s'] {
-    :where(sbb-option, sbb-autocomplete-grid-option) {
-      --sbb-option-min-height: var(--sbb-size-element-xxs);
-      --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
-      --sbb-option-focus-outline-inset: 0 var(--sbb-spacing-fixed-1x);
-    }
-
-    sbb-optgroup {
-      --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
-    }
-
-    sbb-option-hint {
-      --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-1x);
-    }
-  }
-
   // Sets ellipsis on all sbb-option child elements
   .sbb-options-nowrap {
     --sbb-option-text-overflow: ellipsis;
