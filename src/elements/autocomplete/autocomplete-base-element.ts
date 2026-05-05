@@ -20,6 +20,7 @@ import {
   isLean,
   isSafari,
   isZeroAnimationDuration,
+  optionPanelStyles,
   removeAriaComboBoxAttributes,
   SbbEscapableOverlayController,
   SbbNegativeMixin,
@@ -32,7 +33,6 @@ import type { SbbFormFieldElement } from '../form-field/form-field/form-field.co
 import type { SbbOptionBaseElement } from '../option.pure.ts';
 
 import style from './autocomplete-base-element.scss?inline';
-import optionPanelStyleString from './option-panel-common.scss?inline';
 
 /**
  * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
@@ -51,8 +51,8 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 ) {
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
-    unsafeCSS(optionPanelStyleString),
     scrollbarStyles,
+    optionPanelStyles,
     unsafeCSS(style),
   ];
 

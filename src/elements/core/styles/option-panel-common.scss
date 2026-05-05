@@ -1,4 +1,4 @@
-@use '../core/styles' as sbb;
+@use './mixins/a11y';
 
 :host {
   --sbb-options-panel-position-x: 0;
@@ -44,14 +44,6 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
-:host([size='s']) {
-  --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-1x);
-}
-
-:host([size='m']) {
-  --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-2x);
-}
-
 :host(:not(:state(state-opening), :state(state-opened), :state(state-closing))),
 :host(:state(state-closed)) {
   --sbb-options-panel-visibility: hidden;
@@ -67,9 +59,7 @@
 }
 
 :host(:state(options-panel-position-below)) {
-  --sbb-options-panel-animation-transform: translateY(
-    calc((var(--sbb-options-panel-origin-height) / 2) * -1)
-  );
+  --sbb-options-panel-animation-translate: var(--sbb-spacing-fixed-2x);
 }
 
 :host(:state(options-panel-position-above)) {
@@ -77,9 +67,7 @@
     var(--sbb-options-panel-border-radius) 0 0;
   --sbb-options-panel-gap-fix-top: var(--_sbb-options-panel-max-height);
   --sbb-options-panel-gap-fix-transform: rotate(180deg);
-  --sbb-options-panel-animation-transform: translateY(
-    calc(var(--sbb-options-panel-origin-height) / 2)
-  );
+  --sbb-options-panel-animation-translate: calc(-1 * var(--sbb-spacing-fixed-2x));
   --sbb-options-panel-margin-block-start: calc(-1 * var(--sbb-spacing-fixed-2x));
 }
 
@@ -144,31 +132,31 @@
     timing-function: var(--sbb-options-panel-animation-timing-function);
   }
 
-  @include sbb.if-forced-colors {
+  @include a11y.if-forced-colors {
     border: var(--sbb-border-width-1x) solid CanvasText;
   }
 }
 
 @keyframes open {
   from {
-    transform: var(--sbb-options-panel-animation-transform);
+    translate: 0 var(--sbb-options-panel-animation-translate);
     opacity: 0;
   }
 
   to {
-    transform: translateY(0);
+    translate: 0;
     opacity: 1;
   }
 }
 
 @keyframes close {
   from {
-    transform: translateY(0);
+    translate: 0;
     opacity: 1;
   }
 
   to {
-    transform: var(--sbb-options-panel-animation-transform);
+    translate: 0 var(--sbb-options-panel-animation-translate);
     opacity: 0;
   }
 }

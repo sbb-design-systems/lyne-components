@@ -14,7 +14,6 @@ import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
 
-import { optionPanelStyle } from '../autocomplete.pure.ts';
 import {
   boxSizingStyles,
   forceType,
@@ -29,6 +28,7 @@ import {
   isNextjs,
   isSafari,
   isZeroAnimationDuration,
+  optionPanelStyles,
   SbbDisabledMixin,
   SbbEscapableOverlayController,
   SbbFormAssociatedMixin,
@@ -83,8 +83,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
-    optionPanelStyle,
     scrollbarStyles,
+    optionPanelStyles,
     unsafeCSS(style),
   ];
 
