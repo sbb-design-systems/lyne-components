@@ -6,7 +6,7 @@ import type {
   StoryContext,
   StoryObj,
 } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -42,7 +42,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['s', 'm'] satisfies SbbSelectElement['size'][],
   table: {
     category: 'Form field',
   },
@@ -176,7 +176,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   borderless: false,
-  size: size.options![0],
+  size: undefined,
   negative: false,
   floatingLabel: false,
   value: undefined,
@@ -290,7 +290,7 @@ const FormFieldTemplate = ({
   <div>
     <sbb-form-field
       ?borderless=${borderless}
-      size=${size}
+      size=${size || nothing}
       ?negative=${negative}
       ?floating-label=${floatingLabel}
     >
@@ -319,7 +319,7 @@ const CompareWithTemplate = ({
   <div>
     <sbb-form-field
       ?borderless=${borderless}
-      size=${size}
+      size=${size || nothing}
       ?negative=${negative}
       ?floating-label=${floatingLabel}
     >
@@ -358,7 +358,7 @@ const SelectEllipsisTemplate = ({
     <div>
       <sbb-form-field
         ?borderless=${borderless}
-        size=${size}
+        size=${size || nothing}
         ?negative=${negative}
         ?floating-label=${floatingLabel}
       >
@@ -402,7 +402,7 @@ const FormFieldTemplateWithError = ({
     <div>
       <sbb-form-field
         ?borderless=${borderless}
-        size=${size}
+        size=${size || nothing}
         ?negative=${negative}
         ?floating-label=${floatingLabel}
         id="sbb-form-field"
@@ -442,7 +442,7 @@ const KeyboardInteractionTemplate = ({
 }: Args): TemplateResult => html`
   <sbb-form-field
     ?borderless=${borderless}
-    size=${size}
+    size=${size || nothing}
     ?negative=${negative}
     ?floating-label=${floatingLabel}
   >
@@ -496,22 +496,10 @@ export const SingleSelectSizeS: StoryObj = {
   args: { ...defaultArgs, size: size.options![1] },
 };
 
-export const SingleSelectNegativeSizeS: StoryObj = {
-  render: FormFieldTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true, size: size.options![1] },
-};
-
 export const MultipleSelectSizeS: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, multiple: true, size: size.options![1] },
-};
-
-export const MultipleSelectNegativeSizeS: StoryObj = {
-  render: FormFieldTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, multiple: true, negative: true, size: size.options![1] },
 };
 
 export const SingleSelectWithGrouping: StoryObj = {

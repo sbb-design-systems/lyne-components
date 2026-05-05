@@ -4,7 +4,7 @@ import { html, nothing } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import type { SbbFormFieldElement, type SbbErrorElement } from '../form-field.ts';
+import type { SbbErrorElement, SbbFormFieldElement } from '../form-field.ts';
 
 import readme from './readme.md?raw';
 

@@ -6,7 +6,7 @@ import type {
   StoryContext,
   StoryObj,
 } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
@@ -98,7 +98,7 @@ const position: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['auto', 'below', 'above'],
+  options: ['auto', 'below', 'above'] satisfies SbbAutocompleteElement['position'][],
   table: {
     category: 'Autocomplete',
   },
@@ -144,7 +144,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['s', 'm'] satisfies SbbAutocompleteElement['size'][],
   table: {
     category: 'Form field',
   },
@@ -217,7 +217,7 @@ const defaultArgs: Args = {
 
   // Form field args
   borderless: false,
-  size: size.options![0],
+  size: undefined,
   floatingLabel: false,
 };
 
@@ -278,7 +278,7 @@ const Template = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
-      size=${args.size}
+      size=${args.size || nothing}
     >
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
@@ -304,7 +304,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
-      size=${args.size}
+      size=${args.size || nothing}
     >
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
@@ -333,7 +333,7 @@ const MixedTemplate = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
-      size=${args.size}
+      size=${args.size || nothing}
     >
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
@@ -375,7 +375,7 @@ const RequiredTemplate = (args: Args): TemplateResult => {
         ?negative=${args.negative}
         ?borderless=${args.borderless}
         ?floating-label=${args.floatingLabel}
-        size=${args.size}
+        size=${args.size || nothing}
         id="sbb-form-field"
       >
         <label>Label</label>

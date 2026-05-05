@@ -6,6 +6,7 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../core/testing/private.ts';
+import type { SbbSelectElement } from '../select.ts';
 
 import '../form-field.ts';
 import '../option.ts';
@@ -15,13 +16,13 @@ describe('sbb-select', () => {
   const valueEllipsis: string = 'This label name is so long that it needs ellipsis to fit.';
   const defaultArgs = {
     borderless: false,
-    size: 'm',
+    size: 'm' as SbbSelectElement['size'],
     negative: false,
     disableOption: false,
     withOptionGroup: false,
     disableGroup: false,
     withEllipsis: false,
-    value: undefined as string | string[] | undefined,
+    value: undefined as SbbSelectElement['value'] | undefined,
     multiple: false,
     disabled: false,
     required: false,
@@ -32,7 +33,7 @@ describe('sbb-select', () => {
   const createOptions = (
     disableOption: boolean,
     group: string | boolean,
-    selectValue: string | string[] | undefined = undefined,
+    selectValue: SbbSelectElement['value'] | undefined = undefined,
   ): TemplateResult[] => {
     return new Array(5).fill(null).map((_, i) => {
       const value = group ? `Option ${i + 1} ${' - ' + group}` : `Option ${i + 1}`;
@@ -76,7 +77,7 @@ describe('sbb-select', () => {
         class=${hostClass || nothing}
         ?borderless=${borderless}
         ?negative=${negative}
-        size=${size}
+        size=${size || nothing}
       >
         <label>Select</label>
         <sbb-select
