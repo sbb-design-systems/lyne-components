@@ -25,7 +25,7 @@ $theme: 'standard' !default;
   --sbb-option-icon-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-option-focus-outline-offset: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-focus-outline-offset),
+        'standard': inherit,
         'lean': calc(-1 * var(--sbb-spacing-fixed-1x)),
       ),
       $theme
