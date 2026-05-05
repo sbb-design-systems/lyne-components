@@ -8,7 +8,7 @@ import {
 import { property } from 'lit/decorators.js';
 
 import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.pure.ts';
-import type { SbbHorizontalFrom, SbbOrientation } from '../core.ts';
+import type { SbbHorizontalFrom } from '../core.ts';
 import { SbbElement } from '../core.ts';
 import type {
   SbbBlockLinkButtonElement,
@@ -45,7 +45,7 @@ export class SbbActionGroupElement extends SbbElement {
    * Indicates the orientation of the components inside the `<sbb-action-group>`.
    */
   @property({ reflect: true })
-  public accessor orientation: SbbOrientation = 'horizontal';
+  public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /**
    * Size of the nested sbb-button instances.

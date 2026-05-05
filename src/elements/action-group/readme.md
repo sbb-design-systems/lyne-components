@@ -130,7 +130,7 @@ The values for `align-group` and `align-self` for the various allocations are as
 | `buttonSize`     | `button-size`     | public  | `SbbButtonSize \| null`                     | `null`         | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.         |
 | `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                         | `'large'`      | Overrides the behavior of `orientation` property.                                                                       |
 | `linkSize`       | `link-size`       | public  | `SbbLinkSize \| null`                       | `null`         | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
-| `orientation`    | `orientation`     | public  | `SbbOrientation`                            | `'horizontal'` | Indicates the orientation of the components inside the `<sbb-action-group>`.                                            |
+| `orientation`    | `orientation`     | public  | `'horizontal' \| 'vertical'`                | `'horizontal'` | Indicates the orientation of the components inside the `<sbb-action-group>`.                                            |
 
 #### Slots
 

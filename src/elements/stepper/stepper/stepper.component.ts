@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbHorizontalFrom, SbbOrientation } from '../../core.ts';
+import type { SbbHorizontalFrom } from '../../core.ts';
 import {
   forceType,
   getNextElementIndex,
@@ -112,7 +112,7 @@ export class SbbStepperElement extends SbbElement {
 
   /** Steps orientation, either horizontal or vertical. */
   @property({ reflect: true })
-  public accessor orientation: SbbOrientation = 'horizontal';
+  public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /**
    * Size variant, either s or m.

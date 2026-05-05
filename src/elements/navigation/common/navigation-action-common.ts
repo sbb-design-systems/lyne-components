@@ -16,10 +16,8 @@ import type { SbbNavigationSectionElement } from '../navigation-section/navigati
 
 import style from './navigation-action.scss?inline';
 
-export type SbbNavigationActionSize = 's' | 'm' | 'l';
-
 export declare class SbbNavigationActionCommonElementMixinType {
-  public accessor size: SbbNavigationActionSize;
+  public accessor size: 's' | 'm' | 'l';
   public get marker(): SbbNavigationMarkerElement | null;
   public get section(): SbbNavigationSectionElement | null;
   public connectedSection: SbbNavigationSectionElement | undefined;
@@ -41,7 +39,7 @@ export const SbbNavigationActionCommonElementMixin = <
     /**
      * Action size variant, either s, m or l.
      */
-    @property({ reflect: true }) public accessor size: SbbNavigationActionSize = 'l';
+    @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' = 'l';
 
     /** The section that is being controlled by the action, if any. */
     public connectedSection?: SbbNavigationSectionElement;

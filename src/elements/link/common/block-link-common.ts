@@ -10,12 +10,11 @@ import { SbbLinkCommonElementMixin } from './link-common.ts';
 import blockStyle from './block-link.scss?inline';
 
 export type SbbLinkSize = 'xs' | 's' | 'm';
-export type SbbLinkIconPlacement = 'start' | 'end';
 
 export declare class SbbBlockLinkCommonElementMixinType extends SbbLinkCommonElementMixin(
   SbbIconNameMixin(SbbActionBaseElement),
 ) {
-  public accessor iconPlacement: SbbLinkIconPlacement;
+  public accessor iconPlacement: 'start' | 'end';
   public accessor size: SbbLinkSize;
 }
 
@@ -37,7 +36,7 @@ export const SbbBlockLinkCommonElementMixin = <T extends AbstractConstructor<Sbb
 
     /** Moves the icon to the end of the component if set to true. */
     @property({ attribute: 'icon-placement', reflect: true })
-    public accessor iconPlacement: SbbLinkIconPlacement = 'start';
+    public accessor iconPlacement: 'start' | 'end' = 'start';
 
     protected override renderTemplate(): TemplateResult {
       return html`

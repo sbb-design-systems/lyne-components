@@ -17,7 +17,6 @@ import {
   SbbElement,
   SbbLanguageController,
   SbbNamedSlotListMixin,
-  type SbbOrientation,
   type WithListChildren,
 } from '../../core.ts';
 import type { SbbTrainElement } from '../train/train.component.ts';
@@ -50,7 +49,8 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
   @property({ reflect: true }) public accessor view: 'side' | 'top' = 'side';
 
   /** Orientation, either horizontal or vertical. */
-  @property({ reflect: true }) public accessor orientation: SbbOrientation = 'horizontal';
+  @property({ reflect: true }) public accessor orientation: 'horizontal' | 'vertical' =
+    'horizontal';
 
   @state() private accessor _sectors: AggregatedSector[] = [];
 

@@ -1,7 +1,5 @@
 import type { SbbOccupancy } from '../interfaces/types.ts';
 
-export type SbbLanguage = 'de' | 'en' | 'fr' | 'it';
-
 export const i18nDirection: Record<string, string> = {
   de: 'Richtung',
   en: 'Direction',
@@ -301,7 +299,7 @@ export const i18nSupersaver: Record<string, string> = {
   it: 'Biglietti risparmio',
 };
 
-export const i18nOccupancy: Record<SbbOccupancy, Record<SbbLanguage, string>> = {
+export const i18nOccupancy: Record<SbbOccupancy, Record<string, string>> = {
   none: {
     de: 'Keine Belegungsprognose verfügbar',
     en: 'No occupancy forecast available',

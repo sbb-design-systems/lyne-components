@@ -7,7 +7,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { DateAdapter, SbbOrientation } from '../../core.ts';
+import type { DateAdapter } from '../../core.ts';
 import {
   defaultDateAdapter,
   forceType,
@@ -36,7 +36,7 @@ export class SbbMiniCalendarMonthElement<T = Date> extends SbbElement {
   private _monthNames = this._dateAdapter.getMonthNames('short');
   private _monthLabel: string | null = null;
   private _yearLabel: string | null = null;
-  private _previousOrientation: SbbOrientation | null = null;
+  private _previousOrientation: 'horizontal' | 'vertical' | null = null;
 
   public constructor() {
     super();
