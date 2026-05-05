@@ -16,7 +16,6 @@ describe(`sbb-block-link-button`, () => {
       element = await fixture(
         html` <sbb-block-link-button
           icon-placement="end"
-          size="m"
           negative
           name="name"
           type="submit"

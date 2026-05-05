@@ -2,14 +2,13 @@ import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { AbstractConstructor, SbbActionBaseElement, SbbIconPlacement } from '../../core.ts';
-import { isLean } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
 import { SbbLinkCommonElementMixin } from './link-common.ts';
 // eslint-disable-next-line import-x/order
 import blockStyle from './block-link.scss?inline';
 
-export type SbbLinkSize = 'xs' | 's' | 'm';
+export type SbbLinkSize = 'xs' | 's' | 'm' | null;
 
 export declare class SbbBlockLinkCommonElementMixinType extends SbbLinkCommonElementMixin(
   SbbIconNameMixin(SbbActionBaseElement),
@@ -29,10 +28,9 @@ export const SbbBlockLinkCommonElementMixin = <T extends AbstractConstructor<Sbb
     public static override styles: CSSResultGroup = [unsafeCSS(blockStyle)];
 
     /**
-     * Size variant, either xs, s or m.
-     * @default 's' / 'xs' (lean)
+     * Size variant, either xs (lean default), s (standard default) or m.
      */
-    @property({ reflect: true }) public accessor size: SbbLinkSize = isLean() ? 'xs' : 's';
+    @property({ reflect: true }) public accessor size: SbbLinkSize = null;
 
     /** Moves the icon to the end of the component if set to true. */
     @property({ attribute: 'icon-placement', reflect: true })

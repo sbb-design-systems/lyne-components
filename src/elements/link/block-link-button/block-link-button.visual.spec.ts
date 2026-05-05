@@ -7,6 +7,7 @@ import {
   visualDiffStandardStates,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
+import type { SbbBlockLinkButtonElement } from '../../link.ts';
 
 import '../../link.ts';
 
@@ -27,12 +28,14 @@ describe(`sbb-block-link-button`, () => {
   };
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    for (const size of ['xs', 's', 'm']) {
+    for (const size of [null, 'xs', 's', 'm'] satisfies SbbBlockLinkButtonElement['size'][]) {
       it(
         `size=${size} ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-block-link-button size=${size}>Travelcards & tickets</sbb-block-link-button>`,
+            html`<sbb-block-link-button size=${size || nothing}
+              >Travelcards & tickets</sbb-block-link-button
+            >`,
           );
         }),
       );
