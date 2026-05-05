@@ -305,5 +305,17 @@ describe(`sbb-option`, () => {
         { ignoreAttributes: ['aria-hidden'] },
       );
     });
+
+    it('watches for size changes', async () => {
+      const opt = element.querySelector('sbb-option')!;
+      element.size = 'm';
+      await waitForLitRender(element);
+      expect(opt).to.match(':state(size-m)');
+
+      element.size = 's';
+      await waitForLitRender(element);
+      expect(opt).not.to.match(':state(size-m)');
+      expect(opt).to.match(':state(size-s)');
+    });
   });
 });
