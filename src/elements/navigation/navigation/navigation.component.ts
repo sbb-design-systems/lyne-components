@@ -13,7 +13,6 @@ import { ref } from 'lit/directives/ref.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
-  boxSizingStyles,
   forceType,
   i18nCloseNavigation,
   idReference,
@@ -51,11 +50,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   public static override readonly elementName: string = 'sbb-navigation';
   public static override elementDependencies: SbbElementType[] = [SbbTransparentButtonElement];
   public static override readonly role = 'navigation';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    scrollbarStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [scrollbarStyles, unsafeCSS(style)];
 
   /**
    * The element that will trigger the navigation.

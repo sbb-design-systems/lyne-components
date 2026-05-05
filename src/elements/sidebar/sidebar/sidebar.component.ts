@@ -10,7 +10,6 @@ import {
 import { eventOptions, property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   forceType,
   handleDistinctChange,
   isZeroAnimationDuration,
@@ -32,11 +31,7 @@ import style from './sidebar.scss?inline';
  */
 export class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-sidebar';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    scrollbarStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [scrollbarStyles, unsafeCSS(style)];
 
   /** Background color of the sidebar. Either `white` or `milk`. */
   @property({ reflect: true })

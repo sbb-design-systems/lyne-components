@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 
-import { boxSizingStyles, SbbLinkBaseElement } from '../../core.ts';
+import { SbbLinkBaseElement } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import { iconSidebarButtonCommonStyle } from '../../sidebar/common/styles.ts';
 import type { SbbTooltipDefaultPositions } from '../../tooltip.pure.ts';
@@ -15,7 +15,7 @@ export class SbbIconSidebarLinkElement
   implements SbbTooltipDefaultPositions
 {
   public static override readonly elementName: string = 'sbb-icon-sidebar-link';
-  public static override styles: CSSResultGroup = [boxSizingStyles, iconSidebarButtonCommonStyle];
+  public static override styles: CSSResultGroup = [iconSidebarButtonCommonStyle];
   /** @internal */
   public readonly tooltipPositions = ['inline-end', 'inline-start'];
 

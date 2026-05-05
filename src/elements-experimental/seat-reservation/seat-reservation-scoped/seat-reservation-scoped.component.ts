@@ -1,4 +1,4 @@
-import { boxSizingStyles, SbbElement } from '@sbb-esta/lyne-elements/core.js';
+import { SbbElement } from '@sbb-esta/lyne-elements/core.js';
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import style from './seat-reservation-scoped.scss?inline';
@@ -8,7 +8,7 @@ import style from './seat-reservation-scoped.scss?inline';
  */
 export class SbbSeatReservationScopedElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-scoped';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`<slot></slot>`;

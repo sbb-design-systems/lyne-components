@@ -1,11 +1,6 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import {
-  type AbstractConstructor,
-  boxSizingStyles,
-  SbbActionBaseElement,
-  SbbDisabledMixin,
-} from '../../core.ts';
+import { type AbstractConstructor, SbbActionBaseElement, SbbDisabledMixin } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
 import style from './menu-action.scss?inline';
@@ -24,7 +19,7 @@ export const SbbMenuActionCommonElementMixin = <
     extends SbbIconNameMixin(SbbDisabledMixin(superClass))
     implements SbbMenuActionCommonElementMixinType
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
 
     protected override renderTemplate(): TemplateResult {
       return html`

@@ -8,7 +8,6 @@ import type { SbbRadioButtonGroupElement } from '../../radio-button-group.pure.t
 import { forceType } from '../decorators/force-type.ts';
 import { getOverride } from '../decorators/get-override.ts';
 import { isLean } from '../dom/lean-context.ts';
-import { boxSizingStyles } from '../styles/styles.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 import style from './panel-common.scss?inline';
@@ -32,7 +31,7 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement & SbbPane
   superClass: T,
 ): AbstractConstructor<SbbPanelMixinType> & T => {
   abstract class SbbPanelElement extends superClass implements SbbPanelMixinType {
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
 
     /** The background color of the panel. */
     @property({ reflect: true }) public accessor color: 'white' | 'milk' = 'white';

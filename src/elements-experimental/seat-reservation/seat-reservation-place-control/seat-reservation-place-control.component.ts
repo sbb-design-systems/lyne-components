@@ -1,5 +1,4 @@
 import {
-  boxSizingStyles,
   forceType,
   SbbButtonBaseElement,
   type SbbElementType,
@@ -34,11 +33,7 @@ type TravelDirectionI18nKey =
 export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-place-control';
   public static override elementDependencies: SbbElementType[] = [SbbSeatReservationGraphicElement];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    screenReaderOnlyStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
   public static readonly events = {
     selectplace: 'selectplace',
   } as const;

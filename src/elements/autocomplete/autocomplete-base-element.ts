@@ -13,7 +13,6 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  boxSizingStyles,
   forceType,
   idReference,
   isEventOnElement,
@@ -50,7 +49,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   SbbOpenCloseBaseElement,
 ) {
   public static override styles: CSSResultGroup = [
-    boxSizingStyles,
     scrollbarStyles,
     optionPanelStyles,
     unsafeCSS(style),

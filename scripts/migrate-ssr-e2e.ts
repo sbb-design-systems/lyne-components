@@ -66,9 +66,10 @@ for (const file of specFiles) {
     templateImports.set('lit', ['html']);
   }
 
-  const template = `${Array.from(templateImports)
-    .map((i) => `import { ${i[1].join(', ')} } from '${i[0]}';`)
-    .join('\n')}
+  const template = `${Array.from(
+    templateImports,
+    (i) => `import { ${i[1].join(', ')} } from '${i[0]}';`,
+  ).join('\n')}
 
 describe(\`sbb-${directoryName} \${fixture.name}\`, () => {
   let root: ${className};

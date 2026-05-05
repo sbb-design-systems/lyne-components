@@ -186,7 +186,7 @@ describe(`sbb-teaser`, () => {
 
           setup.withPostSetupAction(async () => {
             await Promise.all(
-              Array.from(setup.snapshotElement.querySelectorAll('img')).map((el) =>
+              Array.from(setup.snapshotElement.querySelectorAll('img'), (el) =>
                 waitForImageReady(el),
               ),
             );

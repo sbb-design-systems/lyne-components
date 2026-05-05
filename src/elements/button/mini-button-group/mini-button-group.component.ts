@@ -8,7 +8,6 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   forceType,
   isLean,
   SbbElement,
@@ -32,7 +31,7 @@ export class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   SbbNamedSlotListMixin<SbbMiniButtonElement, typeof SbbElement>(SbbElement),
 ) {
   public static override readonly elementName: string = 'sbb-mini-button-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   protected override readonly listChildLocalNames = [
     'sbb-mini-button',
     'sbb-mini-button-link',

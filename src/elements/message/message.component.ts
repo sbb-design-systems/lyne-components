@@ -1,6 +1,6 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { boxSizingStyles, SbbElement } from '../core.ts';
+import { SbbElement } from '../core.ts';
 import type { SbbTitleElement } from '../title.pure.ts';
 
 import style from './message.scss?inline';
@@ -16,7 +16,7 @@ import style from './message.scss?inline';
  */
 export class SbbMessageElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-message';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   private _configureTitle(event: Event): void {
     const title = (event.target as HTMLSlotElement)

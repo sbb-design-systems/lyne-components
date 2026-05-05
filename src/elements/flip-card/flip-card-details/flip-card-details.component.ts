@@ -1,7 +1,7 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { boxSizingStyles, IS_FOCUSABLE_QUERY, SbbElement } from '../../core.ts';
+import { IS_FOCUSABLE_QUERY, SbbElement } from '../../core.ts';
 
 import style from './flip-card-details.scss?inline';
 
@@ -12,7 +12,7 @@ import style from './flip-card-details.scss?inline';
  */
 export class SbbFlipCardDetailsElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-flip-card-details';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   public constructor() {
     super();
