@@ -15,7 +15,7 @@ export class SbbOptionHintElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-option-hint';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
-  private _previousSize: string | undefined;
+  private _previousSize: 's' | 'm' | null = null;
 
   public constructor() {
     super();
