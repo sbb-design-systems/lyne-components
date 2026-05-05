@@ -2,8 +2,14 @@ import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { AbstractConstructor, SbbActionBaseElement, SbbHorizontalFrom } from '../../core.ts';
+import {
+  type AbstractConstructor,
+  type SbbActionBaseElement,
+  type SbbHorizontalFrom,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
+import type { SbbHeaderElement } from '../header/header.component.ts';
 
 import style from './header-action.scss?inline';
 
@@ -33,6 +39,26 @@ export const SbbHeaderActionCommonElementMixin = <
     // TODO: Needs a breaking change to work with the 'no-default-reflect' behavior
     @property({ attribute: 'expand-from', reflect: true })
     public accessor expandFrom: SbbHorizontalFrom = 'large';
+
+    private _previousSize: SbbHeaderElement['size'] = null;
+
+    protected constructor() {
+      super();
+
+      this.addController(
+        new SbbPropertyWatcherController(this, () => this.closest('sbb-header'), {
+          size: (header) => {
+            if (this._previousSize) {
+              this.internals.states.delete(`size-${this._previousSize}`);
+            }
+            this._previousSize = header.size ?? null;
+            if (this._previousSize) {
+              this.internals.states.add(`size-${this._previousSize}`);
+            }
+          },
+        }),
+      );
+    }
 
     protected override renderTemplate(): TemplateResult {
       return html`

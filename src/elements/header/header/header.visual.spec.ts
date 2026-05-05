@@ -5,9 +5,9 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../../core/testing/private.ts';
+import type { SbbHeaderElement } from '../../header.ts';
 
 import '../../header.ts';
-
 import '../../menu.ts';
 import '../../logo.ts';
 import '../../signet.ts';
@@ -26,13 +26,13 @@ describe(`sbb-header`, () => {
 
   const template = (options?: {
     expanded?: boolean;
-    size?: 'm' | 's';
+    size?: SbbHeaderElement['size'];
     noIcon?: boolean;
     noLogoLink?: boolean;
   }): TemplateResult => {
     const opt = {
       expanded: false,
-      size: 'm',
+      size: 'm' as SbbHeaderElement['size'],
       noIcon: false,
       noLogoLink: false,
       ...options,
@@ -43,7 +43,7 @@ describe(`sbb-header`, () => {
         ${' @media screen and (width >= 600px) { .last-element { display: block; } }'}
         ${' @media screen and (width < 1024px) { .sbb-header-spacer { display: none; } .sbb-header-spacer-logo { display: block; } }'}
       </style>
-      <sbb-header ?expanded=${opt.expanded} size=${opt.size}>
+      <sbb-header ?expanded=${opt.expanded} size=${opt.size || nothing}>
         <sbb-header-button
           icon-name=${opt.noIcon ? nothing : 'hamburger-menu-small'}
           expand-from="small"
@@ -123,6 +123,13 @@ describe(`sbb-header`, () => {
         );
       });
     }
+
+    it(
+      `size=null`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template({ size: null }), { padding: '0' });
+      }),
+    );
 
     it(
       `size=s`,
