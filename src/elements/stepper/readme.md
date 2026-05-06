@@ -29,7 +29,7 @@ with the position in the `<sbb-stepper>`. This can be overridden via the `iconNa
 <sbb-step-label icon-name="tick-small">Step label</sbb-step-label>
 ```
 
-<!-- #region override intro-end -->
+<!-- #region intro-end -->
 <!-- #endregion -->
 
 ## Interactions
