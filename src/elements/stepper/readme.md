@@ -157,6 +157,7 @@ If important content needs to be announced when a step is changed, use the `aria
 
 | Name       | Type                                       | Description                                                                                                 | Inherited From |
 | ---------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------- | -------------- |
+| `active`   | `Event`                                    | The active event is dispatched when a step is activated.                                                    |                |
 | `validate` | `CustomEvent<SbbStepValidateEventDetails>` | The validate event is dispatched when a step change is triggered. Can be canceled to abort the step change. |                |
 
 #### Slots
