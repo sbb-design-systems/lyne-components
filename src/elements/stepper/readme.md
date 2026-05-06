@@ -29,6 +29,9 @@ with the position in the `<sbb-stepper>`. This can be overridden via the `iconNa
 <sbb-step-label icon-name="tick-small">Step label</sbb-step-label>
 ```
 
+<!-- #region override intro-end -->
+<!-- #endregion -->
+
 ## Interactions
 
 There are two attributes to support navigation between different steps that can be used on elements inside an `sbb-step` to select the next or the previous step when clicked: `sbb-stepper-next` and `sbb-stepper-previous`.
