@@ -612,6 +612,7 @@ export class SbbPopoverElement extends SbbPopoverBaseElement {
   };
 
   protected override renderContent(): TemplateResult {
+    // TODO: remove close button from shadow DOM and create sbb-popover-close-button component like sbb-sidebar-close-button @breaking-change
     const closeButton = html`
       <sbb-secondary-button
         aria-label=${this.accessibilityCloseLabel || i18nClosePopover[this._language.current]}

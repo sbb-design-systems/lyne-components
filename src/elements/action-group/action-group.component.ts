@@ -7,12 +7,11 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbButtonCommonElementMixinType } from '../button.pure.ts';
+import type { SbbButtonCommonElementMixinType, SbbButtonElement } from '../button.pure.ts';
 import type { SbbHorizontalFrom } from '../core.ts';
 import { SbbElement } from '../core.ts';
 import type {
   SbbBlockLinkButtonElement,
-  SbbBlockLinkCommonElementMixinType,
   SbbBlockLinkElement,
   SbbBlockLinkStaticElement,
 } from '../link.pure.ts';
@@ -50,16 +49,18 @@ export class SbbActionGroupElement extends SbbElement {
   /**
    * Size of the nested sbb-button instances.
    * This will overwrite the size attribute of nested sbb-button instances.
+   * @deprecated Will be removed with next breaking change
    */
   @property({ attribute: 'button-size', reflect: true })
-  public accessor buttonSize: SbbButtonCommonElementMixinType['size'] | null = null;
+  public accessor buttonSize: SbbButtonElement['size'] | null = null;
 
   /**
    * Size of the nested sbb-block-link instances.
    * This will overwrite the size attribute of nested sbb-block-link instances.
+   * @deprecated Will be removed with next breaking change
    */
   @property({ attribute: 'link-size', reflect: true })
-  public accessor linkSize: SbbBlockLinkCommonElementMixinType['size'] | null = null;
+  public accessor linkSize: SbbBlockLinkElement['size'] | null = null;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
