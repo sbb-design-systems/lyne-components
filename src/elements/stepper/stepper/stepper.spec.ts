@@ -839,6 +839,21 @@ describe('sbb-stepper', () => {
     expect(stepLabels.every((l) => l.matches(`:state(size-${element.size})`))).to.be.true;
   });
 
+  it('should dispatch active event when a step is activated', async () => {
+    const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(2)',
+    )!;
+    const activeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepElement.events.active,
+      stepLabelTwo.step,
+    );
+    // Change to step 2
+    stepLabelTwo.click();
+    await waitForLitRender(element);
+
+    await activeSpy.calledOnce();
+  });
+
   describe('stepchange event', () => {
     it('should emit multiple stepchange events when changing steps multiple times', async () => {
       const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
