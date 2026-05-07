@@ -398,10 +398,10 @@ property when the navigation changes.
 
 #### Properties
 
-| Name          | Attribute      | Privacy | Type                      | Default | Description                 |
-| ------------- | -------------- | ------- | ------------------------- | ------- | --------------------------- |
-| `level`       | `level`        | public  | `SbbHeadingLevel`         | `'2'`   | Title level                 |
-| `visualLevel` | `visual-level` | public  | `SbbHeadingLevel \| null` | `'5'`   | Visual level for the title. |
+| Name          | Attribute      | Privacy | Type                                             | Default | Description                 |
+| ------------- | -------------- | ------- | ------------------------------------------------ | ------- | --------------------------- |
+| `level`       | `level`        | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6'`         | `'2'`   | Title level                 |
+| `visualLevel` | `visual-level` | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6' \| null` | `'5'`   | Visual level for the title. |
 
 #### Slots
 

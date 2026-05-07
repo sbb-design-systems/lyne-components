@@ -1,7 +1,13 @@
+import path, { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import type { Config, Plugin } from '@custom-elements-manifest/analyzer';
 import type {
   JSDoc,
   LiteralTypeNode,
+  Type as TsType,
+  TypeChecker,
+  TypeFlags,
   TypeReferenceNode,
 } from '@custom-elements-manifest/analyzer/node_modules/typescript';
 import { FEATURES } from '@custom-elements-manifest/analyzer/src/features/index.js';
@@ -26,6 +32,7 @@ import type {
 
 const overrideTypeKey = 'overrideType' as const;
 const classGenericsTypeKey = 'classGenerics' as const;
+const resolvedTypeKey = 'resolved' as const;
 const memberDenyList = ['define', 'addController', 'removeController'];
 
 type UnwrapArray<A> = A extends unknown[] ? UnwrapArray<A[number]> : A;
@@ -35,11 +42,41 @@ interface OverrideTypeInfo {
   memberOverrideType: string;
 }
 
+interface TSTypeInternal extends TsType {
+  types?: TSTypeInternal[];
+  value?: string | number;
+}
+
 /**
  * Docs: https://custom-elements-manifest.open-wc.org/analyzer/getting-started/
  */
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function createManifestConfig(library = '') {
+  let typeChecker: TypeChecker;
+  // Map of type alias name -> resolved string-literal union text, e.g. "SbbCheckboxSize" -> "'xs' | 's' | 'm'"
+  const resolvedTypeAliasMap = new Map<string, string>();
+  // Map of "ClassName.memberName" -> resolved type text
+  const resolvedTypeMap = new Map<string, string>();
+
+  /**
+   * Recursively expands a TypeScript type to its primitive literal representation.
+   * Returns null if the type contains anything other than string literals, null or undefined.
+   */
+  function expandType(type: TSTypeInternal, flags: typeof TypeFlags): string | null {
+    if (type.flags & flags.Union) {
+      const parts = (type.types ?? []).map((e) => expandType(e, flags));
+      return parts.some((p) => p === null) ? null : parts.join(' | ');
+    } else if (type.flags & flags.StringLiteral) {
+      return `'${(type.value as string).replace(/'/g, "\\'")}'`;
+    } else if (type.flags & flags.Null) {
+      return 'null';
+    } else if (type.flags & flags.Undefined) {
+      return 'undefined';
+    }
+    // Number literals, booleans, classes, interfaces etc. – not string-literal-only
+    return null;
+  }
+
   return {
     litelement: true,
     globs: [`src/${library}/**/*.ts`],
@@ -47,6 +84,102 @@ export function createManifestConfig(library = '') {
     outdir: `dist/${library}`,
     dependencies: false,
     packagejson: false,
+    overrideModuleCreation({ ts, globs }) {
+      const projectRoot = fileURLToPath(new URL('../', import.meta.url));
+      const result = ts.readConfigFile(join(projectRoot, 'tsconfig.json'), ts.sys.readFile);
+      if (result.error) {
+        throw new Error(`Error reading tsconfig.json: ${result.error.messageText}`);
+      }
+
+      // Due to Typescript version mismatch, we have to exclude some newer options
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { erasableSyntaxOnly, rewriteRelativeImportExtensions, ...cleanedOptions } =
+        result.config.compilerOptions;
+
+      const options = ts.convertCompilerOptionsFromJson(cleanedOptions, projectRoot);
+      if (options.errors.length) {
+        throw new Error(
+          `Error parsing tsconfig.json: ${options.errors.map((e) => e.messageText).join(', ')}`,
+        );
+      }
+
+      const absoluteGlobs = globs.map((g) => path.resolve(process.cwd(), g));
+      const program = ts.createProgram(absoluteGlobs, options.options);
+      typeChecker = program.getTypeChecker();
+
+      // Pre-populate the alias map by scanning all source files for Sbb-prefixed type aliases,
+      // and the resolvedTypeMap for class members referencing Sbb types.
+      for (const sf of program.getSourceFiles()) {
+        if (sf.isDeclarationFile) {
+          continue;
+        }
+        ts.forEachChild(sf, (node) => {
+          if (ts.isTypeAliasDeclaration(node)) {
+            const name = node.name.getText();
+            const tsType = typeChecker!.getTypeAtLocation(node.type);
+            const resolvedText = expandType(tsType, ts.TypeFlags);
+            if (resolvedText !== null && resolvedText !== name) {
+              resolvedTypeAliasMap.set(name, resolvedText);
+            }
+          } else if (ts.isClassDeclaration(node)) {
+            const className = node.name?.getText();
+            if (!className) {
+              return;
+            }
+            for (const member of node.members) {
+              if (
+                (ts.isPropertyDeclaration(member) || ts.isGetAccessorDeclaration(member)) &&
+                member.type
+              ) {
+                const memberName = member.name.getText();
+                const rawText = member.type.getText();
+                // Only resolve if the type references a named type (not already pure literals)
+                if (!/\b[A-Z]\w*/.test(rawText)) {
+                  continue;
+                }
+                const tsType = typeChecker!.getTypeAtLocation(member.type);
+                let resolvedText = expandType(tsType, ts.TypeFlags);
+                if (resolvedText !== null) {
+                  // TypeScript may drop null/undefined when expanding aliases.
+                  // Re-append them from the raw type text if missing.
+                  if (/\bnull\b/.test(rawText) && !/\bnull\b/.test(resolvedText)) {
+                    resolvedText += ' | null';
+                  }
+                  if (/\bundefined\b/.test(rawText) && !/\bundefined\b/.test(resolvedText)) {
+                    resolvedText += ' | undefined';
+                  }
+                  if (resolvedText !== rawText) {
+                    resolvedTypeMap.set(`${className}.${memberName}`, resolvedText);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      // Keep a map from relative path -> original SourceFile for typeChecker lookups in analyzePhase
+      const sourceFileByRelativePath = new Map(
+        program
+          .getSourceFiles()
+          .filter((sf) => absoluteGlobs.find((glob) => sf.fileName === glob))
+          .map((sf) => {
+            const relativePath = globs.find((g) => path.resolve(process.cwd(), g) === sf.fileName)!;
+            return [relativePath, sf];
+          }),
+      );
+
+      return [...sourceFileByRelativePath.keys()].map((relativePath) =>
+        // Re-create the SourceFile with the relative path so the manifest stays path-agnostic,
+        // but supply the original text so the analyzer can still parse it.
+        ts.createSourceFile(
+          relativePath,
+          sourceFileByRelativePath.get(relativePath)!.getFullText(),
+          sourceFileByRelativePath.get(relativePath)!.languageVersion,
+          true,
+        ),
+      );
+    },
     plugins: [
       {
         name: 'lyne',
@@ -410,6 +543,59 @@ export function createManifestConfig(library = '') {
                   delete (member as ClassField).readonly;
                   member.description = matchedAttribute.description;
                   member.inheritedFrom = matchedAttribute.inheritedFrom;
+                }
+              }
+            }
+          }
+        },
+      },
+      // Runs after all other plugins (including CORE - APPLY-INHERITANCE) to set type.resolved
+      {
+        name: 'lyne-resolved-types',
+        packageLinkPhase({ customElementsManifest }) {
+          for (const module of customElementsManifest.modules) {
+            for (const declaration of (module.declarations?.filter(
+              (d: Declaration) => d.kind === 'class',
+            ) ?? []) as CustomElement[]) {
+              for (const member of [
+                ...(declaration.members ?? []),
+                ...(declaration.attributes ?? []),
+              ]) {
+                const memberField = member as ClassField & {
+                  type?: Type & { [resolvedTypeKey]?: string };
+                };
+                if (memberField.type?.[resolvedTypeKey]) {
+                  continue;
+                }
+                const typeText = memberField.type?.text ?? '';
+                // Only resolve if the type references a named type (not already pure literals)
+                if (!typeText || !/\b[A-Z]\w*/.test(typeText)) {
+                  continue;
+                }
+
+                // First try the precise per-class map from overrideModuleCreation
+                let resolvedText = resolvedTypeMap.get(`${declaration.name}.${member.name}`);
+
+                // Fall back: substitute all type aliases using the alias map
+                if (!resolvedText) {
+                  let substituted = typeText.replace(
+                    /\b\w+/g,
+                    (match) => resolvedTypeAliasMap.get(match) ?? match,
+                  );
+                  if (substituted !== typeText) {
+                    // Re-append null/undefined if TypeScript dropped them during alias expansion
+                    if (/\bnull\b/.test(typeText) && !/\bnull\b/.test(substituted)) {
+                      substituted += ' | null';
+                    }
+                    if (/\bundefined\b/.test(typeText) && !/\bundefined\b/.test(substituted)) {
+                      substituted += ' | undefined';
+                    }
+                    resolvedText = substituted;
+                  }
+                }
+
+                if (resolvedText && memberField.type) {
+                  memberField.type[resolvedTypeKey] = resolvedText;
                 }
               }
             }

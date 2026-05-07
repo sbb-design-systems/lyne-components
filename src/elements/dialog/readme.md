@@ -221,13 +221,13 @@ an alternative element by listening to the `didClose` event.
 
 #### Properties
 
-| Name             | Attribute         | Privacy | Type                                                 | Default        | Description                                                                                                             |
-| ---------------- | ----------------- | ------- | ---------------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'`          | `'start'`      | Set the slotted `<sbb-action-group>` children's alignment.                                                              |
-| `buttonSize`     | `button-size`     | public  | `SbbButtonCommonElementMixinType['size'] \| null`    | `null`         | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.         |
-| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                                  | `'large'`      | Overrides the behavior of `orientation` property.                                                                       |
-| `linkSize`       | `link-size`       | public  | `SbbBlockLinkCommonElementMixinType['size'] \| null` | `null`         | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
-| `orientation`    | `orientation`     | public  | `'horizontal' \| 'vertical'`                         | `'horizontal'` | Indicates the orientation of the components inside the `<sbb-action-group>`.                                            |
+| Name             | Attribute         | Privacy | Type                                        | Default        | Description                                                                                                             |
+| ---------------- | ----------------- | ------- | ------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'` | `'start'`      | Set the slotted `<sbb-action-group>` children's alignment.                                                              |
+| `buttonSize`     | `button-size`     | public  | `'s' \| 'm' \| 'l' \| null`                 | `null`         | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.         |
+| `horizontalFrom` | `horizontal-from` | public  | `'zero' \| 'small' \| 'large' \| 'ultra'`   | `'large'`      | Overrides the behavior of `orientation` property.                                                                       |
+| `linkSize`       | `link-size`       | public  | `'xs' \| 's' \| 'm' \| null`                | `null`         | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
+| `orientation`    | `orientation`     | public  | `'horizontal' \| 'vertical'`                | `'horizontal'` | Indicates the orientation of the components inside the `<sbb-action-group>`.                                            |
 
 #### Slots
 
@@ -332,11 +332,11 @@ an alternative element by listening to the `didClose` event.
 
 #### Properties
 
-| Name          | Attribute      | Privacy | Type                      | Default | Description                     |
-| ------------- | -------------- | ------- | ------------------------- | ------- | ------------------------------- |
-| `level`       | `level`        | public  | `SbbHeadingLevel`         | `'2'`   | Title level                     |
-| `negative`    | `negative`     | public  | `boolean`                 | `false` | Negative coloring variant flag. |
-| `visualLevel` | `visual-level` | public  | `SbbHeadingLevel \| null` | `'4'`   | Visual level for the title.     |
+| Name          | Attribute      | Privacy | Type                                             | Default | Description                     |
+| ------------- | -------------- | ------- | ------------------------------------------------ | ------- | ------------------------------- |
+| `level`       | `level`        | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6'`         | `'2'`   | Title level                     |
+| `negative`    | `negative`     | public  | `boolean`                                        | `false` | Negative coloring variant flag. |
+| `visualLevel` | `visual-level` | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6' \| null` | `'4'`   | Visual level for the title.     |
 
 #### Slots
 

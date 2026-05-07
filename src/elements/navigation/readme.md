@@ -256,18 +256,18 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 #### Properties
 
-| Name                   | Attribute               | Privacy | Type                                       | Default | Description                                                         |
-| ---------------------- | ----------------------- | ------- | ------------------------------------------ | ------- | ------------------------------------------------------------------- |
-| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                   | `''`    | This will be forwarded as aria-current to the inner anchor element. |
-| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                   | `''`    | This will be forwarded as aria-label to the inner anchor element.   |
-| `connectedSection`     | -                       | public  | `SbbNavigationSectionElement \| undefined` |         | The section that is being controlled by the action, if any.         |
-| `download`             | `download`              | public  | `boolean`                                  | `false` | Whether the browser will show the download dialog on click.         |
-| `href`                 | `href`                  | public  | `string`                                   | `''`    | The href value you want to link to.                                 |
-| `marker`               | -                       | public  | `SbbNavigationMarkerElement \| null`       |         | The navigation marker in which the action is nested.                |
-| `rel`                  | `rel`                   | public  | `string`                                   | `''`    | The relationship of the linked URL as space-separated link types.   |
-| `section`              | -                       | public  | `SbbNavigationSectionElement \| null`      |         | The section in which the action is nested.                          |
-| `size`                 | `size`                  | public  | `'s' \| 'm' \| 'l'`                        | `'l'`   | Action size variant, either s, m or l.                              |
-| `target`               | `target`                | public  | `LinkTargetType \| string`                 | `''`    | Where to display the linked URL.                                    |
+| Name                   | Attribute               | Privacy | Type                                                   | Default | Description                                                         |
+| ---------------------- | ----------------------- | ------- | ------------------------------------------------------ | ------- | ------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                               | `''`    | This will be forwarded as aria-current to the inner anchor element. |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                               | `''`    | This will be forwarded as aria-label to the inner anchor element.   |
+| `connectedSection`     | -                       | public  | `SbbNavigationSectionElement \| undefined`             |         | The section that is being controlled by the action, if any.         |
+| `download`             | `download`              | public  | `boolean`                                              | `false` | Whether the browser will show the download dialog on click.         |
+| `href`                 | `href`                  | public  | `string`                                               | `''`    | The href value you want to link to.                                 |
+| `marker`               | -                       | public  | `SbbNavigationMarkerElement \| null`                   |         | The navigation marker in which the action is nested.                |
+| `rel`                  | `rel`                   | public  | `string`                                               | `''`    | The relationship of the linked URL as space-separated link types.   |
+| `section`              | -                       | public  | `SbbNavigationSectionElement \| null`                  |         | The section in which the action is nested.                          |
+| `size`                 | `size`                  | public  | `'s' \| 'm' \| 'l'`                                    | `'l'`   | Action size variant, either s, m or l.                              |
+| `target`               | `target`                | public  | `'_blank' \| '_self' \| '_parent' \| '_top' \| string` | `''`    | Where to display the linked URL.                                    |
 
 #### Slots
 

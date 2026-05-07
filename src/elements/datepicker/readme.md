@@ -99,7 +99,7 @@ todayStub.restore();
 | `input`   | `input`   | public  | `SbbDateInputElement<T> \| null` | `null`  | Reference to the sbb-date-input instance or the native input connected to the datepicker. For attribute usage, provide an id reference. |
 | `isOpen`  | -         | public  | `boolean`                        |         | Whether the element is open.                                                                                                            |
 | `trigger` | `trigger` | public  | `HTMLElement \| null`            | `null`  | The element that will trigger the popover overlay. For attribute usage, provide an id reference.                                        |
-| `view`    | `view`    | public  | `SbbCalendarElement['view']`     | `'day'` | The initial view of calendar which should be displayed on opening.                                                                      |
+| `view`    | `view`    | public  | `'day' \| 'month' \| 'year'`     | `'day'` | The initial view of calendar which should be displayed on opening.                                                                      |
 | `wide`    | `wide`    | public  | `boolean`                        | `false` | If set to true, two months are displayed.                                                                                               |
 
 #### Methods

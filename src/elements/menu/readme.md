@@ -245,17 +245,17 @@ guard against such cases in your component.
 
 #### Properties
 
-| Name                   | Attribute               | Privacy | Type                       | Default | Description                                                                                                                      |
-| ---------------------- | ----------------------- | ------- | -------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityCurrent` | `accessibility-current` | public  | `string`                   | `''`    | This will be forwarded as aria-current to the inner anchor element.                                                              |
-| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                   | `''`    | This will be forwarded as aria-label to the inner anchor element.                                                                |
-| `disabled`             | `disabled`              | public  | `boolean`                  | `false` | Whether the component is disabled.                                                                                               |
-| `disabledInteractive`  | `disabled-interactive`  | public  | `boolean`                  | `false` | Whether the button should be aria-disabled but stay interactive.                                                                 |
-| `download`             | `download`              | public  | `boolean`                  | `false` | Whether the browser will show the download dialog on click.                                                                      |
-| `href`                 | `href`                  | public  | `string`                   | `''`    | The href value you want to link to.                                                                                              |
-| `iconName`             | `icon-name`             | public  | `string`                   | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `rel`                  | `rel`                   | public  | `string`                   | `''`    | The relationship of the linked URL as space-separated link types.                                                                |
-| `target`               | `target`                | public  | `LinkTargetType \| string` | `''`    | Where to display the linked URL.                                                                                                 |
+| Name                   | Attribute               | Privacy | Type                                                   | Default | Description                                                                                                                      |
+| ---------------------- | ----------------------- | ------- | ------------------------------------------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                               | `''`    | This will be forwarded as aria-current to the inner anchor element.                                                              |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                               | `''`    | This will be forwarded as aria-label to the inner anchor element.                                                                |
+| `disabled`             | `disabled`              | public  | `boolean`                                              | `false` | Whether the component is disabled.                                                                                               |
+| `disabledInteractive`  | `disabled-interactive`  | public  | `boolean`                                              | `false` | Whether the button should be aria-disabled but stay interactive.                                                                 |
+| `download`             | `download`              | public  | `boolean`                                              | `false` | Whether the browser will show the download dialog on click.                                                                      |
+| `href`                 | `href`                  | public  | `string`                                               | `''`    | The href value you want to link to.                                                                                              |
+| `iconName`             | `icon-name`             | public  | `string`                                               | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `rel`                  | `rel`                   | public  | `string`                                               | `''`    | The relationship of the linked URL as space-separated link types.                                                                |
+| `target`               | `target`                | public  | `'_blank' \| '_self' \| '_parent' \| '_top' \| string` | `''`    | Where to display the linked URL.                                                                                                 |
 
 #### CSS Properties
 

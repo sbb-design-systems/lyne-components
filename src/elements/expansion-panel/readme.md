@@ -103,14 +103,14 @@ and the `aria-hidden` attribute on the content.
 
 #### Properties
 
-| Name         | Attribute     | Privacy | Type                      | Default            | Description                                                            |
-| ------------ | ------------- | ------- | ------------------------- | ------------------ | ---------------------------------------------------------------------- |
-| `borderless` | `borderless`  | public  | `boolean`                 | `false`            | Whether the panel has no border.                                       |
-| `color`      | `color`       | public  | `'white' \| 'milk'`       | `'white'`          | The background color of the panel.                                     |
-| `disabled`   | `disabled`    | public  | `boolean`                 | `false`            | Whether the panel is disabled, so its expanded state can't be changed. |
-| `expanded`   | `expanded`    | public  | `boolean`                 | `false`            | Whether the panel is expanded.                                         |
-| `size`       | `size`        | public  | `'s' \| 'l'`              | `'l' / 's' (lean)` | Size variant, either l or s.                                           |
-| `titleLevel` | `title-level` | public  | `SbbHeadingLevel \| null` | `null`             | Heading level; if unset, a `div` will be rendered.                     |
+| Name         | Attribute     | Privacy | Type                                             | Default            | Description                                                            |
+| ------------ | ------------- | ------- | ------------------------------------------------ | ------------------ | ---------------------------------------------------------------------- |
+| `borderless` | `borderless`  | public  | `boolean`                                        | `false`            | Whether the panel has no border.                                       |
+| `color`      | `color`       | public  | `'white' \| 'milk'`                              | `'white'`          | The background color of the panel.                                     |
+| `disabled`   | `disabled`    | public  | `boolean`                                        | `false`            | Whether the panel is disabled, so its expanded state can't be changed. |
+| `expanded`   | `expanded`    | public  | `boolean`                                        | `false`            | Whether the panel is expanded.                                         |
+| `size`       | `size`        | public  | `'s' \| 'l'`                                     | `'l' / 's' (lean)` | Size variant, either l or s.                                           |
+| `titleLevel` | `title-level` | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6' \| null` | `null`             | Heading level; if unset, a `div` will be rendered.                     |
 
 #### Events
 
