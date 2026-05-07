@@ -104,11 +104,21 @@ export function createManifestConfig(library = '') {
       }
 
       const absoluteGlobs = globs.map((g) => path.resolve(process.cwd(), g));
-      const program = ts.createProgram(absoluteGlobs, options.options);
+      // Also include elements source files for cross-package type alias resolution.
+      // (e.g. elements-experimental imports SbbHeadingLevel from @sbb-esta/lyne-elements which
+      // maps to src/elements/* via tsconfig paths, but CEM's ts may not follow path mappings)
+      const extraFiles = ts.sys.readDirectory(
+        path.resolve(process.cwd(), 'src/elements'),
+        ['.ts'],
+        ['**/*.{private}.ts', '**/private'],
+        ['**/*.ts'],
+      );
+      const allGlobs = [...new Set([...absoluteGlobs, ...extraFiles])];
+      const program = ts.createProgram(allGlobs, options.options);
       typeChecker = program.getTypeChecker();
 
-      // Pre-populate the alias map by scanning all source files for Sbb-prefixed type aliases,
-      // and the resolvedTypeMap for class members referencing Sbb types.
+      // Pre-populate the alias map by scanning all source files for type aliases,
+      // and the resolvedTypeMap for class members referencing named types.
       for (const sf of program.getSourceFiles()) {
         if (sf.isDeclarationFile) {
           continue;
@@ -128,7 +138,9 @@ export function createManifestConfig(library = '') {
             }
             for (const member of node.members) {
               if (
-                (ts.isPropertyDeclaration(member) || ts.isGetAccessorDeclaration(member)) &&
+                (ts.isPropertyDeclaration(member) ||
+                  ts.isGetAccessorDeclaration(member) ||
+                  ts.isAutoAccessorPropertyDeclaration?.(member)) &&
                 member.type
               ) {
                 const memberName = member.name.getText();
@@ -150,6 +162,10 @@ export function createManifestConfig(library = '') {
                   }
                   if (resolvedText !== rawText) {
                     resolvedTypeMap.set(`${className}.${memberName}`, resolvedText);
+                    // Also register the raw type text in the alias map so that inherited members
+                    // (which share the same type text but a different class name) can be resolved
+                    // via the fallback substitution path in packageLinkPhase.
+                    resolvedTypeAliasMap.set(rawText, resolvedText);
                   }
                 }
               }
@@ -158,7 +174,7 @@ export function createManifestConfig(library = '') {
         });
       }
 
-      // Keep a map from relative path -> original SourceFile for typeChecker lookups in analyzePhase
+      // Keep a map -> original SourceFile for typeChecker lookups in analyzePhase
       const sourceFileByRelativePath = new Map(
         program
           .getSourceFiles()
@@ -553,6 +569,21 @@ export function createManifestConfig(library = '') {
       {
         name: 'lyne-resolved-types',
         packageLinkPhase({ customElementsManifest }) {
+          // Build a helper map: ClassName.memberName -> resolved/text for all members in the manifest
+          // Used to resolve indexed access types like SbbFoo['bar'] in packageLinkPhase.
+          const manifestMemberTypeMap = new Map<string, string>();
+          for (const mod of customElementsManifest.modules) {
+            for (const decl of (mod.declarations ?? []) as CustomElement[]) {
+              for (const m of decl.members ?? []) {
+                const memberField = m as ClassField & { type?: Type & { resolved?: string } };
+                const typeText = memberField.type?.resolved ?? memberField.type?.text;
+                if (typeText) {
+                  manifestMemberTypeMap.set(`${decl.name}.${m.name}`, typeText);
+                }
+              }
+            }
+          }
+
           for (const module of customElementsManifest.modules) {
             for (const declaration of (module.declarations?.filter(
               (d: Declaration) => d.kind === 'class',
@@ -576,12 +607,34 @@ export function createManifestConfig(library = '') {
                 // First try the precise per-class map from overrideModuleCreation
                 let resolvedText = resolvedTypeMap.get(`${declaration.name}.${member.name}`);
 
-                // Fall back: substitute all type aliases using the alias map
+                // Fall back: check if the exact type text was registered in the alias map
+                // (covers indexed access types like SbbCheckboxElement['size'] used in inherited members)
+                if (!resolvedText) {
+                  resolvedText = resolvedTypeAliasMap.get(typeText);
+                }
+
+                // Fall back: substitute all type aliases using the alias map.
+                // Also handles indexed access types like `SbbFoo['bar']` by replacing each
+                // `ClassName['memberName']` segment with the resolved type of that member.
                 if (!resolvedText) {
                   let substituted = typeText.replace(
-                    /\b\w+/g,
-                    (match) => resolvedTypeAliasMap.get(match) ?? match,
+                     
+                    /\b(\w+)\['(\w+)'\]/g,
+                    (_match, className, memberName) => {
+                      return (
+                        resolvedTypeMap.get(`${className}.${memberName}`) ??
+                        manifestMemberTypeMap.get(`${className}.${memberName}`) ??
+                        _match
+                      );
+                    },
                   );
+                  if (substituted === typeText) {
+                    // No indexed access substitution happened — try plain word substitution
+                    substituted = typeText.replace(
+                      /\b\w+/g,
+                      (match) => resolvedTypeAliasMap.get(match) ?? match,
+                    );
+                  }
                   if (substituted !== typeText) {
                     // Re-append null/undefined if TypeScript dropped them during alias expansion
                     if (/\bnull\b/.test(typeText) && !/\bnull\b/.test(substituted)) {
