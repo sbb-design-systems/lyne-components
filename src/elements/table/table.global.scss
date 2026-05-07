@@ -144,7 +144,7 @@ $theme: 'standard' !default;
   --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-4x);
 }
 
-// TODO: In future, move to the 'sbb-lean' theme
+// TODO: remove sbb-lean selector with lean theme
 html.sbb-lean .sbb-table:not(.sbb-table-xs, .sbb-table-m),
 .sbb-table-s {
   --sbb-table-data-cell-font-size: var(--sbb-text-font-size-xs);
