@@ -44,6 +44,15 @@ describe(`sbb-navigation-button`, () => {
       expect(changeSpy.count).to.be.greaterThan(0);
     });
 
+    it('should not dispatch click event if disabled', async () => {
+      const changeSpy = new EventSpy('click');
+      element.disabled = true;
+      element.click();
+      await waitForLitRender(element);
+
+      expect(changeSpy.count).to.be.equal(0);
+    });
+
     it('should receive focus', async () => {
       element.focus();
       await waitForLitRender(element);
