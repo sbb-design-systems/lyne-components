@@ -19,12 +19,13 @@ import {
   isLean,
   isSafari,
   isZeroAnimationDuration,
-  overlayGapFixCorners,
+  optionPanelStyles,
   removeAriaComboBoxAttributes,
   SbbEscapableOverlayController,
   SbbNegativeMixin,
   SbbOpenCloseBaseElement,
   SbbPropertyWatcherController,
+  scrollbarStyles,
   setOverlayPosition,
 } from '../core.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
@@ -47,7 +48,11 @@ const ariaRoleOnHost = isSafari;
 export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
   SbbOpenCloseBaseElement,
 ) {
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    scrollbarStyles,
+    optionPanelStyles,
+    unsafeCSS(style),
+  ];
 
   /**
    * The element where the autocomplete will attach.
@@ -151,7 +156,11 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       let timeoutId: ReturnType<typeof setTimeout>;
       return () => {
         clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => this._setOverlayPosition(), 10);
+        timeoutId = setTimeout(() => {
+          if (this.state !== 'closed') {
+            this._setOverlayPosition();
+          }
+        }, 10);
       };
     })(),
   });
@@ -165,7 +174,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       })
     : null;
   private _overlay!: HTMLElement;
-  private _optionContainer!: HTMLElement;
   private _triggerAbortController!: AbortController;
   private _openPanelEventsController!: AbortController;
   private _isPointerDownEventOnMenu: boolean = false;
@@ -580,8 +588,8 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     setOverlayPosition(
       this._overlay,
       originElement,
-      this._optionContainer,
-      this.shadowRoot!.querySelector('.sbb-autocomplete__container')!,
+      this._overlay,
+      this.shadowRoot!.querySelector('.sbb-option-panel__overlay-container')!,
       this,
       this.position,
     );
@@ -615,7 +623,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.triggerElement?.setAttribute('aria-expanded', 'false');
 
     this.resetActiveElement();
-    this._optionContainer.scrollTop = 0;
+    this._overlay.scrollTop = 0;
     this._escapableOverlayController.disconnect();
     this.dispatchCloseEvent();
   }
@@ -712,25 +720,18 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     // If there are a lot of options and when pressing tab key, the scroll area on sbb-autocomplete__options gets focus.
     // As elements inside the panel should never get focus, we have to avoid that by setting tabindex=-1.
     return html`
-      <div class="sbb-autocomplete__gap-fix"></div>
-      <div class="sbb-autocomplete__container">
-        <div class="sbb-autocomplete__gap-fix">${overlayGapFixCorners()}</div>
+      <div class="sbb-option-panel__overlay-container">
         <div
+          class="sbb-option-panel__overlay ${this.negative
+            ? 'sbb-scrollbar-negative'
+            : 'sbb-scrollbar'}"
+          role=${!ariaRoleOnHost ? this.panelRole : nothing}
+          id=${!ariaRoleOnHost ? this.overlayId : nothing}
+          tabindex="-1"
           @animationend=${this._onAnimationEnd}
-          class="sbb-autocomplete__panel"
           ${ref((overlayRef?: Element) => (this._overlay = overlayRef as HTMLElement))}
         >
-          <div class="sbb-autocomplete__wrapper">
-            <div
-              class="sbb-autocomplete__options"
-              role=${!ariaRoleOnHost ? this.panelRole : nothing}
-              id=${!ariaRoleOnHost ? this.overlayId : nothing}
-              tabindex="-1"
-              ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
-            >
-              <slot @slotchange=${this._handleSlotchange}></slot>
-            </div>
-          </div>
+          <slot @slotchange=${this._handleSlotchange}></slot>
         </div>
       </div>
     `;

@@ -7,7 +7,7 @@ import { getElementPosition } from './position.ts';
  * @param dialog The reference to the dialog element.
  * @param originElement The reference to the element the dialog is attached to.
  * @param optionContainer The reference to the option panel.
- * @param container The element which has the position:fixed applied.
+ * @param container The element that has the position:fixed applied.
  * @param element The reference to the component.
  * @param position The allowed position of the overlay relative to the origin.
  */
@@ -23,11 +23,15 @@ export function setOverlayPosition(
     return;
   }
 
+  const originRect = originElement.getBoundingClientRect();
+
   // Set the width to match the trigger element
   element.style.setProperty('--sbb-options-panel-width', `${originElement.offsetWidth}px`);
 
-  // Set the origin height
+  // Set the origin height and position
   element.style.setProperty('--sbb-options-panel-origin-height', `${originElement.offsetHeight}px`);
+  element.style.setProperty('--sbb-options-panel-origin-position-x', `${originRect.left}px`);
+  element.style.setProperty('--sbb-options-panel-origin-position-y', `${originRect.top}px`);
 
   // Calculate and set the position
   const panelPosition = getElementPosition(optionContainer, originElement, container, {
