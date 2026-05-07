@@ -7,7 +7,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.pure.ts';
+import type { SbbButtonCommonElementMixinType } from '../button.pure.ts';
 import type { SbbHorizontalFrom } from '../core.ts';
 import { SbbElement } from '../core.ts';
 import type {
@@ -52,7 +52,7 @@ export class SbbActionGroupElement extends SbbElement {
    * This will overwrite the size attribute of nested sbb-button instances.
    */
   @property({ attribute: 'button-size', reflect: true })
-  public accessor buttonSize: SbbButtonSize | null = null;
+  public accessor buttonSize: SbbButtonCommonElementMixinType['size'] | null = null;
 
   /**
    * Size of the nested sbb-block-link instances.

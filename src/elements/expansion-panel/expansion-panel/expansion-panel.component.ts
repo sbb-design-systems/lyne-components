@@ -2,13 +2,15 @@ import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbOpenedClosedState,
+import {
+  type SbbOpenedClosedState,
   forceType,
   isLean,
   isZeroAnimationDuration,
   SbbElement,
   type SbbHeadingLevel,
-  ɵstateController } from '../../core.ts';
+  ɵstateController,
+} from '../../core.ts';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content/expansion-panel-content.component.ts';
 import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header/expansion-panel-header.component.ts';
 
