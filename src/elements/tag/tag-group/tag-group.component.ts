@@ -56,7 +56,7 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
    * Tag group size, either s or m.
    * @default 'm' / 's' (lean)
    */
-  @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: SbbTagElement['size'] = isLean() ? 's' : 'm';
 
   /**
    * Value of the sbb-tag-group.
