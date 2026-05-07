@@ -12,9 +12,9 @@ import type { SbbHorizontalFrom } from '../core.ts';
 import { SbbElement } from '../core.ts';
 import type {
   SbbBlockLinkButtonElement,
+  SbbBlockLinkCommonElementMixinType,
   SbbBlockLinkElement,
   SbbBlockLinkStaticElement,
-  SbbLinkSize,
 } from '../link.pure.ts';
 
 import style from './action-group.scss?inline';
@@ -59,7 +59,7 @@ export class SbbActionGroupElement extends SbbElement {
    * This will overwrite the size attribute of nested sbb-block-link instances.
    */
   @property({ attribute: 'link-size', reflect: true })
-  public accessor linkSize: SbbLinkSize | null = null;
+  public accessor linkSize: SbbBlockLinkCommonElementMixinType['size'] | null = null;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

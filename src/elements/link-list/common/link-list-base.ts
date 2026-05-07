@@ -21,9 +21,9 @@ import {
 } from '../../core.ts';
 import type {
   SbbBlockLinkButtonElement,
+  SbbBlockLinkCommonElementMixinType,
   SbbBlockLinkElement,
   SbbBlockLinkStaticElement,
-  SbbLinkSize,
 } from '../../link.pure.ts';
 import { SbbTitleElement } from '../../title.pure.ts';
 
@@ -62,7 +62,8 @@ export class SbbLinkListBaseElement extends SbbNegativeMixin(
    * This will overwrite the size attribute of nested sbb-block-link instances.
    * @default 's' / 'xs' (lean)
    */
-  @property({ reflect: true }) public accessor size: SbbLinkSize = isLean() ? 'xs' : 's';
+  @property({ reflect: true }) public accessor size: SbbBlockLinkCommonElementMixinType['size'] =
+    isLean() ? 'xs' : 's';
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
