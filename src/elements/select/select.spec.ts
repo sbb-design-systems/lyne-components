@@ -419,6 +419,23 @@ describe(`sbb-select`, () => {
       expect(element.isOpen).to.be.equal(false);
     });
 
+    it('toggle the panel on origin click', async () => {
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+      // element.dispatchEvent(new PointerEvent('click'));
+      await sendMouse({ type: 'click', position: [root.offsetLeft + 25, root.offsetTop + 25] });
+      await openSpy.calledOnce();
+      await waitForLitRender(element);
+      expect(openSpy.count).to.be.equal(1);
+
+      await sendMouse({ type: 'click', position: [root.offsetLeft + 25, root.offsetTop + 25] });
+      await waitForLitRender(element);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
+      expect(openSpy.count).to.be.equal(1);
+    });
+
     it('handles keypress on host', async () => {
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
