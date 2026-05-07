@@ -67,7 +67,9 @@ export function createManifestConfig(library = '') {
       const parts = (type.types ?? []).map((e) => expandType(e, flags));
       return parts.some((p) => p === null) ? null : parts.join(' | ');
     } else if (type.flags & flags.StringLiteral) {
-      return `'${(type.value as string).replace(/'/g, "\\'")}'`;
+      const raw = type.value as string;
+      const json = JSON.stringify(raw);
+      return `'${json.slice(1, -1).replace(/'/g, "\\'")}'`;
     } else if (type.flags & flags.Null) {
       return 'null';
     } else if (type.flags & flags.Undefined) {
@@ -618,7 +620,6 @@ export function createManifestConfig(library = '') {
                 // `ClassName['memberName']` segment with the resolved type of that member.
                 if (!resolvedText) {
                   let substituted = typeText.replace(
-                     
                     /\b(\w+)\['(\w+)'\]/g,
                     (_match, className, memberName) => {
                       return (
