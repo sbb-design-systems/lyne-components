@@ -7,10 +7,10 @@ import {
   omitEmptyConverter,
   SbbDisabledMixin,
   SbbElement,
+  type SbbHeadingLevel,
   SbbPropertyWatcherController,
 } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
-import type { SbbTitleLevel } from '../../title.pure.ts';
 import { tabLabelCommonStyles } from '../common/styles.ts';
 import type { SbbTabElement } from '../tab/tab.component.ts';
 import type {
@@ -40,7 +40,7 @@ export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbEle
    * The level will correspond to the heading tag generated in the title.
    * Use this property to generate the appropriate header tag, taking SEO into consideration.
    */
-  @property() public accessor level: SbbTitleLevel = '1';
+  @property() public accessor level: SbbHeadingLevel = '1';
 
   /** Active tab state. */
   @forceType()

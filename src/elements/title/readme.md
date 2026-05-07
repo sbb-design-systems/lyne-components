@@ -35,11 +35,11 @@ In `lean` mode, where the `sbb-lean` class is applied to the `<html>` tag, the t
 
 #### Properties
 
-| Name          | Attribute      | Privacy | Type                    | Default | Description                                                                        |
-| ------------- | -------------- | ------- | ----------------------- | ------- | ---------------------------------------------------------------------------------- |
-| `level`       | `level`        | public  | `SbbTitleLevel`         | `'1'`   | Title level                                                                        |
-| `negative`    | `negative`     | public  | `boolean`               | `false` | Negative coloring variant flag.                                                    |
-| `visualLevel` | `visual-level` | public  | `SbbTitleLevel \| null` | `null`  | Visual level for the title. Optional, if not set, the value of level will be used. |
+| Name          | Attribute      | Privacy | Type                      | Default | Description                                                                        |
+| ------------- | -------------- | ------- | ------------------------- | ------- | ---------------------------------------------------------------------------------- |
+| `level`       | `level`        | public  | `SbbHeadingLevel`         | `'1'`   | Title level                                                                        |
+| `negative`    | `negative`     | public  | `boolean`                 | `false` | Negative coloring variant flag.                                                    |
+| `visualLevel` | `visual-level` | public  | `SbbHeadingLevel \| null` | `null`  | Visual level for the title. Optional, if not set, the value of level will be used. |
 
 #### CSS Properties
 

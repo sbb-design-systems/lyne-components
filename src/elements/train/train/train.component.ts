@@ -16,12 +16,12 @@ import {
   omitEmptyConverter,
   SbbElement,
   type SbbElementType,
+  type SbbHeadingLevel,
   SbbLanguageController,
   SbbNamedSlotListMixin,
   type WithListChildren,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
-import type { SbbTitleLevel } from '../../title.pure.ts';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage/train-blocked-passage.component.ts';
 import { SbbTrainFormationOrientationMixin } from '../train-formation-orientation-mixin.ts';
 import type { SbbTrainWagonMixinType } from '../train-wagon-common.ts';
@@ -62,7 +62,7 @@ export class SbbTrainElement extends SbbTrainFormationOrientationMixin(
 
   /** Heading level of the direction label, used for screen readers. */
   @property({ attribute: 'direction-label-level' })
-  public accessor directionLabelLevel: SbbTitleLevel = '6';
+  public accessor directionLabelLevel: SbbHeadingLevel = '6';
 
   /** Label for the destination station of the train. */
   @forceType()

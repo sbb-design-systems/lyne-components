@@ -14,6 +14,7 @@ import {
   omitEmptyConverter,
   SbbElement,
   type SbbElementType,
+  type SbbHeadingLevel,
   SbbNamedSlotListMixin,
   SbbNegativeMixin,
   type WithListChildren,
@@ -24,7 +25,7 @@ import type {
   SbbBlockLinkStaticElement,
   SbbLinkSize,
 } from '../../link.pure.ts';
-import { SbbTitleElement, type SbbTitleLevel } from '../../title.pure.ts';
+import { SbbTitleElement } from '../../title.pure.ts';
 
 import style from './link-list-base.scss?inline';
 
@@ -54,7 +55,7 @@ export class SbbLinkListBaseElement extends SbbNegativeMixin(
   public accessor titleContent: string = '';
 
   /** The semantic level of the title, e.g. 2 = h2. */
-  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '2';
+  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbHeadingLevel = '2';
 
   /**
    * Text size of the nested sbb-block-link instances.

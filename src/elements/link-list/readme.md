@@ -81,7 +81,7 @@ The title will not be displayed in the horizontal orientation.
 | `orientation`    | `orientation`     | public  | `'horizontal' \| 'vertical'` | `'vertical'`        | The orientation in which the list will be shown vertical or horizontal.                                                      |
 | `size`           | `size`            | public  | `SbbLinkSize`                | `'s' / 'xs' (lean)` | Text size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
 | `titleContent`   | `title-content`   | public  | `string`                     | `''`                | The title text we want to show before the list.                                                                              |
-| `titleLevel`     | `title-level`     | public  | `SbbTitleLevel`              | `'2'`               | The semantic level of the title, e.g. 2 = h2.                                                                                |
+| `titleLevel`     | `title-level`     | public  | `SbbHeadingLevel`            | `'2'`               | The semantic level of the title, e.g. 2 = h2.                                                                                |
 
 #### Slots
 

@@ -13,10 +13,10 @@ import {
   isEventPrevented,
   isLean,
   SbbElement,
+  type SbbHeadingLevel,
   ɵstateController,
 } from '../core.ts';
 import type { SbbExpansionPanelElement } from '../expansion-panel.pure.ts';
-import type { SbbTitleLevel } from '../title.pure.ts';
 
 import style from './accordion.scss?inline';
 
@@ -42,7 +42,7 @@ export class SbbAccordionElement extends SbbElement {
    */
   @handleDistinctChange((e: SbbAccordionElement) => e._setTitleLevelOnChildren())
   @property({ attribute: 'title-level' })
-  public accessor titleLevel: SbbTitleLevel | null = null;
+  public accessor titleLevel: SbbHeadingLevel | null = null;
 
   /** Whether more than one sbb-expansion-panel can be open at the same time. */
   @forceType()

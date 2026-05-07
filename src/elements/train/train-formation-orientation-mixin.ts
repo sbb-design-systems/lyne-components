@@ -22,7 +22,8 @@ export const SbbTrainFormationOrientationMixin = <T extends AbstractConstructor<
     extends superClass
     implements Partial<SbbTrainFormationOrientationMixinType>
   {
-    @state() protected accessor orientation: 'horizontal' | 'vertical' | null = null;
+    @state() protected accessor orientation: SbbTrainFormationOrientationMixinType['orientation'] =
+      null;
 
     protected constructor(...args: any[]) {
       super(...args);

@@ -332,11 +332,11 @@ an alternative element by listening to the `didClose` event.
 
 #### Properties
 
-| Name          | Attribute      | Privacy | Type                    | Default | Description                     |
-| ------------- | -------------- | ------- | ----------------------- | ------- | ------------------------------- |
-| `level`       | `level`        | public  | `SbbTitleLevel`         | `'2'`   | Title level                     |
-| `negative`    | `negative`     | public  | `boolean`               | `false` | Negative coloring variant flag. |
-| `visualLevel` | `visual-level` | public  | `SbbTitleLevel \| null` | `'4'`   | Visual level for the title.     |
+| Name          | Attribute      | Privacy | Type                      | Default | Description                     |
+| ------------- | -------------- | ------- | ------------------------- | ------- | ------------------------------- |
+| `level`       | `level`        | public  | `SbbHeadingLevel`         | `'2'`   | Title level                     |
+| `negative`    | `negative`     | public  | `boolean`                 | `false` | Negative coloring variant flag. |
+| `visualLevel` | `visual-level` | public  | `SbbHeadingLevel \| null` | `'4'`   | Visual level for the title.     |
 
 #### Slots
 
