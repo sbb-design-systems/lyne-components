@@ -11,8 +11,6 @@ import {
 
 import style from './checkbox-common.scss?inline';
 
-export type SbbCheckboxSize = 'xs' | 's' | 'm';
-
 export declare abstract class SbbCheckboxCommonElementMixinType extends SbbFormAssociatedCheckboxMixin(
   SbbElement,
 ) {

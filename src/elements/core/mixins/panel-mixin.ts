@@ -1,8 +1,8 @@
 import { type CSSResultGroup, type LitElement, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbCheckboxSize } from '../../checkbox/common/checkbox-common.ts';
 import type { SbbCheckboxGroupElement } from '../../checkbox-group.pure.ts';
+import type { SbbCheckboxElement } from '../../checkbox.pure.ts';
 import type { SbbRadioButtonSize } from '../../radio-button/common/radio-button-common.ts';
 import type { SbbRadioButtonGroupElement } from '../../radio-button-group.pure.ts';
 import { forceType } from '../decorators/force-type.ts';
@@ -20,7 +20,7 @@ export declare class SbbPanelMixinType {
   public accessor color: 'white' | 'milk';
   public accessor borderless: boolean;
   public accessor expansionState: string;
-  public accessor size: SbbCheckboxSize | SbbRadioButtonSize;
+  public accessor size: SbbCheckboxElement['size'] | SbbRadioButtonSize;
 }
 
 /**
@@ -52,7 +52,7 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement & SbbPane
      */
     @property({ reflect: true })
     @getOverride((p: SbbPanelElement, v) => p.group?.size ?? v)
-    public accessor size: SbbCheckboxSize | SbbRadioButtonSize = isLean() ? 'xs' : 'm';
+    public accessor size: SbbCheckboxElement['size'] | SbbRadioButtonSize = isLean() ? 'xs' : 'm';
 
     public override connectedCallback(): void {
       super.connectedCallback();
