@@ -8,11 +8,11 @@ import {
   omitEmptyConverter,
   SbbDarkModeController,
   SbbElement,
+  type SbbHeadingLevel,
   SbbNamedSlotListMixin,
   type WithListChildren,
 } from '../core.ts';
 import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.pure.ts';
-import type { SbbTitleLevel } from '../title.pure.ts';
 
 import style from './skiplink-list.scss?inline';
 
@@ -39,7 +39,7 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
   public accessor titleContent: string = '';
 
   /** The semantic level of the title, e.g. 2 = h2. */
-  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '2';
+  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbHeadingLevel = '2';
 
   private _darkModeController = new SbbDarkModeController(this, () => {
     for (const child of this.listChildren) {

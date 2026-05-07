@@ -9,7 +9,7 @@ import { SbbVisualCheckboxElement } from '../../visual-checkbox.pure.ts';
 import { SbbOptionBaseElement } from './option-base-element.ts';
 import style from './option.scss?inline';
 
-export type SbbOptionVariant = 'autocomplete' | 'select' | null;
+type SbbOptionVariant = 'autocomplete' | 'select' | null;
 
 /**
  * It displays on option item which can be used in `sbb-select` or `sbb-autocomplete`.

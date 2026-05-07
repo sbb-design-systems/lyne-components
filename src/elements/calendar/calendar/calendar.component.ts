@@ -36,7 +36,6 @@ import {
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointLargeAndAbove,
-  type SbbOrientation,
   screenReaderOnlyStyles,
   THURSDAY,
   TUESDAY,
@@ -133,8 +132,6 @@ export interface Weekday {
   narrow: string;
 }
 
-export type CalendarView = 'day' | 'month' | 'year';
-
 /**
  * It displays a calendar which allows choosing a date.
  *
@@ -163,7 +160,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   public accessor wide: boolean = false;
 
   /** The initial view of the calendar which should be displayed on opening. */
-  @property() public accessor view: CalendarView = 'day';
+  @property() public accessor view: 'day' | 'month' | 'year' = 'day';
 
   /**
    * The minimum valid date. Accepts a date object or null.
@@ -229,7 +226,8 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   public accessor dateFilter: ((date: T | null) => boolean) | null = null;
 
   /** The orientation of days in the calendar. */
-  @property({ reflect: true }) public accessor orientation: SbbOrientation = 'horizontal';
+  @property({ reflect: true }) public accessor orientation: 'horizontal' | 'vertical' =
+    'horizontal';
 
   /** Whether it has to display the week numbers in addition to week days. */
   @forceType()
@@ -254,9 +252,9 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   // TODO: re-check whether field is needed
   private _wideInternal: boolean = false;
 
-  @state() private accessor _calendarView: CalendarView = 'day';
+  @state() private accessor _calendarView: SbbCalendarElement['view'] = 'day';
 
-  private _nextCalendarView: CalendarView = 'day';
+  private _nextCalendarView: SbbCalendarElement['view'] = 'day';
 
   /** Information about the rendered day view; used in keyboard navigation. */
   private _keyboardNavigationDayViewParameters: CalendarKeyboardNavigationDayViewParameters = {

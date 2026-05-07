@@ -22,8 +22,6 @@ import type { SbbTagGroupElement } from '../tag-group/tag-group.component.ts';
 
 import style from './tag.scss?inline';
 
-export type SbbTagSize = 's' | 'm';
-
 /**
  * It displays a selectable element which can be used as a filter.
  *
@@ -63,7 +61,7 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
    */
   @property({ reflect: true })
   @getOverride((i, v) => i._group?.size ?? v)
-  public accessor size: SbbTagSize = isLean() ? 's' : 'm';
+  public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
 
   /** Reference to the connected tag group. */
   private _group: SbbTagGroupElement | null = null;

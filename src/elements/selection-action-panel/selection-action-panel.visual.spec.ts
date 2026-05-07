@@ -1,12 +1,12 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import type { SbbCheckboxSize } from '../checkbox/common/checkbox-common.ts';
 import {
   describeEach,
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
 } from '../core/testing/private.ts';
+import type { SbbPanelMixinType } from '../core.ts';
 
 import '../selection-action-panel.ts';
 import '../button.ts';
@@ -29,7 +29,7 @@ describe(`sbb-selection-action-panel`, () => {
 
   type ParamsType = { [K in keyof typeof cases]: (typeof cases)[K][number] } & {
     value?: string;
-    size: SbbCheckboxSize;
+    size: SbbPanelMixinType['size'];
   };
 
   const withCheckboxPanel = (params: Partial<ParamsType>): TemplateResult => html`

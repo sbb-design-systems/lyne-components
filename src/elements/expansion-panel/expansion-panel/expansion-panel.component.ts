@@ -2,15 +2,15 @@ import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbOpenedClosedState } from '../../core.ts';
 import {
+  type SbbOpenedClosedState,
   forceType,
   isLean,
   isZeroAnimationDuration,
   SbbElement,
+  type SbbHeadingLevel,
   ɵstateController,
 } from '../../core.ts';
-import type { SbbTitleLevel } from '../../title.pure.ts';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content/expansion-panel-content.component.ts';
 import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header/expansion-panel-header.component.ts';
 
@@ -34,7 +34,7 @@ export class SbbExpansionPanelElement extends SbbElement {
   } as const;
 
   /** Heading level; if unset, a `div` will be rendered. */
-  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel | null = null;
+  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbHeadingLevel | null = null;
 
   /** The background color of the panel. */
   @property({ reflect: true }) public accessor color: 'white' | 'milk' = 'white';

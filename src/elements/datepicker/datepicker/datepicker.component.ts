@@ -9,7 +9,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { type CalendarView, SbbCalendarElement } from '../../calendar.pure.ts';
+import { SbbCalendarElement } from '../../calendar.pure.ts';
 import {
   type DateAdapter,
   defaultDateAdapter,
@@ -57,7 +57,7 @@ export class SbbDatepickerElement<T = Date>
   public accessor input: SbbDateInputElement<T> | null = null;
 
   /** The initial view of calendar which should be displayed on opening. */
-  @property() public accessor view: CalendarView = 'day';
+  @property() public accessor view: SbbCalendarElement['view'] = 'day';
 
   private _inputAbortController?: AbortController;
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;

@@ -1,7 +1,7 @@
 import { type CSSResultGroup, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbHorizontalFrom, SbbOrientation } from '../core.ts';
+import type { SbbHorizontalFrom } from '../core.ts';
 
 import { SbbLinkListBaseElement } from './common/link-list-base.ts';
 import style from './link-list.scss?inline';
@@ -21,7 +21,7 @@ export class SbbLinkListElement extends SbbLinkListBaseElement {
   public accessor horizontalFrom: SbbHorizontalFrom | null = null;
 
   /** The orientation in which the list will be shown vertical or horizontal. */
-  @property({ reflect: true }) public accessor orientation: SbbOrientation = 'vertical';
+  @property({ reflect: true }) public accessor orientation: 'horizontal' | 'vertical' = 'vertical';
 }
 
 declare global {

@@ -5,6 +5,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
+import type { SbbLogoElement } from './logo.component.ts';
 import readme from './readme.md?raw';
 import '../logo.ts';
 
@@ -20,7 +21,7 @@ const protectiveRoom: InputType = {
   control: {
     type: 'select',
   },
-  options: ['none', 'minimal', 'ideal'],
+  options: ['none', 'minimal', 'ideal'] satisfies SbbLogoElement['protectiveRoom'][],
 };
 
 const accessibilityLabel: InputType = {
