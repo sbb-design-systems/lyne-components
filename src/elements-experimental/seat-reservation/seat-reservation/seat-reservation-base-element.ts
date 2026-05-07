@@ -242,9 +242,7 @@ export class SeatReservationBaseElement extends SbbElement {
     if (changedProperties.has('height') && !!this.height) {
       const seatReservationLayer = this.seatReservations[this.currSelectedDeckIndex] || null;
       if (seatReservationLayer?.coachItems.length) {
-        this.baseGridSize = Math.round(
-          this.height / seatReservationLayer.coachItems[0].dimension.h,
-        );
+        this.baseGridSize = this.height / seatReservationLayer.coachItems[0].dimension.h;
         this.coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
         this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
 
@@ -685,8 +683,8 @@ export class SeatReservationBaseElement extends SbbElement {
     }
 
     return {
-      w: this.baseGridSize * elementDimension.w,
-      h: this.baseGridSize * elementDimension.h,
+      w: Math.round(this.baseGridSize * elementDimension.w),
+      h: Math.round(this.baseGridSize * elementDimension.h),
     };
   }
 
@@ -709,8 +707,8 @@ export class SeatReservationBaseElement extends SbbElement {
     }
 
     return {
-      x: this.baseGridSize * elementPosition.x,
-      y: this.baseGridSize * elementPosition.y,
+      x: Math.round(this.baseGridSize * elementPosition.x),
+      y: Math.round(this.baseGridSize * elementPosition.y),
       z: elementPosition.z,
     };
   }
@@ -1838,11 +1836,11 @@ export class SeatReservationBaseElement extends SbbElement {
       }
     }
 
-    dim.w *= this.baseGridSize;
-    dim.h *= this.baseGridSize;
+    dim.w = Math.round(dim.w * this.baseGridSize);
+    dim.h = Math.round(dim.h * this.baseGridSize);
 
-    pos.x *= this.baseGridSize;
-    pos.y *= this.baseGridSize;
+    pos.x = Math.round(pos.x * this.baseGridSize);
+    pos.y = Math.round(pos.y * this.baseGridSize);
 
     const icon =
       element.icon && element.icon.endsWith('DRIVER_AREA')

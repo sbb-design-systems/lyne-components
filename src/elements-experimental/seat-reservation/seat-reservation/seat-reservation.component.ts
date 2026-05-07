@@ -274,13 +274,14 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     coachDeckIndex: number,
     placeCoachDeckIndex: number,
   ): TemplateResult {
-    const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
+    const currCoachStructure =
+      this.seatReservationStructure.decks[coachDeckIndex].deckCoaches[coachIndex];
     const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem);
 
     return html`<sbb-seat-reservation-scoped
       style=${styleMap({
-        '--sbb-seat-reservation-scoped-width': calculatedCoachDimension.w,
-        '--sbb-seat-reservation-scoped-height': calculatedCoachDimension.h,
+        '--sbb-seat-reservation-scoped-width': currCoachStructure.width,
+        '--sbb-seat-reservation-scoped-height': currCoachStructure.height,
       })}
     >
       ${this._getRenderedCoachBorders(coachItem, coachDeckIndex, coachIndex)}
