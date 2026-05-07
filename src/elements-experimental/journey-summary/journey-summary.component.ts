@@ -4,12 +4,12 @@ import {
   i18nTripDuration,
   SbbElement,
   type SbbElementType,
+  type SbbHeadingLevel,
   SbbLanguageController,
   screenReaderOnlyStyles,
 } from '@sbb-esta/lyne-elements/core.js';
 import { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.pure.js';
 import { SbbJourneyHeaderElement } from '@sbb-esta/lyne-elements/journey-header.pure.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.pure.js';
 import { format, isValid } from 'date-fns';
 import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -60,7 +60,7 @@ export class SbbJourneySummaryElement extends SbbElement {
   public accessor roundTrip: boolean = false;
 
   /** Heading level of the journey header element (e.g. h1-h6). */
-  @property({ attribute: 'header-level' }) public accessor headerLevel: SbbTitleLevel = '3';
+  @property({ attribute: 'header-level' }) public accessor headerLevel: SbbHeadingLevel = '3';
 
   /**
    * Per default, the current location has a pulsating animation. You can
