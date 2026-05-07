@@ -31,38 +31,16 @@ snapshots["sbb-select renders Safari Shadow DOM"] =
   class="sbb-select__trigger"
 >
 </div>
-<div class="sbb-select__gap-fix">
-</div>
 <div
-  class="sbb-select__container"
+  class="sbb-option-panel__overlay-container"
   popover="manual"
 >
-  <div class="sbb-select__gap-fix">
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="left"
-      >
-      </div>
-    </div>
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="right"
-      >
-      </div>
-    </div>
-  </div>
-  <div class="sbb-select__panel">
-    <div class="sbb-select__wrapper">
-      <div
-        class="sbb-select__options"
-        tabindex="-1"
-      >
-        <slot>
-        </slot>
-      </div>
-    </div>
+  <div
+    class="sbb-option-panel__overlay sbb-scrollbar"
+    tabindex="-1"
+  >
+    <slot>
+    </slot>
   </div>
 </div>
 `;
@@ -101,39 +79,17 @@ snapshots["sbb-select renders multiple Safari Shadow DOM"] =
   class="sbb-select__trigger"
 >
 </div>
-<div class="sbb-select__gap-fix">
-</div>
 <div
-  class="sbb-select__container"
+  class="sbb-option-panel__overlay-container"
   popover="manual"
 >
-  <div class="sbb-select__gap-fix">
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="left"
-      >
-      </div>
-    </div>
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="right"
-      >
-      </div>
-    </div>
-  </div>
-  <div class="sbb-select__panel">
-    <div class="sbb-select__wrapper">
-      <div
-        aria-multiselectable=""
-        class="sbb-select__options"
-        tabindex="-1"
-      >
-        <slot>
-        </slot>
-      </div>
-    </div>
+  <div
+    aria-multiselectable=""
+    class="sbb-option-panel__overlay sbb-scrollbar"
+    tabindex="-1"
+  >
+    <slot>
+    </slot>
   </div>
 </div>
 `;
@@ -160,40 +116,18 @@ snapshots["sbb-select renders Chrome-Firefox Shadow DOM"] =
   class="sbb-select__trigger"
 >
 </div>
-<div class="sbb-select__gap-fix">
-</div>
 <div
-  class="sbb-select__container"
+  class="sbb-option-panel__overlay-container"
   popover="manual"
 >
-  <div class="sbb-select__gap-fix">
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="left"
-      >
-      </div>
-    </div>
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="right"
-      >
-      </div>
-    </div>
-  </div>
-  <div class="sbb-select__panel">
-    <div class="sbb-select__wrapper">
-      <div
-        class="sbb-select__options"
-        id="sbb-select-2"
-        role="listbox"
-        tabindex="-1"
-      >
-        <slot>
-        </slot>
-      </div>
-    </div>
+  <div
+    class="sbb-option-panel__overlay sbb-scrollbar"
+    id="sbb-select-2"
+    role="listbox"
+    tabindex="-1"
+  >
+    <slot>
+    </slot>
   </div>
 </div>
 `;
@@ -245,34 +179,18 @@ snapshots["sbb-select renders multiple Chrome-Firefox Shadow DOM"] =
   class="sbb-select__trigger"
 >
 </div>
-<div class="sbb-select__gap-fix">
-</div>
 <div
-  class="sbb-select__container"
+  class="sbb-option-panel__overlay-container"
   popover="manual"
 >
-  <div class="sbb-select__gap-fix">
-    <div class="sbb-gap-fix-wrapper">
-      <div class="sbb-gap-fix-corner">
-      </div>
-    </div>
-    <div class="sbb-gap-fix-wrapper">
-      <div class="sbb-gap-fix-corner">
-      </div>
-    </div>
-  </div>
-  <div class="sbb-select__panel">
-    <div class="sbb-select__wrapper">
-      <div
-        aria-multiselectable=""
-        class="sbb-select__options"
-        role="listbox"
-        tabindex="-1"
-      >
-        <slot>
-        </slot>
-      </div>
-    </div>
+  <div
+    aria-multiselectable=""
+    class="sbb-option-panel__overlay sbb-scrollbar"
+    role="listbox"
+    tabindex="-1"
+  >
+    <slot>
+    </slot>
   </div>
 </div>
 `;

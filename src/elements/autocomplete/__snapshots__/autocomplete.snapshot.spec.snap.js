@@ -25,35 +25,13 @@ snapshots["sbb-autocomplete renders standalone Safari DOM"] =
 /* end snapshot sbb-autocomplete renders standalone Safari DOM */
 
 snapshots["sbb-autocomplete renders standalone Safari Shadow DOM"] = 
-`<div class="sbb-autocomplete__gap-fix">
-</div>
-<div class="sbb-autocomplete__container">
-  <div class="sbb-autocomplete__gap-fix">
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="left"
-      >
-      </div>
-    </div>
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="right"
-      >
-      </div>
-    </div>
-  </div>
-  <div class="sbb-autocomplete__panel">
-    <div class="sbb-autocomplete__wrapper">
-      <div
-        class="sbb-autocomplete__options"
-        tabindex="-1"
-      >
-        <slot>
-        </slot>
-      </div>
-    </div>
+`<div class="sbb-option-panel__overlay-container">
+  <div
+    class="sbb-option-panel__overlay sbb-scrollbar"
+    tabindex="-1"
+  >
+    <slot>
+    </slot>
   </div>
 </div>
 `;
@@ -154,37 +132,15 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] =
 /* end snapshot sbb-autocomplete renders standalone Chrome-Firefox DOM */
 
 snapshots["sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM"] = 
-`<div class="sbb-autocomplete__gap-fix">
-</div>
-<div class="sbb-autocomplete__container">
-  <div class="sbb-autocomplete__gap-fix">
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="left"
-      >
-      </div>
-    </div>
-    <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="right"
-      >
-      </div>
-    </div>
-  </div>
-  <div class="sbb-autocomplete__panel">
-    <div class="sbb-autocomplete__wrapper">
-      <div
-        class="sbb-autocomplete__options"
-        id="sbb-autocomplete-2"
-        role="listbox"
-        tabindex="-1"
-      >
-        <slot>
-        </slot>
-      </div>
-    </div>
+`<div class="sbb-option-panel__overlay-container">
+  <div
+    class="sbb-option-panel__overlay sbb-scrollbar"
+    id="sbb-autocomplete-2"
+    role="listbox"
+    tabindex="-1"
+  >
+    <slot>
+    </slot>
   </div>
 </div>
 `;
