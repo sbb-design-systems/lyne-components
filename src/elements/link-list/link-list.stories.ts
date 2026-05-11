@@ -5,6 +5,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
+import type { SbbLinkListElement } from './link-list.component.ts';
 import readme from './readme.md?raw';
 
 import '../link.ts';
@@ -42,14 +43,14 @@ const orientation: InputType = {
   control: {
     type: 'select',
   },
-  options: ['vertical', 'horizontal'],
+  options: ['vertical', 'horizontal'] satisfies SbbLinkListElement['orientation'][],
 };
 
 const horizontalFrom: InputType = {
   control: {
     type: 'select',
   },
-  options: ['zero', 'small', 'large', 'ultra'],
+  options: ['zero', 'small', 'large', 'ultra'] satisfies SbbLinkListElement['horizontalFrom'][],
 };
 
 const negative: InputType = {
@@ -61,9 +62,9 @@ const negative: InputType = {
 
 const size: InputType = {
   control: {
-    type: 'select',
+    type: 'inline-radio',
   },
-  options: ['xs', 's', 'm'],
+  options: ['xs', 's', 'm'] satisfies SbbLinkListElement['size'][],
 };
 
 const titleContent: InputType = {
@@ -79,7 +80,7 @@ const titleLevel: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: [2, 3, 4, 5, 6],
+  options: ['2', '3', '4', '5', '6'] satisfies SbbLinkListElement['titleLevel'][],
   table: {
     category: 'List Title',
   },
@@ -97,7 +98,7 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   orientation: orientation.options![0],
   'horizontal-from': undefined,
-  size: size.options![1],
+  size: undefined,
   negative: false,
   'title-level': titleLevel.options![0],
   'title-content': 'Help & Contact',
@@ -117,6 +118,14 @@ export const LinkListXS: StoryObj = {
   args: {
     ...defaultArgs,
     size: size.options![0],
+  },
+};
+export const LinkListS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    size: size.options![1],
   },
 };
 

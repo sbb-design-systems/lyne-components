@@ -74,14 +74,14 @@ The title will not be displayed in the horizontal orientation.
 
 #### Properties
 
-| Name             | Attribute         | Privacy | Type                                              | Default             | Description                                                                                                                  |
-| ---------------- | ----------------- | ------- | ------------------------------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `horizontalFrom` | `horizontal-from` | public  | `'zero' \| 'small' \| 'large' \| 'ultra' \| null` | `null`              | Selected breakpoint from which the list is rendered horizontally.                                                            |
-| `negative`       | `negative`        | public  | `boolean`                                         | `false`             | Negative coloring variant flag.                                                                                              |
-| `orientation`    | `orientation`     | public  | `'horizontal' \| 'vertical'`                      | `'vertical'`        | The orientation in which the list will be shown vertical or horizontal.                                                      |
-| `size`           | `size`            | public  | `'xs' \| 's' \| 'm'`                              | `'s' / 'xs' (lean)` | Text size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
-| `titleContent`   | `title-content`   | public  | `string`                                          | `''`                | The title text we want to show before the list.                                                                              |
-| `titleLevel`     | `title-level`     | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6'`          | `'2'`               | The semantic level of the title, e.g. 2 = h2.                                                                                |
+| Name             | Attribute         | Privacy | Type                                              | Default      | Description                                                                                                                                                                      |
+| ---------------- | ----------------- | ------- | ------------------------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `horizontalFrom` | `horizontal-from` | public  | `'zero' \| 'small' \| 'large' \| 'ultra' \| null` | `null`       | Selected breakpoint from which the list is rendered horizontally.                                                                                                                |
+| `negative`       | `negative`        | public  | `boolean`                                         | `false`      | Negative coloring variant flag.                                                                                                                                                  |
+| `orientation`    | `orientation`     | public  | `'horizontal' \| 'vertical'`                      | `'vertical'` | The orientation in which the list will be shown vertical or horizontal.                                                                                                          |
+| `size`           | `size`            | public  | `'xs' \| 's' \| 'm'`                              | `null`       | Text size of the nested sbb-block-link instances, either xs (lean default), s (standard default) or m This will overwrite the size attribute of nested sbb-block-link instances. |
+| `titleContent`   | `title-content`   | public  | `string`                                          | `''`         | The title text we want to show before the list.                                                                                                                                  |
+| `titleLevel`     | `title-level`     | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6'`          | `'2'`        | The semantic level of the title, e.g. 2 = h2.                                                                                                                                    |
 
 #### Slots
 
