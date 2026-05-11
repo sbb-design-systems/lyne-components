@@ -3,11 +3,11 @@ import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
-  type SbbOpenedClosedState,
   forceType,
   isZeroAnimationDuration,
   SbbElement,
   type SbbHeadingLevel,
+  type SbbOpenedClosedState,
   ɵstateController,
 } from '../../core.ts';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content/expansion-panel-content.component.ts';

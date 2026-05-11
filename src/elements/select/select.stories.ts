@@ -6,8 +6,7 @@ import type {
   StoryContext,
   StoryObj,
 } from '@storybook/web-components-vite';
-import { nothing, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';

@@ -1,8 +1,10 @@
 import { type CSSResultGroup, unsafeCSS } from 'lit';
 
-import { type DateAdapter, type FormRestoreReason, type FormRestoreState } from '../../core.ts';
 import {
+  type DateAdapter,
   defaultDateAdapter,
+  type FormRestoreReason,
+  type FormRestoreState,
   readConfig,
   SbbButtonLikeBaseElement,
   SbbDisabledMixin,

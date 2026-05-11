@@ -1,7 +1,7 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
-import type { SbbTrainWagonElement, SbbTrainFormationElement } from '../../train.ts';
+import type { SbbTrainFormationElement, SbbTrainWagonElement } from '../../train.ts';
 
 import '../../train.ts';
 

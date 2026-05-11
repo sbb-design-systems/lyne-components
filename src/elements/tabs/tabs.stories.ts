@@ -5,10 +5,10 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import {
-  type SbbTabNavBarElement,
   type SbbTabChangedEventDetails,
   SbbTabElement,
   SbbTabGroupElement,
+  type SbbTabNavBarElement,
 } from '../tabs.ts';
 
 import readme from './readme.md?raw';

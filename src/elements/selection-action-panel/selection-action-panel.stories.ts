@@ -1,6 +1,5 @@
 import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
-import { nothing, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
