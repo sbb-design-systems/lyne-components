@@ -1,5 +1,4 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { i18nPage, i18nPaginatorOf, SbbElement, type SbbElementType } from '../../core.ts';
 import { SbbDividerElement } from '../../divider.pure.ts';
@@ -24,7 +23,6 @@ export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(S
         >${this.pageIndex + 1}<sbb-divider
           orientation="vertical"
           class="sbb-compact-paginator__divider"
-          style=${styleMap({ '--sbb-divider-color': 'currentcolor' })}
           ?negative=${this.negative}
         ></sbb-divider
         >${this.numberOfPages()}</span

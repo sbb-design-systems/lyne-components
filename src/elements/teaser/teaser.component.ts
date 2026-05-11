@@ -3,7 +3,7 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbChipLabelElement } from '../chip-label.pure.ts';
-import { SbbLinkBaseElement } from '../core.ts';
+import { SbbLinkBaseElement, screenReaderOnlyStyles } from '../core.ts';
 import type { SbbTitleElement } from '../title.pure.ts';
 
 import style from './teaser.scss?inline';
@@ -18,7 +18,7 @@ import style from './teaser.scss?inline';
  */
 export class SbbTeaserElement extends SbbLinkBaseElement {
   public static override readonly elementName: string = 'sbb-teaser';
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /** Teaser variant - define the position and the alignment of the text block. */
   @property({ reflect: true }) public accessor alignment: 'after-centered' | 'after' | 'below' =
