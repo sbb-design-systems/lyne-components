@@ -3,8 +3,8 @@ import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import type { SbbTime } from '../core.ts';
 
+import type { SbbClockElement } from './clock.component.ts';
 import readme from './readme.md?raw';
 
 import '../clock.ts';
@@ -15,7 +15,7 @@ const minutes: InputType = { control: { type: 'number', min: 0, max: 59 } };
 const seconds: InputType = { control: { type: 'number', min: 0, max: 58 } };
 
 const Template = ({ hours, minutes, seconds, ...args }: Args): TemplateResult => {
-  const timeString: SbbTime = `${hours}:${minutes}:${seconds}`;
+  const timeString: string = `${hours}:${minutes}:${seconds}` satisfies SbbClockElement['now'];
   const hasCustomTime = hours !== undefined && minutes !== undefined && seconds !== undefined;
   return html`<sbb-clock
     now=${hasCustomTime ? timeString : nothing}

@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbHorizontalFrom, SbbOrientation } from '../interfaces/types.ts';
+import type { SbbHorizontalFrom } from '../interfaces/types.ts';
 import { SbbDisabledMixin } from '../mixins/disabled-mixin.ts';
 import { SbbRequiredMixin } from '../mixins/required-mixin.ts';
 
@@ -37,7 +37,7 @@ export abstract class SbbSelectionGroupBaseElement<T extends SbbElement> extends
 
   /** Indicates the orientation of the checkboxes or panels inside the group. */
   @property({ reflect: true })
-  public accessor orientation: SbbOrientation = 'horizontal';
+  public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   protected abstract readonly selectionElementSelectors: string;
   protected abstract readonly panelElementSelector: string;

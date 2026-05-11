@@ -102,7 +102,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm'],
+  options: ['s', 'm'] satisfies SbbTagElement['size'][],
 };
 
 const tagDefaultArgTypes: ArgTypes = {

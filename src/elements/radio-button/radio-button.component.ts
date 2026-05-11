@@ -3,10 +3,7 @@ import { property } from 'lit/decorators.js';
 
 import { getOverride, SbbElement } from '../core.ts';
 
-import {
-  SbbRadioButtonCommonElementMixin,
-  type SbbRadioButtonSize,
-} from './common/radio-button-common.ts';
+import { SbbRadioButtonCommonElementMixin } from './common/radio-button-common.ts';
 import style from './radio-button.scss?inline';
 
 /**
@@ -33,7 +30,7 @@ export class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonEleme
    */
   @property({ reflect: true })
   @getOverride((i, v) => i.group?.size ?? v)
-  public accessor size: SbbRadioButtonSize = null;
+  public accessor size: 'xs' | 's' | 'm' | null = null;
 
   /**
    * The value of the form element

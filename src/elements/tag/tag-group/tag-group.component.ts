@@ -17,7 +17,7 @@ import {
   setOrRemoveAttribute,
   type WithListChildren,
 } from '../../core.ts';
-import type { SbbTagElement, SbbTagSize } from '../tag/tag.component.ts';
+import type { SbbTagElement } from '../tag/tag.component.ts';
 
 import style from './tag-group.scss?inline';
 
@@ -56,7 +56,7 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
    * Tag group size, either s or m.
    * @default 'm' / 's' (lean)
    */
-  @property({ reflect: true }) public accessor size: SbbTagSize = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: SbbTagElement['size'] = isLean() ? 's' : 'm';
 
   /**
    * Value of the sbb-tag-group.

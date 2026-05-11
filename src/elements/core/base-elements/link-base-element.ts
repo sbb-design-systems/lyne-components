@@ -8,9 +8,6 @@ import { i18nTargetOpensInNewWindow } from '../i18n/i18n.ts';
 
 import { SbbActionBaseElement } from './action-base-element.ts';
 
-/** Enumeration for 'target' attribute in <a> HTML tag. */
-export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
-
 /** Link base class. */
 export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   /** The href value you want to link to. */
@@ -21,7 +18,7 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   /** Where to display the linked URL. */
   @forceType()
   @property({ reflect: true, converter: omitEmptyConverter })
-  public accessor target: LinkTargetType | string = '';
+  public accessor target: '_blank' | '_self' | '_parent' | '_top' | string = '';
 
   /** The relationship of the linked URL as space-separated link types. */
   @forceType()

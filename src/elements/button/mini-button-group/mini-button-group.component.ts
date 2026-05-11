@@ -13,8 +13,6 @@ import type { SbbMiniButtonElement } from '../mini-button/mini-button.component.
 
 import style from './mini-button-group.scss?inline';
 
-export type SbbMiniButtonGroupSize = 's' | 'm' | 'l' | 'xl' | null;
-
 /**
  * Display a list of `sbb-mini-button` elements in a horizontal container,
  * possibly separated by a `sbb-divider` component.
@@ -40,7 +38,7 @@ export class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   /**
    * Size variant, either s (lean default), m (standard default), l or xl.
    */
-  @property({ reflect: true }) public accessor size: SbbMiniButtonGroupSize = null;
+  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | 'xl' | null = null;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

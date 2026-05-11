@@ -31,12 +31,10 @@ export const buttonTransparentStyle = unsafeCSS(buttonTransparentStyleString);
 export const miniButtonStyle = unsafeCSS(miniButtonStyleString);
 export const miniButtonLabelStyle = unsafeCSS(miniButtonLabelStyleString);
 
-export type SbbButtonSize = 'l' | 'm' | 's' | null;
-
 export declare class SbbButtonCommonElementMixinType extends SbbNegativeMixin(
   SbbIconNameMixin(SbbActionBaseElement),
 ) {
-  public accessor size: SbbButtonSize;
+  public accessor size: 's' | 'm' | 'l' | null;
   public accessor loading: boolean;
 }
 
@@ -52,7 +50,8 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
     /**
      * Size variant, either s (lean default), m (standard default) or l.
      */
-    @property({ reflect: true }) public accessor size: SbbButtonSize = null;
+    @property({ reflect: true }) public accessor size: SbbButtonCommonElementMixinType['size'] =
+      null;
 
     /**
      * Whether the button indicates a loading state.

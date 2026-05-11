@@ -74,10 +74,10 @@ If needed, the `role="status"` attribute can be added on the component's tag.
 
 #### Properties
 
-| Name       | Attribute   | Privacy | Type            | Default  | Description                                                                                                                      |
-| ---------- | ----------- | ------- | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `iconName` | `icon-name` | public  | `string`        | `''`     | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `type`     | `type`      | public  | `SbbStatusType` | `'info'` | The type of the status.                                                                                                          |
+| Name       | Attribute   | Privacy | Type                                                                                                         | Default  | Description                                                                                                                      |
+| ---------- | ----------- | ------- | ------------------------------------------------------------------------------------------------------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `iconName` | `icon-name` | public  | `string`                                                                                                     | `''`     | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `type`     | `type`      | public  | `'info' \| 'success' \| 'warning' \| 'error' \| 'pending' \| 'incomplete' \| 'not-started' \| 'in-progress'` | `'info'` | The type of the status.                                                                                                          |
 
 #### CSS Properties
 

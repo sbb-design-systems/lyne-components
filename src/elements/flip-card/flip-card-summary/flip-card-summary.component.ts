@@ -5,8 +5,6 @@ import { SbbElement } from '../../core.ts';
 
 import style from './flip-card-summary.scss?inline';
 
-export type SbbFlipCardImageAlignment = 'after' | 'below';
-
 /**
  * Combined with a `sbb-flip-card`, it displays its content when the card is not flipped.
  *
@@ -19,7 +17,7 @@ export class SbbFlipCardSummaryElement extends SbbElement {
 
   /** The position where to render the image. */
   @property({ attribute: 'image-alignment', reflect: true })
-  public accessor imageAlignment: SbbFlipCardImageAlignment = 'after';
+  public accessor imageAlignment: 'after' | 'below' = 'after';
 
   public override connectedCallback(): void {
     super.connectedCallback();

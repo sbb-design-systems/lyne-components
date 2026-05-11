@@ -6,7 +6,14 @@ import { basename, dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { customElementsManifestToMarkdown } from '@custom-elements-manifest/to-markdown';
-import type { Attribute, ClassDeclaration, CustomElement, Package } from 'custom-elements-manifest';
+import type {
+  Attribute,
+  ClassDeclaration,
+  ClassField,
+  CustomElement,
+  Package,
+  Type,
+} from 'custom-elements-manifest';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';
 import { format, resolveConfig } from 'prettier';
@@ -135,6 +142,11 @@ for (const manifestPath of manifestFilePaths) {
           ),
         );
         declaration.members?.forEach((member) => {
+          // Expand type text to "OriginalType (resolved)" if type.resolved is present
+          const field = member as ClassField & { type?: Type & { resolved?: string } };
+          if (field.type?.resolved && field.type.text) {
+            field.type = { ...field.type, text: field.type.resolved };
+          }
           if (member.deprecated) {
             member.description += '<br><strong>Deprecated</strong>';
             if (typeof member.deprecated === 'string') {

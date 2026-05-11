@@ -10,8 +10,6 @@ import type { SbbRadioButtonGroupElement } from '../../radio-button-group.pure.t
 
 import style from './radio-button-common.scss?inline';
 
-export type SbbRadioButtonSize = 'xs' | 's' | 'm' | null;
-
 export declare abstract class SbbRadioButtonCommonElementMixinType extends SbbFormAssociatedRadioButtonMixin(
   SbbElement,
 ) {

@@ -2,8 +2,13 @@ import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'li
 import { property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { forceType, isEventPrevented, SbbElement, screenReaderOnlyStyles } from '../../core.ts';
-import type { SbbTitleLevel } from '../../title.pure.ts';
+import {
+  forceType,
+  isEventPrevented,
+  SbbElement,
+  type SbbHeadingLevel,
+  screenReaderOnlyStyles,
+} from '../../core.ts';
 import type { SbbAlertElement } from '../alert/alert.component.ts';
 
 import style from './alert-group.scss?inline';
@@ -37,7 +42,7 @@ export class SbbAlertGroupElement extends SbbElement {
 
   /** Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2. */
   @property({ attribute: 'accessibility-title-level' })
-  public accessor accessibilityTitleLevel: SbbTitleLevel = '2';
+  public accessor accessibilityTitleLevel: SbbHeadingLevel = '2';
 
   /** Whether the group currently has any alerts. */
   @state() private accessor _hasAlerts: boolean = false;

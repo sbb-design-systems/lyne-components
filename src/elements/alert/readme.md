@@ -146,10 +146,10 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
 
 #### Properties
 
-| Name                      | Attribute                   | Privacy | Type            | Default | Description                                                                                       |
-| ------------------------- | --------------------------- | ------- | --------------- | ------- | ------------------------------------------------------------------------------------------------- |
-| `accessibilityTitle`      | `accessibility-title`       | public  | `string`        | `''`    | Title for this alert group which is only visible for screen reader users.                         |
-| `accessibilityTitleLevel` | `accessibility-title-level` | public  | `SbbTitleLevel` | `'2'`   | Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2. |
+| Name                      | Attribute                   | Privacy | Type                                     | Default | Description                                                                                       |
+| ------------------------- | --------------------------- | ------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------------------------------- |
+| `accessibilityTitle`      | `accessibility-title`       | public  | `string`                                 | `''`    | Title for this alert group which is only visible for screen reader users.                         |
+| `accessibilityTitleLevel` | `accessibility-title-level` | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6'` | `'2'`   | Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2. |
 
 #### Events
 

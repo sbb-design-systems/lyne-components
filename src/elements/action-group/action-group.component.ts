@@ -7,14 +7,13 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.pure.ts';
-import type { SbbHorizontalFrom, SbbOrientation } from '../core.ts';
+import type { SbbButtonCommonElementMixinType, SbbButtonElement } from '../button.pure.ts';
+import type { SbbHorizontalFrom } from '../core.ts';
 import { SbbElement } from '../core.ts';
 import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,
   SbbBlockLinkStaticElement,
-  SbbLinkSize,
 } from '../link.pure.ts';
 
 import style from './action-group.scss?inline';
@@ -45,21 +44,23 @@ export class SbbActionGroupElement extends SbbElement {
    * Indicates the orientation of the components inside the `<sbb-action-group>`.
    */
   @property({ reflect: true })
-  public accessor orientation: SbbOrientation = 'horizontal';
+  public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /**
    * Size of the nested sbb-button instances.
    * This will overwrite the size attribute of nested sbb-button instances.
+   * @deprecated Will be removed with next breaking change
    */
   @property({ attribute: 'button-size', reflect: true })
-  public accessor buttonSize: SbbButtonSize | null = null;
+  public accessor buttonSize: SbbButtonElement['size'] | null = null;
 
   /**
    * Size of the nested sbb-block-link instances.
    * This will overwrite the size attribute of nested sbb-block-link instances.
+   * @deprecated Will be removed with next breaking change
    */
   @property({ attribute: 'link-size', reflect: true })
-  public accessor linkSize: SbbLinkSize | null = null;
+  public accessor linkSize: SbbBlockLinkElement['size'] | null = null;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

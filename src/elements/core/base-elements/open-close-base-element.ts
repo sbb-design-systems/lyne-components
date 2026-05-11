@@ -1,6 +1,6 @@
-import type { SbbOpenedClosedState } from '../interfaces/types.ts';
-
 import { SbbElement } from './element.ts';
+
+export type SbbOpenedClosedState = 'closed' | 'opening' | 'opened' | 'closing';
 
 /**
  * Base class for overlay components.

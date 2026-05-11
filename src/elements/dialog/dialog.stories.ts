@@ -6,7 +6,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import { sampleImages } from '../core/images.private.ts';
-import type { SbbTitleLevel } from '../title.pure.ts';
+import type { SbbHeadingLevel } from '../core.ts';
 
 import { SbbDialogElement } from './dialog/dialog.component.ts';
 import readme from './readme.md?raw';
@@ -112,7 +112,7 @@ const dialogActions = (negative: boolean, includeCloseButton: boolean): Template
   </sbb-dialog-actions>
 `;
 
-const dialogTitle = (level: SbbTitleLevel): TemplateResult => html`
+const dialogTitle = (level: SbbHeadingLevel): TemplateResult => html`
   <sbb-dialog-title level=${level}>A describing title of the dialog</sbb-dialog-title>
 `;
 

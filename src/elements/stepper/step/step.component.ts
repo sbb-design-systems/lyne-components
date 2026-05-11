@@ -37,6 +37,7 @@ export class SbbStepElement extends SbbElement {
   public static readonly events = {
     validate: 'validate',
     resizechange: 'resizechange',
+    active: 'active',
   } as const;
 
   // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.
@@ -90,6 +91,11 @@ export class SbbStepElement extends SbbElement {
     }
     this.internals.states.add('selected');
     this.label.select();
+    /**
+     * @type {Event}
+     * The active event is dispatched when a step is activated.
+     */
+    this.dispatchEvent(new Event('active', { bubbles: true, composed: true }));
   }
 
   /**
