@@ -6,14 +6,13 @@ snapshots["sbb-compact-paginator renders DOM"] =
   length="50"
   page-size="5"
   pager-position="start"
-  size="m"
 >
 </sbb-compact-paginator>
 `;
 /* end snapshot sbb-compact-paginator renders DOM */
 
 snapshots["sbb-compact-paginator renders Shadow DOM"] = 
-`<sbb-mini-button-group size="l">
+`<sbb-mini-button-group>
   <sbb-mini-button
     aria-label="Previous page"
     disabled=""
@@ -86,14 +85,13 @@ snapshots["sbb-compact-paginator renders accessibility labels DOM"] =
   length="50"
   page-size="5"
   pager-position="start"
-  size="m"
 >
 </sbb-compact-paginator>
 `;
 /* end snapshot sbb-compact-paginator renders accessibility labels DOM */
 
 snapshots["sbb-compact-paginator renders accessibility labels Shadow DOM"] = 
-`<sbb-mini-button-group size="l">
+`<sbb-mini-button-group>
   <sbb-mini-button
     aria-label="Previous slide"
     disabled=""

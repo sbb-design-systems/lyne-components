@@ -1,0 +1,28 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-paginator-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-paginator-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-size-element-m),
+        'lean': var(--sbb-size-element-xs),
+      ),
+      $theme
+    )};
+  --sbb-paginator-mini-button-group-min-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-mini-button-group-min-height-l),
+        'lean': var(--sbb-mini-button-group-min-height-s),
+      ),
+      $theme
+    )};
+  --sbb-paginator-mini-button-group-padding-inline: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-mini-button-group-padding-inline-l),
+        'lean': var(--sbb-mini-button-group-padding-inline-s),
+      ),
+      $theme
+    )};
+}

@@ -1,4 +1,10 @@
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbMiniButtonElement, SbbMiniButtonGroupElement } from '../../button.pure.ts';
@@ -9,7 +15,6 @@ import {
   i18nPage,
   i18nPaginatorSelected,
   i18nPreviousPage,
-  isLean,
   SbbDisabledMixin,
   type SbbElement,
   type SbbElementConstructor,
@@ -20,6 +25,8 @@ import {
   screenReaderOnlyStyles,
 } from '../../core.ts';
 import { SbbDividerElement } from '../../divider.pure.ts';
+
+import style from './paginator-common.scss?inline';
 
 export interface SbbPaginatorPageEventDetails {
   length: number;
@@ -35,7 +42,7 @@ export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNega
   public accessor pageSize: number;
   public accessor pageIndex: number;
   public accessor pagerPosition: 'start' | 'end';
-  public accessor size: 'm' | 's';
+  public accessor size: 's' | 'm' | null;
   public accessor accessibilityPageLabel: string;
   public accessor accessibilityPreviousPageLabel: string;
   public accessor accessibilityNextPageLabel: string;
@@ -63,7 +70,7 @@ export const SbbPaginatorCommonElementMixin = <
     extends SbbNegativeMixin(SbbDisabledMixin(superClass))
     implements Partial<SbbPaginatorCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [screenReaderOnlyStyles];
+    public static styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
     public static override elementDependencies: SbbElementType[] = [
       SbbMiniButtonGroupElement,
       SbbMiniButtonElement,
@@ -93,10 +100,10 @@ export const SbbPaginatorCommonElementMixin = <
       | 'end' = 'start';
 
     /**
-     * Size variant, either m or s.
-     * @default 'm' / 's' (lean)
+     * Size variant, either s (lean default) or m (standard default).
      */
-    @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
+    @property({ reflect: true }) public accessor size: SbbPaginatorCommonElementMixinType['size'] =
+      null;
 
     /**
      * Accessibility label for the page. Defaults to `page`.
@@ -260,7 +267,7 @@ export const SbbPaginatorCommonElementMixin = <
 
     protected renderPrevNextButtons(): TemplateResult {
       return html`
-        <sbb-mini-button-group ?negative=${this.negative} size=${this.size === 's' ? 's' : 'l'}>
+        <sbb-mini-button-group ?negative=${this.negative}>
           <sbb-mini-button
             id="sbb-paginator-prev-page"
             aria-label=${this.accessibilityPreviousPageLabel

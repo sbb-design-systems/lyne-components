@@ -1,0 +1,23 @@
+@use '../../core/styles' as sbb;
+
+:host([size='s']) {
+  --sbb-paginator-height: var(--sbb-size-element-xs);
+  --sbb-paginator-mini-button-group-min-height: var(--sbb-mini-button-group-min-height-s);
+  --sbb-paginator-mini-button-group-padding-inline: var(--sbb-mini-button-group-padding-inline-s);
+}
+
+:host([size='m']) {
+  --sbb-paginator-height: var(--sbb-size-element-m);
+  --sbb-paginator-mini-button-group-min-height: var(--sbb-mini-button-group-min-height-l);
+  --sbb-paginator-mini-button-group-padding-inline: var(--sbb-mini-button-group-padding-inline-l);
+}
+
+:host([negative]) {
+  --sbb-paginator-color: var(--sbb-color-5);
+}
+
+// As the paginator maps size m to size l of mini button group, we have to set sizes explicitly.
+sbb-mini-button-group {
+  --sbb-mini-button-group-min-height: var(--sbb-paginator-mini-button-group-min-height);
+  --sbb-mini-button-group-padding-inline: var(--sbb-paginator-mini-button-group-padding-inline);
+}

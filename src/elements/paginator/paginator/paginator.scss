@@ -12,16 +12,7 @@
   line-height: var(--sbb-typo-line-height-text);
 }
 
-:host([size='s']) {
-  --sbb-paginator-height: var(--sbb-size-element-xs);
-}
-
-:host([size='m']) {
-  --sbb-paginator-height: var(--sbb-size-element-m);
-}
-
 :host([negative]) {
-  --sbb-paginator-page-color: var(--sbb-color-5);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
@@ -52,7 +43,7 @@
   align-items: center;
   gap: var(--sbb-spacing-fixed-2x);
   white-space: nowrap;
-  color: var(--sbb-paginator-page-color);
+  color: var(--sbb-paginator-color);
   font-size: var(--sbb-paginator-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
 
@@ -81,7 +72,7 @@
   position: relative;
   font-size: var(--sbb-paginator-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
-  color: var(--sbb-paginator-page-color);
+  color: var(--sbb-paginator-color);
 }
 
 .sbb-paginator__page--ellipsis-item,
@@ -104,7 +95,7 @@
   position: relative;
   cursor: var(--sbb-paginator-page-cursor);
   outline: none !important;
-  color: var(--sbb-paginator-page-color);
+  color: var(--sbb-paginator-color);
   transition: color var(--sbb-paginator-animation-duration) var(--sbb-paginator-animation-easing);
 
   &::before {
@@ -133,13 +124,13 @@
   &[data-selected] {
     @include sbb.text--bold;
 
-    --sbb-paginator-page-color: var(--sbb-color-3);
+    --sbb-paginator-color: var(--sbb-color-3);
     --sbb-paginator-page-border-width: var(--sbb-border-width-2x);
     --sbb-paginator-page-border-style: solid;
     --sbb-paginator-page-border-color: var(--sbb-border-color-2);
 
     :host([negative]) & {
-      --sbb-paginator-page-color: var(--sbb-color-3-negative);
+      --sbb-paginator-color: var(--sbb-color-3-negative);
       --sbb-paginator-page-border-color: var(--sbb-border-color-2-negative);
     }
 
@@ -149,7 +140,7 @@
   }
 
   &:disabled {
-    --sbb-paginator-page-color: var(--sbb-color-5);
+    --sbb-paginator-color: var(--sbb-color-5);
     --sbb-paginator-page-border-style: dashed;
     --sbb-paginator-page-border-color: var(--sbb-border-color-5);
     --sbb-paginator-page-background-color: var(--sbb-background-color-3);
@@ -160,13 +151,13 @@
     }
 
     :host([negative]) & {
-      --sbb-paginator-page-color: var(--sbb-color-5);
+      --sbb-paginator-color: var(--sbb-color-5);
       --sbb-paginator-page-background-color: var(--sbb-background-color-3-negative);
     }
 
     @include sbb.if-forced-colors {
       --sbb-paginator-page-border-color: GrayText;
-      --sbb-paginator-page-color: GrayText;
+      --sbb-paginator-color: GrayText;
       --sbb-paginator-page-background-color: Canvas;
     }
   }
@@ -188,13 +179,13 @@
   }
 
   &:not(:disabled):active {
-    --sbb-paginator-page-color: var(--sbb-color-3);
+    --sbb-paginator-color: var(--sbb-color-3);
     --sbb-paginator-page-background-color: var(--sbb-background-color-4);
     --sbb-paginator-page-inset: 0;
     --sbb-paginator-translate-y-content-hover: 0;
 
     :host([negative]) & {
-      --sbb-paginator-page-color: var(--sbb-color-3-negative);
+      --sbb-paginator-color: var(--sbb-color-3-negative);
       --sbb-paginator-page-background-color: var(--sbb-background-color-4-negative);
     }
 
