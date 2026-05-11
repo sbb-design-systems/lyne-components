@@ -157,6 +157,47 @@ describe(`lean`, () => {
     });
   });
 
+  describeViewports({ viewports: ['large'] }, () => {
+    describe('sbb-table', () => {
+      for (const size of [null, 'xs', 's', 'm'] as const) {
+        it(
+          `size=${size}`,
+          visualDiffDefault.with(async (setup) => {
+            const sizeClass = size ? `sbb-table-${size}` : 'sbb-table';
+            await setup.withFixture(html`
+              <table class=${sizeClass}>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Alpha</td>
+                    <td>Active</td>
+                    <td>42</td>
+                  </tr>
+                  <tr>
+                    <td>Beta</td>
+                    <td>Inactive</td>
+                    <td>7</td>
+                  </tr>
+                  <tr>
+                    <td>Gamma</td>
+                    <td>Active</td>
+                    <td>13</td>
+                  </tr>
+                </tbody>
+              </table>
+            `);
+          }),
+        );
+      }
+    });
+  });
+
   describeViewports({ viewports: ['zero', 'small'] }, () => {
     describe('sbb-file-selector-dropzone', () => {
       for (const size of [null, 's', 'm'] satisfies SbbFileSelectorElement['size'][]) {
