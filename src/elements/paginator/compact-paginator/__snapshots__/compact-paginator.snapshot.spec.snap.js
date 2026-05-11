@@ -43,7 +43,6 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
   <sbb-divider
     class="sbb-compact-paginator__divider"
     orientation="vertical"
-    style="--sbb-divider-color:currentcolor;"
   >
   </sbb-divider>
   10
@@ -122,7 +121,6 @@ snapshots["sbb-compact-paginator renders accessibility labels Shadow DOM"] =
   <sbb-divider
     class="sbb-compact-paginator__divider"
     orientation="vertical"
-    style="--sbb-divider-color:currentcolor;"
   >
   </sbb-divider>
   10

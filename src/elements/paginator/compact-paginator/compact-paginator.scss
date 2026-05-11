@@ -24,4 +24,6 @@
 
 .sbb-compact-paginator__divider {
   height: #{sbb.px-to-rem-build(16)};
+
+  --sbb-divider-color: currentcolor;
 }
