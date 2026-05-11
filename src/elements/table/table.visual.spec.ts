@@ -86,7 +86,7 @@ describe(`sbb-table`, () => {
             tableTemplate({
               'sbb-table': true,
               'sbb-table--negative': negative,
-              'sbb-table--unstriped': !striped,
+              'sbb-table--striped': striped,
             }),
             {
               backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,

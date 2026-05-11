@@ -48,10 +48,10 @@ This guide will walk you through the various customization options and advanced 
 
 ### Striped table
 
-By default, tables are styled with alternating row stripes to enhance readability. To remove this striping, add the `sbb-table--unstriped` class:
+Add the `sbb-table--striped` class to add alternating row stripes to enhance readability.
 
 ```html
-<table class="sbb-table sbb-table--unstriped">
+<table class="sbb-table sbb-table--striped">
   ...
 </table
 ```
