@@ -13,7 +13,6 @@ import {
   type FormRestoreReason,
   type FormRestoreState,
   interactivityChecker,
-  isLean,
   SbbDisabledMixin,
   SbbElement,
   SbbFormAssociatedMixin,
@@ -47,10 +46,9 @@ export class SbbToggleElement<T = string> extends SbbDisabledMixin(
   public accessor even: boolean = false;
 
   /**
-   * Size variant, either m or s.
-   * @default 'm' / 's' (lean)
+   * Size variant, either s (lean default) or m (standard default).
    */
-  @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 
   /**
    * The value of the toggle. It needs to be mutable since it is updated whenever

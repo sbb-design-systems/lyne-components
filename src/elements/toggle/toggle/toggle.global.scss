@@ -3,17 +3,21 @@
 $theme: 'standard' !default;
 
 @mixin base {
-  --sbb-toggle-padding-inline: #{sbb.theme-pattern-select(
+  --sbb-toggle-height-s: var(--sbb-size-element-xxs);
+  --sbb-toggle-height-m: var(--sbb-size-element-m);
+  --sbb-toggle-height: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-responsive-xs),
-        'lean': var(--sbb-spacing-responsive-xxxs),
+        'standard': var(--sbb-toggle-height-m),
+        'lean': var(--sbb-toggle-height-s),
       ),
       $theme
     )};
-  --sbb-toggle-height: #{sbb.theme-pattern-select(
+  --sbb-toggle-padding-inline-s: var(--sbb-spacing-responsive-xxxs);
+  --sbb-toggle-padding-inline-m: var(--sbb-spacing-responsive-xs);
+  --sbb-toggle-padding-inline: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-size-element-m),
-        'lean': var(--sbb-size-element-xxs),
+        'standard': var(--sbb-toggle-padding-inline-m),
+        'lean': var(--sbb-toggle-padding-inline-s),
       ),
       $theme
     )};

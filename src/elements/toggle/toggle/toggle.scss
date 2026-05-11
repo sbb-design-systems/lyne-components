@@ -80,14 +80,14 @@
   }
 }
 
-:host([size='m']) {
-  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xs);
-  --sbb-toggle-height: var(--sbb-size-element-m);
+:host([size='s']) {
+  --sbb-toggle-padding-inline: var(--sbb-toggle-padding-inline-s);
+  --sbb-toggle-height: var(--sbb-toggle-height-s);
 }
 
-:host([size='s']) {
-  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
-  --sbb-toggle-height: var(--sbb-size-element-xxs);
+:host([size='m']) {
+  --sbb-toggle-padding-inline: var(--sbb-toggle-padding-inline-m);
+  --sbb-toggle-height: var(--sbb-toggle-height-m);
 }
 
 :host(:is(:not(:state(initialized)), :state(disable-animation-on-resizing))) {
