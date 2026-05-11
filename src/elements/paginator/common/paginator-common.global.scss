@@ -11,18 +11,4 @@ $theme: 'standard' !default;
       ),
       $theme
     )};
-  --sbb-paginator-mini-button-group-min-height: #{sbb.theme-pattern-select(
-      (
-        'standard': var(--sbb-mini-button-group-min-height-l),
-        'lean': var(--sbb-mini-button-group-min-height-s),
-      ),
-      $theme
-    )};
-  --sbb-paginator-mini-button-group-padding-inline: #{sbb.theme-pattern-select(
-      (
-        'standard': var(--sbb-mini-button-group-padding-inline-l),
-        'lean': var(--sbb-mini-button-group-padding-inline-s),
-      ),
-      $theme
-    )};
 }

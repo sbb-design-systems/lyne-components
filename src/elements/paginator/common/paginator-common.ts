@@ -1,6 +1,7 @@
 import {
   type CSSResultGroup,
   html,
+  nothing,
   type PropertyValues,
   type TemplateResult,
   unsafeCSS,
@@ -267,7 +268,7 @@ export const SbbPaginatorCommonElementMixin = <
 
     protected renderPrevNextButtons(): TemplateResult {
       return html`
-        <sbb-mini-button-group ?negative=${this.negative}>
+        <sbb-mini-button-group ?negative=${this.negative} size=${this.size || nothing}>
           <sbb-mini-button
             id="sbb-paginator-prev-page"
             aria-label=${this.accessibilityPreviousPageLabel
