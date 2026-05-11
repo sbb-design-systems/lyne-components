@@ -26,7 +26,6 @@ import {
   SbbLanguageController,
   type SbbOccupancy,
   screenReaderOnlyStyles,
-  setOrRemoveAttribute,
 } from '@sbb-esta/lyne-elements/core.js';
 import { SbbIconElement } from '@sbb-esta/lyne-elements/icon.pure.js';
 import { SbbTimetableOccupancyElement } from '@sbb-esta/lyne-elements/timetable-occupancy.pure.js';
@@ -324,7 +323,7 @@ export class SbbTimetableRowElement extends SbbElement {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('loadingTrip')) {
-      setOrRemoveAttribute(this, 'role', !this.loadingTrip ? 'rowgroup' : null);
+      this.internals.role = !this.loadingTrip ? 'rowgroup' : null;
     }
   }
 
