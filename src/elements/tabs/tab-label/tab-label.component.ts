@@ -34,7 +34,7 @@ export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbEle
 
   /** Whether the tab is selected. */
   private _selected: boolean = false;
-  private _previousSize: SbbTabGroupElement['size'] | null = null;
+  private _previousSize: SbbTabGroupElement['size'] = null;
 
   /**
    * The level will correspond to the heading tag generated in the title.

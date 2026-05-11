@@ -41,14 +41,17 @@ const horizontalFrom: InputType = {
   control: {
     type: 'select',
   },
-  options: ['unset', 'zero', 'small', 'large', 'ultra'],
+  options: ['unset', 'zero', 'small', 'large', 'ultra'] satisfies (
+    | SbbStepperElement['horizontalFrom']
+    | 'unset'
+  )[],
 };
 
 const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm'],
+  options: ['s', 'm'] satisfies SbbStepperElement['size'][],
 };
 
 const defaultArgTypes: ArgTypes = {
@@ -62,7 +65,7 @@ const defaultArgs: Args = {
   linear: false,
   orientation: 'horizontal',
   'horizontal-from': 'unset',
-  size: size.options![1],
+  size: undefined,
 };
 
 const codeStyle: Args = {
@@ -415,6 +418,12 @@ export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![0] },
+};
+
+export const SizeM: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const HorizontalFromSmall: StoryObj = {

@@ -198,5 +198,5 @@
 .sbb-paginator__page--number-item-label {
   transition: transform var(--sbb-paginator-animation-duration)
     var(--sbb-paginator-animation-easing);
-  transform: translateY(var(--sbb-paginator-translate-y-content-hover, #{sbb.px-to-rem-build(0)}));
+  transform: translateY(var(--sbb-paginator-translate-y-content-hover, 0));
 }
