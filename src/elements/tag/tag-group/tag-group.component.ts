@@ -10,11 +10,9 @@ import { property } from 'lit/decorators.js';
 
 import {
   forceType,
-  isLean,
   SbbDisabledMixin,
   SbbElement,
   SbbNamedSlotListMixin,
-  setOrRemoveAttribute,
   type WithListChildren,
 } from '../../core.ts';
 import type { SbbTagElement } from '../tag/tag.component.ts';
@@ -53,10 +51,9 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
   public accessor multiple: boolean = false;
 
   /**
-   * Tag group size, either s or m.
-   * @default 'm' / 's' (lean)
+   * Tag group size, either s (lean default) or m (standard default).
    */
-  @property({ reflect: true }) public accessor size: SbbTagElement['size'] = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: SbbTagElement['size'] = null;
 
   /**
    * Value of the sbb-tag-group.
@@ -92,10 +89,6 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
       this._applyValueToTags(this.value);
     }
 
-    if (changedProperties.has('size')) {
-      this.tags.forEach((t) => t.requestUpdate?.('size'));
-    }
-
     if (changedProperties.has('disabled')) {
       this.tags.forEach((r) => r.requestUpdate?.('disabled'));
     }
@@ -110,13 +103,10 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
         .slice(1)
         .forEach((tag) => (tag.checked = false));
     }
-    setOrRemoveAttribute(
-      this,
-      'role',
-      changedProperties.has('listAccessibilityLabel') && this.listAccessibilityLabel
-        ? null
-        : 'group',
-    );
+
+    if (changedProperties.has('listAccessibilityLabel')) {
+      this.internals.role = this.listAccessibilityLabel ? null : 'group';
+    }
   }
 
   private _applyValueToTags(value: any): void {
