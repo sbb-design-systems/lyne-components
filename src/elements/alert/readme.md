@@ -115,7 +115,7 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
 | `iconName`  | `icon-name` | public  | `string`                               | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `isOpen`    | -           | public  | `boolean`                              |         | Whether the element is open.                                                                                                     |
 | `readOnly`  | `readonly`  | public  | `boolean`                              | `false` | Whether the component is readonly.                                                                                               |
-| `size`      | `size`      | public  | `'s' \| 'm' \| 'l' \| null`            | `null`  | Size variant, either `s` (lean default), `m` (standard default) or `l`.                                                          |
+| `size`      | `size`      | public  | `'s' \| 'm' \| 'l' \| null`            | `null`  | Size variant, either `s` (lean theme default), `m` (standard theme default) or `l`.                                              |
 
 #### Methods
 

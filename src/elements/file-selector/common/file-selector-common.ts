@@ -67,7 +67,7 @@ export const SbbFileSelectorCommonElementMixin = <
     public static styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
     /**
-     * Size variant, either s (lean default) or m (standard default).
+     * Size variant, either s (lean theme default) or m (standard theme default).
      */
     @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 

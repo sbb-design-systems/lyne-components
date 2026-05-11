@@ -77,14 +77,14 @@ of all the inner `<sbb-checkbox>` or `<sbb-checkbox-panel>` elements. Available 
 
 #### Properties
 
-| Name             | Attribute         | Privacy | Type                                                | Default        | Description                                                             |
-| ---------------- | ----------------- | ------- | --------------------------------------------------- | -------------- | ----------------------------------------------------------------------- |
-| `checkboxes`     | -                 | public  | `(SbbCheckboxElement \| SbbCheckboxPanelElement)[]` |                | List of contained checkbox elements.                                    |
-| `disabled`       | `disabled`        | public  | `boolean`                                           | `false`        | Whether the component is disabled.                                      |
-| `horizontalFrom` | `horizontal-from` | public  | `'zero' \| 'small' \| 'large' \| 'ultra' \| null`   | `null`         | Overrides the behavior of `orientation` property.                       |
-| `orientation`    | `orientation`     | public  | `'horizontal' \| 'vertical'`                        | `'horizontal'` | Indicates the orientation of the checkboxes or panels inside the group. |
-| `required`       | `required`        | public  | `boolean`                                           | `false`        | Whether the component is required.                                      |
-| `size`           | `size`            | public  | `'xs' \| 's' \| 'm' \| null`                        | `null`         | Size variant, either xs (lean default), s or m (standard default).      |
+| Name             | Attribute         | Privacy | Type                                                | Default        | Description                                                                    |
+| ---------------- | ----------------- | ------- | --------------------------------------------------- | -------------- | ------------------------------------------------------------------------------ |
+| `checkboxes`     | -                 | public  | `(SbbCheckboxElement \| SbbCheckboxPanelElement)[]` |                | List of contained checkbox elements.                                           |
+| `disabled`       | `disabled`        | public  | `boolean`                                           | `false`        | Whether the component is disabled.                                             |
+| `horizontalFrom` | `horizontal-from` | public  | `'zero' \| 'small' \| 'large' \| 'ultra' \| null`   | `null`         | Overrides the behavior of `orientation` property.                              |
+| `orientation`    | `orientation`     | public  | `'horizontal' \| 'vertical'`                        | `'horizontal'` | Indicates the orientation of the checkboxes or panels inside the group.        |
+| `required`       | `required`        | public  | `boolean`                                           | `false`        | Whether the component is required.                                             |
+| `size`           | `size`            | public  | `'xs' \| 's' \| 'm' \| null`                        | `null`         | Size variant, either xs (lean theme default), s or m (standard theme default). |
 
 #### Slots
 

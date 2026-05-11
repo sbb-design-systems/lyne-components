@@ -210,7 +210,7 @@ If important content needs to be announced when a step is changed, use the `aria
 | `orientation`    | `orientation`     | public  | `'horizontal' \| 'vertical'`                      | `'horizontal'` | Steps orientation, either horizontal or vertical.                                 |
 | `selected`       | -                 | public  | `SbbStepElement \| null`                          |                | The currently selected step.                                                      |
 | `selectedIndex`  | `selected-index`  | public  | `number \| null`                                  |                | The currently selected step index.                                                |
-| `size`           | `size`            | public  | `'s' \| 'm' \| null`                              | `null`         | Size variant, either s (lean default) or m (standard default).                    |
+| `size`           | `size`            | public  | `'s' \| 'm' \| null`                              | `null`         | Size variant, either s (lean theme default) or m (standard theme default).        |
 | `steps`          | -                 | public  | `SbbStepElement[]`                                |                | The steps of the stepper.                                                         |
 
 #### Methods

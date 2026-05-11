@@ -90,7 +90,7 @@ that describes the content controlled by the paginator.
 | `pageIndex`                      | `page-index`                        | public  | `number`             | `0`       | Current page index.                                                                                                                                 |
 | `pagerPosition`                  | `pager-position`                    | public  | `'start' \| 'end'`   | `'start'` | Position of the prev/next buttons.                                                                                                                  |
 | `pageSize`                       | `page-size`                         | public  | `number`             | `10`      | Number of items per page.                                                                                                                           |
-| `size`                           | `size`                              | public  | `'s' \| 'm' \| null` | `null`    | Size variant, either s (lean default) or m (standard default).                                                                                      |
+| `size`                           | `size`                              | public  | `'s' \| 'm' \| null` | `null`    | Size variant, either s (lean theme default) or m (standard theme default).                                                                          |
 
 #### Methods
 
@@ -128,7 +128,7 @@ that describes the content controlled by the paginator.
 | `pagerPosition`                  | `pager-position`                     | public  | `'start' \| 'end'`   | `'start'` | Position of the prev/next buttons: if `pageSizeOptions` is set, the sbb-select for the pageSize change will be positioned oppositely, with the page numbers always in the center. |
 | `pageSize`                       | `page-size`                          | public  | `number`             | `10`      | Number of items per page.                                                                                                                                                         |
 | `pageSizeOptions`                | `page-size-options`                  | public  | `number[]`           | `[]`      | The available `pageSize` choices.                                                                                                                                                 |
-| `size`                           | `size`                               | public  | `'s' \| 'm' \| null` | `null`    | Size variant, either s (lean default) or m (standard default).                                                                                                                    |
+| `size`                           | `size`                               | public  | `'s' \| 'm' \| null` | `null`    | Size variant, either s (lean theme default) or m (standard theme default).                                                                                                        |
 
 #### Methods
 

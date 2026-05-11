@@ -24,7 +24,7 @@ export class SbbVisualCheckboxElement extends SbbDisabledMixin(SbbNegativeMixin(
   public accessor indeterminate: boolean = false;
 
   /**
-   * Size of the checkbox, either xs (lean default), s or m (standard default).
+   * Size of the checkbox, either xs (lean theme default), s or m (standard theme default).
    */
   @property({ reflect: true }) public accessor size: SbbCheckboxElement['size'] = null;
 

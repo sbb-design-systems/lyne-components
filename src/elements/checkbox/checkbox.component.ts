@@ -29,7 +29,7 @@ export class SbbCheckboxElement<T = string> extends SbbIconNameMixin(
   public accessor value: T | null = null;
 
   /**
-   * Size variant, either xs (lean default), s or m (standard default).
+   * Size variant, either xs (lean theme default), s or m (standard theme default).
    */
   @property({ reflect: true })
   @getOverride((i, v) => i.group?.size ?? v)

@@ -90,7 +90,7 @@ As a base rule, opening animations should be active if a notification arrives af
 | `animation` | `animation` | public  | `'open' \| 'close' \| 'all' \| 'none'`               | `'all'`  | The enabled animations.                                                                                                          |
 | `iconName`  | `icon-name` | public  | `string`                                             | `''`     | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `readOnly`  | `readonly`  | public  | `boolean`                                            | `false`  | Whether the component is readonly.                                                                                               |
-| `size`      | `size`      | public  | `'s' \| 'm' \| null`                                 | `null`   | Size variant, either s (lean default) or m (standard default).                                                                   |
+| `size`      | `size`      | public  | `'s' \| 'm' \| null`                                 | `null`   | Size variant, either s (lean theme default) or m (standard theme default).                                                       |
 | `type`      | `type`      | public  | `'info' \| 'note' \| 'success' \| 'warn' \| 'error'` | `'info'` | The type of the notification.                                                                                                    |
 
 #### Methods

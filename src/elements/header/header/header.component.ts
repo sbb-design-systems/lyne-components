@@ -66,7 +66,7 @@ export class SbbHeaderElement extends SbbElement {
   public accessor hideOnScroll: boolean = false;
 
   /**
-   * Size of the header, either s (lean default) or m (standard default).
+   * Size of the header, either s (lean theme default) or m (standard theme default).
    */
   @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 

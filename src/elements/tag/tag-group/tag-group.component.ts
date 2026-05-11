@@ -51,7 +51,7 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
   public accessor multiple: boolean = false;
 
   /**
-   * Tag group size, either s (lean default) or m (standard default).
+   * Tag group size, either s (lean theme default) or m (standard theme default).
    */
   @property({ reflect: true }) public accessor size: SbbTagElement['size'] = null;
 

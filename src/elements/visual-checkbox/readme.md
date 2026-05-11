@@ -30,10 +30,10 @@ The component has three `size`, named `xs`, `s` and `m` (default).
 
 #### Properties
 
-| Name            | Attribute       | Privacy | Type                 | Default | Description                                                                |
-| --------------- | --------------- | ------- | -------------------- | ------- | -------------------------------------------------------------------------- |
-| `checked`       | `checked`       | public  | `boolean`            | `false` | Checked state.                                                             |
-| `disabled`      | `disabled`      | public  | `boolean`            | `false` | Whether the component is disabled.                                         |
-| `indeterminate` | `indeterminate` | public  | `boolean`            | `false` | Indeterminate state.                                                       |
-| `negative`      | `negative`      | public  | `boolean`            | `false` | Negative coloring variant flag.                                            |
-| `size`          | `size`          | public  | `'xs' \| 's' \| 'm'` | `null`  | Size of the checkbox, either xs (lean default), s or m (standard default). |
+| Name            | Attribute       | Privacy | Type                 | Default | Description                                                                            |
+| --------------- | --------------- | ------- | -------------------- | ------- | -------------------------------------------------------------------------------------- |
+| `checked`       | `checked`       | public  | `boolean`            | `false` | Checked state.                                                                         |
+| `disabled`      | `disabled`      | public  | `boolean`            | `false` | Whether the component is disabled.                                                     |
+| `indeterminate` | `indeterminate` | public  | `boolean`            | `false` | Indeterminate state.                                                                   |
+| `negative`      | `negative`      | public  | `boolean`            | `false` | Negative coloring variant flag.                                                        |
+| `size`          | `size`          | public  | `'xs' \| 's' \| 'm'` | `null`  | Size of the checkbox, either xs (lean theme default), s or m (standard theme default). |

@@ -45,7 +45,7 @@ export class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElement) {
     | null = null;
 
   /**
-   * Size of the sticky bar, either s (lean default) or m (standard default).
+   * Size of the sticky bar, either s (lean theme default) or m (standard theme default).
    */
   @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 

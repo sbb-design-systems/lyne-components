@@ -46,7 +46,7 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement & SbbPane
     public accessor expansionState: string = '';
 
     /**
-     * Size variant, either xs (lean default), s or m (standard default).
+     * Size variant, either xs (lean theme default), s or m (standard theme default).
      */
     @property({ reflect: true })
     @getOverride((p: SbbPanelElement, v) => p.group?.size ?? v)

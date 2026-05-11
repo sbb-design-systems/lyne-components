@@ -25,7 +25,7 @@ export class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonEleme
   } as const;
 
   /**
-   * Size variant, either xs (lean default), s or m (standard default).
+   * Size variant, either xs (lean theme default), s or m (standard theme default).
    * @default 'm' / 'xs' (lean)
    */
   @property({ reflect: true })

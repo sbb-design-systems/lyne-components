@@ -114,7 +114,7 @@ export class SbbStepperElement extends SbbElement {
   public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /**
-   * Size variant, either s (lean default) or m (standard default).
+   * Size variant, either s (lean theme default) or m (standard theme default).
    */
   @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 

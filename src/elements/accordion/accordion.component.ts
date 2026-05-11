@@ -29,7 +29,8 @@ export class SbbAccordionElement extends SbbElement {
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
-   * Size variant, either s (lean default) or l (standard default).; overrides the size on any projected `sbb-expansion-panel`.
+   * Size variant, either s (lean theme default) or l (standard theme default).
+   * The property overrides the size on any projected `sbb-expansion-panel`.
    */
   @property()
   public accessor size: 's' | 'l' | null = null;

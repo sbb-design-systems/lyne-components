@@ -66,7 +66,7 @@ export class SbbExpansionPanelElement extends SbbElement {
   public accessor borderless: boolean = false;
 
   /**
-   * Size variant, either s (lean default) or l (standard default).
+   * Size variant, either s (lean theme default) or l (standard theme default).
    */
   @property({ reflect: true }) public accessor size: 's' | 'l' | null = null;
 

@@ -54,11 +54,11 @@ In the following example, all the `<sbb-expansion-panel-header>` would be wrappe
 
 #### Properties
 
-| Name         | Attribute     | Privacy | Type                                             | Default | Description                                                                                                                |
-| ------------ | ------------- | ------- | ------------------------------------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `multi`      | `multi`       | public  | `boolean`                                        | `false` | Whether more than one sbb-expansion-panel can be open at the same time.                                                    |
-| `size`       | `size`        | public  | `'s' \| 'l' \| null`                             | `null`  | Size variant, either s (lean default) or l (standard default).; overrides the size on any projected `sbb-expansion-panel`. |
-| `titleLevel` | `title-level` | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6' \| null` | `null`  | The heading level for the sbb-expansion-panel-headers within the component.                                                |
+| Name         | Attribute     | Privacy | Type                                             | Default | Description                                                                                                                                        |
+| ------------ | ------------- | ------- | ------------------------------------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `multi`      | `multi`       | public  | `boolean`                                        | `false` | Whether more than one sbb-expansion-panel can be open at the same time.                                                                            |
+| `size`       | `size`        | public  | `'s' \| 'l' \| null`                             | `null`  | Size variant, either s (lean theme default) or l (standard theme default). The property overrides the size on any projected `sbb-expansion-panel`. |
+| `titleLevel` | `title-level` | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6' \| null` | `null`  | The heading level for the sbb-expansion-panel-headers within the component.                                                                        |
 
 #### Slots
 

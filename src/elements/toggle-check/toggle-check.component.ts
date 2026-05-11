@@ -32,7 +32,7 @@ export class SbbToggleCheckElement<T = string> extends SbbIconNameMixin(
   public accessor value: T | null = null;
 
   /**
-   * Size variant, either xs (lean default), s (standard default) or m.
+   * Size variant, either xs (lean theme default), s (standard theme default) or m.
    */
   @property({ reflect: true }) public accessor size: 'xs' | 's' | 'm' | null = null;
 

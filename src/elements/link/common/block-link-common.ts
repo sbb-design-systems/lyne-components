@@ -26,7 +26,7 @@ export const SbbBlockLinkCommonElementMixin = <T extends AbstractConstructor<Sbb
     public static override styles: CSSResultGroup = [unsafeCSS(blockStyle)];
 
     /**
-     * Size variant, either xs (lean default), s (standard default) or m.
+     * Size variant, either xs (lean theme default), s (standard theme default) or m.
      */
     @property({ reflect: true }) public accessor size: SbbBlockLinkCommonElementMixinType['size'] =
       null;

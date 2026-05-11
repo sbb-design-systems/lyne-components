@@ -48,7 +48,7 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
   {
     public static styles: CSSResultGroup = [unsafeCSS(style)];
     /**
-     * Size variant, either s (lean default), m (standard default) or l.
+     * Size variant, either s (lean theme default), m (standard theme default) or l.
      */
     @property({ reflect: true }) public accessor size: SbbButtonCommonElementMixinType['size'] =
       null;

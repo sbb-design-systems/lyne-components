@@ -101,7 +101,7 @@ export const SbbPaginatorCommonElementMixin = <
       | 'end' = 'start';
 
     /**
-     * Size variant, either s (lean default) or m (standard default).
+     * Size variant, either s (lean theme default) or m (standard theme default).
      */
     @property({ reflect: true }) public accessor size: SbbPaginatorCommonElementMixinType['size'] =
       null;

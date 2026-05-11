@@ -36,7 +36,7 @@ export class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   public accessor accessibilityLabel: string = '';
 
   /**
-   * Size variant, either s (lean default), m (standard default), l or xl.
+   * Size variant, either s (lean theme default), m (standard theme default), l or xl.
    */
   @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | 'xl' | null = null;
 

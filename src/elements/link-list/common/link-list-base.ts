@@ -56,7 +56,7 @@ export class SbbLinkListBaseElement extends SbbNegativeMixin(
   @property({ attribute: 'title-level' }) public accessor titleLevel: SbbHeadingLevel = '2';
 
   /**
-   * Text size of the nested sbb-block-link instances, either xs (lean default), s (standard default) or m
+   * Text size of the nested sbb-block-link instances, either xs (lean theme default), s (standard theme default) or m
    * This will overwrite the size attribute of nested sbb-block-link instances.
    */
   @property({ reflect: true }) public accessor size: SbbBlockLinkElement['size'] = null;

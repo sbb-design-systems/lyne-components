@@ -132,10 +132,10 @@ The component has two sizes, `s` and `m`, that can be set using the `size` prope
 
 #### Properties
 
-| Name    | Attribute | Privacy | Type                                                    | Default | Description                                                              |
-| ------- | --------- | ------- | ------------------------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `color` | `color`   | public  | `'white' \| 'milk' \| 'midnight' \| 'charcoal' \| null` | `null`  | Color of the container, like transparent, white etc.                     |
-| `size`  | `size`    | public  | `'s' \| 'm' \| null`                                    | `null`  | Size of the sticky bar, either s (lean default) or m (standard default). |
+| Name    | Attribute | Privacy | Type                                                    | Default | Description                                                                          |
+| ------- | --------- | ------- | ------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------ |
+| `color` | `color`   | public  | `'white' \| 'milk' \| 'midnight' \| 'charcoal' \| null` | `null`  | Color of the container, like transparent, white etc.                                 |
+| `size`  | `size`    | public  | `'s' \| 'm' \| null`                                    | `null`  | Size of the sticky bar, either s (lean theme default) or m (standard theme default). |
 
 #### Methods
 

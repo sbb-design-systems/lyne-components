@@ -369,7 +369,7 @@ sbb-header-environment {
 | `expanded`     | `expanded`       | public  | `boolean`             | `false` | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size.    |
 | `hideOnScroll` | `hide-on-scroll` | public  | `boolean`             | `false` | Whether the header should hide and show on scroll.                                                                      |
 | `scrollOrigin` | `scroll-origin`  | public  | `HTMLElement \| null` | `null`  | The element's id or the element on which the scroll listener is attached. For attribute usage, provide an id reference. |
-| `size`         | `size`           | public  | `'s' \| 'm' \| null`  | `null`  | Size of the header, either s (lean default) or m (standard default).                                                    |
+| `size`         | `size`           | public  | `'s' \| 'm' \| null`  | `null`  | Size of the header, either s (lean theme default) or m (standard theme default).                                        |
 
 #### CSS Properties
 

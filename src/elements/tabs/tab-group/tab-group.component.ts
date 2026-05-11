@@ -53,7 +53,7 @@ export class SbbTabGroupElement extends SbbElement {
   private _contentSlotChangeDebounceId?: ReturnType<typeof setTimeout>;
 
   /**
-   * Size variant, either s (lean default), l (standard default) or xl.
+   * Size variant, either s (lean theme default), l (standard theme default) or xl.
    */
   @property({ reflect: true })
   public accessor size: 's' | 'l' | 'xl' | null = null;

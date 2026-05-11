@@ -134,7 +134,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _value: T | T[] | null = null;
 
   /**
-   * Size variant, either s (lean default) or m (standard default).
+   * Size variant, either s (lean theme default) or m (standard theme default).
    * When placed inside an `<sbb-form-field>`, the size is inherited from the form field.
    */
   @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;

@@ -55,7 +55,7 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
   public accessor checked: boolean = false;
 
   /**
-   * Tag size, either s (lean default) or m (standard default).
+   * Tag size, either s (lean theme default) or m (standard theme default).
    * The value is inherited from the closest `<sbb-tag-group>`.
    */
   @property({ reflect: true })

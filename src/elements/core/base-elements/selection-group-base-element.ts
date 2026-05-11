@@ -27,7 +27,7 @@ export abstract class SbbSelectionGroupBaseElement<T extends SbbElement> extends
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
-   * Size variant, either xs (lean default), s or m (standard default).
+   * Size variant, either xs (lean theme default), s or m (standard theme default).
    */
   @property() public accessor size: 'xs' | 's' | 'm' | null = null;
 

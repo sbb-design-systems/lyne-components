@@ -124,7 +124,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   public accessor optional: boolean = false;
 
   /**
-   * Size variant, either s (lean default), m (standard default) or l.
+   * Size variant, either s (lean theme default), m (standard theme default) or l.
    */
   @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | null = null;
 
