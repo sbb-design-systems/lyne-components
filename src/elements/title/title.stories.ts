@@ -6,6 +6,8 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
+import type { SbbTitleElement } from './title.component.ts';
+
 import '../title.ts';
 
 // we don't need to pass the args.text to the <sbb-title> tag, but Storybook wants all in it.
@@ -23,7 +25,7 @@ const level: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: [1, 2, 3, 4, 5, 6],
+  options: ['1', '2', '3', '4', '5', '6'] satisfies SbbTitleElement['level'][],
 };
 
 const negative: InputType = {
@@ -100,7 +102,9 @@ export const leanSize: StoryObj = {
   render: LeanTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  parameters: { isLean: true },
+  globals: {
+    theme: 'lean',
+  },
 };
 
 const meta: Meta = {

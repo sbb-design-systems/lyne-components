@@ -158,8 +158,10 @@ export const leanExample: StoryObj = {
 };
 
 const meta: Meta = {
+  globals: {
+    theme: 'lean',
+  },
   parameters: {
-    isLean: true,
     layout: 'fullscreen',
   },
   title: 'pages/lean',
