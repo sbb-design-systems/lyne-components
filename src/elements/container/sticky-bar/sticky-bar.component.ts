@@ -47,7 +47,7 @@ export class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElement) {
   /**
    * Size of the sticky bar, either s (lean default) or m (standard default).
    */
-  @property({ reflect: true }) public accessor size: 'm' | 's' | null = null;
+  @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 
   /** The state of the component. */
   private set _state(state: StickyState) {

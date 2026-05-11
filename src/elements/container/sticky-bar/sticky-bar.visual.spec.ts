@@ -1,4 +1,4 @@
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import {
   describeEach,
@@ -92,14 +92,14 @@ describe(`sbb-sticky-bar`, () => {
       );
     });
 
-    for (const size of ['s', 'm'] satisfies SbbStickyBarElement['size'][]) {
+    for (const size of [null, 's', 'm'] satisfies SbbStickyBarElement['size'][]) {
       it(
         `size=${size}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html` <sbb-container style="overflow: auto; height: 400px;">
               ${containerContent()} ${containerContent()} ${containerContent()}
-              <sbb-sticky-bar color="milk" size=${size}>${actionGroup()}</sbb-sticky-bar>
+              <sbb-sticky-bar color="milk" size=${size || nothing}>${actionGroup()}</sbb-sticky-bar>
             </sbb-container>`,
             { padding: '0' },
           );
