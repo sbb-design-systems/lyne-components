@@ -7,7 +7,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { isLean, SbbElement, SbbFormAssociatedCheckboxMixin } from '../core.ts';
+import { SbbElement, SbbFormAssociatedCheckboxMixin } from '../core.ts';
 import { SbbIconNameMixin } from '../icon.pure.ts';
 
 import style from './toggle-check.scss?inline';
@@ -32,10 +32,9 @@ export class SbbToggleCheckElement<T = string> extends SbbIconNameMixin(
   public accessor value: T | null = null;
 
   /**
-   * Size variant, either m, s or xs.
-   * @default 's' / 'xs' (lean)
+   * Size variant, either xs (lean default), s (standard default) or m.
    */
-  @property({ reflect: true }) public accessor size: 'xs' | 's' | 'm' = isLean() ? 'xs' : 's';
+  @property({ reflect: true }) public accessor size: 'xs' | 's' | 'm' | null = null;
 
   /** The label position relative to the toggle. Defaults to 'after' */
   @property({ attribute: 'label-position', reflect: true })

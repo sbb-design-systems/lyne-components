@@ -33,7 +33,7 @@ The component can be displayed in `checked` or `disabled` states using the self-
 
 ## Style
 
-The component has three different sizes (`xs`, `s`, which is the default, and `m`),
+The component has three different sizes (`xs`, `s` and `m`),
 which can be changed using the `size` property.
 
 ```html
