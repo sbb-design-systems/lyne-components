@@ -92,6 +92,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
   /**
    * Size variant, either s (lean default) or m (standard default).
+   * When placed inside an `<sbb-form-field>`, the size is inherited from the form field.
    */
   @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 

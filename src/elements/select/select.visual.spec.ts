@@ -324,6 +324,23 @@ describe('sbb-select', () => {
     }
 
     it(
+      'multiple size=null',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          template({
+            ...(({ size: _omit, ...rest }) => rest)({ ...defaultArgs, multiple: true }),
+          } as typeof defaultArgs),
+          { minHeight: '600px' },
+        );
+        setup.withPostSetupAction(() => {
+          const select = setup.snapshotElement.querySelector('sbb-select')!;
+          select.focus();
+          select.open();
+        });
+      }),
+    );
+
+    it(
       'with long placeholder',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
