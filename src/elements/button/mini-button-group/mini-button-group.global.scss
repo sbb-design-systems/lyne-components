@@ -11,13 +11,9 @@ $theme: 'standard' !default;
   --sbb-mini-button-group-divider-height: var(--sbb-size-icon-ui-small);
   --sbb-mini-button-group-divider-padding: var(--sbb-spacing-fixed-1x);
   --sbb-mini-button-group-min-height-s: var(--sbb-size-element-xs);
-  --sbb-mini-button-group-padding-inline-s: var(--sbb-spacing-fixed-2x);
   --sbb-mini-button-group-min-height-m: var(--sbb-size-element-s);
-  --sbb-mini-button-group-padding-inline-m: var(--sbb-spacing-fixed-3x);
   --sbb-mini-button-group-min-height-l: var(--sbb-size-element-m);
-  --sbb-mini-button-group-padding-inline-l: var(--sbb-spacing-fixed-3x);
   --sbb-mini-button-group-min-height-xl: var(--sbb-size-element-l);
-  --sbb-mini-button-group-padding-inline-xl: var(--sbb-spacing-fixed-4x);
   --sbb-mini-button-group-min-height: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-mini-button-group-min-height-m),
@@ -25,6 +21,10 @@ $theme: 'standard' !default;
       ),
       $theme
     )};
+  --sbb-mini-button-group-padding-inline-s: var(--sbb-spacing-fixed-2x);
+  --sbb-mini-button-group-padding-inline-m: var(--sbb-spacing-fixed-3x);
+  --sbb-mini-button-group-padding-inline-l: var(--sbb-spacing-fixed-3x);
+  --sbb-mini-button-group-padding-inline-xl: var(--sbb-spacing-fixed-4x);
   --sbb-mini-button-group-padding-inline: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-mini-button-group-padding-inline-m),

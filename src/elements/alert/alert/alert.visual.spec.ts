@@ -33,7 +33,7 @@ describe(`sbb-alert`, () => {
     title,
     href,
   }: typeof defaultArgs): TemplateResult => html`
-    <sbb-alert .size=${size} ?readonly=${readonly} icon-name=${icon}>
+    <sbb-alert size=${size || nothing} ?readonly=${readonly} icon-name=${icon}>
       <sbb-title>${title}</sbb-title>
       ${contentSlotText}${href ? html` <sbb-link href=${href}>Find out more</sbb-link>` : nothing}
     </sbb-alert>

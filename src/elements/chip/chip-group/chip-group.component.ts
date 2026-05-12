@@ -294,7 +294,7 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
       });
     }
 
-    // Inherit size from the form-field and observe for changes
+    // If there is no form-field, reset size
     if (!this.closest('sbb-form-field')) {
       this._updateSize(null);
     }
