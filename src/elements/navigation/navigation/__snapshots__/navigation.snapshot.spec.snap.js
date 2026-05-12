@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-navigation renders DOM"] =
+snapshots["sbb-navigation renders DOM"] = 
 `<sbb-navigation
   popover="manual"
   trigger="nav-trigger"
@@ -26,7 +26,7 @@ snapshots["sbb-navigation renders DOM"] =
 `;
 /* end snapshot sbb-navigation renders DOM */
 
-snapshots["sbb-navigation renders Shadow DOM"] =
+snapshots["sbb-navigation renders Shadow DOM"] = 
 `<div class="sbb-navigation__container">
   <div
     class="sbb-navigation"

@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-navigation-link renders DOM"] =
+snapshots["sbb-navigation-link renders DOM"] = 
 `<sbb-navigation-link
   accessibility-label="a11y label"
   href="https://www.sbb.ch"
@@ -12,7 +12,7 @@ snapshots["sbb-navigation-link renders DOM"] =
 `;
 /* end snapshot sbb-navigation-link renders DOM */
 
-snapshots["sbb-navigation-link renders Shadow DOM"] =
+snapshots["sbb-navigation-link renders Shadow DOM"] = 
 `<a
   aria-describedby="sbb-link-new-window"
   aria-label="a11y label"
@@ -35,7 +35,7 @@ snapshots["sbb-navigation-link renders Shadow DOM"] =
 `;
 /* end snapshot sbb-navigation-link renders Shadow DOM */
 
-snapshots["sbb-navigation-link renders A11y tree Chrome"] =
+snapshots["sbb-navigation-link renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "generic",

@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-navigation-list renders DOM"] =
+snapshots["sbb-navigation-list renders DOM"] = 
 `<sbb-navigation-list>
   <sbb-navigation-button
     slot="li-0"
@@ -31,7 +31,7 @@ snapshots["sbb-navigation-list renders DOM"] =
 `;
 /* end snapshot sbb-navigation-list renders DOM */
 
-snapshots["sbb-navigation-list renders Shadow DOM"] =
+snapshots["sbb-navigation-list renders Shadow DOM"] = 
 `<span
   class="sbb-navigation-list__label"
   id="sbb-navigation-link-label-id"
@@ -67,13 +67,13 @@ snapshots["sbb-navigation-list renders Shadow DOM"] =
 `;
 /* end snapshot sbb-navigation-list renders Shadow DOM */
 
-snapshots["sbb-navigation-list should render named slots if data-ssr-child-count attribute is set DOM"] =
+snapshots["sbb-navigation-list should render named slots if data-ssr-child-count attribute is set DOM"] = 
 `<sbb-navigation-list data-ssr-child-count="3">
 </sbb-navigation-list>
 `;
 /* end snapshot sbb-navigation-list should render named slots if data-ssr-child-count attribute is set DOM */
 
-snapshots["sbb-navigation-list should render named slots if data-ssr-child-count attribute is set Shadow DOM"] =
+snapshots["sbb-navigation-list should render named slots if data-ssr-child-count attribute is set Shadow DOM"] = 
 `<span
   class="sbb-navigation-list__label"
   id="sbb-navigation-link-label-id"
@@ -105,7 +105,7 @@ snapshots["sbb-navigation-list should render named slots if data-ssr-child-count
 `;
 /* end snapshot sbb-navigation-list should render named slots if data-ssr-child-count attribute is set Shadow DOM */
 
-snapshots["sbb-navigation-list renders A11y tree Chrome"] =
+snapshots["sbb-navigation-list renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "generic",

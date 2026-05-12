@@ -40,7 +40,7 @@ export const SbbNavigationActionCommonElementMixin = <
 
     private _navigationMarker: SbbNavigationMarkerElement | null = null;
     private _navigationSection: SbbNavigationSectionElement | null = null;
-    private _previousSize: 's' | 'm' | 'l' = 'm';
+    private _size: 's' | 'm' | 'l' = 'l';
 
     /** The navigation marker in which the action is nested. */
     public get marker(): SbbNavigationMarkerElement | null {
@@ -86,13 +86,13 @@ export const SbbNavigationActionCommonElementMixin = <
       }
     }
 
-    private _applySize(size: SbbNavigationActionCommonElement['_previousSize']): void {
-      if (this._previousSize) {
-        this.internals.states.delete(`size-${this._previousSize}`);
+    private _applySize(size: SbbNavigationActionCommonElement['_size']): void {
+      if (this._size) {
+        this.internals.states.delete(`size-${this._size}`);
       }
-      this._previousSize = size;
-      if (this._previousSize) {
-        this.internals.states.add(`size-${this._previousSize}`);
+      this._size = size;
+      if (this._size) {
+        this.internals.states.add(`size-${this._size}`);
       }
     }
 
