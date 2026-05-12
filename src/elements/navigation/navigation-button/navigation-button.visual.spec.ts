@@ -10,8 +10,6 @@ import {
 import '../../navigation.ts';
 
 describe(`sbb-navigation-button`, () => {
-  const sizeCases = ['s', 'm', 'l'];
-
   describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const { darkMode, forcedColors } of [
       { forcedColors: false, darkMode: false },
@@ -33,18 +31,6 @@ describe(`sbb-navigation-button`, () => {
           );
         }
       });
-    }
-
-    for (const size of sizeCases) {
-      it(
-        `size=${size}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            html`<sbb-navigation-button size=${size}>Label</sbb-navigation-button>`,
-            { backgroundColor: 'var(--sbb-background-color-1-negative)', focusOutlineDark: true },
-          );
-        }),
-      );
     }
   });
 });

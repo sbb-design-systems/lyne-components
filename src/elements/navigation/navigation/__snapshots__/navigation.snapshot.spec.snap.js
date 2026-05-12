@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-navigation renders DOM"] = 
+snapshots["sbb-navigation renders DOM"] =
 `<sbb-navigation
   popover="manual"
   trigger="nav-trigger"
@@ -9,7 +9,6 @@ snapshots["sbb-navigation renders DOM"] =
   <sbb-navigation-marker size="l">
     <sbb-navigation-button
       id="nav-1"
-      size="l"
       slot="li-0"
       tabindex="0"
     >
@@ -17,7 +16,6 @@ snapshots["sbb-navigation renders DOM"] =
     </sbb-navigation-button>
     <sbb-navigation-button
       id="nav-2"
-      size="l"
       slot="li-1"
       tabindex="0"
     >
@@ -28,7 +26,7 @@ snapshots["sbb-navigation renders DOM"] =
 `;
 /* end snapshot sbb-navigation renders DOM */
 
-snapshots["sbb-navigation renders Shadow DOM"] = 
+snapshots["sbb-navigation renders Shadow DOM"] =
 `<div class="sbb-navigation__container">
   <div
     class="sbb-navigation"

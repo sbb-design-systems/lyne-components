@@ -1,19 +1,7 @@
-import {
-  type CSSResultGroup,
-  html,
-  type PropertyValues,
-  type TemplateResult,
-  unsafeCSS,
-} from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import {
-  forceType,
-  omitEmptyConverter,
-  SbbElement,
-  SbbNamedSlotListMixin,
-  type WithListChildren,
-} from '../../core.ts';
+import { forceType, omitEmptyConverter, SbbElement, SbbNamedSlotListMixin } from '../../core.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 
@@ -42,14 +30,6 @@ export class SbbNavigationListElement extends SbbNamedSlotListMixin<
   @forceType()
   @property({ reflect: true, converter: omitEmptyConverter })
   public accessor label: string = '';
-
-  protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('listChildren')) {
-      this.listChildren.forEach((c) => (c.size = 'm'));
-    }
-  }
 
   protected override render(): TemplateResult {
     return html`
