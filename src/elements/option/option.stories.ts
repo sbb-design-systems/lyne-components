@@ -6,6 +6,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbFormFieldElement } from '../form-field.pure.ts';
 import { SbbOptionElement } from '../option.ts';
 
 import readme from './readme.md?raw';
@@ -57,7 +58,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['s', 'm'] satisfies SbbFormFieldElement['size'][],
   table: {
     category: 'Form field',
   },
@@ -78,7 +79,7 @@ const defaultArgs: Args = {
   disabled: false,
   numberOfOptions: 5,
   preserveIconSpace: false,
-  size: size.options![0],
+  size: undefined,
 };
 
 const createOptions = ({
@@ -112,7 +113,7 @@ const createOptions = ({
 };
 
 const AutocompleteTemplate = ({ size, ...args }: Args): TemplateResult => html`
-  <sbb-form-field ?negative=${args.negative} size=${size}>
+  <sbb-form-field ?negative=${args.negative} size=${size || nothing}>
     <label>sbb-autocomplete</label>
     <input placeholder="Please select." />
     <sbb-autocomplete>${createOptions(args)}</sbb-autocomplete>
@@ -120,7 +121,7 @@ const AutocompleteTemplate = ({ size, ...args }: Args): TemplateResult => html`
 `;
 
 const SelectTemplate = ({ size, ...args }: Args): TemplateResult => html`
-  <sbb-form-field ?negative=${args.negative} size=${size}>
+  <sbb-form-field ?negative=${args.negative} size=${size || nothing}>
     <label>sbb-select</label>
     <sbb-select placeholder="Please select.">${createOptions(args)}</sbb-select>
   </sbb-form-field>
@@ -190,7 +191,7 @@ const groupArgs: Args = {
   disabled: false,
   disabledSingle: false,
   numberOfOptions: 3,
-  size: size.options![0],
+  size: undefined,
 };
 
 const createGroupOptions = (args: Args, groupId: string): TemplateResult[] =>
@@ -216,7 +217,7 @@ const Template = ({ label, disabled, ...args }: Args): TemplateResult => html`
 
 const TemplateAutocomplete = ({ size, ...args }: Args): TemplateResult => {
   return html`
-    <sbb-form-field ?negative=${args.negative} size=${size}>
+    <sbb-form-field ?negative=${args.negative} size=${size || nothing}>
       <label>Autocomplete</label>
       <input placeholder="Placeholder" />
       <sbb-autocomplete>${Template(args)}</sbb-autocomplete>
@@ -226,7 +227,7 @@ const TemplateAutocomplete = ({ size, ...args }: Args): TemplateResult => {
 
 const TemplateSelect = ({ size, ...args }: Args): TemplateResult => {
   return html`
-    <sbb-form-field ?negative=${args.negative} size=${size}>
+    <sbb-form-field ?negative=${args.negative} size=${size || nothing}>
       <label>Select</label>
       <sbb-select ?multiple=${args.multiple} placeholder="Select"> ${Template(args)} </sbb-select>
     </sbb-form-field>
@@ -268,11 +269,11 @@ const hintArgTypes: ArgTypes = {
 const hintArgs: Args = {
   divider: false,
   negative: false,
-  size: size.options![0],
+  size: undefined,
 };
 
 const WithAutocompleteTemplate = ({ size, ...args }: Args): TemplateResult => html`
-  <sbb-form-field ?negative=${args.negative} size=${size}>
+  <sbb-form-field ?negative=${args.negative} size=${size || nothing}>
     <label>Autocomplete</label>
     <input />
     <sbb-autocomplete>
@@ -287,7 +288,7 @@ const WithAutocompleteTemplate = ({ size, ...args }: Args): TemplateResult => ht
 `;
 
 const WithAutocompleteGroupTemplate = ({ size, ...args }: Args): TemplateResult => html`
-  <sbb-form-field ?negative=${args.negative} size=${size}>
+  <sbb-form-field ?negative=${args.negative} size=${size || nothing}>
     <label>Autocomplete</label>
     <input />
     <sbb-autocomplete preserve-icon-space>

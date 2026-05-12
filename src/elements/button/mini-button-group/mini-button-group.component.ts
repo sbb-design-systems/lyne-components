@@ -7,13 +7,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import {
-  forceType,
-  isLean,
-  SbbElement,
-  SbbNamedSlotListMixin,
-  SbbNegativeMixin,
-} from '../../core.ts';
+import { forceType, SbbElement, SbbNamedSlotListMixin, SbbNegativeMixin } from '../../core.ts';
 import type { SbbDividerElement } from '../../divider/divider.component.ts';
 import type { SbbMiniButtonElement } from '../mini-button/mini-button.component.ts';
 
@@ -42,10 +36,9 @@ export class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   public accessor accessibilityLabel: string = '';
 
   /**
-   * Size variant, either s, m, l or xl.
-   * @default 'm' / 's' (lean)
+   * Size variant, either s (lean theme default), m (standard theme default), l or xl.
    */
-  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | 'xl' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | 'xl' | null = null;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

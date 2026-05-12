@@ -70,22 +70,25 @@ describe(`sbb-file-selector`, () => {
       );
     });
 
-    describeEach({ size: ['s', 'm'] }, ({ size }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(html`
-          <sbb-file-selector id="fs" multiple size=${size}></sbb-file-selector>
-        `);
-      });
+    describeEach(
+      { size: [null, 's', 'm'] satisfies SbbFileSelectorElement['size'][] },
+      ({ size }) => {
+        beforeEach(async function () {
+          root = await visualRegressionFixture(html`
+            <sbb-file-selector id="fs" multiple size=${size || nothing}></sbb-file-selector>
+          `);
+        });
 
-      for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
-        it(
-          visualDiffState.name,
-          visualDiffState.with((setup) => {
-            addFilesToComponentInput(root.querySelector('#fs')!);
-            setup.withSnapshotElement(root);
-          }),
-        );
-      }
-    });
+        for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
+          it(
+            visualDiffState.name,
+            visualDiffState.with((setup) => {
+              addFilesToComponentInput(root.querySelector('#fs')!);
+              setup.withSnapshotElement(root);
+            }),
+          );
+        }
+      },
+    );
   });
 });

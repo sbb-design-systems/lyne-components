@@ -2,7 +2,7 @@ import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } fr
 import { property } from 'lit/decorators.js';
 
 import type { SbbCheckboxElement } from '../checkbox.pure.ts';
-import { forceType, isLean, SbbDisabledMixin, SbbElement, SbbNegativeMixin } from '../core.ts';
+import { forceType, SbbDisabledMixin, SbbElement, SbbNegativeMixin } from '../core.ts';
 
 import style from './visual-checkbox.scss?inline';
 
@@ -24,12 +24,9 @@ export class SbbVisualCheckboxElement extends SbbDisabledMixin(SbbNegativeMixin(
   public accessor indeterminate: boolean = false;
 
   /**
-   * Size of the checkbox, either xs, s or m.
-   * @default 'm' / 'xs' (lean)
+   * Size of the checkbox, either xs (lean theme default), s or m (standard theme default).
    */
-  @property({ reflect: true }) public accessor size: SbbCheckboxElement['size'] = isLean()
-    ? 'xs'
-    : 'm';
+  @property({ reflect: true }) public accessor size: SbbCheckboxElement['size'] = null;
 
   protected override render(): TemplateResult {
     return html`

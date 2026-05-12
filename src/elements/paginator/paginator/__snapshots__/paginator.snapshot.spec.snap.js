@@ -6,7 +6,6 @@ snapshots["sbb-paginator renders DOM"] =
   length="4"
   page-size="4"
   pager-position="start"
-  size="m"
 >
 </sbb-paginator>
 `;
@@ -15,7 +14,7 @@ snapshots["sbb-paginator renders DOM"] =
 snapshots["sbb-paginator renders Shadow DOM"] = 
 `<div class="sbb-paginator">
   <span class="sbb-paginator__wrapping-group">
-    <sbb-mini-button-group size="l">
+    <sbb-mini-button-group>
       <sbb-mini-button
         aria-label="Previous page"
         disabled=""
@@ -70,7 +69,6 @@ snapshots["sbb-paginator renders ellipsis on end side DOM"] =
   length="50"
   page-size="4"
   pager-position="start"
-  size="m"
 >
 </sbb-paginator>
 `;
@@ -79,7 +77,7 @@ snapshots["sbb-paginator renders ellipsis on end side DOM"] =
 snapshots["sbb-paginator renders ellipsis on end side Shadow DOM"] = 
 `<div class="sbb-paginator">
   <span class="sbb-paginator__wrapping-group">
-    <sbb-mini-button-group size="l">
+    <sbb-mini-button-group>
       <sbb-mini-button
         aria-label="Previous page"
         disabled=""
@@ -184,7 +182,6 @@ snapshots["sbb-paginator renders ellipsis on start side DOM"] =
   page-index="10"
   page-size="4"
   pager-position="start"
-  size="m"
 >
 </sbb-paginator>
 `;
@@ -193,7 +190,7 @@ snapshots["sbb-paginator renders ellipsis on start side DOM"] =
 snapshots["sbb-paginator renders ellipsis on start side Shadow DOM"] = 
 `<div class="sbb-paginator">
   <span class="sbb-paginator__wrapping-group">
-    <sbb-mini-button-group size="l">
+    <sbb-mini-button-group>
       <sbb-mini-button
         aria-label="Previous page"
         icon-name="chevron-small-left-small"
@@ -298,7 +295,6 @@ snapshots["sbb-paginator renders ellipsis on both side DOM"] =
   page-index="7"
   page-size="4"
   pager-position="start"
-  size="m"
 >
 </sbb-paginator>
 `;
@@ -307,7 +303,7 @@ snapshots["sbb-paginator renders ellipsis on both side DOM"] =
 snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] = 
 `<div class="sbb-paginator">
   <span class="sbb-paginator__wrapping-group">
-    <sbb-mini-button-group size="l">
+    <sbb-mini-button-group>
       <sbb-mini-button
         aria-label="Previous page"
         icon-name="chevron-small-left-small"
@@ -421,7 +417,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
   page-index="2"
   page-size="10"
   pager-position="start"
-  size="m"
 >
 </sbb-paginator>
 `;
@@ -430,7 +425,7 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
 snapshots["sbb-paginator renders with options and accessibility labels Chrome-Firefox Shadow DOM"] = 
 `<div class="sbb-paginator">
   <span class="sbb-paginator__wrapping-group">
-    <sbb-mini-button-group size="l">
+    <sbb-mini-button-group>
       <sbb-mini-button
         aria-label="Previous slide"
         icon-name="chevron-small-left-small"
@@ -518,7 +513,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
     <sbb-form-field
       borderless=""
       error-space="none"
-      size="m"
       width="collapse"
     >
       <div
@@ -534,10 +528,7 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
       >
         10
       </div>
-      <sbb-select
-        size="m"
-        value="10"
-      >
+      <sbb-select value="10">
         <sbb-option
           selected=""
           value="10"
@@ -573,7 +564,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari DO
   page-index="2"
   page-size="10"
   pager-position="start"
-  size="m"
 >
 </sbb-paginator>
 `;
@@ -582,7 +572,7 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari DO
 snapshots["sbb-paginator renders with options and accessibility labels Safari Shadow DOM"] = 
 `<div class="sbb-paginator">
   <span class="sbb-paginator__wrapping-group">
-    <sbb-mini-button-group size="l">
+    <sbb-mini-button-group>
       <sbb-mini-button
         aria-label="Previous slide"
         icon-name="chevron-small-left-small"
@@ -672,7 +662,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
     <sbb-form-field
       borderless=""
       error-space="none"
-      size="m"
       width="collapse"
     >
       <div
@@ -690,7 +679,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
       </div>
       <sbb-select
         id="select"
-        size="m"
         value="10"
       >
         <sbb-option

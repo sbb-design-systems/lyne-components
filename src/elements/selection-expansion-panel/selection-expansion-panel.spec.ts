@@ -749,16 +749,10 @@ describe(`sbb-selection-expansion-panel`, () => {
     });
 
     it('should sync size state', async () => {
-      expect(firstPanel).not.to.match(':state(size-xs)');
-      expect(firstPanel).not.to.match(':state(size-s)');
-      expect(firstPanel).to.match(':state(size-m)');
-
       wrapper.size = 'xs';
       await waitForLitRender(wrapper);
 
       expect(firstPanel).to.match(':state(size-xs)');
-      expect(firstPanel).not.to.match(':state(size-s)');
-      expect(firstPanel).not.to.match(':state(size-m)');
     });
   });
 

@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-tab-nav-bar renders DOM"] = 
-`<sbb-tab-nav-bar
-  size="l"
-  style="--sbb-tab-group-width: 800px;"
->
+`<sbb-tab-nav-bar style="--sbb-tab-group-width: 800px;">
   <a
     aria-current="page"
     class="sbb-active"

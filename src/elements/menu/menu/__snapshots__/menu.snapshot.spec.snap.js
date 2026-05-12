@@ -10,7 +10,6 @@ snapshots["sbb-menu renders DOM"] =
     href="https://www.sbb.ch/en"
     icon-placement="start"
     negative=""
-    size="s"
   >
     Profile
   </sbb-block-link>
@@ -77,7 +76,6 @@ snapshots["sbb-menu renders open DOM"] =
     href="https://www.sbb.ch/en"
     icon-placement="start"
     negative=""
-    size="s"
   >
     Profile
   </sbb-block-link>

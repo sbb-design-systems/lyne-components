@@ -129,9 +129,9 @@ const title: InputType = {
 
 const size: InputType = {
   control: {
-    type: 'select',
+    type: 'inline-radio',
   },
-  options: ['m', 'l', 's'] satisfies SbbAlertElement['size'][],
+  options: ['s', 'm', 'l'] satisfies SbbAlertElement['size'][],
 };
 
 const readonly: InputType = {
@@ -170,7 +170,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   title: 'Interruption between Berne and Olten',
-  size: size.options![0],
+  size: undefined,
   readonly: false,
   'icon-name': 'info',
   'content-slot-text':
@@ -184,13 +184,19 @@ export const defaultAlert: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const sizeL: StoryObj = {
+export const sizeS: StoryObj = {
+  render: WithLink,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![0] },
+};
+
+export const sizeM: StoryObj = {
   render: WithLink,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![1] },
 };
 
-export const sizeS: StoryObj = {
+export const sizeL: StoryObj = {
   render: WithLink,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![2] },

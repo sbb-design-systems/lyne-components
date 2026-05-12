@@ -35,7 +35,7 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<SbbElement>
       return this.querySelector?.('sbb-radio-button-panel, sbb-checkbox-panel') ?? null;
     }
 
-    private _previousSize?: (SbbCheckboxPanelElement | SbbRadioButtonPanelElement)['size'];
+    private _previousSize: (SbbCheckboxPanelElement | SbbRadioButtonPanelElement)['size'] = null;
     private _previousColor?: (SbbCheckboxPanelElement | SbbRadioButtonPanelElement)['color'];
 
     private _propertyWatcher = new SbbPropertyWatcherController(this, () => this.panel, {

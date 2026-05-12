@@ -55,14 +55,14 @@ const titleLevel: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: [1, 2, 3, 4, 5, 6, null],
+  options: ['1', '2', '3', '4', '5', '6', null] satisfies SbbExpansionPanelElement['titleLevel'][],
 };
 
 const color: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['white', 'milk'],
+  options: ['white', 'milk'] satisfies SbbExpansionPanelElement['color'][],
 };
 
 const expanded: InputType = {
@@ -93,7 +93,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['l', 's'],
+  options: ['s', 'l'] satisfies SbbExpansionPanelElement['size'][],
 };
 
 const defaultArgTypes: ArgTypes = {
@@ -119,7 +119,7 @@ const defaultArgs: Args = {
   borderless: false,
   disabled: false,
   'disabled-interactive': false,
-  size: size.options![0],
+  size: undefined,
 };
 
 const Template = ({
@@ -242,13 +242,13 @@ export const LongText: StoryObj = {
 export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![1] },
+  args: { ...defaultArgs, size: size.options![0] },
 };
 
 export const SizeSWithIcon: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![1], iconName: 'swisspass-medium' },
+  args: { ...defaultArgs, size: size.options![0], iconName: 'swisspass-medium' },
 };
 
 export const Nested: StoryObj = {

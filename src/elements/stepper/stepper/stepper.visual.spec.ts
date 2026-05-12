@@ -7,27 +7,35 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.ts';
 
+import type { SbbStepperElement } from './stepper.component.ts';
+
 import '../../stepper.ts';
 
 describe(`sbb-stepper`, () => {
   const cases = {
-    orientation: ['horizontal', 'vertical'],
+    orientation: ['horizontal', 'vertical'] satisfies SbbStepperElement['orientation'][],
     linear: [false, true],
   };
 
-  const template = (
-    linear?: boolean,
-    orientation?: string,
-    longLabel?: boolean,
-    horizontalFrom?: string,
-    size: 's' | 'm' = 'm',
-  ): TemplateResult => html`
+  const template = ({
+    linear,
+    orientation,
+    longLabel,
+    horizontalFrom,
+    size,
+  }: {
+    linear?: boolean;
+    orientation?: string;
+    longLabel?: boolean;
+    horizontalFrom?: string;
+    size?: SbbStepperElement['size'];
+  } = {}): TemplateResult => html`
     <sbb-stepper
       selected-index="0"
       ?linear=${linear}
       orientation=${orientation || nothing}
       horizontal-from=${horizontalFrom || nothing}
-      size=${size}
+      size=${size || nothing}
     >
       <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
       <sbb-step>
@@ -58,7 +66,7 @@ describe(`sbb-stepper`, () => {
         it(
           state.name,
           state.with(async (setup) => {
-            await setup.withFixture(template(linear, orientation));
+            await setup.withFixture(template({ linear, orientation }));
           }),
         );
       }
@@ -67,7 +75,7 @@ describe(`sbb-stepper`, () => {
     it(
       `horizontal-from=large`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template(false, 'vertical', false, 'large'));
+        await setup.withFixture(template({ orientation: 'vertical', horizontalFrom: 'large' }));
       }),
     );
   });
@@ -84,22 +92,24 @@ describe(`sbb-stepper`, () => {
             it(
               `long labels`,
               visualDiffDefault.with(async (setup) => {
-                await setup.withFixture(template(false, orientation, true), {
+                await setup.withFixture(template({ orientation, longLabel: true }), {
                   forcedColors,
                   darkMode,
                 });
               }),
             );
 
-            it(
-              `size=s`,
-              visualDiffDefault.with(async (setup) => {
-                await setup.withFixture(template(false, orientation, false, undefined, 's'), {
-                  forcedColors,
-                  darkMode,
-                });
-              }),
-            );
+            for (const size of [null, 's', 'm'] satisfies SbbStepperElement['size'][]) {
+              it(
+                `size=${size}`,
+                visualDiffDefault.with(async (setup) => {
+                  await setup.withFixture(template({ orientation, size }), {
+                    forcedColors,
+                    darkMode,
+                  });
+                }),
+              );
+            }
           });
         }
       });

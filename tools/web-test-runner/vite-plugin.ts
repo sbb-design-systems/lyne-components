@@ -45,6 +45,7 @@ export function vitePlugin(): TestRunnerPlugin {
             resolveId: (id) => (externals.includes(id) ? { id, external: true } : undefined),
           },
         ],
+        assetsInclude: ['**/*.md'],
         // This configuration is necessary, as vite will otherwise detect dependencies
         // that can be optimized. This will cause vite to reload, which leads to
         // 'Could not import your test module.' errors, that happen randomly.

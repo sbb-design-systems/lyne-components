@@ -104,7 +104,7 @@
 .sbb-option-panel__overlay {
   display: block;
   position: absolute;
-  visibility: var(--sbb-options-panel-visibility, 'visible');
+  visibility: var(--sbb-options-panel-visibility, visible);
   border: none;
   border-radius: var(--sbb-options-panel-border-radius);
   top: var(--sbb-options-panel-position-y);

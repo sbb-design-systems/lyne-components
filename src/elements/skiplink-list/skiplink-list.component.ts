@@ -4,7 +4,6 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
   forceType,
-  isLean,
   omitEmptyConverter,
   SbbDarkModeController,
   SbbElement,
@@ -52,7 +51,7 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
 
     if (changedProperties.has('listChildren')) {
       for (const child of this.listChildren) {
-        child.size = isLean() ? 'xs' : 'm';
+        child.size = 'm';
         child.negative = this._isLightMode();
       }
     }

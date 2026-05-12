@@ -46,7 +46,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
   }
 
   private _previousOrientation?: string;
-  private _previousSize?: string;
+  private _previousSize: SbbStepperElement['size'] = null;
 
   public constructor() {
     super();

@@ -30,8 +30,8 @@ To avoid that tabbed/focused elements get hidden behind the header,
 it's recommended to set on the `<html>` tag the CSS property `scroll-padding-top` to `var(--sbb-header-height)` or to a greater value.
 With this, it's ensured that content will be visible all the time.
 
-The component has two sizes, named `m` (default) and `s`.
-For the latter, the usage of the `<sbb-signet>` with `protective-room='panel'` is suggested.
+The component has two sizes `s` and `m`.
+For size `s`, the usage of the `<sbb-signet>` with `protective-room='panel'` is suggested.
 
 ```html
 <sbb-header size="s">
@@ -364,12 +364,12 @@ sbb-header-environment {
 
 #### Properties
 
-| Name           | Attribute        | Privacy | Type                  | Default            | Description                                                                                                             |
-| -------------- | ---------------- | ------- | --------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `expanded`     | `expanded`       | public  | `boolean`             | `false`            | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size.    |
-| `hideOnScroll` | `hide-on-scroll` | public  | `boolean`             | `false`            | Whether the header should hide and show on scroll.                                                                      |
-| `scrollOrigin` | `scroll-origin`  | public  | `HTMLElement \| null` | `null`             | The element's id or the element on which the scroll listener is attached. For attribute usage, provide an id reference. |
-| `size`         | `size`           | public  | `'m' \| 's'`          | `'m' / 's' (lean)` | Size of the header, either m or s.                                                                                      |
+| Name           | Attribute        | Privacy | Type                  | Default | Description                                                                                                             |
+| -------------- | ---------------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `expanded`     | `expanded`       | public  | `boolean`             | `false` | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size.    |
+| `hideOnScroll` | `hide-on-scroll` | public  | `boolean`             | `false` | Whether the header should hide and show on scroll.                                                                      |
+| `scrollOrigin` | `scroll-origin`  | public  | `HTMLElement \| null` | `null`  | The element's id or the element on which the scroll listener is attached. For attribute usage, provide an id reference. |
+| `size`         | `size`           | public  | `'s' \| 'm' \| null`  | `null`  | Size of the header, either s (lean theme default) or m (standard theme default).                                        |
 
 #### CSS Properties
 

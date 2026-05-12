@@ -13,6 +13,7 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import { defaultDateAdapter } from '../core.ts';
 import type { SbbDateInputElement } from '../date-input.ts';
+import type { SbbFormFieldElement } from '../form-field.pure.ts';
 
 import readme from './readme.md?raw';
 
@@ -130,7 +131,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm', 'l'],
+  options: ['s', 'm', 'l'] satisfies SbbFormFieldElement['size'][],
   table: {
     category: 'Form-field attribute',
   },
@@ -210,7 +211,7 @@ const formFieldBasicArgsTypes: ArgTypes = {
 const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
-  size: size.options![1],
+  size: undefined,
   negative: false,
   optional: false,
   borderless: false,
@@ -265,7 +266,7 @@ const TemplateFormField = ({
 }: Args): TemplateResult => {
   return html`
     <sbb-form-field
-      size=${size}
+      size=${size || nothing}
       ?negative=${negative}
       ?optional=${optional}
       ?borderless=${borderless}
@@ -347,13 +348,19 @@ export const InFormFieldWithDateFilter: StoryObj = {
   args: { ...formFieldBasicArgs, dateFilter: dateFilter.options![1] },
 };
 
-export const InFormFieldSmall: StoryObj = {
+export const InFormFieldS: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs, size: size.options![0] },
 };
 
-export const InFormFieldLarge: StoryObj = {
+export const InFormFieldM: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, size: size.options![1] },
+};
+
+export const InFormFieldL: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs, size: size.options![2] },

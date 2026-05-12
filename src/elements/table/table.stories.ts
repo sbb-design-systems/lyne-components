@@ -68,7 +68,7 @@ const simpleDefaultArgTypes: ArgTypes = {
 };
 
 const simpleDefaultArgs: Args = {
-  size: 'm',
+  size: undefined,
   negative: false,
   striped: true,
   'inline-filters': false,
@@ -161,6 +161,7 @@ const simpleBody: (groupWithNext?: boolean) => TemplateResult = (groupWithNext =
 
 const tableClasses = (args: Args): Record<string, boolean> => ({
   'sbb-table--negative': args.negative,
+  'sbb-table': !args.size,
   'sbb-table-xs': args.size === 'xs',
   'sbb-table-s': args.size === 's',
   'sbb-table-m': args.size === 'm',
@@ -193,13 +194,13 @@ export const Simple: StoryObj = {
 export const SimpleSizeS: StoryObj = {
   render: SimpleTemplate,
   argTypes: simpleDefaultArgTypes,
-  args: { ...simpleDefaultArgs, size: 's' },
+  args: { ...simpleDefaultArgs, size: size.options![1] },
 };
 
 export const SimpleSizeXS: StoryObj = {
   render: SimpleTemplate,
   argTypes: simpleDefaultArgTypes,
-  args: { ...simpleDefaultArgs, size: 'xs' },
+  args: { ...simpleDefaultArgs, size: size.options![0] },
 };
 
 export const SimpleNegative: StoryObj = {
@@ -217,13 +218,13 @@ export const SimpleIronTheme: StoryObj = {
 export const SimpleWithFilters: StoryObj = {
   render: SimpleTemplate,
   argTypes: simpleDefaultArgTypes,
-  args: { ...simpleDefaultArgs, 'inline-filters': true, size: 's' },
+  args: { ...simpleDefaultArgs, 'inline-filters': true, size: size.options![1] },
 };
 
 export const SimpleWithoutHeader: StoryObj = {
   render: SimpleWithoutHeaderTemplate,
   argTypes: simpleDefaultArgTypes,
-  args: { ...simpleDefaultArgs, 'inline-filters': true, size: 's' },
+  args: { ...simpleDefaultArgs, 'inline-filters': true, size: size.options![1] },
 };
 
 export const SimpleGroupWithNext: StoryObj = {

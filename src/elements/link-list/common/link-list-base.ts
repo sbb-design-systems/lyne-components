@@ -10,7 +10,6 @@ import { property } from 'lit/decorators.js';
 
 import {
   forceType,
-  isLean,
   omitEmptyConverter,
   SbbElement,
   type SbbElementType,
@@ -57,13 +56,10 @@ export class SbbLinkListBaseElement extends SbbNegativeMixin(
   @property({ attribute: 'title-level' }) public accessor titleLevel: SbbHeadingLevel = '2';
 
   /**
-   * Text size of the nested sbb-block-link instances.
+   * Text size of the nested sbb-block-link instances, either xs (lean theme default), s (standard theme default) or m
    * This will overwrite the size attribute of nested sbb-block-link instances.
-   * @default 's' / 'xs' (lean)
    */
-  @property({ reflect: true }) public accessor size: SbbBlockLinkElement['size'] = isLean()
-    ? 'xs'
-    : 's';
+  @property({ reflect: true }) public accessor size: SbbBlockLinkElement['size'] = null;
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);

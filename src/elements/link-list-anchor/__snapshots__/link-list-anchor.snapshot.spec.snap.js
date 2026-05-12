@@ -2,14 +2,10 @@
 export const snapshots = {};
 
 snapshots["sbb-link-list-anchor renders DOM"] = 
-`<sbb-link-list-anchor
-  size="s"
-  title-content="title"
->
+`<sbb-link-list-anchor title-content="title">
   <sbb-block-link
     href="https://www.sbb.ch"
     icon-placement="start"
-    size="s"
     slot="li-0"
   >
     Link 0
@@ -17,7 +13,6 @@ snapshots["sbb-link-list-anchor renders DOM"] =
   <sbb-block-link
     href="https://www.sbb.ch"
     icon-placement="start"
-    size="s"
     slot="li-1"
   >
     Link 1
@@ -25,7 +20,6 @@ snapshots["sbb-link-list-anchor renders DOM"] =
   <sbb-block-link
     href="https://www.sbb.ch"
     icon-placement="start"
-    size="s"
     slot="li-2"
   >
     Link 2

@@ -6,7 +6,6 @@ snapshots["sbb-autocomplete renders standalone Safari DOM"] =
   id="sbb-autocomplete-1"
   origin="origin"
   popover="manual"
-  size="m"
   trigger="trigger"
 >
   <sbb-option
@@ -41,7 +40,6 @@ snapshots["sbb-autocomplete renders standalone Safari Shadow DOM"] =
 snapshots["sbb-autocomplete renders in form field Safari DOM"] = 
 `<sbb-form-field
   error-space="none"
-  size="m"
   width="default"
 >
   <input
@@ -56,7 +54,6 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
   <sbb-autocomplete
     id="sbb-autocomplete-3"
     popover="manual"
-    size="m"
   >
     <sbb-option
       id="sbb-option-4"
@@ -122,7 +119,6 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] =
 `<sbb-autocomplete
   origin="origin"
   popover="manual"
-  size="m"
   trigger="trigger"
 >
   <sbb-option value="1">
@@ -153,7 +149,6 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM"] =
 snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] = 
 `<sbb-form-field
   error-space="none"
-  size="m"
   width="default"
 >
   <input
@@ -165,10 +160,7 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
     autocomplete="off"
     role="combobox"
   >
-  <sbb-autocomplete
-    popover="manual"
-    size="m"
-  >
+  <sbb-autocomplete popover="manual">
     <sbb-option value="1">
       1
     </sbb-option>

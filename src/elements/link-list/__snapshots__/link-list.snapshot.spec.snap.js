@@ -40,7 +40,6 @@ snapshots["sbb-link-list should render named slots if data-ssr-child-count attri
 snapshots["sbb-link-list rendered with a slotted title DOM"] = 
 `<sbb-link-list
   orientation="vertical"
-  size="s"
   title-level="2"
 >
   <span slot="title">
@@ -49,7 +48,6 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
   <sbb-block-link
     href="#"
     icon-placement="start"
-    size="s"
     slot="li-0"
   >
     Link 1
@@ -57,7 +55,6 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
   <sbb-block-link
     href="#"
     icon-placement="start"
-    size="s"
     slot="li-1"
   >
     Link 2
@@ -65,7 +62,6 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
   <sbb-block-link
     href="#"
     icon-placement="start"
-    size="s"
     slot="li-2"
   >
     Link 3
@@ -73,7 +69,6 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
   <sbb-block-link
     href="#"
     icon-placement="start"
-    size="s"
     slot="li-3"
   >
     Link 4
@@ -81,7 +76,6 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
   <sbb-block-link
     href="#"
     icon-placement="start"
-    size="s"
     slot="li-4"
   >
     Link 5
@@ -134,17 +128,25 @@ snapshots["sbb-link-list rendered with a slotted title Shadow DOM"] =
 `;
 /* end snapshot sbb-link-list rendered with a slotted title Shadow DOM */
 
+snapshots["sbb-link-list rendered with a slotted title A11y tree Chrome"] = 
+`<p>
+  {
+  "ignored": true,
+  "role": "none"
+}
+</p>
+`;
+/* end snapshot sbb-link-list rendered with a slotted title A11y tree Chrome */
+
 snapshots["sbb-link-list rendered with a title from properties DOM"] = 
 `<sbb-link-list
   orientation="vertical"
-  size="s"
   title-content="Help &amp; Contact"
   title-level="2"
 >
   <sbb-block-link
     href="#"
     icon-placement="start"
-    size="s"
     slot="li-0"
   >
     Link 1
@@ -152,7 +154,6 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
   <sbb-block-link
     href="#"
     icon-placement="start"
-    size="s"
     slot="li-1"
   >
     Link 2
@@ -160,7 +161,6 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
   <sbb-block-link
     href="#"
     icon-placement="start"
-    size="s"
     slot="li-2"
   >
     Link 3
@@ -168,7 +168,6 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
   <sbb-block-link
     href="#"
     icon-placement="start"
-    size="s"
     slot="li-3"
   >
     Link 4
@@ -176,7 +175,6 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
   <sbb-block-link
     href="#"
     icon-placement="start"
-    size="s"
     slot="li-4"
   >
     Link 5
@@ -231,14 +229,10 @@ snapshots["sbb-link-list rendered with a title from properties Shadow DOM"] =
 /* end snapshot sbb-link-list rendered with a title from properties Shadow DOM */
 
 snapshots["sbb-link-list rendered without a title DOM"] = 
-`<sbb-link-list
-  orientation="vertical"
-  size="s"
->
+`<sbb-link-list orientation="vertical">
   <sbb-block-link
     href="#"
     icon-placement="start"
-    size="s"
     slot="li-0"
   >
     Link 1
@@ -246,7 +240,6 @@ snapshots["sbb-link-list rendered without a title DOM"] =
   <sbb-block-link
     href="#"
     icon-placement="start"
-    size="s"
     slot="li-1"
   >
     Link 2
@@ -254,7 +247,6 @@ snapshots["sbb-link-list rendered without a title DOM"] =
   <sbb-block-link
     href="#"
     icon-placement="start"
-    size="s"
     slot="li-2"
   >
     Link 3
@@ -262,7 +254,6 @@ snapshots["sbb-link-list rendered without a title DOM"] =
   <sbb-block-link
     href="#"
     icon-placement="start"
-    size="s"
     slot="li-3"
   >
     Link 4
@@ -270,7 +261,6 @@ snapshots["sbb-link-list rendered without a title DOM"] =
   <sbb-block-link
     href="#"
     icon-placement="start"
-    size="s"
     slot="li-4"
   >
     Link 5
@@ -322,14 +312,4 @@ snapshots["sbb-link-list rendered without a title Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-link-list rendered without a title Shadow DOM */
-
-snapshots["sbb-link-list rendered with a slotted title A11y tree Chrome"] = 
-`<p>
-  {
-  "ignored": true,
-  "role": "none"
-}
-</p>
-`;
-/* end snapshot sbb-link-list rendered with a slotted title A11y tree Chrome */
 

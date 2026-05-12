@@ -6,13 +6,18 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.ts';
 
+import type { SbbMiniButtonGroupElement } from './mini-button-group.component.ts';
+
 import '../../button.ts';
 import '../../divider.ts';
 
 describe('sbb-mini-button-group', () => {
-  const sizeCases = ['s', 'm', 'l', 'xl'];
+  const sizeCases = [null, 's', 'm', 'l', 'xl'] satisfies SbbMiniButtonGroupElement['size'][];
 
-  const template = (size?: string, negative?: boolean): TemplateResult => html`
+  const template = (
+    size?: SbbMiniButtonGroupElement['size'],
+    negative?: boolean,
+  ): TemplateResult => html`
     <sbb-mini-button-group size=${size || nothing} ?negative=${negative}>
       <sbb-mini-button icon-name="pen-small"></sbb-mini-button>
       <sbb-mini-button icon-name="pen-small"></sbb-mini-button>

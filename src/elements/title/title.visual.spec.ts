@@ -25,23 +25,6 @@ describe(`sbb-title`, () => {
           await setup.withFixture(htmlTemplate(level));
         }),
       );
-
-      describe('lean', () => {
-        beforeEach(() => {
-          document.documentElement.classList.add('sbb-lean');
-        });
-
-        it(
-          `level=${level}`,
-          visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(htmlTemplate(level));
-          }),
-        );
-
-        afterEach(() => {
-          document.documentElement.classList.remove('sbb-lean');
-        });
-      });
     }
   });
 

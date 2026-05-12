@@ -12,7 +12,6 @@ import { property, state } from 'lit/decorators.js';
 import {
   forceType,
   idReference,
-  isLean,
   queueDomContentLoaded,
   SbbElement,
   SbbFocusVisibleWithinController,
@@ -67,10 +66,9 @@ export class SbbHeaderElement extends SbbElement {
   public accessor hideOnScroll: boolean = false;
 
   /**
-   * Size of the header, either m or s.
-   * @default 'm' / 's' (lean)
+   * Size of the header, either s (lean theme default) or m (standard theme default).
    */
-  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 
   @state() private accessor _headerOnTop = true;
 

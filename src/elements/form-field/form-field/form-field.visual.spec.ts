@@ -9,6 +9,7 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.ts';
 import { isChromium, SbbElement } from '../../core.ts';
+import type { SbbFormFieldElement } from '../../form-field.ts';
 
 import '../../form-field.ts';
 import '../../button.ts';
@@ -122,13 +123,13 @@ describe(`sbb-form-field`, () => {
   `;
 
   const basicArgs = {
-    'error-space': 'none',
+    'error-space': 'none' as SbbFormFieldElement['errorSpace'],
     label: 'Input name',
     'hidden-label': false,
     'floating-label': false,
     optional: false,
     borderless: false,
-    size: 'm',
+    size: 'm' as SbbFormFieldElement['size'],
     negative: false,
     cssClass: '',
     placeholder: 'Input placeholder',
@@ -136,7 +137,7 @@ describe(`sbb-form-field`, () => {
     disabled: false,
     readonly: false,
     errorText: false,
-    width: 'default',
+    width: 'default' as SbbFormFieldElement['width'],
     active: false,
     selectNullValue: false,
   };
@@ -150,8 +151,8 @@ describe(`sbb-form-field`, () => {
   };
 
   const visualProp = {
-    size: ['s', 'm', 'l', null],
-    width: ['default', 'collapse'],
+    size: ['s', 'm', 'l', null] satisfies SbbFormFieldElement['size'][],
+    width: ['default', 'collapse'] satisfies SbbFormFieldElement['width'][],
     errorText: [true, false],
   };
 

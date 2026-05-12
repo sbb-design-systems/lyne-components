@@ -2,11 +2,13 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
 
+import type { SbbCheckboxElement } from './checkbox.component.ts';
+
 import '../checkbox.ts';
 
 describe('sbb-checkbox', () => {
   const defaultArgs = {
-    size: 'm',
+    size: 'm' as SbbCheckboxElement['size'],
     disabled: false,
     iconName: undefined as string | undefined,
     iconPlacement: undefined as string | undefined,
@@ -22,7 +24,7 @@ describe('sbb-checkbox', () => {
           iconPlacement,
         }: typeof defaultArgs): TemplateResult => html`
           <sbb-checkbox
-            size=${size}
+            size=${size || nothing}
             .disabled=${disabled}
             .indeterminate=${state === 'indeterminate'}
             .checked=${state === 'checked'}
@@ -60,6 +62,13 @@ describe('sbb-checkbox', () => {
         }
 
         it(
+          `size=xs`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(template({ ...defaultArgs, size: 'xs' }));
+          }),
+        );
+
+        it(
           `size=s`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(template({ ...defaultArgs, size: 's' }));
@@ -67,9 +76,9 @@ describe('sbb-checkbox', () => {
         );
 
         it(
-          `size=xs`,
+          `size=m`,
           visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(template({ ...defaultArgs, size: 'xs' }));
+            await setup.withFixture(template({ ...defaultArgs, size: 'm' }));
           }),
         );
 

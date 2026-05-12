@@ -204,6 +204,9 @@ $theme: 'standard' !default;
 @use '../../option/optgroup/optgroup.global' as optgroup with (
   $theme: $theme
 );
+@use '../../paginator/common/paginator-common.global' as paginator-common with (
+  $theme: $theme
+);
 @use '../../paginator/paginator/paginator.global' as paginator with (
   $theme: $theme
 );
@@ -394,6 +397,7 @@ $theme: 'standard' !default;
   @include option-panel.base;
   @include optgroup.base;
   @include overlay.base;
+  @include paginator-common.base;
   @include paginator.base;
   @include compact-paginator.base;
   @include popover-component.base;

@@ -7,7 +7,9 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
+import type { SbbRadioButtonElement } from './radio-button.component.ts';
 import readme from './readme.md?raw';
+
 import '../radio-button.ts';
 import '../title.ts';
 
@@ -36,7 +38,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xs', 's', 'm'],
+  options: ['xs', 's', 'm'] satisfies SbbRadioButtonElement['size'][],
 };
 
 const ariaLabel: InputType = {
@@ -71,7 +73,7 @@ const defaultArgs: Args = {
   value: 'First value',
   checked: false,
   disabled: false,
-  size: size.options![2],
+  size: undefined,
   'aria-label': undefined,
   labelBoldClass: false,
   'allow-empty-selection': false,

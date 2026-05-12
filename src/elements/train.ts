@@ -4,8 +4,8 @@ import {
   SbbTrainElement,
   SbbTrainFormationElement,
   SbbTrainWagonButtonElement,
-  SbbTrainWagonLinkElement,
   SbbTrainWagonElement,
+  SbbTrainWagonLinkElement,
 } from './train.pure.ts';
 
 export * from './train.pure.ts';

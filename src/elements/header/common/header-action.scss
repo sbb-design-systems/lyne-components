@@ -60,6 +60,16 @@
   }
 }
 
+:host(:state(size-s)) {
+  --sbb-header-action-min-height: var(--sbb-header-action-min-height-s);
+  --sbb-header-action-padding-inline: var(--sbb-header-action-padding-inline-s);
+}
+
+:host(:state(size-m)) {
+  --sbb-header-action-min-height: var(--sbb-header-action-min-height-m);
+  --sbb-header-action-padding-inline: var(--sbb-header-action-padding-inline-m);
+}
+
 :host(:is(:active, :state(active))) {
   --sbb-header-action-background-color: var(--sbb-background-color-4);
 

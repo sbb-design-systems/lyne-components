@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-alert should render default properties DOM"] = 
-`<sbb-alert
-  animation="all"
-  size="m"
->
+`<sbb-alert animation="all">
   <sbb-title
     level="3"
     negative=""
@@ -48,7 +45,6 @@ snapshots["sbb-alert should render default properties Shadow DOM"] =
         class="sbb-alert__close-button"
         icon-name="cross-small"
         negative=""
-        size="m"
         tabindex="0"
       >
       </sbb-transparent-button>
