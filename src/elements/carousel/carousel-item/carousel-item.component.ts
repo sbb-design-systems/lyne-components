@@ -4,16 +4,37 @@ import { SbbElement } from '../../core.ts';
 
 import style from './carousel-item.scss?inline';
 
-export interface SbbCarouselItemEventDetail {
-  index: number;
+class SbbCarouselItemEvent extends Event {
+  private readonly _index: number;
+
+  public get index(): number {
+    return this._index;
+  }
+
+  protected constructor(type: string, index: number) {
+    super(type, { bubbles: true, composed: true });
+    this._index = index;
+  }
+}
+
+export class SbbCarouselItemBeforeShowEvent extends SbbCarouselItemEvent {
+  public constructor(index: number) {
+    super('beforeshow', index);
+  }
+}
+
+export class SbbCarouselItemShowEvent extends SbbCarouselItemEvent {
+  public constructor(index: number) {
+    super('show', index);
+  }
 }
 
 /**
  * It displays an item contained into the `sbb-carousel` component.
  *
  * @slot - Use the unnamed slot to add images for the carousel, as <img>, <sbb-image>, <picture>, ...
- * @event {CustomEvent<SbbCarouselItemEventDetail>} beforeshow - Event emitted when the item is starting scrolling.
- * @event {CustomEvent<SbbCarouselItemEventDetail>} show - Event emitted when the item is full visible after scrolling.
+ * @event {SbbCarouselItemBeforeShowEvent} beforeshow - Event emitted when the item is starting scrolling.
+ * @event {SbbCarouselItemShowEvent} show - Event emitted when the item is full visible after scrolling.
  */
 export class SbbCarouselItemElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-carousel-item';
@@ -42,7 +63,7 @@ declare global {
   }
 
   interface GlobalEventHandlersEventMap {
-    beforeshow: CustomEvent<SbbCarouselItemEventDetail>;
-    show: CustomEvent<SbbCarouselItemEventDetail>;
+    beforeshow: SbbCarouselItemBeforeShowEvent;
+    show: SbbCarouselItemShowEvent;
   }
 }

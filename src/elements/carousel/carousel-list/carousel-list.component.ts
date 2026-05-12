@@ -8,9 +8,10 @@ import {
   SbbElement,
   SbbLanguageController,
 } from '../../core.ts';
-import type {
-  SbbCarouselItemElement,
-  SbbCarouselItemEventDetail,
+import {
+  type SbbCarouselItemElement,
+  SbbCarouselItemBeforeShowEvent,
+  SbbCarouselItemShowEvent,
 } from '../carousel-item/carousel-item.component.ts';
 
 import style from './carousel-list.scss?inline';
@@ -35,11 +36,7 @@ export class SbbCarouselListElement extends SbbElement {
       item.forEach((e) => {
         const target = e.target as SbbCarouselItemElement;
         target.dispatchEvent(
-          new CustomEvent<SbbCarouselItemEventDetail>('beforeshow', {
-            detail: { index: this._carouselItems().findIndex((e) => e === target) },
-            bubbles: true,
-            composed: true,
-          }),
+          new SbbCarouselItemBeforeShowEvent(this._carouselItems().findIndex((e) => e === target)),
         );
       });
     },
@@ -57,13 +54,7 @@ export class SbbCarouselListElement extends SbbElement {
         if (entry.isIntersecting) {
           target.ariaHidden = null;
           this._currentIndex = this._carouselItems().findIndex((el) => el === target);
-          target.dispatchEvent(
-            new CustomEvent<SbbCarouselItemEventDetail>('show', {
-              detail: { index: this._currentIndex },
-              bubbles: true,
-              composed: true,
-            }),
-          );
+          target.dispatchEvent(new SbbCarouselItemShowEvent(this._currentIndex));
         } else {
           target.ariaHidden = 'true';
         }

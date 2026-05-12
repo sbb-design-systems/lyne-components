@@ -78,6 +78,7 @@ export class SbbDateSelectedEvent<T> extends Event {
     this._dateSelected = dates;
   }
 }
+
 /**
  * Parameters needed in year and month views to correctly calculate the next element in keyboard navigation.
  *
