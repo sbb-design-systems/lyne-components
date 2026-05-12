@@ -173,7 +173,7 @@ sbb-table-wrapper[negative] .sbb-table,
 }
 
 .sbb-table--unstriped {
-  & tbody tr:nth-child(odd) :is(th, td) {
+  tbody tr:nth-child(odd) :is(th, td) {
     background-color: var(--sbb-table-background-color);
   }
 }
