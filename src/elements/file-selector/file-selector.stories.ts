@@ -5,7 +5,7 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import type { SbbFileSelectorDropzoneElement } from '../file-selector.ts';
+import type { SbbFileChangedEvent, SbbFileSelectorDropzoneElement } from '../file-selector.ts';
 import { SbbFileSelectorElement } from '../file-selector.ts';
 import type { SbbErrorElement } from '../form-field.ts';
 
@@ -26,8 +26,8 @@ const FileSelectorTemplateWithError = ({ tag, ...args }: Args): TemplateResult =
     <${unsafeStatic(tag)}
       ${sbbSpread(args)}
       id="sbb-file-selector"
-      @filechanged=${(event: CustomEvent<File[]>) => {
-        if (event.detail && event.detail.length > 0) {
+      @filechanged=${(event: SbbFileChangedEvent) => {
+        if (event.files && event.files.length > 0) {
           (event.target as SbbFileSelectorElement | SbbFileSelectorDropzoneElement)!.append(error);
         } else {
           error.remove();
