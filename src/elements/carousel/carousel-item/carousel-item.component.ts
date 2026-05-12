@@ -4,7 +4,7 @@ import { SbbElement } from '../../core.ts';
 
 import style from './carousel-item.scss?inline';
 
-class SbbCarouselItemEvent extends Event {
+class SbbCarouselItemShowingEvent extends Event {
   private readonly _index: number;
 
   public get index(): number {
@@ -17,13 +17,13 @@ class SbbCarouselItemEvent extends Event {
   }
 }
 
-export class SbbCarouselItemBeforeShowEvent extends SbbCarouselItemEvent {
+export class SbbCarouselItemBeforeShowEvent extends SbbCarouselItemShowingEvent {
   public constructor(index: number) {
     super('beforeshow', index);
   }
 }
 
-export class SbbCarouselItemShowEvent extends SbbCarouselItemEvent {
+export class SbbCarouselItemShowEvent extends SbbCarouselItemShowingEvent {
   public constructor(index: number) {
     super('show', index);
   }
