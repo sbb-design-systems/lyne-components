@@ -32,11 +32,24 @@ export interface SbbTabChangedEventDetails {
   previousTab: SbbTabElement | undefined;
 }
 
+export class SbbTabChangedEvent extends Event {
+  private readonly _detail: SbbTabChangedEventDetails;
+
+  public get detail(): SbbTabChangedEventDetails {
+    return this._detail;
+  }
+
+  public constructor(details: SbbTabChangedEventDetails) {
+    super('tabchange', { bubbles: true, composed: true });
+    this._detail = Object.freeze(details);
+  }
+}
+
 /**
  * It displays one or more tabs, each one with a label and some content.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-tab-group` via `sbb-tab-label` and `sbb-tab` instances.
- * @event {CustomEvent<SbbTabChangedEventDetails>} tabchange - The tabchange event is dispatched when a tab is selected.
+ * @event {SbbTabChangedEvent} tabchange - The tabchange event is dispatched when a tab is selected.
  */
 export class SbbTabGroupElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-tab-group';

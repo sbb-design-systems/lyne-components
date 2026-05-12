@@ -228,9 +228,9 @@ Be aware that anchors do not support a `disabled` state. To achieve an equivalen
 
 #### Events
 
-| Name        | Type                                     | Description                                               | Inherited From |
-| ----------- | ---------------------------------------- | --------------------------------------------------------- | -------------- |
-| `tabchange` | `CustomEvent<SbbTabChangedEventDetails>` | The tabchange event is dispatched when a tab is selected. |                |
+| Name        | Type                 | Description                                               | Inherited From |
+| ----------- | -------------------- | --------------------------------------------------------- | -------------- |
+| `tabchange` | `SbbTabChangedEvent` | The tabchange event is dispatched when a tab is selected. |                |
 
 #### Slots
 

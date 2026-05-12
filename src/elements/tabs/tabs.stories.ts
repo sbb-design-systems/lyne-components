@@ -4,7 +4,7 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import { type SbbTabChangedEventDetails, SbbTabElement, SbbTabGroupElement } from '../tabs.ts';
+import { type SbbTabChangedEvent, SbbTabElement, SbbTabGroupElement } from '../tabs.ts';
 
 import readme from './readme.md?raw';
 
@@ -13,7 +13,7 @@ import '../link.ts';
 import '../title.ts';
 import '../tabs.ts';
 
-const changeEventHandler = (event: CustomEvent<SbbTabChangedEventDetails>): void => {
+const changeEventHandler = (event: SbbTabChangedEvent): void => {
   const evDetail = event.detail;
   const card = document.getElementById('container')!;
   card.innerHTML = `
@@ -74,7 +74,7 @@ const DefaultTemplate = ({ size, label, ...args }: Args): TemplateResult => html
   <sbb-tab-group
     size=${size}
     initial-selected-index="0"
-    @tabchange=${(e: CustomEvent<SbbTabChangedEventDetails>) => changeEventHandler(e)}
+    @tabchange=${(e: SbbTabChangedEvent) => changeEventHandler(e)}
   >
     ${firstTabTitle(label, args)} ${tabPanelOne()}
 
