@@ -46,6 +46,25 @@ All notable changes to this project will be documented in this file. See [standa
 
 * prepare release 5.0.0-next.3 ([138ce41](https://github.com/sbb-design-systems/lyne-components/commit/138ce419befed1e72d7b273da4925377a0b50a8d))
 
+## [4.13.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.12.1...v4.13.0) (2026-05-12)
+
+
+### Features
+
+* **stepper:** add `active` event to step element ([#4888](https://github.com/sbb-design-systems/lyne-components/issues/4888)) ([8601de4](https://github.com/sbb-design-systems/lyne-components/commit/8601de4beee0cb189631211e0bd7be421d1d73fd))
+
+
+### Bug Fixes
+
+* **autocomplete:** handle 'autoSelectActiveOption' and 'requireSelection' interaction ([#4897](https://github.com/sbb-design-systems/lyne-components/issues/4897)) ([f7869c8](https://github.com/sbb-design-systems/lyne-components/commit/f7869c8d498e2d89f155f619e511bdb04c6125ff))
+* **seat-reservation:** not visible seatmap with high resolution layouts ([#4887](https://github.com/sbb-design-systems/lyne-components/issues/4887)) ([38e93e8](https://github.com/sbb-design-systems/lyne-components/commit/38e93e892679d68064917d643fcc40a60b50c167))
+* **table:** re-add lean size s configuration ([#4892](https://github.com/sbb-design-systems/lyne-components/issues/4892)) ([fbc3c87](https://github.com/sbb-design-systems/lyne-components/commit/fbc3c873dc91a94cb7f6464d3e2a8a7667428811))
+
+
+### Documentation
+
+* **alert:** fix typo in readme ([#4879](https://github.com/sbb-design-systems/lyne-components/issues/4879)) ([387b3c4](https://github.com/sbb-design-systems/lyne-components/commit/387b3c442a50e89cb7954a4c8d80a1081c672723))
+
 ## [4.12.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.12.0...v4.12.1) (2026-05-04)
 
 
