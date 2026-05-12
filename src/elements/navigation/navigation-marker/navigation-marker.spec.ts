@@ -14,7 +14,7 @@ describe(`sbb-navigation-marker`, () => {
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-navigation-marker size="l">
-        <sbb-navigation-button id="nav-1" size="s">Tickets & Offers</sbb-navigation-button>
+        <sbb-navigation-button id="nav-1">Tickets & Offers</sbb-navigation-button>
         <sbb-navigation-button id="nav-2">Vacations & Recreation</sbb-navigation-button>
         <sbb-navigation-button id="nav-3">Travel information</sbb-navigation-button>
         <sbb-navigation-button id="nav-4">Help & Contact</sbb-navigation-button>
@@ -53,6 +53,6 @@ describe(`sbb-navigation-marker`, () => {
 
   it('force size on children elements', () => {
     const firstAction = element.querySelector('sbb-navigation-button#nav-1');
-    expect(firstAction).to.have.attribute('size', 'l');
+    expect(firstAction).to.match(':state(size-l)');
   });
 });
