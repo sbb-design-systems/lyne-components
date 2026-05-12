@@ -85,8 +85,6 @@
 }
 
 .sbb-paginator__page--number-item {
-  @include sbb.button-reset;
-
   font-family: var(--sbb-typo-font-family);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
   font-size: var(--sbb-paginator-font-size);

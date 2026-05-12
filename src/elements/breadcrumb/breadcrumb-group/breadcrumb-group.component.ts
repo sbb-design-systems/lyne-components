@@ -10,6 +10,7 @@ import {
 import { state } from 'lit/decorators.js';
 
 import {
+  buttonResetStyles,
   getNextElementIndex,
   i18nBreadcrumbEllipsisButtonLabel,
   isArrowKeyPressed,
@@ -39,7 +40,7 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   public static override readonly elementName: string = 'sbb-breadcrumb-group';
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static override readonly role = 'navigation';
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [buttonResetStyles, unsafeCSS(style)];
   protected override readonly listChildLocalNames = ['sbb-breadcrumb'];
 
   /** The state of the breadcrumb group. */

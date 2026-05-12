@@ -38,8 +38,6 @@
 }
 
 #sbb-breadcrumb-ellipsis {
-  @include sbb.button-reset;
-
   font-family: var(--sbb-typo-font-family);
   font-weight: normal;
   font-size: var(--sbb-text-font-size-xxs);

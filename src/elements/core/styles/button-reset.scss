@@ -1,0 +1,5 @@
+@use './mixins/buttons';
+
+button {
+  @include buttons.button-reset;
+}

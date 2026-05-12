@@ -121,8 +121,6 @@ $disabled: '[disabled], :disabled';
 
 // same for all states
 .sbb-sr-navigation__ctrl-button {
-  @include sbb.button-reset;
-
   display: flex;
   flex-direction: column;
   justify-content: center;

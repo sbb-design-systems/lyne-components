@@ -137,8 +137,6 @@
 }
 
 .sbb-flip-card-button {
-  @include sbb.button-reset;
-
   position: absolute;
   inset: 0;
   width: 100%;

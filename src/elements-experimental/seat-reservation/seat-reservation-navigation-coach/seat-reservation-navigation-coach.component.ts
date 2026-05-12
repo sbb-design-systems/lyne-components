@@ -1,4 +1,5 @@
 import {
+  buttonResetStyles,
   forceType,
   SbbElement,
   type SbbElementType,
@@ -32,7 +33,11 @@ export class SbbSeatReservationNavigationCoachElement extends SbbElement {
   public static override elementDependencies: SbbElementType[] = [
     SbbSeatReservationNavigationServicesElement,
   ];
-  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    buttonResetStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
   public static readonly events = {
     selectcoach: 'selectcoach',
     focuscoach: 'focuscoach',
