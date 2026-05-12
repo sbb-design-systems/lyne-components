@@ -33,10 +33,7 @@ import style from './chip-group.scss?inline';
 
 let displayWithWarningLogged = false;
 
-// TODO(breaking-change): Replace base class with Event
-export class SbbChipInputTokenEndEvent<T = string> extends CustomEvent<
-  SbbChipInputTokenEndEventDetails<T>
-> {
+export class SbbChipInputTokenEndEvent<T = string> extends Event {
   /** The element that triggered the chip creation */
   public origin: 'input' | 'autocomplete';
   /**
@@ -46,13 +43,6 @@ export class SbbChipInputTokenEndEvent<T = string> extends CustomEvent<
    */
   public value: T | string;
   public label?: string;
-
-  /**
-   * @deprecated Use event properties directly.
-   */
-  public override get detail(): SbbChipInputTokenEndEventDetails<T> {
-    return this;
-  }
 
   public constructor(options: Pick<SbbChipInputTokenEndEvent, 'origin' | 'value' | 'label'>) {
     super('chipinputtokenend', {
@@ -73,25 +63,6 @@ export class SbbChipInputTokenEndEvent<T = string> extends CustomEvent<
   public setLabel(label: string): void {
     this.label = label;
   }
-}
-
-/**
- * @deprecated Use `SbbChipInputTokenEndEvent` instead.
- */
-export interface SbbChipInputTokenEndEventDetails<T = string> {
-  /** The element that triggered the chip creation */
-  origin: 'input' | 'autocomplete';
-  /**
-   * The value of the new chip. Either the input or the option value depending on the origin.
-   * Either the value from the input which is always `string` or the value from the selected option
-   * from an autocomplete, which can be either a string or any other type.
-   */
-  value: T | string;
-  label?: string;
-  /** Set a new value for the chip that will be created */
-  setValue(value: T): void;
-  /** Set a label for the chip that will be created */
-  setLabel(value: string): void;
 }
 
 /**

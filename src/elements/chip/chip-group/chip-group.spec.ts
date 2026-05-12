@@ -525,7 +525,7 @@ describe('sbb-chip-group', () => {
 
       expect(inputAutocompleteEventSpy.count).to.be.equal(1);
       expect(tokenEndEventSpy.count).to.be.equal(1);
-      expect(tokenEndEventSpy.lastEvent!.detail.origin).to.be.equal('autocomplete');
+      expect(tokenEndEventSpy.lastEvent!.origin).to.be.equal('autocomplete');
       expect(element.value).to.contain(options[0].value);
 
       autocomplete.open();
@@ -534,7 +534,7 @@ describe('sbb-chip-group', () => {
 
       expect(inputAutocompleteEventSpy.count).to.be.equal(2);
       expect(tokenEndEventSpy.count).to.be.equal(2);
-      expect(tokenEndEventSpy.lastEvent!.detail.origin).to.be.equal('autocomplete');
+      expect(tokenEndEventSpy.lastEvent!.origin).to.be.equal('autocomplete');
       expect(element.value).to.contain(options[1].value);
     });
 
@@ -574,7 +574,7 @@ describe('sbb-chip-group', () => {
 
       expect(inputAutocompleteEventSpy.count).to.be.equal(0);
       expect(tokenEndEventSpy.count).to.be.equal(1);
-      expect(tokenEndEventSpy.lastEvent!.detail.origin).to.be.equal('input');
+      expect(tokenEndEventSpy.lastEvent!.origin).to.be.equal('input');
       expect(element.value).to.contain('new chip');
     });
 
@@ -649,8 +649,8 @@ describe('sbb-chip-group', () => {
       await waitForLitRender(formField);
 
       expect(tokenEndEventSpy.count).to.be.equal(1);
-      expect(tokenEndEventSpy.lastEvent!.detail.origin).to.be.equal('autocomplete');
-      expect(tokenEndEventSpy.lastEvent!.detail.label).to.be.equal('Option 3');
+      expect(tokenEndEventSpy.lastEvent!.origin).to.be.equal('autocomplete');
+      expect(tokenEndEventSpy.lastEvent!.label).to.be.equal('Option 3');
       expect(element.value).to.contain(options[0].value);
 
       const addedChip = element.querySelectorAll<SbbChipElement<ComplexValue>>('sbb-chip')[2]!;
@@ -664,11 +664,10 @@ describe('sbb-chip-group', () => {
         SbbChipGroupElement.events.chipinputtokenend,
         (e: SbbChipInputTokenEndEvent<ComplexValue>) => {
           // Transform input value into object
-          const detail = e.detail;
-          detail.setValue({ property: detail.value as string, otherProp: 'new' });
+          e.setValue({ property: e.value as string, otherProp: 'new' });
         },
       );
-      const tokenEndEventSpy = new EventSpy<CustomEvent<SbbChipInputTokenEndEvent>>(
+      const tokenEndEventSpy = new EventSpy<SbbChipInputTokenEndEvent>(
         SbbChipGroupElement.events.chipinputtokenend,
         element,
       );
@@ -680,8 +679,8 @@ describe('sbb-chip-group', () => {
       await waitForLitRender(formField);
 
       expect(tokenEndEventSpy.count).to.be.equal(1);
-      expect(tokenEndEventSpy.lastEvent!.detail.origin).to.be.equal('input');
-      expect(tokenEndEventSpy.lastEvent!.detail.value).to.be.deep.equal({
+      expect(tokenEndEventSpy.lastEvent!.origin).to.be.equal('input');
+      expect(tokenEndEventSpy.lastEvent!.value).to.be.deep.equal({
         property: 'new chip',
         otherProp: 'new',
       });
