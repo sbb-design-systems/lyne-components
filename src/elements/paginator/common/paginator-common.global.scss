@@ -1,0 +1,14 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-paginator-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-paginator-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-size-element-m),
+        'lean': var(--sbb-size-element-xs),
+      ),
+      $theme
+    )};
+}

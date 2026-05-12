@@ -239,7 +239,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm'],
+  options: ['s', 'm'] satisfies SbbStickyBarElement['size'][],
 };
 
 const stickyBarArgTypes: ArgTypes = {
@@ -255,7 +255,7 @@ const stickyBarArgs: Args = {
   containerColor: containerColor.options![0],
   containerExpanded: false,
   containerBackgroundExpanded: false,
-  size: size.options![1],
+  size: undefined,
 };
 
 const actionGroup = (): TemplateResult => html`
@@ -311,7 +311,7 @@ const StickyTemplate = ({
     ${containerContentSticky('Another one', isDark(containerColor))}
     ${containerContentSticky('And another one', isDark(containerColor))}
     ${containerContentSticky('And a last one', isDark(containerColor))}
-    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing} size=${size}>
+    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing} size=${size || nothing}>
       ${actionGroup()}
     </sbb-sticky-bar>
   </sbb-container>
@@ -330,7 +330,7 @@ const ShortTemplate = ({
     ?background-expanded=${containerBackgroundExpanded}
   >
     ${containerContentSticky('Example title', isDark(containerColor))}
-    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing} size=${size}>
+    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing} size=${size || nothing}>
       ${actionGroup()}
     </sbb-sticky-bar>
   </sbb-container>
@@ -355,7 +355,7 @@ const WithContentAfterTemplate = ({
 
     <sbb-sticky-bar
       color=${color !== 'unset' ? color : nothing}
-      size=${size}
+      size=${size || nothing}
       style="--sbb-sticky-bar-bottom-overlapping-height: var(--sbb-spacing-responsive-l);"
     >
       ${actionGroup()}
@@ -395,6 +395,12 @@ export const StickyBarSizeS: StoryObj = {
   render: StickyTemplate,
   argTypes: stickyBarArgTypes,
   args: { ...stickyBarArgs, size: size.options![0] },
+};
+
+export const StickyBarSizeM: StoryObj = {
+  render: StickyTemplate,
+  argTypes: stickyBarArgTypes,
+  args: { ...stickyBarArgs, size: size.options![1] },
 };
 
 export const StickyBarWhite: StoryObj = {

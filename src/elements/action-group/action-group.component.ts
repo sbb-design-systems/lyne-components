@@ -52,7 +52,7 @@ export class SbbActionGroupElement extends SbbElement {
    * @deprecated Will be removed with next breaking change
    */
   @property({ attribute: 'button-size', reflect: true })
-  public accessor buttonSize: SbbButtonElement['size'] | null = null;
+  public accessor buttonSize: SbbButtonElement['size'] = null;
 
   /**
    * Size of the nested sbb-block-link instances.
@@ -60,7 +60,7 @@ export class SbbActionGroupElement extends SbbElement {
    * @deprecated Will be removed with next breaking change
    */
   @property({ attribute: 'link-size', reflect: true })
-  public accessor linkSize: SbbBlockLinkElement['size'] | null = null;
+  public accessor linkSize: SbbBlockLinkElement['size'] = null;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

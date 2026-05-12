@@ -1,4 +1,4 @@
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
@@ -33,7 +33,7 @@ const template = (
       ?negative=${args.negative}
       ?hidden-label=${args.hiddenLabel}
       ?floating-label=${args.floatingLabel}
-      size=${args.size ?? 'm'}
+      size=${args.size ?? nothing}
     >
       ${!args.disableLabel ? html`<label>Label</label>` : ``}
       <sbb-chip-group name="chip-group-1">
@@ -52,7 +52,7 @@ describe('sbb-chip-group', () => {
   describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ negative }) => {
       it(
-        `${visualDiffDefault.name}`,
+        visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template({ negative }));
         }),

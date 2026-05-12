@@ -8,6 +8,7 @@ import {
   visualDiffDefault,
   type VisualDiffSetupBuilder,
 } from '../../core/testing/private.ts';
+import type { SbbFormFieldElement } from '../../form-field.pure.ts';
 
 import '../../select.ts';
 import '../../form-field.ts';
@@ -28,7 +29,7 @@ describe('sbb-option-hint', () => {
     const cases = {
       divider: [true, false],
       negative: [true, false],
-      size: ['s', 'm'],
+      size: [null, 's', 'm'] satisfies SbbFormFieldElement['size'][],
     };
 
     describeEach(cases, ({ divider, negative, size }) => {
@@ -37,7 +38,7 @@ describe('sbb-option-hint', () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`
-              <sbb-form-field ?negative=${negative} size=${size}>
+              <sbb-form-field ?negative=${negative} size=${size || nothing}>
                 <label>Autocomplete</label>
                 <input />
                 <sbb-autocomplete>
@@ -61,7 +62,7 @@ describe('sbb-option-hint', () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`
-              <sbb-form-field ?negative=${negative} size=${size}>
+              <sbb-form-field ?negative=${negative} size=${size || nothing}>
                 <label>Autocomplete</label>
                 <input />
                 <sbb-autocomplete preserve-icon-space>
@@ -90,7 +91,7 @@ describe('sbb-option-hint', () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`
-              <sbb-form-field ?negative=${negative} size=${size}>
+              <sbb-form-field ?negative=${negative} size=${size || nothing}>
                 <label>Select</label>
                 <sbb-select>
                   <sbb-option value="1"> Option 1 </sbb-option>
@@ -115,7 +116,7 @@ describe('sbb-option-hint', () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`
-              <sbb-form-field ?negative=${negative} size=${size}>
+              <sbb-form-field ?negative=${negative} size=${size || nothing}>
                 <label>Autocomplete</label>
                 <input />
                 <sbb-autocomplete-grid>

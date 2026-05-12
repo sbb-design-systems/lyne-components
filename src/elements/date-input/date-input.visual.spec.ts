@@ -7,6 +7,7 @@ import {
   visualDiffStandardStates,
   visualRegressionFixture,
 } from '../core/testing/private.ts';
+import type { SbbFormFieldElement } from '../form-field.pure.ts';
 
 import '../date-input.ts';
 import '../form-field.ts';
@@ -21,7 +22,7 @@ describe('sbb-date-input', () => {
   };
 
   const sizeCases = {
-    size: ['s', 'm', 'l'],
+    size: ['s', 'm', 'l'] satisfies SbbFormFieldElement['size'][],
     label: [undefined, 'Label'],
     floatingLabel: [false, true],
   };
@@ -90,7 +91,7 @@ describe('sbb-date-input', () => {
         ``,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-form-field size=${size} ?floating-label=${floatingLabel}>
+            html`<sbb-form-field size=${size || nothing} ?floating-label=${floatingLabel}>
               ${label ? html`<label>${label}</label>` : nothing}
               <sbb-date-input value="2024-12-11"></sbb-date-input>
             </sbb-form-field>`,

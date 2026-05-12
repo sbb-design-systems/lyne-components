@@ -32,27 +32,14 @@ This guide provides an overview of the theming capabilities in the Lyne Design S
 
 Without any additional configuration, the standard theme is applied.
 
-The lean theme uses a more compact design by defaulting the `size` property to the smallest available value.
+The lean theme uses a more compact design by defaulting the `size` property to smaller available values.
 Components that do not have a `size` property remain unchanged.
-To enable lean mode, add the CSS class `sbb-lean` to the `<html>` tag.
-
-```html
-<html lang="en" class="sbb-lean">
-  <head>
-    <title>Lyne Design System - Lean example</title>
-  </head>
-  <body>
-    ...
-  </body>
-</html>
-```
+To enable the lean theme, use the `lean-theme.css` theme file.
 
 ### Theme variants
 
-- `off-brand`: for non SBB applications, where the primary color is set to an alternative color (blue).
-- `safety`: for safety relevant applications, where the primary and brand colors are set to an alternative color (gray).
-
-`off-brand`and `safety` themes can also be combined with the lean theme.
+- `off-brand` / `lean-off-brand`: for non SBB applications, where the primary color is set to an alternative color (blue).
+- `safety` / `lean-safety`: for safety relevant applications, where the primary and brand colors are set to an alternative color (gray).
 
 #### Safety relevant theme
 
@@ -83,28 +70,31 @@ In certain safety relevant applications, it might be necessary to change the cur
 Basically, all our styles are included in the theme files (e.g. `standard-theme.css`) which should be included in your application.
 However, if you would like to more specifically pick what you need, consider the following CSS files available.
 
-| File name                       | Description                                                                                   |
-| ------------------------------- | --------------------------------------------------------------------------------------------- |
-| `standard-theme.css`            | Contains normalizing, core styles and available CSS classes.                                  |
-| `off-brand-theme.css`           | Contains the standard theme with primary color set to an alternative color (blue).            |
-| `safety-theme.css`              | Contains the standard theme with primary and brand colors set to an alternative color (gray). |
-|                                 |                                                                                               |
-| `font-characters-extension.css` | Provides full character set of SBB fonts, needs larger files to load.                         |
-|                                 |                                                                                               |
-| `normalize.css`                 | Contains general browser resetting styles which can be useful for your application.           |
-|                                 |                                                                                               |
-| `core.css`                      | Contains mandatory basics to use lyne-components (including design tokens).                   |
-|                                 |                                                                                               |
-| `a11y.css`                      | Provides accessibility related CSS classes.                                                   |
-| `animation.css`                 | Provides CSS classes to disable animation (e.g. for testing) on any level.                    |
-| `badge.css`                     | Provides badge styling.                                                                       |
-| `disable-animation.css`         | Disables animations on root level, ideally for a global test setup.                           |
-| `layout.css`                    | Provides layout related CSS classes (e.g. page spacing, grid).                                |
-| `lists.css`                     | Provides CSS classes to style lists.                                                          |
-| `scrollbar.css`                 | Provides CSS classes to style a scrollbar.                                                    |
-| `table.css`                     | Provides CSS classes to style a table.                                                        |
-| `timetable-form.css`            | Provides CSS classes to style a timetable form.                                               |
-| `typography.css`                | Provides typography related CSS classes.                                                      |
+| File name                       | Description                                                                                           |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `standard-theme.css`            | Contains normalizing, core styles and available CSS classes.                                          |
+| `off-brand-theme.css`           | Contains the standard theme with primary color set to an alternative color (blue).                    |
+| `safety-theme.css`              | Contains the standard theme with primary and brand colors set to an alternative color (gray).         |
+| `lean-theme.css`                | Contains normalizing, core styles and available CSS classes with smaller default sizes of components. |
+| `lean-off-brand-theme.css`      | Contains the lean theme with primary color set to an alternative color (blue).                        |
+| `lean-safety-theme.css`         | Contains the lean theme with primary and brand colors set to an alternative color (gray).             |
+|                                 |                                                                                                       |
+| `font-characters-extension.css` | Provides full character set of SBB fonts, needs larger files to load.                                 |
+|                                 |                                                                                                       |
+| `normalize.css`                 | Contains general browser resetting styles which can be useful for your application.                   |
+|                                 |                                                                                                       |
+| `core.css`                      | Contains mandatory basics to use lyne-components (including design tokens).                           |
+|                                 |                                                                                                       |
+| `a11y.css`                      | Provides accessibility related CSS classes.                                                           |
+| `animation.css`                 | Provides CSS classes to disable animation (e.g. for testing) on any level.                            |
+| `badge.css`                     | Provides badge styling.                                                                               |
+| `disable-animation.css`         | Disables animations on root level, ideally for a global test setup.                                   |
+| `layout.css`                    | Provides layout related CSS classes (e.g. page spacing, grid).                                        |
+| `lists.css`                     | Provides CSS classes to style lists.                                                                  |
+| `scrollbar.css`                 | Provides CSS classes to style a scrollbar.                                                            |
+| `table.css`                     | Provides CSS classes to style a table.                                                                |
+| `timetable-form.css`            | Provides CSS classes to style a timetable form.                                                       |
+| `typography.css`                | Provides typography related CSS classes.                                                              |
 
 ### Full Font
 

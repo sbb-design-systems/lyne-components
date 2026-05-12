@@ -2,6 +2,7 @@ import { aTimeout } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';
 
+import type { SbbAutocompleteElement } from '../autocomplete.ts';
 import {
   describeViewports,
   tabKey,
@@ -26,7 +27,7 @@ describe('sbb-autocomplete', () => {
     preserveIconSpace: true,
     disableOption: false,
     borderless: false,
-    size: 'm',
+    size: 'm' as SbbAutocompleteElement['size'],
     withGroup: false,
     disableGroup: false,
     withMixedOptionAndGroup: false,
@@ -88,7 +89,11 @@ describe('sbb-autocomplete', () => {
   `;
 
   const template = (args: typeof defaultArgs): TemplateResult => html`
-    <sbb-form-field ?negative=${args.negative} ?borderless=${args.borderless} size=${args.size}>
+    <sbb-form-field
+      ?negative=${args.negative}
+      ?borderless=${args.borderless}
+      size=${args.size || nothing}
+    >
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
       <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
@@ -153,7 +158,7 @@ describe('sbb-autocomplete', () => {
           backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
         };
 
-        for (const size of ['m', 's']) {
+        for (const size of [null, 's', 'm'] satisfies SbbAutocompleteElement['size'][]) {
           for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
             it(
               `state=${visualDiffState.name} size=${size}`,
@@ -281,7 +286,7 @@ describe('sbb-autocomplete', () => {
             }),
           );
 
-          for (const size of ['m', 's']) {
+          for (const size of [null, 's', 'm'] as SbbAutocompleteElement['size'][]) {
             it(
               `size=${size} withMixedOptionAndGroup=true`,
               visualDiffDefault.with(async (setup) => {

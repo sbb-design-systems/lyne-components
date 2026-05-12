@@ -8,6 +8,8 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.ts';
 
+import type { SbbPaginatorElement } from './paginator.component.ts';
+
 import '../../paginator.ts';
 
 describe('sbb-paginator', () => {
@@ -87,7 +89,7 @@ describe('sbb-paginator', () => {
 
         for (const pagerPosition of ['start', 'end']) {
           describe(`pagerPosition=${pagerPosition}`, () => {
-            for (const size of ['s', 'm', null]) {
+            for (const size of [null, 's', 'm'] satisfies SbbPaginatorElement['size'][]) {
               it(
                 `size=${size}`,
                 visualDiffDefault.with(async (setup) => {

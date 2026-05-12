@@ -5,7 +5,7 @@ import type {
   StoryObj,
   WebComponentsRenderer,
 } from '@storybook/web-components-vite';
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { Args, ArgTypes, InputType } from 'storybook/internal/types';
 
@@ -26,7 +26,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xs', 's', 'm', null] satisfies (SbbBlockLinkElement['size'] | null)[],
+  options: ['xs', 's', 'm'] satisfies SbbBlockLinkElement['size'][],
   table: {
     category: 'Block Link',
   },
@@ -50,7 +50,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   negative: false,
-  size: size.options![3],
+  size: undefined,
   iconPlacement: iconPlacement.options![2],
 };
 
@@ -93,7 +93,7 @@ export const Overview: StoryObj = {
             <td>
               <sbb-block-link
                 href="#"
-                size=${size}
+                size=${size || nothing}
                 ?negative=${negative}
                 icon-placement=${iconPlacement}
                 icon-name="arrow-right-small"
@@ -108,7 +108,7 @@ export const Overview: StoryObj = {
             <td>
               <sbb-block-link
                 href="#"
-                size=${size}
+                size=${size || nothing}
                 ?negative=${negative}
                 icon-placement=${iconPlacement}
                 icon-name="arrow-right-small"
@@ -145,7 +145,7 @@ export const ButtonLink: StoryObj = {
               </td>
               <td>
                 <sbb-block-link-button
-                  size=${size}
+                  size=${size || nothing}
                   ?negative=${negative}
                   icon-placement=${iconPlacement}
                   icon-name="arrow-right-small"
@@ -161,7 +161,7 @@ export const ButtonLink: StoryObj = {
               </td>
               <td>
                 <sbb-block-link-button
-                  size=${size}
+                  size=${size || nothing}
                   ?negative=${negative}
                   icon-placement=${iconPlacement}
                   icon-name="arrow-right-small"
@@ -191,7 +191,7 @@ export const StaticLink: StoryObj = {
             <td><sbb-link-static ?negative=${negative}>Label</sbb-link-static></td>
             <td>
               <sbb-block-link-static
-                size=${size}
+                size=${size || nothing}
                 ?negative=${negative}
                 icon-placement=${iconPlacement}
               >
@@ -204,7 +204,7 @@ export const StaticLink: StoryObj = {
             <td><sbb-link-static ?negative=${negative} disabled>Label</sbb-link-static></td>
             <td>
               <sbb-block-link-static
-                size=${size}
+                size=${size || nothing}
                 ?negative=${negative}
                 icon-placement=${iconPlacement}
                 disabled
@@ -223,7 +223,7 @@ export const StaticLink: StoryObj = {
 export const SlottedIcon: StoryObj = {
   render: ({ size, negative, iconPlacement }: Args) =>
     html`<sbb-block-link
-      size=${size}
+      size=${size || nothing}
       ?negative=${negative}
       icon-placement=${iconPlacement}
       href="#"

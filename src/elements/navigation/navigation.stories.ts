@@ -71,10 +71,9 @@ const navigationActionsS = (): TemplateResult => html`
 
 const navigationList = (label: string, active?: boolean): TemplateResult => html`
   <sbb-navigation-list label=${label}>
-    <sbb-navigation-button size="m">Label</sbb-navigation-button>
-    <sbb-navigation-button size="m">Label</sbb-navigation-button>
+    <sbb-navigation-button>Label</sbb-navigation-button>
+    <sbb-navigation-button>Label</sbb-navigation-button>
     <sbb-navigation-link
-      size="m"
       href="https://www.sbb.ch/en/"
       class=${active ? 'sbb-active' : nothing}
       aria-current=${active ? 'page' : nothing}

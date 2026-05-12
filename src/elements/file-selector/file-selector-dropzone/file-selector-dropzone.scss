@@ -26,14 +26,14 @@
 .sbb-file-selector__dropzone-area--icon {
   color: var(--sbb-file-selector-color);
   line-height: 0;
+}
 
-  sbb-icon[name='folder-open-medium'] {
-    display: var(--_sbb-file-selector-dropzone-icon-medium-display);
-  }
+sbb-icon[name='folder-open-medium'] {
+  display: var(--_sbb-file-selector-dropzone-icon-medium-display);
+}
 
-  sbb-icon[name='folder-open-small'] {
-    display: var(--_sbb-file-selector-dropzone-icon-small-display);
-  }
+sbb-icon[name='folder-open-small'] {
+  display: var(--_sbb-file-selector-dropzone-icon-small-display);
 }
 
 .sbb-file-selector__dropzone-area--title {

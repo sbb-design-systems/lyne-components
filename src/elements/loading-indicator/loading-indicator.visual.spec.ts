@@ -2,16 +2,18 @@ import { html } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
+import type { SbbLoadingIndicatorElement } from './loading-indicator.component.ts';
+
 import '../loading-indicator.ts';
 
 describe(`sbb-loading-indicator`, () => {
   const colorCases = {
-    color: ['default', 'smoke', 'white'],
+    color: ['default', 'smoke', 'white'] satisfies SbbLoadingIndicatorElement['color'][],
     darkMode: [false, true],
   };
 
   const sizeCases = {
-    size: ['s', 'l', 'xl', 'xxl', 'xxxl'],
+    size: ['s', 'l', 'xl', 'xxl', 'xxxl'] satisfies SbbLoadingIndicatorElement['size'][],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {

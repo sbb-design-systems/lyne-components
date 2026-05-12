@@ -2,11 +2,8 @@
 export const snapshots = {};
 
 snapshots["sbb-accordion renders DOM"] = 
-`<sbb-accordion size="l">
-  <sbb-expansion-panel
-    color="white"
-    size="l"
-  >
+`<sbb-accordion>
+  <sbb-expansion-panel color="white">
     <sbb-expansion-panel-header
       aria-controls="sbb-expansion-panel-content-1"
       aria-expanded="false"
@@ -25,10 +22,7 @@ snapshots["sbb-accordion renders DOM"] =
       Content 1
     </sbb-expansion-panel-content>
   </sbb-expansion-panel>
-  <sbb-expansion-panel
-    color="white"
-    size="l"
-  >
+  <sbb-expansion-panel color="white">
     <sbb-expansion-panel-header
       aria-controls="sbb-expansion-panel-content-2"
       aria-expanded="false"

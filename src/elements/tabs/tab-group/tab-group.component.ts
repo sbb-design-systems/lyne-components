@@ -13,7 +13,6 @@ import {
   forceType,
   getNextElementIndex,
   isArrowKeyPressed,
-  isLean,
   SbbElement,
   ɵstateController,
 } from '../../core.ts';
@@ -67,11 +66,10 @@ export class SbbTabGroupElement extends SbbElement {
   private _contentSlotChangeDebounceId?: ReturnType<typeof setTimeout>;
 
   /**
-   * Size variant, either s, l or xl.
-   * @default 'l' / 's' (lean)
+   * Size variant, either s (lean theme default), l (standard theme default) or xl.
    */
-  @property()
-  public accessor size: 's' | 'l' | 'xl' = isLean() ? 's' : 'l';
+  @property({ reflect: true })
+  public accessor size: 's' | 'l' | 'xl' | null = null;
 
   /**
    * Sets the initial tab. If it matches a disabled tab or exceeds the length of

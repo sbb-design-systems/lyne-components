@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-form-field-clear renders form-field DOM"] = 
 `<sbb-form-field
   error-space="none"
-  size="m"
   width="default"
 >
   <label

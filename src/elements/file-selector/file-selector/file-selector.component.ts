@@ -1,4 +1,4 @@
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
@@ -22,7 +22,7 @@ export class SbbFileSelectorElement extends SbbFileSelectorCommonElementMixin(Sb
     return html`
       <label>
         <sbb-secondary-button-static
-          size=${this.size}
+          size=${this.size || nothing}
           icon-name="folder-open-small"
           ?disabled=${this.disabled || this.formDisabled}
           ${ref((el?: Element): void => {

@@ -33,7 +33,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
   });
 
   private _isHover: boolean = this._mediaMatcher.matches(SbbMediaQueryHover) ?? false;
-  private _previousSize?: string;
+  private _previousSize: SbbExpansionPanelElement['size'] = null;
 
   public constructor() {
     super();

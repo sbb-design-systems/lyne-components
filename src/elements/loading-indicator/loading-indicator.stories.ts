@@ -51,14 +51,14 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'l', 'xl', 'xxl', 'xxxl'],
+  options: ['s', 'l', 'xl', 'xxl', 'xxxl'] satisfies SbbLoadingIndicatorElement['size'][],
 };
 
 const color: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['default', 'smoke', 'white'],
+  options: ['default', 'smoke', 'white'] satisfies SbbLoadingIndicatorElement['color'][],
 };
 
 const defaultArgTypes: ArgTypes = {

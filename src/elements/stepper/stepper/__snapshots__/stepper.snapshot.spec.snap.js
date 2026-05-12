@@ -5,7 +5,6 @@ snapshots["sbb-stepper renders DOM"] =
 `<sbb-stepper
   orientation="horizontal"
   selected-index="0"
-  size="m"
 >
   <sbb-step-label
     slot="step-label"

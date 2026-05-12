@@ -7,6 +7,8 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
+import type { SbbToggleElement } from './toggle/toggle.component.ts';
+
 import '../toggle.ts';
 
 const disabled: InputType = {
@@ -31,7 +33,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['s', 'm'] satisfies SbbToggleElement['size'][],
   table: {
     category: 'Toggle',
   },
@@ -97,7 +99,7 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   disabled: false,
   even: false,
-  size: size.options![0],
+  size: undefined,
   value: 'Value 1',
   label: 'Bern',
   labelTwo: 'Zürich',
@@ -128,13 +130,19 @@ const SlottedIconTemplate = ({ label, labelTwo, iconName, ...args }: Args): Temp
   </sbb-toggle>
 `;
 
-export const SizeM: StoryObj = {
+export const Default: StoryObj = {
   render: DefaultTemplate,
-  argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs },
+  argTypes: defaultArgTypes,
+  args: defaultArgs,
 };
 
 export const SizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, size: size.options![0] },
+};
+
+export const SizeM: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, size: size.options![1] },

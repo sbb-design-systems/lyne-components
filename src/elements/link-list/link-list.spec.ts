@@ -14,7 +14,7 @@ describe(`sbb-link-list`, () => {
 
   beforeEach(async () => {
     element = await fixture(html`
-      <sbb-link-list title-level="2">
+      <sbb-link-list title-level="2" size="m">
         <span slot="title">Help &amp; Contact</span>
         <sbb-block-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
@@ -45,16 +45,16 @@ describe(`sbb-link-list`, () => {
   });
 
   describe('property sync', () => {
-    it('should sync properties/attributes with sbb-link', async () => {
+    it('should sync properties/attributes with sbb-block-link', async () => {
       const links = Array.from(element.querySelectorAll('sbb-block-link'));
-      expect(links.every((l) => l.size === 's' && !l.negative)).to.be.true;
+      expect(links.every((l) => l.size === 'm' && !l.negative)).to.be.true;
     });
 
     it('should update attributes with size m', async () => {
-      element.setAttribute('size', 'm');
+      element.setAttribute('size', 'xs');
       await waitForLitRender(element);
       const links = Array.from(element.querySelectorAll('sbb-block-link'));
-      expect(links.every((l) => l.size === 'm')).to.be.true;
+      expect(links.every((l) => l.size === 'xs')).to.be.true;
     });
 
     it('should update attributes with negative', async () => {

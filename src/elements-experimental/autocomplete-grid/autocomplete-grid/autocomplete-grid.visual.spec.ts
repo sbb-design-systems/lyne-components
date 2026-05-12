@@ -9,6 +9,8 @@ import {
 import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';
 
+import type { SbbAutocompleteGridElement } from '../../autocomplete-grid.pure.ts';
+
 import '@sbb-esta/lyne-elements/card.js';
 import '@sbb-esta/lyne-elements/form-field.js';
 import '../../autocomplete-grid.ts';
@@ -23,7 +25,7 @@ describe('sbb-autocomplete-grid', () => {
     preserveIconSpace: true,
     disableOption: false,
     borderless: false,
-    size: 'm',
+    size: 'm' as SbbAutocompleteGridElement['size'],
     withGroup: false,
     disableGroup: false,
     withMixedOptionAndGroup: false,
@@ -125,7 +127,11 @@ describe('sbb-autocomplete-grid', () => {
   `;
 
   const template = (args: typeof defaultArgs): TemplateResult => html`
-    <sbb-form-field ?negative=${args.negative} ?borderless=${args.borderless} size=${args.size}>
+    <sbb-form-field
+      ?negative=${args.negative}
+      ?borderless=${args.borderless}
+      size=${args.size || nothing}
+    >
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
       <sbb-autocomplete-grid ?preserve-icon-space=${args.preserveIconSpace}>
@@ -190,7 +196,7 @@ describe('sbb-autocomplete-grid', () => {
           backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
         };
 
-        for (const size of ['m', 's']) {
+        for (const size of [null, 's', 'm'] satisfies SbbAutocompleteGridElement['size'][]) {
           for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
             it(
               `state=${visualDiffState.name} size=${size}`,
@@ -318,7 +324,7 @@ describe('sbb-autocomplete-grid', () => {
             }),
           );
 
-          for (const size of ['m', 's']) {
+          for (const size of [null, 's', 'm'] satisfies SbbAutocompleteGridElement['size'][]) {
             it(
               `size=${size} withMixedOptionAndGroup=true`,
               visualDiffDefault.with(async (setup) => {

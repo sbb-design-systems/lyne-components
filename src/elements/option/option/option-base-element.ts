@@ -97,7 +97,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
 
   @state() private accessor _inertAriaGroups = false;
 
-  private _previousSize: string | undefined;
+  private _previousSize: 's' | 'm' | null = null;
 
   protected constructor() {
     super();

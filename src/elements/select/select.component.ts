@@ -23,7 +23,6 @@ import {
   handleDistinctChange,
   i18nSelectionRequired,
   isEventOnElement,
-  isLean,
   isNextjs,
   isSafari,
   isZeroAnimationDuration,
@@ -135,10 +134,10 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _value: T | T[] | null = null;
 
   /**
-   * Size variant, either m or s.
-   * @default 'm' / 's' (lean)
+   * Size variant, either s (lean theme default) or m (standard theme default).
+   * When placed inside an `<sbb-form-field>`, the size is inherited from the form field.
    */
-  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 
   /**
    * Form type of element.

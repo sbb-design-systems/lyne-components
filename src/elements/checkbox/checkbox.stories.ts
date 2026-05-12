@@ -6,6 +6,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
+import type { SbbCheckboxElement } from './checkbox.component.ts';
 import readme from './readme.md?raw';
 import '../checkbox.ts';
 import '../card.ts';
@@ -22,7 +23,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xs', 's', 'm'],
+  options: ['xs', 's', 'm'] satisfies SbbCheckboxElement['size'][],
 };
 
 const checked: InputType = {
@@ -101,7 +102,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options![1],
+  size: undefined,
   checked: false,
   indeterminate: false,
   disabled: false,

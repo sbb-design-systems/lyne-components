@@ -3,12 +3,11 @@ import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
-  type SbbOpenedClosedState,
   forceType,
-  isLean,
   isZeroAnimationDuration,
   SbbElement,
   type SbbHeadingLevel,
+  type SbbOpenedClosedState,
   ɵstateController,
 } from '../../core.ts';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content/expansion-panel-content.component.ts';
@@ -67,10 +66,9 @@ export class SbbExpansionPanelElement extends SbbElement {
   public accessor borderless: boolean = false;
 
   /**
-   * Size variant, either l or s.
-   * @default 'l' / 's' (lean)
+   * Size variant, either s (lean theme default) or l (standard theme default).
    */
-  @property({ reflect: true }) public accessor size: 's' | 'l' = isLean() ? 's' : 'l';
+  @property({ reflect: true }) public accessor size: 's' | 'l' | null = null;
 
   /** The state of the component. */
   private set _state(state: SbbOpenedClosedState) {

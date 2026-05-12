@@ -32,13 +32,11 @@ describe(`sbb-expansion-panel`, () => {
       expect(header).to.have.attribute('id', 'sbb-expansion-panel-header-2');
       expect(header).to.have.attribute('aria-controls', 'sbb-expansion-panel-content-2');
       expect(header).to.match(':state(icon)');
-      expect(header).to.match(':state(size-l)');
 
       const content = element.querySelector('sbb-expansion-panel-content');
       expect(content).to.have.attribute('id', 'sbb-expansion-panel-content-2');
       expect(content).to.have.attribute('aria-labelledby', `sbb-expansion-panel-header-2`);
       expect(content).to.match(':state(icon-space)');
-      expect(content).to.match(':state(size-l)');
     });
 
     it('has slotted elements with the correct properties when id are set', async () => {
@@ -116,8 +114,6 @@ describe(`sbb-expansion-panel`, () => {
         element.querySelector<SbbExpansionPanelHeaderElement>('sbb-expansion-panel-header')!;
       const content: SbbExpansionPanelContentElement =
         element.querySelector<SbbExpansionPanelContentElement>('sbb-expansion-panel-content')!;
-      expect(header).to.match(':state(size-l)');
-      expect(content).to.match(':state(size-l)');
 
       element.size = 's';
       await waitForLitRender(element);

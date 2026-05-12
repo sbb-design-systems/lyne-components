@@ -231,7 +231,9 @@ describe('sbb-chip-group', () => {
     });
 
     it('should inherit size from form-field', async () => {
-      expect(element).to.match(':state(size-m)');
+      expect(element).not.to.match(':state(size-s)');
+      expect(element).not.to.match(':state(size-m)');
+      expect(element).not.to.match(':state(size-l)');
 
       formField.size = 's';
       await waitForLitRender(formField);
@@ -763,7 +765,7 @@ describe('sbb-chip-group', () => {
       element = root.querySelector('sbb-chip-group')!;
       input = root.querySelector('input')!;
 
-      expect(element).to.match(':state(size-m)');
+      expect(element).not.to.match(':state(size-l)');
 
       formField.append(element);
       await waitForLitRender(root);

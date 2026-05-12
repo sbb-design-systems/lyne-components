@@ -44,7 +44,7 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbElement
 
   protected abstract get options(): SbbOptionBaseElement[];
 
-  private _previousSize: string | undefined;
+  private _previousSize: 's' | 'm' | null = null;
 
   protected constructor() {
     super();

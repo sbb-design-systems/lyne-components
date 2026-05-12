@@ -11,11 +11,10 @@ import {
   forceType,
   type FormRestoreReason,
   type FormRestoreState,
-  getOverride,
-  isLean,
   omitEmptyConverter,
   SbbButtonLikeBaseElement,
   SbbDisabledTabIndexActionMixin,
+  SbbPropertyWatcherController,
 } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbTagGroupElement } from '../tag-group/tag-group.component.ts';
@@ -56,28 +55,30 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
   public accessor checked: boolean = false;
 
   /**
-   * Tag size, either s or m.
-   * @default 'm' / 's' (lean)
+   * Tag size, either s (lean theme default) or m (standard theme default).
+   * The value is inherited from the closest `<sbb-tag-group>`.
    */
   @property({ reflect: true })
-  @getOverride((i, v) => i._group?.size ?? v)
-  public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
-
-  /** Reference to the connected tag group. */
-  private _group: SbbTagGroupElement | null = null;
+  public accessor size: 's' | 'm' | null = null;
 
   public constructor() {
     super();
     this.addEventListener?.('click', () => this._handleClick());
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this._tagGroup(), {
+        size: (g) => {
+          this.size = g.size;
+        },
+      }),
+    );
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._group = this.closest('sbb-tag-group') as SbbTagGroupElement;
+  private _tagGroup(): SbbTagGroupElement | null {
+    return this.closest?.('sbb-tag-group') ?? null;
   }
 
   protected override isDisabledExternally(): boolean {
-    return this._group?.disabled ?? false;
+    return this._tagGroup()?.disabled ?? false;
   }
 
   /** Method triggered on button click. Inverts the checked value and emits events. */
@@ -87,7 +88,7 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
     }
 
     // Prevent deactivating on exclusive / radio mode
-    const tagGroup = this.closest('sbb-tag-group');
+    const tagGroup = this._tagGroup();
     if (tagGroup && !tagGroup.multiple && this.checked) {
       return;
     }
@@ -124,7 +125,7 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
       this.updateFormValue();
     }
 
-    const tagGroup = this.closest?.('sbb-tag-group');
+    const tagGroup = this._tagGroup();
     if (tagGroup && !tagGroup.multiple && changedProperties.has('checked') && this.checked) {
       tagGroup?.tags.filter((t) => t !== this).forEach((t) => (t.checked = false));
     }

@@ -31,7 +31,7 @@ export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbEle
 
   /** Whether the tab is selected. */
   private _selected: boolean = false;
-  private _previousSize: SbbTabGroupElement['size'] | null = null;
+  private _previousSize: SbbTabGroupElement['size'] = null;
 
   /**
    * The level will correspond to the heading tag generated in the title.
@@ -71,7 +71,7 @@ export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbEle
           if (this._previousSize) {
             this.internals.states.delete(`size-${this._previousSize}`);
           }
-          this._previousSize = g?.size || null;
+          this._previousSize = g.size ?? null;
           if (this._previousSize) {
             this.internals.states.add(`size-${this._previousSize}`);
           }

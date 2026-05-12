@@ -10,22 +10,24 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.ts';
 
+import type { SbbLinkListAnchorElement } from './link-list-anchor.component.ts';
+
 import '../link.ts';
 import '../link-list-anchor.ts';
 
 const links = (): TemplateResult[] =>
-  new Array(5).fill('').map((_v, i) => html` <sbb-block-link href="#">Link ${i}</sbb-block-link> `);
+  new Array(5).fill('').map((_v, i) => html`<sbb-block-link href="#">Link ${i}</sbb-block-link>`);
 const title = 'Help & Contact';
 const listAnchor = (
   negative: boolean,
-  size: string,
+  size: SbbLinkListAnchorElement['size'],
   titleContent?: boolean,
   slottedTitle?: boolean,
 ): TemplateResult => html`
   <sbb-link-list-anchor
     title-content=${titleContent ? title : nothing}
     ?negative=${negative || nothing}
-    size=${size}
+    size=${size || nothing}
   >
     ${slottedTitle ? html`<span slot="title">Slotted title</span>` : nothing} ${links()}
   </sbb-link-list-anchor>
@@ -57,33 +59,36 @@ describe(`sbb-link-list-anchor`, () => {
       }
     });
 
-    describeEach({ ...cases, size: ['xs', 's', 'm'] }, ({ negative, size }) => {
-      it(
-        'title',
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(listAnchor(negative, size, true), {
-            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
-          });
-        }),
-      );
+    describeEach(
+      { ...cases, size: [null, 'xs', 's', 'm'] satisfies SbbLinkListAnchorElement['size'][] },
+      ({ negative, size }) => {
+        it(
+          'title',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(listAnchor(negative, size, true), {
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+            });
+          }),
+        );
 
-      it(
-        'no title',
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(listAnchor(negative, size), {
-            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
-          });
-        }),
-      );
+        it(
+          'no title',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(listAnchor(negative, size), {
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+            });
+          }),
+        );
 
-      it(
-        'slotted title',
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(listAnchor(negative, size, false, true), {
-            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
-          });
-        }),
-      );
-    });
+        it(
+          'slotted title',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(listAnchor(negative, size, false, true), {
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+            });
+          }),
+        );
+      },
+    );
   });
 });

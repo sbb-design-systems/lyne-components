@@ -164,7 +164,6 @@ describe(`sbb-file-selector-common`, () => {
               </span>
               <sbb-secondary-button aria-label="Remove file - hello0.txt"
                                     icon-name="trash-small"
-                                    size="m"
                                     tabindex="0">
               </sbb-secondary-button>
             </span>

@@ -23,10 +23,11 @@
 }
 
 :host([size='s']) {
-  ::slotted(:is(sbb-header-button, sbb-header-link)) {
-    --sbb-header-action-min-height: var(--sbb-size-element-xs);
-    --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-4x);
-  }
+  --sbb-header-height: var(--sbb-header-height-s);
+}
+
+:host([size='m']) {
+  --sbb-header-height: var(--sbb-header-height-m);
 }
 
 :host([hide-on-scroll]) {

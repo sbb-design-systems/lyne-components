@@ -1,7 +1,7 @@
 import { assert, expect } from '@open-wc/testing';
 import type { SbbCardElement } from '@sbb-esta/lyne-elements/card.js';
-import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
-import { EventSpy } from '@sbb-esta/lyne-elements/core/testing.js';
+import { elementInternalsSpy, fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
+import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
 import type { ITripItem, Notice, PtSituation } from '../core.ts';
@@ -19,6 +19,7 @@ import '../timetable-row.ts';
 
 describe(`sbb-timetable-row`, () => {
   let element: SbbTimetableRowElement;
+  const elementInternals = elementInternalsSpy();
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-timetable-row></sbb-timetable-row>`);
@@ -26,6 +27,27 @@ describe(`sbb-timetable-row`, () => {
 
   it('renders', () => {
     assert.instanceOf(element, SbbTimetableRowElement);
+  });
+
+  describe('role assignment', () => {
+    it('should have role="rowgroup" when not loading', async () => {
+      expect(elementInternals.get(element)!.role).to.equal('rowgroup');
+    });
+
+    it('should have no role when loading', async () => {
+      element = await fixture(html`<sbb-timetable-row loading-trip></sbb-timetable-row>`);
+      expect(elementInternals.get(element)!.role).to.be.null;
+    });
+
+    it('should update role when loadingTrip changes', async () => {
+      element.loadingTrip = true;
+      await waitForLitRender(element);
+      expect(elementInternals.get(element)!.role).to.be.null;
+
+      element.loadingTrip = false;
+      await waitForLitRender(element);
+      expect(elementInternals.get(element)!.role).to.equal('rowgroup');
+    });
   });
 
   describe('events', () => {

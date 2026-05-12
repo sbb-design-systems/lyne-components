@@ -7,7 +7,6 @@ snapshots["sbb-block-link-button renders DOM"] =
   icon-placement="end"
   name="name"
   negative=""
-  size="m"
   tabindex="0"
   type="submit"
 >

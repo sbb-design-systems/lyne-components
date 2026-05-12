@@ -16,7 +16,6 @@ import {
   forceType,
   idReference,
   isEventOnElement,
-  isLean,
   isSafari,
   isZeroAnimationDuration,
   optionPanelStyles,
@@ -105,10 +104,10 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   public accessor displayWith: ((value: T) => string) | null = null;
 
   /**
-   * Size variant, either m or s.
-   * @default 'm' / 's' (lean)
+   * Size variant, either s (lean theme default) or m (standard theme default).
+   * When placed inside an `<sbb-form-field>`, the size is inherited from the form field.
    */
-  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 
   /** Whether the active option should be selected as the user is navigating. */
   @forceType()

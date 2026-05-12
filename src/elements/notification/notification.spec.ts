@@ -92,14 +92,6 @@ describe(`sbb-notification`, () => {
       element = parent.querySelector<SbbNotificationElement>('sbb-notification')!;
       expect(element).to.be.null;
     });
-
-    it('should sync title size', async () => {
-      expect(element.querySelector('sbb-title')!.visualLevel).to.be.equal('5');
-      element.size = 's';
-      await waitForLitRender(element);
-
-      expect(element.querySelector('sbb-title')!.visualLevel).to.be.equal('6');
-    });
   });
 
   describe('with non-zero animation duration', () => {

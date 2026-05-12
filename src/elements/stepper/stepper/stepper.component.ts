@@ -13,7 +13,6 @@ import {
   forceType,
   getNextElementIndex,
   isArrowKeyPressed,
-  isLean,
   SbbElement,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointLargeAndAbove,
@@ -115,10 +114,9 @@ export class SbbStepperElement extends SbbElement {
   public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /**
-   * Size variant, either s or m.
-   * @default 'm' / 's' (lean)
+   * Size variant, either s (lean theme default) or m (standard theme default).
    */
-  @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 
   /** The currently selected step. */
   @property({ attribute: false })
