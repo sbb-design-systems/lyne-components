@@ -8,7 +8,10 @@ import { fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import type { SbbOptionElement } from '../../option.ts';
 import { SbbSelectElement } from '../../select.ts';
-import type { SbbPaginatorPageEventDetails } from '../common/paginator-common.ts';
+import type {
+  SbbPaginatorPageEvent,
+  SbbPaginatorPageEventDetails,
+} from '../common/paginator-common.ts';
 
 import { SbbPaginatorElement } from './paginator.component.ts';
 
@@ -16,13 +19,13 @@ import '../../paginator.ts';
 
 describe('sbb-paginator', () => {
   let element: SbbPaginatorElement;
-  let pageEventSpy: SinonSpy<CustomEvent<SbbPaginatorPageEventDetails>[]>;
+  let pageEventSpy: SinonSpy<SbbPaginatorPageEvent[]>;
 
   beforeEach(async () => {
     pageEventSpy = spy();
     element = await fixture(
       html`<sbb-paginator
-        @page=${(e: CustomEvent<SbbPaginatorPageEventDetails>) => pageEventSpy(e)}
+        @page=${(e: SbbPaginatorPageEvent) => pageEventSpy(e)}
         length="50"
         page-size="5"
       ></sbb-paginator>`,

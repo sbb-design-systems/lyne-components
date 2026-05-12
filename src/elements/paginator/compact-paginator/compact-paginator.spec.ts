@@ -6,7 +6,7 @@ import { type SinonSpy, spy } from 'sinon';
 import type { SbbMiniButtonElement } from '../../button.ts';
 import { fixture, tabKey } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
-import type { SbbPaginatorPageEventDetails } from '../common/paginator-common.ts';
+import type { SbbPaginatorPageEvent } from '../common/paginator-common.ts';
 
 import { SbbCompactPaginatorElement } from './compact-paginator.component.ts';
 
@@ -14,13 +14,13 @@ import '../../paginator.ts';
 
 describe('sbb-compact-paginator', () => {
   let element: SbbCompactPaginatorElement;
-  let pageEventSpy: SinonSpy<CustomEvent<SbbPaginatorPageEventDetails>[]>;
+  let pageEventSpy: SinonSpy<SbbPaginatorPageEvent[]>;
 
   beforeEach(async () => {
     pageEventSpy = spy();
     element = await fixture(
       html`<sbb-compact-paginator
-        @page=${(e: CustomEvent<SbbPaginatorPageEventDetails>) => pageEventSpy(e)}
+        @page=${(e: SbbPaginatorPageEvent) => pageEventSpy(e)}
         length="50"
         page-size="5"
       ></sbb-compact-paginator>`,

@@ -25,6 +25,19 @@ export interface SbbStepValidateEventDetails {
   nextStep: SbbStepElement | null;
 }
 
+export class SbbStepValidateEvent extends Event {
+  private readonly _detail: SbbStepValidateEventDetails;
+
+  public get detail(): SbbStepValidateEventDetails {
+    return this._detail;
+  }
+
+  public constructor(details: SbbStepValidateEventDetails) {
+    super('validate', { bubbles: true, composed: true, cancelable: true });
+    this._detail = Object.freeze(details);
+  }
+}
+
 /**
  * Combined with a `sbb-stepper`, it displays a step's content.
  *
@@ -114,22 +127,19 @@ export class SbbStepElement extends SbbElement {
   /**
    * Emits a validate event whenever step switch is triggered.
    * @internal
+   *
    * TODO: @breaking-change: make protected
+   *
+   * FIXME: the name of this variable appears as event name in the readme
+   *  due to a bug in the custom-elements-manifest library.
+   *  https://github.com/open-wc/custom-elements-manifest/issues/149
    */
-  public validate(eventData: SbbStepValidateEventDetails): boolean {
-    // TODO: @breaking-change: Create a specific event type for this event.
+  public validate(validate: SbbStepValidateEventDetails): boolean {
     /**
-     * @type {CustomEvent<SbbStepValidateEventDetails>}
+     * @type {SbbStepValidateEvent}
      * The validate event is dispatched when a step change is triggered. Can be canceled to abort the step change.
      */
-    return this.dispatchEvent(
-      new CustomEvent<SbbStepValidateEventDetails>('validate', {
-        bubbles: true,
-        composed: true,
-        cancelable: true,
-        detail: eventData,
-      }),
-    );
+    return this.dispatchEvent(new SbbStepValidateEvent(validate));
   }
 
   /**

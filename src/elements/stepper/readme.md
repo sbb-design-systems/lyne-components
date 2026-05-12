@@ -56,17 +56,16 @@ The `linear` property can be set to create a linear stepper that requires the us
 ## Events
 
 Whenever a step switch is triggered, a `validate` event is emitted and can be canceled to prevent the step change.
+The `event.detail` property contains information about the `currentIndex`, `nextIndex`, `currentStep` and `nextStep`.
 
 ```ts
-document
-  .querySelector('sbb-stepper')
-  .addEventListener((event: CustomEvent<SbbStepValidateEventDetails>) => {
-    if (currentStateIsInvalid()) {
-      // This will prevent switching to another step and force
-      // the user to fix the current state.
-      event.preventDefault();
-    }
-  });
+document.querySelector('sbb-stepper').addEventListener((event: SbbStepValidateEvent) => {
+  if (currentStateIsInvalid()) {
+    // This will prevent switching to another step and force
+    // the user to fix the current state.
+    event.preventDefault();
+  }
+});
 ```
 
 ## Forms
@@ -155,10 +154,10 @@ If important content needs to be announced when a step is changed, use the `aria
 
 #### Events
 
-| Name       | Type                                       | Description                                                                                                 | Inherited From |
-| ---------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------- | -------------- |
-| `active`   | `Event`                                    | The active event is dispatched when a step is activated.                                                    |                |
-| `validate` | `CustomEvent<SbbStepValidateEventDetails>` | The validate event is dispatched when a step change is triggered. Can be canceled to abort the step change. |                |
+| Name       | Type                   | Description                                                                                                 | Inherited From |
+| ---------- | ---------------------- | ----------------------------------------------------------------------------------------------------------- | -------------- |
+| `active`   | `Event`                | The active event is dispatched when a step is activated.                                                    |                |
+| `validate` | `SbbStepValidateEvent` | The validate event is dispatched when a step change is triggered. Can be canceled to abort the step change. |                |
 
 #### Slots
 

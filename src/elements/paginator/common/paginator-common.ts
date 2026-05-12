@@ -28,6 +28,19 @@ export interface SbbPaginatorPageEventDetails {
   previousPageIndex: number;
 }
 
+export class SbbPaginatorPageEvent extends Event {
+  private readonly _detail: SbbPaginatorPageEventDetails;
+
+  public get detail(): SbbPaginatorPageEventDetails {
+    return this._detail;
+  }
+
+  public constructor(details: SbbPaginatorPageEventDetails) {
+    super('page', { bubbles: true, composed: true });
+    this._detail = Object.freeze(details);
+  }
+}
+
 export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNegativeMixin(
   SbbDisabledMixin(SbbElement),
 ) {
@@ -239,22 +252,20 @@ export const SbbPaginatorCommonElementMixin = <
 
     private _emitPageEvent(previousPageIndex: number): void {
       if (this.hasUpdated) {
+        // FIXME: the name of this variable appears as event name in the readme
+        //  due to a bug in the custom-elements-manifest library.
+        //  https://github.com/open-wc/custom-elements-manifest/issues/149
+        const page: SbbPaginatorPageEventDetails = {
+          previousPageIndex,
+          pageIndex: this.pageIndex,
+          length: this.length,
+          pageSize: this.pageSize,
+        };
         /**
-         * @type {CustomEvent<SbbPaginatorPageEventDetails>}
+         * @type {SbbPaginatorPageEvent}
          * The page event is dispatched when the page index, length or page size changes.
          */
-        this.dispatchEvent(
-          new CustomEvent<SbbPaginatorPageEventDetails>('page', {
-            bubbles: true,
-            composed: true,
-            detail: {
-              previousPageIndex,
-              pageIndex: this.pageIndex,
-              length: this.length,
-              pageSize: this.pageSize,
-            },
-          }),
-        );
+        this.dispatchEvent(new SbbPaginatorPageEvent(page));
       }
     }
 
@@ -313,6 +324,6 @@ export const SbbPaginatorCommonElementMixin = <
 
 declare global {
   interface HTMLElementEventMap {
-    page: CustomEvent<SbbPaginatorPageEventDetails>;
+    page: SbbPaginatorPageEvent;
   }
 }

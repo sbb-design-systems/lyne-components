@@ -107,9 +107,9 @@ that describes the content controlled by the paginator.
 
 #### Events
 
-| Name   | Type                                        | Description                                                                    | Inherited From                 |
-| ------ | ------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------ |
-| `page` | `CustomEvent<SbbPaginatorPageEventDetails>` | The page event is dispatched when the page index, length or page size changes. | SbbPaginatorCommonElementMixin |
+| Name   | Type                    | Description                                                                    | Inherited From                 |
+| ------ | ----------------------- | ------------------------------------------------------------------------------ | ------------------------------ |
+| `page` | `SbbPaginatorPageEvent` | The page event is dispatched when the page index, length or page size changes. | SbbPaginatorCommonElementMixin |
 
 ### class: `SbbPaginatorElement`, `sbb-paginator`
 
@@ -145,6 +145,6 @@ that describes the content controlled by the paginator.
 
 #### Events
 
-| Name   | Type                                        | Description                                                                    | Inherited From                 |
-| ------ | ------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------ |
-| `page` | `CustomEvent<SbbPaginatorPageEventDetails>` | The page event is dispatched when the page index, length or page size changes. | SbbPaginatorCommonElementMixin |
+| Name   | Type                    | Description                                                                    | Inherited From                 |
+| ------ | ----------------------- | ------------------------------------------------------------------------------ | ------------------------------ |
+| `page` | `SbbPaginatorPageEvent` | The page event is dispatched when the page index, length or page size changes. | SbbPaginatorCommonElementMixin |
