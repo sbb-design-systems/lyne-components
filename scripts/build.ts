@@ -804,7 +804,10 @@ function renderTemplate(
     .set('SeatReservationSelectedCoach', 'seat-reservation.pure.js')
     .set('SeatReservationSelectedPlaces', 'seat-reservation.pure.js')
     .set('PlaceSelection', 'seat-reservation.pure.js')
-    .set('SbbPaginatorPageEventDetails', 'paginator.pure.js');
+    .set('SbbPaginatorPageEventDetails', 'paginator.pure.js')
+    .set('SbbDateSelectedEvent', 'calendar.pure.js')
+    .set('SbbPopoverBeforeCloseEvent', 'popover.pure.js')
+    .set('SbbPopoverCloseEvent', 'popover.pure.js');
 
   // In case of properties that are not string, but can be used as a string attribute in
   // React (e.g. trigger), we need to patch the class property types to allow string as
