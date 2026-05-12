@@ -4,19 +4,7 @@
   display: flex;
   gap: var(--sbb-compact-paginator-gap);
   justify-content: var(--sbb-paginator-compact-justify-content, start);
-  min-height: var(--sbb-compact-paginator-height);
-}
-
-:host([size='s']) {
-  --sbb-compact-paginator-height: var(--sbb-size-element-xs);
-}
-
-:host([size='m']) {
-  --sbb-compact-paginator-height: var(--sbb-size-element-m);
-}
-
-:host([negative]) {
-  --sbb-compact-paginator-color: var(--sbb-color-5);
+  min-height: var(--sbb-paginator-height);
 }
 
 :host([pager-position='end']) {
@@ -31,9 +19,11 @@
   align-items: center;
   justify-content: center;
   gap: var(--sbb-compact-paginator-pages-gap);
-  color: var(--sbb-compact-paginator-color);
+  color: var(--sbb-paginator-color);
 }
 
 .sbb-compact-paginator__divider {
   height: #{sbb.px-to-rem-build(16)};
+
+  --sbb-divider-color: currentcolor;
 }

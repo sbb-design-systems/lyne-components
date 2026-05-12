@@ -8,12 +8,13 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
 import { defaultDateAdapter } from '../../core.ts';
+import type { SbbFormFieldElement } from '../../form-field.pure.ts';
+
+import type { SbbDatepickerElement } from './datepicker.component.ts';
 
 import '../../datepicker.ts';
 import '../../date-input.ts';
 import '../../form-field.ts';
-
-import type { SbbDatepickerElement } from './datepicker.component.ts';
 
 describe(`sbb-datepicker`, () => {
   let root: HTMLElement;
@@ -28,7 +29,7 @@ describe(`sbb-datepicker`, () => {
     ],
   };
 
-  const sizes = ['s', 'l'];
+  const sizes = ['s', 'l'] satisfies SbbFormFieldElement['size'][];
 
   before(() => {
     todayStub = stub(defaultDateAdapter, 'today').returns(new Date(2022, 4, 1, 0, 0, 0, 0));
@@ -99,7 +100,7 @@ describe(`sbb-datepicker`, () => {
         `size=${size}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-form-field width="collapse" size=${size as 's' | 'm' | 'l'}>
+            <sbb-form-field width="collapse" size=${size}>
               <label>Label</label>
               <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
               <sbb-date-input value="12.02.2023"></sbb-date-input>

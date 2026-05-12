@@ -18,6 +18,9 @@ export class SbbTimetableFormFieldElement extends SbbFormFieldElement {
     this.borderless = true;
     this.floatingLabel = true;
     this.width = 'collapse';
+    /**
+     * Size variant, either s, m or l (default).
+     */
     this.size = 'l';
   }
 

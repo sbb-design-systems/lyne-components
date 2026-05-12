@@ -7,10 +7,7 @@ snapshots["sbb-alert-group renders DOM"] =
   accessibility-title-level="3"
   role="status"
 >
-  <sbb-alert
-    animation="all"
-    size="m"
-  >
+  <sbb-alert animation="all">
     <sbb-title
       level="3"
       negative=""
@@ -44,10 +41,7 @@ snapshots["sbb-alert-group renders with slotted DOM"] =
   <span slot="accessibility-title">
     Interruptions
   </span>
-  <sbb-alert
-    animation="all"
-    size="m"
-  >
+  <sbb-alert animation="all">
     <sbb-title
       level="3"
       negative=""

@@ -1,7 +1,7 @@
 import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement } from '../../core.ts';
+import { SbbLinkBaseElement, screenReaderOnlyStyles } from '../../core.ts';
 import { SbbTeaserProductCommonElementMixin } from '../common/teaser-product-common.ts';
 
 import style from './teaser-product.scss?inline';
@@ -19,7 +19,7 @@ export class SbbTeaserProductElement extends SbbTeaserProductCommonElementMixin(
   SbbLinkBaseElement,
 ) {
   public static override readonly elementName: string = 'sbb-teaser-product';
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     // We render the content outside the anchor tag to allow screen readers to navigate through it

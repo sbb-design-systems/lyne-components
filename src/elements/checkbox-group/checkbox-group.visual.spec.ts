@@ -1,7 +1,10 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
+import type { SbbCheckboxElement } from '../checkbox/checkbox.component.ts';
 import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
+
+import type { SbbCheckboxGroupElement } from './checkbox-group.component.ts';
 
 import '../card.ts';
 import '../form-field.ts';
@@ -21,11 +24,11 @@ describe('sbb-checkbox-group', () => {
     orientation: 'horizontal',
     disabled: false,
     required: false,
-    horizontalFrom: undefined as string | undefined,
-    size: 'm',
+    horizontalFrom: null as SbbCheckboxGroupElement['horizontalFrom'],
+    size: 'm' as SbbCheckboxGroupElement['size'],
     label: 'Label',
-    iconName: undefined as string | undefined,
-    iconPlacement: undefined as string | undefined,
+    iconName: null as SbbCheckboxElement['iconName'] | null,
+    iconPlacement: null as SbbCheckboxElement['iconPlacement'] | null,
   };
 
   const checkboxesTemplate = ({
@@ -41,7 +44,7 @@ describe('sbb-checkbox-group', () => {
     <sbb-checkbox-group
       orientation=${orientation}
       horizontal-from=${horizontalFrom || nothing}
-      size=${size}
+      size=${size || nothing}
       .disabled=${disabled}
     >
       ${repeat(
@@ -70,7 +73,7 @@ describe('sbb-checkbox-group', () => {
     <sbb-checkbox-group
       orientation=${orientation}
       horizontal-from=${horizontalFrom || nothing}
-      size=${size}
+      size=${size || nothing}
       .disabled=${disabled}
     >
       ${repeat(
@@ -109,9 +112,9 @@ describe('sbb-checkbox-group', () => {
       }
 
       it(
-        `${orientation} size=s ${visualDiffDefault.name}`,
+        `${orientation} size=null ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(checkboxesTemplate({ ...args, size: 's' }));
+          await setup.withFixture(checkboxesTemplate({ ...args, size: null }));
         }),
       );
 
@@ -119,6 +122,13 @@ describe('sbb-checkbox-group', () => {
         `${orientation} size=xs ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(checkboxesTemplate({ ...args, size: 'xs' }));
+        }),
+      );
+
+      it(
+        `${orientation} size=s ${visualDiffDefault.name}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(checkboxesTemplate({ ...args, size: 's' }));
         }),
       );
 
@@ -143,7 +153,10 @@ describe('sbb-checkbox-group', () => {
         }),
       );
 
-      for (const iconPlacement of ['start', 'end']) {
+      for (const iconPlacement of [
+        'start',
+        'end',
+      ] satisfies SbbCheckboxElement['iconPlacement'][]) {
         it(
           `${orientation} iconPlacement=${iconPlacement} ${visualDiffDefault.name}`,
           visualDiffDefault.with(async (setup) => {
@@ -163,7 +176,11 @@ describe('sbb-checkbox-group', () => {
     }
 
     describe('horizontalFrom=large', () => {
-      const args = { ...defaultArgs, orientation: 'vertical', horizontalFrom: 'large' };
+      const args = {
+        ...defaultArgs,
+        orientation: 'vertical' as SbbCheckboxGroupElement['orientation'],
+        horizontalFrom: 'large' as SbbCheckboxGroupElement['horizontalFrom'],
+      };
       it(
         `checkbox ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {

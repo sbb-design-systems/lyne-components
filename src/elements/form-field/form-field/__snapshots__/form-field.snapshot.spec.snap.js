@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-form-field renders input DOM"] = 
 `<sbb-form-field
   error-space="none"
-  size="m"
   width="default"
 >
   <label
@@ -67,7 +66,6 @@ snapshots["sbb-form-field renders input Shadow DOM"] =
 snapshots["sbb-form-field renders disabled input DOM"] = 
 `<sbb-form-field
   error-space="none"
-  size="m"
   width="default"
 >
   <label
@@ -132,7 +130,6 @@ snapshots["sbb-form-field renders disabled input Shadow DOM"] =
 snapshots["sbb-form-field renders readonly input with error DOM"] = 
 `<sbb-form-field
   error-space="none"
-  size="m"
   width="default"
 >
   <label
@@ -205,7 +202,6 @@ snapshots["sbb-form-field renders readonly input with error Shadow DOM"] =
 snapshots["sbb-form-field should render select without label DOM"] = 
 `<sbb-form-field
   error-space="none"
-  size="m"
   width="default"
 >
   <select>
@@ -271,7 +267,6 @@ snapshots["sbb-form-field renders select with optional flag and borderless DOM"]
   borderless=""
   error-space="none"
   optional=""
-  size="m"
   width="default"
 >
   <label

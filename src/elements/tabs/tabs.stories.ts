@@ -4,7 +4,12 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import { type SbbTabChangedEventDetails, SbbTabElement, SbbTabGroupElement } from '../tabs.ts';
+import {
+  type SbbTabChangedEventDetails,
+  SbbTabElement,
+  SbbTabGroupElement,
+  type SbbTabNavBarElement,
+} from '../tabs.ts';
 
 import readme from './readme.md?raw';
 
@@ -72,7 +77,7 @@ const DefaultTemplate = ({ size, label, ...args }: Args): TemplateResult => html
     style="margin-block-end: var(--sbb-spacing-fixed-8x)"
   ></sbb-card>
   <sbb-tab-group
-    size=${size}
+    size=${size || nothing}
     initial-selected-index="0"
     @tabchange=${(e: CustomEvent<SbbTabChangedEventDetails>) => changeEventHandler(e)}
   >
@@ -93,7 +98,7 @@ const DefaultTemplate = ({ size, label, ...args }: Args): TemplateResult => html
 `;
 
 const IconsAndNumbersTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
-  <sbb-tab-group size=${size} initial-selected-index="0">
+  <sbb-tab-group size=${size || nothing} initial-selected-index="0">
     ${firstTabTitle(label, args)} ${tabPanelOne()}
 
     <sbb-tab-label amount=${args.amount} icon-name="swisspass-small"> Tab title two </sbb-tab-label>
@@ -110,10 +115,10 @@ const IconsAndNumbersTemplate = ({ size, label, ...args }: Args): TemplateResult
 `;
 
 const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
-  <sbb-tab-group size=${size} initial-selected-index="0">
+  <sbb-tab-group size=${size || nothing} initial-selected-index="0">
     ${firstTabTitle(label, args)}
     <sbb-tab>
-      <sbb-tab-group size=${size} initial-selected-index="1">
+      <sbb-tab-group size=${size || nothing} initial-selected-index="1">
         <sbb-tab-label level="2">Nested tab</sbb-tab-label>
         <sbb-tab>
           Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
@@ -145,7 +150,7 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
 `;
 
 const DynamicTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
-  <sbb-tab-group size=${size} initial-selected-index="0">
+  <sbb-tab-group size=${size || nothing} initial-selected-index="0">
     <sbb-tab-label ${sbbSpread(args)}>${label}</sbb-tab-label>
     <sbb-tab
       @active=${() => {
@@ -176,7 +181,7 @@ const DynamicTemplate = ({ size, label, ...args }: Args): TemplateResult => html
 `;
 
 const FixedHeightTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
-  <sbb-tab-group fixed-height style="height: 400px;" size=${size}>
+  <sbb-tab-group fixed-height style="height: 400px;" size=${size || nothing}>
     ${firstTabTitle(label, args)} ${tabPanelOne()}
 
     <sbb-tab-label>Tab title two</sbb-tab-label>
@@ -222,7 +227,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'l', 'xl'],
+  options: ['s', 'l', 'xl'] satisfies SbbTabGroupElement['size'][],
 };
 
 const basicArgTypes: ArgTypes = {
@@ -236,7 +241,7 @@ const basicArgs: Args = {
   label: 'Tab label one',
   'icon-name': undefined,
   amount: undefined,
-  size: size.options![1],
+  size: undefined,
 };
 
 export const Default: StoryObj = {
@@ -249,6 +254,12 @@ export const NumbersAndIconsSizeXL: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0], size: size.options![2] },
+};
+
+export const SizeM: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, size: size.options![1] },
 };
 
 export const SizeS: StoryObj = {
@@ -399,15 +410,11 @@ const navBarSize: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'l', 'xl'],
+  options: ['s', 'l', 'xl'] satisfies SbbTabNavBarElement['size'][],
 };
 
 const defaultArgTypes: ArgTypes = {
   size: navBarSize,
-};
-
-const defaultArgs: Args = {
-  size: navBarSize.options![1],
 };
 
 const TabNavBarTemplate = (args: Args): TemplateResult => html`
@@ -467,19 +474,16 @@ const withAmountTemplate = (args: Args): TemplateResult => html`
 export const TabNavBarDefault: StoryObj = {
   render: TabNavBarTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
 };
 
 export const TabNavBarWithIcon: StoryObj = {
   render: withIconTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
 };
 
 export const TabNavBarWithAmount: StoryObj = {
   render: withAmountTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
 };
 
 const meta: Meta = {

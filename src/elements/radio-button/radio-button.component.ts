@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { getOverride, isLean, SbbElement } from '../core.ts';
+import { getOverride, SbbElement } from '../core.ts';
 
 import { SbbRadioButtonCommonElementMixin } from './common/radio-button-common.ts';
 import style from './radio-button.scss?inline';
@@ -25,12 +25,12 @@ export class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonEleme
   } as const;
 
   /**
-   * Size variant, either xs, s or m.
+   * Size variant, either xs (lean theme default), s or m (standard theme default).
    * @default 'm' / 'xs' (lean)
    */
   @property({ reflect: true })
   @getOverride((i, v) => i.group?.size ?? v)
-  public accessor size: 'xs' | 's' | 'm' = isLean() ? 'xs' : 'm';
+  public accessor size: 'xs' | 's' | 'm' | null = null;
 
   /**
    * The value of the form element

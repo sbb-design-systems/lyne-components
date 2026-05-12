@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-datepicker renders DOM"] = 
 `<sbb-form-field
   error-space="none"
-  size="m"
   width="default"
 >
   <sbb-datepicker-previous-day

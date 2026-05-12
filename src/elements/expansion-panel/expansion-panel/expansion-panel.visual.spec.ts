@@ -8,6 +8,8 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.ts';
 
+import type { SbbExpansionPanelElement } from './expansion-panel.component.ts';
+
 import '../../expansion-panel.ts';
 
 import '../../icon.ts';
@@ -35,7 +37,7 @@ describe(`sbb-expansion-panel`, () => {
   ];
 
   const sizeCases = {
-    size: [undefined, 's', 'l'],
+    size: [null, 's', 'l'] satisfies SbbExpansionPanelElement['size'][],
     expanded: [false, true],
   };
 

@@ -6,6 +6,7 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../core/testing/private.ts';
+import type { SbbFormFieldElement } from '../form-field.pure.ts';
 
 import '../time-input.ts';
 import '../form-field.ts';
@@ -19,7 +20,7 @@ describe(`sbb-time-input`, () => {
   };
 
   const sizeCases = {
-    size: ['s', 'm', 'l'],
+    size: ['s', 'm', 'l'] satisfies SbbFormFieldElement['size'][],
     noIcons: [false, true],
   };
 

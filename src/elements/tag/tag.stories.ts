@@ -126,7 +126,7 @@ const tagDefaultArgs: Args = {
   'icon-name': undefined,
   amount: undefined,
   'aria-label': undefined,
-  size: size.options![1],
+  size: undefined,
 };
 
 const defaultArgTypes: ArgTypes = {
@@ -146,7 +146,7 @@ const defaultArgs: Args = {
   'list-accessibility-label': 'Select your desired filter',
   'aria-label': undefined,
   numberOfTagsInGroup: 8,
-  size: size.options![1],
+  size: undefined,
 };
 
 const TagTemplate = ({ label, ...args }: Args): TemplateResult =>
@@ -245,6 +245,12 @@ export const TagGroupSizeS: StoryObj = {
   render: TagGroupTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![0] },
+};
+
+export const TagGroupSizeM: StoryObj = {
+  render: TagGroupTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const Exclusive: StoryObj = {

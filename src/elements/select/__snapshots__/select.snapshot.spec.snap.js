@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-select renders Safari DOM"] = 
-`<sbb-select
-  id="sbb-select-1"
-  size="m"
->
+`<sbb-select id="sbb-select-1">
   <sbb-option
     id="sbb-option-0"
     value="1"
@@ -53,7 +50,6 @@ snapshots["sbb-select renders multiple Safari DOM"] =
 `<sbb-select
   id="sbb-select-3"
   multiple=""
-  size="m"
 >
   <sbb-option
     id="sbb-option-6"
@@ -100,7 +96,7 @@ snapshots["sbb-select renders multiple Safari Shadow DOM"] =
 /* end snapshot sbb-select renders multiple Safari Shadow DOM */
 
 snapshots["sbb-select renders Chrome-Firefox DOM"] = 
-`<sbb-select size="m">
+`<sbb-select>
   <sbb-option value="1">
     Option 1
   </sbb-option>
@@ -163,10 +159,7 @@ snapshots["sbb-select renders A11y tree Chrome"] =
 /* end snapshot sbb-select renders A11y tree Chrome */
 
 snapshots["sbb-select renders multiple Chrome-Firefox DOM"] = 
-`<sbb-select
-  multiple=""
-  size="m"
->
+`<sbb-select multiple="">
   <sbb-option value="1">
     Option 1
   </sbb-option>

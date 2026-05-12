@@ -7,6 +7,7 @@ import {
   visualDiffStandardStates,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
+import type { SbbBlockLinkElement } from '../../link.ts';
 
 import '../../link.ts';
 
@@ -27,12 +28,14 @@ describe(`sbb-block-link`, () => {
   };
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    for (const size of ['xs', 's', 'm']) {
+    for (const size of [null, 'xs', 's', 'm'] satisfies SbbBlockLinkElement['size'][]) {
       it(
         `size=${size} ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-block-link href="#" size=${size}>Travelcards & tickets</sbb-block-link>`,
+            html`<sbb-block-link href="#" size=${size || nothing}
+              >Travelcards & tickets</sbb-block-link
+            >`,
           );
         }),
       );

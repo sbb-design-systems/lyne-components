@@ -147,7 +147,7 @@ the `sbb-form-field-text-counter` is hidden.
 
 ## Style
 
-The component has a `size` property, which accepts three different values: `s`, `m` (default) and `l`.
+The component has a `size` property, which accepts three different values: `s`, `m` and `l`.
 
 ```html
 <sbb-form-field size="s">
@@ -374,18 +374,18 @@ as the error takes precedence.
 
 #### Properties
 
-| Name            | Attribute        | Privacy | Type                                                           | Default            | Description                                                                                                                                                           |
-| --------------- | ---------------- | ------- | -------------------------------------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `borderless`    | `borderless`     | public  | `boolean`                                                      | `false`            | Whether to display the form field without a border.                                                                                                                   |
-| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                          | `'none'`           | Whether to reserve space for an error message, hint or text-counter. `none` does not reserve any space. `reserve` does reserve one row for an error message.          |
-| `floatingLabel` | `floating-label` | public  | `boolean`                                                      | `false`            | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 |
-| `hiddenLabel`   | `hidden-label`   | public  | `boolean`                                                      | `false`            | Whether to visually hide the label. If hidden, screen readers will still read it.                                                                                     |
-| `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| null` |                    | Returns the input element.                                                                                                                                            |
-| `label`         | -                | public  | `HTMLLabelElement \| null`                                     |                    | Reference to the slotted label.                                                                                                                                       |
-| `negative`      | `negative`       | public  | `boolean`                                                      | `false`            | Negative coloring variant flag.                                                                                                                                       |
-| `optional`      | `optional`       | public  | `boolean`                                                      | `false`            | Indicates whether the input is optional.<br><strong>Deprecated</strong>: Set the (optional) label text manually. Will be removed with next major version.             |
-| `size`          | `size`           | public  | `'l' \| 'm' \| 's'`                                            | `'m' / 's' (lean)` | Size variant, either l, m or s.                                                                                                                                       |
-| `width`         | `width`          | public  | `'default' \| 'collapse'`                                      | `'default'`        | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. |
+| Name            | Attribute        | Privacy | Type                                                           | Default     | Description                                                                                                                                                           |
+| --------------- | ---------------- | ------- | -------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `borderless`    | `borderless`     | public  | `boolean`                                                      | `false`     | Whether to display the form field without a border.                                                                                                                   |
+| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                          | `'none'`    | Whether to reserve space for an error message, hint or text-counter. `none` does not reserve any space. `reserve` does reserve one row for an error message.          |
+| `floatingLabel` | `floating-label` | public  | `boolean`                                                      | `false`     | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 |
+| `hiddenLabel`   | `hidden-label`   | public  | `boolean`                                                      | `false`     | Whether to visually hide the label. If hidden, screen readers will still read it.                                                                                     |
+| `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| null` |             | Returns the input element.                                                                                                                                            |
+| `label`         | -                | public  | `HTMLLabelElement \| null`                                     |             | Reference to the slotted label.                                                                                                                                       |
+| `negative`      | `negative`       | public  | `boolean`                                                      | `false`     | Negative coloring variant flag.                                                                                                                                       |
+| `optional`      | `optional`       | public  | `boolean`                                                      | `false`     | Indicates whether the input is optional.<br><strong>Deprecated</strong>: Set the (optional) label text manually. Will be removed with next major version.             |
+| `size`          | `size`           | public  | `'s' \| 'm' \| 'l' \| null`                                    | `null`      | Size variant, either s (lean theme default), m (standard theme default) or l.                                                                                         |
+| `width`         | `width`          | public  | `'default' \| 'collapse'`                                      | `'default'` | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. |
 
 #### Methods
 

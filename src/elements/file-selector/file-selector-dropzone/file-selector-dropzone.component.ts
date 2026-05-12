@@ -1,4 +1,4 @@
-import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
@@ -53,7 +53,7 @@ export class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElement
           </span>
           <span class="sbb-file-selector__dropzone-area--button">
             <sbb-secondary-button-static
-              size=${this.size}
+              size=${this.size || nothing}
               ?disabled=${this.disabled || this.formDisabled}
               ${ref((el?: Element): void => {
                 this.loadButton = el as SbbSecondaryButtonStaticElement;

@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-radio-button renders DOM"] = 
 `<sbb-radio-button
   name="radio"
-  size="m"
   tabindex="0"
   value="radio-value"
 >

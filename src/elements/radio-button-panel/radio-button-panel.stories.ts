@@ -6,6 +6,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
+import type { SbbRadioButtonPanelElement } from './radio-button-panel.component.ts';
 import readme from './readme.md?raw';
 
 import '../icon.ts';
@@ -47,7 +48,7 @@ const color: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['white', 'milk'],
+  options: ['white', 'milk'] satisfies SbbRadioButtonPanelElement['color'][],
 };
 
 const borderless: InputType = {
@@ -60,7 +61,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xs', 's', 'm'],
+  options: ['xs', 's', 'm'] satisfies SbbRadioButtonPanelElement['size'][],
 };
 
 const allowEmptySelection: InputType = {
@@ -89,7 +90,7 @@ const defaultArgs: Args = {
   labelBoldClass: false,
   color: color.options![0],
   borderless: false,
-  size: size.options![2],
+  size: undefined,
   'allow-empty-selection': false,
 };
 

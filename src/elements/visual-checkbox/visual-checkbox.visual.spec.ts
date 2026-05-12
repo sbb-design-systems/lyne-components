@@ -1,6 +1,8 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
+
+import type { SbbVisualCheckboxElement } from './visual-checkbox.component.ts';
 
 import '../visual-checkbox.ts';
 
@@ -21,7 +23,7 @@ describe(`sbb-visual-checkbox`, () => {
     ],
   };
 
-  const size = ['xs', 's', 'm'];
+  const size = [null, 'xs', 's', 'm'] satisfies SbbVisualCheckboxElement['size'][];
 
   describeViewports({ viewports: ['zero'] }, () => {
     describeEach(
@@ -56,7 +58,7 @@ describe(`sbb-visual-checkbox`, () => {
             html`<sbb-visual-checkbox
               ?indeterminate=${states.indeterminate}
               ?checked=${states.checked}
-              size=${size}
+              size=${size || nothing}
             ></sbb-visual-checkbox>`,
           );
         }),

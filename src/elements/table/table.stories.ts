@@ -68,7 +68,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: 'm',
+  size: undefined,
   negative: false,
   striped: false,
   'inline-filters': false,
@@ -161,6 +161,7 @@ const body: (groupWithNext?: boolean) => TemplateResult = (groupWithNext = false
 
 const tableClasses = (args: Args): Record<string, boolean> => ({
   'sbb-table--negative': args.negative,
+  'sbb-table': !args.size,
   'sbb-table-xs': args.size === 'xs',
   'sbb-table-s': args.size === 's',
   'sbb-table-m': args.size === 'm',
@@ -193,13 +194,13 @@ export const Default: StoryObj = {
 export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: 's' },
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const SizeXS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: 'xs' },
+  args: { ...defaultArgs, size: size.options![0] },
 };
 
 export const Striped: StoryObj = {
@@ -223,13 +224,13 @@ export const IronTheme: StoryObj = {
 export const WithFilters: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'inline-filters': true, size: 's' },
+  args: { ...defaultArgs, 'inline-filters': true, size: size.options![1] },
 };
 
 export const WithoutHeader: StoryObj = {
   render: withoutHeaderTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'inline-filters': true, size: 's' },
+  args: { ...defaultArgs, 'inline-filters': true, size: size.options![1] },
 };
 
 export const GroupWithNext: StoryObj = {

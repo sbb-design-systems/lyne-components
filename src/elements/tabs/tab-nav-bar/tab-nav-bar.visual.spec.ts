@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import {
   describeEach,
@@ -7,6 +7,8 @@ import {
   visualDiffStandardStates,
 } from '../../core/testing/private.ts';
 
+import type { SbbTabNavBarElement } from './tab-nav-bar.component.ts';
+
 import '../../icon.ts';
 import '../../tabs.ts';
 
@@ -14,7 +16,7 @@ describe('sbb-tab-nav-bar', () => {
   describeViewports({ viewports: ['zero', 'small', 'large'] }, () => {
     describeEach(
       {
-        size: ['s', 'l', 'xl'],
+        size: [null, 's', 'l', 'xl'] satisfies SbbTabNavBarElement['size'][],
         emulateMedia: [
           { forcedColors: false, darkMode: true },
           { forcedColors: true, darkMode: false },
@@ -28,7 +30,7 @@ describe('sbb-tab-nav-bar', () => {
             state.with(async (setup) => {
               await setup.withFixture(
                 html`
-                  <sbb-tab-nav-bar size=${size}>
+                  <sbb-tab-nav-bar size=${size || nothing}>
                     <a href="#">Nav 1</a>
                     <a href="#">Nav 2</a>
                     <a class="sbb-disabled" aria-disabled="true" role="link">Nav 3</a>
@@ -48,7 +50,7 @@ describe('sbb-tab-nav-bar', () => {
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
               html`
-                <sbb-tab-nav-bar size=${size}>
+                <sbb-tab-nav-bar size=${size || nothing}>
                   <a href="#" class="sbb-active" aria-current="page">
                     <sbb-icon name="app-icon-small"></sbb-icon>
                     Nav 1

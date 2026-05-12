@@ -1,10 +1,11 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
-import { html, nothing, type TemplateResult } from 'lit';
+import { html, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import { sampleImages } from '../core/images.private.ts';
+import { type SbbHeaderElement } from '../header.ts';
 
 import readme from './readme.md?raw';
 
@@ -29,13 +30,6 @@ const LoremIpsumTemplate = (): TemplateResult => html`
   <br />
 `;
 
-const appName = (): TemplateResult => html`
-  <span class="sbb-header-info">
-    <strong>Name</strong>
-    <span>V. 1.1</span>
-  </span>
-`;
-
 const HeaderBasicTemplate = (
   { attributes, ...args }: Args,
   template: TemplateResult,
@@ -44,7 +38,6 @@ const HeaderBasicTemplate = (
     <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
       Menu
     </sbb-header-button>
-    ${args.size === 's' ? appName() : nothing}
     <div class="sbb-header-spacer"></div>
     <sbb-header-link
       href="https://www.sbb.ch"
@@ -71,17 +64,9 @@ const HeaderBasicTemplate = (
       <sbb-menu-button icon-name="tick-small">English</sbb-menu-button>
     </sbb-menu>
     <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
-    ${args.size === 's'
-      ? html`
-          <a aria-label="Homepage" href="/" class="sbb-header-logo">
-            <sbb-signet protective-room="panel"></sbb-signet>
-          </a>
-        `
-      : html`
-          <a aria-label="Homepage" href="/" class="sbb-header-logo">
-            <sbb-logo protective-room="none"></sbb-logo>
-          </a>
-        `}
+    <a aria-label="Homepage" href="/" class="sbb-header-logo">
+      <sbb-logo protective-room="none"></sbb-logo>
+    </a>
   </sbb-header>
   <div
     class=${args.expanded ? `sbb-page-spacing-expanded` : `sbb-page-spacing`}
@@ -148,7 +133,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['s', 'm'] satisfies SbbHeaderElement['size'][],
 };
 
 const argTypes: ArgTypes = {
@@ -162,7 +147,7 @@ const basicArgs: Args = {
   expanded: false,
   'hide-on-scroll': false,
   'scroll-origin': undefined,
-  size: size.options![0],
+  size: undefined,
 };
 
 export const Basic: StoryObj = {
@@ -183,7 +168,40 @@ export const Expanded: StoryObj = {
 export const SizeS: StoryObj = {
   render: Template,
   argTypes,
+  args: { ...basicArgs, size: size.options![0] },
+};
+
+export const SizeM: StoryObj = {
+  render: Template,
+  argTypes,
   args: { ...basicArgs, size: size.options![1] },
+};
+
+const AppNameTemplate = ({ attributes, ...args }: Args): TemplateResult =>
+  html`<sbb-header ${sbbSpread(args)}>
+      <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
+        Menu
+      </sbb-header-button>
+      <span class="sbb-header-info">
+        <strong>Application Name</strong>
+        <span>1.1.1</span>
+      </span>
+      <div class="sbb-header-spacer"></div>
+      <a aria-label="Homepage" href="/" class="sbb-header-logo">
+        <sbb-signet protective-room="panel"></sbb-signet>
+      </a>
+    </sbb-header>
+    <div
+      class=${args.expanded ? `sbb-page-spacing-expanded` : `sbb-page-spacing`}
+      ${sbbSpread(attributes)}
+    >
+      ${new Array(12).fill(null).map(LoremIpsumTemplate)}
+    </div>`;
+
+export const WithAppName: StoryObj = {
+  render: AppNameTemplate,
+  argTypes,
+  args: basicArgs,
 };
 
 export const WithUserMenu: StoryObj = {

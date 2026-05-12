@@ -29,10 +29,7 @@ snapshots["sbb-transparent-button renders a sbb-transparent-button without icon 
 /* end snapshot sbb-transparent-button renders a sbb-transparent-button without icon Shadow DOM */
 
 snapshots["sbb-transparent-button renders a sbb-transparent-button with slotted icon DOM"] = 
-`<sbb-transparent-button
-  size="m"
-  tabindex="0"
->
+`<sbb-transparent-button tabindex="0">
   <sbb-icon
     name="chevron-small-left-small"
     slot="icon"

@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-file-selector renders DOM"] = 
-`<sbb-file-selector size="m">
+`<sbb-file-selector>
 </sbb-file-selector>
 `;
 /* end snapshot sbb-file-selector renders DOM */
@@ -10,10 +10,7 @@ snapshots["sbb-file-selector renders DOM"] =
 snapshots["sbb-file-selector renders Shadow DOM"] = 
 `<div class="sbb-file-selector__input-container">
   <label>
-    <sbb-secondary-button-static
-      icon-name="folder-open-small"
-      size="m"
-    >
+    <sbb-secondary-button-static icon-name="folder-open-small">
       Choose a file
     </sbb-secondary-button-static>
     <input

@@ -35,7 +35,7 @@
       "groupName": "playwright",
       "prPriority": 10,
       "automerge": false,
-      "matchPackageNames": ["playwright**"]
+      "matchPackageNames": ["playwright**", "mcr.microsoft.com/playwright"]
     },
     {
       "groupName": "eslint",

@@ -5,8 +5,24 @@ $theme: 'standard' !default;
 @mixin base {
   --sbb-header-action-color: var(--sbb-color-1);
   --sbb-header-action-background-color: transparent;
-  --sbb-header-action-min-height: var(--sbb-size-element-s);
-  --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
+  --sbb-header-action-min-height-s: var(--sbb-size-element-xs);
+  --sbb-header-action-min-height-m: var(--sbb-size-element-s);
+  --sbb-header-action-min-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-header-action-min-height-m),
+        'lean': var(--sbb-header-action-min-height-s),
+      ),
+      $theme
+    )};
+  --sbb-header-action-padding-inline-s: var(--sbb-spacing-fixed-4x);
+  --sbb-header-action-padding-inline-m: var(--sbb-spacing-fixed-5x);
+  --sbb-header-action-padding-inline: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-header-action-padding-inline-m),
+        'lean': var(--sbb-header-action-padding-inline-s),
+      ),
+      $theme
+    )};
   --sbb-header-action-transition-easing: var(--sbb-animation-easing);
   --sbb-header-action-border-color: transparent;
   --sbb-header-action-gap: var(--sbb-spacing-fixed-2x);

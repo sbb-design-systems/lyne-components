@@ -749,4 +749,31 @@ describe(`sbb-tag-group`, () => {
       expect(tags[2].checked).to.be.false;
     });
   });
+
+  describe('role assignment', () => {
+    it('should have role="group" when no listAccessibilityLabel is set', async () => {
+      element = await fixture(html`<sbb-tag-group></sbb-tag-group>`);
+      expect(elementInternals.get(element)!.role).to.equal('group');
+    });
+
+    it('should have no role when listAccessibilityLabel is set', async () => {
+      element = await fixture(
+        html`<sbb-tag-group list-accessibility-label="Filter options"></sbb-tag-group>`,
+      );
+      expect(elementInternals.get(element)!.role).to.be.null;
+    });
+
+    it('should update role when listAccessibilityLabel changes', async () => {
+      element = await fixture(html`<sbb-tag-group></sbb-tag-group>`);
+      expect(elementInternals.get(element)!.role).to.equal('group');
+
+      element.listAccessibilityLabel = 'Filter options';
+      await waitForLitRender(element);
+      expect(elementInternals.get(element)!.role).to.be.null;
+
+      element.listAccessibilityLabel = '';
+      await waitForLitRender(element);
+      expect(elementInternals.get(element)!.role).to.equal('group');
+    });
+  });
 });

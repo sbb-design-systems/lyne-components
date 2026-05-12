@@ -131,16 +131,14 @@ $theme: 'standard' !default;
   }
 }
 
-.sbb-table-m {
-  --sbb-table-data-cell-font-size: var(--sbb-text-font-size-s);
-  --sbb-table-header-padding-block: var(--sbb-spacing-fixed-3x);
-  --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-4x);
-  --sbb-table-cell-padding-block: var(--sbb-spacing-responsive-xxxs);
-  --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-4x);
+.sbb-table-xs {
+  --sbb-table-data-cell-font-size: var(--sbb-text-font-size-xs);
+  --sbb-table-header-padding-block: 0;
+  --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-1x);
+  --sbb-table-cell-padding-block: 0;
+  --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-1x);
 }
 
-// TODO: remove sbb-lean selector with lean theme
-html.sbb-lean .sbb-table:not(.sbb-table-xs, .sbb-table-m),
 .sbb-table-s {
   --sbb-table-data-cell-font-size: var(--sbb-text-font-size-xs);
   --sbb-table-header-padding-block: var(--sbb-spacing-fixed-1x);
@@ -149,12 +147,12 @@ html.sbb-lean .sbb-table:not(.sbb-table-xs, .sbb-table-m),
   --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-2x);
 }
 
-.sbb-table-xs {
-  --sbb-table-data-cell-font-size: var(--sbb-text-font-size-xs);
-  --sbb-table-header-padding-block: 0;
-  --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-1x);
-  --sbb-table-cell-padding-block: 0;
-  --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-1x);
+.sbb-table-m {
+  --sbb-table-data-cell-font-size: var(--sbb-text-font-size-s);
+  --sbb-table-header-padding-block: var(--sbb-spacing-fixed-3x);
+  --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-4x);
+  --sbb-table-cell-padding-block: var(--sbb-spacing-responsive-xxxs);
+  --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-4x);
 }
 
 sbb-table-wrapper[negative] .sbb-table,

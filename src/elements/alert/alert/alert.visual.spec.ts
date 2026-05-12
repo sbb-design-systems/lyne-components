@@ -7,13 +7,15 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.ts';
 
+import type { SbbAlertElement } from './alert.component.ts';
+
 import '../../alert.ts';
 import '../../link.ts';
 import '../../title.ts';
 
 describe(`sbb-alert`, () => {
   const defaultArgs = {
-    size: 'm',
+    size: 'm' as SbbAlertElement['size'],
     readonly: false,
     icon: 'info',
     title: 'Interruption between Berne and Olten',
@@ -31,18 +33,18 @@ describe(`sbb-alert`, () => {
     title,
     href,
   }: typeof defaultArgs): TemplateResult => html`
-    <sbb-alert size=${size} ?readonly=${readonly} icon-name=${icon}>
+    <sbb-alert size=${size || nothing} ?readonly=${readonly} icon-name=${icon}>
       <sbb-title>${title}</sbb-title>
       ${contentSlotText}${href ? html` <sbb-link href=${href}>Find out more</sbb-link>` : nothing}
     </sbb-alert>
   `;
 
   describeViewports({ viewports: ['small', 'large'] }, () => {
-    for (const size of ['s', 'm', 'l']) {
+    for (const size of [null, 's', 'm', 'l'] satisfies SbbAlertElement['size'][]) {
       it(
         `size=${size}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(alertTemplate({ ...defaultArgs, size: size }));
+          await setup.withFixture(alertTemplate({ ...defaultArgs, size }));
         }),
       );
     }

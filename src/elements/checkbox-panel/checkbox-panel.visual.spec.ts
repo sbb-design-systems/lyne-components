@@ -1,6 +1,8 @@
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
+
+import type { SbbCheckboxPanelElement } from './checkbox-panel.component.ts';
 
 import '../card.ts';
 import '../checkbox-group.ts';
@@ -13,7 +15,7 @@ describe('sbb-checkbox-panel', () => {
     disabled: false,
     color: 'white',
     borderless: false,
-    size: 'm',
+    size: 'm' as SbbCheckboxPanelElement['size'],
   };
 
   const template = ({
@@ -29,7 +31,7 @@ describe('sbb-checkbox-panel', () => {
       ?disabled=${disabled}
       color=${color}
       ?borderless=${borderless}
-      size=${size}
+      size=${size || nothing}
     >
       Label ${size}
       <span slot="subtext">Subtext</span>
@@ -83,6 +85,13 @@ describe('sbb-checkbox-panel', () => {
         }),
       );
     }
+
+    it(
+      `size=null`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template({ ...defaultArgs, size: null }));
+      }),
+    );
 
     it(
       `size=s`,

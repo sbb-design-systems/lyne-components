@@ -16,7 +16,7 @@ describe(`sbb-table`, () => {
   };
 
   const sizeCases = {
-    size: ['m', 's', 'xs'],
+    size: [null, 'xs', 's', 'm'],
   };
 
   const header = (): TemplateResult => html`

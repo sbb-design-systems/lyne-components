@@ -11,7 +11,6 @@ import { property } from 'lit/decorators.js';
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
   i18nCloseAlert,
-  isLean,
   isZeroAnimationDuration,
   SbbDarkModeController,
   type SbbElementType,
@@ -48,10 +47,9 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
   } as const;
 
   /**
-   * You can choose between `s`, `m` or `l` size.
-   * @default 'm' / 's' (lean)
+   * Size variant, either `s` (lean theme default), `m` (standard theme default) or `l`.
    */
-  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | null = null;
 
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
@@ -187,7 +185,7 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
                 ></sbb-divider>
                 <sbb-transparent-button
                   ?negative=${this._isLightMode()}
-                  size=${this.size === 'l' ? 'm' : this.size}
+                  size=${this.size === 'l' ? 'm' : this.size || nothing}
                   icon-name="cross-small"
                   @click=${() => this.close()}
                   aria-label=${i18nCloseAlert[this._language.current]}
