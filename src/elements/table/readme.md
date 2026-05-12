@@ -157,23 +157,23 @@ This scheme changes the text color of the cells to `sbb-color-iron`.
 
 ### CSS classes
 
-| Name                        | Description                                                               |
-| --------------------------- | ------------------------------------------------------------------------- |
-| `sbb-table`                 | Table styles (adapt to default size (s with lean, m with standard theme)) |
-| `sbb-table-m`               | Medium size table style                                                   |
-| `sbb-table-s`               | Small size table style                                                    |
-| `sbb-table-xs`              | Smallest size table style                                                 |
-| `sbb-table--negative`       | Negative variant style                                                    |
-| `sbb-table--striped`        | Striped table style                                                       |
-| `sbb-table--unstriped`      | Non-striped table style                                                   |
-| `sbb-table-row--striped`    | Force the striped state on a `tr`                                         |
-| `sbb-table-filter`          | `th` element that contains an inline filter                               |
-| `sbb-table-group-with-next` | Removes the border to the next column                                     |
-| `sbb-table-header-subtitle` | Subtitle text displayed below a column header                             |
-| `sbb-table-align-start`     | Aligns cell text to the start                                             |
-| `sbb-table-align-center`    | Aligns cell text to the center                                            |
-| `sbb-table-align-end`       | Aligns cell text to the end                                               |
-| `sbb-table-align-justify`   | Justifies cell text                                                       |
+| Name                        | Description                                                             |
+| --------------------------- | ----------------------------------------------------------------------- |
+| `sbb-table`                 | Table styles (corresponds to size s with lean or m with standard theme) |
+| `sbb-table-m`               | Medium size table style                                                 |
+| `sbb-table-s`               | Small size table style                                                  |
+| `sbb-table-xs`              | Smallest size table style                                               |
+| `sbb-table--negative`       | Negative variant style                                                  |
+| `sbb-table--striped`        | Striped table style                                                     |
+| `sbb-table--unstriped`      | Non-striped table style                                                 |
+| `sbb-table-row--striped`    | Force the striped state on a `tr`                                       |
+| `sbb-table-filter`          | `th` element that contains an inline filter                             |
+| `sbb-table-group-with-next` | Removes the border to the next column                                   |
+| `sbb-table-header-subtitle` | Subtitle text displayed below a column header                           |
+| `sbb-table-align-start`     | Aligns cell text to the start                                           |
+| `sbb-table-align-center`    | Aligns cell text to the center                                          |
+| `sbb-table-align-end`       | Aligns cell text to the end                                             |
+| `sbb-table-align-justify`   | Justifies cell text                                                     |
 
 ### Sticky Table
 
