@@ -34,7 +34,7 @@ const orientation: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['horizontal', 'vertical'],
+  options: ['horizontal', 'vertical'] satisfies SbbStepperElement['orientation'][],
 };
 
 const horizontalFrom: InputType = {

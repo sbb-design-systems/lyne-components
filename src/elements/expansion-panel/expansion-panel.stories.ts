@@ -55,14 +55,14 @@ const titleLevel: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: [1, 2, 3, 4, 5, 6, null],
+  options: ['1', '2', '3', '4', '5', '6', null] satisfies SbbExpansionPanelElement['titleLevel'][],
 };
 
 const color: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['white', 'milk'],
+  options: ['white', 'milk'] satisfies SbbExpansionPanelElement['color'][],
 };
 
 const expanded: InputType = {
@@ -93,7 +93,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'l'],
+  options: ['s', 'l'] satisfies SbbExpansionPanelElement['size'][],
 };
 
 const defaultArgTypes: ArgTypes = {

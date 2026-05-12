@@ -8,6 +8,7 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import { SbbExpansionPanelElement } from '../expansion-panel.ts';
 
+import type { SbbAccordionElement } from './accordion.component.ts';
 import readme from './readme.md?raw';
 
 import '../accordion.ts';
@@ -31,7 +32,7 @@ const titleLevel: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: [1, 2, 3, 4, 5, 6, null],
+  options: ['1', '2', '3', '4', '5', '6', null] satisfies SbbAccordionElement['titleLevel'][],
   table: {
     category: 'Accordion',
   },
@@ -41,7 +42,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'l'],
+  options: ['s', 'l'] satisfies SbbAccordionElement['size'][],
   table: {
     category: 'Accordion',
   },
@@ -51,7 +52,7 @@ const color: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['white', 'milk'],
+  options: ['white', 'milk'] satisfies SbbExpansionPanelElement['color'][],
   table: {
     category: 'Panel',
   },
