@@ -1,0 +1,6 @@
+@use './mixins/lists';
+
+ul,
+ol {
+  @include lists.list-reset;
+}

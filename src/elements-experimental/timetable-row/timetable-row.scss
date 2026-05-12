@@ -33,10 +33,7 @@
   float: left;
 }
 
-// resets lists
 ul {
-  @include sbb.list-reset;
-
   display: inline-flex;
 }
 

@@ -21,6 +21,7 @@ import {
   i18nTravelhints,
   i18nTripDuration,
   i18nTripQuayChange,
+  listResetStyles,
   SbbElement,
   type SbbElementType,
   SbbLanguageController,
@@ -245,7 +246,11 @@ export class SbbTimetableRowElement extends SbbElement {
     SbbTimetableOccupancyElement,
     SbbPearlChainTimeElement,
   ];
-  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    listResetStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
 
   /** The trip Prop. */
   @property({ type: Object }) public accessor trip: ITripItem = null!;

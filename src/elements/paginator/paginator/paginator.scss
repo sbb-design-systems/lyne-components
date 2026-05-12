@@ -57,8 +57,6 @@
 }
 
 .sbb-paginator__pages {
-  @include sbb.list-reset;
-
   display: flex;
   align-items: center;
   justify-content: center;

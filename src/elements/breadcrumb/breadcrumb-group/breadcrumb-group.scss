@@ -19,8 +19,6 @@
 }
 
 .sbb-breadcrumb-group {
-  @include sbb.list-reset;
-
   display: flex;
   flex-wrap: var(--sbb-breadcrumb-group-wrap);
   column-gap: var(--sbb-spacing-fixed-1x);

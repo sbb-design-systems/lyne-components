@@ -14,6 +14,7 @@ import {
   forceType,
   i18nItemsPerPage,
   i18nPage,
+  listResetStyles,
   SbbElement,
   type SbbElementType,
   sbbInputModalityDetector,
@@ -37,7 +38,11 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(SbbEleme
     SbbSelectElement,
     SbbOptionElement,
   ];
-  public static override styles: CSSResultGroup = [buttonResetStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    listResetStyles,
+    buttonResetStyles,
+    unsafeCSS(style),
+  ];
   public static readonly events: Record<string, string> = {
     page: 'page',
   } as const;

@@ -95,8 +95,6 @@
 }
 
 .sbb-train-wagon__compartment {
-  @include sbb.list-reset;
-
   display: flex;
   flex-direction: var(--_sbb-train-formation-flex-direction);
   justify-content: center;
@@ -298,8 +296,6 @@
 }
 
 .sbb-train-wagon__attribute-icon-list {
-  @include sbb.list-reset;
-
   --sbb-icon-svg-height: var(--sbb-train-wagon-attribute-icon-height);
 
   display: flex;

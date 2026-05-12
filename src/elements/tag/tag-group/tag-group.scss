@@ -5,8 +5,6 @@
 }
 
 .sbb-tag-group__list {
-  @include sbb.list-reset;
-
   display: flex;
   flex-wrap: wrap;
   gap: var(--sbb-spacing-fixed-3x);

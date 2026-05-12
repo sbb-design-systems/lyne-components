@@ -32,8 +32,6 @@
 }
 
 .sbb-navigation-marker {
-  @include sbb.list-reset;
-
   position: relative;
   display: flex;
   flex-direction: column;

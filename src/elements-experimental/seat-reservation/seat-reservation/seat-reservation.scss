@@ -173,8 +173,6 @@ $scrollbar-height: 16px;
 }
 
 .sbb-sr-navigation__list-coaches {
-  @include sbb.list-reset;
-
   display: flex;
   flex-wrap: nowrap;
   gap: sbb-sr-functions.sr-px-to-rem(4);
@@ -225,8 +223,6 @@ $scrollbar-height: 16px;
 }
 
 .sbb-sr__list-decks {
-  @include sbb.list-reset;
-
   display: flex;
   flex-direction: column;
 }
@@ -240,8 +236,6 @@ $scrollbar-height: 16px;
 }
 
 .sbb-sr__list-coaches {
-  @include sbb.list-reset;
-
   display: flex;
   gap: sbb-sr-functions.sr-px-to-rem(4);
 }

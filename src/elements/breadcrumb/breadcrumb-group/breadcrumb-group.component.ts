@@ -14,6 +14,7 @@ import {
   getNextElementIndex,
   i18nBreadcrumbEllipsisButtonLabel,
   isArrowKeyPressed,
+  listResetStyles,
   SbbElement,
   type SbbElementType,
   sbbInputModalityDetector,
@@ -40,7 +41,11 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   public static override readonly elementName: string = 'sbb-breadcrumb-group';
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static override readonly role = 'navigation';
-  public static override styles: CSSResultGroup = [buttonResetStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    listResetStyles,
+    buttonResetStyles,
+    unsafeCSS(style),
+  ];
   protected override readonly listChildLocalNames = ['sbb-breadcrumb'];
 
   /** The state of the breadcrumb group. */
