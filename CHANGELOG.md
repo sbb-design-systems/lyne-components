@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-next.3](https://github.com/sbb-design-systems/lyne-components/compare/v5.0.0-next.2...v5.0.0-next.3) (2026-05-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **navigation:** The `size` property of the `sbb-navigation-button` and `sbb-navigation-link` has been removed.
+* support for the `sbb-lean` CSS class has been removed. Use the `lean-theme.css` instead of the `standard-theme.css` to have the lean styles applied. For off-brand and safety variants there are respective variants too.
+* Various TypeScript types have been removed. `SbbTitleLevel` was renamed to `SbbHeadingLevel` and moved to core module.
+* **autocomplete, select:** Deleted `core/overlay` mixins
+
+### Features
+
+* **stepper:** add `active` event to step element ([#4888](https://github.com/sbb-design-systems/lyne-components/issues/4888)) ([2e65fb2](https://github.com/sbb-design-systems/lyne-components/commit/2e65fb245fa3d35033db3355ecacbb6f1870a0e5))
+
+
+### Bug Fixes
+
+* **autocomplete:** handle 'autoSelectActiveOption' and 'requireSelection' interaction ([#4897](https://github.com/sbb-design-systems/lyne-components/issues/4897)) ([df24611](https://github.com/sbb-design-systems/lyne-components/commit/df2461105a79a184c4e494b4ab6169cbc996a6bc))
+* **seat-reservation:** not visible seatmap with high resolution layouts ([#4887](https://github.com/sbb-design-systems/lyne-components/issues/4887)) ([268efc2](https://github.com/sbb-design-systems/lyne-components/commit/268efc25506e3e2edd863f2705e9b4fad0ab85db))
+* **table:** re-add lean size s configuration ([#4892](https://github.com/sbb-design-systems/lyne-components/issues/4892)) ([c4fac7f](https://github.com/sbb-design-systems/lyne-components/commit/c4fac7f5c50b7862e9347111d4d72e23ff06ea67))
+
+
+### Documentation
+
+* **alert:** fix typo in readme ([#4879](https://github.com/sbb-design-systems/lyne-components/issues/4879)) ([d612fe6](https://github.com/sbb-design-systems/lyne-components/commit/d612fe6721de78718c5dde8229cee3c7ad35237f))
+
+
+### Code Refactoring
+
+* inline types from core ([#4864](https://github.com/sbb-design-systems/lyne-components/issues/4864)) ([58ecafb](https://github.com/sbb-design-systems/lyne-components/commit/58ecafb1c431b882eaa56bacd8a111fffa6800c3))
+* introduce lean theme ([#4865](https://github.com/sbb-design-systems/lyne-components/issues/4865)) ([302417a](https://github.com/sbb-design-systems/lyne-components/commit/302417a1dbeef25a756d520c0f70e1daf42ad155))
+* **navigation:** remove `size` property of buttons and links ([#4908](https://github.com/sbb-design-systems/lyne-components/issues/4908)) ([13d1a74](https://github.com/sbb-design-systems/lyne-components/commit/13d1a749a31a328657f9bfa5ef5982ae7dd4395f))
+* **option:** adapt global css rules to lean theme ([#4875](https://github.com/sbb-design-systems/lyne-components/issues/4875)) ([62be732](https://github.com/sbb-design-systems/lyne-components/commit/62be7322f16f39106abf899b062d060cda2a5403))
+
+
+### Styles
+
+* **autocomplete, select:** ux redesign ([#4850](https://github.com/sbb-design-systems/lyne-components/issues/4850)) ([35df814](https://github.com/sbb-design-systems/lyne-components/commit/35df8146d9f5dfd62323e0ae536bbec3ca1dfb89))
+
+
+### Miscellaneous Chores
+
+* prepare release 5.0.0-next.3 ([138ce41](https://github.com/sbb-design-systems/lyne-components/commit/138ce419befed1e72d7b273da4925377a0b50a8d))
+
 ## [4.13.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.12.1...v4.13.0) (2026-05-12)
 
 
