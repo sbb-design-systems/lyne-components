@@ -45,7 +45,6 @@ export * from './core/eventing/forward-event.ts';
 export * from './core/eventing/is-event-prevented.ts';
 export * from './core/eventing/throttle.ts';
 export * from './core/i18n/i18n.ts';
-export * from './core/interfaces/overlay-close-details.ts';
 export * from './core/interfaces/types.ts';
 export * from './core/mixins/animation-complete-mixin.ts';
 export * from './core/mixins/constructor.ts';

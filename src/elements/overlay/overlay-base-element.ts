@@ -12,7 +12,6 @@ import {
   SbbLanguageController,
   SbbNegativeMixin,
   SbbOpenCloseBaseElement,
-  type SbbOverlayCloseEventDetails,
   SbbScrollHandler,
   screenReaderOnlyStyles,
   setAriaOverlayTriggerProperties,
@@ -20,7 +19,7 @@ import {
 
 const overlayResultMap = new WeakMap<HTMLElement, any>();
 
-export class SbbOverlayCloseEvent<T = any> extends CustomEvent<SbbOverlayCloseEventDetails> {
+export class SbbOverlayCloseEvent<T = any> extends Event {
   /**
    * The result associated with the closed overlay.
    * This is either the result assigned to the `closeTarget` via
@@ -46,9 +45,7 @@ export class SbbOverlayCloseEvent<T = any> extends CustomEvent<SbbOverlayCloseEv
       result,
     }: { cancelable?: boolean; closeAttribute: string; closeTarget?: HTMLElement; result?: any },
   ) {
-    // TODO: Remove detail and change base class to Event
-    super(name, { cancelable, detail: { returnValue: result, closeTarget } });
-
+    super(name, { cancelable });
     this.result =
       result ??
       (!closeTarget
@@ -115,11 +112,8 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   protected abstract handleOpening(): void;
   protected abstract handleClosing(): void;
   protected abstract isZeroAnimationDuration(): boolean;
-  protected abstract override dispatchBeforeCloseEvent(
-    detail?: SbbOverlayCloseEventDetails,
-  ): boolean;
-
-  protected abstract override dispatchCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean;
+  protected abstract override dispatchBeforeCloseEvent(): boolean;
+  protected abstract override dispatchCloseEvent(): boolean;
 
   /** Opens the component. */
   public open(): void {

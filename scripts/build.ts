@@ -799,7 +799,6 @@ function renderTemplate(
   // If a type or interface needs to be imported, the custom elements analyzer will not detect/extract these,
   // and therefore we need to have a manual list of required types/interfaces.
   const interfaces = new Map<string, string>()
-    .set('SbbOverlayCloseEventDetails', 'core.js')
     .set('SbbPaginatorPageEventDetails', 'core.js')
     .set('SeatReservationPlaceSelection', 'seat-reservation.pure.js')
     .set('SeatReservationSelectedCoach', 'seat-reservation.pure.js')

@@ -499,7 +499,6 @@ describe('sbb-overlay', () => {
       const event = closeSpy.lastEvent as SbbOverlayCloseEvent;
       expect(event).to.be.instanceOf(SbbOverlayCloseEvent);
       expect(event.result).to.deep.equal(programmaticResult);
-      expect(event.detail.returnValue).to.deep.equal(programmaticResult);
       expect(event.closeTarget).to.be.null;
     });
 
@@ -529,7 +528,6 @@ describe('sbb-overlay', () => {
       const event = closeSpy.lastEvent as SbbOverlayCloseEvent;
       expect(event).to.be.instanceOf(SbbOverlayCloseEvent);
       expect(event.result).to.deep.equal({ custom: 'result' });
-      expect(event.detail.returnValue).to.deep.equal({ custom: 'result' });
       expect(event.closeTarget).to.equal(customTarget);
     });
   });
