@@ -8,6 +8,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import type { SbbInputAutocompleteEvent } from '../../autocomplete/autocomplete-base-element.ts';
 import {
   forceType,
   type FormRestoreReason,
@@ -26,7 +27,6 @@ import {
   SbbRequiredMixin,
 } from '../../core.ts';
 import type { SbbFormFieldElement } from '../../form-field/form-field/form-field.component.ts';
-import type { SbbOptionBaseElement } from '../../option/option/option-base-element.ts';
 import { SbbChipElement } from '../chip/chip.component.ts';
 
 import style from './chip-group.scss?inline';
@@ -281,9 +281,8 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
       });
       this._inputElement.addEventListener(
         'inputAutocomplete',
-        (event: CustomEvent<{ option: SbbOptionBaseElement<T> }>) => {
-          this._createChipFromInput('autocomplete', event.detail?.option.value);
-        },
+        (event: SbbInputAutocompleteEvent<T>) =>
+          this._createChipFromInput('autocomplete', event.option.value),
         {
           signal: this._inputAbortController.signal,
         },
