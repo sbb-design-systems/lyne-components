@@ -1,13 +1,16 @@
-@use '../../core/styles' as sbb;
-
 $theme: 'standard' !default;
 
+@use '../../core/styles' as sbb;
+@use '../card.global' as card with (
+  $theme: $theme
+);
+
 @mixin base {
-  @include sbb.card-variables--global($theme);
+  @include card.variables--global;
 }
 
 @mixin base-forced-colors {
-  @include sbb.card-variables--global-forced-colors;
+  @include card.variables--global-forced-colors;
 }
 
 @mixin rules {
