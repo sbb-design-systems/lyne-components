@@ -266,10 +266,10 @@ their current position within the reservation area.
 
 ## Events
 
-| Name             | Type                                         | Description                                                                         | Inherited From             |
-| ---------------- | -------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------- |
-| `selectedcoach`  | `CustomEvent<SeatReservationSelectedCoach>`  | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
-| `selectedplaces` | `CustomEvent<SeatReservationSelectedPlaces>` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |
+| Name             | Type                                    | Description                                                                         | Inherited From             |
+| ---------------- | --------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------- |
+| `selectedcoach`  | `SbbSeatReservationSelectedCoachEvent`  | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
+| `selectedplaces` | `SbbSeatReservationSelectedPlacesEvent` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |
 
 ## Seat Reservation Area
 
