@@ -1,4 +1,5 @@
 import { assert, expect } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
@@ -95,6 +96,19 @@ describe(`sbb-tag-group`, () => {
         expect(tag1.checked).to.be.equal(false);
         expect(inputSpy.count).not.to.be.greaterThan(0);
         expect(changeSpy.count).not.to.be.greaterThan(0);
+      });
+
+      it('should not navigate with arrow keys in multiple mode', async () => {
+        const tag2 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-2')!;
+        const tag3 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-3')!;
+
+        tag2.checked = true;
+        tag2.focus();
+        await sendKeys({ press: 'ArrowRight' });
+        await waitForLitRender(element);
+
+        expect(tag3.checked).to.be.false;
+        expect(element.value).to.be.an('array').that.includes('tag2');
       });
     });
 
@@ -307,13 +321,13 @@ describe(`sbb-tag-group`, () => {
         const inputSpy = new EventSpy('input');
         const tag1 = element.querySelector<SbbTagElement>('sbb-tag')!;
 
-        expect(elementInternals.get(tag1)!.ariaPressed).to.equal('false');
+        expect(elementInternals.get(tag1)!.ariaChecked).to.equal('false');
         expect(tag1.checked).to.be.equal(false);
 
         tag1.click();
         await waitForLitRender(element);
 
-        expect(elementInternals.get(tag1)!.ariaPressed).to.equal('true');
+        expect(elementInternals.get(tag1)!.ariaChecked).to.equal('true');
         expect(tag1.checked).to.be.equal(true);
         await inputSpy.calledOnce();
         expect(inputSpy.count).to.be.equal(1);
@@ -330,7 +344,7 @@ describe(`sbb-tag-group`, () => {
         tag1.checked = true;
         await waitForLitRender(element);
 
-        expect(elementInternals.get(tag1)!.ariaPressed).to.equal('true');
+        expect(elementInternals.get(tag1)!.ariaChecked).to.equal('true');
         expect(tag1.checked).to.be.equal(true);
         expect(inputSpy.count).not.to.be.greaterThan(0);
         expect(changeSpy.count).not.to.be.greaterThan(0);
@@ -393,7 +407,7 @@ describe(`sbb-tag-group`, () => {
         tag2.checked = false;
         await waitForLitRender(element);
 
-        expect(elementInternals.get(tag2)!.ariaPressed).to.equal('false');
+        expect(elementInternals.get(tag2)!.ariaChecked).to.equal('false');
         expect(tag2.checked).to.be.equal(false);
         expect(inputSpy.count).not.to.be.greaterThan(0);
         expect(changeSpy.count).not.to.be.greaterThan(0);
@@ -424,10 +438,10 @@ describe(`sbb-tag-group`, () => {
         tag3.click();
         await waitForLitRender(element);
 
-        expect(elementInternals.get(tag3)!.ariaPressed, 'tag3.ariaPressed').to.equal('true');
+        expect(elementInternals.get(tag3)!.ariaChecked, 'tag3.ariaChecked').to.equal('true');
         expect(tag3.checked, 'tag3.checked').to.be.true;
 
-        expect(elementInternals.get(tag2)!.ariaPressed, 'tag2.ariaPressed').to.equal('false');
+        expect(elementInternals.get(tag2)!.ariaChecked, 'tag2.ariaChecked').to.equal('false');
         expect(tag2.checked, 'tag2.checked').to.be.false;
 
         await inputSpy.calledOnce();
@@ -439,7 +453,7 @@ describe(`sbb-tag-group`, () => {
         expect(element.value).to.be.equal('tag3');
         expect(
           Array.from(element.querySelectorAll('sbb-tag')).filter(
-            (t) => elementInternals.get(t)!.ariaPressed === 'true',
+            (t) => elementInternals.get(t)!.ariaChecked === 'true',
           ).length,
         ).to.be.equal(1);
       });
@@ -453,10 +467,10 @@ describe(`sbb-tag-group`, () => {
         tag1.click();
         await waitForLitRender(element);
 
-        expect(elementInternals.get(tag1)!.ariaPressed).to.equal('true');
+        expect(elementInternals.get(tag1)!.ariaChecked).to.equal('true');
         expect(tag1.checked).to.be.equal(true);
 
-        expect(elementInternals.get(tag2)!.ariaPressed).to.equal('false');
+        expect(elementInternals.get(tag2)!.ariaChecked).to.equal('false');
         expect(tag2.checked).to.be.equal(false);
 
         await inputSpy.calledOnce();
@@ -468,7 +482,7 @@ describe(`sbb-tag-group`, () => {
         expect(element.value).to.be.equal('tag1');
         expect(
           Array.from(element.querySelectorAll('sbb-tag')).filter(
-            (t) => elementInternals.get(t)!.ariaPressed === 'true',
+            (t) => elementInternals.get(t)!.ariaChecked === 'true',
           ).length,
         ).to.be.equal(1);
       });
@@ -482,10 +496,10 @@ describe(`sbb-tag-group`, () => {
         tag3.checked = true;
         await waitForLitRender(element);
 
-        expect(elementInternals.get(tag3)!.ariaPressed).to.equal('true');
+        expect(elementInternals.get(tag3)!.ariaChecked).to.equal('true');
         expect(tag3.checked).to.be.equal(true);
 
-        expect(elementInternals.get(tag2)!.ariaPressed).to.equal('false');
+        expect(elementInternals.get(tag2)!.ariaChecked).to.equal('false');
         expect(tag2.checked).to.be.equal(false);
 
         expect(inputSpy.count).not.to.be.greaterThan(0);
@@ -494,7 +508,7 @@ describe(`sbb-tag-group`, () => {
         expect(element.value).to.be.equal('tag3');
         expect(
           Array.from(element.querySelectorAll('sbb-tag')).filter(
-            (t) => elementInternals.get(t)!.ariaPressed === 'true',
+            (t) => elementInternals.get(t)!.ariaChecked === 'true',
           ).length,
         ).to.be.equal(1);
       });
@@ -564,7 +578,7 @@ describe(`sbb-tag-group`, () => {
         `);
         expect(
           Array.from(element.querySelectorAll('sbb-tag')).filter(
-            (t) => elementInternals.get(t)!.ariaPressed === 'true',
+            (t) => elementInternals.get(t)!.ariaChecked === 'true',
           ).length,
         ).to.be.equal(1);
         expect(element.value).to.be.equal('tag1');
@@ -627,6 +641,164 @@ describe(`sbb-tag-group`, () => {
         expect(element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-3')?.checked).to.be.equal(
           false,
         );
+      });
+    });
+
+    describe('keyboard navigation', () => {
+      beforeEach(async () => {
+        element = await fixture(html`
+          <sbb-tag-group>
+            <sbb-tag id="sbb-tag-1" value="tag1">Tag 1</sbb-tag>
+            <sbb-tag id="sbb-tag-2" value="tag2" checked>Tag 2</sbb-tag>
+            <sbb-tag id="sbb-tag-3" value="tag3">Tag 3</sbb-tag>
+          </sbb-tag-group>
+        `);
+      });
+
+      it('should select next tag on ArrowRight and move focus', async () => {
+        const tag2 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-2')!;
+        const tag3 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-3')!;
+
+        tag2.focus();
+        await sendKeys({ press: 'ArrowRight' });
+        await waitForLitRender(element);
+
+        expect(tag3.checked).to.be.true;
+        expect(element.value).to.equal('tag3');
+        expect(document.activeElement).to.equal(tag3);
+      });
+
+      it('should select next tag on ArrowDown and move focus', async () => {
+        const tag2 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-2')!;
+        const tag3 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-3')!;
+
+        tag2.focus();
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+
+        expect(tag3.checked).to.be.true;
+        expect(element.value).to.equal('tag3');
+        expect(document.activeElement).to.equal(tag3);
+      });
+
+      it('should select previous tag on ArrowLeft and move focus', async () => {
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-1')!;
+        const tag2 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-2')!;
+
+        tag2.focus();
+        await sendKeys({ press: 'ArrowLeft' });
+        await waitForLitRender(element);
+
+        expect(tag1.checked).to.be.true;
+        expect(element.value).to.equal('tag1');
+        expect(document.activeElement).to.equal(tag1);
+      });
+
+      it('should select previous tag on ArrowUp and move focus', async () => {
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-1')!;
+        const tag2 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-2')!;
+
+        tag2.focus();
+        await sendKeys({ press: 'ArrowUp' });
+        await waitForLitRender(element);
+
+        expect(tag1.checked).to.be.true;
+        expect(element.value).to.equal('tag1');
+        expect(document.activeElement).to.equal(tag1);
+      });
+
+      it('should wrap around from last to first on ArrowRight', async () => {
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-1')!;
+        const tag3 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-3')!;
+
+        tag3.checked = true;
+        await waitForLitRender(element);
+
+        tag3.focus();
+        await sendKeys({ press: 'ArrowRight' });
+        await waitForLitRender(element);
+
+        expect(tag1.checked).to.be.true;
+        expect(element.value).to.equal('tag1');
+        expect(document.activeElement).to.equal(tag1);
+      });
+
+      it('should wrap around from first to last on ArrowLeft', async () => {
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-1')!;
+        const tag3 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-3')!;
+
+        tag1.checked = true;
+        await waitForLitRender(element);
+
+        tag1.focus();
+        await sendKeys({ press: 'ArrowLeft' });
+        await waitForLitRender(element);
+
+        expect(tag3.checked).to.be.true;
+        expect(element.value).to.equal('tag3');
+        expect(document.activeElement).to.equal(tag3);
+      });
+
+      it('should skip disabled tags when navigating with arrow keys', async () => {
+        const tag2 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-2')!;
+        const tag3 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-3')!;
+        tag3.disabled = true;
+        await waitForLitRender(element);
+
+        const tag1 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-1')!;
+        tag2.focus();
+        await sendKeys({ press: 'ArrowRight' });
+        await waitForLitRender(element);
+
+        // tag3 is disabled, should wrap to tag1
+        expect(tag1.checked).to.be.true;
+        expect(document.activeElement).to.equal(tag1);
+      });
+
+      it('should have tabindex=0 only on checked tag in exclusive mode', async () => {
+        const tags = element.querySelectorAll<SbbTagElement>('sbb-tag');
+        expect(tags[0].tabIndex).to.equal(-1);
+        expect(tags[1].tabIndex).to.equal(0);
+        expect(tags[2].tabIndex).to.equal(-1);
+      });
+
+      it('should update roving tabindex after selection change via arrow key', async () => {
+        const tag2 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-2')!;
+        const tag3 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-3')!;
+
+        tag2.focus();
+        await sendKeys({ press: 'ArrowRight' });
+        await waitForLitRender(element);
+        await new Promise<void>((r) => queueMicrotask(r));
+
+        expect(tag3.tabIndex).to.equal(0);
+        expect(tag2.tabIndex).to.equal(-1);
+      });
+
+      it('should reset tabindex to 0 for all tags when switching to multiple mode', async () => {
+        element.multiple = true;
+        await waitForLitRender(element);
+        await new Promise<void>((r) => queueMicrotask(r));
+
+        const tags = element.querySelectorAll<SbbTagElement>('sbb-tag');
+        for (const tag of tags) {
+          expect(tag.tabIndex).to.equal(0);
+        }
+      });
+
+      it('should dispatch change and input events on arrow key navigation', async () => {
+        const changeSpy = new EventSpy('change');
+        const inputSpy = new EventSpy('input');
+
+        const tag2 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-2')!;
+        tag2.focus();
+        await sendKeys({ press: 'ArrowRight' });
+        await waitForLitRender(element);
+
+        await inputSpy.calledOnce();
+        expect(inputSpy.count).to.equal(1);
+        await changeSpy.calledOnce();
+        expect(changeSpy.count).to.equal(1);
       });
     });
   });
@@ -752,19 +924,19 @@ describe(`sbb-tag-group`, () => {
 
   describe('role assignment', () => {
     it('should have role="group" when no accessibilityLabel is set', async () => {
-      element = await fixture(html`<sbb-tag-group></sbb-tag-group>`);
+      element = await fixture(html`<sbb-tag-group multiple></sbb-tag-group>`);
       expect(elementInternals.get(element)!.role).to.equal('group');
     });
 
     it('should have no role when accessibilityLabel is set', async () => {
       element = await fixture(
-        html`<sbb-tag-group accessibility-label="Filter options"></sbb-tag-group>`,
+        html`<sbb-tag-group multiple accessibility-label="Filter options"></sbb-tag-group>`,
       );
       expect(elementInternals.get(element)!.role).to.be.null;
     });
 
     it('should update role when accessibilityLabel changes', async () => {
-      element = await fixture(html`<sbb-tag-group></sbb-tag-group>`);
+      element = await fixture(html`<sbb-tag-group multiple></sbb-tag-group>`);
       expect(elementInternals.get(element)!.role).to.equal('group');
 
       element.accessibilityLabel = 'Filter options';

@@ -112,25 +112,45 @@ It's recommended to check the parent's `<sbb-tag-group>` for the value.
 
 ## Accessibility
 
-The `<sbb-tag>` imitates a `button` element to provide an accessible experience.
-The state is reflected via `aria-pressed` attribute.
+### Exclusive mode (default)
 
-The property `accessibilityLabel` on the `<sbb-tag-group>` is forwarded as `aria-label` to the
-inner list that the component uses to display the tags,
-to use the implicit `role="list"` of the `ul`.
+In exclusive (non-multiple) mode, `<sbb-tag-group>` behaves like a radio group (`role="radiogroup"`).
+Each `<sbb-tag>` acts as a radio button and the state is reflected via `aria-checked`.
 
-If the `accessibilityLabel` property is not defined, the `<sbb-tag-group>` surrounding the buttons applies `role="group"`
-to convey the association between the individual `<sbb-tag>`s.
+Keyboard navigation follows the roving tabindex pattern:
 
-When using the `role="group"`, each `<sbb-tag-group>` element should be given a label with `aria-label` or `aria-labelledby`,
-that communicates the collective meaning of all `<sbb-tag>`s.
+- Only the currently selected tag (or the first tag if none is selected) receives `tabindex="0"`;
+  all other tags receive `tabindex="-1"`.
+- **Arrow keys** (Left/Right/Up/Down) move focus and selection to the adjacent tag, wrapping around
+  at the ends. Disabled tags are skipped automatically.
+- **Tab** moves focus into and out of the group without changing the selection.
 
 ```html
-<sbb-tag-group aria-label="Select your desired font styles to filter it">
+<sbb-tag-group accessibility-label="Select your desired device to filter it">
   <sbb-tag value="all" checked>All</sbb-tag>
-  <sbb-tag value="phones">Bold</sbb-tag>
-  <sbb-tag value="computer">Italic</sbb-tag>
-  <sbb-tag value="laptop">Underline</sbb-tag>
+  <sbb-tag value="phones">Phones</sbb-tag>
+  <sbb-tag value="computer">Computer</sbb-tag>
+  <sbb-tag value="laptop">Laptop</sbb-tag>
+</sbb-tag-group>
+```
+
+### Multiple mode
+
+In multiple mode, each `<sbb-tag>` behaves like a toggle button. The state is reflected via `aria-pressed`.
+
+The `<sbb-tag-group>` applies `role="group"` (when no `accessibilityLabel` is set) to convey
+the association between the individual tags. Each group should be given a label via `accessibilityLabel`
+that communicates the collective meaning of all tags.
+
+The `accessibilityLabel` property on `<sbb-tag-group>` is forwarded as `aria-label` to the
+inner list element. When provided, the implicit `role="group"` is omitted in favor of the
+labeled list.
+
+```html
+<sbb-tag-group multiple acessibility-label="Select your desired font styles to filter it">
+  <sbb-tag value="bold" checked>Bold</sbb-tag>
+  <sbb-tag value="italic">Italic</sbb-tag>
+  <sbb-tag value="underline">Underline</sbb-tag>
 </sbb-tag-group>
 ```
 
