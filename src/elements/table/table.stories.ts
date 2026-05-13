@@ -10,7 +10,7 @@ import '../table.ts';
 import '../form-field.ts';
 
 /**
- * Simple table examples.
+ * Table examples.
  */
 
 const negative: InputType = {
@@ -57,7 +57,7 @@ const colorTheme: InputType = {
   },
 };
 
-const simpleDefaultArgTypes: ArgTypes = {
+const defaultArgTypes: ArgTypes = {
   size,
   negative,
   striped,
@@ -67,10 +67,10 @@ const simpleDefaultArgTypes: ArgTypes = {
   'color-theme': colorTheme,
 };
 
-const simpleDefaultArgs: Args = {
+const defaultArgs: Args = {
   size: undefined,
   negative: false,
-  striped: true,
+  striped: false,
   'inline-filters': false,
   groupWithNext: false,
   withSubtitle: false,
@@ -83,7 +83,7 @@ const caption: () => TemplateResult = () => html`
   </caption>
 `;
 
-const simpleHeader: (groupWithNext?: boolean, withSubtitle?: boolean) => TemplateResult = (
+const header: (groupWithNext?: boolean, withSubtitle?: boolean) => TemplateResult = (
   groupWithNext = false,
   withSubtitle = false,
 ) => html`
@@ -103,10 +103,10 @@ const simpleHeader: (groupWithNext?: boolean, withSubtitle?: boolean) => Templat
   </thead>
 `;
 
-const simpleHeaderWithFilters: (
-  groupWithNext?: boolean,
-  withSubtitle?: boolean,
-) => TemplateResult = (groupWithNext = false, withSubtitle = false) => html`
+const headerWithFilters: (groupWithNext?: boolean, withSubtitle?: boolean) => TemplateResult = (
+  groupWithNext = false,
+  withSubtitle = false,
+) => html`
   <thead>
     <tr>
       <th class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>
@@ -134,7 +134,7 @@ const simpleHeaderWithFilters: (
   </thead>
 `;
 
-const simpleBody: (groupWithNext?: boolean) => TemplateResult = (groupWithNext = false) => html`
+const body: (groupWithNext?: boolean) => TemplateResult = (groupWithNext = false) => html`
   <tbody>
     <tr>
       <td class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Chris</td>
@@ -165,78 +165,84 @@ const tableClasses = (args: Args): Record<string, boolean> => ({
   'sbb-table-xs': args.size === 'xs',
   'sbb-table-s': args.size === 's',
   'sbb-table-m': args.size === 'm',
-  'sbb-table--unstriped': !args.striped,
+  'sbb-table--striped': args.striped,
   'sbb-table--theme-iron': args['color-theme'] === 'iron',
 });
 
-const SimpleTemplate = (args: Args): TemplateResult => html`
+const Template = (args: Args): TemplateResult => html`
   <table class=${classMap(tableClasses(args))}>
     ${caption()}
     ${args['inline-filters']
-      ? simpleHeaderWithFilters(args.groupWithNext, args.withSubtitle)
-      : simpleHeader(args.groupWithNext, args.withSubtitle)}
-    ${simpleBody(args.groupWithNext)}
+      ? headerWithFilters(args.groupWithNext, args.withSubtitle)
+      : header(args.groupWithNext, args.withSubtitle)}
+    ${body(args.groupWithNext)}
   </table>
 `;
 
-const SimpleWithoutHeaderTemplate = (args: Args): TemplateResult => html`
+const withoutHeaderTemplate = (args: Args): TemplateResult => html`
   <table class=${classMap(tableClasses(args))}>
-    ${caption()} ${simpleBody(args.groupWithNext)}
+    ${caption()} ${body(args.groupWithNext)}
   </table>
 `;
 
-export const Simple: StoryObj = {
-  render: SimpleTemplate,
-  argTypes: simpleDefaultArgTypes,
-  args: { ...simpleDefaultArgs },
+export const Default: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
 
-export const SimpleSizeS: StoryObj = {
-  render: SimpleTemplate,
-  argTypes: simpleDefaultArgTypes,
-  args: { ...simpleDefaultArgs, size: size.options![1] },
+export const SizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
-export const SimpleSizeXS: StoryObj = {
-  render: SimpleTemplate,
-  argTypes: simpleDefaultArgTypes,
-  args: { ...simpleDefaultArgs, size: size.options![0] },
+export const SizeXS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![0] },
 };
 
-export const SimpleNegative: StoryObj = {
-  render: SimpleTemplate,
-  argTypes: simpleDefaultArgTypes,
-  args: { ...simpleDefaultArgs, negative: true },
+export const Striped: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, striped: true },
 };
 
-export const SimpleIronTheme: StoryObj = {
-  render: SimpleTemplate,
-  argTypes: simpleDefaultArgTypes,
-  args: { ...simpleDefaultArgs, 'color-theme': 'iron' },
+export const Negative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true },
 };
 
-export const SimpleWithFilters: StoryObj = {
-  render: SimpleTemplate,
-  argTypes: simpleDefaultArgTypes,
-  args: { ...simpleDefaultArgs, 'inline-filters': true, size: size.options![1] },
+export const IronTheme: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'color-theme': 'iron' },
 };
 
-export const SimpleWithoutHeader: StoryObj = {
-  render: SimpleWithoutHeaderTemplate,
-  argTypes: simpleDefaultArgTypes,
-  args: { ...simpleDefaultArgs, 'inline-filters': true, size: size.options![1] },
+export const WithFilters: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'inline-filters': true, size: size.options![1] },
 };
 
-export const SimpleGroupWithNext: StoryObj = {
-  render: SimpleTemplate,
-  argTypes: simpleDefaultArgTypes,
-  args: { ...simpleDefaultArgs, groupWithNext: true },
+export const WithoutHeader: StoryObj = {
+  render: withoutHeaderTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'inline-filters': true, size: size.options![1] },
+};
+
+export const GroupWithNext: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, groupWithNext: true },
 };
 
 export const HeaderSubtitle: StoryObj = {
-  render: SimpleTemplate,
-  argTypes: simpleDefaultArgTypes,
-  args: { ...simpleDefaultArgs, withSubtitle: true },
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, withSubtitle: true },
 };
 
 /**
@@ -313,19 +319,19 @@ const sticky: InputType = {
   },
 };
 
-const defaultArgTypes: ArgTypes = {
+const withWrapperArgTypes: ArgTypes = {
   negative,
   focusable,
   sticky,
 };
 
-const defaultArgs: Args = {
+const withWrapperArgs: Args = {
   negative: false,
   focusable: false,
   sticky: false,
 };
 
-const header = (sticky = false): TemplateResult => html`
+const withWrapperHeader = (sticky = false): TemplateResult => html`
   <thead>
     <tr>
       ${columns.map(
@@ -352,7 +358,7 @@ const header = (sticky = false): TemplateResult => html`
   </thead>
 `;
 
-const body = (sticky = false): TemplateResult => html`
+const withWrapperBody = (sticky = false): TemplateResult => html`
   <tbody>
     ${data.map(
       (row) => html`
@@ -381,7 +387,7 @@ const body = (sticky = false): TemplateResult => html`
   </tbody>
 `;
 
-const Template = (args: Args): TemplateResult => html`
+const WithWrapperTemplate = (args: Args): TemplateResult => html`
   <sbb-table-wrapper ?negative=${args.negative} ?focusable=${args.focusable} style="height: 75vh">
     <table
       aria-label="Train lines 2024"
@@ -390,28 +396,28 @@ const Template = (args: Args): TemplateResult => html`
         'sbb-table--negative': args.negative,
       })}
     >
-      ${header(args.sticky)} ${body(args.sticky)}
+      ${withWrapperHeader(args.sticky)} ${withWrapperBody(args.sticky)}
     </table>
   </sbb-table-wrapper>
   <p class="sbb-table-caption">Train lines 2024</p>
 `;
 
 export const TableWrapper: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  render: WithWrapperTemplate,
+  argTypes: withWrapperArgTypes,
+  args: { ...withWrapperArgs },
 };
 
 export const TableWrapperNegative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true },
+  render: WithWrapperTemplate,
+  argTypes: withWrapperArgTypes,
+  args: { ...withWrapperArgs, negative: true },
 };
 
 export const TableWrapperSticky: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, sticky: true },
+  render: WithWrapperTemplate,
+  argTypes: withWrapperArgTypes,
+  args: { ...withWrapperArgs, sticky: true },
 };
 
 const meta: Meta = {
