@@ -491,34 +491,22 @@ interface StyleSheet {
 }
 function buildElementsStyles(pkg: PackageBuilder): void {
   const sheets = [
-    { inputName: 'core/styles/a11y.scss', outputName: 'a11y.css' },
-    { inputName: 'core/styles/animation.scss', outputName: 'animation.css' },
-    { inputName: 'core/styles/badge.scss', outputName: 'badge.css' },
-    { inputName: 'core/styles/core.scss', outputName: 'core.css' },
-    { inputName: 'core/styles/disable-animation.scss', outputName: 'disable-animation.css' },
     {
       inputName: 'core/styles/font-characters-extension.scss',
       outputName: 'font-characters-extension.css',
     },
-    { inputName: 'core/styles/layout.scss', outputName: 'layout.css' },
     { inputName: 'core/styles/lean-off-brand-theme.scss', outputName: 'lean-off-brand-theme.css' },
     { inputName: 'core/styles/lean-safety-theme.scss', outputName: 'lean-safety-theme.css' },
     { inputName: 'core/styles/lean-theme.scss', outputName: 'lean-theme.css' },
-    { inputName: 'core/styles/lists.scss', outputName: 'lists.css' },
-    { inputName: 'core/styles/normalize.scss', outputName: 'normalize.css' },
     { inputName: 'core/styles/off-brand-theme.scss', outputName: 'off-brand-theme.css' },
     { inputName: 'core/styles/safety-theme.scss', outputName: 'safety-theme.css' },
-    { inputName: 'core/styles/scrollbar.scss', outputName: 'scrollbar.css' },
     { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
-    { inputName: 'core/styles/typography.scss', outputName: 'typography.css' },
-    { inputName: 'table/table.global.scss', outputName: 'table.css' },
   ];
   buildStyles(pkg, sheets);
 }
 
 function buildStylesExperimental(pkg: PackageBuilder): void {
   const sheets = [
-    { inputName: 'core/styles/core.scss', outputName: 'core.css' },
     { inputName: 'core/styles/lean-off-brand-theme.scss', outputName: 'lean-off-brand-theme.css' },
     { inputName: 'core/styles/lean-safety-theme.scss', outputName: 'lean-safety-theme.css' },
     { inputName: 'core/styles/lean-theme.scss', outputName: 'lean-theme.css' },

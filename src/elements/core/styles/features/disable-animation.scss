@@ -1,4 +1,4 @@
-@use './mixins/animation';
+@use '../mixins/animation';
 
 :root {
   @include animation.disable-animation;

@@ -1,13 +1,13 @@
 import { html } from 'lit/static-html.js';
 
-import '../../title.ts';
+import '../../../title.ts';
 
 import {
   describeViewports,
   visualDiffDefault,
   visualDiffStandardStates,
   visualRegressionFixture,
-} from '../testing/private.ts';
+} from '../../testing/private.ts';
 
 import style from './typography.private.scss?inline';
 

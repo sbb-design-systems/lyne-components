@@ -5,7 +5,7 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../testing/private.ts';
+} from '../../testing/private.ts';
 
 import style from './scrollbar.private.scss?inline';
 

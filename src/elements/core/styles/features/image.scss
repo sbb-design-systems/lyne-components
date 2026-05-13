@@ -1,5 +1,5 @@
-@use './mixins/typo';
-@use './mixins/image';
+@use '../mixins/typo';
+@use '../mixins/image';
 
 .sbb-figure {
   @include image.figure;

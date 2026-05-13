@@ -1,337 +1,335 @@
 $theme: 'standard' !default;
 
 @use 'sass:string';
+@use '../_index' as sbb;
+
 @use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables-as-css.scss' as sbb-css-tokens with (
   $theme: $theme
 );
-@use './core/mediaqueries';
-@use './core/functions';
-@use './mixins/a11y';
-@use './mixins/font-face';
-@use './mixins/helpers';
-@use './mixins/inputs';
-@use './mixins/popover';
-@use './mixins/scrollbar';
-@use './mixins/typo';
 
-@use '../../breadcrumb/breadcrumb/breadcrumb.global' as breadcrumb with (
+@use '../../../breadcrumb/breadcrumb/breadcrumb.global' as breadcrumb with (
   $theme: $theme
 );
-@use '../../breadcrumb/breadcrumb-group/breadcrumb-group.global' as breadcrumb-group with (
+@use '../../../breadcrumb/breadcrumb-group/breadcrumb-group.global' as breadcrumb-group with (
   $theme: $theme
 );
-@use '../../button/common/button-common.global' as button with (
+@use '../../../button/common/button-common.global' as button with (
   $theme: $theme
 );
-@use '../../button/common/mini-button-common.global' as mini-button with (
+@use '../../../button/common/mini-button-common.global' as mini-button with (
   $theme: $theme
 );
-@use '../../button/mini-button-group/mini-button-group.global' as mini-button-group with (
+@use '../../../button/mini-button-group/mini-button-group.global' as mini-button-group with (
   $theme: $theme
 );
-@use '../../calendar/calendar/calendar.global' as calendar with (
+@use '../../../calendar/calendar/calendar.global' as calendar with (
   $theme: $theme
 );
-@use '../../calendar/common/calendar-cell-base-element.global' as calendar-cell with (
+@use '../../../calendar/common/calendar-cell-base-element.global' as calendar-cell with (
   $theme: $theme
 );
-@use '../../card/card/card.global' as card with (
+@use '../../../card/card/card.global' as card with (
   $theme: $theme
 );
-@use '../../alert/alert/alert.global' as alert with (
+@use '../../../alert/alert/alert.global' as alert with (
   $theme: $theme
 );
-@use '../../alert/alert-group/alert-group.global' as alert-group with (
+@use '../../../alert/alert-group/alert-group.global' as alert-group with (
   $theme: $theme
 );
-@use '../../chip-label/chip-label.global' as chip-label with (
+@use '../../../chip-label/chip-label.global' as chip-label with (
   $theme: $theme
 );
-@use '../../chip/chip/chip.global' as chip with (
+@use '../../../chip/chip/chip.global' as chip with (
   $theme: $theme
 );
-@use '../../chip/chip-group/chip-group.global' as chip-group with (
+@use '../../../chip/chip-group/chip-group.global' as chip-group with (
   $theme: $theme
 );
-@use '../../card/card-badge/card-badge.global' as card-badge with (
+@use '../../../card/card-badge/card-badge.global' as card-badge with (
   $theme: $theme
 );
-@use '../../carousel/carousel/carousel.global' as carousel with (
+@use '../../../carousel/carousel/carousel.global' as carousel with (
   $theme: $theme
 );
-@use '../../core/mixins/panel-common.global' as panel-common with (
+@use '../../mixins/panel-common.global' as panel-common with (
   $theme: $theme
 );
-@use '../../checkbox/checkbox.global' as checkbox with (
+@use '../../../checkbox/checkbox.global' as checkbox with (
   $theme: $theme
 );
-@use '../../checkbox/common/checkbox-common.global' as checkbox-common with (
+@use '../../../checkbox/common/checkbox-common.global' as checkbox-common with (
   $theme: $theme
 );
-@use '../../clock/clock.global' as clock with (
+@use '../../../clock/clock.global' as clock with (
   $theme: $theme
 );
-@use '../../container/container/container.global' as container with (
+@use '../../../container/container/container.global' as container with (
   $theme: $theme
 );
-@use '../../container/sticky-bar/sticky-bar.global' as sticky-bar with (
+@use '../../../container/sticky-bar/sticky-bar.global' as sticky-bar with (
   $theme: $theme
 );
-@use '../../dialog/dialog/dialog.global' as dialog with (
+@use '../../../dialog/dialog/dialog.global' as dialog with (
   $theme: $theme
 );
-@use '../../dialog/dialog-close-button/dialog-close-button.global' as dialog-close-button with (
+@use '../../../dialog/dialog-close-button/dialog-close-button.global' as dialog-close-button with (
   $theme: $theme
 );
-@use '../../dialog/dialog-content/dialog-content.global' as dialog-content with (
+@use '../../../dialog/dialog-content/dialog-content.global' as dialog-content with (
   $theme: $theme
 );
-@use '../../dialog/dialog-title/dialog-title.global' as dialog-title with (
+@use '../../../dialog/dialog-title/dialog-title.global' as dialog-title with (
   $theme: $theme
 );
-@use '../../divider/divider.global' as divider with (
+@use '../../../divider/divider.global' as divider with (
   $theme: $theme
 );
-@use '../../expansion-panel/expansion-panel/expansion-panel.global' as expansion-panel with (
+@use '../../../expansion-panel/expansion-panel/expansion-panel.global' as expansion-panel with (
   $theme: $theme
 );
-@use '../../expansion-panel/expansion-panel-content/expansion-panel-content.global' as
+@use '../../../expansion-panel/expansion-panel-content/expansion-panel-content.global' as
   expansion-panel-content with (
   $theme: $theme
 );
-@use '../../expansion-panel/expansion-panel-header/expansion-panel-header.global' as
+@use '../../../expansion-panel/expansion-panel-header/expansion-panel-header.global' as
   expansion-panel-header with (
   $theme: $theme
 );
-@use '../../file-selector/common/file-selector.global' as file-selector with (
+@use '../../../file-selector/common/file-selector.global' as file-selector with (
   $theme: $theme
 );
-@use '../../flip-card/flip-card/flip-card.global' as flip-card with (
+@use '../../../flip-card/flip-card/flip-card.global' as flip-card with (
   $theme: $theme
 );
-@use '../../flip-card/flip-card-details/flip-card-details.global' as flip-card-details with (
+@use '../../../flip-card/flip-card-details/flip-card-details.global' as flip-card-details with (
   $theme: $theme
 );
-@use '../../flip-card/flip-card-summary/flip-card-summary.global' as flip-card-summary with (
+@use '../../../flip-card/flip-card-summary/flip-card-summary.global' as flip-card-summary with (
   $theme: $theme
 );
-@use '../../header/common/header-action.global' as header-common with (
+@use '../../../header/common/header-action.global' as header-common with (
   $theme: $theme
 );
-@use '../../header/header-environment/header-environment.global' as header-environment with (
+@use '../../../header/header-environment/header-environment.global' as header-environment with (
   $theme: $theme
 );
-@use '../../header/header/header.global' as header with (
+@use '../../../header/header/header.global' as header with (
   $theme: $theme
 );
-@use '../../footer/footer.global' as footer with (
+@use '../../../footer/footer.global' as footer with (
   $theme: $theme
 );
-@use '../../form-field/error/error.global' as error with (
+@use '../../../form-field/error/error.global' as error with (
   $theme: $theme
 );
-@use '../../form-field/form-field/form-field.global' as form-field with (
+@use '../../../form-field/form-field/form-field.global' as form-field with (
   $theme: $theme
 );
-@use '../../icon-sidebar/icon-sidebar/icon-sidebar.global' as icon-sidebar with (
+@use '../../../icon-sidebar/icon-sidebar/icon-sidebar.global' as icon-sidebar with (
   $theme: $theme
 );
-@use '../../lead-container/lead-container.global' as lead-container with (
+@use '../../../lead-container/lead-container.global' as lead-container with (
   $theme: $theme
 );
-@use '../../link/common/block-link.global' as block-link with (
+@use '../../../link/common/block-link.global' as block-link with (
   $theme: $theme
 );
-@use '../../loading-indicator/loading-indicator.global' as loading-indicator with (
+@use '../../../loading-indicator/loading-indicator.global' as loading-indicator with (
   $theme: $theme
 );
-@use '../../loading-indicator-circle/loading-indicator-circle.global' as loading-indicator-circle
+@use '../../../loading-indicator-circle/loading-indicator-circle.global' as loading-indicator-circle
   with (
   $theme: $theme
 );
-@use '../../logo/logo.global' as logo with (
+@use '../../../logo/logo.global' as logo with (
   $theme: $theme
 );
-@use '../../map-container/map-container.global' as map-container with (
+@use '../../../map-container/map-container.global' as map-container with (
   $theme: $theme
 );
-@use '../../menu/menu/menu.global' as menu with (
+@use '../../../menu/menu/menu.global' as menu with (
   $theme: $theme
 );
-@use '../../menu/common/menu-action.global' as menu-action with (
+@use '../../../menu/common/menu-action.global' as menu-action with (
   $theme: $theme
 );
-@use '../../message/message.global' as message with (
+@use '../../../message/message.global' as message with (
   $theme: $theme
 );
-@use '../../mini-calendar/mini-calendar-day/mini-calendar-day.global' as mini-calendar-day with (
+@use '../../../mini-calendar/mini-calendar-day/mini-calendar-day.global' as mini-calendar-day with (
   $theme: $theme
 );
-@use '../../mini-calendar/mini-calendar-month/mini-calendar-month.global' as mini-calendar-month
+@use '../../../mini-calendar/mini-calendar-month/mini-calendar-month.global' as mini-calendar-month
   with (
   $theme: $theme
 );
-@use '../../navigation/navigation/navigation.global' as navigation with (
+@use '../../../navigation/navigation/navigation.global' as navigation with (
   $theme: $theme
 );
-@use '../../navigation/common/navigation-action.global' as navigation-action with (
+@use '../../../navigation/common/navigation-action.global' as navigation-action with (
   $theme: $theme
 );
-@use '../../navigation/navigation-list/navigation-list.global' as navigation-list with (
+@use '../../../navigation/navigation-list/navigation-list.global' as navigation-list with (
   $theme: $theme
 );
-@use '../../navigation/navigation-marker/navigation-marker.global' as navigation-marker with (
+@use '../../../navigation/navigation-marker/navigation-marker.global' as navigation-marker with (
   $theme: $theme
 );
-@use '../../navigation/navigation-section/navigation-section.global' as navigation-section with (
+@use '../../../navigation/navigation-section/navigation-section.global' as navigation-section with (
   $theme: $theme
 );
-@use '../../notification/notification.global' as notification with (
+@use '../../../notification/notification.global' as notification with (
   $theme: $theme
 );
-@use '../../option/option/option.global' as option with (
+@use '../../../option/option/option.global' as option with (
   $theme: $theme
 );
-@use '../../option/option-hint/option-hint.global' as option-hint with (
+@use '../../../option/option-hint/option-hint.global' as option-hint with (
   $theme: $theme
 );
-@use '../../option/option-panel-common.global' as option-panel with (
+@use '../../../option/option-panel-common.global' as option-panel with (
   $theme: $theme
 );
-@use '../../overlay/overlay.global' as overlay with (
+@use '../../../overlay/overlay.global' as overlay with (
   $theme: $theme
 );
-@use '../../option/optgroup/optgroup.global' as optgroup with (
+@use '../../../option/optgroup/optgroup.global' as optgroup with (
   $theme: $theme
 );
-@use '../../paginator/common/paginator-common.global' as paginator-common with (
+@use '../../../paginator/common/paginator-common.global' as paginator-common with (
   $theme: $theme
 );
-@use '../../paginator/paginator/paginator.global' as paginator with (
+@use '../../../paginator/paginator/paginator.global' as paginator with (
   $theme: $theme
 );
-@use '../../paginator/compact-paginator/compact-paginator.global' as compact-paginator with (
+@use '../../../paginator/compact-paginator/compact-paginator.global' as compact-paginator with (
   $theme: $theme
 );
-@use '../../popover/popover.global' as popover-component with (
+@use '../../../popover/popover.global' as popover-component with (
   $theme: $theme
 );
-@use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
+@use '../../../radio-button/common/radio-button-common.global' as radio-button-common with (
   $theme: $theme
 );
-@use '../base-elements/selection-group-base-element.global' as selection-group with (
+@use '../../base-elements/selection-group-base-element.global' as selection-group with (
   $theme: $theme
 );
-@use '../../selection-action-panel/selection-action-panel.global' as selection-action-panel with (
+@use '../../../selection-action-panel/selection-action-panel.global' as selection-action-panel with (
   $theme: $theme
 );
-@use '../../selection-expansion-panel/selection-expansion-panel.global' as selection-expansion-panel
+@use '../../../selection-expansion-panel/selection-expansion-panel.global' as
+  selection-expansion-panel with (
+  $theme: $theme
+);
+@use '../../../sidebar/sidebar/sidebar.global' as sidebar with (
+  $theme: $theme
+);
+@use '../../../sidebar/sidebar-close-button/sidebar-close-button.global' as sidebar-close-button
   with (
   $theme: $theme
 );
-@use '../../sidebar/sidebar/sidebar.global' as sidebar with (
+@use '../../../sidebar/sidebar-container/sidebar-container.global' as sidebar-container with (
   $theme: $theme
 );
-@use '../../sidebar/sidebar-close-button/sidebar-close-button.global' as sidebar-close-button with (
+@use '../../../signet/signet.global' as signet with (
   $theme: $theme
 );
-@use '../../sidebar/sidebar-container/sidebar-container.global' as sidebar-container with (
+@use '../../../select/select.global' as select with (
   $theme: $theme
 );
-@use '../../signet/signet.global' as signet with (
+@use '../../../slider/slider.global' as slider with (
   $theme: $theme
 );
-@use '../../select/select.global' as select with (
+@use '../../../status/status.global' as status with (
   $theme: $theme
 );
-@use '../../slider/slider.global' as slider with (
+@use '../../../stepper/step-label/step-label.global' as step-label with (
   $theme: $theme
 );
-@use '../../status/status.global' as status with (
+@use '../../../stepper/stepper/stepper.global' as stepper with (
   $theme: $theme
 );
-@use '../../stepper/step-label/step-label.global' as step-label with (
+@use '../../../table/table.global' as table with (
   $theme: $theme
 );
-@use '../../stepper/stepper/stepper.global' as stepper with (
+@use '../../../tabs/common/tab-group-common.global' as tab-group-common with (
   $theme: $theme
 );
-@use '../../tabs/common/tab-group-common.global' as tab-group-common with (
-  $theme: $theme
-);
-@use '../../train/train-blocked-passage/train-blocked-passage.global' as train-blocked-passage with (
-  $theme: $theme
-);
-@use '../../train/train-formation/train-formation.global' as train-formation with (
-  $theme: $theme
-);
-@use '../../train/train-wagon-common.global' as train-wagon-common with (
-  $theme: $theme
-);
-@use '../../tabs/common/tab-label-common.global' as tab-label-common with (
-  $theme: $theme
-);
-@use '../../tabs/tab-nav-bar/tab-nav-bar.global' as tab-nav-bar with (
-  $theme: $theme
-);
-@use '../../tag/tag/tag.global' as tag with (
-  $theme: $theme
-);
-@use '../../teaser/teaser.global' as teaser with (
-  $theme: $theme
-);
-@use '../../teaser-hero/teaser-hero.global' as teaser-hero with (
-  $theme: $theme
-);
-@use '../../teaser-panel/teaser-panel.global' as teaser-panel with (
-  $theme: $theme
-);
-@use '../../teaser-product/common/teaser-product-common.global' as teaser-product-common with (
-  $theme: $theme
-);
-@use '../../timetable-form/timetable-form/timetable-form.global' as timetable-form with (
-  $theme: $theme
-);
-@use '../../timetable-form/timetable-form-field/timetable-form-field.global' as timetable-form-field
+@use '../../../train/train-blocked-passage/train-blocked-passage.global' as train-blocked-passage
   with (
   $theme: $theme
 );
-@use '../../timetable-form/timetable-form-details/timetable-form-details.global' as
+@use '../../../train/train-formation/train-formation.global' as train-formation with (
+  $theme: $theme
+);
+@use '../../../train/train-wagon-common.global' as train-wagon-common with (
+  $theme: $theme
+);
+@use '../../../tabs/common/tab-label-common.global' as tab-label-common with (
+  $theme: $theme
+);
+@use '../../../tabs/tab-nav-bar/tab-nav-bar.global' as tab-nav-bar with (
+  $theme: $theme
+);
+@use '../../../tag/tag/tag.global' as tag with (
+  $theme: $theme
+);
+@use '../../../teaser/teaser.global' as teaser with (
+  $theme: $theme
+);
+@use '../../../teaser-hero/teaser-hero.global' as teaser-hero with (
+  $theme: $theme
+);
+@use '../../../teaser-panel/teaser-panel.global' as teaser-panel with (
+  $theme: $theme
+);
+@use '../../../teaser-product/common/teaser-product-common.global' as teaser-product-common with (
+  $theme: $theme
+);
+@use '../../../timetable-form/timetable-form/timetable-form.global' as timetable-form with (
+  $theme: $theme
+);
+@use '../../../timetable-form/timetable-form-field/timetable-form-field.global' as
+  timetable-form-field with (
+  $theme: $theme
+);
+@use '../../../timetable-form/timetable-form-details/timetable-form-details.global' as
   timetable-form-details with (
   $theme: $theme
 );
-@use '../../timetable-occupancy/timetable-occupancy.global' as timetable-occupancy with (
+@use '../../../timetable-occupancy/timetable-occupancy.global' as timetable-occupancy with (
   $theme: $theme
 );
-@use '../../time-input/time-input.global' as time-input with (
+@use '../../../time-input/time-input.global' as time-input with (
   $theme: $theme
 );
-@use '../../title/title-common.global' as title-common with (
+@use '../../../title/title-common.global' as title-common with (
   $theme: $theme
 );
-@use '../../title/title.global' as title with (
+@use '../../../title/title.global' as title with (
   $theme: $theme
 );
-@use '../../toggle-check/toggle-check.global' as toggle-check with (
+@use '../../../toggle-check/toggle-check.global' as toggle-check with (
   $theme: $theme
 );
-@use '../../toggle/toggle/toggle.global' as toggle with (
+@use '../../../toggle/toggle/toggle.global' as toggle with (
   $theme: $theme
 );
-@use '../../toggle/toggle-option/toggle-option.global' as toggle-option with (
+@use '../../../toggle/toggle-option/toggle-option.global' as toggle-option with (
   $theme: $theme
 );
-@use '../../tooltip/tooltip.global' as tooltip with (
+@use '../../../tooltip/tooltip.global' as tooltip with (
   $theme: $theme
 );
-@use '../../toast/toast.global' as toast with (
+@use '../../../toast/toast.global' as toast with (
   $theme: $theme
 );
-@use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
+@use '../../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
   $theme: $theme
 );
 
-@include helpers.box-sizing;
+@include sbb.box-sizing;
 
 // Core variables
 :root {
@@ -412,6 +410,7 @@ $theme: 'standard' !default;
   @include status.base;
   @include step-label.base;
   @include stepper.base;
+  @include table.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
   @include train-blocked-passage.base;
@@ -436,7 +435,7 @@ $theme: 'standard' !default;
   @include toast.base;
   @include visual-checkbox.base;
 
-  @include a11y.if-forced-colors {
+  @include sbb.if-forced-colors {
     @include sbb-css-tokens.forced-colors;
 
     @include alert.base-forced-colors;
@@ -479,7 +478,7 @@ $theme: 'standard' !default;
     --sbb-focus-outline-style: none;
   }
 
-  @include mediaqueries.mq($from: small) {
+  @include sbb.mq($from: small) {
     @include sbb-css-tokens.breakpoint-small;
 
     @include alert.base-breakpoint-small;
@@ -488,7 +487,7 @@ $theme: 'standard' !default;
     @include notification.base-breakpoint-small;
   }
 
-  @include mediaqueries.mq($from: large) {
+  @include sbb.mq($from: large) {
     @include sbb-css-tokens.breakpoint-large;
 
     @include alert.base-breakpoint-large;
@@ -505,7 +504,7 @@ $theme: 'standard' !default;
     @include time-input.base-breakpoint-large;
   }
 
-  @include mediaqueries.mq($from: ultra) {
+  @include sbb.mq($from: ultra) {
     @include sbb-css-tokens.breakpoint-ultra;
 
     @include lead-container.base-breakpoint-ultra;
@@ -516,7 +515,7 @@ $theme: 'standard' !default;
   }
 }
 
-@include font-face.font-declarations;
+@include sbb.font-declarations;
 
 // Components global styles
 @include breadcrumb-group.rules;
@@ -539,8 +538,22 @@ $theme: 'standard' !default;
 @include teaser.rules;
 @include teaser-hero.rules;
 @include teaser-product-common.rules;
+@include table.rules;
 @include timetable-form.rules;
 @include toggle.rules;
+
+html {
+  @include sbb.text;
+
+  color-scheme: light dark;
+  color: var(--sbb-font-color-default);
+  background-color: var(--sbb-background-color-1);
+}
+
+// TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
+::placeholder {
+  @include sbb.placeholder;
+}
 
 // TODO: discuss where to add these classes
 .sbb-dark {
@@ -553,19 +566,6 @@ $theme: 'standard' !default;
 
 .sbb-light-dark {
   color-scheme: light dark;
-}
-
-html {
-  @include typo.text;
-
-  color-scheme: light dark;
-  color: var(--sbb-font-color-default);
-  background-color: var(--sbb-background-color-1);
-}
-
-// TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
-::placeholder {
-  @include typo.placeholder;
 }
 
 // Hiding components until they are instantiated
@@ -599,7 +599,7 @@ html {
   sbb-popover,
   sbb-toast
 ) {
-  @include popover.popover-reset;
+  @include sbb.popover-reset;
 }
 
 // Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
@@ -632,7 +632,7 @@ img {
   --sbb-teaser-image-animation-easing: var(--sbb-animation-easing);
 
   &:hover {
-    @include mediaqueries.hover-mq($hover: true) {
+    @include sbb.hover-mq($hover: true) {
       --sbb-teaser-image-brightness: var(--sbb-teaser-image-brightness-hover);
     }
   }

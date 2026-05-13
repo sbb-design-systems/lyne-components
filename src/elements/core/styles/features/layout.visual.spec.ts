@@ -2,7 +2,7 @@ import type { TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { html } from 'lit/static-html.js';
 
-import { describeViewports, visualDiffDefault } from '../testing/private.ts';
+import { describeViewports, visualDiffDefault } from '../../testing/private.ts';
 
 import style from './layout.private.scss?inline';
 

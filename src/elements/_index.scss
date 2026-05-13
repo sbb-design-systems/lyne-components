@@ -1,3 +1,4 @@
 @forward './core/styles' hide development-style, link-base, link-focus-visible, link-hover,
   link-active, link-consolidation;
-@forward './timetable-form/timetable-form/timetable-form.global' as timetable-form-* show rules;
+@forward './timetable-form/timetable-form/timetable-form.global' as timetable-form-*;
+@forward './table/table.global' as table-*;
