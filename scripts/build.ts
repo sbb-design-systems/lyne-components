@@ -510,7 +510,6 @@ function buildElementsStyles(pkg: PackageBuilder): void {
     { inputName: 'core/styles/safety-theme.scss', outputName: 'safety-theme.css' },
     { inputName: 'core/styles/scrollbar.scss', outputName: 'scrollbar.css' },
     { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
-    { inputName: 'core/styles/timetable-form.scss', outputName: 'timetable-form.css' },
     { inputName: 'core/styles/typography.scss', outputName: 'typography.css' },
     { inputName: 'table/table.global.scss', outputName: 'table.css' },
   ];

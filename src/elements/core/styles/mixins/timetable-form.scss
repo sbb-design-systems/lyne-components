@@ -1,6 +1,7 @@
 @use '../core/functions';
 @use '../core/mediaqueries';
 
+// @deprecated
 @mixin sbb-timetable-form {
   --sbb-timetable-form-content-max-width: #{functions.px-to-rem-build(740)};
 
@@ -43,6 +44,7 @@
   }
 }
 
+// @deprecated
 @mixin timetable-form-block {
   --sbb-form-field-focus-underline-z-index: 1;
 

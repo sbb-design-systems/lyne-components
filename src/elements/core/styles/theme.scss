@@ -17,4 +17,3 @@ $theme: 'standard' !default;
 @use '../../table/table.global' with (
   $theme: $theme
 );
-@use './timetable-form';

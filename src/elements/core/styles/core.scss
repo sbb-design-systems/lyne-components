@@ -539,6 +539,7 @@ $theme: 'standard' !default;
 @include teaser.rules;
 @include teaser-hero.rules;
 @include teaser-product-common.rules;
+@include timetable-form.rules;
 @include toggle.rules;
 
 // TODO: discuss where to add these classes
