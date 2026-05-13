@@ -2,7 +2,7 @@
 
 $theme: 'standard' !default;
 
-@mixin badge {
+@mixin rules {
   @include sbb.text-xxs;
 
   display: flex;
@@ -20,14 +20,14 @@ $theme: 'standard' !default;
   outline: var(--sbb-border-width-1x) solid transparent;
 }
 
-@mixin rules {
+@mixin attribute-rules {
   [sbb-badge] {
     --sbb-badge-position-offset: calc(var(--sbb-spacing-fixed-2x) * -1);
 
     position: relative;
 
     &::after {
-      @include badge;
+      @include rules;
 
       content: attr(sbb-badge);
       position: absolute;

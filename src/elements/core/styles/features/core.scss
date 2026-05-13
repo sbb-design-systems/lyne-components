@@ -521,7 +521,7 @@ $theme: 'standard' !default;
 @include sbb.font-declarations;
 
 // Components global styles
-@include badge.rules;
+@include badge.attribute-rules;
 @include breadcrumb-group.rules;
 @include card.rules;
 @include container.rules;
