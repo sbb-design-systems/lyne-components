@@ -183,7 +183,7 @@ These are 'internal-use-only' components too, and they are **not** meant to be u
 ## Events
 
 Consumers can listen to the `dateselected` event on the `<sbb-calendar>` component to intercept the selected date/dates
-which can be read from the `event.dateselected` property.
+which can be read from the `event.dateSelected` property.
 Check the [Slot and day customization](docs/elements-calendar--docs#slots-and-day-customization) paragraph
 for more information about the `monthchange` event.
 

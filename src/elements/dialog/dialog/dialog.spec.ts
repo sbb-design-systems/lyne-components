@@ -1025,7 +1025,6 @@ describe('sbb-dialog', () => {
       const event = closeSpy.lastEvent as SbbDialogCloseEvent;
       expect(event).to.be.instanceOf(SbbDialogCloseEvent);
       expect(event.result).to.deep.equal(programmaticResult);
-      expect(event.result).to.deep.equal(programmaticResult);
       expect(event.closeTarget).to.be.null;
     });
 
@@ -1054,7 +1053,6 @@ describe('sbb-dialog', () => {
 
       const event = closeSpy.lastEvent as SbbDialogCloseEvent;
       expect(event).to.be.instanceOf(SbbDialogCloseEvent);
-      expect(event.result).to.deep.equal({ custom: 'result' });
       expect(event.result).to.deep.equal({ custom: 'result' });
       expect(event.closeTarget).to.equal(customTarget);
     });

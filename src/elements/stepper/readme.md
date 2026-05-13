@@ -59,13 +59,15 @@ Whenever a step switch is triggered, a `validate` event is emitted and can be ca
 The `event.detail` property contains information about the `currentIndex`, `nextIndex`, `currentStep` and `nextStep`.
 
 ```ts
-document.querySelector('sbb-stepper').addEventListener((event: SbbStepValidateEvent) => {
-  if (currentStateIsInvalid()) {
-    // This will prevent switching to another step and force
-    // the user to fix the current state.
-    event.preventDefault();
-  }
-});
+document
+  .querySelector('sbb-stepper')
+  .addEventListener('validate', (event: SbbStepValidateEvent) => {
+    if (currentStateIsInvalid()) {
+      // This will prevent switching to another step and force
+      // the user to fix the current state.
+      event.preventDefault();
+    }
+  });
 ```
 
 ## Forms
