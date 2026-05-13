@@ -1,4 +1,4 @@
-@use './mixins/scrollbar';
+@use '../mixins/scrollbar';
 
 :host {
   @include scrollbar.scrollbar-variables;

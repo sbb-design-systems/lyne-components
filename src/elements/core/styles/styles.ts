@@ -1,9 +1,9 @@
 import { unsafeCSS } from 'lit';
 
-import buttonResetStylesString from './button-reset.scss?inline';
-import hostScrollbarStylesString from './host-scrollbar.scss?inline';
-import listResetStylesString from './list-reset.scss?inline';
-import screenReaderOnlyStylesString from './screen-reader-only.scss?inline';
+import buttonResetStylesString from './internals/button-reset.scss?inline';
+import hostScrollbarStylesString from './internals/host-scrollbar.scss?inline';
+import listResetStylesString from './internals/list-reset.scss?inline';
+import screenReaderOnlyStylesString from './internals/screen-reader-only.scss?inline';
 import scrollbarStylesString from './scrollbar.scss?inline';
 
 export const buttonResetStyles = unsafeCSS(buttonResetStylesString);
