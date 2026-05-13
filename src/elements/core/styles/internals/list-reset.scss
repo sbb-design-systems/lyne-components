@@ -1,6 +1,6 @@
-@use '../mixins/lists';
+@use '../mixins/reset';
 
 ul,
 ol {
-  @include lists.list-reset;
+  @include reset.list-reset;
 }

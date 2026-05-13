@@ -1,5 +1,5 @@
-@use '../mixins/buttons';
+@use '../mixins/reset';
 
 button {
-  @include buttons.button-reset;
+  @include reset.button-reset;
 }
