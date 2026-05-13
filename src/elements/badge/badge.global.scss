@@ -3,7 +3,7 @@
 $theme: 'standard' !default;
 
 @mixin badge {
-  @include sbb.text-xxs--regular;
+  @include sbb.text-xxs;
 
   display: flex;
   align-items: center;

@@ -43,7 +43,7 @@
 }
 
 .sbb-file-selector__file {
-  @include sbb.text-s--regular;
+  @include sbb.text-s;
 
   display: flex;
   gap: var(--sbb-spacing-fixed-4x);

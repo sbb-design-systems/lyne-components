@@ -124,33 +124,32 @@
   font-size: var(--sbb-text-font-size);
 }
 
-@mixin text-xl--regular {
+@mixin text-xl {
   --sbb-text-font-size: var(--sbb-text-font-size-xl);
   @include text;
 }
 
-@mixin text-l--regular {
+@mixin text-l {
   --sbb-text-font-size: var(--sbb-text-font-size-l);
   @include text;
 }
 
-@mixin text-m--regular {
+@mixin text-m {
   --sbb-text-font-size: var(--sbb-text-font-size-m);
   @include text;
 }
 
-// rename
-@mixin text-s--regular {
+@mixin text-s {
   --sbb-text-font-size: var(--sbb-text-font-size-s);
   @include text;
 }
 
-@mixin text-xs--regular {
+@mixin text-xs {
   --sbb-text-font-size: var(--sbb-text-font-size-xs);
   @include text;
 }
 
-@mixin text-xxs--regular {
+@mixin text-xxs {
   --sbb-text-font-size: var(--sbb-text-font-size-xxs);
   @include text;
 }
@@ -171,7 +170,7 @@
 }
 
 @mixin legend {
-  @include text-xs--regular;
+  @include text-xs;
 
   padding: 0;
   color: light-dark(var(--sbb-color-granite), var(--sbb-color-cement));

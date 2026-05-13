@@ -185,7 +185,7 @@
 
 .sbb-header-action__text {
   @include sbb.ellipsis;
-  @include sbb.text-xs--regular;
+  @include sbb.text-xs;
 
   display: block;
   font-weight: bold;

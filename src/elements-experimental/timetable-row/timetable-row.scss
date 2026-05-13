@@ -49,7 +49,7 @@ li {
 
 .sbb-timetable__row-transportnumber,
 .sbb-timetable__row-time {
-  @include sbb.text-s--regular;
+  @include sbb.text-s;
 
   font-weight: bold;
   line-height: unset;
@@ -58,7 +58,7 @@ li {
 }
 
 .sbb-timetable__row {
-  @include sbb.text-s--regular;
+  @include sbb.text-s;
 
   display: flex;
   flex-direction: column;

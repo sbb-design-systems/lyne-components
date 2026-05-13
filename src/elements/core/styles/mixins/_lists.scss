@@ -92,7 +92,7 @@
     $selector: '&:where(dl)';
   }
   #{$selector} {
-    @include typo.text-s--regular;
+    @include typo.text-s;
 
     margin: 0;
     padding: 0;
@@ -228,7 +228,7 @@
     min-height: calc(var(--sbb-step-list-dimensions) + 2 * var(--sbb-step-list-padding-block));
 
     &::before {
-      @include typo.text-xxs--regular;
+      @include typo.text-xxs;
 
       content: counter(steps);
       position: absolute;

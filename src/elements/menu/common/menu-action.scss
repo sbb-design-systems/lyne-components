@@ -83,7 +83,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 }
 
 .sbb-menu-action__content {
-  @include sbb.text-xs--regular;
+  @include sbb.text-xs;
 
   display: flex;
   align-items: center;

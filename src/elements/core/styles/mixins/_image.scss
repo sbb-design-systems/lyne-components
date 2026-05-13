@@ -16,7 +16,7 @@
 }
 
 @mixin figure-caption {
-  @include typo.text-xs--regular;
+  @include typo.text-xs;
 
   grid-row: 2;
   grid-column: 1;
