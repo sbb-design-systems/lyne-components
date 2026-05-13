@@ -319,10 +319,10 @@ The component `<sbb-seat-reservation-area>` represents a grey or white backgroun
 
 #### Events
 
-| Name             | Type                                         | Description                                                                         | Inherited From             |
-| ---------------- | -------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------- |
-| `selectedcoach`  | `CustomEvent<SeatReservationSelectedCoach>`  | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
-| `selectedplaces` | `CustomEvent<SeatReservationSelectedPlaces>` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |
+| Name             | Type                                    | Description                                                                         | Inherited From             |
+| ---------------- | --------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------- |
+| `selectedcoach`  | `SbbSeatReservationSelectedCoachEvent`  | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
+| `selectedplaces` | `SbbSeatReservationSelectedPlacesEvent` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |
 
 ### class: `SbbSeatReservationGraphicElement`, `sbb-seat-reservation-graphic`
 
@@ -351,10 +351,10 @@ The component `<sbb-seat-reservation-area>` represents a grey or white backgroun
 
 #### Events
 
-| Name          | Type                                   | Description                                                                                    | Inherited From |
-| ------------- | -------------------------------------- | ---------------------------------------------------------------------------------------------- | -------------- |
-| `focuscoach`  | `Event`                                | Emits when a nav coach has the focus                                                           |                |
-| `selectcoach` | `CustomEvent<SelectCoachEventDetails>` | Emits when a coach within the navigation was selected and returns the clicked coach nav index. |                |
+| Name          | Type                  | Description                                                                                    | Inherited From |
+| ------------- | --------------------- | ---------------------------------------------------------------------------------------------- | -------------- |
+| `focuscoach`  | `Event`               | Emits when a nav coach has the focus                                                           |                |
+| `selectcoach` | `SbbSelectCoachEvent` | Emits when a coach within the navigation was selected and returns the clicked coach nav index. |                |
 
 ### class: `SbbSeatReservationNavigationServicesElement`, `sbb-seat-reservation-navigation-services`
 
@@ -385,8 +385,8 @@ The component `<sbb-seat-reservation-area>` represents a grey or white backgroun
 
 #### Events
 
-| Name          | Type                          | Description                                                                                                                | Inherited From |
-| ------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `selectplace` | `CustomEvent<PlaceSelection>` | Emits when a place was selected via user interaction and returns a PlaceSelection object with necessary place information. |                |
+| Name          | Type                     | Description                                                                                                                | Inherited From |
+| ------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `selectplace` | `SbbPlaceSelectionEvent` | Emits when a place was selected via user interaction and returns a PlaceSelection object with necessary place information. |                |
 
 ### class: `SbbSeatReservationScopedElement`, `sbb-seat-reservation-scoped`

@@ -18,13 +18,18 @@ import type {
   CoachItem,
   CoachItemDetails,
   Place,
-  PlaceSelection,
   SeatReservation,
 } from '../common/types.ts';
 import { SbbSeatReservationAreaElement } from '../seat-reservation-area/seat-reservation-area.component.ts';
 import { SbbSeatReservationGraphicElement } from '../seat-reservation-graphic/seat-reservation-graphic.component.ts';
-import { SbbSeatReservationNavigationCoachElement } from '../seat-reservation-navigation-coach/seat-reservation-navigation-coach.component.ts';
-import { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
+import {
+  SbbSeatReservationNavigationCoachElement,
+  type SbbSelectCoachEvent,
+} from '../seat-reservation-navigation-coach/seat-reservation-navigation-coach.component.ts';
+import {
+  type SbbPlaceSelectionEvent,
+  SbbSeatReservationPlaceControlElement,
+} from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
 import { SbbSeatReservationScopedElement } from '../seat-reservation-scoped/seat-reservation-scoped.component.ts';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.ts';
@@ -227,7 +232,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
             (coachItemDetails: CoachItemDetails, index: number) => {
               return html`<li>
                 <sbb-seat-reservation-navigation-coach
-                  @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
+                  @selectcoach=${(event: SbbSelectCoachEvent) => this._onSelectNavCoach(event)}
                   @focuscoach=${() => this._onFocusNavCoach()}
                   @keyup=${(evt: KeyboardEvent) => this.onKeyNavigationNavCoachButton(evt, index)}
                   index="${index}"
@@ -425,7 +430,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
                 '--sbb-seat-reservation-place-control-rotation': rotation,
                 '--sbb-seat-reservation-place-control-text-rotation': textRotation,
               })}
-              @selectplace=${(selectPlaceEvent: CustomEvent<PlaceSelection>) =>
+              @selectplace=${(selectPlaceEvent: SbbPlaceSelectionEvent) =>
                 this._onSelectPlace(selectPlaceEvent)}
               exportparts="sbb-sr-place-part"
               id=${placeId}
@@ -568,7 +573,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
    * Each selection emits an array of all selected places
    * @param selectPlaceEvent
    */
-  private _onSelectPlace(selectPlaceEvent: CustomEvent<PlaceSelection>): void {
+  private _onSelectPlace(selectPlaceEvent: SbbPlaceSelectionEvent): void {
     const selectedPlace = selectPlaceEvent.detail;
     // We have to set preventCoachScrollByPlaceClick to true, to prevent automatic scrolling to the new focused place
     this.preventCoachScrollByPlaceClick = true;
@@ -587,8 +592,8 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     }
   }
 
-  private _onSelectNavCoach(event: CustomEvent<number>): void {
-    const selectedNavCoachIndex = event.detail;
+  private _onSelectNavCoach(event: SbbSelectCoachEvent): void {
+    const selectedNavCoachIndex = event.coachIndex;
 
     this.isKeyboardNavigation = false;
     this.preventCoachScrollByPlaceClick = false;
