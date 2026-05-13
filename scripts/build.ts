@@ -785,7 +785,7 @@ function renderTemplate(
       .filter((v, i, a) => a.indexOf(v) === i && v.length > 1) ?? [];
 
   // If an event type needs to be imported outside its module, it must be added in this map.
-  // E.g., the SbbDateSelectedEvent is declared in the calendar module, but it's used in datepicker module.
+  // E.g., the SbbDateSelectedEvent is declared in the calendar module, but it's also used in datepicker module.
   const interfaces = new Map<string, string>()
     .set('SbbDateSelectedEvent', 'calendar.pure.js')
     .set('SbbPopoverCloseEvent', 'popover.pure.js')
@@ -833,7 +833,7 @@ const ${patchClassName} = ${declaration.name} as typeof ${patchClassName}Type;
 
   for (const customEventType of customEventTypes) {
     const baseType = customEventType.split('<')[0];
-    // The 'interfaces' map has priority on other cases
+    // The 'interfaces' map has priority on the default case
     if (interfaces.has(baseType)) {
       const moduleName = interfaces.get(baseType)!;
       if (!componentsImports.has(moduleName)) {
