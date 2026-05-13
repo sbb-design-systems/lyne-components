@@ -4,8 +4,10 @@
 
 .visualized-page-spacing div,
 .visualized-grid div {
-  @include dev_and_debug.development-style;
-
+  background-color: rgba(#ad00ff, 0.2);
+  border-width: var(--sbb-spacing-fixed-2x);
+  border-style: dashed solid;
+  border-color: rgba(#ad00ff, 1);
   padding: 0;
   height: 100px;
 }

@@ -11,7 +11,7 @@
 }
 
 :host(:disabled) {
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-file-selector-color: GrayText;
     --sbb-file-selector-subtitle-color: GrayText;
     --sbb-file-selector-border-color: GrayText;
@@ -22,7 +22,7 @@
   --sbb-file-selector-background-color: var(--sbb-background-color-3);
   --sbb-file-selector-border-color: light-dark(var(--sbb-color-storm), var(--sbb-color-anthracite));
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-file-selector-border-color: Highlight;
   }
 }

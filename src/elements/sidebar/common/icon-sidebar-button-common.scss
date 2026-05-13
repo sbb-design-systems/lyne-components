@@ -21,19 +21,19 @@
   --sbb-icon-sidebar-button__current-border-inset-inline-start: 0;
   --sbb-icon-sidebar-button__color: var(--sbb-icon-sidebar-button-color);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-icon-sidebar-button-current-color: Highlight !important;
   }
 }
 
 :host(:state(button)) {
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-icon-sidebar-button-color: ButtonText !important;
   }
 }
 
 :host(:state(link)) {
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-icon-sidebar-button-color: LinkText !important;
   }
 }

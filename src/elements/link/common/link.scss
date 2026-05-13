@@ -26,7 +26,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
     pointer-events: none;
     cursor: var(--sbb-cursor-default);
 
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       color: GrayText;
     }
   }

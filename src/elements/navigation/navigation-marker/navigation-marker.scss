@@ -62,7 +62,7 @@
       opacity: 1;
     }
 
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       border-color: CanvasText;
     }
   }

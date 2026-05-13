@@ -18,7 +18,7 @@
   font-size: var(--sbb-chip-label-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     outline: var(--sbb-border-width-1x) solid CanvasText;
     outline-offset: calc(-1 * var(--sbb-border-width-1x));
   }

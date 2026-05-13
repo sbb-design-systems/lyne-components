@@ -223,7 +223,7 @@ $disabled: '[disabled], :disabled';
   font-weight: 700;
   color: light-dark(var(--sbb-color-granite), var(--sbb-color-granite));
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     color: var(--sbb-color-milk);
   }
 }
@@ -231,7 +231,7 @@ $disabled: '[disabled], :disabled';
 .sbb-sr-navigation__item-coach-number {
   color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
   }
 
@@ -266,7 +266,7 @@ $disabled: '[disabled], :disabled';
   background-color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
   color: light-dark(var(--sbb-color-white), var(--sbb-color-black));
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     border: var(--sbb-border-width-1x) solid;
   }
 }

@@ -76,7 +76,7 @@
     min-height: max(var(--sbb-flip-card-min-height), var(--sbb-flip-card-details-height));
   }
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     &::after {
       content: '';
       border: var(--sbb-flip-card-border) solid CanvasText;

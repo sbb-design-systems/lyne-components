@@ -23,7 +23,7 @@
 :host(:state(disabled)) {
   --sbb-autocomplete-grid-row-cursor: var(--sbb-cursor-default);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-autocomplete-grid-row-color: GrayText;
   }
 }
@@ -64,7 +64,7 @@
       background-color: var(--sbb-autocomplete-grid-row-disabled-background-color);
       z-index: -1;
 
-      @include sbb.if-forced-colors {
+      @media (forced-colors: active) {
         border-color: GrayText;
       }
     }

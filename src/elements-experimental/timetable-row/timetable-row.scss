@@ -136,7 +136,7 @@ li {
     height: #{sbb.px-to-rem-build(28)};
   }
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     border: var(--sbb-border-width-1x) solid ButtonBorder !important;
   }
 }

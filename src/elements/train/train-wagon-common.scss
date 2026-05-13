@@ -18,7 +18,7 @@
 :host([wagon-type='closed']) {
   --sbb-train-wagon-crossed-shape-display: block;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-train-wagon-shape-color: GrayText;
   }
 }
@@ -56,7 +56,7 @@
 }
 
 :host(:state(link)) {
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-train-wagon-shape-color: LinkText;
   }
 }

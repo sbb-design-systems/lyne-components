@@ -54,7 +54,7 @@
 }
 
 @mixin link-variables--button {
-  @include a11y.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-link-color-normal: ButtonText;
     --sbb-link-color-hover: ButtonText;
     --sbb-link-color-active: ButtonText;
@@ -67,7 +67,7 @@
   text-decoration-thickness: #{functions.px-to-rem-build(1)};
   text-underline-offset: 0.3125em; // 5px
 
-  @include a11y.if-forced-colors {
+  @media (forced-colors: active) {
     text-decoration: underline;
   }
 }

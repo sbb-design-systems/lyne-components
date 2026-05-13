@@ -147,7 +147,7 @@ sbb-divider,
     animation-name: var(--sbb-menu-close-animation-name, close);
   }
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 

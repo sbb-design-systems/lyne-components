@@ -44,7 +44,7 @@ $intersector-overlapping: 1px;
   --_sbb-sticky-bar-intersector-background-color: var(--sbb-sticky-bar-sticky-background-color);
   --_sbb-sticky-bar-background-animation-duration: var(--sbb-sticky-bar-fade-in-animation-duration);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --_sbb-sticky-bar-forced-colors-border: var(--sbb-border-width-1x) solid CanvasText;
   }
 }

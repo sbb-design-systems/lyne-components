@@ -30,7 +30,7 @@
   border-color: var(--sbb-pearl-chain-bullet-color);
   border-radius: 100%;
 
-  @include a11y.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-pearl-chain-bullet-color: CanvasText;
   }
 }
@@ -54,7 +54,7 @@
 @mixin pearl-chain-bullet-past {
   --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-color-past);
 
-  @include a11y.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-pearl-chain-bullet-color: GrayText !important;
   }
 }
@@ -65,7 +65,7 @@
 
 @mixin pearl-chain-bullet-disruption {
   --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-color-disruption);
-  @include a11y.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-pearl-chain-bullet-color: Highlight;
   }
 }
@@ -85,7 +85,7 @@
     height: var(--sbb-pearl-chain-bullet-crossed-height);
     width: var(--sbb-pearl-chain-bullet-crossed-width);
 
-    @include a11y.if-forced-colors {
+    @media (forced-colors: active) {
       background: Highlight;
     }
   }
@@ -111,7 +111,7 @@
 
   --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-position-color);
 
-  @include a11y.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-pearl-chain-position-color: Highlight;
   }
 

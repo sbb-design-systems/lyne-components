@@ -26,7 +26,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   pointer-events: none;
   cursor: var(--sbb-cursor-default);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-menu-action-color: GrayText;
   }
 }
@@ -36,7 +36,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 }
 
 :host(:state(button)) {
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-menu-action-color: ButtonText;
   }
 }
@@ -102,7 +102,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
     @include sbb.focus-outline;
   }
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     border: var(--sbb-border-width-2x) solid var(--sbb-menu-action-forced-color-border-color);
   }
 }

@@ -44,7 +44,7 @@
 @mixin card-variables($theme: 'standard') {
   @include card-variables--global($theme);
 
-  @include a11y.if-forced-colors {
+  @media (forced-colors: active) {
     @include card-variables--global-forced-colors;
   }
 }
@@ -79,7 +79,7 @@
   --sbb-card-border-width: var(--sbb-border-width-2x);
   --sbb-card-border-style: solid;
 
-  @include a11y.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-card-border-color: Highlight;
   }
 }
@@ -136,13 +136,13 @@
 }
 
 @mixin card-variables--button {
-  @include a11y.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-card-color: ButtonText;
   }
 }
 
 @mixin card-variables--link {
-  @include a11y.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-card-color: LinkText;
     --sbb-card-border-color: CanvasText;
   }
@@ -181,7 +181,7 @@
     pointer-events: none;
   }
 
-  @include a11y.if-forced-colors {
+  @media (forced-colors: active) {
     // Propagate card text color to title text color to ensure correct color in forced colors mode
     --sbb-title-color: var(--sbb-card-color);
   }
@@ -193,7 +193,7 @@
 
     box-shadow: var(--sbb-box-shadow-level-9-hard);
 
-    @include a11y.if-forced-colors {
+    @media (forced-colors: active) {
       --sbb-card-border-color: Highlight;
     }
   }

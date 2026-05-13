@@ -57,7 +57,7 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-form-field-arrow-color: var(--sbb-color-3-negative);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-form-field-border-color: ButtonBorder;
   }
 }
@@ -119,7 +119,7 @@
   --sbb-form-field-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
   --sbb-form-field-arrow-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-form-field-border-color: ButtonBorder;
   }
 }
@@ -135,7 +135,7 @@
   --sbb-form-field-prefix-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
   --sbb-form-field-border-style: dashed;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-form-field-label-color: GrayText !important;
     --sbb-form-field-prefix-color: GrayText !important;
     --sbb-form-field-text-color: GrayText !important;
@@ -171,7 +171,7 @@
 
 // We must not use :where here, as it needs the added specificity to properly work
 :host(:state(focus)) {
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-form-field-border-color: Highlight;
     --sbb-form-field-prefix-color: Highlight;
   }
@@ -185,7 +185,7 @@
 :host([floating-label]) {
   --sbb-select-placeholder-color: transparent;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-select-placeholder-color: Canvas;
   }
 }
@@ -297,7 +297,7 @@ slot[name='hint'] {
   padding-block-end: calc((var(--sbb-form-field-min-height) - var(--sbb-size-icon-ui-small)) / 2);
 }
 
-@include sbb.if-forced-colors {
+@media (forced-colors: active) {
   // Align with prefix color
   ::slotted(*[slot='suffix']) {
     color: var(--sbb-form-field-prefix-color);
@@ -403,7 +403,7 @@ slot[name='hint'] {
 
   // :where is to align specificity
   :host(:where(:state(input-type-textarea))) & {
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       // The background of the textarea is set to Canvas and therefore hides the label behind.
       // By setting the z-index to 1, we move the label in front of the textarea.
       z-index: 1;

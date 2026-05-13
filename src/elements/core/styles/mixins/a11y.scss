@@ -1,23 +1,6 @@
 // ----------------------------------------------------------------------------------------------------
 // A11y: MediaQueries & Other things
 // ----------------------------------------------------------------------------------------------------
-@mixin if-forced-colors {
-  @media (forced-colors: active) {
-    @content;
-  }
-}
-
-@mixin if-forced-colors-light {
-  @media (forced-colors: active) and (prefers-color-scheme: light) {
-    @content;
-  }
-}
-
-@mixin if-forced-colors-dark {
-  @media (forced-colors: active) and (prefers-color-scheme: dark) {
-    @content;
-  }
-}
 
 @mixin focus-outline {
   outline-offset: var(--sbb-focus-outline-offset);
@@ -35,9 +18,4 @@
   position: absolute;
   white-space: nowrap;
   width: 1px;
-}
-
-// @deprecated
-@mixin scroll-margin-block-start {
-  scroll-margin-block-start: var(--sbb-spacing-fixed-10x);
 }

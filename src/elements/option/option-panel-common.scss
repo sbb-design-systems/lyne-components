@@ -127,7 +127,7 @@
     timing-function: var(--sbb-options-panel-animation-timing-function);
   }
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     border: var(--sbb-border-width-1x) solid CanvasText;
   }
 }

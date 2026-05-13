@@ -1,5 +1,4 @@
-@forward './core/styles' hide development-style, link-base, link-focus-visible, link-hover,
-  link-active, link-consolidation;
+@forward './core/styles';
 @forward './badge/badge.global' as badge-*;
 @forward './table/table.global' as table-*;
 @forward './timetable-form/timetable-form/timetable-form.global' as timetable-form-*;

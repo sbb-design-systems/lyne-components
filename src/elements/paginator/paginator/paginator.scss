@@ -130,7 +130,7 @@
       --sbb-paginator-page-border-color: var(--sbb-border-color-2-negative);
     }
 
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       --sbb-paginator-page-border-color: Highlight !important;
     }
   }
@@ -151,7 +151,7 @@
       --sbb-paginator-page-background-color: var(--sbb-background-color-3-negative);
     }
 
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       --sbb-paginator-page-border-color: GrayText;
       --sbb-paginator-color: GrayText;
       --sbb-paginator-page-background-color: Canvas;
@@ -168,7 +168,7 @@
         --sbb-paginator-page-background-color: var(--sbb-background-color-3-negative);
       }
 
-      @include sbb.if-forced-colors {
+      @media (forced-colors: active) {
         --sbb-paginator-page-background-color: Highlight !important;
       }
     }
@@ -185,7 +185,7 @@
       --sbb-paginator-page-background-color: var(--sbb-background-color-4-negative);
     }
 
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       --sbb-paginator-page-background-color: Highlight !important;
     }
   }

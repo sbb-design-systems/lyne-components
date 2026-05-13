@@ -19,7 +19,7 @@ $scrollbar-height: 16px;
     fill: var(--sbb-background-color-2);
 
     // In High Contrast Mode we set floor color to transparent
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       fill: transparent;
     }
   }

@@ -28,7 +28,7 @@
   --sbb-slider-line-color: var(--sbb-slider-line-disabled-color);
   --sbb-slider-selected-line-color: var(--sbb-slider-selected-line-disabled-color);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-slider-icon-color: GrayText;
     --sbb-slider-selected-line-disabled-color: GrayText;
     --sbb-slider-line-disabled-color: GrayText;
