@@ -555,19 +555,6 @@ html {
   @include sbb.placeholder;
 }
 
-// TODO: discuss where to add these classes
-.sbb-dark {
-  color-scheme: dark;
-}
-
-.sbb-light {
-  color-scheme: light;
-}
-
-.sbb-light-dark {
-  color-scheme: light dark;
-}
-
 // Hiding components until they are instantiated
 :is(
   sbb-autocomplete,

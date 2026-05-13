@@ -6,11 +6,12 @@ $theme: 'standard' !default;
 @use 'features/core' with (
   $theme: $theme
 );
-@use 'features/typography';
 @use 'features/a11y';
-@use 'features/badge';
 @use 'features/animation';
+@use 'features/badge';
+@use 'features/color-scheme';
 @use 'features/image';
 @use 'features/layout';
 @use 'features/lists';
 @use 'features/scrollbar';
+@use 'features/typography';
