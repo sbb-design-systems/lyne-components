@@ -495,6 +495,10 @@ function buildElementsStyles(pkg: PackageBuilder): void {
       inputName: 'core/styles/font-characters-extension.scss',
       outputName: 'font-characters-extension.css',
     },
+    {
+      inputName: 'core/styles/disable-animation-extension.scss',
+      outputName: 'disable-animation-extension.css',
+    },
     { inputName: 'core/styles/lean-off-brand-theme.scss', outputName: 'lean-off-brand-theme.css' },
     { inputName: 'core/styles/lean-safety-theme.scss', outputName: 'lean-safety-theme.css' },
     { inputName: 'core/styles/lean-theme.scss', outputName: 'lean-theme.css' },
