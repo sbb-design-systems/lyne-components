@@ -1,5 +1,5 @@
 $theme: 'standard' !default;
 
-@use './core' with (
+@use './features/core' with (
   $theme: $theme
 );
