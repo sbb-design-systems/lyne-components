@@ -118,14 +118,20 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
+    const tagGroup = this._tagGroup();
 
     if (changedProperties.has('checked')) {
-      this.internals.ariaPressed = `${this.checked}`;
+      if (tagGroup && !tagGroup.multiple) {
+        this.internals.role = 'radio';
+        this.internals.ariaChecked = `${this.checked}`;
+      } else {
+        this.internals.ariaPressed = `${this.checked}`;
+      }
+
       this.toggleState('checked', this.checked);
       this.updateFormValue();
     }
 
-    const tagGroup = this._tagGroup();
     if (tagGroup && !tagGroup.multiple && changedProperties.has('checked') && this.checked) {
       tagGroup?.tags.filter((t) => t !== this).forEach((t) => (t.checked = false));
     }

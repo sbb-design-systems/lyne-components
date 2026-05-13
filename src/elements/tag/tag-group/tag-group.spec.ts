@@ -751,27 +751,27 @@ describe(`sbb-tag-group`, () => {
   });
 
   describe('role assignment', () => {
-    it('should have role="group" when no listAccessibilityLabel is set', async () => {
+    it('should have role="group" when no accessibilityLabel is set', async () => {
       element = await fixture(html`<sbb-tag-group></sbb-tag-group>`);
       expect(elementInternals.get(element)!.role).to.equal('group');
     });
 
-    it('should have no role when listAccessibilityLabel is set', async () => {
+    it('should have no role when accessibilityLabel is set', async () => {
       element = await fixture(
-        html`<sbb-tag-group list-accessibility-label="Filter options"></sbb-tag-group>`,
+        html`<sbb-tag-group accessibility-label="Filter options"></sbb-tag-group>`,
       );
       expect(elementInternals.get(element)!.role).to.be.null;
     });
 
-    it('should update role when listAccessibilityLabel changes', async () => {
+    it('should update role when accessibilityLabel changes', async () => {
       element = await fixture(html`<sbb-tag-group></sbb-tag-group>`);
       expect(elementInternals.get(element)!.role).to.equal('group');
 
-      element.listAccessibilityLabel = 'Filter options';
+      element.accessibilityLabel = 'Filter options';
       await waitForLitRender(element);
       expect(elementInternals.get(element)!.role).to.be.null;
 
-      element.listAccessibilityLabel = '';
+      element.accessibilityLabel = '';
       await waitForLitRender(element);
       expect(elementInternals.get(element)!.role).to.equal('group');
     });

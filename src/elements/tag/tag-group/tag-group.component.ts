@@ -37,8 +37,8 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
    * This will be forwarded as aria-label to the inner list.
    */
   @forceType()
-  @property({ attribute: 'list-accessibility-label' })
-  public accessor listAccessibilityLabel: string = '';
+  @property({ attribute: 'accessibility-label' })
+  public accessor accessibilityLabel: string = '';
 
   /**
    * If set multiple to false, the selection is exclusive and the value is a string (or null).
@@ -104,8 +104,14 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
         .forEach((tag) => (tag.checked = false));
     }
 
-    if (changedProperties.has('listAccessibilityLabel')) {
-      this.internals.role = this.listAccessibilityLabel ? null : 'group';
+    if (changedProperties.has('accessibilityLabel') || changedProperties.has('multiple')) {
+      if (this.multiple) {
+        this.internals.role = this.accessibilityLabel ? null : 'group';
+        this.internals.ariaLabel = null;
+      } else {
+        this.internals.role = 'radiogroup';
+        this.internals.ariaLabel = this.accessibilityLabel;
+      }
     }
   }
 
@@ -139,7 +145,7 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
     return html`
       ${this.renderList({
         class: 'sbb-tag-group__list',
-        ariaLabel: this.listAccessibilityLabel,
+        ariaLabel: this.multiple ? this.accessibilityLabel : undefined,
       })}
     `;
   }
