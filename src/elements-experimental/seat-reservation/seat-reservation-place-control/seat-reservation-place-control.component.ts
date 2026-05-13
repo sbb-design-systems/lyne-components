@@ -154,13 +154,13 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
           aria-hidden="true"
         ></sbb-seat-reservation-graphic>
         <span ${this.text ?? nothing} class="sbb-sr-place-ctrl__text" aria-hidden="true"
-          >${text}</span
-        >
-        ${!this.showTitleInfo
-          ? html`<span class="sbb-screen-reader-only" id="${this.id}"
-              >${this._optionalScreenreaderInfo}</span
-            >`
-          : nothing}
+          >${text}
+          ${!this.showTitleInfo
+            ? html`<span class="sbb-screen-reader-only" id="${this.id}"
+                >${this._optionalScreenreaderInfo}</span
+              >`
+            : nothing}
+        </span>
       </div>
     `;
   }
