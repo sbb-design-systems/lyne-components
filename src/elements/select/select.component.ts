@@ -26,7 +26,6 @@ import {
   isNextjs,
   isSafari,
   isZeroAnimationDuration,
-  optionPanelStyles,
   SbbDisabledMixin,
   SbbEscapableOverlayController,
   SbbFormAssociatedMixin,
@@ -43,7 +42,11 @@ import {
 } from '../core.ts';
 import type { SbbDividerElement } from '../divider.pure.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
-import type { SbbOptionElement, SbbOptionHintElement } from '../option.pure.ts';
+import {
+  optionPanelStyles,
+  type SbbOptionElement,
+  type SbbOptionHintElement,
+} from '../option.pure.ts';
 
 import style from './select.scss?inline';
 

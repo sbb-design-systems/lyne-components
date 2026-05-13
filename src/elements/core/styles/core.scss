@@ -195,7 +195,7 @@ $theme: 'standard' !default;
 @use '../../option/option-hint/option-hint.global' as option-hint with (
   $theme: $theme
 );
-@use './option-panel-common.global' as option-panel with (
+@use '../../option/option-panel-common.global' as option-panel with (
   $theme: $theme
 );
 @use '../../overlay/overlay.global' as overlay with (

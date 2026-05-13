@@ -1,4 +1,4 @@
-@use './mixins/a11y';
+@use '../core/styles' as sbb;
 
 :host {
   --sbb-options-panel-position-x: 0;
@@ -127,7 +127,7 @@
     timing-function: var(--sbb-options-panel-animation-timing-function);
   }
 
-  @include a11y.if-forced-colors {
+  @include sbb.if-forced-colors {
     border: var(--sbb-border-width-1x) solid CanvasText;
   }
 }
