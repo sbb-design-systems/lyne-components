@@ -9,3 +9,11 @@ $theme: 'standard' !default;
 @mixin base-forced-colors {
   @include sbb.card-variables--global-forced-colors;
 }
+
+@mixin rules {
+  // Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
+  // This style enables accessing focusable elements inside an sbb-card.
+  sbb-card .sbb-action {
+    pointer-events: all;
+  }
+}

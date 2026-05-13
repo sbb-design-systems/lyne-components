@@ -15,3 +15,11 @@ $theme: 'standard' !default;
 @mixin base-breakpoint-large {
   --sbb-flip-card-min-height: #{sbb.px-to-rem-build(320)};
 }
+
+@mixin rules {
+  // Every element in the Light DOM of a sbb-flip-card which is focusable should receive this attribute.
+  // This style enables accessing focusable elements inside an sbb-card.
+  sbb-flip-card .sbb-action {
+    pointer-events: all;
+  }
+}

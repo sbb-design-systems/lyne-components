@@ -523,10 +523,12 @@ $theme: 'standard' !default;
 // Components global styles
 @include badge.rules;
 @include breadcrumb-group.rules;
+@include card.rules;
 @include container.rules;
 @include dialog-close-button.rules;
 @include dialog-content.rules;
 @include dialog-title.rules;
+@include flip-card.rules;
 @include flip-card-summary.rules;
 @include form-field.rules;
 @include header.rules;
@@ -592,12 +594,6 @@ html {
   sbb-toast
 ) {
   @include sbb.popover-reset;
-}
-
-// Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
-// This style enables accessing focusable elements inside an sbb-card.
-:is(sbb-card, sbb-flip-card) .sbb-action {
-  pointer-events: all;
 }
 
 img {
