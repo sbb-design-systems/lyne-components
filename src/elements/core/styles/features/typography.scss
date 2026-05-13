@@ -42,7 +42,7 @@ sup {
 }
 
 .sbb-text--bold {
-  @include typo.text--bold;
+  font-weight: bold;
 }
 
 .sbb-legend {

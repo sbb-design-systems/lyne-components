@@ -71,7 +71,8 @@
 }
 
 .sbb-pearl-chain__time-time {
-  @include sbb.text-s--bold;
+  @include sbb.text-s--regular;
 
+  font-weight: bold;
   color: var(--sbb-color-2);
 }

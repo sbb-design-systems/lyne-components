@@ -184,10 +184,11 @@
 }
 
 .sbb-header-action__text {
-  @include sbb.text-xs--bold;
   @include sbb.ellipsis;
+  @include sbb.text-xs--regular;
 
   display: block;
+  font-weight: bold;
 
   :host(:not(:state(slotted))) & {
     display: none;

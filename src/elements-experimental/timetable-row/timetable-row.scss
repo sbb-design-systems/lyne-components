@@ -49,8 +49,9 @@ li {
 
 .sbb-timetable__row-transportnumber,
 .sbb-timetable__row-time {
-  @include sbb.text-s--bold;
+  @include sbb.text-s--regular;
 
+  font-weight: bold;
   line-height: unset;
   white-space: nowrap;
   align-self: center;

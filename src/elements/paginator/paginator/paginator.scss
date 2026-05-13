@@ -118,7 +118,7 @@
   }
 
   &[data-selected] {
-    @include sbb.text--bold;
+    font-weight: bold;
 
     --sbb-paginator-color: var(--sbb-color-3);
     --sbb-paginator-page-border-width: var(--sbb-border-width-2x);

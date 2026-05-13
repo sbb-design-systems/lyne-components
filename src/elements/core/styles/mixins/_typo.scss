@@ -124,20 +124,9 @@
   font-size: var(--sbb-text-font-size);
 }
 
-// @deprecated
-@mixin text--bold {
-  font-weight: bold;
-}
-
 @mixin text-xl--regular {
   --sbb-text-font-size: var(--sbb-text-font-size-xl);
   @include text;
-}
-
-// @deprecated
-@mixin text-xl--bold {
-  @include text-xl--regular;
-  @include text--bold;
 }
 
 @mixin text-l--regular {
@@ -145,21 +134,9 @@
   @include text;
 }
 
-// @deprecated
-@mixin text-l--bold {
-  @include text-l--regular;
-  @include text--bold;
-}
-
 @mixin text-m--regular {
   --sbb-text-font-size: var(--sbb-text-font-size-m);
   @include text;
-}
-
-// @deprecated
-@mixin text-m--bold {
-  @include text-m--regular;
-  @include text--bold;
 }
 
 // rename
@@ -168,30 +145,14 @@
   @include text;
 }
 
-// @deprecated
-@mixin text-s--bold {
-  @include text-s--regular;
-  @include text--bold;
-}
-
 @mixin text-xs--regular {
   --sbb-text-font-size: var(--sbb-text-font-size-xs);
   @include text;
 }
 
-@mixin text-xs--bold {
-  @include text-xs--regular;
-  @include text--bold;
-}
-
 @mixin text-xxs--regular {
   --sbb-text-font-size: var(--sbb-text-font-size-xxs);
   @include text;
-}
-
-@mixin text-xxs--bold {
-  @include text-xxs--regular;
-  @include text--bold;
 }
 
 @mixin text-inherit {
@@ -207,13 +168,6 @@
   color: var(--sbb-color-5);
   -webkit-text-fill-color: var(--sbb-color-5);
   opacity: 1;
-}
-
-@mixin clamp-lines($lines) {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: $lines;
 }
 
 @mixin legend {

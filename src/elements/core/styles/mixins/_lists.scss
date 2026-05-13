@@ -228,7 +228,7 @@
     min-height: calc(var(--sbb-step-list-dimensions) + 2 * var(--sbb-step-list-padding-block));
 
     &::before {
-      @include typo.text-xxs--bold;
+      @include typo.text-xxs--regular;
 
       content: counter(steps);
       position: absolute;
@@ -243,6 +243,7 @@
       border: var(--sbb-border-width-1x) solid
         light-dark(var(--sbb-color-cement), var(--sbb-color-smoke));
       border-radius: 50%;
+      font-weight: bold;
     }
 
     + li {
