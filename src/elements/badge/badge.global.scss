@@ -1,7 +1,9 @@
-@use './typo';
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
 
 @mixin badge {
-  @include typo.text-xxs--bold;
+  @include sbb.text-xxs--bold;
 
   display: flex;
   align-items: center;
@@ -17,7 +19,7 @@
   outline: var(--sbb-border-width-1x) solid transparent;
 }
 
-@mixin badge-attribute {
+@mixin rules {
   [sbb-badge] {
     --sbb-badge-position-offset: calc(var(--sbb-spacing-fixed-2x) * -1);
 

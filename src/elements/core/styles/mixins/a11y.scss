@@ -37,6 +37,7 @@
   width: 1px;
 }
 
+// @deprecated
 @mixin scroll-margin-block-start {
   scroll-margin-block-start: var(--sbb-spacing-fixed-10x);
 }

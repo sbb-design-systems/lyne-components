@@ -10,7 +10,7 @@
 }
 
 :host([id]) {
-  @include sbb.scroll-margin-block-start;
+  scroll-margin-block-start: var(--sbb-spacing-fixed-10x);
 }
 
 :host(:where([level='2']:not([visual-level]), [visual-level='2'])) {
