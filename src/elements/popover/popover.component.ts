@@ -46,15 +46,15 @@ const popoversRef = new Set<SbbPopoverBaseElement>();
 const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).matches;
 
 class SbbPopoverClosingEvent extends Event {
-  private readonly _closeTarget: HTMLElement | null;
+  private readonly _closeTarget: Readonly<HTMLElement | null>;
 
-  public get closeTarget(): HTMLElement | null {
+  public get closeTarget(): Readonly<HTMLElement | null> {
     return this._closeTarget;
   }
 
   protected constructor(type: string, closeTarget: HTMLElement | null, cancelable = false) {
     super(type, { cancelable });
-    this._closeTarget = closeTarget;
+    this._closeTarget = Object.freeze(closeTarget);
   }
 }
 

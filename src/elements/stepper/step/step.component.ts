@@ -26,9 +26,9 @@ export interface SbbStepValidateEventDetails {
 }
 
 export class SbbStepValidateEvent extends Event {
-  private readonly _detail: SbbStepValidateEventDetails;
+  private readonly _detail: Readonly<SbbStepValidateEventDetails>;
 
-  public get detail(): SbbStepValidateEventDetails {
+  public get detail(): Readonly<SbbStepValidateEventDetails> {
     return this._detail;
   }
 

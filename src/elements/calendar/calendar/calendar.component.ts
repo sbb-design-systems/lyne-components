@@ -67,15 +67,15 @@ export class SbbMonthChangeEvent extends Event {
 }
 
 export class SbbDateSelectedEvent<T> extends Event {
-  private readonly _dateSelected: T | T[];
+  private readonly _dateSelected: Readonly<T | T[]>;
 
-  public get dateSelected(): T | T[] {
+  public get dateSelected(): Readonly<T | T[]> {
     return this._dateSelected;
   }
 
   public constructor(dates: T | T[]) {
     super('dateselected', { bubbles: true, composed: true });
-    this._dateSelected = dates;
+    this._dateSelected = Object.freeze(dates);
   }
 }
 

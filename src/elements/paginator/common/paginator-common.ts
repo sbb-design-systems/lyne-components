@@ -37,9 +37,9 @@ export interface SbbPaginatorPageEventDetails {
 }
 
 export class SbbPaginatorPageEvent extends Event {
-  private readonly _detail: SbbPaginatorPageEventDetails;
+  private readonly _detail: Readonly<SbbPaginatorPageEventDetails>;
 
-  public get detail(): SbbPaginatorPageEventDetails {
+  public get detail(): Readonly<SbbPaginatorPageEventDetails> {
     return this._detail;
   }
 

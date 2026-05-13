@@ -32,9 +32,9 @@ export interface SbbTabChangedEventDetails {
 }
 
 export class SbbTabChangedEvent extends Event {
-  private readonly _detail: SbbTabChangedEventDetails;
+  private readonly _detail: Readonly<SbbTabChangedEventDetails>;
 
-  public get detail(): SbbTabChangedEventDetails {
+  public get detail(): Readonly<SbbTabChangedEventDetails> {
     return this._detail;
   }
 
