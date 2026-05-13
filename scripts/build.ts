@@ -490,35 +490,15 @@ interface StyleSheet {
   outputName: string;
 }
 function buildElementsStyles(pkg: PackageBuilder): void {
-  const sheets = [
-    {
-      inputName: 'core/styles/font-characters-extension.scss',
-      outputName: 'font-characters-extension.css',
-    },
-    {
-      inputName: 'core/styles/disable-animation-extension.scss',
-      outputName: 'disable-animation-extension.css',
-    },
-    { inputName: 'core/styles/lean-off-brand-theme.scss', outputName: 'lean-off-brand-theme.css' },
-    { inputName: 'core/styles/lean-safety-theme.scss', outputName: 'lean-safety-theme.css' },
-    { inputName: 'core/styles/lean-theme.scss', outputName: 'lean-theme.css' },
-    { inputName: 'core/styles/off-brand-theme.scss', outputName: 'off-brand-theme.css' },
-    { inputName: 'core/styles/safety-theme.scss', outputName: 'safety-theme.css' },
-    { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
-  ];
+  const sheets = globSync('core/styles/*.scss', { cwd: pkg.root })
+    .filter((f) => !basename(f).startsWith('_'))
+    .sort()
+    .map((f) => ({ inputName: f, outputName: basename(f, '.scss') + '.css' }));
   buildStyles(pkg, sheets);
 }
 
 function buildStylesExperimental(pkg: PackageBuilder): void {
-  const sheets = [
-    { inputName: 'core/styles/lean-off-brand-theme.scss', outputName: 'lean-off-brand-theme.css' },
-    { inputName: 'core/styles/lean-safety-theme.scss', outputName: 'lean-safety-theme.css' },
-    { inputName: 'core/styles/lean-theme.scss', outputName: 'lean-theme.css' },
-    { inputName: 'core/styles/off-brand-theme.scss', outputName: 'off-brand-theme.css' },
-    { inputName: 'core/styles/safety-theme.scss', outputName: 'safety-theme.css' },
-    { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
-  ];
-  buildStyles(pkg, sheets);
+  buildElementsStyles(pkg);
 }
 
 function buildStyles(pkg: PackageBuilder, sheets: StyleSheet[]): void {
