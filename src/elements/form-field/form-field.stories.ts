@@ -4,7 +4,7 @@ import { html, nothing } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import type { SbbErrorElement } from '../form-field.ts';
+import type { SbbErrorElement, SbbFormFieldElement } from '../form-field.ts';
 
 import readme from './readme.md?raw';
 
@@ -34,7 +34,7 @@ const formField = (
     class=${hostClass || nothing}
     error-space=${errorSpace}
     ?optional=${optional}
-    size=${size}
+    size=${size || nothing}
     ?borderless=${borderless}
     width=${width}
     ?hidden-label=${hiddenLabel}
@@ -375,7 +375,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm', 'l'],
+  options: ['s', 'm', 'l'] satisfies SbbFormFieldElement['size'][],
   table: {
     category: 'Form-field',
   },
@@ -416,7 +416,7 @@ const basicArgs: Args = {
   'floating-label': false,
   optional: false,
   borderless: false,
-  size: size.options![1],
+  size: undefined,
   negative: false,
   cssClass: '',
   placeholder: 'Input placeholder',
@@ -440,7 +440,7 @@ export const InputSizeS: StoryObj = {
   args: {
     ...basicArgs,
     value: 'Input text',
-    size: 's',
+    size: size.options![0],
   },
 };
 
@@ -450,7 +450,7 @@ export const InputSizeL: StoryObj = {
   args: {
     ...basicArgs,
     value: 'Input text',
-    size: 'l',
+    size: size.options![2],
   },
 };
 

@@ -1,7 +1,8 @@
 import { type CSSResultGroup, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbTitleBase, type SbbTitleLevel } from '../../title.pure.ts';
+import type { SbbHeadingLevel } from '../../core.ts';
+import { SbbTitleBase } from '../../title.pure.ts';
 
 import style from './sidebar-title.scss?inline';
 
@@ -12,10 +13,10 @@ import style from './sidebar-title.scss?inline';
  */
 export class SbbSidebarTitleElement extends SbbTitleBase {
   public static override readonly elementName: string = 'sbb-sidebar-title';
-  public static override styles: CSSResultGroup = [SbbTitleBase.styles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Title level */
-  @property({ reflect: true }) public override accessor level: SbbTitleLevel = '2';
+  @property({ reflect: true }) public override accessor level: SbbHeadingLevel = '2';
 
   public constructor() {
     super();

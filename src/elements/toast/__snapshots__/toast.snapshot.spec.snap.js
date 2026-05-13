@@ -42,7 +42,6 @@ snapshots["sbb-toast renders Shadow DOM"] =
         icon-name="cross-small"
         negative=""
         sbb-toast-close=""
-        size="m"
         tabindex="0"
       >
       </sbb-transparent-button>
@@ -144,7 +143,6 @@ snapshots["sbb-toast renders with action Shadow DOM"] =
         icon-name="cross-small"
         negative=""
         sbb-toast-close=""
-        size="m"
         tabindex="0"
       >
       </sbb-transparent-button>
@@ -241,7 +239,6 @@ snapshots["sbb-toast renders in dark mode Shadow DOM"] =
         class="sbb-toast__close-button"
         icon-name="cross-small"
         sbb-toast-close=""
-        size="m"
         tabindex="0"
       >
       </sbb-transparent-button>

@@ -1,20 +1,29 @@
-import { nothing, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
+import {
+  type CSSResultGroup,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { AbstractConstructor, SbbActionBaseElement } from '../../core.ts';
-import { forceType, isLean, SbbNegativeMixin } from '../../core.ts';
+import {
+  type AbstractConstructor,
+  forceType,
+  type SbbActionBaseElement,
+  SbbNegativeMixin,
+} from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
 import buttonAccentStyleString from './accent-button.scss?inline';
-import buttonCommonStyleString from './button-common.scss?inline';
+import style from './button-common.scss?inline';
 import miniButtonStyleString from './mini-button-common.scss?inline';
 import miniButtonLabelStyleString from './mini-button-label-common.scss?inline';
 import buttonPrimaryStyleString from './primary-button.scss?inline';
 import buttonSecondaryStyleString from './secondary-button.scss?inline';
 import buttonTransparentStyleString from './transparent-button.scss?inline';
 
-export const buttonCommonStyle = unsafeCSS(buttonCommonStyleString);
 export const buttonPrimaryStyle = unsafeCSS(buttonPrimaryStyleString);
 export const buttonSecondaryStyle = unsafeCSS(buttonSecondaryStyleString);
 export const buttonAccentStyle = unsafeCSS(buttonAccentStyleString);
@@ -22,12 +31,10 @@ export const buttonTransparentStyle = unsafeCSS(buttonTransparentStyleString);
 export const miniButtonStyle = unsafeCSS(miniButtonStyleString);
 export const miniButtonLabelStyle = unsafeCSS(miniButtonLabelStyleString);
 
-export type SbbButtonSize = 'l' | 'm' | 's';
-
 export declare class SbbButtonCommonElementMixinType extends SbbNegativeMixin(
   SbbIconNameMixin(SbbActionBaseElement),
 ) {
-  public accessor size: SbbButtonSize;
+  public accessor size: 's' | 'm' | 'l' | null;
   public accessor loading: boolean;
 }
 
@@ -39,11 +46,12 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
     extends SbbNegativeMixin(SbbIconNameMixin(superClass))
     implements Partial<SbbButtonCommonElementMixinType>
   {
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
     /**
-     * Size variant, either l, m or s.
-     * @default 'l' / 's' (lean)
+     * Size variant, either s (lean theme default), m (standard theme default) or l.
      */
-    @property({ reflect: true }) public accessor size: SbbButtonSize = isLean() ? 's' : 'l';
+    @property({ reflect: true }) public accessor size: SbbButtonCommonElementMixinType['size'] =
+      null;
 
     /**
      * Whether the button indicates a loading state.

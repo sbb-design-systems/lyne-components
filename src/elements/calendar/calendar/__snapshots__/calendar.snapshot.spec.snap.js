@@ -31,9 +31,12 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
         <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status">
+      <span
+        class="sbb-screen-reader-only"
+        role="status"
+      >
         January 2023
-      </sbb-screen-reader-only>
+      </span>
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
@@ -50,57 +53,57 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
         <thead class="sbb-calendar__table-header">
           <tr>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Monday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 M
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Tuesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Wednesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 W
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Thursday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Friday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 F
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Saturday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Sunday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
@@ -449,9 +452,12 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
         <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status">
+      <span
+        class="sbb-screen-reader-only"
+        role="status"
+      >
         January 2023
-      </sbb-screen-reader-only>
+      </span>
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
@@ -468,9 +474,9 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
         <tbody class="sbb-calendar__table-body">
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Monday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 M
               </span>
@@ -525,9 +531,9 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Tuesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
@@ -582,9 +588,9 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Wednesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 W
               </span>
@@ -630,9 +636,9 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Thursday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
@@ -678,9 +684,9 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Friday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 F
               </span>
@@ -726,9 +732,9 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Saturday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
@@ -774,9 +780,9 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Sunday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
@@ -883,9 +889,12 @@ snapshots["sbb-calendar default renders in year view Shadow DOM"] =
         <sbb-icon name="chevron-small-up-small">
         </sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status">
+      <span
+        class="sbb-screen-reader-only"
+        role="status"
+      >
         2016 - 2039
-      </sbb-screen-reader-only>
+      </span>
     </div>
     <sbb-secondary-button
       aria-label="Change to the next 24 years"
@@ -1048,9 +1057,12 @@ snapshots["sbb-calendar default renders in month view Shadow DOM"] =
         <sbb-icon name="chevron-small-up-small">
         </sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status">
+      <span
+        class="sbb-screen-reader-only"
+        role="status"
+      >
         2023
-      </sbb-screen-reader-only>
+      </span>
     </div>
     <sbb-secondary-button
       aria-label="Change to the next year"
@@ -1158,9 +1170,12 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
         <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status">
+      <span
+        class="sbb-screen-reader-only"
+        role="status"
+      >
         January 2023
-      </sbb-screen-reader-only>
+      </span>
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
@@ -1559,9 +1574,12 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
         <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status">
+      <span
+        class="sbb-screen-reader-only"
+        role="status"
+      >
         January 2023 February 2023
-      </sbb-screen-reader-only>
+      </span>
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
@@ -1580,57 +1598,57 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <th class="sbb-calendar__table-header-cell">
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Monday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 M
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Tuesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Wednesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 W
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Thursday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Friday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 F
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Saturday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Sunday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
@@ -1640,9 +1658,9 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
         <tbody class="sbb-calendar__table-body">
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 52
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 52
               </span>
@@ -1671,9 +1689,9 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 1
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 1
               </span>
@@ -1744,9 +1762,9 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 2
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 2
               </span>
@@ -1817,9 +1835,9 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 3
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 3
               </span>
@@ -1890,9 +1908,9 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 4
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 4
               </span>
@@ -1963,9 +1981,9 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 5
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 5
               </span>
@@ -1997,57 +2015,57 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <th class="sbb-calendar__table-header-cell">
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Monday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 M
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Tuesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Wednesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 W
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Thursday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Friday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 F
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Saturday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Sunday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
@@ -2057,9 +2075,9 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
         <tbody class="sbb-calendar__table-body">
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 5
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 5
               </span>
@@ -2116,9 +2134,9 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 6
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 6
               </span>
@@ -2189,9 +2207,9 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 7
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 7
               </span>
@@ -2262,9 +2280,9 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 8
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 8
               </span>
@@ -2335,9 +2353,9 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 9
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 9
               </span>
@@ -2410,9 +2428,12 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
         <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status">
+      <span
+        class="sbb-screen-reader-only"
+        role="status"
+      >
         January 2023 February 2023
-      </sbb-screen-reader-only>
+      </span>
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
@@ -2431,49 +2452,49 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <th class="sbb-calendar__table-data">
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 52
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 52
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 1
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 1
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 2
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 2
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 3
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 3
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 4
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 4
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 5
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 5
               </span>
@@ -2483,9 +2504,9 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
         <tbody class="sbb-calendar__table-body">
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Monday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 M
               </span>
@@ -2540,9 +2561,9 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Tuesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
@@ -2597,9 +2618,9 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Wednesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 W
               </span>
@@ -2645,9 +2666,9 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Thursday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
@@ -2693,9 +2714,9 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Friday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 F
               </span>
@@ -2741,9 +2762,9 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Saturday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
@@ -2789,9 +2810,9 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Sunday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
@@ -2848,41 +2869,41 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
         <thead class="sbb-calendar__table-header">
           <tr>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 5
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 5
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 6
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 6
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 7
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 7
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 8
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 8
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 9
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 9
               </span>
@@ -3353,9 +3374,12 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
         <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status">
+      <span
+        class="sbb-screen-reader-only"
+        role="status"
+      >
         January 2023
-      </sbb-screen-reader-only>
+      </span>
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
@@ -3372,57 +3396,57 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
         <thead class="sbb-calendar__table-header">
           <tr>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Monday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 M
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Tuesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Wednesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 W
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Thursday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Friday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 F
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Saturday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Sunday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
@@ -3942,9 +3966,12 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
         <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status">
+      <span
+        class="sbb-screen-reader-only"
+        role="status"
+      >
         January 2023
-      </sbb-screen-reader-only>
+      </span>
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
@@ -3961,9 +3988,9 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
         <tbody class="sbb-calendar__table-body">
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Monday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 M
               </span>
@@ -4018,9 +4045,9 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Tuesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
@@ -4075,9 +4102,9 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Wednesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 W
               </span>
@@ -4123,9 +4150,9 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Thursday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
@@ -4171,9 +4198,9 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Friday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 F
               </span>
@@ -4219,9 +4246,9 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Saturday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
@@ -4267,9 +4294,9 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Sunday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
@@ -4515,9 +4542,12 @@ snapshots["sbb-calendar enhanced renders in year view Shadow DOM"] =
         <sbb-icon name="chevron-small-up-small">
         </sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status">
+      <span
+        class="sbb-screen-reader-only"
+        role="status"
+      >
         2016 - 2039
-      </sbb-screen-reader-only>
+      </span>
     </div>
     <sbb-secondary-button
       aria-label="Change to the next 24 years"
@@ -4835,9 +4865,12 @@ snapshots["sbb-calendar enhanced renders in month view Shadow DOM"] =
         <sbb-icon name="chevron-small-up-small">
         </sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status">
+      <span
+        class="sbb-screen-reader-only"
+        role="status"
+      >
         2023
-      </sbb-screen-reader-only>
+      </span>
     </div>
     <sbb-secondary-button
       aria-label="Change to the next year"
@@ -5100,9 +5133,12 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
         <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status">
+      <span
+        class="sbb-screen-reader-only"
+        role="status"
+      >
         January 2023
-      </sbb-screen-reader-only>
+      </span>
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
@@ -5656,9 +5692,12 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
         <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status">
+      <span
+        class="sbb-screen-reader-only"
+        role="status"
+      >
         January 2023 February 2023
-      </sbb-screen-reader-only>
+      </span>
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
@@ -5677,57 +5716,57 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <th class="sbb-calendar__table-header-cell">
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Monday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 M
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Tuesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Wednesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 W
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Thursday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Friday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 F
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Saturday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Sunday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
@@ -5737,9 +5776,9 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
         <tbody class="sbb-calendar__table-body">
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 52
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 52
               </span>
@@ -5768,9 +5807,9 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 1
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 1
               </span>
@@ -5841,9 +5880,9 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 2
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 2
               </span>
@@ -5914,9 +5953,9 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 3
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 3
               </span>
@@ -5987,9 +6026,9 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 4
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 4
               </span>
@@ -6060,9 +6099,9 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 5
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 5
               </span>
@@ -6094,57 +6133,57 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <th class="sbb-calendar__table-header-cell">
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Monday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 M
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Tuesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Wednesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 W
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Thursday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Friday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 F
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Saturday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Sunday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
@@ -6154,9 +6193,9 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
         <tbody class="sbb-calendar__table-body">
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 5
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 5
               </span>
@@ -6213,9 +6252,9 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 6
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 6
               </span>
@@ -6286,9 +6325,9 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 7
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 7
               </span>
@@ -6359,9 +6398,9 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 8
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 8
               </span>
@@ -6432,9 +6471,9 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 9
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 9
               </span>
@@ -6662,9 +6701,12 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
         <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status">
+      <span
+        class="sbb-screen-reader-only"
+        role="status"
+      >
         January 2023 February 2023
-      </sbb-screen-reader-only>
+      </span>
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
@@ -6683,49 +6725,49 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <th class="sbb-calendar__table-data">
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 52
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 52
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 1
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 1
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 2
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 2
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 3
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 3
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 4
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 4
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 5
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 5
               </span>
@@ -6735,9 +6777,9 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
         <tbody class="sbb-calendar__table-body">
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Monday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 M
               </span>
@@ -6792,9 +6834,9 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Tuesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
@@ -6849,9 +6891,9 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Wednesday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 W
               </span>
@@ -6897,9 +6939,9 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Thursday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 T
               </span>
@@ -6945,9 +6987,9 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Friday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 F
               </span>
@@ -6993,9 +7035,9 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Saturday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
@@ -7041,9 +7083,9 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
           </tr>
           <tr>
             <td class="sbb-calendar__table-header-cell-vertical">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Sunday
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 S
               </span>
@@ -7100,41 +7142,41 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
         <thead class="sbb-calendar__table-header">
           <tr>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 5
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 5
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 6
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 6
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 7
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 7
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 8
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 8
               </span>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <sbb-screen-reader-only>
+              <span class="sbb-screen-reader-only">
                 Week 9
-              </sbb-screen-reader-only>
+              </span>
               <span aria-hidden="true">
                 9
               </span>

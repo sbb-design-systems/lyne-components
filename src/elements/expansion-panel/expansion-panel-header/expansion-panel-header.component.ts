@@ -1,7 +1,6 @@
 import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 
 import {
-  boxSizingStyles,
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,
   SbbMediaMatcherController,
@@ -24,7 +23,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
   SbbIconNameMixin(SbbButtonBaseElement),
 ) {
   public static override readonly elementName: string = 'sbb-expansion-panel-header';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     toggleexpanded: 'toggleexpanded',
   } as const;
@@ -34,7 +33,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
   });
 
   private _isHover: boolean = this._mediaMatcher.matches(SbbMediaQueryHover) ?? false;
-  private _previousSize?: string;
+  private _previousSize: SbbExpansionPanelElement['size'] = null;
 
   public constructor() {
     super();
@@ -83,7 +82,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
    * but after the 'SbbSlotStateController' has run.
    */
   private _setIconState(): void {
-    this.toggleState('icon', !!(this.iconName || this.internals.states.has('icon')));
+    this.toggleState('icon', !!(this.iconName || this.matches?.(':state(icon)')));
   }
 
   protected override renderTemplate(): TemplateResult {

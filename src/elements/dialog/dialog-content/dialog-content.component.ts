@@ -18,9 +18,19 @@ export class SbbDialogContentElement extends SbbElement {
     super();
     this.addController(
       new SbbPropertyWatcherController(this, () => this.closest<SbbDialogElement>('sbb-dialog'), {
-        negative: (d) => this.toggleState('negative', d.negative),
+        negative: (d) => {
+          this.toggleState('negative', d.negative);
+          this._setScrollbar(d.negative);
+        },
       }),
     );
+  }
+
+  private _setScrollbar(
+    negative = this.closest?.<SbbDialogElement>('sbb-dialog')?.negative ?? false,
+  ): void {
+    this.classList.remove('sbb-scrollbar', 'sbb-scrollbar-negative');
+    this.classList.add(`sbb-scrollbar${negative ? '-negative' : ''}`);
   }
 
   public override connectedCallback(): void {
@@ -30,7 +40,7 @@ export class SbbDialogContentElement extends SbbElement {
     // In most cases, the component will be used in Light DOM. To also support the hover effect,
     // we additionally add the `sbb-scrollbar` CSS class to the host.
     // This is an exception as we normally don't alter the classList of the host.
-    this.classList.add('sbb-scrollbar');
+    this._setScrollbar();
   }
 
   protected override render(): TemplateResult {

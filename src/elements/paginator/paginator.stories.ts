@@ -61,7 +61,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['s', 'm'] satisfies SbbPaginatorElement['size'][],
 };
 
 const negative: InputType = {
@@ -121,7 +121,7 @@ const defaultArgs: Args = {
   'page-index': 0,
   pageSizeOptions: pageSizeOptions.options![0],
   'pager-position': pagerPosition.options![0],
-  size: size.options![0],
+  size: undefined,
   negative: false,
   disabled: false,
 };
@@ -173,9 +173,15 @@ export const SizeS: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    length: 1000,
-    negative: true,
-    pageSizeOptions: pageSizeOptions.options![1],
+    size: size.options![0],
+  },
+};
+
+export const SizeM: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
     size: size.options![1],
   },
 };
@@ -225,6 +231,12 @@ export const CompactDisabledNegative: StoryObj = {
 };
 
 export const CompactSizeS: StoryObj = {
+  render: CompactTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![0] },
+};
+
+export const CompactSizeM: StoryObj = {
   render: CompactTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![1] },

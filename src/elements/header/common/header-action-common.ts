@@ -2,9 +2,14 @@ import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { AbstractConstructor, SbbActionBaseElement, SbbHorizontalFrom } from '../../core.ts';
-import { boxSizingStyles } from '../../core.ts';
+import {
+  type AbstractConstructor,
+  type SbbActionBaseElement,
+  type SbbHorizontalFrom,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
+import type { SbbHeaderElement } from '../header/header.component.ts';
 
 import style from './header-action.scss?inline';
 
@@ -24,15 +29,36 @@ export const SbbHeaderActionCommonElementMixin = <
     extends SbbIconNameMixin(superClass)
     implements Partial<SbbHeaderActionCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
 
     /**
      * Used to set the minimum breakpoint from which the text is displayed.
      * E.g. if set to 'large', the text will be visible for breakpoints large and ultra,
      * and hidden for all the others. Ignored if no icon is set.
      */
+    // TODO: Needs a breaking change to work with the 'no-default-reflect' behavior
     @property({ attribute: 'expand-from', reflect: true })
     public accessor expandFrom: SbbHorizontalFrom = 'large';
+
+    private _previousSize: SbbHeaderElement['size'] = null;
+
+    protected constructor() {
+      super();
+
+      this.addController(
+        new SbbPropertyWatcherController(this, () => this.closest('sbb-header'), {
+          size: (header) => {
+            if (this._previousSize) {
+              this.internals.states.delete(`size-${this._previousSize}`);
+            }
+            this._previousSize = header.size ?? null;
+            if (this._previousSize) {
+              this.internals.states.add(`size-${this._previousSize}`);
+            }
+          },
+        }),
+      );
+    }
 
     protected override renderTemplate(): TemplateResult {
       return html`

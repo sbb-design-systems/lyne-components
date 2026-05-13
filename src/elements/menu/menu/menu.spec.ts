@@ -27,7 +27,7 @@ describe(`sbb-menu`, () => {
     beforeEach(async () => {
       const root = await fixture(html`
         <div>
-          <sbb-button id="menu-trigger">Menu trigger</sbb-button>
+          <sbb-button id="menu-trigger" size="l">Menu trigger</sbb-button>
           <sbb-menu trigger="menu-trigger">
             <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
             <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
@@ -242,7 +242,6 @@ describe(`sbb-menu`, () => {
       await setViewport({ width: sbbBreakpointLargeMinPx, height: 800 });
       if (isWebkit) {
         // Needed to let media queries get applied on Webkit
-        // TODO: Figure out why
         await aTimeout(50);
       }
 

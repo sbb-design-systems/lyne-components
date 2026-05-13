@@ -13,10 +13,8 @@ import type { SbbAutocompleteBaseElement } from '../../autocomplete.pure.ts';
 import type { SbbChipGroupElement } from '../../chip.pure.ts';
 import {
   appendAriaElements,
-  boxSizingStyles,
   forceType,
   i18nOptional,
-  isLean,
   removeAriaElements,
   SbbElement,
   type SbbElementType,
@@ -87,7 +85,7 @@ export class SbbFormFieldControlEvent extends Event {
 export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-form-field';
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['button', 'sbb-popover', 'sbb-option', 'sbb-chip'];
@@ -126,10 +124,9 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   public accessor optional: boolean = false;
 
   /**
-   * Size variant, either l, m or s.
-   * @default 'm' / 's' (lean)
+   * Size variant, either s (lean theme default), m (standard theme default) or l.
    */
-  @property({ reflect: true }) public accessor size: 'l' | 'm' | 's' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | null = null;
 
   /** Whether to display the form field without a border. */
   @forceType()
@@ -619,7 +616,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   private _syncSize(): void {
     this.querySelectorAll?.<SbbAutocompleteBaseElement | SbbSelectElement>(
       'sbb-autocomplete,sbb-autocomplete-grid,sbb-select',
-    ).forEach((element) => (element.size = this.size === 's' ? 's' : 'm'));
+    ).forEach((element) => (element.size = this.size === 'l' ? 'm' : this.size));
   }
 
   protected override render(): TemplateResult {

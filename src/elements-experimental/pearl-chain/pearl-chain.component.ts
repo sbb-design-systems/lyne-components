@@ -1,8 +1,8 @@
 import {
-  boxSizingStyles,
   defaultDateAdapter,
   forceType,
   SbbElement,
+  screenReaderOnlyStyles,
 } from '@sbb-esta/lyne-elements/core.js';
 import { addMinutes, differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
@@ -25,7 +25,7 @@ interface Time {
  */
 export class SbbPearlChainElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /**
    * Define the legs of the pearl-chain.
@@ -130,7 +130,9 @@ export class SbbPearlChainElement extends SbbElement {
 
   private _renderPosition(now: Date, start?: Time, end?: Time): TemplateResult | undefined {
     const currentPosition = this._getProgress(now, start, end);
-    if (currentPosition < 0 && currentPosition > 100) return undefined;
+    if (currentPosition < 0 && currentPosition > 100) {
+      return undefined;
+    }
 
     const statusStyle = (): Record<string, string> => {
       return {

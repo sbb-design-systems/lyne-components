@@ -7,7 +7,6 @@ import type { SbbTrainWagonElement } from './train-wagon.component.ts';
 
 import '../../train.ts';
 import '../../icon.ts';
-import '../../timetable-occupancy-icon.ts';
 
 describe(`sbb-train-wagon`, () => {
   let element: SbbTrainWagonElement;
@@ -18,7 +17,7 @@ describe(`sbb-train-wagon`, () => {
         html`<sbb-train-wagon
           occupancy="none"
           wagon-class="1"
-          type="wagon"
+          wagon-type="wagon"
           label="38"
           blocked-passage="previous"
         ></sbb-train-wagon>`,
@@ -39,7 +38,7 @@ describe(`sbb-train-wagon`, () => {
   describe('should render as type wagon-end-right with only one property', async () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-train-wagon wagon-class="1" type="wagon-end-right"></sbb-train-wagon>`,
+        html`<sbb-train-wagon wagon-class="1" wagon-type="wagon-end-right"></sbb-train-wagon>`,
       );
     });
 
@@ -56,7 +55,9 @@ describe(`sbb-train-wagon`, () => {
 
   describe('should render as type wagon-end-left', async () => {
     beforeEach(async () => {
-      element = await fixture(html`<sbb-train-wagon type="wagon-end-left"></sbb-train-wagon>`);
+      element = await fixture(
+        html`<sbb-train-wagon wagon-type="wagon-end-left"></sbb-train-wagon>`,
+      );
     });
 
     it('DOM', async () => {
@@ -124,7 +125,7 @@ describe(`sbb-train-wagon`, () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-train-wagon
-          type="locomotive"
+          wagon-type="locomotive"
           additional-accessibility-text="Top of the train"
         ></sbb-train-wagon>`,
       );
@@ -141,7 +142,7 @@ describe(`sbb-train-wagon`, () => {
 
   describe('should render as type closed wagon without number', async () => {
     beforeEach(async () => {
-      element = await fixture(html`<sbb-train-wagon type="closed"></sbb-train-wagon>`);
+      element = await fixture(html`<sbb-train-wagon wagon-type="closed"></sbb-train-wagon>`);
     });
 
     it('DOM', async () => {

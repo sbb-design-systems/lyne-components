@@ -6,6 +6,8 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
+import type { SbbTitleElement } from './title.component.ts';
+
 import '../title.ts';
 
 // we don't need to pass the args.text to the <sbb-title> tag, but Storybook wants all in it.
@@ -15,16 +17,15 @@ const Template = ({ text, ...args }: Args): TemplateResult =>
 const LeanTemplate = (args: Args): TemplateResult =>
   html`${Template(args)}
     <p>
-      In 'lean' mode, where the 'sbb-lean' class is applied to the
-      <html> tag, the title is given smaller sizes and spacings.
-      This story simulates the lean mode.
+      With the 'lean' theme, the title is given smaller sizes and spacings. This story simulates the
+      lean mode.
     </p>`;
 
 const level: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: [1, 2, 3, 4, 5, 6],
+  options: ['1', '2', '3', '4', '5', '6'] satisfies SbbTitleElement['level'][],
 };
 
 const negative: InputType = {
@@ -101,7 +102,9 @@ export const leanSize: StoryObj = {
   render: LeanTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  parameters: { isLean: true },
+  globals: {
+    theme: 'lean',
+  },
 };
 
 const meta: Meta = {

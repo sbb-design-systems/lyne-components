@@ -25,10 +25,6 @@
   --sbb-icon-svg-height: #{sbb.px-to-rem-build(14)};
 }
 
-.sbb-screen-reader-only {
-  @include sbb.screen-reader-only;
-}
-
 .sbb-timetable__row--quay {
   margin-inline-end: var(--sbb-spacing-fixed-1x);
 }

@@ -2,7 +2,7 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { boxSizingStyles, isLean, SbbElement, SbbNamedSlotListMixin } from '../../core.ts';
+import { SbbElement, SbbNamedSlotListMixin } from '../../core.ts';
 import { tabGroupCommonStyles, tabLabelCommonStyles } from '../common/styles.ts';
 
 import style from './tab-nav-bar.scss?inline';
@@ -15,7 +15,6 @@ import style from './tab-nav-bar.scss?inline';
 export class SbbTabNavBarElement extends SbbNamedSlotListMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-tab-nav-bar';
   public static override styles: CSSResultGroup = [
-    boxSizingStyles,
     tabLabelCommonStyles,
     tabGroupCommonStyles,
     unsafeCSS(style),
@@ -25,11 +24,10 @@ export class SbbTabNavBarElement extends SbbNamedSlotListMixin(SbbElement) {
   protected override listChildLocalNames = ['a'];
 
   /**
-   * Size variant, either s, l or xl.
-   * @default 'l' / 's' (lean)
+   * Size variant, either s (lean theme default), l (standard theme default) or xl.
    */
   @property({ reflect: true })
-  public accessor size: 's' | 'l' | 'xl' = isLean() ? 's' : 'l';
+  public accessor size: 's' | 'l' | 'xl' | null = null;
 
   private _resizeController = new ResizeController(this, {
     target: null,

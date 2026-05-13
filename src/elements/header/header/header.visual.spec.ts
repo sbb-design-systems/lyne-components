@@ -5,12 +5,13 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../../core/testing/private.ts';
+import type { SbbHeaderElement } from '../../header.ts';
 
 import '../../header.ts';
-
 import '../../menu.ts';
 import '../../logo.ts';
 import '../../signet.ts';
+import '../../sidebar.ts';
 
 describe(`sbb-header`, () => {
   const loremIpsumTemplate = `
@@ -26,13 +27,13 @@ describe(`sbb-header`, () => {
 
   const template = (options?: {
     expanded?: boolean;
-    size?: 'm' | 's';
+    size?: SbbHeaderElement['size'];
     noIcon?: boolean;
     noLogoLink?: boolean;
   }): TemplateResult => {
     const opt = {
       expanded: false,
-      size: 'm',
+      size: 'm' as SbbHeaderElement['size'],
       noIcon: false,
       noLogoLink: false,
       ...options,
@@ -43,7 +44,7 @@ describe(`sbb-header`, () => {
         ${' @media screen and (width >= 600px) { .last-element { display: block; } }'}
         ${' @media screen and (width < 1024px) { .sbb-header-spacer { display: none; } .sbb-header-spacer-logo { display: block; } }'}
       </style>
-      <sbb-header ?expanded=${opt.expanded} size=${opt.size}>
+      <sbb-header ?expanded=${opt.expanded} size=${opt.size || nothing}>
         <sbb-header-button
           icon-name=${opt.noIcon ? nothing : 'hamburger-menu-small'}
           expand-from="small"
@@ -124,12 +125,23 @@ describe(`sbb-header`, () => {
       });
     }
 
-    it(
-      `size=s`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template({ size: 's' }), { padding: '0' });
-      }),
-    );
+    for (const size of [null, 's', 'm'] satisfies SbbHeaderElement['size'][]) {
+      describe(`size=${size}`, () => {
+        it(
+          'with sidebar container',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`${template({ size })}
+                <sbb-sidebar-container>
+                  <sbb-sidebar>Sidebar</sbb-sidebar>
+                  <sbb-sidebar-content>Content below header</sbb-sidebar-content>
+                </sbb-sidebar-container> `,
+              { padding: '0', minHeight: '300px' },
+            );
+          }),
+        );
+      });
+    }
 
     it(
       `forcedColors=true`,

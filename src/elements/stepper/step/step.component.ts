@@ -9,7 +9,6 @@ import {
 
 import {
   appendAriaElements,
-  boxSizingStyles,
   removeAriaElements,
   SbbElement,
   SbbPropertyWatcherController,
@@ -34,10 +33,11 @@ export interface SbbStepValidateEventDetails {
 export class SbbStepElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-step';
   public static override readonly role = 'tabpanel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     validate: 'validate',
     resizechange: 'resizechange',
+    active: 'active',
   } as const;
 
   // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.
@@ -91,6 +91,11 @@ export class SbbStepElement extends SbbElement {
     }
     this.internals.states.add('selected');
     this.label.select();
+    /**
+     * @type {Event}
+     * The active event is dispatched when a step is activated.
+     */
+    this.dispatchEvent(new Event('active', { bubbles: true, composed: true }));
   }
 
   /**
@@ -203,10 +208,8 @@ export class SbbStepElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-step--wrapper">
-        <div class="sbb-step">
-          <slot></slot>
-        </div>
+      <div class="sbb-step">
+        <slot></slot>
       </div>
     `;
   }

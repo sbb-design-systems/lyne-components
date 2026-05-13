@@ -10,11 +10,9 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  boxSizingStyles,
   forceType,
   getNextElementIndex,
   isArrowKeyPressed,
-  isLean,
   SbbElement,
   ɵstateController,
 } from '../../core.ts';
@@ -41,11 +39,7 @@ export interface SbbTabChangedEventDetails {
  */
 export class SbbTabGroupElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-tab-group';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    tabGroupCommonStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [tabGroupCommonStyles, unsafeCSS(style)];
   public static readonly events = {
     tabchange: 'tabchange',
   } as const;
@@ -59,11 +53,10 @@ export class SbbTabGroupElement extends SbbElement {
   private _contentSlotChangeDebounceId?: ReturnType<typeof setTimeout>;
 
   /**
-   * Size variant, either s, l or xl.
-   * @default 'l' / 's' (lean)
+   * Size variant, either s (lean theme default), l (standard theme default) or xl.
    */
-  @property()
-  public accessor size: 's' | 'l' | 'xl' = isLean() ? 's' : 'l';
+  @property({ reflect: true })
+  public accessor size: 's' | 'l' | 'xl' | null = null;
 
   /**
    * Sets the initial tab. If it matches a disabled tab or exceeds the length of
@@ -171,10 +164,7 @@ export class SbbTabGroupElement extends SbbElement {
   }
 
   private _ensureActiveTab(): void {
-    if (
-      this.internals.states.has('initialized') &&
-      !this.labels.some((tabLabel) => tabLabel.active)
-    ) {
+    if (this.matches?.(':state(initialized)') && !this.labels.some((tabLabel) => tabLabel.active)) {
       this._initSelection();
     }
   }

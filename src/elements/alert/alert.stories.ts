@@ -40,7 +40,7 @@ const accessibilityTitleLevel: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: [1, 2, 3, 4, 5, 6],
+  options: ['1', '2', '3', '4', '5', '6'] as SbbAlertGroupElement['accessibilityTitleLevel'][],
 };
 
 const role: InputType = {
@@ -127,18 +127,11 @@ const title: InputType = {
   },
 };
 
-const titleLevel: InputType = {
+const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: [1, 2, 3, 4, 5, 6],
-};
-
-const size: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['m', 'l', 's'],
+  options: ['s', 'm', 'l'] satisfies SbbAlertElement['size'][],
 };
 
 const readonly: InputType = {
@@ -163,12 +156,11 @@ const animation: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['all', 'open', 'close', 'none'],
+  options: ['all', 'open', 'close', 'none'] satisfies SbbAlertElement['animation'][],
 };
 
 const defaultArgTypes: ArgTypes = {
   title,
-  'title-level': titleLevel,
   size,
   readonly,
   'icon-name': iconName,
@@ -178,8 +170,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   title: 'Interruption between Berne and Olten',
-  'title-level': 3,
-  size: size.options![0],
+  size: undefined,
   readonly: false,
   'icon-name': 'info',
   'content-slot-text':
@@ -193,13 +184,19 @@ export const defaultAlert: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const sizeL: StoryObj = {
+export const sizeS: StoryObj = {
+  render: WithLink,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![0] },
+};
+
+export const sizeM: StoryObj = {
   render: WithLink,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![1] },
 };
 
-export const sizeS: StoryObj = {
+export const sizeL: StoryObj = {
   render: WithLink,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![2] },

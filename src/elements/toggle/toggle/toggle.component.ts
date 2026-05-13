@@ -9,12 +9,10 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   forceType,
   type FormRestoreReason,
   type FormRestoreState,
   interactivityChecker,
-  isLean,
   SbbDisabledMixin,
   SbbElement,
   SbbFormAssociatedMixin,
@@ -34,7 +32,7 @@ export class SbbToggleElement<T = string> extends SbbDisabledMixin(
 ) {
   public static override readonly elementName: string = 'sbb-toggle';
   public static override readonly role = 'radiogroup';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     change: 'change',
   } as const;
@@ -48,10 +46,9 @@ export class SbbToggleElement<T = string> extends SbbDisabledMixin(
   public accessor even: boolean = false;
 
   /**
-   * Size variant, either m or s.
-   * @default 'm' / 's' (lean)
+   * Size variant, either s (lean theme default) or m (standard theme default).
    */
-  @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 
   /**
    * The value of the toggle. It needs to be mutable since it is updated whenever

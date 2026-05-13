@@ -2,7 +2,7 @@ import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { DateAdapter, SbbOrientation } from '../../core.ts';
+import type { DateAdapter } from '../../core.ts';
 import {
   defaultDateAdapter,
   isArrowKeyOrPageKeysPressed,
@@ -22,11 +22,11 @@ import style from './mini-calendar.scss?inline';
  */
 export class SbbMiniCalendarElement<T = Date> extends SbbElement {
   public static override readonly elementName: string = 'sbb-mini-calendar';
-  public static override styles: CSSResultGroup = unsafeCSS(style);
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** The orientation of days in the calendar. */
   @property({ reflect: true })
-  public accessor orientation: SbbOrientation = 'horizontal';
+  public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   private _keydownAbortController: AbortController | null = null;
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;

@@ -29,10 +29,7 @@ snapshots["sbb-secondary-button renders a sbb-secondary-button without icon Shad
 /* end snapshot sbb-secondary-button renders a sbb-secondary-button without icon Shadow DOM */
 
 snapshots["sbb-secondary-button renders a sbb-secondary-button with slotted icon DOM"] = 
-`<sbb-secondary-button
-  size="l"
-  tabindex="0"
->
+`<sbb-secondary-button tabindex="0">
   <sbb-icon
     name="chevron-small-left-small"
     slot="icon"

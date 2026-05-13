@@ -39,7 +39,7 @@ export interface SbbDateInputAssociated<T> {
  */
 export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-date-input';
-  public static override styles: CSSResultGroup = unsafeCSS(style);
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
    * The value of the date input. Reflects the current text value

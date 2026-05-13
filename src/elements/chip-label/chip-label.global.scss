@@ -3,6 +3,9 @@
 $theme: 'standard' !default;
 
 @mixin base {
-  @include sbb.chip-label-variables--color-milk;
-  @include sbb.chip-label-variables--size-xxs;
+  --sbb-chip-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-cloud));
+  --sbb-chip-label-background-color: var(--sbb-background-color-3);
+  --sbb-chip-label-padding-block: 0em;
+  --sbb-chip-label-padding-inline: var(--sbb-spacing-fixed-2x);
+  --sbb-chip-label-font-size: var(--sbb-text-font-size-xxs);
 }

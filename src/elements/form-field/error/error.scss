@@ -12,6 +12,7 @@
   color: var(--sbb-error-color);
   min-height: var(--_sbb-error-height);
   font-size: var(--sbb-error-font-size);
+  line-height: var(--sbb-typo-line-height-text);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
 
   @include sbb.if-forced-colors {

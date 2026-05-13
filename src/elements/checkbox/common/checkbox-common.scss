@@ -27,14 +27,15 @@
 }
 
 .sbb-checkbox {
-  font-size: var(--sbb-checkbox-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
   position: relative;
   display: block;
   width: 100%;
   cursor: var(--sbb-checkbox-cursor);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  font-size: var(--sbb-checkbox-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 .sbb-checkbox__inner {

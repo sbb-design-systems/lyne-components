@@ -1,12 +1,7 @@
 import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import {
-  type AbstractConstructor,
-  boxSizingStyles,
-  SbbActionBaseElement,
-  SbbNegativeMixin,
-} from '../../core.ts';
+import { type AbstractConstructor, SbbActionBaseElement, SbbNegativeMixin } from '../../core.ts';
 
 import style from './link.scss?inline';
 
@@ -26,9 +21,9 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
     extends SbbNegativeMixin(superClass)
     implements Partial<SbbLinkCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
 
-    public constructor() {
+    protected constructor() {
       super();
       this.internals.states.add('sbb-link');
     }

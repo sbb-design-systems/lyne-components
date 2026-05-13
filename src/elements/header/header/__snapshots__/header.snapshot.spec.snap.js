@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-header renders DOM"] = 
-`<sbb-header size="m">
+`<sbb-header>
 </sbb-header>
 `;
 /* end snapshot sbb-header renders DOM */
@@ -18,7 +18,7 @@ snapshots["sbb-header renders Shadow DOM"] =
 /* end snapshot sbb-header renders Shadow DOM */
 
 snapshots["sbb-header renders actions and logo DOM"] = 
-`<sbb-header size="m">
+`<sbb-header>
   <sbb-header-link
     expand-from="large"
     href="https://github.com/sbb-design-systems/lyne-components"

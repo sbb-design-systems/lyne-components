@@ -44,7 +44,7 @@ describe(`sbb-autocomplete`, () => {
       expect(element).not.to.have.attribute('autocomplete-origin-borderless');
 
       const id = !isSafari
-        ? element.shadowRoot!.querySelector('.sbb-autocomplete__options')!.id
+        ? element.shadowRoot!.querySelector('.sbb-option-panel__overlay')!.id
         : element.id;
 
       expect(input).to.have.attribute('autocomplete', 'off');
@@ -495,6 +495,31 @@ describe(`sbb-autocomplete`, () => {
         expect(optTwo).to.match(':state(active)');
         expect(optTwo).not.to.have.attribute('selected');
         expect(input.value).to.be.equal('2');
+      });
+
+      it('should work in combination with "requireSelection"', async () => {
+        element.requireSelection = true;
+        await waitForLitRender(element);
+
+        input.focus();
+        await openSpy.calledOnce();
+        expect(openSpy.count).to.be.equal(1);
+        await waitForLitRender(element);
+
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+
+        expect(optOne).to.match(':state(active)');
+        expect(input.value).to.be.equal(optOne.value);
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal(optOne.value);
+        expect(optOne).to.have.attribute('selected');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
       });
     });
 
@@ -1000,7 +1025,7 @@ describe(`sbb-autocomplete`, () => {
       await openSpy.calledOnce();
       expect(input).to.have.attribute('aria-expanded', 'true');
       const posY1 = getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y');
-      expect(Math.round(parseFloat(posY1))).to.be.equal(344);
+      expect(Math.round(parseFloat(posY1))).to.be.equal(352);
 
       // Simulate the options' removal and check again position
       await sendKeys({ press: 'a' });
@@ -1257,14 +1282,14 @@ describe(`sbb-autocomplete`, () => {
       input.click();
       expect(element.isOpen).to.be.true;
       const offsetTopOrigin1 = element.shadowRoot!.querySelector<HTMLDivElement>(
-        '.sbb-autocomplete__panel',
+        '.sbb-option-panel__overlay',
       )!.offsetTop;
 
       element.origin = origin2;
       await waitForLitRender(element);
 
       expect(
-        element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-autocomplete__panel')!.offsetTop,
+        element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-option-panel__overlay')!.offsetTop,
       ).to.be.greaterThan(offsetTopOrigin1);
     });
 
@@ -1273,7 +1298,7 @@ describe(`sbb-autocomplete`, () => {
       input.click();
       expect(element.isOpen).to.be.true;
       const offsetTopOrigin1 = element.shadowRoot!.querySelector<HTMLDivElement>(
-        '.sbb-autocomplete__panel',
+        '.sbb-option-panel__overlay',
       )!.offsetTop;
 
       // Set origin to null and swap trigger
@@ -1286,7 +1311,7 @@ describe(`sbb-autocomplete`, () => {
       expect(element.trigger!.id).to.be.equal(element.originElement!.id);
 
       const offsetTop2 = element.shadowRoot!.querySelector<HTMLDivElement>(
-        '.sbb-autocomplete__panel',
+        '.sbb-option-panel__overlay',
       )!.offsetTop;
       expect(Math.round(offsetTop2)).to.be.greaterThan(Math.round(offsetTopOrigin1));
     });

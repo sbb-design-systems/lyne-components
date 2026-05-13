@@ -1,0 +1,7 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  @include sbb.title--level-1-spacing;
+}

@@ -3,15 +3,14 @@ import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
-  boxSizingStyles,
   forceType,
   omitEmptyConverter,
   SbbDisabledMixin,
   SbbElement,
+  type SbbHeadingLevel,
   SbbPropertyWatcherController,
 } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
-import type { SbbTitleLevel } from '../../title.pure.ts';
 import { tabLabelCommonStyles } from '../common/styles.ts';
 import type { SbbTabElement } from '../tab/tab.component.ts';
 import type {
@@ -31,21 +30,17 @@ import style from './tab-label.scss?inline';
 export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbElement)) {
   public static override readonly elementName: string = 'sbb-tab-label';
   public static override role = 'tab';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    tabLabelCommonStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [tabLabelCommonStyles, unsafeCSS(style)];
 
   /** Whether the tab is selected. */
   private _selected: boolean = false;
-  private _previousSize: SbbTabGroupElement['size'] | null = null;
+  private _previousSize: SbbTabGroupElement['size'] = null;
 
   /**
    * The level will correspond to the heading tag generated in the title.
    * Use this property to generate the appropriate header tag, taking SEO into consideration.
    */
-  @property() public accessor level: SbbTitleLevel = '1';
+  @property() public accessor level: SbbHeadingLevel = '1';
 
   /** Active tab state. */
   @forceType()
@@ -79,7 +74,7 @@ export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbEle
           if (this._previousSize) {
             this.internals.states.delete(`size-${this._previousSize}`);
           }
-          this._previousSize = g?.size || null;
+          this._previousSize = g.size ?? null;
           if (this._previousSize) {
             this.internals.states.add(`size-${this._previousSize}`);
           }

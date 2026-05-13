@@ -210,13 +210,13 @@ Be aware that anchors do not support a `disabled` state. To achieve an equivalen
 
 #### Properties
 
-| Name                   | Attribute                | Privacy | Type                   | Default            | Description                                                                                                                                                                                   |
-| ---------------------- | ------------------------ | ------- | ---------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `fixedHeight`          | `fixed-height`           | public  | `boolean`              | `false`            | If set to true, the `sbb-tab` elements take 100% height of the `sbb-tab-group`. It enables controlling the height on the `sbb-tab-group` element. The content becomes scrollable on overflow. |
-| `initialSelectedIndex` | `initial-selected-index` | public  | `number`               | `0`                | Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.                                                            |
-| `labels`               | -                        | public  | `SbbTabLabelElement[]` |                    | Gets the slotted `sbb-tab-label`s.                                                                                                                                                            |
-| `size`                 | `size`                   | public  | `'s' \| 'l' \| 'xl'`   | `'l' / 's' (lean)` | Size variant, either s, l or xl.                                                                                                                                                              |
-| `tabs`                 | -                        | public  | `SbbTabElement[]`      |                    | Gets the slotted `sbb-tab`s.                                                                                                                                                                  |
+| Name                   | Attribute                | Privacy | Type                         | Default | Description                                                                                                                                                                                   |
+| ---------------------- | ------------------------ | ------- | ---------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fixedHeight`          | `fixed-height`           | public  | `boolean`                    | `false` | If set to true, the `sbb-tab` elements take 100% height of the `sbb-tab-group`. It enables controlling the height on the `sbb-tab-group` element. The content becomes scrollable on overflow. |
+| `initialSelectedIndex` | `initial-selected-index` | public  | `number`                     | `0`     | Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.                                                            |
+| `labels`               | -                        | public  | `SbbTabLabelElement[]`       |         | Gets the slotted `sbb-tab-label`s.                                                                                                                                                            |
+| `size`                 | `size`                   | public  | `'s' \| 'l' \| 'xl' \| null` | `null`  | Size variant, either s (lean theme default), l (standard theme default) or xl.                                                                                                                |
+| `tabs`                 | -                        | public  | `SbbTabElement[]`            |         | Gets the slotted `sbb-tab`s.                                                                                                                                                                  |
 
 #### Methods
 
@@ -242,15 +242,15 @@ Be aware that anchors do not support a `disabled` state. To achieve an equivalen
 
 #### Properties
 
-| Name       | Attribute   | Privacy | Type                         | Default | Description                                                                                                                                                   |
-| ---------- | ----------- | ------- | ---------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `active`   | `active`    | public  | `boolean`                    | `false` | Active tab state.                                                                                                                                             |
-| `amount`   | `amount`    | public  | `string`                     | `''`    | Amount displayed inside the tab.                                                                                                                              |
-| `disabled` | `disabled`  | public  | `boolean`                    | `false` | Whether the component is disabled.                                                                                                                            |
-| `group`    | -           | public  | `SbbTabGroupElement \| null` |         | Get the parent `sbb-tab-group`.                                                                                                                               |
-| `iconName` | `icon-name` | public  | `string`                     | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                              |
-| `level`    | `level`     | public  | `SbbTitleLevel`              | `'1'`   | The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration. |
-| `tab`      | -           | public  | `SbbTabElement \| null`      |         | Get the `sbb-tab` related to the `sbb-tab-label`.                                                                                                             |
+| Name       | Attribute   | Privacy | Type                                     | Default | Description                                                                                                                                                   |
+| ---------- | ----------- | ------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `active`   | `active`    | public  | `boolean`                                | `false` | Active tab state.                                                                                                                                             |
+| `amount`   | `amount`    | public  | `string`                                 | `''`    | Amount displayed inside the tab.                                                                                                                              |
+| `disabled` | `disabled`  | public  | `boolean`                                | `false` | Whether the component is disabled.                                                                                                                            |
+| `group`    | -           | public  | `SbbTabGroupElement \| null`             |         | Get the parent `sbb-tab-group`.                                                                                                                               |
+| `iconName` | `icon-name` | public  | `string`                                 | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                              |
+| `level`    | `level`     | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6'` | `'1'`   | The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration. |
+| `tab`      | -           | public  | `SbbTabElement \| null`                  |         | Get the `sbb-tab` related to the `sbb-tab-label`.                                                                                                             |
 
 #### Methods
 
@@ -271,9 +271,9 @@ Be aware that anchors do not support a `disabled` state. To achieve an equivalen
 
 #### Properties
 
-| Name   | Attribute | Privacy | Type                 | Default            | Description                      |
-| ------ | --------- | ------- | -------------------- | ------------------ | -------------------------------- |
-| `size` | `size`    | public  | `'s' \| 'l' \| 'xl'` | `'l' / 's' (lean)` | Size variant, either s, l or xl. |
+| Name   | Attribute | Privacy | Type                         | Default | Description                                                                    |
+| ------ | --------- | ------- | ---------------------------- | ------- | ------------------------------------------------------------------------------ |
+| `size` | `size`    | public  | `'s' \| 'l' \| 'xl' \| null` | `null`  | Size variant, either s (lean theme default), l (standard theme default) or xl. |
 
 #### Slots
 

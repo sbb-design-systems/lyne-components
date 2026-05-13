@@ -1,6 +1,5 @@
 import { miniButtonStyle } from '@sbb-esta/lyne-elements/button.pure.js';
 import {
-  boxSizingStyles,
   hostAttributes,
   isEventPrevented,
   SbbActionBaseElement,
@@ -30,7 +29,7 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
 ) {
   public static override readonly elementName: string = 'sbb-autocomplete-grid-button';
   public static override readonly role = 'button';
-  public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle];
+  public static override styles: CSSResultGroup = [miniButtonStyle];
 
   /** Gets the SbbAutocompleteGridOptionElement on the same row of the button. */
   public get option(): SbbAutocompleteGridOptionElement | null {

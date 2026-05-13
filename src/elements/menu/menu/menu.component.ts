@@ -11,7 +11,6 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  boxSizingStyles,
   forwardEvent,
   getElementPosition,
   getElementPositionHorizontal,
@@ -34,6 +33,7 @@ import {
   type SbbNegativeMixinType,
   SbbOpenCloseBaseElement,
   SbbScrollHandler,
+  scrollbarStyles,
   setAriaOverlayTriggerProperties,
   ɵstateController,
 } from '../../core.ts';
@@ -72,7 +72,7 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
     SbbDividerElement,
     SbbMenuButtonElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [scrollbarStyles, unsafeCSS(style)];
   public static override readonly role = 'menu';
 
   /**
@@ -570,7 +570,7 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
           <div
             @click=${(event: Event) => this._interactiveElementClick(event)}
             @scroll=${(e: Event) => forwardEvent(e, document)}
-            class="sbb-menu__content"
+            class="sbb-menu__content sbb-scrollbar-negative"
           >
             <slot></slot>
             <sbb-divider></sbb-divider>

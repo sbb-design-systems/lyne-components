@@ -15,7 +15,6 @@ describe(`sbb-block-link`, () => {
       element = await fixture(html`
         <sbb-block-link
           href="https://github.com/sbb-design-systems/lyne-components"
-          size="m"
           download
           accessibility-label="Travelcards &amp; tickets"
         >

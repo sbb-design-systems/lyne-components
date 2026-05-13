@@ -8,16 +8,24 @@ import {
 } from '../core/testing/private.ts';
 
 import '../journey-header.ts';
+import type { SbbJourneyHeaderElement } from './journey-header.component.ts';
 
 describe(`sbb-journey-header`, () => {
   let root: HTMLElement;
 
   const cases = {
-    negative: [false, true],
-    roundTrip: [false, true],
+    negative: [false, true] satisfies SbbJourneyHeaderElement['negative'][],
+    roundTrip: [false, true] satisfies SbbJourneyHeaderElement['roundTrip'][],
   };
 
-  const sizeCases = ['s', 'm', 'l'];
+  const visualLevelCases = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+  ] satisfies SbbJourneyHeaderElement['visualLevel'][];
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ negative, roundTrip }) => {
@@ -41,15 +49,15 @@ describe(`sbb-journey-header`, () => {
       );
     });
 
-    for (const size of sizeCases) {
+    for (const visualLevel of visualLevelCases) {
       it(
-        `size=${size}`,
+        `visualLevel=${visualLevel}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`<sbb-journey-header
               origin="Origin"
               destination="Destination"
-              size=${size}
+              visual-level=${visualLevel}
             ></sbb-journey-header>`,
           );
         }),

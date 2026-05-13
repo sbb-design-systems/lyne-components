@@ -7,7 +7,7 @@ import {
   unsafeCSS,
 } from 'lit';
 
-import { boxSizingStyles, SbbElement, ɵstateController } from '../../core.ts';
+import { SbbElement, ɵstateController } from '../../core.ts';
 import { sidebarContainerCommonStyle } from '../common/styles.ts';
 import type { SbbSidebarElement } from '../sidebar/sidebar.component.ts';
 
@@ -26,11 +26,7 @@ const MIN_WIDTH_BEFORE_COLLAPSE = 320;
  */
 export class SbbSidebarContainerElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-sidebar-container';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    sidebarContainerCommonStyle,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [sidebarContainerCommonStyle, unsafeCSS(style)];
 
   /** The sidebar children. */
   public get sidebars(): SbbSidebarElement[] {

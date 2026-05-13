@@ -17,6 +17,16 @@ $active: ':active, :state(active)';
   outline: none !important;
 }
 
+:host([size='s']) {
+  --sbb-tag-height: var(--sbb-tag-height-s);
+  --sbb-tag-padding-inline: var(--sbb-tag-padding-inline-s);
+}
+
+:host([size='m']) {
+  --sbb-tag-height: var(--sbb-tag-height-m);
+  --sbb-tag-padding-inline: var(--sbb-tag-padding-inline-m);
+}
+
 // Active state
 :host(:state(checked)) {
   --sbb-tag-border-color: var(--sbb-border-color-3);
@@ -74,16 +84,6 @@ $active: ':active, :state(active)';
   }
 }
 
-:host([size='m']) {
-  --sbb-tag-height: var(--sbb-size-element-xs);
-  --sbb-tag-padding-inline: var(--sbb-spacing-fixed-5x);
-}
-
-:host([size='s']) {
-  --sbb-tag-height: var(--sbb-size-element-xxxs);
-  --sbb-tag-padding-inline: var(--sbb-spacing-fixed-3x);
-}
-
 .sbb-tag {
   position: relative;
   display: flex;
@@ -92,6 +92,7 @@ $active: ':active, :state(active)';
   max-width: 100%;
   font-size: var(--sbb-text-font-size-xs);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
   gap: var(--sbb-tag-gap);
   padding-inline: var(--sbb-tag-padding-inline);
   cursor: var(--sbb-tag-cursor, var(--sbb-cursor-pointer));

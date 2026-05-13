@@ -1,5 +1,4 @@
 import {
-  boxSizingStyles,
   defaultDateAdapter,
   forceType,
   i18nArrival,
@@ -8,6 +7,7 @@ import {
   SbbElement,
   type SbbElementType,
   SbbLanguageController,
+  screenReaderOnlyStyles,
 } from '@sbb-esta/lyne-elements/core.js';
 import { SbbIconElement } from '@sbb-esta/lyne-elements/icon.pure.js';
 import { format } from 'date-fns';
@@ -33,7 +33,7 @@ export class SbbPearlChainTimeElement extends SbbElement {
     SbbIconElement,
     SbbPearlChainElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /**
    * define the legs of the pearl-chain.

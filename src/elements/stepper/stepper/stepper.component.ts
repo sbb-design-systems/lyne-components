@@ -8,13 +8,11 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbHorizontalFrom, SbbOrientation } from '../../core.ts';
+import type { SbbHorizontalFrom } from '../../core.ts';
 import {
-  boxSizingStyles,
   forceType,
   getNextElementIndex,
   isArrowKeyPressed,
-  isLean,
   SbbElement,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointLargeAndAbove,
@@ -70,7 +68,7 @@ export class SbbStepChangeEvent extends Event {
  */
 export class SbbStepperElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-stepper';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     stepchange: 'stepchange',
   } as const;
@@ -113,13 +111,12 @@ export class SbbStepperElement extends SbbElement {
 
   /** Steps orientation, either horizontal or vertical. */
   @property({ reflect: true })
-  public accessor orientation: SbbOrientation = 'horizontal';
+  public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /**
-   * Size variant, either s or m.
-   * @default 'm' / 's' (lean)
+   * Size variant, either s (lean theme default) or m (standard theme default).
    */
-  @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 
   /** The currently selected step. */
   @property({ attribute: false })

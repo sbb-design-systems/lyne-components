@@ -13,11 +13,9 @@ import {
   type SbbTransparentButtonLinkElement,
 } from '../button.pure.ts';
 import {
-  boxSizingStyles,
   composedPathHasAttribute,
   forceType,
   i18nCloseAlert,
-  isLean,
   isZeroAnimationDuration,
   SbbDarkModeController,
   type SbbElementType,
@@ -54,7 +52,7 @@ export class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
     SbbTransparentButtonElement,
     SbbDividerElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.
@@ -208,7 +206,6 @@ export class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
       'sbb-transparent-button, sbb-transparent-button-link',
     ).forEach((btn) => {
       btn.negative = this._isLightMode();
-      btn.size = isLean() ? 's' : 'm';
     });
 
     // Force negative on slotted links
@@ -267,7 +264,6 @@ export class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
                   class="sbb-toast__close-button"
                   icon-name="cross-small"
                   ?negative=${this._isLightMode()}
-                  size="m"
                   aria-label=${i18nCloseAlert[this._language.current]}
                   sbb-toast-close
                 ></sbb-transparent-button>`

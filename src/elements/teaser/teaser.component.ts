@@ -3,7 +3,7 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbChipLabelElement } from '../chip-label.pure.ts';
-import { boxSizingStyles, SbbLinkBaseElement } from '../core.ts';
+import { SbbLinkBaseElement, screenReaderOnlyStyles } from '../core.ts';
 import type { SbbTitleElement } from '../title.pure.ts';
 
 import style from './teaser.scss?inline';
@@ -18,7 +18,7 @@ import style from './teaser.scss?inline';
  */
 export class SbbTeaserElement extends SbbLinkBaseElement {
   public static override readonly elementName: string = 'sbb-teaser';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /** Teaser variant - define the position and the alignment of the text block. */
   @property({ reflect: true }) public accessor alignment: 'after-centered' | 'after' | 'below' =
@@ -66,7 +66,7 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
       <div class="sbb-teaser__wrapper">
         ${this.renderLink(
           // For SEO, we add the accessibility hidden as hidden content of the link
-          html`<sbb-screen-reader-only>${this.accessibilityLabel}</sbb-screen-reader-only>`,
+          html`<span class="sbb-screen-reader-only">${this.accessibilityLabel}</span>`,
         )}
         ${this.renderContent()}
       </div>

@@ -7,8 +7,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbOrientation } from '../core.ts';
-import { boxSizingStyles, SbbElement, SbbNegativeMixin } from '../core.ts';
+import { SbbElement, SbbNegativeMixin } from '../core.ts';
 
 import style from './divider.scss?inline';
 
@@ -18,10 +17,11 @@ import style from './divider.scss?inline';
 export class SbbDividerElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-divider';
   public static override readonly role = 'separator';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal. */
-  @property({ reflect: true }) public accessor orientation: SbbOrientation = 'horizontal';
+  @property({ reflect: true }) public accessor orientation: 'horizontal' | 'vertical' =
+    'horizontal';
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

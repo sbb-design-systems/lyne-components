@@ -87,7 +87,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm', 'l'],
+  options: ['s', 'm', 'l'] satisfies SbbFormFieldElement['size'][],
   table: {
     category: 'Form-field',
   },
@@ -174,7 +174,7 @@ const basicArgs: Args = {
 const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
-  size: size.options![1],
+  size: undefined,
   optional: false,
   borderless: false,
   iconStart: undefined,
@@ -184,7 +184,7 @@ const formFieldBasicArgs = {
 const formFieldBasicArgsWithIcons = {
   ...basicArgs,
   label: 'Label',
-  size: size.options![1],
+  size: undefined,
   optional: false,
   borderless: false,
   iconStart: 'clock-small',
@@ -203,7 +203,7 @@ const TemplateSbbTimeInput = ({
 }: Args): TemplateResult => html`
   <div class="example-parent">
     <sbb-form-field
-      size=${size}
+      size=${size || nothing}
       ?optional=${optional}
       ?borderless=${borderless}
       ?negative=${negative}
@@ -220,12 +220,10 @@ const TemplateSbbTimeInput = ({
       })}
     >
       <div style="display: flex; gap: 1em; margin-block-start: 2rem;">
-        <sbb-secondary-button size="m" @click=${setValueAsDate}>
+        <sbb-secondary-button @click=${setValueAsDate}>
           Set valueAsDate to current time
         </sbb-secondary-button>
-        <sbb-secondary-button size="m" @click=${setValue}>
-          Set value to 00:00
-        </sbb-secondary-button>
+        <sbb-secondary-button @click=${setValue}> Set value to 00:00 </sbb-secondary-button>
       </div>
       <p style="margin-block-start: 1rem;">
         Time in input:

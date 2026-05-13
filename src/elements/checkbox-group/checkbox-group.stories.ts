@@ -8,6 +8,7 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import type { SbbCheckboxElement } from '../checkbox.ts';
 
+import type { SbbCheckboxGroupElement } from './checkbox-group.component.ts';
 import readme from './readme.md?raw';
 
 import '../checkbox-group.ts';
@@ -232,7 +233,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xs', 's', 'm'],
+  options: ['xs', 's', 'm'] satisfies SbbCheckboxGroupElement['size'][],
   table: {
     category: 'Checkbox group',
   },
@@ -306,7 +307,7 @@ const basicArgs: Args = {
   required: false,
   orientation: orientation.options![0],
   'horizontal-from': undefined,
-  size: size.options![1],
+  size: undefined,
   label: 'Label',
   checked: true,
   disabledSingle: false,
@@ -351,16 +352,16 @@ export const verticalToHorizontal: StoryObj = {
   args: { ...checkboxArgsVertical, 'horizontal-from': 'large' },
 };
 
-export const horizontalSizeM: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: checkboxArgTypes,
-  args: { ...checkboxArgs, size: 'm' },
-};
-
 export const horizontalSizeXS: StoryObj = {
   render: DefaultTemplate,
   argTypes: checkboxArgTypes,
   args: { ...checkboxArgs, size: 'xs' },
+};
+
+export const horizontalSizeM: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgs, size: 'm' },
 };
 
 export const horizontalDisabled: StoryObj = {

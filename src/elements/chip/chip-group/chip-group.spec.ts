@@ -231,7 +231,9 @@ describe('sbb-chip-group', () => {
     });
 
     it('should inherit size from form-field', async () => {
-      expect(element).to.match(':state(size-m)');
+      expect(element).not.to.match(':state(size-s)');
+      expect(element).not.to.match(':state(size-m)');
+      expect(element).not.to.match(':state(size-l)');
 
       formField.size = 's';
       await waitForLitRender(formField);
@@ -247,9 +249,7 @@ describe('sbb-chip-group', () => {
         element.value = newValue;
         await waitForLitRender(element);
 
-        let slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip')).map(
-          (c) => c.value,
-        );
+        let slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip'), (c) => c.value);
         expect(slottedChipsValue).to.be.eql(newValue);
 
         // Remove a chip ('chip 3')
@@ -257,7 +257,7 @@ describe('sbb-chip-group', () => {
         element.value = newValue;
         await waitForLitRender(element);
 
-        slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip')).map((c) => c.value);
+        slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip'), (c) => c.value);
         expect(slottedChipsValue).to.be.eql(newValue);
 
         // Add and remove chips
@@ -265,7 +265,7 @@ describe('sbb-chip-group', () => {
         element.value = newValue;
         await waitForLitRender(element);
 
-        slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip')).map((c) => c.value);
+        slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip'), (c) => c.value);
         expect(slottedChipsValue).to.be.eql(newValue);
 
         // Empty value
@@ -766,7 +766,7 @@ describe('sbb-chip-group', () => {
       element = root.querySelector('sbb-chip-group')!;
       input = root.querySelector('input')!;
 
-      expect(element).to.match(':state(size-m)');
+      expect(element).not.to.match(':state(size-l)');
 
       formField.append(element);
       await waitForLitRender(root);

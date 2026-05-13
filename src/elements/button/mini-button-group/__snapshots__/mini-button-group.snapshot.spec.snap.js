@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-mini-button-group renders DOM"] = 
-`<sbb-mini-button-group
-  accessibility-label="Group label"
-  size="m"
->
+`<sbb-mini-button-group accessibility-label="Group label">
   <sbb-mini-button
     icon-name="pen-small"
     slot="li-0"
@@ -53,10 +50,7 @@ snapshots["sbb-mini-button-group renders Shadow DOM"] =
 /* end snapshot sbb-mini-button-group renders Shadow DOM */
 
 snapshots["sbb-mini-button-group renders negative DOM"] = 
-`<sbb-mini-button-group
-  negative=""
-  size="m"
->
+`<sbb-mini-button-group negative="">
   <sbb-mini-button
     icon-name="pen-small"
     negative=""

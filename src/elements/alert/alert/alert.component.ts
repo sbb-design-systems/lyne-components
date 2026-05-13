@@ -10,9 +10,7 @@ import { property } from 'lit/decorators.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
-  boxSizingStyles,
   i18nCloseAlert,
-  isLean,
   isZeroAnimationDuration,
   SbbDarkModeController,
   type SbbElementType,
@@ -40,7 +38,7 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
     SbbTransparentButtonElement,
     SbbDividerElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static override readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',
@@ -49,10 +47,9 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
   } as const;
 
   /**
-   * You can choose between `s`, `m` or `l` size.
-   * @default 'm' / 's' (lean)
+   * Size variant, either `s` (lean theme default), `m` (standard theme default) or `l`.
    */
-  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | null = null;
 
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
@@ -63,6 +60,11 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
     this._configureTitle();
     this.requestUpdate();
   });
+
+  public constructor() {
+    super();
+    this.addEventListener('animationend', (e: AnimationEvent) => this._onAnimationEnd(e));
+  }
 
   /** Open the alert. */
   public open(): void {
@@ -164,35 +166,33 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-alert__transition-wrapper" @animationend=${this._onAnimationEnd}>
-        <!-- sub wrapper needed to properly support fade in animation -->
-        <div class="sbb-alert__transition-sub-wrapper">
-          <div class="sbb-alert">
-            <span class="sbb-alert__icon"> ${this.renderIconSlot()} </span>
-            <span class="sbb-alert__content">
-              <slot name="title" @slotchange=${this._configureTitle}></slot>
-              <p class="sbb-alert__content-slot">
-                <slot @slotchange=${this._handleSlotchange}></slot>
-              </p>
-            </span>
-            ${!this.readOnly
-              ? html`<span class="sbb-alert__close-button-wrapper">
-                  <sbb-divider
-                    orientation="vertical"
-                    ?negative=${this._isLightMode()}
-                    class="sbb-alert__close-button-divider"
-                  ></sbb-divider>
-                  <sbb-transparent-button
-                    ?negative=${this._isLightMode()}
-                    size=${this.size === 'l' ? 'm' : this.size}
-                    icon-name="cross-small"
-                    @click=${() => this.close()}
-                    aria-label=${i18nCloseAlert[this._language.current]}
-                    class="sbb-alert__close-button"
-                  ></sbb-transparent-button>
-                </span>`
-              : nothing}
-          </div>
+      <!-- wrapper needed to properly support fade in animation -->
+      <div class="sbb-alert__transition-wrapper">
+        <div class="sbb-alert">
+          <span class="sbb-alert__icon"> ${this.renderIconSlot()} </span>
+          <span class="sbb-alert__content">
+            <slot name="title" @slotchange=${this._configureTitle}></slot>
+            <p class="sbb-alert__content-slot">
+              <slot @slotchange=${this._handleSlotchange}></slot>
+            </p>
+          </span>
+          ${!this.readOnly
+            ? html`<span class="sbb-alert__close-button-wrapper">
+                <sbb-divider
+                  orientation="vertical"
+                  ?negative=${this._isLightMode()}
+                  class="sbb-alert__close-button-divider"
+                ></sbb-divider>
+                <sbb-transparent-button
+                  ?negative=${this._isLightMode()}
+                  size=${this.size === 'l' ? 'm' : this.size || nothing}
+                  icon-name="cross-small"
+                  @click=${() => this.close()}
+                  aria-label=${i18nCloseAlert[this._language.current]}
+                  class="sbb-alert__close-button"
+                ></sbb-transparent-button>
+              </span>`
+            : nothing}
         </div>
       </div>
     `;

@@ -6,6 +6,9 @@
   // We add width definition to host, to make overwriting easy for consumers.
   width: max-content;
 
+  // Set the line-height for adjacent elements in order to prevent from influence of a consumer-set line-height.
+  line-height: var(--sbb-typo-line-height-text);
+
   --sbb-calendar-cell-size: #{sbb.px-to-rem-build(44)};
 
   // Match Figma design
@@ -60,6 +63,7 @@
   height: var(--sbb-calendar-control-view-change-height);
   font-size: var(--sbb-text-font-size-s);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-letter-spacing-text);
   text-transform: capitalize;
   cursor: var(--sbb-cursor-pointer);
   padding-inline: var(--sbb-calendar-control-view-change-padding-inline);

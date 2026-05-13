@@ -8,9 +8,33 @@
     var(--sbb-animation-duration-2x)
   );
 
-  display: contents;
-  font-size: var(--sbb-text-font-size-m);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  display: block;
+}
+
+:host(:state(orientation-vertical)) {
+  margin-inline-start: var(--sbb-step-margin-inline-start);
+  opacity: 0;
+  height: 0;
+  transition:
+    display var(--sbb-step-animation-duration) var(--sbb-animation-easing),
+    height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
+    opacity var(--sbb-step-animation-duration) var(--sbb-animation-easing);
+
+  // Experimental property, but supported in every major browser.
+  transition-behavior: allow-discrete;
+}
+
+:host(:state(selected):state(orientation-vertical)) {
+  opacity: 1;
+  height: var(--sbb-stepper-content-height);
+  transition:
+    display var(--sbb-step-animation-duration) var(--sbb-animation-easing),
+    height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
+    opacity var(--sbb-step-animation-duration) var(--sbb-stepper-animation-duration)
+      var(--sbb-animation-easing);
+
+  // Experimental property, but supported in every major browser.
+  transition-behavior: allow-discrete;
 }
 
 :host(:state(selected)) {
@@ -27,34 +51,6 @@
 :host(:state(orientation-horizontal)) {
   --sbb-step-position: absolute;
   --sbb-step-inset-block-start: 0;
-}
-
-.sbb-step--wrapper {
-  :host(:state(orientation-vertical)) & {
-    margin-inline-start: var(--sbb-step-margin-inline-start);
-    opacity: 0;
-    height: 0;
-    transition:
-      display var(--sbb-step-animation-duration) var(--sbb-animation-easing),
-      height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
-      opacity var(--sbb-step-animation-duration) var(--sbb-animation-easing);
-
-    // Experimental property, but supported in every major browser.
-    transition-behavior: allow-discrete;
-  }
-
-  :host(:state(selected):state(orientation-vertical)) & {
-    opacity: 1;
-    height: var(--sbb-stepper-content-height);
-    transition:
-      display var(--sbb-step-animation-duration) var(--sbb-animation-easing),
-      height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing),
-      opacity var(--sbb-step-animation-duration) var(--sbb-stepper-animation-duration)
-        var(--sbb-animation-easing);
-
-    // Experimental property, but supported in every major browser.
-    transition-behavior: allow-discrete;
-  }
 }
 
 .sbb-step {

@@ -3,8 +3,6 @@ import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCS
 import { property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
-  isLean,
   SbbElement,
   SbbNamedSlotListMixin,
   type WithListChildren,
@@ -25,7 +23,7 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-navigation-marker';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   protected override readonly listChildLocalNames = [
     'sbb-navigation-button',
     'sbb-navigation-link',
@@ -33,9 +31,8 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
 
   /**
    * Marker size variant, either s or l.
-   * @default 'l' / 's' (lean)
    */
-  @property({ reflect: true }) public accessor size: 'l' | 's' = isLean() ? 's' : 'l';
+  @property({ reflect: true }) public accessor size: 's' | 'l' = 'l';
 
   private _currentActiveAction?: SbbNavigationButtonElement | SbbNavigationLinkElement;
 
@@ -53,17 +50,13 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('size') || changedProperties.has('listChildren')) {
+    if (changedProperties.has('listChildren')) {
       this._updateMarkerActions();
     }
     this.toggleState('has-active-action', !!this._currentActiveAction);
   }
 
   private _updateMarkerActions(): void {
-    for (const action of this.listChildren) {
-      action.size = this.size;
-    }
-
     this._currentActiveAction = this.listChildren.find((action) =>
       action.matches(':state(action-active)'),
     );

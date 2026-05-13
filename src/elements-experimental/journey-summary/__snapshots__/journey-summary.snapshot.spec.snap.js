@@ -29,9 +29,9 @@ snapshots["sbb-journey-summary renders Shadow DOM"] =
       </time>
       ,
       <time>
-        <sbb-screen-reader-only>
+        <span class="sbb-screen-reader-only">
           Travel time 1 Hour
-        </sbb-screen-reader-only>
+        </span>
         <span aria-hidden="true">
           1 h
         </span>
@@ -59,9 +59,9 @@ snapshots["sbb-journey-summary renders without vias Shadow DOM"] =
       </time>
       ,
       <time>
-        <sbb-screen-reader-only>
+        <span class="sbb-screen-reader-only">
           Travel time 1 Hour 40 Minutes
-        </sbb-screen-reader-only>
+        </span>
         <span aria-hidden="true">
           1 h 40 min
         </span>
@@ -89,9 +89,9 @@ snapshots["sbb-journey-summary renders with second journey Shadow DOM"] =
       </time>
       ,
       <time>
-        <sbb-screen-reader-only>
+        <span class="sbb-screen-reader-only">
           Travel time 1 Hour 40 Minutes
-        </sbb-screen-reader-only>
+        </span>
         <span aria-hidden="true">
           1 h 40 min
         </span>
@@ -126,9 +126,9 @@ snapshots["sbb-journey-summary renders with second journey Shadow DOM"] =
         </time>
         ,
         <time>
-          <sbb-screen-reader-only>
+          <span class="sbb-screen-reader-only">
             Travel time 1 Hour
-          </sbb-screen-reader-only>
+          </span>
           <span aria-hidden="true">
             1 h
           </span>

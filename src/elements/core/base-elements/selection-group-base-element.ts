@@ -8,11 +8,9 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { isLean } from '../dom/lean-context.ts';
-import type { SbbHorizontalFrom, SbbOrientation } from '../interfaces/types.ts';
+import type { SbbHorizontalFrom } from '../interfaces/types.ts';
 import { SbbDisabledMixin } from '../mixins/disabled-mixin.ts';
 import { SbbRequiredMixin } from '../mixins/required-mixin.ts';
-import { boxSizingStyles } from '../styles/styles.ts';
 
 import { SbbElement } from './element.ts';
 import style from './selection-group-base-element.scss?inline';
@@ -26,13 +24,12 @@ import style from './selection-group-base-element.scss?inline';
 export abstract class SbbSelectionGroupBaseElement<T extends SbbElement> extends SbbDisabledMixin(
   SbbRequiredMixin(SbbElement),
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
-   * Size variant, either xs, s or m.
-   * @default 'm' / 'xs' (lean)
+   * Size variant, either xs (lean theme default), s or m (standard theme default).
    */
-  @property() public accessor size: 'xs' | 's' | 'm' = isLean() ? 'xs' : 'm';
+  @property() public accessor size: 'xs' | 's' | 'm' | null = null;
 
   /** Overrides the behavior of `orientation` property. */
   @property({ attribute: 'horizontal-from', reflect: true })
@@ -40,7 +37,7 @@ export abstract class SbbSelectionGroupBaseElement<T extends SbbElement> extends
 
   /** Indicates the orientation of the checkboxes or panels inside the group. */
   @property({ reflect: true })
-  public accessor orientation: SbbOrientation = 'horizontal';
+  public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   protected abstract readonly selectionElementSelectors: string;
   protected abstract readonly panelElementSelector: string;

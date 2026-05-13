@@ -9,16 +9,13 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   forceType,
-  isLean,
   SbbDisabledMixin,
   SbbElement,
   SbbNamedSlotListMixin,
-  setOrRemoveAttribute,
   type WithListChildren,
 } from '../../core.ts';
-import type { SbbTagElement, SbbTagSize } from '../tag/tag.component.ts';
+import type { SbbTagElement } from '../tag/tag.component.ts';
 
 import style from './tag-group.scss?inline';
 
@@ -32,7 +29,7 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
   SbbNamedSlotListMixin<SbbTagElement, typeof SbbElement>(SbbElement),
 ) {
   public static override readonly elementName: string = 'sbb-tag-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   // DIV is added here due to special requirements from sbb.ch.
   protected override readonly listChildLocalNames = ['sbb-tag', 'div'];
 
@@ -54,10 +51,9 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
   public accessor multiple: boolean = false;
 
   /**
-   * Tag group size, either s or m.
-   * @default 'm' / 's' (lean)
+   * Tag group size, either s (lean theme default) or m (standard theme default).
    */
-  @property({ reflect: true }) public accessor size: SbbTagSize = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: SbbTagElement['size'] = null;
 
   /**
    * Value of the sbb-tag-group.
@@ -93,10 +89,6 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
       this._applyValueToTags(this.value);
     }
 
-    if (changedProperties.has('size')) {
-      this.tags.forEach((t) => t.requestUpdate?.('size'));
-    }
-
     if (changedProperties.has('disabled')) {
       this.tags.forEach((r) => r.requestUpdate?.('disabled'));
     }
@@ -111,13 +103,10 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
         .slice(1)
         .forEach((tag) => (tag.checked = false));
     }
-    setOrRemoveAttribute(
-      this,
-      'role',
-      changedProperties.has('listAccessibilityLabel') && this.listAccessibilityLabel
-        ? null
-        : 'group',
-    );
+
+    if (changedProperties.has('listAccessibilityLabel')) {
+      this.internals.role = this.listAccessibilityLabel ? null : 'group';
+    }
   }
 
   private _applyValueToTags(value: any): void {

@@ -1,19 +1,12 @@
 @use '../core/styles' as sbb;
 
 :host {
-  --sbb-teaser-hero-link-font-weight: 400;
-
   display: block;
   position: relative;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
-}
-
-// Hide panel when no content or link-content is provided.
-:host(:not(:state(slotted), :state(slotted-link-content), [link-content])) sbb-teaser-panel {
-  display: none;
 }
 
 ::slotted([slot='image']) {
@@ -35,6 +28,11 @@ sbb-teaser-panel {
   // To avoid having a 0 height if you only slotted the panel content
   :host(:not(:state(slotted-image))) & {
     position: static;
+  }
+
+  // Hide when no content or link-content is provided.
+  :host(:not(:state(slotted), :state(slotted-link-content), [link-content])) & {
+    display: none;
   }
 }
 

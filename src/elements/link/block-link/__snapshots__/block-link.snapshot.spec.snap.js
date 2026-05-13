@@ -7,7 +7,6 @@ snapshots["sbb-block-link renders DOM"] =
   download=""
   href="https://github.com/sbb-design-systems/lyne-components"
   icon-placement="start"
-  size="m"
 >
   Travelcards & tickets.
 </sbb-block-link>

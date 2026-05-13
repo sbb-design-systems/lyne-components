@@ -11,22 +11,23 @@
 }
 
 :host([size='s']) {
-  --sbb-mini-button-group-min-height: var(--sbb-size-element-xs);
-  --sbb-mini-button-group-padding-inline: var(--sbb-spacing-fixed-2x);
+  --sbb-mini-button-group-min-height: var(--sbb-mini-button-group-min-height-s);
+  --sbb-mini-button-group-padding-inline: var(--sbb-mini-button-group-padding-inline-s);
 }
 
 :host([size='m']) {
-  --sbb-mini-button-group-min-height: var(--sbb-size-element-s);
-  --sbb-mini-button-group-padding-inline: var(--sbb-spacing-fixed-3x);
+  --sbb-mini-button-group-min-height: var(--sbb-mini-button-group-min-height-m);
+  --sbb-mini-button-group-padding-inline: var(--sbb-mini-button-group-padding-inline-m);
 }
 
 :host([size='l']) {
-  --sbb-mini-button-group-min-height: var(--sbb-size-element-m);
+  --sbb-mini-button-group-min-height: var(--sbb-mini-button-group-min-height-l);
+  --sbb-mini-button-group-padding-inline: var(--sbb-mini-button-group-padding-inline-l);
 }
 
 :host([size='xl']) {
-  --sbb-mini-button-group-min-height: var(--sbb-size-element-l);
-  --sbb-mini-button-group-padding-inline: var(--sbb-spacing-fixed-4x);
+  --sbb-mini-button-group-min-height: var(--sbb-mini-button-group-min-height-xl);
+  --sbb-mini-button-group-padding-inline: var(--sbb-mini-button-group-padding-inline-xl);
 }
 
 ::slotted(:is(sbb-mini-button, sbb-mini-button-link, sbb-divider)) {

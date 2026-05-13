@@ -19,7 +19,6 @@ $open-anim-opacity-to: 1;
   --sbb-expansion-panel-start-start-radius: var(--sbb-expansion-panel-border-radius);
   --sbb-expansion-panel-end-end-radius: var(--sbb-expansion-panel-border-radius);
   --sbb-expansion-panel-end-start-radius: var(--sbb-expansion-panel-border-radius);
-  --_sbb-expansion-panel-display: grid;
 
   display: block;
   background-color: var(--sbb-expansion-panel-background-color);
@@ -52,7 +51,7 @@ $open-anim-opacity-to: 1;
 }
 
 :host([expanded]) {
-  --_sbb-expansion-panel-display-expanded: var(--_sbb-expansion-panel-display);
+  --_sbb-expansion-panel-display-expanded: grid;
 }
 
 :host(:state(accordion):state(accordion-first)) {
@@ -139,7 +138,7 @@ $open-anim-opacity-to: 1;
   }
 
   :host(:state(state-closing)) & {
-    display: var(--_sbb-expansion-panel-display);
+    display: grid;
     visibility: hidden;
     animation-name: close;
     animation-duration: var(--sbb-expansion-panel-animation-duration);

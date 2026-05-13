@@ -4,22 +4,16 @@ export const snapshots = {};
 snapshots["sbb-action-group renders DOM"] = 
 `<sbb-action-group
   align-group="start"
-  button-size="l"
   horizontal-from="large"
-  link-size="m"
   orientation="horizontal"
 >
-  <sbb-secondary-button
-    size="l"
-    tabindex="0"
-  >
+  <sbb-secondary-button tabindex="0">
     Button
   </sbb-secondary-button>
   <sbb-block-link
     href="https://github.com/sbb-design-systems/lyne-components"
     icon-name="chevron-small-left-small"
     icon-placement="start"
-    size="m"
   >
     Link
   </sbb-block-link>

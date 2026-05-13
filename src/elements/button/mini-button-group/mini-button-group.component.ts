@@ -7,20 +7,11 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import {
-  boxSizingStyles,
-  forceType,
-  isLean,
-  SbbElement,
-  SbbNamedSlotListMixin,
-  SbbNegativeMixin,
-} from '../../core.ts';
+import { forceType, SbbElement, SbbNamedSlotListMixin, SbbNegativeMixin } from '../../core.ts';
 import type { SbbDividerElement } from '../../divider/divider.component.ts';
 import type { SbbMiniButtonElement } from '../mini-button/mini-button.component.ts';
 
 import style from './mini-button-group.scss?inline';
-
-export type SbbMiniButtonGroupSize = 's' | 'm' | 'l' | 'xl';
 
 /**
  * Display a list of `sbb-mini-button` elements in a horizontal container,
@@ -32,7 +23,7 @@ export class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   SbbNamedSlotListMixin<SbbMiniButtonElement, typeof SbbElement>(SbbElement),
 ) {
   public static override readonly elementName: string = 'sbb-mini-button-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   protected override readonly listChildLocalNames = [
     'sbb-mini-button',
     'sbb-mini-button-link',
@@ -45,10 +36,9 @@ export class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   public accessor accessibilityLabel: string = '';
 
   /**
-   * Size variant, either s, m, l or xl.
-   * @default 'm' / 's' (lean)
+   * Size variant, either s (lean theme default), m (standard theme default), l or xl.
    */
-  @property({ reflect: true }) public accessor size: SbbMiniButtonGroupSize = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | 'xl' | null = null;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

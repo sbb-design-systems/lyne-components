@@ -10,14 +10,15 @@ import { property, state } from 'lit/decorators.js';
 
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.pure.ts';
 import {
-  boxSizingStyles,
   forceType,
   isSafari,
   SbbDisabledMixin,
   SbbElement,
   type SbbElementType,
+  SbbPropertyWatcherController,
 } from '../../core.ts';
 import { SbbDividerElement } from '../../divider.pure.ts';
+import type { SbbSelectElement } from '../../select.pure.ts';
 import type { SbbOptionBaseElement } from '../option/option-base-element.ts';
 
 import style from './optgroup-base-element.scss?inline';
@@ -32,7 +33,7 @@ const inertAriaGroups = isSafari;
 export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbElement) {
   public static override readonly role = !inertAriaGroups ? 'group' : null;
   public static override elementDependencies: SbbElementType[] = [SbbDividerElement];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Option group label. */
   @forceType()
@@ -43,8 +44,28 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbElement
 
   protected abstract get options(): SbbOptionBaseElement[];
 
-  public constructor() {
+  private _previousSize: 's' | 'm' | null = null;
+
+  protected constructor() {
     super();
+
+    this.addController(
+      new SbbPropertyWatcherController<SbbAutocompleteBaseElement | SbbSelectElement>(
+        this,
+        () => this.closest('sbb-autocomplete, sbb-autocomplete-grid, sbb-select'),
+        {
+          size: (e) => {
+            if (this._previousSize) {
+              this.internals.states.delete(`size-${this._previousSize}`);
+            }
+            this._previousSize = e.size;
+            if (this._previousSize) {
+              this.internals.states.add(`size-${this._previousSize}`);
+            }
+          },
+        },
+      ),
+    );
 
     if (inertAriaGroups) {
       if (this.hydrationRequired) {

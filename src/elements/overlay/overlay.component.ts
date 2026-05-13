@@ -5,14 +5,14 @@ import { html } from 'lit/static-html.js';
 
 import { SbbSecondaryButtonElement } from '../button.pure.ts';
 import { SbbContainerElement } from '../container.pure.ts';
-import type { SbbElementType, SbbOverlayCloseEventDetails } from '../core.ts';
 import {
-  boxSizingStyles,
   forceType,
   forwardEvent,
   i18nCloseDialog,
   isZeroAnimationDuration,
-  SbbScreenReaderOnlyElement,
+  type SbbElementType,
+  type SbbOverlayCloseEventDetails,
+  scrollbarStyles,
 } from '../core.ts';
 
 import {
@@ -35,9 +35,8 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
   public static override elementDependencies: SbbElementType[] = [
     SbbSecondaryButtonElement,
     SbbContainerElement,
-    SbbScreenReaderOnlyElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [scrollbarStyles, unsafeCSS(style)];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
@@ -149,13 +148,14 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
                 i18nCloseDialog[this.language.current]}"
                 ?negative=${this.negative}
                 size="m"
-                type="button"
                 icon-name="cross-small"
                 sbb-overlay-close
               ></sbb-secondary-button>
             </div>
             <div
-              class="sbb-overlay__content"
+              class="sbb-overlay__content ${this.negative
+                ? 'sbb-scrollbar-negative'
+                : 'sbb-scrollbar'}"
               ${ref((el?: Element) => (this._overlayContentElement = el as HTMLDivElement))}
               @scroll=${(e: Event) => forwardEvent(e, document)}
             >
@@ -170,7 +170,7 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
           </div>
         </div>
       </div>
-      <sbb-screen-reader-only aria-live="polite"></sbb-screen-reader-only>
+      <span class="sbb-screen-reader-only" aria-live="polite"></span>
     `;
   }
 }

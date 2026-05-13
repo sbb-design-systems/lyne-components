@@ -14,15 +14,13 @@ import style from './timetable-form-swap-button.scss?inline';
  */
 export class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement {
   public static override readonly elementName: string = 'sbb-timetable-form-swap-button';
-  public static override styles: CSSResultGroup = [
-    SbbSecondaryButtonElement.styles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   private _languageController = new SbbLanguageController(this);
 
   public constructor() {
     super();
+    this.size = 'l' as this['size'];
     this.addEventListener('click', () => this._invertFieldValues());
   }
 

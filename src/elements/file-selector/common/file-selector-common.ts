@@ -1,4 +1,4 @@
-import { nothing, type TemplateResult, unsafeCSS } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
@@ -17,7 +17,6 @@ import {
   i18nFileSelectorButtonLabelMultiple,
   i18nFileSelectorCurrentlySelected,
   i18nFileSelectorDeleteFile,
-  isLean,
   SbbDisabledMixin,
   SbbElement,
   type SbbElementConstructor,
@@ -25,17 +24,16 @@ import {
   SbbFormAssociatedMixin,
   sbbInputModalityDetector,
   SbbLanguageController,
+  screenReaderOnlyStyles,
   ɵstateController,
 } from '../../core.ts';
 
-import fileSelectorCommonStyleString from './file-selector-common.scss?inline';
-
-export const fileSelectorCommonStyle = unsafeCSS(fileSelectorCommonStyleString);
+import style from './file-selector-common.scss?inline';
 
 export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbDisabledMixin(
   SbbFormAssociatedMixin(SbbElement),
 ) {
-  public accessor size: 's' | 'm';
+  public accessor size: 's' | 'm' | null;
   public accessor multiple: boolean;
   public accessor multipleMode: 'default' | 'persistent';
   public accessor accept: string;
@@ -66,12 +64,12 @@ export const SbbFileSelectorCommonElementMixin = <
     public static readonly events = {
       filechanged: 'filechanged',
     } as const;
+    public static styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
     /**
-     * Size variant, either s or m.
-     * @default 'm' / 's' (lean)
+     * Size variant, either s (lean theme default) or m (standard theme default).
      */
-    @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
+    @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 
     /** Whether more than one file can be selected. */
     @forceType()
@@ -283,19 +281,19 @@ export const SbbFileSelectorCommonElementMixin = <
 
       /* eslint-disable lit/binding-positions */
       return html`
-      <${unsafeStatic(TAG_NAME.WRAPPER)} class='sbb-file-selector__file-list'>
+      <${unsafeStatic(TAG_NAME.WRAPPER)} class="sbb-file-selector__file-list">
         ${this.files.map(
           (file: Readonly<File>) => html`
-            <${unsafeStatic(TAG_NAME.ELEMENT)} class='sbb-file-selector__file'>
-                <span class='sbb-file-selector__file-details'>
-                  <span class='sbb-file-selector__file-name'>${file.name}</span>
-                  <span class='sbb-file-selector__file-size'>${this._formatFileSize(file.size)}</span>
+            <${unsafeStatic(TAG_NAME.ELEMENT)} class="sbb-file-selector__file">
+                <span class="sbb-file-selector__file-details">
+                  <span class="sbb-file-selector__file-name">${file.name}</span>
+                  <span class="sbb-file-selector__file-size">${this._formatFileSize(file.size)}</span>
                 </span>
               <sbb-secondary-button
-                size='${this.size}'
-                icon-name='trash-small'
-                @click='${() => this._removeFile(file)}'
-                aria-label='${`${i18nFileSelectorDeleteFile[this.language.current]} - ${file.name}`}'
+                size=${this.size || nothing}
+                icon-name="trash-small"
+                @click=${() => this._removeFile(file)}
+                aria-label=${`${i18nFileSelectorDeleteFile[this.language.current]} - ${file.name}`}
               ></sbb-secondary-button>
             </${unsafeStatic(TAG_NAME.ELEMENT)}>`,
         )}
@@ -353,40 +351,38 @@ export const SbbFileSelectorCommonElementMixin = <
         ? `${this.getButtonLabel()} - ${this.accessibilityLabel}`
         : undefined;
       return html`
-        <div class="sbb-file-selector">
-          <div
-            class="sbb-file-selector__input-container"
-            @dragenter=${this._onDragEnter}
-            @dragover=${this._blockEvent}
-            @dragleave=${this._onDragLeave}
-            @drop=${this._onFileDrop}
-          >
-            ${this.renderTemplate(
-              html`<input
-                class="sbb-file-selector__visually-hidden"
-                type="file"
-                ?disabled="${this.disabled || this.formDisabled}"
-                ?multiple="${this.multiple}"
-                accept="${this.accept || nothing}"
-                aria-label="${ariaLabel || nothing}"
-                @change="${this._readFiles}"
-                @focus="${this._onFocus}"
-                @blur="${this._onBlur}"
-                ${ref((el?: Element): void => {
-                  this._hiddenInput = el as HTMLInputElement;
-                })}
-              />`,
-            )}
-          </div>
-          <p
-            role="status"
-            class="sbb-file-selector__visually-hidden"
-            ${ref((p?: Element) => (this._liveRegion = p as HTMLParagraphElement))}
-          ></p>
-          ${this.files.length > 0 ? this._renderFileList() : nothing}
-          <div class="sbb-file-selector__error">
-            <slot name="error"></slot>
-          </div>
+        <div
+          class="sbb-file-selector__input-container"
+          @dragenter=${this._onDragEnter}
+          @dragover=${this._blockEvent}
+          @dragleave=${this._onDragLeave}
+          @drop=${this._onFileDrop}
+        >
+          ${this.renderTemplate(
+            html`<input
+              class="sbb-screen-reader-only"
+              type="file"
+              ?disabled=${this.disabled || this.formDisabled}
+              ?multiple=${this.multiple}
+              accept=${this.accept || nothing}
+              aria-label=${ariaLabel || nothing}
+              @change=${this._readFiles}
+              @focus=${this._onFocus}
+              @blur=${this._onBlur}
+              ${ref((el?: Element): void => {
+                this._hiddenInput = el as HTMLInputElement;
+              })}
+            />`,
+          )}
+        </div>
+        <p
+          role="status"
+          class="sbb-screen-reader-only"
+          ${ref((p?: Element) => (this._liveRegion = p as HTMLParagraphElement))}
+        ></p>
+        ${this.files.length > 0 ? this._renderFileList() : nothing}
+        <div class="sbb-file-selector__error">
+          <slot name="error"></slot>
         </div>
       `;
     }

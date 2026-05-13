@@ -29,7 +29,7 @@ interface Time {
  */
 export class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-time-input';
-  public static override styles: CSSResultGroup = unsafeCSS(style);
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
    * The value of the time input. Reflects the current text value

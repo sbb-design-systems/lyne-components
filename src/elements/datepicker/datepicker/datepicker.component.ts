@@ -6,11 +6,10 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
-  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { type CalendarView, SbbCalendarElement } from '../../calendar.pure.ts';
+import { SbbCalendarElement } from '../../calendar.pure.ts';
 import {
   type DateAdapter,
   defaultDateAdapter,
@@ -21,12 +20,11 @@ import {
   type SbbElementType,
   SbbLanguageController,
   SbbUpdateSchedulerMixin,
+  screenReaderOnlyStyles,
 } from '../../core.ts';
 import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.pure.ts';
 import { SbbPopoverBaseElement } from '../../popover.pure.ts';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker-toggle.component.ts';
-
-import style from './datepicker.scss?inline';
 
 /**
  * A datepicker component that allows users to select a date from a calendar view.
@@ -41,7 +39,7 @@ export class SbbDatepickerElement<T = Date>
 {
   public static override readonly elementName: string = 'sbb-datepicker';
   public static override elementDependencies: SbbElementType[] = [SbbCalendarElement];
-  public static override styles: CSSResultGroup = [SbbPopoverBaseElement.styles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles];
   public static readonly sbbDateInputAssociated = true;
 
   /** If set to true, two months are displayed. */
@@ -59,7 +57,7 @@ export class SbbDatepickerElement<T = Date>
   public accessor input: SbbDateInputElement<T> | null = null;
 
   /** The initial view of calendar which should be displayed on opening. */
-  @property() public accessor view: CalendarView = 'day';
+  @property() public accessor view: SbbCalendarElement['view'] = 'day';
 
   private _inputAbortController?: AbortController;
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
@@ -145,7 +143,7 @@ export class SbbDatepickerElement<T = Date>
 
   protected override renderContent(): TemplateResult {
     return html`
-      <p id="status-container" role="status"></p>
+      <p id="status-container" class="sbb-screen-reader-only" role="status"></p>
       <sbb-calendar
         .view=${this.view}
         .min=${this.input?.min ?? null}

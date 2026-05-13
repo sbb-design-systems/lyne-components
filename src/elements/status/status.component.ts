@@ -1,21 +1,11 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { boxSizingStyles, SbbElement } from '../core.ts';
+import { SbbElement } from '../core.ts';
 import { SbbIconNameMixin } from '../icon.pure.ts';
 import type { SbbTitleElement } from '../title.pure.ts';
 
 import style from './status.scss?inline';
-
-export type SbbStatusType =
-  | 'info'
-  | 'success'
-  | 'warning'
-  | 'error'
-  | 'pending'
-  | 'incomplete'
-  | 'not-started'
-  | 'in-progress';
 
 /**
  * Displays a message to the user's attention.
@@ -30,9 +20,9 @@ export type SbbStatusType =
  */
 export class SbbStatusElement extends SbbIconNameMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-status';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
-  private readonly _statusTypes: Map<SbbStatusType, string> = new Map([
+  private readonly _statusTypes: Map<SbbStatusElement['type'], string> = new Map([
     ['info', 'circle-information-small'],
     ['success', 'circle-tick-small'],
     ['warning', 'circle-exclamation-point-small'],
@@ -44,7 +34,15 @@ export class SbbStatusElement extends SbbIconNameMixin(SbbElement) {
   ]);
 
   /** The type of the status. */
-  @property({ reflect: true }) public accessor type: SbbStatusType = 'info';
+  @property({ reflect: true }) public accessor type:
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'error'
+    | 'pending'
+    | 'incomplete'
+    | 'not-started'
+    | 'in-progress' = 'info';
 
   private _handleSlotchange(): void {
     const title = Array.from(this.children).find((el) => el.localName === 'sbb-title');

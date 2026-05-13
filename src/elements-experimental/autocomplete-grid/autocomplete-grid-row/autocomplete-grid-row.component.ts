@@ -1,4 +1,4 @@
-import { boxSizingStyles, SbbElement } from '@sbb-esta/lyne-elements/core.js';
+import { SbbElement } from '@sbb-esta/lyne-elements/core.js';
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import style from './autocomplete-grid-row.scss?inline';
@@ -13,7 +13,7 @@ let autocompleteRowNextId = 0;
 export class SbbAutocompleteGridRowElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-autocomplete-grid-row';
   public static override readonly role = 'row';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   public override connectedCallback(): void {
     super.connectedCallback();

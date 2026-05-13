@@ -130,10 +130,7 @@ describe(`sbb-toast`, () => {
       </sbb-toast>
     `);
 
-    const actionBtn = element.querySelector('sbb-transparent-button');
-
-    expect(actionBtn).to.have.attribute('size', 'm');
-    expect(actionBtn).to.have.attribute('negative');
+    expect(element.querySelector('sbb-transparent-button')).to.have.attribute('negative');
   });
 
   it('forces state on link actions', async () => {

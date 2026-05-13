@@ -33,7 +33,7 @@ class (`class="sbb-link-list-button-group"`) to be displayed correctly.
       <sbb-block-link href="#">Praise</sbb-block-link>
       <sbb-block-link href="#">Report property damage</sbb-block-link>
     </sbb-link-list>
-    <sbb-button-link>All help topics</sbb-button-link>
+    <sbb-button-link size="l">All help topics</sbb-button-link>
   </div>
   <sbb-link-list title-level="2" title-content="More SBB.">
     <sbb-block-link href="#">Jobs & careers</sbb-block-link>
@@ -79,13 +79,13 @@ to the content where needed (e.g. `<sbb-link-list>`, `<sbb-link>` and `<sbb-divi
 
 #### Properties
 
-| Name                      | Attribute                   | Privacy | Type                           | Default     | Description                                                                                                                                                                                    |
-| ------------------------- | --------------------------- | ------- | ------------------------------ | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityTitle`      | `accessibility-title`       | public  | `string`                       | `''`        | Footer title text, visually hidden, necessary for screen readers.                                                                                                                              |
-| `accessibilityTitleLevel` | `accessibility-title-level` | public  | `SbbTitleLevel`                | `'1'`       | Level of the accessibility title, will be rendered as heading tag (e.g. h1). Defaults to level 1.                                                                                              |
-| `expanded`                | `expanded`                  | public  | `boolean`                      | `false`     | Whether to allow the footer content to stretch to full width. By default, the content has the appropriate page size.                                                                           |
-| `negative`                | `negative`                  | public  | `boolean`                      | `false`     | Negative coloring variant flag.                                                                                                                                                                |
-| `variant`                 | `variant`                   | public  | `'default' \| 'clock-columns'` | `'default'` | Variants to display the footer. The default, displays the content in regular block element approach. The clock-columns, used a CSS-grid for displaying the content over different breakpoints. |
+| Name                      | Attribute                   | Privacy | Type                                     | Default     | Description                                                                                                                                                                                    |
+| ------------------------- | --------------------------- | ------- | ---------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityTitle`      | `accessibility-title`       | public  | `string`                                 | `''`        | Footer title text, visually hidden, necessary for screen readers.                                                                                                                              |
+| `accessibilityTitleLevel` | `accessibility-title-level` | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6'` | `'1'`       | Level of the accessibility title, will be rendered as heading tag (e.g. h1). Defaults to level 1.                                                                                              |
+| `expanded`                | `expanded`                  | public  | `boolean`                                | `false`     | Whether to allow the footer content to stretch to full width. By default, the content has the appropriate page size.                                                                           |
+| `negative`                | `negative`                  | public  | `boolean`                                | `false`     | Negative coloring variant flag.                                                                                                                                                                |
+| `variant`                 | `variant`                   | public  | `'default' \| 'clock-columns'`           | `'default'` | Variants to display the footer. The default, displays the content in regular block element approach. The clock-columns, used a CSS-grid for displaying the content over different breakpoints. |
 
 #### Slots
 

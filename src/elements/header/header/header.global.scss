@@ -7,46 +7,56 @@ $theme: 'standard' !default;
   --sbb-header-box-shadow: var(--sbb-box-shadow-level-9-soft);
   --sbb-header-inset-inline-end: 0;
   --sbb-header-position: fixed;
+  --sbb-header-height-s: #{sbb.px-to-rem-build(52)};
+  --sbb-header-height-m: var(--sbb-spacing-fixed-14x);
   --sbb-header-height: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-fixed-14x),
-        'lean': #{sbb.px-to-rem-build(52)},
+        'standard': var(--sbb-header-height-m),
+        'lean': var(--sbb-header-height-s),
       ),
       $theme
     )};
 }
 
 @mixin base-breakpoint-large {
-  --sbb-header-height: #{sbb.theme-pattern-select(
-      (
-        'standard': var(--sbb-spacing-fixed-24x),
-        'lean': var(--sbb-spacing-fixed-14x),
-      ),
-      $theme
-    )};
+  --sbb-header-height-s: var(--sbb-spacing-fixed-14x);
+  --sbb-header-height-m: var(--sbb-spacing-fixed-24x);
 }
 
 @mixin rules {
+  // We would like to provide the height variable globally in order that global styles can be adapted to the header size.
+  // For example, the container margin can be adapted to the header height.
+  // In standard theme, size='s' overrides the default (size='m').
+  // In lean theme, size='m' overrides the default (size='s').
+  #{sbb.theme-pattern-select(('standard': ":root:has(sbb-header[size='s'])", 'lean': ":root:has(sbb-header[size='m'])"), $theme)} {
+    --sbb-header-height: #{sbb.theme-pattern-select(
+        (
+          'standard': var(--sbb-header-height-s),
+          'lean': var(--sbb-header-height-m),
+        ),
+        $theme
+      )};
+  }
+
   // Move container below header
   sbb-header + :where(sbb-sidebar-container, sbb-icon-sidebar-container) {
     margin-block-start: var(--sbb-header-height);
   }
 
-  :root:has(sbb-header[size='m']) {
-    --sbb-header-height: var(--sbb-spacing-fixed-14x);
-  }
+  // Helper class for the application name and version in sbb-header.
+  .sbb-header-info {
+    display: flex;
+    padding-inline: var(--sbb-spacing-fixed-4x);
+    gap: var(--sbb-spacing-fixed-1x);
+    align-items: baseline;
+    color: var(--sbb-color-1);
+    font-size: var(--sbb-text-font-size-xs);
+    letter-spacing: var(--sbb-typo-letter-spacing-text);
 
-  :root:has(sbb-header[size='s']) {
-    --sbb-header-height: #{sbb.px-to-rem-build(52)};
-  }
-
-  @include sbb.mq($from: large) {
-    :root:has(sbb-header[size='m']) {
-      --sbb-header-height: var(--sbb-spacing-fixed-24x);
-    }
-
-    :root:has(sbb-header[size='s']) {
-      --sbb-header-height: var(--sbb-spacing-fixed-14x);
+    strong + * {
+      font-size: var(--sbb-text-font-size-xxs);
+      letter-spacing: var(--sbb-typo-letter-spacing-text);
+      color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
     }
   }
 }

@@ -1,11 +1,11 @@
 @use '../core/styles' as sbb;
 
-:host([negative]) {
-  @include sbb.title--negative;
+:host {
+  margin-block: var(--sbb-title-margin-block, 0);
 }
 
-:host(:where([level='1']:not([visual-level]), [visual-level='1'])) {
-  @include sbb.title--level-1-spacing;
+:host([negative]) {
+  @include sbb.title--negative;
 }
 
 :host(:where([level='2']:not([visual-level]), [visual-level='2'])) {

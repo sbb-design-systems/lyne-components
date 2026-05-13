@@ -1,7 +1,7 @@
 import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { boxSizingStyles, SbbElement } from '../core.ts';
+import { SbbElement } from '../core.ts';
 
 import style from './teaser-panel.scss?inline';
 
@@ -13,7 +13,7 @@ import style from './teaser-panel.scss?inline';
  */
 export class SbbTeaserPanelElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-teaser-panel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`

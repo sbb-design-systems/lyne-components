@@ -2,14 +2,14 @@ import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } fr
 
 import type { SbbAutocompleteElement } from '../../autocomplete.pure.ts';
 import type { SbbElementType } from '../../core.ts';
-import { boxSizingStyles, SbbPropertyWatcherController } from '../../core.ts';
+import { SbbPropertyWatcherController } from '../../core.ts';
 import type { SbbSelectElement } from '../../select.pure.ts';
 import { SbbVisualCheckboxElement } from '../../visual-checkbox.pure.ts';
 
 import { SbbOptionBaseElement } from './option-base-element.ts';
 import style from './option.scss?inline';
 
-export type SbbOptionVariant = 'autocomplete' | 'select' | null;
+type SbbOptionVariant = 'autocomplete' | 'select' | null;
 
 /**
  * It displays on option item which can be used in `sbb-select` or `sbb-autocomplete`.
@@ -24,7 +24,7 @@ export class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override readonly elementName: string = 'sbb-option';
   public static override elementDependencies: SbbElementType[] = [SbbVisualCheckboxElement];
   public static override readonly role = 'option';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static override readonly events = {
     optionselectionchange: 'optionselectionchange',
     optionselected: 'optionselected',
@@ -56,12 +56,6 @@ export class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
     );
 
     this.addController(
-      new SbbPropertyWatcherController(this, () => this.closest('sbb-autocomplete'), {
-        negative: (e) => this._handleNegativeChange(e),
-      }),
-    );
-
-    this.addController(
       new SbbPropertyWatcherController(this, () => this.closest('sbb-select'), {
         multiple: (ancestor) => {
           this.toggleState('multiple', ancestor.multiple);
@@ -75,7 +69,7 @@ export class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   }
 
   private _isMultiple(): boolean {
-    return !this.hydrationRequired && this.internals.states.has('multiple');
+    return !this.hydrationRequired && this.matches?.(':state(multiple)');
   }
 
   private _handleNegativeChange(ancestor: SbbAutocompleteElement | SbbSelectElement): void {

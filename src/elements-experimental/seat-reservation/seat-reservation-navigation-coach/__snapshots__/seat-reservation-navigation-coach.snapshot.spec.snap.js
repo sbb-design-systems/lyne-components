@@ -30,14 +30,17 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shad
         1
       </div>
     </div>
-    <sbb-screen-reader-only id="nav-coach-service-descriptions-0">
+    <span
+      class="sbb-screen-reader-only"
+      id="nav-coach-service-descriptions-0"
+    >
       <div>
         Navigate to coach 85 with First class compartment. 0 seats available. 0 available bicycle spaces.
       </div>
       <div>
         Available services: Bike area,Quiet zone.
       </div>
-    </sbb-screen-reader-only>
+    </span>
   </button>
   <sbb-seat-reservation-navigation-services>
   </sbb-seat-reservation-navigation-services>
@@ -72,8 +75,14 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
               "role": "none",
               "children": [
                 {
-                  "role": "generic",
-                  "name": ""
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "role": "StaticText",
+                      "name": "Available services:Bike area, Quiet zone"
+                    }
+                  ]
                 },
                 {
                   "ignored": true,

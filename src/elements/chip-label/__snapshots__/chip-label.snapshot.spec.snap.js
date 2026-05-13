@@ -12,11 +12,9 @@ snapshots["sbb-chip-label renders DOM"] =
 /* end snapshot sbb-chip-label renders DOM */
 
 snapshots["sbb-chip-label renders Shadow DOM"] = 
-`<span class="sbb-chip-label">
-  <span class="sbb-chip__text-wrapper">
-    <slot>
-    </slot>
-  </span>
+`<span class="sbb-chip__text-wrapper">
+  <slot>
+  </slot>
 </span>
 `;
 /* end snapshot sbb-chip-label renders Shadow DOM */
@@ -32,14 +30,8 @@ snapshots["sbb-chip-label renders A11y tree Chrome"] =
       "role": "none",
       "children": [
         {
-          "ignored": true,
-          "role": "none",
-          "children": [
-            {
-              "role": "StaticText",
-              "name": "Label"
-            }
-          ]
+          "role": "StaticText",
+          "name": "Label"
         }
       ]
     }

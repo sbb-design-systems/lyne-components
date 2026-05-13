@@ -1,8 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbProtectiveRoom } from '../core.ts';
-import { boxSizingStyles, forceType, SbbElement, SbbNegativeMixin } from '../core.ts';
+import { forceType, SbbElement, SbbNegativeMixin } from '../core.ts';
 
 import style from './logo.scss?inline';
 
@@ -13,11 +12,11 @@ import style from './logo.scss?inline';
  */
 export class SbbLogoElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-logo';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Visual protective room around logo. */
   @property({ attribute: 'protective-room', reflect: true })
-  public accessor protectiveRoom: SbbProtectiveRoom = 'ideal';
+  public accessor protectiveRoom: 'none' | 'minimal' | 'ideal' = 'ideal';
 
   /** Accessibility label which will be forwarded to the SVG logo. */
   @forceType()

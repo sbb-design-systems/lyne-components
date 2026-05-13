@@ -12,10 +12,21 @@ $theme: 'standard' !default;
   --sbb-tag-gap: var(--sbb-spacing-fixed-2x);
   --sbb-tag-text-color: var(--sbb-color-2);
   --sbb-tag-amount-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-tag-height-s: var(--sbb-size-element-xxxs);
+  --sbb-tag-height-m: var(--sbb-size-element-xs);
   --sbb-tag-height: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-size-element-xs),
-        'lean': var(--sbb-size-element-xxxs),
+        'standard': var(--sbb-tag-height-m),
+        'lean': var(--sbb-tag-height-s),
+      ),
+      $theme
+    )};
+  --sbb-tag-padding-inline-s: var(--sbb-spacing-fixed-3x);
+  --sbb-tag-padding-inline-m: var(--sbb-spacing-fixed-5x);
+  --sbb-tag-padding-inline: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-tag-padding-inline-m),
+        'lean': var(--sbb-tag-padding-inline-s),
       ),
       $theme
     )};

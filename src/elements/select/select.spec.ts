@@ -59,7 +59,9 @@ describe(`sbb-select`, () => {
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       const beforeCloseSpy = new EventSpy(SbbSelectElement.events.beforeclose, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
-      const overlayContainerElement = element.shadowRoot!.querySelector('.sbb-select__container')!;
+      const overlayContainerElement = element.shadowRoot!.querySelector(
+        '.sbb-option-panel__overlay-container',
+      )!;
 
       element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
@@ -415,6 +417,23 @@ describe(`sbb-select`, () => {
 
       element.dispatchEvent(new PointerEvent('click'));
       expect(element.isOpen).to.be.equal(false);
+    });
+
+    it('toggle the panel on origin click', async () => {
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+      // element.dispatchEvent(new PointerEvent('click'));
+      await sendMouse({ type: 'click', position: [root.offsetLeft + 25, root.offsetTop + 25] });
+      await openSpy.calledOnce();
+      await waitForLitRender(element);
+      expect(openSpy.count).to.be.equal(1);
+
+      await sendMouse({ type: 'click', position: [root.offsetLeft + 25, root.offsetTop + 25] });
+      await waitForLitRender(element);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
+      expect(openSpy.count).to.be.equal(1);
     });
 
     it('handles keypress on host', async () => {
@@ -1291,7 +1310,9 @@ describe(`sbb-select`, () => {
 
       const beforeOpenSpy = new EventSpy(SbbSelectElement.events.beforeopen, element);
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
-      const overlayContainerElement = element.shadowRoot!.querySelector('.sbb-select__container')!;
+      const overlayContainerElement = element.shadowRoot!.querySelector(
+        '.sbb-option-panel__overlay-container',
+      )!;
 
       element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
@@ -1335,7 +1356,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await openSpy.calledOnce();
 
-      const selectPanel = element.shadowRoot!.querySelector('.sbb-select__panel')!;
+      const selectPanel = element.shadowRoot!.querySelector('.sbb-option-panel__overlay')!;
       const oldPanelSize = selectPanel.clientWidth;
 
       formField.style.width = '200px';
@@ -1343,6 +1364,26 @@ describe(`sbb-select`, () => {
       // Wait for resizeObserver to apply the new size
       await waitForCondition(() => selectPanel.clientWidth < oldPanelSize);
       expect(selectPanel.clientWidth).to.be.lessThan(oldPanelSize);
+    });
+
+    it("should update the value when the option's value is set", async () => {
+      expect(element.getDisplayValue()).to.be.equal('');
+      expect(firstOption.getAttribute('selected')).to.be.null;
+
+      element.setAttribute('value', '1');
+      await waitForLitRender(element);
+      expect(firstOption.getAttribute('selected')).not.to.be.null;
+      expect(element.getDisplayValue()).to.be.equal('First');
+
+      firstOption.setAttribute('value', 'fake');
+      await waitForLitRender(element);
+      expect(firstOption.getAttribute('selected')).to.be.null;
+      expect(element.getDisplayValue()).to.be.equal('');
+
+      element.setAttribute('value', 'fake');
+      await waitForLitRender(element);
+      expect(firstOption.getAttribute('selected')).not.to.be.null;
+      expect(element.getDisplayValue()).to.be.equal('First');
     });
   });
 

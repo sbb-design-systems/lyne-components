@@ -34,8 +34,9 @@ $open-anim-height-to: calc(
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
 
   display: block;
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
   font-size: var(--sbb-notification-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 // By default, the open animation is disabled
@@ -51,7 +52,7 @@ $open-anim-height-to: calc(
   @include sbb.disable-animation;
 }
 
-:host(:state(slotted-title)) {
+:host(:where(:state(slotted-title), :state(slotted-title)[size='m'])) {
   --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-5);
   --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-heading);
 }
@@ -59,14 +60,6 @@ $open-anim-height-to: calc(
 :host(:state(slotted-title)[size='s']) {
   --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-6);
   --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-text);
-}
-
-:host([size='m']) {
-  --sbb-notification-font-size: var(--sbb-text-font-size-s);
-  --sbb-notification-padding-block: var(--sbb-spacing-responsive-xxs);
-  --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xs);
-  --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
-    var(--sbb-spacing-responsive-xs);
 }
 
 :host([size='s']) {
@@ -79,6 +72,18 @@ $open-anim-height-to: calc(
 
   @include sbb.mq($from: small) {
     --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs);
+  }
+}
+
+:host([size='m']) {
+  --sbb-notification-font-size: var(--sbb-text-font-size-s);
+  --sbb-notification-padding-block: var(--sbb-spacing-responsive-xxs);
+  --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xs);
+  --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
+    var(--sbb-spacing-responsive-xs);
+
+  @include sbb.mq($from: small) {
+    --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xs);
   }
 }
 
@@ -296,4 +301,6 @@ $open-anim-height-to: calc(
 ::slotted(sbb-title) {
   // Overwrite sbb-title default margin
   margin: 0;
+  font-size: var(--_sbb-notification-icon-authoritative-font-size);
+  line-height: var(--_sbb-notification-icon-authoritative-line-height);
 }

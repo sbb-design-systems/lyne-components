@@ -1,9 +1,10 @@
 import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbCheckboxPanelElement } from '../checkbox-panel/checkbox-panel.component.ts';
+import type { SbbRadioButtonElement } from '../radio-button/radio-button.component.ts';
 
 import '../selection-action-panel.ts';
 import '../button.ts';
@@ -34,7 +35,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xs', 's', 'm'],
+  options: ['xs', 's', 'm'] satisfies SbbCheckboxPanelElement['size'][],
   table: {
     category: 'Group / Input',
   },
@@ -88,7 +89,7 @@ const basicArgTypes: ArgTypes = {
 
 const basicArgs: Args = {
   input: input.options![0],
-  size: size.options![2],
+  size: undefined,
   color: color.options![0],
   borderless: false,
   checkedInput: false,
@@ -99,26 +100,21 @@ const cardBadge = (): TemplateResult => html`<sbb-card-badge>ab CHF 26.50</sbb-c
 
 const subtext = (): TemplateResult => html` <span slot="subtext">Subtext</span>`;
 
-const actionButton = (size: string, disabled: boolean): TemplateResult => html`
-  <sbb-secondary-button
-    size=${size === 'm' ? 'm' : 's'}
-    ?disabled=${disabled}
-    icon-name="arrow-right-small"
-  >
-  </sbb-secondary-button>
+const actionButton = (disabled: boolean): TemplateResult => html`
+  <sbb-secondary-button ?disabled=${disabled} icon-name="arrow-right-small"> </sbb-secondary-button>
 `;
 
 const checkboxPanel = (
   checked: boolean,
   disabled: boolean,
-  size: string,
+  size: SbbCheckboxPanelElement['size'],
   borderless: boolean,
   color: string,
 ): TemplateResult => html`
   <sbb-checkbox-panel
     ?checked=${checked}
     ?disabled=${disabled}
-    size=${size}
+    size=${size || nothing}
     color=${color}
     ?borderless=${borderless}
   >
@@ -129,7 +125,7 @@ const checkboxPanel = (
 const radioButtonPanel = (
   checked: boolean,
   disabled: boolean,
-  size: string,
+  size: SbbRadioButtonElement['size'],
   borderless: boolean,
   color: string,
 ): TemplateResult => html`
@@ -137,7 +133,7 @@ const radioButtonPanel = (
     value="Value one"
     ?checked=${checked}
     ?disabled=${disabled}
-    size=${size}
+    size=${size || nothing}
     color=${color}
     ?borderless=${borderless}
   >
@@ -158,7 +154,7 @@ const Template = ({
     ${input === 'checkbox'
       ? checkboxPanel(checkedInput, disabledInput, size, borderless, color)
       : radioButtonPanel(checkedInput, disabledInput, size, borderless, color)}
-    ${actionButton(size, disabledInput)} ${cardBadge()}
+    ${actionButton(disabledInput)} ${cardBadge()}
   </sbb-selection-action-panel>
 `;
 
@@ -176,7 +172,7 @@ const WithExpansionPanelTemplate = ({
       ${input === 'checkbox'
         ? checkboxPanel(checkedInput, disabledInput, size, borderless, color)
         : radioButtonPanel(checkedInput, disabledInput, size, borderless, color)}
-      ${actionButton(size, disabledInput)} ${cardBadge()}
+      ${actionButton(disabledInput)} ${cardBadge()}
     </sbb-selection-action-panel>
     <div slot="content">
       Inner Content
@@ -195,26 +191,26 @@ const WithCheckboxGroupTemplate = ({
   color,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
+  <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size || nothing}>
     <sbb-selection-action-panel ${sbbSpread(args)}>
       <sbb-checkbox-panel ?checked=${checkedInput} color=${color} ?borderless=${borderless}>
         Value one ${subtext()}
       </sbb-checkbox-panel>
-      ${actionButton(size, false)} ${cardBadge()}
+      ${actionButton(false)} ${cardBadge()}
     </sbb-selection-action-panel>
 
     <sbb-selection-action-panel ${sbbSpread(args)}>
       <sbb-checkbox-panel ?disabled=${disabledInput} color=${color} ?borderless=${borderless}>
         Value two ${subtext()}
       </sbb-checkbox-panel>
-      ${actionButton(size, disabledInput)} ${cardBadge()}
+      ${actionButton(disabledInput)} ${cardBadge()}
     </sbb-selection-action-panel>
 
     <sbb-selection-action-panel ${sbbSpread(args)}>
       <sbb-checkbox-panel color=${color} ?borderless=${borderless}>
         Value three ${subtext()}
       </sbb-checkbox-panel>
-      ${actionButton(size, false)} ${cardBadge()}
+      ${actionButton(false)} ${cardBadge()}
     </sbb-selection-action-panel>
   </sbb-checkbox-group>
 `;
@@ -232,7 +228,7 @@ const WithRadioButtonGroupTemplate = ({
     orientation="vertical"
     horizontal-from="large"
     ?allow-empty-selection=${allowEmptySelection}
-    size=${size}
+    size=${size || nothing}
   >
     <sbb-selection-action-panel ${sbbSpread(args)}>
       <sbb-radio-button-panel
@@ -243,7 +239,7 @@ const WithRadioButtonGroupTemplate = ({
       >
         Value one ${subtext()}
       </sbb-radio-button-panel>
-      ${actionButton(size, false)} ${cardBadge()}
+      ${actionButton(false)} ${cardBadge()}
     </sbb-selection-action-panel>
 
     <sbb-selection-action-panel ${sbbSpread(args)}>
@@ -255,14 +251,14 @@ const WithRadioButtonGroupTemplate = ({
       >
         Value two ${subtext()}
       </sbb-radio-button-panel>
-      ${actionButton(size, disabledInput)} ${cardBadge()}
+      ${actionButton(disabledInput)} ${cardBadge()}
     </sbb-selection-action-panel>
 
     <sbb-selection-action-panel ${sbbSpread(args)}>
       <sbb-radio-button-panel value="Value three" color=${color} ?borderless=${borderless}>
         Value three ${subtext()}
       </sbb-radio-button-panel>
-      ${actionButton(size, false)} ${cardBadge()}
+      ${actionButton(false)} ${cardBadge()}
     </sbb-selection-action-panel>
   </sbb-radio-button-group>
 `;

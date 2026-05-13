@@ -1,47 +1,29 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
-
-  --sbb-train-formation-sector-line-color: light-dark(
-    var(--sbb-color-cement),
-    var(--sbb-color-smoke)
-  );
-  --sbb-train-formation-sector-line-width: var(--sbb-border-width-1x);
-  --sbb-train-formation-blocked-passage-width: #{sbb.px-to-rem-build(16)};
-  --sbb-train-formation-text-color: var(--sbb-color-3);
-  --sbb-train-formation-vertical-gap: var(--sbb-spacing-fixed-2x);
-
-  @include sbb.if-forced-colors {
-    --sbb-train-formation-sector-line-color: CanvasText;
-  }
-}
-
-.sbb-train-formation {
-  @include sbb.scrollbar;
+  --sbb-train-formation-scroll-padding: var(--sbb-train-formation-padding);
+  --_sbb-train-formation-wagon-width: var(--sbb-train-formation-wagon-dimension-long);
+  --_sbb-train-formation-wagon-height: var(--sbb-train-formation-wagon-dimension-short);
 
   display: grid;
   grid-template:
     'start sectors end' auto
     'start trains end' auto / auto 1fr auto;
   position: relative;
-  overflow-x: auto;
-  row-gap: calc(
-    var(--sbb-train-formation-show-sectors-gap, 0) * var(--sbb-train-formation-vertical-gap)
-  );
-  padding-block-end: var(--sbb-train-formation-vertical-gap);
+  overflow: auto visible;
+  gap: var(--_sbb-train-formation-sectors-to-train-gap, 0) 0;
+  padding-block: var(--sbb-train-formation-padding);
   color: var(--sbb-train-formation-text-color);
-
-  &:focus-visible {
-    @include sbb.focus-outline;
-  }
+  font-size: var(--sbb-text-font-size-xs);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
 
   // Enable inline padding
   &::before,
   &::after {
     content: '';
     display: block;
-    width: var(--sbb-train-formation-padding-inline);
+    width: var(--sbb-train-formation-scroll-padding);
   }
 
   &::before {
@@ -53,36 +35,85 @@
   }
 }
 
+// With scrollable content, the train formation can get focus.
+:host(:focus-visible) {
+  @include sbb.focus-outline;
+}
+
+:host(:state(has-sectors)) {
+  --_sbb-train-formation-sectors-to-train-gap: var(--sbb-train-formation-gap);
+}
+
+:host(:state(has-direction-label)) {
+  --_sbb-train-formation-reserve-spacing-display: block;
+}
+
+:host([orientation='vertical']) {
+  --_sbb-train-formation-wagon-width: var(--sbb-train-formation-wagon-dimension-short);
+  --_sbb-train-formation-wagon-height: var(--sbb-train-formation-wagon-dimension-long);
+  --_sbb-train-formation-flex-direction: column;
+  --_sbb-train-formation-flex-direction-inverted: row;
+
+  grid-template:
+    'start start' auto
+    'sectors trains' 1fr
+    'end end' auto;
+  overflow: visible auto;
+  padding-block: unset;
+  padding-inline: var(--sbb-train-formation-padding);
+  gap: 0 var(--_sbb-train-formation-sectors-to-train-gap, 0);
+  width: fit-content;
+
+  &::before,
+  &::after {
+    width: auto;
+    height: var(--sbb-train-formation-scroll-padding);
+  }
+}
+
 .sbb-train-formation__sectors {
   display: flex;
   grid-area: sectors;
   gap: var(--sbb-train-formation-wagon-gap);
+  flex-direction: var(--_sbb-train-formation-flex-direction);
 }
 
 .sbb-train-formation__sector {
-  --_wagon-sum: var(--sbb-train-formation-wagon-count) * var(--sbb-train-formation-wagon-width);
+  --_wagon-sum: var(--sbb-train-formation-wagon-count) *
+    var(--sbb-train-formation-wagon-dimension-long);
   --_blocked-passage-sum: var(--sbb-train-formation-wagon-blocked-passage-count) *
-    var(--sbb-train-formation-blocked-passage-width);
+    var(--sbb-train-formation-blocked-passage-dimension);
   --_total-count: calc(
     var(--sbb-train-formation-wagon-count) + var(--sbb-train-formation-wagon-blocked-passage-count)
   );
   --_gap-sum: calc((var(--_total-count) - 1) * var(--sbb-train-formation-wagon-gap));
   --_sector-width: calc(var(--_wagon-sum) + var(--_blocked-passage-sum) + var(--_gap-sum));
-
-  @include sbb.text-xs--regular;
+  --_sector-line-length: calc(0.5 * var(--_sector-width));
 
   flex: 0 0 var(--_sector-width);
-  text-align: center;
-  overflow-x: clip;
+  display: flex;
+  flex-direction: var(--_sbb-train-formation-flex-direction);
+  justify-content: center;
+  overflow: clip visible;
+
+  :host([orientation='vertical']) & {
+    overflow: visible clip;
+  }
 }
 
 .sbb-train-formation__sector-sticky-wrapper {
   position: sticky;
   inset: auto 0;
-  padding: 0 var(--sbb-spacing-fixed-1x);
-  margin: 0 var(--sbb-spacing-fixed-2x);
-  overflow: hidden;
+  padding: 0 var(--sbb-train-formation-sector-padding);
+  margin: 0 var(--sbb-train-formation-sector-margin);
   white-space: nowrap;
+
+  :host([orientation='vertical']) & {
+    writing-mode: sideways-lr;
+    inset: 0 auto;
+    padding: var(--sbb-train-formation-sector-padding) 0;
+    margin: var(--sbb-train-formation-sector-margin) 0;
+  }
 
   // Lines beside the sector-label
   &::before,
@@ -94,7 +125,12 @@
     inset-block: calc(50% - var(--sbb-train-formation-sector-line-width) / 2);
     border-block-end: var(--sbb-train-formation-sector-line-width) solid
       var(--sbb-train-formation-sector-line-color);
-    width: calc(0.5 * var(--_sector-width));
+    width: var(--_sector-line-length);
+
+    :host([orientation='vertical']) & {
+      width: auto;
+      height: var(--_sector-line-length);
+    }
   }
 
   &::before {
@@ -114,6 +150,7 @@
   @include sbb.list-reset;
 
   display: flex;
+  flex-direction: var(--_sbb-train-formation-flex-direction);
   gap: var(--sbb-train-formation-wagon-gap);
 }
 

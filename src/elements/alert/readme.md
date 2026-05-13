@@ -5,7 +5,7 @@ The group also manages the accessibility of one or multiple alert instances and 
 visual gap between each other.
 
 ```html
-<sbb-alert-group accessibility-title="Disruptions" accessibility-level="2">
+<sbb-alert-group accessibility-title="Disruptions" accessibility-title-level="2">
   <sbb-alert size="l">
     <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
     The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
@@ -66,7 +66,7 @@ use the `readonly` attribute/`readOnly` property.
 
 ## Style
 
-Users can choose between three `size` options: `s`, `m` (default) and `l`.
+Users can choose between three `size` options: `s`, `m` and `l`.
 
 ```html
 <sbb-alert size="s"> ... </sbb-alert>
@@ -109,13 +109,13 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
 
 #### Properties
 
-| Name        | Attribute   | Privacy | Type                                   | Default            | Description                                                                                                                      |
-| ----------- | ----------- | ------- | -------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| `animation` | `animation` | public  | `'open' \| 'close' \| 'all' \| 'none'` | `'all'`            | The enabled animations.                                                                                                          |
-| `iconName`  | `icon-name` | public  | `string`                               | `''`               | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `isOpen`    | -           | public  | `boolean`                              |                    | Whether the element is open.                                                                                                     |
-| `readOnly`  | `readonly`  | public  | `boolean`                              | `false`            | Whether the component is readonly.                                                                                               |
-| `size`      | `size`      | public  | `'s' \| 'm' \| 'l'`                    | `'m' / 's' (lean)` | You can choose between `s`, `m` or `l` size.                                                                                     |
+| Name        | Attribute   | Privacy | Type                                   | Default | Description                                                                                                                      |
+| ----------- | ----------- | ------- | -------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `animation` | `animation` | public  | `'open' \| 'close' \| 'all' \| 'none'` | `'all'` | The enabled animations.                                                                                                          |
+| `iconName`  | `icon-name` | public  | `string`                               | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `isOpen`    | -           | public  | `boolean`                              |         | Whether the element is open.                                                                                                     |
+| `readOnly`  | `readonly`  | public  | `boolean`                              | `false` | Whether the component is readonly.                                                                                               |
+| `size`      | `size`      | public  | `'s' \| 'm' \| 'l' \| null`            | `null`  | Size variant, either `s` (lean theme default), `m` (standard theme default) or `l`.                                              |
 
 #### Methods
 
@@ -146,10 +146,10 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
 
 #### Properties
 
-| Name                      | Attribute                   | Privacy | Type            | Default | Description                                                                                       |
-| ------------------------- | --------------------------- | ------- | --------------- | ------- | ------------------------------------------------------------------------------------------------- |
-| `accessibilityTitle`      | `accessibility-title`       | public  | `string`        | `''`    | Title for this alert group which is only visible for screen reader users.                         |
-| `accessibilityTitleLevel` | `accessibility-title-level` | public  | `SbbTitleLevel` | `'2'`   | Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2. |
+| Name                      | Attribute                   | Privacy | Type                                     | Default | Description                                                                                       |
+| ------------------------- | --------------------------- | ------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------------------------------- |
+| `accessibilityTitle`      | `accessibility-title`       | public  | `string`                                 | `''`    | Title for this alert group which is only visible for screen reader users.                         |
+| `accessibilityTitleLevel` | `accessibility-title-level` | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6'` | `'2'`   | Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2. |
 
 #### Events
 

@@ -18,7 +18,6 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     propertyIds: ['BICYCLE', 'SILENCE'],
     isDriverArea: false,
     freePlaces: { seats: 0, bicycles: 0 },
-    driverAreaElements: { driverArea: undefined, driverAreaNoVerticalWall: undefined },
     driverAreaSide: { left: false, right: false },
   };
 
@@ -278,12 +277,12 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     );
 
     await waitForLitRender(element);
-    const screenReaderOnlyElement = element.shadowRoot?.querySelector('sbb-screen-reader-only');
+    const screenReaderOnlyElement = element.shadowRoot?.querySelector('.sbb-screen-reader-only');
     expect(screenReaderOnlyElement?.innerHTML).to.include('Available services: Bistro');
   });
 
   it('should include title information from button into screen-reader-only area if showTitleInfo is false', async () => {
-    const screenReaderOnlyElement = element.shadowRoot?.querySelector('sbb-screen-reader-only');
+    const screenReaderOnlyElement = element.shadowRoot?.querySelector('.sbb-screen-reader-only');
 
     const btn = element.shadowRoot?.querySelector(
       '.sbb-sr-navigation__ctrl-button',
@@ -297,7 +296,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     element.showTitleInfo = true;
     await waitForLitRender(element);
 
-    const screenReaderOnlyElement = element.shadowRoot?.querySelector('sbb-screen-reader-only');
+    const screenReaderOnlyElement = element.shadowRoot?.querySelector('.sbb-screen-reader-only');
 
     const btn = element.shadowRoot?.querySelector(
       '.sbb-sr-navigation__ctrl-button',

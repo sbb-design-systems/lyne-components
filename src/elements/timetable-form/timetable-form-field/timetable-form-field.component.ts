@@ -9,7 +9,7 @@ import style from './timetable-form-field.scss?inline';
  */
 export class SbbTimetableFormFieldElement extends SbbFormFieldElement {
   public static override readonly elementName: string = 'sbb-timetable-form-field';
-  public static override styles: CSSResultGroup = [SbbFormFieldElement.styles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   private _routeIcon = false;
 
@@ -18,6 +18,9 @@ export class SbbTimetableFormFieldElement extends SbbFormFieldElement {
     this.borderless = true;
     this.floatingLabel = true;
     this.width = 'collapse';
+    /**
+     * Size variant, either s, m or l (default).
+     */
     this.size = 'l';
   }
 

@@ -1,18 +1,15 @@
-import { type LitElement, unsafeCSS } from 'lit';
+import { type CSSResultGroup, type LitElement, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbCheckboxSize } from '../../checkbox/common/checkbox-common.ts';
 import type { SbbCheckboxGroupElement } from '../../checkbox-group.pure.ts';
-import type { SbbRadioButtonSize } from '../../radio-button/common/radio-button-common.ts';
+import type { SbbCheckboxElement } from '../../checkbox.pure.ts';
 import type { SbbRadioButtonGroupElement } from '../../radio-button-group.pure.ts';
+import type { SbbRadioButtonElement } from '../../radio-button.pure.ts';
 import { forceType } from '../decorators/force-type.ts';
 import { getOverride } from '../decorators/get-override.ts';
-import { isLean } from '../dom/lean-context.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
-import panelCommonStyleString from './panel-common.scss?inline';
-
-export const panelCommonStyle = unsafeCSS(panelCommonStyleString);
+import style from './panel-common.scss?inline';
 
 interface SbbPanelWithGroup {
   group: SbbCheckboxGroupElement | SbbRadioButtonGroupElement | null;
@@ -22,7 +19,7 @@ export declare class SbbPanelMixinType {
   public accessor color: 'white' | 'milk';
   public accessor borderless: boolean;
   public accessor expansionState: string;
-  public accessor size: SbbCheckboxSize | SbbRadioButtonSize;
+  public accessor size: SbbCheckboxElement['size'] | SbbRadioButtonElement['size'];
 }
 
 /**
@@ -33,6 +30,8 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement & SbbPane
   superClass: T,
 ): AbstractConstructor<SbbPanelMixinType> & T => {
   abstract class SbbPanelElement extends superClass implements SbbPanelMixinType {
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
+
     /** The background color of the panel. */
     @property({ reflect: true }) public accessor color: 'white' | 'milk' = 'white';
 
@@ -47,12 +46,11 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement & SbbPane
     public accessor expansionState: string = '';
 
     /**
-     * Size variant, either xs, s or m.
-     * @default 'm' / 'xs' (lean)
+     * Size variant, either xs (lean theme default), s or m (standard theme default).
      */
     @property({ reflect: true })
     @getOverride((p: SbbPanelElement, v) => p.group?.size ?? v)
-    public accessor size: SbbCheckboxSize | SbbRadioButtonSize = isLean() ? 'xs' : 'm';
+    public accessor size: SbbCheckboxElement['size'] | SbbRadioButtonElement['size'] = null;
 
     public override connectedCallback(): void {
       super.connectedCallback();

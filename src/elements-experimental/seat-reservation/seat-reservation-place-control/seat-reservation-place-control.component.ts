@@ -1,10 +1,9 @@
 import {
-  boxSizingStyles,
   forceType,
   SbbButtonBaseElement,
   type SbbElementType,
   SbbLanguageController,
-  SbbScreenReaderOnlyElement,
+  screenReaderOnlyStyles,
 } from '@sbb-esta/lyne-elements/core.js';
 import {
   type CSSResultGroup,
@@ -33,11 +32,8 @@ type TravelDirectionI18nKey =
  */
 export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-place-control';
-  public static override elementDependencies: SbbElementType[] = [
-    SbbSeatReservationGraphicElement,
-    SbbScreenReaderOnlyElement,
-  ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override elementDependencies: SbbElementType[] = [SbbSeatReservationGraphicElement];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
   public static readonly events = {
     selectplace: 'selectplace',
   } as const;
@@ -161,8 +157,8 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
           >${text}</span
         >
         ${!this.showTitleInfo
-          ? html`<sbb-screen-reader-only id="${this.id}"
-              >${this._optionalScreenreaderInfo}</sbb-screen-reader-only
+          ? html`<span class="sbb-screen-reader-only" id="${this.id}"
+              >${this._optionalScreenreaderInfo}</span
             >`
           : nothing}
       </div>
@@ -204,8 +200,9 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
       this.travelDirection === 'NONE' ||
       this.placeType !== 'SEAT' ||
       !rotationValue
-    )
+    ) {
       return undefined;
+    }
     const rotation = Number(rotationValue);
 
     if (rotation === 90 || rotation === 270) {

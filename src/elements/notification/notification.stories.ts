@@ -17,14 +17,14 @@ const type: InputType = {
   control: {
     type: 'select',
   },
-  options: ['info', 'note', 'success', 'warn', 'error'],
+  options: ['info', 'note', 'success', 'warn', 'error'] satisfies SbbNotificationElement['type'][],
 };
 
 const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm'],
+  options: ['s', 'm'] satisfies SbbNotificationElement['size'][],
 };
 
 const readonly: InputType = {
@@ -37,7 +37,7 @@ const animation: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['all', 'close', 'open', 'none'],
+  options: ['all', 'close', 'open', 'none'] satisfies SbbNotificationElement['animation'][],
 };
 
 const icon: InputType = {
@@ -70,7 +70,7 @@ const basicArgTypes: ArgTypes = {
 
 const basicArgs: Args = {
   type: type.options![0],
-  size: size.options![1],
+  size: undefined,
   readonly: false,
   animation: animation.options![0],
   'icon-name': undefined,
@@ -105,7 +105,6 @@ const appendNotification = (event: Event, args: Args): void => {
 
 const trigger = (args: Args): TemplateResult => html`
   <sbb-secondary-button
-    size="m"
     style="max-width: fit-content"
     @click=${(event: Event) => appendNotification(event, args)}
     icon-name="circle-plus-small"
@@ -204,6 +203,12 @@ export const SizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, size: 's' },
+};
+
+export const SizeM: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, size: 'm' },
 };
 
 export const MultipleNotifications: StoryObj = {

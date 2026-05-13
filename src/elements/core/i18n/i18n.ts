@@ -1,4 +1,4 @@
-import type { SbbLanguage, SbbOccupancy } from '../interfaces/types.ts';
+import type { SbbOccupancy } from '../interfaces/types.ts';
 
 export const i18nDirection: Record<string, string> = {
   de: 'Richtung',
@@ -26,6 +26,13 @@ export const i18nSectorShort: Record<string, string> = {
   en: 'Sec.',
   fr: 'Sect.',
   it: 'Set.',
+};
+
+export const i18nAnd: Record<string, string> = {
+  de: 'und',
+  en: 'and',
+  fr: 'et',
+  it: 'e',
 };
 
 export const i18nClass: Record<string, Record<string, string>> = {
@@ -292,7 +299,7 @@ export const i18nSupersaver: Record<string, string> = {
   it: 'Biglietti risparmio',
 };
 
-export const i18nOccupancy: Record<SbbOccupancy, Record<SbbLanguage, string>> = {
+export const i18nOccupancy: Record<SbbOccupancy, Record<string, string>> = {
   none: {
     de: 'Keine Belegungsprognose verfügbar',
     en: 'No occupancy forecast available',

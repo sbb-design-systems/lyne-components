@@ -62,9 +62,10 @@ export default ESLintUtils.RuleCreator.withoutDocs({
         }
         const insertTarget =
           node.parent.type === AST_NODE_TYPES.ExportNamedDeclaration ? node.parent : node;
-        const eventDocs = Array.from(events)
-          .map(([name, details]) => `\n * @event ${details.type} ${name} - ${details.doc}`)
-          .join('');
+        const eventDocs = Array.from(
+          events,
+          ([name, details]) => `\n * @event ${details.type} ${name} - ${details.doc}`,
+        ).join('');
         if (!jsDoc) {
           context.report({
             messageId: 'missingJsDoc',

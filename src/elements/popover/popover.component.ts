@@ -1,3 +1,4 @@
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
@@ -8,12 +9,11 @@ import {
   type TemplateResult,
   unsafeCSS,
 } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbSecondaryButtonElement } from '../button.pure.ts';
 import {
-  boxSizingStyles,
   composedPathHasAttribute,
   forceType,
   getElementPosition,
@@ -32,6 +32,7 @@ import {
   SbbLanguageController,
   SbbMediaQueryPointerCoarse,
   SbbOpenCloseBaseElement,
+  scrollbarStyles,
   setAriaOverlayTriggerProperties,
   ɵstateController,
 } from '../core.ts';
@@ -45,7 +46,7 @@ const popoversRef = new Set<SbbPopoverBaseElement>();
 const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).matches;
 
 export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
    * The element that will trigger the popover overlay.
@@ -64,6 +65,10 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
   private _triggerElement?: HTMLElement | null;
   private _triggerAbortController?: AbortController;
   private _openStateController?: AbortController;
+  private _resizeController = new ResizeController(this, {
+    target: null,
+    callback: () => this._setPopoverPosition(),
+  });
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusTrapController = new SbbFocusTrapController(this);
   private _blurTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -137,8 +142,11 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
   private _handleClosing(): void {
     this.state = 'closed';
     this.hidePopover?.();
+    if (this.overlay) {
+      this._resizeController.unobserve(this.overlay);
+      this.overlay.firstElementChild?.scrollTo(0, 0);
+    }
 
-    this.overlay?.firstElementChild?.scrollTo(0, 0);
     this.removeAttribute('tabindex');
 
     if (!this._skipCloseFocus) {
@@ -159,6 +167,9 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
     this.inert = false;
     this._setPopoverFocus();
     this._focusTrapController.enabled = true;
+    if (this.overlay) {
+      this._resizeController.observe(this.overlay);
+    }
     this.dispatchOpenEvent();
   }
 
@@ -434,6 +445,7 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
 export class SbbPopoverElement extends SbbPopoverBaseElement {
   public static override readonly elementName: string = 'sbb-popover';
   public static override elementDependencies: SbbElementType[] = [SbbSecondaryButtonElement];
+  public static override styles: CSSResultGroup = [scrollbarStyles];
 
   /** Whether the close button should be hidden. */
   @forceType()
@@ -480,7 +492,7 @@ export class SbbPopoverElement extends SbbPopoverBaseElement {
   @property({ attribute: 'accessibility-close-label' })
   public accessor accessibilityCloseLabel: string = '';
 
-  private _hoverTrigger = false;
+  @state() private accessor _hoverTrigger = false;
   private _openTimeout?: ReturnType<typeof setTimeout>;
   private _language = new SbbLanguageController(this);
   private _overlayAbortController: AbortController | null = null;
@@ -600,11 +612,11 @@ export class SbbPopoverElement extends SbbPopoverBaseElement {
   };
 
   protected override renderContent(): TemplateResult {
+    // TODO: remove close button from shadow DOM and create sbb-popover-close-button component like sbb-sidebar-close-button @breaking-change
     const closeButton = html`
       <sbb-secondary-button
         aria-label=${this.accessibilityCloseLabel || i18nClosePopover[this._language.current]}
         size="s"
-        type="button"
         icon-name="cross-small"
         sbb-popover-close
       ></sbb-secondary-button>
@@ -612,7 +624,7 @@ export class SbbPopoverElement extends SbbPopoverBaseElement {
 
     return html`
       ${!this.hideCloseButton && !this._hoverTrigger ? closeButton : nothing}
-      <span class="sbb-popover__scrollable-content">
+      <span class="sbb-popover__scrollable-content sbb-scrollbar">
         <slot>No content</slot>
       </span>
     `;

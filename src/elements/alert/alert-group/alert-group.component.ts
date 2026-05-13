@@ -2,8 +2,13 @@ import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'li
 import { property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { boxSizingStyles, forceType, isEventPrevented, SbbElement } from '../../core.ts';
-import type { SbbTitleLevel } from '../../title.pure.ts';
+import {
+  forceType,
+  isEventPrevented,
+  SbbElement,
+  type SbbHeadingLevel,
+  screenReaderOnlyStyles,
+} from '../../core.ts';
 import type { SbbAlertElement } from '../alert/alert.component.ts';
 
 import style from './alert-group.scss?inline';
@@ -16,7 +21,7 @@ import style from './alert-group.scss?inline';
  */
 export class SbbAlertGroupElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-alert-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
   public static readonly events = {
     empty: 'empty',
   } as const;
@@ -37,7 +42,7 @@ export class SbbAlertGroupElement extends SbbElement {
 
   /** Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2. */
   @property({ attribute: 'accessibility-title-level' })
-  public accessor accessibilityTitleLevel: SbbTitleLevel = '2';
+  public accessor accessibilityTitleLevel: SbbHeadingLevel = '2';
 
   /** Whether the group currently has any alerts. */
   @state() private accessor _hasAlerts: boolean = false;
@@ -94,14 +99,12 @@ export class SbbAlertGroupElement extends SbbElement {
 
     /* eslint-disable lit/binding-positions */
     return html`
-      <div class="sbb-alert-group">
-        ${this._hasAlerts
-          ? html`<${unsafeStatic(TITLE_TAG_NAME)} class="sbb-alert-group__title">
-              <slot name="accessibility-title">${this.accessibilityTitle}</slot>
-            </${unsafeStatic(TITLE_TAG_NAME)}>`
-          : nothing}
-        <slot @slotchange=${(event: Event) => this._slotChanged(event)}></slot>
-      </div>
+      ${this._hasAlerts
+        ? html`<${unsafeStatic(TITLE_TAG_NAME)} class="sbb-screen-reader-only">
+            <slot name="accessibility-title">${this.accessibilityTitle}</slot>
+          </${unsafeStatic(TITLE_TAG_NAME)}>`
+        : nothing}
+      <slot @slotchange=${(event: Event) => this._slotChanged(event)}></slot>
     `;
   }
 }

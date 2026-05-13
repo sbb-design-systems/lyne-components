@@ -12,7 +12,7 @@ snapshots["sbb-map-container renders Shadow DOM"] =
   <slot name="map">
   </slot>
 </div>
-<div class="sbb-map-container__sidebar">
+<div class="sbb-map-container__sidebar sbb-scrollbar-thick-track-visible">
   <span id="intersector">
   </span>
   <slot>
@@ -23,7 +23,6 @@ snapshots["sbb-map-container renders Shadow DOM"] =
     inert=""
     size="l"
     tabindex="0"
-    type="button"
   >
     Show map
   </sbb-accent-button>
@@ -42,7 +41,7 @@ snapshots["sbb-map-container renders without scroll-up button Shadow DOM"] =
   <slot name="map">
   </slot>
 </div>
-<div class="sbb-map-container__sidebar">
+<div class="sbb-map-container__sidebar sbb-scrollbar-thick-track-visible">
   <span id="intersector">
   </span>
   <slot>

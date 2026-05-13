@@ -139,7 +139,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['s', 'm'] satisfies SbbAutocompleteGridElement['size'][],
   table: {
     category: 'Form field',
   },
@@ -237,7 +237,7 @@ const defaultArgs: Args = {
   // Form field args
   negative: false,
   borderless: false,
-  size: size.options![0],
+  size: undefined,
   floatingLabel: false,
 
   // Input args
@@ -331,7 +331,7 @@ const Template = (args: Args): TemplateResult => html`
     <sbb-form-field
       ?negative=${args.negative}
       ?borderless=${args.borderless}
-      size=${args.size}
+      size=${args.size || nothing}
       ?floating-label=${args.floatingLabel}
     >
       <label>Label</label>
@@ -369,7 +369,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
-      size=${args.size}
+      size=${args.size || nothing}
     >
       <label>Label</label>
       <input
@@ -424,6 +424,12 @@ export const Negative: StoryObj = {
 export const BasicSizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![0] },
+};
+
+export const BasicSizeM: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![1] },
 };
 
@@ -466,7 +472,7 @@ export const BorderlessNegative: StoryObj = {
 export const BorderlessSizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, borderless: true, size: size.options![1] },
+  args: { ...defaultArgs, borderless: true, size: size.options![0] },
 };
 
 export const FloatingLabel: StoryObj = {
@@ -478,7 +484,7 @@ export const FloatingLabel: StoryObj = {
 export const FloatingLabelSizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, floatingLabel: true, size: size.options![1] },
+  args: { ...defaultArgs, floatingLabel: true, size: size.options![0] },
 };
 
 export const BasicOpenAbove: StoryObj = {
@@ -516,7 +522,7 @@ export const WithOptionGroup: StoryObj = {
 export const WithOptionGroupSizeS: StoryObj = {
   render: OptionGroupTemplate,
   argTypes: withGroupsArgTypes,
-  args: { ...withGroupsDefaultArgs, size: size.options![1] },
+  args: { ...withGroupsDefaultArgs, size: size.options![0] },
 };
 
 export const WithOptionGroupNegative: StoryObj = {

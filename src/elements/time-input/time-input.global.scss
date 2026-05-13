@@ -1,0 +1,11 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-time-input-max-width: #{sbb.px-to-rem-build(58)};
+}
+
+@mixin base-breakpoint-large {
+  --sbb-time-input-max-width: #{sbb.px-to-rem-build(65)};
+}

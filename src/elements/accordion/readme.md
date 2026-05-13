@@ -24,7 +24,7 @@ The `multi` property, if set, allows having more than one `<sbb-expansion-panel>
 
 ## Style
 
-The component has two different sizes, `l` (default) and `s`, which can be changed using the `size` property.
+The component has two different sizes, `s` and `l`, which can be changed using the `size` property.
 The property overrides the `size` value of any inner `<sbb-expansion-panel>`.
 
 ```html
@@ -54,11 +54,11 @@ In the following example, all the `<sbb-expansion-panel-header>` would be wrappe
 
 #### Properties
 
-| Name         | Attribute     | Privacy | Type                    | Default            | Description                                                                             |
-| ------------ | ------------- | ------- | ----------------------- | ------------------ | --------------------------------------------------------------------------------------- |
-| `multi`      | `multi`       | public  | `boolean`               | `false`            | Whether more than one sbb-expansion-panel can be open at the same time.                 |
-| `size`       | `size`        | public  | `'s' \| 'l'`            | `'l' / 's' (lean)` | Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`. |
-| `titleLevel` | `title-level` | public  | `SbbTitleLevel \| null` | `null`             | The heading level for the sbb-expansion-panel-headers within the component.             |
+| Name         | Attribute     | Privacy | Type                                             | Default | Description                                                                                                                                        |
+| ------------ | ------------- | ------- | ------------------------------------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `multi`      | `multi`       | public  | `boolean`                                        | `false` | Whether more than one sbb-expansion-panel can be open at the same time.                                                                            |
+| `size`       | `size`        | public  | `'s' \| 'l' \| null`                             | `null`  | Size variant, either s (lean theme default) or l (standard theme default). The property overrides the size on any projected `sbb-expansion-panel`. |
+| `titleLevel` | `title-level` | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6' \| null` | `null`  | The heading level for the sbb-expansion-panel-headers within the component.                                                                        |
 
 #### Slots
 

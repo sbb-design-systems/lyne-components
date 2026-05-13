@@ -8,16 +8,14 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
-  boxSizingStyles,
   forceType,
   handleDistinctChange,
   isEventPrevented,
-  isLean,
   SbbElement,
+  type SbbHeadingLevel,
   ɵstateController,
 } from '../core.ts';
 import type { SbbExpansionPanelElement } from '../expansion-panel.pure.ts';
-import type { SbbTitleLevel } from '../title.pure.ts';
 
 import style from './accordion.scss?inline';
 
@@ -28,22 +26,21 @@ import style from './accordion.scss?inline';
  */
 export class SbbAccordionElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-accordion';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
-   * Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`.
-   * @default 'l' / 's' (lean)
+   * Size variant, either s (lean theme default) or l (standard theme default).
+   * The property overrides the size on any projected `sbb-expansion-panel`.
    */
-  @property({ reflect: true })
-  public accessor size: 's' | 'l' = isLean() ? 's' : 'l';
+  @property()
+  public accessor size: 's' | 'l' | null = null;
 
   /**
    * The heading level for the sbb-expansion-panel-headers within the component.
-   * @controls SbbExpansionPanelElement.titleLevel
    */
   @handleDistinctChange((e: SbbAccordionElement) => e._setTitleLevelOnChildren())
   @property({ attribute: 'title-level' })
-  public accessor titleLevel: SbbTitleLevel | null = null;
+  public accessor titleLevel: SbbHeadingLevel | null = null;
 
   /** Whether more than one sbb-expansion-panel can be open at the same time. */
   @forceType()
@@ -71,11 +68,18 @@ export class SbbAccordionElement extends SbbElement {
   }
 
   private _expansionPanels(): SbbExpansionPanelElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []);
+    return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []).filter(
+      (p) => p.closest('sbb-accordion') === this,
+    );
   }
 
   private _closePanels(e: Event): void {
-    if ((e.target as HTMLElement)?.localName !== 'sbb-expansion-panel' || this.multi) {
+    const target = e.target as HTMLElement;
+    if (
+      target?.localName !== 'sbb-expansion-panel' ||
+      this.multi ||
+      target?.closest('sbb-accordion') !== this
+    ) {
       return;
     }
 

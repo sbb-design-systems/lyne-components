@@ -28,6 +28,7 @@ $icon-only: ':where(:state(slotted-icon), :state(has-icon-name)):not(:state(slot
 
   font-size: var(--sbb-text-font-size-xxs);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
   display: var(--sbb-mini-button-label-display);
   transition: translate var(--sbb-mini-button-transition-duration)
     var(--sbb-mini-button-transition-easing-function);

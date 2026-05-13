@@ -216,4 +216,10 @@ export default [
     },
   },
   eslintConfigPrettier,
+  // curly must come after eslintConfigPrettier, as it disables the rule.
+  {
+    rules: {
+      curly: 'error',
+    },
+  },
 ];

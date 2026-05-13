@@ -11,7 +11,6 @@ import { property, state } from 'lit/decorators.js';
 
 import { SbbSecondaryButtonElement } from '../../button.pure.ts';
 import {
-  boxSizingStyles,
   type DateAdapter,
   DAYS_PER_ROW,
   defaultDateAdapter,
@@ -37,8 +36,7 @@ import {
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointLargeAndAbove,
-  type SbbOrientation,
-  SbbScreenReaderOnlyElement,
+  screenReaderOnlyStyles,
   THURSDAY,
   TUESDAY,
   WEDNESDAY,
@@ -134,8 +132,6 @@ export interface Weekday {
   narrow: string;
 }
 
-export type CalendarView = 'day' | 'month' | 'year';
-
 /**
  * It displays a calendar which allows choosing a date.
  *
@@ -150,10 +146,9 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
     SbbCalendarWeeknumberElement,
     SbbCalendarYearElement,
     SbbIconElement,
-    SbbScreenReaderOnlyElement,
     SbbSecondaryButtonElement,
   ];
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
   public static readonly events = {
     dateselected: 'dateselected',
     monthchange: 'monthchange',
@@ -165,7 +160,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   public accessor wide: boolean = false;
 
   /** The initial view of the calendar which should be displayed on opening. */
-  @property() public accessor view: CalendarView = 'day';
+  @property() public accessor view: 'day' | 'month' | 'year' = 'day';
 
   /**
    * The minimum valid date. Accepts a date object or null.
@@ -231,7 +226,8 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   public accessor dateFilter: ((date: T | null) => boolean) | null = null;
 
   /** The orientation of days in the calendar. */
-  @property({ reflect: true }) public accessor orientation: SbbOrientation = 'horizontal';
+  @property({ reflect: true }) public accessor orientation: 'horizontal' | 'vertical' =
+    'horizontal';
 
   /** Whether it has to display the week numbers in addition to week days. */
   @forceType()
@@ -256,9 +252,9 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   // TODO: re-check whether field is needed
   private _wideInternal: boolean = false;
 
-  @state() private accessor _calendarView: CalendarView = 'day';
+  @state() private accessor _calendarView: SbbCalendarElement['view'] = 'day';
 
-  private _nextCalendarView: CalendarView = 'day';
+  private _nextCalendarView: SbbCalendarElement['view'] = 'day';
 
   /** Information about the rendered day view; used in keyboard navigation. */
   private _keyboardNavigationDayViewParameters: CalendarKeyboardNavigationDayViewParameters = {
@@ -1306,9 +1302,9 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
         <div class="sbb-calendar__controls-month">
           ${this._createLabelForDayView(this._activeDate)}
           ${this._wide ? this._createLabelForDayView(nextMonthActiveDate!) : nothing}
-          <sbb-screen-reader-only role="status">
+          <span class="sbb-screen-reader-only" role="status">
             ${this._createAriaLabelForDayView(this._activeDate, nextMonthActiveDate!)}
-          </sbb-screen-reader-only>
+          </span>
         </div>
         ${this._getArrow(
           'right',
@@ -1419,7 +1415,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
                         ></sbb-calendar-weekday>
                       `
                     : html`
-                        <sbb-screen-reader-only>${weekDay.long}</sbb-screen-reader-only>
+                        <span class="sbb-screen-reader-only">${weekDay.long}</span>
                         <span aria-hidden="true">${weekDay.narrow}</span>
                       `}
                 </th>
@@ -1449,8 +1445,8 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
                                 ></sbb-calendar-weeknumber>
                               `
                             : html`
-                                <sbb-screen-reader-only
-                                  >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[0]}`}</sbb-screen-reader-only
+                                <span class="sbb-screen-reader-only"
+                                  >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[0]}`}</span
                                 >
                                 <span aria-hidden="true">${weekNumbers[0]}</span>
                               `}
@@ -1482,8 +1478,8 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
                               ></sbb-calendar-weeknumber>
                             `
                           : html`
-                              <sbb-screen-reader-only
-                                >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[rowIndex]}`}</sbb-screen-reader-only
+                              <span class="sbb-screen-reader-only"
+                                >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[rowIndex]}`}</span
                               >
                               <span aria-hidden="true">${weekNumbers[rowIndex]}</span>
                             `}
@@ -1545,8 +1541,8 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
                               ></sbb-calendar-weeknumber>
                             `
                           : html`
-                              <sbb-screen-reader-only
-                                >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumber}`}</sbb-screen-reader-only
+                              <span class="sbb-screen-reader-only"
+                                >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumber}`}</span
                               >
                               <span aria-hidden="true">${weekNumber}</span>
                             `}
@@ -1577,7 +1573,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
                               </sbb-calendar-weekday>
                             `
                           : html`
-                              <sbb-screen-reader-only>${weekday.long}</sbb-screen-reader-only>
+                              <span class="sbb-screen-reader-only">${weekday.long}</span>
                               <span aria-hidden="true">${weekday.narrow}</span>
                             `}
                       </td>
@@ -1650,7 +1646,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
         ${this._chosenYear} ${this._wide ? ` - ${this._chosenYear! + 1}` : nothing}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status"> ${this._chosenYear} </sbb-screen-reader-only>`;
+      <span class="sbb-screen-reader-only" role="status"> ${this._chosenYear} </span>`;
   }
 
   /** Creates the table for the month selection view. */
@@ -1767,7 +1763,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
         ${yearLabel}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>
       </button>
-      <sbb-screen-reader-only role="status"> ${yearLabel} </sbb-screen-reader-only>
+      <span class="sbb-screen-reader-only" role="status"> ${yearLabel} </span>
     `;
   }
 

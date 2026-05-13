@@ -1,6 +1,8 @@
 @use '../../core/styles' as sbb;
 
 :host {
+  --sbb-focus-outline-offset: var(--sbb-option-focus-outline-offset);
+
   display: block;
   background-color: var(--sbb-option-background-color);
   font-size: var(--sbb-option-font-size);
@@ -10,11 +12,23 @@
 :host(:state(negative)) {
   --sbb-option-color: var(--sbb-color-3-negative);
   --sbb-option-icon-color: var(--sbb-color-5);
-  --sbb-option-background-color-hover: var(--sbb-background-color-3-negative);
+  --sbb-option-background-color-hover: var(--sbb-color-midnight);
   --sbb-option-background-color-active: var(--sbb-background-color-4-negative);
   --sbb-option-disabled-border-color: var(--sbb-border-color-5);
   --sbb-option-disabled-background-color: var(--sbb-background-color-3-negative);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+
+:host(:state(size-s)) {
+  --sbb-option-min-height: var(--sbb-size-element-xxs);
+  --sbb-option-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
+  --sbb-option-focus-outline-inset: 0 var(--sbb-spacing-fixed-1x);
+}
+
+:host(:state(size-m)) {
+  --sbb-option-min-height: var(--sbb-size-element-s);
+  --sbb-option-focus-outline-offset: inherit;
+  --sbb-option-focus-outline-inset: var(--sbb-spacing-fixed-1x);
 }
 
 :host(:hover:not(:state(disabled))) {

@@ -1,7 +1,7 @@
 import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { boxSizingStyles, SbbLinkBaseElement } from '../../core.ts';
+import { SbbLinkBaseElement } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
 import style from './breadcrumb.scss?inline';
@@ -14,7 +14,7 @@ import style from './breadcrumb.scss?inline';
  */
 export class SbbBreadcrumbElement extends SbbIconNameMixin(SbbLinkBaseElement) {
   public static override readonly elementName: string = 'sbb-breadcrumb';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   protected override renderTemplate(): TemplateResult {
     return html`

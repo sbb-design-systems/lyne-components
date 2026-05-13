@@ -9,7 +9,6 @@ snapshots["sbb-navigation renders DOM"] =
   <sbb-navigation-marker size="l">
     <sbb-navigation-button
       id="nav-1"
-      size="l"
       slot="li-0"
       tabindex="0"
     >
@@ -17,7 +16,6 @@ snapshots["sbb-navigation renders DOM"] =
     </sbb-navigation-button>
     <sbb-navigation-button
       id="nav-2"
-      size="l"
       slot="li-1"
       tabindex="0"
     >
@@ -45,12 +43,11 @@ snapshots["sbb-navigation renders Shadow DOM"] =
         sbb-navigation-close=""
         size="m"
         tabindex="0"
-        type="button"
       >
       </sbb-transparent-button>
     </div>
     <div class="sbb-navigation__wrapper">
-      <div class="sbb-navigation__content">
+      <div class="sbb-navigation__content sbb-scrollbar-negative">
         <slot>
         </slot>
       </div>

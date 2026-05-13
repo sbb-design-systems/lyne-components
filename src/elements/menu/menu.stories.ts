@@ -63,7 +63,7 @@ const userInfoStyle: Args = {
 };
 
 const triggerButton = (id: string): TemplateResult => html`
-  <sbb-button id=${id} size="m"> Menu trigger </sbb-button>
+  <sbb-button id=${id}> Menu trigger </sbb-button>
 `;
 
 const DefaultTemplate = (args: Args): TemplateResult => html`

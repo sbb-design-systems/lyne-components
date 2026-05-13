@@ -1,5 +1,4 @@
 import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
-import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type {
@@ -8,7 +7,7 @@ import type {
   SbbElementConstructor,
   SbbElementType,
 } from '../../core.ts';
-import { boxSizingStyles, isLean } from '../../core.ts';
+import { SbbPropertyWatcherController } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
@@ -17,10 +16,7 @@ import type { SbbNavigationSectionElement } from '../navigation-section/navigati
 
 import style from './navigation-action.scss?inline';
 
-export type SbbNavigationActionSize = 's' | 'm' | 'l';
-
 export declare class SbbNavigationActionCommonElementMixinType {
-  public accessor size: SbbNavigationActionSize;
   public get marker(): SbbNavigationMarkerElement | null;
   public get section(): SbbNavigationSectionElement | null;
   public connectedSection: SbbNavigationSectionElement | undefined;
@@ -37,18 +33,14 @@ export const SbbNavigationActionCommonElementMixin = <
     implements Partial<SbbNavigationActionCommonElementMixinType>
   {
     public static override elementDependencies: SbbElementType[] = [SbbIconElement];
-    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
-
-    /**
-     * Action size variant, either s, m or l.
-     * @default 'l' / 's' (lean)
-     */
-    @property({ reflect: true }) public accessor size: SbbNavigationActionSize = isLean()
-      ? 's'
-      : 'l';
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
 
     /** The section that is being controlled by the action, if any. */
     public connectedSection?: SbbNavigationSectionElement;
+
+    private _navigationMarker: SbbNavigationMarkerElement | null = null;
+    private _navigationSection: SbbNavigationSectionElement | null = null;
+    private _size: 's' | 'm' | 'l' = 'l';
 
     /** The navigation marker in which the action is nested. */
     public get marker(): SbbNavigationMarkerElement | null {
@@ -59,9 +51,6 @@ export const SbbNavigationActionCommonElementMixin = <
     public get section(): SbbNavigationSectionElement | null {
       return this._navigationSection;
     }
-
-    private _navigationMarker: SbbNavigationMarkerElement | null = null;
-    private _navigationSection: SbbNavigationSectionElement | null = null;
 
     protected constructor(...args: any[]) {
       super(...args);
@@ -76,6 +65,11 @@ export const SbbNavigationActionCommonElementMixin = <
           );
         }
       });
+      this.addController(
+        new SbbPropertyWatcherController(this, () => this.closest('sbb-navigation-marker'), {
+          size: (marker) => this._applySize(marker.size),
+        }),
+      );
     }
 
     public override connectedCallback(): void {
@@ -87,6 +81,19 @@ export const SbbNavigationActionCommonElementMixin = <
       // Check if the current element is nested inside a navigation section.
       this._navigationSection = this.closest('sbb-navigation-section');
       this.toggleState('section-action', !!this._navigationSection);
+      if (this.closest('sbb-navigation-list')) {
+        this._applySize('m');
+      }
+    }
+
+    private _applySize(size: SbbNavigationActionCommonElement['_size']): void {
+      if (this._size) {
+        this.internals.states.delete(`size-${this._size}`);
+      }
+      this._size = size;
+      if (this._size) {
+        this.internals.states.add(`size-${this._size}`);
+      }
     }
 
     protected override renderTemplate(): TemplateResult {

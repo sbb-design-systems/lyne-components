@@ -7,15 +7,15 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { DateAdapter, SbbOrientation } from '../../core.ts';
+import type { DateAdapter } from '../../core.ts';
 import {
-  boxSizingStyles,
   defaultDateAdapter,
   forceType,
   readConfig,
   SbbElement,
   SbbPropertyWatcherController,
 } from '../../core.ts';
+import type { SbbMiniCalendarElement } from '../mini-calendar/mini-calendar.component.ts';
 
 import style from './mini-calendar-month.scss?inline';
 
@@ -26,7 +26,7 @@ import style from './mini-calendar-month.scss?inline';
  */
 export class SbbMiniCalendarMonthElement<T = Date> extends SbbElement {
   public static override readonly elementName: string = 'sbb-mini-calendar-month';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Date as ISO string (YYYY-MM) */
   @forceType()
@@ -37,7 +37,7 @@ export class SbbMiniCalendarMonthElement<T = Date> extends SbbElement {
   private _monthNames = this._dateAdapter.getMonthNames('short');
   private _monthLabel: string | null = null;
   private _yearLabel: string | null = null;
-  private _previousOrientation: SbbOrientation | null = null;
+  private _previousOrientation: SbbMiniCalendarElement['orientation'] | null = null;
 
   public constructor() {
     super();

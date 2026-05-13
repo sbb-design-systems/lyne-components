@@ -71,10 +71,9 @@ const navigationActionsS = (): TemplateResult => html`
 
 const navigationList = (label: string, active?: boolean): TemplateResult => html`
   <sbb-navigation-list label=${label}>
-    <sbb-navigation-button size="m">Label</sbb-navigation-button>
-    <sbb-navigation-button size="m">Label</sbb-navigation-button>
+    <sbb-navigation-button>Label</sbb-navigation-button>
+    <sbb-navigation-button>Label</sbb-navigation-button>
     <sbb-navigation-link
-      size="m"
       href="https://www.sbb.ch/en/"
       class=${active ? 'sbb-active' : nothing}
       aria-current=${active ? 'page' : nothing}
@@ -117,7 +116,7 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
     <sbb-navigation-section trigger="nav-1" title-content="Title one">
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
-      <sbb-button size="m" style="width: fit-content"> All Tickets & Offers </sbb-button>
+      <sbb-button style="width: fit-content"> All Tickets & Offers </sbb-button>
     </sbb-navigation-section>
 
     <sbb-navigation-section trigger="nav-2" title-content="Title two">
@@ -127,11 +126,7 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
 
     <sbb-navigation-section trigger="nav-3" title-content="Title three">
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
-      <sbb-secondary-button
-        size="m"
-        icon-name="circle-information-small"
-        style="width: fit-content;"
-      >
+      <sbb-secondary-button icon-name="circle-information-small" style="width: fit-content;">
         Travel Information
       </sbb-secondary-button>
     </sbb-navigation-section>

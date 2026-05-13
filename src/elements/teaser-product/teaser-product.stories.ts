@@ -103,7 +103,7 @@ const content = (staticTeaser: boolean = false): TemplateResult => html`
     tortor, ut laoreet velit congue in.
   </p>
   ${staticTeaser
-    ? html`<sbb-action-group class="sbb-teaser-product--spacing">
+    ? html`<sbb-action-group class="sbb-teaser-product--spacing" button-size="l">
         <sbb-button>Label</sbb-button>
         <sbb-secondary-button>Label</sbb-secondary-button>
       </sbb-action-group>`

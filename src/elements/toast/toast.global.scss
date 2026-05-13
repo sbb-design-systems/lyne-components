@@ -1,0 +1,18 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-toast-max-width: #{sbb.px-to-rem-build(400)};
+  --sbb-toast-animation-timing-function: ease;
+  --sbb-toast-text-color: var(--sbb-color-3-inverted);
+  --sbb-toast-background-color: var(--sbb-background-color-1-inverted);
+  --sbb-toast-margin: var(--sbb-spacing-responsive-s);
+  --sbb-toast-padding-block: var(--sbb-spacing-responsive-xxxs);
+  --sbb-toast-padding-inline: var(--sbb-spacing-responsive-xs);
+  --sbb-toast-border-radius: var(--sbb-border-radius-4x);
+  --sbb-toast-container-position: fixed;
+  --sbb-toast-horizontal-position: initial;
+  --sbb-toast-vertical-position: initial;
+  --sbb-toast-gap: var(--sbb-spacing-fixed-2x);
+}

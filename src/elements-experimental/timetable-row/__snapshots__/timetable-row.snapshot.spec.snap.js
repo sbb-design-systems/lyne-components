@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-timetable-row renders defaultTrip DOM"] = 
-`<sbb-timetable-row role="rowgroup">
+`<sbb-timetable-row>
 </sbb-timetable-row>
 `;
 /* end snapshot sbb-timetable-row renders defaultTrip DOM */
@@ -69,7 +69,7 @@ snapshots["sbb-timetable-row renders defaultTrip Shadow DOM"] =
 /* end snapshot sbb-timetable-row renders defaultTrip Shadow DOM */
 
 snapshots["sbb-timetable-row renders platform DOM"] = 
-`<sbb-timetable-row role="rowgroup">
+`<sbb-timetable-row>
 </sbb-timetable-row>
 `;
 /* end snapshot sbb-timetable-row renders platform DOM */
@@ -155,7 +155,7 @@ snapshots["sbb-timetable-row renders platform Shadow DOM"] =
 /* end snapshot sbb-timetable-row renders platform Shadow DOM */
 
 snapshots["sbb-timetable-row renders bus strip DOM"] = 
-`<sbb-timetable-row role="rowgroup">
+`<sbb-timetable-row>
 </sbb-timetable-row>
 `;
 /* end snapshot sbb-timetable-row renders bus strip DOM */
@@ -286,7 +286,7 @@ snapshots["sbb-timetable-row renders defaultTrip A11y tree Chrome"] =
 /* end snapshot sbb-timetable-row renders defaultTrip A11y tree Chrome */
 
 snapshots["sbb-timetable-row renders trip with access leg DOM"] = 
-`<sbb-timetable-row role="rowgroup">
+`<sbb-timetable-row>
 </sbb-timetable-row>
 `;
 /* end snapshot sbb-timetable-row renders trip with access leg DOM */

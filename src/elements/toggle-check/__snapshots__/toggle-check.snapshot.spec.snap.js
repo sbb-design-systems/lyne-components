@@ -5,7 +5,6 @@ snapshots["sbb-toggle-check renders DOM"] =
 `<sbb-toggle-check
   checked=""
   label-position="after"
-  size="s"
   tabindex="0"
 >
 </sbb-toggle-check>

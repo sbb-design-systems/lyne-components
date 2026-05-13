@@ -2,12 +2,8 @@
 export const snapshots = {};
 
 snapshots["sbb-tag-group renders DOM"] = 
-`<sbb-tag-group
-  role="group"
-  size="m"
->
+`<sbb-tag-group>
   <sbb-tag
-    size="m"
     slot="li-0"
     tabindex="0"
     value="tag-1"
@@ -15,7 +11,6 @@ snapshots["sbb-tag-group renders DOM"] =
     First tag
   </sbb-tag>
   <sbb-tag
-    size="m"
     slot="li-1"
     tabindex="0"
     value="tag-2"
@@ -25,7 +20,6 @@ snapshots["sbb-tag-group renders DOM"] =
   <div slot="li-2">
   </div>
   <sbb-tag
-    size="m"
     slot="li-3"
     tabindex="0"
     value="tag-3"

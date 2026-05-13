@@ -1,11 +1,10 @@
-import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
 import {
-  boxSizingStyles,
   forceType,
   i18nFileSelectorSubtitleLabel,
   i18nFileSelectorSubtitleLabelMultiple,
@@ -13,10 +12,7 @@ import {
   type SbbElementType,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
-import {
-  fileSelectorCommonStyle,
-  SbbFileSelectorCommonElementMixin,
-} from '../common/file-selector-common.ts';
+import { SbbFileSelectorCommonElementMixin } from '../common/file-selector-common.ts';
 
 import style from './file-selector-dropzone.scss?inline';
 
@@ -31,11 +27,7 @@ export class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElement
     SbbIconElement,
     SbbSecondaryButtonStaticElement,
   ];
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    fileSelectorCommonStyle,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     filechanged: 'filechanged',
   } as const;
@@ -50,9 +42,8 @@ export class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElement
       <label>
         <span class="sbb-file-selector__dropzone-area">
           <span class="sbb-file-selector__dropzone-area--icon">
-            <sbb-icon
-              name=${this.size === 'm' ? 'folder-open-medium' : 'folder-open-small'}
-            ></sbb-icon>
+            <sbb-icon name="folder-open-medium"></sbb-icon>
+            <sbb-icon name="folder-open-small"></sbb-icon>
           </span>
           <span class="sbb-file-selector__dropzone-area--title">${this.titleContent}</span>
           <span class="sbb-file-selector__dropzone-area--subtitle">
@@ -62,7 +53,7 @@ export class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElement
           </span>
           <span class="sbb-file-selector__dropzone-area--button">
             <sbb-secondary-button-static
-              size=${this.size}
+              size=${this.size || nothing}
               ?disabled=${this.disabled || this.formDisabled}
               ${ref((el?: Element): void => {
                 this.loadButton = el as SbbSecondaryButtonStaticElement;

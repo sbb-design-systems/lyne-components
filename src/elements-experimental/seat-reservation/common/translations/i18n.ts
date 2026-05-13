@@ -930,7 +930,9 @@ export const getI18nSeatReservation = (key: string, language: string, args?: any
   // Unterstützt verschachtelte Keys mit Punktnotation
   for (const part of key.split('.')) {
     innerValue = innerValue?.[part];
-    if (!innerValue) break;
+    if (!innerValue) {
+      break;
+    }
   }
 
   if (typeof innerValue === 'object' && innerValue !== null && !Array.isArray(innerValue)) {

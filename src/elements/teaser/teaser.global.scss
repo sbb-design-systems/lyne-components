@@ -12,3 +12,14 @@ $theme: 'standard' !default;
   --sbb-teaser-border-radius: var(--sbb-border-radius-4x);
   --sbb-teaser-image-width: #{sbb.px-to-rem-build(300)};
 }
+
+@mixin rules {
+  sbb-teaser :is(sbb-image, img):not(.sbb-figure-overlap-image) {
+    --sbb-image-object-fit: cover;
+    --sbb-image-aspect-ratio: 4 / 3;
+
+    transition-property: filter, scale;
+    will-change: filter, scale;
+    scale: var(--sbb-teaser-scale, 1);
+  }
+}

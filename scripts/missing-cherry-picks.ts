@@ -70,7 +70,9 @@ interface Commit {
  * records separated by a unique delimiter) into an array of Commit objects.
  */
 function parseLog(raw: string): Commit[] {
-  if (!raw) return [];
+  if (!raw) {
+    return [];
+  }
   return raw
     .split('--COMMIT_END--\n')
     .map((record) => record.split('\x00'))

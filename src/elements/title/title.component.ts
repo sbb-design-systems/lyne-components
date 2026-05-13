@@ -1,9 +1,9 @@
 import { type CSSResultGroup, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbNegativeMixin } from '../core.ts';
+import { type SbbHeadingLevel, SbbNegativeMixin } from '../core.ts';
 
-import { SbbTitleBase, type SbbTitleLevel } from './title-base.ts';
+import { SbbTitleBase } from './title-base.ts';
 import style from './title.scss?inline';
 
 /**
@@ -13,11 +13,11 @@ import style from './title.scss?inline';
  */
 export class SbbTitleElement extends SbbNegativeMixin(SbbTitleBase) {
   public static override readonly elementName: string = 'sbb-title';
-  public static override styles: CSSResultGroup = [SbbTitleBase.styles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Visual level for the title. Optional, if not set, the value of level will be used. */
   @property({ attribute: 'visual-level', reflect: true })
-  public override accessor visualLevel: SbbTitleLevel | null = null;
+  public override accessor visualLevel: SbbHeadingLevel | null = null;
 }
 
 declare global {

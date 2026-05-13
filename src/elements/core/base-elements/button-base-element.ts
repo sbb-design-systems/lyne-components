@@ -12,9 +12,6 @@ import {
 
 import { SbbActionBaseElement } from './action-base-element.ts';
 
-/** Enumeration for type attribute in <button> HTML tag. */
-export type SbbButtonType = 'button' | 'reset' | 'submit';
-
 /** Button base class. */
 export
 @hostAttributes({
@@ -121,11 +118,11 @@ export abstract class SbbButtonBaseElement extends SbbButtonLikeBaseElement {
    * @default 'button'
    */
   @property()
-  public override set type(name: SbbButtonType) {
+  public override set type(name: 'button' | 'reset' | 'submit') {
     this.setAttribute('type', `${name}`);
   }
-  public override get type(): SbbButtonType {
-    return (this.getAttribute('type') as SbbButtonType) ?? 'button';
+  public override get type(): 'button' | 'reset' | 'submit' {
+    return (this.getAttribute('type') as SbbButtonBaseElement['type']) ?? 'button';
   }
 
   /** The `<form>` element to associate the button with. */

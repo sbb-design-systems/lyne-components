@@ -1,0 +1,45 @@
+@use '../../core/styles/index' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-alert-background-color: var(--sbb-background-color-1-inverted);
+  --sbb-alert-border-radius: var(--sbb-border-radius-4x);
+  --sbb-alert-color: light-dark(var(--sbb-color-aluminium), var(--sbb-color-anthracite));
+  --sbb-alert-padding: var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xs);
+  --sbb-alert-timing-function: ease-in;
+  --sbb-alert-icon-size: #{sbb.px-to-rem-build(20)};
+  --sbb-alert-icon-size-l: var(--sbb-size-icon-ui-small);
+  --sbb-alert-title-margin-block: 0;
+  --sbb-alert-font-size: var(--sbb-text-font-size-s);
+  --sbb-alert-gap: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs),
+        'lean': var(--sbb-spacing-fixed-1x) var(--sbb-spacing-responsive-xxs),
+      ),
+      $theme
+    )};
+  --sbb-alert-close-icon-margin: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-responsive-xxs),
+        'lean': var(--sbb-spacing-responsive-xxxs),
+      ),
+      $theme
+    )};
+}
+
+@mixin base-forced-colors {
+  // Use outline here to not influence content position.
+  // Due to overflow hidden of inner elements it's placed on host.
+  --sbb-alert-outline: var(--sbb-border-width-1x) solid CanvasText;
+  --sbb-alert-forced-color-border-radius: var(--sbb-alert-border-radius);
+}
+
+@mixin base-breakpoint-large {
+  --sbb-alert-icon-size: #{sbb.px-to-rem-build(28)};
+  --sbb-alert-icon-size-l: #{sbb.px-to-rem-build(34)};
+}
+
+@mixin base-breakpoint-small {
+  --sbb-alert-close-button-divider-display: block;
+}

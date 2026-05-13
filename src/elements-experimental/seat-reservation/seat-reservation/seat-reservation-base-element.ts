@@ -18,6 +18,7 @@ import type {
   CoachItemDetails,
   CoachNumberOfFreePlaces,
   ElementDimension,
+  ElementMounting,
   ElementPosition,
   Place,
   PlaceSelection,
@@ -39,6 +40,25 @@ interface CoachScrollTriggerPoint {
   start: number;
   end: number;
   width: number;
+}
+
+interface SeatreservationStructure {
+  decks: SeatreservationDeck[];
+}
+
+interface SeatreservationDeck {
+  deckIndex: number;
+  deckCoaches: CoachStructure[];
+}
+
+interface CoachStructure {
+  width: number;
+  height: number;
+  areaElements: BaseElement[];
+  serviceElements: BaseElement[];
+  otherElements: BaseElement[];
+  borderMiddleElement: BaseElement;
+  hasOverhangingElements: boolean;
 }
 
 const MAX_SERVICE_PROPERTIES = 3;
@@ -163,6 +183,13 @@ export class SeatReservationBaseElement extends SbbElement {
     Enter: 'Enter',
   } as const;
 
+  protected seatReservationStructure: SeatreservationStructure = {
+    decks: [],
+  };
+
+  // Area icons that should not be fixed during rotation when vertical mode is selected
+  protected notFixedRotatableAreaIcons = ['ENTRY_EXIT'];
+
   // Graphics that should not be rendered with an area
   protected notAreaElements = [
     'DRIVER_AREA',
@@ -176,11 +203,13 @@ export class SeatReservationBaseElement extends SbbElement {
     'COMPARTMENT_WALL',
   ];
 
-  protected overHangingElementInformation: {
-    coachId: string;
-    overhangingPlaces: boolean;
-    overhangingGraphicAreas: boolean;
-  }[] = [];
+  // Graphics that should not be rendered with an area
+  protected middleBorderDockingElements = [
+    'DRIVER_AREA',
+    'DRIVER_AREA_NO_VERTICAL_WALL',
+    'COACH_PASSAGE',
+    'COACH_WALL_NO_PASSAGE',
+  ];
 
   private _isRunningInitPreselectCoachIndex = false;
   private _scrollTimeout: ReturnType<typeof setTimeout> | undefined;
@@ -200,7 +229,6 @@ export class SeatReservationBaseElement extends SbbElement {
       this.hasMultipleDecks = this.seatReservations?.length > 1;
 
       this._initPrepareSeatReservationData();
-      this._prepareCoachWidthAndGapCalculations();
       this._initSeatReservationPlaceSelection();
       this.initNavigationSelectionByScrollEvent();
     }
@@ -208,7 +236,7 @@ export class SeatReservationBaseElement extends SbbElement {
     if (changedProperties.has('baseGridSize')) {
       this.coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
       this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
-
+      this._initPrepareSeatReservationData();
       this.initNavigationSelectionByScrollEvent();
     }
 
@@ -225,7 +253,8 @@ export class SeatReservationBaseElement extends SbbElement {
       }
     }
 
-    if (changedProperties.has('alignVertical') && this.alignVertical) {
+    if (changedProperties.has('alignVertical')) {
+      this._initPrepareSeatReservationData();
       this.initNavigationSelectionByScrollEvent();
     }
 
@@ -269,6 +298,7 @@ export class SeatReservationBaseElement extends SbbElement {
     }
 
     this._prepareCoachItemDetailsData();
+    this._prepareSeatReservationStructureInformation();
     this._prepareOptimizeAreaIconDimensionByMedian();
   }
 
@@ -323,26 +353,23 @@ export class SeatReservationBaseElement extends SbbElement {
         : this.coachScrollArea.getBoundingClientRect().width;
 
       // Precalculate trigger scroll position array depends on coach width
-      this.triggerCoachPositionsCollection = seatReservationDeck.coachItems.map((coach) => {
+      this.triggerCoachPositionsCollection = seatReservationDeck.coachItems.map((_, index) => {
+        const coachStructure =
+          this.seatReservationStructure.decks[this.currSelectedDeckIndex].deckCoaches[index];
         const startPosX = currCalcTriggerPos;
-        const coachWidth = this.getCalculatedDimension(coach.dimension).w;
 
         // Calculation of the end scroll trigger position of a coach, including the gap between the coaches
         // The gap is maybe adjusted if overhanging places or graphics exist
-        const currentCoachOverhangingInfo = this.overHangingElementInformation.find(
-          (e) => e.coachId === coach.id,
-        );
-        const overhangingElementsPresent =
-          currentCoachOverhangingInfo?.overhangingPlaces ||
-          currentCoachOverhangingInfo?.overhangingGraphicAreas;
         currCalcTriggerPos +=
-          coachWidth +
-          (!overhangingElementsPresent ? this.gapBetweenCoaches : 2 * this.gapBetweenCoaches);
+          coachStructure.width +
+          (!coachStructure.hasOverhangingElements
+            ? this.gapBetweenCoaches
+            : 2 * this.gapBetweenCoaches);
 
         return {
           start: startPosX,
           end: currCalcTriggerPos,
-          width: coachWidth,
+          width: coachStructure.width,
         } as CoachScrollTriggerPoint;
       });
 
@@ -532,7 +559,9 @@ export class SeatReservationBaseElement extends SbbElement {
    */
   protected preselectPlaceInCoach(): void {
     // No preselect place by manual seatmap scrolling
-    if (!this.isAutoScrolling) return;
+    if (!this.isAutoScrolling) {
+      return;
+    }
 
     // No auto place preselection by running the preselect coach index
     if (this._isRunningInitPreselectCoachIndex) {
@@ -658,8 +687,8 @@ export class SeatReservationBaseElement extends SbbElement {
     }
 
     return {
-      w: this.baseGridSize * elementDimension.w,
-      h: this.baseGridSize * elementDimension.h,
+      w: Math.round(this.baseGridSize * elementDimension.w),
+      h: Math.round(this.baseGridSize * elementDimension.h),
     };
   }
 
@@ -682,8 +711,8 @@ export class SeatReservationBaseElement extends SbbElement {
     }
 
     return {
-      x: this.baseGridSize * elementPosition.x,
-      y: this.baseGridSize * elementPosition.y,
+      x: Math.round(this.baseGridSize * elementPosition.x),
+      y: Math.round(this.baseGridSize * elementPosition.y),
       z: elementPosition.z,
     };
   }
@@ -920,8 +949,9 @@ export class SeatReservationBaseElement extends SbbElement {
       !this.currSelectedPlace ||
       pressedKey === this.keyboardNavigationEvents.ArrowRight ||
       pressedKey === this.keyboardNavigationEvents.ArrowLeft
-    )
+    ) {
       return null;
+    }
 
     //CHECK DECK SWITCH DOWN
     if (
@@ -1247,13 +1277,17 @@ export class SeatReservationBaseElement extends SbbElement {
     const placeDeckIndex = this._getDeckIndexByPlaceId(placeSelection.id);
     const coachIndex = placeSelection.coachIndex;
 
-    if (placeDeckIndex === null) return;
+    if (placeDeckIndex === null) {
+      return;
+    }
 
     const place = this.seatReservations[placeDeckIndex].coachItems[coachIndex].places?.find(
       (place) => place.number == placeSelection.number,
     );
 
-    if (!place) return;
+    if (!place) {
+      return;
+    }
 
     this.currSelectedDeckIndex = placeDeckIndex;
     this.currSelectedCoachIndex = coachIndex;
@@ -1274,7 +1308,9 @@ export class SeatReservationBaseElement extends SbbElement {
 
   protected updateCurrentSelectedCoach(): void {
     //Only if the selectedCoachIndex has changed, an update needs to be carried out
-    if (this.currSelectedCoachIndex == this.selectedCoachIndex) return;
+    if (this.currSelectedCoachIndex == this.selectedCoachIndex) {
+      return;
+    }
 
     // If a focusindex has been set (!= -1), it can be updated with the current selectedCoachIndex
     if (this.focusedCoachIndex != -1) {
@@ -1417,7 +1453,9 @@ export class SeatReservationBaseElement extends SbbElement {
     currSelectedPlace: PlaceSelection,
     coachDeckIndex: number | null,
   ): SeatReservationPlaceSelection | null {
-    if (coachDeckIndex === null) return null;
+    if (coachDeckIndex === null) {
+      return null;
+    }
 
     const coach = this.seatReservations[coachDeckIndex].coachItems[currSelectedPlace.coachIndex];
     const place = coach.places?.find((place) => place.number === currSelectedPlace.number);
@@ -1436,7 +1474,9 @@ export class SeatReservationBaseElement extends SbbElement {
   private _getSeatReservationSelectedCoach(
     coachIndex: number,
   ): SeatReservationSelectedCoach | null {
-    if (!this.seatReservations[this.currSelectedDeckIndex].coachItems[coachIndex]) return null;
+    if (!this.seatReservations[this.currSelectedDeckIndex].coachItems[coachIndex]) {
+      return null;
+    }
 
     const coach = this.seatReservations[this.currSelectedDeckIndex].coachItems[coachIndex];
     const coachNumberOfFreePlaces = this.getAvailableFreePlacesNumFromCoach(coach.places);
@@ -1502,9 +1542,9 @@ export class SeatReservationBaseElement extends SbbElement {
           travelClass: this._prepareTravelClassNavigation(travelClasses),
           propertyIds: this._prepareServiceIconsNavigation(propertyIds),
           isDriverArea: coach.places ? coach.places.length === 0 : true,
+          isLocomotive: this._isLocomotive(coach),
           driverAreaSide: this._prepareDriverAreaSideNavigation(coach),
           freePlaces: this.getAvailableFreePlacesNumFromCoach(places),
-          driverAreaElements: this._setDriverAreasElements(coach),
         });
       });
     }
@@ -1529,9 +1569,13 @@ export class SeatReservationBaseElement extends SbbElement {
             if (dim1 && dim2) {
               const maxDim1 = dim1.w + dim1.h;
               const maxDim2 = dim2.w + dim2.h;
-              if (maxDim1 > maxDim2) return 1;
-              else if (maxDim1 < maxDim2) return -1;
-              else return 0;
+              if (maxDim1 > maxDim2) {
+                return 1;
+              } else if (maxDim1 < maxDim2) {
+                return -1;
+              } else {
+                return 0;
+              }
             }
             return 0;
           },
@@ -1558,8 +1602,12 @@ export class SeatReservationBaseElement extends SbbElement {
   }
 
   private _prepareTravelClassNavigation(travelClasses: PlaceTravelClass[]): PlaceTravelClass {
-    if (travelClasses.indexOf('FIRST') !== -1) return 'FIRST';
-    if (travelClasses.indexOf('SECOND') !== -1) return 'SECOND';
+    if (travelClasses.indexOf('FIRST') !== -1) {
+      return 'FIRST';
+    }
+    if (travelClasses.indexOf('SECOND') !== -1) {
+      return 'SECOND';
+    }
     return 'ANY_CLASS';
   }
 
@@ -1615,34 +1663,220 @@ export class SeatReservationBaseElement extends SbbElement {
     return shrunkPropertyIds ? shrunkPropertyIds : [];
   };
 
-  private _prepareCoachWidthAndGapCalculations(): void {
+  // Initially calculates all the necessary positions and dimensions of all coach elements, area elements, service elements
+  private _prepareSeatReservationStructureInformation(): void {
     if (this.seatReservations) {
-      this.seatReservations.forEach((seatReservation: SeatReservation) => {
-        seatReservation?.coachItems?.forEach((coachItem: CoachItem) => {
-          const hasOverhangingPlaces = this._isOverhangingElementsPresent(
-            coachItem.dimension.w,
-            coachItem.places,
-          );
+      this.seatReservationStructure = {
+        decks: [],
+      };
 
-          //Must  be done also for graphical elements, as they can also protrude the coach border
-          // Check only graphical elements that are not area elements
-          const filteredElements = coachItem.graphicElements?.filter(
+      this.seatReservations.forEach((seatReservation: SeatReservation, index: number) => {
+        const seatReservationDeck: SeatreservationDeck = {
+          deckIndex: index,
+          deckCoaches: [],
+        };
+
+        seatReservation?.coachItems?.forEach((coachItem: CoachItem) => {
+          const filteredAreaElements = coachItem.graphicElements?.filter(
             (e) => e.icon && !this.notAreaElements.includes(e.icon),
           );
-
-          const hasOverhangingGraphicAreas = this._isOverhangingElementsPresent(
+          const allElemenets =
+            filteredAreaElements
+              ?.concat(coachItem.serviceElements || [])
+              .concat(coachItem.places || []) || [];
+          const hasOverhangingElements = this._isOverhangingElementsPresent(
             coachItem.dimension.w,
-            filteredElements,
+            allElemenets,
           );
+          const areaElements = coachItem.graphicElements
+            ?.filter(
+              (graphicalElement: BaseElement) =>
+                !this.notAreaElements.includes(graphicalElement.icon!),
+            )
+            .map((ele) =>
+              this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, true),
+            );
+          const otherElements = coachItem.graphicElements
+            ?.filter((graphicalElement: BaseElement) =>
+              this.notAreaElements.includes(graphicalElement.icon!),
+            )
+            .map((ele) =>
+              this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, false),
+            );
+          const serviceElements = coachItem.serviceElements?.map((ele) =>
+            this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, false),
+          );
+          const borderMiddleElement = this._getCalculatedMiddleBorderElement(coachItem);
+          const calcCoachDimension = this.getCalculatedDimension({ ...coachItem.dimension });
+          // Collect all necessary information for single coach
+          const coachSturcture: CoachStructure = {
+            width: calcCoachDimension.w,
+            height: calcCoachDimension.h,
+            otherElements: otherElements || [],
+            serviceElements: serviceElements || [],
+            areaElements: areaElements || [],
+            borderMiddleElement: borderMiddleElement,
+            hasOverhangingElements: hasOverhangingElements,
+          };
 
-          this.overHangingElementInformation.push({
-            coachId: coachItem.id,
-            overhangingPlaces: hasOverhangingPlaces,
-            overhangingGraphicAreas: hasOverhangingGraphicAreas,
-          });
+          seatReservationDeck.deckCoaches.push(coachSturcture);
         });
+
+        this.seatReservationStructure.decks.push(seatReservationDeck);
       });
     }
+  }
+
+  /**
+   * Returns the calculated position and dimension of the middle border.
+   * To calculate the start + end coordinate and the dimension of the middle border coach graphic,
+   * the existing docking coach graphics are analysed and used to calculate the required position and diemension information.
+   * @returns BaseElement
+   */
+  private _getCalculatedMiddleBorderElement(coach: CoachItem): BaseElement {
+    const borderHeight = (coach.dimension.h + this.coachBorderOffset * 2) * this.baseGridSize;
+    // Default - without finding docking border elements, the middle border goes from 0 position until coach width end
+    let startBorderOffsetX = 0;
+    let borderWidth = coach.dimension.w;
+
+    if (coach.graphicElements) {
+      // DockingElemente defines the elements where the border of the coach really starts and ends
+      const dockingElements = this._getFirstLastDockingElements(coach.graphicElements);
+
+      // Two docking coach elements exist (normal case - start and end docking element)
+      if (dockingElements?.length == 2) {
+        const firstDockingElement = dockingElements[0];
+        const lastDockingElement = dockingElements[1];
+        const endBorderOffsetX =
+          firstDockingElement.position.x == 0
+            ? lastDockingElement.dimension.w
+            : firstDockingElement.dimension.w;
+
+        startBorderOffsetX =
+          firstDockingElement.position.x == 0
+            ? firstDockingElement.dimension.w
+            : lastDockingElement.dimension.w;
+
+        borderWidth = coach.dimension.w - endBorderOffsetX - startBorderOffsetX;
+      }
+      // Only one docking border coach elements exist (start or end docking element)
+      else if (dockingElements?.length == 1) {
+        const dockingElement = dockingElements[0];
+
+        // MiddleBorder starts from left docking element until coach end
+        if (dockingElement.position.x === 0) {
+          startBorderOffsetX = dockingElement.dimension.w;
+          borderWidth = coach.dimension.w - dockingElement.dimension.w;
+        }
+        // MiddleBorder starts from position x 0 until docking element on the right coach side
+        else if (dockingElement.position.x !== 0) {
+          borderWidth = coach.dimension.w - dockingElement.dimension.w;
+        }
+      }
+    }
+
+    const yOffset = this.coachBorderPadding * -1;
+
+    return {
+      position: { x: startBorderOffsetX * this.baseGridSize, y: yOffset, z: 0 },
+      dimension: { w: borderWidth * this.baseGridSize, h: borderHeight },
+    };
+  }
+
+  /**
+   * Returns graphical elements describing the start and end border elements of the coach.
+   * @returns BaseElement[]
+   */
+  private _getFirstLastDockingElements(graphicElements: BaseElement[]): BaseElement[] {
+    // Get all relevant docking elements and sorts them again according to their x position coordinates,
+    // thus the start and end docking elements would be defined
+    const filteredDockingElements = (
+      graphicElements.filter((ele) => this.middleBorderDockingElements.includes(ele.icon!)) || []
+    ).sort((a, b) => {
+      const posA = a.position.x;
+      const posB = b.position.x;
+      if (posA > posB) {
+        return 1;
+      }
+      if (posA < posB) {
+        return -1;
+      }
+      return 0;
+    });
+
+    return filteredDockingElements.filter(
+      (_, index) => index == 0 || index == filteredDockingElements.length - 1,
+    );
+  }
+
+  /**
+   * Returns the calculated positions and dimensions of graphical, service and area elements
+   * @returns BaseElement
+   */
+  private _getCalculatedDimensionPositionElement(
+    element: BaseElement,
+    coachDimension: ElementDimension,
+    isCalcAreaElement: boolean,
+  ): BaseElement {
+    const dim = { ...element.dimension };
+    const pos = { ...element.position };
+    const rotation = element.rotation || 0;
+    const isNotFixedRotationGraphicalElement =
+      this.notAreaElements.concat(this.notFixedRotatableAreaIcons).indexOf(element.icon!) === -1;
+    const calcRotation =
+      this.alignVertical && isNotFixedRotationGraphicalElement ? rotation - 90 : rotation;
+    let areaMounting: ElementMounting | null = null;
+
+    // Calculate position and dimension for AreaElements
+    if (isCalcAreaElement) {
+      const isNotTableGraphic = element.icon?.indexOf('TABLE') === -1;
+      const areaProperty = element.icon && isNotTableGraphic ? element.icon : null;
+      const stretchHeight =
+        this.isElementDirectlyOnBorder(element, coachDimension) && areaProperty !== 'ENTRY_EXIT';
+
+      if (element.position.y === 0) {
+        areaMounting = 'upper-border';
+        pos.y -= this.coachBorderOffset - this.coachBorderOffset / 3;
+      } else if (element.position.y + element.dimension.h === coachDimension.h) {
+        areaMounting = 'lower-border';
+        if (!stretchHeight) {
+          pos.y += this.coachBorderOffset - this.coachBorderOffset / 3;
+        }
+      }
+
+      if (stretchHeight) {
+        dim.h += this.coachBorderOffset - this.coachBorderOffset / 3;
+      }
+    }
+    // Calculate position and dimension for all other graphical elements
+    else {
+      if (element.position.y === 0) {
+        pos.y -= this.coachBorderOffset;
+      }
+
+      if (coachDimension.h === element.position.y + element.dimension.h) {
+        dim.h += this.coachBorderOffset * 2;
+      }
+    }
+
+    dim.w = Math.round(dim.w * this.baseGridSize);
+    dim.h = Math.round(dim.h * this.baseGridSize);
+
+    pos.x = Math.round(pos.x * this.baseGridSize);
+    pos.y = Math.round(pos.y * this.baseGridSize);
+
+    const icon =
+      element.icon && element.icon.endsWith('DRIVER_AREA')
+        ? element.icon?.concat('_', this.seatReservations[this.currSelectedDeckIndex].vehicleType)
+        : element.icon;
+
+    return {
+      icon: icon,
+      rotation: calcRotation,
+      dimension: dim,
+      position: pos,
+      mounting: areaMounting,
+    };
   }
 
   /**
@@ -1738,32 +1972,12 @@ export class SeatReservationBaseElement extends SbbElement {
    * @param coachItem
    * @private
    */
-  private _setDriverAreasElements(coachItem: CoachItem): {
-    driverArea: BaseElement | undefined;
-    driverAreaNoVerticalWall: BaseElement | undefined;
-  } {
-    if (coachItem) {
-      const driverArea = coachItem.graphicElements?.find(
-        (element: BaseElement) => element.icon === 'DRIVER_AREA',
-      );
-
-      const driverAreaNoVerticalWall =
-        coachItem.type === 'LOCOMOTIVE_COACH'
-          ? coachItem.graphicElements?.find(
-              (element: BaseElement) => element.icon === 'DRIVER_AREA_NO_VERTICAL_WALL',
-            )
-          : undefined;
-
-      return {
-        driverArea: driverArea,
-        driverAreaNoVerticalWall: driverAreaNoVerticalWall,
-      };
-    }
-
-    return {
-      driverArea: undefined,
-      driverAreaNoVerticalWall: undefined,
-    };
+  private _isLocomotive(coachItem: CoachItem): boolean {
+    return (
+      coachItem?.graphicElements?.find(
+        (element: BaseElement) => element.icon === 'DRIVER_AREA_NO_VERTICAL_WALL',
+      ) !== undefined
+    );
   }
 
   /**

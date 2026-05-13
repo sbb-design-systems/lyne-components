@@ -7,8 +7,7 @@
     "skipLibCheck": true,
     "types": ["node"],
     "erasableSyntaxOnly": true,
-    "rewriteRelativeImportExtensions": true,
-    "types": ["node"]
+    "rewriteRelativeImportExtensions": true
   },
   "include": ["*.ts", "../tools/tools.d.ts"]
 }

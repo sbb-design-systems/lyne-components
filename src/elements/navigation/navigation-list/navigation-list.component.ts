@@ -1,21 +1,7 @@
-import {
-  type CSSResultGroup,
-  html,
-  type PropertyValues,
-  type TemplateResult,
-  unsafeCSS,
-} from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import {
-  boxSizingStyles,
-  forceType,
-  isLean,
-  omitEmptyConverter,
-  SbbElement,
-  SbbNamedSlotListMixin,
-  type WithListChildren,
-} from '../../core.ts';
+import { forceType, omitEmptyConverter, SbbElement, SbbNamedSlotListMixin } from '../../core.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 
@@ -32,7 +18,7 @@ export class SbbNavigationListElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-navigation-list';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   protected override readonly listChildLocalNames = [
     'sbb-navigation-button',
     'sbb-navigation-link',
@@ -44,14 +30,6 @@ export class SbbNavigationListElement extends SbbNamedSlotListMixin<
   @forceType()
   @property({ reflect: true, converter: omitEmptyConverter })
   public accessor label: string = '';
-
-  protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('listChildren')) {
-      this.listChildren.forEach((c) => (c.size = isLean() ? 's' : 'm'));
-    }
-  }
 
   protected override render(): TemplateResult {
     return html`

@@ -82,7 +82,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xs', 's', 'm'],
+  options: ['xs', 's', 'm'] satisfies SbbRadioButtonGroupElement['size'][],
 };
 
 const ariaLabel: InputType = {
@@ -111,7 +111,7 @@ const defaultArgs: Args = {
   'allow-empty-selection': false,
   orientation: orientation.options![0],
   'horizontal-from': undefined,
-  size: size.options![2],
+  size: undefined,
   'aria-label': undefined,
 };
 

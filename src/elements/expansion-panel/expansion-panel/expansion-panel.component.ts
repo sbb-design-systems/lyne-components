@@ -2,16 +2,14 @@ import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbOpenedClosedState } from '../../core.ts';
 import {
-  boxSizingStyles,
   forceType,
-  isLean,
   isZeroAnimationDuration,
   SbbElement,
+  type SbbHeadingLevel,
+  type SbbOpenedClosedState,
   ɵstateController,
 } from '../../core.ts';
-import type { SbbTitleLevel } from '../../title.pure.ts';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content/expansion-panel-content.component.ts';
 import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header/expansion-panel-header.component.ts';
 
@@ -26,7 +24,7 @@ let nextId = 0;
  */
 export class SbbExpansionPanelElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-expansion-panel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',
@@ -35,7 +33,7 @@ export class SbbExpansionPanelElement extends SbbElement {
   } as const;
 
   /** Heading level; if unset, a `div` will be rendered. */
-  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel | null = null;
+  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbHeadingLevel | null = null;
 
   /** The background color of the panel. */
   @property({ reflect: true }) public accessor color: 'white' | 'milk' = 'white';
@@ -68,10 +66,9 @@ export class SbbExpansionPanelElement extends SbbElement {
   public accessor borderless: boolean = false;
 
   /**
-   * Size variant, either l or s.
-   * @default 'l' / 's' (lean)
+   * Size variant, either s (lean theme default) or l (standard theme default).
    */
-  @property({ reflect: true }) public accessor size: 's' | 'l' = isLean() ? 's' : 'l';
+  @property({ reflect: true }) public accessor size: 's' | 'l' | null = null;
 
   /** The state of the component. */
   private set _state(state: SbbOpenedClosedState) {

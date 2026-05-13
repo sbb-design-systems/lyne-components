@@ -15,7 +15,6 @@ import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
 
 import {
-  boxSizingStyles,
   forceType,
   type FormRestoreReason,
   type FormRestoreState,
@@ -24,11 +23,10 @@ import {
   handleDistinctChange,
   i18nSelectionRequired,
   isEventOnElement,
-  isLean,
   isNextjs,
   isSafari,
   isZeroAnimationDuration,
-  overlayGapFixCorners,
+  optionPanelStyles,
   SbbDisabledMixin,
   SbbEscapableOverlayController,
   SbbFormAssociatedMixin,
@@ -39,6 +37,7 @@ import {
   SbbReadonlyMixin,
   SbbRequiredMixin,
   SbbUpdateSchedulerMixin,
+  scrollbarStyles,
   setOrRemoveAttribute,
   setOverlayPosition,
 } from '../core.ts';
@@ -80,7 +79,11 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 ) {
   public static override readonly elementName: string = 'sbb-select';
   public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    scrollbarStyles,
+    optionPanelStyles,
+    unsafeCSS(style),
+  ];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
@@ -122,8 +125,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   @property()
   public set value(value: T[] | T) {
     this._value = value;
-    this._updateOptionsFromValue();
     this._isValueManuallyAssigned = true;
+    this._updateOptionsFromValue();
   }
   public get value(): T[] | T | null {
     return this._value;
@@ -131,10 +134,10 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _value: T | T[] | null = null;
 
   /**
-   * Size variant, either m or s.
-   * @default 'm' / 's' (lean)
+   * Size variant, either s (lean theme default) or m (standard theme default).
+   * When placed inside an `<sbb-form-field>`, the size is inherited from the form field.
    */
-  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 
   /**
    * Form type of element.
@@ -147,18 +150,25 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   /** The value displayed by the component. */
   @state() private accessor _displayValue: string | null = null;
 
-  private _originResizeObserver = new ResizeController(this, {
+  private _resizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,
-    callback: () => {
-      if (this.isOpen) {
-        this._setOverlayPosition();
-      }
-    },
+    // This is an IIFE, because we need to keep track of the timeout state
+    // for debouncing the resize callbacks.
+    callback: (() => {
+      let timeoutId: ReturnType<typeof setTimeout>;
+      return () => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          if (this.state !== 'closed') {
+            this._setOverlayPosition();
+          }
+        }, 10);
+      };
+    })(),
   });
 
   private _overlay!: HTMLElement;
-  private _optionContainer!: HTMLElement;
   private _originElement: HTMLElement | null = null;
   private _triggerElement: HTMLElement | null = null;
   private _openPanelEventsController?: AbortController;
@@ -194,6 +204,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     super();
     this.addEventListener?.('optionselectionchange', (e: Event) => this._onOptionChanged(e));
     this.addEventListener?.('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e));
+    /** Forces the sbb-select to update his value. */
+    this.addEventListener?.('ɵoptionvaluechange', () => this._updateValueOptionState());
     this.addEventListener?.('ɵoptgroupslotchange', () => this._updateValueOptionState(), {
       capture: true,
     });
@@ -253,9 +265,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     ) {
       this._triggerElement?.setAttribute(
         'aria-label',
-        Array.from(this.internals.labels)
-          .map((label) => label.textContent)
-          .join(', '),
+        Array.from(this.internals.labels, (label) => label.textContent).join(', '),
       );
     }
   }
@@ -274,7 +284,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       return;
     }
 
-    this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.showPopover?.();
+    this.shadowRoot?.querySelector<HTMLDivElement>('[popover]')?.showPopover?.();
     this.state = 'opening';
     this.internals.states.add('expanded');
     this._setOverlayPosition();
@@ -298,7 +308,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this.internals.states.delete('expanded');
     this._openPanelEventsController?.abort();
     if (this._originElement) {
-      this._originResizeObserver.unobserve(this._originElement);
+      this._resizeObserver.unobserve(this._originElement);
     }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -549,7 +559,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _setupOrigin(): void {
     const formField = this.closest?.<SbbFormFieldElement>('sbb-form-field');
     if (this._originElement) {
-      this._originResizeObserver.unobserve(this._originElement);
+      this._resizeObserver.unobserve(this._originElement);
     }
     this._originElement =
       formField?.shadowRoot?.querySelector?.('#overlay-anchor') ?? this.parentElement!;
@@ -557,7 +567,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       this.toggleState('option-panel-origin-borderless', formField?.hasAttribute?.('borderless'));
 
       if (this.isOpen) {
-        this._originResizeObserver.observe(this._originElement);
+        this._resizeObserver.observe(this._originElement);
       }
     }
   }
@@ -580,8 +590,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     setOverlayPosition(
       this._overlay,
       this._originElement,
-      this._optionContainer,
-      this.shadowRoot!.querySelector('.sbb-select__container')!,
+      this._overlay,
+      this.shadowRoot!.querySelector('.sbb-option-panel__overlay-container')!,
       this,
     );
   }
@@ -600,17 +610,17 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this.state = 'opened';
     this._triggerElement?.setAttribute('aria-expanded', 'true');
     if (this._originElement) {
-      this._originResizeObserver.observe(this._originElement);
+      this._resizeObserver.observe(this._originElement);
     }
     this.dispatchOpenEvent();
   }
 
   private _handleClosing(): void {
     this.state = 'closed';
-    this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.hidePopover?.();
+    this.shadowRoot?.querySelector<HTMLDivElement>('[popover]')?.hidePopover?.();
     this._triggerElement?.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
-    this._optionContainer.scrollTop = 0;
+    this._overlay.scrollTop = 0;
     this._escapableOverlayController.disconnect();
     this.dispatchCloseEvent();
   }
@@ -884,7 +894,11 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   // Close menu on backdrop click.
   private _closeOnBackdropClick = (event: PointerEvent): void => {
-    if (!this._isPointerDownEventOnMenu && !isEventOnElement(this._overlay, event)) {
+    if (
+      !this._isPointerDownEventOnMenu &&
+      !isEventOnElement(this._overlay, event) &&
+      !isEventOnElement(this._originElement, event)
+    ) {
       this.close();
     }
   };
@@ -1009,26 +1023,19 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         ${until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`))}
       </div>
 
-      <div class="sbb-select__gap-fix"></div>
-      <div class="sbb-select__container" popover="manual">
-        <div class="sbb-select__gap-fix">${overlayGapFixCorners()}</div>
+      <div class="sbb-option-panel__overlay-container" popover="manual">
         <div
+          class="sbb-option-panel__overlay ${this.negative
+            ? 'sbb-scrollbar-negative'
+            : 'sbb-scrollbar'}"
+          id=${!ariaRoleOnHost ? this._overlayId : nothing}
+          role=${!ariaRoleOnHost ? 'listbox' : nothing}
+          ?aria-multiselectable=${this.multiple}
+          tabindex="-1"
           @animationend=${this._onAnimationEnd}
-          class="sbb-select__panel"
           ${ref((dialogRef) => (this._overlay = dialogRef as HTMLElement))}
         >
-          <div class="sbb-select__wrapper">
-            <div
-              id=${!ariaRoleOnHost ? this._overlayId : nothing}
-              class="sbb-select__options"
-              role=${!ariaRoleOnHost ? 'listbox' : nothing}
-              ?aria-multiselectable=${this.multiple}
-              ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
-              tabindex="-1"
-            >
-              <slot @slotchange=${this._updateValueOptionState}></slot>
-            </div>
-          </div>
+          <slot @slotchange=${this._updateValueOptionState}></slot>
         </div>
       </div>
     `;

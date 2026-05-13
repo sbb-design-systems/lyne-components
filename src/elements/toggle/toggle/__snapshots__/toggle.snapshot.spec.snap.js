@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-toggle renders DOM"] = 
-`<sbb-toggle size="m">
+`<sbb-toggle>
   <sbb-toggle-option
     checked=""
     tabindex="0"

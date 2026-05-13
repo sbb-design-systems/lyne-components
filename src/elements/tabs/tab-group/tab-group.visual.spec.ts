@@ -16,7 +16,7 @@ import '../../icon.ts';
 import '../../tabs.ts';
 
 const cases = {
-  size: ['s', 'l', 'xl'],
+  size: [null, 's', 'l', 'xl'] satisfies SbbTabGroupElement['size'][],
   numbersAndIcons: [false, true],
 };
 
@@ -27,7 +27,7 @@ describe(`sbb-tab-group`, () => {
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-tab-group size=${size} initial-selected-index="0">
+            <sbb-tab-group size=${size || nothing} initial-selected-index="0">
               <sbb-tab-label
                 amount=${numbersAndIcons ? 16 : nothing}
                 icon-name=${numbersAndIcons ? 'app-icon-small' : nothing}

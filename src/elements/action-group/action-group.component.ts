@@ -7,14 +7,13 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.pure.ts';
-import type { SbbHorizontalFrom, SbbOrientation } from '../core.ts';
-import { boxSizingStyles, isLean, SbbElement } from '../core.ts';
+import type { SbbButtonCommonElementMixinType, SbbButtonElement } from '../button.pure.ts';
+import type { SbbHorizontalFrom } from '../core.ts';
+import { SbbElement } from '../core.ts';
 import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,
   SbbBlockLinkStaticElement,
-  SbbLinkSize,
 } from '../link.pure.ts';
 
 import style from './action-group.scss?inline';
@@ -26,7 +25,7 @@ import style from './action-group.scss?inline';
  */
 export class SbbActionGroupElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-action-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
    * Set the slotted `<sbb-action-group>` children's alignment.
@@ -45,23 +44,23 @@ export class SbbActionGroupElement extends SbbElement {
    * Indicates the orientation of the components inside the `<sbb-action-group>`.
    */
   @property({ reflect: true })
-  public accessor orientation: SbbOrientation = 'horizontal';
+  public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /**
    * Size of the nested sbb-button instances.
    * This will overwrite the size attribute of nested sbb-button instances.
-   * @default 'l' / 's' (lean)
+   * @deprecated Will be removed with next breaking change
    */
   @property({ attribute: 'button-size', reflect: true })
-  public accessor buttonSize: SbbButtonSize = isLean() ? 's' : 'l';
+  public accessor buttonSize: SbbButtonElement['size'] = null;
 
   /**
    * Size of the nested sbb-block-link instances.
    * This will overwrite the size attribute of nested sbb-block-link instances.
-   * @default 'm' / 'xs' (lean)
+   * @deprecated Will be removed with next breaking change
    */
   @property({ attribute: 'link-size', reflect: true })
-  public accessor linkSize: SbbLinkSize = isLean() ? 'xs' : 'm';
+  public accessor linkSize: SbbBlockLinkElement['size'] = null;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -75,16 +74,22 @@ export class SbbActionGroupElement extends SbbElement {
   }
 
   private _syncButtons(): void {
+    if (!this.buttonSize) {
+      return;
+    }
     this.querySelectorAll?.<SbbButtonCommonElementMixinType>(':state(sbb-button)').forEach(
-      (b) => (b.size = this.buttonSize),
+      (b) => (b.size = this.buttonSize!),
     );
   }
 
   private _syncLinks(): void {
+    if (!this.linkSize) {
+      return;
+    }
     this.querySelectorAll?.<
       SbbBlockLinkElement | SbbBlockLinkButtonElement | SbbBlockLinkStaticElement
     >('sbb-block-link, sbb-block-link-button, sbb-block-link-static').forEach((link) => {
-      link.size = this.linkSize;
+      link.size = this.linkSize!;
     });
   }
 

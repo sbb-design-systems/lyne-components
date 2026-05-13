@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { boxSizingStyles, SbbElement } from '../core.ts';
+import { SbbElement } from '../core.ts';
 
 import style from './chip-label.scss?inline';
 
@@ -12,11 +12,11 @@ import style from './chip-label.scss?inline';
  */
 export class SbbChipLabelElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-chip-label';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Size of the chip. */
   @property({ reflect: true })
-  public accessor size: 'xxs' | 'xs' | 's' = 'xxs';
+  public accessor size: 'xxxs' | 'xxs' | 'xs' | 's' = 'xxs';
 
   /** Color of the chip. */
   @property({ reflect: true })
@@ -24,10 +24,8 @@ export class SbbChipLabelElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <span class="sbb-chip-label">
-        <span class="sbb-chip__text-wrapper">
-          <slot></slot>
-        </span>
+      <span class="sbb-chip__text-wrapper">
+        <slot></slot>
       </span>
     `;
   }
