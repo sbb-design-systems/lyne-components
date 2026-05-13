@@ -93,8 +93,19 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
       return;
     }
     this.checked = !this.checked;
+    this._emitChangeEvents();
+  }
 
-    /** The input event fires when the value has been changed as a direct result of a user action. */
+  /** Selects this tag (sets checked=true) and emits events. Used by tag-group for keyboard navigation. */
+  protected select(): void {
+    if (this.disabled || this.checked) {
+      return;
+    }
+    this.checked = true;
+    this._emitChangeEvents();
+  }
+
+  private _emitChangeEvents(): void {
     this.dispatchEvent(
       new InputEvent('input', {
         bubbles: true,
@@ -133,7 +144,13 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
     }
 
     if (tagGroup && !tagGroup.multiple && changedProperties.has('checked') && this.checked) {
-      tagGroup?.tags.filter((t) => t !== this).forEach((t) => (t.checked = false));
+      this.tabIndex = 0;
+      tagGroup?.tags
+        .filter((t) => t !== this)
+        .forEach((t) => {
+          t.checked = false;
+          t.tabIndex = -1;
+        });
     }
   }
 

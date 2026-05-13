@@ -10,6 +10,8 @@ import { property } from 'lit/decorators.js';
 
 import {
   forceType,
+  getNextElementIndex,
+  isArrowKeyPressed,
   SbbDisabledMixin,
   SbbElement,
   SbbNamedSlotListMixin,
@@ -82,6 +84,11 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
     return Array.from(this.querySelectorAll?.<SbbTagElement<T>>('sbb-tag') ?? []);
   }
 
+  public constructor() {
+    super();
+    this.addEventListener?.('keydown', (e) => this._handleArrowKeyDown(e));
+  }
+
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
 
@@ -93,15 +100,19 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
       this.tags.forEach((r) => r.requestUpdate?.('disabled'));
     }
 
-    if (
-      (changedProperties.has('listChildren') || changedProperties.has('multiple')) &&
-      !this.multiple
-    ) {
-      // Ensure only one tag checked
-      this.tags
-        .filter((tag) => tag.checked)
-        .slice(1)
-        .forEach((tag) => (tag.checked = false));
+    if (changedProperties.has('listChildren') || changedProperties.has('multiple')) {
+      if (!this.multiple) {
+        // Ensure only one tag checked
+        this.tags
+          .filter((tag) => tag.checked)
+          .slice(1)
+          .forEach((tag) => (tag.checked = false));
+
+        this.updateFocusableTags();
+      } else if (changedProperties.has('multiple')) {
+        // In multiple mode all enabled tags should be focusable
+        this._enabledTags().forEach((t) => (t.tabIndex = 0));
+      }
     }
 
     if (changedProperties.has('accessibilityLabel') || changedProperties.has('multiple')) {
@@ -113,6 +124,49 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
         this.internals.ariaLabel = this.accessibilityLabel;
       }
     }
+  }
+
+  /**
+   * In exclusive mode, only the checked tag (or the first non-disabled tag) should be focusable.
+   */
+  protected updateFocusableTags(): void {
+    const enabledTags = this._enabledTags();
+    if (!enabledTags.length) {
+      return;
+    }
+
+    if (enabledTags.some((t) => t.checked)) {
+      enabledTags.forEach((t) => {
+        t.tabIndex = t.checked ? 0 : -1;
+      });
+    } else {
+      enabledTags[0].tabIndex = 0;
+      enabledTags.slice(1).forEach((t) => (t.tabIndex = -1));
+    }
+  }
+
+  private _enabledTags(): SbbTagElement<T>[] {
+    return this.tags.filter((t) => !t.disabled);
+  }
+
+  private async _handleArrowKeyDown(evt: KeyboardEvent): Promise<void> {
+    if (this.multiple || !isArrowKeyPressed(evt)) {
+      return;
+    }
+    evt.preventDefault();
+
+    const enabledTags = this._enabledTags();
+    const current = enabledTags.indexOf(evt.target as SbbTagElement<T>);
+    if (current === -1) {
+      return;
+    }
+
+    const nextIndex = getNextElementIndex(evt, current, enabledTags.length);
+    const nextTag = enabledTags[nextIndex];
+
+    nextTag['select']();
+    await nextTag.updateComplete;
+    nextTag.focus();
   }
 
   private _applyValueToTags(value: any): void {
