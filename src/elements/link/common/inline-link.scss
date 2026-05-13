@@ -1,16 +1,17 @@
 @use '../../core/styles' as sbb;
+@use '../link.global' as link;
 
 :host {
   // Necessary to forward styles to native link
   @include sbb.text-inherit;
-  @include sbb.link-variables;
+  @include link.variables;
 
   color: inherit;
   display: inline-block;
 }
 
 :host([negative]) {
-  @include sbb.link-variables--negative;
+  @include link.variables--negative;
 }
 
 .sbb-action-base {

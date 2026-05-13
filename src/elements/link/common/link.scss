@@ -1,4 +1,5 @@
 @use '../../core/styles' as sbb;
+@use '../link.global' as link;
 
 $disabled: '[disabled], :disabled, [disabled-interactive]';
 
@@ -9,11 +10,11 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 }
 
 :host(:state(button)) {
-  @include sbb.link-variables--button;
+  @include link.variables--button;
 }
 
 .sbb-action-base {
-  @include sbb.link-base;
+  @include link.base;
 
   display: flex;
   align-items: center;
@@ -41,11 +42,11 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   }
 
   :host(:hover:not(#{$disabled})) & {
-    @include sbb.link-hover-rules;
+    @include link.hover-rules;
   }
 
   :host(:is(:active, :state(active)):not(#{$disabled})) & {
     // Active definitions have to be after :hover definitions
-    @include sbb.link-active-rules;
+    @include link.active-rules;
   }
 }

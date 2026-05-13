@@ -1,9 +1,9 @@
-@use '../mixins/link';
+@use '../../../link/link';
 
 .sbb-link {
-  @include link.link;
+  @include link.rules;
 }
 
 .sbb-link-negative {
-  @include link.link-negative;
+  @include link.rules-negative;
 }
