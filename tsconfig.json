@@ -53,7 +53,6 @@
           "no-unknown-slot": "error"
         },
         "globalAttributes": [
-          "align-self",
           "inert",
           "popover",
           "sbb-badge",

@@ -1,7 +1,5 @@
 @use '../core/styles' as sbb;
 
-$breakpoints: 'zero', 'small', 'large', 'ultra';
-
 :host {
   --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
 
@@ -12,19 +10,7 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
   gap: var(--sbb-action-group-gap);
 }
 
-::slotted([align-self='start']) {
-  margin-inline-end: auto;
-}
-
-::slotted([align-self='center']) {
-  margin-inline: auto;
-}
-
-::slotted([align-self='end']) {
-  margin-inline-start: auto;
-}
-
-::slotted(:is(sbb-block-link, sbb-block-link-button, sbb-block-link-static)) {
+::slotted(:state(sbb-link)) {
   white-space: nowrap;
 }
 

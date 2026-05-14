@@ -61,7 +61,7 @@ const CommonTemplateThreeElementsAllocation = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-action-group
-    class=${getCssClasses(vertical, horizontalFromLarge, verticalFullWidth)}
+    class=${getCssClasses(vertical === 'vertical', horizontalFromLarge, verticalFullWidth)}
     ${sbbSpread(args)}
     >${TemplateThreeElements()}</sbb-action-group
   >
@@ -74,7 +74,7 @@ const CommonTemplateTwoElementsAllocation = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-action-group
-    class=${getCssClasses(vertical, horizontalFromLarge, verticalFullWidth)}
+    class=${getCssClasses(vertical === 'vertical', horizontalFromLarge, verticalFullWidth)}
     ${sbbSpread(args)}
     >${TemplateTwoElements()}</sbb-action-group
   >
@@ -87,7 +87,7 @@ const TemplateHorizontalAllocation111 = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-action-group
-    class=${getCssClasses(vertical, horizontalFromLarge, verticalFullWidth)}
+    class=${getCssClasses(vertical === 'vertical', horizontalFromLarge, verticalFullWidth)}
     ${sbbSpread(args)}
     >${TemplateThreeElements(undefined, 'center')}</sbb-action-group
   >
@@ -100,7 +100,7 @@ const TemplateHorizontalAllocation201 = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-action-group
-    class=${getCssClasses(vertical, horizontalFromLarge, verticalFullWidth)}
+    class=${getCssClasses(vertical === 'vertical', horizontalFromLarge, verticalFullWidth)}
     ${sbbSpread(args)}
     >${TemplateThreeElements(undefined, undefined, 'end')}</sbb-action-group
   >
@@ -113,7 +113,7 @@ const TemplateHorizontalAllocation102 = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-action-group
-    class=${getCssClasses(vertical, horizontalFromLarge, verticalFullWidth)}
+    class=${getCssClasses(vertical === 'vertical', horizontalFromLarge, verticalFullWidth)}
     ${sbbSpread(args)}
     >${TemplateThreeElements('start')}</sbb-action-group
   >
@@ -126,7 +126,7 @@ const TemplateHorizontalAllocation101 = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-action-group
-    class=${getCssClasses(vertical, horizontalFromLarge, verticalFullWidth)}
+    class=${getCssClasses(vertical === 'vertical', horizontalFromLarge, verticalFullWidth)}
     ${sbbSpread(args)}
     >${TemplateTwoElements('start', 'end')}</sbb-action-group
   >
@@ -137,7 +137,9 @@ const TemplateVerticalAllocation300FullWidth = ({
   horizontalFromLarge,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-action-group class=${getCssClasses(vertical, horizontalFromLarge, true)} ${sbbSpread(args)}
+  <sbb-action-group
+    class=${getCssClasses(vertical === 'vertical', horizontalFromLarge, true)}
+    ${sbbSpread(args)}
     >${TemplateThreeElements(undefined, undefined, 'end')}</sbb-action-group
   >
 `;
@@ -156,7 +158,7 @@ const linkSize: InputType = {
   options: [null, 'xs', 's', 'm'] satisfies SbbActionGroupElement['linkSize'][],
 };
 
-const vertical: InputType = {
+const orientation: InputType = {
   control: {
     type: 'boolean',
   },
@@ -164,8 +166,9 @@ const vertical: InputType = {
 
 const horizontalFromLarge: InputType = {
   control: {
-    type: 'boolean',
+    type: 'inline-radio',
   },
+  options: ['horizontal', 'vertical'],
 };
 
 const verticalFullWidth: InputType = {
@@ -177,7 +180,7 @@ const verticalFullWidth: InputType = {
 const basicArgTypes: ArgTypes = {
   'button-size': buttonSize,
   'link-size': linkSize,
-  vertical: vertical,
+  orientation: orientation,
   horizontalFromLarge: horizontalFromLarge,
   verticalFullWidth: verticalFullWidth,
 };
@@ -185,7 +188,7 @@ const basicArgTypes: ArgTypes = {
 const basicArgs: Args = {
   'button-size': buttonSize.options![1],
   'link-size': linkSize.options![1],
-  vertical: false,
+  orientation: orientation.options![0],
   horizontalFromLarge: false,
   verticalFullWidth: false,
 };
