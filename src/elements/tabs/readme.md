@@ -89,12 +89,12 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 
 ## Events
 
-Consumers can listen to the `tabchange` event, whose `event.detail` is typed as `SbbTabChangedEventDetails`.
+Consumers can listen to the `tabchange` event, whose `event.detail` is typed as `SbbTabChangeEventDetails`.
 From it, it's possible to retrieve the information about the current `<sbb-tab-label>`, `<sbb-tab>` and index, and,
 if available, also the information about the previous ones.
 
 ```ts
-interface SbbTabChangedEventDetails {
+interface SbbTabChangeEventDetails {
   activeIndex: number;
   activeTabLabel: SbbTabLabelElement;
   activeTab: SbbTabElement;
@@ -228,9 +228,9 @@ Be aware that anchors do not support a `disabled` state. To achieve an equivalen
 
 #### Events
 
-| Name        | Type                 | Description                                               | Inherited From |
-| ----------- | -------------------- | --------------------------------------------------------- | -------------- |
-| `tabchange` | `SbbTabChangedEvent` | The tabchange event is dispatched when a tab is selected. |                |
+| Name        | Type                | Description                                               | Inherited From |
+| ----------- | ------------------- | --------------------------------------------------------- | -------------- |
+| `tabchange` | `SbbTabChangeEvent` | The tabchange event is dispatched when a tab is selected. |                |
 
 #### Slots
 

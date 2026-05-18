@@ -13,7 +13,7 @@ import {
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import { tabLabelCommonStyles } from '../common/styles.ts';
 import type { SbbTabElement } from '../tab/tab.component.ts';
-import { SbbTabChangedEvent, type SbbTabGroupElement } from '../tab-group/tab-group.component.ts';
+import { SbbTabChangeEvent, type SbbTabGroupElement } from '../tab-group/tab-group.component.ts';
 
 import style from './tab-label.scss?inline';
 
@@ -145,7 +145,7 @@ export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbEle
         previousTabLabel: prevActiveTabLabel,
         previousTab: prevActiveTabLabel?.tab as SbbTabElement,
       };
-      this.group?.dispatchEvent(new SbbTabChangedEvent(tabchange));
+      this.group?.dispatchEvent(new SbbTabChangeEvent(tabchange));
     }
   }
 

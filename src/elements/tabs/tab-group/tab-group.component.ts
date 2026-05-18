@@ -22,7 +22,7 @@ import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
 import style from './tab-group.scss?inline';
 
-export interface SbbTabChangedEventDetails {
+export interface SbbTabChangeEventDetails {
   activeIndex: number;
   activeTabLabel: SbbTabLabelElement;
   activeTab: SbbTabElement;
@@ -31,14 +31,14 @@ export interface SbbTabChangedEventDetails {
   previousTab: SbbTabElement | undefined;
 }
 
-export class SbbTabChangedEvent extends Event {
-  private readonly _detail: Readonly<SbbTabChangedEventDetails>;
+export class SbbTabChangeEvent extends Event {
+  private readonly _detail: Readonly<SbbTabChangeEventDetails>;
 
-  public get detail(): Readonly<SbbTabChangedEventDetails> {
+  public get detail(): Readonly<SbbTabChangeEventDetails> {
     return this._detail;
   }
 
-  public constructor(details: SbbTabChangedEventDetails) {
+  public constructor(details: SbbTabChangeEventDetails) {
     super('tabchange', { bubbles: true, composed: true });
     this._detail = Object.freeze(details);
   }
@@ -48,7 +48,7 @@ export class SbbTabChangedEvent extends Event {
  * It displays one or more tabs, each one with a label and some content.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-tab-group` via `sbb-tab-label` and `sbb-tab` instances.
- * @event {SbbTabChangedEvent} tabchange - The tabchange event is dispatched when a tab is selected.
+ * @event {SbbTabChangeEvent} tabchange - The tabchange event is dispatched when a tab is selected.
  */
 export class SbbTabGroupElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-tab-group';
