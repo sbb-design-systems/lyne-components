@@ -1,4 +1,4 @@
-@use '../../../link/link';
+@use '../../../link/link.global' as link;
 
 .sbb-link {
   @include link.rules;
