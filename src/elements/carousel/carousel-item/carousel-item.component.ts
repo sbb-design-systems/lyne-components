@@ -25,7 +25,7 @@ export class SbbCarouselItemShowEvent extends Event {
  * It displays an item contained into the `sbb-carousel` component.
  *
  * @slot - Use the unnamed slot to add images for the carousel, as <img>, <sbb-image>, <picture>, ...
- * @event {SbbCarouselItemBeforeShowEvent} beforeshow - Event emitted when the item is starting scrolling.
+ * @event {SbbCarouselItemShowEvent} beforeshow - Event emitted when the item is starting scrolling.
  * @event {SbbCarouselItemShowEvent} show - Event emitted when the item is full visible after scrolling.
  */
 export class SbbCarouselItemElement extends SbbElement {

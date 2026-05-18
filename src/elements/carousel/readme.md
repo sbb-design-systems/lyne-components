@@ -112,10 +112,10 @@ To not break the accessibility when links are used together with images, please 
 
 #### Events
 
-| Name         | Type                             | Description                                                  | Inherited From |
-| ------------ | -------------------------------- | ------------------------------------------------------------ | -------------- |
-| `beforeshow` | `SbbCarouselItemBeforeShowEvent` | Event emitted when the item is starting scrolling.           |                |
-| `show`       | `SbbCarouselItemShowEvent`       | Event emitted when the item is full visible after scrolling. |                |
+| Name         | Type                       | Description                                                  | Inherited From |
+| ------------ | -------------------------- | ------------------------------------------------------------ | -------------- |
+| `beforeshow` | `SbbCarouselItemShowEvent` | Event emitted when the item is starting scrolling.           |                |
+| `show`       | `SbbCarouselItemShowEvent` | Event emitted when the item is full visible after scrolling. |                |
 
 #### Slots
 
