@@ -167,8 +167,9 @@
 }
 
 @mixin legend {
-  @include text-xs;
-
+  line-height: var(--sbb-typo-line-height-text);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  font-size: var(--sbb-text-font-size-xs);
   padding: 0;
   color: light-dark(var(--sbb-color-granite), var(--sbb-color-cement));
 }

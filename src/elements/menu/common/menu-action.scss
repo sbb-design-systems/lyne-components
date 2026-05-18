@@ -83,8 +83,6 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 }
 
 .sbb-menu-action__content {
-  @include sbb.text-xs;
-
   display: flex;
   align-items: center;
   gap: var(--sbb-menu-action-gap);
@@ -94,6 +92,9 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   background-color: var(--sbb-menu-background-color);
+  line-height: var(--sbb-typo-line-height-text);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  font-size: var(--sbb-text-font-size-xs);
 
   // Handle focus on the host (button variant)
   :host(:focus-visible) &,

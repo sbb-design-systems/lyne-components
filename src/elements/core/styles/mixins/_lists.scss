@@ -85,8 +85,9 @@
     $selector: '&:where(dl)';
   }
   #{$selector} {
-    @include typo.text-s;
-
+    line-height: var(--sbb-typo-line-height-text);
+    letter-spacing: var(--sbb-typo-letter-spacing-text);
+    font-size: var(--sbb-text-font-size-s);
     margin: 0;
     padding: 0;
     display: grid;
@@ -221,8 +222,6 @@
     min-height: calc(var(--sbb-step-list-dimensions) + 2 * var(--sbb-step-list-padding-block));
 
     &::before {
-      @include typo.text-xxs;
-
       content: counter(steps);
       position: absolute;
       display: flex;
@@ -236,6 +235,9 @@
       border: var(--sbb-border-width-1x) solid
         light-dark(var(--sbb-color-cement), var(--sbb-color-smoke));
       border-radius: 50%;
+      line-height: var(--sbb-typo-line-height-text);
+      letter-spacing: var(--sbb-typo-letter-spacing-text);
+      font-size: var(--sbb-text-font-size-xxs);
       font-weight: bold;
     }
 

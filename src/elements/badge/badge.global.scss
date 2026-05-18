@@ -3,8 +3,6 @@
 $theme: 'standard' !default;
 
 @mixin rules {
-  @include sbb.text-xxs;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,6 +12,9 @@ $theme: 'standard' !default;
   color: var(--sbb-color-1-negative);
   min-width: var(--sbb-spacing-fixed-4x);
   max-height: var(--sbb-spacing-fixed-4x);
+  line-height: var(--sbb-typo-line-height-text);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  font-size: var(--sbb-text-font-size-xxs);
   font-weight: bold;
 
   // Transparent outline is visible in forced colors mode to ensure readability

@@ -45,9 +45,10 @@ sbb-icon[name='folder-open-small'] {
 }
 
 .sbb-file-selector__dropzone-area--subtitle {
-  @include sbb.text-xs;
-
   text-align: center;
   color: var(--sbb-file-selector-subtitle-color);
   margin-block-end: var(--sbb-spacing-fixed-4x);
+  line-height: var(--sbb-typo-line-height-text);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  font-size: var(--sbb-text-font-size-xs);
 }
