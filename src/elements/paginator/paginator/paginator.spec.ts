@@ -50,7 +50,7 @@ describe('sbb-paginator', () => {
     goToNext.click();
     await waitForLitRender(element);
     expect(pageEventSpy).to.have.been.calledOnce;
-    expect(pageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
+    expect(pageEventSpy.lastCall.firstArg.pageIndex).to.be.equal(element.pageIndex);
     expect(element.pageIndex).to.be.equal(1);
     expect(goToPrev).not.to.have.attribute('disabled');
     expect(goToNext).not.to.have.attribute('disabled');
@@ -58,7 +58,7 @@ describe('sbb-paginator', () => {
     goToPrev.click();
     await waitForLitRender(element);
     expect(pageEventSpy).to.have.been.calledTwice;
-    expect(pageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
+    expect(pageEventSpy.lastCall.firstArg.pageIndex).to.be.equal(element.pageIndex);
     expect(element.pageIndex).to.be.equal(0);
   });
 

@@ -4,20 +4,16 @@ import { SbbElement } from '../../core.ts';
 
 import style from './carousel-item.scss?inline';
 
-export interface SbbCarouselItemShowEventDetails {
-  index: number;
-}
-
 export class SbbCarouselItemShowEvent extends Event {
-  private readonly _detail: SbbCarouselItemShowEventDetails;
+  private readonly _index: number;
 
-  public get detail(): SbbCarouselItemShowEventDetails {
-    return this._detail;
+  public get index(): number {
+    return this._index;
   }
 
-  public constructor(type: string, detail: SbbCarouselItemShowEventDetails) {
+  public constructor(type: string, detail: { index: number }) {
     super(type, { bubbles: true, composed: true });
-    this._detail = detail;
+    this._index = detail.index;
   }
 }
 

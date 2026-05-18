@@ -51,13 +51,13 @@ export class SbbCarouselElement extends SbbElement {
       // if during an animation the next page is called from the paginator, the paginator is reset.
       if (
         this._requestedPageIndexByPaginator !== -1 &&
-        this._requestedPageIndexByPaginator !== e.detail.index
+        this._requestedPageIndexByPaginator !== e.index
       ) {
         return;
       }
       if (this._paginator) {
-        if (e.detail.index !== this._paginator.pageIndex) {
-          this._paginator.pageIndex = e.detail.index;
+        if (e.index !== this._paginator.pageIndex) {
+          this._paginator.pageIndex = e.index;
         }
       }
       this._requestedPageIndexByPaginator = -1;
