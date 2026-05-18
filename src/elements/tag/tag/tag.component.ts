@@ -66,6 +66,9 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
     this.addEventListener?.('click', () => this._handleClick());
     this.addController(
       new SbbPropertyWatcherController(this, () => this._tagGroup(), {
+        multiple: () => {
+          this._updateAriaRole();
+        },
         size: (g) => {
           this.size = g.size;
         },
@@ -75,6 +78,19 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
 
   private _tagGroup(): SbbTagGroupElement | null {
     return this.closest?.('sbb-tag-group') ?? null;
+  }
+
+  private _updateAriaRole(): void {
+    const tagGroup = this._tagGroup();
+    if (tagGroup && !tagGroup.multiple) {
+      this.internals.role = 'radio';
+      this.internals.ariaChecked = `${this.checked}`;
+      this.internals.ariaPressed = null;
+    } else {
+      this.internals.role = null;
+      this.internals.ariaPressed = `${this.checked}`;
+      this.internals.ariaChecked = null;
+    }
   }
 
   protected override isDisabledExternally(): boolean {
@@ -132,13 +148,7 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
     const tagGroup = this._tagGroup();
 
     if (changedProperties.has('checked')) {
-      if (tagGroup && !tagGroup.multiple) {
-        this.internals.role = 'radio';
-        this.internals.ariaChecked = `${this.checked}`;
-      } else {
-        this.internals.ariaPressed = `${this.checked}`;
-      }
-
+      this._updateAriaRole();
       this.toggleState('checked', this.checked);
       this.updateFormValue();
     }
