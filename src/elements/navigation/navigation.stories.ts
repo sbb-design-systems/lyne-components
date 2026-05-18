@@ -49,13 +49,13 @@ const triggerButton = (id: string): TemplateResult => html`
   ></sbb-secondary-button>
 `;
 
-const navigationActionsL = (): TemplateResult => html`
-  <sbb-navigation-button id="nav-1">Tickets & Offers</sbb-navigation-button>
-  <sbb-navigation-button id="nav-2" class="sbb-active" aria-current="page"
+const navigationActionsL = (disabled?: boolean): TemplateResult => html`
+  <sbb-navigation-button id="nav-1" ?disabled=${disabled}>Tickets & Offers</sbb-navigation-button>
+  <sbb-navigation-button id="nav-2" class="sbb-active" aria-current="page" ?disabled=${disabled}
     >Vacations & Recreation</sbb-navigation-button
   >
-  <sbb-navigation-button id="nav-3">Travel information</sbb-navigation-button>
-  <sbb-navigation-link id="nav-4" href="https://www.sbb.ch/en/">
+  <sbb-navigation-button id="nav-3" ?disabled=${disabled}>Travel information</sbb-navigation-button>
+  <sbb-navigation-link id="nav-4" href="https://www.sbb.ch/en/" ?disabled=${disabled}>
     Help & Contact
   </sbb-navigation-link>
 `;
@@ -69,10 +69,14 @@ const navigationActionsS = (): TemplateResult => html`
   <sbb-navigation-button id="nav-8" aria-pressed="false">English</sbb-navigation-button>
 `;
 
-const navigationList = (label: string, active?: boolean): TemplateResult => html`
+const navigationList = (
+  label: string,
+  active?: boolean,
+  disabled?: boolean,
+): TemplateResult => html`
   <sbb-navigation-list label=${label}>
     <sbb-navigation-button>Label</sbb-navigation-button>
-    <sbb-navigation-button>Label</sbb-navigation-button>
+    <sbb-navigation-button ?disabled=${disabled}>Label</sbb-navigation-button>
     <sbb-navigation-link
       href="https://www.sbb.ch/en/"
       class=${active ? 'sbb-active' : nothing}
@@ -99,6 +103,14 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
   </sbb-navigation>
 `;
 
+const DisabledOptionsTemplate = (args: Args): TemplateResult => html`
+  ${triggerButton('navigation-trigger-1')}
+  <sbb-navigation trigger="navigation-trigger-1" ${sbbSpread(args)}>
+    <sbb-navigation-marker>${navigationActionsL(true)}</sbb-navigation-marker>
+    <sbb-navigation-marker size="s">${navigationActionsS()}</sbb-navigation-marker>
+  </sbb-navigation>
+`;
+
 const LongContentTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('navigation-trigger-1')}
   <sbb-navigation trigger="navigation-trigger-1" ${sbbSpread(args)}>
@@ -114,18 +126,19 @@ const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
     <sbb-navigation-marker size="s">${navigationActionsS()}</sbb-navigation-marker>
 
     <sbb-navigation-section trigger="nav-1" title-content="Title one">
-      ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
-      ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
+      ${navigationList('Label', false, true)} ${navigationList('Label')} ${navigationList('Label')}
+      ${navigationList('Label')} ${navigationList('Label', false, true)} ${navigationList('Label')}
       <sbb-button style="width: fit-content"> All Tickets & Offers </sbb-button>
     </sbb-navigation-section>
 
     <sbb-navigation-section trigger="nav-2" title-content="Title two">
-      ${navigationList('Label', true)} ${navigationList('Label')} ${navigationList('Label')}
+      ${navigationList('Label', true)} ${navigationList('Label', false, true)}
       ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
+      ${navigationList('Label')}
     </sbb-navigation-section>
 
     <sbb-navigation-section trigger="nav-3" title-content="Title three">
-      ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
+      ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label', false, true)}
       <sbb-secondary-button icon-name="circle-information-small" style="width: fit-content;">
         Travel Information
       </sbb-secondary-button>
@@ -147,6 +160,12 @@ export const LongContent: StoryObj = {
 
 export const WithNavigationSection: StoryObj = {
   render: WithNavigationSectionTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
+
+export const DisabledOptions: StoryObj = {
+  render: DisabledOptionsTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
 };
