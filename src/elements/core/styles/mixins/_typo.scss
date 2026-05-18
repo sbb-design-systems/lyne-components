@@ -151,15 +151,6 @@
   @include text;
 }
 
-@mixin text-inherit {
-  font-family: inherit;
-  font-weight: inherit;
-  line-height: inherit;
-  letter-spacing: inherit;
-  font-size: inherit;
-  text-align: inherit;
-}
-
 @mixin placeholder {
   color: var(--sbb-color-5);
   -webkit-text-fill-color: var(--sbb-color-5);

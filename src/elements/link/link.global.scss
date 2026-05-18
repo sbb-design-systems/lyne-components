@@ -101,7 +101,6 @@
 }
 
 @mixin consolidation {
-  @include sbb.text-inherit;
   @include base;
   @include focus-visible;
   @include hover;

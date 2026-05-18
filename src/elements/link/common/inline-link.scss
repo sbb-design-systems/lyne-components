@@ -2,8 +2,6 @@
 @use '../link.global' as link;
 
 :host {
-  // Necessary to forward styles to native link
-  @include sbb.text-inherit;
   @include link.variables;
 
   color: inherit;
@@ -12,8 +10,4 @@
 
 :host([negative]) {
   @include link.variables--negative;
-}
-
-.sbb-action-base {
-  @include sbb.text-inherit;
 }
