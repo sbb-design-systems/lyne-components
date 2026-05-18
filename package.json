@@ -58,7 +58,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "lit": "3.3.2"
+    "lit": "3.3.3"
   },
   "devDependencies": {
     "@commitlint/cli": "21.0.1",
@@ -137,7 +137,7 @@
     "@types/node": "24.12.4",
     "@webcomponents/template-shadowroot": "0.2.1",
     "@web/dev-server-core": "0.7.5",
-    "lit": "3.3.2",
+    "lit": "3.3.3",
     "playwright": "1.60.0",
     "prettier": "3.8.3",
     "postcss": "8.5.14"
