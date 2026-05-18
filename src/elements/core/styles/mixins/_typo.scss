@@ -3,62 +3,59 @@
 // ----------------------------------------------------------------------------------------------------
 
 @mixin title-rules {
-  margin-block: var(--sbb-title-margin-block, 0);
-  margin-inline: 0;
   font-family: var(--sbb-typo-font-family);
   font-weight: bold;
-  font-size: var(--sbb-title-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-heading);
-  line-height: var(--sbb-title-line-height, var(--sbb-typo-line-height-heading));
+  line-height: var(--sbb-typo-line-height-heading);
 }
 
 @mixin title--level-1 {
-  --sbb-title-font-size: var(--sbb-heading-font-size-1);
+  font-size: var(--sbb-heading-font-size-1);
 }
 
 @mixin title--level-1-spacing {
-  --sbb-title-margin-block: var(--sbb-heading-margin-block-1);
+  margin-block: var(--sbb-heading-margin-block-1);
 }
 
 @mixin title--level-2 {
-  --sbb-title-font-size: var(--sbb-heading-font-size-2);
+  font-size: var(--sbb-heading-font-size-2);
 }
 
 @mixin title--level-2-spacing {
-  --sbb-title-margin-block: var(--sbb-heading-margin-block-2);
+  margin-block: var(--sbb-heading-margin-block-2);
 }
 
 @mixin title--level-3 {
-  --sbb-title-font-size: var(--sbb-heading-font-size-3);
+  font-size: var(--sbb-heading-font-size-3);
 }
 
 @mixin title--level-3-spacing {
-  --sbb-title-margin-block: var(--sbb-heading-margin-block-3);
+  margin-block: var(--sbb-heading-margin-block-3);
 }
 
 @mixin title--level-4 {
-  --sbb-title-font-size: var(--sbb-heading-font-size-4);
+  font-size: var(--sbb-heading-font-size-4);
 }
 
 @mixin title--level-4-spacing {
-  --sbb-title-margin-block: var(--sbb-heading-margin-block-4);
+  margin-block: var(--sbb-heading-margin-block-4);
 }
 
 @mixin title--level-5 {
-  --sbb-title-font-size: var(--sbb-heading-font-size-5);
+  font-size: var(--sbb-heading-font-size-5);
 }
 
 @mixin title--level-5-spacing {
-  --sbb-title-margin-block: var(--sbb-heading-margin-block-5);
+  margin-block: var(--sbb-heading-margin-block-5);
 }
 
 @mixin title--level-6 {
-  --sbb-title-font-size: var(--sbb-heading-font-size-6);
-  --sbb-title-line-height: var(--sbb-typo-line-height-text);
+  font-size: var(--sbb-heading-font-size-6);
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 @mixin title--level-6-spacing {
-  --sbb-title-margin-block: var(--sbb-heading-margin-block-6);
+  margin-block: var(--sbb-heading-margin-block-6);
 }
 
 @mixin title-1($exclude-spacing: false) {

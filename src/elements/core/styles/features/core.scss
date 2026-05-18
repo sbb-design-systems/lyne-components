@@ -430,7 +430,6 @@ $theme: 'standard' !default;
   @include timetable-occupancy.base;
   @include time-input.base;
   @include title-common.base;
-  @include title.base;
   @include toggle-check.base;
   @include toggle.base;
   @include toggle-option.base;

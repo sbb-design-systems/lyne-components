@@ -2,10 +2,6 @@
 
 $theme: 'standard' !default;
 
-@mixin base {
-  @include sbb.title--level-1-spacing;
-}
-
 @mixin rules {
   // In smaller title font-sizes, the space after the title is smaller than the default paragraph space before.
   // Due to margin collapsing, the wrong paragraph space wins.
