@@ -29,23 +29,39 @@ import { SbbDividerElement } from '../../divider.pure.ts';
 
 import style from './paginator-common.scss?inline';
 
-export interface SbbPaginatorPageEventDetails {
-  length: number;
-  pageSize: number;
-  pageIndex: number;
-  previousPageIndex: number;
-}
-
 export class SbbPaginatorPageEvent extends Event {
-  private readonly _detail: Readonly<SbbPaginatorPageEventDetails>;
+  private _length: number;
+  private _pageSize: number;
+  private _pageIndex: number;
+  private _previousPageIndex: number;
 
-  public get detail(): Readonly<SbbPaginatorPageEventDetails> {
-    return this._detail;
+  public get length(): number {
+    return this._length;
   }
 
-  public constructor(details: SbbPaginatorPageEventDetails) {
+  public get pageSize(): number {
+    return this._pageSize;
+  }
+
+  public get pageIndex(): number {
+    return this._pageIndex;
+  }
+
+  public get previousPageIndex(): number {
+    return this._previousPageIndex;
+  }
+
+  public constructor(page: {
+    length: number;
+    pageSize: number;
+    pageIndex: number;
+    previousPageIndex: number;
+  }) {
     super('page', { bubbles: true, composed: true });
-    this._detail = Object.freeze(details);
+    this._length = page.length;
+    this._pageSize = page.pageSize;
+    this._pageIndex = page.pageIndex;
+    this._previousPageIndex = page.previousPageIndex;
   }
 }
 
@@ -263,7 +279,7 @@ export const SbbPaginatorCommonElementMixin = <
         // FIXME: the name of this variable appears as event name in the readme
         //  due to a bug in the custom-elements-manifest library.
         //  https://github.com/open-wc/custom-elements-manifest/issues/149
-        const page: SbbPaginatorPageEventDetails = {
+        const page = {
           previousPageIndex,
           pageIndex: this.pageIndex,
           length: this.length,
