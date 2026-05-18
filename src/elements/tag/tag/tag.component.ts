@@ -66,9 +66,7 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
     this.addEventListener?.('click', () => this._handleClick());
     this.addController(
       new SbbPropertyWatcherController(this, () => this._tagGroup(), {
-        multiple: () => {
-          this._updateAriaRole();
-        },
+        multiple: () => this._updateAriaRole(),
         size: (g) => {
           this.size = g.size;
         },
@@ -87,9 +85,9 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
       this.internals.ariaChecked = `${this.checked}`;
       this.internals.ariaPressed = null;
     } else {
-      this.internals.role = null;
-      this.internals.ariaPressed = `${this.checked}`;
+      this.internals.role = 'button';
       this.internals.ariaChecked = null;
+      this.internals.ariaPressed = `${this.checked}`;
     }
   }
 
