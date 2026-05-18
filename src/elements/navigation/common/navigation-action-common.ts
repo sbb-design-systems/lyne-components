@@ -1,11 +1,12 @@
 import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import type {
-  AbstractConstructor,
-  SbbActionBaseElement,
-  SbbElementConstructor,
-  SbbElementType,
+import {
+  SbbDisabledMixin,
+  type AbstractConstructor,
+  type SbbActionBaseElement,
+  type SbbElementConstructor,
+  type SbbElementType,
 } from '../../core.ts';
 import { SbbPropertyWatcherController } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
@@ -16,7 +17,9 @@ import type { SbbNavigationSectionElement } from '../navigation-section/navigati
 
 import style from './navigation-action.scss?inline';
 
-export declare class SbbNavigationActionCommonElementMixinType {
+export declare class SbbNavigationActionCommonElementMixinType extends SbbDisabledMixin(
+  SbbActionBaseElement,
+) {
   public get marker(): SbbNavigationMarkerElement | null;
   public get section(): SbbNavigationSectionElement | null;
   public connectedSection: SbbNavigationSectionElement | undefined;
@@ -29,7 +32,7 @@ export const SbbNavigationActionCommonElementMixin = <
   superClass: T,
 ): AbstractConstructor<SbbNavigationActionCommonElementMixinType> & T => {
   abstract class SbbNavigationActionCommonElement
-    extends superClass
+    extends SbbDisabledMixin(superClass)
     implements Partial<SbbNavigationActionCommonElementMixinType>
   {
     public static override elementDependencies: SbbElementType[] = [SbbIconElement];
