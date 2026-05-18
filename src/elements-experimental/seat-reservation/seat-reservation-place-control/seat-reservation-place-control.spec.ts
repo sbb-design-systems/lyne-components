@@ -225,4 +225,16 @@ describe('sbb-seat-reservation-place-control', () => {
 
     await expect(element.title).to.not.be.equal(initialTitle);
   });
+
+  it('should have aria-label attribute for screenreader when show-title-info is false and place is selectable by Enter key', async () => {
+    element.setAttribute('show-title-info', 'false');
+    element.setAttribute('state', 'FREE');
+
+    element.focus();
+    await sendKeys({ press: 'Enter' });
+    await waitForLitRender(element);
+
+    await expect(element.ariaLabel).to.exist;
+    await expect(element.state).to.equal('SELECTED');
+  });
 });
