@@ -4,28 +4,20 @@ import { SbbElement } from '../../core.ts';
 
 import style from './carousel-item.scss?inline';
 
-class SbbCarouselItemShowingEvent extends Event {
-  private readonly _index: number;
+export interface SbbCarouselItemShowEventDetails {
+  index: number;
+}
 
-  public get index(): number {
-    return this._index;
+export class SbbCarouselItemShowEvent extends Event {
+  private readonly _detail: SbbCarouselItemShowEventDetails;
+
+  public get detail(): SbbCarouselItemShowEventDetails {
+    return this._detail;
   }
 
-  protected constructor(type: string, index: number) {
+  public constructor(type: string, detail: SbbCarouselItemShowEventDetails) {
     super(type, { bubbles: true, composed: true });
-    this._index = index;
-  }
-}
-
-export class SbbCarouselItemBeforeShowEvent extends SbbCarouselItemShowingEvent {
-  public constructor(index: number) {
-    super('beforeshow', index);
-  }
-}
-
-export class SbbCarouselItemShowEvent extends SbbCarouselItemShowingEvent {
-  public constructor(index: number) {
-    super('show', index);
+    this._detail = detail;
   }
 }
 
@@ -63,7 +55,7 @@ declare global {
   }
 
   interface GlobalEventHandlersEventMap {
-    beforeshow: SbbCarouselItemBeforeShowEvent;
+    beforeshow: SbbCarouselItemShowEvent;
     show: SbbCarouselItemShowEvent;
   }
 }

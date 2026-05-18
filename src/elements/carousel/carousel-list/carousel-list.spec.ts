@@ -9,7 +9,6 @@ import type { SbbOverlayElement } from '../../overlay/overlay.component.ts';
 import type { SbbCarouselElement } from '../carousel/carousel.component.ts';
 import type {
   SbbCarouselItemElement,
-  SbbCarouselItemBeforeShowEvent,
   SbbCarouselItemShowEvent,
 } from '../carousel-item/carousel-item.component.ts';
 
@@ -23,7 +22,7 @@ const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-imag
 describe('sbb-carousel-list', () => {
   let element: SbbCarouselListElement;
   let first: SbbCarouselItemElement, second: SbbCarouselItemElement, third: SbbCarouselItemElement;
-  let beforeShowSpy: EventSpy<SbbCarouselItemBeforeShowEvent>;
+  let beforeShowSpy: EventSpy<SbbCarouselItemShowEvent>;
   let showSpy: EventSpy<SbbCarouselItemShowEvent>;
 
   describe('basic', () => {
