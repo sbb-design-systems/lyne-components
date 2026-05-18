@@ -3,7 +3,6 @@ import {
   SbbButtonBaseElement,
   type SbbElementType,
   SbbLanguageController,
-  screenReaderOnlyStyles,
 } from '@sbb-esta/lyne-elements/core.js';
 import {
   type CSSResultGroup,
@@ -33,7 +32,7 @@ type TravelDirectionI18nKey =
 export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-place-control';
   public static override elementDependencies: SbbElementType[] = [SbbSeatReservationGraphicElement];
-  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     selectplace: 'selectplace',
   } as const;
@@ -131,10 +130,9 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
     // information to screen readers via aria-label at host element
     if (this.showTitleInfo) {
       this.title = placeDescription;
-      this.removeAttribute('aria-label');
     } else {
-      // Set aria-label screen reader info at host element
-      this.setAttribute('aria-label', placeDescription);
+      // Set aria-label screen reader info
+      this.internals.ariaLabel = placeDescription;
     }
 
     this.tabIndex = -1;

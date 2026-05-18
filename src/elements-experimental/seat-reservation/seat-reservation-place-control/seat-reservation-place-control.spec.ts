@@ -2,7 +2,9 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import { elementInternalsSpy } from '../../../elements/core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../../elements/core/testing.ts';
+import { getI18nSeatReservation } from '../common/translations.ts';
 import type { PlaceSelection } from '../common/types.ts';
 
 import { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.component.ts';
@@ -11,6 +13,7 @@ import '../../seat-reservation.ts';
 
 describe('sbb-seat-reservation-place-control', () => {
   let element: SbbSeatReservationPlaceControlElement;
+  const elementInternals = elementInternalsSpy();
 
   beforeEach(async () => {
     element = await fixture(
@@ -226,15 +229,23 @@ describe('sbb-seat-reservation-place-control', () => {
     await expect(element.title).to.not.be.equal(initialTitle);
   });
 
-  it('should have aria-label attribute for screenreader when show-title-info is false and place is selectable by Enter key', async () => {
+  it('should have aria-label text for screenreader when show-title-info attribute is false and place is selectable by Enter key', async () => {
     element.setAttribute('show-title-info', 'false');
     element.setAttribute('state', 'FREE');
+    element.setAttribute('text', '1');
+    await waitForLitRender(element);
+
+    expect(elementInternals.get(element)!.ariaLabel).to.equal(
+      getI18nSeatReservation('PLACE_CONTROL_SEAT_FREE', 'en', ['1']),
+    );
 
     element.focus();
     await sendKeys({ press: 'Enter' });
     await waitForLitRender(element);
 
-    await expect(element.ariaLabel).to.exist;
+    expect(elementInternals.get(element)!.ariaLabel).to.equal(
+      getI18nSeatReservation('PLACE_CONTROL_SEAT_SELECTED', 'en', ['1']),
+    );
     await expect(element.state).to.equal('SELECTED');
   });
 });

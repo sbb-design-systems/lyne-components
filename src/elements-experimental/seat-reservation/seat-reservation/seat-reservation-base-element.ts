@@ -1776,7 +1776,7 @@ export class SeatReservationBaseElement extends SbbElement {
     }
 
     const yOffset = this.coachBorderPadding * -1;
-    // The border has to be moved manuel by 1px left and also stretch by 2px to get a closed border line to the coach start and end border elements, without 1px white gap.
+    // The border has to be moved manual by 1px left and also stretched by 2px to get a closed border line to the coach start and end border elements, without 1px white gap.
     const pos = { x: Math.floor(startBorderOffsetX * this.baseGridSize) - 1, y: yOffset, z: 0 };
     const dim = { w: Math.floor(borderWidth * this.baseGridSize) + 2, h: borderHeight };
 
