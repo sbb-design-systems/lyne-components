@@ -28,12 +28,8 @@ $scrollbar-height: 16px;
 // rotates the DOM-part "coach-floor" by 180 degrees if the host is in RTL mode.
 @include sbb-sr-mixins.rotate-dom-part(coach-floor);
 
-[popover]:where(sbb-popover) {
-  @include sbb.popover-reset;
-
-  .sbb-sr-popover {
-    margin-block: sbb-sr-functions.sr-px-to-rem(4);
-  }
+.sbb-sr-popover {
+  margin-block: sbb-sr-functions.sr-px-to-rem(4);
 }
 
 // START - Vertical mode

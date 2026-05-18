@@ -18,6 +18,7 @@ import {
   idReference,
   isEventOnElement,
   isZeroAnimationDuration,
+  popoverResetStyles,
   removeAriaOverlayTriggerProperties,
   type SbbElementType,
   SbbEscapableOverlayController,
@@ -50,7 +51,11 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   public static override readonly elementName: string = 'sbb-navigation';
   public static override elementDependencies: SbbElementType[] = [SbbTransparentButtonElement];
   public static override readonly role = 'navigation';
-  public static override styles: CSSResultGroup = [scrollbarStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    popoverResetStyles,
+    scrollbarStyles,
+    unsafeCSS(style),
+  ];
 
   /**
    * The element that will trigger the navigation.

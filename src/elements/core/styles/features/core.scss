@@ -581,21 +581,6 @@ html {
   display: none;
 }
 
-// Hide popover artifacts
-[popover]:where(
-  sbb-autocomplete,
-  sbb-autocomplete-grid,
-  sbb-datepicker,
-  sbb-dialog,
-  sbb-menu,
-  sbb-navigation,
-  sbb-overlay,
-  sbb-popover,
-  sbb-toast
-) {
-  @include sbb.popover-reset;
-}
-
 img {
   aspect-ratio: var(--sbb-image-aspect-ratio);
   object-fit: var(--sbb-image-object-fit);

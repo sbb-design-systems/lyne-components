@@ -17,6 +17,7 @@ import {
   forceType,
   i18nCloseAlert,
   isZeroAnimationDuration,
+  popoverResetStyles,
   SbbDarkModeController,
   type SbbElementType,
   SbbLanguageController,
@@ -52,7 +53,7 @@ export class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
     SbbTransparentButtonElement,
     SbbDividerElement,
   ];
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [popoverResetStyles, unsafeCSS(style)];
 
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.

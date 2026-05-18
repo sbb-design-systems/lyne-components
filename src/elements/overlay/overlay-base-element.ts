@@ -5,6 +5,7 @@ import {
   forceType,
   i18nDialog,
   idReference,
+  popoverResetStyles,
   removeAriaOverlayTriggerProperties,
   SbbEscapableOverlayController,
   SbbFocusTrapController,
@@ -67,7 +68,7 @@ export function assignOverlayResult<T>(element: HTMLElement, result: T): void {
 export const overlayRefs: SbbOverlayBaseElement[] = [];
 
 export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
-  public static override styles: CSSResultGroup = [screenReaderOnlyStyles];
+  public static override styles: CSSResultGroup = [popoverResetStyles, screenReaderOnlyStyles];
 
   /**
    * The element that will trigger the menu overlay.

@@ -23,6 +23,7 @@ import {
   isEventOnElement,
   isFakeMousedownFromScreenReader,
   isZeroAnimationDuration,
+  popoverResetStyles,
   readConfig,
   removeAriaOverlayTriggerProperties,
   type SbbElementType,
@@ -46,7 +47,7 @@ const popoversRef = new Set<SbbPopoverBaseElement>();
 const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).matches;
 
 export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [popoverResetStyles, unsafeCSS(style)];
 
   /**
    * The element that will trigger the popover overlay.

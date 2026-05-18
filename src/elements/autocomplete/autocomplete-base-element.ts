@@ -18,6 +18,7 @@ import {
   isEventOnElement,
   isSafari,
   isZeroAnimationDuration,
+  popoverResetStyles,
   removeAriaComboBoxAttributes,
   SbbEscapableOverlayController,
   SbbNegativeMixin,
@@ -47,6 +48,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   SbbOpenCloseBaseElement,
 ) {
   public static override styles: CSSResultGroup = [
+    popoverResetStyles,
     scrollbarStyles,
     optionPanelStyles,
     unsafeCSS(style),
