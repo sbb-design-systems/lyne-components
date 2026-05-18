@@ -30,7 +30,7 @@ import {
 
 import style from './file-selector-common.scss?inline';
 
-export class SbbFileChangedEvent extends Event {
+export class SbbFileChangeEvent extends Event {
   private readonly _files: readonly File[];
 
   public get files(): readonly File[] {
@@ -266,10 +266,10 @@ export const SbbFileSelectorCommonElementMixin = <
       //  https://github.com/open-wc/custom-elements-manifest/issues/149
       const filechanged = this.files;
       /**
-       * @type {SbbFileChangedEvent}
+       * @type {SbbFileChangeEvent}
        * An event which is emitted each time the file list changes.
        */
-      this.dispatchEvent(new SbbFileChangedEvent(filechanged));
+      this.dispatchEvent(new SbbFileChangeEvent(filechanged));
     }
 
     /** Calculates the correct unit for the file's size. */

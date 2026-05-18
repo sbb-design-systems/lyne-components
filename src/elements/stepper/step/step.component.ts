@@ -130,11 +130,11 @@ export class SbbStepElement extends SbbElement {
    *
    * TODO: @breaking-change: make protected
    *
-   * FIXME: the name of this variable appears as event name in the readme
-   *  due to a bug in the custom-elements-manifest library.
-   *  https://github.com/open-wc/custom-elements-manifest/issues/149
    */
   public validate(validate: SbbStepValidateEventDetails): boolean {
+    // FIXME: the name of the event variable appears as event name in the readme
+    //  due to a bug in the custom-elements-manifest library.
+    //  https://github.com/open-wc/custom-elements-manifest/issues/149
     /**
      * @type {SbbStepValidateEvent}
      * The validate event is dispatched when a step change is triggered. Can be canceled to abort the step change.
