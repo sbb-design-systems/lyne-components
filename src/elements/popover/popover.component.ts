@@ -45,28 +45,16 @@ const HORIZONTAL_OFFSET = 32;
 const popoversRef = new Set<SbbPopoverBaseElement>();
 const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).matches;
 
-class SbbPopoverClosingEvent extends Event {
+export class SbbPopoverCloseEvent extends Event {
   private readonly _closeTarget: HTMLElement | null;
 
   public get closeTarget(): HTMLElement | null {
     return this._closeTarget;
   }
 
-  protected constructor(type: string, closeTarget: HTMLElement | null, cancelable = false) {
+  public constructor(type: string, closeTarget: HTMLElement | null, cancelable = false) {
     super(type, { cancelable });
     this._closeTarget = closeTarget;
-  }
-}
-
-export class SbbPopoverBeforeCloseEvent extends SbbPopoverClosingEvent {
-  public constructor(closeTarget: HTMLElement | null) {
-    super('beforeclose', closeTarget, true);
-  }
-}
-
-export class SbbPopoverCloseEvent extends SbbPopoverClosingEvent {
-  public constructor(closeTarget: HTMLElement | null) {
-    super('close', closeTarget);
   }
 }
 
@@ -416,27 +404,24 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
   protected override dispatchBeforeCloseEvent(detail?: {
     closeTarget: HTMLElement | null;
   }): boolean {
-    // FIXME: the name of this variable appears as event name in the readme
-    //  due to a bug in the custom-elements-manifest library.
-    //  https://github.com/open-wc/custom-elements-manifest/issues/149
-    const beforeclose = detail?.closeTarget ?? null;
+    const closeTarget = detail?.closeTarget ?? null;
     /**
-     * @type {SbbPopoverBeforeCloseEvent}
+     * @type {SbbPopoverCloseEvent}
      * Emits whenever the component begins the closing transition. Can be canceled.
      */
-    return this.dispatchEvent(new SbbPopoverBeforeCloseEvent(beforeclose));
+    return this.dispatchEvent(new SbbPopoverCloseEvent('beforeclose', closeTarget, true));
   }
 
   protected override dispatchCloseEvent(detail?: { closeTarget: HTMLElement | null }): boolean {
     // FIXME: the name of this variable appears as event name in the readme
     //  due to a bug in the custom-elements-manifest library.
     //  https://github.com/open-wc/custom-elements-manifest/issues/149
-    const close = detail?.closeTarget ?? null;
+    const closeTarget = detail?.closeTarget ?? null;
     /**
      * @type {SbbPopoverCloseEvent}
      * Emits whenever the component is closed.
      */
-    return this.dispatchEvent(new SbbPopoverCloseEvent(close));
+    return this.dispatchEvent(new SbbPopoverCloseEvent('close', closeTarget));
   }
 
   protected override render(): TemplateResult {
