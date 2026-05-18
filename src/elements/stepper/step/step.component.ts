@@ -26,15 +26,33 @@ export interface SbbStepValidateEventDetails {
 }
 
 export class SbbStepValidateEvent extends Event {
-  private readonly _detail: Readonly<SbbStepValidateEventDetails>;
+  private readonly _currentIndex: number | null;
+  private readonly _currentStep: SbbStepElement | null;
+  private readonly _nextIndex: number | null;
+  private readonly _nextStep: SbbStepElement | null;
 
-  public get detail(): Readonly<SbbStepValidateEventDetails> {
-    return this._detail;
+  public get currentIndex(): number | null {
+    return this._currentIndex;
+  }
+
+  public get currentStep(): SbbStepElement | null {
+    return this._currentStep;
+  }
+
+  public get nextIndex(): number | null {
+    return this._nextIndex;
+  }
+
+  public get nextStep(): SbbStepElement | null {
+    return this._nextStep;
   }
 
   public constructor(details: SbbStepValidateEventDetails) {
     super('validate', { bubbles: true, composed: true, cancelable: true });
-    this._detail = Object.freeze(details);
+    this._currentIndex = details.currentIndex;
+    this._currentStep = details.currentStep;
+    this._nextIndex = details.nextIndex;
+    this._nextStep = details.nextStep;
   }
 }
 

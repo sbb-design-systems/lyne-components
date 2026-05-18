@@ -194,11 +194,7 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
         <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
         <sbb-step
           @validate=${(e: SbbStepValidateEvent) => {
-            if (
-              e.detail
-                .currentStep!.querySelector('sbb-form-field')!
-                .inputElement!.matches(':invalid')
-            ) {
+            if (e.currentStep!.querySelector('sbb-form-field')!.inputElement!.matches(':invalid')) {
               e.preventDefault();
             }
           }}
@@ -270,9 +266,7 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
       <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
       <sbb-step
         @validate=${(e: SbbStepValidateEvent) => {
-          if (
-            e.detail.currentStep!.querySelector('sbb-form-field')!.inputElement!.matches(':invalid')
-          ) {
+          if (e.currentStep!.querySelector('sbb-form-field')!.inputElement!.matches(':invalid')) {
             e.preventDefault();
           }
         }}
