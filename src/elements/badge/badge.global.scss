@@ -2,7 +2,7 @@
 
 $theme: 'standard' !default;
 
-@mixin rules {
+@mixin base-rules {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,14 +21,14 @@ $theme: 'standard' !default;
   outline: var(--sbb-border-width-1x) solid transparent;
 }
 
-@mixin attribute-rules {
+@mixin rules {
   [sbb-badge] {
     --sbb-badge-position-offset: calc(var(--sbb-spacing-fixed-2x) * -1);
 
     position: relative;
 
     &::after {
-      @include rules;
+      @include base-rules;
 
       content: attr(sbb-badge);
       position: absolute;
