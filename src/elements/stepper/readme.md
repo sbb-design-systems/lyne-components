@@ -56,7 +56,7 @@ The `linear` property can be set to create a linear stepper that requires the us
 ## Events
 
 Whenever a step switch is triggered, a `validate` event is emitted and can be canceled to prevent the step change.
-The `event.detail` property contains information about the `currentIndex`, `nextIndex`, `currentStep` and `nextStep`.
+The `event` property contains information about the `currentIndex`, `nextIndex`, `currentStep` and `nextStep`.
 
 ```ts
 document
