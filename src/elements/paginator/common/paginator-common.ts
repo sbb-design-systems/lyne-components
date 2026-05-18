@@ -29,6 +29,13 @@ import { SbbDividerElement } from '../../divider.pure.ts';
 
 import style from './paginator-common.scss?inline';
 
+export interface SbbPaginatorPageEventDetails {
+  length: number;
+  pageSize: number;
+  pageIndex: number;
+  previousPageIndex: number;
+}
+
 export class SbbPaginatorPageEvent extends Event {
   private _length: number;
   private _pageSize: number;
@@ -51,12 +58,7 @@ export class SbbPaginatorPageEvent extends Event {
     return this._previousPageIndex;
   }
 
-  public constructor(page: {
-    length: number;
-    pageSize: number;
-    pageIndex: number;
-    previousPageIndex: number;
-  }) {
+  public constructor(page: SbbPaginatorPageEventDetails) {
     super('page', { bubbles: true, composed: true });
     this._length = page.length;
     this._pageSize = page.pageSize;
@@ -279,7 +281,7 @@ export const SbbPaginatorCommonElementMixin = <
         // FIXME: the name of this variable appears as event name in the readme
         //  due to a bug in the custom-elements-manifest library.
         //  https://github.com/open-wc/custom-elements-manifest/issues/149
-        const page = {
+        const page: SbbPaginatorPageEventDetails = {
           previousPageIndex,
           pageIndex: this.pageIndex,
           length: this.length,

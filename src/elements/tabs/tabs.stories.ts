@@ -19,7 +19,7 @@ import '../title.ts';
 import '../tabs.ts';
 
 const changeEventHandler = (event: SbbTabChangeEvent): void => {
-  const evDetail = event.detail;
+  const evDetail = event;
   const card = document.getElementById('container')!;
   card.innerHTML = `
     The selected tab has index: ${evDetail.activeIndex} and label "${evDetail.activeTabLabel.textContent}";<br/>

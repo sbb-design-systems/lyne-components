@@ -32,15 +32,45 @@ export interface SbbTabChangeEventDetails {
 }
 
 export class SbbTabChangeEvent extends Event {
-  private readonly _detail: Readonly<SbbTabChangeEventDetails>;
+  private readonly _activeIndex: number;
+  private readonly _activeTabLabel: SbbTabLabelElement;
+  private readonly _activeTab: SbbTabElement;
+  private readonly _previousIndex: number;
+  private readonly _previousTabLabel: SbbTabLabelElement | undefined;
+  private readonly _previousTab: SbbTabElement | undefined;
 
-  public get detail(): Readonly<SbbTabChangeEventDetails> {
-    return this._detail;
+  public get activeIndex(): number {
+    return this._activeIndex;
   }
 
-  public constructor(details: SbbTabChangeEventDetails) {
+  public get activeTabLabel(): SbbTabLabelElement {
+    return this._activeTabLabel;
+  }
+
+  public get activeTab(): SbbTabElement {
+    return this._activeTab;
+  }
+
+  public get previousIndex(): number {
+    return this._previousIndex;
+  }
+
+  public get previousTabLabel(): SbbTabLabelElement | undefined {
+    return this._previousTabLabel;
+  }
+
+  public get previousTab(): SbbTabElement | undefined {
+    return this._previousTab;
+  }
+
+  public constructor(tabchange: SbbTabChangeEventDetails) {
     super('tabchange', { bubbles: true, composed: true });
-    this._detail = Object.freeze(details);
+    this._activeIndex = tabchange.activeIndex;
+    this._activeTabLabel = tabchange.activeTabLabel;
+    this._activeTab = tabchange.activeTab;
+    this._previousIndex = tabchange.previousIndex;
+    this._previousTabLabel = tabchange.previousTabLabel;
+    this._previousTab = tabchange.previousTab;
   }
 }
 
