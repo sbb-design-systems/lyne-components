@@ -164,8 +164,9 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
     const nextIndex = getNextElementIndex(evt, current, enabledTags.length);
     const nextTag = enabledTags[nextIndex];
 
-    nextTag['select']();
-    await nextTag.updateComplete;
+    // Only move focus, do not select. Selection happens via click or Space/Enter.
+    enabledTags.forEach((t) => (t.tabIndex = -1));
+    nextTag.tabIndex = 0;
     nextTag.focus();
   }
 
