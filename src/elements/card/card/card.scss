@@ -1,5 +1,5 @@
 @use '../../core/styles' as sbb;
-@use '../card.global' as card;
+@use '../card.library.global' as card;
 
 // # Stacking of action
 // To support content with actions that should be accessible, we have to stack the action and content like following:

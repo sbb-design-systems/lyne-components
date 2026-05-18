@@ -1,7 +1,7 @@
 $theme: 'standard' !default;
 
 @use '../../core/styles' as sbb;
-@use '../card.global' as card with (
+@use '../card.library.global' as card with (
   $theme: $theme
 );
 

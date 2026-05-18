@@ -16,9 +16,7 @@ $theme: 'standard' !default;
 @use '../../base-elements/selection-group-base-element.global' as selection-group with (
   $theme: $theme
 );
-@use '../../../badge/badge.global' as badge with (
-  $theme: $theme
-);
+@use '../../../badge/badge.global' as badge;
 @use '../../../breadcrumb/breadcrumb-group/breadcrumb-group.global' as breadcrumb-group with (
   $theme: $theme
 );

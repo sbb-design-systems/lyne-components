@@ -212,7 +212,7 @@ const buildMap: Record<string, () => Builder> = {
     new PackageBuilder(elementsProduction, [
       buildLibrary,
       buildRootIndex,
-      buildElementsStyles,
+      buildStyles,
       buildSassLibrary,
       buildCustomElementsManifest,
       copyReadme,
@@ -225,7 +225,7 @@ const buildMap: Record<string, () => Builder> = {
     new PackageBuilder(elementsExperimentalProduction, [
       buildLibrary,
       buildRootIndex,
-      buildStylesExperimental,
+      buildStyles,
       buildSassLibrary,
       buildCustomElementsManifest,
       copyReadme,
@@ -485,23 +485,12 @@ function buildRootIndex(pkg: PackageBuilder): void {
   console.log(`=> Generated index files in ${relative(projectRoot, pkg.outDir)}`);
 }
 
-interface StyleSheet {
-  inputName: string;
-  outputName: string;
-}
-function buildElementsStyles(pkg: PackageBuilder): void {
+function buildStyles(pkg: PackageBuilder): void {
   const sheets = globSync('core/styles/*.scss', { cwd: pkg.root })
     .filter((f) => !basename(f).startsWith('_'))
     .sort()
     .map((f) => ({ inputName: f, outputName: basename(f, '.scss') + '.css' }));
-  buildStyles(pkg, sheets);
-}
 
-function buildStylesExperimental(pkg: PackageBuilder): void {
-  buildElementsStyles(pkg);
-}
-
-function buildStyles(pkg: PackageBuilder, sheets: StyleSheet[]): void {
   for (const entry of sheets) {
     const compiled = sass.compile(join(pkg.root, entry.inputName), {
       loadPaths: [projectRoot, join(projectRoot, '/node_modules/')],
