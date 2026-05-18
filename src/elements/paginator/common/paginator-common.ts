@@ -37,10 +37,10 @@ export interface SbbPaginatorPageEventDetails {
 }
 
 export class SbbPaginatorPageEvent extends Event {
-  private _length: number;
-  private _pageSize: number;
-  private _pageIndex: number;
-  private _previousPageIndex: number;
+  private readonly _length: number;
+  private readonly _pageSize: number;
+  private readonly _pageIndex: number;
+  private readonly _previousPageIndex: number;
 
   public get length(): number {
     return this._length;

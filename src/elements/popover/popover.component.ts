@@ -413,9 +413,6 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
   }
 
   protected override dispatchCloseEvent(detail?: { closeTarget: HTMLElement | null }): boolean {
-    // FIXME: the name of this variable appears as event name in the readme
-    //  due to a bug in the custom-elements-manifest library.
-    //  https://github.com/open-wc/custom-elements-manifest/issues/149
     const closeTarget = detail?.closeTarget ?? null;
     /**
      * @type {SbbPopoverCloseEvent}
