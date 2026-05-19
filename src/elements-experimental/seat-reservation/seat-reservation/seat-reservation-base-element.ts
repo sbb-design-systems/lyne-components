@@ -1776,10 +1776,13 @@ export class SeatReservationBaseElement extends SbbElement {
     }
 
     const yOffset = this.coachBorderPadding * -1;
+    // The border has to be moved manual by 1px left and also stretched by 2px to get a closed border line to the coach start and end border elements, without 1px white gap.
+    const pos = { x: Math.floor(startBorderOffsetX * this.baseGridSize) - 1, y: yOffset, z: 0 };
+    const dim = { w: Math.floor(borderWidth * this.baseGridSize) + 2, h: borderHeight };
 
     return {
-      position: { x: startBorderOffsetX * this.baseGridSize, y: yOffset, z: 0 },
-      dimension: { w: borderWidth * this.baseGridSize, h: borderHeight },
+      position: pos,
+      dimension: dim,
     };
   }
 
@@ -1859,11 +1862,11 @@ export class SeatReservationBaseElement extends SbbElement {
       }
     }
 
-    dim.w = Math.round(dim.w * this.baseGridSize);
-    dim.h = Math.round(dim.h * this.baseGridSize);
+    dim.w = Math.floor(dim.w * this.baseGridSize);
+    dim.h = Math.floor(dim.h * this.baseGridSize);
 
-    pos.x = Math.round(pos.x * this.baseGridSize);
-    pos.y = Math.round(pos.y * this.baseGridSize);
+    pos.x = Math.floor(pos.x * this.baseGridSize);
+    pos.y = Math.floor(pos.y * this.baseGridSize);
 
     const icon =
       element.icon && element.icon.endsWith('DRIVER_AREA')

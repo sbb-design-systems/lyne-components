@@ -3,7 +3,6 @@ import {
   SbbButtonBaseElement,
   type SbbElementType,
   SbbLanguageController,
-  screenReaderOnlyStyles,
 } from '@sbb-esta/lyne-elements/core.js';
 import {
   type CSSResultGroup,
@@ -33,7 +32,7 @@ type TravelDirectionI18nKey =
 export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-place-control';
   public static override elementDependencies: SbbElementType[] = [SbbSeatReservationGraphicElement];
-  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     selectplace: 'selectplace',
   } as const;
@@ -86,8 +85,6 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
   @property({ type: Boolean, useDefault: true })
   public accessor showTitleInfo: boolean = false;
 
-  private _optionalScreenreaderInfo: string = '';
-
   private _language = new SbbLanguageController(this);
 
   public constructor() {
@@ -101,15 +98,6 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
     if (changedProperties.has('keyfocus')) {
       if (this.keyfocus === 'focus') {
         this.focus();
-      }
-    }
-
-    // if title was shown once, we cannot unset it completely, but this
-    // behavior should not happen very often as the title should
-    // not switch from on to off and on again
-    if (changedProperties.has('showTitleInfo')) {
-      if (!this.showTitleInfo) {
-        this.title = '';
       }
     }
   }
@@ -127,42 +115,37 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
     );
     const inverseRotationPlaceCheckIcon = Number(textRotation) - Number(rotation);
     const disabledClass = this.preventClick ? 'sbb-reservation-place-control--disabled' : null;
+    const placeDescription = this._getTitleDescriptionPlace(rotation);
 
     // only set title to the SbbButtonBaseElement if requested; otherwise provide the title
-    // information to screen readers via an additional element
+    // information to screen readers via aria-label at host element
     if (this.showTitleInfo) {
-      this.title = this._getTitleDescriptionPlace(rotation);
+      this.title = placeDescription;
+      this.internals.ariaLabel = null;
     } else {
-      this._optionalScreenreaderInfo = this._getTitleDescriptionPlace(rotation);
+      // Set aria-label screen reader info
+      this.internals.ariaLabel = placeDescription;
+      this.removeAttribute('title');
     }
 
     this.tabIndex = -1;
 
-    return html`
-      <div
-        part="sbb-sr-place-part"
-        class="sbb-sr-place-ctrl sbb-sr-place-ctrl--orientation-${rotation} sbb-sr-place-ctrl--state-${state} sbb-sr-place-ctrl--type-${type} ${disabledClass}"
-      >
-        <sbb-seat-reservation-graphic
-          style=${styleMap({
-            '--sbb-seat-reservation-graphic-width': width,
-            '--sbb-seat-reservation-graphic-height': height,
-            '--sbb-seat-reservation-graphic-rotation': rotation,
-            '--sbb-seat-reservation-graphic-inverse-rotation': inverseRotationPlaceCheckIcon,
-          })}
-          .name=${name}
-          aria-hidden="true"
-        ></sbb-seat-reservation-graphic>
-        <span ${this.text ?? nothing} class="sbb-sr-place-ctrl__text" aria-hidden="true"
-          >${text}</span
-        >
-        ${!this.showTitleInfo
-          ? html`<span class="sbb-screen-reader-only" id="${this.id}"
-              >${this._optionalScreenreaderInfo}</span
-            >`
-          : nothing}
-      </div>
-    `;
+    return html` <div
+      part="sbb-sr-place-part"
+      class="sbb-sr-place-ctrl sbb-sr-place-ctrl--orientation-${rotation} sbb-sr-place-ctrl--state-${state} sbb-sr-place-ctrl--type-${type} ${disabledClass}"
+      aria-hidden="true"
+    >
+      <sbb-seat-reservation-graphic
+        style=${styleMap({
+          '--sbb-seat-reservation-graphic-width': width,
+          '--sbb-seat-reservation-graphic-height': height,
+          '--sbb-seat-reservation-graphic-rotation': rotation,
+          '--sbb-seat-reservation-graphic-inverse-rotation': inverseRotationPlaceCheckIcon,
+        })}
+        .name=${name}
+      ></sbb-seat-reservation-graphic>
+      <span ${this.text ?? nothing} class="sbb-sr-place-ctrl__text">${text} </span>
+    </div>`;
   }
 
   private _getPlaceSvg(type: PlaceType, state: PlaceState): string {
