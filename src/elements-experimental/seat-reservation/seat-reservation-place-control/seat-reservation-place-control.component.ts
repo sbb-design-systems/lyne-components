@@ -130,9 +130,11 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
     // information to screen readers via aria-label at host element
     if (this.showTitleInfo) {
       this.title = placeDescription;
+      this.internals.ariaLabel = null;
     } else {
       // Set aria-label screen reader info
       this.internals.ariaLabel = placeDescription;
+      this.title = '';
     }
 
     this.tabIndex = -1;

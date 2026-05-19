@@ -231,6 +231,7 @@ describe('sbb-seat-reservation-place-control', () => {
 
   it('should have aria-label text for screenreader when show-title-info attribute is false and place is selectable by Enter key', async () => {
     element.setAttribute('show-title-info', 'false');
+    element.setAttribute('type', 'SEAT');
     element.setAttribute('state', 'FREE');
     element.setAttribute('text', '1');
     await waitForLitRender(element);
