@@ -52,7 +52,10 @@ export class SbbPopoverCloseEvent extends Event {
     return this._closeTarget;
   }
 
-  public constructor(type: string, closeTarget: HTMLElement | null, cancelable = false) {
+  public constructor(
+    type: string,
+    { closeTarget, cancelable }: Pick<Event, 'cancelable'> & { closeTarget: HTMLElement | null },
+  ) {
     super(type, { cancelable });
     this._closeTarget = closeTarget;
   }
@@ -409,7 +412,9 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
      * @type {SbbPopoverCloseEvent}
      * Emits whenever the component begins the closing transition. Can be canceled.
      */
-    return this.dispatchEvent(new SbbPopoverCloseEvent('beforeclose', closeTarget, true));
+    return this.dispatchEvent(
+      new SbbPopoverCloseEvent('beforeclose', { closeTarget, cancelable: true }),
+    );
   }
 
   protected override dispatchCloseEvent(detail?: { closeTarget: HTMLElement | null }): boolean {
@@ -418,7 +423,9 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
      * @type {SbbPopoverCloseEvent}
      * Emits whenever the component is closed.
      */
-    return this.dispatchEvent(new SbbPopoverCloseEvent('close', closeTarget));
+    return this.dispatchEvent(
+      new SbbPopoverCloseEvent('close', { closeTarget, cancelable: false }),
+    );
   }
 
   protected override render(): TemplateResult {
