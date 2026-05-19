@@ -40,7 +40,6 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
     this.addEventListener?.('click', () => this._emitExpandedEvent());
     this.addEventListener?.('mouseenter', () => this._onMouseMovement(true));
     this.addEventListener?.('mouseleave', () => this._onMouseMovement(false));
-    this.addEventListener?.('slottedchange', () => this._setIconState());
     this.addController(
       new SbbPropertyWatcherController(this, () => this.closest('sbb-expansion-panel'), {
         size: (s) => {
@@ -76,18 +75,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
     }
   }
 
-  /**
-   * The :state(icon) is used by the 'sbb-expansion-panel'.
-   * It needs to be set before the @slotchange event bubbles to the 'expansion-panel'
-   * but after the 'SbbSlotStateController' has run.
-   */
-  private _setIconState(): void {
-    this.toggleState('icon', !!(this.iconName || this.matches?.(':state(icon)')));
-  }
-
   protected override renderTemplate(): TemplateResult {
-    // TODO: Still necessary?
-    this._setIconState();
     return html`
       <span class="sbb-expansion-panel-header__title">
         <span class="sbb-expansion-panel-header__icon"> ${this.renderIconSlot()} </span>

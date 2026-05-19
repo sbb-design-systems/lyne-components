@@ -91,13 +91,11 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
 
   // The last element which had focus before the component was opened.
   protected lastFocusedElement?: HTMLElement;
-  // TODO: rename to lastClosedTarget
-  protected overlayCloseElement?: HTMLElement;
+  protected lastClosedTarget?: HTMLElement;
   protected openOverlayController?: AbortController;
   protected focusTrapController = new SbbFocusTrapController(this);
   protected scrollHandler = new SbbScrollHandler();
-  // TODO: rename to lastResult
-  protected returnValue: any;
+  protected lastResult: any;
   protected language = new SbbLanguageController(this);
   protected inertController = new SbbInertController(this);
   protected escapableOverlayController = new SbbEscapableOverlayController(this);
@@ -162,8 +160,8 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
       return;
     }
 
-    this.returnValue = result ?? null;
-    this.overlayCloseElement = target;
+    this.lastResult = result ?? null;
+    this.lastClosedTarget = target;
     if (!this.dispatchBeforeCloseEvent()) {
       return;
     }
