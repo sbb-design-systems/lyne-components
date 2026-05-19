@@ -22,15 +22,6 @@ import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
 import style from './tab-group.scss?inline';
 
-export interface SbbTabChangeEventDetails {
-  activeIndex: number;
-  activeTabLabel: SbbTabLabelElement;
-  activeTab: SbbTabElement;
-  previousIndex: number;
-  previousTabLabel: SbbTabLabelElement | undefined;
-  previousTab: SbbTabElement | undefined;
-}
-
 export class SbbTabChangeEvent extends Event {
   private readonly _activeIndex: number;
   private readonly _activeTabLabel: SbbTabLabelElement;
@@ -63,14 +54,21 @@ export class SbbTabChangeEvent extends Event {
     return this._previousTab;
   }
 
-  public constructor(tabchange: SbbTabChangeEventDetails) {
+  public constructor({
+    activeIndex,
+    activeTabLabel,
+    activeTab,
+    previousIndex,
+    previousTabLabel,
+    previousTab,
+  }: Omit<SbbTabChangeEvent, keyof Event>) {
     super('tabchange', { bubbles: true, composed: true });
-    this._activeIndex = tabchange.activeIndex;
-    this._activeTabLabel = tabchange.activeTabLabel;
-    this._activeTab = tabchange.activeTab;
-    this._previousIndex = tabchange.previousIndex;
-    this._previousTabLabel = tabchange.previousTabLabel;
-    this._previousTab = tabchange.previousTab;
+    this._activeIndex = activeIndex;
+    this._activeTabLabel = activeTabLabel;
+    this._activeTab = activeTab;
+    this._previousIndex = previousIndex;
+    this._previousTabLabel = previousTabLabel;
+    this._previousTab = previousTab;
   }
 }
 

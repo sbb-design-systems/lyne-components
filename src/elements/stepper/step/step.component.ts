@@ -47,12 +47,17 @@ export class SbbStepValidateEvent extends Event {
     return this._nextStep;
   }
 
-  public constructor(details: SbbStepValidateEventDetails) {
+  public constructor({
+    currentIndex,
+    currentStep,
+    nextIndex,
+    nextStep,
+  }: Omit<SbbStepValidateEvent, keyof Event>) {
     super('validate', { bubbles: true, composed: true, cancelable: true });
-    this._currentIndex = details.currentIndex;
-    this._currentStep = details.currentStep;
-    this._nextIndex = details.nextIndex;
-    this._nextStep = details.nextStep;
+    this._currentIndex = currentIndex;
+    this._currentStep = currentStep;
+    this._nextIndex = nextIndex;
+    this._nextStep = nextStep;
   }
 }
 

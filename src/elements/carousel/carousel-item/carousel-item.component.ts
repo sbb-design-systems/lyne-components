@@ -11,9 +11,9 @@ export class SbbCarouselItemShowEvent extends Event {
     return this._index;
   }
 
-  public constructor(type: string, detail: { index: number }) {
+  public constructor(type: string, { index }: Omit<SbbCarouselItemShowEvent, keyof Event>) {
     super(type, { bubbles: true, composed: true });
-    this._index = detail.index;
+    this._index = index;
   }
 }
 

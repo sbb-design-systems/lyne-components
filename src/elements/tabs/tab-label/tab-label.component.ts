@@ -13,11 +13,7 @@ import {
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import { tabLabelCommonStyles } from '../common/styles.ts';
 import type { SbbTabElement } from '../tab/tab.component.ts';
-import {
-  SbbTabChangeEvent,
-  type SbbTabChangeEventDetails,
-  type SbbTabGroupElement,
-} from '../tab-group/tab-group.component.ts';
+import { SbbTabChangeEvent, type SbbTabGroupElement } from '../tab-group/tab-group.component.ts';
 
 import style from './tab-label.scss?inline';
 
@@ -141,7 +137,7 @@ export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbEle
       // FIXME: the name of the variable appears as event name in the readme
       //  due to a bug in the custom-elements-manifest library.
       //   https://github.com/open-wc/custom-elements-manifest/issues/149
-      const tabchange: SbbTabChangeEventDetails = {
+      const tabchange = {
         activeIndex: tabLabels.findIndex((e) => e === this),
         activeTabLabel: this,
         activeTab: this.tab as SbbTabElement,
