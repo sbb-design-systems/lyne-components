@@ -108,7 +108,7 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
           .slice(1)
           .forEach((tag) => (tag.checked = false));
 
-        this.updateFocusableTags();
+        this._updateFocusableTags();
       } else if (changedProperties.has('multiple')) {
         // In multiple mode all enabled tags should be focusable
         this._enabledTags().forEach((t) => (t.tabIndex = 0));
@@ -129,7 +129,7 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
   /**
    * In exclusive mode, only the checked tag (or the first non-disabled tag) should be focusable.
    */
-  protected updateFocusableTags(): void {
+  private _updateFocusableTags(): void {
     const enabledTags = this._enabledTags();
     if (!enabledTags.length) {
       return;
@@ -149,7 +149,7 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
     return this.tags.filter((t) => !t.disabled);
   }
 
-  private async _handleArrowKeyDown(evt: KeyboardEvent): Promise<void> {
+  private _handleArrowKeyDown(evt: KeyboardEvent): void {
     if (this.multiple || !isArrowKeyPressed(evt)) {
       return;
     }

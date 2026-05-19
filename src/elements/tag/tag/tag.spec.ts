@@ -151,10 +151,10 @@ describe(`sbb-tag`, () => {
       await waitForLitRender(group);
 
       // In multiple mode: role null, ariaPressed set, ariaChecked null
-      expect(elementInternals.get(tag1)!.role).to.be.null;
+      expect(elementInternals.get(tag1)!.role).to.equal('button');
       expect(elementInternals.get(tag1)!.ariaPressed).to.equal('true');
       expect(elementInternals.get(tag1)!.ariaChecked).to.be.null;
-      expect(elementInternals.get(tag2)!.role).to.be.null;
+      expect(elementInternals.get(tag2)!.role).to.equal('button');
       expect(elementInternals.get(tag2)!.ariaPressed).to.equal('false');
       expect(elementInternals.get(tag2)!.ariaChecked).to.be.null;
     });
@@ -170,7 +170,7 @@ describe(`sbb-tag`, () => {
       const tag2 = group.querySelector<SbbTagElement>('#tag2')!;
 
       // In multiple mode: role null, ariaPressed set
-      expect(elementInternals.get(tag1)!.role).to.be.null;
+      expect(elementInternals.get(tag1)!.role).to.equal('button');
       expect(elementInternals.get(tag1)!.ariaPressed).to.equal('true');
       expect(elementInternals.get(tag1)!.ariaChecked).to.be.null;
 

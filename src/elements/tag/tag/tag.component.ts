@@ -107,19 +107,6 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
       return;
     }
     this.checked = !this.checked;
-    this._emitChangeEvents();
-  }
-
-  /** Selects this tag (sets checked=true) and emits events. Used by tag-group for keyboard navigation. */
-  protected select(): void {
-    if (this.disabled || this.checked) {
-      return;
-    }
-    this.checked = true;
-    this._emitChangeEvents();
-  }
-
-  private _emitChangeEvents(): void {
     this.dispatchEvent(
       new InputEvent('input', {
         bubbles: true,

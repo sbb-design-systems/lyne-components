@@ -147,7 +147,7 @@ inner list element. When provided, the implicit `role="group"` is omitted in fav
 labeled list.
 
 ```html
-<sbb-tag-group multiple acessibility-label="Select your desired font styles to filter it">
+<sbb-tag-group multiple accessibility-label="Select your desired font styles to filter it">
   <sbb-tag value="bold" checked>Bold</sbb-tag>
   <sbb-tag value="italic">Italic</sbb-tag>
   <sbb-tag value="underline">Underline</sbb-tag>
