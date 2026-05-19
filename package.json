@@ -108,7 +108,7 @@
     "lint-staged": "17.0.5",
     "lit-analyzer": "2.0.3",
     "madge": "8.0.0",
-    "npm-run-all2": "8.0.4",
+    "npm-run-all2": "9.0.0",
     "nyc": "18.0.0",
     "octokit": "5.0.5",
     "playwright": "1.60.0",
