@@ -32,5 +32,15 @@ describe(`sbb-navigation-button`, () => {
         }
       });
     }
+
+    it(
+      `disabled=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-navigation-button disabled>Label</sbb-navigation-button>`,
+          { backgroundColor: 'var(--sbb-background-color-1-negative)', focusOutlineDark: true },
+        );
+      }),
+    );
   });
 });
