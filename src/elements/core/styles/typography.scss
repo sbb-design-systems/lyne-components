@@ -15,6 +15,8 @@ sup {
 .sbb-text-l,
 .sbb-text-xl {
   @include typo.text;
+
+  line-height: 1.5;
 }
 
 .sbb-text-xxs {
