@@ -601,10 +601,13 @@ img {
   }
 
   :is(sbb-image, img):not(.sbb-figure-overlap-image) {
-    will-change: filter;
+    // Although only the teaser has a scale property, we do it here, because this rule is
+    // more specific and overrides would not be respected.
+    will-change: filter, scale;
     filter: brightness(var(--sbb-teaser-image-brightness, 1));
-    transition: filter var(--sbb-teaser-image-animation-duration)
-      var(--sbb-teaser-image-animation-easing);
+    transition:
+      filter,
+      scale var(--sbb-teaser-image-animation-duration) var(--sbb-teaser-image-animation-easing);
   }
 }
 
