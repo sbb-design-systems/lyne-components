@@ -67,6 +67,7 @@
   --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-2x);
   --sbb-form-field-input-text-size: var(--sbb-text-font-size-s);
   --sbb-form-field-label-text-size: var(--sbb-text-font-size-xxs);
+  --sbb-form-field-hint-padding-inline-start: var(--sbb-spacing-fixed-2x);
   --_sbb-form-field-input-margin-block-end: #{sbb.px-to-rem-build(-2)};
 
   // Values found by try and error
@@ -85,11 +86,13 @@
 :host([size='m']) {
   --sbb-form-field-min-height: var(--sbb-size-element-m);
   --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-3x);
+  --sbb-form-field-hint-padding-inline-start: var(--sbb-spacing-fixed-3x);
 }
 
 :host([size='l']) {
   --sbb-form-field-min-height: var(--sbb-size-element-l);
   --sbb-form-field-padding-inline: var(--sbb-spacing-responsive-xxxs);
+  --sbb-form-field-hint-padding-inline-start: var(--sbb-spacing-fixed-3x);
 }
 
 :host(:is([size='m'], [size='l'])) {
@@ -441,6 +444,7 @@ slot[name='hint'] {
   display: flex;
   min-height: var(--sbb-form-field-hint-min-height);
   flex-direction: column;
+  margin-inline-start: var(--sbb-form-field-hint-padding-inline-start);
   margin-block-start: var(
     --sbb-form-field-hint-padding-block-start-override,
     var(--sbb-form-field-hint-padding-block-start)
