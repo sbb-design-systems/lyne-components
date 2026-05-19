@@ -12,7 +12,6 @@ import { property, state } from 'lit/decorators.js';
 import { SbbSecondaryButtonElement } from '../../button.pure.ts';
 import {
   type DateAdapter,
-  DAYS_PER_ROW,
   defaultDateAdapter,
   forceType,
   handleDistinctChange,
@@ -27,8 +26,6 @@ import {
   i18nYearMonthSelection,
   isArrowKeyOrPageKeysPressed,
   MONDAY,
-  MONTHS_PER_PAGE,
-  MONTHS_PER_ROW,
   plainDate,
   readConfig,
   SbbElement,
@@ -40,8 +37,6 @@ import {
   THURSDAY,
   TUESDAY,
   WEDNESDAY,
-  YEARS_PER_PAGE,
-  YEARS_PER_ROW,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 import { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
@@ -52,6 +47,12 @@ import { SbbCalendarYearElement } from '../calendar-year/calendar-year.component
 import type { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-element.ts';
 
 import style from './calendar.scss?inline';
+
+const DAYS_PER_ROW: number = 7;
+const MONTHS_PER_ROW: number = 4;
+const YEARS_PER_ROW: number = 4;
+const MONTHS_PER_PAGE: number = 12;
+const YEARS_PER_PAGE: number = 24;
 
 export class SbbMonthChangeEvent extends Event {
   private readonly _range: readonly Day[];

@@ -197,7 +197,7 @@
 
 // Should be after other definitions to override overflow
 // :where is to align specificity
-:host(:where(:state(input-type-sbb-slider))) {
+:host(:where(:state(input-element-sbb-slider))) {
   --sbb-form-field-overflow: visible;
 }
 
@@ -241,7 +241,7 @@
 
   // In high contrast, there is no borderless variant
   @media (forced-colors: none) {
-    :host(:is([borderless], :state(input-type-sbb-slider))) & {
+    :host(:is([borderless], :state(input-element-sbb-slider))) & {
       &::before {
         border-color: transparent;
       }
@@ -316,9 +316,9 @@ slot[name='hint'] {
 
   :host(
       :is(
-        :state(input-type-select),
-        :state(input-type-sbb-select),
-        :state(explicit-input-type-select)
+        :state(input-element-select),
+        :state(input-element-sbb-select),
+        :state(explicit-input-element-select)
       )
     )
     & {
@@ -366,7 +366,7 @@ slot[name='hint'] {
   font-size: var(--sbb-form-field-label-text-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
 
-  :host(:where(:state(input-type-select), :state(input-type-sbb-select))) & {
+  :host(:where(:state(input-element-select), :state(input-element-sbb-select))) & {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 
@@ -390,7 +390,7 @@ slot[name='hint'] {
   :host(
       [floating-label]:is(
           :not(
-            :where(:state(focus)):not(:where(:state(input-type-sbb-select))),
+            :where(:state(focus)):not(:where(:state(input-element-sbb-select))),
             :where(:state(has-popup-open))
           ),
           :where(:state(readonly))
@@ -402,7 +402,7 @@ slot[name='hint'] {
   }
 
   // :where is to align specificity
-  :host(:where(:state(input-type-textarea))) & {
+  :host(:where(:state(input-element-textarea))) & {
     @include sbb.if-forced-colors {
       // The background of the textarea is set to Canvas and therefore hides the label behind.
       // By setting the z-index to 1, we move the label in front of the textarea.
@@ -422,11 +422,11 @@ slot[name='hint'] {
 
   :host(
       :is(
-        :state(input-type-input),
-        :state(input-type-select),
-        :state(input-type-sbb-select),
-        :state(input-type-sbb-date-input),
-        :state(input-type-sbb-time-input)
+        :state(input-element-input),
+        :state(input-element-select),
+        :state(input-element-sbb-select),
+        :state(input-element-sbb-date-input),
+        :state(input-element-sbb-time-input)
       )
     )
     & {

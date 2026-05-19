@@ -770,7 +770,7 @@ describe('sbb-chip-group', () => {
       formField.append(element);
       await waitForLitRender(root);
 
-      expect(formField).to.have.match(':state(input-type-input)');
+      expect(formField).to.have.match(':state(input-element-input)');
       expect(element).to.match(':state(size-l)');
 
       input.focus();

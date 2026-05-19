@@ -343,7 +343,6 @@ export interface SbbElementConstructor {
  * A base class for all SBB elements.
  * Includes attaching ElementInternals, handling hydration, and managing state.
  */
-// TODO(breaking-change): Inline and remove SbbElementInternalsMixin and SbbHydrationMixin as a breaking change
 export class SbbElement extends LitElement {
   public static ['_$sbbElement$'] = true;
   public static readonly elementName: string;

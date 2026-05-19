@@ -9,13 +9,6 @@ export const FRIDAY = 5;
 export const SATURDAY = 6;
 export const SUNDAY = 0;
 
-// TODO(breaking-change): Move these variables to calendar
-export const DAYS_PER_ROW: number = 7;
-export const MONTHS_PER_ROW: number = 4;
-export const YEARS_PER_ROW: number = 4;
-export const MONTHS_PER_PAGE: number = 12;
-export const YEARS_PER_PAGE: number = 24;
-
 /**
  * Abstract date functionality.
  *

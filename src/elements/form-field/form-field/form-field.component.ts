@@ -341,7 +341,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
     if (newInput === this._input) {
       return 'unchanged';
     } else if (this._input) {
-      this.internals.states.delete(`input-type-${this._input.localName}`);
+      this.internals.states.delete(`input-element-${this._input.localName}`);
       if (this._input.localName === 'input' || this._input.localName === 'textarea') {
         this._unpatchInputValue();
       }
@@ -377,9 +377,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
       attributes: true,
       attributeFilter: ['readonly', 'disabled', 'form', 'class', 'data-expanded', 'maxlength'],
     });
-    // TODO(breaking-change): Rename input-type to input-element and explicit-input-type to input-type.
-    // Also adapt documentation.
-    this.internals.states.add(`input-type-${this._input.localName}`);
+    this.internals.states.add(`input-element-${this._input.localName}`);
     this._syncLabelInputReferences();
     return 'changed';
   }
@@ -427,11 +425,11 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
     this.toggleState('has-popup-open', this._input!.hasAttribute('data-expanded'));
 
     if (this._previousType) {
-      this.internals.states.delete(`explicit-input-type-${this._previousType}`);
+      this.internals.states.delete(`input-type-${this._previousType}`);
     }
 
     this._previousType = this._control?.type ?? (this._input as { type?: string }).type ?? 'text';
-    this.internals.states.add(`explicit-input-type-${this._previousType}`);
+    this.internals.states.add(`input-type-${this._previousType}`);
   }
 
   private _registerInputFormListener(): void {

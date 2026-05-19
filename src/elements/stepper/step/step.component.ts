@@ -118,10 +118,8 @@ export class SbbStepElement extends SbbElement {
 
   /**
    * Selects and configures the step.
-   * @internal
-   * TODO: @breaking-change: make protected
    */
-  public select(): void {
+  protected select(): void {
     if (!this.hasUpdated || !this.label) {
       return;
     }
@@ -136,10 +134,8 @@ export class SbbStepElement extends SbbElement {
 
   /**
    * Deselects and configures the step.
-   * @internal
-   * TODO: @breaking-change: make protected
    */
-  public deselect(): void {
+  protected deselect(): void {
     if (!this.label) {
       return;
     }
@@ -149,12 +145,8 @@ export class SbbStepElement extends SbbElement {
 
   /**
    * Emits a validate event whenever step switch is triggered.
-   * @internal
-   *
-   * TODO: @breaking-change: make protected
-   *
    */
-  public validate(validate: SbbStepValidateEventDetails): boolean {
+  protected validate(validate: SbbStepValidateEventDetails): boolean {
     // FIXME: the name of the event variable appears as event name in the readme
     //  due to a bug in the custom-elements-manifest library.
     //  https://github.com/open-wc/custom-elements-manifest/issues/149
@@ -167,10 +159,8 @@ export class SbbStepElement extends SbbElement {
 
   /**
    * Configures the step.
-   * @internal
-   * TODO: @breaking-change: make protected
    */
-  public configure(stepperLoaded: boolean): void {
+  protected configure(stepperLoaded: boolean): void {
     if (stepperLoaded) {
       this._assignLabel();
     }
