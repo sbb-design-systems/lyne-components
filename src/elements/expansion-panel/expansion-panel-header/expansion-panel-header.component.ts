@@ -40,6 +40,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
     this.addEventListener?.('click', () => this._emitExpandedEvent());
     this.addEventListener?.('mouseenter', () => this._onMouseMovement(true));
     this.addEventListener?.('mouseleave', () => this._onMouseMovement(false));
+    this.addEventListener?.('slottedchange', () => this._setIconState());
     this.addController(
       new SbbPropertyWatcherController(this, () => this.closest('sbb-expansion-panel'), {
         size: (s) => {
@@ -70,12 +71,23 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
   private _onMouseMovement(toggleDataAttribute: boolean): void {
     const parent: SbbExpansionPanelElement = this.closest('sbb-expansion-panel')!;
     // The `sbb.hover-mq` logic has been removed from scss, but it must be replicated to have the correct behavior on mobile.
+    // TODO: with more support for light DOM styles set from a compoent (rootnode), we should move this into scss with :has(:hover) selector.
     if (!toggleDataAttribute || (parent && this._isHover)) {
       ɵstateController(parent).toggle('toggle-hover', toggleDataAttribute);
     }
   }
 
+  /**
+   * The :state(icon) is used by the 'sbb-expansion-panel'.
+   * It needs to be set before the @slotchange event bubbles to the 'expansion-panel'
+   * but after the 'SbbSlotStateController' has run.
+   */
+  private _setIconState(): void {
+    this.toggleState('icon', !!(this.iconName || this.matches?.(':state(icon)')));
+  }
+
   protected override renderTemplate(): TemplateResult {
+    this._setIconState();
     return html`
       <span class="sbb-expansion-panel-header__title">
         <span class="sbb-expansion-panel-header__icon"> ${this.renderIconSlot()} </span>

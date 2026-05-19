@@ -14,10 +14,8 @@ import {
   isSafari,
   SbbDisabledMixin,
   SbbElement,
-  type SbbElementType,
   SbbPropertyWatcherController,
 } from '../../core.ts';
-import { SbbDividerElement } from '../../divider.pure.ts';
 import type { SbbSelectElement } from '../../select.pure.ts';
 import type { SbbOptionBaseElement } from '../option/option-base-element.ts';
 
@@ -32,7 +30,6 @@ const inertAriaGroups = isSafari;
 
 export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbElement) {
   public static override readonly role = !inertAriaGroups ? 'group' : null;
-  public static override elementDependencies: SbbElementType[] = [SbbDividerElement];
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Option group label. */
@@ -121,11 +118,7 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbElement
   }
 
   protected override render(): TemplateResult {
-    // TODO: replace divider with CSS
     return html`
-      <div class="sbb-optgroup__divider">
-        <sbb-divider ?negative=${this.matches?.(':state(negative)')}></sbb-divider>
-      </div>
       ${this.label
         ? html`
             <div class="sbb-optgroup__label" aria-hidden="true">
