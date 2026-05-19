@@ -39,6 +39,9 @@
   display: flex;
   flex-direction: column;
 
+  // Currently, the slider is becoming a too large height in the surrounding content.
+  // Changing height of the children of the container to
+  // 17px solves the issue, but cuts the slider.
   @include sbb.zero-width-space;
 }
 
