@@ -13,10 +13,7 @@ import {
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import { tabLabelCommonStyles } from '../common/styles.ts';
 import type { SbbTabElement } from '../tab/tab.component.ts';
-import type {
-  SbbTabChangedEventDetails,
-  SbbTabGroupElement,
-} from '../tab-group/tab-group.component.ts';
+import { SbbTabChangeEvent, type SbbTabGroupElement } from '../tab-group/tab-group.component.ts';
 
 import style from './tab-label.scss?inline';
 
@@ -137,20 +134,18 @@ export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbEle
       this._selected = true;
       this.tabIndex = 0;
       this.tab?.dispatchEvent(new Event('active', { bubbles: true, composed: true }));
-      this.group?.dispatchEvent(
-        new CustomEvent<SbbTabChangedEventDetails>('tabchange', {
-          bubbles: true,
-          composed: true,
-          detail: {
-            activeIndex: tabLabels.findIndex((e) => e === this),
-            activeTabLabel: this,
-            activeTab: this.tab as SbbTabElement,
-            previousIndex: tabLabels.findIndex((e) => e === prevActiveTabLabel),
-            previousTabLabel: prevActiveTabLabel,
-            previousTab: prevActiveTabLabel?.tab as SbbTabElement,
-          },
-        }),
-      );
+      // FIXME: the name of the variable appears as event name in the readme
+      //  due to a bug in the custom-elements-manifest library.
+      //   https://github.com/open-wc/custom-elements-manifest/issues/149
+      const tabchange = {
+        activeIndex: tabLabels.findIndex((e) => e === this),
+        activeTabLabel: this,
+        activeTab: this.tab as SbbTabElement,
+        previousIndex: tabLabels.findIndex((e) => e === prevActiveTabLabel),
+        previousTabLabel: prevActiveTabLabel,
+        previousTab: prevActiveTabLabel?.tab as SbbTabElement,
+      };
+      this.group?.dispatchEvent(new SbbTabChangeEvent(tabchange));
     }
   }
 

@@ -22,7 +22,18 @@ import { SbbSeatReservationNavigationServicesElement } from '../seat-reservation
 
 import style from './seat-reservation-navigation-coach.scss?inline';
 
-export type SelectCoachEventDetails = number;
+export class SbbSelectCoachEvent extends Event {
+  private readonly _coachIndex: number;
+
+  public get coachIndex(): number {
+    return this._coachIndex;
+  }
+
+  public constructor(coachIndex: number) {
+    super('selectcoach', { bubbles: true, composed: true });
+    this._coachIndex = coachIndex;
+  }
+}
 
 /**
  * This component will display the navigation coach item for Seat reservation.
@@ -247,21 +258,15 @@ export class SbbSeatReservationNavigationCoachElement extends SbbElement {
 
   /**
    * emits the index of the coach array for the main navigation.
-   * @param coachIndex
+   * @param selectcoach
    * @private
    */
-  private _selectNavCoach(coachIndex: number): void {
+  private _selectNavCoach(selectcoach: number): void {
     /**
-     * @type {CustomEvent<SelectCoachEventDetails>}
+     * @type {SbbSelectCoachEvent}
      * Emits when a coach within the navigation was selected and returns the clicked coach nav index.
      */
-    this.dispatchEvent(
-      new CustomEvent<SelectCoachEventDetails>('selectcoach', {
-        bubbles: true,
-        composed: true,
-        detail: coachIndex,
-      }),
-    );
+    this.dispatchEvent(new SbbSelectCoachEvent(selectcoach));
   }
 
   private _getCoachServiceClassNumber(): number | null {

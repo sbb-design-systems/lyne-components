@@ -57,7 +57,7 @@ export interface SbbFormFieldElementControl {
 }
 
 export class SbbFormFieldControlEvent extends Event {
-  private _control: SbbFormFieldElementControl | null;
+  private readonly _control: SbbFormFieldElementControl | null;
 
   public get control(): SbbFormFieldElementControl | null {
     return this._control;

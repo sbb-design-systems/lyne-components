@@ -11,7 +11,6 @@ import {
   i18nCloseDialog,
   isZeroAnimationDuration,
   type SbbElementType,
-  type SbbOverlayCloseEventDetails,
   scrollbarStyles,
 } from '../core.ts';
 
@@ -102,14 +101,10 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
       this.scrollHandler.enableScroll();
     }
     this.escapableOverlayController.disconnect();
-    this.dispatchCloseEvent({
-      returnValue: this.returnValue,
-      closeTarget: this.overlayCloseElement,
-    });
+    this.dispatchCloseEvent();
   }
 
-  // TODO: remove parameter `detail`
-  protected override dispatchBeforeCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
+  protected override dispatchBeforeCloseEvent(): boolean {
     /** @type {SbbOverlayCloseEvent} Emits whenever the component begins the closing transition. Can be canceled. */
     return this.dispatchEvent(
       new SbbOverlayCloseEvent('beforeclose', {
@@ -121,8 +116,7 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
     );
   }
 
-  // TODO: remove parameter `detail`
-  protected override dispatchCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
+  protected override dispatchCloseEvent(): boolean {
     /** @type {SbbOverlayCloseEvent} Emits whenever the component is closed. */
     return this.dispatchEvent(
       new SbbOverlayCloseEvent('close', {

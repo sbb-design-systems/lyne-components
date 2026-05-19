@@ -6,7 +6,7 @@ import { type SinonSpy, spy } from 'sinon';
 import type { SbbMiniButtonElement } from '../../button.ts';
 import { fixture, tabKey } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
-import type { SbbPaginatorPageEventDetails } from '../common/paginator-common.ts';
+import type { SbbPaginatorPageEvent } from '../common/paginator-common.ts';
 
 import { SbbCompactPaginatorElement } from './compact-paginator.component.ts';
 
@@ -14,13 +14,13 @@ import '../../paginator.ts';
 
 describe('sbb-compact-paginator', () => {
   let element: SbbCompactPaginatorElement;
-  let pageEventSpy: SinonSpy<CustomEvent<SbbPaginatorPageEventDetails>[]>;
+  let pageEventSpy: SinonSpy<SbbPaginatorPageEvent[]>;
 
   beforeEach(async () => {
     pageEventSpy = spy();
     element = await fixture(
       html`<sbb-compact-paginator
-        @page=${(e: CustomEvent<SbbPaginatorPageEventDetails>) => pageEventSpy(e)}
+        @page=${(e: SbbPaginatorPageEvent) => pageEventSpy(e)}
         length="50"
         page-size="5"
       ></sbb-compact-paginator>`,
@@ -48,7 +48,7 @@ describe('sbb-compact-paginator', () => {
     goToNext.click();
     await waitForLitRender(element);
     expect(pageEventSpy).to.have.been.calledOnce;
-    expect(pageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
+    expect(pageEventSpy.lastCall.firstArg.pageIndex).to.be.equal(element.pageIndex);
     expect(element.pageIndex).to.be.equal(1);
     expect(goToPrev).not.to.have.attribute('disabled');
     expect(goToNext).not.to.have.attribute('disabled');
@@ -56,7 +56,7 @@ describe('sbb-compact-paginator', () => {
     goToPrev.click();
     await waitForLitRender(element);
     expect(pageEventSpy).to.have.been.calledTwice;
-    expect(pageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
+    expect(pageEventSpy.lastCall.firstArg.pageIndex).to.be.equal(element.pageIndex);
     expect(element.pageIndex).to.be.equal(0);
   });
 

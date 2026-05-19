@@ -6,7 +6,7 @@ import type { SbbMiniButtonElement } from '../../button.ts';
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForImageReady, waitForLitRender } from '../../core/testing.ts';
 import type { SbbCompactPaginatorElement } from '../../paginator.ts';
-import { type SbbCarouselItemEventDetail } from '../carousel-item/carousel-item.component.ts';
+import type { SbbCarouselItemShowEvent } from '../carousel-item/carousel-item.component.ts';
 
 import { SbbCarouselElement } from './carousel.component.ts';
 
@@ -17,8 +17,8 @@ const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-imag
 
 describe('sbb-carousel', () => {
   let element: SbbCarouselElement;
-  let beforeShowSpy: EventSpy<CustomEvent<SbbCarouselItemEventDetail>>;
-  let showSpy: EventSpy<CustomEvent<SbbCarouselItemEventDetail>>;
+  let beforeShowSpy: EventSpy<SbbCarouselItemShowEvent>;
+  let showSpy: EventSpy<SbbCarouselItemShowEvent>;
   let paginator: SbbCompactPaginatorElement;
 
   beforeEach(async () => {

@@ -81,7 +81,7 @@ The component has also two different sizes, `s` and `m`, which can be changed us
 
 ### Events
 
-Whenever the selection changes, a `filechanged` event is fired, whose `event.detail` property contains the list
+Whenever the selection changes, a `filechanged` event is fired, whose `event.files` property contains the list
 of currently selected files. The list can also be retrieved using the public `files` getter.
 
 ## Accessibility
@@ -144,11 +144,11 @@ It's suggested to have a different value for each variant, e.g.:
 
 #### Events
 
-| Name          | Type                            | Description                                                                                                                                                                        | Inherited From                    |
-| ------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| `change`      | `Event`                         | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFileSelectorCommonElementMixin |
-| `filechanged` | `CustomEvent<Readonly<File>[]>` | An event which is emitted each time the file list changes.                                                                                                                         | SbbFileSelectorCommonElementMixin |
-| `input`       | `InputEvent`                    | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFileSelectorCommonElementMixin |
+| Name          | Type                 | Description                                                                                                                                                                        | Inherited From                    |
+| ------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `change`      | `Event`              | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFileSelectorCommonElementMixin |
+| `filechanged` | `SbbFileChangeEvent` | An event which is emitted each time the file list changes.                                                                                                                         | SbbFileSelectorCommonElementMixin |
+| `input`       | `InputEvent`         | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFileSelectorCommonElementMixin |
 
 #### Slots
 
@@ -189,11 +189,11 @@ It's suggested to have a different value for each variant, e.g.:
 
 #### Events
 
-| Name          | Type                            | Description                                                                                                                                                                        | Inherited From                    |
-| ------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| `change`      | `Event`                         | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFileSelectorCommonElementMixin |
-| `filechanged` | `CustomEvent<Readonly<File>[]>` | An event which is emitted each time the file list changes.                                                                                                                         | SbbFileSelectorCommonElementMixin |
-| `input`       | `InputEvent`                    | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFileSelectorCommonElementMixin |
+| Name          | Type                 | Description                                                                                                                                                                        | Inherited From                    |
+| ------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `change`      | `Event`              | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFileSelectorCommonElementMixin |
+| `filechanged` | `SbbFileChangeEvent` | An event which is emitted each time the file list changes.                                                                                                                         | SbbFileSelectorCommonElementMixin |
+| `input`       | `InputEvent`         | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFileSelectorCommonElementMixin |
 
 #### Slots
 
