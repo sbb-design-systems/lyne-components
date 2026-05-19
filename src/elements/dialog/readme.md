@@ -219,21 +219,6 @@ an alternative element by listening to the `didClose` event.
 
 ### class: `SbbDialogActionsElement`, `sbb-dialog-actions`
 
-#### Properties
-
-| Name         | Attribute     | Privacy | Type                    | Default | Description                                                                                                             |
-| ------------ | ------------- | ------- | ----------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `buttonSize` | `button-size` | public  | `SbbButtonSize \| null` | `null`  | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.         |
-| `linkSize`   | `link-size`   | public  | `SbbLinkSize \| null`   | `null`  | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
-
-#### CSS Properties
-
-| Name                                 | Default  | Description                                      |
-| ------------------------------------ | -------- | ------------------------------------------------ |
-| `--sbb-action-group-align-items`     | `center` | To specify the vertical alignment of the group . |
-| `--sbb-action-group-justify-content` | `start`  | To specify the horizontal spacing of the group.  |
-| `--sbb-action-group-orientation`     | `row`    | To specify the horizontal spacing of the group.  |
-
 #### Slots
 
 | Name | Description                                                                                        |

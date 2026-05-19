@@ -29,20 +29,23 @@
   --sbb-action-group-align-items: stretch;
 }
 
-:host(.sbb-action-group-horizontal-from-large) {
-  @include sbb.mq($from: large) {
+:host(.sbb-action-group-horizontal-from-small) {
+  @include sbb.mq($from: small) {
     --sbb-action-group-orientation: row;
-    --sbb-action-group-align-items: center;
-    --sbb-action-group-justify-content: start;
     --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
   }
 }
 
-:host(.sbb-action-group-horizontal-from-small) {
-  @include sbb.mq($from: small) {
+:host(.sbb-action-group-horizontal-from-large) {
+  @include sbb.mq($from: large) {
     --sbb-action-group-orientation: row;
-    --sbb-action-group-align-items: center;
-    --sbb-action-group-justify-content: start;
+    --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
+  }
+}
+
+:host(.sbb-action-group-horizontal-from-ultra) {
+  @include sbb.mq($from: ultra) {
+    --sbb-action-group-orientation: row;
     --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
   }
 }

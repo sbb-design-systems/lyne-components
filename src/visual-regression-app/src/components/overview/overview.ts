@@ -44,8 +44,6 @@ class Overview extends LitElement {
             <sbb-action-group
               style="--sbb-action-group-justify-content: space-between"
               class="sbb-action-group-horizontal-from-large"
-              button-size="s"
-              link-size="s"
             >
               ${meta.baselineGitSha && !screenshots.baselineOnly
                 ? html`<sbb-block-link

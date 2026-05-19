@@ -38,13 +38,12 @@ describe(`sbb-dialog`, () => {
     </sbb-dialog-content>
   `;
 
-  const dialogFooter = (negative = false, alignGroup = 'space-between'): TemplateResult => html`
+  const dialogFooter = (negative = false, alignGroup = 'stretch'): TemplateResult => html`
     <sbb-dialog-actions
       style=${`--sbb-action-group-justify-content: ${alignGroup}`}
       class="sbb-action-group-horizontal-from-large"
     >
       <sbb-block-link
-        align-self="start"
         icon-name="chevron-small-left-small"
         href="https://www.sbb.ch/en/"
         ?negative=${negative}
@@ -206,7 +205,7 @@ describe(`sbb-dialog`, () => {
     );
 
     it(
-      `with align-group=end on sbb-dialog-actions`,
+      `actions aligned at the end on sbb-dialog-actions`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`

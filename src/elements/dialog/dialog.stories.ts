@@ -205,7 +205,7 @@ const NestedTemplate = ({
     ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
     <sbb-dialog-content> Click the button to open a nested dialog. </sbb-dialog-content>
     <sbb-dialog-actions>
-      <sbb-button align-self="end" id="dialog-trigger-2" size="m">Open dialog</sbb-button>
+      <sbb-button id="dialog-trigger-2" size="m">Open dialog</sbb-button>
     </sbb-dialog-actions>
     <sbb-dialog ?negative=${!negative} trigger="dialog-trigger-2" ${sbbSpread(args)}>
       ${dialogTitle(level)}

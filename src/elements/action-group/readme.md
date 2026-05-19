@@ -6,8 +6,7 @@ in various [allocations](#allocations).
 
 ### Orientation
 
-The `orientation` property is used to set item's orientation.
-Possible values are `horizontal` (default) and `vertical`.
+TODO: update with css class
 
 The optional property `horizontalFrom` can be used in combination with `orientation='vertical'` to
 indicate the minimum breakpoint from which the orientation changes to `horizontal`.
@@ -17,49 +16,11 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
   <sbb-secondary-button>Action 1</sbb-secondary-button>
   <sbb-button>Action 2</sbb-button>
   <sbb-block-link
-    align-self="end"
     icon-name="chevron-small-left-small"
     href="https://github.com/sbb-design-systems/lyne-components"
   >
     Action 3
   </sbb-block-link>
-</sbb-action-group>
-```
-
-### Button-size and link-size
-
-The two props `button-size` and `link-size` can be used to override the size of the inner `<sbb-button>` and `<sbb-block-link>`.
-The accepted values are `s`, `m` and `l` for `<sbb-button>` and `xs`, `s` and `m` for `<sbb-block-link>`.
-
-```html
-<sbb-action-group button-size="s" link-size="s">
-  <sbb-secondary-button>Action 1</sbb-secondary-button>
-  <sbb-block-link
-    icon-name="chevron-small-left-small"
-    href="https://github.com/sbb-design-systems/lyne-components"
-  >
-    Action 3
-  </sbb-block-link>
-</sbb-action-group>
-```
-
-### Align-group and align-self
-
-The `align-group` property can be used to set the default alignment of the contained elements;
-possible values are `start`, `center`, `stretch` and `end`.
-
-It is also possible to set the `align-self` attribute on action items in order to move them in the
-opposite direction to the group; possible values are `start`, `center` or `end`.
-
-**NOTE**: The `<sbb-action-group>` will only accept `block-link` and will sync the `linkSize`
-property with nested `<sbb-block-link>` and the `buttonSize` property with the nested `<sbb-button>`
-instances.
-
-```html
-<sbb-action-group align-group="end">
-  <sbb-secondary-button align-self="start">Action 1</sbb-secondary-button>
-  <sbb-secondary-button>Action 2</sbb-secondary-button>
-  <sbb-button>Action 3</sbb-button>
 </sbb-action-group>
 ```
 
@@ -83,59 +44,11 @@ and we consider a template like the following one (possibly removing the link fo
 </sbb-action-group>
 ```
 
-The values for `align-group` and `align-self` for the various allocations are as follows:
-
-### Horizontal
-
-| orientation='horizontal' | align-group |     align-self     |
-| :----------------------: | :---------: | :----------------: |
-|          3-0-0           |    start    |         /          |
-|          1-1-1           |    start    | Button 2: 'center' |
-|          2-0-1           |    start    |    Link: 'end'     |
-|          1-0-2           |     end     | Button 1: 'start'  |
-|          2-0-0           |    start    |         /          |
-|          1-0-1           |    start    |  Button 2: 'end'   |
-
-### Vertical
-
-| orientation='vertical' | align-group | align-self |
-| :--------------------: | :---------: | :--------: |
-|         3-0-0          |    start    |     /      |
-|         2-0-0          |    start    |     /      |
-|         0-3-0          |   center    |     /      |
-|         0-2-0          |   center    |     /      |
-|         0-0-3          |     end     |     /      |
-|         0-0-2          |     end     |     /      |
-
-| orientation='vertical' (full width) | align-group |   align-self   |
-| :---------------------------------: | :---------: | :------------: |
-|                3-0-0                |   stretch   | Link: 'start'  |
-|                2-0-0                |   stretch   |       /        |
-|                0-3-0                |   stretch   | Link: 'center' |
-|                0-2-0                |   stretch   |       /        |
-|                0-0-3                |   stretch   |  Link: 'end'   |
-|                0-0-2                |   stretch   |       /        |
-
 <!-- Auto Generated Below -->
 
 ## API Documentation
 
 ### class: `SbbActionGroupElement`, `sbb-action-group`
-
-#### Properties
-
-| Name         | Attribute     | Privacy | Type                    | Default | Description                                                                                                             |
-| ------------ | ------------- | ------- | ----------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `buttonSize` | `button-size` | public  | `SbbButtonSize \| null` | `null`  | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.         |
-| `linkSize`   | `link-size`   | public  | `SbbLinkSize \| null`   | `null`  | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
-
-#### CSS Properties
-
-| Name                                 | Default  | Description                                      |
-| ------------------------------------ | -------- | ------------------------------------------------ |
-| `--sbb-action-group-align-items`     | `center` | To specify the vertical alignment of the group . |
-| `--sbb-action-group-justify-content` | `start`  | To specify the horizontal spacing of the group.  |
-| `--sbb-action-group-orientation`     | `row`    | To specify the horizontal spacing of the group.  |
 
 #### Slots
 

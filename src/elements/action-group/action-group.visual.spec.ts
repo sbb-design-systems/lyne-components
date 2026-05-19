@@ -15,12 +15,12 @@ describe(`sbb-action-group`, () => {
   let root: HTMLElement;
 
   const horizontalCases = [
-    { name: '300', elements: 3, alignGroup: 'start' },
-    { name: '111', elements: 3, alignGroup: 'start', alignSecond: 'center' },
-    { name: '201', elements: 3, alignGroup: 'start', alignThird: 'end' },
-    { name: '102', elements: 3, alignGroup: 'end', alignFirst: 'start' },
-    { name: '200', elements: 2, alignGroup: 'start' },
-    { name: '101', elements: 2, alignGroup: 'start', alignSecond: 'end' },
+    { name: '300', elements: 3 },
+    { name: '111', elements: 3, marginFirst: 'end', marginThird: 'start' },
+    { name: '201', elements: 3, marginThird: 'start' },
+    { name: '102', elements: 3, marginFirst: 'end' },
+    { name: '200', elements: 2 },
+    { name: '101', elements: 2, marginFirst: 'end' },
   ];
 
   const verticalCases = {
@@ -29,7 +29,6 @@ describe(`sbb-action-group`, () => {
   };
 
   describeViewports({ viewports: ['small', 'ultra'] }, () => {
-    //<sbb-action-group align-group="${state.alignGroup}">
     describe('horizontal', () => {
       for (const state of horizontalCases) {
         it(
@@ -37,13 +36,14 @@ describe(`sbb-action-group`, () => {
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
               <sbb-action-group>
-                <sbb-secondary-button align-self=${state.alignFirst || nothing}
+                <sbb-secondary-button
+                  style=${state.marginFirst ? `margin-inline-${state.marginFirst}: auto;` : ''}
                   >Button 1</sbb-secondary-button
                 >
-                <sbb-button align-self=${state.alignSecond || nothing}>Button 2</sbb-button>
+                <sbb-button>Button 2</sbb-button>
                 ${state.elements === 3
                   ? html` <sbb-block-link
-                      align-self=${state.alignThird || nothing}
+                      style=${state.marginThird ? `margin-inline-${state.marginThird}: auto;` : ''}
                       icon-name="chevron-small-left-small"
                       href="https://github.com/sbb-design-systems/lyne-components"
                     >
@@ -96,33 +96,8 @@ describe(`sbb-action-group`, () => {
                 <sbb-secondary-button>Button 1</sbb-secondary-button>
                 <sbb-button>Button 2</sbb-button>
                 <sbb-block-link
-                  icon-name="chevron-small-left-small"
-                  href="https://github.com/sbb-design-systems/lyne-components"
-                  align-self=${alignSelfThird}
-                >
-                  Link
-                </sbb-block-link>
-              </sbb-action-group>
-            `);
-          }),
-        );
-      }
-    });
-
-    describe('size=s', () => {
-      for (const orientation of ['horizontal', 'vertical']) {
-        it(
-          `orientation=${orientation}`,
-          visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(html`
-              <sbb-action-group
-                class=${orientation === 'vertical' ? 'sbb-action-group-vertical' : nothing}
-                button-size="s"
-                link-size="s"
-              >
-                <sbb-secondary-button>Button 1</sbb-secondary-button>
-                <sbb-button>Button 2</sbb-button>
-                <sbb-block-link
+                  style=${`margin-inline: auto; ` +
+                  (alignSelfThird === 'center' ? '' : `margin-inline-${alignSelfThird}: unset;`)}
                   icon-name="chevron-small-left-small"
                   href="https://github.com/sbb-design-systems/lyne-components"
                 >
@@ -139,10 +114,14 @@ describe(`sbb-action-group`, () => {
       `orientation=vertical-horizontal-from=large`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-action-group class="sbb-action-group-horizontal-from-large">
+          <sbb-action-group
+            style="align-items: start;"
+            class="sbb-action-group-horizontal-from-large"
+          >
             <sbb-secondary-button>Button 1</sbb-secondary-button>
             <sbb-button>Button 2</sbb-button>
             <sbb-block-link
+              style="margin-block: auto;"
               icon-name="chevron-small-left-small"
               href="https://github.com/sbb-design-systems/lyne-components"
             >

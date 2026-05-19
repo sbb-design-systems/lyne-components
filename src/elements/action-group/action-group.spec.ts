@@ -3,7 +3,6 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonElement } from '../button.ts';
 import { fixture } from '../core/testing/private.ts';
-import { waitForLitRender } from '../core/testing.ts';
 import type { SbbBlockLinkElement } from '../link.ts';
 
 import { SbbActionGroupElement } from './action-group.component.ts';
@@ -44,18 +43,6 @@ describe(`sbb-action-group`, () => {
     it('should respect default sizes', async () => {
       expect(button.size).to.equal('l');
       expect(link.size).to.equal('xs');
-    });
-
-    it('should update attributes with button-size="m"', async () => {
-      element.setAttribute('button-size', 'm');
-      await waitForLitRender(element);
-      expect(button.size).to.equal('m');
-    });
-
-    it('should update attributes with link-size="s"', async () => {
-      element.setAttribute('link-size', 's');
-      await waitForLitRender(element);
-      expect(link.size).to.equal('s');
     });
   });
 });
