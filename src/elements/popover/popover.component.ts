@@ -46,6 +46,22 @@ const HORIZONTAL_OFFSET = 32;
 const popoversRef = new Set<SbbPopoverBaseElement>();
 const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).matches;
 
+export class SbbPopoverCloseEvent extends Event {
+  private readonly _closeTarget: HTMLElement | null;
+
+  public get closeTarget(): HTMLElement | null {
+    return this._closeTarget;
+  }
+
+  public constructor(
+    type: string,
+    { closeTarget, cancelable }: Pick<Event, 'cancelable'> & { closeTarget: HTMLElement | null },
+  ) {
+    super(type, { cancelable });
+    this._closeTarget = closeTarget;
+  }
+}
+
 export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
   public static override styles: CSSResultGroup = [popoverResetStyles, unsafeCSS(style)];
 
@@ -392,25 +408,24 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
   protected override dispatchBeforeCloseEvent(detail?: {
     closeTarget: HTMLElement | null;
   }): boolean {
+    const closeTarget = detail?.closeTarget ?? null;
     /**
-     * @type {CustomEvent<{ closeTarget: HTMLElement | null }>}
+     * @type {SbbPopoverCloseEvent}
      * Emits whenever the component begins the closing transition. Can be canceled.
      */
     return this.dispatchEvent(
-      new CustomEvent<{ closeTarget: HTMLElement | null }>('beforeclose', {
-        detail,
-        cancelable: true,
-      }),
+      new SbbPopoverCloseEvent('beforeclose', { closeTarget, cancelable: true }),
     );
   }
 
   protected override dispatchCloseEvent(detail?: { closeTarget: HTMLElement | null }): boolean {
+    const closeTarget = detail?.closeTarget ?? null;
     /**
-     * @type {CustomEvent<{ closeTarget: HTMLElement | null }>}
+     * @type {SbbPopoverCloseEvent}
      * Emits whenever the component is closed.
      */
     return this.dispatchEvent(
-      new CustomEvent<{ closeTarget: HTMLElement | null }>('close', { detail }),
+      new SbbPopoverCloseEvent('close', { closeTarget, cancelable: false }),
     );
   }
 

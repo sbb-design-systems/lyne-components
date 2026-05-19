@@ -22,20 +22,61 @@ import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
 import style from './tab-group.scss?inline';
 
-export interface SbbTabChangedEventDetails {
-  activeIndex: number;
-  activeTabLabel: SbbTabLabelElement;
-  activeTab: SbbTabElement;
-  previousIndex: number;
-  previousTabLabel: SbbTabLabelElement | undefined;
-  previousTab: SbbTabElement | undefined;
+export class SbbTabChangeEvent extends Event {
+  private readonly _activeIndex: number;
+  private readonly _activeTabLabel: SbbTabLabelElement;
+  private readonly _activeTab: SbbTabElement;
+  private readonly _previousIndex: number;
+  private readonly _previousTabLabel: SbbTabLabelElement | undefined;
+  private readonly _previousTab: SbbTabElement | undefined;
+
+  public get activeIndex(): number {
+    return this._activeIndex;
+  }
+
+  public get activeTabLabel(): SbbTabLabelElement {
+    return this._activeTabLabel;
+  }
+
+  public get activeTab(): SbbTabElement {
+    return this._activeTab;
+  }
+
+  public get previousIndex(): number {
+    return this._previousIndex;
+  }
+
+  public get previousTabLabel(): SbbTabLabelElement | undefined {
+    return this._previousTabLabel;
+  }
+
+  public get previousTab(): SbbTabElement | undefined {
+    return this._previousTab;
+  }
+
+  public constructor({
+    activeIndex,
+    activeTabLabel,
+    activeTab,
+    previousIndex,
+    previousTabLabel,
+    previousTab,
+  }: Omit<SbbTabChangeEvent, keyof Event>) {
+    super('tabchange', { bubbles: true, composed: true });
+    this._activeIndex = activeIndex;
+    this._activeTabLabel = activeTabLabel;
+    this._activeTab = activeTab;
+    this._previousIndex = previousIndex;
+    this._previousTabLabel = previousTabLabel;
+    this._previousTab = previousTab;
+  }
 }
 
 /**
  * It displays one or more tabs, each one with a label and some content.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-tab-group` via `sbb-tab-label` and `sbb-tab` instances.
- * @event {CustomEvent<SbbTabChangedEventDetails>} tabchange - The tabchange event is dispatched when a tab is selected.
+ * @event {SbbTabChangeEvent} tabchange - The tabchange event is dispatched when a tab is selected.
  */
 export class SbbTabGroupElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-tab-group';

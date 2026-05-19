@@ -67,6 +67,19 @@ export class SbbMonthChangeEvent extends Event {
   }
 }
 
+export class SbbDateSelectedEvent<T> extends Event {
+  private readonly _dateSelected: Readonly<T | T[]>;
+
+  public get dateSelected(): Readonly<T | T[]> {
+    return this._dateSelected;
+  }
+
+  public constructor(dates: T | T[]) {
+    super('dateselected', { bubbles: true, composed: true });
+    this._dateSelected = Object.freeze(dates);
+  }
+}
+
 /**
  * Parameters needed in year and month views to correctly calculate the next element in keyboard navigation.
  *
@@ -749,16 +762,13 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
 
   /**
    * Emits the dateselected event given the detail (as T or T[] based on the value of the multiple flag).
+   * FIXME: the name of the variable appears as event name in the readme
+   *  due to a bug in the custom-elements-manifest library.
+   *  https://github.com/open-wc/custom-elements-manifest/issues/149
    */
-  private _emitDateSelectedEvent(detail: T | T[]): void {
-    /** @type {CustomEvent<T | T[]>} Event emitted on date selection. */
-    this.dispatchEvent(
-      new CustomEvent<T | T[]>('dateselected', {
-        detail,
-        composed: true,
-        bubbles: true,
-      }),
-    );
+  private _emitDateSelectedEvent(dateselected: T | T[]): void {
+    /** @type {SbbDateSelectedEvent<T>} Event emitted on date selection. */
+    this.dispatchEvent(new SbbDateSelectedEvent<T>(dateselected));
   }
 
   private _emitMonthChange(): void {

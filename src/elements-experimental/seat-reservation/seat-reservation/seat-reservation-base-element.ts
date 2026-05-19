@@ -72,6 +72,32 @@ const ALLOWED_SERVICE_ICONS: string[] = [
   'sa-rz',
 ];
 
+export class SbbSeatReservationSelectedPlacesEvent extends Event {
+  private readonly _detail: SeatReservationSelectedPlaces;
+
+  public get detail(): SeatReservationSelectedPlaces {
+    return this._detail;
+  }
+
+  public constructor(detail: SeatReservationSelectedPlaces) {
+    super('selectedplaces', { bubbles: true, composed: true });
+    this._detail = detail;
+  }
+}
+
+export class SbbSeatReservationSelectedCoachEvent extends Event {
+  private readonly _detail: SeatReservationSelectedCoach;
+
+  public get detail(): SeatReservationSelectedCoach {
+    return this._detail;
+  }
+
+  public constructor(detail: SeatReservationSelectedCoach) {
+    super('selectedcoach', { bubbles: true, composed: true });
+    this._detail = detail;
+  }
+}
+
 export class SeatReservationBaseElement extends SbbElement {
   public static readonly events = {
     selectedplaces: 'selectedplaces',
@@ -1226,17 +1252,15 @@ export class SeatReservationBaseElement extends SbbElement {
       maxReservations,
       placeSelection,
     );
+    // FIXME: the name of this variable appears as event name in the readme
+    //  due to a bug in the custom-elements-manifest library.
+    //  https://github.com/open-wc/custom-elements-manifest/issues/149
+    const selectedplaces = this.selectedSeatReservationPlaces;
     /**
-     * @type {CustomEvent<SeatReservationSelectedPlaces>}
+     * @type {SbbSeatReservationSelectedPlacesEvent}
      * Emits when a place was selected and returns a Place array with all selected places.
      */
-    this.dispatchEvent(
-      new CustomEvent<SeatReservationSelectedPlaces>('selectedplaces', {
-        bubbles: true,
-        composed: true,
-        detail: this.selectedSeatReservationPlaces,
-      }),
-    );
+    this.dispatchEvent(new SbbSeatReservationSelectedPlacesEvent(selectedplaces));
   }
 
   private _updateSelectedSeatReservationPlaces(
@@ -1318,19 +1342,16 @@ export class SeatReservationBaseElement extends SbbElement {
     }
     this.selectedCoachIndex = this.currSelectedCoachIndex;
 
-    const coachSelection = this._getSeatReservationSelectedCoach(this.selectedCoachIndex);
-    if (coachSelection) {
+    // FIXME: the name of this variable appears as event name in the readme
+    //  due to a bug in the custom-elements-manifest library.
+    //  https://github.com/open-wc/custom-elements-manifest/issues/149
+    const selectedcoach = this._getSeatReservationSelectedCoach(this.selectedCoachIndex);
+    if (selectedcoach) {
       /**
-       * @type {CustomEvent<SeatReservationSelectedCoach>}
+       * @type {SbbSeatReservationSelectedCoachEvent}
        * Emits when a coach was selected and returns a CoachSelection
        */
-      this.dispatchEvent(
-        new CustomEvent<SeatReservationSelectedCoach>('selectedcoach', {
-          bubbles: true,
-          composed: true,
-          detail: coachSelection,
-        }),
-      );
+      this.dispatchEvent(new SbbSeatReservationSelectedCoachEvent(selectedcoach));
     }
   }
 
@@ -1776,10 +1797,13 @@ export class SeatReservationBaseElement extends SbbElement {
     }
 
     const yOffset = this.coachBorderPadding * -1;
+    // The border has to be moved manual by 1px left and also stretched by 2px to get a closed border line to the coach start and end border elements, without 1px white gap.
+    const pos = { x: Math.floor(startBorderOffsetX * this.baseGridSize) - 1, y: yOffset, z: 0 };
+    const dim = { w: Math.floor(borderWidth * this.baseGridSize) + 2, h: borderHeight };
 
     return {
-      position: { x: startBorderOffsetX * this.baseGridSize, y: yOffset, z: 0 },
-      dimension: { w: borderWidth * this.baseGridSize, h: borderHeight },
+      position: pos,
+      dimension: dim,
     };
   }
 
@@ -1859,11 +1883,11 @@ export class SeatReservationBaseElement extends SbbElement {
       }
     }
 
-    dim.w = Math.round(dim.w * this.baseGridSize);
-    dim.h = Math.round(dim.h * this.baseGridSize);
+    dim.w = Math.floor(dim.w * this.baseGridSize);
+    dim.h = Math.floor(dim.h * this.baseGridSize);
 
-    pos.x = Math.round(pos.x * this.baseGridSize);
-    pos.y = Math.round(pos.y * this.baseGridSize);
+    pos.x = Math.floor(pos.x * this.baseGridSize);
+    pos.y = Math.floor(pos.y * this.baseGridSize);
 
     const icon =
       element.icon && element.icon.endsWith('DRIVER_AREA')

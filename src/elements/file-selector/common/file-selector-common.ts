@@ -30,6 +30,19 @@ import {
 
 import style from './file-selector-common.scss?inline';
 
+export class SbbFileChangeEvent extends Event {
+  private readonly _files: readonly File[];
+
+  public get files(): readonly File[] {
+    return this._files;
+  }
+
+  public constructor(files: readonly File[]) {
+    super('filechanged', { bubbles: true, composed: true });
+    this._files = Object.freeze(files || []);
+  }
+}
+
 export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbDisabledMixin(
   SbbFormAssociatedMixin(SbbElement),
 ) {
@@ -248,17 +261,15 @@ export const SbbFileSelectorCommonElementMixin = <
     }
 
     private _dispatchFileChangedEvent(): void {
+      // FIXME: the name of this variable appears as event name in the readme
+      //  due to a bug in the custom-elements-manifest library.
+      //  https://github.com/open-wc/custom-elements-manifest/issues/149
+      const filechanged = this.files;
       /**
-       * @type {CustomEvent<Readonly<File>[]>}
+       * @type {SbbFileChangeEvent}
        * An event which is emitted each time the file list changes.
        */
-      this.dispatchEvent(
-        new CustomEvent<Readonly<File>[]>('filechanged', {
-          bubbles: true,
-          composed: true,
-          detail: this.files,
-        }),
-      );
+      this.dispatchEvent(new SbbFileChangeEvent(filechanged));
     }
 
     /** Calculates the correct unit for the file's size. */

@@ -182,8 +182,8 @@ These are 'internal-use-only' components too, and they are **not** meant to be u
 
 ## Events
 
-Consumers can listen to the `dateselected` event on the `<sbb-calendar>` component to intercept the selected date
-which can be read from `event.detail`.
+Consumers can listen to the `dateselected` event on the `<sbb-calendar>` component to intercept the selected date/dates
+which can be read from the `event.dateSelected` property.
 Check the [Slot and day customization](docs/elements-calendar--docs#slots-and-day-customization) paragraph
 for more information about the `monthchange` event.
 
@@ -281,10 +281,10 @@ For accessibility purposes, the component is rendered as a native table element 
 
 #### Events
 
-| Name           | Type                    | Description                                                                                     | Inherited From |
-| -------------- | ----------------------- | ----------------------------------------------------------------------------------------------- | -------------- |
-| `dateselected` | `CustomEvent<T \| T[]>` | Event emitted on date selection.                                                                |                |
-| `monthchange`  | `SbbMonthChangeEvent`   | Emits when the month changes. The `range` property contains the days array of the chosen month. |                |
+| Name           | Type                      | Description                                                                                     | Inherited From |
+| -------------- | ------------------------- | ----------------------------------------------------------------------------------------------- | -------------- |
+| `dateselected` | `SbbDateSelectedEvent<T>` | Event emitted on date selection.                                                                |                |
+| `monthchange`  | `SbbMonthChangeEvent`     | Emits when the month changes. The `range` property contains the days array of the chosen month. |                |
 
 #### Slots
 

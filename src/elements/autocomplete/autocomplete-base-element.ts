@@ -38,6 +38,19 @@ import style from './autocomplete-base-element.scss?inline';
  */
 const ariaRoleOnHost = isSafari;
 
+export class SbbInputAutocompleteEvent<T> extends Event {
+  private readonly _option: SbbOptionBaseElement<T>;
+
+  public get option(): SbbOptionBaseElement<T> {
+    return this._option;
+  }
+
+  public constructor(option: SbbOptionBaseElement<T>) {
+    super('inputAutocomplete', { bubbles: true, composed: true });
+    this._option = option;
+  }
+}
+
 /**
  * Base class for autocomplete components.
  *
@@ -377,11 +390,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       this._lastUserInput = null;
 
       // Custom input event emitted when input value changes after an option is selected
-      this.triggerElement.dispatchEvent(
-        new CustomEvent<{ option: SbbOptionBaseElement<T> }>('inputAutocomplete', {
-          detail: { option: selectedOption },
-        }),
-      );
+      this.triggerElement.dispatchEvent(new SbbInputAutocompleteEvent(selectedOption));
       if (!preventFocus) {
         this.triggerElement.focus();
       }
@@ -746,6 +755,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
 declare global {
   interface HTMLElementEventMap {
-    inputAutocomplete: CustomEvent<{ option: SbbOptionBaseElement<any> }>;
+    inputAutocomplete: SbbInputAutocompleteEvent<any>;
   }
 }

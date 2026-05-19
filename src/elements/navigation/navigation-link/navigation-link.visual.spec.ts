@@ -35,5 +35,15 @@ describe(`sbb-navigation-link`, () => {
         }
       });
     }
+
+    it(
+      `disabled=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-navigation-link href="#" disabled>Label</sbb-navigation-link>`,
+          { backgroundColor: 'var(--sbb-background-color-1-negative)', focusOutlineDark: true },
+        );
+      }),
+    );
   });
 });
