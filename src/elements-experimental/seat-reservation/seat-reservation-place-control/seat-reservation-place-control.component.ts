@@ -100,15 +100,6 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
         this.focus();
       }
     }
-
-    // if title was shown once, we cannot unset it completely, but this
-    // behavior should not happen very often as the title should
-    // not switch from on to off and on again
-    if (changedProperties.has('showTitleInfo')) {
-      if (!this.showTitleInfo) {
-        this.title = '';
-      }
-    }
   }
 
   protected override render(): TemplateResult {
@@ -134,7 +125,7 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
     } else {
       // Set aria-label screen reader info
       this.internals.ariaLabel = placeDescription;
-      this.title = '';
+      this.removeAttribute('title');
     }
 
     this.tabIndex = -1;
