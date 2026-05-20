@@ -202,7 +202,7 @@ If you want to directly show the error state without having had an interaction, 
 
 ### Visualization of `required` / optional state
 
-Generally, as an SBB standard, all form elements are considered required and optional inputs are marked with `(optional)` in the label.
+Generally, as an SBB standard, all form elements are considered required and optional inputs should be marked with `(optional)` in the label.
 
 | English  | German   | French     | Italian     |
 | -------- | -------- | ---------- | ----------- |
@@ -383,7 +383,6 @@ as the error takes precedence.
 | `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| null` |             | Returns the input element.                                                                                                                                            |
 | `label`         | -                | public  | `HTMLLabelElement \| null`                                     |             | Reference to the slotted label.                                                                                                                                       |
 | `negative`      | `negative`       | public  | `boolean`                                                      | `false`     | Negative coloring variant flag.                                                                                                                                       |
-| `optional`      | `optional`       | public  | `boolean`                                                      | `false`     | Indicates whether the input is optional.<br><strong>Deprecated</strong>: Set the (optional) label text manually. Will be removed with next major version.             |
 | `size`          | `size`           | public  | `'s' \| 'm' \| 'l' \| null`                                    | `null`      | Size variant, either s (lean theme default), m (standard theme default) or l.                                                                                         |
 | `width`         | `width`          | public  | `'default' \| 'collapse'`                                      | `'default'` | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. |
 

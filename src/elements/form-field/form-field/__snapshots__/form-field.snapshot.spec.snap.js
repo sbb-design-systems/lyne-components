@@ -262,18 +262,17 @@ snapshots["sbb-form-field should render select without label Shadow DOM"] =
 `;
 /* end snapshot sbb-form-field should render select without label Shadow DOM */
 
-snapshots["sbb-form-field renders select with optional flag and borderless DOM"] = 
+snapshots["sbb-form-field renders select borderless DOM"] = 
 `<sbb-form-field
   borderless=""
   error-space="none"
-  optional=""
   width="default"
 >
   <label
     for="sbb-form-field-input-6"
     slot="label"
   >
-    Select option:
+    Select option (optional)
   </label>
   <select id="sbb-form-field-input-6">
     <option>
@@ -288,9 +287,9 @@ snapshots["sbb-form-field renders select with optional flag and borderless DOM"]
   </select>
 </sbb-form-field>
 `;
-/* end snapshot sbb-form-field renders select with optional flag and borderless DOM */
+/* end snapshot sbb-form-field renders select borderless DOM */
 
-snapshots["sbb-form-field renders select with optional flag and borderless Shadow DOM"] = 
+snapshots["sbb-form-field renders select borderless Shadow DOM"] = 
 `<div class="sbb-form-field__space-wrapper">
   <div
     class="sbb-form-field__wrapper"
@@ -308,9 +307,6 @@ snapshots["sbb-form-field renders select with optional flag and borderless Shado
         <span class="sbb-form-field__label-ellipsis">
           <slot name="label">
           </slot>
-          <span aria-hidden="true">
-            (optional)
-          </span>
         </span>
       </span>
       <div class="sbb-form-field__input">
@@ -334,7 +330,7 @@ snapshots["sbb-form-field renders select with optional flag and borderless Shado
   </div>
 </div>
 `;
-/* end snapshot sbb-form-field renders select with optional flag and borderless Shadow DOM */
+/* end snapshot sbb-form-field renders select borderless Shadow DOM */
 
 snapshots["sbb-form-field A11y tree Chrome"] = 
 `<p>

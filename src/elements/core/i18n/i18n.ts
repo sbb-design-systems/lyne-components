@@ -395,13 +395,6 @@ export const i18nMeansOfTransport: Record<string, Record<string, string>> = {
   },
 };
 
-export const i18nOptional: Record<string, string> = {
-  de: '(optional)',
-  en: '(optional)',
-  fr: '(facultatif)',
-  it: '(facoltativo)',
-};
-
 export const i18nTargetOpensInNewWindow: Record<string, string> = {
   de: 'Linkziel öffnet in neuem Fenster.',
   en: 'Link target opens in a new window.',

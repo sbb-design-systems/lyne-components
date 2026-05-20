@@ -14,6 +14,13 @@ import '../link.ts';
 import '../popover.ts';
 import '../title.ts';
 
+const i18nOptional: Record<string, string> = {
+  de: '(optional)',
+  en: '(optional)',
+  fr: '(facultatif)',
+  it: '(facoltativo)',
+};
+
 const formField = (
   {
     'error-space': errorSpace,
@@ -33,7 +40,6 @@ const formField = (
   html`<sbb-form-field
     class=${hostClass || nothing}
     error-space=${errorSpace}
-    ?optional=${optional}
     size=${size || nothing}
     ?borderless=${borderless}
     width=${width}
@@ -42,7 +48,11 @@ const formField = (
     ?negative=${negative}
   >
     ${label && !slottedLabel
-      ? html`<label>${label}</label>`
+      ? html`<label
+          >${label}${optional
+            ? ` ${i18nOptional[document.documentElement.lang] ?? i18nOptional['en']}`
+            : ''}</label
+        >`
       : label && slottedLabel
         ? html`<span slot="label">${label}</span>`
         : nothing}
@@ -478,13 +488,13 @@ export const InputOptionalAndIcons: StoryObj = {
   args: { ...basicArgs, optional: true },
 };
 
-export const InputOptionalAndIconsNegative: StoryObj = {
+export const InputAndIconsNegative: StoryObj = {
   render: TemplateInputWithIcons,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, negative: true },
+  args: { ...basicArgs, negative: true },
 };
 
-export const InputOptionalAndIconsDisabled: StoryObj = {
+export const InputAndIconsDisabled: StoryObj = {
   render: TemplateInputWithIcons,
   argTypes: basicArgTypes,
   args: { ...basicArgs, disabled: true },
