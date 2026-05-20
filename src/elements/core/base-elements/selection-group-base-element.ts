@@ -1,11 +1,5 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import {
-  type CSSResultGroup,
-  html,
-  type PropertyValues,
-  type TemplateResult,
-  unsafeCSS,
-} from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbHorizontalFrom } from '../interfaces/types.ts';
@@ -63,21 +57,6 @@ export abstract class SbbSelectionGroupBaseElement<T extends SbbElement> extends
           this.toggleState('has-panel', !!this.querySelector?.(this.panelElementSelector)),
       }),
     );
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    // TODO: Use PropertyWatcherController in selection elements
-    if (changedProperties.has('disabled')) {
-      this.selectionElements.forEach((c) => c.requestUpdate?.('disabled'));
-    }
-    if (changedProperties.has('required')) {
-      this.selectionElements.forEach((c) => c.requestUpdate?.('required'));
-    }
-    if (changedProperties.has('size')) {
-      this.selectionElements.forEach((c) => c.requestUpdate?.('size'));
-    }
   }
 
   protected onSlotChange(): void {}
