@@ -1,6 +1,5 @@
 import { miniButtonStyle } from '@sbb-esta/lyne-elements/button.pure.js';
 import {
-  hostAttributes,
   isEventPrevented,
   SbbActionBaseElement,
   SbbDisabledMixin,
@@ -20,11 +19,7 @@ let autocompleteButtonNextId = 0;
  *
  * @slot icon - Slot used to display the icon, if one is set
  */
-export
-@hostAttributes({
-  tabindex: null,
-})
-class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
+export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbActionBaseElement)),
 ) {
   public static override readonly elementName: string = 'sbb-autocomplete-grid-button';
@@ -72,6 +67,7 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-autocomplete-grid-button-${++autocompleteButtonNextId}`;
+    this.removeAttribute('tabindex');
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

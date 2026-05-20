@@ -27,7 +27,6 @@ export * from './core/datetime/temporal-date-adapter.ts';
 export * from './core/decorators/force-type.ts';
 export * from './core/decorators/get-override.ts';
 export * from './core/decorators/handle-distinct-change.ts';
-export * from './core/decorators/host-attributes.ts';
 export * from './core/decorators/id-reference.ts';
 export * from './core/decorators/omit-empty-converter.ts';
 export * from './core/decorators/plain-date.ts';
