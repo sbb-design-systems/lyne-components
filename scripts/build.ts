@@ -506,7 +506,9 @@ function buildSassLibrary(pkg: PackageBuilder): void {
     .filter((f) => f.path.endsWith('.scss'))
     .filter(
       (f) =>
-        basename(f.path) === '_index.scss' || relative(pkg.root, f.path).startsWith('core/styles/'),
+        basename(f.path) === '_index.scss' ||
+        relative(pkg.root, f.path).startsWith('core/styles/') ||
+        f.path.includes('.global'),
     );
   for (const fileEntry of sassFiles) {
     const relativePath = relative(pkg.root, fileEntry.path);
