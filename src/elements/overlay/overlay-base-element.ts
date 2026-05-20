@@ -149,11 +149,8 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   }
 
   /** Closes the component. */
-  public close(result?: any): void;
-  /** @deprecated */
-  public close(result?: any, target?: HTMLElement): void;
-  public close(result?: any, target?: HTMLElement): void {
-    this._close(result, target);
+  public close(result?: any): void {
+    this._close(result, undefined);
   }
 
   private _close(result: any, target: HTMLElement | undefined): void {
