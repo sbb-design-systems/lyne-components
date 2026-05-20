@@ -15,7 +15,7 @@
   align-items: center;
   font-weight: normal;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     color: FieldText;
   }
 }
@@ -31,7 +31,7 @@
 :host(:empty)::after {
   content: attr(placeholder);
   @include sbb.placeholder;
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     color: GrayText;
   }
 }

@@ -8,8 +8,6 @@ import style from './title.scss?inline';
 
 /**
  * @slot - Use the unnamed slot for the content of the title.
- *
- * @cssprop [--sbb-title-margin-block] - Margin block of the title.
  */
 export class SbbTitleElement extends SbbNegativeMixin(SbbTitleBase) {
   public static override readonly elementName: string = 'sbb-title';

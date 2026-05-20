@@ -15,7 +15,7 @@
   line-height: var(--sbb-typo-line-height-text);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-error-color: LinkText !important;
   }
 }

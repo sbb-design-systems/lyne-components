@@ -11,6 +11,7 @@ import { property, state } from 'lit/decorators.js';
 
 import { SbbSecondaryButtonElement } from '../../button.pure.ts';
 import {
+  buttonResetStyles,
   type DateAdapter,
   DAYS_PER_ROW,
   defaultDateAdapter,
@@ -161,7 +162,11 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
     SbbIconElement,
     SbbSecondaryButtonElement,
   ];
-  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    buttonResetStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
   public static readonly events = {
     dateselected: 'dateselected',
     monthchange: 'monthchange',
@@ -213,7 +218,8 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
         .filter(
           (date: T) =>
             !this._isDayInRange(this._dateAdapter.toIso8601(date)) || this._dateFilter(date),
-        );
+        )
+        .sort(this._sortDate);
     } else {
       const selectedDate = this._dateAdapter.getValidDateOrNull(
         this._dateAdapter.deserialize(value),
@@ -308,13 +314,15 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   private _enhancedVariant: boolean = false;
 
   /** A list of calendar's cells corresponding to days, months or years depending on the view. */
-  private get _cells(): SbbCalendarCellBaseElement[] {
-    return Array.from<SbbCalendarCellBaseElement>(
+  private get _cells(): SbbCalendarCellBaseElement<T>[] {
+    return Array.from<SbbCalendarCellBaseElement<T>>(
       (this._calendarView === 'day'
         ? (Array.from(this.shadowRoot!.querySelectorAll('slot')).flatMap((e: HTMLSlotElement) =>
             e.assignedElements({ flatten: true }),
-          ) as SbbCalendarDayElement[])
-        : this.shadowRoot?.querySelectorAll(`sbb-calendar-${this._calendarView}`)) ?? [],
+          ) as SbbCalendarDayElement<T>[])
+        : this.shadowRoot?.querySelectorAll<SbbCalendarCellBaseElement<T>>(
+            `sbb-calendar-${this._calendarView}`,
+          )) ?? [],
     );
   }
 
@@ -329,6 +337,8 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
 
   /** Whether an element inside the calendar is currently focused. */
   private _containingFocus = false;
+
+  private _lastSelection: T | null = null;
 
   @state()
   private accessor _initialized = false;
@@ -351,21 +361,30 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
     // For shadow DOM compatibility we need to track this programmatically.
     this.addEventListener('focusin', () => (this._containingFocus = true));
     this.addEventListener('focusout', () => (this._containingFocus = false));
-    this.addEventListener('click', (e) => {
-      const day = (e.target as HTMLElement).closest<SbbCalendarDayElement<T>>('sbb-calendar-day');
+    const resolveDay = (event: PointerEvent | KeyboardEvent): SbbCalendarDayElement<T> | null =>
+      (event.target as HTMLElement).closest<SbbCalendarDayElement<T>>('sbb-calendar-day') ??
+      event
+        .composedPath()
+        .find(
+          (e): e is SbbCalendarDayElement<T> => (e as HTMLElement).localName === 'sbb-calendar-day',
+        ) ??
+      null;
+    this.addEventListener('click', (event) => {
+      const day = resolveDay(event);
       if (day) {
-        this._selectDate(day.value!);
+        this._selectDate(day.value!, event);
       }
     });
-    this.addEventListener('keydown', (e) => {
-      if ((e.target as HTMLElement).localName === 'sbb-calendar-day') {
-        this._handleKeyboardEvent(
-          e,
-          this._mapDateToDay((e.target as SbbCalendarDayElement).value! as T),
-        );
+    this.addEventListener('keydown', (event) => {
+      const day = resolveDay(event);
+      if (day) {
+        this._handleKeyboardEvent(event, day);
       }
     });
+    this.addEventListener('blur', () => (this._lastSelection = null));
   }
+
+  private readonly _sortDate = (a: T, b: T): number => this._dateAdapter.compareDate(a, b);
 
   private _dateFilter(date: T): boolean {
     return this.dateFilter?.(date) ?? true;
@@ -634,7 +653,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   }
 
   /** Force the conversion to ISO8601 formatted string. */
-  private _mapValueToISODate(value: string | Date): string {
+  private _mapValueToISODate(value: string | T): string {
     return typeof value === 'string' ? value : this._dateAdapter.toIso8601(value as T);
   }
 
@@ -702,32 +721,52 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   }
 
   /** Emits the selected date and sets it internally. */
-  private _selectDate(day: T): void {
+  private _selectDate(day: T, event: PointerEvent): void {
     this._chosenMonth = undefined;
     this._setChosenYear();
     if (this.multiple) {
-      // Check if _selected has elements
-      if (this._selected && (this._selected as T[]).length > 0) {
-        const indexOfSelectedDay: number = (this._selected as T[]).findIndex(
-          (sel) => this._dateAdapter.compareDate(sel, day) === 0,
-        );
-        // If the selected date is already in the _selected array, remove it, otherwise add it
-        if (indexOfSelectedDay !== -1) {
-          this._selected = (this._selected as T[]).filter((_, i) => i !== indexOfSelectedDay);
-        } else {
-          this._selected = [...(this._selected as T[]), day];
+      // If a range is selected via Shift, a text selection range will be active.
+      // We need to remove it to avoid having a text selection on top of the calendar cells,
+      // which would create a confusing UX.
+      // This also must be very early in the event handler, otherwise there will be a flash
+      // of selection.
+      window.getSelection()?.removeAllRanges();
+      let selected = !this._selected
+        ? []
+        : Array.isArray(this._selected)
+          ? this._selected
+          : [this._selected];
+      const serializedSelected = selected.map((s) => this._dateAdapter.toIso8601(s));
+      if (
+        event.shiftKey &&
+        this._lastSelection &&
+        serializedSelected.includes(this._dateAdapter.toIso8601(this._lastSelection)) &&
+        !serializedSelected.includes(this._dateAdapter.toIso8601(day))
+      ) {
+        const offset = this._dateAdapter.compareDate(this._lastSelection, day) < 0 ? 1 : -1;
+        const range: string[] = [];
+        let current = this._lastSelection;
+        while (!this._dateAdapter.sameDate(current, day)) {
+          current = this._dateAdapter.addCalendarDays(current, offset)!;
+          const serializedCurrent = this._dateAdapter.toIso8601(current);
+          if (!serializedSelected.includes(serializedCurrent)) {
+            range.push(serializedCurrent);
+          }
         }
+        selected = this._mergeDates(range, serializedSelected);
+      } else if (selected.some((sel) => this._dateAdapter.sameDate(sel, day))) {
+        selected = selected.filter((sel) => !this._dateAdapter.sameDate(sel, day));
       } else {
-        // If _selected is empty, set it
-        this._selected = [day];
+        selected = [...selected, day].sort(this._sortDate);
       }
+
+      this._lastSelection = day;
+      this._selected = selected;
       this._emitDateSelectedEvent(this._selected.map((e) => this._dateAdapter.deserialize(e)!));
-    } else {
+    } else if (!this._selected || this._dateAdapter.compareDate(this._selected as T, day) !== 0) {
       // In single selection, check if the day is already selected
-      if (!this._selected || this._dateAdapter.compareDate(this._selected as T, day) !== 0) {
-        this._selected = day;
-        this._emitDateSelectedEvent(this._dateAdapter.deserialize(day)!);
-      }
+      this._selected = day;
+      this._emitDateSelectedEvent(this._dateAdapter.deserialize(day)!);
     }
   }
 
@@ -739,20 +778,29 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
    *     - if not, the selected dates are the new ones.
    */
   private _selectMultipleDates(days: Day<T>[]): void {
-    // Filter disabled days by matching the provided `days` parameter against the enabled cells.
+    this._selected = this._mergeDates(days.map((e) => e.value));
+    this._emitDateSelectedEvent(this._selected.map((e) => this._dateAdapter.deserialize(e)!));
+  }
+
+  private _mergeDates(dates: string[], selected?: string[]): T[] {
+    selected ??= (this._selected as T[]).map((s) => this._dateAdapter.toIso8601(s));
+    // Filter disabled days by matching the provided `dates` parameter against the enabled cells.
     // Since the buttons' value is set to the Day's interface value (ISO string), there's no need to deserialize it.
-    const enabledDays: string[] = (this._cells as SbbCalendarDayElement[])
+    const enabledDays: string[] = (this._cells as SbbCalendarDayElement<T>[])
       .filter((e) => !e.disabled)
       .map((e) => this._mapValueToISODate(e.value!));
-    const daysToAdd: string[] = days
-      .map((e: Day<T>) => e.value)
-      .filter((isoDate: string) => enabledDays.includes(isoDate));
-    const daysToAddSet = new Set(daysToAdd);
-    const selectedSet = new Set((this._selected as T[]).map((s) => this._dateAdapter.toIso8601(s)));
-    const selStrings = this._updateSelectedWithMultipleDates(daysToAdd, daysToAddSet, selectedSet);
-    this._selected = selStrings.map((s) => this._dateAdapter.deserialize(s)!);
+    const daysToAdd: string[] = dates.filter((isoDate) => enabledDays.includes(isoDate));
 
-    this._emitDateSelectedEvent(this._selected.map((e) => this._dateAdapter.deserialize(e)!));
+    // In case of multiple selection, newly added days must be added to the
+    // existing ones, without duplication.
+    // If the days to add are exactly the same as the selected ones, the set
+    // must be emptied.
+    if (daysToAdd.every((day: string) => selected!.includes(day))) {
+      selected = selected.filter((day: string) => !daysToAdd.includes(day));
+    } else {
+      selected = [...selected, ...daysToAdd].filter((v, i, a) => a.indexOf(v) === i);
+    }
+    return selected.map((s) => this._dateAdapter.deserialize(s)!).sort(this._sortDate);
   }
 
   /**
@@ -779,23 +827,6 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
      * The `range` property contains the days array of the chosen month.
      */
     this.dispatchEvent(new SbbMonthChangeEvent(monthchange));
-  }
-
-  /**
-   * In case of multiple selection, newly added days must be added to the existing ones, without duplication.
-   * If the days to add are exactly the same as the selected ones, the set must be emptied.
-   */
-  private _updateSelectedWithMultipleDates(
-    daysToAdd: string[],
-    daysToAddSet: Set<string>,
-    selectedSet: Set<string>,
-  ): string[] {
-    if (daysToAdd.every((day: string) => selectedSet.has(day))) {
-      daysToAddSet.forEach((day: string) => selectedSet.delete(day));
-    } else {
-      daysToAddSet.forEach((day: string) => selectedSet.add(day));
-    }
-    return Array.from(selectedSet);
   }
 
   private _setChosenYear(): void {
@@ -931,7 +962,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   }
 
   /** Get the element in the calendar to assign focus. */
-  private _getFirstFocusable(): SbbCalendarCellBaseElement | null {
+  private _getFirstFocusable(): SbbCalendarCellBaseElement<T> | null {
     if (this._calendarView === 'day') {
       const selectedOrCurrent =
         this._cells.find((e) => e.matches(':state(selected)')) ??
@@ -941,11 +972,11 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
         : this._getFirstFocusableDay();
     } else {
       const selectedOrCurrent =
-        this.shadowRoot?.querySelector<SbbCalendarCellBaseElement>(':state(selected)') ??
-        this.shadowRoot?.querySelector<SbbCalendarCellBaseElement>(':state(current)');
+        this.shadowRoot?.querySelector<SbbCalendarCellBaseElement<T>>(':state(selected)') ??
+        this.shadowRoot?.querySelector<SbbCalendarCellBaseElement<T>>(':state(current)');
       return selectedOrCurrent && !selectedOrCurrent.disabled
         ? selectedOrCurrent
-        : this.shadowRoot!.querySelector<SbbCalendarCellBaseElement>(
+        : this.shadowRoot!.querySelector<SbbCalendarCellBaseElement<T>>(
             `sbb-calendar-${this._calendarView}:not([disabled])`,
           );
     }
@@ -958,8 +989,8 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
    *
    * To solve this, the element with the lowest `value` is taken (ISO String are ordered).
    */
-  private _getFirstFocusableDay(): SbbCalendarDayElement | null {
-    const cells = this._cells as SbbCalendarDayElement[];
+  private _getFirstFocusableDay(): SbbCalendarDayElement<T> | null {
+    const cells = this._cells as SbbCalendarDayElement<T>[];
     const daysInView = cells.filter((e) => !e.disabled);
     if (!daysInView || daysInView.length === 0) {
       return null;
@@ -971,23 +1002,28 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
     }
   }
 
-  private _handleKeyboardEvent(event: KeyboardEvent, day?: Day<T>): void {
+  private _handleKeyboardEvent(event: KeyboardEvent, day?: SbbCalendarDayElement<T>): void {
     if (isArrowKeyOrPageKeysPressed(event)) {
       event.preventDefault();
     }
     // Gets the currently rendered table's cell;
     // they could be days, months or years based on the current selection view.
-    // If `wide` is true, years are doubled in number and days are (roughly) doubled too, affecting the `index` calculation.
+    const origin = day ?? (event.target as SbbCalendarDayElement<T>);
     const cells = this._cells;
-    const index: number = cells.findIndex((e) => e === event.target);
-    let nextEl: SbbCalendarCellBaseElement;
+    const index: number = cells.indexOf(origin);
+    let nextEl: SbbCalendarCellBaseElement<T>;
     if (day) {
-      nextEl = this._navigateByKeyboardDayView(event, index, cells as SbbCalendarDayElement[], day);
+      nextEl = this._navigateByKeyboardDayView(
+        event,
+        index,
+        cells as SbbCalendarDayElement<T>[],
+        this._mapDateToDay(day.value! as T),
+      );
     } else {
       nextEl = this._navigateByKeyboard(event, index, cells);
     }
     const activeEl = (this._enhancedVariant ? document : this.shadowRoot!)
-      .activeElement as SbbCalendarCellBaseElement;
+      .activeElement as SbbCalendarCellBaseElement<T>;
     if (nextEl !== activeEl) {
       nextEl.tabIndex = 0;
       nextEl?.focus();
@@ -998,9 +1034,9 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   private _navigateByKeyboardDayView(
     evt: KeyboardEvent,
     index: number,
-    cells: SbbCalendarDayElement[],
+    cells: SbbCalendarDayElement<T>[],
     day: Day<T>,
-  ): SbbCalendarDayElement {
+  ): SbbCalendarDayElement<T> {
     const arrowsOffset =
       this.orientation === 'horizontal'
         ? { leftRight: 1, upDown: DAYS_PER_ROW }
@@ -1071,11 +1107,11 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   }
 
   private _findDayArrows(
-    cells: SbbCalendarDayElement[],
+    cells: SbbCalendarDayElement<T>[],
     index: number,
     date: T,
     delta: number,
-  ): SbbCalendarDayElement {
+  ): SbbCalendarDayElement<T> {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.addCalendarDays(date, delta),
     );
@@ -1090,12 +1126,12 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   }
 
   private _findDayPageUpDown(
-    cells: SbbCalendarDayElement[],
+    cells: SbbCalendarDayElement<T>[],
     index: number,
     day: Day<T>,
     delta: number,
     deltaIfDisabled: number,
-  ): SbbCalendarDayElement {
+  ): SbbCalendarDayElement<T> {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.addCalendarDays(day.dateValue, delta),
     );
@@ -1110,11 +1146,11 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   }
 
   private _findDayFirst(
-    cells: SbbCalendarDayElement[],
+    cells: SbbCalendarDayElement<T>[],
     index: number,
     day: Day<T>,
     date: number,
-  ): SbbCalendarDayElement {
+  ): SbbCalendarDayElement<T> {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.createDate(+day.yearValue, +day.monthValue, date),
     );
@@ -1129,10 +1165,10 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   }
 
   private _findDayLast(
-    cells: SbbCalendarDayElement[],
+    cells: SbbCalendarDayElement<T>[],
     index: number,
     firstNextMonth: T,
-  ): SbbCalendarDayElement {
+  ): SbbCalendarDayElement<T> {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.addCalendarDays(firstNextMonth, -1),
     );
@@ -1155,8 +1191,8 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   private _navigateByKeyboard(
     evt: KeyboardEvent,
     index: number,
-    cells: SbbCalendarCellBaseElement[],
-  ): SbbCalendarCellBaseElement {
+    cells: SbbCalendarCellBaseElement<T>[],
+  ): SbbCalendarCellBaseElement<T> {
     const {
       elementIndexForWideMode,
       offsetForWideMode,
@@ -1217,10 +1253,10 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
    * If the found element is disabled, it continues adding `delta` until it finds an enabled one in the array bounds.
    */
   private _findNext(
-    days: SbbCalendarCellBaseElement[],
+    days: SbbCalendarCellBaseElement<T>[],
     index: number,
     delta: number,
-  ): SbbCalendarCellBaseElement {
+  ): SbbCalendarCellBaseElement<T> {
     let nextIndex = index + delta;
     while (nextIndex < days.length && days[nextIndex]?.disabled) {
       nextIndex += delta;
@@ -1230,9 +1266,9 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
 
   /** Find the first enabled element in the provided array. */
   private _findFirst(
-    days: SbbCalendarCellBaseElement[],
+    days: SbbCalendarCellBaseElement<T>[],
     firstOfCurrentMonth: number,
-  ): SbbCalendarCellBaseElement {
+  ): SbbCalendarCellBaseElement<T> {
     return !days[firstOfCurrentMonth].disabled
       ? days[firstOfCurrentMonth]
       : this._findNext(days, firstOfCurrentMonth, 1);
@@ -1240,9 +1276,9 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
 
   /** Find the last enabled element in the provided array. */
   private _findLast(
-    days: SbbCalendarCellBaseElement[],
+    days: SbbCalendarCellBaseElement<T>[],
     lastOfCurrentMonth: number,
-  ): SbbCalendarCellBaseElement {
+  ): SbbCalendarCellBaseElement<T> {
     return !days[lastOfCurrentMonth].disabled
       ? days[lastOfCurrentMonth]
       : this._findNext(days, lastOfCurrentMonth, -1);
@@ -1250,11 +1286,11 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
 
   /** Find the first enabled element in the same column of the provided array. */
   private _findFirstOnColumn(
-    days: SbbCalendarCellBaseElement[],
+    days: SbbCalendarCellBaseElement<T>[],
     index: number,
     offset: number,
     verticalOffset: number,
-  ): SbbCalendarCellBaseElement {
+  ): SbbCalendarCellBaseElement<T> {
     const nextIndex = (index % verticalOffset) + offset;
     return !days[nextIndex].disabled
       ? days[nextIndex]
@@ -1263,11 +1299,11 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
 
   /** Find the last enabled element in the same column of the provided array. */
   private _findLastOnColumn(
-    days: SbbCalendarCellBaseElement[],
+    days: SbbCalendarCellBaseElement<T>[],
     index: number,
     offset: number,
     verticalOffset: number,
-  ): SbbCalendarCellBaseElement {
+  ): SbbCalendarCellBaseElement<T> {
     const nextIndex = index + Math.trunc((offset - index - 1) / verticalOffset) * verticalOffset;
     return !days[nextIndex].disabled
       ? days[nextIndex]
@@ -1606,11 +1642,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
       return html`
         <td class="sbb-calendar__table-data sbb-calendar__day-cell">
           <slot name=${day.value}>
-            <sbb-calendar-day
-              slot=${day.value}
-              @click=${() => this._selectDate(day.dateValue)}
-              @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, day)}
-            ></sbb-calendar-day>
+            <sbb-calendar-day slot=${day.value}></sbb-calendar-day>
           </slot>
         </td>
       `;
@@ -1646,7 +1678,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
 
   /** Creates the label with the year for the monthly view. */
   private _createLabelForMonthView(): TemplateResult {
-    return html` <button
+    return html`<button
         type="button"
         id="sbb-calendar__month-selection"
         class="sbb-calendar__controls-change-date"

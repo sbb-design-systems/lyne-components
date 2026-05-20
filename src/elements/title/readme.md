@@ -41,12 +41,6 @@ With the `lean` theme, the title is given smaller sizes and spacings.
 | `negative`    | `negative`     | public  | `boolean`                                        | `false` | Negative coloring variant flag.                                                    |
 | `visualLevel` | `visual-level` | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6' \| null` | `null`  | Visual level for the title. Optional, if not set, the value of level will be used. |
 
-#### CSS Properties
-
-| Name                       | Default | Description                |
-| -------------------------- | ------- | -------------------------- |
-| `--sbb-title-margin-block` |         | Margin block of the title. |
-
 #### Slots
 
 | Name | Description                                        |

@@ -1,5 +1,6 @@
 import { SbbSecondaryButtonElement } from '@sbb-esta/lyne-elements/button.pure.js';
 import {
+  listResetStyles,
   type SbbElementType,
   SbbLanguageController,
   screenReaderOnlyStyles,
@@ -51,6 +52,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     SbbSeatReservationScopedElement,
   ];
   public static override styles: CSSResultGroup = [
+    listResetStyles,
     scrollbarStyles,
     screenReaderOnlyStyles,
     unsafeCSS(style),

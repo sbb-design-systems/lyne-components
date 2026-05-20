@@ -60,8 +60,8 @@
 
 .sbb-option__label--highlight {
   :host(:not(:state(disabled))) & {
-    @include sbb.text--bold;
-    @include sbb.if-forced-colors {
+    font-weight: bold;
+    @media (forced-colors: active) {
       color: Highlight;
     }
   }

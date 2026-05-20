@@ -105,10 +105,14 @@ snapshots["sbb-expansion-panel renders with level set DOM"] =
 /* end snapshot sbb-expansion-panel renders with level set DOM */
 
 snapshots["sbb-expansion-panel renders with level set Shadow DOM"] = 
-`<h4 class="sbb-expansion-panel__header">
+`<div
+  aria-level="4"
+  class="sbb-expansion-panel__header"
+  role="heading"
+>
   <slot name="header">
   </slot>
-</h4>
+</div>
 <div class="sbb-expansion-panel__content-wrapper">
   <span class="sbb-expansion-panel__content">
     <slot name="content">

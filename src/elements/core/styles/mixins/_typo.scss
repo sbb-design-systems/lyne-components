@@ -1,0 +1,185 @@
+// ----------------------------------------------------------------------------------------------------
+// Typo: Title Style Mixins
+// ----------------------------------------------------------------------------------------------------
+
+@mixin title-rules {
+  font-family: var(--sbb-typo-font-family);
+  font-weight: bold;
+  letter-spacing: var(--sbb-typo-letter-spacing-heading);
+  line-height: var(--sbb-typo-line-height-heading);
+}
+
+@mixin title--level-1 {
+  font-size: var(--sbb-heading-font-size-1);
+}
+
+@mixin title--level-1-spacing {
+  margin-block: var(--sbb-heading-margin-block-1);
+}
+
+@mixin title--level-2 {
+  font-size: var(--sbb-heading-font-size-2);
+}
+
+@mixin title--level-2-spacing {
+  margin-block: var(--sbb-heading-margin-block-2);
+}
+
+@mixin title--level-3 {
+  font-size: var(--sbb-heading-font-size-3);
+}
+
+@mixin title--level-3-spacing {
+  margin-block: var(--sbb-heading-margin-block-3);
+}
+
+@mixin title--level-4 {
+  font-size: var(--sbb-heading-font-size-4);
+}
+
+@mixin title--level-4-spacing {
+  margin-block: var(--sbb-heading-margin-block-4);
+}
+
+@mixin title--level-5 {
+  font-size: var(--sbb-heading-font-size-5);
+}
+
+@mixin title--level-5-spacing {
+  margin-block: var(--sbb-heading-margin-block-5);
+}
+
+@mixin title--level-6 {
+  font-size: var(--sbb-heading-font-size-6);
+  line-height: var(--sbb-typo-line-height-text);
+}
+
+@mixin title--level-6-spacing {
+  margin-block: var(--sbb-heading-margin-block-6);
+}
+
+@mixin title-1($exclude-spacing: false) {
+  @include title--level-1;
+  @if not($exclude-spacing) {
+    @include title--level-1-spacing;
+  }
+  @include title-rules;
+}
+
+@mixin title-2($exclude-spacing: false) {
+  @include title--level-2;
+  @if not($exclude-spacing) {
+    @include title--level-2-spacing;
+  }
+  @include title-rules;
+}
+
+@mixin title-3($exclude-spacing: false) {
+  @include title--level-3;
+  @if not($exclude-spacing) {
+    @include title--level-3-spacing;
+  }
+  @include title-rules;
+}
+
+@mixin title-4($exclude-spacing: false) {
+  @include title--level-4;
+  @if not($exclude-spacing) {
+    @include title--level-4-spacing;
+  }
+  @include title-rules;
+}
+
+@mixin title-5($exclude-spacing: false) {
+  @include title--level-5;
+  @if not($exclude-spacing) {
+    @include title--level-5-spacing;
+  }
+  @include title-rules;
+}
+
+@mixin title-6($exclude-spacing: false) {
+  @include title--level-6;
+  @if not($exclude-spacing) {
+    @include title--level-6-spacing;
+  }
+  @include title-rules;
+}
+
+@mixin title--negative {
+  --sbb-title-color: var(--sbb-color-3-negative);
+}
+
+// ----------------------------------------------------------------------------------------------------
+// Typo: Text Style Mixins
+// ----------------------------------------------------------------------------------------------------
+@mixin text {
+  font-family: var(--sbb-typo-font-family);
+  font-weight: normal;
+  line-height: var(--sbb-typo-line-height-text);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  font-size: var(--sbb-text-font-size);
+}
+
+@mixin text-xl {
+  --sbb-text-font-size: var(--sbb-text-font-size-xl);
+  @include text;
+}
+
+@mixin text-l {
+  --sbb-text-font-size: var(--sbb-text-font-size-l);
+  @include text;
+}
+
+@mixin text-m {
+  --sbb-text-font-size: var(--sbb-text-font-size-m);
+  @include text;
+}
+
+@mixin text-s {
+  --sbb-text-font-size: var(--sbb-text-font-size-s);
+  @include text;
+}
+
+@mixin text-xs {
+  --sbb-text-font-size: var(--sbb-text-font-size-xs);
+  @include text;
+}
+
+@mixin text-xxs {
+  --sbb-text-font-size: var(--sbb-text-font-size-xxs);
+  @include text;
+}
+
+@mixin placeholder {
+  color: var(--sbb-color-5);
+  -webkit-text-fill-color: var(--sbb-color-5);
+  opacity: 1;
+}
+
+@mixin legend {
+  line-height: var(--sbb-typo-line-height-text);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  font-size: var(--sbb-text-font-size-xs);
+  padding: 0;
+  color: light-dark(var(--sbb-color-granite), var(--sbb-color-cement));
+}
+
+%sub-sup {
+  font-size: 60%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+@mixin sub {
+  @extend %sub-sup;
+
+  bottom: -0.36em;
+}
+
+@mixin sup {
+  @extend %sub-sup;
+
+  top: -0.5em;
+}

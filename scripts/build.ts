@@ -212,7 +212,7 @@ const buildMap: Record<string, () => Builder> = {
     new PackageBuilder(elementsProduction, [
       buildLibrary,
       buildRootIndex,
-      buildElementsStyles,
+      buildStyles,
       buildSassLibrary,
       buildCustomElementsManifest,
       copyReadme,
@@ -225,7 +225,7 @@ const buildMap: Record<string, () => Builder> = {
     new PackageBuilder(elementsExperimentalProduction, [
       buildLibrary,
       buildRootIndex,
-      buildStylesExperimental,
+      buildStyles,
       buildSassLibrary,
       buildCustomElementsManifest,
       copyReadme,
@@ -485,52 +485,12 @@ function buildRootIndex(pkg: PackageBuilder): void {
   console.log(`=> Generated index files in ${relative(projectRoot, pkg.outDir)}`);
 }
 
-interface StyleSheet {
-  inputName: string;
-  outputName: string;
-}
-function buildElementsStyles(pkg: PackageBuilder): void {
-  const sheets = [
-    { inputName: 'core/styles/a11y.scss', outputName: 'a11y.css' },
-    { inputName: 'core/styles/animation.scss', outputName: 'animation.css' },
-    { inputName: 'core/styles/badge.scss', outputName: 'badge.css' },
-    { inputName: 'core/styles/core.scss', outputName: 'core.css' },
-    { inputName: 'core/styles/disable-animation.scss', outputName: 'disable-animation.css' },
-    {
-      inputName: 'core/styles/font-characters-extension.scss',
-      outputName: 'font-characters-extension.css',
-    },
-    { inputName: 'core/styles/layout.scss', outputName: 'layout.css' },
-    { inputName: 'core/styles/lean-off-brand-theme.scss', outputName: 'lean-off-brand-theme.css' },
-    { inputName: 'core/styles/lean-safety-theme.scss', outputName: 'lean-safety-theme.css' },
-    { inputName: 'core/styles/lean-theme.scss', outputName: 'lean-theme.css' },
-    { inputName: 'core/styles/lists.scss', outputName: 'lists.css' },
-    { inputName: 'core/styles/normalize.scss', outputName: 'normalize.css' },
-    { inputName: 'core/styles/off-brand-theme.scss', outputName: 'off-brand-theme.css' },
-    { inputName: 'core/styles/safety-theme.scss', outputName: 'safety-theme.css' },
-    { inputName: 'core/styles/scrollbar.scss', outputName: 'scrollbar.css' },
-    { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
-    { inputName: 'core/styles/timetable-form.scss', outputName: 'timetable-form.css' },
-    { inputName: 'core/styles/typography.scss', outputName: 'typography.css' },
-    { inputName: 'table/table.global.scss', outputName: 'table.css' },
-  ];
-  buildStyles(pkg, sheets);
-}
+function buildStyles(pkg: PackageBuilder): void {
+  const sheets = globSync('core/styles/*.scss', { cwd: pkg.root })
+    .filter((f) => !basename(f).startsWith('_'))
+    .sort()
+    .map((f) => ({ inputName: f, outputName: basename(f, '.scss') + '.css' }));
 
-function buildStylesExperimental(pkg: PackageBuilder): void {
-  const sheets = [
-    { inputName: 'core/styles/core.scss', outputName: 'core.css' },
-    { inputName: 'core/styles/lean-off-brand-theme.scss', outputName: 'lean-off-brand-theme.css' },
-    { inputName: 'core/styles/lean-safety-theme.scss', outputName: 'lean-safety-theme.css' },
-    { inputName: 'core/styles/lean-theme.scss', outputName: 'lean-theme.css' },
-    { inputName: 'core/styles/off-brand-theme.scss', outputName: 'off-brand-theme.css' },
-    { inputName: 'core/styles/safety-theme.scss', outputName: 'safety-theme.css' },
-    { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
-  ];
-  buildStyles(pkg, sheets);
-}
-
-function buildStyles(pkg: PackageBuilder, sheets: StyleSheet[]): void {
   for (const entry of sheets) {
     const compiled = sass.compile(join(pkg.root, entry.inputName), {
       loadPaths: [projectRoot, join(projectRoot, '/node_modules/')],

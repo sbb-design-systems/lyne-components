@@ -41,7 +41,7 @@
     ) -50%;
   --_sbb-toggle-check-icon-opacity: 1;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-toggle-check-icon-color: Highlight;
     --sbb-toggle-check-background-color: Highlight;
   }
@@ -55,7 +55,7 @@
   --sbb-toggle-check-icon-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
   --sbb-toggle-check-cursor: var(--sbb-cursor-default);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-toggle-check-icon-color: GrayText;
     --sbb-toggle-check-background-color: GrayText;
     --sbb-toggle-check-circle-border-style: solid;

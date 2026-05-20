@@ -80,7 +80,7 @@
     box-shadow: var(--sbb-header-box-shadow);
   }
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     border-block-end: var(--sbb-border-width-1x) solid CanvasText;
   }
 }

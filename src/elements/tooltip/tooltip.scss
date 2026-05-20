@@ -14,7 +14,6 @@
   position-try-fallbacks: var(--sbb-overlay-position-try-fallbacks);
   display: none;
   position: fixed;
-  background-color: transparent;
   pointer-events: var(--sbb-tooltip-pointer-events, all);
   z-index: var(--sbb-tooltip-z-index, var(--sbb-overlay-default-z-index));
   animation-name: var(--sbb-tooltip-animation-name);
@@ -23,12 +22,6 @@
   font-size: var(--sbb-tooltip-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
   line-height: var(--sbb-typo-line-height-text);
-
-  // Reset [popover] styles
-  border: none;
-  inset: initial;
-  padding: 0;
-  margin: 0;
 }
 
 :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {

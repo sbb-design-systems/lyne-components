@@ -18,8 +18,7 @@ $theme: 'standard' !default;
     --sbb-image-object-fit: cover;
     --sbb-image-aspect-ratio: 4 / 3;
 
-    transition-property: filter, scale;
-    will-change: filter, scale;
+    // The transition of the scale is done by the global rules in core.scss
     scale: var(--sbb-teaser-scale, 1);
   }
 }

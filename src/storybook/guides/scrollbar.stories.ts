@@ -3,7 +3,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import '../../elements/core/styles/scrollbar.private.scss';
+import '../../elements/core/styles/features/scrollbar.private.scss';
 
 const text: string = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
   ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.

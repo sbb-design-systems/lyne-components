@@ -3,6 +3,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
 import '../button.ts';
+import '../date-input.ts';
 import '../datepicker.ts';
 import '../divider.ts';
 import '../form-field.ts';

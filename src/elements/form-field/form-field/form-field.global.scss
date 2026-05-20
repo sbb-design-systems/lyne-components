@@ -145,7 +145,7 @@ $theme: 'standard' !default;
       color: transparent !important;
       -webkit-text-fill-color: transparent !important;
 
-      @include sbb.if-forced-colors {
+      @media (forced-colors: active) {
         color: Canvas !important;
         -webkit-text-fill-color: Canvas !important;
       }
@@ -226,7 +226,7 @@ $theme: 'standard' !default;
         --sbb-form-field-text-color: var(--sbb-color-red85);
       }
 
-      @include sbb.if-forced-colors {
+      @media (forced-colors: active) {
         --sbb-form-field-border-color: LinkText !important;
         --sbb-form-field-text-color: LinkText !important;
       }
@@ -260,7 +260,7 @@ $theme: 'standard' !default;
     :root.sbb-form-field-required-highlight
       &:has(:where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input)[required]),
     &.sbb-form-field-required-highlight {
-      @include sbb.if-forced-colors {
+      @media (forced-colors: active) {
         label::after {
           content: ' *';
           color: Highlight;

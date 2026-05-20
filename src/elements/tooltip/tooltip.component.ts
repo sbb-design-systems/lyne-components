@@ -15,6 +15,7 @@ import {
   isAndroid,
   isIOS,
   isZeroAnimationDuration,
+  popoverResetStyles,
   queueDomContentLoaded,
   readConfig,
   removeAriaElements,
@@ -57,7 +58,7 @@ const tooltipTriggers = new WeakMap<HTMLElement, SbbTooltipElement>();
 export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-tooltip';
   public static override readonly role = 'tooltip';
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [popoverResetStyles, unsafeCSS(style)];
 
   private static _tooltipOutlet: Element;
 
