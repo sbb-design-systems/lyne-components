@@ -5,9 +5,11 @@ import { html } from 'lit/static-html.js';
 import { elementInternalsSpy } from '../../../elements/core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../../elements/core/testing.ts';
 import { getI18nSeatReservation } from '../common/translations.ts';
-import type { PlaceSelection } from '../common/types.ts';
 
-import { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.component.ts';
+import {
+  type SbbPlaceSelectionEvent,
+  SbbSeatReservationPlaceControlElement,
+} from './seat-reservation-place-control.component.ts';
 
 import '../../seat-reservation.ts';
 
@@ -66,7 +68,7 @@ describe('sbb-seat-reservation-place-control', () => {
 
     await waitForLitRender(element);
 
-    const selectPlaceSpy = new EventSpy<CustomEvent<PlaceSelection>>('selectplace', element);
+    const selectPlaceSpy = new EventSpy<SbbPlaceSelectionEvent>('selectplace', element);
 
     element.click();
     await element.updateComplete;

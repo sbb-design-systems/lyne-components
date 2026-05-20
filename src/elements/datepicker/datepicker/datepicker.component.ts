@@ -9,6 +9,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import type { SbbDateSelectedEvent } from '../../calendar.pure.ts';
 import { SbbCalendarElement } from '../../calendar.pure.ts';
 import {
   type DateAdapter,
@@ -29,7 +30,7 @@ import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker
 /**
  * A datepicker component that allows users to select a date from a calendar view.
  *
- * @event {CustomEvent<T>} dateselected - Event emitted on date selection.
+ * @event {SbbDateSelectedEvent<T>} dateselected - Event emitted on date selection.
  * @event {Event} change - The change event is fired on the datepicker's input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
  * @event {InputEvent} input - The input event fires  on the datepicker's input when the value has been changed as a direct result of a user action.
  */
@@ -151,9 +152,9 @@ export class SbbDatepickerElement<T = Date>
         .dateFilter=${this.input?.dateFilter ?? null}
         .selected=${this.input?.valueAsDate ?? null}
         ?wide=${this.wide}
-        @dateselected=${(d: CustomEvent<T>) => {
+        @dateselected=${(d: SbbDateSelectedEvent<T>) => {
           if (this.input) {
-            this.input.valueAsDate = d.detail;
+            this.input.valueAsDate = d.dateSelected as T;
             this.input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
             this.input.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
             // Emit blur event when value is changed programmatically to notify

@@ -15,7 +15,7 @@ import {
 import type { SbbCompactPaginatorElement } from '../../paginator.pure.ts';
 import type {
   SbbCarouselItemElement,
-  SbbCarouselItemEventDetail,
+  SbbCarouselItemShowEvent,
 } from '../carousel-item/carousel-item.component.ts';
 import type { SbbCarouselListElement } from '../carousel-list/carousel-list.component.ts';
 
@@ -46,18 +46,18 @@ export class SbbCarouselElement extends SbbElement {
     super();
 
     // If the list is scrolled using mouse/keyboard, it keeps the paginator updated.
-    this.addEventListener?.('show', (e: CustomEvent<SbbCarouselItemEventDetail>) => {
+    this.addEventListener?.('show', (e: SbbCarouselItemShowEvent) => {
       // We have to give priority to the paginator for the case,
       // if during an animation the next page is called from the paginator, the paginator is reset.
       if (
         this._requestedPageIndexByPaginator !== -1 &&
-        this._requestedPageIndexByPaginator !== e.detail.index
+        this._requestedPageIndexByPaginator !== e.index
       ) {
         return;
       }
       if (this._paginator) {
-        if (e.detail.index !== this._paginator.pageIndex) {
-          this._paginator.pageIndex = e.detail.index;
+        if (e.index !== this._paginator.pageIndex) {
+          this._paginator.pageIndex = e.index;
         }
       }
       this._requestedPageIndexByPaginator = -1;

@@ -34,29 +34,42 @@ const breakpointMap: Record<string, string> = {
 };
 
 export class SbbStepChangeEvent extends Event {
+  private readonly _selectedIndex: number | null;
+  private readonly _previousIndex: number | null;
+  private readonly _selectedStep: SbbStepElement | null;
+  private readonly _previousStep: SbbStepElement | null;
+
   /** The index of the newly selected step. */
-  public readonly selectedIndex: number | null;
+  public get selectedIndex(): number | null {
+    return this._selectedIndex;
+  }
 
   /** The index of the previously selected step. */
-  public readonly previousIndex: number | null;
+  public get previousIndex(): number | null {
+    return this._previousIndex;
+  }
 
   /** The newly selected step element. */
-  public readonly selectedStep: SbbStepElement | null;
+  public get selectedStep(): SbbStepElement | null {
+    return this._selectedStep;
+  }
 
   /** The previously selected step element. */
-  public readonly previousStep: SbbStepElement | null;
+  public get previousStep(): SbbStepElement | null {
+    return this._previousStep;
+  }
 
-  public constructor(
-    selectedIndex: number | null,
-    previousIndex: number | null,
-    selectedStep: SbbStepElement | null,
-    previousStep: SbbStepElement | null,
-  ) {
+  public constructor({
+    selectedIndex,
+    previousIndex,
+    selectedStep,
+    previousStep,
+  }: Omit<SbbStepChangeEvent, keyof Event>) {
     super('stepchange', { bubbles: true, composed: true });
-    this.selectedIndex = selectedIndex;
-    this.previousIndex = previousIndex;
-    this.selectedStep = selectedStep;
-    this.previousStep = previousStep;
+    this._selectedIndex = selectedIndex;
+    this._previousIndex = previousIndex;
+    this._selectedStep = selectedStep;
+    this._previousStep = previousStep;
   }
 }
 /**
@@ -241,7 +254,12 @@ export class SbbStepperElement extends SbbElement {
 
     /** @internal only to provide double entry in docs. It is a public event! */
     this.dispatchEvent(
-      new SbbStepChangeEvent(this.selectedIndex, currentIndex, this.selected, currentStep),
+      new SbbStepChangeEvent({
+        selectedIndex: this.selectedIndex,
+        previousIndex: currentIndex,
+        selectedStep: this.selected,
+        previousStep: currentStep,
+      }),
     );
 
     this._setMarkerSize();

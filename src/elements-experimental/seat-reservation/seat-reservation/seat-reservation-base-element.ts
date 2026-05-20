@@ -72,6 +72,32 @@ const ALLOWED_SERVICE_ICONS: string[] = [
   'sa-rz',
 ];
 
+export class SbbSeatReservationSelectedPlacesEvent extends Event {
+  private readonly _detail: SeatReservationSelectedPlaces;
+
+  public get detail(): SeatReservationSelectedPlaces {
+    return this._detail;
+  }
+
+  public constructor(detail: SeatReservationSelectedPlaces) {
+    super('selectedplaces', { bubbles: true, composed: true });
+    this._detail = detail;
+  }
+}
+
+export class SbbSeatReservationSelectedCoachEvent extends Event {
+  private readonly _detail: SeatReservationSelectedCoach;
+
+  public get detail(): SeatReservationSelectedCoach {
+    return this._detail;
+  }
+
+  public constructor(detail: SeatReservationSelectedCoach) {
+    super('selectedcoach', { bubbles: true, composed: true });
+    this._detail = detail;
+  }
+}
+
 export class SeatReservationBaseElement extends SbbElement {
   public static readonly events = {
     selectedplaces: 'selectedplaces',
@@ -1226,17 +1252,15 @@ export class SeatReservationBaseElement extends SbbElement {
       maxReservations,
       placeSelection,
     );
+    // FIXME: the name of this variable appears as event name in the readme
+    //  due to a bug in the custom-elements-manifest library.
+    //  https://github.com/open-wc/custom-elements-manifest/issues/149
+    const selectedplaces = this.selectedSeatReservationPlaces;
     /**
-     * @type {CustomEvent<SeatReservationSelectedPlaces>}
+     * @type {SbbSeatReservationSelectedPlacesEvent}
      * Emits when a place was selected and returns a Place array with all selected places.
      */
-    this.dispatchEvent(
-      new CustomEvent<SeatReservationSelectedPlaces>('selectedplaces', {
-        bubbles: true,
-        composed: true,
-        detail: this.selectedSeatReservationPlaces,
-      }),
-    );
+    this.dispatchEvent(new SbbSeatReservationSelectedPlacesEvent(selectedplaces));
   }
 
   private _updateSelectedSeatReservationPlaces(
@@ -1318,19 +1342,16 @@ export class SeatReservationBaseElement extends SbbElement {
     }
     this.selectedCoachIndex = this.currSelectedCoachIndex;
 
-    const coachSelection = this._getSeatReservationSelectedCoach(this.selectedCoachIndex);
-    if (coachSelection) {
+    // FIXME: the name of this variable appears as event name in the readme
+    //  due to a bug in the custom-elements-manifest library.
+    //  https://github.com/open-wc/custom-elements-manifest/issues/149
+    const selectedcoach = this._getSeatReservationSelectedCoach(this.selectedCoachIndex);
+    if (selectedcoach) {
       /**
-       * @type {CustomEvent<SeatReservationSelectedCoach>}
+       * @type {SbbSeatReservationSelectedCoachEvent}
        * Emits when a coach was selected and returns a CoachSelection
        */
-      this.dispatchEvent(
-        new CustomEvent<SeatReservationSelectedCoach>('selectedcoach', {
-          bubbles: true,
-          composed: true,
-          detail: coachSelection,
-        }),
-      );
+      this.dispatchEvent(new SbbSeatReservationSelectedCoachEvent(selectedcoach));
     }
   }
 

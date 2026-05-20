@@ -8,6 +8,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import type { SbbInputAutocompleteEvent } from '../../autocomplete/autocomplete-base-element.ts';
 import {
   forceType,
   type FormRestoreReason,
@@ -25,17 +26,13 @@ import {
   SbbRequiredMixin,
 } from '../../core.ts';
 import type { SbbFormFieldElement } from '../../form-field/form-field/form-field.component.ts';
-import type { SbbOptionBaseElement } from '../../option/option/option-base-element.ts';
 import { SbbChipElement } from '../chip/chip.component.ts';
 
 import style from './chip-group.scss?inline';
 
 let displayWithWarningLogged = false;
 
-// TODO(breaking-change): Replace base class with Event
-export class SbbChipInputTokenEndEvent<T = string> extends CustomEvent<
-  SbbChipInputTokenEndEventDetails<T>
-> {
+export class SbbChipInputTokenEndEvent<T = string> extends Event {
   /** The element that triggered the chip creation */
   public origin: 'input' | 'autocomplete';
   /**
@@ -45,13 +42,6 @@ export class SbbChipInputTokenEndEvent<T = string> extends CustomEvent<
    */
   public value: T | string;
   public label?: string;
-
-  /**
-   * @deprecated Use event properties directly.
-   */
-  public override get detail(): SbbChipInputTokenEndEventDetails<T> {
-    return this;
-  }
 
   public constructor(options: Pick<SbbChipInputTokenEndEvent, 'origin' | 'value' | 'label'>) {
     super('chipinputtokenend', {
@@ -72,25 +62,6 @@ export class SbbChipInputTokenEndEvent<T = string> extends CustomEvent<
   public setLabel(label: string): void {
     this.label = label;
   }
-}
-
-/**
- * @deprecated Use `SbbChipInputTokenEndEvent` instead.
- */
-export interface SbbChipInputTokenEndEventDetails<T = string> {
-  /** The element that triggered the chip creation */
-  origin: 'input' | 'autocomplete';
-  /**
-   * The value of the new chip. Either the input or the option value depending on the origin.
-   * Either the value from the input which is always `string` or the value from the selected option
-   * from an autocomplete, which can be either a string or any other type.
-   */
-  value: T | string;
-  label?: string;
-  /** Set a new value for the chip that will be created */
-  setValue(value: T): void;
-  /** Set a label for the chip that will be created */
-  setLabel(value: string): void;
 }
 
 /**
@@ -280,9 +251,8 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
       });
       this._inputElement.addEventListener(
         'inputAutocomplete',
-        (event: CustomEvent<{ option: SbbOptionBaseElement<T> }>) => {
-          this._createChipFromInput('autocomplete', event.detail?.option.value);
-        },
+        (event: SbbInputAutocompleteEvent<T>) =>
+          this._createChipFromInput('autocomplete', event.option.value),
         {
           signal: this._inputAbortController.signal,
         },

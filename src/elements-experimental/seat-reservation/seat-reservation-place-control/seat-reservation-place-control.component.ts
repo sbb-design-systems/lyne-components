@@ -26,6 +26,19 @@ type TravelDirectionI18nKey =
   | 'TRAVEL_DIRECTION_IN_OPPOSITE_DIRECTION'
   | 'TRAVEL_DIRECTION_TRANSVERSELY';
 
+export class SbbPlaceSelectionEvent extends Event {
+  private readonly _detail: PlaceSelection;
+
+  public get detail(): PlaceSelection {
+    return this._detail;
+  }
+
+  public constructor(detail: PlaceSelection) {
+    super('selectplace', { bubbles: true, composed: true });
+    this._detail = detail;
+  }
+}
+
 /**
  * Output the graphic of a seat or a bicycle place as a control element.
  */
@@ -211,7 +224,11 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
 
     if (selectable) {
       this.state = this.state === 'FREE' ? 'SELECTED' : 'FREE';
-      const placeSelection: PlaceSelection = {
+
+      // FIXME: the name of this variable appears as event name in the readme
+      //  due to a bug in the custom-elements-manifest library.
+      //  https://github.com/open-wc/custom-elements-manifest/issues/149
+      const selectplace: PlaceSelection = {
         id: this.id,
         deckIndex: this.deckIndex,
         coachIndex: this.coachIndex,
@@ -221,17 +238,11 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
       };
 
       /**
-       * @type {CustomEvent<PlaceSelection>}
+       * @type {SbbPlaceSelectionEvent}
        * Emits when a place was selected via user interaction and returns a
        * PlaceSelection object with necessary place information.
        */
-      this.dispatchEvent(
-        new CustomEvent<PlaceSelection>('selectplace', {
-          detail: placeSelection,
-          bubbles: true,
-          composed: true,
-        }),
-      );
+      this.dispatchEvent(new SbbPlaceSelectionEvent(selectplace));
     }
   }
 }

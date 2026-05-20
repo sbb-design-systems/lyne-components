@@ -5,8 +5,12 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 import { type SinonStub, stub } from 'sinon';
 
-import type { SbbCalendarDayElement, SbbCalendarYearElement } from '../../calendar.ts';
-import { SbbCalendarElement } from '../../calendar.ts';
+import {
+  type SbbCalendarDayElement,
+  type SbbCalendarYearElement,
+  type SbbCalendarElement,
+  SbbDateSelectedEvent,
+} from '../../calendar.ts';
 import {
   fixture,
   sbbBreakpointLargeMinPx,
@@ -169,11 +173,7 @@ describe(`sbb-datepicker`, () => {
     expect(datepicker).to.match(':state(state-opened)');
 
     const calendar = datepicker.shadowRoot!.querySelector('sbb-calendar')!;
-    calendar.dispatchEvent(
-      new CustomEvent(SbbCalendarElement.events.dateselected, {
-        detail: new Date('2022-01-01'),
-      }),
-    );
+    calendar.dispatchEvent(new SbbDateSelectedEvent(new Date('2022-01-01')));
     await waitForLitRender(datepicker);
 
     expect(input.value).to.be.equal('Sa, 01.01.2022');
