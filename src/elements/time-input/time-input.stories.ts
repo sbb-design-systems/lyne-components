@@ -111,15 +111,6 @@ const label: InputType = {
   },
 };
 
-const optional: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Form-field',
-  },
-};
-
 const borderless: InputType = {
   control: {
     type: 'boolean',
@@ -158,7 +149,6 @@ const formFieldBasicArgsTypes: ArgTypes = {
   ...basicArgTypes,
   label,
   size,
-  optional,
   borderless,
   iconStart,
   iconEnd,
@@ -175,7 +165,6 @@ const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
   size: undefined,
-  optional: false,
   borderless: false,
   iconStart: undefined,
   iconEnd: undefined,
@@ -185,7 +174,6 @@ const formFieldBasicArgsWithIcons = {
   ...basicArgs,
   label: 'Label',
   size: undefined,
-  optional: false,
   borderless: false,
   iconStart: 'clock-small',
   iconEnd: 'circle-information-small',
@@ -193,7 +181,6 @@ const formFieldBasicArgsWithIcons = {
 
 const TemplateSbbTimeInput = ({
   label,
-  optional,
   borderless,
   negative,
   iconStart,
@@ -204,7 +191,6 @@ const TemplateSbbTimeInput = ({
   <div class="example-parent">
     <sbb-form-field
       size=${size || nothing}
-      ?optional=${optional}
       ?borderless=${borderless}
       ?negative=${negative}
       width="collapse"
