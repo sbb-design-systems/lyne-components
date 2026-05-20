@@ -38,11 +38,19 @@ describe(`sbb-sticky-bar`, () => {
   `;
 
   const actionGroup = (color?: string): TemplateResult => html`
-    <sbb-action-group style="width:100%; --sbb-action-group-justify-content: space-between;">
-      <sbb-block-link ?negative=${!!color && isDark(color)} icon-name="chevron-small-left-small">
+    <sbb-action-group
+      class="sbb-orientation-horizontal-from-large sbb-orientation-vertical-full-width"
+      style="width:100%; justify-content: space-between;"
+    >
+      <sbb-block-link
+        size="m"
+        style="margin-block: auto;"
+        ?negative=${!!color && isDark(color)}
+        icon-name="chevron-small-left-small"
+      >
         Link
       </sbb-block-link>
-      <sbb-button ?negative=${!!color && isDark(color)}>Confirm</sbb-button>
+      <sbb-button size="l" ?negative=${!!color && isDark(color)}>Confirm</sbb-button>
     </sbb-action-group>
   `;
 

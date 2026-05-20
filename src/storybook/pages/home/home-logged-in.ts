@@ -190,8 +190,8 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
             </sbb-dialog-content>
 
             <sbb-dialog-actions
-              style="--sbb-action-group-justify-content: space-between"
-              class="sbb-action-group-horizontal-from-large"
+              style="justify-content: space-between"
+              class="sbb-orientation-horizontal-from-large"
             >
               <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
               <sbb-button sbb-dialog-close>Button</sbb-button>

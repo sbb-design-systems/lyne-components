@@ -87,9 +87,9 @@ describe(`sbb-action-group`, () => {
     });
 
     describe('orientation=vertical-full-width', () => {
-      for (const alignSelfThird of ['start', 'center', 'end']) {
+      for (const alignThird of ['start', 'center', 'end']) {
         it(
-          `align-third=${alignSelfThird}`,
+          `align-third=${alignThird}`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
               <sbb-action-group class="sbb-action-group-vertical-full-width">
@@ -97,7 +97,7 @@ describe(`sbb-action-group`, () => {
                 <sbb-button>Button 2</sbb-button>
                 <sbb-block-link
                   style=${`margin-inline: auto; ` +
-                  (alignSelfThird === 'center' ? '' : `margin-inline-${alignSelfThird}: unset;`)}
+                  (alignThird === 'center' ? '' : `margin-inline-${alignThird}: unset;`)}
                   icon-name="chevron-small-left-small"
                   href="https://github.com/sbb-design-systems/lyne-components"
                 >
@@ -110,26 +110,28 @@ describe(`sbb-action-group`, () => {
       }
     });
 
-    it(
-      `orientation=vertical-horizontal-from=large`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-action-group
-            style="align-items: start;"
-            class="sbb-action-group-horizontal-from-large"
-          >
-            <sbb-secondary-button>Button 1</sbb-secondary-button>
-            <sbb-button>Button 2</sbb-button>
-            <sbb-block-link
-              style="margin-block: auto;"
-              icon-name="chevron-small-left-small"
-              href="https://github.com/sbb-design-systems/lyne-components"
+    for (const breakpoint in ['small', 'large', 'ultra']) {
+      it(
+        `orientation=vertical-horizontal-from=${breakpoint}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
+            <sbb-action-group
+              style="align-items: start;"
+              class=${`sbb-orientation-horizontal-from-${breakpoint}`}
             >
-              Link
-            </sbb-block-link>
-          </sbb-action-group>
-        `);
-      }),
-    );
+              <sbb-secondary-button>Button 1</sbb-secondary-button>
+              <sbb-button>Button 2</sbb-button>
+              <sbb-block-link
+                style="margin-block: auto;"
+                icon-name="chevron-small-left-small"
+                href="https://github.com/sbb-design-systems/lyne-components"
+              >
+                Link
+              </sbb-block-link>
+            </sbb-action-group>
+          `);
+        }),
+      );
+    }
   });
 });

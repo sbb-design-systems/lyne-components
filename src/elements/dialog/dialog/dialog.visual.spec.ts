@@ -38,19 +38,28 @@ describe(`sbb-dialog`, () => {
     </sbb-dialog-content>
   `;
 
-  const dialogFooter = (negative = false, alignGroup = 'stretch'): TemplateResult => html`
+  const dialogFooter = (
+    negative = false,
+    justifyContent = 'end',
+    hideLink = false,
+  ): TemplateResult => html`
     <sbb-dialog-actions
-      style=${`--sbb-action-group-justify-content: ${alignGroup}`}
-      class="sbb-action-group-horizontal-from-large"
+      style=${`justify-content: ${justifyContent}`}
+      class=${hideLink
+        ? 'sbb-orientation-horizontal-from-large sbb-orientation-vertical-full-width'
+        : nothing}
     >
-      <sbb-block-link
-        icon-name="chevron-small-left-small"
-        href="https://www.sbb.ch/en/"
-        ?negative=${negative}
-        sbb-dialog-close
-      >
-        Link
-      </sbb-block-link>
+      ${hideLink
+        ? nothing
+        : html`<sbb-block-link
+            icon-name="chevron-small-left-small"
+            href="https://www.sbb.ch/en/"
+            ?negative=${negative}
+            sbb-dialog-close
+            style=${justifyContent === 'end' ? `margin-inline-end: auto;` : nothing}
+          >
+            Link
+          </sbb-block-link> `}
       <sbb-secondary-button sbb-dialog-close ?negative=${negative}>Cancel</sbb-secondary-button>
       <sbb-button sbb-dialog-close sbb-focus-initial ?negative=${negative}>Confirm</sbb-button>
     </sbb-dialog-actions>
@@ -166,6 +175,27 @@ describe(`sbb-dialog`, () => {
     );
 
     it(
+      `with two actions`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-button id="trigger">Trigger</sbb-button>
+            <sbb-dialog trigger="trigger">
+              ${dialogTitle()}
+              <sbb-dialog-close-button></sbb-dialog-close-button>
+              ${dialogContent(true)} ${dialogFooter(false, undefined, true)}
+            </sbb-dialog>
+          `,
+          { minHeight: '600px' },
+        );
+        setup.withPostSetupAction(() => {
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
+          button.click();
+        });
+      }),
+    );
+
+    it(
       `backdrop=translucent`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
@@ -173,7 +203,7 @@ describe(`sbb-dialog`, () => {
             <p>Other content visible in the background</p>
             <sbb-button id="trigger">Trigger</sbb-button>
             <sbb-dialog trigger="trigger" backdrop="translucent">
-              ${dialogTitle()} ${dialogContent()} ${dialogFooter()}
+              ${dialogTitle()} ${dialogContent()} ${dialogFooter(false, 'end')}
             </sbb-dialog>
           `,
           { minHeight: '600px' },
@@ -205,7 +235,7 @@ describe(`sbb-dialog`, () => {
     );
 
     it(
-      `actions aligned at the end on sbb-dialog-actions`,
+      `with align-group=end on sbb-dialog-actions`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`

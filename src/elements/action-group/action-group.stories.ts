@@ -12,22 +12,32 @@ import '../action-group.ts';
 import '../button.ts';
 import '../link.ts';
 
-const secondaryButtonTemplate = (alignSelf?: string): TemplateResult => html`
-  <sbb-secondary-button style=${`--sbb-action-group-align-items: ${alignSelf}`}
-    >Button 1</sbb-secondary-button
-  >
+const getStyle = (align?: string): string => {
+  if (align === 'start') {
+    return 'margin-inline-end: auto;';
+  }
+
+  if (align === 'end') {
+    return 'margin-inline-start: auto;';
+  }
+
+  return '';
+};
+
+const secondaryButtonTemplate = (align?: string): TemplateResult => html`
+  <sbb-secondary-button style=${getStyle(align)}>Button 1</sbb-secondary-button>
 `;
 
-const buttonTemplate = (alignSelf?: string): TemplateResult => html`
-  <sbb-button style=${`--sbb-action-group-align-items: ${alignSelf}`}>Button 2</sbb-button>
+const buttonTemplate = (align?: string): TemplateResult => html`
+  <sbb-button style=${getStyle(align)}>Button 2</sbb-button>
 `;
 
-const linkTemplate = (alignSelf?: string): TemplateResult => html`
+const linkTemplate = (align?: string): TemplateResult => html`
   <sbb-block-link
     icon-name="chevron-small-left-small"
     style=${`
       margin-block: auto;
-      --sbb-action-group-align-items: ${alignSelf};
+     ${getStyle(align)}
     `}
     href="https://github.com/sbb-design-systems/lyne-components"
   >
@@ -35,19 +45,16 @@ const linkTemplate = (alignSelf?: string): TemplateResult => html`
   </sbb-block-link>
 `;
 
-const TemplateTwoElements = (
-  alignSelfFirst?: string,
-  alignSelfSecond?: string,
-): TemplateResult => html`
-  ${secondaryButtonTemplate(alignSelfFirst)} ${buttonTemplate(alignSelfSecond)}
+const TemplateTwoElements = (alignFirst?: string, alignSecond?: string): TemplateResult => html`
+  ${secondaryButtonTemplate(alignFirst)} ${buttonTemplate(alignSecond)}
 `;
 
 const TemplateThreeElements = (
-  alignSelfFirst?: string,
-  alignSelfSecond?: string,
-  alignSelfThird?: string,
+  alignFirst?: string,
+  alignSecond?: string,
+  alignThird?: string,
 ): TemplateResult => html`
-  ${TemplateTwoElements(alignSelfFirst, alignSelfSecond)} ${linkTemplate(alignSelfThird)}
+  ${TemplateTwoElements(alignFirst, alignSecond)} ${linkTemplate(alignThird)}
 `;
 
 const getCssClasses = (
@@ -55,7 +62,7 @@ const getCssClasses = (
   horizontalFrom = undefined,
   verticalFullWidth = false,
 ): string => {
-  return `${orientation === 'vertical' ? 'sbb-action-group-vertical ' : ''}${horizontalFrom ? `sbb-action-group-horizontal-from-${horizontalFrom} ` : ''}${verticalFullWidth ? 'sbb-action-group-vertical-full-width ' : ''}`;
+  return `${orientation === 'vertical' ? 'sbb-orientation-vertical ' : ''}${horizontalFrom ? `sbb-orientation-horizontal-from-${horizontalFrom} ` : ''}${verticalFullWidth ? 'sbb-orientation-vertical-full-width ' : ''}`;
 };
 
 const CommonTemplateThreeElementsAllocation = ({
@@ -91,6 +98,7 @@ const TemplateHorizontalAllocation111 = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-action-group
+    style="justify-content: space-between;"
     class=${getCssClasses(orientation, horizontalFromLarge, verticalFullWidth)}
     ${sbbSpread(args)}
     >${TemplateThreeElements(undefined, 'center')}</sbb-action-group
