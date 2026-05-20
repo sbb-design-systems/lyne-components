@@ -48,9 +48,9 @@ export const SbbCheckboxCommonElementMixin = <T extends AbstractConstructor<SbbE
         new SbbPropertyWatcherController(
           this,
           () => this.closest('sbb-checkbox-group'),
-          Object.assign(
+          ['disabled', 'required', 'size'].reduce(
+            (v, p) => Object.assign(v, { [p]: () => this.requestUpdate(p) }),
             {},
-            ...['disabled', 'required', 'size'].map((p) => ({ [p]: () => this.requestUpdate(p) })),
           ),
         ),
       );
