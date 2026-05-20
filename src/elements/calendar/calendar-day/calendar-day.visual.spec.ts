@@ -31,7 +31,7 @@ describe('sbb-calendar-day', () => {
         await setup.withFixture(
           html` <sbb-calendar
             .min=${defaultDateAdapter.toIso8601(new Date(2025, 0, 9))}
-            .selected=${defaultDateAdapter.toIso8601(new Date(2025, 0, 15))}
+            .value=${defaultDateAdapter.toIso8601(new Date(2025, 0, 15))}
             .dateFilter=${(d: Date): boolean => d.getDate() % 2 === 1}
           >
             ${repeat(new Array(31), (_, index) => {
@@ -74,7 +74,7 @@ describe('sbb-calendar-day', () => {
           `selected state=${state.name} content=${content}`,
           state.with(async (setup) => {
             await setup.withFixture(
-              html` <sbb-calendar .selected=${new Date('2025-01-15')}>
+              html` <sbb-calendar .value=${new Date('2025-01-15')}>
                 ${repeat(new Array(31), (_, index) => {
                   const slotName = defaultDateAdapter.toIso8601(new Date(`2025-01-${index + 1}`));
                   return html` <sbb-calendar-day slot=${slotName}>

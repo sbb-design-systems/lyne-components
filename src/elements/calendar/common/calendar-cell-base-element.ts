@@ -27,7 +27,7 @@ export abstract class SbbCalendarCellBaseElement<T = Date> extends SbbDisabledMi
         dateFilter: (component) => this.setDisabledFilteredState(component),
         min: (component) => this.setDisabledFilteredState(component),
         max: (component) => this.setDisabledFilteredState(component),
-        selected: (component) => this.setSelectedState(component),
+        value: (component) => this.setSelectedState(component),
       }),
     );
   }

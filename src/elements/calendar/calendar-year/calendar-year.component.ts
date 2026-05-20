@@ -42,10 +42,10 @@ export class SbbCalendarYearElement<T = Date> extends SbbCalendarCellBaseElement
 
   protected override setSelectedState(parent: SbbCalendarElement<T>): void {
     const selected = parent.multiple
-      ? ((parent.selected as Date[])?.some(
+      ? ((parent.value as Date[])?.some(
           (date: Date) => Number(this.value) === this.dateAdapter.getYear(date),
         ) ?? false)
-      : !!parent.selected && this.dateAdapter.getYear(parent.selected) === Number(this.value);
+      : !!parent.value && this.dateAdapter.getYear(parent.value) === Number(this.value);
     this.toggleState('selected', selected);
     this.internals.ariaPressed = String(selected);
   }

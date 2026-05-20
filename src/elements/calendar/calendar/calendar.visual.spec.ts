@@ -20,9 +20,10 @@ import '../../calendar.ts';
 
 describe('sbb-calendar', () => {
   let todayStub: SinonStub;
+  const today = new Date(2023, 0, 12, 0, 0, 0);
 
   before(() => {
-    todayStub = stub(defaultDateAdapter, 'today').returns(new Date(2023, 0, 12, 0, 0, 0));
+    todayStub = stub(defaultDateAdapter, 'today').returns(today);
   });
 
   after(() => {
@@ -76,7 +77,7 @@ describe('sbb-calendar', () => {
                     await setup.withFixture(html`
                       <sbb-calendar
                         orientation=${orientation}
-                        .selected=${new Date(2023, 0, 20)}
+                        .value=${new Date(2023, 0, 20)}
                         .min=${min.value ? defaultDateAdapter.toIso8601(min.value) : nothing}
                         .max=${max.value ? defaultDateAdapter.toIso8601(max.value) : nothing}
                         >${variant === 'default'
@@ -90,8 +91,8 @@ describe('sbb-calendar', () => {
             }
           });
 
-          for (const wide of [false, true]) {
-            describe(`orientation=${orientation} wide=${wide}`, () => {
+          for (const amount of [1, 2, 13]) {
+            describe(`orientation=${orientation} amount=${amount}`, () => {
               it(
                 'dynamic width',
                 visualDiffDefault.with(async (setup) => {
@@ -99,14 +100,18 @@ describe('sbb-calendar', () => {
                     <sbb-calendar
                       style="width: 900px"
                       orientation=${orientation}
-                      ?wide=${wide}
-                      .selected=${new Date(2023, 0, 20)}
+                      amount=${amount}
+                      .value=${new Date(2023, 0, 20)}
                       >${variant === 'default'
                         ? nothing
-                        : wide
-                          ? html`${createSlottedDays(2023, 1, true)}
-                            ${createSlottedDays(2023, 2, true)}`
-                          : createSlottedDays(2023, 1, true)}
+                        : html`${Array.from({ length: amount }, (_, i) => {
+                            const date = defaultDateAdapter.addCalendarMonths(today, i);
+                            return createSlottedDays(
+                              defaultDateAdapter.getYear(date),
+                              defaultDateAdapter.getMonth(date),
+                              true,
+                            );
+                          })}`}
                     </sbb-calendar>
                   `);
                 }),
@@ -119,14 +124,18 @@ describe('sbb-calendar', () => {
                     <sbb-calendar
                       style="width: 100%"
                       orientation=${orientation}
-                      ?wide=${wide}
-                      .selected=${new Date(2023, 0, 20)}
+                      amount=${amount}
+                      .value=${new Date(2023, 0, 20)}
                       >${variant === 'default'
                         ? nothing
-                        : wide
-                          ? html`${createSlottedDays(2023, 1, true)}
-                            ${createSlottedDays(2023, 2, true)}`
-                          : createSlottedDays(2023, 1, true)}
+                        : html`${Array.from({ length: amount }, (_, i) => {
+                            const date = defaultDateAdapter.addCalendarMonths(today, i);
+                            return createSlottedDays(
+                              defaultDateAdapter.getYear(date),
+                              defaultDateAdapter.getMonth(date),
+                              true,
+                            );
+                          })}`}
                     </sbb-calendar>
                   `);
 
@@ -157,15 +166,19 @@ describe('sbb-calendar', () => {
                       <sbb-calendar
                         orientation=${orientation}
                         ?multiple=${multiple}
-                        ?wide=${wide}
-                        .selected=${selected}
+                        amount=${amount}
+                        .value=${selected}
                         week-numbers
                         >${variant === 'default'
                           ? nothing
-                          : wide
-                            ? html`${createSlottedDays(2023, 1, true)}
-                              ${createSlottedDays(2023, 2, true)}`
-                            : createSlottedDays(2023, 1, true)}
+                          : html`${Array.from({ length: amount }, (_, i) => {
+                              const date = defaultDateAdapter.addCalendarMonths(today, i);
+                              return createSlottedDays(
+                                defaultDateAdapter.getYear(date),
+                                defaultDateAdapter.getMonth(date),
+                                true,
+                              );
+                            })}`}
                       </sbb-calendar>
                     `);
                   }),
@@ -179,17 +192,21 @@ describe('sbb-calendar', () => {
                     await setup.withFixture(html`
                       <sbb-calendar
                         orientation=${orientation}
-                        ?wide=${wide}
+                        amount=${amount}
                         .min=${defaultDateAdapter.toIso8601(new Date(2023, 0, 13))}
                         .max=${defaultDateAdapter.toIso8601(new Date(2023, 1, 17))}
-                        .selected=${new Date(2023, 0, 20)}
+                        .value=${new Date(2023, 0, 20)}
                         .dateFilter=${fn.dateFilter}
                         >${variant === 'default'
                           ? nothing
-                          : wide
-                            ? html`${createSlottedDays(2023, 1, true)}
-                              ${createSlottedDays(2023, 2, true)}`
-                            : createSlottedDays(2023, 1, true)}
+                          : html`${Array.from({ length: amount }, (_, i) => {
+                              const date = defaultDateAdapter.addCalendarMonths(today, i);
+                              return createSlottedDays(
+                                defaultDateAdapter.getYear(date),
+                                defaultDateAdapter.getMonth(date),
+                                true,
+                              );
+                            })}`}
                       </sbb-calendar>
                     `);
                   }),
@@ -204,15 +221,19 @@ describe('sbb-calendar', () => {
                       <sbb-calendar
                         orientation=${orientation}
                         view=${view}
-                        ?wide=${wide}
-                        .selected=${new Date(2023, 0, 20)}
+                        amount=${amount}
+                        .value=${new Date(2023, 0, 20)}
                       >
                         ${variant === 'default'
                           ? nothing
-                          : wide
-                            ? html`${createSlottedDays(2023, 1, true)}
-                              ${createSlottedDays(2023, 2, true)}`
-                            : createSlottedDays(2023, 1, true)}
+                          : html`${Array.from({ length: amount }, (_, i) => {
+                              const date = defaultDateAdapter.addCalendarMonths(today, i);
+                              return createSlottedDays(
+                                defaultDateAdapter.getYear(date),
+                                defaultDateAdapter.getMonth(date),
+                                true,
+                              );
+                            })}`}
                       </sbb-calendar>
                     `);
                   }),
@@ -234,7 +255,7 @@ describe('sbb-calendar', () => {
           const selectedDate = new Date(2023, 0, 20);
           root = await visualRegressionFixture(
             html`<sbb-calendar
-              .selected=${selectedDate}
+              .value=${selectedDate}
               .max=${defaultDateAdapter.toIso8601(new Date(2023, 0, 22))}
             ></sbb-calendar>`,
             {

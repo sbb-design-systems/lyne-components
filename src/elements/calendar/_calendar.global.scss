@@ -25,10 +25,14 @@ $theme: 'standard' !default;
   --sbb-calendar-control-gap: var(--sbb-spacing-fixed-2x);
   --sbb-calendar-control-margin-block-end: var(--sbb-spacing-fixed-4x);
   --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(44)};
+
+  // TODO
   --sbb-calendar-control-view-change-color: var(--sbb-color-3);
   --sbb-calendar-control-view-change-background: var(--sbb-background-color-1);
   --sbb-calendar-control-view-change-padding-inline: var(--sbb-spacing-fixed-5x)
     var(--sbb-spacing-fixed-2x);
+
+  // /TODO
   --sbb-calendar-header-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
 
   // While changing views, there would be a few frames where the height of the calendar collapses to just

@@ -38,12 +38,12 @@ describe('sbb-calendar-day', () => {
   });
 
   it('should react to calendar property changes', async () => {
-    root.selected = new Date(`${year}-${month}-15`);
+    root.value = new Date(`${year}-${month}-15`);
     root.min = new Date(`${year}-${month}-10`);
     root.max = new Date(`${year}-${month}-20`);
     root.dateFilter = (d: Date | null): boolean => !!d && d.getDate() % 2 === 1;
     await waitForLitRender(root);
-    const selectedDaySelector = `sbb-calendar-day[slot="${defaultDateAdapter.toIso8601(root.selected)}"]`;
+    const selectedDaySelector = `sbb-calendar-day[slot="${defaultDateAdapter.toIso8601(root.value)}"]`;
     const selectedElement = root.querySelector<SbbCalendarDayElement>(selectedDaySelector)!;
     expect(selectedElement).to.match(':state(selected)');
     expect(elementInternals.get(selectedElement)!.ariaPressed).to.be.equal('true');

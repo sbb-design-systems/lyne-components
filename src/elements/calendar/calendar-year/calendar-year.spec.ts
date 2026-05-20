@@ -37,7 +37,7 @@ describe('sbb-calendar-year', () => {
   });
 
   it('should react to calendar property changes', async () => {
-    root.selected = new Date(`${year}-06-15`);
+    root.value = new Date(`${year}-06-15`);
     root.min = new Date(`${year - 2}-06-15`);
     root.max = new Date(`${year + 1}-06-15`);
     root.dateFilter = (d: Date | null): boolean =>

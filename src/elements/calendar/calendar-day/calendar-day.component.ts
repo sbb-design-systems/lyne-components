@@ -64,8 +64,8 @@ export class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<
 
   protected setSelectedState(parent: SbbCalendarElement<T>): void {
     const selected = parent.multiple
-      ? (parent.selected as Date[]).some((selDay) => this.dateAdapter.sameDate(this.value, selDay))
-      : !!parent.selected && this.dateAdapter.compareDate(this.value, parent.selected) === 0;
+      ? (parent.value as Date[]).some((selDay) => this.dateAdapter.sameDate(this.value, selDay))
+      : !!parent.value && this.dateAdapter.compareDate(this.value, parent.value) === 0;
     this.toggleState('selected', selected);
     this.internals.ariaPressed = String(selected);
   }
