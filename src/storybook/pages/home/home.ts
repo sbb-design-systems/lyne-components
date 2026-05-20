@@ -133,10 +133,14 @@ export const homeTemplate = (args: Args): TemplateResult => html`
           <sbb-button-link
             href="https://github.com/sbb-design-systems/lyne-components"
             icon-name="qrcode-small"
+            size="l"
           >
             My tickets & subscriptions
           </sbb-button-link>
-          <sbb-secondary-button-link href="https://github.com/sbb-design-systems/lyne-components">
+          <sbb-secondary-button-link
+            size="l"
+            href="https://github.com/sbb-design-systems/lyne-components"
+          >
             All Products
           </sbb-secondary-button-link>
         </sbb-action-group>

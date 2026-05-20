@@ -18,3 +18,24 @@
 .sbb-grid-only {
   @include layout.grid-base;
 }
+
+.sbb-orientation-vertical {
+  flex-direction: column;
+}
+
+.sbb-orientation-vertical-full-width {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.sbb-orientation-horizontal-from-small {
+  @include layout.flex-horizontal-from(small);
+}
+
+.sbb-orientation-horizontal-from-large {
+  @include layout.flex-horizontal-from(large);
+}
+
+.sbb-orientation-horizontal-from-ultra {
+  @include layout.flex-horizontal-from(ultra);
+}

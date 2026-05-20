@@ -104,8 +104,8 @@ const content = (staticTeaser: boolean = false): TemplateResult => html`
   </p>
   ${staticTeaser
     ? html`<sbb-action-group class="sbb-teaser-product--spacing">
-        <sbb-button>Label</sbb-button>
-        <sbb-secondary-button>Label</sbb-secondary-button>
+        <sbb-button size="l">Label</sbb-button>
+        <sbb-secondary-button size="l">Label</sbb-secondary-button>
       </sbb-action-group>`
     : html`<sbb-button-static class="sbb-teaser-product--spacing">Label</sbb-button-static>`}
 `;

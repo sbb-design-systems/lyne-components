@@ -49,6 +49,7 @@ class Overview extends LitElement {
                 ? html`<sbb-block-link
                     icon-name="document-check-small"
                     href=${meta.baselineCommitUrl || nothing}
+                    size="s"
                     ?disabled=${meta.baselineGitSha === 'N/A'}
                     >Baseline Commit
                     ${meta.baselineGitSha === 'N/A'
@@ -60,6 +61,7 @@ class Overview extends LitElement {
                 ? html`<sbb-block-link
                     icon-name="arrow-change-horizontal-small"
                     href=${meta.commitUrl || nothing}
+                    size="s"
                     ?disabled=${meta.gitSha === 'local'}
                     >Commit
                     ${meta.gitSha === 'local'

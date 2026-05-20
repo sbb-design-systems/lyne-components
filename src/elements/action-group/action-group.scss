@@ -13,39 +13,3 @@
 ::slotted(:state(sbb-link)) {
   white-space: nowrap;
 }
-
-:host(
-  :is(
-    .sbb-action-group-vertical,
-    .sbb-action-group-vertical-full-width,
-    .sbb-action-group-horizontal-from-large
-  )
-) {
-  --sbb-action-group-orientation: column;
-  --sbb-action-group-gap: var(--sbb-spacing-fixed-2x);
-}
-
-:host(.sbb-action-group-vertical-full-width) {
-  --sbb-action-group-align-items: stretch;
-}
-
-:host(.sbb-action-group-horizontal-from-small) {
-  @include sbb.mq($from: small) {
-    --sbb-action-group-orientation: row;
-    --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
-  }
-}
-
-:host(.sbb-action-group-horizontal-from-large) {
-  @include sbb.mq($from: large) {
-    --sbb-action-group-orientation: row;
-    --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
-  }
-}
-
-:host(.sbb-action-group-horizontal-from-ultra) {
-  @include sbb.mq($from: ultra) {
-    --sbb-action-group-orientation: row;
-    --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
-  }
-}
