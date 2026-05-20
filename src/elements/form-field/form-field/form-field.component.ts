@@ -2,7 +2,6 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  nothing,
   type PropertyValues,
   type TemplateResult,
   unsafeCSS,
@@ -14,13 +13,11 @@ import type { SbbChipGroupElement } from '../../chip.pure.ts';
 import {
   appendAriaElements,
   forceType,
-  i18nOptional,
   removeAriaElements,
   SbbElement,
   type SbbElementType,
   type SbbFormAssociatedInputMixinType,
   sbbInputModalityDetector,
-  SbbLanguageController,
   SbbNegativeMixin,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
@@ -116,14 +113,6 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   public accessor errorSpace: 'none' | 'reserve' = 'none';
 
   /**
-   * Indicates whether the input is optional.
-   * @deprecated Set the (optional) label text manually. Will be removed with next major version.
-   */
-  @forceType()
-  @property({ type: Boolean })
-  public accessor optional: boolean = false;
-
-  /**
    * Size variant, either s (lean theme default), m (standard theme default) or l.
    */
   @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | null = null;
@@ -170,8 +159,6 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   public get label(): HTMLLabelElement | null {
     return this._label;
   }
-
-  private _language = new SbbLanguageController(this);
 
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
@@ -628,9 +615,6 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
             <span class="sbb-form-field__label">
               <span class="sbb-form-field__label-ellipsis">
                 <slot name="label" @slotchange=${this._onSlotLabelChange}></slot>
-                ${this.optional
-                  ? html` <span aria-hidden="true"> ${i18nOptional[this._language.current]} </span>`
-                  : nothing}
               </span>
             </span>
             <div class="sbb-form-field__input">

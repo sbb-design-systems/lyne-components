@@ -40,8 +40,8 @@ const TemplateSlottedIcons = (args: Args): TemplateResult => html`
   </sbb-slider>
 `;
 
-const TemplateSbbSliderInFormField = ({ label, optional, ...args }: Args): TemplateResult => html`
-  <sbb-form-field ?optional=${optional}>
+const TemplateSbbSliderInFormField = ({ label, ...args }: Args): TemplateResult => html`
+  <sbb-form-field>
     ${label ? html`<label>${label}</label>` : nothing} ${TemplateSbbSlider(args)}
   </sbb-form-field>
 `;
@@ -127,15 +127,6 @@ const label: InputType = {
   },
 };
 
-const optional: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Form-field attribute',
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   value,
   min,
@@ -150,7 +141,6 @@ const basicArgTypes: ArgTypes = {
 const formFieldBasicArgsTypes: ArgTypes = {
   ...basicArgTypes,
   label,
-  optional,
 };
 
 const basicArgs: Args = {
@@ -167,7 +157,6 @@ const basicArgs: Args = {
 const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
-  optional: undefined,
 };
 
 export const Default: StoryObj = {
