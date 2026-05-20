@@ -129,13 +129,6 @@ export interface Day<T = Date> {
   weekDayValue: number;
 }
 
-/** @deprecated use MonthCell */
-export interface Month {
-  value: string;
-  longValue: string;
-  monthValue: number;
-}
-
 export interface MonthCell {
   value: string;
   monthValue: number;
