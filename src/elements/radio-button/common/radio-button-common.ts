@@ -5,6 +5,7 @@ import {
   type AbstractConstructor,
   SbbElement,
   SbbFormAssociatedRadioButtonMixin,
+  SbbPropertyWatcherController,
 } from '../../core.ts';
 import type { SbbRadioButtonGroupElement } from '../../radio-button-group.pure.ts';
 
@@ -57,14 +58,22 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<S
       super();
       this.addEventListener?.('click', (e) => this._handleClick(e));
       this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
+
+      this.addController(
+        new SbbPropertyWatcherController(
+          this,
+          () => this.closest('sbb-radio-button-group'),
+          ['disabled', 'required', 'size'].reduce(
+            (v, p) => Object.assign(v, { [p]: () => this.requestUpdate(p) }),
+            {},
+          ),
+        ),
+      );
     }
 
     public override connectedCallback(): void {
       super.connectedCallback();
-      this._group = this.closest('sbb-radio-button-group') as SbbRadioButtonGroupElement;
-
-      // We need to call requestUpdate to update the reflected attributes
-      ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
+      this._group = this.closest('sbb-radio-button-group');
     }
 
     /**
