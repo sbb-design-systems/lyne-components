@@ -8,16 +8,10 @@ snapshots["sbb-autocomplete renders standalone Safari DOM"] =
   popover="manual"
   trigger="trigger"
 >
-  <sbb-option
-    id="sbb-option-0"
-    value="1"
-  >
+  <sbb-option value="1">
     1
   </sbb-option>
-  <sbb-option
-    id="sbb-option-1"
-    value="2"
-  >
+  <sbb-option value="2">
     2
   </sbb-option>
 </sbb-autocomplete>
@@ -55,16 +49,10 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
     id="sbb-autocomplete-3"
     popover="manual"
   >
-    <sbb-option
-      id="sbb-option-4"
-      value="1"
-    >
+    <sbb-option value="1">
       1
     </sbb-option>
-    <sbb-option
-      id="sbb-option-5"
-      value="2"
-    >
+    <sbb-option value="2">
       2
     </sbb-option>
   </sbb-autocomplete>

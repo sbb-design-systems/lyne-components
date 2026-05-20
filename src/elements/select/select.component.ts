@@ -862,7 +862,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     if (setActiveDescendant) {
-      this._triggerElement?.setAttribute('aria-activedescendant', nextActiveOption.id);
+      this._triggerElement!.ariaActiveDescendantElement = nextActiveOption;
     }
 
     // Reset the previous
@@ -889,7 +889,10 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       activeElement.setActive(false);
     }
     this._activeItemIndex = -1;
-    this._triggerElement?.removeAttribute('aria-activedescendant');
+
+    if (this._triggerElement) {
+      this._triggerElement.ariaActiveDescendantElement = null;
+    }
   }
 
   // Check if the pointerdown event target is triggered on the menu.

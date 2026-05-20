@@ -313,21 +313,21 @@ describe(`sbb-autocomplete-grid`, () => {
       expect(optTwo).to.match(':state(active)');
       expect(buttonTwo).not.to.match(':state(focus-visible)');
       expect(buttonThree).not.to.match(':state(focus-visible)');
-      expect(input).to.have.attribute('aria-activedescendant', 'option-2');
+      expect(input.ariaActiveDescendantElement).to.be.equal(optTwo);
 
       await sendKeys({ press: 'ArrowRight' });
       await waitForLitRender(element);
       expect(optTwo).not.to.match(':state(active)');
       expect(buttonTwo).to.match(':state(focus-visible)');
       expect(buttonThree).not.to.match(':state(focus-visible)');
-      expect(input).to.have.attribute('aria-activedescendant', 'button-2');
+      expect(input.ariaActiveDescendantElement).to.be.equal(buttonTwo);
 
       await sendKeys({ press: 'ArrowRight' });
       await waitForLitRender(element);
       expect(optTwo).not.to.match(':state(active)');
       expect(buttonTwo).not.to.match(':state(focus-visible)');
       expect(buttonThree).to.match(':state(focus-visible)');
-      expect(input).to.have.attribute('aria-activedescendant', 'button-3');
+      expect(input.ariaActiveDescendantElement).to.be.equal(buttonThree);
 
       await sendKeys({ press: 'ArrowDown' });
       await waitForLitRender(element);
@@ -336,7 +336,7 @@ describe(`sbb-autocomplete-grid`, () => {
       expect(optTwo).not.to.match(':state(active)');
       expect(buttonTwo).not.to.match(':state(focus-visible)');
       expect(buttonThree).not.to.match(':state(focus-visible)');
-      expect(input).to.have.attribute('aria-activedescendant', 'option-1');
+      expect(input.ariaActiveDescendantElement).to.be.equal(optOne);
     });
 
     it('opens and select with keyboard', async () => {
@@ -362,7 +362,7 @@ describe(`sbb-autocomplete-grid`, () => {
       expect(optOne).not.to.have.attribute('selected');
       expect(optTwo).to.match(':state(active)');
       expect(optTwo).not.to.have.attribute('selected');
-      expect(input).to.have.attribute('aria-activedescendant', 'option-2');
+      expect(input.ariaActiveDescendantElement).to.be.equal(optTwo);
 
       await sendKeys({ press: 'Enter' });
       await closeSpy.calledOnce();
@@ -375,20 +375,20 @@ describe(`sbb-autocomplete-grid`, () => {
       expect(changeEventSpy.count).to.be.equal(1);
       expect(optionSelectedEventSpy.count).to.be.equal(1);
       expect(input).to.have.attribute('aria-expanded', 'false');
-      expect(input).not.to.have.attribute('aria-activedescendant');
+      expect(input.ariaActiveDescendantElement).to.be.null;
     });
 
     describe('autoActiveFirstOption', () => {
       function assertActiveOption(option: SbbAutocompleteGridOptionElement): void {
         expect(option).to.match(':state(active)');
         expect(option).not.to.have.attribute('selected');
-        expect(input).to.have.attribute('aria-activedescendant', option.id);
+        expect(input.ariaActiveDescendantElement).to.be.equal(option);
       }
 
       function assertInactiveOption(option: SbbAutocompleteGridOptionElement): void {
         expect(option).not.to.match(':state(active)');
         expect(option).not.to.have.attribute('selected');
-        expect(input).not.to.have.attribute('aria-activedescendant', option.id);
+        expect(input.ariaActiveDescendantElement).not.to.be.equal(option);
       }
 
       beforeEach(async () => {
@@ -493,7 +493,7 @@ describe(`sbb-autocomplete-grid`, () => {
 
         // Set the pending selection
         expect(optOne).to.match(':state(active)');
-        expect(input).to.have.attribute('aria-activedescendant', 'option-1');
+        expect(input.ariaActiveDescendantElement).to.be.equal(optOne);
         expect(input).to.have.attribute('aria-expanded', 'true');
         expect(optOne).not.to.have.attribute('selected');
         expect(input.value).to.be.equal('1');
@@ -505,7 +505,7 @@ describe(`sbb-autocomplete-grid`, () => {
         await waitForLitRender(element);
         expect(optOne).not.to.match(':state(active)');
         expect(optTwo).to.match(':state(active)');
-        expect(input).to.have.attribute('aria-activedescendant', 'option-2');
+        expect(input.ariaActiveDescendantElement).to.be.equal(optTwo);
         expect(input).to.have.attribute('aria-expanded', 'true');
         expect(optTwo).not.to.have.attribute('selected');
         expect(input.value).to.be.equal('2');
@@ -631,7 +631,7 @@ describe(`sbb-autocomplete-grid`, () => {
         await waitForLitRender(element);
 
         expect(optOne).to.match(':state(active)');
-        expect(input).to.have.attribute('aria-activedescendant', 'option-1');
+        expect(input.ariaActiveDescendantElement).to.be.equal(optOne);
         expect(input).to.have.attribute('aria-expanded', 'true');
         expect(optOne).not.to.have.attribute('selected');
         expect(input.value).to.be.equal('a');
@@ -743,7 +743,7 @@ describe(`sbb-autocomplete-grid`, () => {
       await sendKeys({ press: 'ArrowRight' });
       expect(optOne).not.to.match(':state(active)');
       expect(buttonOne).to.match(':state(focus-visible)');
-      expect(input).to.have.attribute('aria-activedescendant', 'button-1');
+      expect(input.ariaActiveDescendantElement).to.be.equal(buttonOne);
       await sendKeys({ press: 'Enter' });
       await clickSpy.calledOnce();
       expect(clickSpy.count).to.be.equal(1);
@@ -754,7 +754,7 @@ describe(`sbb-autocomplete-grid`, () => {
       expect(optOne).not.to.match(':state(active)');
       expect(buttonOne).not.to.match(':state(focus-visible)');
       expect(buttonTwo).to.match(':state(focus-visible)');
-      expect(input).to.have.attribute('aria-activedescendant', 'button-2');
+      expect(input.ariaActiveDescendantElement).to.be.equal(buttonTwo);
       await sendKeys({ press: 'Enter' });
       await clickSpy.calledTimes(2);
       expect(clickSpy.count).to.be.equal(2);
