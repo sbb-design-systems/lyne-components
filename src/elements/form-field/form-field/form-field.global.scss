@@ -43,13 +43,6 @@ $theme: 'standard' !default;
       ),
       $theme
     )};
-  --sbb-form-field-hint-padding-inline-start: #{sbb.theme-pattern-select(
-      (
-        'standard': var(--sbb-spacing-fixed-3x),
-        'lean': var(--sbb-spacing-fixed-2x),
-      ),
-      $theme
-    )};
   --_sbb-form-field-label-to-input-overlapping: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-spacing-fixed-1x),
