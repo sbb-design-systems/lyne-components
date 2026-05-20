@@ -5,6 +5,7 @@
  * @param attribute The attribute to look for.
  * @param endElement The boundary where the path will be cut, endElement excluded. If null or not present, the whole path will be used.
  * @returns The element that has 'attribute', undefined otherwise.
+ * @deprecated
  */
 export function composedPathHasAttribute(
   event: Event,

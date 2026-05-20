@@ -210,7 +210,7 @@ $theme: 'standard' !default;
 @use '../../mixins/panel-common.global' as panel-common with (
   $theme: $theme
 );
-@use '../../../popover/popover.global' as popover-component with (
+@use '../../../popover/popover/popover.global' as popover-component with (
   $theme: $theme
 );
 @use '../../../radio-button/common/radio-button-common.global' as radio-button-common with (

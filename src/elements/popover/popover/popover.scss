@@ -1,4 +1,4 @@
-@use '../core/styles' as sbb;
+@use '../../core/styles' as sbb;
 
 :host {
   // As the popover has always a white background, we have to fix the focus outline color
@@ -12,7 +12,7 @@
     var(--sbb-animation-duration-4x)
   );
   --_sbb-popover-inset: 0 auto auto 0;
-  --_sbb-popover-transform: translateY(var(--sbb-spacing-fixed-2x));
+  --_sbb-popover-translate: 0 var(--sbb-spacing-fixed-2x);
   --_sbb-popover-box-shadow: var(--sbb-box-shadow-level-9-hard);
 
   // Use !important here to not interfere with Firefox focus ring definition
@@ -28,10 +28,10 @@
 }
 
 :host(:state(position-above)) {
-  --_sbb-popover-transform: translateY(calc(var(--sbb-spacing-fixed-2x) * -1));
+  --_sbb-popover-translate: 0 calc(var(--sbb-spacing-fixed-2x) * -1);
 }
 
-:host(:not([hide-close-button], :state(hover-trigger))) {
+:host(:state(has-close-button)) {
   --sbb-popover-min-height: calc(var(--sbb-size-element-xs) + 2 * var(--sbb-popover-padding));
 }
 
@@ -47,7 +47,7 @@
   bottom: calc(100% - calc(var(--sbb-popover-arrow-size) / 2));
   background-color: var(--sbb-popover-background);
   border-radius: var(--sbb-border-radius-2x) 0;
-  transform: rotate(45deg);
+  rotate: 45deg;
 }
 
 .sbb-popover__container {
@@ -155,30 +155,30 @@
 .sbb-popover__scrollable-content {
   display: block;
   padding-block-end: var(--sbb-popover-padding);
-  max-height: calc(var(--_sbb-popover-max-height));
+  max-height: var(--_sbb-popover-max-height);
   overflow: auto;
 }
 
 @keyframes open {
   from {
     opacity: 0;
-    transform: var(--_sbb-popover-transform);
+    translate: var(--_sbb-popover-translate);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    translate: 0;
   }
 }
 
 @keyframes close {
   from {
     opacity: 1;
-    transform: translateY(0);
+    translate: 0;
   }
 
   to {
     opacity: 0;
-    transform: var(--_sbb-popover-transform);
+    translate: var(--_sbb-popover-translate);
   }
 }

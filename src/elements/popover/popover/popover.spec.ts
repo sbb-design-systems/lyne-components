@@ -3,17 +3,17 @@ import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import type { SbbButtonElement } from '../button.ts';
-import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.ts';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
-import { mergeConfig } from '../core.ts';
-import type { SbbLinkElement } from '../link.ts';
+import type { SbbButtonElement } from '../../button.ts';
+import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { mergeConfig } from '../../core.ts';
+import type { SbbLinkElement } from '../../link.ts';
 
 import { SbbPopoverElement } from './popover.component.ts';
 
-import '../button.ts';
-import '../link.ts';
-import '../popover.ts';
+import '../../button.ts';
+import '../../link.ts';
+import '../../popover.ts';
 
 describe(`sbb-popover`, () => {
   let element: SbbPopoverElement,
@@ -49,6 +49,7 @@ describe(`sbb-popover`, () => {
         <span>
           <sbb-button id="popover-trigger" size="l">Popover trigger</sbb-button>
           <sbb-popover trigger="popover-trigger">
+            <sbb-popover-close-button></sbb-popover-close-button>
             Popover content.
             <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>
           </sbb-popover>
@@ -123,7 +124,7 @@ describe(`sbb-popover`, () => {
     });
 
     it('closes the popover on close button click', async () => {
-      const closeButton = element.shadowRoot!.querySelector<HTMLElement>('[sbb-popover-close]')!;
+      const closeButton = element.querySelector('sbb-popover-close-button')!;
 
       element.open();
 
@@ -259,17 +260,11 @@ describe(`sbb-popover`, () => {
       await openSpy.calledOnce();
       expect(element).to.match(':state(state-opened)');
 
-      expect(document.activeElement).to.be.equal(element);
-      expect(
-        document.activeElement!.shadowRoot!.activeElement ===
-          document.activeElement!.shadowRoot!.querySelector('[sbb-popover-close]'),
-      ).to.be.equal(true);
+      expect(document.activeElement).to.be.equal(element.querySelector('sbb-popover-close-button'));
     });
 
     it('closes the popover on close button click by keyboard', async () => {
-      const closeButton = document
-        .querySelector('sbb-popover')!
-        .shadowRoot!.querySelector<HTMLElement>('[sbb-popover-close]')!;
+      const closeButton = element.querySelector('sbb-popover-close-button')!;
 
       element.open();
 
@@ -377,13 +372,13 @@ describe(`sbb-popover`, () => {
       expect(element.style.getPropertyValue('--_sbb-popover-position-y')).to.equal(positionBefore);
     });
 
-    it('should remove close button when hoverTrigger is set', async () => {
-      expect(element.shadowRoot!.querySelector('[sbb-popover-close]')).not.to.be.null;
+    it('should still have close button in light DOM when hoverTrigger is set', async () => {
+      expect(element.querySelector('sbb-popover-close-button')).not.to.be.null;
 
       element.hoverTrigger = true;
       await waitForLitRender(element);
 
-      expect(element.shadowRoot!.querySelector('[sbb-popover-close]')).to.be.null;
+      expect(element.querySelector('sbb-popover-close-button')).not.to.be.null;
     });
 
     it('should update config when changing hoverTrigger', async () => {
@@ -588,9 +583,7 @@ describe(`sbb-popover`, () => {
       content = await fixture(html`
         <span>
           <sbb-button id="popover-trigger">Popover trigger</sbb-button>
-          <sbb-popover id="popover" trigger="popover-trigger" hide-close-button>
-            Popover content.
-          </sbb-popover>
+          <sbb-popover id="popover" trigger="popover-trigger"> Popover content. </sbb-popover>
           <!-- Place the button with a spacing to the popover so that it gets clickable. -->
           <sbb-button id="interactive-background-element" style="margin-block-start:100px">
             Other interactive element

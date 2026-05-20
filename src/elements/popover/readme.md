@@ -15,6 +15,7 @@ the [sbb-menu-button](/docs/elements-button--docs) is meant to be used as trigge
 <sbb-mini-button icon-name="circle-information-small" id="popover-trigger"></sbb-mini-button>
 
 <sbb-popover id="popover" trigger="popover-trigger">
+  <sbb-popover-close-button></sbb-popover-close-button>
   <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Popover Title.</sbb-title>
   <p id="popover-content">Popover content.</p>
 </sbb-popover>
@@ -41,13 +42,14 @@ The `<sbb-popover>` can be dismissed by clicking on an interactive element withi
 by clicking on the close button or by performing another action on the page.
 
 You can also indicate that an element within the popover content should close the `<sbb-popover>` when clicked
-by marking it with the `sbb-popover-close` attribute;
-it's also possible to hide the default close button using the `hideCloseButton` property.
+by marking it with the `sbb-popover-close` attribute.
+To display a close button, place the `<sbb-popover-close-button>` inside the popover.
 
 ```html
 <sbb-mini-button id="popover-trigger"></sbb-mini-button>
 
-<sbb-popover id="popover" trigger="popover-trigger" hide-close-button>
+<sbb-popover id="popover" trigger="popover-trigger">
+  <sbb-popover-close-button></sbb-popover-close-button>
   <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Popover Title.</sbb-title>
   <p id="popover-content">
     Popover content. <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
@@ -57,7 +59,8 @@ it's also possible to hide the default close button using the `hideCloseButton` 
 
 You can also indicate that the `<sbb-popover>` should be shown on hover with the property `hoverTrigger`
 and set a custom delay for the open and close animations (defaults to 0).
-In this case, the default close button is hidden.
+When using `hoverTrigger`, it is the consumer's responsibility to omit the `<sbb-popover-close-button>`,
+as a close button is not appropriate in hover-triggered popovers.
 
 If hover is not supported by the current device, the component will be triggered on click/tap as default.
 The `<sbb-popover>` will automatically disappear after the hiding delay
@@ -105,19 +108,58 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 ## API Documentation
 
+### class: `SbbPopoverCloseButtonElement`, `sbb-popover-close-button`
+
+#### Properties
+
+| Name                  | Attribute              | Privacy | Type                              | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| --------------------- | ---------------------- | ------- | --------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`            | `disabled`             | public  | `boolean`                         | `false`    | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `disabledInteractive` | `disabled-interactive` | public  | `boolean`                         | `false`    | Whether the button should be aria-disabled but stay interactive.                                                                                                                                                                                                                                                                                                                                                                                        |
+| `form`                | `form`                 | public  | `HTMLFormElement \| null`         |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `iconName`            | `icon-name`            | public  | `string`                          | `''`       | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                                                                                                                                                                                                                                                                                        |
+| `loading`             | `loading`              | public  | `boolean`                         | `false`    | Whether the button indicates a loading state. The animation kicks in after a delay of 300ms, configurable with --sbb-button-loading-delay CSS variable.                                                                                                                                                                                                                                                                                                 |
+| `name`                | `name`                 | public  | `string`                          |            | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `negative`            | `negative`             | public  | `boolean`                         | `false`    | Negative coloring variant flag.                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `size`                | `size`                 | public  | `'s' \| 'm' \| 'l' \| null`       | `'s'`      | Size variant, either s (lean theme default), m (standard theme default) or l.                                                                                                                                                                                                                                                                                                                                                                           |
+| `type`                | `type`                 | public  | `'button' \| 'reset' \| 'submit'` | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `validationMessage`   | -                      | public  | `string`                          |            | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`            | -                      | public  | `ValidityState`                   |            | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`               | `value`                | public  | `string`                          | `''`       | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `willValidate`        | -                      | public  | `boolean`                         |            | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+#### Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### CSS Properties
+
+| Name                         | Default | Description                                                                                |
+| ---------------------------- | ------- | ------------------------------------------------------------------------------------------ |
+| `--sbb-button-loading-delay` | `300ms` | The delay before the loading animation starts, when setting the button into loading state. |
+
+#### Slots
+
+| Name   | Description                                                                                               |
+| ------ | --------------------------------------------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the popover-close-button. Not intended to be used in this context. |
+| `icon` | Slot used to display the icon, if one is set. Not intended to be used in this context.                    |
+
 ### class: `SbbPopoverElement`, `sbb-popover`
 
 #### Properties
 
-| Name                      | Attribute                   | Privacy | Type                  | Default | Description                                                                                                 |
-| ------------------------- | --------------------------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------- |
-| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `string`              | `''`    | This will be forwarded as aria-label to the close button element.                                           |
-| `closeDelay`              | `close-delay`               | public  | `number`              | `0`     | Close the popover after a given delay in milliseconds. Global configuration is used as default, if not set. |
-| `hideCloseButton`         | `hide-close-button`         | public  | `boolean`             | `false` | Whether the close button should be hidden.                                                                  |
-| `hoverTrigger`            | `hover-trigger`             | public  | `boolean`             | `false` | Whether the popover should be triggered on hover.                                                           |
-| `isOpen`                  | -                           | public  | `boolean`             |         | Whether the element is open.                                                                                |
-| `openDelay`               | `open-delay`                | public  | `number`              | `0`     | Open the popover after a given delay in milliseconds. Global configuration is used as default, if not set.  |
-| `trigger`                 | `trigger`                   | public  | `HTMLElement \| null` | `null`  | The element that will trigger the popover overlay. For attribute usage, provide an id reference.            |
+| Name           | Attribute       | Privacy | Type                  | Default | Description                                                                                                 |
+| -------------- | --------------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------- |
+| `closeDelay`   | `close-delay`   | public  | `number`              | `0`     | Close the popover after a given delay in milliseconds. Global configuration is used as default, if not set. |
+| `hoverTrigger` | `hover-trigger` | public  | `boolean`             | `false` | Whether the popover should be triggered on hover.                                                           |
+| `isOpen`       | -               | public  | `boolean`             |         | Whether the element is open.                                                                                |
+| `openDelay`    | `open-delay`    | public  | `number`              | `0`     | Open the popover after a given delay in milliseconds. Global configuration is used as default, if not set.  |
+| `trigger`      | `trigger`       | public  | `HTMLElement \| null` | `null`  | The element that will trigger the popover overlay. For attribute usage, provide an id reference.            |
 
 #### Methods
 

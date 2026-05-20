@@ -7,8 +7,10 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
-import { SbbPopoverElement } from './popover.component.ts';
+import { SbbPopoverElement } from './popover/popover.component.ts';
 import readme from './readme.md?raw';
+
+
 import '../link.ts';
 import '../title.ts';
 import '../button.ts';
@@ -38,14 +40,14 @@ const closeDelay: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   'hover-trigger': hoverTrigger,
-  'hide-close-button': hideCloseButton,
+  hideCloseButton,
   'open-delay': openDelay,
   'close-delay': closeDelay,
 };
 
 const defaultArgs: Args = {
   'hover-trigger': false,
-  'hide-close-button': false,
+  hideCloseButton: false,
   'open-delay': undefined,
   'close-delay': undefined,
 };
@@ -62,8 +64,15 @@ const popoverTrigger = (position: Record<string, string>): TemplateResult => htm
   ></sbb-mini-button>
 `;
 
-const popover = (args: Args): TemplateResult => html`
-  <sbb-popover trigger="popover-trigger" ${sbbSpread(args)}>
+const popover = ({
+  hideCloseButton,
+  'hover-trigger': hoverTrigger,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-popover trigger="popover-trigger" ?hover-trigger=${hoverTrigger} ${sbbSpread(args)}>
+    ${hideCloseButton || hoverTrigger
+      ? ''
+      : html`<sbb-popover-close-button></sbb-popover-close-button>`}
     <sbb-title level="2" visual-level="6" style="margin-block-start: 0"> Title. </sbb-title>
     <p style="margin: 0" class="sbb-text-s">
       Some content.
@@ -136,7 +145,7 @@ const HoverTriggerTemplate = (args: Args): TemplateResult => html`
   ${popoverTrigger({ 'inset-inline-start': '2rem' })} ${popover(args)}
 `;
 
-const WithoutCloseButtonTemplate = (args: Args): TemplateResult => html`
+const WithStaticContentTemplate = (args: Args): TemplateResult => html`
   ${popoverTrigger({ 'inset-inline-start': '2rem' })} ${simplePopover(args)}
 `;
 
@@ -193,22 +202,23 @@ export const HoverTrigger: StoryObj = {
   },
 };
 
-export const WithoutCloseButton: StoryObj = {
-  render: WithoutCloseButtonTemplate,
+export const WithStaticContent: StoryObj = {
+  render: WithStaticContentTemplate,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'hide-close-button': true,
+    hideCloseButton: true,
   },
 };
 
-export const WithoutCloseButtonHover: StoryObj = {
-  render: WithoutCloseButtonTemplate,
+export const WithStaticContentHover: StoryObj = {
+  render: WithStaticContentTemplate,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'hide-close-button': true,
     'hover-trigger': true,
+    'open-delay': 0,
+    'close-delay': 0,
   },
 };
 

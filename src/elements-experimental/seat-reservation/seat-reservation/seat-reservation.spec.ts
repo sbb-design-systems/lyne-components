@@ -2,7 +2,7 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import type { SbbSecondaryButtonElement } from '@sbb-esta/lyne-elements/button/secondary-button/secondary-button.component.js';
 import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
-import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover.component.js';
+import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover/popover.component.js';
 import { html } from 'lit/static-html.js';
 
 import { mapRawDataToSeatReservation } from '../common/mapper/mapper.ts';

@@ -14,14 +14,8 @@ snapshots["sbb-popover renders Shadow DOM"] =
     role="tooltip"
   >
     <div class="sbb-popover__content">
-      <sbb-secondary-button
-        aria-label="Close note"
-        icon-name="cross-small"
-        sbb-popover-close=""
-        size="s"
-        tabindex="0"
-      >
-      </sbb-secondary-button>
+      <slot name="close-button">
+      </slot>
       <span class="sbb-popover__scrollable-content sbb-scrollbar">
         <slot>
           No content
@@ -41,19 +35,7 @@ snapshots["sbb-popover renders A11y tree Chrome"] =
   "children": [
     {
       "ignored": true,
-      "role": "none",
-      "children": [
-        {
-          "ignored": true,
-          "role": "none",
-          "children": [
-            {
-              "ignored": true,
-              "role": "none"
-            }
-          ]
-        }
-      ]
+      "role": "none"
     }
   ]
 }

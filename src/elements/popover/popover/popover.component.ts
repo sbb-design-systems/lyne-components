@@ -3,7 +3,6 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  nothing,
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
@@ -12,12 +11,9 @@ import {
 import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbSecondaryButtonElement } from '../button.pure.ts';
 import {
-  composedPathHasAttribute,
   forceType,
   getElementPosition,
-  i18nClosePopover,
   idReference,
   IS_FOCUSABLE_QUERY,
   isEventOnElement,
@@ -26,17 +22,15 @@ import {
   popoverResetStyles,
   readConfig,
   removeAriaOverlayTriggerProperties,
-  type SbbElementType,
   SbbEscapableOverlayController,
   SbbFocusTrapController,
   sbbInputModalityDetector,
-  SbbLanguageController,
   SbbMediaQueryPointerCoarse,
   SbbOpenCloseBaseElement,
   scrollbarStyles,
   setAriaOverlayTriggerProperties,
   ɵstateController,
-} from '../core.ts';
+} from '../../core.ts';
 
 import style from './popover.scss?inline';
 
@@ -284,11 +278,28 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
     });
   }
 
+  private _closingTarget(event: Event): HTMLElement | null {
+    for (const element of event.composedPath()) {
+      if (!(element instanceof window.HTMLElement)) {
+        continue;
+      }
+      if (element === this) {
+        return null;
+      } else if (
+        (element.hasAttribute('sbb-popover-close') ||
+          element.localName === 'sbb-popover-close-button') &&
+        !element.hasAttribute('disabled')
+      ) {
+        return element;
+      }
+    }
+    return null;
+  }
+
   // Close the popover on click of any element that has the 'sbb-popover-close' attribute.
   private _closeOnSbbPopoverCloseClick(event: Event): void {
-    const closeElement = composedPathHasAttribute(event, 'sbb-popover-close', this);
-
-    if (closeElement && !closeElement.hasAttribute('disabled')) {
+    const closeElement = this._closingTarget(event);
+    if (closeElement) {
       clearTimeout(this.closeTimeout);
       this.close(closeElement);
     }
@@ -460,13 +471,7 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
  */
 export class SbbPopoverElement extends SbbPopoverBaseElement {
   public static override readonly elementName: string = 'sbb-popover';
-  public static override elementDependencies: SbbElementType[] = [SbbSecondaryButtonElement];
   public static override styles: CSSResultGroup = [scrollbarStyles];
-
-  /** Whether the close button should be hidden. */
-  @forceType()
-  @property({ attribute: 'hide-close-button', type: Boolean, reflect: true })
-  public accessor hideCloseButton: boolean = false;
 
   /** Whether the popover should be triggered on hover. */
   @forceType()
@@ -503,14 +508,8 @@ export class SbbPopoverElement extends SbbPopoverBaseElement {
   }
   private _closeDelay?: number;
 
-  /** This will be forwarded as aria-label to the close button element. */
-  @forceType()
-  @property({ attribute: 'accessibility-close-label' })
-  public accessor accessibilityCloseLabel: string = '';
-
   @state() private accessor _hoverTrigger = false;
   private _openTimeout?: ReturnType<typeof setTimeout>;
-  private _language = new SbbLanguageController(this);
   private _overlayAbortController: AbortController | null = null;
 
   protected override configureTrigger(oldTrigger: HTMLElement | null): void {
@@ -627,19 +626,14 @@ export class SbbPopoverElement extends SbbPopoverBaseElement {
     }
   };
 
-  protected override renderContent(): TemplateResult {
-    // TODO: remove close button from shadow DOM and create sbb-popover-close-button component like sbb-sidebar-close-button @breaking-change
-    const closeButton = html`
-      <sbb-secondary-button
-        aria-label=${this.accessibilityCloseLabel || i18nClosePopover[this._language.current]}
-        size="s"
-        icon-name="cross-small"
-        sbb-popover-close
-      ></sbb-secondary-button>
-    `;
+  private _onCloseButtonSlotChange(event: Event): void {
+    const slot = event.target as HTMLSlotElement;
+    this.toggleState('has-close-button', slot.assignedElements().length > 0);
+  }
 
+  protected override renderContent(): TemplateResult {
     return html`
-      ${!this.hideCloseButton && !this._hoverTrigger ? closeButton : nothing}
+      <slot name="close-button" @slotchange=${this._onCloseButtonSlotChange}></slot>
       <span class="sbb-popover__scrollable-content sbb-scrollbar">
         <slot>No content</slot>
       </span>

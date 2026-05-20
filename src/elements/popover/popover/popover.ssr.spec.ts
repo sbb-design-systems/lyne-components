@@ -1,14 +1,14 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import type { SbbButtonElement } from '../button.ts';
-import { ssrHydratedFixture } from '../core/testing/private.ts';
+import type { SbbButtonElement } from '../../button.ts';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbPopoverElement } from './popover.component.ts';
 
-import '../button.ts';
-import '../link.ts';
-import '../popover.ts';
+import '../../button.ts';
+import '../../link.ts';
+import '../../popover.ts';
 
 describe(`sbb-popover ssr`, () => {
   let root: HTMLSpanElement;

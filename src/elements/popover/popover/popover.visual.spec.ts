@@ -1,12 +1,12 @@
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import '../popover.ts';
-import '../button.ts';
-import '../link.ts';
-import '../title.ts';
+import '../../popover.ts';
+import '../../button.ts';
+import '../../link.ts';
+import '../../title.ts';
 
 describe(`sbb-popover`, () => {
   const positionCases = [
@@ -18,10 +18,11 @@ describe(`sbb-popover`, () => {
     { name: 'bottom-right', alignItems: 'end', justifyContent: 'end' },
   ];
 
-  const popover = (hideCloseButton?: boolean): TemplateResult => html`
+  const popover = (withCloseButton = true): TemplateResult => html`
     <sbb-mini-button icon-name="circle-information-small" id="popover-trigger"></sbb-mini-button>
 
-    <sbb-popover trigger="popover-trigger" ?hide-close-button=${hideCloseButton}>
+    <sbb-popover trigger="popover-trigger">
+      ${withCloseButton ? html`<sbb-popover-close-button></sbb-popover-close-button>` : nothing}
       <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Title.</sbb-title>
       <p style="margin: 0" class="sbb-text-s">
         Some content.
@@ -66,9 +67,9 @@ describe(`sbb-popover`, () => {
     }
 
     it(
-      `hide-close-button`,
+      `without close button`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(popover(true), {
+        await setup.withFixture(popover(false), {
           minHeight: '400px',
           padding: '3rem',
         });
@@ -115,7 +116,9 @@ describe(`sbb-popover`, () => {
               icon-name="circle-information-small"
               id="popover-trigger"
             ></sbb-mini-button>
-            <sbb-popover trigger="popover-trigger">Test</sbb-popover>
+            <sbb-popover trigger="popover-trigger"
+              ><sbb-popover-close-button></sbb-popover-close-button>Test</sbb-popover
+            >
           `,
           {
             minHeight: '400px',
