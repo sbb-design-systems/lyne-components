@@ -244,13 +244,13 @@ export class SbbStepperElement extends SbbElement {
       nextStep: this.selectedIndex !== null ? this.steps[this.selectedIndex + 1] : null,
     };
 
-    if (this.selected && !this.selected.validate(validatePayload)) {
+    if (this.selected && !this.selected['validate'](validatePayload)) {
       return;
     }
 
     const current = this.selected;
-    current?.deselect();
-    step.select();
+    current?.['deselect']();
+    step['select']();
 
     /** @internal only to provide double entry in docs. It is a public event! */
     this.dispatchEvent(
@@ -326,7 +326,7 @@ export class SbbStepperElement extends SbbElement {
 
   private _configure(): void {
     this.steps.forEach((step, i, array) => {
-      step.configure(this._loaded);
+      step['configure'](this._loaded);
       step.label?.configure(i + 1, array.length, this._loaded);
     });
     this._select(this.selected || this._enabledSteps[0]);

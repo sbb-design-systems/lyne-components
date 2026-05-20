@@ -1042,19 +1042,17 @@ describe('sbb-dialog', () => {
       expect(event.closeTarget).to.be.null;
     });
 
-    it('should emit result with closeTarget when close() is called with target parameter', async () => {
+    it('should emit result with closeTarget when close() is called', async () => {
       const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
-      const customTarget = element.querySelector<HTMLButtonElement>('#close-programmatically')!;
 
       await openDialog(element);
 
-      element.close({ custom: 'result' }, customTarget);
+      element.close({ custom: 'result' });
       await closeSpy.calledOnce();
 
       const event = closeSpy.lastEvent as SbbDialogCloseEvent;
       expect(event).to.be.instanceOf(SbbDialogCloseEvent);
       expect(event.result).to.deep.equal({ custom: 'result' });
-      expect(event.closeTarget).to.equal(customTarget);
     });
   });
 });

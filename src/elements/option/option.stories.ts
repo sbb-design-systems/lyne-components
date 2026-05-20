@@ -12,6 +12,7 @@ import { SbbOptionElement } from '../option.ts';
 import readme from './readme.md?raw';
 
 import '../autocomplete.ts';
+import '../divider.ts';
 import '../form-field.ts';
 import '../select.ts';
 

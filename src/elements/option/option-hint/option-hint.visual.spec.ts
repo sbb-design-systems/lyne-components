@@ -10,11 +10,12 @@ import {
 } from '../../core/testing/private.ts';
 import type { SbbFormFieldElement } from '../../form-field.pure.ts';
 
-import '../../select.ts';
-import '../../form-field.ts';
 import '../../autocomplete.ts';
-import '../../../elements-experimental/autocomplete-grid.ts';
+import '../../divider.ts';
+import '../../form-field.ts';
 import '../../option.ts';
+import '../../select.ts';
+import '../../../elements-experimental/autocomplete-grid.ts';
 
 const openAutocomplete = async (setup: VisualDiffSetupBuilder): Promise<void> => {
   // Wait for page is rendered stable. Otherwise, the overlay can be positioned slightly off.

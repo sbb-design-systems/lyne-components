@@ -110,8 +110,8 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
       new SbbOverlayCloseEvent('beforeclose', {
         cancelable: true,
         closeAttribute: this.closeAttribute,
-        closeTarget: this.overlayCloseElement,
-        result: this.returnValue,
+        closeTarget: this.lastClosedTarget,
+        result: this.lastResult,
       }),
     );
   }
@@ -121,8 +121,8 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
     return this.dispatchEvent(
       new SbbOverlayCloseEvent('close', {
         closeAttribute: this.closeAttribute,
-        closeTarget: this.overlayCloseElement,
-        result: this.returnValue,
+        closeTarget: this.lastClosedTarget,
+        result: this.lastResult,
       }),
     );
   }

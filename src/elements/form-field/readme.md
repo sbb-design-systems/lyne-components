@@ -177,7 +177,7 @@ it's possible to apply any desired width by setting just the `width` and `min-wi
 ### Reflected state from input
 
 The form field reflects certain states as custom states. This includes `focus`, `disabled`,
-`readonly`, `empty`, `has-error`, `has-popup-open` and `input-type-{tag name of the input}`.
+`readonly`, `empty`, `has-error`, `has-popup-open` and `input-element-{tag name of the input}`.
 
 This can be targeted via CSS via the `:state()` pseudo-class:
 

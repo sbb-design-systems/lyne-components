@@ -61,7 +61,7 @@ export declare abstract class SbbFormAssociatedMixinType {
   public get validationMessage(): string;
   public get willValidate(): boolean;
 
-  protected formDisabled: boolean;
+  protected accessor formDisabled: boolean;
 
   public checkValidity(): boolean;
   public reportValidity(): boolean;

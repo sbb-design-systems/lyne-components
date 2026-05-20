@@ -206,8 +206,8 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
       new SbbDialogCloseEvent('beforeclose', {
         cancelable: true,
         closeAttribute: this.closeAttribute,
-        closeTarget: this.overlayCloseElement,
-        result: this.returnValue,
+        closeTarget: this.lastClosedTarget,
+        result: this.lastResult,
       }),
     );
   }
@@ -217,8 +217,8 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
     return this.dispatchEvent(
       new SbbDialogCloseEvent('close', {
         closeAttribute: this.closeAttribute,
-        closeTarget: this.overlayCloseElement,
-        result: this.returnValue,
+        closeTarget: this.lastClosedTarget,
+        result: this.lastResult,
       }),
     );
   }
