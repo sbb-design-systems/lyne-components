@@ -85,15 +85,30 @@ describe(`sbb-accordion`, () => {
   it('should inherit titleLevel prop by panels', () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
-    expect(
-      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel__header')!.localName,
-    ).to.be.equal('h4');
-    expect(
-      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel__header')!.localName,
-    ).to.be.equal('h4');
-    expect(
-      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel__header')!.localName,
-    ).to.be.equal('h4');
+    expect(panels[0].shadowRoot!.querySelector('.sbb-expansion-panel__header')!).to.have.attribute(
+      'role',
+      'heading',
+    );
+    expect(panels[0].shadowRoot!.querySelector('.sbb-expansion-panel__header')!).to.have.attribute(
+      'aria-level',
+      '4',
+    );
+    expect(panels[1].shadowRoot!.querySelector('.sbb-expansion-panel__header')!).to.have.attribute(
+      'role',
+      'heading',
+    );
+    expect(panels[1].shadowRoot!.querySelector('.sbb-expansion-panel__header')!).to.have.attribute(
+      'aria-level',
+      '4',
+    );
+    expect(panels[2].shadowRoot!.querySelector('.sbb-expansion-panel__header')!).to.have.attribute(
+      'role',
+      'heading',
+    );
+    expect(panels[2].shadowRoot!.querySelector('.sbb-expansion-panel__header')!).to.have.attribute(
+      'aria-level',
+      '4',
+    );
   });
 
   it('should dynamically update titleLevel prop', async () => {
@@ -101,15 +116,18 @@ describe(`sbb-accordion`, () => {
     await waitForLitRender(element);
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
-    expect(
-      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel__header')!.localName,
-    ).to.be.equal('h6');
-    expect(
-      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel__header')!.localName,
-    ).to.be.equal('h6');
-    expect(
-      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel__header')!.localName,
-    ).to.be.equal('h6');
+    expect(panels[0].shadowRoot!.querySelector('.sbb-expansion-panel__header')!).to.have.attribute(
+      'aria-level',
+      '6',
+    );
+    expect(panels[1].shadowRoot!.querySelector('.sbb-expansion-panel__header')!).to.have.attribute(
+      'aria-level',
+      '6',
+    );
+    expect(panels[2].shadowRoot!.querySelector('.sbb-expansion-panel__header')!).to.have.attribute(
+      'aria-level',
+      '6',
+    );
   });
 
   it('should dynamically update size prop', async () => {
