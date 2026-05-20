@@ -63,10 +63,10 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<S
         new SbbPropertyWatcherController(
           this,
           () => this.closest('sbb-radio-button-group'),
-          ['disabled', 'required', 'size'].reduce((v, p): any => {
-            v[p] = () => this.requestUpdate(p);
-            return v;
-          }, {}),
+          Object.assign(
+            {},
+            ...['disabled', 'required', 'size'].map((p) => ({ [p]: () => this.requestUpdate(p) })),
+          ),
         ),
       );
     }
