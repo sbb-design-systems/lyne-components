@@ -3,14 +3,15 @@
 :host {
   display: block;
   font-weight: bold;
-  font-size: var(--sbb-title-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-heading);
-  line-height: var(--sbb-title-line-height, var(--sbb-typo-line-height-heading));
+  line-height: var(--sbb-typo-line-height-heading);
   color: var(--sbb-title-color);
+
+  @include sbb.title--level-1;
 }
 
 :host([id]) {
-  @include sbb.scroll-margin-block-start;
+  scroll-margin-block-start: var(--sbb-spacing-fixed-10x);
 }
 
 :host(:where([level='2']:not([visual-level]), [visual-level='2'])) {

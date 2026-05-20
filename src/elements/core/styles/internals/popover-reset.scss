@@ -1,0 +1,6 @@
+@use '../mixins/reset';
+
+:host(:where([popover])),
+.sbb-popover-reset:where([popover]) {
+  @include reset.popover-reset;
+}

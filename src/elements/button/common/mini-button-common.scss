@@ -19,7 +19,7 @@ $active: ':active, :state(active)';
   --sbb-mini-button-color-background: var(--sbb-mini-button-color-default-background);
   --sbb-mini-button-color: var(--sbb-mini-button-color-text);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-mini-button-color-text: ButtonText !important;
     --sbb-mini-button-color-hover-background: Highlight !important;
     --sbb-mini-button-color-active-background: Highlight !important;

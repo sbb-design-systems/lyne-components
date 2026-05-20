@@ -19,7 +19,7 @@ $scrollbar-height: 16px;
     fill: var(--sbb-background-color-2);
 
     // In High Contrast Mode we set floor color to transparent
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       fill: transparent;
     }
   }
@@ -28,12 +28,8 @@ $scrollbar-height: 16px;
 // rotates the DOM-part "coach-floor" by 180 degrees if the host is in RTL mode.
 @include sbb-sr-mixins.rotate-dom-part(coach-floor);
 
-[popover]:where(sbb-popover) {
-  @include sbb.popover-reset;
-
-  .sbb-sr-popover {
-    margin-block: sbb-sr-functions.sr-px-to-rem(4);
-  }
+.sbb-sr-popover {
+  margin-block: sbb-sr-functions.sr-px-to-rem(4);
 }
 
 // START - Vertical mode
@@ -173,8 +169,6 @@ $scrollbar-height: 16px;
 }
 
 .sbb-sr-navigation__list-coaches {
-  @include sbb.list-reset;
-
   display: flex;
   flex-wrap: nowrap;
   gap: sbb-sr-functions.sr-px-to-rem(4);
@@ -225,8 +219,6 @@ $scrollbar-height: 16px;
 }
 
 .sbb-sr__list-decks {
-  @include sbb.list-reset;
-
   display: flex;
   flex-direction: column;
 }
@@ -240,8 +232,6 @@ $scrollbar-height: 16px;
 }
 
 .sbb-sr__list-coaches {
-  @include sbb.list-reset;
-
   display: flex;
   gap: sbb-sr-functions.sr-px-to-rem(4);
 }

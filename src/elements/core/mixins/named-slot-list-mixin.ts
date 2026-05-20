@@ -6,7 +6,7 @@ import type {
   SbbElementConstructor,
   SbbElementType,
 } from '../base-elements/element.ts';
-import { screenReaderOnlyStyles } from '../styles/styles.ts';
+import { listResetStyles, screenReaderOnlyStyles } from '../styles/styles.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 
@@ -68,7 +68,7 @@ export const SbbNamedSlotListMixin = <
     implements Partial<SbbNamedSlotListMixinType<C>>
   {
     public static override elementDependencies: SbbElementType[] = [];
-    public static styles: CSSResultGroup = [screenReaderOnlyStyles];
+    public static styles: CSSResultGroup = [listResetStyles, screenReaderOnlyStyles];
     /** A list of lower-cased tag names to match against. (e.g. `sbb-link`) */
     protected abstract readonly listChildLocalNames: string[];
 

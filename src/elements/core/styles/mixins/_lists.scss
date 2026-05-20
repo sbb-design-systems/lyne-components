@@ -1,0 +1,267 @@
+@use 'sass:selector';
+@use '../core/functions';
+@use '../core/mediaqueries';
+@use './a11y';
+@use './typo';
+
+@mixin list {
+  // Support both top level usage (& is empty / falsy)
+  // and applied to a selector usage.
+  $selector: ':is(ol, ul)';
+  @if & {
+    $selector: '&:where(ol, ul)';
+  }
+  #{$selector} {
+    --sbb-list-vertical-gap: 0.75em;
+    --sbb-list-padding-inline-start: 1.5em;
+
+    &,
+    :is(ol, ul) {
+      margin: 0;
+      padding: 0;
+      padding-inline-start: var(--sbb-list-padding-inline-start);
+
+      > li {
+        + li {
+          margin-block-start: var(--sbb-list-vertical-gap);
+        }
+
+        p {
+          margin-block: 0;
+        }
+
+        // P has to be redefined to be more specific
+        > * + p {
+          margin-block-start: var(--sbb-spacing-responsive-xxxs);
+        }
+      }
+    }
+
+    :is(ul, ol),
+    .sbb-step-list & {
+      margin-block-start: var(--sbb-list-vertical-gap);
+    }
+  }
+
+  // Support both top level usage (& is empty / falsy)
+  // and applied to a selector usage.
+  $selector: 'ul';
+  @if & {
+    $selector: '&:where(ul)';
+  }
+  #{$selector} {
+    &,
+    ul {
+      list-style-type: none;
+
+      > li {
+        position: relative;
+
+        // Bullet point
+        &::before {
+          content: '\2022'; // •
+          position: absolute;
+          display: flex;
+          height: 1em;
+          width: 1em;
+          align-items: center;
+          justify-content: center;
+          inset-block-start: calc(0.5 * (var(--sbb-typo-line-height-text) * 1em - 1em));
+          inset-inline-start: calc(-1 * (0.5 * var(--sbb-list-padding-inline-start) + 0.5em));
+
+          // Scale 1.3 to match Figma specs.
+          transform: scale(1.3);
+        }
+      }
+    }
+  }
+}
+
+@mixin description-list {
+  // Support both top level usage (& is empty / falsy)
+  // and applied to a selector usage.
+  $selector: 'dl';
+  @if & {
+    $selector: '&:where(dl)';
+  }
+  #{$selector} {
+    line-height: var(--sbb-typo-line-height-text);
+    letter-spacing: var(--sbb-typo-letter-spacing-text);
+    font-size: var(--sbb-text-font-size-s);
+    margin: 0;
+    padding: 0;
+    display: grid;
+
+    // Ensure that description is always attached to the label
+    grid-template-columns: auto minmax(20%, 1fr);
+    gap: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x);
+
+    :is(dt, dd) {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+@mixin icon-list {
+  --sbb-icon-list-marker-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="%23000" fill-rule="evenodd" d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 9 9 9 9 0 0 1-9 9 9 9 0 0 1-9-9m9-10C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2m-1.104 13.305 5-6.5-.792-.61-4.69 6.096-2.102-1.681-.624.78 2.5 2 .398.319z" clip-rule="evenodd"></path></svg>');
+  --sbb-icon-list-marker-icon-color: currentcolor;
+  --sbb-icon-list-vertical-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-icon-list-dimensions: var(--sbb-size-icon-ui-small);
+  --sbb-icon-list-to-text-gap: var(--sbb-spacing-fixed-2x);
+
+  // Additional space from overall li padding to the text because text
+  // has to be centered to marker number.
+  --sbb-icon-list-text-to-marker-block-offset: calc(
+    0.5 *
+      (
+        var(--sbb-icon-list-dimensions) - var(--sbb-typo-line-height-text) *
+          var(--sbb-text-font-size)
+      )
+  );
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  // stylelint-disable-next-line no-descending-specificity
+  > li {
+    position: relative;
+    padding-inline: calc(var(--sbb-icon-list-dimensions) + var(--sbb-icon-list-to-text-gap)) 0;
+    min-height: var(--sbb-icon-list-dimensions);
+
+    + li {
+      margin-block-start: var(--sbb-icon-list-vertical-gap);
+    }
+
+    p {
+      margin-block: 0;
+    }
+
+    // P has to be redefined to be more specific
+    > * + p {
+      margin-block-start: var(--sbb-spacing-responsive-xxxs);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: var(--sbb-icon-list-dimensions);
+      height: var(--sbb-icon-list-dimensions);
+      margin-block-start: calc(-1 * var(--sbb-icon-list-text-to-marker-block-offset));
+      inset-inline-start: 0;
+      background-color: var(--sbb-icon-list-marker-icon-color);
+      mask-image: var(--sbb-icon-list-marker-icon);
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: 100%;
+
+      // If consumers override the `--sbb-icon-list-marker-icon-color` variable to set a custom color via inline style,
+      // it would have higher specificity over any rule, included the forced-colors one.
+      // This can be avoided forcing `background-color: CanvasText` in high-contrast mode.
+      @media (forced-colors: active) {
+        background-color: CanvasText;
+      }
+    }
+  }
+}
+
+@mixin step-list {
+  --sbb-step-list-dimensions: #{functions.px-to-rem-build(34)};
+  --sbb-step-list-padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-step-list-to-text-gap: var(--sbb-spacing-responsive-xxxs);
+  --sbb-step-list-padding-block: var(--sbb-spacing-fixed-3x);
+  --sbb-step-list-vertical-gap: var(--sbb-spacing-fixed-1x);
+  --sbb-step-list-border-radius: var(--sbb-border-radius-4x);
+  --sbb-step-list-color: var(--sbb-color-2);
+
+  // Additional space from overall li padding to the text because text
+  // has to be centered to marker number.
+  --sbb-step-list-text-to-marker-block-offset: calc(
+    0.5 *
+      (
+        var(--sbb-step-list-dimensions) - var(--sbb-typo-line-height-text) *
+          var(--sbb-text-font-size)
+      )
+  );
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: steps;
+  color: var(--sbb-step-list-color);
+
+  &:where(.sbb-text-s) {
+    --sbb-step-list-padding-block: var(--sbb-spacing-fixed-4x);
+  }
+
+  &:where(.sbb-text-m, .sbb-text-l, .sbb-text-xl) {
+    --sbb-step-list-padding-block: var(--sbb-spacing-fixed-5x);
+  }
+
+  &:where(.sbb-text-xl) {
+    @include mediaqueries.mq($from: large) {
+      --sbb-step-list-dimensions: #{functions.px-to-rem-build(41)};
+    }
+  }
+
+  // stylelint-disable-next-line no-descending-specificity
+  > li {
+    position: relative;
+    counter-increment: steps;
+    background-color: var(--sbb-background-color-3);
+    padding-block: calc(
+        var(--sbb-step-list-padding-block) + var(--sbb-step-list-text-to-marker-block-offset)
+      )
+      var(--sbb-step-list-padding-block);
+    padding-inline: calc(
+        var(--sbb-step-list-padding-inline) + var(--sbb-step-list-dimensions) +
+          var(--sbb-step-list-to-text-gap)
+      )
+      var(--sbb-step-list-padding-inline);
+    min-height: calc(var(--sbb-step-list-dimensions) + 2 * var(--sbb-step-list-padding-block));
+
+    &::before {
+      content: counter(steps);
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--sbb-step-list-dimensions);
+      width: var(--sbb-step-list-dimensions);
+      margin-block-start: calc(-1 * var(--sbb-step-list-text-to-marker-block-offset));
+      inset-inline-start: var(--sbb-step-list-padding-inline);
+      color: var(--sbb-step-list-color);
+      border: var(--sbb-border-width-1x) solid
+        light-dark(var(--sbb-color-cement), var(--sbb-color-smoke));
+      border-radius: 50%;
+      line-height: var(--sbb-typo-line-height-text);
+      letter-spacing: var(--sbb-typo-letter-spacing-text);
+      font-size: var(--sbb-text-font-size-xxs);
+      font-weight: bold;
+    }
+
+    + li {
+      margin-block-start: var(--sbb-step-list-vertical-gap);
+    }
+
+    p {
+      margin-block: 0;
+    }
+
+    // P has to be redefined to be more specific
+    > * + p {
+      margin-block-start: var(--sbb-spacing-responsive-xxxs);
+    }
+
+    &:first-of-type {
+      border-start-start-radius: var(--sbb-step-list-border-radius);
+      border-start-end-radius: var(--sbb-step-list-border-radius);
+    }
+
+    &:last-of-type {
+      border-end-start-radius: var(--sbb-step-list-border-radius);
+      border-end-end-radius: var(--sbb-step-list-border-radius);
+    }
+  }
+}

@@ -5,7 +5,7 @@
 }
 
 .sbb-journey-summary {
-  @include sbb.text-s--regular;
+  @include sbb.text-s;
 
   color: var(--sbb-color-4);
   display: flex;

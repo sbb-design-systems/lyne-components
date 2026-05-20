@@ -27,8 +27,6 @@
 }
 
 .sbb-train__wagons {
-  @include sbb.list-reset;
-
   display: flex;
   flex-direction: var(--_sbb-train-formation-flex-direction);
   gap: var(--sbb-train-formation-wagon-gap);

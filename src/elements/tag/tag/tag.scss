@@ -32,7 +32,7 @@ $active: ':active, :state(active)';
   --sbb-tag-border-color: var(--sbb-border-color-3);
   --sbb-tag-border-width: var(--sbb-border-width-2x);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-tag-border-color: Highlight !important;
     --sbb-tag-border-width: var(--sbb-border-width-4x);
   }
@@ -47,7 +47,7 @@ $active: ':active, :state(active)';
   --sbb-tag-cursor: unset;
   --sbb-tag-pointer-events: none;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-tag-text-color: GrayText;
     --sbb-tag-amount-color: GrayText;
     --sbb-tag-border-color: GrayText;
@@ -65,7 +65,7 @@ $active: ':active, :state(active)';
     --sbb-tag-inset: calc(var(--sbb-border-width-2x) * -1);
     --sbb-tag-content-shift: translateY(calc(var(--sbb-border-width-1x) * -1));
 
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       --sbb-tag-border-color: Highlight;
     }
   }
@@ -78,7 +78,7 @@ $active: ':active, :state(active)';
   --sbb-tag-border-width: var(--sbb-border-width-2x);
   --sbb-tag-text-color: var(--sbb-color-4);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-tag-border-color: Highlight;
     --sbb-tag-text-color: ButtonText;
   }

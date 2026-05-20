@@ -32,8 +32,6 @@
 }
 
 .sbb-navigation-marker {
-  @include sbb.list-reset;
-
   position: relative;
   display: flex;
   flex-direction: column;
@@ -64,7 +62,7 @@
       opacity: 1;
     }
 
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       border-color: CanvasText;
     }
   }

@@ -24,7 +24,7 @@
 
 .sbb-pearl-chain__time-walktime,
 .sbb-pearl-chain__time-transfer {
-  @include sbb.text-xxs--regular;
+  @include sbb.text-xxs;
 
   display: inline-flex;
   align-items: center;
@@ -71,7 +71,8 @@
 }
 
 .sbb-pearl-chain__time-time {
-  @include sbb.text-s--bold;
+  @include sbb.text-s;
 
+  font-weight: bold;
   color: var(--sbb-color-2);
 }

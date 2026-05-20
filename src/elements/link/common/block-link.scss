@@ -1,21 +1,22 @@
 @use '../../core/styles' as sbb;
+@use '../link.library.global' as link;
 
 :host {
-  @include sbb.block-link-variables;
+  @include link.block-variables;
 
   display: block;
 }
 
 :host([negative]) {
-  @include sbb.block-link-variables--negative;
+  @include link.block-variables--negative;
 }
 
 :host(.sbb-active) {
-  @include sbb.block-link-variables--active;
+  @include link.block-variables--active;
 }
 
 :host(.sbb-active[negative]) {
-  @include sbb.block-link-variables--active-negative;
+  @include link.block-variables--active-negative;
 }
 
 :host([size='xs']) {

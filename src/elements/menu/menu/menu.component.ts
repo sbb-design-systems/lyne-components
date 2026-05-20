@@ -21,6 +21,7 @@ import {
   isArrowKeyOrPageKeysPressed,
   isEventOnElement,
   isZeroAnimationDuration,
+  popoverResetStyles,
   removeAriaOverlayTriggerProperties,
   SbbDarkModeController,
   type SbbElementType,
@@ -72,7 +73,11 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
     SbbDividerElement,
     SbbMenuButtonElement,
   ];
-  public static override styles: CSSResultGroup = [scrollbarStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    popoverResetStyles,
+    scrollbarStyles,
+    unsafeCSS(style),
+  ];
   public static override readonly role = 'menu';
 
   /**

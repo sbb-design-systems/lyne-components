@@ -11,6 +11,7 @@ import { property, state } from 'lit/decorators.js';
 
 import { SbbSecondaryButtonElement } from '../../button.pure.ts';
 import {
+  buttonResetStyles,
   type DateAdapter,
   DAYS_PER_ROW,
   defaultDateAdapter,
@@ -161,7 +162,11 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
     SbbIconElement,
     SbbSecondaryButtonElement,
   ];
-  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    buttonResetStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
   public static readonly events = {
     dateselected: 'dateselected',
     monthchange: 'monthchange',
@@ -1673,7 +1678,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
 
   /** Creates the label with the year for the monthly view. */
   private _createLabelForMonthView(): TemplateResult {
-    return html` <button
+    return html`<button
         type="button"
         id="sbb-calendar__month-selection"
         class="sbb-calendar__controls-change-date"

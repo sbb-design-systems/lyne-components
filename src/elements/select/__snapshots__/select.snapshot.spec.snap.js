@@ -32,7 +32,7 @@ snapshots["sbb-select renders Safari Shadow DOM"] =
 >
 </div>
 <div
-  class="sbb-option-panel__overlay-container"
+  class="sbb-option-panel__overlay-container sbb-popover-reset"
   popover="manual"
 >
   <div
@@ -80,7 +80,7 @@ snapshots["sbb-select renders multiple Safari Shadow DOM"] =
 >
 </div>
 <div
-  class="sbb-option-panel__overlay-container"
+  class="sbb-option-panel__overlay-container sbb-popover-reset"
   popover="manual"
 >
   <div
@@ -117,7 +117,7 @@ snapshots["sbb-select renders Chrome-Firefox Shadow DOM"] =
 >
 </div>
 <div
-  class="sbb-option-panel__overlay-container"
+  class="sbb-option-panel__overlay-container sbb-popover-reset"
   popover="manual"
 >
   <div
@@ -180,7 +180,7 @@ snapshots["sbb-select renders multiple Chrome-Firefox Shadow DOM"] =
 >
 </div>
 <div
-  class="sbb-option-panel__overlay-container"
+  class="sbb-option-panel__overlay-container sbb-popover-reset"
   popover="manual"
 >
   <div

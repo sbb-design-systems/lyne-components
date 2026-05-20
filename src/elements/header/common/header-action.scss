@@ -54,7 +54,7 @@
     --sbb-header-action-translate-y: #{sbb.px-to-rem-build(-1)};
     --sbb-header-action-background-inset: calc(var(--sbb-border-width-2x) * -1);
 
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       --sbb-header-action-border-color: Highlight;
     }
   }
@@ -73,7 +73,7 @@
 :host(:is(:active, :state(active))) {
   --sbb-header-action-background-color: var(--sbb-background-color-4);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-header-action-border-color: Highlight;
   }
 }
@@ -81,13 +81,13 @@
 :host(.sbb-active) {
   --sbb-header-action-active-border-scale: 1;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-header-action-border-color: Highlight;
   }
 }
 
 :host(:state(button)) {
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-header-action-color: ButtonText;
   }
 }
@@ -100,8 +100,6 @@
 }
 
 .sbb-action-base {
-  @include sbb.text-inherit;
-
   display: flex;
   position: relative;
   align-items: center;
@@ -129,7 +127,7 @@
     transition-property: inset, background-color;
     border: var(--sbb-border-width-1x) solid var(--sbb-header-action-border-color);
 
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       border-width: var(--sbb-border-width-2x);
     }
   }
@@ -184,10 +182,13 @@
 }
 
 .sbb-header-action__text {
-  @include sbb.text-xs--bold;
   @include sbb.ellipsis;
 
   display: block;
+  font-weight: bold;
+  line-height: var(--sbb-typo-line-height-text);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  font-size: var(--sbb-text-font-size-xs);
 
   :host(:not(:state(slotted))) & {
     display: none;

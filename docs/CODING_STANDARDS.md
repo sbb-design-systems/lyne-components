@@ -651,7 +651,7 @@ This is a low-effort task that makes a big difference for low-vision users. Exam
 ```scss
 @use '../core/styles' as sbb;
 
-@include sbb.if-forced-colors {
+@media (forced-colors: active) {
   .unicorn-motorcycle {
     border: var(--sbb-border-width-1x) solid #fff !important;
   }

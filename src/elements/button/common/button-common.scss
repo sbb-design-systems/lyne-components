@@ -41,7 +41,7 @@ $active: ':active, :state(active), [loading]';
   --_border: calc(var(--sbb-button-border-width) + var(--sbb-button-border-overlap-fix, 1px)) solid
     var(--_border-color);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-button-color-default-border: CanvasText !important;
     --sbb-button-color-active-border: Highlight !important;
     --sbb-button-color-default-background: Canvas !important;
@@ -62,7 +62,7 @@ $active: ':active, :state(active), [loading]';
 }
 
 :host(:state(button)) {
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-button-color-default-text: ButtonText !important;
     --sbb-button-color-hover-text: ButtonText !important;
     --sbb-button-color-active-text: ButtonText !important;
@@ -70,7 +70,7 @@ $active: ':active, :state(active), [loading]';
 }
 
 :host(:state(link)) {
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-button-color-default-text: LinkText !important;
     --sbb-button-color-hover-text: LinkText !important;
     --sbb-button-color-active-text: LinkText !important;
@@ -118,7 +118,7 @@ $active: ':active, :state(active), [loading]';
     --_button-inset: calc(var(--sbb-button-border-width) * -1);
   }
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-button-color-hover-border: Highlight !important;
   }
 }

@@ -26,7 +26,7 @@
 :host(:state(action-active)) {
   --sbb-navigation-action-color: var(--sbb-color-5);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-navigation-action-color: Highlight;
   }
 }
@@ -46,7 +46,7 @@ sbb-icon {
 }
 
 :host(:state(button)) {
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-navigation-action-color: ButtonText;
   }
 }
@@ -81,7 +81,7 @@ sbb-icon {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     transition: none;
   }
 
