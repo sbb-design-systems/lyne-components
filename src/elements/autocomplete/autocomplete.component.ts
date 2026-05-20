@@ -107,6 +107,7 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
   }
 
   protected setTriggerAttributes(element: HTMLInputElement): void {
+    // autocomplete cannot use aria properties because they do not pierce shadow DOM
     setAriaComboBoxAttributes(element, ariaRoleOnHost ? this.id : this.overlayId, false);
   }
 }
