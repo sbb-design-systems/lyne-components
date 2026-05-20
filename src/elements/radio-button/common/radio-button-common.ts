@@ -73,7 +73,7 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<S
 
     public override connectedCallback(): void {
       super.connectedCallback();
-      this._group = this.closest('sbb-radio-button-group') as SbbRadioButtonGroupElement;
+      this._group = this.closest('sbb-radio-button-group');
     }
 
     /**
