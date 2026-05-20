@@ -5,7 +5,7 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import '../../elements/link.ts';
 
-import '../../elements/core/styles/layout.private.scss';
+import '../../elements/core/styles/features/layout.private.scss';
 
 const PageSpacingTemplate = (): TemplateResult => html`
   <section class="sbb-page-spacing visualized-page-spacing">

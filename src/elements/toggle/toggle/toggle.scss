@@ -56,7 +56,7 @@
     height: calc(100% - 2 * var(--sbb-toggle-background-inset));
     border-radius: var(--sbb-toggle-border-radius);
 
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       border: var(--sbb-border-width-1x) solid CanvasText;
     }
   }
@@ -74,7 +74,7 @@
   );
   --sbb-toggle-selected-option-border-style: dashed;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-toggle-selected-option-border-style: solid;
     --sbb-toggle-selected-option-border-color: GrayText;
   }

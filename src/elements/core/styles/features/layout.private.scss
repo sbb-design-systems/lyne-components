@@ -1,0 +1,37 @@
+@use '../core/mediaqueries';
+@use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss' as sbb-tokens;
+
+.visualized-page-spacing div,
+.visualized-grid div {
+  background-color: rgba(#ad00ff, 0.2);
+  border-width: var(--sbb-spacing-fixed-2x);
+  border-style: dashed solid;
+  border-color: rgba(#ad00ff, 1);
+  padding: 0;
+  height: 100px;
+}
+
+.visualized-page-spacing span {
+  display: inline-block;
+  padding: 1em;
+}
+
+.visualized-grid div {
+  display: none;
+
+  $columns: (
+    'zero': sbb-tokens.$sbb-layout-base-grid-columns-zero,
+    'small': sbb-tokens.$sbb-layout-base-grid-columns-small,
+    'large': sbb-tokens.$sbb-layout-base-grid-columns-large,
+    'ultra': sbb-tokens.$sbb-layout-base-grid-columns-ultra,
+  );
+
+  // Only show divs (columns) which are available on the grid for each breakpoint
+  @each $breakpoint, $columnCount in $columns {
+    @include mediaqueries.mq($from: #{$breakpoint}) {
+      &:nth-child(-n + #{$columnCount}) {
+        display: block;
+      }
+    }
+  }
+}

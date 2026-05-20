@@ -10,11 +10,10 @@
 }
 
 .sbb-skiplink-list {
-  @include sbb.list-reset;
-
   & > :is(li, span) {
     box-shadow: var(--sbb-box-shadow-level-5-hard);
     display: list-item;
+    list-style: none;
     height: var(--sbb-skiplink-list-height, 0);
     overflow: var(--sbb-skiplink-list-overflow, hidden);
     border-radius: var(--sbb-border-radius-4x);

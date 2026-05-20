@@ -19,7 +19,7 @@
     (var(--sbb-radio-button-dimension) - var(--sbb-radio-button-inner-circle-dimension)) / 2
   );
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-radio-button-inner-circle-color: Highlight;
     --sbb-radio-button-border-color: Highlight;
   }
@@ -33,7 +33,7 @@
   --sbb-radio-button-inner-circle-color: var(--sbb-radio-button-background-color);
   --sbb-radio-button-cursor: var(--sbb-cursor-default);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-radio-button-background-color: Canvas;
     --sbb-radio-button-inner-circle-color: GrayText;
     --sbb-radio-button-border-color: GrayText;
@@ -94,7 +94,7 @@
       property: background-color, border;
     }
 
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       transition: none;
     }
   }

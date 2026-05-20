@@ -26,7 +26,7 @@ import {
   isNextjs,
   isSafari,
   isZeroAnimationDuration,
-  optionPanelStyles,
+  popoverResetStyles,
   SbbDisabledMixin,
   SbbEscapableOverlayController,
   SbbFormAssociatedMixin,
@@ -43,7 +43,11 @@ import {
 } from '../core.ts';
 import type { SbbDividerElement } from '../divider.pure.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
-import type { SbbOptionElement, SbbOptionHintElement } from '../option.pure.ts';
+import {
+  optionPanelStyles,
+  type SbbOptionElement,
+  type SbbOptionHintElement,
+} from '../option.pure.ts';
 
 import style from './select.scss?inline';
 
@@ -80,6 +84,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   public static override readonly elementName: string = 'sbb-select';
   public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
   public static override styles: CSSResultGroup = [
+    popoverResetStyles,
     scrollbarStyles,
     optionPanelStyles,
     unsafeCSS(style),
@@ -1023,7 +1028,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         ${until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`))}
       </div>
 
-      <div class="sbb-option-panel__overlay-container" popover="manual">
+      <div class="sbb-option-panel__overlay-container sbb-popover-reset" popover="manual">
         <div
           class="sbb-option-panel__overlay ${this.negative
             ? 'sbb-scrollbar-negative'

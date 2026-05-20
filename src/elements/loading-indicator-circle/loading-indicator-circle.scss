@@ -11,7 +11,7 @@
   display: inline-block;
   line-height: 0;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-loading-indicator-circle-color: CanvasText !important;
   }
 }

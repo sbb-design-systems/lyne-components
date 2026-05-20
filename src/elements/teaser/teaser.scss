@@ -13,7 +13,7 @@
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-teaser-description-color: LinkText;
     --sbb-title-color: LinkText !important;
   }
@@ -54,12 +54,12 @@
     border-radius: var(--sbb-teaser-border-radius);
 
     // We move the focus outline further out to not overlap with the teaser border in forced colors
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       outline-offset: var(--_sbb-teaser-forced-colors-outline-offset);
     }
   }
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     &::before {
       content: '';
       position: absolute;

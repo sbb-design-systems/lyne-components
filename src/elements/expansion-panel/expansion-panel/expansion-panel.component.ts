@@ -1,6 +1,5 @@
-import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
   forceType,
@@ -213,20 +212,21 @@ export class SbbExpansionPanelElement extends SbbElement {
   }
 
   protected override render(): TemplateResult {
-    const TAGNAME = this.titleLevel ? `h${this.titleLevel}` : 'div';
-
-    /* eslint-disable lit/binding-positions */
     return html`
-      <${unsafeStatic(TAGNAME)} class="sbb-expansion-panel__header">
+      <div
+        role=${this.titleLevel ? 'heading' : nothing}
+        aria-level=${this.titleLevel || nothing}
+        class="sbb-expansion-panel__header"
+      >
         <slot name="header" @slotchange=${this._handleSlotchange}></slot>
-      </${unsafeStatic(TAGNAME)}>
+      </div>
+
       <div class="sbb-expansion-panel__content-wrapper" @animationend=${this._onAnimationEnd}>
         <span class="sbb-expansion-panel__content">
           <slot name="content" @slotchange=${this._handleSlotchange}></slot>
         </span>
       </div>
     `;
-    /* eslint-enable lit/binding-positions */
   }
 }
 

@@ -17,8 +17,6 @@
 }
 
 .sbb-timetable-occupancy__list {
-  @include sbb.list-reset;
-
   display: flex;
   align-items: center;
   flex-wrap: nowrap;

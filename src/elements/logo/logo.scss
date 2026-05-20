@@ -8,7 +8,7 @@
   aspect-ratio: var(--sbb-logo-aspect-ratio);
   background-color: var(--sbb-logo-background-color, none);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-logo-word-mark-color: ButtonText !important;
   }
 }

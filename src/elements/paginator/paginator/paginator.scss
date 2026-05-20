@@ -57,8 +57,6 @@
 }
 
 .sbb-paginator__pages {
-  @include sbb.list-reset;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,8 +83,6 @@
 }
 
 .sbb-paginator__page--number-item {
-  @include sbb.button-reset;
-
   font-family: var(--sbb-typo-font-family);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
   font-size: var(--sbb-paginator-font-size);
@@ -122,7 +118,7 @@
   }
 
   &[data-selected] {
-    @include sbb.text--bold;
+    font-weight: bold;
 
     --sbb-paginator-color: var(--sbb-color-3);
     --sbb-paginator-page-border-width: var(--sbb-border-width-2x);
@@ -134,7 +130,7 @@
       --sbb-paginator-page-border-color: var(--sbb-border-color-2-negative);
     }
 
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       --sbb-paginator-page-border-color: Highlight !important;
     }
   }
@@ -155,7 +151,7 @@
       --sbb-paginator-page-background-color: var(--sbb-background-color-3-negative);
     }
 
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       --sbb-paginator-page-border-color: GrayText;
       --sbb-paginator-color: GrayText;
       --sbb-paginator-page-background-color: Canvas;
@@ -172,7 +168,7 @@
         --sbb-paginator-page-background-color: var(--sbb-background-color-3-negative);
       }
 
-      @include sbb.if-forced-colors {
+      @media (forced-colors: active) {
         --sbb-paginator-page-background-color: Highlight !important;
       }
     }
@@ -189,7 +185,7 @@
       --sbb-paginator-page-background-color: var(--sbb-background-color-4-negative);
     }
 
-    @include sbb.if-forced-colors {
+    @media (forced-colors: active) {
       --sbb-paginator-page-background-color: Highlight !important;
     }
   }

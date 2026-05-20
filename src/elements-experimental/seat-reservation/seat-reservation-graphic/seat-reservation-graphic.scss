@@ -117,7 +117,7 @@
     }
   }
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     svg:not(.color-immutable) {
       [fill]:not([fill='none']) {
         fill: currentcolor;

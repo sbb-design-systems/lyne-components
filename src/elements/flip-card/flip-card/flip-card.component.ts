@@ -5,6 +5,7 @@ import { until } from 'lit/directives/until.js';
 
 import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
 import {
+  buttonResetStyles,
   forceType,
   i18nFlipCard,
   i18nReverseCard,
@@ -30,7 +31,11 @@ import style from './flip-card.scss?inline';
 export class SbbFlipCardElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-flip-card';
   public static override elementDependencies: SbbElementType[] = [SbbSecondaryButtonStaticElement];
-  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    buttonResetStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
   public static readonly events = {
     flip: 'flip',
   } as const;

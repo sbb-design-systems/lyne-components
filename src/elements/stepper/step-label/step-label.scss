@@ -38,7 +38,7 @@
   --sbb-step-label-color: var(--sbb-color-3);
   --sbb-step-label-font-weight-selected: bold;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-step-label-color: Highlight !important;
   }
 }
@@ -59,7 +59,7 @@
   --sbb-step-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
   --sbb-step-label-prefix-border-style: dashed;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-step-label-color: GrayText !important;
   }
 }

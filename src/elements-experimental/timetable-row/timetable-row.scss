@@ -33,10 +33,7 @@
   float: left;
 }
 
-// resets lists
 ul {
-  @include sbb.list-reset;
-
   display: inline-flex;
 }
 
@@ -52,15 +49,16 @@ li {
 
 .sbb-timetable__row-transportnumber,
 .sbb-timetable__row-time {
-  @include sbb.text-s--bold;
+  @include sbb.text-s;
 
+  font-weight: bold;
   line-height: unset;
   white-space: nowrap;
   align-self: center;
 }
 
 .sbb-timetable__row {
-  @include sbb.text-s--regular;
+  @include sbb.text-s;
 
   display: flex;
   flex-direction: column;
@@ -139,7 +137,7 @@ li {
     height: #{sbb.px-to-rem-build(28)};
   }
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     border: var(--sbb-border-width-1x) solid ButtonBorder !important;
   }
 }

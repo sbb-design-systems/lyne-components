@@ -65,7 +65,7 @@
 }
 
 .sbb-teaser-product__root {
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     // Apply a visual border for forced color mode
     &::after {
       content: '';

@@ -1,0 +1,5 @@
+$theme: 'standard' !default;
+
+@use './features/core' with (
+  $theme: $theme
+);

@@ -23,6 +23,7 @@ import {
   isEventOnElement,
   isFakeMousedownFromScreenReader,
   isZeroAnimationDuration,
+  popoverResetStyles,
   readConfig,
   removeAriaOverlayTriggerProperties,
   type SbbElementType,
@@ -62,7 +63,7 @@ export class SbbPopoverCloseEvent extends Event {
 }
 
 export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [popoverResetStyles, unsafeCSS(style)];
 
   /**
    * The element that will trigger the popover overlay.

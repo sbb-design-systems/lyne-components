@@ -33,7 +33,7 @@
     var(--sbb-color-storm)
   );
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-expansion-panel-header-text-color: GrayText;
   }
 }

@@ -51,7 +51,7 @@
 :host(:state(disabled)) {
   --sbb-option-cursor: var(--sbb-cursor-default);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-option-color: GrayText;
   }
 }
@@ -71,8 +71,8 @@
 
 .sbb-option__label--highlight {
   :host(:not(:is(:state(disabled)))) & {
-    @include sbb.text--bold;
-    @include sbb.if-forced-colors {
+    font-weight: bold;
+    @media (forced-colors: active) {
       color: Highlight;
     }
   }
@@ -117,7 +117,7 @@
       background-color: var(--sbb-option-disabled-background-color);
       z-index: -1;
 
-      @include sbb.if-forced-colors {
+      @media (forced-colors: active) {
         border-color: GrayText;
       }
     }

@@ -18,7 +18,7 @@ import {
   isEventOnElement,
   isSafari,
   isZeroAnimationDuration,
-  optionPanelStyles,
+  popoverResetStyles,
   removeAriaComboBoxAttributes,
   SbbEscapableOverlayController,
   SbbNegativeMixin,
@@ -28,7 +28,7 @@ import {
   setOverlayPosition,
 } from '../core.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
-import type { SbbOptionBaseElement } from '../option.pure.ts';
+import { optionPanelStyles, type SbbOptionBaseElement } from '../option.pure.ts';
 
 import style from './autocomplete-base-element.scss?inline';
 
@@ -61,6 +61,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   SbbOpenCloseBaseElement,
 ) {
   public static override styles: CSSResultGroup = [
+    popoverResetStyles,
     scrollbarStyles,
     optionPanelStyles,
     unsafeCSS(style),
