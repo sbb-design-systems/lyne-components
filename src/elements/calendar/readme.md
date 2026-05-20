@@ -134,8 +134,11 @@ const dateFilterFn: (d: Day) => boolean = d.getDay() !== 6 && d.getDay() !== 0;
 
 By default, the component allows selecting a single date:
 this behavior can be changed by setting the `multiple` attribute to true.
-In this case the `selected` property, if set, must be an array; moreover, the days of the week become clickable,
-allowing to select an entire column (e.g. all the Mondays, all the Tuesdays and so on).
+In this case the `selected` property, if set, must be an array; moreover,
+the days of the week become clickable, allowing to select an entire column
+(e.g. all the Mondays, all the Tuesdays and so on).
+Additionally it is possible to select a range of dates, by clicking on a
+date and then Shift clicking on another date.
 
 ```html
 <sbb-calendar multiple></sbb-calendar>
