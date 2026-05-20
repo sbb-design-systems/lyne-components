@@ -440,6 +440,7 @@ slot[name='hint'] {
   display: flex;
   min-height: var(--sbb-form-field-hint-min-height);
   flex-direction: column;
+  margin-inline-start: var(--sbb-form-field-padding-inline);
   margin-block-start: var(
     --sbb-form-field-hint-padding-block-start-override,
     var(--sbb-form-field-hint-padding-block-start)
