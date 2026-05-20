@@ -14,13 +14,6 @@ import '../link.ts';
 import '../popover.ts';
 import '../title.ts';
 
-const i18nOptional: Record<string, string> = {
-  de: '(optional)',
-  en: '(optional)',
-  fr: '(facultatif)',
-  it: '(facoltativo)',
-};
-
 const formField = (
   {
     'error-space': errorSpace,
@@ -48,11 +41,7 @@ const formField = (
     ?negative=${negative}
   >
     ${label && !slottedLabel
-      ? html`<label
-          >${label}${optional
-            ? ` ${i18nOptional[document.documentElement.lang] ?? i18nOptional['en']}`
-            : ''}</label
-        >`
+      ? html`<label>${label}${optional ? ` (optional)` : ''}</label>`
       : label && slottedLabel
         ? html`<span slot="label">${label}</span>`
         : nothing}
