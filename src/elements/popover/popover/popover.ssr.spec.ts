@@ -20,6 +20,7 @@ describe(`sbb-popover ssr`, () => {
           <span>
             <sbb-button id="popover-trigger">Popover trigger</sbb-button>
             <sbb-popover id="popover" trigger="popover-trigger">
+              <sbb-popover-close-button></sbb-popover-close-button>
               Popover content.
               <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>
             </sbb-popover>
@@ -28,7 +29,7 @@ describe(`sbb-popover ssr`, () => {
             </sbb-block-link>
           </span>
         `,
-        { modules: ['../button.ts', '../link.ts', '../popover.ts'] },
+        { modules: ['../../button.ts', '../../link.ts', '../../popover.ts'] },
       );
     });
 
@@ -57,7 +58,7 @@ describe(`sbb-popover ssr`, () => {
             </sbb-block-link>
           </span>
         `,
-        { modules: ['../button.ts', '../link.ts', '../popover.ts'] },
+        { modules: ['../../button.ts', '../../link.ts', '../../popover.ts'] },
       );
     });
 

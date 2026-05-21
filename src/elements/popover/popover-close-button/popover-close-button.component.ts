@@ -1,9 +1,7 @@
-import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
+import { type TemplateResult } from 'lit';
 
 import { SbbSecondaryButtonElement } from '../../button.pure.ts';
 import { i18nClosePopover, SbbLanguageController } from '../../core.ts';
-
-import style from './popover-close-button.scss?inline';
 
 /**
  * Popover close button, intended to be placed inside sbb-popover.
@@ -13,9 +11,10 @@ import style from './popover-close-button.scss?inline';
  */
 export class SbbPopoverCloseButtonElement extends SbbSecondaryButtonElement {
   public static override readonly elementName: string = 'sbb-popover-close-button';
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
-  private _languageController = new SbbLanguageController(this);
+  private _languageController = new SbbLanguageController(this).withHandler(
+    () => (this.internals.ariaLabel = i18nClosePopover[this._languageController.current]),
+  );
 
   public constructor() {
     super();
@@ -26,11 +25,6 @@ export class SbbPopoverCloseButtonElement extends SbbSecondaryButtonElement {
     super.connectedCallback();
 
     this.slot ||= 'close-button';
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-    this.internals.ariaLabel = i18nClosePopover[this._languageController.current];
   }
 
   protected override renderTemplate(): TemplateResult {
