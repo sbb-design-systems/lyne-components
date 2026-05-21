@@ -30,8 +30,6 @@ export class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
     optionselected: 'optionselected',
   } as const;
 
-  protected optionId = `sbb-option`;
-
   private set _variant(variant: SbbOptionVariant) {
     if (this._variantInternal) {
       this.internals.states.delete(`variant-${this._variantInternal}`);

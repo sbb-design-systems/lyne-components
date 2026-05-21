@@ -68,7 +68,7 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
 
     // Reset potentially active option
     this.activeOption?.setActive(false);
-    this.triggerElement?.removeAttribute('aria-activedescendant');
+    this.triggerElement!.ariaActiveDescendantElement = null;
 
     if (!enabledOptions.length) {
       this.activeOption = null;
@@ -83,7 +83,7 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
     const next = getNextElementIndex(event, activeItemIndex, enabledOptions.length);
     this.activeOption = enabledOptions[next];
     this.activeOption.setActive(true);
-    this.triggerElement?.setAttribute('aria-activedescendant', this.activeOption.id);
+    this.triggerElement!.ariaActiveDescendantElement = this.activeOption;
     this.activeOption.scrollIntoView({ block: 'nearest' });
 
     // Moving the active option should not move the input cursor (caret)
@@ -99,11 +99,15 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
 
   protected resetActiveElement(): void {
     this.activeOption?.setActive(false);
-    this.triggerElement?.removeAttribute('aria-activedescendant');
     this.activeOption = null;
+
+    if (this.triggerElement) {
+      this.triggerElement.ariaActiveDescendantElement = null;
+    }
   }
 
   protected setTriggerAttributes(element: HTMLInputElement): void {
+    // autocomplete cannot use aria properties because they do not pierce shadow DOM
     setAriaComboBoxAttributes(element, ariaRoleOnHost ? this.id : this.overlayId, false);
   }
 }

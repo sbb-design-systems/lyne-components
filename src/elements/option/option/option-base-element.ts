@@ -23,8 +23,6 @@ import {
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbSelectElement } from '../../select.pure.ts';
 
-let nextId = 0;
-
 /**
  * On Safari, the groups labels are not read by VoiceOver.
  * To solve the problem, we remove the role="group" and add an hidden span containing the group name
@@ -46,8 +44,6 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     optionselected: 'optionselected',
   } as const;
   public static override styles: CSSResultGroup = [screenReaderOnlyStyles];
-
-  protected abstract optionId: string;
 
   /**
    * Value of the option.
@@ -178,11 +174,6 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
       /** Emits when an option was selected by user. */
       this.dispatchEvent(new Event('optionselected', { bubbles: true, composed: true }));
     }
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.id ||= `${this.optionId}-${nextId++}`;
   }
 
   public override requestUpdate(
