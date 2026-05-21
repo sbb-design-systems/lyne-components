@@ -20,10 +20,12 @@
 }
 
 .sbb-orientation-vertical {
+  display: flex;
   flex-direction: column;
 }
 
 .sbb-orientation-vertical-full-width {
+  display: flex;
   flex-direction: column;
   align-items: stretch;
 }

@@ -6,13 +6,12 @@ in various [allocations](#allocations).
 
 ### Orientation
 
-TODO: update with css class
-
-The optional property `horizontalFrom` can be used in combination with `orientation='vertical'` to
-indicate the minimum breakpoint from which the orientation changes to `horizontal`.
+The `sbb-action-group` behaves as a standard flex element, and it is possible to customize it via CSS.
+Optionally a number of CSS classes are available to achieve most common cases, such as vertical, full width and some responsive variants
+(The complete list is available in the [layout](/docs/guides-layout--docs#flex) documentation).
 
 ```html
-<sbb-action-group orientation="vertical" horizontal-from="small">
+<sbb-action-group class="sbb-orientation-horizontal-from-small">
   <sbb-secondary-button>Action 1</sbb-secondary-button>
   <sbb-button>Action 2</sbb-button>
   <sbb-block-link

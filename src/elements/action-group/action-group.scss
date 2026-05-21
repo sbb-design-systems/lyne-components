@@ -1,15 +1,8 @@
 @use '../core/styles' as sbb;
 
 :host {
-  --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
-
   display: flex;
-  flex-direction: var(--sbb-action-group-orientation, row);
-  align-items: var(--sbb-action-group-align-items, center);
-  justify-content: var(--sbb-action-group-justify-content, start);
+  align-items: center;
+  justify-content: start;
   gap: var(--sbb-action-group-gap);
-}
-
-::slotted(:state(sbb-link)) {
-  white-space: nowrap;
 }
