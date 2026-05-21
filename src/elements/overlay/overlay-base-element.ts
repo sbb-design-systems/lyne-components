@@ -2,6 +2,7 @@ import { type CSSResultGroup, isServer, type PropertyDeclaration, type PropertyV
 import { property } from 'lit/decorators.js';
 
 import {
+  composedPathContains,
   forceType,
   i18nDialog,
   idReference,
@@ -281,20 +282,16 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
 
   // Close the component on click of any element that has the `closeAttribute` attribute.
   protected closeOnSbbOverlayCloseClick(event: Event): void {
-    const overlayCloseElement = event
-      .composedPath()
-      .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
-      .find(
-        (target) =>
-          (target.hasAttribute(this.closeAttribute) || target.localName === this.closeTag) &&
-          !target.hasAttribute('disabled'),
-      );
+    const overlayCloseElement = composedPathContains(
+      event,
+      (element) =>
+        (element.hasAttribute(this.closeAttribute) || element.localName === this.closeTag) &&
+        !element.hasAttribute('disabled') &&
+        (element.closest(this.localName) === this || (this.shadowRoot?.contains(element) ?? false)),
+      this,
+    );
 
-    if (
-      !overlayCloseElement ||
-      (overlayCloseElement.closest(this.localName) !== this &&
-        !this.shadowRoot?.contains(overlayCloseElement))
-    ) {
+    if (!overlayCloseElement) {
       return;
     }
 

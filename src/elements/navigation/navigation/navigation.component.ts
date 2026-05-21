@@ -13,6 +13,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
+  composedPathContains,
   forceType,
   i18nCloseNavigation,
   idReference,
@@ -261,19 +262,17 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   }
 
   private _handleNavigationClose(event: Event): void {
-    const composedPathElements = event
-      .composedPath()
-      .filter((el) => el instanceof window.HTMLElement);
-    if (composedPathElements.some((el) => this._isCloseElement(el as HTMLElement))) {
+    if (
+      composedPathContains(
+        event,
+        (element: HTMLElement): boolean =>
+          element.nodeName === 'A' ||
+          (element.hasAttribute('sbb-navigation-close') && !element.hasAttribute('disabled')),
+        this,
+      )
+    ) {
       this.close();
     }
-  }
-
-  private _isCloseElement(element: HTMLElement): boolean {
-    return (
-      element.nodeName === 'A' ||
-      (element.hasAttribute('sbb-navigation-close') && !element.hasAttribute('disabled'))
-    );
   }
 
   // Check if the pointerdown event target is triggered on the navigation.

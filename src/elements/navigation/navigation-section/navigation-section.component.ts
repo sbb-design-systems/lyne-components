@@ -12,6 +12,7 @@ import { property } from 'lit/decorators.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
+  composedPathContains,
   forceType,
   i18nGoBack,
   idReference,
@@ -286,23 +287,19 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpen
   // Check if the click was triggered on an element that should close the section.
   private _handleNavigationSectionClose = (event: Event): void => {
     if (
-      event
-        .composedPath()
-        .filter((el) => el instanceof HTMLElement)
-        .some((el) => this._isCloseElement(el))
+      composedPathContains(
+        event,
+        (element: HTMLElement): boolean =>
+          element.nodeName === 'A' ||
+          (!element.hasAttribute('disabled') &&
+            (element.hasAttribute('sbb-navigation-close') ||
+              element.hasAttribute('sbb-navigation-section-close'))),
+        this,
+      )
     ) {
       this.close();
     }
   };
-
-  private _isCloseElement(element: HTMLElement): boolean {
-    return (
-      element.nodeName === 'A' ||
-      (!element.hasAttribute('disabled') &&
-        (element.hasAttribute('sbb-navigation-close') ||
-          element.hasAttribute('sbb-navigation-section-close')))
-    );
-  }
 
   private _isBelowLarge(): boolean {
     return this._mediaMatcherController.matches(SbbMediaQueryBreakpointSmallAndBelow) ?? false;

@@ -12,6 +12,7 @@ import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
+  composedPathContains,
   forceType,
   getElementPosition,
   idReference,
@@ -278,27 +279,16 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
     });
   }
 
-  private _closingTarget(event: Event): HTMLElement | null {
-    for (const element of event.composedPath()) {
-      if (!(element instanceof window.HTMLElement)) {
-        continue;
-      }
-      if (element === this) {
-        return null;
-      } else if (
-        (element.hasAttribute('sbb-popover-close') ||
-          element.localName === 'sbb-popover-close-button') &&
-        !element.hasAttribute('disabled')
-      ) {
-        return element;
-      }
-    }
-    return null;
-  }
-
   // Close the popover on click of any element that has the 'sbb-popover-close' attribute.
   private _closeOnSbbPopoverCloseClick(event: Event): void {
-    const closeElement = this._closingTarget(event);
+    const closeElement = composedPathContains(
+      event,
+      (element) =>
+        (element.hasAttribute('sbb-popover-close') ||
+          element.localName === 'sbb-popover-close-button') &&
+        !element.hasAttribute('disabled'),
+      this,
+    );
     if (closeElement) {
       clearTimeout(this.closeTimeout);
       this.close(closeElement);

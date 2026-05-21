@@ -36,7 +36,7 @@ export * from './core/dom/set-or-remove-attribute.ts';
 export * from './core/dom/platform.ts';
 export * from './core/dom/queue-dom-content-loaded.ts';
 export * from './core/dom/scroll.ts';
-export * from './core/eventing/composed-path-has-attribute.ts';
+export * from './core/eventing/composed-path-contains.ts';
 export * from './core/eventing/event-target.ts';
 export * from './core/eventing/form-element-handlers.ts';
 export * from './core/eventing/forward-event.ts';
