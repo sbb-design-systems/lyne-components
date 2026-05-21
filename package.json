@@ -130,7 +130,7 @@
     "typescript": "6.0.3",
     "typescript-eslint": "8.59.4",
     "urlpattern-polyfill": "10.1.0",
-    "vite": "8.0.13",
+    "vite": "8.0.14",
     "vite-plugin-dts": "5.0.1"
   },
   "resolutions": {
