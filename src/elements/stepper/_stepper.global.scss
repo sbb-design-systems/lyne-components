@@ -1,0 +1,47 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-step-label-color: var(--sbb-color-4);
+  --sbb-step-label-prefix-border-style: solid;
+  --sbb-step-label-prefix-border-color: var(--sbb-border-color-4-inverted);
+  --sbb-step-label-prefix-background-color: var(--sbb-background-color-1);
+  --sbb-step-label-number-font-size: var(--sbb-text-font-size-xxs);
+  --sbb-step-label-font-size-s: var(--sbb-text-font-size-m);
+  --sbb-step-label-font-size-m: var(--sbb-text-font-size-l);
+  --sbb-step-label-font-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-step-label-font-size-m),
+        'lean': var(--sbb-step-label-font-size-s),
+      ),
+      $theme
+    )};
+  --sbb-step-label-gap-s: var(--sbb-spacing-fixed-3x);
+  --sbb-step-label-gap-m: var(--sbb-spacing-fixed-4x);
+  --sbb-step-label-gap: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-step-label-gap-m),
+        'lean': var(--sbb-step-label-gap-s),
+      ),
+      $theme
+    )};
+  --sbb-step-label-prefix-size-s: var(--sbb-size-element-xxxs);
+  --sbb-step-label-prefix-size-m: var(--sbb-size-element-xxs);
+  --sbb-step-label-prefix-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-step-label-prefix-size-m),
+        'lean': var(--sbb-step-label-prefix-size-s),
+      ),
+      $theme
+    )};
+  --sbb-stepper-orientation: row;
+  --sbb-stepper-border-width: var(--sbb-border-width-1x);
+  --sbb-stepper-marker-width: var(--sbb-border-width-3x);
+  --sbb-stepper-marker-color: var(--sbb-color-3);
+}
+
+@mixin base-forced-colors {
+  --sbb-step-label-color: ButtonText;
+  --sbb-step-label-prefix-border-color: ButtonText;
+}

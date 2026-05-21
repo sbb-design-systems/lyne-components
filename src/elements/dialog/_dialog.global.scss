@@ -1,0 +1,77 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-5x);
+  --sbb-dialog-color: var(--sbb-color-2);
+  --sbb-dialog-background-color: var(--sbb-background-color-1);
+  --sbb-dialog-block-shadow: var(--sbb-box-shadow-level-9-soft);
+  --sbb-dialog-color-negative: var(--sbb-color-2-negative);
+  --sbb-dialog-block-shadow-negative: var(--sbb-box-shadow-level-9-soft-negative);
+  --sbb-dialog-width: auto;
+  --sbb-dialog-max-width: 100%;
+  --sbb-dialog-height: auto;
+  --sbb-dialog-max-height: calc(100vh - var(--sbb-spacing-fixed-6x));
+  --sbb-dialog-inset-block: 0 auto;
+  --sbb-dialog-inset-inline: 0 auto;
+  --sbb-dialog-border-radius: var(--sbb-border-radius-8x);
+  --sbb-dialog-animation-easing: ease;
+  --sbb-dialog-pointer-events: none;
+  --sbb-dialog-backdrop-visibility: hidden;
+  --sbb-dialog-backdrop-pointer-events: none;
+  --sbb-dialog-backdrop-color: transparent;
+  --sbb-dialog-actions-border-color: var(--sbb-background-color-4);
+  --sbb-dialog-close-button-inset-inline-end: var(--sbb-spacing-fixed-4x);
+  --sbb-dialog-close-button-margin-inline: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+}
+
+@mixin base-breakpoint-small {
+  --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-8x);
+  --sbb-dialog-max-height: calc(100vh - 2 * var(--sbb-spacing-fixed-6x));
+  --sbb-dialog-max-width: 90vw;
+  --sbb-dialog-translate-y: var(--sbb-spacing-fixed-4x);
+}
+
+@mixin rules {
+  sbb-dialog-close-button {
+    // If there is no dialog title, the close button should be positioned absolute
+    sbb-dialog:not(:has(> sbb-dialog-title)) > &,
+    sbb-dialog:state(has-intermediate-element):not(:has(> * > sbb-dialog-title)) > * > & {
+      position: absolute;
+      z-index: 1;
+    }
+
+    // The close button positioning needs the current dialog title size
+    sbb-dialog:has(> sbb-dialog-title[visual-level='3']) > &,
+    sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='3'])
+      > *
+      > & {
+      --_sbb-dialog-title-size: var(--sbb-heading-font-size-3);
+    }
+
+    // The close button positioning needs the current dialog title size
+    sbb-dialog:has(> sbb-dialog-title[visual-level='5']) > &,
+    sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='5'])
+      > *
+      > & {
+      --_sbb-dialog-title-size: var(--sbb-heading-font-size-5);
+    }
+  }
+
+  sbb-dialog-content {
+    // If there is a title, reduce the top spacing for the content
+    sbb-dialog:has(> sbb-dialog-title) > &,
+    sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title) > * > & {
+      padding-block-start: var(--sbb-spacing-fixed-1x);
+    }
+  }
+
+  sbb-dialog-title {
+    // Hide margin on the right side. Distance to button is defined by flex gap already.
+    sbb-dialog:has(> sbb-dialog-close-button) > &,
+    sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-close-button) > * > & {
+      padding-inline-end: 0;
+    }
+  }
+}

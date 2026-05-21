@@ -1,0 +1,72 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-chip-background-color: var(--sbb-background-color-3);
+  --sbb-chip-background-color-active: var(--sbb-background-color-1);
+  --sbb-chip-background-color-hover: var(--sbb-background-color-1);
+  --sbb-chip-border-color: var(--sbb-border-color-4-inverted);
+  --sbb-chip-border-radius: var(--sbb-border-radius-2x);
+  --sbb-chip-color: light-dark(var(--sbb-color-granite), var(--sbb-color-cloud));
+  --sbb-chip-color-hover: var(--sbb-color-2);
+  --sbb-chip-font-size: var(--sbb-text-font-size-xxs);
+  --sbb-chip-height: #{sbb.px-to-rem-build(24)};
+  --sbb-chip-label-padding-inline: var(--sbb-spacing-fixed-2x);
+  --sbb-chip-group-gap: var(--sbb-spacing-fixed-1x);
+  --sbb-chip-group-input-min-width: #{sbb.px-to-rem-build(150)};
+  --_sbb-chip-group-margin-block-start-default: #{sbb.px-to-rem-build(2)};
+  --_sbb-chip-group-margin-block-start-default-large: #{sbb.px-to-rem-build(3.5)};
+  --_sbb-chip-group-margin-block-base-lm: var(--_sbb-chip-group-margin-block-start-default) 0;
+  --_sbb-chip-group-margin-block-with-label-s: #{sbb.px-to-rem-build(6)} #{sbb.px-to-rem-build(5)};
+  --_sbb-chip-group-margin-block-without-label-s: 0 #{sbb.px-to-rem-build(7)};
+  --_sbb-chip-group-margin-block-without-label-m: #{sbb.px-to-rem-build(3)}
+    #{sbb.px-to-rem-build(11)};
+  --_sbb-chip-group-margin-block-without-label-l: var(--_sbb-chip-group-margin-block-start-default)
+    #{sbb.px-to-rem-build(16)};
+  --_sbb-chip-group-margin-block-with-label-l: var(--_sbb-chip-group-margin-block-start-default)
+    #{sbb.px-to-rem-build(7.5)};
+  --_sbb-chip-group-margin-block-with-label-m: var(--_sbb-chip-group-margin-block-start-default)
+    var(--_sbb-chip-group-margin-block-start-default-large);
+  --sbb-chip-group-margin-block: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--_sbb-chip-group-margin-block-base-lm),
+        'lean': 0,
+      ),
+      $theme
+    )};
+  --sbb-chip-group-margin-block-no-label-not-empty: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--_sbb-chip-group-margin-block-without-label-m),
+        'lean': var(--_sbb-chip-group-margin-block-without-label-s),
+      ),
+      $theme
+    )};
+  --sbb-chip-group-margin-block-with-label-not-empty: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--_sbb-chip-group-margin-block-with-label-m),
+        'lean': var(--_sbb-chip-group-margin-block-with-label-s),
+      ),
+      $theme
+    )};
+}
+
+@mixin base-breakpoint-large {
+  --_sbb-chip-group-margin-block-base-lm: var(--_sbb-chip-group-margin-block-start-default-large) 0;
+  --_sbb-chip-group-margin-block-with-label-s: #{sbb.px-to-rem-build(5)} #{sbb.px-to-rem-build(3)};
+  --_sbb-chip-group-margin-block-without-label-s: 0 #{sbb.px-to-rem-build(5)};
+  --_sbb-chip-group-margin-block-without-label-m: #{sbb.px-to-rem-build(3)}
+    #{sbb.px-to-rem-build(14)};
+  --_sbb-chip-group-margin-block-without-label-l: var(
+      --_sbb-chip-group-margin-block-start-default-large
+    )
+    #{sbb.px-to-rem-build(20)};
+  --_sbb-chip-group-margin-block-with-label-l: var(
+      --_sbb-chip-group-margin-block-start-default-large
+    )
+    #{sbb.px-to-rem-build(7.5)};
+  --_sbb-chip-group-margin-block-with-label-m: var(
+      --_sbb-chip-group-margin-block-start-default-large
+    )
+    var(--_sbb-chip-group-margin-block-start-default-large);
+}

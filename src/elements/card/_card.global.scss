@@ -1,0 +1,226 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+// Card sizing
+@mixin variables--global {
+  @include variables--white;
+
+  --sbb-card-border-radius: var(--sbb-border-radius-4x);
+  --sbb-card-animation-easing: var(--sbb-animation-easing);
+  --sbb-card-border-style: solid;
+  --sbb-card-padding-inline-default: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-responsive-s),
+        'lean': var(--sbb-spacing-responsive-xxs),
+      ),
+      $theme
+    )};
+  --sbb-card-padding-block-default: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-responsive-xxxs),
+        'lean': var(--sbb-spacing-fixed-3x),
+      ),
+      $theme
+    )};
+  --sbb-card-with-badge-padding-block-default: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-6x) var(--sbb-spacing-responsive-xxxs),
+        'lean': var(--sbb-spacing-fixed-6x) var(--sbb-spacing-fixed-3x),
+      ),
+      $theme
+    )};
+}
+
+@mixin variables--global-forced-colors {
+  --sbb-card-border-color: CanvasText;
+  --sbb-card-border-width: var(--sbb-border-width-2x);
+}
+
+@mixin variables {
+  @include variables--global;
+
+  @media (forced-colors: active) {
+    @include variables--global-forced-colors;
+  }
+}
+
+@mixin variables--white {
+  --sbb-card-background-color: var(--sbb-background-color-1);
+  --sbb-card-border-color: transparent;
+}
+
+@mixin variables--milk {
+  --sbb-card-background-color: var(--sbb-background-color-3);
+  --sbb-card-border-color: transparent;
+}
+
+@mixin variables--transparent-bordered {
+  --sbb-card-background-color: transparent;
+  --sbb-card-border-color: var(--sbb-border-color-4-inverted);
+  --sbb-card-border-width: var(--sbb-border-width-1x);
+  --sbb-focus-outline-color: inherit;
+}
+
+@mixin variables--transparent-bordered-dashed {
+  --sbb-card-background-color: transparent;
+  --sbb-card-border-color: light-dark(var(--sbb-color-cement), var(--sbb-color-granite));
+  --sbb-card-border-width: var(--sbb-border-width-1x);
+  --sbb-card-border-style: dashed;
+  --sbb-focus-outline-color: inherit;
+}
+
+@mixin variables--active {
+  --sbb-card-border-color: var(--sbb-border-color-3);
+  --sbb-card-border-width: var(--sbb-border-width-2x);
+  --sbb-card-border-style: solid;
+
+  @media (forced-colors: active) {
+    --sbb-card-border-color: Highlight;
+  }
+}
+
+@mixin variables--spacing-default {
+  --sbb-card-padding-block: var(--sbb-card-padding-block-default);
+  --sbb-card-with-badge-padding-block: var(--sbb-card-with-badge-padding-block-default);
+  --sbb-card-padding-inline: var(--sbb-card-padding-inline-default);
+}
+
+@mixin variables--spacing-3x-xxs {
+  --sbb-card-padding-block: var(--sbb-spacing-fixed-3x);
+  --sbb-card-with-badge-padding-block: var(--sbb-spacing-fixed-6x) var(--sbb-spacing-fixed-3x);
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
+}
+
+@mixin variables--spacing-xxxs-xxs {
+  --sbb-card-padding-block: var(--sbb-spacing-responsive-xxxs);
+  --sbb-card-with-badge-padding-block: var(--sbb-spacing-fixed-6x)
+    var(--sbb-spacing-responsive-xxxs);
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
+}
+
+@mixin variables--spacing-xxxs-s {
+  --sbb-card-padding-block: var(--sbb-spacing-responsive-xxxs);
+  --sbb-card-with-badge-padding-block: var(--sbb-spacing-fixed-6x)
+    var(--sbb-spacing-responsive-xxxs);
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-s);
+}
+
+@mixin variables--spacing-4x-xxs {
+  --sbb-card-padding-block: var(--sbb-spacing-fixed-4x);
+  --sbb-card-with-badge-padding-block: var(--sbb-spacing-fixed-6x) var(--sbb-spacing-fixed-4x);
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
+}
+
+@mixin variables--spacing-xxs {
+  --sbb-card-padding-block: var(--sbb-spacing-responsive-xxs);
+  --sbb-card-with-badge-padding-block: var(--sbb-spacing-fixed-6x) var(--sbb-spacing-responsive-xxs);
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
+}
+
+@mixin variables--spacing-s {
+  --sbb-card-padding-block: var(--sbb-spacing-responsive-s);
+  --sbb-card-with-badge-padding-block: var(--sbb-spacing-responsive-s);
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-s);
+}
+
+@mixin variables--spacing-l {
+  --sbb-card-padding-block: var(--sbb-spacing-responsive-l);
+  --sbb-card-with-badge-padding-block: var(--sbb-spacing-responsive-l);
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-l);
+}
+
+@mixin variables--button {
+  @media (forced-colors: active) {
+    --sbb-card-color: ButtonText;
+  }
+}
+
+@mixin variables--link {
+  @media (forced-colors: active) {
+    --sbb-card-color: LinkText;
+    --sbb-card-border-color: CanvasText;
+  }
+}
+
+@mixin rules {
+  // As the card has always a white/milk background, we have to fix the focus outline color
+  // to default color for cases where the card is used in a negative context.
+  --sbb-focus-outline-color: light-dark(
+    var(--sbb-focus-outline-color-default),
+    var(--sbb-focus-outline-color-dark)
+  );
+  --sbb-card-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-1x)
+  );
+
+  display: block;
+  position: relative;
+  padding-inline: var(--sbb-card-padding-inline);
+  padding-block: var(--sbb-card-padding-block);
+  border-radius: var(--sbb-card-border-radius);
+  background-color: var(--sbb-card-background-color);
+  box-shadow: none;
+  transition: box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
+  color: var(--sbb-card-color);
+
+  // Apply border as after element to let it be inline
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: transparent;
+    border: var(--sbb-card-border-width) var(--sbb-card-border-style) var(--sbb-card-border-color);
+    border-radius: var(--sbb-card-border-radius);
+    pointer-events: none;
+  }
+
+  @media (forced-colors: active) {
+    // Propagate card text color to title text color to ensure correct color in forced colors mode
+    --sbb-title-color: var(--sbb-card-color);
+  }
+
+  // Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
+  // This style enables accessing focusable elements inside an sbb-card.
+  sbb-card .sbb-action {
+    pointer-events: all;
+  }
+}
+
+@mixin state--hover {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-card-hover-shift: #{sbb.px-to-rem-build(-2)};
+
+    box-shadow: var(--sbb-box-shadow-level-9-hard);
+
+    @media (forced-colors: active) {
+      --sbb-card-border-color: Highlight;
+    }
+  }
+}
+
+@mixin wrapper {
+  display: block;
+  height: 100%;
+}
+
+@mixin base {
+  @include variables--global;
+
+  --sbb-card-badge-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-card-badge-color: var(--sbb-color-2-inverted);
+  --sbb-card-badge-background-color: var(--sbb-background-color-3-inverted);
+  --sbb-card-badge-border-color: transparent;
+  --sbb-card-badge-padding-inline: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-3x);
+  --sbb-card-badge-border-width: var(--sbb-border-width-1x);
+  --sbb-card-badge-border-radius: var(--sbb-border-radius-4x);
+  --sbb-card-badge-skew: skew(16deg, 0deg);
+}
+
+@mixin base-forced-colors {
+  @include variables--global-forced-colors;
+
+  --sbb-card-badge-border-display: block;
+  --sbb-card-badge-inline-border-display: none;
+}

@@ -1,0 +1,133 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+// To display a current active page, e.g. if the CSS class sbb-active is set
+
+@mixin common-variables {
+  --sbb-link-color-hover: light-dark(var(--sbb-color-primary125), var(--sbb-color-graphite));
+  --sbb-link-color-active: light-dark(var(--sbb-color-primary150), var(--sbb-color-metal));
+}
+
+@mixin common-variables--negative {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+
+@mixin block-variables {
+  @include common-variables;
+
+  --sbb-link-color-normal: light-dark(var(--sbb-color-granite), var(--sbb-color-white));
+  --sbb-link-color-hover: light-dark(var(--sbb-color-primary125), var(--sbb-color-cloud));
+  --sbb-link-color-active: light-dark(var(--sbb-color-primary150), var(--sbb-color-silver));
+}
+
+@mixin block-variables--negative {
+  @include common-variables--negative;
+
+  --sbb-link-color-normal: var(--sbb-color-1-negative);
+  --sbb-link-color-hover: var(--sbb-color-4-negative);
+  --sbb-link-color-active: var(--sbb-color-silver);
+}
+
+@mixin block-variables--active {
+  --sbb-link-color-normal: light-dark(var(--sbb-color-black), var(--sbb-color-cement));
+  --sbb-link-text-decoration-line: underline;
+}
+
+@mixin block-variables--active-negative {
+  --sbb-link-color-normal: var(--sbb-color-cement);
+  --sbb-link-text-decoration-line: underline;
+}
+
+@mixin variables {
+  @include common-variables;
+
+  --sbb-link-color-normal: inherit;
+}
+
+@mixin variables--negative {
+  @include common-variables--negative;
+
+  --sbb-link-color-hover: var(--sbb-color-graphite);
+  --sbb-link-color-active: var(--sbb-color-metal);
+}
+
+@mixin variables--button {
+  @media (forced-colors: active) {
+    --sbb-link-color-normal: ButtonText;
+    --sbb-link-color-hover: ButtonText;
+    --sbb-link-color-active: ButtonText;
+  }
+}
+
+@mixin base {
+  color: var(--sbb-link-color-normal);
+  text-decoration-line: var(--sbb-link-text-decoration-line, underline);
+  text-decoration-thickness: #{sbb.px-to-rem-build(1)};
+  text-underline-offset: 0.3125em; // 5px
+
+  @media (forced-colors: active) {
+    text-decoration: underline;
+  }
+
+  --sbb-block-link-gap: var(--sbb-spacing-fixed-1x);
+  --sbb-block-link-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-block-link-font-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-text-font-size-s),
+        'lean': var(--sbb-text-font-size-xs),
+      ),
+      $theme
+    )};
+}
+
+@mixin focus-visible {
+  &:focus-visible {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
+}
+
+@mixin hover-rules {
+  @include sbb.hover-mq($hover: true) {
+    color: var(--sbb-link-color-hover);
+    text-decoration-line: var(--sbb-link-hover-text-decoration, underline);
+  }
+}
+
+@mixin hover {
+  &:hover {
+    @include hover-rules;
+  }
+}
+
+@mixin active-rules {
+  color: var(--sbb-link-color-active);
+}
+
+@mixin active {
+  &:active {
+    @include active-rules;
+  }
+}
+
+@mixin consolidation {
+  @include base;
+  @include focus-visible;
+  @include hover;
+
+  // Active definitions have to be after :hover definitions
+  @include active;
+}
+
+@mixin rules {
+  @include variables;
+  @include consolidation;
+}
+
+@mixin rules-negative {
+  @include variables;
+  @include variables--negative;
+  @include consolidation;
+}
