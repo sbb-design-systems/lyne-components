@@ -10,7 +10,6 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import { SbbPopoverElement } from './popover/popover.component.ts';
 import readme from './readme.md?raw';
 
-
 import '../link.ts';
 import '../title.ts';
 import '../button.ts';

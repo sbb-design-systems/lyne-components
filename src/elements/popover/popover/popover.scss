@@ -31,7 +31,7 @@
   --_sbb-popover-translate: 0 calc(var(--sbb-spacing-fixed-2x) * -1);
 }
 
-:host(:state(has-close-button)) {
+:host(:state(slotted-close-button)) {
   --sbb-popover-min-height: calc(var(--sbb-size-element-xs) + 2 * var(--sbb-popover-padding));
 }
 

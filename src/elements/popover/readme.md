@@ -186,6 +186,7 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 #### Slots
 
-| Name | Description                                           |
-| ---- | ----------------------------------------------------- |
-|      | Use the unnamed slot to add content into the popover. |
+| Name           | Description                                                                                                 |
+| -------------- | ----------------------------------------------------------------------------------------------------------- |
+|                | Use the unnamed slot to add content into the popover.                                                       |
+| `close-button` | Slot for the sbb-popover-close-button. The slot is automatically assigned when slotted in the unnamed slot. |

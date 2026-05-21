@@ -464,6 +464,7 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
 /**
  * It displays contextual information within a popover.
  *
+ * @slot close-button - Slot for the sbb-popover-close-button. The slot is automatically assigned when slotted in the unnamed slot.
  * @slot - Use the unnamed slot to add content into the popover.
  * @cssprop [--sbb-popover-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
@@ -626,14 +627,9 @@ export class SbbPopoverElement extends SbbPopoverBaseElement {
     }
   };
 
-  private _onCloseButtonSlotChange(event: Event): void {
-    const slot = event.target as HTMLSlotElement;
-    this.toggleState('has-close-button', slot.assignedElements().length > 0);
-  }
-
   protected override renderContent(): TemplateResult {
     return html`
-      <slot name="close-button" @slotchange=${this._onCloseButtonSlotChange}></slot>
+      <slot name="close-button"></slot>
       <span class="sbb-popover__scrollable-content sbb-scrollbar">
         <slot>No content</slot>
       </span>
