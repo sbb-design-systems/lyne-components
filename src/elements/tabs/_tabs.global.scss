@@ -1,5 +1,5 @@
 @use '../core/styles' as sbb;
-@use '../common/tab-label-common' as tab-label-common;
+@use './common/tab-label-common' as tab-label-common;
 
 $theme: 'standard' !default;
 

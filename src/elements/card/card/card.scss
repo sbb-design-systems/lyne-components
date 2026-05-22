@@ -1,5 +1,5 @@
 @use '../../core/styles' as sbb;
-@use '../card.library.global' as card;
+@use '../card.global' as card;
 
 // # Stacking of action
 // To support content with actions that should be accessible, we have to stack the action and content like following:
@@ -7,7 +7,7 @@
 // All focusable elements inside the main slot will receive `pointer-events: all` which makes them pointer accessible.
 
 :host {
-  @include card.rules;
+  @include card.card-rules;
   @include card.variables--spacing-default;
 }
 

@@ -143,7 +143,7 @@ $theme: 'standard' !default;
   }
 }
 
-@mixin rules {
+@mixin card-rules {
   // As the card has always a white/milk background, we have to fix the focus outline color
   // to default color for cases where the card is used in a negative context.
   --sbb-focus-outline-color: light-dark(
@@ -179,12 +179,6 @@ $theme: 'standard' !default;
   @media (forced-colors: active) {
     // Propagate card text color to title text color to ensure correct color in forced colors mode
     --sbb-title-color: var(--sbb-card-color);
-  }
-
-  // Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
-  // This style enables accessing focusable elements inside an sbb-card.
-  sbb-card .sbb-action {
-    pointer-events: all;
   }
 }
 
@@ -223,4 +217,12 @@ $theme: 'standard' !default;
 
   --sbb-card-badge-border-display: block;
   --sbb-card-badge-inline-border-display: none;
+}
+
+@mixin rules {
+  // Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
+  // This style enables accessing focusable elements inside an sbb-card.
+  sbb-card .sbb-action {
+    pointer-events: all;
+  }
 }

@@ -1,6 +1,6 @@
 @forward './core/styles';
 @forward './badge/badge.global' as badge-*;
-@forward './card/card.library.global' as card-*;
-@forward './link/link.library.global' as link-*;
+@forward './card/card.global' as card-*;
+@forward './link/link.global' as link-*;
 @forward './table/table.global' as table-*;
-@forward './timetable-form/timetable-form/timetable-form.global' as timetable-form-*;
+@forward './timetable-form/timetable-form.global' as timetable-form-*;
