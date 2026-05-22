@@ -60,7 +60,7 @@ $theme: 'standard' !default;
   }
 }
 
-@mixin base {
+@mixin base-rules {
   color: var(--sbb-link-color-normal);
   text-decoration-line: var(--sbb-link-text-decoration-line, underline);
   text-decoration-thickness: #{sbb.px-to-rem-build(1)};
@@ -69,16 +69,6 @@ $theme: 'standard' !default;
   @media (forced-colors: active) {
     text-decoration: underline;
   }
-
-  --sbb-block-link-gap: var(--sbb-spacing-fixed-1x);
-  --sbb-block-link-icon-size: var(--sbb-size-icon-ui-small);
-  --sbb-block-link-font-size: #{sbb.theme-pattern-select(
-      (
-        'standard': var(--sbb-text-font-size-s),
-        'lean': var(--sbb-text-font-size-xs),
-      ),
-      $theme
-    )};
 }
 
 @mixin focus-visible {
@@ -113,7 +103,7 @@ $theme: 'standard' !default;
 }
 
 @mixin consolidation {
-  @include base;
+  @include base-rules;
   @include focus-visible;
   @include hover;
 
@@ -130,4 +120,16 @@ $theme: 'standard' !default;
   @include variables;
   @include variables--negative;
   @include consolidation;
+}
+
+@mixin base {
+  --sbb-block-link-gap: var(--sbb-spacing-fixed-1x);
+  --sbb-block-link-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-block-link-font-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-text-font-size-s),
+        'lean': var(--sbb-text-font-size-xs),
+      ),
+      $theme
+    )};
 }
