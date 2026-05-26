@@ -60,7 +60,7 @@ $theme: 'standard' !default;
   }
 }
 
-@mixin base-rules {
+@mixin element-rules {
   color: var(--sbb-link-color-normal);
   text-decoration-line: var(--sbb-link-text-decoration-line, underline);
   text-decoration-thickness: #{sbb.px-to-rem-build(1)};
@@ -103,7 +103,7 @@ $theme: 'standard' !default;
 }
 
 @mixin consolidation {
-  @include base-rules;
+  @include element-rules;
   @include focus-visible;
   @include hover;
 

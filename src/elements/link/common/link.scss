@@ -14,7 +14,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 }
 
 .sbb-action-base {
-  @include link.base-rules;
+  @include link.element-rules;
 
   display: flex;
   align-items: center;

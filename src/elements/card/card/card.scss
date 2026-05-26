@@ -7,7 +7,7 @@
 // All focusable elements inside the main slot will receive `pointer-events: all` which makes them pointer accessible.
 
 :host {
-  @include card.card-rules;
+  @include card.element-rules;
   @include card.variables--spacing-default;
 }
 

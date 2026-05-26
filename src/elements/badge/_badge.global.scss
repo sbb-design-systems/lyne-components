@@ -1,6 +1,6 @@
 @use '../core/styles' as sbb;
 
-@mixin base-rules {
+@mixin element-rules {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,7 +26,7 @@
     position: relative;
 
     &::after {
-      @include base-rules;
+      @include element-rules;
 
       content: attr(sbb-badge);
       position: absolute;
