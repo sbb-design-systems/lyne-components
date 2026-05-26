@@ -14,6 +14,33 @@ $theme: 'standard' !default;
 }
 
 @mixin rules {
+  // Target the slotted `sbb-image` which are generally wrapped by a <figure> (therefore are not reachable with the :slotted)
+  // Apply the brightness effect on mouse hover
+  :is(sbb-teaser, sbb-teaser-hero, sbb-teaser-product) {
+    --sbb-teaser-image-brightness-hover: var(--sbb-hover-image-brightness);
+    --sbb-teaser-image-animation-duration: var(
+      --sbb-disable-animation-duration,
+      var(--sbb-animation-duration-4x)
+    );
+    --sbb-teaser-image-animation-easing: var(--sbb-animation-easing);
+
+    &:hover {
+      @include sbb.hover-mq($hover: true) {
+        --sbb-teaser-image-brightness: var(--sbb-teaser-image-brightness-hover);
+      }
+    }
+
+    :is(sbb-image, img):not(.sbb-figure-overlap-image) {
+      // Although only the teaser has a scale property, we do it here, because this rule is
+      // more specific and overrides would not be respected.
+      will-change: filter, scale;
+      filter: brightness(var(--sbb-teaser-image-brightness, 1));
+      transition:
+        filter,
+        scale var(--sbb-teaser-image-animation-duration) var(--sbb-teaser-image-animation-easing);
+    }
+  }
+
   sbb-teaser :is(sbb-image, img):not(.sbb-figure-overlap-image) {
     --sbb-image-object-fit: cover;
     --sbb-image-aspect-ratio: 4 / 3;
