@@ -371,7 +371,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   ): void {
     // Deselect the previous options
     this.options
-      .filter((option) => option.id !== selectedOption.id && option.selected)
+      .filter((option) => option !== selectedOption && option.selected)
       .forEach((option) => (option.selected = false));
     this.pendingAutoSelectedOption = null;
 

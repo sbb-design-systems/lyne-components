@@ -164,22 +164,3 @@
   padding: 0;
   color: light-dark(var(--sbb-color-granite), var(--sbb-color-cement));
 }
-
-%sub-sup {
-  font-size: 60%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-
-@mixin sub {
-  @extend %sub-sup;
-
-  bottom: -0.36em;
-}
-
-@mixin sup {
-  @extend %sub-sup;
-
-  top: -0.5em;
-}

@@ -111,7 +111,7 @@ export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseE
 
     // Reset potentially active option
     this.activeOption?.setActive(false);
-    this.triggerElement?.removeAttribute('aria-activedescendant');
+    this.triggerElement!.ariaActiveDescendantElement = null;
     Array.from(
       this.querySelectorAll?.('sbb-autocomplete-grid-row :state(focus-visible)') ?? [],
     ).forEach((row) => ɵstateController(row).delete('focus-visible'));
@@ -130,7 +130,7 @@ export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseE
     const next = getNextElementIndex(event, activeItemIndex, enabledOptions.length);
     this.activeOption = enabledOptions[next];
     this.activeOption.setActive(true);
-    this.triggerElement?.setAttribute('aria-activedescendant', this.activeOption.id);
+    this.triggerElement!.ariaActiveDescendantElement = this.activeOption;
     this.activeOption.scrollIntoView({ block: 'nearest' });
 
     // Moving the active option should not move the input cursor (caret)
@@ -176,7 +176,7 @@ export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseE
     } else {
       ɵstateController(lastActiveElement).delete('focus-visible');
     }
-    this.triggerElement?.setAttribute('aria-activedescendant', nextElement.id);
+    this.triggerElement!.ariaActiveDescendantElement = nextElement;
     nextElement.scrollIntoView({ block: 'nearest' });
     this._activeColumnIndex = next;
   }
@@ -191,7 +191,10 @@ export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseE
     this.activeOption?.setActive(false);
     this.activeOption = null;
     this._activeColumnIndex = 0;
-    this.triggerElement?.removeAttribute('aria-activedescendant');
+
+    if (this.triggerElement) {
+      this.triggerElement.ariaActiveDescendantElement = null;
+    }
   }
 
   protected setTriggerAttributes(element: HTMLInputElement): void {

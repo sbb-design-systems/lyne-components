@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-autocomplete-grid-option renders DOM"] = 
-`<sbb-autocomplete-grid-option
-  id="sbb-autocomplete-grid-option-0"
-  value="1"
->
+`<sbb-autocomplete-grid-option value="1">
   Option 1
 </sbb-autocomplete-grid-option>
 `;
@@ -31,7 +28,6 @@ snapshots["sbb-autocomplete-grid-option renders Shadow DOM"] =
 snapshots["sbb-autocomplete-grid-option renders disabled DOM"] = 
 `<sbb-autocomplete-grid-option
   disabled=""
-  id="sbb-autocomplete-grid-option-2"
   value="1"
 >
   Option 1

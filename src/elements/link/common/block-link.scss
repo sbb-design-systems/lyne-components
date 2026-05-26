@@ -1,5 +1,5 @@
 @use '../../core/styles' as sbb;
-@use '../link.library.global' as link;
+@use '../link.global' as link;
 
 :host {
   @include link.block-variables;
