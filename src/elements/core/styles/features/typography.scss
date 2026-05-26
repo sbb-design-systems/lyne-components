@@ -1,11 +1,19 @@
 @use '../mixins/typo';
 
+sub,
+sup {
+  font-size: 60%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
 sub {
-  @include typo.sub;
+  bottom: -0.36em;
 }
 
 sup {
-  @include typo.sup;
+  top: -0.5em;
 }
 
 .sbb-text-xxs,

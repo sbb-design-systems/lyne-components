@@ -1,5 +1,5 @@
 @use '../../core/styles' as sbb;
-@use '../../link/link.library.global' as link;
+@use '../../link/link.global' as link;
 
 :host {
   display: flex;
@@ -18,7 +18,7 @@
 .sbb-breadcrumb {
   --sbb-link-text-decoration-line: none;
 
-  @include link.base;
+  @include link.base-rules;
 
   display: flex;
   cursor: var(--sbb-cursor-pointer);

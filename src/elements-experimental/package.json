@@ -13,6 +13,10 @@
     ".": {
       "types": "./index.d.ts",
       "default": "./index.js"
+    },
+    "./_index.scss": {
+      "sass": "./_index.scss",
+      "default": "./_index.scss"
     }
   },
   "customElements": "custom-elements.json",

@@ -1,5 +1,5 @@
 @use '../../core/styles' as sbb;
-@use '../common/tab-label-common' as tab-label-common;
+@use '../tabs.global' as tabs-global;
 
 :host {
   display: inline-block;
@@ -34,7 +34,7 @@
 }
 
 .sbb-tab-label__amount {
-  @include tab-label-common.tab-label-amount;
+  @include tabs-global.tab-label-amount;
 
   :host(:not(:state(slotted-amount), [amount])) & {
     display: none;
