@@ -2,8 +2,6 @@
 
 $theme: 'standard' !default;
 
-// To display a current active page, e.g. if the CSS class sbb-active is set
-
 @mixin common-variables {
   --sbb-link-color-hover: light-dark(var(--sbb-color-primary125), var(--sbb-color-graphite));
   --sbb-link-color-active: light-dark(var(--sbb-color-primary150), var(--sbb-color-metal));
@@ -29,11 +27,13 @@ $theme: 'standard' !default;
   --sbb-link-color-active: var(--sbb-color-silver);
 }
 
+// To display a current active page, e.g. if the CSS class sbb-active is set
 @mixin block-variables--active {
   --sbb-link-color-normal: light-dark(var(--sbb-color-black), var(--sbb-color-cement));
   --sbb-link-text-decoration-line: underline;
 }
 
+// To display a current active page, e.g. if the CSS class sbb-active is set
 @mixin block-variables--active-negative {
   --sbb-link-color-normal: var(--sbb-color-cement);
   --sbb-link-text-decoration-line: underline;
