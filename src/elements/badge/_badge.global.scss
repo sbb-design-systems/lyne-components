@@ -1,5 +1,7 @@
 @use '../core/styles' as sbb;
 
+$theme: 'standard' !default;
+
 @mixin element-rules {
   display: flex;
   align-items: center;
