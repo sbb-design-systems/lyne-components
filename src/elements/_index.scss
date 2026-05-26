@@ -8,13 +8,10 @@
 @forward './card/card.global' as card-*;
 @forward './carousel/carousel.global' as carousel-*;
 @forward './checkbox/checkbox.global' as checkbox-*;
-@forward './chip-label/chip-label.global' as chip-label-*;
 @forward './chip/chip.global' as chip-*;
+@forward './chip-label/chip-label.global' as chip-label-*;
 @forward './clock/clock.global' as clock-*;
 @forward './container/container.global' as container-*;
-@forward './core/base-elements/selection-group-base-element.global' as
-  selection-group-base-element-*;
-@forward './core/mixins/panel-common.global' as panel-common-*;
 @forward './dialog/dialog.global' as dialog-*;
 @forward './divider/divider.global' as divider-*;
 @forward './expansion-panel/expansion-panel.global' as expansion-panel-*;
@@ -26,8 +23,8 @@
 @forward './icon-sidebar/icon-sidebar.global' as icon-sidebar-*;
 @forward './lead-container/lead-container.global' as lead-container-*;
 @forward './link/link.global' as link-*;
-@forward './loading-indicator-circle/loading-indicator-circle.global' as loading-indicator-circle-*;
 @forward './loading-indicator/loading-indicator.global' as loading-indicator-*;
+@forward './loading-indicator-circle/loading-indicator-circle.global' as loading-indicator-circle-*;
 @forward './logo/logo.global' as logo-*;
 @forward './map-container/map-container.global' as map-container-*;
 @forward './menu/menu.global' as menu-*;
@@ -38,12 +35,15 @@
 @forward './option/option.global' as option-*;
 @forward './overlay/overlay.global' as overlay-*;
 @forward './paginator/paginator.global' as paginator-*;
+@forward './core/mixins/panel-common.global' as panel-common-*;
 @forward './popover/popover.global' as popover-*;
 @forward './radio-button/radio-button.global' as radio-button-*;
 @forward './select/select.global' as select-*;
 @forward './selection-action-panel/selection-action-panel.global' as selection-action-panel-*;
 @forward './selection-expansion-panel/selection-expansion-panel.global' as
   selection-expansion-panel-*;
+@forward './core/base-elements/selection-group-base-element.global' as
+  selection-group-base-element-*;
 @forward './sidebar/sidebar.global' as sidebar-*;
 @forward './signet/signet.global' as signet-*;
 @forward './slider/slider.global' as slider-*;
@@ -52,17 +52,17 @@
 @forward './table/table.global' as table-*;
 @forward './tabs/tabs.global' as tabs-*;
 @forward './tag/tag.global' as tag-*;
+@forward './teaser/teaser.global' as teaser-*;
 @forward './teaser-hero/teaser-hero.global' as teaser-hero-*;
 @forward './teaser-panel/teaser-panel.global' as teaser-panel-*;
 @forward './teaser-product/teaser-product.global' as teaser-product-*;
-@forward './teaser/teaser.global' as teaser-*;
 @forward './time-input/time-input.global' as time-input-*;
 @forward './timetable-form/timetable-form.global' as timetable-form-*;
 @forward './timetable-occupancy/timetable-occupancy.global' as timetable-occupancy-*;
 @forward './title/title.global' as title-*;
 @forward './toast/toast.global' as toast-*;
-@forward './toggle-check/toggle-check.global' as toggle-check-*;
 @forward './toggle/toggle.global' as toggle-*;
+@forward './toggle-check/toggle-check.global' as toggle-check-*;
 @forward './tooltip/tooltip.global' as tooltip-*;
 @forward './train/train.global' as train-*;
 @forward './visual-checkbox/visual-checkbox.global' as visual-checkbox-*;
