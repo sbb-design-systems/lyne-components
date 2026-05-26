@@ -10,9 +10,17 @@ function replaceGeneratedBlock(section: string, content: string, newContent: str
   const start = `// start-${blockName}`;
   const end = `// end-${blockName}`;
 
+  if (!content.includes(start)) {
+    throw new Error(`${start} marker not found`);
+  }
+
+  if (!content.includes(end)) {
+    throw new Error(`${end} marker not found`);
+  }
+
   const regex = new RegExp(`(${start})[\\s\\S]*?(${end})`, 'g');
 
-  return content.replace(regex, `$1\n${newContent}${newContent.length ? '\n' : ''}$2`);
+  return content.replace(regex, `$1\n${newContent}\n\n$2`);
 }
 
 function extractModuleName(file: string): string {
@@ -128,10 +136,7 @@ async function generateTheme(
   const forcedColors = globalFiles.filter((f) => f.hasForcedColors);
   if (forcedColors.length) {
     rootBlock += `@media (forced-colors: active) {
-      ${globalFiles
-        .filter((f) => f.hasForcedColors)
-        .map((f) => `@include ${f.moduleName}.forced-colors;`)
-        .join('\n')}
+      ${forcedColors.map((f) => `@include ${f.moduleName}.forced-colors;`).join('\n')}
     }`;
   }
 
