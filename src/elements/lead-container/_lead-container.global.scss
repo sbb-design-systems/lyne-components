@@ -13,7 +13,7 @@ $theme: 'standard' !default;
   --sbb-lead-container-image-border-radius: 0;
 }
 
-@mixin base-breakpoint-ultra {
+@mixin breakpoint-ultra {
   --sbb-lead-container-image-ratio: 21 / 9;
   --sbb-lead-container-image-border-radius: var(--sbb-lead-container-border-radius);
 }

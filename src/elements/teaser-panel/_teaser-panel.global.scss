@@ -17,14 +17,14 @@ $theme: 'standard' !default;
   --sbb-panel-animation-easing: var(--sbb-animation-easing);
 }
 
-@mixin base-breakpoint-large {
+@mixin breakpoint-large {
   --sbb-panel-width: #{sbb.px-to-rem-build(321)};
   --sbb-panel-inner-height: #{sbb.px-to-rem-build(240.11)};
   --sbb-panel-triangle-height: #{sbb.px-to-rem-build(47.45)};
   --sbb-panel-font-size: var(--sbb-typo-scale-2x);
 }
 
-@mixin base-breakpoint-ultra {
+@mixin breakpoint-ultra {
   --sbb-panel-width: #{sbb.px-to-rem-build(428)};
   --sbb-panel-inner-height: #{sbb.px-to-rem-build(320.38)};
   --sbb-panel-triangle-height: #{sbb.px-to-rem-build(63.31)};

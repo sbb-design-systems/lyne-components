@@ -41,7 +41,7 @@ $theme: 'standard' !default;
   --sbb-notification-close-wrapper-gap: var(--sbb-spacing-responsive-xxs);
 }
 
-@mixin base-breakpoint-small {
+@mixin breakpoint-small {
   --sbb-notification-icon-align-self: flex-start;
   --sbb-notification-padding-inline: #{sbb.theme-pattern-select(
       (

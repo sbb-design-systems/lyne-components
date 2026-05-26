@@ -22,7 +22,7 @@ $theme: 'standard' !default;
   );
 }
 
-@mixin base-forced-colors {
+@mixin forced-colors {
   --sbb-breadcrumb-color: ButtonText;
   --sbb-breadcrumb-color-active: Highlight;
 }

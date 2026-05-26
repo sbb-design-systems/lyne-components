@@ -92,7 +92,7 @@ $theme: 'standard' !default;
     )};
 }
 
-@mixin base-breakpoint-large {
+@mixin breakpoint-large {
   --sbb-button-padding-inline-size-l: var(--sbb-spacing-fixed-10x);
   --sbb-button-padding-inline-size-m: var(--sbb-spacing-fixed-8x);
   --sbb-button-padding-inline-size-s: var(--sbb-spacing-fixed-5x);

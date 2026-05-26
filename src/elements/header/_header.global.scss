@@ -49,7 +49,7 @@ $theme: 'standard' !default;
   --sbb-header-environment-rotate: 45deg;
 }
 
-@mixin base-forced-colors {
+@mixin forced-colors {
   --sbb-header-action-border-color: CanvasText;
   --sbb-header-action-color: LinkText;
 
@@ -57,7 +57,7 @@ $theme: 'standard' !default;
   --sbb-header-action-active-border-width: 0;
 }
 
-@mixin base-breakpoint-large {
+@mixin breakpoint-large {
   --sbb-header-height-s: var(--sbb-spacing-fixed-14x);
   --sbb-header-height-m: var(--sbb-spacing-fixed-24x);
 }

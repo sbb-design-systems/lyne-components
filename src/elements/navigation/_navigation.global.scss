@@ -53,7 +53,7 @@ $theme: 'standard' !default;
   --sbb-navigation-section-font-size: var(--sbb-heading-font-size-4);
 }
 
-@mixin base-breakpoint-large {
+@mixin breakpoint-large {
   --sbb-navigation-grid-column: 1 / 5;
   --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xl);
   --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive) 0;
@@ -69,7 +69,7 @@ $theme: 'standard' !default;
   --sbb-navigation-section-font-size: var(--sbb-heading-font-size-2);
 }
 
-@mixin base-breakpoint-ultra {
+@mixin breakpoint-ultra {
   --sbb-navigation-grid-column: 1 / 6;
   --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xxl);
   --sbb-navigation-section-column: 6 / 17;

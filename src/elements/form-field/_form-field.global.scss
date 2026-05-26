@@ -76,11 +76,11 @@ $theme: 'standard' !default;
     )};
 }
 
-@mixin base-forced-colors {
+@mixin forced-colors {
   --sbb-form-field-border-color: ButtonBorder;
 }
 
-@mixin base-breakpoint-large {
+@mixin breakpoint-large {
   --_sbb-form-field-label-to-input-overlapping: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-spacing-fixed-1x),

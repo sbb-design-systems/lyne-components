@@ -26,7 +26,7 @@ $theme: 'standard' !default;
   --sbb-toggle-check-shadow: var(--sbb-box-shadow-level-5-hard);
 }
 
-@mixin base-forced-colors {
+@mixin forced-colors {
   --sbb-toggle-check-background-color: CanvasText;
   --sbb-toggle-check-circle-background-color: Canvas;
 }

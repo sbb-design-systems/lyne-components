@@ -61,6 +61,6 @@ $theme: 'standard' !default;
     )};
 }
 
-@mixin base-forced-colors {
+@mixin forced-colors {
   --sbb-expansion-panel-header-text-color: ButtonText;
 }

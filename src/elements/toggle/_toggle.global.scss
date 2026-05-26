@@ -36,7 +36,7 @@ $theme: 'standard' !default;
   --sbb-toggle-option-icon-min-size: var(--sbb-size-icon-ui-small);
 }
 
-@mixin base-forced-colors {
+@mixin forced-colors {
   --sbb-toggle-selected-option-border-width: var(--sbb-border-width-2x);
   --sbb-toggle-selected-option-border-color: Highlight;
 }

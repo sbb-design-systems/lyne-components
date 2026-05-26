@@ -212,7 +212,7 @@ $theme: 'standard' !default;
   --sbb-card-badge-skew: skew(16deg, 0deg);
 }
 
-@mixin base-forced-colors {
+@mixin forced-colors {
   @include variables--global-forced-colors;
 
   --sbb-card-badge-border-display: block;

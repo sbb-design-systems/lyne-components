@@ -25,7 +25,7 @@ $theme: 'standard' !default;
   --sbb-teaser-product-footer-padding-block-end: 0;
 }
 
-@mixin base-breakpoint-large {
+@mixin breakpoint-large {
   --sbb-teaser-product-container-padding-block: var(--sbb-spacing-responsive-l) 0;
   --sbb-teaser-product-container-padding-inline: var(--sbb-spacing-responsive-xl);
   --sbb-teaser-product-content-align-content: center;

@@ -2,13 +2,11 @@ $theme: 'standard' !default;
 
 @use './_index' as sbb;
 
+// start-auto-generated-scss-module-imports
 @use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables-as-css.scss' as sbb-css-tokens with (
   $theme: $theme
 );
 @use '../../alert/alert.global' as alert with (
-  $theme: $theme
-);
-@use '../base-elements/selection-group-base-element.global' as selection-group with (
   $theme: $theme
 );
 @use '../../badge/badge.global' as badge with (
@@ -32,10 +30,10 @@ $theme: 'standard' !default;
 @use '../../checkbox/checkbox.global' as checkbox with (
   $theme: $theme
 );
-@use '../../chip-label/chip-label.global' as chip-label with (
+@use '../../chip/chip.global' as chip with (
   $theme: $theme
 );
-@use '../../chip/chip.global' as chip with (
+@use '../../chip-label/chip-label.global' as chip-label with (
   $theme: $theme
 );
 @use '../../clock/clock.global' as clock with (
@@ -77,11 +75,11 @@ $theme: 'standard' !default;
 @use '../../link/link.global' as link with (
   $theme: $theme
 );
-@use '../../loading-indicator-circle/loading-indicator-circle.global' as loading-indicator-circle
-  with (
+@use '../../loading-indicator/loading-indicator.global' as loading-indicator with (
   $theme: $theme
 );
-@use '../../loading-indicator/loading-indicator.global' as loading-indicator with (
+@use '../../loading-indicator-circle/loading-indicator-circle.global' as loading-indicator-circle
+  with (
   $theme: $theme
 );
 @use '../../logo/logo.global' as logo with (
@@ -117,7 +115,7 @@ $theme: 'standard' !default;
 @use '../mixins/panel-common.global' as panel-common with (
   $theme: $theme
 );
-@use '../../popover/popover.global' as popover-component with (
+@use '../../popover/popover.global' as popover with (
   $theme: $theme
 );
 @use '../../radio-button/radio-button.global' as radio-button with (
@@ -131,6 +129,9 @@ $theme: 'standard' !default;
 );
 @use '../../selection-expansion-panel/selection-expansion-panel.global' as selection-expansion-panel
   with (
+  $theme: $theme
+);
+@use '../base-elements/selection-group-base-element.global' as selection-group-base-element with (
   $theme: $theme
 );
 @use '../../sidebar/sidebar.global' as sidebar with (
@@ -157,6 +158,9 @@ $theme: 'standard' !default;
 @use '../../tag/tag.global' as tag with (
   $theme: $theme
 );
+@use '../../teaser/teaser.global' as teaser with (
+  $theme: $theme
+);
 @use '../../teaser-hero/teaser-hero.global' as teaser-hero with (
   $theme: $theme
 );
@@ -164,9 +168,6 @@ $theme: 'standard' !default;
   $theme: $theme
 );
 @use '../../teaser-product/teaser-product.global' as teaser-product with (
-  $theme: $theme
-);
-@use '../../teaser/teaser.global' as teaser with (
   $theme: $theme
 );
 @use '../../time-input/time-input.global' as time-input with (
@@ -184,10 +185,10 @@ $theme: 'standard' !default;
 @use '../../toast/toast.global' as toast with (
   $theme: $theme
 );
-@use '../../toggle-check/toggle-check.global' as toggle-check with (
+@use '../../toggle/toggle.global' as toggle with (
   $theme: $theme
 );
-@use '../../toggle/toggle.global' as toggle with (
+@use '../../toggle-check/toggle-check.global' as toggle-check with (
   $theme: $theme
 );
 @use '../../tooltip/tooltip.global' as tooltip with (
@@ -199,6 +200,8 @@ $theme: 'standard' !default;
 @use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
   $theme: $theme
 );
+
+// end-auto-generated-scss-module-imports
 
 @use './features/font-face';
 @use './features/normalize';
@@ -214,24 +217,21 @@ $theme: 'standard' !default;
 :root {
   @include sbb.core-base;
 
-  // Grab CSS vars defined by `@sbb-esta/lyne-design-tokens` package
+  // start-auto-generated-scss-module-root
   @include sbb-css-tokens.base;
-
   @include alert.base;
   @include breadcrumb.base;
   @include button.base;
   @include calendar.base;
   @include card.base;
   @include carousel.base;
-  @include chip-label.base;
-  @include chip.base;
-  @include panel-common.base;
   @include checkbox.base;
-  @include container.base;
+  @include chip.base;
+  @include chip-label.base;
   @include clock.base;
+  @include container.base;
   @include dialog.base;
   @include divider.base;
-  @include form-field.base;
   @include expansion-panel.base;
   @include file-selector.base;
   @include flip-card.base;
@@ -247,99 +247,94 @@ $theme: 'standard' !default;
   @include map-container.base;
   @include menu.base;
   @include message.base;
-  @include navigation.base;
   @include mini-calendar.base;
+  @include navigation.base;
   @include notification.base;
   @include option.base;
   @include overlay.base;
   @include paginator.base;
-  @include popover-component.base;
+  @include panel-common.base;
+  @include popover.base;
   @include radio-button.base;
-  @include selection-group.base;
+  @include select.base;
   @include selection-action-panel.base;
   @include selection-expansion-panel.base;
+  @include selection-group-base-element.base;
   @include sidebar.base;
   @include signet.base;
-  @include select.base;
   @include slider.base;
   @include status.base;
   @include stepper.base;
   @include table.base;
   @include tabs.base;
-  @include title.base;
-  @include train.base;
   @include tag.base;
   @include teaser.base;
   @include teaser-hero.base;
   @include teaser-panel.base;
   @include teaser-product.base;
+  @include time-input.base;
   @include timetable-form.base;
   @include timetable-occupancy.base;
-  @include time-input.base;
-  @include toggle-check.base;
-  @include toggle.base;
-  @include tooltip.base;
+  @include title.base;
   @include toast.base;
+  @include toggle.base;
+  @include toggle-check.base;
+  @include tooltip.base;
+  @include train.base;
   @include visual-checkbox.base;
-
   @media (forced-colors: active) {
     @include sbb-css-tokens.forced-colors;
-
-    @include alert.base-forced-colors;
-    @include breadcrumb.base-forced-colors;
-    @include card.base-forced-colors;
-    @include header.base-forced-colors;
-    @include expansion-panel.base-forced-colors;
-    @include form-field.base-forced-colors;
-    @include loading-indicator-circle.base-forced-colors;
-    @include logo.base-forced-colors;
-    @include visual-checkbox.base-forced-colors;
-    @include radio-button.base-forced-colors;
-    @include signet.base-forced-colors;
-    @include slider.base-forced-colors;
-    @include stepper.base-forced-colors;
-    @include tag.base-forced-colors;
-    @include toggle-check.base-forced-colors;
-    @include toggle.base-forced-colors;
+    @include alert.forced-colors;
+    @include breadcrumb.forced-colors;
+    @include card.forced-colors;
+    @include expansion-panel.forced-colors;
+    @include form-field.forced-colors;
+    @include header.forced-colors;
+    @include loading-indicator-circle.forced-colors;
+    @include logo.forced-colors;
+    @include radio-button.forced-colors;
+    @include signet.forced-colors;
+    @include slider.forced-colors;
+    @include stepper.forced-colors;
+    @include tag.forced-colors;
+    @include toggle.forced-colors;
+    @include toggle-check.forced-colors;
     @include train.forced-colors;
+    @include visual-checkbox.forced-colors;
   }
-
   @include sbb.mq($from: small) {
     @include sbb-css-tokens.breakpoint-small;
-
-    @include alert.base-breakpoint-small;
-    @include dialog.base-breakpoint-small;
-    @include footer.base-breakpoint-small;
-    @include notification.base-breakpoint-small;
+    @include alert.breakpoint-small;
+    @include dialog.breakpoint-small;
+    @include footer.breakpoint-small;
+    @include notification.breakpoint-small;
   }
-
   @include sbb.mq($from: large) {
     @include sbb-css-tokens.breakpoint-large;
-
-    @include alert.base-breakpoint-large;
-    @include button.base-breakpoint-large;
-    @include chip.base-breakpoint-large;
-    @include flip-card.base-breakpoint-large;
-    @include form-field.base-breakpoint-large;
-    @include header.base-breakpoint-large;
-    @include navigation.base-breakpoint-large;
-    @include menu.base-breakpoint-large;
-    @include teaser-panel.base-breakpoint-large;
-    @include teaser-product.base-breakpoint-large;
-    @include time-input.base-breakpoint-large;
+    @include alert.breakpoint-large;
+    @include button.breakpoint-large;
+    @include chip.breakpoint-large;
+    @include flip-card.breakpoint-large;
+    @include form-field.breakpoint-large;
+    @include header.breakpoint-large;
+    @include menu.breakpoint-large;
+    @include navigation.breakpoint-large;
+    @include teaser-panel.breakpoint-large;
+    @include teaser-product.breakpoint-large;
+    @include time-input.breakpoint-large;
   }
-
   @include sbb.mq($from: ultra) {
     @include sbb-css-tokens.breakpoint-ultra;
-
-    @include lead-container.base-breakpoint-ultra;
-    @include map-container.base-breakpoint-ultra;
-    @include navigation.base-breakpoint-ultra;
-    @include teaser-panel.base-breakpoint-ultra;
+    @include lead-container.breakpoint-ultra;
+    @include map-container.breakpoint-ultra;
+    @include navigation.breakpoint-ultra;
+    @include teaser-panel.breakpoint-ultra;
   }
+
+  // end-auto-generated-scss-module-root
 }
 
-// Components global styles
+// start-auto-generated-scss-module-rules
 @include badge.rules;
 @include breadcrumb.rules;
 @include card.rules;
@@ -354,13 +349,15 @@ $theme: 'standard' !default;
 @include option.rules;
 @include select.rules;
 @include sidebar.rules;
-@include tabs.rules;
 @include table.rules;
+@include tabs.rules;
 @include teaser.rules;
 @include teaser-hero.rules;
 @include teaser-product.rules;
 @include timetable-form.rules;
 @include title.rules;
 @include toggle.rules;
+
+// end-auto-generated-scss-module-rules
 
 @include sbb.core-rules;

@@ -32,7 +32,7 @@ $theme: 'standard' !default;
     )};
 }
 
-@mixin base-forced-colors {
+@mixin forced-colors {
   --sbb-tag-amount-color: ButtonText;
   --sbb-tag-background-color: Canvas !important;
   --sbb-tag-text-color: ButtonText;

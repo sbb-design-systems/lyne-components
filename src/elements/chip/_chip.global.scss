@@ -51,7 +51,7 @@ $theme: 'standard' !default;
     )};
 }
 
-@mixin base-breakpoint-large {
+@mixin breakpoint-large {
   --_sbb-chip-group-margin-block-base-lm: var(--_sbb-chip-group-margin-block-start-default-large) 0;
   --_sbb-chip-group-margin-block-with-label-s: #{sbb.px-to-rem-build(5)} #{sbb.px-to-rem-build(3)};
   --_sbb-chip-group-margin-block-without-label-s: 0 #{sbb.px-to-rem-build(5)};

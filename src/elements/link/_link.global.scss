@@ -60,7 +60,7 @@ $theme: 'standard' !default;
   }
 }
 
-@mixin element-rules {
+@mixin base-rules {
   color: var(--sbb-link-color-normal);
   text-decoration-line: var(--sbb-link-text-decoration-line, underline);
   text-decoration-thickness: #{sbb.px-to-rem-build(1)};
@@ -103,7 +103,7 @@ $theme: 'standard' !default;
 }
 
 @mixin consolidation {
-  @include element-rules;
+  @include base-rules;
   @include focus-visible;
   @include hover;
 
@@ -111,12 +111,12 @@ $theme: 'standard' !default;
   @include active;
 }
 
-@mixin rules {
+@mixin element-rules {
   @include variables;
   @include consolidation;
 }
 
-@mixin rules-negative {
+@mixin element-rules-negative {
   @include variables;
   @include variables--negative;
   @include consolidation;

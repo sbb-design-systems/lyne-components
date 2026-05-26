@@ -18,7 +18,7 @@
 .sbb-breadcrumb {
   --sbb-link-text-decoration-line: none;
 
-  @include link.element-rules;
+  @include link.base-rules;
 
   display: flex;
   cursor: var(--sbb-cursor-pointer);

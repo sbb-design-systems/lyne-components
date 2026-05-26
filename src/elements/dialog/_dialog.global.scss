@@ -26,7 +26,7 @@ $theme: 'standard' !default;
   --sbb-dialog-close-button-margin-inline: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
 }
 
-@mixin base-breakpoint-small {
+@mixin breakpoint-small {
   --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-8x);
   --sbb-dialog-max-height: calc(100vh - 2 * var(--sbb-spacing-fixed-6x));
   --sbb-dialog-max-width: 90vw;

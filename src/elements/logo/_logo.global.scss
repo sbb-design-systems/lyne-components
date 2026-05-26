@@ -9,7 +9,7 @@ $theme: 'standard' !default;
   --sbb-logo-aspect-ratio: 454 / 48;
 }
 
-@mixin base-forced-colors {
+@mixin forced-colors {
   --sbb-logo-panel-color: ButtonText !important;
   --sbb-logo-signet-color: Canvas !important;
 }

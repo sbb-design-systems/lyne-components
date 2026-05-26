@@ -11,7 +11,7 @@ $theme: 'standard' !default;
   --sbb-loading-indicator-circle-animated-border-radius: 50%;
 }
 
-@mixin base-forced-colors {
+@mixin forced-colors {
   --sbb-loading-indicator-circle-animated-width: 50%;
   --sbb-loading-indicator-circle-animated-height: 100%;
   --sbb-loading-indicator-circle-animated-border-radius: 0;
