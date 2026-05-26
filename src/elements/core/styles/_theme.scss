@@ -1,5 +1,6 @@
 $theme: 'standard' !default;
 
+@use 'sass:meta';
 @use './_index' as sbb;
 
 // start-auto-generated-scss-module-imports
@@ -203,16 +204,8 @@ $theme: 'standard' !default;
 
 // end-auto-generated-scss-module-imports
 
-@use './features/font-face';
-@use './features/normalize';
-@use './features/a11y';
-@use './features/animation';
-@use './features/color-scheme';
-@use './features/image';
-@use './features/layout';
-@use './features/lists';
-@use './features/scrollbar';
-@use './features/typography';
+@include meta.load-css('./features/font-face');
+@include meta.load-css('./features/normalize');
 
 :root {
   @include sbb.core-base;
@@ -334,6 +327,8 @@ $theme: 'standard' !default;
   // end-auto-generated-scss-module-root
 }
 
+@include sbb.core-rules;
+
 // start-auto-generated-scss-module-rules
 @include badge.rules;
 @include breadcrumb.rules;
@@ -360,4 +355,11 @@ $theme: 'standard' !default;
 
 // end-auto-generated-scss-module-rules
 
-@include sbb.core-rules;
+@include meta.load-css('./features/a11y');
+@include meta.load-css('./features/animation');
+@include meta.load-css('./features/color-scheme');
+@include meta.load-css('./features/image');
+@include meta.load-css('./features/layout');
+@include meta.load-css('./features/lists');
+@include meta.load-css('./features/scrollbar');
+@include meta.load-css('./features/typography');
