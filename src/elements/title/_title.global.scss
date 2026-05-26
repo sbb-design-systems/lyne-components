@@ -2,6 +2,10 @@
 
 $theme: 'standard' !default;
 
+@mixin base {
+  --sbb-title-color: var(--sbb-color-3);
+}
+
 @mixin rules {
   // In smaller title font-sizes, the space after the title is smaller than the default paragraph space before.
   // Due to margin collapsing, the wrong paragraph space wins.

@@ -177,9 +177,6 @@ $theme: 'standard' !default;
 @use '../../../timetable-occupancy/timetable-occupancy.global' as timetable-occupancy with (
   $theme: $theme
 );
-@use '../../../title/title-common.global' as title-common with (
-  $theme: $theme
-);
 @use '../../../title/title.global' as title with (
   $theme: $theme
 );
@@ -267,7 +264,6 @@ $theme: 'standard' !default;
   @include timetable-form.base;
   @include timetable-occupancy.base;
   @include time-input.base;
-  @include title-common.base;
   @include toggle-check.base;
   @include toggle.base;
   @include tooltip.base;
