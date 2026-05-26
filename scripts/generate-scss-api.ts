@@ -1,44 +1,49 @@
-import { readdirSync, statSync, writeFileSync } from 'fs';
-import { join, relative, basename } from 'path';
+import { globSync, writeFileSync, existsSync } from 'node:fs';
+import { basename, join, relative } from 'node:path';
 
-const elementsDir = join(import.meta.dirname, '..', 'src', 'elements');
-const indexPath = join(elementsDir, '_index.scss');
+import { format, resolveConfig } from 'prettier';
 
-function findGlobalFiles(dir: string): string[] {
-  const results: string[] = [];
-  for (const entry of readdirSync(dir)) {
-    const full = join(dir, entry);
-    if (statSync(full).isDirectory()) {
-      // Skip core directory entirely
-      if (full === join(elementsDir, 'core/styles')) {
-        continue;
-      }
-      results.push(...findGlobalFiles(full));
-    } else if (entry.startsWith('_') && entry.endsWith('.global.scss')) {
-      results.push(full);
-    }
+async function generateScssApi(packageDir: string): Promise<void> {
+  const indexPath = join(packageDir, '_index.scss');
+
+  const files = globSync('**/_*.global.scss', {
+    cwd: packageDir,
+    exclude: (p) => p.startsWith('core/styles/'),
+  })
+    .sort()
+    .map((f) => join(packageDir, f));
+
+  const forwards = new Set<string>();
+
+  if (existsSync(join(packageDir, 'core/styles/_index.scss'))) {
+    forwards.add("@forward './core/styles';");
   }
-  return results;
+
+  for (const file of files) {
+    const rel = relative(packageDir, file);
+    // Convert to @forward path: remove leading _, remove .scss extension
+    const forwardPath = `./${rel
+      .replace(/\/_/g, '/')
+      .replace(/^_/, '')
+      .replace(/\.scss$/, '')}`;
+
+    // Derive alias from file name
+    const moduleName = basename(file).replace(/^_/, '').split('.')[0];
+    forwards.add(`@forward '${forwardPath}' as ${moduleName}-*;`);
+  }
+
+  const forwardsArray = [...forwards];
+
+  // We apply prettier to avoid formatting conflicts
+  const options = await resolveConfig(indexPath);
+  writeFileSync(
+    indexPath,
+    await format(forwardsArray.join('\n') + '\n', { ...options, filepath: indexPath }),
+    'utf8',
+  );
+
+  console.log(`Written ${forwardsArray.length} entries to ${indexPath}`);
 }
 
-const files = findGlobalFiles(elementsDir).sort();
-
-const forwards = new Set<string>(["@forward './core/styles';"]);
-
-for (const file of files) {
-  const rel = relative(elementsDir, file);
-  // Convert to @forward path: remove leading _, remove .scss extension
-  const forwardPath = `./${rel
-    .replace(/\/_/g, '/')
-    .replace(/^_/, '')
-    .replace(/\.scss$/, '')}`;
-
-  // Derive alias from file name
-  const moduleName = basename(file).replace(/^_/, '').split('.')[0];
-  forwards.add(`@forward '${forwardPath}' as ${moduleName}-*;`);
-}
-
-const forwardsArray = [...forwards];
-
-writeFileSync(indexPath, forwardsArray.join('\n') + '\n');
-console.log(`Written ${forwardsArray.length} entries to ${indexPath}`);
+await generateScssApi(join(import.meta.dirname, '..', 'src', 'elements'));
+await generateScssApi(join(import.meta.dirname, '..', 'src', 'elements-experimental'));
