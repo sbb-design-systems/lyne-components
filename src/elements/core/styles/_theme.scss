@@ -2,10 +2,204 @@ $theme: 'standard' !default;
 
 @use './_index' as sbb;
 
-@use './features/normalize';
-@use './features/core' with (
+@use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables-as-css.scss' as sbb-css-tokens with (
   $theme: $theme
 );
+@use '../../alert/alert.global' as alert with (
+  $theme: $theme
+);
+@use '../base-elements/selection-group-base-element.global' as selection-group with (
+  $theme: $theme
+);
+@use '../../badge/badge.global' as badge;
+@use '../../breadcrumb/breadcrumb.global' as breadcrumb with (
+  $theme: $theme
+);
+@use '../../button/button.global' as button with (
+  $theme: $theme
+);
+@use '../../calendar/calendar.global' as calendar with (
+  $theme: $theme
+);
+@use '../../card/card.global' as card with (
+  $theme: $theme
+);
+@use '../../carousel/carousel.global' as carousel with (
+  $theme: $theme
+);
+@use '../../checkbox/checkbox.global' as checkbox with (
+  $theme: $theme
+);
+@use '../../chip-label/chip-label.global' as chip-label with (
+  $theme: $theme
+);
+@use '../../chip/chip.global' as chip with (
+  $theme: $theme
+);
+@use '../../clock/clock.global' as clock with (
+  $theme: $theme
+);
+@use '../../container/container.global' as container with (
+  $theme: $theme
+);
+@use '../../dialog/dialog.global' as dialog with (
+  $theme: $theme
+);
+@use '../../divider/divider.global' as divider with (
+  $theme: $theme
+);
+@use '../../expansion-panel/expansion-panel.global' as expansion-panel with (
+  $theme: $theme
+);
+@use '../../file-selector/file-selector.global' as file-selector with (
+  $theme: $theme
+);
+@use '../../flip-card/flip-card.global' as flip-card with (
+  $theme: $theme
+);
+@use '../../footer/footer.global' as footer with (
+  $theme: $theme
+);
+@use '../../form-field/form-field.global' as form-field with (
+  $theme: $theme
+);
+@use '../../header/header.global' as header with (
+  $theme: $theme
+);
+@use '../../icon-sidebar/icon-sidebar.global' as icon-sidebar with (
+  $theme: $theme
+);
+@use '../../lead-container/lead-container.global' as lead-container with (
+  $theme: $theme
+);
+@use '../../link/link.global' as link with (
+  $theme: $theme
+);
+@use '../../loading-indicator-circle/loading-indicator-circle.global' as loading-indicator-circle
+  with (
+  $theme: $theme
+);
+@use '../../loading-indicator/loading-indicator.global' as loading-indicator with (
+  $theme: $theme
+);
+@use '../../logo/logo.global' as logo with (
+  $theme: $theme
+);
+@use '../../map-container/map-container.global' as map-container with (
+  $theme: $theme
+);
+@use '../../menu/menu.global' as menu with (
+  $theme: $theme
+);
+@use '../../message/message.global' as message with (
+  $theme: $theme
+);
+@use '../../mini-calendar/mini-calendar.global' as mini-calendar with (
+  $theme: $theme
+);
+@use '../../navigation/navigation.global' as navigation with (
+  $theme: $theme
+);
+@use '../../notification/notification.global' as notification with (
+  $theme: $theme
+);
+@use '../../option/option.global' as option with (
+  $theme: $theme
+);
+@use '../../overlay/overlay.global' as overlay with (
+  $theme: $theme
+);
+@use '../../paginator/paginator.global' as paginator with (
+  $theme: $theme
+);
+@use '../mixins/panel-common.global' as panel-common with (
+  $theme: $theme
+);
+@use '../../popover/popover.global' as popover-component with (
+  $theme: $theme
+);
+@use '../../radio-button/radio-button.global' as radio-button with (
+  $theme: $theme
+);
+@use '../../select/select.global' as select with (
+  $theme: $theme
+);
+@use '../../selection-action-panel/selection-action-panel.global' as selection-action-panel with (
+  $theme: $theme
+);
+@use '../../selection-expansion-panel/selection-expansion-panel.global' as selection-expansion-panel
+  with (
+  $theme: $theme
+);
+@use '../../sidebar/sidebar.global' as sidebar with (
+  $theme: $theme
+);
+@use '../../signet/signet.global' as signet with (
+  $theme: $theme
+);
+@use '../../slider/slider.global' as slider with (
+  $theme: $theme
+);
+@use '../../status/status.global' as status with (
+  $theme: $theme
+);
+@use '../../stepper/stepper.global' as stepper with (
+  $theme: $theme
+);
+@use '../../table/table.global' as table with (
+  $theme: $theme
+);
+@use '../../tabs/tabs.global' as tabs with (
+  $theme: $theme
+);
+@use '../../tag/tag.global' as tag with (
+  $theme: $theme
+);
+@use '../../teaser-hero/teaser-hero.global' as teaser-hero with (
+  $theme: $theme
+);
+@use '../../teaser-panel/teaser-panel.global' as teaser-panel with (
+  $theme: $theme
+);
+@use '../../teaser-product/teaser-product.global' as teaser-product with (
+  $theme: $theme
+);
+@use '../../teaser/teaser.global' as teaser with (
+  $theme: $theme
+);
+@use '../../time-input/time-input.global' as time-input with (
+  $theme: $theme
+);
+@use '../../timetable-form/timetable-form.global' as timetable-form with (
+  $theme: $theme
+);
+@use '../../timetable-occupancy/timetable-occupancy.global' as timetable-occupancy with (
+  $theme: $theme
+);
+@use '../../title/title.global' as title with (
+  $theme: $theme
+);
+@use '../../toast/toast.global' as toast with (
+  $theme: $theme
+);
+@use '../../toggle-check/toggle-check.global' as toggle-check with (
+  $theme: $theme
+);
+@use '../../toggle/toggle.global' as toggle with (
+  $theme: $theme
+);
+@use '../../tooltip/tooltip.global' as tooltip with (
+  $theme: $theme
+);
+@use '../../train/train.global' as train with (
+  $theme: $theme
+);
+@use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
+  $theme: $theme
+);
+
+@use './features/font-face';
+@use './features/normalize';
 @use './features/a11y';
 @use './features/animation';
 @use './features/color-scheme';
@@ -14,3 +208,156 @@ $theme: 'standard' !default;
 @use './features/lists';
 @use './features/scrollbar';
 @use './features/typography';
+
+:root {
+  @include sbb.core-base;
+
+  // Grab CSS vars defined by `@sbb-esta/lyne-design-tokens` package
+  @include sbb-css-tokens.base;
+
+  @include alert.base;
+  @include breadcrumb.base;
+  @include button.base;
+  @include calendar.base;
+  @include card.base;
+  @include carousel.base;
+  @include chip-label.base;
+  @include chip.base;
+  @include panel-common.base;
+  @include checkbox.base;
+  @include container.base;
+  @include clock.base;
+  @include dialog.base;
+  @include divider.base;
+  @include form-field.base;
+  @include expansion-panel.base;
+  @include file-selector.base;
+  @include flip-card.base;
+  @include footer.base;
+  @include form-field.base;
+  @include header.base;
+  @include icon-sidebar.base;
+  @include lead-container.base;
+  @include link.base;
+  @include loading-indicator.base;
+  @include loading-indicator-circle.base;
+  @include logo.base;
+  @include map-container.base;
+  @include menu.base;
+  @include message.base;
+  @include navigation.base;
+  @include mini-calendar.base;
+  @include notification.base;
+  @include option.base;
+  @include overlay.base;
+  @include paginator.base;
+  @include popover-component.base;
+  @include radio-button.base;
+  @include selection-group.base;
+  @include selection-action-panel.base;
+  @include selection-expansion-panel.base;
+  @include sidebar.base;
+  @include signet.base;
+  @include select.base;
+  @include slider.base;
+  @include status.base;
+  @include stepper.base;
+  @include table.base;
+  @include tabs.base;
+  @include train.base;
+  @include tag.base;
+  @include teaser.base;
+  @include teaser-hero.base;
+  @include teaser-panel.base;
+  @include teaser-product.base;
+  @include timetable-form.base;
+  @include timetable-occupancy.base;
+  @include time-input.base;
+  @include toggle-check.base;
+  @include toggle.base;
+  @include tooltip.base;
+  @include toast.base;
+  @include visual-checkbox.base;
+
+  @media (forced-colors: active) {
+    @include sbb-css-tokens.forced-colors;
+
+    @include alert.base-forced-colors;
+    @include breadcrumb.base-forced-colors;
+    @include card.base-forced-colors;
+    @include header.base-forced-colors;
+    @include expansion-panel.base-forced-colors;
+    @include form-field.base-forced-colors;
+    @include loading-indicator-circle.base-forced-colors;
+    @include logo.base-forced-colors;
+    @include visual-checkbox.base-forced-colors;
+    @include radio-button.base-forced-colors;
+    @include signet.base-forced-colors;
+    @include slider.base-forced-colors;
+    @include stepper.base-forced-colors;
+    @include tag.base-forced-colors;
+    @include toggle-check.base-forced-colors;
+    @include toggle.base-forced-colors;
+    @include train.forced-colors;
+  }
+
+  @include sbb.mq($from: small) {
+    @include sbb-css-tokens.breakpoint-small;
+
+    @include alert.base-breakpoint-small;
+    @include dialog.base-breakpoint-small;
+    @include footer.base-breakpoint-small;
+    @include notification.base-breakpoint-small;
+  }
+
+  @include sbb.mq($from: large) {
+    @include sbb-css-tokens.breakpoint-large;
+
+    @include alert.base-breakpoint-large;
+    @include button.base-breakpoint-large;
+    @include chip.base-breakpoint-large;
+    @include flip-card.base-breakpoint-large;
+    @include form-field.base-breakpoint-large;
+    @include header.base-breakpoint-large;
+    @include navigation.base-breakpoint-large;
+    @include menu.base-breakpoint-large;
+    @include teaser-panel.base-breakpoint-large;
+    @include teaser-product.base-breakpoint-large;
+    @include time-input.base-breakpoint-large;
+  }
+
+  @include sbb.mq($from: ultra) {
+    @include sbb-css-tokens.breakpoint-ultra;
+
+    @include lead-container.base-breakpoint-ultra;
+    @include map-container.base-breakpoint-ultra;
+    @include navigation.base-breakpoint-ultra;
+    @include teaser-panel.base-breakpoint-ultra;
+  }
+}
+
+// Components global styles
+@include badge.rules;
+@include breadcrumb.rules;
+@include card.rules;
+@include container.rules;
+@include dialog.rules;
+@include flip-card.rules;
+@include form-field.rules;
+@include header.rules;
+@include icon-sidebar.rules;
+@include lead-container.rules;
+@include message.rules;
+@include option.rules;
+@include select.rules;
+@include sidebar.rules;
+@include tabs.rules;
+@include table.rules;
+@include teaser.rules;
+@include teaser-hero.rules;
+@include teaser-product.rules;
+@include timetable-form.rules;
+@include title.rules;
+@include toggle.rules;
+
+@include sbb.core-rules;

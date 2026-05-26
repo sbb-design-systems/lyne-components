@@ -1,9 +1,5 @@
 @use '../styles' as sbb;
-
-@mixin horizontal-orientation {
-  --sbb-selection-group-orientation: row;
-  --sbb-selection-group-elements-width: auto;
-}
+@use './selection-group-base-element.global' as selection-group;
 
 $breakpoints: 'zero', 'small', 'large', 'ultra';
 
@@ -33,7 +29,7 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
   @include sbb.mq($from: #{$breakpoint}) {
     // horizontal-from overrides orientation vertical
     :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
-      @include horizontal-orientation;
+      @include selection-group.horizontal-orientation;
     }
 
     :host([orientation='vertical'][horizontal-from='#{$breakpoint}']:not(:state(has-panel))) {

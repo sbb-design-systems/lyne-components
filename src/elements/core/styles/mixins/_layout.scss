@@ -1,4 +1,4 @@
-@use '../core/mediaqueries';
+@use './mediaqueries';
 
 @mixin page-spacing {
   padding-inline: var(--sbb-page-spacing-padding, var(--sbb-layout-base-offset-responsive));
