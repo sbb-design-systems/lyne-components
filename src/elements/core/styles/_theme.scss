@@ -266,6 +266,7 @@ $theme: 'standard' !default;
   @include stepper.base;
   @include table.base;
   @include tabs.base;
+  @include title.base;
   @include train.base;
   @include tag.base;
   @include teaser.base;

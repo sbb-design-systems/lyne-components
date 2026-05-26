@@ -1,10 +1,9 @@
 $theme: 'standard' !default;
 
-@use '../../autocomplete-grid/autocomplete-grid-row/autocomplete-grid-row.global' as
-  autocomplete-grid-row with (
+@use '../../autocomplete-grid/autocomplete-grid.global' as autocomplete-grid with (
   $theme: $theme
 );
 
 :root {
-  @include autocomplete-grid-row.base;
+  @include autocomplete-grid.base;
 }
