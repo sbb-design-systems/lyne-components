@@ -87,7 +87,7 @@ export class SbbOverlayOutsidePointerEventListener {
         break;
       }
 
-      overlay.dispatchEvent(new CustomEvent('overlayOutsidePointer'));
+      overlay.dispatchEvent(new Event('overlayOutsidePointer'));
     }
   };
 }
@@ -97,6 +97,6 @@ export const sbbOverlayOutsidePointerEventListener = new SbbOverlayOutsidePointe
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    overlayOutsidePointer: CustomEvent;
+    overlayOutsidePointer: Event;
   }
 }

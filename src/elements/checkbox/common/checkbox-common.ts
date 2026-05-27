@@ -7,6 +7,7 @@ import {
   forceType,
   SbbElement,
   SbbFormAssociatedCheckboxMixin,
+  SbbPropertyWatcherController,
 } from '../../core.ts';
 
 import style from './checkbox-common.scss?inline';
@@ -40,12 +41,24 @@ export const SbbCheckboxCommonElementMixin = <T extends AbstractConstructor<SbbE
     }
     private _group: SbbCheckboxGroupElement | null = null;
 
+    protected constructor() {
+      super();
+
+      this.addController(
+        new SbbPropertyWatcherController(
+          this,
+          () => this.closest('sbb-checkbox-group'),
+          ['disabled', 'required', 'size'].reduce(
+            (v, p) => Object.assign(v, { [p]: () => this.requestUpdate(p) }),
+            {},
+          ),
+        ),
+      );
+    }
+
     public override connectedCallback(): void {
       super.connectedCallback();
-      this._group = this.closest('sbb-checkbox-group') as SbbCheckboxGroupElement;
-
-      // We need to call requestUpdate to update the reflected attributes
-      ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
+      this._group = this.closest('sbb-checkbox-group');
     }
 
     protected override willUpdate(changedProperties: PropertyValues<this>): void {

@@ -499,7 +499,6 @@ describe('sbb-overlay', () => {
       const event = closeSpy.lastEvent as SbbOverlayCloseEvent;
       expect(event).to.be.instanceOf(SbbOverlayCloseEvent);
       expect(event.result).to.deep.equal(programmaticResult);
-      expect(event.detail.returnValue).to.deep.equal(programmaticResult);
       expect(event.closeTarget).to.be.null;
     });
 
@@ -517,20 +516,17 @@ describe('sbb-overlay', () => {
       expect(event.closeTarget).to.be.null;
     });
 
-    it('should emit result with closeTarget when close() is called with target parameter', async () => {
+    it('should emit result with closeTarget when close() is called', async () => {
       const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
-      const customTarget = element.querySelector<HTMLButtonElement>('#close-programmatically')!;
 
       await openOverlay(element);
 
-      element.close({ custom: 'result' }, customTarget);
+      element.close({ custom: 'result' });
       await closeSpy.calledOnce();
 
       const event = closeSpy.lastEvent as SbbOverlayCloseEvent;
       expect(event).to.be.instanceOf(SbbOverlayCloseEvent);
       expect(event.result).to.deep.equal({ custom: 'result' });
-      expect(event.detail.returnValue).to.deep.equal({ custom: 'result' });
-      expect(event.closeTarget).to.equal(customTarget);
     });
   });
 });

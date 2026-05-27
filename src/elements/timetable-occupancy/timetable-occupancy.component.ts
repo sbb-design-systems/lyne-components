@@ -3,6 +3,7 @@ import { property } from 'lit/decorators.js';
 
 import {
   i18nClass,
+  listResetStyles,
   SbbElement,
   type SbbElementType,
   SbbLanguageController,
@@ -20,7 +21,11 @@ import style from './timetable-occupancy.scss?inline';
 export class SbbTimetableOccupancyElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-timetable-occupancy';
   public static override elementDependencies: SbbElementType[] = [SbbTimetableOccupancyIconElement];
-  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    listResetStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
 
   /** Occupancy for first class wagons. */
   @property({ attribute: 'first-class-occupancy' })

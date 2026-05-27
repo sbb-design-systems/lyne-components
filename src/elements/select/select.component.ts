@@ -26,7 +26,7 @@ import {
   isNextjs,
   isSafari,
   isZeroAnimationDuration,
-  optionPanelStyles,
+  popoverResetStyles,
   SbbDisabledMixin,
   SbbEscapableOverlayController,
   SbbFormAssociatedMixin,
@@ -43,7 +43,11 @@ import {
 } from '../core.ts';
 import type { SbbDividerElement } from '../divider.pure.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
-import type { SbbOptionElement, SbbOptionHintElement } from '../option.pure.ts';
+import {
+  optionPanelStyles,
+  type SbbOptionElement,
+  type SbbOptionHintElement,
+} from '../option.pure.ts';
 
 import style from './select.scss?inline';
 
@@ -80,6 +84,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   public static override readonly elementName: string = 'sbb-select';
   public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
   public static override styles: CSSResultGroup = [
+    popoverResetStyles,
     scrollbarStyles,
     optionPanelStyles,
     unsafeCSS(style),
@@ -857,7 +862,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     if (setActiveDescendant) {
-      this._triggerElement?.setAttribute('aria-activedescendant', nextActiveOption.id);
+      this._triggerElement!.ariaActiveDescendantElement = nextActiveOption;
     }
 
     // Reset the previous
@@ -884,7 +889,10 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       activeElement.setActive(false);
     }
     this._activeItemIndex = -1;
-    this._triggerElement?.removeAttribute('aria-activedescendant');
+
+    if (this._triggerElement) {
+      this._triggerElement.ariaActiveDescendantElement = null;
+    }
   }
 
   // Check if the pointerdown event target is triggered on the menu.
@@ -1023,7 +1031,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         ${until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`))}
       </div>
 
-      <div class="sbb-option-panel__overlay-container" popover="manual">
+      <div class="sbb-option-panel__overlay-container sbb-popover-reset" popover="manual">
         <div
           class="sbb-option-panel__overlay ${this.negative
             ? 'sbb-scrollbar-negative'

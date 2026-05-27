@@ -35,9 +35,10 @@ export class SbbIconElement extends SbbIconBase {
    */
   @state() private accessor _sbbAngularCompatibility = false;
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    // TODO: Move to constructor
+  public constructor() {
+    super();
+
+    /** @internal **/
     this.internals.ariaHidden = 'true';
   }
 

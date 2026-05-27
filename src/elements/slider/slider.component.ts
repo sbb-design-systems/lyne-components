@@ -13,7 +13,6 @@ import {
   forceType,
   type FormRestoreReason,
   type FormRestoreState,
-  hostAttributes,
   SbbDisabledMixin,
   SbbElement,
   type SbbElementType,
@@ -31,11 +30,7 @@ import style from './slider.scss?inline';
  * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  */
-export
-@hostAttributes({
-  tabindex: '0',
-})
-class SbbSliderElement extends SbbDisabledMixin(
+export class SbbSliderElement extends SbbDisabledMixin(
   SbbReadonlyMixin(SbbFormAssociatedMixin(SbbElement)),
 ) {
   public static override readonly elementName: string = 'sbb-slider';
@@ -135,6 +130,12 @@ class SbbSliderElement extends SbbDisabledMixin(
   public constructor() {
     super();
     this.addEventListener?.('keydown', (e) => this._handleKeydown(e));
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.tabIndex = 0;
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

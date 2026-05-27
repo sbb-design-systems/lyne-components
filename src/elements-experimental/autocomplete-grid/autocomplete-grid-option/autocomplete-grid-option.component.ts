@@ -20,8 +20,6 @@ export class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseE
   public static override readonly role = 'gridcell';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
-  protected optionId = autocompleteGridOptionId;
-
   public constructor() {
     super();
     this.addController(

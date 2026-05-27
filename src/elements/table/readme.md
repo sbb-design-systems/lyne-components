@@ -46,6 +46,21 @@ This guide will walk you through the various customization options and advanced 
 </table>
 ```
 
+### Caption outside the table
+
+When using `<sbb-table-wrapper>`, the native `<caption>` element is placed inside the scrollable area and scrolls with the table content.
+If the caption should appear below the scrollable content (outside `<sbb-table-wrapper>`), place an element with the `sbb-table-caption` class after the wrapper.
+It receives the same typography and spacing as a native caption:
+
+```html
+<sbb-table-wrapper>
+  <table class="sbb-table">
+    ...
+  </table>
+</sbb-table-wrapper>
+<p class="sbb-table-caption">This caption is shown below the scrollable table content.</p>
+```
+
 ### Striped table
 
 Add the `sbb-table--striped` class to add alternating row stripes to enhance readability.
@@ -163,6 +178,7 @@ This scheme changes the text color of the cells to `sbb-color-iron`.
 | `sbb-table-m`               | Medium size table style                                                 |
 | `sbb-table-s`               | Small size table style                                                  |
 | `sbb-table-xs`              | Smallest size table style                                               |
+| `sbb-table-caption`         | Caption styles for an element placed outside the table or table wrapper |
 | `sbb-table--negative`       | Negative variant style                                                  |
 | `sbb-table--striped`        | Striped table style                                                     |
 | `sbb-table--unstriped`      | Non-striped table style                                                 |

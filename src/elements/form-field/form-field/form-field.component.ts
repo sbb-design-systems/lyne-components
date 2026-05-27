@@ -2,7 +2,6 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  nothing,
   type PropertyValues,
   type TemplateResult,
   unsafeCSS,
@@ -14,13 +13,11 @@ import type { SbbChipGroupElement } from '../../chip.pure.ts';
 import {
   appendAriaElements,
   forceType,
-  i18nOptional,
   removeAriaElements,
   SbbElement,
   type SbbElementType,
   type SbbFormAssociatedInputMixinType,
   sbbInputModalityDetector,
-  SbbLanguageController,
   SbbNegativeMixin,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
@@ -57,7 +54,7 @@ export interface SbbFormFieldElementControl {
 }
 
 export class SbbFormFieldControlEvent extends Event {
-  private _control: SbbFormFieldElementControl | null;
+  private readonly _control: SbbFormFieldElementControl | null;
 
   public get control(): SbbFormFieldElementControl | null {
     return this._control;
@@ -116,14 +113,6 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   public accessor errorSpace: 'none' | 'reserve' = 'none';
 
   /**
-   * Indicates whether the input is optional.
-   * @deprecated Set the (optional) label text manually. Will be removed with next major version.
-   */
-  @forceType()
-  @property({ type: Boolean })
-  public accessor optional: boolean = false;
-
-  /**
    * Size variant, either s (lean theme default), m (standard theme default) or l.
    */
   @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | null = null;
@@ -170,8 +159,6 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   public get label(): HTMLLabelElement | null {
     return this._label;
   }
-
-  private _language = new SbbLanguageController(this);
 
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
@@ -341,7 +328,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
     if (newInput === this._input) {
       return 'unchanged';
     } else if (this._input) {
-      this.internals.states.delete(`input-type-${this._input.localName}`);
+      this.internals.states.delete(`input-element-${this._input.localName}`);
       if (this._input.localName === 'input' || this._input.localName === 'textarea') {
         this._unpatchInputValue();
       }
@@ -377,9 +364,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
       attributes: true,
       attributeFilter: ['readonly', 'disabled', 'form', 'class', 'data-expanded', 'maxlength'],
     });
-    // TODO(breaking-change): Rename input-type to input-element and explicit-input-type to input-type.
-    // Also adapt documentation.
-    this.internals.states.add(`input-type-${this._input.localName}`);
+    this.internals.states.add(`input-element-${this._input.localName}`);
     this._syncLabelInputReferences();
     return 'changed';
   }
@@ -427,11 +412,11 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
     this.toggleState('has-popup-open', this._input!.hasAttribute('data-expanded'));
 
     if (this._previousType) {
-      this.internals.states.delete(`explicit-input-type-${this._previousType}`);
+      this.internals.states.delete(`input-type-${this._previousType}`);
     }
 
     this._previousType = this._control?.type ?? (this._input as { type?: string }).type ?? 'text';
-    this.internals.states.add(`explicit-input-type-${this._previousType}`);
+    this.internals.states.add(`input-type-${this._previousType}`);
   }
 
   private _registerInputFormListener(): void {
@@ -630,9 +615,6 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
             <span class="sbb-form-field__label">
               <span class="sbb-form-field__label-ellipsis">
                 <slot name="label" @slotchange=${this._onSlotLabelChange}></slot>
-                ${this.optional
-                  ? html` <span aria-hidden="true"> ${i18nOptional[this._language.current]} </span>`
-                  : nothing}
               </span>
             </span>
             <div class="sbb-form-field__input">

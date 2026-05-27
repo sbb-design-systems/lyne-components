@@ -3,22 +3,13 @@ export const snapshots = {};
 
 snapshots["sbb-select renders Safari DOM"] = 
 `<sbb-select id="sbb-select-1">
-  <sbb-option
-    id="sbb-option-0"
-    value="1"
-  >
+  <sbb-option value="1">
     Option 1
   </sbb-option>
-  <sbb-option
-    id="sbb-option-1"
-    value="2"
-  >
+  <sbb-option value="2">
     Option 2
   </sbb-option>
-  <sbb-option
-    id="sbb-option-2"
-    value="3"
-  >
+  <sbb-option value="3">
     Option 3
   </sbb-option>
 </sbb-select>
@@ -32,7 +23,7 @@ snapshots["sbb-select renders Safari Shadow DOM"] =
 >
 </div>
 <div
-  class="sbb-option-panel__overlay-container"
+  class="sbb-option-panel__overlay-container sbb-popover-reset"
   popover="manual"
 >
   <div
@@ -51,22 +42,13 @@ snapshots["sbb-select renders multiple Safari DOM"] =
   id="sbb-select-3"
   multiple=""
 >
-  <sbb-option
-    id="sbb-option-6"
-    value="1"
-  >
+  <sbb-option value="1">
     Option 1
   </sbb-option>
-  <sbb-option
-    id="sbb-option-7"
-    value="2"
-  >
+  <sbb-option value="2">
     Option 2
   </sbb-option>
-  <sbb-option
-    id="sbb-option-8"
-    value="3"
-  >
+  <sbb-option value="3">
     Option 3
   </sbb-option>
 </sbb-select>
@@ -80,7 +62,7 @@ snapshots["sbb-select renders multiple Safari Shadow DOM"] =
 >
 </div>
 <div
-  class="sbb-option-panel__overlay-container"
+  class="sbb-option-panel__overlay-container sbb-popover-reset"
   popover="manual"
 >
   <div
@@ -117,7 +99,7 @@ snapshots["sbb-select renders Chrome-Firefox Shadow DOM"] =
 >
 </div>
 <div
-  class="sbb-option-panel__overlay-container"
+  class="sbb-option-panel__overlay-container sbb-popover-reset"
   popover="manual"
 >
   <div
@@ -180,7 +162,7 @@ snapshots["sbb-select renders multiple Chrome-Firefox Shadow DOM"] =
 >
 </div>
 <div
-  class="sbb-option-panel__overlay-container"
+  class="sbb-option-panel__overlay-container sbb-popover-reset"
   popover="manual"
 >
   <div

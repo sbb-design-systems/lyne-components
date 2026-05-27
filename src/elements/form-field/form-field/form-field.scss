@@ -57,7 +57,7 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-form-field-arrow-color: var(--sbb-color-3-negative);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-form-field-border-color: ButtonBorder;
   }
 }
@@ -119,7 +119,7 @@
   --sbb-form-field-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
   --sbb-form-field-arrow-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-form-field-border-color: ButtonBorder;
   }
 }
@@ -135,7 +135,7 @@
   --sbb-form-field-prefix-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
   --sbb-form-field-border-style: dashed;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-form-field-label-color: GrayText !important;
     --sbb-form-field-prefix-color: GrayText !important;
     --sbb-form-field-text-color: GrayText !important;
@@ -171,7 +171,7 @@
 
 // We must not use :where here, as it needs the added specificity to properly work
 :host(:state(focus)) {
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-form-field-border-color: Highlight;
     --sbb-form-field-prefix-color: Highlight;
   }
@@ -185,7 +185,7 @@
 :host([floating-label]) {
   --sbb-select-placeholder-color: transparent;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-select-placeholder-color: Canvas;
   }
 }
@@ -197,7 +197,7 @@
 
 // Should be after other definitions to override overflow
 // :where is to align specificity
-:host(:where(:state(input-type-sbb-slider))) {
+:host(:where(:state(input-element-sbb-slider))) {
   --sbb-form-field-overflow: visible;
 }
 
@@ -241,7 +241,7 @@
 
   // In high contrast, there is no borderless variant
   @media (forced-colors: none) {
-    :host(:is([borderless], :state(input-type-sbb-slider))) & {
+    :host(:is([borderless], :state(input-element-sbb-slider))) & {
       &::before {
         border-color: transparent;
       }
@@ -292,12 +292,11 @@ slot[name='hint'] {
 }
 
 // As the calendar should be shown below the form field border, we have to stretch the toggle's height.
-// TODO: Maybe move this to the datepicker-toggle component.
 ::slotted(sbb-datepicker-toggle) {
   padding-block-end: calc((var(--sbb-form-field-min-height) - var(--sbb-size-icon-ui-small)) / 2);
 }
 
-@include sbb.if-forced-colors {
+@media (forced-colors: active) {
   // Align with prefix color
   ::slotted(*[slot='suffix']) {
     color: var(--sbb-form-field-prefix-color);
@@ -316,9 +315,9 @@ slot[name='hint'] {
 
   :host(
       :is(
-        :state(input-type-select),
-        :state(input-type-sbb-select),
-        :state(explicit-input-type-select)
+        :state(input-element-select),
+        :state(input-element-sbb-select),
+        :state(explicit-input-element-select)
       )
     )
     & {
@@ -366,7 +365,7 @@ slot[name='hint'] {
   font-size: var(--sbb-form-field-label-text-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
 
-  :host(:where(:state(input-type-select), :state(input-type-sbb-select))) & {
+  :host(:where(:state(input-element-select), :state(input-element-sbb-select))) & {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 
@@ -390,7 +389,7 @@ slot[name='hint'] {
   :host(
       [floating-label]:is(
           :not(
-            :where(:state(focus)):not(:where(:state(input-type-sbb-select))),
+            :where(:state(focus)):not(:where(:state(input-element-sbb-select))),
             :where(:state(has-popup-open))
           ),
           :where(:state(readonly))
@@ -402,8 +401,8 @@ slot[name='hint'] {
   }
 
   // :where is to align specificity
-  :host(:where(:state(input-type-textarea))) & {
-    @include sbb.if-forced-colors {
+  :host(:where(:state(input-element-textarea))) & {
+    @media (forced-colors: active) {
       // The background of the textarea is set to Canvas and therefore hides the label behind.
       // By setting the z-index to 1, we move the label in front of the textarea.
       z-index: 1;
@@ -422,11 +421,11 @@ slot[name='hint'] {
 
   :host(
       :is(
-        :state(input-type-input),
-        :state(input-type-select),
-        :state(input-type-sbb-select),
-        :state(input-type-sbb-date-input),
-        :state(input-type-sbb-time-input)
+        :state(input-element-input),
+        :state(input-element-select),
+        :state(input-element-sbb-select),
+        :state(input-element-sbb-date-input),
+        :state(input-element-sbb-time-input)
       )
     )
     & {
@@ -441,6 +440,7 @@ slot[name='hint'] {
   display: flex;
   min-height: var(--sbb-form-field-hint-min-height);
   flex-direction: column;
+  margin-inline-start: var(--sbb-form-field-padding-inline);
   margin-block-start: var(
     --sbb-form-field-hint-padding-block-start-override,
     var(--sbb-form-field-hint-padding-block-start)

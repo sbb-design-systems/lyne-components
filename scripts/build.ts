@@ -22,7 +22,7 @@ import { brotliCompress, gzip } from 'node:zlib';
 
 import { cli as customElementManifestCli } from '@custom-elements-manifest/analyzer/cli.js';
 import checkbox, { Separator } from '@inquirer/checkbox';
-import type { CustomElementDeclaration, Export, Module, Package } from 'custom-elements-manifest';
+import type { CustomElementDeclaration, Module, Package } from 'custom-elements-manifest';
 import MagicString from 'magic-string';
 import postcss from 'postcss';
 import * as sass from 'sass';
@@ -212,7 +212,7 @@ const buildMap: Record<string, () => Builder> = {
     new PackageBuilder(elementsProduction, [
       buildLibrary,
       buildRootIndex,
-      buildElementsStyles,
+      buildStyles,
       buildSassLibrary,
       buildCustomElementsManifest,
       copyReadme,
@@ -225,7 +225,7 @@ const buildMap: Record<string, () => Builder> = {
     new PackageBuilder(elementsExperimentalProduction, [
       buildLibrary,
       buildRootIndex,
-      buildStylesExperimental,
+      buildStyles,
       buildSassLibrary,
       buildCustomElementsManifest,
       copyReadme,
@@ -485,52 +485,12 @@ function buildRootIndex(pkg: PackageBuilder): void {
   console.log(`=> Generated index files in ${relative(projectRoot, pkg.outDir)}`);
 }
 
-interface StyleSheet {
-  inputName: string;
-  outputName: string;
-}
-function buildElementsStyles(pkg: PackageBuilder): void {
-  const sheets = [
-    { inputName: 'core/styles/a11y.scss', outputName: 'a11y.css' },
-    { inputName: 'core/styles/animation.scss', outputName: 'animation.css' },
-    { inputName: 'core/styles/badge.scss', outputName: 'badge.css' },
-    { inputName: 'core/styles/core.scss', outputName: 'core.css' },
-    { inputName: 'core/styles/disable-animation.scss', outputName: 'disable-animation.css' },
-    {
-      inputName: 'core/styles/font-characters-extension.scss',
-      outputName: 'font-characters-extension.css',
-    },
-    { inputName: 'core/styles/layout.scss', outputName: 'layout.css' },
-    { inputName: 'core/styles/lean-off-brand-theme.scss', outputName: 'lean-off-brand-theme.css' },
-    { inputName: 'core/styles/lean-safety-theme.scss', outputName: 'lean-safety-theme.css' },
-    { inputName: 'core/styles/lean-theme.scss', outputName: 'lean-theme.css' },
-    { inputName: 'core/styles/lists.scss', outputName: 'lists.css' },
-    { inputName: 'core/styles/normalize.scss', outputName: 'normalize.css' },
-    { inputName: 'core/styles/off-brand-theme.scss', outputName: 'off-brand-theme.css' },
-    { inputName: 'core/styles/safety-theme.scss', outputName: 'safety-theme.css' },
-    { inputName: 'core/styles/scrollbar.scss', outputName: 'scrollbar.css' },
-    { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
-    { inputName: 'core/styles/timetable-form.scss', outputName: 'timetable-form.css' },
-    { inputName: 'core/styles/typography.scss', outputName: 'typography.css' },
-    { inputName: 'table/table.global.scss', outputName: 'table.css' },
-  ];
-  buildStyles(pkg, sheets);
-}
+function buildStyles(pkg: PackageBuilder): void {
+  const sheets = globSync('core/styles/*.scss', { cwd: pkg.root })
+    .filter((f) => !basename(f).startsWith('_'))
+    .sort()
+    .map((f) => ({ inputName: f, outputName: basename(f, '.scss') + '.css' }));
 
-function buildStylesExperimental(pkg: PackageBuilder): void {
-  const sheets = [
-    { inputName: 'core/styles/core.scss', outputName: 'core.css' },
-    { inputName: 'core/styles/lean-off-brand-theme.scss', outputName: 'lean-off-brand-theme.css' },
-    { inputName: 'core/styles/lean-safety-theme.scss', outputName: 'lean-safety-theme.css' },
-    { inputName: 'core/styles/lean-theme.scss', outputName: 'lean-theme.css' },
-    { inputName: 'core/styles/off-brand-theme.scss', outputName: 'off-brand-theme.css' },
-    { inputName: 'core/styles/safety-theme.scss', outputName: 'safety-theme.css' },
-    { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
-  ];
-  buildStyles(pkg, sheets);
-}
-
-function buildStyles(pkg: PackageBuilder, sheets: StyleSheet[]): void {
   for (const entry of sheets) {
     const compiled = sass.compile(join(pkg.root, entry.inputName), {
       loadPaths: [projectRoot, join(projectRoot, '/node_modules/')],
@@ -546,7 +506,9 @@ function buildSassLibrary(pkg: PackageBuilder): void {
     .filter((f) => f.path.endsWith('.scss'))
     .filter(
       (f) =>
-        basename(f.path) === '_index.scss' || relative(pkg.root, f.path).startsWith('core/styles/'),
+        basename(f.path) === '_index.scss' ||
+        relative(pkg.root, f.path).startsWith('core/styles/') ||
+        f.path.includes('.global'),
     );
   for (const fileEntry of sassFiles) {
     const relativePath = relative(pkg.root, fileEntry.path);
@@ -691,10 +653,6 @@ async function generateReactWrappers(pkg: PackageBuilder): Promise<Disposable> {
   }
 
   // Render components
-  const exports = manifest.modules.reduce(
-    (current, next) => current.concat(next.exports ?? []),
-    [] as Export[],
-  );
   for (const module of manifest.modules.filter((m) => !m.path.startsWith('core/'))) {
     for (const declaration of module.declarations?.filter(
       (d): d is CustomElementDeclaration => 'customElement' in d && d.customElement,
@@ -702,7 +660,7 @@ async function generateReactWrappers(pkg: PackageBuilder): Promise<Disposable> {
       const entryPoint = module.path.replace(/.js$/, '.ts');
       const targetPath = join(pkg.root, entryPoint);
       createDir(dirname(targetPath));
-      const reactTemplate = renderTemplate(declaration, module, exports, pairedPackage);
+      const reactTemplate = renderTemplate(declaration, module, pairedPackage);
       generatedPaths.push(targetPath);
       writeFileSync(targetPath, reactTemplate, 'utf8');
       pkg.files.push(new FileEntry(targetPath));
@@ -764,7 +722,6 @@ Use '@sbb-esta/${basename(pkg.root)}/${relative(pkg.root, dirEntryPoint).split('
 function renderTemplate(
   declaration: CustomElementDeclaration,
   module: Module,
-  exports: Export[],
   library: string,
 ): string {
   const dirDepth = module.path.split('/').length - 1;
@@ -781,31 +738,20 @@ function renderTemplate(
     console.error(`(Inherited) events need jsdocs on class level! (${declaration.name})`);
   }
 
-  // Generic <T> types and Sbb* events are filtered out from imports
-  const customEventTypes = [
-    ...(declaration.events?.filter((e) => e.type.text.startsWith('Sbb')).map((e) => e.type.text) ??
-      []),
-    ...(declaration.events
-      ?.filter(
-        (e) =>
-          e.type.text.startsWith('CustomEvent<') &&
-          ['void', '{', 'File', 'T'].every((m) => !e.type.text.includes(`<${m}`)),
-      )
-      .map((e) => e.type.text.substring(12).slice(0, -1)) ?? []),
-  ]
-    .sort()
-    .filter((v, i, a) => a.indexOf(v) === i && v.length > 1);
+  // Sbb* events are filtered out from imports
+  const customEventTypes =
+    declaration.events
+      ?.filter((e) => e.type.text.startsWith('Sbb'))
+      .map((e) => e.type.text)
+      .sort()
+      .filter((v, i, a) => a.indexOf(v) === i && v.length > 1) ?? [];
 
-  // If a type or interface needs to be imported, the custom elements analyzer will not detect/extract these,
-  // and therefore we need to have a manual list of required types/interfaces.
+  // If an event type needs to be imported outside its module, it must be added in this map.
+  // E.g., the SbbDateSelectedEvent is declared in the calendar module, but it's also used in datepicker module.
   const interfaces = new Map<string, string>()
-    .set('SbbOverlayCloseEventDetails', 'core.js')
-    .set('SbbPaginatorPageEventDetails', 'core.js')
-    .set('SeatReservationPlaceSelection', 'seat-reservation.pure.js')
-    .set('SeatReservationSelectedCoach', 'seat-reservation.pure.js')
-    .set('SeatReservationSelectedPlaces', 'seat-reservation.pure.js')
-    .set('PlaceSelection', 'seat-reservation.pure.js')
-    .set('SbbPaginatorPageEventDetails', 'paginator.pure.js');
+    .set('SbbDateSelectedEvent', 'calendar.pure.js')
+    .set('SbbPopoverCloseEvent', 'popover.pure.js')
+    .set('SbbPopoverBeforeCloseEvent', 'popover.pure.js');
 
   // In case of properties that are not string, but can be used as a string attribute in
   // React (e.g. trigger), we need to patch the class property types to allow string as
@@ -848,22 +794,19 @@ const ${patchClassName} = ${declaration.name} as typeof ${patchClassName}Type;
     : '';
 
   for (const customEventType of customEventTypes) {
-    const exportModule = exports.find((e) => e.name === customEventType);
-    if (exportModule) {
-      if (!componentsImports.has(importPath!)) {
-        componentsImports.set(importPath!, [`type ${customEventType}`]);
-      } else {
-        componentsImports.get(importPath!)!.push(`type ${customEventType}`);
-      }
-    } else if (interfaces.has(customEventType)) {
-      const moduleName = interfaces.get(customEventType)!;
+    const baseType = customEventType.split('<')[0];
+    // The 'interfaces' map has priority on the default case
+    if (interfaces.has(baseType)) {
+      const moduleName = interfaces.get(baseType)!;
       if (!componentsImports.has(moduleName)) {
-        componentsImports.set(moduleName, [`type ${customEventType}`]);
+        componentsImports.set(moduleName, [`type ${baseType}`]);
       } else {
-        componentsImports.get(moduleName)!.push(`type ${customEventType}`);
+        componentsImports.get(moduleName)!.push(`type ${baseType}`);
       }
+    } else if (!componentsImports.has(importPath!)) {
+      componentsImports.set(importPath!, [`type ${baseType}`]);
     } else {
-      componentsImports.get(importPath)!.push(`type ${customEventType.split('<')[0]}`);
+      componentsImports.get(importPath!)!.push(`type ${baseType}`);
     }
   }
   const reactTemplate = `/* autogenerated */

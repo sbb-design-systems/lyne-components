@@ -55,8 +55,6 @@
 }
 
 .sbb-calendar__controls-change-date {
-  @include sbb.button-reset;
-
   display: flex;
   align-items: center;
   margin: auto;

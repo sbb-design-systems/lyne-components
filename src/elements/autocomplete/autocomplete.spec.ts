@@ -257,7 +257,7 @@ describe(`sbb-autocomplete`, () => {
       expect(optOne).not.to.have.attribute('selected');
       expect(optTwo).to.match(':state(active)');
       expect(optTwo).not.to.have.attribute('selected');
-      expect(input).to.have.attribute('aria-activedescendant', 'option-2');
+      expect(input.ariaActiveDescendantElement).to.be.equal(optTwo);
 
       await sendKeys({ press: 'Enter' });
       await closeSpy.calledOnce();
@@ -271,20 +271,20 @@ describe(`sbb-autocomplete`, () => {
       expect(inputAutocompleteSpy.count).to.be.equal(1);
       expect(optionSelectedSpy.count).to.be.equal(1);
       expect(input).to.have.attribute('aria-expanded', 'false');
-      expect(input).not.to.have.attribute('aria-activedescendant');
+      expect(input.ariaActiveDescendantElement).to.be.null;
     });
 
     describe('autoActiveFirstOption', () => {
       function assertActiveOption(option: SbbOptionElement): void {
         expect(option).to.match(':state(active)');
         expect(option).not.to.have.attribute('selected');
-        expect(input).to.have.attribute('aria-activedescendant', option.id);
+        expect(input.ariaActiveDescendantElement).to.be.equal(option);
       }
 
       function assertInactiveOption(option: SbbOptionElement): void {
         expect(option).not.to.match(':state(active)');
         expect(option).not.to.have.attribute('selected');
-        expect(input).not.to.have.attribute('aria-activedescendant', option.id);
+        expect(input.ariaActiveDescendantElement).not.to.be.equal(option);
       }
 
       beforeEach(async () => {
@@ -389,7 +389,7 @@ describe(`sbb-autocomplete`, () => {
 
         // Set the pending selection
         expect(optOne).to.match(':state(active)');
-        expect(input).to.have.attribute('aria-activedescendant', 'option-1');
+        expect(input.ariaActiveDescendantElement).to.be.equal(optOne);
         expect(input).to.have.attribute('aria-expanded', 'true');
         expect(optOne).not.to.have.attribute('selected');
         expect(input.value).to.be.equal('1');
@@ -401,7 +401,7 @@ describe(`sbb-autocomplete`, () => {
         await waitForLitRender(element);
         expect(optOne).not.to.match(':state(active)');
         expect(optTwo).to.match(':state(active)');
-        expect(input).to.have.attribute('aria-activedescendant', 'option-2');
+        expect(input.ariaActiveDescendantElement).to.be.equal(optTwo);
         expect(input).to.have.attribute('aria-expanded', 'true');
         expect(optTwo).not.to.have.attribute('selected');
         expect(input.value).to.be.equal('2');
@@ -552,7 +552,7 @@ describe(`sbb-autocomplete`, () => {
         await waitForLitRender(element);
 
         expect(optOne).to.match(':state(active)');
-        expect(input).to.have.attribute('aria-activedescendant', 'option-1');
+        expect(input.ariaActiveDescendantElement).to.be.equal(optOne);
         expect(input).to.have.attribute('aria-expanded', 'true');
         expect(optOne).not.to.have.attribute('selected');
         expect(input.value).to.be.equal('a');
@@ -761,7 +761,7 @@ describe(`sbb-autocomplete`, () => {
         await waitForLitRender(element);
         expect(optOne).to.match(':state(active)');
         expect(optOne).not.to.have.attribute('selected');
-        expect(input).to.have.attribute('aria-activedescendant', 'option-1');
+        expect(input.ariaActiveDescendantElement).to.be.equal(optOne);
 
         await sendKeys({ press: 'Enter' });
         await closeSpy.calledOnce();

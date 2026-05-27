@@ -25,6 +25,42 @@ export interface SbbStepValidateEventDetails {
   nextStep: SbbStepElement | null;
 }
 
+export class SbbStepValidateEvent extends Event {
+  private readonly _currentIndex: number | null;
+  private readonly _currentStep: SbbStepElement | null;
+  private readonly _nextIndex: number | null;
+  private readonly _nextStep: SbbStepElement | null;
+
+  public get currentIndex(): number | null {
+    return this._currentIndex;
+  }
+
+  public get currentStep(): SbbStepElement | null {
+    return this._currentStep;
+  }
+
+  public get nextIndex(): number | null {
+    return this._nextIndex;
+  }
+
+  public get nextStep(): SbbStepElement | null {
+    return this._nextStep;
+  }
+
+  public constructor({
+    currentIndex,
+    currentStep,
+    nextIndex,
+    nextStep,
+  }: Omit<SbbStepValidateEvent, keyof Event>) {
+    super('validate', { bubbles: true, composed: true, cancelable: true });
+    this._currentIndex = currentIndex;
+    this._currentStep = currentStep;
+    this._nextIndex = nextIndex;
+    this._nextStep = nextStep;
+  }
+}
+
 /**
  * Combined with a `sbb-stepper`, it displays a step's content.
  *
@@ -82,10 +118,8 @@ export class SbbStepElement extends SbbElement {
 
   /**
    * Selects and configures the step.
-   * @internal
-   * TODO: @breaking-change: make protected
    */
-  public select(): void {
+  protected select(): void {
     if (!this.hasUpdated || !this.label) {
       return;
     }
@@ -100,10 +134,8 @@ export class SbbStepElement extends SbbElement {
 
   /**
    * Deselects and configures the step.
-   * @internal
-   * TODO: @breaking-change: make protected
    */
-  public deselect(): void {
+  protected deselect(): void {
     if (!this.label) {
       return;
     }
@@ -113,31 +145,22 @@ export class SbbStepElement extends SbbElement {
 
   /**
    * Emits a validate event whenever step switch is triggered.
-   * @internal
-   * TODO: @breaking-change: make protected
    */
-  public validate(eventData: SbbStepValidateEventDetails): boolean {
-    // TODO: @breaking-change: Create a specific event type for this event.
+  protected validate(validate: SbbStepValidateEventDetails): boolean {
+    // FIXME: the name of the event variable appears as event name in the readme
+    //  due to a bug in the custom-elements-manifest library.
+    //  https://github.com/open-wc/custom-elements-manifest/issues/149
     /**
-     * @type {CustomEvent<SbbStepValidateEventDetails>}
+     * @type {SbbStepValidateEvent}
      * The validate event is dispatched when a step change is triggered. Can be canceled to abort the step change.
      */
-    return this.dispatchEvent(
-      new CustomEvent<SbbStepValidateEventDetails>('validate', {
-        bubbles: true,
-        composed: true,
-        cancelable: true,
-        detail: eventData,
-      }),
-    );
+    return this.dispatchEvent(new SbbStepValidateEvent(validate));
   }
 
   /**
    * Configures the step.
-   * @internal
-   * TODO: @breaking-change: make protected
    */
-  public configure(stepperLoaded: boolean): void {
+  protected configure(stepperLoaded: boolean): void {
     if (stepperLoaded) {
       this._assignLabel();
     }

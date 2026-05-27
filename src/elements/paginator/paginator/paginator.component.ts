@@ -10,9 +10,11 @@ import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
 import {
+  buttonResetStyles,
   forceType,
   i18nItemsPerPage,
   i18nPage,
+  listResetStyles,
   SbbElement,
   type SbbElementType,
   sbbInputModalityDetector,
@@ -36,7 +38,11 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(SbbEleme
     SbbSelectElement,
     SbbOptionElement,
   ];
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    listResetStyles,
+    buttonResetStyles,
+    unsafeCSS(style),
+  ];
   public static readonly events: Record<string, string> = {
     page: 'page',
   } as const;

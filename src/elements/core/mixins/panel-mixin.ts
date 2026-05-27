@@ -55,7 +55,7 @@ export const SbbPanelMixin = <T extends AbstractConstructor<LitElement & SbbPane
     public override connectedCallback(): void {
       super.connectedCallback();
 
-      // TODO: Analyze and optimized maybe with PropertyWatcher or lit context
+      // TODO: Analyze and maybe optimize with lit context
       /** @internal */
       this.dispatchEvent(new Event('panelconnected', { bubbles: true }));
     }

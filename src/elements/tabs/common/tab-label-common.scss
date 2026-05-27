@@ -1,12 +1,5 @@
 @use '../../core/styles' as sbb;
 
-@mixin tab-label-amount {
-  margin: 0;
-  color: var(--sbb-tab-label-amount-color);
-  font-weight: normal;
-  text-decoration: var(--sbb-tab-label-text-decoration);
-}
-
 :host {
   --sbb-tab-label-animation-duration: var(
     --sbb-disable-animation-duration,
@@ -42,7 +35,7 @@
 :host(sbb-tab-nav-bar) ::slotted(a) {
   pointer-events: var(--sbb-tab-label-pointer-events, unset);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-tab-label-color: ButtonText;
     --sbb-tab-label-amount-color: ButtonText;
   }
@@ -105,7 +98,7 @@
   --sbb-tab-label-pointer-events: none;
   --sbb-tab-label-text-decoration: line-through;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-tab-label-color: GrayText;
     --sbb-tab-label-amount-color: GrayText;
   }
@@ -119,7 +112,7 @@
   --sbb-tab-label-pointer-events: none;
   --sbb-tab-label-marker-scale: 1;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-tab-label-color: ButtonText;
     --sbb-tab-label-amount-color: ButtonText;
   }
@@ -137,7 +130,7 @@
 :host(sbb-tab-label:active) {
   --sbb-tab-label-color: var(--sbb-color-3);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-tab-label-color: ButtonText;
     --sbb-tab-label-amount-color: ButtonText;
   }

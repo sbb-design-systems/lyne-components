@@ -49,7 +49,7 @@
   );
 }
 
-@include sbb.if-forced-colors {
+@media (forced-colors: active) {
   :host([indeterminate]) {
     --sbb-visual-checkbox-selection-color: ButtonBorder;
   }

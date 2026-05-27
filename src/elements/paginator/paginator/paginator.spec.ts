@@ -8,7 +8,7 @@ import { fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import type { SbbOptionElement } from '../../option.ts';
 import { SbbSelectElement } from '../../select.ts';
-import type { SbbPaginatorPageEventDetails } from '../common/paginator-common.ts';
+import type { SbbPaginatorPageEvent } from '../common/paginator-common.ts';
 
 import { SbbPaginatorElement } from './paginator.component.ts';
 
@@ -16,13 +16,13 @@ import '../../paginator.ts';
 
 describe('sbb-paginator', () => {
   let element: SbbPaginatorElement;
-  let pageEventSpy: SinonSpy<CustomEvent<SbbPaginatorPageEventDetails>[]>;
+  let pageEventSpy: SinonSpy<SbbPaginatorPageEvent[]>;
 
   beforeEach(async () => {
     pageEventSpy = spy();
     element = await fixture(
       html`<sbb-paginator
-        @page=${(e: CustomEvent<SbbPaginatorPageEventDetails>) => pageEventSpy(e)}
+        @page=${(e: SbbPaginatorPageEvent) => pageEventSpy(e)}
         length="50"
         page-size="5"
       ></sbb-paginator>`,
@@ -50,7 +50,7 @@ describe('sbb-paginator', () => {
     goToNext.click();
     await waitForLitRender(element);
     expect(pageEventSpy).to.have.been.calledOnce;
-    expect(pageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
+    expect(pageEventSpy.lastCall.firstArg.pageIndex).to.be.equal(element.pageIndex);
     expect(element.pageIndex).to.be.equal(1);
     expect(goToPrev).not.to.have.attribute('disabled');
     expect(goToNext).not.to.have.attribute('disabled');
@@ -58,7 +58,7 @@ describe('sbb-paginator', () => {
     goToPrev.click();
     await waitForLitRender(element);
     expect(pageEventSpy).to.have.been.calledTwice;
-    expect(pageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
+    expect(pageEventSpy.lastCall.firstArg.pageIndex).to.be.equal(element.pageIndex);
     expect(element.pageIndex).to.be.equal(0);
   });
 
@@ -90,17 +90,17 @@ describe('sbb-paginator', () => {
 
   it('emits `page` event when pageIndex changes via page button click', async () => {
     element.addEventListener('page', (event) => {
-      expect(event.detail.pageSize).to.be.equal(element.pageSize);
-      expect(event.detail.pageSize).to.be.equal(5);
-      expect(event.detail.pageIndex).to.be.equal(2);
-      expect(event.detail.previousPageIndex).to.be.equal(0);
-      expect(event.detail.length).to.be.equal(50);
+      expect(event.pageSize).to.be.equal(element.pageSize);
+      expect(event.pageSize).to.be.equal(5);
+      expect(event.pageIndex).to.be.equal(2);
+      expect(event.previousPageIndex).to.be.equal(0);
+      expect(event.length).to.be.equal(50);
     });
 
     const pages = element.shadowRoot!.querySelectorAll('.sbb-paginator__page--number-item');
     pages[2].dispatchEvent(new PointerEvent('click'));
     await waitForLitRender(element);
-    const pageEventDetail: SbbPaginatorPageEventDetails = pageEventSpy.lastCall.firstArg.detail;
+    const pageEventDetail = pageEventSpy.lastCall.firstArg;
     expect(pageEventSpy).to.have.been.calledOnce;
     expect(pageEventDetail.pageSize).to.be.equal(5);
     expect(pageEventDetail.pageIndex).to.be.equal(2);
@@ -126,7 +126,7 @@ describe('sbb-paginator', () => {
     await waitForLitRender(element);
 
     expect(pageEventSpy).to.have.been.calledOnce;
-    const pageEventDetail: SbbPaginatorPageEventDetails = pageEventSpy.lastCall.firstArg.detail;
+    const pageEventDetail = pageEventSpy.lastCall.firstArg;
     expect(pageEventDetail.pageSize).to.be.equal(20);
     expect(pageEventDetail.pageIndex).to.be.equal(0);
     expect(pageEventDetail.previousPageIndex).to.be.equal(0);
@@ -142,7 +142,7 @@ describe('sbb-paginator', () => {
     await waitForLitRender(element);
 
     expect(pageEventSpy).to.have.been.calledThrice;
-    const pageEventDetail2: SbbPaginatorPageEventDetails = pageEventSpy.lastCall.firstArg.detail;
+    const pageEventDetail2 = pageEventSpy.lastCall.firstArg;
     expect(pageEventDetail2.pageSize).to.be.equal(50);
     expect(pageEventDetail2.pageIndex).to.be.equal(0);
     expect(pageEventDetail2.previousPageIndex).to.be.equal(2);

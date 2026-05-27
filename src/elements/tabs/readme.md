@@ -89,19 +89,21 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 
 ## Events
 
-Consumers can listen to the `tabchange` event, whose `event.detail` is typed as `SbbTabChangedEventDetails`.
-From it, it's possible to retrieve the information about the current `<sbb-tab-label>`, `<sbb-tab>` and index, and,
-if available, also the information about the previous ones.
+Consumers can listen to the `tabchange` event, which is typed as `SbbTabChangeEvent`.
+It contains the information about the current `<sbb-tab-label>`, `<sbb-tab>` and index,
+and, if available, also the information about the previous ones.
 
 ```ts
-interface SbbTabChangedEventDetails {
-  activeIndex: number;
-  activeTabLabel: SbbTabLabelElement;
-  activeTab: SbbTabElement;
-  previousIndex: number;
-  previousTabLabel: SbbTabLabelElement | undefined;
-  previousTab: SbbTabElement | undefined;
-}
+document
+  .querySelector('sbb-tab-group')
+  .addEventListener('tabchange', (event: SbbTabChangeEvent) => {
+    // event.activeIndex: number
+    // event.activeTabLabel: SbbTabLabelElement
+    // event.activeTab: SbbTabElement
+    // event.previousIndex: number
+    // event.previousTabLabel: SbbTabLabelElement | undefined
+    // event.previousTab: SbbTabElement | undefined
+  });
 ```
 
 The `<sbb-tab>` dispatches the `active` event when a tab becomes active.
@@ -228,9 +230,9 @@ Be aware that anchors do not support a `disabled` state. To achieve an equivalen
 
 #### Events
 
-| Name        | Type                                     | Description                                               | Inherited From |
-| ----------- | ---------------------------------------- | --------------------------------------------------------- | -------------- |
-| `tabchange` | `CustomEvent<SbbTabChangedEventDetails>` | The tabchange event is dispatched when a tab is selected. |                |
+| Name        | Type                | Description                                               | Inherited From |
+| ----------- | ------------------- | --------------------------------------------------------- | -------------- |
+| `tabchange` | `SbbTabChangeEvent` | The tabchange event is dispatched when a tab is selected. |                |
 
 #### Slots
 

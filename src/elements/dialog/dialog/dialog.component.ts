@@ -4,7 +4,6 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbOverlayCloseEventDetails } from '../../core.ts';
 import { isZeroAnimationDuration, screenReaderOnlyStyles } from '../../core.ts';
 import {
   overlayRefs,
@@ -101,10 +100,7 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
       this.scrollHandler.enableScroll();
     }
     this.escapableOverlayController.disconnect();
-    this.dispatchCloseEvent({
-      returnValue: this.returnValue,
-      closeTarget: this.overlayCloseElement,
-    });
+    this.dispatchCloseEvent();
   }
 
   protected handleOpening(): void {
@@ -204,27 +200,25 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
     return this.querySelector('sbb-dialog-content');
   }
 
-  // TODO: remove parameter `detail`
-  protected override dispatchBeforeCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
+  protected override dispatchBeforeCloseEvent(): boolean {
     /** @type {SbbDialogCloseEvent} Emits whenever the component begins the closing transition. Can be canceled. */
     return this.dispatchEvent(
       new SbbDialogCloseEvent('beforeclose', {
         cancelable: true,
         closeAttribute: this.closeAttribute,
-        closeTarget: this.overlayCloseElement,
-        result: this.returnValue,
+        closeTarget: this.lastClosedTarget,
+        result: this.lastResult,
       }),
     );
   }
 
-  // TODO: remove parameter `detail`
-  protected override dispatchCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
+  protected override dispatchCloseEvent(): boolean {
     /** @type {SbbDialogCloseEvent} Emits whenever the component is closed. */
     return this.dispatchEvent(
       new SbbDialogCloseEvent('close', {
         closeAttribute: this.closeAttribute,
-        closeTarget: this.overlayCloseElement,
-        result: this.returnValue,
+        closeTarget: this.lastClosedTarget,
+        result: this.lastResult,
       }),
     );
   }

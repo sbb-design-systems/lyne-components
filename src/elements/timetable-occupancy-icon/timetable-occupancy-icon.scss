@@ -1,7 +1,7 @@
 @use '../core/styles' as sbb;
 
 :host {
-  @include sbb.if-forced-colors-light {
+  @media (forced-colors: active) and (prefers-color-scheme: light) {
     svg {
       filter: invert(1);
     }

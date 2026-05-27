@@ -5,6 +5,7 @@ import {
   forceType,
   i18nDialog,
   idReference,
+  popoverResetStyles,
   removeAriaOverlayTriggerProperties,
   SbbEscapableOverlayController,
   SbbFocusTrapController,
@@ -12,7 +13,6 @@ import {
   SbbLanguageController,
   SbbNegativeMixin,
   SbbOpenCloseBaseElement,
-  type SbbOverlayCloseEventDetails,
   SbbScrollHandler,
   screenReaderOnlyStyles,
   setAriaOverlayTriggerProperties,
@@ -20,7 +20,7 @@ import {
 
 const overlayResultMap = new WeakMap<HTMLElement, any>();
 
-export class SbbOverlayCloseEvent<T = any> extends CustomEvent<SbbOverlayCloseEventDetails> {
+export class SbbOverlayCloseEvent<T = any> extends Event {
   /**
    * The result associated with the closed overlay.
    * This is either the result assigned to the `closeTarget` via
@@ -46,9 +46,7 @@ export class SbbOverlayCloseEvent<T = any> extends CustomEvent<SbbOverlayCloseEv
       result,
     }: { cancelable?: boolean; closeAttribute: string; closeTarget?: HTMLElement; result?: any },
   ) {
-    // TODO: Remove detail and change base class to Event
-    super(name, { cancelable, detail: { returnValue: result, closeTarget } });
-
+    super(name, { cancelable });
     this.result =
       result ??
       (!closeTarget
@@ -67,7 +65,7 @@ export function assignOverlayResult<T>(element: HTMLElement, result: T): void {
 export const overlayRefs: SbbOverlayBaseElement[] = [];
 
 export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenCloseBaseElement) {
-  public static override styles: CSSResultGroup = [screenReaderOnlyStyles];
+  public static override styles: CSSResultGroup = [popoverResetStyles, screenReaderOnlyStyles];
 
   /**
    * The element that will trigger the menu overlay.
@@ -94,13 +92,11 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
 
   // The last element which had focus before the component was opened.
   protected lastFocusedElement?: HTMLElement;
-  // TODO: rename to lastClosedTarget
-  protected overlayCloseElement?: HTMLElement;
+  protected lastClosedTarget?: HTMLElement;
   protected openOverlayController?: AbortController;
   protected focusTrapController = new SbbFocusTrapController(this);
   protected scrollHandler = new SbbScrollHandler();
-  // TODO: rename to lastResult
-  protected returnValue: any;
+  protected lastResult: any;
   protected language = new SbbLanguageController(this);
   protected inertController = new SbbInertController(this);
   protected escapableOverlayController = new SbbEscapableOverlayController(this);
@@ -115,11 +111,8 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   protected abstract handleOpening(): void;
   protected abstract handleClosing(): void;
   protected abstract isZeroAnimationDuration(): boolean;
-  protected abstract override dispatchBeforeCloseEvent(
-    detail?: SbbOverlayCloseEventDetails,
-  ): boolean;
-
-  protected abstract override dispatchCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean;
+  protected abstract override dispatchBeforeCloseEvent(): boolean;
+  protected abstract override dispatchCloseEvent(): boolean;
 
   /** Opens the component. */
   public open(): void {
@@ -156,11 +149,8 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   }
 
   /** Closes the component. */
-  public close(result?: any): void;
-  /** @deprecated */
-  public close(result?: any, target?: HTMLElement): void;
-  public close(result?: any, target?: HTMLElement): void {
-    this._close(result, target);
+  public close(result?: any): void {
+    this._close(result, undefined);
   }
 
   private _close(result: any, target: HTMLElement | undefined): void {
@@ -168,8 +158,8 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
       return;
     }
 
-    this.returnValue = result ?? null;
-    this.overlayCloseElement = target;
+    this.lastResult = result ?? null;
+    this.lastClosedTarget = target;
     if (!this.dispatchBeforeCloseEvent()) {
       return;
     }

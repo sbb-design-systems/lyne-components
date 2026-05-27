@@ -6,7 +6,8 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import type { SbbErrorElement } from '../form-field.ts';
-import { SbbStepElement, SbbStepperElement, type SbbStepValidateEventDetails } from '../stepper.ts';
+import type { SbbStepValidateEvent } from '../stepper.ts';
+import { SbbStepElement, SbbStepperElement } from '../stepper.ts';
 
 import readme from './readme.md?raw';
 
@@ -14,7 +15,6 @@ import '../button.ts';
 import '../card.ts';
 import '../form-field.ts';
 import '../link.ts';
-import '../stepper.ts';
 
 const loremIpsum = `
   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
@@ -193,12 +193,8 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
       <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
         <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
         <sbb-step
-          @validate=${(e: CustomEvent<SbbStepValidateEventDetails>) => {
-            if (
-              e.detail
-                .currentStep!.querySelector('sbb-form-field')!
-                .inputElement!.matches(':invalid')
-            ) {
+          @validate=${(e: SbbStepValidateEvent) => {
+            if (e.currentStep!.querySelector('sbb-form-field')!.inputElement!.matches(':invalid')) {
               e.preventDefault();
             }
           }}
@@ -269,10 +265,8 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
     <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
       <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
       <sbb-step
-        @validate=${(e: CustomEvent<SbbStepValidateEventDetails>) => {
-          if (
-            e.detail.currentStep!.querySelector('sbb-form-field')!.inputElement!.matches(':invalid')
-          ) {
+        @validate=${(e: SbbStepValidateEvent) => {
+          if (e.currentStep!.querySelector('sbb-form-field')!.inputElement!.matches(':invalid')) {
             e.preventDefault();
           }
         }}

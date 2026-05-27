@@ -2,7 +2,6 @@ import { isServer } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { forceType } from '../decorators/force-type.ts';
-import { hostAttributes } from '../decorators/host-attributes.ts';
 import { isEventPrevented } from '../eventing/is-event-prevented.ts';
 import {
   type FormRestoreReason,
@@ -13,11 +12,9 @@ import {
 import { SbbActionBaseElement } from './action-base-element.ts';
 
 /** Button base class. */
-export
-@hostAttributes({
-  tabindex: '0',
-})
-abstract class SbbButtonLikeBaseElement extends SbbFormAssociatedMixin(SbbActionBaseElement) {
+export abstract class SbbButtonLikeBaseElement extends SbbFormAssociatedMixin(
+  SbbActionBaseElement,
+) {
   public static override readonly role: ElementInternals['role'] = 'button';
 
   public constructor() {
@@ -41,6 +38,11 @@ abstract class SbbButtonLikeBaseElement extends SbbFormAssociatedMixin(SbbAction
         passiveOptions,
       );
     }
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.tabIndex = 0;
   }
 
   /**

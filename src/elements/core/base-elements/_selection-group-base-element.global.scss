@@ -1,0 +1,16 @@
+@use '../styles' as sbb;
+
+@mixin horizontal-orientation {
+  --sbb-selection-group-orientation: row;
+  --sbb-selection-group-elements-width: auto;
+}
+
+$theme: 'standard' !default;
+
+@mixin base {
+  @include horizontal-orientation;
+
+  --sbb-selection-group-width: auto;
+  --sbb-selection-group-gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-6x);
+  --sbb-selection-group-elements-flex: none;
+}

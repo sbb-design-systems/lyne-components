@@ -560,7 +560,7 @@ describe(`sbb-form-field`, () => {
     });
 
     it('should reflect correct initial state', async () => {
-      expect(element).to.match(':state(input-type-sbb-custom-control)');
+      expect(element).to.match(':state(input-element-sbb-custom-control)');
       expect(element).not.to.match(':state(empty)');
       expect(element).not.to.match(':state(disabled)');
       expect(element).not.to.match(':state(readonly)');
@@ -598,19 +598,19 @@ describe(`sbb-form-field`, () => {
     });
 
     it('should update type state from control', async () => {
-      expect(element).not.to.match(':state(explicit-input-type-select)');
+      expect(element).not.to.match(':state(input-type-select)');
       control.type = 'select';
       element.dispatchEvent(new SbbFormFieldControlEvent(control));
-      expect(element).to.match(':state(input-type-sbb-custom-control)');
-      expect(element).to.match(':state(explicit-input-type-select)');
+      expect(element).to.match(':state(input-element-sbb-custom-control)');
+      expect(element).to.match(':state(input-type-select)');
     });
 
     it('should update type state from input element', async () => {
-      expect(element).not.to.match(':state(explicit-input-type-select)');
+      expect(element).not.to.match(':state(input-type-select)');
       (input as { type?: string }).type = 'select';
       element.dispatchEvent(new SbbFormFieldControlEvent(control));
-      expect(element).to.match(':state(input-type-sbb-custom-control)');
-      expect(element).to.match(':state(explicit-input-type-select)');
+      expect(element).to.match(':state(input-element-sbb-custom-control)');
+      expect(element).to.match(':state(input-type-select)');
     });
   });
 

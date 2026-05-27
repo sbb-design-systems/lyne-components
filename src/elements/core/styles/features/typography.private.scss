@@ -1,0 +1,9 @@
+@use '../../../link/link.global' as link;
+
+.sbb-link {
+  @include link.element-rules;
+}
+
+.sbb-link-negative {
+  @include link.element-rules-negative;
+}

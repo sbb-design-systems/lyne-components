@@ -682,22 +682,15 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
         value="10"
       >
         <sbb-option
-          id="sbb-option-3"
           selected=""
           value="10"
         >
           10
         </sbb-option>
-        <sbb-option
-          id="sbb-option-4"
-          value="25"
-        >
+        <sbb-option value="25">
           25
         </sbb-option>
-        <sbb-option
-          id="sbb-option-5"
-          value="50"
-        >
+        <sbb-option value="50">
           50
         </sbb-option>
       </sbb-select>

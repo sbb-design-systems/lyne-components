@@ -3,7 +3,6 @@ import { property } from 'lit/decorators.js';
 
 import type { SbbElement, SbbElementConstructor } from '../base-elements/element.ts';
 import { SbbLanguageController } from '../controllers/language-controller.ts';
-import { hostAttributes } from '../decorators/host-attributes.ts';
 import { preventScrollOnSpacebarPress } from '../eventing/form-element-handlers.ts';
 import { i18nCheckboxRequired } from '../i18n/i18n.ts';
 
@@ -45,9 +44,6 @@ export const SbbFormAssociatedCheckboxMixin = <
 >(
   superClass: T,
 ): AbstractConstructor<SbbFormAssociatedCheckboxMixinType> & T => {
-  @hostAttributes({
-    tabindex: '0',
-  })
   abstract class SbbFormAssociatedCheckboxElement
     extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass)))
     implements Partial<SbbFormAssociatedCheckboxMixinType>
@@ -102,6 +98,11 @@ export const SbbFormAssociatedCheckboxMixin = <
       this.addEventListener?.('click', this._handleUserInteraction);
       this.addEventListener?.('keydown', preventScrollOnSpacebarPress);
       this.addEventListener?.('keyup', this._handleKeyboardInteraction);
+    }
+
+    public override connectedCallback(): void {
+      super.connectedCallback();
+      this.tabIndex = 0;
     }
 
     public override attributeChangedCallback(

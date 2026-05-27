@@ -32,7 +32,6 @@ describe(`sbb-form-field`, () => {
     {
       'error-space': errorSpace,
       label,
-      optional,
       size,
       borderless,
       width,
@@ -46,7 +45,6 @@ describe(`sbb-form-field`, () => {
   ): TemplateResult =>
     html`<sbb-form-field
       error-space=${errorSpace}
-      ?optional=${optional}
       size=${size || nothing}
       ?borderless=${borderless}
       width=${width}
@@ -127,7 +125,6 @@ describe(`sbb-form-field`, () => {
     label: 'Input name',
     'hidden-label': false,
     'floating-label': false,
-    optional: false,
     borderless: false,
     size: 'm' as SbbFormFieldElement['size'],
     negative: false,
@@ -364,18 +361,6 @@ describe(`sbb-form-field`, () => {
               label: 'This label name is so long that it needs ellipsis to fit',
             };
             await setup.withFixture(html`${formField(hiddenLabel, template(hiddenLabel))}`, {
-              forcedColors,
-              darkMode,
-            });
-          }),
-        );
-
-        // optional
-        it(
-          `optional=true`,
-          visualDiffDefault.with(async (setup) => {
-            const noLabel = { ...basicArgs, optional: true };
-            await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
               forcedColors,
               darkMode,
             });

@@ -18,7 +18,7 @@ import {
   isEventOnElement,
   isSafari,
   isZeroAnimationDuration,
-  optionPanelStyles,
+  popoverResetStyles,
   removeAriaComboBoxAttributes,
   SbbEscapableOverlayController,
   SbbNegativeMixin,
@@ -28,7 +28,7 @@ import {
   setOverlayPosition,
 } from '../core.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
-import type { SbbOptionBaseElement } from '../option.pure.ts';
+import { optionPanelStyles, type SbbOptionBaseElement } from '../option.pure.ts';
 
 import style from './autocomplete-base-element.scss?inline';
 
@@ -37,6 +37,19 @@ import style from './autocomplete-base-element.scss?inline';
  * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
  */
 const ariaRoleOnHost = isSafari;
+
+export class SbbInputAutocompleteEvent<T> extends Event {
+  private readonly _option: SbbOptionBaseElement<T>;
+
+  public get option(): SbbOptionBaseElement<T> {
+    return this._option;
+  }
+
+  public constructor(option: SbbOptionBaseElement<T>) {
+    super('inputAutocomplete', { bubbles: true, composed: true });
+    this._option = option;
+  }
+}
 
 /**
  * Base class for autocomplete components.
@@ -48,6 +61,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   SbbOpenCloseBaseElement,
 ) {
   public static override styles: CSSResultGroup = [
+    popoverResetStyles,
     scrollbarStyles,
     optionPanelStyles,
     unsafeCSS(style),
@@ -341,9 +355,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.close();
   }
 
-  /** @deprecated */
-  protected onOptionArrowsSelected(_activeOption: SbbOptionBaseElement<T>): void {}
-
   /**
    * A 'pending selection' sets the option value in the input element without emitting events.
    * A 'pending selection' is confirmed when the panel closes. Any other user interaction
@@ -360,7 +371,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   ): void {
     // Deselect the previous options
     this.options
-      .filter((option) => option.id !== selectedOption.id && option.selected)
+      .filter((option) => option !== selectedOption && option.selected)
       .forEach((option) => (option.selected = false));
     this.pendingAutoSelectedOption = null;
 
@@ -376,11 +387,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       this._lastUserInput = null;
 
       // Custom input event emitted when input value changes after an option is selected
-      this.triggerElement.dispatchEvent(
-        new CustomEvent<{ option: SbbOptionBaseElement<T> }>('inputAutocomplete', {
-          detail: { option: selectedOption },
-        }),
-      );
+      this.triggerElement.dispatchEvent(new SbbInputAutocompleteEvent(selectedOption));
       if (!preventFocus) {
         this.triggerElement.focus();
       }
@@ -745,6 +752,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
 declare global {
   interface HTMLElementEventMap {
-    inputAutocomplete: CustomEvent<{ option: SbbOptionBaseElement<any> }>;
+    inputAutocomplete: SbbInputAutocompleteEvent<any>;
   }
 }

@@ -155,15 +155,6 @@ const label: InputType = {
   },
 };
 
-const optional: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Form-field attribute',
-  },
-};
-
 const borderless: InputType = {
   control: {
     type: 'boolean',
@@ -204,7 +195,6 @@ const formFieldBasicArgsTypes: ArgTypes = {
   label,
   size,
   negative,
-  optional,
   borderless,
 };
 
@@ -213,7 +203,6 @@ const formFieldBasicArgs = {
   label: 'Label',
   size: undefined,
   negative: false,
-  optional: false,
   borderless: false,
 };
 
@@ -256,7 +245,6 @@ const TemplateFormField = ({
   min,
   max,
   label,
-  optional,
   borderless,
   size,
   negative,
@@ -265,12 +253,7 @@ const TemplateFormField = ({
   ...args
 }: Args): TemplateResult => {
   return html`
-    <sbb-form-field
-      size=${size || nothing}
-      ?negative=${negative}
-      ?optional=${optional}
-      ?borderless=${borderless}
-    >
+    <sbb-form-field size=${size || nothing} ?negative=${negative} ?borderless=${borderless}>
       ${label ? html`<label>${label}</label>` : nothing}
       <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
       <sbb-date-input
@@ -364,12 +347,6 @@ export const InFormFieldL: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs, size: size.options![2] },
-};
-
-export const InFormFieldOptional: StoryObj = {
-  render: TemplateFormField,
-  argTypes: { ...formFieldBasicArgsTypes },
-  args: { ...formFieldBasicArgs, optional: true },
 };
 
 export const InFormFieldBorderless: StoryObj = {

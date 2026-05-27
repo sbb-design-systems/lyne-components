@@ -1,8 +1,0 @@
-// Development, debug and prototyping appearance
-@mixin development-style {
-  background-color: rgba(#ad00ff, 0.2);
-  border-width: var(--sbb-spacing-fixed-2x);
-  border-style: dashed solid;
-  border-color: rgba(#ad00ff, 1);
-  padding: 1em;
-}

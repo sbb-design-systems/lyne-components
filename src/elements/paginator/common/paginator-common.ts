@@ -29,11 +29,40 @@ import { SbbDividerElement } from '../../divider.pure.ts';
 
 import style from './paginator-common.scss?inline';
 
-export interface SbbPaginatorPageEventDetails {
-  length: number;
-  pageSize: number;
-  pageIndex: number;
-  previousPageIndex: number;
+export class SbbPaginatorPageEvent extends Event {
+  private readonly _length: number;
+  private readonly _pageSize: number;
+  private readonly _pageIndex: number;
+  private readonly _previousPageIndex: number;
+
+  public get length(): number {
+    return this._length;
+  }
+
+  public get pageSize(): number {
+    return this._pageSize;
+  }
+
+  public get pageIndex(): number {
+    return this._pageIndex;
+  }
+
+  public get previousPageIndex(): number {
+    return this._previousPageIndex;
+  }
+
+  public constructor({
+    length,
+    pageSize,
+    pageIndex,
+    previousPageIndex,
+  }: Omit<SbbPaginatorPageEvent, keyof Event>) {
+    super('page', { bubbles: true, composed: true });
+    this._length = length;
+    this._pageSize = pageSize;
+    this._pageIndex = pageIndex;
+    this._previousPageIndex = previousPageIndex;
+  }
 }
 
 export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNegativeMixin(
@@ -247,22 +276,20 @@ export const SbbPaginatorCommonElementMixin = <
 
     private _emitPageEvent(previousPageIndex: number): void {
       if (this.hasUpdated) {
+        // FIXME: the name of this variable appears as event name in the readme
+        //  due to a bug in the custom-elements-manifest library.
+        //  https://github.com/open-wc/custom-elements-manifest/issues/149
+        const page = {
+          previousPageIndex,
+          pageIndex: this.pageIndex,
+          length: this.length,
+          pageSize: this.pageSize,
+        };
         /**
-         * @type {CustomEvent<SbbPaginatorPageEventDetails>}
+         * @type {SbbPaginatorPageEvent}
          * The page event is dispatched when the page index, length or page size changes.
          */
-        this.dispatchEvent(
-          new CustomEvent<SbbPaginatorPageEventDetails>('page', {
-            bubbles: true,
-            composed: true,
-            detail: {
-              previousPageIndex,
-              pageIndex: this.pageIndex,
-              length: this.length,
-              pageSize: this.pageSize,
-            },
-          }),
-        );
+        this.dispatchEvent(new SbbPaginatorPageEvent(page));
       }
     }
 
@@ -321,6 +348,6 @@ export const SbbPaginatorCommonElementMixin = <
 
 declare global {
   interface HTMLElementEventMap {
-    page: CustomEvent<SbbPaginatorPageEventDetails>;
+    page: SbbPaginatorPageEvent;
   }
 }
