@@ -9,7 +9,7 @@
 }
 
 :host([negative]) {
-  @include sbb.title--negative;
+  --sbb-title-color: var(--sbb-color-3-negative);
 }
 
 // Shadow below the title bar
