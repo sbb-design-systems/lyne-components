@@ -21,12 +21,6 @@ export class SbbPopoverCloseButtonElement extends SbbSecondaryButtonElement {
     this.size = 's' as this['size'];
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-
-    this.slot ||= 'close-button';
-  }
-
   protected override renderTemplate(): TemplateResult {
     return super.renderIconSlot();
   }

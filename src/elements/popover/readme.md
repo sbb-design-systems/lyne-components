@@ -44,6 +44,8 @@ by clicking on the close button or by performing another action on the page.
 You can also indicate that an element within the popover content should close the `<sbb-popover>` when clicked
 by marking it with the `sbb-popover-close` attribute.
 To display a close button, place the `<sbb-popover-close-button>` inside the popover.
+For accessibility reasons, the close button should be the first focusable element in the popover,
+so it is recommended to place it at the beginning of the content.
 
 ```html
 <sbb-mini-button id="popover-trigger"></sbb-mini-button>
@@ -186,7 +188,6 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 #### Slots
 
-| Name           | Description                                                                                                 |
-| -------------- | ----------------------------------------------------------------------------------------------------------- |
-|                | Use the unnamed slot to add content into the popover.                                                       |
-| `close-button` | Slot for the sbb-popover-close-button. The slot is automatically assigned when slotted in the unnamed slot. |
+| Name | Description                                                                              |
+| ---- | ---------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add the `sbb-popover-close-button` and content into the popover. |

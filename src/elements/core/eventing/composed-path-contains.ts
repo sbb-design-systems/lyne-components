@@ -9,7 +9,7 @@
 export function composedPathContains(
   event: Event,
   condition: (element: HTMLElement) => boolean,
-  host: Element | null,
+  host: Element,
 ): HTMLElement | null {
   for (const element of event.composedPath()) {
     if (!(element instanceof window.HTMLElement)) {

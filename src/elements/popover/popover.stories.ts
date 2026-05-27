@@ -129,6 +129,7 @@ const EndAboveTemplate = (args: Args): TemplateResult => html`
 const LongContentTemplate = (args: Args): TemplateResult => html`
   ${popoverTrigger({ 'inset-inline-start': '2rem' })}
   <sbb-popover trigger="popover-trigger" ${sbbSpread(args)}>
+    <sbb-popover-close-button></sbb-popover-close-button>
     <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
       Popover with long content.
     </sbb-title>
