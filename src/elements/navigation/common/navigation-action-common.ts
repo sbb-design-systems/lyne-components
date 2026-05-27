@@ -2,13 +2,13 @@ import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import {
-  SbbDisabledMixin,
   type AbstractConstructor,
   type SbbActionBaseElement,
+  SbbDisabledMixin,
   type SbbElementConstructor,
   type SbbElementType,
+  SbbPropertyWatcherController,
 } from '../../core.ts';
-import { SbbPropertyWatcherController } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';

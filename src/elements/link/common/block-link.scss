@@ -55,6 +55,9 @@
 
   ::slotted([slot='icon']),
   sbb-icon {
+    // Fixes layout issues
+    --sbb-icon-svg-display: block;
+
     @include sbb.absolute-center-y;
   }
 }

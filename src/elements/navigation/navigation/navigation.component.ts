@@ -261,19 +261,19 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   }
 
   private _handleNavigationClose(event: Event): void {
-    const composedPathElements = event
-      .composedPath()
-      .filter((el) => el instanceof window.HTMLElement);
-    if (composedPathElements.some((el) => this._isCloseElement(el as HTMLElement))) {
+    if (
+      event
+        .composedPath()
+        .some(
+          (el, i, a) =>
+            el instanceof HTMLElement &&
+            i < a.indexOf(this) &&
+            (el.nodeName === 'A' ||
+              (el.hasAttribute('sbb-navigation-close') && !el.hasAttribute('disabled'))),
+        )
+    ) {
       this.close();
     }
-  }
-
-  private _isCloseElement(element: HTMLElement): boolean {
-    return (
-      element.nodeName === 'A' ||
-      (element.hasAttribute('sbb-navigation-close') && !element.hasAttribute('disabled'))
-    );
   }
 
   // Check if the pointerdown event target is triggered on the navigation.

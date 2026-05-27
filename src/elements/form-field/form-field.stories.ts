@@ -55,6 +55,7 @@ const PopoverTrigger = (): TemplateResult => html`
     id="popover-trigger"
   ></sbb-mini-button>
   <sbb-popover trigger="popover-trigger">
+    <sbb-popover-close-button></sbb-popover-close-button>
     <sbb-title level="2" visual-level="6" style="margin-block-start: 0"
       >Simple info popover.</sbb-title
     >

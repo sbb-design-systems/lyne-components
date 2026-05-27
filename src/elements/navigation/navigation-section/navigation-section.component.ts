@@ -288,21 +288,19 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpen
     if (
       event
         .composedPath()
-        .filter((el) => el instanceof HTMLElement)
-        .some((el) => this._isCloseElement(el))
+        .some(
+          (el, i, a) =>
+            el instanceof HTMLElement &&
+            i < a.indexOf(this) &&
+            (el.nodeName === 'A' ||
+              (!el.hasAttribute('disabled') &&
+                (el.hasAttribute('sbb-navigation-close') ||
+                  el.hasAttribute('sbb-navigation-section-close')))),
+        )
     ) {
       this.close();
     }
   };
-
-  private _isCloseElement(element: HTMLElement): boolean {
-    return (
-      element.nodeName === 'A' ||
-      (!element.hasAttribute('disabled') &&
-        (element.hasAttribute('sbb-navigation-close') ||
-          element.hasAttribute('sbb-navigation-section-close')))
-    );
-  }
 
   private _isBelowLarge(): boolean {
     return this._mediaMatcherController.matches(SbbMediaQueryBreakpointSmallAndBelow) ?? false;
