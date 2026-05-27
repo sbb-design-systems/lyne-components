@@ -103,5 +103,20 @@ describe(`sbb-block-link`, () => {
         );
       }),
     );
+
+    it(
+      `overflow-compatibility`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div style="overflow: auto; width: 150px">
+            <p>content</p>
+            <sbb-block-link href="#" icon-name="chevron-small-right-small">
+              Travelcards
+            </sbb-block-link>
+          </div>`,
+          {},
+        );
+      }),
+    );
   });
 });

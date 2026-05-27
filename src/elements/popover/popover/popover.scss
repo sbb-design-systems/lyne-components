@@ -35,7 +35,7 @@
 
 :host(:state(has-close-button)) {
   --_sbb-popover-close-button-min-height: calc(
-    var(--sbb-size-element-xs) + 2 * var(--sbb-popover-padding)
+    var(--sbb-button-min-height-size-s) + 2 * var(--sbb-popover-padding)
   );
   --_sbb-popover-close-button-min-width: calc(
     var(--_sbb-popover-close-button-min-height) - var(--_sbb-popover-half-padding)

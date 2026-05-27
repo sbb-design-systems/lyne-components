@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-popover-close-button renders DOM"] = 
 `<sbb-popover-close-button
   size="s"
-  slot="close-button"
   tabindex="0"
 >
 </sbb-popover-close-button>

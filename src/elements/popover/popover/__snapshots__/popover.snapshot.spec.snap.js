@@ -14,8 +14,6 @@ snapshots["sbb-popover renders Shadow DOM"] =
     role="tooltip"
   >
     <div class="sbb-popover__content">
-      <slot name="close-button">
-      </slot>
       <span class="sbb-popover__scrollable-content sbb-scrollbar">
         <slot>
           No content
