@@ -13,7 +13,6 @@ import {
   type SbbTransparentButtonLinkElement,
 } from '../button.pure.ts';
 import {
-  composedPathContains,
   forceType,
   i18nCloseAlert,
   isZeroAnimationDuration,
@@ -175,11 +174,15 @@ export class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
   // Close the toast on click of any element that has the 'sbb-toast-close' attribute.
   private _onClick(event: Event): void {
     if (
-      composedPathContains(
-        event,
-        (e) => e.hasAttribute('sbb-toast-close') && !e.hasAttribute('disabled'),
-        this,
-      )
+      event
+        .composedPath()
+        .some(
+          (el, i, a) =>
+            el instanceof HTMLElement &&
+            i < a.indexOf(this) &&
+            el.hasAttribute('sbb-toast-close') &&
+            !el.hasAttribute('disabled'),
+        )
     ) {
       this.close();
     }

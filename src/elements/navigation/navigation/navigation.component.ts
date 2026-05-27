@@ -13,7 +13,6 @@ import { ref } from 'lit/directives/ref.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
-  composedPathContains,
   forceType,
   i18nCloseNavigation,
   idReference,
@@ -263,13 +262,15 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
 
   private _handleNavigationClose(event: Event): void {
     if (
-      composedPathContains(
-        event,
-        (element: HTMLElement): boolean =>
-          element.nodeName === 'A' ||
-          (element.hasAttribute('sbb-navigation-close') && !element.hasAttribute('disabled')),
-        this,
-      )
+      event
+        .composedPath()
+        .some(
+          (el, i, a) =>
+            el instanceof HTMLElement &&
+            i < a.indexOf(this) &&
+            (el.nodeName === 'A' ||
+              (el.hasAttribute('sbb-navigation-close') && !el.hasAttribute('disabled'))),
+        )
     ) {
       this.close();
     }

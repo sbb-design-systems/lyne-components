@@ -12,7 +12,6 @@ import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  composedPathContains,
   forceType,
   getElementPosition,
   idReference,
@@ -281,14 +280,15 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
 
   // Close the popover on click of any element that has the 'sbb-popover-close' attribute.
   private _closeOnSbbPopoverCloseClick(event: Event): void {
-    const closeElement = composedPathContains(
-      event,
-      (element) =>
-        (element.hasAttribute('sbb-popover-close') ||
-          element.localName === 'sbb-popover-close-button') &&
-        !element.hasAttribute('disabled'),
-      this,
-    );
+    const closeElement = event
+      .composedPath()
+      .find(
+        (el, i, a): el is HTMLElement =>
+          el instanceof HTMLElement &&
+          i < a.indexOf(this) &&
+          (el.hasAttribute('sbb-popover-close') || el.localName === 'sbb-popover-close-button') &&
+          !el.hasAttribute('disabled'),
+      );
     if (closeElement) {
       clearTimeout(this.closeTimeout);
       this.close(closeElement);

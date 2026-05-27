@@ -12,7 +12,6 @@ import { property } from 'lit/decorators.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
-  composedPathContains,
   forceType,
   i18nGoBack,
   idReference,
@@ -287,15 +286,17 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpen
   // Check if the click was triggered on an element that should close the section.
   private _handleNavigationSectionClose = (event: Event): void => {
     if (
-      composedPathContains(
-        event,
-        (element: HTMLElement): boolean =>
-          element.nodeName === 'A' ||
-          (!element.hasAttribute('disabled') &&
-            (element.hasAttribute('sbb-navigation-close') ||
-              element.hasAttribute('sbb-navigation-section-close'))),
-        this,
-      )
+      event
+        .composedPath()
+        .some(
+          (el, i, a) =>
+            el instanceof HTMLElement &&
+            i < a.indexOf(this) &&
+            (el.nodeName === 'A' ||
+              (!el.hasAttribute('disabled') &&
+                (el.hasAttribute('sbb-navigation-close') ||
+                  el.hasAttribute('sbb-navigation-section-close')))),
+        )
     ) {
       this.close();
     }
