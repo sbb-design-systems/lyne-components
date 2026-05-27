@@ -112,25 +112,45 @@ It's recommended to check the parent's `<sbb-tag-group>` for the value.
 
 ## Accessibility
 
-The `<sbb-tag>` imitates a `button` element to provide an accessible experience.
-The state is reflected via `aria-pressed` attribute.
+### Exclusive mode (default)
 
-The property `listAccessibilityLabel` on the `<sbb-tag-group>` is forwarded as `aria-label` to the
-inner list that the component uses to display the tags,
-to use the implicit `role="list"` of the `ul`.
+In exclusive (non-multiple) mode, `<sbb-tag-group>` behaves like a radio group (`role="radiogroup"`).
+Each `<sbb-tag>` acts as a radio button and the state is reflected via `aria-checked`.
 
-If the `listAccessibilityLabel` property is not defined, the `<sbb-tag-group>` surrounding the buttons applies `role="group"`
-to convey the association between the individual `<sbb-tag>`s.
+Keyboard navigation follows the roving tabindex pattern:
 
-When using the `role="group"`, each `<sbb-tag-group>` element should be given a label with `aria-label` or `aria-labelledby`,
-that communicates the collective meaning of all `<sbb-tag>`s.
+- Only the currently selected tag (or the first tag if none is selected) receives `tabindex="0"`;
+  all other tags receive `tabindex="-1"`.
+- **Arrow keys** (Left/Right/Up/Down) move focus and selection to the adjacent tag, wrapping around
+  at the ends. Disabled tags are skipped automatically.
+- **Tab** moves focus into and out of the group without changing the selection.
 
 ```html
-<sbb-tag-group aria-label="Select your desired font styles to filter it">
+<sbb-tag-group accessibility-label="Select your desired device to filter it">
   <sbb-tag value="all" checked>All</sbb-tag>
-  <sbb-tag value="phones">Bold</sbb-tag>
-  <sbb-tag value="computer">Italic</sbb-tag>
-  <sbb-tag value="laptop">Underline</sbb-tag>
+  <sbb-tag value="phones">Phones</sbb-tag>
+  <sbb-tag value="computer">Computer</sbb-tag>
+  <sbb-tag value="laptop">Laptop</sbb-tag>
+</sbb-tag-group>
+```
+
+### Multiple mode
+
+In multiple mode, each `<sbb-tag>` behaves like a toggle button. The state is reflected via `aria-pressed`.
+
+The `<sbb-tag-group>` applies `role="group"` (when no `accessibilityLabel` is set) to convey
+the association between the individual tags. Each group should be given a label via `accessibilityLabel`
+that communicates the collective meaning of all tags.
+
+The `accessibilityLabel` property on `<sbb-tag-group>` is forwarded as `aria-label` to the
+inner list element. When provided, the implicit `role="group"` is omitted in favor of the
+labeled list.
+
+```html
+<sbb-tag-group multiple accessibility-label="Select your desired font styles to filter it">
+  <sbb-tag value="bold" checked>Bold</sbb-tag>
+  <sbb-tag value="italic">Italic</sbb-tag>
+  <sbb-tag value="underline">Underline</sbb-tag>
 </sbb-tag-group>
 ```
 
@@ -171,7 +191,7 @@ that communicates the collective meaning of all `<sbb-tag>`s.
 | ----------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | `change`    | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
 | `didChange` | `Event`      | Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.                                                                            |                |
-| `input`     | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                |
+| `input`     | `InputEvent` |                                                                                                                                                                                    |                |
 
 #### Slots
 
@@ -185,14 +205,14 @@ that communicates the collective meaning of all `<sbb-tag>`s.
 
 #### Properties
 
-| Name                     | Attribute                  | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                    |
-| ------------------------ | -------------------------- | ------- | -------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled`               | `disabled`                 | public  | `boolean`                                    | `false` | Whether the component is disabled.                                                                                                                                                                                                             |
-| `listAccessibilityLabel` | `list-accessibility-label` | public  | `string`                                     | `''`    | This will be forwarded as aria-label to the inner list.                                                                                                                                                                                        |
-| `multiple`               | `multiple`                 | public  | `boolean`                                    | `false` | If set multiple to false, the selection is exclusive and the value is a string (or null). If set multiple to true, the selection can have multiple values and therefore value is an array. Changing multiple during run time is not supported. |
-| `size`                   | `size`                     | public  | `'s' \| 'm'`                                 | `null`  | Tag group size, either s (lean theme default) or m (standard theme default).                                                                                                                                                                   |
-| `tags`                   | -                          | public  | `SbbTagElement<T>[]`                         |         | The child instances of sbb-tag as an array.                                                                                                                                                                                                    |
-| `value`                  | `value`                    | public  | `(T = string \| (string \| null)[]) \| null` | `null`  | Value of the sbb-tag-group. If set multiple to false, the value is a string (or null). If set multiple to true, the value is an array.                                                                                                         |
+| Name                 | Attribute             | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                    |
+| -------------------- | --------------------- | ------- | -------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`                                     | `''`    | This will be forwarded as aria-label to the inner list.                                                                                                                                                                                        |
+| `disabled`           | `disabled`            | public  | `boolean`                                    | `false` | Whether the component is disabled.                                                                                                                                                                                                             |
+| `multiple`           | `multiple`            | public  | `boolean`                                    | `false` | If set multiple to false, the selection is exclusive and the value is a string (or null). If set multiple to true, the selection can have multiple values and therefore value is an array. Changing multiple during run time is not supported. |
+| `size`               | `size`                | public  | `'s' \| 'm'`                                 | `null`  | Tag group size, either s (lean theme default) or m (standard theme default).                                                                                                                                                                   |
+| `tags`               | -                     | public  | `SbbTagElement<T>[]`                         |         | The child instances of sbb-tag as an array.                                                                                                                                                                                                    |
+| `value`              | `value`               | public  | `(T = string \| (string \| null)[]) \| null` | `null`  | Value of the sbb-tag-group. If set multiple to false, the value is a string (or null). If set multiple to true, the value is an array.                                                                                                         |
 
 #### Slots
 

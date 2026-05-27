@@ -66,6 +66,7 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
     this.addEventListener?.('click', () => this._handleClick());
     this.addController(
       new SbbPropertyWatcherController(this, () => this._tagGroup(), {
+        multiple: () => this._updateAriaRole(),
         size: (g) => {
           this.size = g.size;
         },
@@ -75,6 +76,19 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
 
   private _tagGroup(): SbbTagGroupElement | null {
     return this.closest?.('sbb-tag-group') ?? null;
+  }
+
+  private _updateAriaRole(): void {
+    const tagGroup = this._tagGroup();
+    if (tagGroup && !tagGroup.multiple) {
+      this.internals.role = 'radio';
+      this.internals.ariaChecked = `${this.checked}`;
+      this.internals.ariaPressed = null;
+    } else {
+      this.internals.role = 'button';
+      this.internals.ariaChecked = null;
+      this.internals.ariaPressed = `${this.checked}`;
+    }
   }
 
   protected override isDisabledExternally(): boolean {
@@ -93,8 +107,6 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
       return;
     }
     this.checked = !this.checked;
-
-    /** The input event fires when the value has been changed as a direct result of a user action. */
     this.dispatchEvent(
       new InputEvent('input', {
         bubbles: true,
@@ -118,16 +130,23 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
+    const tagGroup = this._tagGroup();
 
     if (changedProperties.has('checked')) {
-      this.internals.ariaPressed = `${this.checked}`;
+      this._updateAriaRole();
       this.toggleState('checked', this.checked);
       this.updateFormValue();
     }
 
-    const tagGroup = this._tagGroup();
-    if (tagGroup && !tagGroup.multiple && changedProperties.has('checked') && this.checked) {
-      tagGroup?.tags.filter((t) => t !== this).forEach((t) => (t.checked = false));
+    if (tagGroup && !tagGroup.multiple && changedProperties.has('checked')) {
+      if (this.checked) {
+        tagGroup.tags.forEach((t) => {
+          t.tabIndex = t === this ? 0 : -1;
+          t.checked = t === this;
+        });
+      } else if (!tagGroup.tags.some((t) => t.checked)) {
+        tagGroup['updateExclusiveTabIndex']();
+      }
     }
   }
 
