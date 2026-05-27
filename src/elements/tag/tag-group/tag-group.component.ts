@@ -101,8 +101,6 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
     }
 
     if (changedProperties.has('listChildren') || changedProperties.has('multiple')) {
-      const enabledTags = this._enabledTags();
-
       if (!this.multiple) {
         // Ensure only one tag checked
         this.tags
@@ -110,12 +108,10 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
           .slice(1)
           .forEach((tag) => (tag.checked = false));
 
-        // In exclusive mode, only the checked tag (or the first non-disabled tag) should be focusable.
-        const focusTarget = enabledTags.find((t) => t.checked) ?? enabledTags[0];
-        enabledTags.forEach((t) => (t.tabIndex = t === focusTarget ? 0 : -1));
+        this.updateExclusiveTabIndex();
       } else if (changedProperties.has('multiple')) {
         // In multiple mode all enabled tags should be focusable
-        enabledTags.forEach((t) => (t.tabIndex = 0));
+        this._enabledTags().forEach((t) => (t.tabIndex = 0));
       }
     }
 
@@ -132,6 +128,13 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
 
   private _enabledTags(): SbbTagElement<T>[] {
     return this.tags.filter((t) => !t.disabled);
+  }
+
+  /** In exclusive mode, only the checked tag (or the first non-disabled tag) should be focusable. */
+  protected updateExclusiveTabIndex(): void {
+    const enabledTags = this._enabledTags();
+    const focusTarget = enabledTags.find((t) => t.checked) ?? enabledTags[0];
+    enabledTags.forEach((t) => (t.tabIndex = t === focusTarget ? 0 : -1));
   }
 
   private _handleArrowKeyDown(evt: KeyboardEvent): void {

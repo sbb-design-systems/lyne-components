@@ -138,11 +138,15 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
       this.updateFormValue();
     }
 
-    if (tagGroup && !tagGroup.multiple && changedProperties.has('checked') && this.checked) {
-      tagGroup?.tags.forEach((t) => {
-        t.tabIndex = t === this ? 0 : -1;
-        t.checked = t === this;
-      });
+    if (tagGroup && !tagGroup.multiple && changedProperties.has('checked')) {
+      if (this.checked) {
+        tagGroup.tags.forEach((t) => {
+          t.tabIndex = t === this ? 0 : -1;
+          t.checked = t === this;
+        });
+      } else if (!tagGroup.tags.some((t) => t.checked)) {
+        tagGroup['updateExclusiveTabIndex']();
+      }
     }
   }
 
