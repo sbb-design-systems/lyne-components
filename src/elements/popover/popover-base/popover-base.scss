@@ -1,0 +1,176 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  // As the popover has always a white background, we have to fix the focus outline color
+  // to default color for cases where the popover is used in a negative context.
+  --sbb-focus-outline-color: light-dark(
+    var(--sbb-focus-outline-color-default),
+    var(--sbb-focus-outline-color-dark)
+  );
+  --sbb-popover-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-4x)
+  );
+  --_sbb-popover-inset: 0 auto auto 0;
+  --_sbb-popover-translate: 0 var(--sbb-spacing-fixed-2x);
+  --_sbb-popover-box-shadow: var(--sbb-box-shadow-level-9-hard);
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize CSS of several frameworks.
+  outline: none !important;
+  display: none;
+}
+
+:host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
+  --_sbb-popover-inset: 0;
+
+  display: block;
+}
+
+:host(:state(position-above)) {
+  --_sbb-popover-translate: 0 calc(var(--sbb-spacing-fixed-2x) * -1);
+}
+
+// Popover arrow and arrow top cover
+.sbb-popover::after,
+.sbb-popover__content::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: var(--sbb-popover-arrow-size);
+  height: var(--sbb-popover-arrow-size);
+  left: var(--_sbb-popover-arrow-position-x, 0);
+  bottom: calc(100% - calc(var(--sbb-popover-arrow-size) / 2));
+  background-color: var(--sbb-popover-background);
+  border-radius: var(--sbb-border-radius-2x) 0;
+  rotate: 45deg;
+}
+
+.sbb-popover__container {
+  position: fixed;
+  inset: var(--_sbb-popover-inset);
+  pointer-events: none;
+  z-index: var(--sbb-popover-z-index, var(--sbb-overlay-default-z-index));
+}
+
+.sbb-popover {
+  display: none;
+  position: var(--sbb-popover-position, absolute);
+  top: var(--_sbb-popover-position-y, 0);
+  bottom: unset;
+  left: var(--_sbb-popover-position-x, 0);
+  right: unset;
+  background-color: var(--sbb-popover-background);
+  max-width: var(--sbb-popover-max-width);
+  width: max-content;
+  padding: 0;
+  box-shadow: var(--_sbb-popover-box-shadow);
+  border: none;
+  border-radius: var(--sbb-popover-border-radius);
+  outline: none;
+  pointer-events: all;
+
+  :host(:focus-visible) & {
+    @include sbb.focus-outline;
+  }
+
+  :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
+    display: block;
+
+    animation: {
+      name: open;
+      duration: var(--sbb-popover-animation-duration);
+      timing-function: var(--sbb-popover-animation-easing);
+    }
+  }
+
+  :host(:state(state-closing)) & {
+    pointer-events: none;
+    animation: {
+      name: close;
+      duration: var(--sbb-popover-animation-duration);
+      timing-function: var(--sbb-popover-animation-easing);
+    }
+  }
+
+  // Popover arrow
+  &::after {
+    z-index: -1;
+    box-shadow: var(--_sbb-popover-box-shadow);
+
+    @media (forced-colors: active) {
+      outline: var(--sbb-border-width-1x) solid CanvasText;
+    }
+
+    :host(:state(position-above)) & {
+      top: calc(100% - calc(var(--sbb-popover-arrow-size) / 2));
+    }
+  }
+
+  @media (forced-colors: active) {
+    outline: var(--sbb-border-width-1x) solid CanvasText;
+  }
+
+  // Transparent area which increases hover area in order to not trigger closing too early.
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: transparent;
+
+    :host(:state(position-below)) & {
+      inset-block-start: calc(-1 * var(--sbb-spacing-fixed-6x));
+    }
+
+    :host(:state(position-above)) & {
+      inset-block-end: calc(-1 * var(--sbb-spacing-fixed-6x));
+    }
+  }
+}
+
+.sbb-popover__content {
+  border-radius: var(--sbb-popover-border-radius);
+  padding: var(--sbb-popover-padding);
+  outline: none;
+  background-color: var(--sbb-popover-background);
+
+  &::before {
+    // Clip the arrow that it doesn't overflow content
+    clip-path: polygon(100% 0, 0% 0%, 0% 100%);
+  }
+
+  :host(:state(position-above)) & {
+    &::before {
+      top: calc(100% - calc(var(--sbb-popover-arrow-size) / 2));
+
+      // Clip the arrow that it doesn't overflow content
+      clip-path: polygon(100% 0, 100% 100%, 0% 100%);
+    }
+  }
+}
+
+@keyframes open {
+  from {
+    opacity: 0;
+    translate: var(--_sbb-popover-translate);
+  }
+
+  to {
+    opacity: 1;
+    translate: 0;
+  }
+}
+
+@keyframes close {
+  from {
+    opacity: 1;
+    translate: 0;
+  }
+
+  to {
+    opacity: 0;
+    translate: var(--_sbb-popover-translate);
+  }
+}

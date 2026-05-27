@@ -132,12 +132,12 @@ describe(`sbb-popover`, () => {
     );
   });
 
-  describeViewports({ viewports: ['zero'], viewportHeight: 150 }, () => {
+  describeViewports({ viewports: ['zero'], viewportHeight: 180 }, () => {
     it(
       `scrollable content`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(popover(), {
-          minHeight: '150px',
+          minHeight: '180px',
           padding: '3rem',
         });
         setup.withPostSetupAction(() =>

@@ -16,7 +16,6 @@ snapshots["sbb-popover renders Shadow DOM"] =
     <div class="sbb-popover__content">
       <span class="sbb-popover__scrollable-content sbb-scrollbar">
         <slot>
-          No content
         </slot>
       </span>
     </div>
@@ -25,7 +24,7 @@ snapshots["sbb-popover renders Shadow DOM"] =
 `;
 /* end snapshot sbb-popover renders Shadow DOM */
 
-snapshots["sbb-popover renders A11y tree Chrome"] = 
+snapshots["sbb-popover renders A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",
