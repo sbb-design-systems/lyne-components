@@ -139,13 +139,10 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
     }
 
     if (tagGroup && !tagGroup.multiple && changedProperties.has('checked') && this.checked) {
-      this.tabIndex = 0;
-      tagGroup?.tags
-        .filter((t) => t !== this)
-        .forEach((t) => {
-          t.checked = false;
-          t.tabIndex = -1;
-        });
+      tagGroup?.tags.forEach((t) => {
+        t.tabIndex = t === this ? 0 : -1;
+        t.checked = t === this;
+      });
     }
   }
 

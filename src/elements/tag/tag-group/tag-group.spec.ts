@@ -767,6 +767,16 @@ describe(`sbb-tag-group`, () => {
         expect(tags[2].tabIndex).to.equal(-1);
       });
 
+      it('should focus first enabled tag when none is checked', async () => {
+        const tags = element.querySelectorAll<SbbTagElement>('sbb-tag');
+        tags.forEach((t) => (t.checked = false));
+        await waitForLitRender(element);
+
+        expect(tags[0].tabIndex).to.equal(0);
+        expect(tags[1].tabIndex).to.equal(-1);
+        expect(tags[2].tabIndex).to.equal(-1);
+      });
+
       it('should update roving tabindex after focus change via arrow key', async () => {
         const tag2 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-2')!;
         const tag3 = element.querySelector<SbbTagElement>('sbb-tag#sbb-tag-3')!;

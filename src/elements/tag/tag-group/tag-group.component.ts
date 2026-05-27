@@ -101,6 +101,8 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
     }
 
     if (changedProperties.has('listChildren') || changedProperties.has('multiple')) {
+      const enabledTags = this._enabledTags();
+
       if (!this.multiple) {
         // Ensure only one tag checked
         this.tags
@@ -108,10 +110,12 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
           .slice(1)
           .forEach((tag) => (tag.checked = false));
 
-        this._updateFocusableTags();
+        // In exclusive mode, only the checked tag (or the first non-disabled tag) should be focusable.
+        const focusTarget = enabledTags.find((t) => t.checked) ?? enabledTags[0];
+        enabledTags.forEach((t) => (t.tabIndex = t === focusTarget ? 0 : -1));
       } else if (changedProperties.has('multiple')) {
         // In multiple mode all enabled tags should be focusable
-        this._enabledTags().forEach((t) => (t.tabIndex = 0));
+        enabledTags.forEach((t) => (t.tabIndex = 0));
       }
     }
 
@@ -123,25 +127,6 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
         this.internals.role = 'radiogroup';
         this.internals.ariaLabel = this.accessibilityLabel;
       }
-    }
-  }
-
-  /**
-   * In exclusive mode, only the checked tag (or the first non-disabled tag) should be focusable.
-   */
-  private _updateFocusableTags(): void {
-    const enabledTags = this._enabledTags();
-    if (!enabledTags.length) {
-      return;
-    }
-
-    if (enabledTags.some((t) => t.checked)) {
-      enabledTags.forEach((t) => {
-        t.tabIndex = t.checked ? 0 : -1;
-      });
-    } else {
-      enabledTags[0].tabIndex = 0;
-      enabledTags.slice(1).forEach((t) => (t.tabIndex = -1));
     }
   }
 
@@ -165,8 +150,7 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
     const nextTag = enabledTags[nextIndex];
 
     // Only move focus, do not select. Selection happens via click or Space/Enter.
-    enabledTags.forEach((t) => (t.tabIndex = -1));
-    nextTag.tabIndex = 0;
+    enabledTags.forEach((t) => (t.tabIndex = t === nextTag ? 0 : -1));
     nextTag.focus();
   }
 
