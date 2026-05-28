@@ -260,12 +260,12 @@ const stickyBarArgs: Args = {
 
 const actionGroup = (): TemplateResult => html`
   <sbb-action-group
-    class="sbb-orientation-vertical-full-width sbb-orientation-horizontal-from-large"
-    style="width:100%; justify-content: end;"
+    class="sbb-orientation-vertical-full-width sbb-orientation-horizontal-from-small"
+    style="width:100%;"
   >
     <sbb-block-link
       size="m"
-      style="margin-inline-end: auto; margin-block: auto;"
+      style="margin-inline-end: auto;"
       icon-name="chevron-small-left-small"
       href="https://www.sbb.ch/en/"
     >

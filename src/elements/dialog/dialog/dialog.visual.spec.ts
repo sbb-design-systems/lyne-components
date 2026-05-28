@@ -38,28 +38,17 @@ describe(`sbb-dialog`, () => {
     </sbb-dialog-content>
   `;
 
-  const dialogFooter = (
-    negative = false,
-    justifyContent = 'end',
-    hideLink = false,
-  ): TemplateResult => html`
-    <sbb-dialog-actions
-      style=${`justify-content: ${justifyContent}`}
-      class=${hideLink
-        ? 'sbb-orientation-horizontal-from-large sbb-orientation-vertical-full-width'
-        : nothing}
-    >
-      ${hideLink
-        ? nothing
-        : html`<sbb-block-link
-            icon-name="chevron-small-left-small"
-            href="https://www.sbb.ch/en/"
-            ?negative=${negative}
-            sbb-dialog-close
-            style=${justifyContent === 'end' ? `margin-inline-end: auto;` : nothing}
-          >
-            Link
-          </sbb-block-link> `}
+  const dialogFooter = (negative = false, justifyContent = 'end'): TemplateResult => html`
+    <sbb-dialog-actions style="justify-content: ${justifyContent}">
+      <sbb-block-link
+        icon-name="chevron-small-left-small"
+        href="https://www.sbb.ch/en/"
+        ?negative=${negative}
+        sbb-dialog-close
+        style=${justifyContent === 'end' ? `margin-inline-end: auto;` : nothing}
+      >
+        Link
+      </sbb-block-link>
       <sbb-secondary-button sbb-dialog-close ?negative=${negative}>Cancel</sbb-secondary-button>
       <sbb-button sbb-dialog-close sbb-focus-initial ?negative=${negative}>Confirm</sbb-button>
     </sbb-dialog-actions>
@@ -170,27 +159,6 @@ describe(`sbb-dialog`, () => {
           button.click();
           const content = setup.snapshotElement.querySelector('sbb-dialog-content')!;
           content.scrollTo(0, content.scrollHeight);
-        });
-      }),
-    );
-
-    it(
-      `with two actions`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html`
-            <sbb-button id="trigger">Trigger</sbb-button>
-            <sbb-dialog trigger="trigger">
-              ${dialogTitle()}
-              <sbb-dialog-close-button></sbb-dialog-close-button>
-              ${dialogContent(true)} ${dialogFooter(false, undefined, true)}
-            </sbb-dialog>
-          `,
-          { minHeight: '600px' },
-        );
-        setup.withPostSetupAction(() => {
-          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
-          button.click();
         });
       }),
     );

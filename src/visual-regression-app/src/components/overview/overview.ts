@@ -42,8 +42,8 @@ class Overview extends LitElement {
           ${screenshots.stats}
           <sbb-card color="milk">
             <sbb-action-group
-              style="--sbb-action-group-justify-content: space-between"
-              class="sbb-action-group-horizontal-from-large"
+              style="justify-content: space-between"
+              class="sbb-action-group-horizontal-from-small"
             >
               ${meta.baselineGitSha && !screenshots.baselineOnly
                 ? html`<sbb-block-link
@@ -70,7 +70,7 @@ class Overview extends LitElement {
                   >`
                 : nothing}
               <sbb-button-link
-                size="l"
+                size="s"
                 class="app-compare-link"
                 href="/compare/${screenshots.flatTestCases[0]?.path}"
               >

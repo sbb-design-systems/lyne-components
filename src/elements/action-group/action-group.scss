@@ -6,3 +6,39 @@
   justify-content: start;
   gap: var(--sbb-action-group-gap);
 }
+
+// A part of the rules are defined in layout.scss
+
+:host(.sbb-orientation-vertical-full-width) {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+:host(
+  :where(
+    .sbb-orientation-vertical,
+    .sbb-orientation-horizontal-from-small,
+    .sbb-orientation-horizontal-from-large,
+    .sbb-orientation-horizontal-from-ultra
+  )
+) {
+  align-items: start;
+}
+
+:host(.sbb-orientation-horizontal-from-small) {
+  @include sbb.mq($from: small) {
+    align-items: center;
+  }
+}
+
+:host(.sbb-orientation-horizontal-from-large) {
+  @include sbb.mq($from: large) {
+    align-items: center;
+  }
+}
+
+:host(.sbb-orientation-horizontal-from-ultra) {
+  @include sbb.mq($from: ultra) {
+    align-items: center;
+  }
+}

@@ -1,4 +1,5 @@
 @use '../mixins/layout';
+@use '../mixins/mediaqueries';
 
 .sbb-grid,
 .sbb-page-spacing {
@@ -19,25 +20,28 @@
   @include layout.grid-base;
 }
 
-.sbb-orientation-vertical {
+.sbb-orientation-vertical,
+.sbb-orientation-horizontal-from-small,
+.sbb-orientation-horizontal-from-large,
+.sbb-orientation-horizontal-from-ultra {
   display: flex;
   flex-direction: column;
-}
-
-.sbb-orientation-vertical-full-width {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
 }
 
 .sbb-orientation-horizontal-from-small {
-  @include layout.flex-horizontal-from(small);
+  @include mediaqueries.mq($from: small) {
+    flex-direction: row;
+  }
 }
 
 .sbb-orientation-horizontal-from-large {
-  @include layout.flex-horizontal-from(large);
+  @include mediaqueries.mq($from: large) {
+    flex-direction: row;
+  }
 }
 
 .sbb-orientation-horizontal-from-ultra {
-  @include layout.flex-horizontal-from(ultra);
+  @include mediaqueries.mq($from: ultra) {
+    flex-direction: row;
+  }
 }

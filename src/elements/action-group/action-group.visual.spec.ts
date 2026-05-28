@@ -1,133 +1,64 @@
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 
 import {
-  describeEach,
+  type DescribeViewportOptions,
   describeViewports,
   visualDiffDefault,
-  visualRegressionFixture,
 } from '../core/testing/private.ts';
 
 import '../action-group.ts';
 import '../button.ts';
 import '../link.ts';
 
+const items = html`<sbb-secondary-button>Button 1</sbb-secondary-button>
+  <sbb-button>Button 2</sbb-button>
+  <sbb-block-link
+    icon-name="chevron-small-left-small"
+    href="https://github.com/sbb-design-systems/lyne-components"
+  >
+    Link
+  </sbb-block-link>`;
+
 describe(`sbb-action-group`, () => {
-  let root: HTMLElement;
+  describeViewports({ viewports: ['zero', 'small', 'large', 'ultra'] }, () => {
+    it(
+      'default',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html` <sbb-action-group>${items}</sbb-action-group> `);
+      }),
+    );
 
-  const horizontalCases = [
-    { name: '300', elements: 3 },
-    { name: '111', elements: 3, marginFirst: 'end', marginThird: 'start' },
-    { name: '201', elements: 3, marginThird: 'start' },
-    { name: '102', elements: 3, marginFirst: 'end' },
-    { name: '200', elements: 2 },
-    { name: '101', elements: 2, marginFirst: 'end' },
-  ];
+    it(
+      'vertical',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-action-group class="sbb-orientation-vertical">${items}</sbb-action-group>
+        `);
+      }),
+    );
 
-  const verticalCases = {
-    elements: [3, 2],
-    alignGroup: ['start', 'center', 'end'],
-  };
-
-  describeViewports({ viewports: ['small', 'ultra'] }, () => {
-    describe('horizontal', () => {
-      for (const state of horizontalCases) {
-        it(
-          state.name,
-          visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(html`
-              <sbb-action-group>
-                <sbb-secondary-button
-                  style=${state.marginFirst ? `margin-inline-${state.marginFirst}: auto;` : ''}
-                  >Button 1</sbb-secondary-button
-                >
-                <sbb-button>Button 2</sbb-button>
-                ${state.elements === 3
-                  ? html` <sbb-block-link
-                      style=${state.marginThird ? `margin-inline-${state.marginThird}: auto;` : ''}
-                      icon-name="chevron-small-left-small"
-                      href="https://github.com/sbb-design-systems/lyne-components"
-                    >
-                      Link
-                    </sbb-block-link>`
-                  : nothing}
-              </sbb-action-group>
-            `);
-          }),
-        );
-      }
-    });
-
-    describeEach(verticalCases, ({ elements, alignGroup }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(html`
-          <sbb-action-group
-            class="sbb-action-group-vertical"
-            style=${`--sbb-action-group-align-items: ${alignGroup}`}
-          >
-            <sbb-secondary-button>Button 1</sbb-secondary-button>
-            <sbb-button>Button 2</sbb-button>
-            ${elements === 3
-              ? html` <sbb-block-link
-                  icon-name="chevron-small-left-small"
-                  href="https://github.com/sbb-design-systems/lyne-components"
-                >
-                  Link
-                </sbb-block-link>`
-              : nothing}
+    it(
+      `sbb-orientation-vertical-full-width`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-action-group class="sbb-orientation-vertical-full-width">
+            ${items}
           </sbb-action-group>
         `);
-      });
+      }),
+    );
 
+    for (const breakpoint of [
+      'small',
+      'large',
+      'ultra',
+    ] satisfies DescribeViewportOptions['viewports']) {
       it(
-        `vertical ${visualDiffDefault.name}`,
-        visualDiffDefault.with((setup) => {
-          setup.withSnapshotElement(root);
-        }),
-      );
-    });
-
-    describe('orientation=vertical-full-width', () => {
-      for (const alignThird of ['start', 'center', 'end']) {
-        it(
-          `align-third=${alignThird}`,
-          visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(html`
-              <sbb-action-group class="sbb-action-group-vertical-full-width">
-                <sbb-secondary-button>Button 1</sbb-secondary-button>
-                <sbb-button>Button 2</sbb-button>
-                <sbb-block-link
-                  style=${`margin-inline: auto; ` +
-                  (alignThird === 'center' ? '' : `margin-inline-${alignThird}: unset;`)}
-                  icon-name="chevron-small-left-small"
-                  href="https://github.com/sbb-design-systems/lyne-components"
-                >
-                  Link
-                </sbb-block-link>
-              </sbb-action-group>
-            `);
-          }),
-        );
-      }
-    });
-
-    for (const breakpoint in ['small', 'large', 'ultra']) {
-      it(
-        `orientation=vertical-horizontal-from=${breakpoint}`,
+        `sbb-orientation-horizontal-from-${breakpoint}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-action-group
-              style="align-items: start;"
-              class=${`sbb-orientation-horizontal-from-${breakpoint}`}
-            >
-              <sbb-secondary-button>Button 1</sbb-secondary-button>
-              <sbb-button>Button 2</sbb-button>
-              <sbb-block-link
-                style="margin-block: auto;"
-                icon-name="chevron-small-left-small"
-                href="https://github.com/sbb-design-systems/lyne-components"
-              >
-                Link
-              </sbb-block-link>
+            <sbb-action-group class="sbb-orientation-horizontal-from-${breakpoint}">
+              ${items}
             </sbb-action-group>
           `);
         }),

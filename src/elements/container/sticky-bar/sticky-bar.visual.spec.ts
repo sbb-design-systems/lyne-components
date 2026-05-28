@@ -43,8 +43,7 @@ describe(`sbb-sticky-bar`, () => {
       style="width:100%; justify-content: space-between;"
     >
       <sbb-block-link
-        size="m"
-        style="margin-block: auto;"
+        size="s"
         ?negative=${!!color && isDark(color)}
         icon-name="chevron-small-left-small"
       >

@@ -36,12 +36,3 @@
   @include grid-base;
   @include page-spacing-expanded;
 }
-
-@mixin flex-horizontal-from($breakpoint) {
-  display: flex;
-  flex-direction: column;
-
-  @include mediaqueries.mq($from: $breakpoint) {
-    flex-direction: row;
-  }
-}
