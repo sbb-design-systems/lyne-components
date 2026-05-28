@@ -75,11 +75,7 @@ The navigation actions can have an initial active state which can be set by usin
 
 ### Style
 
-The action components have three different sizes, which can be changed using the `size` property (`l`, which is the default, `m` and `s`).
-
-```html
-<sbb-navigation-link href="#info" size="m">Link</sbb-navigation-link>
-```
+The `size` value of the parent `sbb-navigation-marker`, if present, determines the size of the components.
 
 ## Navigation Marker
 
