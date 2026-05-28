@@ -4,6 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbTagGroupElement } from '../tag-group/tag-group.component.ts';
 
 import { SbbTagElement } from './tag.component.ts';
 import '../../icon.ts';
@@ -123,6 +124,67 @@ describe(`sbb-tag`, () => {
       await waitForLitRender(form);
 
       expect(element.checked).to.be.true;
+    });
+  });
+
+  describe('aria role update on multiple change', () => {
+    it('should update role and aria attributes when tag-group switches from exclusive to multiple', async () => {
+      const group: SbbTagGroupElement = await fixture(html`
+        <sbb-tag-group>
+          <sbb-tag id="tag1" value="tag1" checked>Tag 1</sbb-tag>
+          <sbb-tag id="tag2" value="tag2">Tag 2</sbb-tag>
+        </sbb-tag-group>
+      `);
+      const tag1 = group.querySelector<SbbTagElement>('#tag1')!;
+      const tag2 = group.querySelector<SbbTagElement>('#tag2')!;
+
+      // In exclusive mode: role=radio, ariaChecked set, ariaPressed null
+      expect(elementInternals.get(tag1)!.role).to.equal('radio');
+      expect(elementInternals.get(tag1)!.ariaChecked).to.equal('true');
+      expect(elementInternals.get(tag1)!.ariaPressed).to.be.null;
+      expect(elementInternals.get(tag2)!.role).to.equal('radio');
+      expect(elementInternals.get(tag2)!.ariaChecked).to.equal('false');
+      expect(elementInternals.get(tag2)!.ariaPressed).to.be.null;
+
+      // Switch to multiple mode
+      group.multiple = true;
+      await waitForLitRender(group);
+
+      // In multiple mode: role null, ariaPressed set, ariaChecked null
+      expect(elementInternals.get(tag1)!.role).to.equal('button');
+      expect(elementInternals.get(tag1)!.ariaPressed).to.equal('true');
+      expect(elementInternals.get(tag1)!.ariaChecked).to.be.null;
+      expect(elementInternals.get(tag2)!.role).to.equal('button');
+      expect(elementInternals.get(tag2)!.ariaPressed).to.equal('false');
+      expect(elementInternals.get(tag2)!.ariaChecked).to.be.null;
+    });
+
+    it('should update role and aria attributes when tag-group switches from multiple to exclusive', async () => {
+      const group: SbbTagGroupElement = await fixture(html`
+        <sbb-tag-group multiple>
+          <sbb-tag id="tag1" value="tag1" checked>Tag 1</sbb-tag>
+          <sbb-tag id="tag2" value="tag2">Tag 2</sbb-tag>
+        </sbb-tag-group>
+      `);
+      const tag1 = group.querySelector<SbbTagElement>('#tag1')!;
+      const tag2 = group.querySelector<SbbTagElement>('#tag2')!;
+
+      // In multiple mode: role null, ariaPressed set
+      expect(elementInternals.get(tag1)!.role).to.equal('button');
+      expect(elementInternals.get(tag1)!.ariaPressed).to.equal('true');
+      expect(elementInternals.get(tag1)!.ariaChecked).to.be.null;
+
+      // Switch to exclusive mode
+      group.multiple = false;
+      await waitForLitRender(group);
+
+      // In exclusive mode: role=radio, ariaChecked set, ariaPressed null
+      expect(elementInternals.get(tag1)!.role).to.equal('radio');
+      expect(elementInternals.get(tag1)!.ariaChecked).to.equal('true');
+      expect(elementInternals.get(tag1)!.ariaPressed).to.be.null;
+      expect(elementInternals.get(tag2)!.role).to.equal('radio');
+      expect(elementInternals.get(tag2)!.ariaChecked).to.equal('false');
+      expect(elementInternals.get(tag2)!.ariaPressed).to.be.null;
     });
   });
 });

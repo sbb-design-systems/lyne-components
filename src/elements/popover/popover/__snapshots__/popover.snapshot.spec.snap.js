@@ -1,0 +1,42 @@
+/* @web/test-runner snapshot v1 */
+export const snapshots = {};
+
+snapshots["sbb-popover renders DOM"] = 
+`<sbb-popover popover="manual">
+</sbb-popover>
+`;
+/* end snapshot sbb-popover renders DOM */
+
+snapshots["sbb-popover renders Shadow DOM"] = 
+`<div class="sbb-popover__container">
+  <div
+    class="sbb-popover"
+    role="tooltip"
+  >
+    <div class="sbb-popover__content">
+      <span class="sbb-popover__scrollable-content sbb-scrollbar">
+        <slot>
+        </slot>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+/* end snapshot sbb-popover renders Shadow DOM */
+
+snapshots["sbb-popover renders A11y tree Chrome"] =
+`<p>
+  {
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-popover renders A11y tree Chrome */
+

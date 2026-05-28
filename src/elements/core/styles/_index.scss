@@ -1,8 +1,8 @@
-@forward './core/functions';
-@forward './core/mediaqueries';
-
+@forward './mixins/functions';
+@forward './mixins/mediaqueries';
 @forward './mixins/a11y';
 @forward './mixins/animation';
+@forward './mixins/core';
 @forward './mixins/font-face';
 @forward './mixins/helpers';
 @forward './mixins/layout';

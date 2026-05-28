@@ -1,7 +1,7 @@
 @use 'sass:selector';
-@use '../core/functions';
-@use '../core/mediaqueries';
 @use './a11y';
+@use './functions';
+@use './mediaqueries';
 @use './typo';
 
 @mixin list {

@@ -144,6 +144,7 @@ const DefaultTemplate = ({
         ></sbb-mini-button>
       </p>
       <sbb-popover trigger="popover-trigger">
+        <sbb-popover-close-button></sbb-popover-close-button>
         <p style="margin: 0" class="sbb-text-s">Some content.</p>
       </sbb-popover>
     </sbb-dialog-content>

@@ -1,0 +1,41 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --_sbb-popover-half-padding: calc(0.5 * var(--sbb-popover-padding));
+
+  position: relative;
+}
+
+:host(:state(has-close-button)) {
+  --_sbb-popover-close-button-min-height: calc(
+    var(--sbb-button-min-height-size-s) + 2 * var(--sbb-popover-padding)
+  );
+  --_sbb-popover-close-button-min-width: calc(
+    var(--_sbb-popover-close-button-min-height) - var(--_sbb-popover-half-padding)
+  );
+}
+
+.sbb-popover__content {
+  // We use half of the padding on the container and half on the scroll context.
+  // With that, the focus outline is not cut and the scrollable context doesn't touch the borders.
+  padding-block: var(--_sbb-popover-half-padding);
+  padding-inline: var(--_sbb-popover-half-padding)
+    var(--_sbb-popover-close-button-min-width, var(--_sbb-popover-half-padding));
+  min-height: var(--_sbb-popover-close-button-min-height);
+}
+
+.sbb-popover__scrollable-content {
+  display: block;
+
+  // We use half of the padding on the container and half on the scroll context.
+  // With that, the focus outline is not cut and the scrollable context doesn't touch the borders.
+  padding-inline: var(--_sbb-popover-half-padding);
+  padding-block: var(--_sbb-popover-half-padding);
+  max-height: calc(var(--_sbb-popover-max-height) - var(--sbb-spacing-fixed-1x));
+  overflow: auto;
+}
+
+::slotted(sbb-popover-close-button) {
+  position: absolute;
+  inset: var(--sbb-popover-padding) var(--sbb-popover-padding) auto auto;
+}

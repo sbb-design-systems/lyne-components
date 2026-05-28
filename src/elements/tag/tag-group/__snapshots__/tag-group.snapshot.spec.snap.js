@@ -12,7 +12,7 @@ snapshots["sbb-tag-group renders DOM"] =
   </sbb-tag>
   <sbb-tag
     slot="li-1"
-    tabindex="0"
+    tabindex="-1"
     value="tag-2"
   >
     Second tag
@@ -21,7 +21,7 @@ snapshots["sbb-tag-group renders DOM"] =
   </div>
   <sbb-tag
     slot="li-3"
-    tabindex="0"
+    tabindex="-1"
     value="tag-3"
   >
     Third tag
@@ -63,8 +63,9 @@ snapshots["sbb-tag-group renders A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "group",
-      "name": ""
+      "role": "radiogroup",
+      "name": "",
+      "required": false
     }
   ]
 }

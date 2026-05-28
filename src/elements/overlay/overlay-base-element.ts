@@ -283,18 +283,16 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   protected closeOnSbbOverlayCloseClick(event: Event): void {
     const overlayCloseElement = event
       .composedPath()
-      .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
       .find(
-        (target) =>
-          (target.hasAttribute(this.closeAttribute) || target.localName === this.closeTag) &&
-          !target.hasAttribute('disabled'),
+        (el, i, a): el is HTMLElement =>
+          el instanceof HTMLElement &&
+          i < a.indexOf(this) &&
+          (el.hasAttribute(this.closeAttribute) || el.localName === this.closeTag) &&
+          !el.hasAttribute('disabled') &&
+          (el.closest(this.localName) === this || (this.shadowRoot?.contains(el) ?? false)),
       );
 
-    if (
-      !overlayCloseElement ||
-      (overlayCloseElement.closest(this.localName) !== this &&
-        !this.shadowRoot?.contains(overlayCloseElement))
-    ) {
+    if (!overlayCloseElement) {
       return;
     }
 

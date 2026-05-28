@@ -80,7 +80,7 @@ const value: InputType = {
   },
 };
 
-const listAccessibilityLabel: InputType = {
+const accessibilityLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -133,7 +133,7 @@ const defaultArgTypes: ArgTypes = {
   multiple,
   disabled,
   value,
-  'list-accessibility-label': listAccessibilityLabel,
+  'accessibility-label': accessibilityLabel,
   'aria-label': ariaLabel,
   numberOfTagsInGroup,
   size,
@@ -143,7 +143,7 @@ const defaultArgs: Args = {
   multiple: true,
   disabled: false,
   value: undefined,
-  'list-accessibility-label': 'Select your desired filter',
+  'accessibility-label': 'Select your desired filter',
   'aria-label': undefined,
   numberOfTagsInGroup: 8,
   size: undefined,
