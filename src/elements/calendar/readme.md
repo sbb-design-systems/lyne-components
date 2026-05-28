@@ -17,11 +17,11 @@ The slot name is mandatory, and it requires a date in ISO8601 format (e.g. 2025-
 ```
 
 The `<sbb-calendar>` creates its own slots based on the month to be displayed;
-during initialization, the month is the current one (if there's no `selected` date).
+during initialization, the month is the current one (if there's no date assigned to `value`).
 So for the first render, the slotted `<sbb-calendar-day>` elements must match that month.
-When using an `amount` greater than 1, additional `<sbb-calendar-day>` must be rendered
-for each month (they must not be grouped, but just sequentially rendered as direct children
-of the `<sbb-calendar>` element).
+The `amount` property can be used to display more than one month; in this case, additional
+`<sbb-calendar-day>` must be rendered for each month (they must not be grouped, just
+sequentially rendered as direct children of the `<sbb-calendar>` element).
 
 Each time the month changes due to user interaction with the previous/next month buttons,
 or via selecting a different year and then a month, a `monthchange` event is emitted, typed as
@@ -42,8 +42,8 @@ and slot the `<sbb-calendar-day>`s of the chosen month.
 ```
 
 ```html
-<!-- Slot days based on the current date, or the selected one if available.-->
-<sbb-calendar selected="2025-01-15" @monthchange="(event) => monthChangeHandler(event)">
+<!-- Slot days based on the current or defined date. -->
+<sbb-calendar value="2025-01-15" @monthchange="(event) => monthChangeHandler(event)">
   <sbb-calendar-day slot="2025-01-01">
     <span class="sbb-text-xxs my-custom-content"> 19.99 </span>
   </sbb-calendar-day>
@@ -80,14 +80,14 @@ function monthChangeHandler(event: SbbMonthChangeEvent): void {
 The `<sbb-calendar-day>` component has a `current` state, which is set if the slot name matches
 the current day.
 
-Also, it has other states based on the properties of the parent `<sbb-calendar>`.
+It also has other states based on the properties of the parent `<sbb-calendar>`.
 The disabled and the crossed-out states are based on the value of the `min`, `max` and `dateFilter`
-properties, while the selected matches the parent `selected` properties, including the multiple
+properties, while `selected` matches the parent `value` property, including the multiple
 variant.
 
 ## Configuration
 
-It's possible to set a date using the `dateSelected` property. Also, it's possible to place limits
+It's possible to set a date using the `value` property. Also, it's possible to place limits
 on the selection using the two properties named `min` and `max`. For these three properties, the
 accepted formats are:
 
@@ -98,11 +98,11 @@ accepted formats are:
 It's recommended to set the time to 00:00:00.
 
 ```html
-<sbb-calendar min="1599955200" max="1699920000" selected="1649980800"></sbb-calendar>
+<sbb-calendar min="1599955200" max="1699920000" value="1649980800"></sbb-calendar>
 ```
 
 By default, the component takes, in order of priority,
-the `dateSelected` property or the current date to calculate which month it has to show.
+the `value` property or the current date to calculate which month it has to show.
 It's possible to move to the previous/next month using the two buttons at the top of the component.
 
 It's also possible to select a specific date by clicking on the month label between the buttons:
@@ -114,9 +114,9 @@ The `<sbb-calendar>` can be directly displayed in one of these modalities using 
 (default: `day`).
 
 ```html
-<sbb-calendar selected="1585699200" view="month"></sbb-calendar>
+<sbb-calendar value="1585699200" view="month"></sbb-calendar>
 
-<sbb-calendar selected="1585699200" view="year"></sbb-calendar>
+<sbb-calendar value="1585699200" view="year"></sbb-calendar>
 ```
 
 The `<sbb-calendar>` uses two different components to render years and months in their view,
@@ -141,7 +141,7 @@ const dateFilterFn: (d: Day) => boolean = d.getDay() !== 6 && d.getDay() !== 0;
 
 By default, the component allows selecting a single date:
 this behavior can be changed by setting the `multiple` attribute to true.
-In this case the `selected` property, if set, must be an array; moreover,
+In this case the `value` property, if set, must be an array; moreover,
 the days of the week become clickable, allowing to select an entire column
 (e.g. all the Mondays, all the Tuesdays and so on).
 Additionally it is possible to select a range of dates, by clicking on a
@@ -165,7 +165,7 @@ in the `year` view, or a list of months in the `month` view.
 When setting the `amount` to a value greater than 1, it will display the given amount of months.
 
 ```html
-<sbb-calendar wide="true" selected="1699920000"></sbb-calendar>
+<sbb-calendar wide="true" value="1699920000"></sbb-calendar>
 ```
 
 It's also possible to change the orientation of dates by setting the `orientation` property to
@@ -189,8 +189,8 @@ possible to display the ISO week dates perpendicularly to week days,so on the le
 
 ## Events
 
-Consumers can listen to the `dateselected` event on the `<sbb-calendar>` component to intercept the selected date/dates
-which can be read from the `event.dateSelected` property.
+The `change` event is dispatched every time a user selects or deselects a date.
+
 Check the [Slot and day customization](docs/elements-calendar--docs#slots-and-day-customization) paragraph
 for more information about the `monthchange` event.
 
@@ -270,7 +270,7 @@ For accessibility purposes, the component is rendered as a native table element 
 
 | Name                | Attribute      | Privacy | Type                                     | Default        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------- | -------------- | ------- | ---------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `amount`            | `amount`       | public  | `number`                                 | `1`            |                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `amount`            | `amount`       | public  | `number`                                 | `1`            | The amount of months to display in this calendar.                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `dateFilter`        | `date-filter`  | public  | `((date: T \| null) => boolean) \| null` | `null`         | A function used to filter out dates.                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `form`              | -              | public  | `HTMLFormElement \| null`                |                | Returns the form owner of this element.                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `max`               | `max`          | public  | `T \| null`                              | `null`         | The maximum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.                                                                                                                                                                                                                                                                                                                              |

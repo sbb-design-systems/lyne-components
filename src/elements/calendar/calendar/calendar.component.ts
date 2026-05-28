@@ -148,6 +148,9 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     monthchange: 'monthchange',
   } as const;
 
+  /**
+   * The amount of months to display in this calendar.
+   */
   @forceType()
   @property({ type: Number })
   public accessor amount: number = 1;
