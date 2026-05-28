@@ -33,7 +33,7 @@
   outline: 0;
 }
 
-:host(:not(:disabled):active) {
+:host(:not(:disabled):where(:state(active), :active)) {
   --sbb-calendar-cell-background-color: var(--sbb-calendar-cell-background-color-active);
 }
 
@@ -67,7 +67,7 @@
     transition-property: background-color;
     z-index: -1;
 
-    :host(:not(:disabled):active) & {
+    :host(:not(:disabled):where(:state(active), :active)) & {
       @media (forced-colors: active) {
         @include sbb.focus-outline;
 
@@ -78,7 +78,7 @@
     }
   }
 
-  :host(:not(:active, :disabled):hover) & {
+  :host(:not(:active, :state(active), :disabled):hover) & {
     @include sbb.hover-mq($hover: true) {
       --sbb-calendar-cell-background-color: var(--sbb-calendar-cell-background-color-hover);
 

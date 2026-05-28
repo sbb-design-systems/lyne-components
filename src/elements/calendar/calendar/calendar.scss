@@ -45,9 +45,10 @@
   inset-inline-start: 0;
 }
 
-.sbb-calendar__wrapper:has(> :where(.sbb-calendar__year-view, .sbb-calendar__month-view))
-  .sbb-calendar__day-view {
-  visibility: hidden;
+.sbb-calendar__day-view {
+  :host(:not(:state(view-day))) & {
+    visibility: hidden;
+  }
 }
 
 .sbb-calendar__table-header {

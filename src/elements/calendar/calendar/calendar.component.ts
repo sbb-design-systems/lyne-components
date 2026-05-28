@@ -3,6 +3,7 @@ import {
   html,
   isServer,
   nothing,
+  type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
   unsafeCSS,
@@ -420,6 +421,20 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       this._setChosenYear();
       this._chosenMonth = undefined;
       this._nextCalendarView = this._calendarView = this.view;
+    }
+  }
+
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+
+    if (name === '_calendarView') {
+      this.internals.states.delete(`view-${oldValue}`);
+      this.internals.states.add(`view-${this._calendarView}`);
+      this.toggleState('');
     }
   }
 
