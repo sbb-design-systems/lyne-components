@@ -76,6 +76,7 @@ The navigation actions can have an initial active state which can be set by usin
 ### Style
 
 The `size` value of the parent `sbb-navigation-marker`, if present, determines the size of the components.
+If the navigation actions are wrapped with a `sbb-navigation-section`, the size it automatically set to `m`.
 
 ## Navigation Marker
 
