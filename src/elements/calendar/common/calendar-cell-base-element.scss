@@ -48,6 +48,7 @@
   cursor: var(--sbb-calendar-cell-cursor);
   color: var(--sbb-calendar-cell-color);
   border-radius: var(--sbb-calendar-cell-border-radius);
+  z-index: 0;
 
   :host(:focus-visible) & {
     @include sbb.focus-outline;

@@ -61,6 +61,7 @@
 
 .sbb-calendar__table-header span {
   flex: 1 1 auto;
+  color: var(--sbb-calendar-control-view-change-color);
 
   .sbb-calendar__day-view:not(:first-of-type) & {
     text-align: center;
