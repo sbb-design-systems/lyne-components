@@ -200,6 +200,54 @@ describe(`sbb-time-input`, () => {
     expect(new Date(dateCalculated).getMinutes()).to.be.equal(date.getMinutes());
   });
 
+  it('should support asynchronously adding input by element reference', async () => {
+    const root = await fixture(html`
+      <div>
+        <sbb-time-input></sbb-time-input>
+      </div>
+    `);
+    element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
+    element.valueAsDate = new Date('2023-01-01T15:00:00');
+    await waitForLitRender(element);
+
+    expect(element.value).to.be.equal('15:00');
+  });
+
+  it('should support asynchronously adding input by id', async () => {
+    const root = await fixture(html`
+      <div>
+        <sbb-time-input id="time-input"></sbb-time-input>
+        <input id="input-2" />
+      </div>
+    `);
+    element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
+
+    element.setAttribute('input', 'input-2');
+    element.valueAsDate = new Date('2023-01-01T15:00:00');
+    await waitForLitRender(element);
+
+    expect(element.value).to.be.equal('15:00');
+  });
+
+  it('should not update value while editing', async () => {
+    element.focus();
+    typeInElement(element, '1:1');
+    const sameTime = new Date(0);
+    sameTime.setHours(1);
+    sameTime.setMinutes(1);
+    element.valueAsDate = sameTime;
+    expect(element.value).to.be.equal('1:1');
+  });
+
+  it('should update value while not editing', async () => {
+    element.value = '1:1';
+    const sameTime = new Date(0);
+    sameTime.setHours(1);
+    sameTime.setMinutes(1);
+    element.valueAsDate = sameTime;
+    expect(element.value).to.be.equal('01:01');
+  });
+
   describe('form field integration', () => {
     let formField: SbbFormFieldElement;
 
@@ -343,34 +391,5 @@ describe(`sbb-time-input`, () => {
       expect(element).not.to.match(':disabled');
       expect(element).not.to.have.attribute('disabled');
     });
-  });
-
-  it('should support asynchronously adding input by element reference', async () => {
-    const root = await fixture(html`
-      <div>
-        <sbb-time-input></sbb-time-input>
-      </div>
-    `);
-    element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
-    element.valueAsDate = new Date('2023-01-01T15:00:00');
-    await waitForLitRender(element);
-
-    expect(element.value).to.be.equal('15:00');
-  });
-
-  it('should support asynchronously adding input by id', async () => {
-    const root = await fixture(html`
-      <div>
-        <sbb-time-input id="time-input"></sbb-time-input>
-        <input id="input-2" />
-      </div>
-    `);
-    element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
-
-    element.setAttribute('input', 'input-2');
-    element.valueAsDate = new Date('2023-01-01T15:00:00');
-    await waitForLitRender(element);
-
-    expect(element.value).to.be.equal('15:00');
   });
 });
