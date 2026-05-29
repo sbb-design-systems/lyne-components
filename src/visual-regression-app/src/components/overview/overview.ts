@@ -42,16 +42,14 @@ class Overview extends LitElement {
           ${screenshots.stats}
           <sbb-card color="milk">
             <sbb-action-group
-              align-group="stretch"
-              orientation="vertical"
-              horizontal-from="large"
-              button-size="s"
-              link-size="s"
+              style="justify-content: space-between"
+              class="sbb-action-group-horizontal-from-small"
             >
               ${meta.baselineGitSha && !screenshots.baselineOnly
                 ? html`<sbb-block-link
                     icon-name="document-check-small"
                     href=${meta.baselineCommitUrl || nothing}
+                    size="s"
                     ?disabled=${meta.baselineGitSha === 'N/A'}
                     >Baseline Commit
                     ${meta.baselineGitSha === 'N/A'
@@ -63,6 +61,7 @@ class Overview extends LitElement {
                 ? html`<sbb-block-link
                     icon-name="arrow-change-horizontal-small"
                     href=${meta.commitUrl || nothing}
+                    size="s"
                     ?disabled=${meta.gitSha === 'local'}
                     >Commit
                     ${meta.gitSha === 'local'
@@ -71,7 +70,7 @@ class Overview extends LitElement {
                   >`
                 : nothing}
               <sbb-button-link
-                size="l"
+                size="s"
                 class="app-compare-link"
                 href="/compare/${screenshots.flatTestCases[0]?.path}"
               >

@@ -7,6 +7,9 @@ $theme: 'standard' !default;
 @use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables-as-css.scss' as sbb-css-tokens with (
   $theme: $theme
 );
+@use '../../action-group/action-group.global' as action-group with (
+  $theme: $theme
+);
 @use '../../alert/alert.global' as alert with (
   $theme: $theme
 );
@@ -212,6 +215,7 @@ $theme: 'standard' !default;
 
   // start-auto-generated-scss-module-root
   @include sbb-css-tokens.base;
+  @include action-group.base;
   @include alert.base;
   @include breadcrumb.base;
   @include button.base;

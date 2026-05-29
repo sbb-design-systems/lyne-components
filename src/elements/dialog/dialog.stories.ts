@@ -97,10 +97,10 @@ const triggerButton = (triggerId: string): TemplateResult => html`
 `;
 
 const dialogActions = (negative: boolean, includeCloseButton: boolean): TemplateResult => html`
-  <sbb-dialog-actions align-group="stretch">
-    <sbb-secondary-button sbb-dialog-close ?negative=${negative} size="l"
-      >Cancel</sbb-secondary-button
-    >
+  <sbb-dialog-actions style="justify-content: space-between">
+    <sbb-secondary-button sbb-dialog-close ?negative=${negative} size="l">
+      Cancel
+    </sbb-secondary-button>
     <sbb-button
       sbb-dialog-close
       ?sbb-focus-initial=${!includeCloseButton}
@@ -135,8 +135,8 @@ const DefaultTemplate = ({
   <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
     ${dialogTitle(level)}
     ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
-    <sbb-dialog-content style=${style}>
-      <p style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); margin: 0;">
+    <sbb-dialog-content>
+      <p style="${style} display: flex; gap: var(--sbb-spacing-fixed-1x); margin: 0;">
         Dialog content
         <sbb-mini-button
           icon-name="circle-information-small"
@@ -205,8 +205,8 @@ const NestedTemplate = ({
     ${dialogTitle(level)}
     ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
     <sbb-dialog-content> Click the button to open a nested dialog. </sbb-dialog-content>
-    <sbb-dialog-actions align-group="end">
-      ${triggerButton('dialog-trigger-2')}
+    <sbb-dialog-actions style="justify-content: end;">
+      <sbb-button id="dialog-trigger-2" size="m">Open dialog</sbb-button>
     </sbb-dialog-actions>
     <sbb-dialog ?negative=${!negative} trigger="dialog-trigger-2" ${sbbSpread(args)}>
       ${dialogTitle(level)}

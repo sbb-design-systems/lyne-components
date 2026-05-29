@@ -38,14 +38,14 @@ describe(`sbb-dialog`, () => {
     </sbb-dialog-content>
   `;
 
-  const dialogFooter = (negative = false, alignGroup = 'stretch'): TemplateResult => html`
-    <sbb-dialog-actions align-group=${alignGroup}>
+  const dialogFooter = (negative = false, justifyContent = 'end'): TemplateResult => html`
+    <sbb-dialog-actions style="justify-content: ${justifyContent}">
       <sbb-block-link
-        align-self="start"
         icon-name="chevron-small-left-small"
         href="https://www.sbb.ch/en/"
         ?negative=${negative}
         sbb-dialog-close
+        style=${justifyContent === 'end' ? `margin-inline-end: auto;` : nothing}
       >
         Link
       </sbb-block-link>
@@ -171,7 +171,7 @@ describe(`sbb-dialog`, () => {
             <p>Other content visible in the background</p>
             <sbb-button id="trigger">Trigger</sbb-button>
             <sbb-dialog trigger="trigger" backdrop="translucent">
-              ${dialogTitle()} ${dialogContent()} ${dialogFooter()}
+              ${dialogTitle()} ${dialogContent()} ${dialogFooter(false, 'end')}
             </sbb-dialog>
           `,
           { minHeight: '600px' },

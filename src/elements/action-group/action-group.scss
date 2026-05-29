@@ -1,72 +1,44 @@
 @use '../core/styles' as sbb;
 
-$breakpoints: 'zero', 'small', 'large', 'ultra';
-$vertical-orientations: (
-  start: flex-start,
-  center: center,
-  stretch: stretch,
-  end: flex-end,
-);
-$horizontal-orientations: (
-  start: flex-start,
-  center: center,
-  stretch: space-between,
-  end: flex-end,
-);
-
 :host {
-  --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
-
   display: flex;
-  flex-direction: var(--sbb-action-group-orientation, row);
-  align-items: var(--sbb-action-group-align-items, center);
-  justify-content: var(--sbb-action-group-justify-content, start);
+  align-items: center;
+  justify-content: start;
   gap: var(--sbb-action-group-gap);
 }
 
-@each $key, $value in $horizontal-orientations {
-  :host([orientation='horizontal'][align-group='#{$key}']) {
-    --sbb-action-group-justify-content: #{$value};
+// A part of the rules are defined in layout.scss
+
+:host(.sbb-orientation-vertical-full-width) {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+:host(
+  :where(
+    .sbb-orientation-vertical,
+    .sbb-orientation-horizontal-from-small,
+    .sbb-orientation-horizontal-from-large,
+    .sbb-orientation-horizontal-from-ultra
+  )
+) {
+  align-items: start;
+}
+
+:host(.sbb-orientation-horizontal-from-small) {
+  @include sbb.mq($from: small) {
+    align-items: center;
   }
 }
 
-:host([orientation='vertical']) {
-  --sbb-action-group-orientation: column;
-  --sbb-action-group-gap: var(--sbb-spacing-fixed-2x);
-}
-
-@each $key, $value in $vertical-orientations {
-  :host([orientation='vertical'][align-group='#{$key}']) {
-    --sbb-action-group-align-items: #{$value};
+:host(.sbb-orientation-horizontal-from-large) {
+  @include sbb.mq($from: large) {
+    align-items: center;
   }
 }
 
-@each $breakpoint in $breakpoints {
-  @include sbb.mq($from: #{$breakpoint}) {
-    @each $key, $value in $horizontal-orientations {
-      // horizontal-from overrides orientation vertical
-      :host([orientation='vertical'][horizontal-from='#{$breakpoint}'][align-group='#{$key}']) {
-        --sbb-action-group-orientation: row;
-        --sbb-action-group-align-items: center;
-        --sbb-action-group-justify-content: #{$value};
-        --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
-      }
-    }
+:host(.sbb-orientation-horizontal-from-ultra) {
+  @include sbb.mq($from: ultra) {
+    align-items: center;
   }
-}
-
-::slotted([align-self='start']) {
-  margin-inline-end: auto;
-}
-
-::slotted([align-self='center']) {
-  margin-inline: auto;
-}
-
-::slotted([align-self='end']) {
-  margin-inline-start: auto;
-}
-
-::slotted(:is(sbb-block-link, sbb-block-link-button, sbb-block-link-static)) {
-  white-space: nowrap;
 }

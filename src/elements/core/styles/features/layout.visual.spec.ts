@@ -67,4 +67,62 @@ describe(`layout`, () => {
       }),
     );
   });
+
+  const orientationItems = html`
+    <div>Item 1</div>
+    <div>Item 2</div>
+    <div>Item 3</div>
+  `;
+
+  describeViewports({ viewports: ['zero', 'small'] }, () => {
+    it(
+      'orientation vertical',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          withStyles(html`<div class="sbb-orientation-vertical">${orientationItems}</div>`),
+          wrapperStyles,
+        );
+      }),
+    );
+
+    it(
+      'orientation horizontal-from-small',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          withStyles(
+            html`<div class="sbb-orientation-horizontal-from-small">${orientationItems}</div>`,
+          ),
+          wrapperStyles,
+        );
+      }),
+    );
+  });
+
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
+    it(
+      'orientation horizontal-from-large',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          withStyles(
+            html`<div class="sbb-orientation-horizontal-from-large">${orientationItems}</div>`,
+          ),
+          wrapperStyles,
+        );
+      }),
+    );
+  });
+
+  describeViewports({ viewports: ['zero', 'ultra'] }, () => {
+    it(
+      'orientation horizontal-from-ultra',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          withStyles(
+            html`<div class="sbb-orientation-horizontal-from-ultra">${orientationItems}</div>`,
+          ),
+          wrapperStyles,
+        );
+      }),
+    );
+  });
 });

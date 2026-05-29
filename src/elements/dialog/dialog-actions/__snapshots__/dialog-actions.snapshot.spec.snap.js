@@ -2,11 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-dialog-actions renders DOM"] = 
-`<sbb-dialog-actions
-  align-group="start"
-  horizontal-from="large"
-  orientation="horizontal"
->
+`<sbb-dialog-actions>
 </sbb-dialog-actions>
 `;
 /* end snapshot sbb-dialog-actions renders DOM */

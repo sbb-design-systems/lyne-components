@@ -80,3 +80,28 @@ Using columns in the middle of the grid (e.g. alerts in home stories).
   <div class="grid-reduced-width"></div>
 </div>
 ```
+
+## Flex
+
+The following utility classes provide control over CSS flex elements. Allowing to establish
+vertical stacks by default and transition them into horizontal rows at specific viewport breakpoints.
+
+| CSS class                               | Target behavior                                                                                 |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `sbb-orientation-vertical`              | Stacks child elements vertically                                                                |
+| `sbb-orientation-horizontal-from-small` | Stacks child elements vertically on displays up to small viewports, then switches to horizontal |
+| `sbb-orientation-horizontal-from-large` | Stacks child elements vertically on displays up to large viewports, then switches to horizontal |
+| `sbb-orientation-horizontal-from-ultra` | Stacks child elements vertically on displays up to ultra viewports, then switches to horizontal |
+
+### Usage
+
+Four items displayed vertically and switch to horizontal on large viewports.
+
+```html
+<div class="sbb-orientation-horizontal-from-large">
+  <div class="item-1"></div>
+  <div class="item-2"></div>
+  <div class="item-3"></div>
+  <div class="item-4"></div>
+</div>
+```

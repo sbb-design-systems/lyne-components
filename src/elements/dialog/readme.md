@@ -60,7 +60,9 @@ component. Use it to display a footer with an action group.
 
 ```html
 <sbb-dialog>
-  <sbb-dialog-actions>
+  <sbb-dialog-actions
+    class="sbb-orientation-vertical-full-width sbb-orientation-horizontal-from-small"
+  >
     <sbb-block-link sbb-dialog-close>Link</sbb-block-link>
     <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
     <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
@@ -218,16 +220,6 @@ an alternative element by listening to the `didClose` event.
 ## API Documentation
 
 ### class: `SbbDialogActionsElement`, `sbb-dialog-actions`
-
-#### Properties
-
-| Name             | Attribute         | Privacy | Type                                        | Default        | Description                                                                                                                                                                                       |
-| ---------------- | ----------------- | ------- | ------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'` | `'start'`      | Set the slotted `<sbb-action-group>` children's alignment.                                                                                                                                        |
-| `buttonSize`     | `button-size`     | public  | `'s' \| 'm' \| 'l'`                         | `null`         | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.<br><strong>Deprecated</strong>: Will be removed with next breaking change         |
-| `horizontalFrom` | `horizontal-from` | public  | `'zero' \| 'small' \| 'large' \| 'ultra'`   | `'large'`      | Overrides the behavior of `orientation` property.                                                                                                                                                 |
-| `linkSize`       | `link-size`       | public  | `'xs' \| 's' \| 'm'`                        | `null`         | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances.<br><strong>Deprecated</strong>: Will be removed with next breaking change |
-| `orientation`    | `orientation`     | public  | `'horizontal' \| 'vertical'`                | `'horizontal'` | Indicates the orientation of the components inside the `<sbb-action-group>`.                                                                                                                      |
 
 #### Slots
 

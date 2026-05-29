@@ -260,21 +260,19 @@ const stickyBarArgs: Args = {
 
 const actionGroup = (): TemplateResult => html`
   <sbb-action-group
-    align-group="stretch"
-    orientation="vertical"
-    horizontal-from="large"
-    button-size="l"
+    class="sbb-orientation-vertical-full-width sbb-orientation-horizontal-from-small"
     style="width:100%;"
   >
     <sbb-block-link
-      align-self="start"
+      size="m"
+      style="margin-inline-end: auto;"
       icon-name="chevron-small-left-small"
       href="https://www.sbb.ch/en/"
     >
       Link
     </sbb-block-link>
-    <sbb-secondary-button>Cancel</sbb-secondary-button>
-    <sbb-button>Confirm</sbb-button>
+    <sbb-secondary-button size="l">Cancel</sbb-secondary-button>
+    <sbb-button size="l">Confirm</sbb-button>
   </sbb-action-group>
 `;
 
