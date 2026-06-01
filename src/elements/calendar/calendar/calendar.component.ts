@@ -1538,6 +1538,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         this._previousMonthDisabled(),
       ),
       this._getArrow(
+        'right',
+        () => this._goToDifferentMonth(1),
+        i18nNextMonth[this._language.current],
+        this._nextMonthDisabled(),
+      ),
+      this._getArrow(
         'up',
         () => {
           this._resetFocus = true;
@@ -1545,12 +1551,6 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
           this._startTableTransition();
         },
         `${i18nYearMonthSelection[this._language.current]} ${monthLabel}`,
-      ),
-      this._getArrow(
-        'right',
-        () => this._goToDifferentMonth(1),
-        i18nNextMonth[this._language.current],
-        this._nextMonthDisabled(),
       ),
     ];
   }
@@ -1581,17 +1581,17 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
             this._previousYearDisabled(),
           )}
           ${this._getArrow(
-            'down',
-            () => this._resetCalendarViewAndEmitMonthChange(true),
-            `${i18nCalendarDateSelection[this._language.current]} ${this._chosenYear}`,
-          )}
-          <span class="sbb-screen-reader-only" role="status"> ${this._chosenYear} </span>
-          ${this._getArrow(
             'right',
             () => this._goToDifferentYear(1),
             i18nNextYear[this._language.current],
             this._nextYearDisabled(),
           )}
+          ${this._getArrow(
+            'down',
+            () => this._resetCalendarViewAndEmitMonthChange(true),
+            `${i18nCalendarDateSelection[this._language.current]} ${this._chosenYear}`,
+          )}
+          <span class="sbb-screen-reader-only" role="status">${this._chosenYear}</span>
         </div>
         <table
           class="sbb-calendar__table"
@@ -1655,17 +1655,17 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
             this._previousYearRangeDisabled(),
           )}
           ${this._getArrow(
-            'down',
-            () => this._resetCalendarViewAndEmitMonthChange(true),
-            `${i18nCalendarDateSelection[this._language.current]} ${yearLabel}`,
-          )}
-          <span class="sbb-screen-reader-only" role="status"> ${yearLabel} </span>
-          ${this._getArrow(
             'right',
             () => this._goToDifferentYearRange(YEARS_PER_PAGE),
             i18nNextYearRange(YEARS_PER_PAGE)[this._language.current],
             this._nextYearRangeDisabled(),
           )}
+          ${this._getArrow(
+            'down',
+            () => this._resetCalendarViewAndEmitMonthChange(true),
+            `${i18nCalendarDateSelection[this._language.current]} ${yearLabel}`,
+          )}
+          <span class="sbb-screen-reader-only" role="status">${yearLabel}</span>
         </div>
         <table
           class="sbb-calendar__table"
