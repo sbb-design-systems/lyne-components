@@ -51,7 +51,7 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
     this._tryParseValue(value);
     // As long as this element has focus we delay automatically updating
     // the value with the formatted string of the parsed date.
-    if (!isServer && !this.matches(':focus') && this.valueAsDate !== null) {
+    if (!isServer && !this.isSelected() && this.valueAsDate !== null) {
       value = this._formatDate();
     }
     super.value = value;
@@ -64,7 +64,15 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
   @property({ attribute: false })
   public set valueAsDate(value: T | null) {
     value = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-    if (!value) {
+    if (
+      this.isSelected() &&
+      (value === null || this._dateAdapter.sameDate(value, this._dateAdapter.parse(this.value)))
+    ) {
+      // Do nothing, as the user is currently editing the value and the parsed
+      // date is the same as the current value.
+      // This can also happen with Angular Forms Signals, as it currently
+      // continuously invokes writeValue, which assigns to this setter.
+    } else if (!value) {
       this._valueAsDate = null;
       this._valueCache = ['', null];
       this.value = '';
