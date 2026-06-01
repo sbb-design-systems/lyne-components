@@ -26,17 +26,17 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose year and month January 2023"
+        aria-label="Change to the next month"
         class="sbb-calendar__control"
-        icon-name="chevron-small-up-small"
+        icon-name="chevron-small-right-small"
         size="s"
         tabindex="0"
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Change to the next month"
+        aria-label="Choose year and month January 2023"
         class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
+        icon-name="chevron-small-up-small"
         size="s"
         tabindex="0"
       >
@@ -439,17 +439,17 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose year and month January 2023"
+        aria-label="Change to the next month"
         class="sbb-calendar__control"
-        icon-name="chevron-small-up-small"
+        icon-name="chevron-small-right-small"
         size="s"
         tabindex="0"
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Change to the next month"
+        aria-label="Choose year and month January 2023"
         class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
+        icon-name="chevron-small-up-small"
         size="s"
         tabindex="0"
       >
@@ -868,17 +868,17 @@ snapshots["sbb-calendar default renders in year view Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose year and month January 2023"
+        aria-label="Change to the next month"
         class="sbb-calendar__control"
-        icon-name="chevron-small-up-small"
+        icon-name="chevron-small-right-small"
         size="s"
         tabindex="0"
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Change to the next month"
+        aria-label="Choose year and month January 2023"
         class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
+        icon-name="chevron-small-up-small"
         size="s"
         tabindex="0"
       >
@@ -1266,6 +1266,14 @@ snapshots["sbb-calendar default renders in year view Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
+        aria-label="Change to the next 24 years"
+        class="sbb-calendar__control"
+        icon-name="chevron-small-right-small"
+        size="s"
+        tabindex="0"
+      >
+      </sbb-secondary-button>
+      <sbb-secondary-button
         aria-label="Choose date 2016 - 2039"
         class="sbb-calendar__control"
         icon-name="chevron-small-down-small"
@@ -1279,14 +1287,6 @@ snapshots["sbb-calendar default renders in year view Shadow DOM"] =
       >
         2016 - 2039
       </span>
-      <sbb-secondary-button
-        aria-label="Change to the next 24 years"
-        class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
-        size="s"
-        tabindex="0"
-      >
-      </sbb-secondary-button>
     </div>
     <table class="sbb-calendar__table">
       <tbody>
@@ -1431,17 +1431,17 @@ snapshots["sbb-calendar default renders in month view Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose year and month January 2023"
+        aria-label="Change to the next month"
         class="sbb-calendar__control"
-        icon-name="chevron-small-up-small"
+        icon-name="chevron-small-right-small"
         size="s"
         tabindex="0"
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Change to the next month"
+        aria-label="Choose year and month January 2023"
         class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
+        icon-name="chevron-small-up-small"
         size="s"
         tabindex="0"
       >
@@ -1829,6 +1829,14 @@ snapshots["sbb-calendar default renders in month view Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
+        aria-label="Change to the next year"
+        class="sbb-calendar__control"
+        icon-name="chevron-small-right-small"
+        size="s"
+        tabindex="0"
+      >
+      </sbb-secondary-button>
+      <sbb-secondary-button
         aria-label="Choose date 2023"
         class="sbb-calendar__control"
         icon-name="chevron-small-down-small"
@@ -1842,14 +1850,6 @@ snapshots["sbb-calendar default renders in month view Shadow DOM"] =
       >
         2023
       </span>
-      <sbb-secondary-button
-        aria-label="Change to the next year"
-        class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
-        size="s"
-        tabindex="0"
-      >
-      </sbb-secondary-button>
     </div>
     <table class="sbb-calendar__table">
       <tbody>
@@ -1940,17 +1940,17 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose year and month January 2023"
+        aria-label="Change to the next month"
         class="sbb-calendar__control"
-        icon-name="chevron-small-up-small"
+        icon-name="chevron-small-right-small"
         size="s"
         tabindex="0"
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Change to the next month"
+        aria-label="Choose year and month January 2023"
         class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
+        icon-name="chevron-small-up-small"
         size="s"
         tabindex="0"
       >
@@ -2327,17 +2327,17 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose year and month January 2023"
+        aria-label="Change to the next month"
         class="sbb-calendar__control"
-        icon-name="chevron-small-up-small"
+        icon-name="chevron-small-right-small"
         size="s"
         tabindex="0"
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Change to the next month"
+        aria-label="Choose year and month January 2023"
         class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
+        icon-name="chevron-small-up-small"
         size="s"
         tabindex="0"
       >
@@ -3171,17 +3171,17 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose year and month January 2023"
+        aria-label="Change to the next month"
         class="sbb-calendar__control"
-        icon-name="chevron-small-up-small"
+        icon-name="chevron-small-right-small"
         size="s"
         tabindex="0"
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Change to the next month"
+        aria-label="Choose year and month January 2023"
         class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
+        icon-name="chevron-small-up-small"
         size="s"
         tabindex="0"
       >
@@ -4174,17 +4174,17 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose year and month January 2023"
+        aria-label="Change to the next month"
         class="sbb-calendar__control"
-        icon-name="chevron-small-up-small"
+        icon-name="chevron-small-right-small"
         size="s"
         tabindex="0"
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Change to the next month"
+        aria-label="Choose year and month January 2023"
         class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
+        icon-name="chevron-small-up-small"
         size="s"
         tabindex="0"
       >
@@ -4759,17 +4759,17 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose year and month January 2023"
+        aria-label="Change to the next month"
         class="sbb-calendar__control"
-        icon-name="chevron-small-up-small"
+        icon-name="chevron-small-right-small"
         size="s"
         tabindex="0"
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Change to the next month"
+        aria-label="Choose year and month January 2023"
         class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
+        icon-name="chevron-small-up-small"
         size="s"
         tabindex="0"
       >
@@ -5326,17 +5326,17 @@ snapshots["sbb-calendar enhanced renders in year view Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose year and month January 2023"
+        aria-label="Change to the next month"
         class="sbb-calendar__control"
-        icon-name="chevron-small-up-small"
+        icon-name="chevron-small-right-small"
         size="s"
         tabindex="0"
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Change to the next month"
+        aria-label="Choose year and month January 2023"
         class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
+        icon-name="chevron-small-up-small"
         size="s"
         tabindex="0"
       >
@@ -5724,6 +5724,14 @@ snapshots["sbb-calendar enhanced renders in year view Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
+        aria-label="Change to the next 24 years"
+        class="sbb-calendar__control"
+        icon-name="chevron-small-right-small"
+        size="s"
+        tabindex="0"
+      >
+      </sbb-secondary-button>
+      <sbb-secondary-button
         aria-label="Choose date 2016 - 2039"
         class="sbb-calendar__control"
         icon-name="chevron-small-down-small"
@@ -5737,14 +5745,6 @@ snapshots["sbb-calendar enhanced renders in year view Shadow DOM"] =
       >
         2016 - 2039
       </span>
-      <sbb-secondary-button
-        aria-label="Change to the next 24 years"
-        class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
-        size="s"
-        tabindex="0"
-      >
-      </sbb-secondary-button>
     </div>
     <table class="sbb-calendar__table">
       <tbody>
@@ -6044,17 +6044,17 @@ snapshots["sbb-calendar enhanced renders in month view Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose year and month January 2023"
+        aria-label="Change to the next month"
         class="sbb-calendar__control"
-        icon-name="chevron-small-up-small"
+        icon-name="chevron-small-right-small"
         size="s"
         tabindex="0"
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Change to the next month"
+        aria-label="Choose year and month January 2023"
         class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
+        icon-name="chevron-small-up-small"
         size="s"
         tabindex="0"
       >
@@ -6442,6 +6442,14 @@ snapshots["sbb-calendar enhanced renders in month view Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
+        aria-label="Change to the next year"
+        class="sbb-calendar__control"
+        icon-name="chevron-small-right-small"
+        size="s"
+        tabindex="0"
+      >
+      </sbb-secondary-button>
+      <sbb-secondary-button
         aria-label="Choose date 2023"
         class="sbb-calendar__control"
         icon-name="chevron-small-down-small"
@@ -6455,14 +6463,6 @@ snapshots["sbb-calendar enhanced renders in month view Shadow DOM"] =
       >
         2023
       </span>
-      <sbb-secondary-button
-        aria-label="Change to the next year"
-        class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
-        size="s"
-        tabindex="0"
-      >
-      </sbb-secondary-button>
     </div>
     <table class="sbb-calendar__table">
       <tbody>
@@ -6708,17 +6708,17 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose year and month January 2023"
+        aria-label="Change to the next month"
         class="sbb-calendar__control"
-        icon-name="chevron-small-up-small"
+        icon-name="chevron-small-right-small"
         size="s"
         tabindex="0"
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Change to the next month"
+        aria-label="Choose year and month January 2023"
         class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
+        icon-name="chevron-small-up-small"
         size="s"
         tabindex="0"
       >
@@ -7250,17 +7250,17 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose year and month January 2023"
+        aria-label="Change to the next month"
         class="sbb-calendar__control"
-        icon-name="chevron-small-up-small"
+        icon-name="chevron-small-right-small"
         size="s"
         tabindex="0"
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Change to the next month"
+        aria-label="Choose year and month January 2023"
         class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
+        icon-name="chevron-small-up-small"
         size="s"
         tabindex="0"
       >
@@ -8249,17 +8249,17 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose year and month January 2023"
+        aria-label="Change to the next month"
         class="sbb-calendar__control"
-        icon-name="chevron-small-up-small"
+        icon-name="chevron-small-right-small"
         size="s"
         tabindex="0"
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Change to the next month"
+        aria-label="Choose year and month January 2023"
         class="sbb-calendar__control"
-        icon-name="chevron-small-right-small"
+        icon-name="chevron-small-up-small"
         size="s"
         tabindex="0"
       >
