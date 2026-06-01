@@ -391,7 +391,7 @@ describe(`sbb-calendar`, () => {
             today = null;
           });
 
-          it.only('focuses current day', async () => {
+          it('focuses current day', async () => {
             element = await fixture(html`
               <sbb-calendar>
                 ${variant === 'default'
