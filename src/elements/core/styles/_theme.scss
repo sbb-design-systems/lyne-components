@@ -279,6 +279,7 @@ $theme: 'standard' !default;
     @include sbb-css-tokens.forced-colors;
     @include alert.forced-colors;
     @include breadcrumb.forced-colors;
+    @include calendar.forced-colors;
     @include card.forced-colors;
     @include expansion-panel.forced-colors;
     @include form-field.forced-colors;

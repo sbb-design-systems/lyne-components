@@ -1,27 +1,50 @@
 @use '../../core/styles' as sbb;
 
 :host {
+  --sbb-focus-outline-offset: #{sbb.px-to-rem-build(2)};
+
   display: block;
+  font-size: var(--sbb-calendar-cell-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  cursor: var(--sbb-calendar-cell-cursor);
+  color: var(--sbb-calendar-cell-color);
 
-  --sbb-calendar-cell-transition-duration: var(
-    --sbb-disable-animation-duration,
-    var(--sbb-animation-duration-2x)
-  );
-  --sbb-calendar-cell-border-radius: calc(
-    var(--sbb-border-radius-4x) + var(--sbb-calendar-cell-border-width)
-  );
+  // Match Figma Design
+  border-radius: calc(var(--sbb-border-radius-4x) + var(--sbb-calendar-cell-border-width));
 
-  @media (forced-colors: active) {
-    --sbb-calendar-cell-border: transparent;
-  }
+  // Used for visual separation
+  margin: var(--sbb-calendar-cell-margin);
+
+  // Pre-serve spacing for border. Transparent border can't be used because with forced colors it will be always displayed.
+  padding: var(--sbb-calendar-cell-border-width);
+  transition-duration: var(--sbb-calendar-cell-transition-duration);
+  transition-timing-function: var(--sbb-calendar-cell-transition-easing-function);
+  transition-property: background-color;
+}
+
+:host(:is(sbb-calendar-weekday, sbb-calendar-weeknumber)) {
+  --sbb-calendar-cell-font-size: var(--sbb-text-font-size-xs);
+  --sbb-calendar-day-height: var(--sbb-calendar-day-size);
+
+  color: var(--sbb-calendar-header-color);
+}
+
+:host(:is(sbb-calendar-day, sbb-calendar-weekday, sbb-calendar-weeknumber)) {
+  height: var(--sbb-calendar-day-height);
+  width: var(--sbb-calendar-day-width);
+}
+
+:host(:focus-visible) {
+  @include sbb.focus-outline;
 }
 
 :host(:state(current)) {
-  --sbb-calendar-cell-font-weight: bold;
+  font-weight: bold;
 }
 
 :host(:state(selected)) {
-  --sbb-calendar-cell-border: var(--sbb-calendar-cell-border-width) solid var(--sbb-border-color-2);
+  border: var(--sbb-calendar-cell-border-width) solid var(--sbb-calendar-cell-border-color-selected);
+  padding: 0;
 }
 
 :host(:disabled) {
@@ -29,79 +52,40 @@
   --sbb-calendar-cell-cursor: unset;
 }
 
-:host(:focus-visible) {
-  outline: 0;
+:host(:not(:disabled, :where(:state(active), :active)):hover) {
+  @include sbb.hover-mq($hover: true) {
+    background-color: var(--sbb-calendar-cell-background-color-hover);
+  }
+}
+
+:host(:not(:disabled):hover) {
+  @include sbb.hover-mq($hover: true) {
+    @media (forced-colors: active) {
+      @include sbb.focus-outline;
+
+      // Basically the focus-outline mixin is made for use with focus-visible.
+      // As we use it here with hover, we have to ensure that the outline is not overridden when mouse or touch is in use.
+      --sbb-focus-outline-style: initial;
+    }
+  }
 }
 
 :host(:not(:disabled):where(:state(active), :active)) {
-  --sbb-calendar-cell-background-color: var(--sbb-calendar-cell-background-color-active);
+  background-color: var(--sbb-calendar-cell-background-color-active);
 }
 
 .sbb-action-base {
   display: inline-flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  position: relative;
-  font-size: var(--sbb-calendar-cell-font-size);
-  font-weight: var(--sbb-calendar-cell-font-weight);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
-  cursor: var(--sbb-calendar-cell-cursor);
-  color: var(--sbb-calendar-cell-color);
-  border-radius: var(--sbb-calendar-cell-border-radius);
-
-  :host(:focus-visible) & {
-    @include sbb.focus-outline;
-
-    --sbb-focus-outline-offset: #{sbb.px-to-rem-build(1)};
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    background-color: var(--sbb-calendar-cell-background-color);
-    inset: var(--sbb-calendar-cell-inset);
-    border: var(--sbb-calendar-cell-border);
-    border-radius: var(--sbb-calendar-cell-border-radius);
-    transition-duration: var(--sbb-calendar-cell-transition-duration);
-    transition-timing-function: var(--sbb-calendar-cell-transition-easing-function);
-    transition-property: background-color;
-    z-index: -1;
-
-    :host(:not(:disabled):where(:state(active), :active)) & {
-      @media (forced-colors: active) {
-        @include sbb.focus-outline;
-
-        // Basically the focus-outline mixin is made for use with focus-visible.
-        // As we use it here with :active, we have to ensure that the outline is not overridden when mouse or touch is in use.
-        --sbb-focus-outline-style: initial;
-      }
-    }
-  }
-
-  :host(:not(:active, :state(active), :disabled):hover) & {
-    @include sbb.hover-mq($hover: true) {
-      --sbb-calendar-cell-background-color: var(--sbb-calendar-cell-background-color-hover);
-
-      &::before {
-        @media (forced-colors: active) {
-          @include sbb.focus-outline;
-
-          --sbb-focus-outline-offset: #{sbb.px-to-rem-build(1)};
-
-          // Basically the focus-outline mixin is made for use with focus-visible.
-          // As we use it here with hover, we have to ensure that the outline is not overridden when mouse or touch is in use.
-          --sbb-focus-outline-style: initial;
-        }
-      }
-    }
-  }
+  height: 100%;
+  width: 100%;
 }
 
 .sbb-calendar-year,
 .sbb-calendar-month {
   height: var(--sbb-calendar-cell-year-month-height);
   width: var(--sbb-calendar-cell-year-month-width);
-  padding-block-end: var(--sbb-calendar-cell-padding);
 
   :host(:state(crossed-out)) & {
     &::after {
@@ -115,14 +99,4 @@
       transform: translate(-50%, -50%) rotate(-45deg);
     }
   }
-}
-
-.sbb-calendar-weekday,
-.sbb-calendar-weeknumber {
-  --sbb-calendar-cell-font-size: var(--sbb-text-font-size-xs);
-  --sbb-calendar-cell-font-weight: normal;
-
-  height: var(--sbb-calendar-day-width);
-  width: var(--sbb-calendar-day-width);
-  color: var(--sbb-calendar-header-color);
 }

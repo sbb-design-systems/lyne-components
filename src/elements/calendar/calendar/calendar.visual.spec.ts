@@ -64,7 +64,10 @@ describe('sbb-calendar', () => {
     ],
   };
 
-  for (const orientation of ['horizontal', 'vertical']) {
+  for (const orientation of [
+    'horizontal',
+    'vertical',
+  ] satisfies SbbCalendarElement['orientation'][]) {
     describeViewports({ viewports: ['zero', 'large', 'ultra'] }, () => {
       for (const variant of ['default', 'enhanced']) {
         describe(`variant=${variant}`, () => {
