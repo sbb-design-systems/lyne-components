@@ -116,6 +116,21 @@ describe('sbb-date-input', () => {
     expect(element.value).to.be.equal('undefined');
   });
 
+  it('should not update value while editing', async () => {
+    element = await fixture(html`<sbb-date-input></sbb-date-input>`);
+    element.focus();
+    typeInElement(element, '1.1.2024');
+    element.valueAsDate = new Date(2024, 0, 1);
+    expect(element.value).to.be.equal('1.1.2024');
+  });
+
+  it('should update value while not editing', async () => {
+    element = await fixture(html`<sbb-date-input></sbb-date-input>`);
+    element.value = '1.1.2024';
+    element.valueAsDate = new Date(2024, 0, 1);
+    expect(element.value).to.be.equal('Mo, 01.01.2024');
+  });
+
   describe('with no value', () => {
     beforeEach(async () => {
       element = await fixture(html`<sbb-date-input></sbb-date-input>`);

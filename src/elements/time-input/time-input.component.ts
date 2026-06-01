@@ -43,7 +43,7 @@ export class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement)
     this._tryParseValue(value);
     // As long as this element has focus we delay automatically updating
     // the value with the formatted string of the parsed date.
-    if (!isServer && !this.matches(':focus') && this.valueAsDate !== null) {
+    if (!isServer && !this.isSelected() && this.valueAsDate !== null) {
       value = this._formatTime();
     }
     super.value = value;
@@ -54,12 +54,18 @@ export class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement)
 
   /** Formats the current input's value as date. */
   @property({ attribute: false })
-  public set valueAsDate(date: Date | null) {
-    if (date instanceof Date && !isNaN(date.valueOf())) {
-      this._valueAsTime = {
-        hours: date.getHours(),
-        minutes: date.getMinutes(),
-      };
+  public set valueAsDate(value: Date | null) {
+    const time = this._toTime(value);
+    if (
+      this.isSelected() &&
+      (time === null || this._isSameTime(time, this._parseValue(this.value)))
+    ) {
+      // Do nothing, as the user is currently editing the value and the parsed
+      // time is the same as the current value.
+      // This can also happen with Angular Forms Signals, as it currently
+      // continuously invokes writeValue, which assigns to this setter.
+    } else if (time) {
+      this._valueAsTime = time;
       const formattedValue = this._formatTime();
       if (this.value !== formattedValue) {
         this.value = formattedValue;
@@ -136,6 +142,19 @@ export class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement)
     }
 
     return null;
+  }
+
+  private _toTime(value: Date | null): Time | null {
+    return value instanceof Date && !isNaN(value.valueOf())
+      ? { hours: value.getHours(), minutes: value.getMinutes() }
+      : null;
+  }
+
+  private _isSameTime(time1: Time | null, time2: Time | null): boolean {
+    return !!(
+      time1 == time2 ||
+      (time1 && time2 && time1.hours === time2.hours && time1.minutes === time2.minutes)
+    );
   }
 
   private _updateValueDateFormat(): void {

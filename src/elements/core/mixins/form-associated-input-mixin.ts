@@ -54,6 +54,7 @@ export declare abstract class SbbFormAssociatedInputMixinType extends SbbRequire
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
 
+  protected isSelected(): boolean;
   protected preparePastedText(text: string): string;
   protected language: SbbLanguageController;
 }
@@ -411,6 +412,14 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
       } else {
         this.removeValidityFlag('valueMissing');
       }
+    }
+
+    protected isSelected(): boolean {
+      if (isServer) {
+        return false;
+      }
+      const selection = window.getSelection();
+      return !!selection && selection.rangeCount > 0 && this.contains(selection.anchorNode);
     }
 
     protected preparePastedText(text: string): string {
