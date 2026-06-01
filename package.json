@@ -132,7 +132,7 @@
     "typescript-eslint": "8.60.0",
     "urlpattern-polyfill": "10.1.0",
     "vite": "8.0.14",
-    "vite-plugin-dts": "5.0.1"
+    "vite-plugin-dts": "5.0.2"
   },
   "resolutions": {
     "@types/node": "24.12.4",
