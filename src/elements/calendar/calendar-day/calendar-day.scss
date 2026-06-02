@@ -9,19 +9,7 @@
   height: var(--sbb-calendar-day-value-height);
   align-items: center;
   justify-content: center;
-
-  :host(:state(crossed-out)) & {
-    &::after {
-      content: '';
-      height: var(--sbb-calendar-cell-disabled-height);
-      width: var(--sbb-calendar-cell-disabled-width);
-      position: absolute;
-      background-color: var(--sbb-calendar-cell-disabled-color);
-      inset-block-start: var(--sbb-calendar-day-crossed-out-top);
-      inset-inline-start: 50%;
-      transform: var(--sbb-calendar-day-crossed-out-translate);
-    }
-  }
+  position: relative;
 }
 
 .sbb-calendar-day__extra {

@@ -91,17 +91,18 @@
 .sbb-calendar-month {
   height: var(--sbb-calendar-cell-year-month-height);
   width: var(--sbb-calendar-cell-year-month-width);
+}
 
+:is(.sbb-calendar-year, .sbb-calendar-month, .sbb-calendar-day__value) {
   :host(:state(crossed-out)) & {
     &::after {
+      @include sbb.absolute-center-x-y;
+
       content: '';
       height: var(--sbb-calendar-cell-disabled-height);
       width: var(--sbb-calendar-cell-disabled-width);
-      position: absolute;
       background-color: var(--sbb-calendar-cell-disabled-color);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-45deg);
+      rotate: -45deg;
     }
   }
 }

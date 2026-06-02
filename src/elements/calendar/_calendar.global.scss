@@ -38,8 +38,6 @@ $theme: 'standard' !default;
   --sbb-calendar-day-value-height: var(--sbb-spacing-fixed-6x);
   --sbb-calendar-day-extra-display: block;
   --sbb-calendar-day-extra-height: #{sbb.px-to-rem-build(18)};
-  --sbb-calendar-day-crossed-out-top: 33%;
-  --sbb-calendar-day-crossed-out-translate: translate(-50%, -33%) rotate(-45deg);
 }
 
 @mixin forced-colors {
