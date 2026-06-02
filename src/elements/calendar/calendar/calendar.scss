@@ -47,10 +47,6 @@
   flex: 1 1 auto;
   padding-inline-start: var(--sbb-spacing-fixed-3x);
   color: var(--sbb-calendar-control-view-change-color);
-
-  .sbb-calendar__day-view:not(:first-of-type) & {
-    text-align: center;
-  }
 }
 
 .sbb-calendar__control {
