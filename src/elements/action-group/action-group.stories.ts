@@ -163,6 +163,71 @@ export const HorizontalFromLarge: StoryObj = {
   args: { ...basicArgsVerticalFullWidth, horizontalFrom: horizontalFrom.options![1] },
 };
 
+export const Complex: StoryObj = {
+  render: (): TemplateResult => html`
+    <style>
+      .action-group {
+        flex-wrap: wrap;
+      }
+
+      .inner {
+        display: contents;
+      }
+
+      .spacer {
+        display: none;
+      }
+
+      .back-button,
+      .order-button {
+        flex-basis: 100%;
+      }
+
+      @media screen and (min-width: 37.5rem) {
+        .inner {
+          display: flex;
+          gap: var(--sbb-action-group-gap);
+          flex-wrap: wrap;
+        }
+
+        .spacer {
+          display: block;
+          flex-grow: 1;
+        }
+
+        .back-button,
+        .order-button {
+          flex-basis: auto;
+        }
+      }
+    </style>
+    <sbb-action-group class="action-group">
+      <div class="inner">
+        <sbb-secondary-button icon-name="chevron-small-left-small" class="back-button">
+          Back
+        </sbb-secondary-button>
+        <sbb-secondary-button icon-name="trash-small" aria-label="Delete"></sbb-secondary-button>
+        <sbb-secondary-button
+          icon-name="context-menu-small"
+          aria-label="More actions"
+        ></sbb-secondary-button>
+      </div>
+      <div class="spacer"></div>
+      <div class="inner">
+        <sbb-secondary-button
+          icon-name="magic-wand-small"
+          aria-label="Autocomplete order"
+        ></sbb-secondary-button>
+        <sbb-secondary-button
+          icon-name="checkpoints-small"
+          aria-label="Open checklist"
+        ></sbb-secondary-button>
+        <sbb-button class="order-button">Order</sbb-button>
+      </div>
+    </sbb-action-group>
+  `,
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
