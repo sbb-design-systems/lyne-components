@@ -178,7 +178,7 @@ const orientation: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['horizontal', 'vertical'],
+  options: ['horizontal', 'vertical'] satisfies SbbCalendarElement['orientation'][],
   table: {
     category: 'Calendar',
   },
@@ -215,7 +215,7 @@ const view: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['day', 'month', 'year'],
+  options: ['day', 'month', 'year'] satisfies SbbCalendarElement['view'][],
 };
 
 const filterFunctions = [
@@ -260,7 +260,6 @@ const defaultArgTypes: ArgTypes = {
   max,
   dateFilter,
   view,
-  withPrice,
 };
 
 const defaultArgs: Args = {
@@ -270,7 +269,11 @@ const defaultArgs: Args = {
   view: view.options![0],
   'week-numbers': false,
   multiple: false,
-  withPrice: false,
+};
+
+const defaultArgTypesEnhanced: Args = {
+  ...defaultArgTypes,
+  withPrice,
 };
 
 const defaultArgsEnhanced: Args = {
@@ -390,43 +393,43 @@ export const CalendarVerticalWideWeekNumbersMultiple: StoryObj = {
 
 export const CalendarMixed: StoryObj = {
   render: MixedTemplate,
-  argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, withPrice: true },
+  argTypes: { ...defaultArgTypesEnhanced },
+  args: { ...defaultArgsEnhanced, withPrice: true },
 };
 
 export const CalendarEnhanced: StoryObj = {
   render: EnhancedTemplate,
-  argTypes: { ...defaultArgTypes },
+  argTypes: { ...defaultArgTypesEnhanced },
   args: { ...defaultArgsEnhanced },
 };
 
 export const CalendarEnhancedNoExtraContent: StoryObj = {
   render: EnhancedTemplate,
-  argTypes: { ...defaultArgTypes },
+  argTypes: { ...defaultArgTypesEnhanced },
   args: { ...defaultArgs },
 };
 
 export const CalendarEnhancedVertical: StoryObj = {
   render: EnhancedTemplate,
-  argTypes: { ...defaultArgTypes },
+  argTypes: { ...defaultArgTypesEnhanced },
   args: { ...defaultArgsEnhanced, orientation: orientation.options![1] },
 };
 
 export const CalendarEnhancedWide: StoryObj = {
   render: EnhancedTemplate,
-  argTypes: { ...defaultArgTypes },
+  argTypes: { ...defaultArgTypesEnhanced },
   args: { ...defaultArgsEnhanced, amount: 2 },
 };
 
 export const CalendarEnhancedWideWeekNumbers: StoryObj = {
   render: EnhancedTemplate,
-  argTypes: { ...defaultArgTypes },
+  argTypes: { ...defaultArgTypesEnhanced },
   args: { ...defaultArgsEnhanced, amount: 2, 'week-numbers': true },
 };
 
 export const CalendarEnhancedWideWeekNumbersMultiple: StoryObj = {
   render: EnhancedTemplate,
-  argTypes: { ...defaultArgTypes },
+  argTypes: { ...defaultArgTypesEnhanced },
   args: {
     ...defaultArgsEnhanced,
     amount: 2,
