@@ -14,7 +14,7 @@ describe(`sbb-calendar ssr`, () => {
     // This test seems flaky for unknown reason, so we extend the timeout for this specific test.
     this.timeout(20000);
     root = await ssrHydratedFixture(
-      html`<sbb-calendar selected="2023-01-20T00:00:00"></sbb-calendar>`,
+      html`<sbb-calendar value="2023-01-20T00:00:00"></sbb-calendar>`,
       { modules: ['../../calendar.ts'] },
     );
   });
@@ -24,6 +24,9 @@ describe(`sbb-calendar ssr`, () => {
   });
 
   it('renders shadow DOM', () => {
-    assert.instanceOf(root.shadowRoot?.querySelector('.sbb-calendar__controls'), HTMLDivElement);
+    assert.instanceOf(
+      root.shadowRoot?.querySelector('.sbb-calendar__table-header'),
+      HTMLDivElement,
+    );
   });
 });

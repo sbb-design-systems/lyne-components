@@ -7,9 +7,8 @@ import {
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
-import type { SbbDateSelectedEvent } from '../../calendar.pure.ts';
 import { SbbCalendarElement } from '../../calendar.pure.ts';
 import {
   type DateAdapter,
@@ -20,6 +19,8 @@ import {
   readConfig,
   type SbbElementType,
   SbbLanguageController,
+  SbbMediaMatcherController,
+  SbbMediaQueryBreakpointLargeAndAbove,
   SbbUpdateSchedulerMixin,
   screenReaderOnlyStyles,
 } from '../../core.ts';
@@ -64,6 +65,12 @@ export class SbbDatepickerElement<T = Date>
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
   private _language = new SbbLanguageController(this);
   private _ready = false;
+  private _mediaMatcher = new SbbMediaMatcherController(this, {
+    [SbbMediaQueryBreakpointLargeAndAbove]: (m) => (this._isBreakpointLargeOrAbove = m),
+  });
+
+  @state() private accessor _isBreakpointLargeOrAbove: boolean =
+    this._mediaMatcher.matches(SbbMediaQueryBreakpointLargeAndAbove) ?? false;
 
   public constructor() {
     super();
@@ -150,13 +157,14 @@ export class SbbDatepickerElement<T = Date>
         .min=${this.input?.min ?? null}
         .max=${this.input?.max ?? null}
         .dateFilter=${this.input?.dateFilter ?? null}
-        .selected=${this.input?.valueAsDate ?? null}
-        ?wide=${this.wide}
-        @dateselected=${(d: SbbDateSelectedEvent<T>) => {
+        .value=${this.input?.valueAsDate ?? null}
+        .amount=${this.wide && this._isBreakpointLargeOrAbove ? 2 : 1}
+        @change=${(event: Event) => {
+          const value = (event.target as SbbCalendarElement<T>).value as T | null;
           if (this.input) {
-            this.input.valueAsDate = d.dateSelected as T;
+            this.input.valueAsDate = value;
             this.input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-            this.input.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+            this.input.dispatchEvent(new Event('change', { bubbles: true }));
             // Emit blur event when value is changed programmatically to notify
             // frameworks that rely on that event to update form status.
             this.input.dispatchEvent(new Event('blur', { composed: true }));

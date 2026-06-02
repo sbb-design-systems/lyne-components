@@ -52,14 +52,14 @@ export class SbbCalendarMonthElement<T = Date> extends SbbCalendarCellBaseElemen
 
   protected override setSelectedState(parent: SbbCalendarElement<T>): void {
     const selected = parent.multiple
-      ? ((parent.selected as Date[])?.some(
+      ? ((parent.value as Date[])?.some(
           (date: Date) =>
             this._yearValue === this.dateAdapter.getYear(date) &&
             this._monthValue === this.dateAdapter.getMonth(date),
         ) ?? false)
-      : !!parent.selected &&
-        this.dateAdapter.getYear(parent.selected) === this._yearValue &&
-        this.dateAdapter.getMonth(parent.selected) === this._monthValue;
+      : !!parent.value &&
+        this.dateAdapter.getYear(parent.value) === this._yearValue &&
+        this.dateAdapter.getMonth(parent.value) === this._monthValue;
     this.toggleState('selected', selected);
     this.internals.ariaPressed = String(selected);
   }

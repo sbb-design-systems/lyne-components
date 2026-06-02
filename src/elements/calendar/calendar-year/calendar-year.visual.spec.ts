@@ -36,7 +36,7 @@ describe('sbb-calendar-year', () => {
         <sbb-calendar
           view="year"
           .min=${defaultDateAdapter.toIso8601(new Date(2023, 0, 9))}
-          .selected=${defaultDateAdapter.toIso8601(new Date(2027, 0, 15))}
+          .value=${defaultDateAdapter.toIso8601(new Date(2027, 0, 15))}
           .dateFilter=${(d: Date): boolean => d.getFullYear() !== 2030 && d.getFullYear() !== 2031}
         >
         </sbb-calendar>
@@ -54,7 +54,7 @@ describe('sbb-calendar-year', () => {
       `multiple`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-calendar view="year" multiple .selected=${selectedDate}></sbb-calendar>
+          <sbb-calendar view="year" multiple .value=${selectedDate}></sbb-calendar>
         `);
       }),
     );

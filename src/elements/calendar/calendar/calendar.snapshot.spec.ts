@@ -34,7 +34,7 @@ describe(`sbb-calendar`, () => {
 
         beforeEach(async () => {
           element = await fixture(html`
-            <sbb-calendar selected="2023-01-20T00:00:00"
+            <sbb-calendar value="2023-01-20T00:00:00"
               >${variant === 'default' ? nothing : createSlottedDays(2023, 1)}</sbb-calendar
             >
           `);
@@ -56,7 +56,7 @@ describe(`sbb-calendar`, () => {
 
         beforeEach(async () => {
           element = await fixture(html`
-            <sbb-calendar selected="2023-01-20T00:00:00" orientation="vertical"
+            <sbb-calendar value="2023-01-20T00:00:00" orientation="vertical"
               >${variant === 'default' ? nothing : createSlottedDays(2023, 1)}</sbb-calendar
             >
           `);
@@ -76,7 +76,7 @@ describe(`sbb-calendar`, () => {
 
         beforeEach(async () => {
           element = await fixture(html`
-            <sbb-calendar selected="2023-01-20T00:00:00" view="year"
+            <sbb-calendar value="2023-01-20T00:00:00" view="year"
               >${variant === 'default' ? nothing : createSlottedDays(2023, 1)}</sbb-calendar
             >
           `);
@@ -96,7 +96,7 @@ describe(`sbb-calendar`, () => {
 
         beforeEach(async () => {
           element = await fixture(html`
-            <sbb-calendar selected="2023-01-20T00:00:00" view="month"
+            <sbb-calendar value="2023-01-20T00:00:00" view="month"
               >${variant === 'default' ? nothing : createSlottedDays(2023, 1)}</sbb-calendar
             >
           `);
@@ -116,7 +116,7 @@ describe(`sbb-calendar`, () => {
 
         beforeEach(async () => {
           element = await fixture(html`
-            <sbb-calendar selected="2023-01-20T00:00:00" multiple
+            <sbb-calendar value="2023-01-20T00:00:00" multiple
               >${variant === 'default' ? nothing : createSlottedDays(2023, 1)}</sbb-calendar
             >
           `);
@@ -137,7 +137,11 @@ describe(`sbb-calendar`, () => {
         beforeEach(async () => {
           await setViewport({ width: sbbBreakpointLargeMinPx, height: 640 });
           element = await fixture(html`
-            <sbb-calendar selected="2023-01-20T00:00:00" orientation="horizontal" wide week-numbers
+            <sbb-calendar
+              value="2023-01-20T00:00:00"
+              orientation="horizontal"
+              amount="2"
+              week-numbers
               >${variant === 'default' ? nothing : createSlottedDays(2023, 1)}</sbb-calendar
             >
           `);
@@ -158,7 +162,7 @@ describe(`sbb-calendar`, () => {
         beforeEach(async () => {
           await setViewport({ width: sbbBreakpointLargeMinPx, height: 640 });
           element = await fixture(html`
-            <sbb-calendar selected="2023-01-20T00:00:00" orientation="vertical" wide week-numbers
+            <sbb-calendar value="2023-01-20T00:00:00" orientation="vertical" amount="2" week-numbers
               >${variant === 'default' ? nothing : createSlottedDays(2023, 1)}</sbb-calendar
             >
           `);
