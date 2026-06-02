@@ -30,7 +30,7 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitOverride": true,
 
-    "types": ["vite/client", "node"],
+    "types": ["vite/client"],
 
     "plugins": [
       {
