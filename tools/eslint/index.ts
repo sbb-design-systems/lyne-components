@@ -20,6 +20,7 @@ export const rules = (
       'property-type-rule',
       'pure-export-rule',
       'relative-imports-rule',
+      'snapshot-format-rule',
       'test-describe-title-rule',
       'test-tabkey-rule',
     ].map((name) =>
