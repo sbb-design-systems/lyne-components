@@ -9,6 +9,7 @@ import {
   elementInternalsSpy,
   fixture,
   sbbBreakpointLargeMinPx,
+  tabKey,
 } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import { defaultDateAdapter } from '../../core.ts';
@@ -551,6 +552,36 @@ describe(`sbb-calendar`, () => {
           await waitForLitRender(element);
 
           expect(document.activeElement).to.be.equal(activeElement);
+        });
+
+        it('restores focus into year view after focusing out and back in', async () => {
+          const outsideButton = document.createElement('button');
+          element.parentElement!.append(outsideButton);
+
+          // Navigate to year view
+          const yearSelectionButton =
+            element.shadowRoot!.querySelector<HTMLElement>(yearButtonSelector)!;
+          yearSelectionButton.focus();
+          await sendKeys({ press: 'Enter' });
+          await waitForLitRender(element);
+
+          expect(element.shadowRoot!.querySelector('.sbb-calendar__year-view')).not.to.be.null;
+
+          // Focus out of calendar
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(element);
+          expect(document.activeElement).to.be.equal(outsideButton);
+          expect(element).not.to.have.attribute('tabindex');
+
+          // Focus back into the calendar
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(element);
+
+          // The focused element should now be a year cell inside the calendar
+          const focusedYear = element.shadowRoot!.querySelector<SbbCalendarYearElement>(
+            'sbb-calendar-year[tabindex="0"]',
+          );
+          expect(document.activeElement!.shadowRoot!.activeElement).to.be.equal(focusedYear);
         });
 
         it('does not create horizontal scrollbar when calendar is 100% width in overflow container', async () => {

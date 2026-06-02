@@ -1011,8 +1011,11 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       .activeElement as SbbCalendarCellBaseElement<T>;
     if (nextEl !== activeEl) {
       nextEl.tabIndex = 0;
-      nextEl?.focus();
-      activeEl.tabIndex = -1;
+      nextEl.focus();
+
+      if (cells.includes(activeEl)) {
+        activeEl.tabIndex = -1;
+      }
     }
   }
 
