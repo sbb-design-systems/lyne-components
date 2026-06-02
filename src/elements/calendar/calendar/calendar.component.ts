@@ -239,8 +239,6 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
   @state() private accessor _calendarView: SbbCalendarElement['view'] = 'day';
 
-  private _nextCalendarView: SbbCalendarElement['view'] = 'day';
-
   /** A list of days, in two formats (long and single char). */
   private _weekdays!: Weekday[];
 
@@ -420,7 +418,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     if (changedProperties.has('view')) {
       this._setChosenYear();
       this._chosenMonth = undefined;
-      this._nextCalendarView = this._calendarView = this.view;
+      this._calendarView = this.view;
     }
   }
 
@@ -434,7 +432,9 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     if (name === '_calendarView') {
       this.internals.states.delete(`view-${oldValue}`);
       this.internals.states.add(`view-${this._calendarView}`);
-      this.toggleState('');
+      if (this._containingFocus) {
+        this._resetFocus = true;
+      }
     }
   }
 
@@ -1290,12 +1290,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       : this._findNext(days, nextIndex, -verticalOffset);
   }
 
-  private _resetCalendarViewAndEmitMonthChange(initTransition = false): void {
-    this._resetCalendarView(initTransition);
+  private _resetCalendarViewAndEmitMonthChange(): void {
+    this._resetCalendarView();
     this._emitMonthChange();
   }
 
-  private _resetCalendarView(initTransition = false): void {
+  private _resetCalendarView(): void {
     if (this._containingFocus) {
       this._resetFocus = true;
     }
@@ -1305,11 +1305,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     this._setChosenYear();
     this._chosenMonth = undefined;
     this._init();
-    this._nextCalendarView = this._calendarView = this.view;
-
-    if (initTransition) {
-      this._startTableTransition();
-    }
+    this._calendarView = this.view;
   }
 
   /** Creates the calendar table for the daily view. */
@@ -1333,7 +1329,6 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
           class="sbb-calendar__table"
           @focusout=${(event: FocusEvent) =>
             this._handleTableBlur(event.relatedTarget as HTMLElement)}
-          @animationend=${(e: AnimationEvent) => this._tableAnimationEnd(e)}
         >
           <thead>
             <tr>
@@ -1461,7 +1456,6 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
           class="sbb-calendar__table"
           @focusout=${(event: FocusEvent) =>
             this._handleTableBlur(event.relatedTarget as HTMLElement)}
-          @animationend=${(e: AnimationEvent) => this._tableAnimationEnd(e)}
         >
           ${this.weekNumbers
             ? html`
@@ -1547,8 +1541,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         'up',
         () => {
           this._resetFocus = true;
-          this._nextCalendarView = 'year';
-          this._startTableTransition();
+          this._calendarView = 'year';
         },
         `${i18nYearMonthSelection[this._language.current]} ${monthLabel}`,
       ),
@@ -1588,15 +1581,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
           )}
           ${this._getArrow(
             'down',
-            () => this._resetCalendarViewAndEmitMonthChange(true),
+            () => this._resetCalendarViewAndEmitMonthChange(),
             `${i18nCalendarDateSelection[this._language.current]} ${this._chosenYear}`,
           )}
           <span class="sbb-screen-reader-only" role="status">${this._chosenYear}</span>
         </div>
-        <table
-          class="sbb-calendar__table"
-          @animationend=${(e: AnimationEvent) => this._tableAnimationEnd(e)}
-        >
+        <table class="sbb-calendar__table">
           <tbody>
             ${this._months.map(
               (row: MonthCell[]) => html`
@@ -1626,7 +1616,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   /** Select the month and change the view to day selection. */
   private _onMonthSelection(month: number, year: number): void {
     this._chosenMonth = month;
-    this._nextCalendarView = 'day';
+    this._calendarView = 'day';
     this._init(
       this._dateAdapter.createDate(
         year,
@@ -1634,7 +1624,6 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         this._dateAdapter.getDate(this._activeDate),
       ),
     );
-    this._startTableTransition();
     this._emitMonthChange();
   }
 
@@ -1662,15 +1651,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
           )}
           ${this._getArrow(
             'down',
-            () => this._resetCalendarViewAndEmitMonthChange(true),
+            () => this._resetCalendarViewAndEmitMonthChange(),
             `${i18nCalendarDateSelection[this._language.current]} ${yearLabel}`,
           )}
           <span class="sbb-screen-reader-only" role="status">${yearLabel}</span>
         </div>
-        <table
-          class="sbb-calendar__table"
-          @animationend=${(e: AnimationEvent) => this._tableAnimationEnd(e)}
-        >
+        <table class="sbb-calendar__table">
           <tbody>
             ${this._years.map(
               (row: number[]) =>
@@ -1698,7 +1684,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   /** Select the year and change the view to month selection. */
   private _onYearSelection(year: number): void {
     this._chosenYear = year;
-    this._nextCalendarView = 'month';
+    this._calendarView = 'month';
     this._assignActiveDate(
       this._dateAdapter.createDate(
         this._chosenYear,
@@ -1706,7 +1692,6 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         this._dateAdapter.getDate(this._activeDate),
       ),
     );
-    this._startTableTransition();
   }
 
   /** Creates the button arrow for all the views. */
@@ -1724,26 +1709,6 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       @click=${click}
       ?disabled=${disabled}
     ></sbb-secondary-button>`;
-  }
-
-  private _tableAnimationEnd(event: AnimationEvent): void {
-    const table = event.target as HTMLElement;
-    if (event.animationName === 'hide') {
-      table.classList.remove('sbb-calendar__table-hide');
-      if (this._containingFocus) {
-        this._resetFocus = true;
-      }
-      this._calendarView = this._nextCalendarView;
-    } else if (event.animationName === 'show') {
-      this.internals.states.delete('transition');
-    }
-  }
-
-  private _startTableTransition(): void {
-    this.internals.states.add('transition');
-    this.shadowRoot
-      ?.querySelectorAll('table')
-      ?.forEach((e) => e.classList.toggle('sbb-calendar__table-hide'));
   }
 
   private _getView(): TemplateResult | typeof nothing {

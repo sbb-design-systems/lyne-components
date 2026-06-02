@@ -10,7 +10,7 @@ import {
   fixture,
   sbbBreakpointLargeMinPx,
 } from '../../core/testing/private.ts';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import { defaultDateAdapter } from '../../core.ts';
 import { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 import {
@@ -22,7 +22,6 @@ import type { SbbCalendarMonthElement } from '../calendar-month/calendar-month.c
 import type { SbbCalendarWeekdayElement } from '../calendar-weekday/calendar-weekday.component.ts';
 import type { SbbCalendarWeeknumberElement } from '../calendar-weeknumber/calendar-weeknumber.component.ts';
 import type { SbbCalendarYearElement } from '../calendar-year/calendar-year.component.ts';
-import type { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-element.ts';
 
 import type { SbbDateSelectedEvent, SbbMonthChangeEvent } from './calendar.component.ts';
 import { SbbCalendarElement } from './calendar.component.ts';
@@ -60,26 +59,6 @@ describe(`sbb-calendar`, () => {
       );
     }
     return null;
-  };
-
-  const getWaitFromTransitionQuery = (
-    element: SbbCalendarElement,
-  ): SbbCalendarCellBaseElement[] => {
-    return element['_calendarView'] === 'day'
-      ? getDayCells(element)
-      : element['_calendarView'] === 'year'
-        ? Array.from(element.shadowRoot!.querySelectorAll('sbb-calendar-year'))
-        : Array.from(element.shadowRoot!.querySelectorAll('sbb-calendar-month'));
-  };
-
-  const waitForTransition = async (element: SbbCalendarElement): Promise<void> => {
-    // Wait for the transition to be over
-    await waitForCondition(() => !element.matches(':state(transition)'));
-
-    await waitForLitRender(element);
-
-    // Wait for the new table to be rendered completely
-    await waitForCondition(() => getWaitFromTransitionQuery(element).length > 0);
   };
 
   before(() => {
@@ -289,7 +268,7 @@ describe(`sbb-calendar`, () => {
 
           expect(yearSelectionButton).not.to.be.null;
           yearSelectionButton.click();
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           const yearSelection: HTMLElement = element.shadowRoot!.querySelector(
             returnFromYearViewSelector,
@@ -312,7 +291,7 @@ describe(`sbb-calendar`, () => {
           )!;
           expect(yearButton.value).to.be.equal('2023');
           yearButton.click();
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
             returnFromMonthViewSelector,
@@ -332,7 +311,7 @@ describe(`sbb-calendar`, () => {
           monthCells[0].click();
           await waitForLitRender(element);
 
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           const dayCells: SbbCalendarDayElement[] = getDayCells(element);
           expect(dayCells.length).to.be.equal(31);
@@ -345,7 +324,7 @@ describe(`sbb-calendar`, () => {
             element.shadowRoot!.querySelector(yearButtonSelector)!;
           expect(yearSelectionButton).not.to.be.null;
           yearSelectionButton.click();
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           const yearButtonArray: SbbCalendarYearElement[] = Array.from(
             element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
@@ -353,7 +332,7 @@ describe(`sbb-calendar`, () => {
           const yearButton = yearButtonArray.find((e) => e.value === '2030')!;
           expect(yearButton).not.to.be.null;
           yearButton.click();
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           const monthCells: SbbCalendarMonthElement[] = Array.from(
             element.shadowRoot!.querySelectorAll('sbb-calendar-month'),
@@ -361,7 +340,7 @@ describe(`sbb-calendar`, () => {
           expect(monthCells.length).to.be.equal(12);
           monthCells[8].click();
           await waitForLitRender(element);
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           const dayCells = getDayCells(element);
           expect(dayCells.length).to.be.equal(30);
@@ -369,13 +348,13 @@ describe(`sbb-calendar`, () => {
 
           // Without selecting a day, change to the year view
           yearSelectionButton.click();
-          await waitForTransition(element);
+          await waitForLitRender(element);
           // Go back to day view again by clicking once more
           const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
             returnFromYearViewSelector,
           )!;
           monthSelection.click();
-          await waitForTransition(element);
+          await waitForLitRender(element);
           // We expect to be in the month of the selected day (Dec 2023)
           const dayCells2 = getDayCells(element);
           expect(dayCells2.length).to.be.equal(31);
@@ -410,7 +389,7 @@ describe(`sbb-calendar`, () => {
             const yearSelectionButton =
               element.shadowRoot!.querySelector<HTMLElement>(yearButtonSelector)!;
             yearSelectionButton.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             // Select same year
             const yearButtonArray: SbbCalendarYearElement[] = Array.from(
@@ -418,7 +397,7 @@ describe(`sbb-calendar`, () => {
             );
             const year2023Button = yearButtonArray.find((e) => e.value === '2023')!;
             year2023Button.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
               returnFromMonthViewSelector,
@@ -434,7 +413,7 @@ describe(`sbb-calendar`, () => {
             );
 
             october2023Button.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             const selectedDayButton = getDayCells(element).find((e) =>
               e.matches('sbb-calendar-day[slot="2023-10-15"]'),
@@ -458,7 +437,7 @@ describe(`sbb-calendar`, () => {
             const yearSelectionButton =
               element.shadowRoot!.querySelector<HTMLElement>(yearButtonSelector)!;
             yearSelectionButton.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             // Select same year
             const yearButtonArray: SbbCalendarYearElement[] = Array.from(
@@ -468,7 +447,7 @@ describe(`sbb-calendar`, () => {
             expect(document.activeElement!.shadowRoot!.activeElement).to.be.equal(year2023Button);
 
             year2023Button.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             // Check that we're in month selection view
             const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
@@ -485,7 +464,7 @@ describe(`sbb-calendar`, () => {
             );
 
             october2023Button.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             const selectedDayButton = getDayCells(element).find((e) =>
               e.matches('sbb-calendar-day[slot="2023-10-15"]'),
@@ -509,7 +488,7 @@ describe(`sbb-calendar`, () => {
             const yearSelectionButton =
               element.shadowRoot!.querySelector<HTMLElement>(yearButtonSelector)!;
             yearSelectionButton.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             // Select a different year (2024, not the current year 2023)
             const yearButtonArray: SbbCalendarYearElement[] = Array.from(
@@ -517,7 +496,7 @@ describe(`sbb-calendar`, () => {
             );
             const yearButton = yearButtonArray.find((e) => e.value === '2024')!;
             yearButton.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             // Check that we're in month selection view
             const monthSelection = element.shadowRoot!.querySelector<HTMLElement>(
@@ -534,7 +513,7 @@ describe(`sbb-calendar`, () => {
               january2024Button,
             );
             january2024Button.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             const selectedDayButton = getDayCells(element).find((e) =>
               e.matches('sbb-calendar-day[slot="2024-01-01"]'),
@@ -554,7 +533,7 @@ describe(`sbb-calendar`, () => {
 
           // Trigger an update which triggers updated().
           element.amount = 2;
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           expect(document.activeElement).to.be.equal(document.body);
         });
@@ -569,7 +548,7 @@ describe(`sbb-calendar`, () => {
 
           // Trigger an update which triggers updated().
           element.amount = 2;
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           expect(document.activeElement).to.be.equal(activeElement);
         });
@@ -1047,7 +1026,7 @@ describe(`sbb-calendar`, () => {
               )!
               .click();
 
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             // Open month selection
             const yearButtonArray: SbbCalendarYearElement[] = Array.from(
@@ -1056,7 +1035,7 @@ describe(`sbb-calendar`, () => {
             const year2039Button = yearButtonArray.find((e) => e.value === '2039')!;
             year2039Button!.click();
 
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             const monthButtonArray: SbbCalendarMonthElement[] = Array.from(
               element.shadowRoot!.querySelectorAll('sbb-calendar-month'),
@@ -1064,7 +1043,7 @@ describe(`sbb-calendar`, () => {
             const december2039Button = monthButtonArray.find((e) => e.value === '2039-12')!;
             december2039Button!.click();
 
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             // Day view should be opened with December 2039
             expect(
@@ -1099,7 +1078,7 @@ describe(`sbb-calendar`, () => {
               )!
               .click();
 
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             // Open month selection
             const yearButtonArray: SbbCalendarYearElement[] = Array.from(
@@ -1108,7 +1087,7 @@ describe(`sbb-calendar`, () => {
             const year2023Button = yearButtonArray.find((e) => e.value === '2023')!;
             year2023Button!.click();
 
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             const monthButtonArray: SbbCalendarMonthElement[] = Array.from(
               element.shadowRoot!.querySelectorAll('sbb-calendar-month'),
@@ -1125,7 +1104,7 @@ describe(`sbb-calendar`, () => {
               )!;
 
               nextButton.click();
-              await waitForTransition(element);
+              await waitForLitRender(element);
             }
 
             const nextButton = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
@@ -1325,7 +1304,7 @@ describe(`sbb-calendar`, () => {
 
           expect(yearSelectionButton).not.to.be.null;
           yearSelectionButton.click();
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           const years: SbbCalendarYearElement[] = Array.from(
             element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
