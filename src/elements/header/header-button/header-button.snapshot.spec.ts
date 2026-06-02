@@ -18,7 +18,7 @@ describe(`sbb-header-button`, () => {
           name="test"
           type="reset"
           value="value"
-          expand-from="zero"
+          hide-label-below="large"
           aria-label="a11y label"
         >
           Action

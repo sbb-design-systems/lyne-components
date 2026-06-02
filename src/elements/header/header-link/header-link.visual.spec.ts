@@ -78,7 +78,7 @@ describe(`sbb-header-link`, () => {
           state.name,
           state.with(async (setup) => {
             await setup.withFixture(
-              html`<sbb-header-link href="" expand-from="large">Menu</sbb-header-link>`,
+              html`<sbb-header-link href="" hide-label-below="large">Menu</sbb-header-link>`,
             );
           }),
         );
@@ -94,7 +94,7 @@ describe(`sbb-header-link`, () => {
               html`<sbb-header-link
                 href=""
                 icon-name="hamburger-menu-small"
-                expand-from="large"
+                hide-label-below="large"
               ></sbb-header-link>`,
             );
           }),

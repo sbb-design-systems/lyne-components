@@ -12,7 +12,7 @@ import '../title.ts';
 describe(`sbb-map-container`, () => {
   const template = (stickyOffset = false): TemplateResult => html`
     <sbb-header expanded>
-      <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
+      <sbb-header-button icon-name="hamburger-menu-small" hide-label-below="small">
         Menu
       </sbb-header-button>
       <div class="sbb-header-spacer"></div>

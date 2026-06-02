@@ -200,14 +200,14 @@
   @include icon-only;
 }
 
-// TODO: reevaluate this once 'CSS container queries' is supported
-// https://caniuse.com/css-container-queries-style
 @each $breakpoint, $value in sbb.$mq-breakpoints {
   // We skip zero breakpoint as it would resolve into (to: 0).
   // The rules are set to force the icon only variant if there is slotted text, but not yet expanded.
   @if $breakpoint != 'zero' {
     :host(
-      [expand-from='#{$breakpoint}']:is(:state(slotted-icon), :state(has-icon-name)):state(slotted)
+      [hide-label-below='#{$breakpoint}']:is(:state(slotted-icon), :state(has-icon-name)):state(
+          slotted
+        )
     ) {
       @include sbb.mq($to: #{$breakpoint}) {
         @include icon-only;

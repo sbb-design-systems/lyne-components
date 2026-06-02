@@ -5,7 +5,6 @@ import { html } from 'lit/static-html.js';
 import {
   type AbstractConstructor,
   type SbbActionBaseElement,
-  type SbbHorizontalFrom,
   SbbPropertyWatcherController,
 } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
@@ -16,7 +15,7 @@ import style from './header-action.scss?inline';
 export declare class SbbHeaderActionCommonElementMixinType extends SbbIconNameMixin(
   SbbActionBaseElement,
 ) {
-  public accessor expandFrom: SbbHorizontalFrom;
+  public accessor hideLabelBelow: 'small' | 'large' | 'ultra' | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -32,13 +31,12 @@ export const SbbHeaderActionCommonElementMixin = <
     public static styles: CSSResultGroup = [unsafeCSS(style)];
 
     /**
-     * Used to set the minimum breakpoint from which the text is displayed.
+     * Used to set the maximum breakpoint (not including) to which the text is displayed.
      * E.g. if set to 'large', the text will be visible for breakpoints large and ultra,
      * and hidden for all the others. Ignored if no icon is set.
      */
-    // TODO: Needs a breaking change to work with the 'no-default-reflect' behavior
-    @property({ attribute: 'expand-from', reflect: true })
-    public accessor expandFrom: SbbHorizontalFrom = 'large';
+    @property({ attribute: 'hide-label-below', reflect: true })
+    public accessor hideLabelBelow: 'small' | 'large' | 'ultra' | null = null;
 
     private _previousSize: SbbHeaderElement['size'] = null;
 
