@@ -1274,7 +1274,7 @@ snapshots["sbb-calendar default renders in year view Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose date 2016 - 2039"
+        aria-label="Change to date selection"
         class="sbb-calendar__control"
         icon-name="chevron-small-down-small"
         size="s"
@@ -1837,7 +1837,7 @@ snapshots["sbb-calendar default renders in month view Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose date 2023"
+        aria-label="Change to date selection"
         class="sbb-calendar__control"
         icon-name="chevron-small-down-small"
         size="s"
@@ -5732,7 +5732,7 @@ snapshots["sbb-calendar enhanced renders in year view Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose date 2016 - 2039"
+        aria-label="Change to date selection"
         class="sbb-calendar__control"
         icon-name="chevron-small-down-small"
         size="s"
@@ -6450,7 +6450,7 @@ snapshots["sbb-calendar enhanced renders in month view Shadow DOM"] =
       >
       </sbb-secondary-button>
       <sbb-secondary-button
-        aria-label="Choose date 2023"
+        aria-label="Change to date selection"
         class="sbb-calendar__control"
         icon-name="chevron-small-down-small"
         size="s"
