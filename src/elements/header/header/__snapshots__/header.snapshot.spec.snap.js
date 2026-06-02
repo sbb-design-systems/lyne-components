@@ -20,7 +20,6 @@ snapshots["sbb-header renders Shadow DOM"] =
 snapshots["sbb-header renders actions and logo DOM"] = 
 `<sbb-header>
   <sbb-header-link
-    expand-from="large"
     href="https://github.com/sbb-design-systems/lyne-components"
     icon-name="hamburger-menu-small"
   >
@@ -50,7 +49,7 @@ snapshots["sbb-header renders actions and logo Shadow DOM"] =
 `;
 /* end snapshot sbb-header renders actions and logo Shadow DOM */
 
-snapshots["sbb-header renders actions and logo A11y tree Chrome"] = 
+snapshots["sbb-header renders actions and logo A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",

@@ -14,7 +14,9 @@ import '../../sidebar.ts';
 
 describe('sbb-sidebar', () => {
   const header = html`<sbb-header expanded size="s" scroll-origin="content">
-    <sbb-header-button icon-name="arrows-right-left-small">Toggle sidebar</sbb-header-button>
+    <sbb-header-button icon-name="arrows-right-left-small" hide-label-below="large">
+      Toggle sidebar
+    </sbb-header-button>
     <div style="flex-grow: 1"></div>
     <a aria-label="Homepage" href="/" class="sbb-header-logo">
       <sbb-logo protective-room="none"></sbb-logo>

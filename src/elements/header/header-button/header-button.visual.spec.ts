@@ -30,6 +30,7 @@ function testHeaderButton({
                 <sbb-header-button
                   icon-name="hamburger-menu-small"
                   class=${active ? 'sbb-active' : ''}
+                  hide-label-below="large"
                 >
                   Menu
                 </sbb-header-button>
@@ -61,7 +62,7 @@ describe(`sbb-header-button`, () => {
         img.selector,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-header-button>${img.template} Menu</sbb-header-button>
+            <sbb-header-button hide-label-below="large">${img.template} Menu</sbb-header-button>
           `);
 
           setup.withPostSetupAction(
@@ -77,7 +78,7 @@ describe(`sbb-header-button`, () => {
           state.name,
           state.with(async (setup) => {
             await setup.withFixture(
-              html`<sbb-header-button expand-from="large">Menu</sbb-header-button>`,
+              html`<sbb-header-button hide-label-below="large">Menu</sbb-header-button>`,
             );
           }),
         );
@@ -91,7 +92,7 @@ describe(`sbb-header-button`, () => {
           state.with(async (setup) => {
             await setup.withFixture(
               html`<sbb-header-button
-                expand-from="large"
+                hide-label-below="large"
                 icon-name="hamburger-menu-small"
               ></sbb-header-button>`,
             );

@@ -22,19 +22,29 @@ export const homeTemplate = (args: Args): TemplateResult => html`
 
     <!-- Header section -->
     <sbb-header hide-on-scroll ?expanded=${args.expanded}>
-      <sbb-header-button id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
+      <sbb-header-button
+        id="hamburger-menu"
+        icon-name="hamburger-menu-small"
+        hide-label-below="small"
+      >
         Menu
       </sbb-header-button>
       <div class="sbb-header-spacer"></div>
-      <sbb-header-link icon-name="magnifying-glass-small" href="/"> Search </sbb-header-link>
-      <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
+      <sbb-header-link icon-name="magnifying-glass-small" href="/" hide-label-below="large">
+        Search
+      </sbb-header-link>
+      <sbb-header-button
+        icon-name="user-small"
+        class="sbb-header-shrinkable"
+        hide-label-below="large"
+      >
         Sign in
       </sbb-header-button>
       <sbb-header-button
         icon-name="globe-small"
         id="language-menu-trigger"
         class="last-element"
-        expand-from="small"
+        hide-label-below="small"
       >
         English
       </sbb-header-button>

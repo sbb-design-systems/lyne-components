@@ -57,7 +57,9 @@ describe(`lean`, () => {
             await setup.withFixture(
               html`
                 <sbb-header size=${size || nothing}>
-                  <sbb-header-button icon-name="hamburger-menu-small">Test</sbb-header-button>
+                  <sbb-header-button icon-name="hamburger-menu-small" hide-label-below="large">
+                    Test
+                  </sbb-header-button>
                 </sbb-header>
                 <sbb-sidebar-container>
                   <sbb-sidebar>Sidebar</sbb-sidebar>

@@ -13,7 +13,9 @@ import '../../sidebar.ts';
 
 describe('sbb-icon-sidebar', () => {
   const header = html`<sbb-header expanded size="s" scroll-origin="content">
-    <sbb-header-button icon-name="hamburger-menu-small">Menu</sbb-header-button>
+    <sbb-header-button icon-name="hamburger-menu-small" hide-label-below="large">
+      Menu
+    </sbb-header-button>
     <div style="flex-grow: 1"></div>
     <a aria-label="Homepage" href="/" class="sbb-header-logo">
       <sbb-logo protective-room="none"></sbb-logo>

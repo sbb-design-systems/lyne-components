@@ -68,7 +68,7 @@ const meta: Meta = {
   decorators: [
     (story) => html`
       <sbb-header expanded>
-        <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
+        <sbb-header-button icon-name="hamburger-menu-small" hide-label-below="small">
           Menu
         </sbb-header-button>
         <div class="sbb-header-spacer"></div>

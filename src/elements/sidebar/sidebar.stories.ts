@@ -100,6 +100,7 @@ const header = (twoButtons = false): TemplateResult =>
           ?.toggle()}
       aria-controls="sidebar-1"
       aria-expanded="true"
+      hide-label-below="large"
     >
       Toggle sidebar
     </sbb-header-button>
@@ -113,6 +114,7 @@ const header = (twoButtons = false): TemplateResult =>
               ?.toggle()}
           aria-controls="sidebar-2"
           aria-expanded="true"
+          hide-label-below="large"
         >
           Toggle end sidebar
         </sbb-header-button>`

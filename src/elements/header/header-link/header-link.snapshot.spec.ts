@@ -14,7 +14,7 @@ describe(`sbb-header-link`, () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-header-link
-          expand-from="small"
+          hide-label-below="small"
           href="https://github.com/sbb-design-systems/lyne-components"
           target="_blank"
           icon-name="pie-small"

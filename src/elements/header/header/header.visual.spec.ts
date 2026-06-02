@@ -47,7 +47,7 @@ describe(`sbb-header`, () => {
       <sbb-header ?expanded=${opt.expanded} size=${opt.size || nothing}>
         <sbb-header-button
           icon-name=${opt.noIcon ? nothing : 'hamburger-menu-small'}
-          expand-from="small"
+          hide-label-below="small"
         >
           Menu
         </sbb-header-button>
@@ -56,13 +56,18 @@ describe(`sbb-header`, () => {
           href="https://www.sbb.ch"
           target="_blank"
           icon-name="magnifying-glass-small"
+          hide-label-below="large"
         >
           Search
         </sbb-header-link>
-        <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
+        <sbb-header-button
+          icon-name="user-small"
+          class="sbb-header-shrinkable"
+          hide-label-below="large"
+        >
           Christina Müller
         </sbb-header-button>
-        <sbb-header-button icon-name="globe-small" class="last-element" expand-from="small">
+        <sbb-header-button icon-name="globe-small" class="last-element" hide-label-below="small">
           English
         </sbb-header-button>
         <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
