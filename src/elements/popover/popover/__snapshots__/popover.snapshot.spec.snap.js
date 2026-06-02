@@ -24,7 +24,7 @@ snapshots["sbb-popover renders Shadow DOM"] =
 `;
 /* end snapshot sbb-popover renders Shadow DOM */
 
-snapshots["sbb-popover renders A11y tree Chrome"] =
+snapshots["sbb-popover renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "generic",

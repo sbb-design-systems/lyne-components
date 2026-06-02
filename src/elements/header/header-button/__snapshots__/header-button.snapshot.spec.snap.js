@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-header-button renders DOM"] =
+snapshots["sbb-header-button renders DOM"] = 
 `<sbb-header-button
   aria-label="a11y label"
   hide-label-below="large"
@@ -16,7 +16,7 @@ snapshots["sbb-header-button renders DOM"] =
 `;
 /* end snapshot sbb-header-button renders DOM */
 
-snapshots["sbb-header-button renders Shadow DOM"] =
+snapshots["sbb-header-button renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-header-button">
   <span class="sbb-header-action__wrapper">
     <span class="sbb-header-action__icon">
@@ -34,7 +34,7 @@ snapshots["sbb-header-button renders Shadow DOM"] =
 `;
 /* end snapshot sbb-header-button renders Shadow DOM */
 
-snapshots["sbb-header-button renders A11y tree Chrome"] =
+snapshots["sbb-header-button renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "generic",

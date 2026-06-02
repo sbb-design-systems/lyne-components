@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-header-link renders DOM"] =
+snapshots["sbb-header-link renders DOM"] = 
 `<sbb-header-link
   accessibility-label="a11y label"
   hide-label-below="small"
@@ -14,7 +14,7 @@ snapshots["sbb-header-link renders DOM"] =
 `;
 /* end snapshot sbb-header-link renders DOM */
 
-snapshots["sbb-header-link renders Shadow DOM"] =
+snapshots["sbb-header-link renders Shadow DOM"] = 
 `<a
   aria-describedby="sbb-link-new-window"
   aria-label="a11y label"
@@ -45,7 +45,7 @@ snapshots["sbb-header-link renders Shadow DOM"] =
 `;
 /* end snapshot sbb-header-link renders Shadow DOM */
 
-snapshots["sbb-header-link renders A11y tree Chrome"] =
+snapshots["sbb-header-link renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "generic",
