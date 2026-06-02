@@ -439,6 +439,10 @@ export const CalendarEnhancedWideWeekNumbersMultiple: StoryObj = {
   },
 };
 
+export const CalendarFixedMonth: StoryObj = {
+  render: () => html`<sbb-calendar fixed-month="2023-08"></sbb-calendar>`,
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
