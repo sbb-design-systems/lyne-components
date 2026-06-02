@@ -40,39 +40,39 @@ const getCalendarAttr = (min: number | string, max: number | string): Record<str
   return attr;
 };
 
-const setSelectedForTemplate = (multiple: boolean, selected: Date | Date[]): Date | Date[] => {
+const getValueForTemplate = (multiple: boolean, value: Date | Date[]): Date | Date[] => {
   if (multiple) {
-    if (!Array.isArray(selected)) {
-      selected = [new Date(selected)];
+    if (!Array.isArray(value)) {
+      value = [new Date(value)];
     } else {
-      selected = selected.map((e) => new Date(e));
+      value = value.map((e) => new Date(e));
     }
   } else {
-    if (Array.isArray(selected)) {
-      selected = new Date(selected[0]);
+    if (Array.isArray(value)) {
+      value = new Date(value[0]);
     } else {
-      selected = new Date(selected);
+      value = new Date(value);
     }
   }
-  return selected;
+  return value;
 };
 
 const Template = ({
   min,
   max,
   multiple,
-  selected,
+  value,
   dateFilter,
   amount,
   ...args
 }: Args): TemplateResult => {
-  if (selected) {
-    selected = setSelectedForTemplate(multiple, selected);
+  if (value) {
+    value = getValueForTemplate(multiple, value);
   }
   return html`
     <sbb-calendar
       ?multiple=${multiple}
-      .value=${selected}
+      .value=${value}
       .dateFilter="${dateFilter}"
       amount=${amount}
       ${sbbSpread(getCalendarAttr(min, max))}
@@ -85,19 +85,19 @@ const EnhancedTemplate = ({
   min,
   max,
   multiple,
-  selected,
+  value,
   dateFilter,
   withPrice,
   amount,
   ...args
 }: Args): TemplateResult => {
-  if (selected) {
-    selected = setSelectedForTemplate(multiple, selected);
+  if (value) {
+    value = getValueForTemplate(multiple, value);
   }
   return html`
     <sbb-calendar
       ?multiple=${multiple}
-      .value=${selected}
+      .value=${value}
       .dateFilter="${dateFilter}"
       amount=${amount}
       ${sbbSpread(getCalendarAttr(min, max))}
@@ -112,19 +112,19 @@ const MixedTemplate = ({
   min,
   max,
   multiple,
-  selected,
+  value,
   dateFilter,
   withPrice,
   amount,
   ...args
 }: Args): TemplateResult => {
-  if (selected) {
-    selected = setSelectedForTemplate(multiple, selected);
+  if (value) {
+    value = getValueForTemplate(multiple, value);
   }
   return html`
     <sbb-calendar
       ?multiple=${multiple}
-      .value=${selected}
+      .value=${value}
       .dateFilter="${dateFilter}"
       amount=${amount}
       ${sbbSpread(getCalendarAttr(min, max))}
@@ -184,7 +184,7 @@ const orientation: InputType = {
   },
 };
 
-const selected: InputType = {
+const value: InputType = {
   control: {
     type: 'date',
   },
@@ -255,7 +255,7 @@ const defaultArgTypes: ArgTypes = {
   'week-numbers': weekNumbers,
   multiple,
   orientation,
-  selected,
+  value,
   min,
   max,
   dateFilter,
@@ -265,7 +265,7 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   amount: 1,
   orientation: orientation.options![0],
-  selected: today,
+  value: today,
   view: view.options![0],
   'week-numbers': false,
   multiple: false,
@@ -321,7 +321,7 @@ export const CalendarWeekNumbers: StoryObj = {
 export const CalendarWeekNumbersMultiple: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, 'week-numbers': true, multiple: true, selected: [today] },
+  args: { ...defaultArgs, 'week-numbers': true, multiple: true, value: [today] },
 };
 
 export const CalendarWide: StoryObj = {
@@ -339,7 +339,7 @@ export const CalendarWideWeekNumbers: StoryObj = {
 export const CalendarWideWeekNumbersMultiple: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, amount: 2, 'week-numbers': true, multiple: true, selected: [today] },
+  args: { ...defaultArgs, amount: 2, 'week-numbers': true, multiple: true, value: [today] },
 };
 
 export const CalendarVertical: StoryObj = {
@@ -362,7 +362,7 @@ export const CalendarVerticalWeekNumbersMultiple: StoryObj = {
     orientation: orientation.options![1],
     'week-numbers': true,
     multiple: true,
-    selected: [today],
+    value: [today],
   },
 };
 
@@ -387,7 +387,7 @@ export const CalendarVerticalWideWeekNumbersMultiple: StoryObj = {
     amount: 2,
     'week-numbers': true,
     multiple: true,
-    selected: [today],
+    value: [today],
   },
 };
 
@@ -435,7 +435,7 @@ export const CalendarEnhancedWideWeekNumbersMultiple: StoryObj = {
     amount: 2,
     'week-numbers': true,
     multiple: true,
-    selected: [today],
+    value: [today],
   },
 };
 
