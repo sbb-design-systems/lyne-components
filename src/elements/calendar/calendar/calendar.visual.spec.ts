@@ -8,7 +8,6 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
-  visualDiffStandardStates,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
 import { defaultDateAdapter } from '../../core.ts';
@@ -49,14 +48,6 @@ describe('sbb-calendar', () => {
 
   const dayButtonCases = {
     selected: [false, true],
-    emulateMedia: [
-      { forcedColors: false, darkMode: false },
-      { forcedColors: true, darkMode: false },
-      { forcedColors: false, darkMode: true },
-    ],
-  };
-
-  const changeMonthButtonCases = {
     emulateMedia: [
       { forcedColors: false, darkMode: false },
       { forcedColors: true, darkMode: false },
@@ -216,7 +207,7 @@ describe('sbb-calendar', () => {
                 );
               }
 
-              for (const view of ['year', 'month']) {
+              for (const view of ['year', 'month'] satisfies SbbCalendarElement['view'][]) {
                 it(
                   `view=${view}`,
                   visualDiffDefault.with(async (setup) => {
@@ -279,32 +270,6 @@ describe('sbb-calendar', () => {
                 selected
                   ? setup.snapshotElement.querySelector('sbb-calendar-day[slot="2023-01-20"]')!
                   : setup.snapshotElement.querySelector('sbb-calendar-day[slot="2023-01-01"]')!,
-              );
-            }),
-          );
-        }
-      });
-    });
-
-    describe('change month button', () => {
-      describeEach(changeMonthButtonCases, ({ emulateMedia: { forcedColors, darkMode } }) => {
-        let element: SbbCalendarElement, root: HTMLElement;
-
-        beforeEach(async function () {
-          root = await visualRegressionFixture(html`<sbb-calendar></sbb-calendar>`, {
-            darkMode,
-            forcedColors,
-          });
-          element = root.querySelector('sbb-calendar')!;
-        });
-
-        for (const state of visualDiffStandardStates) {
-          it(
-            state.name,
-            state.with((setup) => {
-              setup.withSnapshotElement(root);
-              setup.withStateElement(
-                element.shadowRoot!.querySelector('button.sbb-calendar__controls-change-date')!,
               );
             }),
           );

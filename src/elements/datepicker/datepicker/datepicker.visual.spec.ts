@@ -95,6 +95,31 @@ describe(`sbb-datepicker`, () => {
       );
     });
 
+    it(
+      'wide',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <div style="display: flex; gap: 0.25rem;">
+              <sbb-datepicker-previous-day input="datepicker-input"></sbb-datepicker-previous-day>
+              <sbb-date-input value="12.02.2023" id="datepicker-input"></sbb-date-input>
+              <sbb-datepicker-next-day input="datepicker-input"></sbb-datepicker-next-day>
+              <sbb-datepicker-toggle
+                input="datepicker-input"
+                datepicker="datepicker"
+              ></sbb-datepicker-toggle>
+              <sbb-datepicker id="datepicker" input="datepicker-input" wide></sbb-datepicker>
+            </div>
+          `,
+          { minHeight: '600px' },
+        );
+
+        setup.withPostSetupAction(() => {
+          setup.snapshotElement.querySelector<SbbDatepickerElement>('sbb-datepicker')!.open();
+        });
+      }),
+    );
+
     for (const size of sizes) {
       it(
         `size=${size}`,

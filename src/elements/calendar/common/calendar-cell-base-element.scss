@@ -17,6 +17,7 @@
 
   // Pre-serve spacing for border. Transparent border can't be used because with forced colors it will be always displayed.
   padding: var(--sbb-calendar-cell-border-width);
+  background-clip: content-box;
   transition-duration: var(--sbb-calendar-cell-transition-duration);
   transition-timing-function: var(--sbb-calendar-cell-transition-easing-function);
   transition-property: background-color;
@@ -34,10 +35,6 @@
   width: var(--sbb-calendar-day-width);
 }
 
-:host(:focus-visible) {
-  @include sbb.focus-outline;
-}
-
 :host(:state(current)) {
   font-weight: bold;
 }
@@ -50,6 +47,10 @@
 :host(:disabled) {
   --sbb-calendar-cell-color: var(--sbb-calendar-cell-disabled-color);
   --sbb-calendar-cell-cursor: unset;
+}
+
+:host(:focus-visible) {
+  @include sbb.focus-outline;
 }
 
 :host(:not(:disabled, :where(:state(active), :active)):hover) {
