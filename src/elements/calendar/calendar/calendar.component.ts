@@ -801,7 +801,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     /** @type {InputEvent} Event emitted on user selection. */
     this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     /** @type {Event} Event emitted on user selection. */
-    this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+    this.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
   private _emitMonthChange(): void {
@@ -1585,7 +1585,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
           ${this._getArrow(
             'down',
             () => this._resetCalendarViewAndEmitMonthChange(),
-            `${i18nCalendarDateSelection[this._language.current]} ${this._chosenYear}`,
+            i18nCalendarDateSelection[this._language.current],
           )}
           <span class="sbb-screen-reader-only" role="status">${this._chosenYear}</span>
         </div>
@@ -1655,7 +1655,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
           ${this._getArrow(
             'down',
             () => this._resetCalendarViewAndEmitMonthChange(),
-            `${i18nCalendarDateSelection[this._language.current]} ${yearLabel}`,
+            i18nCalendarDateSelection[this._language.current],
           )}
           <span class="sbb-screen-reader-only" role="status">${yearLabel}</span>
         </div>

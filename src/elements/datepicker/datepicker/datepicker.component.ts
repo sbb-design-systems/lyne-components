@@ -164,7 +164,7 @@ export class SbbDatepickerElement<T = Date>
           if (this.input) {
             this.input.valueAsDate = value;
             this.input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-            this.input.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+            this.input.dispatchEvent(new Event('change', { bubbles: true }));
             // Emit blur event when value is changed programmatically to notify
             // frameworks that rely on that event to update form status.
             this.input.dispatchEvent(new Event('blur', { composed: true }));

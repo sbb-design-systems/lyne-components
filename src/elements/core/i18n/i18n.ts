@@ -515,10 +515,10 @@ export const i18nYearMonthSelection: Record<string, string> = {
 };
 
 export const i18nCalendarDateSelection: Record<string, string> = {
-  de: 'Datum auswählen',
-  en: 'Choose date',
-  fr: 'Choisir une date',
-  it: 'Seleziona una data',
+  de: 'Wechsel zur Datumsauswahl',
+  en: 'Change to date selection',
+  fr: 'Passer à la sélection de date',
+  it: 'Passare alla selezione della data',
 };
 
 export const i18nNextYearRange = (yearRange: number): Record<string, string> => ({
