@@ -373,10 +373,11 @@ sbb-header-environment {
 
 #### CSS Properties
 
-| Name                   | Default                                                                            | Description                                      |
-| ---------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------ |
-| `--sbb-header-height`  | `zero-small:var(--sbb-spacing-fixed-14x);large-ultra:var(--sbb-spacing-fixed-24x)` | Can be used to modify height of the header.      |
-| `--sbb-header-z-index` | `10`                                                                               | Can be used to modify the z-index of the header. |
+| Name                                                           | Default                                                                            | Description                                                                                                                                                               |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-header-height`                                          | `zero-small:var(--sbb-spacing-fixed-14x);large-ultra:var(--sbb-spacing-fixed-24x)` | Can be used to modify height of the header.                                                                                                                               |
+| `--sbb-header-padding-block-start:env(safe-area-inset-top, 0)` |                                                                                    | Defines the header's padding-block-start. It defaults to the device's safe-area inset to prevent the header from being obscured by display cutouts or system UI elements. |
+| `--sbb-header-z-index`                                         | `10`                                                                               | Can be used to modify the z-index of the header.                                                                                                                          |
 
 #### Slots
 
