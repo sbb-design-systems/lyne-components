@@ -1681,7 +1681,7 @@ export class SeatReservationBaseElement extends SbbElement {
               this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, false),
             );
           const serviceElements = coachItem.serviceElements?.map((ele) =>
-            this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, false),
+            this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, true),
           );
           const borderMiddleElement = this._getCalculatedMiddleBorderElement(coachItem);
           const calcCoachDimension = this.getCalculatedDimension({ ...coachItem.dimension });
