@@ -160,8 +160,9 @@ all the days in the week.
 
 ### Fixed month
 
-In the case where a fixed month should be displayed, the `fixedMonth` property should be used.
-With this configuration, the currently displayed month cannot be changed.
+In the case where a fixed month (or months with `amount`) should be displayed,
+the `fixedMonth` property should be used.
+With this configuration, the currently displayed month cannot be changed by the user.
 
 The value must be provided as a valid ISO format with `YYYY-MM`.
 

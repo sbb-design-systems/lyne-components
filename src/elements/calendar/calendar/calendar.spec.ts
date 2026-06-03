@@ -2187,6 +2187,13 @@ describe(`sbb-calendar`, () => {
           const day = element.shadowRoot!.querySelector('sbb-calendar-day');
           expect(defaultDateAdapter.sameDate(day?.value ?? null, new Date(2023, 9, 1))).to.be.true;
         });
+
+        it('should change the month on fixed-month attribute change', async () => {
+          element.fixedMonth = '2024-02';
+          await waitForLitRender(element);
+          const day = element.shadowRoot!.querySelector('sbb-calendar-day');
+          expect(defaultDateAdapter.sameDate(day?.value ?? null, new Date(2024, 1, 1))).to.be.true;
+        });
       });
     });
   });
