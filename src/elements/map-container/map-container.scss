@@ -23,7 +23,7 @@
         100% - var(--sbb-map-container-sidebar-width)
       );
     position: fixed;
-    inset: var(--sbb-map-container-margin-start, var(--sbb-header-height)) 0 0 0;
+    inset: var(--sbb-map-container-margin-start, var(--sbb-header-vertical-spacing)) 0 0 0;
   }
 }
 

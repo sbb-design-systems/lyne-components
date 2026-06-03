@@ -20,7 +20,7 @@ describe(`sbb-map-container`, () => {
     </sbb-header>
     <sbb-map-container
       style=${stickyOffset
-        ? `--sbb-map-container-mobile-sticky-block-start: var(--sbb-header-height);`
+        ? `--sbb-map-container-mobile-sticky-block-start: var(--sbb-header-vertical-spacing);`
         : nothing}
     >
       <!-- Content slot -->

@@ -178,5 +178,20 @@ describe(`sbb-header`, () => {
         await setup.withFixture(template({ size: 'm', noIcon: true }), { padding: '0' });
       }),
     );
+
+    it(
+      `custom padding-block-start`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<style>
+              sbb-header {
+                --sbb-header-padding-block-start: 4rem;
+              }
+            </style>
+            ${template()}`,
+          { padding: '0' },
+        );
+      }),
+    );
   });
 });
