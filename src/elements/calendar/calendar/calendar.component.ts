@@ -223,6 +223,25 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   @property({ attribute: 'date-filter' })
   public accessor dateFilter: ((date: T | null) => boolean) | null = null;
 
+  /**
+   * Set this with the format `YYYY-MM` to limit the calendar to a specific month,
+   * and prevent navigation to other months.
+   */
+  @forceType()
+  @property({ attribute: 'fixed-month' })
+  public set fixedMonth(value: string) {
+    const match = value ? value.match(/^(\d{4})-(\d{2})$/) : null;
+    this._fixedMonth = match
+      ? this._dateAdapter.createDate(Number(match[1]), Number(match[2]), 1)
+      : null;
+  }
+  public get fixedMonth(): string {
+    return this._fixedMonth
+      ? this._dateAdapter.toIso8601(this._fixedMonth).split('-').slice(0, 2).join('-')
+      : '';
+  }
+  private _fixedMonth: T | null = null;
+
   /** The orientation of days in the calendar. */
   @property({ reflect: true }) public accessor orientation: 'horizontal' | 'vertical' =
     'horizontal';
@@ -411,7 +430,11 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       return;
     }
 
-    if (changedProperties.has('amount') || changedProperties.has('orientation')) {
+    if (
+      changedProperties.has('amount') ||
+      changedProperties.has('orientation') ||
+      changedProperties.has('fixedMonth')
+    ) {
       this.resetPosition();
     }
 
@@ -485,9 +508,10 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       this._assignActiveDate(activeDate);
     }
 
+    const startDate = this._fixedMonth ?? this._activeDate;
     const amount = this.amount < 1 ? 1 : this.amount;
     this._weeks = Array.from({ length: amount }, (_, i) =>
-      this._createWeekRows(this._dateAdapter.addCalendarMonths(this._activeDate, i)),
+      this._createWeekRows(this._dateAdapter.addCalendarMonths(startDate, i)),
     );
     const dateFromFirstMonth = this._weeks[0][0][0].dateValue;
     this._firstVisibleDay = this._dateAdapter.toIso8601(
@@ -1527,28 +1551,30 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   }
 
   private _createDayTableControls(monthLabel: string): TemplateResult[] {
-    return [
-      this._getArrow(
-        'left',
-        () => this._goToDifferentMonth(-1),
-        i18nPreviousMonth[this._language.current],
-        this._previousMonthDisabled(),
-      ),
-      this._getArrow(
-        'right',
-        () => this._goToDifferentMonth(1),
-        i18nNextMonth[this._language.current],
-        this._nextMonthDisabled(),
-      ),
-      this._getArrow(
-        'up',
-        () => {
-          this._resetFocus = true;
-          this._calendarView = 'year';
-        },
-        `${i18nYearMonthSelection[this._language.current]} ${monthLabel}`,
-      ),
-    ];
+    return this._fixedMonth
+      ? []
+      : [
+          this._getArrow(
+            'left',
+            () => this._goToDifferentMonth(-1),
+            i18nPreviousMonth[this._language.current],
+            this._previousMonthDisabled(),
+          ),
+          this._getArrow(
+            'right',
+            () => this._goToDifferentMonth(1),
+            i18nNextMonth[this._language.current],
+            this._nextMonthDisabled(),
+          ),
+          this._getArrow(
+            'up',
+            () => {
+              this._resetFocus = true;
+              this._calendarView = 'year';
+            },
+            `${i18nYearMonthSelection[this._language.current]} ${monthLabel}`,
+          ),
+        ];
   }
 
   /** Creates the cells for the daily view. */
@@ -1570,23 +1596,27 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       <div class="sbb-calendar__table-wrapper sbb-calendar__month-view">
         <div class="sbb-calendar__table-header">
           <span>${this._chosenYear}</span>
-          ${this._getArrow(
-            'left',
-            () => this._goToDifferentYear(-1),
-            i18nPreviousYear[this._language.current],
-            this._previousYearDisabled(),
-          )}
-          ${this._getArrow(
-            'right',
-            () => this._goToDifferentYear(1),
-            i18nNextYear[this._language.current],
-            this._nextYearDisabled(),
-          )}
-          ${this._getArrow(
-            'down',
-            () => this._resetCalendarViewAndEmitMonthChange(),
-            i18nCalendarDateSelection[this._language.current],
-          )}
+          ${this._fixedMonth
+            ? []
+            : [
+                this._getArrow(
+                  'left',
+                  () => this._goToDifferentYear(-1),
+                  i18nPreviousYear[this._language.current],
+                  this._previousYearDisabled(),
+                ),
+                this._getArrow(
+                  'right',
+                  () => this._goToDifferentYear(1),
+                  i18nNextYear[this._language.current],
+                  this._nextYearDisabled(),
+                ),
+                this._getArrow(
+                  'down',
+                  () => this._resetCalendarViewAndEmitMonthChange(),
+                  i18nCalendarDateSelection[this._language.current],
+                ),
+              ]}
           <span class="sbb-screen-reader-only" role="status">${this._chosenYear}</span>
         </div>
         <table class="sbb-calendar__table">
@@ -1640,23 +1670,27 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       <div class="sbb-calendar__table-wrapper sbb-calendar__year-view">
         <div class="sbb-calendar__table-header">
           <span>${yearLabel}</span>
-          ${this._getArrow(
-            'left',
-            () => this._goToDifferentYearRange(-YEARS_PER_PAGE),
-            i18nPreviousYearRange(YEARS_PER_PAGE)[this._language.current],
-            this._previousYearRangeDisabled(),
-          )}
-          ${this._getArrow(
-            'right',
-            () => this._goToDifferentYearRange(YEARS_PER_PAGE),
-            i18nNextYearRange(YEARS_PER_PAGE)[this._language.current],
-            this._nextYearRangeDisabled(),
-          )}
-          ${this._getArrow(
-            'down',
-            () => this._resetCalendarViewAndEmitMonthChange(),
-            i18nCalendarDateSelection[this._language.current],
-          )}
+          ${this._fixedMonth
+            ? []
+            : [
+                this._getArrow(
+                  'left',
+                  () => this._goToDifferentYearRange(-YEARS_PER_PAGE),
+                  i18nPreviousYearRange(YEARS_PER_PAGE)[this._language.current],
+                  this._previousYearRangeDisabled(),
+                ),
+                this._getArrow(
+                  'right',
+                  () => this._goToDifferentYearRange(YEARS_PER_PAGE),
+                  i18nNextYearRange(YEARS_PER_PAGE)[this._language.current],
+                  this._nextYearRangeDisabled(),
+                ),
+                this._getArrow(
+                  'down',
+                  () => this._resetCalendarViewAndEmitMonthChange(),
+                  i18nCalendarDateSelection[this._language.current],
+                ),
+              ]}
           <span class="sbb-screen-reader-only" role="status">${yearLabel}</span>
         </div>
         <table class="sbb-calendar__table">
