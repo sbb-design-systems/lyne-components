@@ -27,7 +27,7 @@ after it to the right.
 Setting the `expanded` property will cause the `<sbb-header>` component to take up the full width of the page.
 
 To avoid that tabbed/focused elements get hidden behind the header,
-it's recommended to set on the `<html>` tag the CSS property `scroll-padding-top` to `var(--sbb-header-height)` or to a greater value.
+it's recommended to set on the `<html>` tag the CSS property `scroll-padding-top` to `var(--sbb-header-vertical-spacing)` or to a greater value.
 With this, it's ensured that content will be visible all the time.
 
 The component has two sizes `s` and `m`.
@@ -373,11 +373,12 @@ sbb-header-environment {
 
 #### CSS Properties
 
-| Name                                                           | Default                                                                            | Description                                                                                                                                                               |
-| -------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--sbb-header-height`                                          | `zero-small:var(--sbb-spacing-fixed-14x);large-ultra:var(--sbb-spacing-fixed-24x)` | Can be used to modify height of the header.                                                                                                                               |
-| `--sbb-header-padding-block-start:env(safe-area-inset-top, 0)` |                                                                                    | Defines the header's padding-block-start. It defaults to the device's safe-area inset to prevent the header from being obscured by display cutouts or system UI elements. |
-| `--sbb-header-z-index`                                         | `10`                                                                               | Can be used to modify the z-index of the header.                                                                                                                          |
+| Name                                                           | Default                                                                            | Description                                                                                                                                                                                                                                                                                                                         |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-header-height`                                          | `zero-small:var(--sbb-spacing-fixed-14x);large-ultra:var(--sbb-spacing-fixed-24x)` | Can be used to modify height of the header.                                                                                                                                                                                                                                                                                         |
+| `--sbb-header-padding-block-start:env(safe-area-inset-top, 0)` |                                                                                    | Defines the header's padding-block-start. It defaults to the device's safe-area inset to prevent the header from being obscured by display cutouts or system UI elements. This variable must be set on the root document element (`<html>`) so that components relying on the header's height can calculate their layout correctly. |
+| `--sbb-header-vertical-spacing`                                |                                                                                    | Readonly; sum of var(--sbb-header-height) and var(--sbb-header-padding-block-start) that can be used to manage spacing of absolute positioned elements that shouldn't overlap the header.                                                                                                                                           |
+| `--sbb-header-z-index`                                         | `10`                                                                               | Can be used to modify the z-index of the header.                                                                                                                                                                                                                                                                                    |
 
 #### Slots
 

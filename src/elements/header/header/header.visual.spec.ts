@@ -185,7 +185,7 @@ describe(`sbb-header`, () => {
         await setup.withFixture(
           html`<style>
               sbb-header {
-                --sbb-header-padding-block-start: 10rem;
+                --sbb-header-padding-block-start: 4rem;
               }
             </style>
             ${template()}`,

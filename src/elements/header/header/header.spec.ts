@@ -110,7 +110,7 @@ describe(`sbb-header`, () => {
         </sbb-header>
         <div
           id="container"
-          style="position:fixed; inset: var(--sbb-header-height) 0 0 0; width: 100vw; overflow: auto;"
+          style="position:fixed; inset: var(--sbb-header-vertical-spacing) 0 0 0; width: 100vw; overflow: auto;"
         >
           <div style="height: 2000px">Content</div>
         </div>
@@ -144,7 +144,7 @@ describe(`sbb-header`, () => {
           <sbb-header-button id="action-2">Action 2</sbb-header-button>
         </sbb-header>
         <div
-          style="position:fixed; inset: var(--sbb-header-height) 0 0 0; width: 100vw; overflow: auto;"
+          style="position:fixed; inset: var(--sbb-header-vertical-spacing) 0 0 0; width: 100vw; overflow: auto;"
         >
           <div style="height: 2000px">Content</div>
         </div>

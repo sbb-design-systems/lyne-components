@@ -35,6 +35,12 @@ $theme: 'standard' !default;
   --sbb-header-inset-inline-end: 0;
   --sbb-header-position: fixed;
   --sbb-header-padding-block-start: env(safe-area-inset-top, 0);
+
+  // If --sbb-header-padding-block-start is not defined globally, it is not applied here.
+  // We accept this limitation, as overriding this padding is an extremely rare use case.
+  --sbb-header-vertical-spacing: calc(
+    var(--sbb-header-height) + var(--sbb-header-padding-block-start)
+  );
   --sbb-header-height-s: #{sbb.px-to-rem-build(52)};
   --sbb-header-height-m: var(--sbb-spacing-fixed-14x);
   --sbb-header-height: #{sbb.theme-pattern-select(
@@ -80,7 +86,7 @@ $theme: 'standard' !default;
 
   // Move container below header
   sbb-header + :where(sbb-sidebar-container, sbb-icon-sidebar-container) {
-    margin-block-start: var(--sbb-header-height);
+    margin-block-start: var(--sbb-header-vertical-spacing);
   }
 
   // Helper class for the application name and version in sbb-header.
