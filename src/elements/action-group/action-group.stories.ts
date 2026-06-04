@@ -163,6 +163,46 @@ export const HorizontalFromLarge: StoryObj = {
   args: { ...basicArgsVerticalFullWidth, horizontalFrom: horizontalFrom.options![1] },
 };
 
+export const Complex: StoryObj = {
+  render: (): TemplateResult => html`
+    <style>
+      .action-group {
+        flex-wrap: wrap;
+      }
+      .order-button {
+        flex-basis: 100%;
+      }
+
+      @media screen and (min-width: 37.5rem) {
+        .start-right-group {
+          margin-inline-start: auto;
+        }
+        .order-button {
+          flex-basis: auto;
+        }
+      }
+    </style>
+    <sbb-action-group class="action-group">
+      <sbb-secondary-button icon-name="chevron-small-left-small"></sbb-secondary-button>
+      <sbb-secondary-button icon-name="trash-small" aria-label="Delete"></sbb-secondary-button>
+      <sbb-secondary-button
+        icon-name="context-menu-small"
+        aria-label="More actions"
+      ></sbb-secondary-button>
+      <sbb-secondary-button
+        icon-name="magic-wand-small"
+        aria-label="Autocomplete order"
+        class="start-right-group"
+      ></sbb-secondary-button>
+      <sbb-secondary-button
+        icon-name="checkpoints-small"
+        aria-label="Open checklist"
+      ></sbb-secondary-button>
+      <sbb-button class="order-button">Order</sbb-button>
+    </sbb-action-group>
+  `,
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
