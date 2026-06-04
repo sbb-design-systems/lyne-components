@@ -82,7 +82,7 @@
     "@storybook/web-components-vite": "10.4.2",
     "@types/chai": "5.2.3",
     "@types/mocha": "10.0.10",
-    "@types/node": "24.12.4",
+    "@types/node": "24.13.0",
     "@types/react": "19.2.16",
     "@typescript-eslint/eslint-plugin": "8.60.1",
     "@typescript-eslint/parser": "8.60.1",
@@ -134,7 +134,7 @@
     "vite-plugin-dts": "5.0.2"
   },
   "resolutions": {
-    "@types/node": "24.12.4",
+    "@types/node": "24.13.0",
     "@webcomponents/template-shadowroot": "0.2.1",
     "@web/dev-server-core": "0.7.5",
     "lit": "3.3.3",
