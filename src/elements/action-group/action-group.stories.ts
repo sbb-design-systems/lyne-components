@@ -167,63 +167,40 @@ export const Complex: StoryObj = {
   render: (): TemplateResult => html`
     <style>
       .action-group {
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(4, auto) 1fr;
       }
 
-      .inner {
-        display: contents;
-      }
-
-      .spacer {
-        display: none;
-      }
-
-      .back-button,
       .order-button {
-        flex-basis: 100%;
+        grid-column: span 5;
       }
 
       @media screen and (min-width: 37.5rem) {
-        .inner {
-          display: flex;
-          gap: var(--sbb-action-group-gap);
-          flex-wrap: wrap;
+        .action-group {
+          grid-template-columns: repeat(2, auto) 1fr repeat(4, auto);
         }
 
-        .spacer {
-          display: block;
-          flex-grow: 1;
-        }
-
-        .back-button,
         .order-button {
-          flex-basis: auto;
+          grid-column: auto;
         }
       }
     </style>
     <sbb-action-group class="action-group">
-      <div class="inner">
-        <sbb-secondary-button icon-name="chevron-small-left-small" class="back-button">
-          Back
-        </sbb-secondary-button>
-        <sbb-secondary-button icon-name="trash-small" aria-label="Delete"></sbb-secondary-button>
-        <sbb-secondary-button
-          icon-name="context-menu-small"
-          aria-label="More actions"
-        ></sbb-secondary-button>
-      </div>
-      <div class="spacer"></div>
-      <div class="inner">
-        <sbb-secondary-button
-          icon-name="magic-wand-small"
-          aria-label="Autocomplete order"
-        ></sbb-secondary-button>
-        <sbb-secondary-button
-          icon-name="checkpoints-small"
-          aria-label="Open checklist"
-        ></sbb-secondary-button>
-        <sbb-button class="order-button">Order</sbb-button>
-      </div>
+      <sbb-secondary-button icon-name="chevron-small-left-small"></sbb-secondary-button>
+      <sbb-secondary-button icon-name="trash-small" aria-label="Delete"></sbb-secondary-button>
+      <sbb-secondary-button
+        icon-name="context-menu-small"
+        aria-label="More actions"
+      ></sbb-secondary-button>
+      <sbb-secondary-button
+        icon-name="magic-wand-small"
+        aria-label="Autocomplete order"
+      ></sbb-secondary-button>
+      <sbb-secondary-button
+        icon-name="checkpoints-small"
+        aria-label="Open checklist"
+      ></sbb-secondary-button>
+      <sbb-button class="order-button">Order</sbb-button>
     </sbb-action-group>
   `,
 };
