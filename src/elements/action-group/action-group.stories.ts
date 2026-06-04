@@ -167,21 +167,18 @@ export const Complex: StoryObj = {
   render: (): TemplateResult => html`
     <style>
       .action-group {
-        display: grid;
-        grid-template-columns: repeat(4, auto) 1fr;
+        flex-wrap: wrap;
       }
-
       .order-button {
-        grid-column: span 5;
+        flex-basis: 100%;
       }
 
       @media screen and (min-width: 37.5rem) {
-        .action-group {
-          grid-template-columns: repeat(2, auto) 1fr repeat(4, auto);
+        .start-right-group {
+          margin-inline-start: auto;
         }
-
         .order-button {
-          grid-column: auto;
+          flex-basis: auto;
         }
       }
     </style>
@@ -195,6 +192,7 @@ export const Complex: StoryObj = {
       <sbb-secondary-button
         icon-name="magic-wand-small"
         aria-label="Autocomplete order"
+        class="start-right-group"
       ></sbb-secondary-button>
       <sbb-secondary-button
         icon-name="checkpoints-small"
