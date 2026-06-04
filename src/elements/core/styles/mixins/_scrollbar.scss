@@ -67,6 +67,10 @@
   );
 }
 
+@mixin scrollbar-variables--color-track-invisible {
+  --sbb-scrollbar-track-color: transparent;
+}
+
 @mixin scrollbar-variables--color-positive-track-visible {
   --sbb-scrollbar-track-color: var(--sbb-background-color-4);
 }
@@ -99,6 +103,8 @@
     @include scrollbar-variables--color-negative-track-visible;
   } @else if $track-visible {
     @include scrollbar-variables--color-positive-track-visible;
+  } @else {
+    @include scrollbar-variables--color-track-invisible;
   }
 }
 

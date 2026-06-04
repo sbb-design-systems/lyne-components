@@ -233,6 +233,30 @@ describe('sbb-calendar', () => {
                   }),
                 );
               }
+
+              it(
+                'fixed-month',
+                visualDiffDefault.with(async (setup) => {
+                  await setup.withFixture(html`
+                    <sbb-calendar
+                      fixed-month="2023-01"
+                      orientation=${orientation}
+                      amount=${amount}
+                      .value=${new Date(2023, 0, 20)}
+                      >${variant === 'default'
+                        ? nothing
+                        : html`${Array.from({ length: amount }, (_, i) => {
+                            const date = defaultDateAdapter.addCalendarMonths(today, i);
+                            return createSlottedDays(
+                              defaultDateAdapter.getYear(date),
+                              defaultDateAdapter.getMonth(date),
+                              true,
+                            );
+                          })}`}
+                    </sbb-calendar>
+                  `);
+                }),
+              );
             });
           }
         });

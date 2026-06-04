@@ -121,7 +121,7 @@ At maximum, one `<sbb-sidebar>` with `mode="over"` should be opened simultaneous
 ## Style
 
 If the `<sbb-sidebar-container>` is placed after the `<sbb-header>`, an automatic `margin-block-start` is added.
-In other contexts you may need to set the margin manually, e.g. `margin-block-start: var(--sbb-header-height);`.
+In other contexts you may need to set the margin manually, e.g. `margin-block-start: var(--sbb-header-vertical-spacing);`.
 
 ## Color
 

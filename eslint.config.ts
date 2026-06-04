@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { globSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -12,19 +14,14 @@ import { configs } from 'typescript-eslint';
 
 import * as eslintPluginLyne from './tools/eslint/index.ts';
 
-const ignores = [
-  'dist/**/*',
-  'coverage/**/*',
-  'tools/generate-component/**/*',
-  '**/__snapshots__/**/*',
-];
+const ignores = ['dist/**/*', 'coverage/**/*', 'tools/generate-component/**/*'];
 
 const sourceFiles = globSync(
   join(fileURLToPath(import.meta.url), '../src/{elements,elements-experimental}/**/*.ts'),
-).filter((file) =>
+).filter((file: string) =>
   ['spec', 'stories', 'private'].every((suffix) => !file.endsWith(`.${suffix}.ts`)),
 );
-const entrypoints = sourceFiles.filter((file) =>
+const entrypoints = sourceFiles.filter((file: string) =>
   readFileSync(file, 'utf-8').includes('@entrypoint'),
 );
 
@@ -142,7 +139,7 @@ export default [
             {
               target: sourceFiles,
               from: entrypoints.filter(
-                (file) => !file.endsWith('.pure.ts') && !file.endsWith('/core.ts'),
+                (file: string) => !file.endsWith('.pure.ts') && !file.endsWith('/core.ts'),
               ),
             },
           ],
@@ -213,6 +210,13 @@ export default [
       'import-x/default': 'off',
       'import-x/no-named-as-default': 'off',
       'import-x/no-named-as-default-member': 'off',
+    },
+  },
+  {
+    files: ['**/__snapshots__/**/*.js'],
+    rules: {
+      'lyne/snapshot-format-rule': 'error',
+      'no-irregular-whitespace': 'off',
     },
   },
   eslintConfigPrettier,

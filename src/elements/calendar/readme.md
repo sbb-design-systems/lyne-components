@@ -158,6 +158,18 @@ all the days in the week.
 <sbb-calendar multiple week-numbers></sbb-calendar>
 ```
 
+### Fixed month
+
+In the case where a fixed month (or months with `amount`) should be displayed,
+the `fixedMonth` property should be used.
+With this configuration, the currently displayed month cannot be changed by the user.
+
+The value must be provided as a valid ISO format with `YYYY-MM`.
+
+```html
+<sbb-calendar fixed-month="2025-01"></sbb-calendar>
+```
+
 ## Style
 
 The component displays by default a single month in the `day` view, a list of twenty-four years
@@ -272,6 +284,7 @@ For accessibility purposes, the component is rendered as a native table element 
 | ------------------- | -------------- | ------- | ---------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `amount`            | `amount`       | public  | `number`                                 | `1`            | The amount of months to display in this calendar.                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `dateFilter`        | `date-filter`  | public  | `((date: T \| null) => boolean) \| null` | `null`         | A function used to filter out dates.                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `fixedMonth`        | `fixed-month`  | public  | `string`                                 | `null`         | Set this with the format `YYYY-MM` to limit the calendar to a specific month, and prevent navigation to other months.                                                                                                                                                                                                                                                                                                                                   |
 | `form`              | -              | public  | `HTMLFormElement \| null`                |                | Returns the form owner of this element.                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `max`               | `max`          | public  | `T \| null`                              | `null`         | The maximum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.                                                                                                                                                                                                                                                                                                                              |
 | `min`               | `min`          | public  | `T \| null`                              | `null`         | The minimum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.                                                                                                                                                                                                                                                                                                                              |
