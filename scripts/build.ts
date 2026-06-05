@@ -670,7 +670,6 @@ async function generateReactWrappers(pkg: PackageBuilder): Promise<Disposable> {
   // Render entry points
   for (const dirent of readdirSync(pkg.root, {
     withFileTypes: true,
-    recursive: true,
   }).filter((d) => d.isDirectory())) {
     const dir = join(dirent.parentPath, dirent.name);
     const relativeDir = relative(pkg.root, dir);
@@ -682,7 +681,7 @@ async function generateReactWrappers(pkg: PackageBuilder): Promise<Disposable> {
       const files = readdirSync(dir, { withFileTypes: true, recursive: true }).filter((d) =>
         d.isFile(),
       );
-      let content =
+      const content =
         entrypointMarker +
         files
           .map(
@@ -690,13 +689,6 @@ async function generateReactWrappers(pkg: PackageBuilder): Promise<Disposable> {
               `export * from './${relative(dirname(dirEntryPoint), join(d.parentPath, d.name)).replace(/\.ts$/, '.js')}';\n`,
           )
           .join('');
-      if (dirname(dirEntryPoint) !== pkg.root) {
-        content += `
-
-console.warn(\`The entrypoint '@sbb-esta/${basename(pkg.root)}/${relative(pkg.root, dirEntryPoint).replace(/\.ts$/, '.js')}' has been deprecated.
-Use '@sbb-esta/${basename(pkg.root)}/${relative(pkg.root, dirEntryPoint).split('/')[0]}.js' instead.\`);
-`;
-      }
       writeFileSync(dirEntryPoint, content, 'utf8');
       pkg.files.push(new FileEntry(dirEntryPoint));
     }
