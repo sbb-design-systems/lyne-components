@@ -78,11 +78,13 @@ export const SbbFormAssociatedRadioButtonMixin = <
 
     @property()
     public override set name(value: string) {
-      super.name = value;
-
-      this._disconnectFromRegistry();
-      this._connectToRegistry();
-      this._synchronizeGroupState();
+      const previousName = this.name;
+      if (value !== previousName) {
+        super.name = value;
+        this._disconnectFromRegistry(previousName);
+        this._connectToRegistry();
+        this._synchronizeGroupState();
+      }
     }
     public override get name(): string {
       return super.name;
@@ -117,7 +119,7 @@ export const SbbFormAssociatedRadioButtonMixin = <
 
     public override disconnectedCallback(): void {
       super.disconnectedCallback();
-      this._disconnectFromRegistry();
+      this._disconnectFromRegistry(this.name);
     }
 
     /**
@@ -311,11 +313,11 @@ export const SbbFormAssociatedRadioButtonMixin = <
     /**
      * Remove `this` from the radioButton registry and, if the group is empty, delete the entry from the groups Map
      */
-    private _disconnectFromRegistry(): void {
+    private _disconnectFromRegistry(previousName: string): void {
       this.associatedRadioButtons?.delete(this);
 
       if (this.associatedRadioButtons?.size === 0) {
-        this._radioButtonGroupsMap?.delete(this.name);
+        this._radioButtonGroupsMap?.delete(previousName);
       } else {
         this.validate();
       }
