@@ -1,8 +1,8 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["**/*.spec.ts"],
   "compilerOptions": {
     "rootDir": "../..",
     "types": ["vite/client", "mocha"]
-  }
+  },
+  "include": ["./**/*.spec.ts"]
 }
