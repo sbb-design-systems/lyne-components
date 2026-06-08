@@ -191,6 +191,20 @@ describe(`sbb-slider`, () => {
       compareToNativeInput();
     });
 
+    it('should accept min change to 0 as number', async () => {
+      element.min = input.min = '2';
+      await waitForLitRender(form);
+
+      expect(element.min).to.be.equal('2');
+      compareToNativeInput();
+
+      element.min = input.min = 0 as unknown as string;
+      await waitForLitRender(form);
+
+      expect(element.min).to.be.equal(0);
+      compareToNativeInput();
+    });
+
     it('should result as :disabled', async () => {
       expect(element.tabIndex).to.be.equal(0);
 
