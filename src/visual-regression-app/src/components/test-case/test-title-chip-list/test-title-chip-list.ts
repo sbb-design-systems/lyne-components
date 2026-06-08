@@ -8,8 +8,9 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import '@sbb-esta/lyne-elements/chip-label.js';
 import { sharedStyles } from '../../../shared-styles.ts';
+
+import '@sbb-esta/lyne-elements/chip-label.js';
 
 import style from './test-title-chip-list.scss?inline';
 
