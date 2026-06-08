@@ -172,7 +172,7 @@ class SbbSliderElement extends SbbDisabledMixin(
   }
 
   private _isValidNumber(value: string | null): value is string {
-    return !!value && !isNaN(Number(value));
+    return value != null && !isNaN(Number(value));
   }
 
   /**
