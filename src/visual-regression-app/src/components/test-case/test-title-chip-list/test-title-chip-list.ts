@@ -8,7 +8,10 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { sharedStyles } from '../../../shared-styles.ts';
+
 import '@sbb-esta/lyne-elements/chip-label.js';
+
 import style from './test-title-chip-list.scss?inline';
 
 /**
@@ -37,7 +40,7 @@ interface DescribeEachItem {
 export
 @customElement('app-test-title-chip-list')
 class TestTitleChipList extends LitElement {
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [sharedStyles, unsafeCSS(style)];
 
   @property()
   public set testCaseName(name: string) {

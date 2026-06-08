@@ -14,6 +14,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { meta } from 'virtual:meta';
 
 import type { ScreenshotFiles } from '../../../interfaces.ts';
+import { sharedStyles } from '../../../shared-styles.ts';
 
 import style from './image-diff.scss?inline';
 
@@ -33,7 +34,7 @@ const getImageDimension = (img: HTMLImageElement): string =>
 export
 @customElement('app-image-diff')
 class ImageDiff extends LitElement {
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [sharedStyles, unsafeCSS(style)];
 
   @property({ attribute: false }) public accessor screenshotFiles: ScreenshotFiles | null = null;
 

@@ -11,6 +11,7 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { screenshots, type ScreenshotTestCase } from '../../screenshots.ts';
+import { sharedStyles } from '../../shared-styles.ts';
 
 import type { TestCaseFilter } from './test-case-filter/test-case-filter.ts';
 import style from './test-case.scss?inline';
@@ -38,7 +39,7 @@ interface Filter {
 export
 @customElement('app-test-case')
 class TestCase extends LitElement {
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [sharedStyles, unsafeCSS(style)];
 
   @property({ attribute: false }) public accessor params: {
     componentName: string;
@@ -49,6 +50,25 @@ class TestCase extends LitElement {
   @state() private accessor _testCaseIndex: number = -1;
   @state() private accessor _filter: Filter = {};
   @state() private accessor _showGlobalDiff = true;
+
+  public constructor() {
+    super();
+
+    // For expert usage we handle arrow left and right keyboard events on the arrow buttons for a faster navigation between test cases.
+    this.addEventListener('keydown', (evt) => {
+      const previous = this.shadowRoot?.querySelector<HTMLElement>('#previous');
+      const next = this.shadowRoot?.querySelector<HTMLElement>('#next');
+      const composedPath = evt.composedPath();
+      if (!previous || !next || !(composedPath.includes(previous) || composedPath.includes(next))) {
+        return;
+      }
+      if (evt.key === 'ArrowLeft') {
+        previous.click();
+      } else if (evt.key === 'ArrowRight') {
+        next.click();
+      }
+    });
+  }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -101,7 +121,7 @@ class TestCase extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <sbb-header expanded>
+      <sbb-header expanded size="m">
         <div class="app-progress" style="--app-progress: ${this._progressFraction()}"></div>
         <div class="app-file-name-box sbb-header-shrinkable">
           <sbb-chip-label color="charcoal">${this.params?.componentName}</sbb-chip-label>
@@ -119,12 +139,14 @@ class TestCase extends LitElement {
             size="s"
             icon-name="arrow-left-small"
             ?disabled=${!this._previous()}
+            id="previous"
           ></sbb-secondary-button-link>
           <sbb-secondary-button-link
             href="/compare/${this._next()?.path}"
             size="s"
             icon-name="arrow-right-small"
             ?disabled=${!this._next()}
+            id="next"
           ></sbb-secondary-button-link>
         </div>
       </sbb-header>

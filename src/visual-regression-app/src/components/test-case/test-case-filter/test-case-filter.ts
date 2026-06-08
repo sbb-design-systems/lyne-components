@@ -3,6 +3,7 @@ import { type CSSResultGroup, html, LitElement, type TemplateResult, unsafeCSS }
 import { customElement, property } from 'lit/decorators.js';
 
 import { type ScreenshotTestCase } from '../../../screenshots.ts';
+import { sharedStyles } from '../../../shared-styles.ts';
 
 import style from './test-case-filter.scss?inline';
 
@@ -15,7 +16,7 @@ import '@sbb-esta/lyne-elements/tag.js';
 export
 @customElement('app-test-case-filter')
 class TestCaseFilter extends LitElement {
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [sharedStyles, unsafeCSS(style)];
 
   @property() public accessor testCase: ScreenshotTestCase | null = null;
 
