@@ -12,6 +12,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { meta } from 'virtual:meta';
 
 import type { ScreenshotFiles } from '../../../../interfaces.ts';
+import { sharedStyles } from '../../../../shared-styles.ts';
 
 import style from './fullscreen-diff.scss?inline';
 
@@ -27,7 +28,7 @@ export type DiffFileType = 'baselineFile' | 'failedFile' | 'diffFile';
 export
 @customElement('app-fullscreen-diff')
 class FullscreenDiff extends LitElement {
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [sharedStyles, unsafeCSS(style)];
 
   @property() public accessor screenshotFiles: ScreenshotFiles | null = null;
 

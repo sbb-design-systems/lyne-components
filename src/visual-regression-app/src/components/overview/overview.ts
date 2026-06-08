@@ -11,6 +11,7 @@ import { customElement } from 'lit/decorators.js';
 import { meta } from 'virtual:meta';
 
 import { screenshots } from '../../screenshots.ts';
+import { sharedStyles } from '../../shared-styles.ts';
 
 import style from './overview.scss?inline';
 
@@ -30,7 +31,7 @@ import '@sbb-esta/lyne-elements/title.js';
 export
 @customElement('app-overview')
 class Overview extends LitElement {
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [sharedStyles, unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`
