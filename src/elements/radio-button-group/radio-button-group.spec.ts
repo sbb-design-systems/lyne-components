@@ -126,6 +126,40 @@ import '../radio-button-group.ts';
         expect(disabledRadio.disabled).to.be.true;
       });
 
+      it('should respect name changes', async () => {
+        const [firstRadio, middleRadio, lastRadio] = radios;
+        firstRadio.checked = true;
+        expect(firstRadio.checked).to.be.true;
+        expect(middleRadio.checked).to.be.false;
+        expect(lastRadio.checked).to.be.false;
+
+        for (const radio of radios) {
+          radio.name = 'other-name';
+        }
+
+        lastRadio.checked = true;
+        expect(firstRadio.checked).to.be.false;
+        expect(middleRadio.checked).to.be.false;
+        expect(lastRadio.checked).to.be.true;
+      });
+
+      it('should respect name changes via attribute', async () => {
+        const [firstRadio, middleRadio, lastRadio] = radios;
+        firstRadio.checked = true;
+        expect(firstRadio.checked).to.be.true;
+        expect(middleRadio.checked).to.be.false;
+        expect(lastRadio.checked).to.be.false;
+
+        for (const radio of radios) {
+          radio.setAttribute('name', 'other-name');
+        }
+
+        lastRadio.checked = true;
+        expect(firstRadio.checked).to.be.false;
+        expect(middleRadio.checked).to.be.false;
+        expect(lastRadio.checked).to.be.true;
+      });
+
       if (selector === 'sbb-radio-button-panel') {
         it('recognizes panel when added later', async () => {
           element = await fixture(html`<sbb-radio-button-group></sbb-radio-button-group>`);
