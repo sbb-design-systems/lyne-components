@@ -11,8 +11,6 @@
     var(--sbb-options-panel-max-height, 100000em)
   );
   --sbb-options-panel-min-height: var(--sbb-options-panel-origin-height);
-  --sbb-options-panel-options-border-radius: 0 0 var(--sbb-options-panel-border-radius)
-    var(--sbb-options-panel-border-radius);
   --sbb-options-panel-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
@@ -60,8 +58,6 @@
 }
 
 :host(:state(options-panel-position-above)) {
-  --sbb-options-panel-options-border-radius: var(--sbb-options-panel-border-radius)
-    var(--sbb-options-panel-border-radius) 0 0;
   --sbb-options-panel-animation-translate: calc(-1 * var(--sbb-spacing-fixed-2x));
   --sbb-options-panel-margin-block-start: calc(-1 * var(--sbb-spacing-fixed-2x));
 }
