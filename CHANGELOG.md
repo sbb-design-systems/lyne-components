@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.13.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.13.0...v4.13.1) (2026-06-09)
+
+
+### Bug Fixes
+
+* ensure stable state for inputs while editing ([#4951](https://github.com/sbb-design-systems/lyne-components/issues/4951)) ([d00e13e](https://github.com/sbb-design-systems/lyne-components/commit/d00e13eb999bcaa5f1191a96cb6562270237d9d2))
+* **expansion-panel:** fix ssr rendering with 'title-level' ([#4928](https://github.com/sbb-design-systems/lyne-components/issues/4928)) ([#4967](https://github.com/sbb-design-systems/lyne-components/issues/4967)) ([c031229](https://github.com/sbb-design-systems/lyne-components/commit/c0312292d146a42b8808aeda1fee89a6cd8fe68c))
+* handle name change correctly for radio button based elements ([#4970](https://github.com/sbb-design-systems/lyne-components/issues/4970)) ([0fe347e](https://github.com/sbb-design-systems/lyne-components/commit/0fe347e042bf0c2bed4dc45b1f0277f96470a3e6))
+* **seat-reservation:** fix service icon streching ([#4965](https://github.com/sbb-design-systems/lyne-components/issues/4965)) ([4bdd191](https://github.com/sbb-design-systems/lyne-components/commit/4bdd1918d4b96c075cd5f43a6740f6ff8f9d9902))
+* **seat-reservation:** no place selectable by using screen reader ([#4922](https://github.com/sbb-design-systems/lyne-components/issues/4922)) ([f11988d](https://github.com/sbb-design-systems/lyne-components/commit/f11988de3e9dd1e0613eb93af9f3a2a058742597))
+* **slider:** fix 0 value handling ([#4977](https://github.com/sbb-design-systems/lyne-components/issues/4977)) ([ef64ac9](https://github.com/sbb-design-systems/lyne-components/commit/ef64ac923a1d80351b18f8d34c646589c2fa2fca))
+
+
+### Documentation
+
+* **navigation:** fix readme ([#4948](https://github.com/sbb-design-systems/lyne-components/issues/4948)) ([7f1be01](https://github.com/sbb-design-systems/lyne-components/commit/7f1be01ffe12620eec87ed0a2ea29dfeb430ed19))
+
 ## [5.0.0-next.3](https://github.com/sbb-design-systems/lyne-components/compare/v5.0.0-next.2...v5.0.0-next.3) (2026-05-12)
 
 
