@@ -28,7 +28,7 @@ therefore have to comply with its rules.
 - GitHub maintenance workflow
   - Create new maintenance branch (e.g. 4.x).
   - Edit `TARGET_RELEASE` in `.github/workflows/maintenance-tagging-workflow.yml`.
-  - Edit `baseBranchPatterns` property in `renovate.json` to activate renovate on new branch.
+  - Edit `baseBranches` property in `renovate.json` to activate renovate on new branch.
 
 ### Creating the release
 
