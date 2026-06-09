@@ -7,13 +7,32 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### ⚠ BREAKING CHANGES
 
+* support for the `sbb-lean` CSS class has been removed. Use the `lean-theme.css` instead of the `standard-theme.css` to have the lean styles applied. For off-brand and safety variants there are respective variants too.
+* **dialog:** the `sbb-dialog` is not full size in 'zero' breakpoint anymore, but it opens from the bottom like the menu, adapting its height to the slotted content. From 'small' breakpoint, the width adapts to the content too.
 * **header:** The `expandFrom` property of `<sbb-header-button>` and `<sbb-header-link>` has been renamed to `hideLabelBelow` and no longer has a default value. Previously, `expandFrom` defaulted to `large`. To preserve the existing behavior, all instances of `<sbb-header-button>` and `<sbb-header-link>` that do not explicitly define `expandFrom` must now be configured with `hide-label-below="large"`.
 * **calendar:** The `sbb-calendar` `wide` property has been replaced with the `amount` property and the `selected` property has been replaced with the `value` property.
 * **action-group, sbb-dialog-actions:** The properties `orientation`, `alignGroup`, `horizontalFrom`, `buttonSize` and `linkSize` have been removed from the `sbb-action-group` and `sbb-dialog-actions` elements. Further, the global `align-self` attribute has been removed. Consumers can apply their custom flex styles directly on host of the `sbb-action-group` and `sbb-dialog-actions` elements.
 * **popover:** The properties `hide-close-button` and `accessibilityCloseLabel` of the `<sbb-popover>` have been removed. Slot the `<sbb-popover-close-button>` element whenever a close button is needed.
 * **tag-group:** The property `listAccessibilityLabel` of the `<sbb-tag-group>` has been renamed to `accessibilityLabel`.
-* **option:** `sbb-option` does not automatically assign an ID anymore
 * **form-field:** The optional property of the `sbb-form-field` has been removed. The `(optional)` string should be managed by consumer inside the `<label>`.
+* The type of several events have been changed from `CustomEvents` to specific events which extend the native `Event` (see details in #4918).
+* **table:** the `sbb-table`default row styling has been changed from striped to unstriped. To achieve the striped look, use the CSS class `sbb-table--striped` on your table.
+* `<sbb-screen-reader-only>` component has been removed. Use the CSS class `sbb-screen-reader-only` as a replacement.
+* **title:** the CSS variables `--sbb-title-text-color-normal` and `--sbb-title-text-color-normal-override` have been renamed to `--sbb-title-color`.
+* **train:** In order to mitigate the new requirements the following breaking changes were introduced:
+    - The property `type` of `sbb-train-wagon` has been renamed to`wagon-type`
+    - The default inline padding of `sbb-train-formation` was changed from 0 to `var(--sbb-spacing-fixed-1x)`
+    - The CSS variable `--sbb-train-formation-padding-inline` was renamed to `--sbb-train-formation-scroll-padding`
+* **journey-header:** The `size` property of the `sbb-journey-header` has been removed. Use the `visualLevel` property to set the font-size by using the following mapping from `size` to `visualLevel`: `s` -> 6, `m` -> 5, `l` > 4.
+* **button, action-group:** The default size of the buttons has changed from `l` to `m` in standard theme. The `sbb-action-group` doesn't have a default `buttonSize` and `linkSize` applied anymore but delegates the default size choice to slotted button and links.
+* Various TypeScript types have been removed. `SbbTitleLevel` was renamed to `SbbHeadingLevel` and moved to core module.
+* **autocomplete, select:** Deleted `core/overlay` mixins
+* **sbb-chip-label:** chip-label Sass mixins were removed. As the chip-label styles were moved to the host, the chip-label can behave slightly different in text flow.
+* removed the automatic ID assignment from the following components: `sbb-tab`, `sbb-menu`, `sbb-dialog`, `sbb-popover`, `sbb-tooltip`, `sbb-stepper`, `sbb-datepicker`, `sbb-overlay`, `sbb-navigation`, `sbb-navigation-section`.
+* **option:** `sbb-option` does not automatically assign an ID anymore
+* **core:** deleted `setAriaOverlayTriggerAttributes` and `removeAriaOverlayTriggerAttributes` methods.
+* **link:** the `size` property has been removed from `sbb-link`,`sbb-link-button` and `sbb-link-static`, since it has effects only on block-links.
+* **navigation:** The `size` property of the `sbb-navigation-button` and `sbb-navigation-link` has been removed.
 * Some global CSS refactorings have been executed.
     - The Sass text mixins ending with `-bold` have been removed. Just use
     `font-weight: bold`.
@@ -26,8 +45,8 @@ All notable changes to this project will be documented in this file. See [standa
     - Various Sass mixins were removed or renamed.
     - The CSS classes `sbb-table-header-cell`, `sbb-table-header-row` and
     `sbb-table-data-cell` have been removed.
-* The type of several events have been changed from `CustomEvents` to specific events which extend the native `Event` (see details in #4918).
-* **table:** the `sbb-table`default row styling has been changed from striped to unstriped. To achieve the striped look, use the CSS class `sbb-table--striped` on your table.
+* Elements no longer have side effects (i.e. register globally) unless imported via the non-pure entrypoint or when calling `define()`. Additionally, SbbElement is now enforced as the base class for all elements and the mixins SbbElementInternalsMixin and SbbHydrationMixin have been inlined into SbbElement and therefore removed.
+* The library now targets es2023
 
 ### Features
 
@@ -37,6 +56,10 @@ All notable changes to this project will be documented in this file. See [standa
 * expose module Sass mixins globally ([#4939](https://github.com/sbb-design-systems/lyne-components/issues/4939)) ([0c01c99](https://github.com/sbb-design-systems/lyne-components/commit/0c01c99a312b167452ae11d730c2f170cf5a0544)), closes [#3969](https://github.com/sbb-design-systems/lyne-components/issues/3969)
 * **navigation:** introduce disabled state navigation actions ([#4891](https://github.com/sbb-design-systems/lyne-components/issues/4891)) ([0f0b0fe](https://github.com/sbb-design-systems/lyne-components/commit/0f0b0fe41a88c8c3fa7b1e9e40ce37503bf2beba))
 * **sbb-header:** add variable to customize top padding ([#4964](https://github.com/sbb-design-systems/lyne-components/issues/4964)) ([fabcca3](https://github.com/sbb-design-systems/lyne-components/commit/fabcca37b27a7d529a68cf9d1f0aa9f53f5ada51))
+* **train:** vertical orientation and interactive wagon ([#4796](https://github.com/sbb-design-systems/lyne-components/issues/4796)) ([e0e2268](https://github.com/sbb-design-systems/lyne-components/commit/e0e2268a4de4e0cb79f5a13e4fc080026e9fcc05)), closes [#4277](https://github.com/sbb-design-systems/lyne-components/issues/4277)
+* **dialog:** adapt sizing ([#4774](https://github.com/sbb-design-systems/lyne-components/issues/4774)) ([7962982](https://github.com/sbb-design-systems/lyne-components/commit/79629820ea7c6c89b49e922a55eab4052c744a23))
+* **sbb-chip-label:** add size `xxxs` and css refactoring ([#4650](https://github.com/sbb-design-systems/lyne-components/issues/4650)) ([a809369](https://github.com/sbb-design-systems/lyne-components/commit/a809369c96e4e075fe9c7b7c163890f794e4e887)), closes [#4800](https://github.com/sbb-design-systems/lyne-components/issues/4800)
+* **teaser-panel:** component implementation ([#4779](https://github.com/sbb-design-systems/lyne-components/issues/4779)) ([49749de](https://github.com/sbb-design-systems/lyne-components/commit/49749de1a8fe0b4669a0ddb8465b02afb294a062))
 
 
 ### Bug Fixes
@@ -49,6 +72,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **seat-reservation:** fix service icon streching ([#4965](https://github.com/sbb-design-systems/lyne-components/issues/4965)) ([5f0bb65](https://github.com/sbb-design-systems/lyne-components/commit/5f0bb6577187f3d557a9def0e6f5f8d31b93a316))
 * **seat-reservation:** no place selectable by using screen reader ([#4922](https://github.com/sbb-design-systems/lyne-components/issues/4922)) ([483dc45](https://github.com/sbb-design-systems/lyne-components/commit/483dc4595987d9ae18c32117efe941210f1dbd7d))
 * **slider:** fix 0 value handling ([#4977](https://github.com/sbb-design-systems/lyne-components/issues/4977)) ([a064887](https://github.com/sbb-design-systems/lyne-components/commit/a0648874284c368cfa6880679197e9528d1711e7))
+* **link:** remove size property from inline links ([#4746](https://github.com/sbb-design-systems/lyne-components/issues/4746)) ([2c9434d](https://github.com/sbb-design-systems/lyne-components/commit/2c9434d79ee1e36a184d6c5fda20f2faadea0fa4))
 
 
 ### Documentation
@@ -69,11 +93,30 @@ All notable changes to this project will be documented in this file. See [standa
 * remove various internal APIs ([#4930](https://github.com/sbb-design-systems/lyne-components/issues/4930)) ([e7c793a](https://github.com/sbb-design-systems/lyne-components/commit/e7c793a0127b649a1ba192ca8d65c3c1213c3d6d))
 * replace CustomEvents with specific events ([#4918](https://github.com/sbb-design-systems/lyne-components/issues/4918)) ([523d403](https://github.com/sbb-design-systems/lyne-components/commit/523d4036ba096d1de056355f8e9326bbd36d65ff))
 * **tag-group:** improve accessibility of exclusive selection ([#4916](https://github.com/sbb-design-systems/lyne-components/issues/4916)) ([30782dc](https://github.com/sbb-design-systems/lyne-components/commit/30782dcc6ecd31bd4d3d226cf14994a7e9573862))
+* inline types from core ([#4864](https://github.com/sbb-design-systems/lyne-components/issues/4864)) ([58ecafb](https://github.com/sbb-design-systems/lyne-components/commit/58ecafb1c431b882eaa56bacd8a111fffa6800c3))
+* introduce lean theme ([#4865](https://github.com/sbb-design-systems/lyne-components/issues/4865)) ([302417a](https://github.com/sbb-design-systems/lyne-components/commit/302417a1dbeef25a756d520c0f70e1daf42ad155))
+* **navigation:** remove `size` property of buttons and links ([#4908](https://github.com/sbb-design-systems/lyne-components/issues/4908)) ([13d1a74](https://github.com/sbb-design-systems/lyne-components/commit/13d1a749a31a328657f9bfa5ef5982ae7dd4395f))
+* **option:** adapt global css rules to lean theme ([#4875](https://github.com/sbb-design-systems/lyne-components/issues/4875)) ([62be732](https://github.com/sbb-design-systems/lyne-components/commit/62be7322f16f39106abf899b062d060cda2a5403))
+* avoid duplicating scrollbar styles in shadow DOM ([#4860](https://github.com/sbb-design-systems/lyne-components/issues/4860)) ([df9c718](https://github.com/sbb-design-systems/lyne-components/commit/df9c7184648b124ad517912ea84175bfe360ff0a))
+* **journey-header:** remove size property ([#4842](https://github.com/sbb-design-systems/lyne-components/issues/4842)) ([8a3172b](https://github.com/sbb-design-systems/lyne-components/commit/8a3172b6d6195c53989ff5d1e03ac19e07b70026))
+* merge styles in SbbElement ([#4856](https://github.com/sbb-design-systems/lyne-components/issues/4856)) ([b87b86b](https://github.com/sbb-design-systems/lyne-components/commit/b87b86b3a894ba94d958a1f2f4707317877f3ed0)), closes [#4647](https://github.com/sbb-design-systems/lyne-components/issues/4647)
+* minimize payload of sbb-screen-reader-only styles ([#4849](https://github.com/sbb-design-systems/lyne-components/issues/4849)) ([4e5f34f](https://github.com/sbb-design-systems/lyne-components/commit/4e5f34f64916487b7dabc2c38f5db2033c2d4998))
+* move box-sizing to SbbElement ([#4871](https://github.com/sbb-design-systems/lyne-components/issues/4871)) ([599a638](https://github.com/sbb-design-systems/lyne-components/commit/599a638a45558cbdc9a36af31f704d771f7c1931))
+* **title:** CSS refactoring ([#4847](https://github.com/sbb-design-systems/lyne-components/issues/4847)) ([7993f82](https://github.com/sbb-design-systems/lyne-components/commit/7993f82d5fbf3baffe5258eaaa716052c91ef4de))
+* **button, action-group:** change default size value from `l` to `m` ([#4825](https://github.com/sbb-design-systems/lyne-components/issues/4825)) ([963894a](https://github.com/sbb-design-systems/lyne-components/commit/963894a5ab164d3418be82542aa636f9ae0fb96f))
+* **core:** delete aria-attributes util functions ([057f98b](https://github.com/sbb-design-systems/lyne-components/commit/057f98b2eb9f3fb6ca64ca3208e2ad3c3b446678))
+* improve support for scrollbar styles in shadow DOM ([#4811](https://github.com/sbb-design-systems/lyne-components/issues/4811)) ([1bf4726](https://github.com/sbb-design-systems/lyne-components/commit/1bf4726a6f21dcbe56ec3e27531ac55dd4115cbc))
+* **navigation:** css refactoring ([#4622](https://github.com/sbb-design-systems/lyne-components/issues/4622)) ([aee15d0](https://github.com/sbb-design-systems/lyne-components/commit/aee15d097bf0dbfc0219d6924bba1f11c380f8f7))
+* remove automatic ID assignment ([057f98b](https://github.com/sbb-design-systems/lyne-components/commit/057f98b2eb9f3fb6ca64ca3208e2ad3c3b446678))
+* **sbb-alert:** css refactoring ([#4376](https://github.com/sbb-design-systems/lyne-components/issues/4376)) ([96cd622](https://github.com/sbb-design-systems/lyne-components/commit/96cd622b2e0f1db25b89e0b29ab2b91242c6fc68))
+* **stepper:** remove pre-defined font-size of sbb-step ([#4819](https://github.com/sbb-design-systems/lyne-components/issues/4819)) ([c08f2ee](https://github.com/sbb-design-systems/lyne-components/commit/c08f2ee0b06a9e30239772ad0362e47750a35868))
+* adapt pure entry points to be without side effects ([#4707](https://github.com/sbb-design-systems/lyne-components/issues/4707)) ([978018e](https://github.com/sbb-design-systems/lyne-components/commit/978018ea810c0f5371369118dbf44a812065ae9e))
 
 
 ### Styles
 
 * **table:** table default is unstriped ([#4907](https://github.com/sbb-design-systems/lyne-components/issues/4907)) ([d997cd1](https://github.com/sbb-design-systems/lyne-components/commit/d997cd1ce06f0821360dc435bfda6c07953d2634))
+* **autocomplete, select:** ux redesign ([#4850](https://github.com/sbb-design-systems/lyne-components/issues/4850)) ([35df814](https://github.com/sbb-design-systems/lyne-components/commit/35df8146d9f5dfd62323e0ae536bbec3ca1dfb89))
 
 ## [4.13.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.13.0...v4.13.1) (2026-06-09)
 
