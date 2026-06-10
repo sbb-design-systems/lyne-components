@@ -113,6 +113,8 @@ export function a11yTreePlugin(): TestRunnerPlugin<A11yTreePayload> {
                       result.roledescription = property.value.value;
                     } else if (property.name === 'selected') {
                       result.selected = assertBoolean(property.value.value);
+                    } else if (property.name === 'url') {
+                      result.url = property.value.value;
                     } else if (property.name === 'valuemin') {
                       result.valuemin = property.value.value;
                     } else if (property.name === 'valuemax') {
@@ -213,6 +215,7 @@ interface A11yNode {
   roledescription?: string;
   selected?: boolean;
   settable?: boolean;
+  url?: string;
   valuemin?: string;
   valuemax?: string;
   valuetext?: string;
