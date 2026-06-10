@@ -36,7 +36,7 @@ jobs:
         id: get_token
         uses: actions/create-github-app-token@v3
         with:
-          app-id: ${{ secrets.MAINTENANCE_APP_ID }}
+          client-id: ${{ secrets.MAINTENANCE_APP_ID }}
           private-key: ${{ secrets.MAINTENANCE_APP_PEM }}
       - name: Get branch name from label
         id: branch_name
