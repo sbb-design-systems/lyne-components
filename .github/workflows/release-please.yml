@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - '*.x'
-      - main
 
 # Documentation:
 # https://github.com/googleapis/release-please
