@@ -78,8 +78,8 @@ export class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<
     this.toggleState('crossed-out', isFilteredOut && !isOutOfRange);
   }
 
-  private _isActiveDate(dateFilter: ((date: T | null) => boolean) | null): boolean {
-    return dateFilter?.(this.value) ?? true;
+  private _isActiveDate(dateFilter: ((date: T) => boolean) | null): boolean {
+    return dateFilter && this.value ? dateFilter(this.value) : true;
   }
 
   private _isDayInRange(min: T | null, max: T | null): boolean {
