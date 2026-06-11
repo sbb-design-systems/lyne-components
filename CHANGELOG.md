@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.1](https://github.com/sbb-design-systems/lyne-components/compare/v5.0.0...v5.0.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* **calendar:** fix 'dateFilter' type ([#4982](https://github.com/sbb-design-systems/lyne-components/issues/4982)) ([53de85c](https://github.com/sbb-design-systems/lyne-components/commit/53de85cedb44143f0b4a3359c1fb04c85028e7a5))
+
 ## [5.0.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.0.0-next.3...v5.0.0) (2026-06-10)
 
 
