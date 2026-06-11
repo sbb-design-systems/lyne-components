@@ -153,7 +153,7 @@ The first element with the attribute `sbb-focus-initial` will receive focus on o
 If the attribute is not used, the first focusable element receives focus (recommended).
 
 ```html
-<sbb-navigation >
+<sbb-navigation>
   <sbb-navigation-marker>
     <sbb-navigation-button>Label 1</sbb-navigation-button>
     <sbb-navigation-button sbb-focus-initial>Label 2</sbb-navigation-button>
