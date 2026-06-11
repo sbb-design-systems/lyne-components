@@ -221,7 +221,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
   /** A function used to filter out dates. */
   @property({ attribute: 'date-filter' })
-  public accessor dateFilter: ((date: T | null) => boolean) | null = null;
+  public accessor dateFilter: ((date: T) => boolean) | null = null;
 
   /**
    * Set this with the format `YYYY-MM` to limit the calendar to a specific month,
