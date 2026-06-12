@@ -162,6 +162,9 @@ export const getCus = (trip: ITripItem, currentLanguage: string): HimCus => {
   if (tripStatus?.cancelled || tripStatus?.partiallyCancelled) {
     return { name: 'cancellation', text: tripStatus?.cancelledText };
   }
+  if (rideLegs?.some((leg) => leg.serviceJourney?.serviceAlteration?.cancelledExpected)) {
+    return { name: 'disruption', text: tripStatus?.cancelledText };
+  }
   if (getReachableText(rideLegs)) {
     return { name: 'missed-connection', text: getReachableText(rideLegs) };
   }
@@ -335,7 +338,7 @@ export class SbbTimetableRowElement extends SbbElement {
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): TemplateResult {
     return html`
-      <sbb-card class="sbb-loading sbb-card-spacing-4x-xxs">
+      <sbb-card class="sbb-loading sbb-card-spacing-4x-xxs sbb-timetable__row-card">
         ${this.loadingPrice ? html`<div class="sbb-loading__badge" slot="badge"></div>` : nothing}
         <div class="sbb-loading__wrapper">
           <div class="sbb-loading__row"></div>
@@ -578,7 +581,7 @@ export class SbbTimetableRowElement extends SbbElement {
     const durationObj = duration ? durationToTime(duration, this._language.current) : null;
 
     return html`
-      <sbb-card class="sbb-card-spacing-4x-xxs" id=${id}>
+      <sbb-card class="sbb-card-spacing-4x-xxs sbb-timetable__row-card" id=${id}>
         <sbb-card-button
           ?active=${this.active}
           aria-expanded=${this.accessibilityExpanded ? 'true' : nothing}
