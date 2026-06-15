@@ -82,9 +82,10 @@ const values = [
 
 #### Events
 
-| Name     | Type    | Description                                                                                                                                                                        | Inherited From |
-| -------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `change` | `Event` | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
+| Name       | Type    | Description                                                                                                                                                                        | Inherited From         |
+| ---------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| `change`   | `Event` | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                        |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes.                                                                                               | SbbFormAssociatedMixin |
 
 #### Slots
 

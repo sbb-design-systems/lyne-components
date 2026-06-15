@@ -270,6 +270,12 @@ For accessibility purposes, the component is rendered as a native table element 
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
+
 #### Slots
 
 | Name | Description                                                 |
@@ -309,12 +315,13 @@ For accessibility purposes, the component is rendered as a native table element 
 
 #### Events
 
-| Name           | Type                      | Description                                                                                     | Inherited From |
-| -------------- | ------------------------- | ----------------------------------------------------------------------------------------------- | -------------- |
-| `change`       | `Event`                   | Event emitted on user selection.                                                                |                |
-| `dateselected` | `SbbDateSelectedEvent<T>` | Event emitted on date selection.                                                                |                |
-| `input`        | `InputEvent`              | Event emitted on user selection.                                                                |                |
-| `monthchange`  | `SbbMonthChangeEvent`     | Emits when the month changes. The `range` property contains the days array of the chosen month. |                |
+| Name           | Type                      | Description                                                                                     | Inherited From         |
+| -------------- | ------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------- |
+| `change`       | `Event`                   | Event emitted on user selection.                                                                |                        |
+| `dateselected` | `SbbDateSelectedEvent<T>` | Event emitted on date selection.                                                                |                        |
+| `input`        | `InputEvent`              | Event emitted on user selection.                                                                |                        |
+| `monthchange`  | `SbbMonthChangeEvent`     | Emits when the month changes. The `range` property contains the days array of the chosen month. |                        |
+| `validity`     | `Event`                   | The validity event is dispatched whenever the validity state of the element changes.            | SbbFormAssociatedMixin |
 
 #### Slots
 
@@ -344,6 +351,12 @@ For accessibility purposes, the component is rendered as a native table element 
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
+
 ### class: `SbbCalendarWeekdayElement`, `sbb-calendar-weekday`
 
 #### Properties
@@ -365,6 +378,12 @@ For accessibility purposes, the component is rendered as a native table element 
 | `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
 
 ### class: `SbbCalendarWeeknumberElement`, `sbb-calendar-weeknumber`
 
@@ -388,6 +407,12 @@ For accessibility purposes, the component is rendered as a native table element 
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
+
 ### class: `SbbCalendarYearElement`, `sbb-calendar-year`
 
 #### Properties
@@ -409,3 +434,9 @@ For accessibility purposes, the component is rendered as a native table element 
 | `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
