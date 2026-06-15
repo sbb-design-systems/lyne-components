@@ -24,12 +24,12 @@ import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { format } from 'date-fns';
 import {
+  type CSSResultGroup,
   html,
   nothing,
-  unsafeCSS,
-  type CSSResultGroup,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -151,10 +151,15 @@ export const getCus = (trip: ITripItem, currentLanguage: string): HimCus => {
   const rideLegs = legs?.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
   const { tripStatus } = summary || {};
 
-  if (tripStatus?.cancelled || tripStatus?.partiallyCancelled)
+  if (tripStatus?.cancelled || tripStatus?.partiallyCancelled) {
     return { name: 'cancellation', text: tripStatus?.cancelledText };
-  if (getReachableText(rideLegs))
+  }
+  if (rideLegs?.some((leg) => leg.serviceJourney?.serviceAlteration?.cancelledExpected)) {
+    return { name: 'disruption', text: tripStatus?.cancelledText };
+  }
+  if (getReachableText(rideLegs)) {
     return { name: 'missed-connection', text: getReachableText(rideLegs) };
+  }
   if (tripStatus?.alternative) return { name: 'alternative', text: tripStatus.alternativeText };
   if (getRedirectedText(rideLegs)) return { name: 'reroute', text: getRedirectedText(rideLegs) };
   if (getUnplannedStop(rideLegs)) return { name: 'add-stop', text: getUnplannedStop(rideLegs) };
@@ -300,7 +305,7 @@ export class SbbTimetableRowElement extends SbbElement {
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): TemplateResult {
     return html`
-      <sbb-card class="sbb-loading sbb-card-spacing-4x-xxs">
+      <sbb-card class="sbb-loading sbb-card-spacing-4x-xxs sbb-timetable__row-card">
         ${this.loadingPrice ? html`<div class="sbb-loading__badge" slot="badge"></div>` : nothing}
         <div class="sbb-loading__wrapper">
           <div class="sbb-loading__row"></div>
@@ -539,7 +544,7 @@ export class SbbTimetableRowElement extends SbbElement {
     const durationObj = duration ? durationToTime(duration, this._language.current) : null;
 
     return html`
-      <sbb-card class="sbb-card-spacing-4x-xxs" id=${id}>
+      <sbb-card class="sbb-card-spacing-4x-xxs sbb-timetable__row-card" id=${id}>
         <sbb-card-button
           ?active=${this.active}
           aria-expanded=${this.accessibilityExpanded ? 'true' : nothing}

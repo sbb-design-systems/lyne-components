@@ -8,18 +8,19 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 import {
+  a11yFootpathTrip,
+  busTrip,
+  cancelledTrip,
+  cancelledExpectedTrip,
   defaultTrip,
   progressTrip,
-  cancelledTrip,
   partiallyCancelled,
   pastTrip,
   disturbanceTrip,
   trainTrip,
-  busTrip,
   quayChangeTrip,
   shipTrip,
   walkTimeTrip,
-  a11yFootpathTrip,
   extendedEnterTimeTrip,
   noticesTrip,
   skippedDepartureStopTrip,
@@ -239,6 +240,15 @@ export const Cancelled: StoryObj = {
   args: {
     ...defaultArgs,
     trip: cancelledTrip,
+  },
+};
+
+export const CancelledExpected: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    trip: cancelledExpectedTrip,
   },
 };
 

@@ -255,6 +255,10 @@ export class SbbPearlChainElement extends SbbElement {
               ? 'sbb-pearl-chain__leg--disruption'
               : '';
 
+          const cancelledExpected = leg.serviceJourney?.serviceAlteration?.cancelledExpected
+            ? 'sbb-pearl-chain__leg--cancelled-expected'
+            : '';
+
           const legDepartureWithDelay = { time: departure, delay: leg.departure?.delay ?? 0 };
           const legArrivalWithDelay = { time: arrival, delay: leg.arrival?.delay ?? 0 };
           const status = this._getStatus(now, legDepartureWithDelay, legArrivalWithDelay);
@@ -263,7 +267,7 @@ export class SbbPearlChainElement extends SbbElement {
           const legStyle = (): Record<string, string> => {
             return {
               '--sbb-pearl-chain-leg-width': `${duration}%`,
-              ...(status === 'progress' && !cancelled && !skippedLeg
+              ...(status === 'progress' && !cancelled && !skippedLeg && !cancelledExpected
                 ? {
                     '--sbb-pearl-chain-leg-status': `${this._getProgress(now, legDepartureWithDelay, legArrivalWithDelay)}%`,
                   }
@@ -272,7 +276,8 @@ export class SbbPearlChainElement extends SbbElement {
           };
 
           return html` <div
-            class="sbb-pearl-chain__leg ${legStatus || ''} ${cancelled} ${skippedLeg}"
+            class="sbb-pearl-chain__leg ${legStatus ||
+            ''} ${cancelled} ${skippedLeg} ${cancelledExpected}"
             style=${styleMap(legStyle())}
           >
             ${index > 0 && index < rideLegs.length
