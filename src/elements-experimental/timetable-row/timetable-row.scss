@@ -71,6 +71,10 @@ li {
   animation: none;
 }
 
+.sbb-timetable__row-card {
+  --sbb-card-padding-block: var(--sbb-card-with-badge-padding-block);
+}
+
 .sbb-timetable__row-header {
   display: flex;
   gap: var(--sbb-spacing-fixed-2x);

@@ -9,7 +9,7 @@ snapshots["sbb-timetable-row renders defaultTrip DOM"] =
 
 snapshots["sbb-timetable-row renders defaultTrip Shadow DOM"] = 
 `<sbb-card
-  class="sbb-card-spacing-4x-xxs"
+  class="sbb-card-spacing-4x-xxs sbb-timetable__row-card"
   color="white"
 >
   <sbb-card-button
@@ -76,7 +76,7 @@ snapshots["sbb-timetable-row renders platform DOM"] =
 
 snapshots["sbb-timetable-row renders platform Shadow DOM"] = 
 `<sbb-card
-  class="sbb-card-spacing-4x-xxs"
+  class="sbb-card-spacing-4x-xxs sbb-timetable__row-card"
   color="white"
 >
   <sbb-card-button
@@ -162,7 +162,7 @@ snapshots["sbb-timetable-row renders bus strip DOM"] =
 
 snapshots["sbb-timetable-row renders bus strip Shadow DOM"] = 
 `<sbb-card
-  class="sbb-card-spacing-4x-xxs"
+  class="sbb-card-spacing-4x-xxs sbb-timetable__row-card"
   color="white"
 >
   <sbb-card-button
@@ -249,7 +249,7 @@ snapshots["sbb-timetable-row renders loading state DOM"] =
 
 snapshots["sbb-timetable-row renders loading state Shadow DOM"] = 
 `<sbb-card
-  class="sbb-card-spacing-4x-xxs sbb-loading"
+  class="sbb-card-spacing-4x-xxs sbb-loading sbb-timetable__row-card"
   color="white"
 >
   <div
@@ -293,7 +293,7 @@ snapshots["sbb-timetable-row renders trip with access leg DOM"] =
 
 snapshots["sbb-timetable-row renders trip with access leg Shadow DOM"] = 
 `<sbb-card
-  class="sbb-card-spacing-4x-xxs"
+  class="sbb-card-spacing-4x-xxs sbb-timetable__row-card"
   color="white"
 >
   <sbb-card-button
