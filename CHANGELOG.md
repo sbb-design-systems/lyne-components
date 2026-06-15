@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.14.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.13.1...v4.14.0) (2026-06-15)
+
+
+### Features
+
+* **pearl-chain, time-table-row:** support cancelledExpected legs ([#4988](https://github.com/sbb-design-systems/lyne-components/issues/4988)) ([81ca88c](https://github.com/sbb-design-systems/lyne-components/commit/81ca88c8dbe6fd41c84923531f9f1c6db563e17b))
+
 ## [4.13.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.13.0...v4.13.1) (2026-06-09)
 
 
