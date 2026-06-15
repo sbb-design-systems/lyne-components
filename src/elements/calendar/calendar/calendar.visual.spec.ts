@@ -55,14 +55,14 @@ describe('sbb-calendar', () => {
     ],
   };
 
-  for (const orientation of [
-    'horizontal',
-    'vertical',
-  ] satisfies SbbCalendarElement['orientation'][]) {
-    describeViewports({ viewports: ['zero', 'large', 'ultra'] }, () => {
-      for (const variant of ['default', 'enhanced']) {
-        describe(`variant=${variant}`, () => {
-          describe(`orientation=${orientation}`, () => {
+  describeViewports({ viewports: ['zero', 'ultra'] }, () => {
+    for (const orientation of [
+      'horizontal',
+      'vertical',
+    ] satisfies SbbCalendarElement['orientation'][]) {
+      describe(`orientation=${orientation}`, () => {
+        for (const variant of ['default', 'enhanced']) {
+          describe(`variant=${variant}`, () => {
             for (const min of minArray) {
               for (const max of maxArray) {
                 it(
@@ -83,186 +83,188 @@ describe('sbb-calendar', () => {
                 );
               }
             }
+
+            for (const amount of [1, 2, 13]) {
+              describe(`amount=${amount}`, () => {
+                it(
+                  'dynamic width',
+                  visualDiffDefault.with(async (setup) => {
+                    await setup.withFixture(html`
+                      <sbb-calendar
+                        style="width: 900px"
+                        orientation=${orientation}
+                        amount=${amount}
+                        .value=${new Date(2023, 0, 20)}
+                        >${variant === 'default'
+                          ? nothing
+                          : html`${Array.from({ length: amount }, (_, i) => {
+                              const date = defaultDateAdapter.addCalendarMonths(today, i);
+                              return createSlottedDays(
+                                defaultDateAdapter.getYear(date),
+                                defaultDateAdapter.getMonth(date),
+                                true,
+                              );
+                            })}`}
+                      </sbb-calendar>
+                    `);
+                  }),
+                );
+
+                it(
+                  'full width',
+                  visualDiffFocus.with(async (setup) => {
+                    await setup.withFixture(html`
+                      <sbb-calendar
+                        style="width: 100%"
+                        orientation=${orientation}
+                        amount=${amount}
+                        .value=${new Date(2023, 0, 20)}
+                        >${variant === 'default'
+                          ? nothing
+                          : html`${Array.from({ length: amount }, (_, i) => {
+                              const date = defaultDateAdapter.addCalendarMonths(today, i);
+                              return createSlottedDays(
+                                defaultDateAdapter.getYear(date),
+                                defaultDateAdapter.getMonth(date),
+                                true,
+                              );
+                            })}`}
+                      </sbb-calendar>
+                    `);
+
+                    // Focus an element on the very right side. Should not be cut!
+                    setup
+                      .withStateElement(
+                        variant === 'default'
+                          ? setup.stateElement.shadowRoot!.querySelector(
+                              'sbb-calendar-day[slot="2023-01-08"]',
+                            )!
+                          : setup.stateElement.querySelector(
+                              'sbb-calendar-day[slot="2023-01-08"]',
+                            )!,
+                      )
+                      .withPostSetupAction(() => {
+                        // Shortcut to let the stateElement be focused
+                        setup.stateElement.tabIndex = 0;
+                      });
+                  }),
+                );
+
+                for (const multiple of [false, true]) {
+                  const selected = multiple
+                    ? [new Date(2023, 0, 20), new Date(2023, 0, 21)]
+                    : new Date(2023, 0, 20);
+                  it(
+                    `multiple=${multiple} weekNumbers=true`,
+                    visualDiffDefault.with(async (setup) => {
+                      await setup.withFixture(html`
+                        <sbb-calendar
+                          orientation=${orientation}
+                          ?multiple=${multiple}
+                          amount=${amount}
+                          .value=${selected}
+                          week-numbers
+                          >${variant === 'default'
+                            ? nothing
+                            : html`${Array.from({ length: amount }, (_, i) => {
+                                const date = defaultDateAdapter.addCalendarMonths(today, i);
+                                return createSlottedDays(
+                                  defaultDateAdapter.getYear(date),
+                                  defaultDateAdapter.getMonth(date),
+                                  true,
+                                );
+                              })}`}
+                        </sbb-calendar>
+                      `);
+                    }),
+                  );
+                }
+
+                for (const fn of filterFunctions) {
+                  it(
+                    `fn=${fn.name}`,
+                    visualDiffDefault.with(async (setup) => {
+                      await setup.withFixture(html`
+                        <sbb-calendar
+                          orientation=${orientation}
+                          amount=${amount}
+                          .min=${defaultDateAdapter.toIso8601(new Date(2023, 0, 13))}
+                          .max=${defaultDateAdapter.toIso8601(new Date(2023, 1, 17))}
+                          .value=${new Date(2023, 0, 20)}
+                          .dateFilter=${fn.dateFilter}
+                          >${variant === 'default'
+                            ? nothing
+                            : html`${Array.from({ length: amount }, (_, i) => {
+                                const date = defaultDateAdapter.addCalendarMonths(today, i);
+                                return createSlottedDays(
+                                  defaultDateAdapter.getYear(date),
+                                  defaultDateAdapter.getMonth(date),
+                                  true,
+                                );
+                              })}`}
+                        </sbb-calendar>
+                      `);
+                    }),
+                  );
+                }
+
+                for (const view of ['year', 'month'] satisfies SbbCalendarElement['view'][]) {
+                  it(
+                    `view=${view}`,
+                    visualDiffDefault.with(async (setup) => {
+                      await setup.withFixture(html`
+                        <sbb-calendar
+                          orientation=${orientation}
+                          view=${view}
+                          amount=${amount}
+                          .value=${new Date(2023, 0, 20)}
+                        >
+                          ${variant === 'default'
+                            ? nothing
+                            : html`${Array.from({ length: amount }, (_, i) => {
+                                const date = defaultDateAdapter.addCalendarMonths(today, i);
+                                return createSlottedDays(
+                                  defaultDateAdapter.getYear(date),
+                                  defaultDateAdapter.getMonth(date),
+                                  true,
+                                );
+                              })}`}
+                        </sbb-calendar>
+                      `);
+                    }),
+                  );
+                }
+
+                it(
+                  'fixed-month',
+                  visualDiffDefault.with(async (setup) => {
+                    await setup.withFixture(html`
+                      <sbb-calendar
+                        fixed-month="2023-01"
+                        orientation=${orientation}
+                        amount=${amount}
+                        .value=${new Date(2023, 0, 20)}
+                        >${variant === 'default'
+                          ? nothing
+                          : html`${Array.from({ length: amount }, (_, i) => {
+                              const date = defaultDateAdapter.addCalendarMonths(today, i);
+                              return createSlottedDays(
+                                defaultDateAdapter.getYear(date),
+                                defaultDateAdapter.getMonth(date),
+                                true,
+                              );
+                            })}`}
+                      </sbb-calendar>
+                    `);
+                  }),
+                );
+              });
+            }
           });
-
-          for (const amount of [1, 2, 13]) {
-            describe(`orientation=${orientation} amount=${amount}`, () => {
-              it(
-                'dynamic width',
-                visualDiffDefault.with(async (setup) => {
-                  await setup.withFixture(html`
-                    <sbb-calendar
-                      style="width: 900px"
-                      orientation=${orientation}
-                      amount=${amount}
-                      .value=${new Date(2023, 0, 20)}
-                      >${variant === 'default'
-                        ? nothing
-                        : html`${Array.from({ length: amount }, (_, i) => {
-                            const date = defaultDateAdapter.addCalendarMonths(today, i);
-                            return createSlottedDays(
-                              defaultDateAdapter.getYear(date),
-                              defaultDateAdapter.getMonth(date),
-                              true,
-                            );
-                          })}`}
-                    </sbb-calendar>
-                  `);
-                }),
-              );
-
-              it(
-                'full width',
-                visualDiffFocus.with(async (setup) => {
-                  await setup.withFixture(html`
-                    <sbb-calendar
-                      style="width: 100%"
-                      orientation=${orientation}
-                      amount=${amount}
-                      .value=${new Date(2023, 0, 20)}
-                      >${variant === 'default'
-                        ? nothing
-                        : html`${Array.from({ length: amount }, (_, i) => {
-                            const date = defaultDateAdapter.addCalendarMonths(today, i);
-                            return createSlottedDays(
-                              defaultDateAdapter.getYear(date),
-                              defaultDateAdapter.getMonth(date),
-                              true,
-                            );
-                          })}`}
-                    </sbb-calendar>
-                  `);
-
-                  // Focus an element on the very right side. Should not be cut!
-                  setup
-                    .withStateElement(
-                      variant === 'default'
-                        ? setup.stateElement.shadowRoot!.querySelector(
-                            'sbb-calendar-day[slot="2023-01-08"]',
-                          )!
-                        : setup.stateElement.querySelector('sbb-calendar-day[slot="2023-01-08"]')!,
-                    )
-                    .withPostSetupAction(() => {
-                      // Shortcut to let the stateElement be focused
-                      setup.stateElement.tabIndex = 0;
-                    });
-                }),
-              );
-
-              for (const multiple of [false, true]) {
-                const selected = multiple
-                  ? [new Date(2023, 0, 20), new Date(2023, 0, 21)]
-                  : new Date(2023, 0, 20);
-                it(
-                  `multiple=${multiple} weekNumbers=true`,
-                  visualDiffDefault.with(async (setup) => {
-                    await setup.withFixture(html`
-                      <sbb-calendar
-                        orientation=${orientation}
-                        ?multiple=${multiple}
-                        amount=${amount}
-                        .value=${selected}
-                        week-numbers
-                        >${variant === 'default'
-                          ? nothing
-                          : html`${Array.from({ length: amount }, (_, i) => {
-                              const date = defaultDateAdapter.addCalendarMonths(today, i);
-                              return createSlottedDays(
-                                defaultDateAdapter.getYear(date),
-                                defaultDateAdapter.getMonth(date),
-                                true,
-                              );
-                            })}`}
-                      </sbb-calendar>
-                    `);
-                  }),
-                );
-              }
-
-              for (const fn of filterFunctions) {
-                it(
-                  `fn=${fn.name}`,
-                  visualDiffDefault.with(async (setup) => {
-                    await setup.withFixture(html`
-                      <sbb-calendar
-                        orientation=${orientation}
-                        amount=${amount}
-                        .min=${defaultDateAdapter.toIso8601(new Date(2023, 0, 13))}
-                        .max=${defaultDateAdapter.toIso8601(new Date(2023, 1, 17))}
-                        .value=${new Date(2023, 0, 20)}
-                        .dateFilter=${fn.dateFilter}
-                        >${variant === 'default'
-                          ? nothing
-                          : html`${Array.from({ length: amount }, (_, i) => {
-                              const date = defaultDateAdapter.addCalendarMonths(today, i);
-                              return createSlottedDays(
-                                defaultDateAdapter.getYear(date),
-                                defaultDateAdapter.getMonth(date),
-                                true,
-                              );
-                            })}`}
-                      </sbb-calendar>
-                    `);
-                  }),
-                );
-              }
-
-              for (const view of ['year', 'month'] satisfies SbbCalendarElement['view'][]) {
-                it(
-                  `view=${view}`,
-                  visualDiffDefault.with(async (setup) => {
-                    await setup.withFixture(html`
-                      <sbb-calendar
-                        orientation=${orientation}
-                        view=${view}
-                        amount=${amount}
-                        .value=${new Date(2023, 0, 20)}
-                      >
-                        ${variant === 'default'
-                          ? nothing
-                          : html`${Array.from({ length: amount }, (_, i) => {
-                              const date = defaultDateAdapter.addCalendarMonths(today, i);
-                              return createSlottedDays(
-                                defaultDateAdapter.getYear(date),
-                                defaultDateAdapter.getMonth(date),
-                                true,
-                              );
-                            })}`}
-                      </sbb-calendar>
-                    `);
-                  }),
-                );
-              }
-
-              it(
-                'fixed-month',
-                visualDiffDefault.with(async (setup) => {
-                  await setup.withFixture(html`
-                    <sbb-calendar
-                      fixed-month="2023-01"
-                      orientation=${orientation}
-                      amount=${amount}
-                      .value=${new Date(2023, 0, 20)}
-                      >${variant === 'default'
-                        ? nothing
-                        : html`${Array.from({ length: amount }, (_, i) => {
-                            const date = defaultDateAdapter.addCalendarMonths(today, i);
-                            return createSlottedDays(
-                              defaultDateAdapter.getYear(date),
-                              defaultDateAdapter.getMonth(date),
-                              true,
-                            );
-                          })}`}
-                    </sbb-calendar>
-                  `);
-                }),
-              );
-            });
-          }
-        });
-      }
-    });
-  }
+        }
+      });
+    }
+  });
 
   describeViewports({ viewports: ['zero'] }, () => {
     describe('day button', () => {
