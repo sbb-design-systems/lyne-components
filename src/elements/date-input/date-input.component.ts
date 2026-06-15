@@ -122,10 +122,10 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
    * this filter.
    */
   @property({ attribute: false })
-  public set dateFilter(value: (date: T | null) => boolean) {
+  public set dateFilter(value: (date: T) => boolean) {
     this._dateFilter = value;
   }
-  public get dateFilter(): (date: T | null) => boolean {
+  public get dateFilter(): (date: T) => boolean {
     return this._dateFilter;
   }
 
@@ -174,7 +174,7 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
     }
   }
 
-  private _dateFilter: (date: T | null) => boolean = () => true;
+  private _dateFilter: (date: T) => boolean = () => true;
 
   public override connectedCallback(): void {
     super.connectedCallback();
