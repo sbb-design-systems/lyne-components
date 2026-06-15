@@ -154,9 +154,10 @@ and the `aria-hidden` attribute on the content.
 
 #### Events
 
-| Name             | Type    | Description                                                        | Inherited From |
-| ---------------- | ------- | ------------------------------------------------------------------ | -------------- |
-| `toggleexpanded` | `Event` | Notifies that the `sbb-expansion-panel` is about to expand/shrink. |                |
+| Name             | Type    | Description                                                                          | Inherited From         |
+| ---------------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `toggleexpanded` | `Event` | Notifies that the `sbb-expansion-panel` is about to expand/shrink.                   |                        |
+| `validity`       | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
 
 #### Slots
 
