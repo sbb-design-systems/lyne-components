@@ -11,6 +11,7 @@ import {
   a11yFootpathTrip,
   busTrip,
   cancelledTrip,
+  cancelledExpectedTrip,
   defaultTrip,
   disturbanceTrip,
   extendedEnterTimeTrip,
@@ -239,6 +240,15 @@ export const Cancelled: StoryObj = {
   args: {
     ...defaultArgs,
     trip: cancelledTrip,
+  },
+};
+
+export const CancelledExpected: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    trip: cancelledExpectedTrip,
   },
 };
 

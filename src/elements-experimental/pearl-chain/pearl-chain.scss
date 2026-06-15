@@ -141,6 +141,10 @@
   @include sbb.pearl-chain-bullet-past;
 }
 
+.sbb-pearl-chain__leg--cancelled-expected::after {
+  @include sbb-pearl-chain-dotted;
+}
+
 .sbb-pearl-chain__leg--disruption::after {
   @include sbb-pearl-chain-dotted;
 }

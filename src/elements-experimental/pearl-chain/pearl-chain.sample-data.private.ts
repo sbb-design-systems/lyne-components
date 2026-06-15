@@ -16,6 +16,10 @@ const defaultService = {
 
 const busService = { ...defaultService, quayTypeName: 'Stand', quayTypeShortName: 'Stand' };
 const cancelledService = { ...defaultService, serviceAlteration: { cancelled: true } };
+const cancelledExpectedService = {
+  ...defaultService,
+  serviceAlteration: { cancelledExpected: true },
+};
 const partiallyCancelledService = {
   ...defaultService,
   serviceAlteration: { partiallyCancelled: true },
@@ -90,6 +94,13 @@ export const cancelledLeg: any = {
   arrival: { time: future2 },
   departure: { time: future },
   serviceJourney: cancelledService,
+};
+
+export const cancelledExpectedLeg: any = {
+  __typename: 'PTRideLeg',
+  arrival: { time: future2 },
+  departure: { time: future },
+  serviceJourney: cancelledExpectedService,
 };
 
 export const partiallyCancelledLeg: any = {
