@@ -43,24 +43,23 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
     if (!this.hasUpdated) {
       return;
     }
-    if (val == null) {
-      this.selectionElements.forEach((r) => (r.checked = false));
-      return;
-    }
     const toCheck = this.selectionElements.find((r) => r.value === val);
     if (toCheck) {
       toCheck.checked = true;
     }
   }
   public get value(): T | null {
-    return (
-      this.selectionElements.find((r) => r.checked && !r.disabled)?.value ?? this._fallbackValue
-    );
+    const checked = this.selectionElements.find((r) => r.checked && !r.disabled);
+    if (checked) {
+      return checked.value;
+    }
+    return this._fallbackValue !== undefined ? this._fallbackValue : null;
   }
   /**
-   * Used to preserve the `value` in case the radios are not yet 'loaded'
+   * Used to preserve the `value` in case the radios are not yet 'loaded'.
+   * `undefined` means "not set"; `null` is a valid value (selects a radio with null value).
    */
-  private _fallbackValue: T | null = null;
+  private _fallbackValue: T | null | undefined = undefined;
 
   /** Name for the group. Will be propagated to the child radio buttons. Must be unique if multiple groups are used on the same page. */
   @forceType()
@@ -104,7 +103,7 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
       return;
     }
 
-    this._fallbackValue = null; // Since the user interacted, the fallbackValue logic does not apply anymore
+    this._fallbackValue = undefined; // Since the user interacted, the fallbackValue logic does not apply anymore
 
     /**
      * Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.
@@ -125,7 +124,7 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
    * Mainly used to cover cases where the setter is called before the radios are loaded
    */
   private _updateRadioState(): void {
-    if (this._fallbackValue != null) {
+    if (this._fallbackValue !== undefined) {
       // eslint-disable-next-line no-self-assign
       this.value = this.value;
     }

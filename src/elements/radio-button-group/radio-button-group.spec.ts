@@ -330,6 +330,91 @@ import '../radio-button-group.ts';
           expect(radios[2].checked).to.be.true;
         });
       });
+
+      describe('with null value', () => {
+        let element: SbbRadioButtonGroupElement<string | null>;
+
+        beforeEach(async () => {
+          /* eslint-disable lit/binding-positions */
+          element = await fixture(html`
+            <sbb-radio-button-group .value=${null}>
+              <${tagSingle} .value=${null}>Null value</${tagSingle}>
+              <${tagSingle} value="value-1">Value 1</${tagSingle}>
+              <${tagSingle} value="value-2">Value 2</${tagSingle}>
+            </sbb-radio-button-group>
+          `);
+          radios = Array.from(element.querySelectorAll(selector));
+          await waitForLitRender(element);
+        });
+
+        it('should init with null value and select the null-value radio', async () => {
+          expect(radios[0].checked).to.be.true;
+          expect(radios[1].checked).to.be.false;
+          expect(radios[2].checked).to.be.false;
+          expect(element.value).to.be.null;
+        });
+
+        it('should set null value and select the null-value radio', async () => {
+          // first select a non-null radio
+          radios[1].click();
+          await waitForLitRender(element);
+          expect(radios[1].checked).to.be.true;
+          expect(element.value).to.equal('value-1');
+
+          // now set the group value to null to select the null-value radio
+          element.value = null;
+          await waitForLitRender(element);
+
+          expect(radios[0].checked).to.be.true;
+          expect(radios[1].checked).to.be.false;
+          expect(radios[2].checked).to.be.false;
+          expect(element.value).to.be.null;
+        });
+
+        it('should reflect null when null-value radio is clicked', async () => {
+          // first select a non-null radio
+          radios[1].click();
+          await waitForLitRender(element);
+          expect(element.value).to.equal('value-1');
+
+          // click the null-value radio
+          radios[0].click();
+          await waitForLitRender(element);
+
+          expect(radios[0].checked).to.be.true;
+          expect(radios[1].checked).to.be.false;
+          expect(element.value).to.be.null;
+        });
+
+        it('should deselect null-value radio when another radio is selected', async () => {
+          // null-value radio should initially be selected (from beforeEach)
+          expect(radios[0].checked).to.be.true;
+
+          radios[2].click();
+          await waitForLitRender(element);
+
+          expect(radios[0].checked).to.be.false;
+          expect(radios[2].checked).to.be.true;
+          expect(element.value).to.equal('value-2');
+        });
+
+        it('should restore null-value radio via formStateRestoreCallback', async () => {
+          // First select a non-null radio
+          radios[1].click();
+          await waitForLitRender(element);
+          expect(radios[1].checked).to.be.true;
+
+          // Simulate restoration where state matches the null-value radio
+          radios[0].formStateRestoreCallback(null, 'restore');
+          radios[1].formStateRestoreCallback(null, 'restore');
+          radios[2].formStateRestoreCallback(null, 'restore');
+          await waitForLitRender(element);
+
+          expect(radios[0].checked).to.be.true;
+          expect(radios[1].checked).to.be.false;
+          expect(radios[2].checked).to.be.false;
+        });
+      });
     });
 
     describe('value preservation', () => {
