@@ -162,10 +162,11 @@ and dispatches the `input` and `change` events. The default `aria-label` value i
 
 #### Events
 
-| Name     | Type         | Description                                                                                                                                                                                                 | Inherited From |
-| -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `change` | `Event`      | The change event is fired on the associated inputs when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
-| `input`  | `InputEvent` | The input event fires on the associated inputs when the value has been changed as a direct result of a user action.                                                                                         |                |
+| Name       | Type         | Description                                                                                                                                                                                                 | Inherited From         |
+| ---------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| `change`   | `Event`      | The change event is fired on the associated inputs when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                        |
+| `input`    | `InputEvent` | The input event fires on the associated inputs when the value has been changed as a direct result of a user action.                                                                                         |                        |
+| `validity` | `Event`      | The validity event is dispatched whenever the validity state of the element changes.                                                                                                                        | SbbFormAssociatedMixin |
 
 #### CSS Properties
 

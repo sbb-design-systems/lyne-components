@@ -206,6 +206,7 @@ For types other than string, the `value` must be set via property.
 | `close`       | `Event`      | Emits whenever the component is closed.                                                                                                                                            | SbbOpenCloseBaseElement |
 | `input`       | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                         |
 | `open`        | `Event`      | Emits whenever the component is opened.                                                                                                                                            | SbbOpenCloseBaseElement |
+| `validity`    | `Event`      | The validity event is dispatched whenever the validity state of the element changes.                                                                                               | SbbFormAssociatedMixin  |
 
 #### CSS Properties
 
