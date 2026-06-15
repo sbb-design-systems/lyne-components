@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.2](https://github.com/sbb-design-systems/lyne-components/compare/v5.0.1...v5.0.2) (2026-06-15)
+
+
+### Bug Fixes
+
+* **calendar:** improve initialization robustness ([#4992](https://github.com/sbb-design-systems/lyne-components/issues/4992)) ([538b9d9](https://github.com/sbb-design-systems/lyne-components/commit/538b9d94f19ef3248d53f49bf01208333464fc61))
+* dispatch validity event on validation change ([#4996](https://github.com/sbb-design-systems/lyne-components/issues/4996)) ([0472801](https://github.com/sbb-design-systems/lyne-components/commit/0472801a0771bb0f059fd32a2ec431d1391ac3b8))
+
+
+### Code Refactoring
+
+* **date-input:** remove `null` from dateFilter function parameter ([#4986](https://github.com/sbb-design-systems/lyne-components/issues/4986)) ([028f1a3](https://github.com/sbb-design-systems/lyne-components/commit/028f1a314777264c2da12c4441ab0c16605adaf1))
+
 ## [4.14.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.13.1...v4.14.0) (2026-06-15)
 
 
