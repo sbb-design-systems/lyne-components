@@ -1,0 +1,12 @@
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-download-gap: var(--sbb-spacing-fixed-3x);
+  --sbb-download-label-color: var(--sbb-color-3);
+  --sbb-download-info-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
+}
+
+@mixin forced-colors {
+  --sbb-download-label-color: CanvasText;
+  --sbb-download-info-color: CanvasText;
+}

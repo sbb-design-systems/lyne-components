@@ -155,6 +155,13 @@ export const i18nDeparture: Record<string, string> = {
   it: 'Partenza',
 };
 
+export const i18nNonAccessible: Record<string, string> = {
+  de: 'nicht barrierefrei',
+  en: 'not accessible',
+  fr: 'non accessible',
+  it: 'non accessibile',
+};
+
 export const i18nDurationMinute: Record<string, Record<string, Record<string, string>>> = {
   single: {
     long: {
