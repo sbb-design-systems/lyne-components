@@ -410,6 +410,9 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<SbbElement>
           configurable: true,
         });
       }
+
+      /** The validity event is dispatched whenever the validity state of the element changes. */
+      this.dispatchEvent(new Event('validity'));
     }
   }
   return SbbFormAssociatedElement as unknown as AbstractConstructor<SbbFormAssociatedMixinType> & T;
