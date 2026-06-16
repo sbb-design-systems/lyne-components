@@ -1,0 +1,69 @@
+@use '../../core/styles' as sbb;
+@use '../../card/card.global' as card;
+
+:host {
+  @include card.variables--global;
+  @include card.variables--spacing-default;
+
+  display: block;
+}
+
+// :where is needed for lower specificity
+:host(:where([color='white'])) {
+  @include card.variables--white;
+}
+
+:host(:where([color='milk'])) {
+  @include card.variables--milk;
+}
+
+// The anchor acts as the visual card and the click target of the whole
+// component.
+.sbb-download {
+  @include card.element-rules;
+
+  display: flex;
+  align-items: center;
+  gap: var(--sbb-download-gap);
+  text-decoration: none;
+}
+
+.sbb-download:focus-visible {
+  @include sbb.focus-outline;
+}
+
+:host(:hover) .sbb-download {
+  @include card.state--hover;
+}
+
+.sbb-download__icon {
+  flex: 0 0 auto;
+}
+
+.sbb-download__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sbb-download__label {
+  @include sbb.ellipsis;
+
+  font-weight: 700;
+  color: var(--sbb-download-label-color);
+}
+
+// Custom slotted content and the `sbb-download-info` share the same style
+.sbb-download__custom-content,
+.sbb-download__info {
+  @include sbb.text-xxs;
+
+  color: var(--sbb-download-info-color);
+}
+
+// Static button aligned to the end of the component.
+.sbb-download__button {
+  flex: 0 0 auto;
+  margin-inline-start: auto;
+}
