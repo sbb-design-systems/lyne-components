@@ -74,6 +74,20 @@ describe(`sbb-time-input`, () => {
     expect(element.validity.rangeOverflow).to.be.false;
   });
 
+  it('should dispatch validity event', async () => {
+    const validitySpy = new EventSpy('validity', element);
+
+    // When entering an invalid  value
+    typeInElement(element, '99');
+
+    expect(validitySpy.count).to.be.equal(1);
+
+    // When entering a valid time
+    typeInElement(element, '1201');
+
+    expect(validitySpy.count).to.be.equal(2);
+  });
+
   it('should handle null as value', async () => {
     element.value = null!;
 

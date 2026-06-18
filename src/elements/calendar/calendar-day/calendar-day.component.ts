@@ -62,15 +62,17 @@ export class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<
     );
   }
 
-  protected setSelectedState(parent: SbbCalendarElement<T>): void {
-    const selected = parent.multiple
-      ? (parent.value as Date[]).some((selDay) => this.dateAdapter.sameDate(this.value, selDay))
-      : !!parent.value && this.dateAdapter.compareDate(this.value, parent.value) === 0;
+  protected override setSelectedState(parent: SbbCalendarElement<T>): void {
+    const selected =
+      !!this.value &&
+      (parent.multiple
+        ? (parent.value as Date[]).some((selDay) => this.dateAdapter.sameDate(this.value, selDay))
+        : !!parent.value && this.dateAdapter.compareDate(this.value, parent.value) === 0);
     this.toggleState('selected', selected);
     this.internals.ariaPressed = String(selected);
   }
 
-  protected setDisabledFilteredState(parent: SbbCalendarElement<T>): void {
+  protected override setDisabledFilteredState(parent: SbbCalendarElement<T>): void {
     const isFilteredOut = !this._isActiveDate(parent.dateFilter);
     const isOutOfRange = !this._isDayInRange(parent.min, parent.max);
     this.disabled = isFilteredOut || isOutOfRange;
