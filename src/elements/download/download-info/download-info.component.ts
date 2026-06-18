@@ -84,8 +84,9 @@ export class SbbDownloadInfoElement extends SbbElement {
     return `${(bytes / 1024 ** i).toFixed(0)} ${fileSizeSuffixes[i]}`;
   }
 
-  /** Formats the ISO 8601 change date to a localized date, or renders it as is
-   * if invalid.
+  /**
+   * Formats the ISO 8601 change date to a localized date, or renders it as
+   * is if invalid
    */
   private _resolveChanged(): string {
     if (!this.changed) {
@@ -100,8 +101,8 @@ export class SbbDownloadInfoElement extends SbbElement {
 
     return new Intl.DateTimeFormat(this._language.current, {
       year: 'numeric',
-      month: 'long',
-      day: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
     }).format(date);
   }
 
