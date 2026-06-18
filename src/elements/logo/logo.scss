@@ -29,7 +29,7 @@
 
 .sbb-logo__svg-container {
   display: flex;
-  height: var(--sbb-logo-svg-container-height, auto);
+  height: var(--sbb-logo-svg-container-height, 100%);
 }
 
 svg {
