@@ -17,7 +17,7 @@ import {
 import { registerHooks } from 'node:module';
 import { basename, dirname, extname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parseArgs, promisify } from 'node:util';
+import { parseArgs, promisify, styleText } from 'node:util';
 import { brotliCompress, gzip } from 'node:zlib';
 
 import { cli as customElementManifestCli } from '@custom-elements-manifest/analyzer/cli.js';
@@ -25,14 +25,14 @@ import checkbox, { Separator } from '@inquirer/checkbox';
 import type { CustomElementDeclaration, Module, Package } from 'custom-elements-manifest';
 import MagicString from 'magic-string';
 import postcss from 'postcss';
-import * as sass from 'sass';
+import * as sass from 'sass-embedded';
 import { buildStaticStandalone } from 'storybook/internal/core-server';
+import { build } from 'tsdown';
 import * as ts from 'typescript';
-import { build, type InlineConfig, mergeConfig, type Plugin, type PluginOption } from 'vite';
-import dtsPlugin from 'vite-plugin-dts';
+import { build as buildWithVite, type PluginOption } from 'vite';
 
 import { lightDarkPlugin, statePlugin } from '../tools/postcss/index.ts';
-import globalConfig from '../vite.config.ts';
+import { typescriptTransform, parseCompilerOptions } from '../tools/typescript/index.ts';
 
 if (typeof Temporal !== 'object') {
   await import('temporal-polyfill/global');
@@ -41,14 +41,26 @@ if (typeof Temporal !== 'object') {
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 const currentDirectory = fileURLToPath(new URL('./', import.meta.url));
 const distDirectory = join(projectRoot, 'dist');
+const loadPaths = [projectRoot, join(projectRoot, '/node_modules/')];
 const isCI = !!process.env.CI;
 const entrypointMarker = `/** @entrypoint */\n`;
+const internalPrefix = '@sbb-esta/lyne-';
 const gzipAsync = promisify(gzip);
 const brotliAsync = promisify(brotliCompress);
 const calculateGzipSize = async (content: string): Promise<number> =>
   (await gzipAsync(content)).length;
 const calculateBrotliSize = async (content: string): Promise<number> =>
   (await brotliAsync(content)).length;
+const importers: sass.FileImporter[] = [
+  {
+    findFileUrl(url, _context) {
+      return url.startsWith(internalPrefix) && url !== '@sbb-esta/lyne-design-tokens'
+        ? new URL(`../src/${url.substring(internalPrefix.length)}`, import.meta.url)
+        : null;
+    },
+  },
+];
+
 const result = ts.readConfigFile(join(projectRoot, 'tsconfig.json'), ts.sys.readFile);
 if (result.error) {
   throw new Error(`Error reading tsconfig.json: ${result.error.messageText}`);
@@ -67,8 +79,8 @@ const buildTargets = new Set(positionals);
 registerHooks({
   resolve: (specifier, context, nextResolve) =>
     nextResolve(
-      specifier.includes('@sbb-esta/lyne-')
-        ? join(distDirectory, specifier.replace('@sbb-esta/lyne-', ''))
+      specifier.includes(internalPrefix)
+        ? join(distDirectory, specifier.replace(internalPrefix, ''))
         : specifier,
       context,
     ),
@@ -109,7 +121,6 @@ class PackageBuilder implements Builder {
   #results: Disposable[] = [];
   readonly name: string;
   readonly root: string;
-  readonly production: boolean;
   readonly outDir: string;
   readonly files: FileEntry[];
   get tsFiles(): FileEntry[] {
@@ -119,21 +130,17 @@ class PackageBuilder implements Builder {
   constructor(name: string, steps: ((pkg: PackageBuilder) => StepResult)[]) {
     this.name = name;
     this.#steps = steps;
-    const [dirName, mode] = name.split(':');
-    this.production = mode !== 'development';
-    this.root = join(projectRoot, 'src', dirName);
-    this.outDir = join(distDirectory, basename(this.root), this.production ? '' : 'development');
-    this.files = !mode
-      ? []
-      : readdirSync(this.root, { withFileTypes: true, recursive: true })
-          .filter(
-            (d) =>
-              !['vite.config.ts', 'private.ts'].includes(d.name) &&
-              ['.spec.ts', '.stories.ts', '.private.ts'].every((e) => !d.name.endsWith(e)) &&
-              !relative(projectRoot, join(d.parentPath, d.name)).includes('/private/') &&
-              !relative(projectRoot, join(d.parentPath, d.name)).includes('/interfaces/'),
-          )
-          .map((d) => new FileEntry(join(d.parentPath, d.name)));
+    this.root = join(projectRoot, 'src', name);
+    this.outDir = join(distDirectory, basename(this.root));
+    this.files = readdirSync(this.root, { withFileTypes: true, recursive: true })
+      .filter(
+        (d) =>
+          !['vite.config.ts', 'private.ts'].includes(d.name) &&
+          ['.spec.ts', '.stories.ts', '.private.ts'].every((e) => !d.name.endsWith(e)) &&
+          !relative(projectRoot, join(d.parentPath, d.name)).includes('/private/') &&
+          !relative(projectRoot, join(d.parentPath, d.name)).includes('/interfaces/'),
+      )
+      .map((d) => new FileEntry(join(d.parentPath, d.name)));
   }
 
   async build(): Promise<void> {
@@ -164,52 +171,28 @@ function* iterate(node: ts.Node): Generator<ts.Node, void, unknown> {
   }
 }
 
-const elementsDevelopment = 'elements:development';
-const elementsProduction = 'elements:production';
-const elementsExperimentalDevelopment = 'elements-experimental:development';
-const elementsExperimentalProduction = 'elements-experimental:production';
-const reactDevelopment = 'react:development';
-const reactProduction = 'react:production';
-const reactExperimentalDevelopment = 'react-experimental:development';
-const reactExperimentalProduction = 'react-experimental:production';
+const elements = 'elements';
+const elementsExperimental = 'elements-experimental';
+const react = 'react';
+const reactExperimental = 'react-experimental';
 const storybook = 'storybook';
 const visualRegressionApp = 'visual-regression-app';
 const webshopFrontendCopy = 'webshop-frontend-copy';
 
 const expansions = {
-  all: [
-    elementsDevelopment,
-    elementsProduction,
-    elementsExperimentalDevelopment,
-    elementsExperimentalProduction,
-    reactDevelopment,
-    reactProduction,
-    reactExperimentalDevelopment,
-    reactExperimentalProduction,
-    storybook,
-    visualRegressionApp,
-  ],
-  elements: [elementsProduction, elementsDevelopment],
-  'elements-experimental': [elementsExperimentalProduction, elementsExperimentalDevelopment],
-  react: [reactProduction, reactDevelopment],
-  'react-experimental': [reactExperimentalProduction, reactExperimentalDevelopment],
+  all: [elements, elementsExperimental, react, reactExperimental, storybook, visualRegressionApp],
   'webshop-frontend': [
-    elementsDevelopment,
-    elementsProduction,
-    elementsExperimentalDevelopment,
-    elementsExperimentalProduction,
-    reactDevelopment,
-    reactProduction,
-    reactExperimentalDevelopment,
-    reactExperimentalProduction,
+    elements,
+    elementsExperimental,
+    react,
+    reactExperimental,
     webshopFrontendCopy,
   ],
 };
 
 const buildMap: Record<string, () => Builder> = {
-  [elementsDevelopment]: () => new PackageBuilder(elementsDevelopment, [buildLibrary]),
-  [elementsProduction]: () =>
-    new PackageBuilder(elementsProduction, [
+  [elements]: () =>
+    new PackageBuilder(elements, [
       buildLibrary,
       buildRootIndex,
       buildStyles,
@@ -219,10 +202,8 @@ const buildMap: Record<string, () => Builder> = {
       buildPackageJson,
       verifyEntryPoints,
     ]),
-  [elementsExperimentalDevelopment]: () =>
-    new PackageBuilder(elementsExperimentalDevelopment, [buildLibrary]),
-  [elementsExperimentalProduction]: () =>
-    new PackageBuilder(elementsExperimentalProduction, [
+  [elementsExperimental]: () =>
+    new PackageBuilder(elementsExperimental, [
       buildLibrary,
       buildRootIndex,
       buildStyles,
@@ -232,20 +213,16 @@ const buildMap: Record<string, () => Builder> = {
       buildPackageJson,
       verifyEntryPoints,
     ]),
-  [reactDevelopment]: () =>
-    new PackageBuilder(reactDevelopment, [generateReactWrappers, buildLibrary]),
-  [reactProduction]: () =>
-    new PackageBuilder(reactProduction, [
+  [react]: () =>
+    new PackageBuilder(react, [
       generateReactWrappers,
       buildLibrary,
       copyReadme,
       buildPackageJson,
       verifyEntryPoints,
     ]),
-  [reactExperimentalDevelopment]: () =>
-    new PackageBuilder(reactExperimentalDevelopment, [generateReactWrappers, buildLibrary]),
-  [reactExperimentalProduction]: () =>
-    new PackageBuilder(reactExperimentalProduction, [
+  [reactExperimental]: () =>
+    new PackageBuilder(reactExperimental, [
       generateReactWrappers,
       buildLibrary,
       copyReadme,
@@ -264,21 +241,11 @@ if (!buildTargets.size && !isCI) {
     const answer = await checkbox({
       message: 'Select the build steps to run',
       choices: [
-        { name: '@sbb-esta/lyne-elements', value: elementsProduction },
-        { name: '@sbb-esta/lyne-elements (Development)', value: elementsDevelopment },
-        { name: '@sbb-esta/lyne-elements-experimental', value: elementsExperimentalProduction },
-        {
-          name: '@sbb-esta/lyne-elements-experimental (Development)',
-          value: elementsExperimentalDevelopment,
-        },
+        { name: '@sbb-esta/lyne-elements', value: elements },
+        { name: '@sbb-esta/lyne-elements-experimental', value: elementsExperimental },
         new Separator(),
-        { name: '@sbb-esta/lyne-react', value: reactProduction },
-        { name: '@sbb-esta/lyne-react (Development)', value: reactDevelopment },
-        { name: '@sbb-esta/lyne-react-experimental', value: reactExperimentalProduction },
-        {
-          name: '@sbb-esta/lyne-react-experimental (Development)',
-          value: reactExperimentalDevelopment,
-        },
+        { name: '@sbb-esta/lyne-react', value: react },
+        { name: '@sbb-esta/lyne-react-experimental', value: reactExperimental },
         new Separator(),
         { name: 'Storybook', value: storybook },
         { name: 'Visual Regression App', value: visualRegressionApp },
@@ -311,49 +278,76 @@ for (const factory of Object.keys(buildMap)
 }
 
 async function buildLibrary(pkg: PackageBuilder): Promise<void> {
-  if (existsSync(pkg.outDir)) {
-    readdirSync(pkg.outDir, { withFileTypes: true })
-      .filter((d) => !d.isDirectory() || d.name !== 'development')
-      .forEach((d) => rmSync(join(pkg.outDir, d.name), { recursive: true, force: true }));
-  }
-  await build(
-    mergeConfig(globalConfig, {
-      root: pkg.root,
-      mode: pkg.production ? 'production' : 'development',
-      assetsInclude: ['_index.scss', 'core/styles/**/*.scss', 'README.md'],
-      plugins: [stateTransform(), pkg.production ? [] : [dts()]].flat(),
-      build: {
-        lib: {
-          entry: toEntryPoints(pkg),
-          formats: ['es'],
-        },
-        outDir: pkg.outDir,
-        cssMinify: pkg.production ? 'esbuild' : false,
-        minify: pkg.production,
-        emptyOutDir: false,
-        sourcemap: pkg.production ? false : 'inline',
-        rollupOptions: {
-          external(source: string, importer: string | undefined): boolean | undefined {
-            if (
-              source.match(
-                /(^lit$|^lit\/|^@lit\/|^@lit-labs\/|^react|^tslib$|^@sbb-esta\/lyne-elements\/?|^@sbb-esta\/lyne-elements-experimental\/?|^@sbb-esta\/lyne-react\/?)/,
-              ) ||
-              (!!importer && source.startsWith('../') && !importer.includes('/node_modules/'))
-            ) {
-              if (source.includes('.scss')) {
-                throw Error(`Do not import scss from another directory.
-               Re export sass via barrel export (index.ts). See button/common.ts.
-               Source: ${source}.
-               Importer: ${importer}.`);
-              }
-
-              return true;
-            }
+  rmSync(pkg.outDir, { recursive: true, force: true });
+  const entrypoints = pkg.tsFiles
+    .filter((f) => f.content.includes('@entrypoint'))
+    .map((f) => f.path);
+  const builds: Promise<unknown>[] = [true, false].flatMap((production) =>
+    entrypoints.map((entry) =>
+      build({
+        clean: false,
+        css: {
+          minify: production,
+          postcss: {
+            plugins: [lightDarkPlugin, statePlugin],
           },
+          preprocessorOptions: {
+            scss: { loadPaths, importers },
+          },
+          transformer: 'postcss',
         },
-      },
-    } satisfies InlineConfig),
+        deps: {
+          onlyBundle: ['@sbb-esta/lyne-design-tokens', 'date-fns'],
+          neverBundle: [
+            /(^@sbb-esta\/lyne-(elements|react)(-experimental)?\/?|tslib)/,
+            new RegExp(
+              `[./]?/(${entrypoints.map((e) => basename(e, extname(e))).join('|')})\\.(js|ts)`,
+            ),
+          ],
+        },
+        dts: false,
+        entry,
+        env: { DEV: !production, PROD: production },
+        logLevel: 'error',
+        minify: production,
+        outDir: join(pkg.outDir, production ? '' : 'development'),
+        platform: 'neutral',
+        plugins: [typescriptTransform(), stateTransform(), rawLoader()],
+        root: pkg.root,
+        target: false,
+        tsconfig: join(pkg.root, 'tsconfig.json'),
+      }).then(() =>
+        console.log(
+          styleText(
+            'green',
+            `  => Built ${relative(pkg.root, entry)} (${production ? 'production' : 'development'})`,
+          ),
+        ),
+      ),
+    ),
   );
+  builds.push(
+    Promise.resolve().then(() => {
+      const files = pkg.tsFiles.map((f) => f.path);
+      const outDir = join(pkg.outDir, 'development');
+      const compilerOptions = parseCompilerOptions(join(pkg.root, 'tsconfig.json'));
+      compilerOptions.declarationMap = false;
+      compilerOptions.emitDeclarationOnly = true;
+      compilerOptions.outDir = outDir;
+      compilerOptions.rootDir = '.';
+
+      const host = ts.createCompilerHost(compilerOptions);
+      host.getCurrentDirectory = () => pkg.root;
+      host.writeFile = (fileName: string, source: string) => {
+        if (fileName.startsWith(outDir)) {
+          mkdirSync(dirname(fileName), { recursive: true });
+          writeFileSync(fileName, source, 'utf8');
+        }
+      };
+      ts.createProgram(files, compilerOptions, host).emit();
+    }),
+  );
+  await Promise.all(builds);
 }
 
 async function buildApp(pkg: PackageBuilder): Promise<void> {
@@ -361,7 +355,7 @@ async function buildApp(pkg: PackageBuilder): Promise<void> {
   const { default: config } = await import(
     relative(currentDirectory, join(pkg.root, 'vite.config.ts'))
   );
-  await build(typeof config === 'function' ? config() : config);
+  await buildWithVite(typeof config === 'function' ? config() : config);
 }
 
 async function buildStorybook(pkg: PackageBuilder): Promise<void> {
@@ -393,42 +387,16 @@ function stateTransform(): PluginOption {
   };
 }
 
-function dts(): Plugin | Plugin[] {
-  return dtsPlugin({
-    entryRoot: '.',
-    exclude: ['**/(*.)?{stories,spec,private}.ts', '**/private/*', 'vite.config.ts'],
-    pathsToAliases: false,
-    strictOutput: false,
-    aliasesExclude: [
-      /^@sbb-esta\/lyne-elements\/?/,
-      /^@sbb-esta\/lyne-elements-experimental\/?/,
-      /^@sbb-esta\/lyne-react\/?/,
-    ],
-    afterDiagnostic(diagnostics) {
-      if (diagnostics.length) {
-        throw new Error('dts generation for react package failed! See logs for details.');
+function rawLoader(): PluginOption {
+  return {
+    name: 'raw-loader',
+    load(id) {
+      if (id.endsWith('?raw')) {
+        const code = `export default ${JSON.stringify(readFileSync(id.replace('?raw', ''), 'utf8'))};`;
+        return { code };
       }
     },
-    beforeWriteFile: (filePath, content) => {
-      if (content.includes('.scss?inline')) {
-        return {
-          filePath,
-          // Remove lines with scss modules
-          content: content.replace(/export \{[^}]+\}\s+from\s+'[^']+\.scss\?inline';\n?/gm, ''),
-        };
-      }
-    },
-  });
-}
-
-function toEntryPoints(pkg: PackageBuilder): Record<string, string> {
-  return pkg.tsFiles
-    .map((f) => relative(pkg.root, f.path))
-    .reduce(
-      (current, next) =>
-        Object.assign(current, { [join(dirname(next), basename(next, extname(next)))]: next }),
-      {} as Record<string, string>,
-    );
+  };
 }
 
 function buildRootIndex(pkg: PackageBuilder): void {
@@ -485,16 +453,15 @@ function buildRootIndex(pkg: PackageBuilder): void {
   console.log(`=> Generated index files in ${relative(projectRoot, pkg.outDir)}`);
 }
 
-function buildStyles(pkg: PackageBuilder): void {
+async function buildStyles(pkg: PackageBuilder): Promise<void> {
   const sheets = globSync('core/styles/*.scss', { cwd: pkg.root })
     .filter((f) => !basename(f).startsWith('_'))
     .sort()
     .map((f) => ({ inputName: f, outputName: basename(f, '.scss') + '.css' }));
 
   for (const entry of sheets) {
-    const compiled = sass.compile(join(pkg.root, entry.inputName), {
-      loadPaths: [projectRoot, join(projectRoot, '/node_modules/')],
-    });
+    const fileName = join(pkg.root, entry.inputName);
+    const compiled = await sass.compileAsync(fileName, { loadPaths });
     const result = postcss([lightDarkPlugin, statePlugin]).process(compiled.css);
     writeFileSync(join(pkg.outDir, entry.outputName), result.css, 'utf8');
   }
@@ -561,11 +528,15 @@ function copyReadme(pkg: PackageBuilder): void {
 function buildPackageJson(pkg: PackageBuilder): void {
   const exportsExtensions = basename(pkg.root).includes('react') ? ['', '.js'] : ['.js'];
   const rootPackageJson = JSON.parse(readFileSync(join(projectRoot, 'package.json'), 'utf8'));
-  const litVersion = rootPackageJson.dependencies.lit.match(/\d+\.\d+\.\d+/);
-  const litObserversVersion =
-    rootPackageJson.devDependencies['@lit-labs/observers'].match(/\d+\.\d+\.\d+/);
-  const litReactVersion = rootPackageJson.devDependencies['@lit/react'].match(/\d+\.\d+\.\d+/);
-  const tslibVersion = rootPackageJson.devDependencies.tslib.match(/\d+\.\d+\.\d+/);
+  const dependencies: Record<string, string> = {
+    ...rootPackageJson.dependencies,
+    ...rootPackageJson.optionalDependencies,
+    ...rootPackageJson.devDependencies,
+  };
+  const litVersion = dependencies.lit.match(/\d+\.\d+\.\d+/);
+  const litObserversVersion = dependencies['@lit-labs/observers'].match(/\d+\.\d+\.\d+/);
+  const litReactVersion = dependencies['@lit/react'].match(/\d+\.\d+\.\d+/);
+  const tslibVersion = dependencies.tslib.match(/\d+\.\d+\.\d+/);
 
   const packageJsonContent = readFileSync(join(pkg.root, 'package.json'), 'utf8')
     .replaceAll('0.0.0-PLACEHOLDER', rootPackageJson.version)

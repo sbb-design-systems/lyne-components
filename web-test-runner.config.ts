@@ -15,7 +15,7 @@ import {
   type PlaywrightLauncher,
 } from '@web/test-runner-playwright';
 import { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
-import { initCompiler } from 'sass';
+import * as sass from 'sass-embedded';
 
 import {
   a11yTreePlugin,
@@ -58,13 +58,12 @@ const launchOptions: PlaywrightLauncherArgs = {
   },
 };
 
-const stylesCompiler = initCompiler();
 const renderStyles = (): string =>
-  stylesCompiler.compile('./src/elements/core/styles/standard-theme.scss', {
+  sass.compile('./src/elements/core/styles/standard-theme.scss', {
     loadPaths: ['.', './node_modules/'],
   }).css;
 const renderExperimentalStyles = (): string =>
-  stylesCompiler.compile('./src/elements-experimental/core/styles/standard-theme.scss', {
+  sass.compile('./src/elements-experimental/core/styles/standard-theme.scss', {
     loadPaths: ['.', './node_modules/'],
   }).css;
 
