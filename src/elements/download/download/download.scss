@@ -50,7 +50,7 @@
 .sbb-download__label {
   @include sbb.ellipsis;
 
-  font-weight: 700;
+  font-weight: bold;
   color: var(--sbb-download-label-color);
 }
 
