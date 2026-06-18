@@ -64,6 +64,24 @@ export class SbbDownloadInfoElement extends SbbElement {
   }
 
   /**
+   * Whether the type is already conveyed by the parent download's label.
+   * When the parent download has no explicit `label`, it falls back to the file
+   * name (e.g. `some-file.pdf`), which already includes the extension. In that
+   * case the type is redundant for assistive technology.
+   */
+  private _isTypeRedundant(): boolean {
+    const parent = this.closest?.('sbb-download');
+
+    if (!parent || parent.label) {
+      return false;
+    }
+
+    const fileName = parent.href.split(/[?#]/)[0].split('/').filter(Boolean).at(-1) ?? '';
+
+    return fileName.includes('.');
+  }
+
+  /**
    * Formats the size, shortening a pure number of bytes to the closest unit.
    */
   private _resolveSize(): string {
@@ -107,14 +125,29 @@ export class SbbDownloadInfoElement extends SbbElement {
   }
 
   protected override render(): TemplateResult {
+    const separator = ', ';
+    const type = this._resolveType();
     const items = [
-      this._resolveType(),
       this._resolveSize(),
       this.nonAccessible ? i18nNonAccessible[this._language.current] : '',
       this._resolveChanged(),
     ].filter(Boolean);
 
-    return html`${items.join(', ')}`;
+    const list = html`${items.map((item, index) => html`${index > 0 ? separator : ''}${item}`)}`;
+
+    if (!type) {
+      return list;
+    }
+
+    /**
+     * Keep the separator together with the type so it is hidden as well when
+     * the type is redundant.
+     */
+    const typeWithSeparator = html`${type}${items.length ? separator : ''}`;
+
+    return this._isTypeRedundant()
+      ? html`<span aria-hidden="true">${typeWithSeparator}</span>${list}`
+      : html`${typeWithSeparator}${list}`;
   }
 }
 
