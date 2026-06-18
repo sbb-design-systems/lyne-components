@@ -1,4 +1,4 @@
-import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
@@ -135,19 +135,13 @@ export class SbbDownloadInfoElement extends SbbElement {
 
     const list = html`${items.map((item, index) => html`${index > 0 ? separator : ''}${item}`)}`;
 
-    if (!type) {
-      return list;
-    }
-
-    /**
-     * Keep the separator together with the type so it is hidden as well when
-     * the type is redundant.
-     */
-    const typeWithSeparator = html`${type}${items.length ? separator : ''}`;
-
-    return this._isTypeRedundant()
-      ? html`<span aria-hidden="true">${typeWithSeparator}</span>${list}`
-      : html`${typeWithSeparator}${list}`;
+    // The type is always wrapped in a span to keep the template structure
+    // stable for SSR hydration, as it is derived from the parent download.
+    // When the type is already conveyed by the parent's label, it is hidden
+    // from assistive technology together with its trailing separator.
+    return html`<span aria-hidden=${this._isTypeRedundant() ? 'true' : nothing}
+        >${type}${type && items.length ? separator : ''}</span
+      >${list}`;
   }
 }
 

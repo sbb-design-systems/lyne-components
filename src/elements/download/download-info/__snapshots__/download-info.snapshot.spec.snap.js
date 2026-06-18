@@ -13,7 +13,10 @@ snapshots["sbb-download-info renders with all values DOM"] =
 /* end snapshot sbb-download-info renders with all values DOM */
 
 snapshots["sbb-download-info renders with all values Shadow DOM"] = 
-`PDF, 1 MB, not accessible, 12/24/2026
+`<span>
+  PDF,
+</span>
+1 MB, not accessible, 12/24/2026
 `;
 /* end snapshot sbb-download-info renders with all values Shadow DOM */
 
@@ -34,7 +37,10 @@ snapshots["sbb-download-info renders with all values A11y tree Chrome"] =
 /* end snapshot sbb-download-info renders with all values A11y tree Chrome */
 
 snapshots["sbb-download-info renders with a textual size Shadow DOM"] = 
-`PDF, 123 KB
+`<span>
+  PDF,
+</span>
+123 KB
 `;
 /* end snapshot sbb-download-info renders with a textual size Shadow DOM */
 
