@@ -47,7 +47,7 @@ describe(`sbb-download-info`, () => {
   it('formats an ISO 8601 changed date', async () => {
     element.changed = '2026-12-24';
     await waitForLitRender(element);
-    expect(element.shadowRoot!.textContent).to.contain('December 24, 2026');
+    expect(element.shadowRoot!.textContent).to.contain('12/24/2026');
   });
 
   it('renders an invalid changed date as is', async () => {
