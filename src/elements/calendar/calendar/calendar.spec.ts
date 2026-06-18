@@ -91,9 +91,8 @@ describe(`sbb-calendar`, () => {
             case 'enhanced': {
               template = html` <sbb-calendar
                 value="2023-01-15"
-                @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e)}
+                @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e, true)}
               >
-                ${createSlottedDays(2023, 1, true)}
               </sbb-calendar>`;
               break;
             }
@@ -865,9 +864,8 @@ describe(`sbb-calendar`, () => {
               template = html` <sbb-calendar
                 value="2023-01-15"
                 orientation="vertical"
-                @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e)}
+                @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e, true)}
               >
-                ${createSlottedDays(2023, 1, true)}
               </sbb-calendar>`;
               break;
             }
@@ -1045,9 +1043,8 @@ describe(`sbb-calendar`, () => {
                 template = html`<sbb-calendar
                   value="2023-01-15"
                   amount="2"
-                  @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e)}
+                  @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e, true)}
                 >
-                  ${createSlottedDays(2023, 1, true)} ${createSlottedDays(2023, 2, true)}
                 </sbb-calendar>`;
                 break;
               }

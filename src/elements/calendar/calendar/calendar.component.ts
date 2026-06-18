@@ -376,7 +376,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   }
 
   /**
-   * Return the list of days that are visible in the calendar.
+   * Returns the list of days that are visible in the calendar.
    */
   public visibleDays(): Day<T>[] {
     return this._weeks.flat(2).sort((a, b) => a.value.localeCompare(b.value));

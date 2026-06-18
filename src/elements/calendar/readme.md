@@ -23,8 +23,7 @@ The `amount` property can be used to display more than one month; in this case, 
 `<sbb-calendar-day>` must be rendered for each month (they must not be grouped, just
 sequentially rendered as direct children of the `<sbb-calendar>` element).
 
-Each time the month changes due to user interaction with the previous/next month buttons,
-or via selecting a different year and then a month, a `monthchange` event is emitted, typed as
+Each time the month changes, a `monthchange` event is emitted, typed as
 `SbbMonthChangeEvent`. The event has a `range: Day[]` property, which can be accessed to have
 information about the days to render. Consumers can listen to this event to dynamically create
 and slot the `<sbb-calendar-day>`s of the chosen month.
@@ -312,7 +311,7 @@ For accessibility purposes, the component is rendered as a native table element 
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean`  | SbbFormAssociatedMixin |
 | `resetPosition`     | public  | Resets the active month according to the new state of the calendar.                                                                                                                        |                   | `void`     |                        |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`     | SbbFormAssociatedMixin |
-| `visibleDays`       | public  | Return the list of days that are visible in the calendar.                                                                                                                                  |                   | `Day<T>[]` |                        |
+| `visibleDays`       | public  | Returns the list of days that are visible in the calendar.                                                                                                                                 |                   | `Day<T>[]` |                        |
 
 #### Events
 
