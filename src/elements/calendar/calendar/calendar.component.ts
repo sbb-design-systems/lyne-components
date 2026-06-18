@@ -57,14 +57,14 @@ const YEARS_PER_ROW: number = 4;
 const MONTHS_PER_PAGE: number = 12;
 const YEARS_PER_PAGE: number = 24;
 
-export class SbbMonthChangeEvent extends Event {
-  private readonly _range: readonly Day[];
+export class SbbMonthChangeEvent<T = Date> extends Event {
+  private readonly _range: readonly Day<T>[];
 
-  public get range(): readonly Day[] {
+  public get range(): readonly Day<T>[] {
     return this._range;
   }
 
-  public constructor(range: readonly Day[]) {
+  public constructor(range: readonly Day<T>[]) {
     super('monthchange', { bubbles: true, composed: true });
     this._range = Object.freeze(range || []);
   }
@@ -375,6 +375,13 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     this.shadowRoot?.removeEventListener('slotchange', this._onSlotChange, { capture: true });
   }
 
+  /**
+   * Return the list of days that are visible in the calendar.
+   */
+  public visibleDays(): Day<T>[] {
+    return this._weeks.flat(2).sort((a, b) => a.value.localeCompare(b.value));
+  }
+
   /** @internal */
   public override formResetCallback(): void {}
 
@@ -470,6 +477,11 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     // When changing view to year/month, the tabindex is changed, but the focused element is getting lost.
     // We need to call `_focusCell()` method explicitly to correctly set the focus.
     this._focusCell();
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+    this._emitMonthChange();
   }
 
   private _onSlotChange = (): void => {
@@ -832,7 +844,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     // FIXME: the name of this variable appears as event name in the readme
     //  due to a bug in the custom-elements-manifest library.
     //  https://github.com/open-wc/custom-elements-manifest/issues/149
-    const monthchange = this._weeks.flat(2).sort((a, b) => a.value.localeCompare(b.value)) as Day[];
+    const monthchange = this.visibleDays();
     /**
      * @type {SbbMonthChangeEvent}
      * Emits when the month changes.

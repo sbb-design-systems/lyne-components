@@ -306,12 +306,13 @@ For accessibility purposes, the component is rendered as a native table element 
 
 #### Methods
 
-| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
-| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
-| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
-| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
-| `resetPosition`     | public  | Resets the active month according to the new state of the calendar.                                                                                                                        |                   | `void`    |                        |
-| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return     | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | ---------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean`  | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean`  | SbbFormAssociatedMixin |
+| `resetPosition`     | public  | Resets the active month according to the new state of the calendar.                                                                                                                        |                   | `void`     |                        |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`     | SbbFormAssociatedMixin |
+| `visibleDays`       | public  | Return the list of days that are visible in the calendar.                                                                                                                                  |                   | `Day<T>[]` |                        |
 
 #### Events
 

@@ -835,6 +835,26 @@ describe(`sbb-calendar`, () => {
             expect(getDayActiveElementValue()).to.be.equal('2023-01-29');
           });
         });
+
+        it('returns the visible days and updates them after navigation', async () => {
+          const expectedJanuaryDays = Array.from(
+            { length: 31 },
+            (_, index) => `2023-01-${String(index + 1).padStart(2, '0')}`,
+          );
+          expect(element.visibleDays().map((day) => day.value)).to.deep.equal(expectedJanuaryDays);
+
+          const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
+            'sbb-secondary-button[icon-name="chevron-small-right-small"]',
+          )!;
+          nextMonthButton.click();
+          await waitForLitRender(element);
+
+          const expectedFebruaryDays = Array.from(
+            { length: 28 },
+            (_, index) => `2023-02-${String(index + 1).padStart(2, '0')}`,
+          );
+          expect(element.visibleDays().map((day) => day.value)).to.deep.equal(expectedFebruaryDays);
+        });
       });
 
       describe('vertical', () => {
