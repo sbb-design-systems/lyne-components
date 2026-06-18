@@ -13,7 +13,7 @@ snapshots["sbb-download-info renders with all values DOM"] =
 /* end snapshot sbb-download-info renders with all values DOM */
 
 snapshots["sbb-download-info renders with all values Shadow DOM"] = 
-`PDF, 1 MB, not accessible, December 24, 2026
+`PDF, 1 MB, not accessible, 12/24/2026
 `;
 /* end snapshot sbb-download-info renders with all values Shadow DOM */
 
