@@ -15,7 +15,7 @@ import { EOL } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { initCompiler } from 'sass';
+import * as sass from 'sass-embedded';
 import ts from 'typescript';
 
 const projectRoot = fileURLToPath(new URL('../../', import.meta.url));
@@ -52,9 +52,8 @@ const aliases = Object.entries(config.options.paths || {})
   .map(([alias, paths]) => ({ alias, path: resolve(projectRoot, paths[0]) }));
 
 // Sass
-const sassCompiler = initCompiler();
 const compileSass = (fileUrl: string): string =>
-  sassCompiler
+  sass
     .compile(fileURLToPath(fileUrl), {
       loadPaths: ['.', './node_modules/'],
       importers: [
