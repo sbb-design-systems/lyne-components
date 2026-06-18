@@ -27,6 +27,7 @@
 .sbb-signet__svg-container {
   display: flex;
   height: var(--sbb-signet-svg-container-height, 100%);
+  width: 100%;
 }
 
 svg {
