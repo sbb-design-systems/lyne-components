@@ -10009,17 +10009,23 @@ teex@^1.0.1:
   dependencies:
     streamx "^2.12.5"
 
-temporal-polyfill@0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/temporal-polyfill/-/temporal-polyfill-0.3.2.tgz#eb0f4fd36c77eac43d6e5b52851bee3648234b81"
-  integrity sha512-TzHthD/heRK947GNiSu3Y5gSPpeUDH34+LESnfsq8bqpFhsB79HFBX8+Z834IVX68P3EUyRPZK5bL/1fh437Eg==
+temporal-polyfill@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/temporal-polyfill/-/temporal-polyfill-1.0.1.tgz#95677df8fa5671a798e8aab3b58f459491880d9f"
+  integrity sha512-N2SoI9olnW7BUsU8RosDphZQl9s+WJ8O7PoJMFCr/e5/1rFkVI4GNOWaSeySG+UoP04foPYsnLWbJmbXOiShZg==
   dependencies:
-    temporal-spec "0.3.1"
+    temporal-spec "1.0.0"
+    temporal-utils "1.0.1"
 
-temporal-spec@0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/temporal-spec/-/temporal-spec-0.3.1.tgz#0882cf2954aac683a2484208b5f5cc7366bfdd14"
-  integrity sha512-B4TUhezh9knfSIMwt7RVggApDRJZo73uZdj8AacL2mZ8RP5KtLianh2MXxL06GN9ESYiIsiuoLQhgVfwe55Yhw==
+temporal-spec@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/temporal-spec/-/temporal-spec-1.0.0.tgz#81ea77940b009a7759fd21f447dc0f2b7547c1ca"
+  integrity sha512-00Ahj1e1ifaERTMOIIGpOCdOo9IEk2m6GGSMedsn9a2SIsGLdOTbmME1Htv6IM82b6VHrzSUTIVc7YHy6hdhFQ==
+
+temporal-utils@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/temporal-utils/-/temporal-utils-1.0.1.tgz#faf276e216512ccd1575a4705a58d73a091aeb82"
+  integrity sha512-HAixuesxFQIUaQk3ptX2jhfO/FsOkgVkDDMawvp6n/fkB1q6BKfs3lURw9I+pK/2e2e/q/vrLrxmeqauBoyGMQ==
 
 test-exclude@^8.0.0:
   version "8.0.0"
