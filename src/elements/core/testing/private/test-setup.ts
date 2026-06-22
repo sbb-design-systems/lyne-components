@@ -6,7 +6,6 @@ import type { UncompiledTemplateResult } from 'lit';
 import type { MochaOptions } from 'mocha';
 
 import { mergeConfig, type SbbIconConfig } from '../../config/config.ts';
-import { isWebkit } from '../../dom/platform.ts';
 
 const {
   __WTR_CONFIG__: { testFrameworkConfig },
@@ -141,18 +140,6 @@ if (typeof Temporal !== 'object') {
 
 // Wait until fonts are ready
 await document.fonts.ready;
-if (isWebkit) {
-  // An extra timeout for Safari, which seems to need some extra time to be ready after fonts are loaded.
-  await new Promise((resolve) => setTimeout(resolve, 50));
-  const paragraph = document.createElement('p');
-  paragraph.textContent = 'Text to load font';
-  document.body.appendChild(paragraph);
-  // Trigger reflow
-  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  paragraph.offsetHeight;
-  await Promise.resolve();
-  paragraph.remove();
-}
 
 // We import and run the web test runner script manually, as it ensures correct load order.
 await import(/* @vite-ignore */ testRunScript);

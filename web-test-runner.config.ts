@@ -109,8 +109,9 @@ const testRunnerHtml = (
       }`,
        )
        .join('')}
-      ${renderStyles().replace(/@font-face\b\s*\{[\s\S]*?\}/g, '')}
-      ${renderStyles()}
+      ${renderStyles()
+        .replace(/@font-face\b\s*\{[\s\S]*?\}/g, '')
+        .replace('@charset "UTF-8";', '')}
       ${renderExperimentalStyles()}
     </style>
     <script type="module">
