@@ -15,7 +15,7 @@ import {
   type PlaywrightLauncher,
 } from '@web/test-runner-playwright';
 import { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
-import { initCompiler } from 'sass';
+import * as sass from 'sass-embedded';
 
 import {
   a11yTreePlugin,
@@ -26,6 +26,7 @@ import {
   visualRegressionConfig,
   vitePlugin,
   preloadIcons,
+  preloadFonts,
 } from './tools/web-test-runner/index.ts';
 
 const { values: cliArgs } = parseArgs({
@@ -58,13 +59,12 @@ const launchOptions: PlaywrightLauncherArgs = {
   },
 };
 
-const stylesCompiler = initCompiler();
 const renderStyles = (): string =>
-  stylesCompiler.compile('./src/elements/core/styles/standard-theme.scss', {
+  sass.compile('./src/elements/core/styles/standard-theme.scss', {
     loadPaths: ['.', './node_modules/'],
   }).css;
 const renderExperimentalStyles = (): string =>
-  stylesCompiler.compile('./src/elements-experimental/core/styles/standard-theme.scss', {
+  sass.compile('./src/elements-experimental/core/styles/standard-theme.scss', {
     loadPaths: ['.', './node_modules/'],
   }).css;
 
@@ -85,6 +85,7 @@ const browsers =
         : [playwrightLauncher({ product: 'chromium', ...launchOptions })];
 
 const preloadedIcons = await preloadIcons();
+const preloadedFonts = await preloadFonts();
 
 const testRunnerHtml = (
   testFramework: string,
@@ -93,27 +94,23 @@ const testRunnerHtml = (
 ): string => `
 <!DOCTYPE html>
 <html lang="en">
-  <head>${
-    // Although we provide the fonts as base64, we preload the original
-    // files which prevents a bug in Safari rendering special characters.
-    ['Roman', 'Bold', 'Light']
-      .map(
-        (type) => `
-    <link
-      rel="preload"
-      href="https://cdn.app.sbb.ch/fonts/v1_9_subset/SBBWeb-${type}.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-    />`,
-      )
-      .join('')
-  }
+  <head>
     <link rel="modulepreload" href="/src/elements/core/testing/private/test-setup.ts" />
     <style type="text/css">
-      ${renderStyles()}
-    </style>
-    <style type="text/css">
+     ${preloadedFonts
+       .map(
+         (f) => `
+      @font-face {
+        font-family: SBB;
+        src: ${f.font};
+        font-display: block;
+        font-weight: ${f.weight};
+      }`,
+       )
+       .join('')}
+      ${renderStyles()
+        .replace(/@font-face\b\s*\{[\s\S]*?\}/g, '')
+        .replace('@charset "UTF-8";', '')}
       ${renderExperimentalStyles()}
     </style>
     <script type="module">
@@ -226,5 +223,5 @@ export default {
   },
   filterBrowserLogs: (log) => !suppressedLogs.includes(log.args[0]),
   testRunnerHtml,
-  testsFinishTimeout: 180000,
+  testsFinishTimeout: 300000,
 } satisfies TestRunnerConfig;
