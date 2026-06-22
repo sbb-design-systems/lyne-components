@@ -143,7 +143,7 @@ if (typeof Temporal !== 'object') {
 await document.fonts.ready;
 if (isWebkit) {
   // An extra timeout for Safari, which seems to need some extra time to be ready after fonts are loaded.
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  await new Promise((resolve) => setTimeout(resolve, 500));
 }
 
 // We import and run the web test runner script manually, as it ensures correct load order.
