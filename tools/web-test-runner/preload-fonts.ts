@@ -21,8 +21,21 @@ async function downloadFont(fontUrl: string): Promise<ArrayBuffer> {
   // Performing too many HTTP requests in parallel or sequence causes fetch to fail.
   // We add a delay for each request to prevent the request failure.
   await new Promise((r) => setTimeout(r, 20));
-  const r = await fetch(fontUrl);
-  return await r.arrayBuffer();
+
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const r = await fetch(fontUrl);
+      return await r.arrayBuffer();
+    } catch (e) {
+      lastError = e;
+      if (attempt < 3) {
+        console.warn(`Failed to fetch ${fontUrl} (attempt ${attempt}/3), retrying in 1s...`);
+        await new Promise((r) => setTimeout(r, 1000));
+      }
+    }
+  }
+  throw lastError;
 }
 
 export async function preloadFonts(): Promise<PreloadedFont[]> {
