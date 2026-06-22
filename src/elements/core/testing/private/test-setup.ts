@@ -138,7 +138,7 @@ if (typeof Temporal !== 'object') {
   await import('temporal-polyfill/global');
 }
 
-// Try to await font loading due to flaky CDN
+// Wait until fonts are ready
 await document.fonts.ready;
 
 // We import and run the web test runner script manually, as it ensures correct load order.
