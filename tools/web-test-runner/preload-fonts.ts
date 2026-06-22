@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -63,10 +64,12 @@ export async function preloadFonts(): Promise<PreloadedFont[]> {
     } else {
       console.log(`Using cached font ${fontFile} from ${fontCachePath}`);
     }
+    const fontBuffer = readFileSync(fontCachePath);
     preloadedFonts.push({
       weight,
-      font: `url(data:font-woff2;charset=utf-8;base64,${readFileSync(fontCachePath).toString('base64')}) format('woff2')`,
+      font: `url(data:font-woff2;charset=utf-8;base64,${fontBuffer.toString('base64')}) format('woff2')`,
     });
+    console.log(`${fontFile}:${createHash('sha256').update(fontBuffer).digest('hex')}`);
   }
   console.log(`Finished preloading fonts`);
   return preloadedFonts;
