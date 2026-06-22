@@ -143,7 +143,15 @@ if (typeof Temporal !== 'object') {
 await document.fonts.ready;
 if (isWebkit) {
   // An extra timeout for Safari, which seems to need some extra time to be ready after fonts are loaded.
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((resolve) => setTimeout(resolve, 50));
+  const paragraph = document.createElement('p');
+  paragraph.textContent = 'Text to load font';
+  document.body.appendChild(paragraph);
+  // Trigger reflow
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  paragraph.offsetHeight;
+  await Promise.resolve();
+  paragraph.remove();
 }
 
 // We import and run the web test runner script manually, as it ensures correct load order.
