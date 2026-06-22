@@ -37,4 +37,16 @@ describe(`sbb-logo`, () => {
       },
     );
   });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    it(
+      'custom width',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-logo protective-room="none" style="width: 1000px;"></sbb-logo>`,
+          { padding: '0px' },
+        );
+      }),
+    );
+  });
 });
