@@ -66,7 +66,7 @@ skipping any value that has not been provided.
 - `type` falls back to the file extension of the parent `sbb-download`.
 - `size`, if it contains only digits, is interpreted as a number of bytes and shortened to the
   closest unit (e.g. `1234567` becomes `1 MB`); otherwise it is displayed as is.
-- `changed` accepts an ISO 8601 date string and is rendered as a localized date.
+- `changed` accepts an ISO 8601 date string and is rendered as a formatted date.
 - `nonAccessible` renders a localized "not accessible" hint.
 
 ```html

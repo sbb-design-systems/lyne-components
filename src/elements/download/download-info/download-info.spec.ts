@@ -33,7 +33,7 @@ describe(`sbb-download-info`, () => {
     element.changed = '2026-12-24';
     await waitForLitRender(element);
     expect(element.shadowRoot!.textContent!.trim()).to.be.equal(
-      'PDF, 1 MB, not accessible, 12/24/2026',
+      'PDF, 1 MB, not accessible, 24.12.2026',
     );
   });
 
@@ -50,14 +50,14 @@ describe(`sbb-download-info`, () => {
   it('renders only the changed date', async () => {
     element.changed = '2026-12-24';
     await waitForLitRender(element);
-    expect(element.shadowRoot!.textContent!.trim()).to.be.equal('12/24/2026');
+    expect(element.shadowRoot!.textContent!.trim()).to.be.equal('24.12.2026');
   });
 
   it('joins size and changed when the type is omitted', async () => {
     element.size = '1234567';
     element.changed = '2026-12-24';
     await waitForLitRender(element);
-    expect(element.shadowRoot!.textContent!.trim()).to.be.equal('1 MB, 12/24/2026');
+    expect(element.shadowRoot!.textContent!.trim()).to.be.equal('1 MB, 24.12.2026');
   });
 
   it('renders the size as is when it contains non-numeric characters', async () => {
@@ -93,7 +93,7 @@ describe(`sbb-download-info`, () => {
   it('formats an ISO 8601 changed date', async () => {
     element.changed = '2026-12-24';
     await waitForLitRender(element);
-    expect(element.shadowRoot!.textContent).to.contain('12/24/2026');
+    expect(element.shadowRoot!.textContent).to.contain('24.12.2026');
   });
 
   it('renders an invalid changed date as is', async () => {

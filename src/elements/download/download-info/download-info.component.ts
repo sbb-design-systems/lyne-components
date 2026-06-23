@@ -2,9 +2,12 @@ import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } fr
 import { property } from 'lit/decorators.js';
 
 import {
+  type DateAdapter,
+  defaultDateAdapter,
   forceType,
   i18nNonAccessible,
   omitEmptyConverter,
+  readConfig,
   SbbElement,
   SbbLanguageController,
 } from '../../core.ts';
@@ -48,6 +51,7 @@ export class SbbDownloadInfoElement extends SbbElement {
   public accessor nonAccessible: boolean = false;
 
   private _language = new SbbLanguageController(this);
+  private _dateAdapter: DateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -106,25 +110,22 @@ export class SbbDownloadInfoElement extends SbbElement {
   }
 
   /**
-   * Formats the ISO 8601 change date to a localized date, or renders it as
-   * is if invalid
+   * Formats the ISO 8601 change date using the configured date adapter, or
+   * renders it as is if invalid.
    */
   private _resolveChanged(): string {
     if (!this.changed) {
       return '';
     }
 
-    const date = new Date(this.changed);
+    const date = this._dateAdapter.deserialize(this.changed);
 
-    if (Number.isNaN(date.getTime())) {
+    // Render the raw value as is when it is not a valid ISO 8601 date.
+    if (!this._dateAdapter.isValid(date)) {
       return this.changed;
     }
 
-    return new Intl.DateTimeFormat(this._language.current, {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    }).format(date);
+    return this._dateAdapter.format(date, { weekdayStyle: 'none' });
   }
 
   protected override render(): TemplateResult {
