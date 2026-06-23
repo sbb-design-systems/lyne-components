@@ -97,20 +97,20 @@ const testRunnerHtml = (
   <head>
     <link rel="modulepreload" href="/src/elements/core/testing/private/test-setup.ts" />
     <style type="text/css">
-     ${preloadedFonts
-       .map(
-         (f) => `
+      ${renderStyles().replace(
+        /@font-face\b\s*\{[\s\S]*?\}/g,
+        preloadedFonts
+          .map(
+            (f) => `
       @font-face {
         font-family: SBB;
         src: ${f.font};
         font-display: block;
         font-weight: ${f.weight};
       }`,
-       )
-       .join('')}
-      ${renderStyles()
-        .replace(/@font-face\b\s*\{[\s\S]*?\}/g, '')
-        .replace('@charset "UTF-8";', '')}
+          )
+          .join(''),
+      )}
       ${renderExperimentalStyles()}
     </style>
     <script type="module">
