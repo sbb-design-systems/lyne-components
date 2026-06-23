@@ -98,25 +98,13 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
     return (extension && fileExtensionIcons.get(extension)) || 'document-standard-small';
   }
 
-  /**
-   * Auto-assigns a `sbb-download-info` placed in the unnamed slot to the
-   * dedicated `info` slot, so consumers don't have to set the slot manually.
-   */
-  private _handleSlotchange(): void {
-    for (const child of Array.from(this.children)) {
-      if (child.localName === 'sbb-download-info' && child.slot !== 'info') {
-        child.slot = 'info';
-      }
-    }
-  }
-
   protected override renderTemplate(): TemplateResult {
     return html`
       ${this.renderIconSlot('sbb-download__icon')}
       <span class="sbb-download__content">
         <span class="sbb-download__label">${this.label || this._fileName()}</span>
         <span class="sbb-download__custom-content">
-          <slot @slotchange=${this._handleSlotchange}></slot>
+          <slot></slot>
         </span>
         <span class="sbb-download__info">
           <slot name="info"></slot>

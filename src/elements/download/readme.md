@@ -46,9 +46,9 @@ The content of the unnamed slot and the `<sbb-download-info>` block are both opt
 independent. You can render custom content, a `<sbb-download-info>`, both, or none of them.
 
 A `<sbb-download-info>` placed in the unnamed slot is automatically moved to the dedicated
-`info` slot, so it always renders in the correct position. This reassignment happens on the
-client via a `slotchange` listener and therefore only runs after hydration; during server-side
-rendering the element stays in the unnamed slot until the component is hydrated.
+`info` slot, so it always renders in the correct position. The `<sbb-download-info>` assigns
+itself to the `info` slot in its `connectedCallback`, which only runs on the client; during
+server-side rendering the element stays in the unnamed slot until it is hydrated.
 
 ```html
 <sbb-download href="report.pdf" label="Annual report">

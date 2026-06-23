@@ -49,6 +49,14 @@ export class SbbDownloadInfoElement extends SbbElement {
 
   private _language = new SbbLanguageController(this);
 
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    // Default to the `info` slot of the parent `sbb-download`, so consumers can
+    // place the element in the unnamed slot without setting the slot manually.
+    this.slot ||= 'info';
+  }
+
   /** Resolves the type, falling back to the extension of the parent download's
    * href.
    */
