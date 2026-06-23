@@ -25,7 +25,7 @@ export class SbbDownloadInfoElement extends SbbElement {
    * parent `sbb-download`.
    */
   @forceType()
-  @property({ reflect: true, converter: omitEmptyConverter })
+  @property({ converter: omitEmptyConverter })
   public accessor type: string = '';
 
   /**
@@ -34,17 +34,17 @@ export class SbbDownloadInfoElement extends SbbElement {
    * shortened to the closest unit.
    */
   @forceType()
-  @property({ reflect: true, converter: omitEmptyConverter })
+  @property({ converter: omitEmptyConverter })
   public accessor size: string = '';
 
   /** The date of the latest change of the document, as an ISO 8601 string. */
   @forceType()
-  @property({ reflect: true, converter: omitEmptyConverter })
+  @property({ converter: omitEmptyConverter })
   public accessor changed: string = '';
 
   /** Whether the document is not accessible. */
   @forceType()
-  @property({ attribute: 'non-accessible', reflect: true, type: Boolean })
+  @property({ attribute: 'non-accessible', type: Boolean })
   public accessor nonAccessible: boolean = false;
 
   private _language = new SbbLanguageController(this);
