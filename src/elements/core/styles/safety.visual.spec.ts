@@ -9,6 +9,7 @@ import {
 } from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.private.ts';
 import {
   describeViewports,
+  overrideStandardThemeWith,
   visualDiffActive,
   visualDiffDefault,
   visualDiffHover,
@@ -28,9 +29,11 @@ import '../../teaser-hero.ts';
 import '../../toggle-check.ts';
 import '../../../elements-experimental/pearl-chain.ts';
 
-import './safety-theme.scss';
-
 describe(`sbb-safety`, () => {
+  before(async () => {
+    await overrideStandardThemeWith('safety');
+  });
+
   describeViewports({ viewports: ['small'] }, () => {
     for (const darkMode of [false, true]) {
       describe(`darkMode=${darkMode}`, () => {
