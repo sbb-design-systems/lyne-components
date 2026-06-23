@@ -56,38 +56,26 @@ describe(`sbb-download`, () => {
       }
     });
 
-    describe('with custom content and info', () => {
-      beforeEach(async () => {
-        root = await visualRegressionFixture(html`
+    it(
+      'with custom content and info',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
           <sbb-download href="files/annual-report.pdf" label="Annual report">
             <span>Custom description for the downloadable document.</span>
             ${infoTemplate()}
           </sbb-download>
         `);
-      });
+      }),
+    );
 
-      it(
-        visualDiffDefault.name,
-        visualDiffDefault.with((setup) => {
-          setup.withSnapshotElement(root);
-        }),
-      );
-    });
-
-    describe('without slotted content', () => {
-      beforeEach(async () => {
-        root = await visualRegressionFixture(html`
+    it(
+      'without slotted content',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
           <sbb-download href="files/annual-report.pdf" label="Annual report"></sbb-download>
         `);
-      });
-
-      it(
-        visualDiffDefault.name,
-        visualDiffDefault.with((setup) => {
-          setup.withSnapshotElement(root);
-        }),
-      );
-    });
+      }),
+    );
 
     it(
       'with ellipsis',
