@@ -2,6 +2,8 @@
 @use '../../card/card.global' as card;
 
 :host {
+  // Re-declare the card variables on the host so a download nested inside
+  // another card-like element does not inherit the parent's overridden values.
   @include card.variables--global;
   @include card.variables--spacing-default;
 
