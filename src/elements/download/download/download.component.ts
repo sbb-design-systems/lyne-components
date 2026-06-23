@@ -57,6 +57,7 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
   /**
    * The download behavior is always enabled and handled internally, therefore
    * this property cannot be disabled and is not reflected to the host element.
+   * @default true
    */
   @property({ type: Boolean, reflect: false })
   public override set download(_value: boolean) {
