@@ -65,8 +65,9 @@
 // Custom slotted content and the `sbb-download-info` share the same style
 .sbb-download__custom-content,
 .sbb-download__info {
-  @include sbb.text-xxs;
-
+  line-height: var(--sbb-typo-line-height-text);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  font-size: var(--sbb-text-font-size-xxs);
   color: var(--sbb-download-info-color);
 }
 
