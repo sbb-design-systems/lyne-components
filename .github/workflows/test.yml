@@ -17,7 +17,7 @@ jobs:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
-      - uses: actions/cache/restore@v5
+      - uses: actions/cache/restore@v6
         with:
           path: node-modules/.cache/
           key: test-build-cache-${{ hashFiles('**/*.ts') }}
@@ -100,7 +100,7 @@ jobs:
           path: node_modules/.cache/
           pattern: build-cache-*
           merge-multiple: true
-      - uses: actions/cache/save@v5
+      - uses: actions/cache/save@v6
         with:
           path: node_modules/.cache/
           key: test-build-cache-${{ hashFiles('**/*.ts') }}
