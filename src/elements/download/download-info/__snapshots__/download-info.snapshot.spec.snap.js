@@ -6,6 +6,7 @@ snapshots["sbb-download-info renders with all values DOM"] =
   changed="2026-12-24"
   non-accessible=""
   size="1234567"
+  slot="info"
   type="PDF"
 >
 </sbb-download-info>
@@ -16,7 +17,7 @@ snapshots["sbb-download-info renders with all values Shadow DOM"] =
 `<span>
   PDF,
 </span>
-1 MB, not accessible, 12/24/2026
+1 MB, not accessible, 24.12.2026
 `;
 /* end snapshot sbb-download-info renders with all values Shadow DOM */
 
