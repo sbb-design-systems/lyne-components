@@ -65,10 +65,7 @@ export class SbbDownloadInfoElement extends SbbElement {
       return this.type;
     }
 
-    const parentHref = this.closest?.('sbb-download')?.href ?? '';
-    const fileName = parentHref.split(/[?#]/)[0].split('/').at(-1) ?? '';
-
-    return fileName.includes('.') ? (fileName.split('.').at(-1)?.toUpperCase() ?? '') : '';
+    return this.closest?.('sbb-download')?.fileExtension.toUpperCase() ?? '';
   }
 
   /**
@@ -84,9 +81,7 @@ export class SbbDownloadInfoElement extends SbbElement {
       return false;
     }
 
-    const fileName = parent.href.split(/[?#]/)[0].split('/').filter(Boolean).at(-1) ?? '';
-
-    return fileName.includes('.');
+    return !!parent.fileExtension;
   }
 
   /**

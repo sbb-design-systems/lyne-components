@@ -68,18 +68,23 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
   @property({ type: Boolean, reflect: false })
   public override accessor download: boolean = true;
 
+  /** The file name extracted from the `href` (e.g. `report.pdf`). */
+  public get fileName(): string {
+    return this.href.split(/[?#]/)[0].split('/').filter(Boolean).at(-1) ?? '';
+  }
+
+  /** The lower-cased file extension extracted from the `href` (e.g. `pdf`), if any. */
+  public get fileExtension(): string {
+    const fileName = this.fileName;
+
+    return fileName.includes('.') ? (fileName.split('.').at(-1)?.toLowerCase() ?? '') : '';
+  }
+
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
     // The download behavior is always enabled; consumers must not be able to disable it.
     this.download = true;
-  }
-
-  /**
-   * The file name extracted from the `href`, used as a fallback for the label.
-   */
-  private _fileName(): string {
-    return this.href.split(/[?#]/)[0].split('/').filter(Boolean).at(-1) ?? '';
   }
 
   /**
@@ -93,7 +98,7 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
       return '';
     }
 
-    const extension = this._fileName().split('.').at(-1)?.toLowerCase();
+    const extension = this.fileExtension;
 
     return (extension && fileExtensionIcons.get(extension)) || 'document-standard-small';
   }
@@ -102,7 +107,7 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
     return html`
       ${this.renderIconSlot('sbb-download__icon')}
       <span class="sbb-download__content">
-        <span class="sbb-download__label">${this.label || this._fileName()}</span>
+        <span class="sbb-download__label">${this.label || this.fileName}</span>
         <span class="sbb-download__custom-content">
           <slot></slot>
         </span>
