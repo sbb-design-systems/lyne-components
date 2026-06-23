@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.0.2...v5.1.0) (2026-06-23)
+
+
+### Features
+
+* **calendar:** add 'visibleDays' method ([#5004](https://github.com/sbb-design-systems/lyne-components/issues/5004)) ([991bb90](https://github.com/sbb-design-systems/lyne-components/commit/991bb90df5ce0232e1217d5a699d6cfd8c39f8c8))
+* **pearl-chain, time-table-row:** support cancelledExpected legs ([#4988](https://github.com/sbb-design-systems/lyne-components/issues/4988)) ([5ffca17](https://github.com/sbb-design-systems/lyne-components/commit/5ffca17c3c1d756d034708133d9d1ee7dd3ea030))
+
+
+### Bug Fixes
+
+* **dialog:** prevent duplication of overlay base ([#5020](https://github.com/sbb-design-systems/lyne-components/issues/5020)) ([ec394d0](https://github.com/sbb-design-systems/lyne-components/commit/ec394d0243cab017833a7d54af48a72d015154b2))
+* **signet, logo:** fix height adaption ([#5005](https://github.com/sbb-design-systems/lyne-components/issues/5005)) ([bdfe95b](https://github.com/sbb-design-systems/lyne-components/commit/bdfe95b454d0556b73c3a8ca30f570e3d19ed984))
+
+
+### Documentation
+
+* add list stories ([#5002](https://github.com/sbb-design-systems/lyne-components/issues/5002)) ([f00ef74](https://github.com/sbb-design-systems/lyne-components/commit/f00ef741d5bfed5f82847d2b788e396638049057))
+* **calendar:** fix enhanced calendar stories ([#5014](https://github.com/sbb-design-systems/lyne-components/issues/5014)) ([b9c2528](https://github.com/sbb-design-systems/lyne-components/commit/b9c2528677e717bb77843918725529b834d56c44))
+
 ## [5.0.2](https://github.com/sbb-design-systems/lyne-components/compare/v5.0.1...v5.0.2) (2026-06-15)
 
 
