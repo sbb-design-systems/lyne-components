@@ -1,4 +1,11 @@
-import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
@@ -53,12 +60,38 @@ export class SbbDownloadInfoElement extends SbbElement {
   private _language = new SbbLanguageController(this);
   private _dateAdapter: DateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
+  private _resolvedType: string = '';
+  private _typeRedundant: boolean = false;
+  private _resolvedSize: string = '';
+  private _resolvedChanged: string = '';
+
   public override connectedCallback(): void {
     super.connectedCallback();
 
     // Default to the `info` slot of the parent `sbb-download`, so consumers can
     // place the element in the unnamed slot without setting the slot manually.
     this.slot ||= 'info';
+  }
+
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+
+    // The type and its redundancy are derived from the parent download, which
+    // is not a reactive property of this element, so they are resolved on every
+    // update.
+    this._resolvedType = this._resolveType();
+    this._typeRedundant = this._isTypeRedundant();
+
+    // The formatted size and date only depend on their own property, so they
+    // are recomputed solely when that property changes (and not, for example,
+    // on a language change).
+    if (changedProperties.has('size')) {
+      this._resolvedSize = this._resolveSize();
+    }
+
+    if (changedProperties.has('changed')) {
+      this._resolvedChanged = this._resolveChanged();
+    }
   }
 
   /** Resolves the type, falling back to the extension of the parent download's
@@ -130,11 +163,10 @@ export class SbbDownloadInfoElement extends SbbElement {
 
   protected override render(): TemplateResult {
     const separator = ', ';
-    const type = this._resolveType();
     const items = [
-      this._resolveSize(),
+      this._resolvedSize,
       this.nonAccessible ? i18nNonAccessible[this._language.current] : '',
-      this._resolveChanged(),
+      this._resolvedChanged,
     ].filter(Boolean);
 
     const list = html`${items.map((item, index) => html`${index > 0 ? separator : ''}${item}`)}`;
@@ -143,8 +175,8 @@ export class SbbDownloadInfoElement extends SbbElement {
     // stable for SSR hydration, as it is derived from the parent download.
     // When the type is already conveyed by the parent's label, it is hidden
     // from assistive technology together with its trailing separator.
-    return html`<span aria-hidden=${this._isTypeRedundant() ? 'true' : nothing}
-        >${type}${type && items.length ? separator : ''}</span
+    return html`<span aria-hidden=${this._typeRedundant ? 'true' : nothing}
+        >${this._resolvedType}${this._resolvedType && items.length ? separator : ''}</span
       >${list}`;
   }
 }
