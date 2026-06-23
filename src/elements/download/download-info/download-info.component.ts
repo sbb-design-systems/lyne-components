@@ -17,6 +17,7 @@ import {
   readConfig,
   SbbElement,
   SbbLanguageController,
+  SbbPropertyWatcherController,
 } from '../../core.ts';
 
 import style from './download-info.scss?inline';
@@ -64,6 +65,18 @@ export class SbbDownloadInfoElement extends SbbElement {
   private _typeRedundant: boolean = false;
   private _resolvedSize: string = '';
   private _resolvedChanged: string = '';
+
+  public constructor() {
+    super();
+
+    // The type can be derived from the parent download's `href`, so re-resolve
+    // it whenever that `href` changes.
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-download'), {
+        href: () => this.requestUpdate(),
+      }),
+    );
+  }
 
   public override connectedCallback(): void {
     super.connectedCallback();

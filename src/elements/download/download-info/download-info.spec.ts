@@ -3,6 +3,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
+import type { SbbDownloadElement } from '../download/download.component.ts';
 
 import { SbbDownloadInfoElement } from './download-info.component.ts';
 
@@ -127,6 +128,21 @@ describe(`sbb-download-info`, () => {
     expect(info.shadowRoot!.textContent!.trim()).to.be.equal('PDF');
 
     root.querySelector('#zip')!.appendChild(info);
+    await waitForLitRender(info);
+    expect(info.shadowRoot!.textContent!.trim()).to.be.equal('ZIP');
+  });
+
+  it('updates the type when the parent download href changes', async () => {
+    const download = await fixture<SbbDownloadElement>(html`
+      <sbb-download href="files/report.pdf">
+        <sbb-download-info></sbb-download-info>
+      </sbb-download>
+    `);
+    const info = download.querySelector<SbbDownloadInfoElement>('sbb-download-info')!;
+    await waitForLitRender(info);
+    expect(info.shadowRoot!.textContent!.trim()).to.be.equal('PDF');
+
+    download.href = 'files/archive.zip';
     await waitForLitRender(info);
     expect(info.shadowRoot!.textContent!.trim()).to.be.equal('ZIP');
   });
