@@ -4,6 +4,7 @@ import {
   describeEach,
   describeViewports,
   visualDiffDefault,
+  visualDiffStandardStates,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
@@ -16,6 +17,11 @@ describe(`sbb-download`, () => {
 
   const cases = {
     color: ['white', 'milk'] satisfies SbbDownloadElement['color'][],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   const infoTemplate = (): TemplateResult => html`
@@ -28,21 +34,26 @@ describe(`sbb-download`, () => {
   `;
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    describeEach(cases, ({ color }) => {
+    describeEach(cases, ({ color, emulateMedia: { forcedColors, darkMode } }) => {
       beforeEach(async () => {
-        root = await visualRegressionFixture(html`
-          <sbb-download href="files/annual-report.pdf" color=${color}>
-            ${infoTemplate()}
-          </sbb-download>
-        `);
+        root = await visualRegressionFixture(
+          html`
+            <sbb-download href="files/annual-report.pdf" color=${color}>
+              ${infoTemplate()}
+            </sbb-download>
+          `,
+          { forcedColors, darkMode },
+        );
       });
 
-      it(
-        visualDiffDefault.name,
-        visualDiffDefault.with((setup) => {
-          setup.withSnapshotElement(root);
-        }),
-      );
+      for (const state of visualDiffStandardStates) {
+        it(
+          state.name,
+          state.with((setup) => {
+            setup.withSnapshotElement(root);
+          }),
+        );
+      }
     });
 
     describe('with custom content and info', () => {
@@ -77,5 +88,21 @@ describe(`sbb-download`, () => {
         }),
       );
     });
+
+    it(
+      'with ellipsis',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <div style="max-width: 300px;">
+            <sbb-download
+              href="files/annual-report.pdf"
+              label="This download label name is so long that it needs ellipsis to fit and to be pretty sure we get an ellipsis we even add more text"
+            >
+              ${infoTemplate()}
+            </sbb-download>
+          </div>
+        `);
+      }),
+    );
   });
 });
