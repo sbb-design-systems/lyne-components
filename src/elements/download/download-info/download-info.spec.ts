@@ -113,6 +113,24 @@ describe(`sbb-download-info`, () => {
     expect(info.shadowRoot!.textContent!.trim()).to.be.equal('PDF');
   });
 
+  it('updates the type when moved to a download with a different extension', async () => {
+    const root = await fixture(html`
+      <div>
+        <sbb-download id="pdf" href="files/report.pdf">
+          <sbb-download-info></sbb-download-info>
+        </sbb-download>
+        <sbb-download id="zip" href="files/archive.zip"></sbb-download>
+      </div>
+    `);
+    const info = root.querySelector<SbbDownloadInfoElement>('sbb-download-info')!;
+    await waitForLitRender(info);
+    expect(info.shadowRoot!.textContent!.trim()).to.be.equal('PDF');
+
+    root.querySelector('#zip')!.appendChild(info);
+    await waitForLitRender(info);
+    expect(info.shadowRoot!.textContent!.trim()).to.be.equal('ZIP');
+  });
+
   it('strips the query string when deriving the type from the parent href', async () => {
     const download = await fixture(html`
       <sbb-download href="files/report.pdf?v=2" label="Report">

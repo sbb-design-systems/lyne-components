@@ -71,6 +71,10 @@ export class SbbDownloadInfoElement extends SbbElement {
     // Default to the `info` slot of the parent `sbb-download`, so consumers can
     // place the element in the unnamed slot without setting the slot manually.
     this.slot ||= 'info';
+
+    // The type is derived from the parent download, so re-resolve it whenever
+    // the element is (re)connected, e.g. when moved between different downloads.
+    this.requestUpdate();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
