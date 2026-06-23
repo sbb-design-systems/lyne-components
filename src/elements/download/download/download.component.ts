@@ -1,10 +1,4 @@
-import {
-  type CSSResultGroup,
-  html,
-  type PropertyValues,
-  type TemplateResult,
-  unsafeCSS,
-} from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
@@ -64,9 +58,14 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
    * The download behavior is always enabled and handled internally, therefore
    * this property cannot be disabled and is not reflected to the host element.
    */
-  @forceType()
   @property({ type: Boolean, reflect: false })
-  public override accessor download: boolean = true;
+  public override set download(_value: boolean) {
+    // The download behavior is always enabled and handled internally;
+    // consumer-provided values are intentionally ignored.
+  }
+  public override get download(): boolean {
+    return true;
+  }
 
   /** The file name extracted from the `href` (e.g. `report.pdf`). */
   public get fileName(): string {
@@ -78,13 +77,6 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
     const fileName = this.fileName;
 
     return fileName.includes('.') ? (fileName.split('.').at(-1)?.toLowerCase() ?? '') : '';
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    // The download behavior is always enabled; consumers must not be able to disable it.
-    this.download = true;
   }
 
   /**
