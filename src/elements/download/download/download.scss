@@ -26,6 +26,14 @@
   align-items: center;
   gap: var(--sbb-download-gap);
   text-decoration: none;
+
+  // Consume the hover shift set by `card.state--hover` (the mixin only sets the
+  // `--sbb-card-hover-shift` variable; the actual movement has to be applied
+  // here).
+  translate: 0 var(--sbb-card-hover-shift, 0);
+  transition:
+    box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing),
+    translate var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
 }
 
 .sbb-download:focus-visible {
