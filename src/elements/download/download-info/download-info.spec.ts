@@ -108,7 +108,7 @@ describe(`sbb-download-info`, () => {
         <sbb-download-info></sbb-download-info>
       </sbb-download>
     `);
-    const info = download.querySelector<SbbDownloadInfoElement>('sbb-download-info')!;
+    const info = download.querySelector('sbb-download-info')!;
     await waitForLitRender(info);
     expect(info.shadowRoot!.textContent!.trim()).to.be.equal('PDF');
   });
@@ -119,7 +119,7 @@ describe(`sbb-download-info`, () => {
         <sbb-download-info></sbb-download-info>
       </sbb-download>
     `);
-    const info = download.querySelector<SbbDownloadInfoElement>('sbb-download-info')!;
+    const info = download.querySelector('sbb-download-info')!;
     await waitForLitRender(info);
     expect(info.shadowRoot!.textContent!.trim()).to.be.equal('PDF');
   });
@@ -130,7 +130,7 @@ describe(`sbb-download-info`, () => {
         <sbb-download-info></sbb-download-info>
       </sbb-download>
     `);
-    const info = download.querySelector<SbbDownloadInfoElement>('sbb-download-info')!;
+    const info = download.querySelector('sbb-download-info')!;
     await waitForLitRender(info);
     expect(info.shadowRoot!.querySelector('span')!.getAttribute('aria-hidden')).to.be.equal('true');
   });
@@ -141,7 +141,7 @@ describe(`sbb-download-info`, () => {
         <sbb-download-info></sbb-download-info>
       </sbb-download>
     `);
-    const info = download.querySelector<SbbDownloadInfoElement>('sbb-download-info')!;
+    const info = download.querySelector('sbb-download-info')!;
     await waitForLitRender(info);
     expect(info.shadowRoot!.querySelector('span')!.hasAttribute('aria-hidden')).to.be.false;
   });
