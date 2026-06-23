@@ -7,6 +7,7 @@ const observers = new WeakMap<
 
 /**
  * Tracks id changes in the DOM and calls component when matching with requestUpdate().
+ * @deprecated Use idReference decorator instead. This controller will be removed in a future release.
  */
 export class SbbIdReferenceController<T extends LitElement> implements ReactiveController {
   private _rootNode: Document | ShadowRoot | null = null;

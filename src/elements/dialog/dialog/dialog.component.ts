@@ -17,7 +17,7 @@ import style from './dialog.scss?inline';
 export {
   assignOverlayResult as assignDialogResult,
   SbbOverlayCloseEvent as SbbDialogCloseEvent,
-} from '../../overlay/overlay-base-element.ts';
+} from '../../overlay.pure.ts';
 
 /**
  * It displays an interactive overlay element.
