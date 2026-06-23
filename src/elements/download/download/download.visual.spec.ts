@@ -10,6 +10,7 @@ import {
 
 import type { SbbDownloadElement } from './download.component.ts';
 
+import '../../card.ts';
 import '../../download.ts';
 
 describe(`sbb-download`, () => {
@@ -74,6 +75,25 @@ describe(`sbb-download`, () => {
         await setup.withFixture(html`
           <sbb-download href="files/annual-report.pdf" label="Annual report"></sbb-download>
         `);
+      }),
+    );
+
+    // The parent card overrides card variables (color, spacing) which would
+    // otherwise be inherited by the nested download; the download has to reset
+    // them on its host to keep its own appearance.
+    it(
+      'nested in card',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-card color="milk" class="sbb-card-spacing-l">
+              <sbb-download href="files/annual-report.pdf" label="Annual report">
+                ${infoTemplate()}
+              </sbb-download>
+            </sbb-card>
+          `,
+          { backgroundColor: 'var(--sbb-background-color-3)' },
+        );
       }),
     );
 
