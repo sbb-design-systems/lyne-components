@@ -1,0 +1,15 @@
+name: Review Labels
+on:
+  pull_request_target:
+    types: [closed, converted_to_draft, edited, opened, ready_for_review, reopened, unlabeled]
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  labelling:
+    uses: sbb-design-systems/actions/.github/workflows/review-labelling.yml@main
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

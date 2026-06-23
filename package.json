@@ -56,6 +56,7 @@
     "test:visual-regression": "yarn -s wtr --visual-regression --all-browsers",
     "test:playwright-server": "node tools/web-test-runner/start-playwright-server.ts",
     "wtr": "node node_modules/@web/test-runner/dist/bin.js --config=web-test-runner.config.ts",
+    "publish-packages": "node scripts/publish.ts",
     "prepare": "husky"
   },
   "dependencies": {
