@@ -187,19 +187,19 @@ $theme: 'standard' !default;
   }
 
   .sbb-table--hover {
-    :is(
-      // Address last row of thead if hover is on first row of tbody
-      thead:has(+ tbody tr:first-of-type:hover) tr:last-of-type :is(td, th),
-
-      // Address row before hovered row
-      tbody tr:has(+ tr:hover) td
-    ) {
-      border-block-end-color: var(--sbb-table-border-color-hover);
-    }
-
-    tbody tr:hover td {
+    tbody tr:hover :is(th, td) {
       background-color: var(--sbb-table-background-color-hover);
       border-color: var(--sbb-table-border-color-hover);
+    }
+
+    :is(
+      // Address last row of thead if hover is on first row of tbody
+      thead:has(+ tbody tr:first-of-type:hover) tr:last-of-type :is(th, td),
+
+      // Address row before hovered row
+      tbody tr:has(+ tr:hover) :is(th, td)
+    ) {
+      border-block-end-color: var(--sbb-table-border-color-hover);
     }
   }
 

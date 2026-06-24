@@ -210,7 +210,7 @@ This scheme changes the text color of the cells to `sbb-color-iron`.
 | `sbb-table--negative`       | Negative variant style                                                  |
 | `sbb-table--striped`        | Striped table style                                                     |
 | `sbb-table--unstriped`      | Non-striped table style                                                 |
-| `sbb-table--hover`          | Enables row hover highlighting; apply on `table` or individual `tr`     |
+| `sbb-table--hover`          | Enables highlighting a row on hover                                     |
 | `sbb-table--selected`       | Applied on a `tr`, marks the row as selected                            |
 | `sbb-table-row--striped`    | Force the striped state on a `tr`                                       |
 | `sbb-table-filter`          | `th` element that contains an inline filter                             |
