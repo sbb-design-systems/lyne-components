@@ -108,7 +108,7 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
                   <a
                     href="https://github.com/sbb-design-systems/lyne-components"
                     target="_blank"
-                    tabindex="-1"
+                    aria-label="Navigate to lyne-angular repo"
                   >
                     <sbb-image
                       image-src=${img}
