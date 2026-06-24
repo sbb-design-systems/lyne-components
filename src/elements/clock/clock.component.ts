@@ -108,8 +108,11 @@ export class SbbClockElement extends SbbElement {
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
+    if (isServer || !this.hasUpdated) {
+      return;
+    }
 
-    if (!isServer && changedProperties.has('now')) {
+    if (changedProperties.has('now')) {
       this._startOrConfigureClock();
     }
   }
@@ -129,30 +132,30 @@ export class SbbClockElement extends SbbElement {
     clearInterval(this._resetIntervalId);
   }
 
-  private _handlePageVisibilityChange = async (): Promise<void> => {
+  private _handlePageVisibilityChange = (): void => {
     if (this.now) {
       return;
     }
 
     if (document.visibilityState === 'hidden') {
-      await this._stopClock();
+      this._stopClock();
     } else {
-      await this._startClock();
+      this._startClock();
     }
   };
 
-  private async _startOrConfigureClock(): Promise<void> {
+  private _startOrConfigureClock(): void {
     if (this.now) {
-      await this._stopClock();
+      this._stopClock();
       this._resetSecondsHandAnimation();
       this._setHandsStartingPosition();
     } else {
-      await this._startClock();
+      this._startClock();
     }
   }
 
   /** Starts the clock by defining the hands starting position then starting the animations. */
-  private async _startClock(): Promise<void> {
+  private _startClock(): void {
     this._clockHandHours?.addEventListener(
       'animationend',
       this._moveHoursHandFn,
@@ -164,19 +167,14 @@ export class SbbClockElement extends SbbElement {
       ADD_EVENT_LISTENER_OPTIONS,
     );
 
-    await new Promise<void>((resolve) =>
-      setTimeout(() => {
-        this._setHandsStartingPosition();
+    this._setHandsStartingPosition();
 
-        this.style?.setProperty('--sbb-clock-animation-play-state', 'running');
-        this._state = 'running';
-        resolve();
-      }, INITIAL_TIMEOUT_DURATION),
-    );
+    this.style?.setProperty('--sbb-clock-animation-play-state', 'running');
+    this._state = 'running';
   }
 
   /** Stops the clock by removing all the animations. */
-  private async _stopClock(): Promise<void> {
+  private _stopClock(): void {
     clearInterval(this._handMovement);
 
     this._removeSecondsAnimationStyles();
@@ -198,8 +196,8 @@ export class SbbClockElement extends SbbElement {
     if (this._state !== 'running') {
       return;
     }
-    await this._stopClock();
-    await this._startClock();
+    this._stopClock();
+    setTimeout(() => this._startClock(), INITIAL_TIMEOUT_DURATION);
   }
 
   /** Set the starting position for the three hands on the clock face. */
