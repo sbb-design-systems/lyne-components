@@ -4,10 +4,13 @@ import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import type { InputType } from 'storybook/internal/types';
 
+import type { SbbCheckboxElement } from '../checkbox.pure.ts';
+
 import readme from './readme.md?raw';
 
 import '../table.ts';
 import '../form-field.ts';
+import '../checkbox.ts';
 
 /**
  * Table examples.
@@ -57,6 +60,12 @@ const colorTheme: InputType = {
   },
 };
 
+const withRowHover: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   size,
   negative,
@@ -65,6 +74,7 @@ const defaultArgTypes: ArgTypes = {
   groupWithNext,
   withSubtitle,
   'color-theme': colorTheme,
+  withRowHover,
 };
 
 const defaultArgs: Args = {
@@ -75,6 +85,7 @@ const defaultArgs: Args = {
   groupWithNext: false,
   withSubtitle: false,
   'color-theme': colorTheme.options![0],
+  withRowHover: false,
 };
 
 const caption: () => TemplateResult = () => html`
@@ -167,6 +178,7 @@ const tableClasses = (args: Args): Record<string, boolean> => ({
   'sbb-table-m': args.size === 'm',
   'sbb-table--striped': args.striped,
   'sbb-table--theme-iron': args['color-theme'] === 'iron',
+  'sbb-table--hover': args.withRowHover,
 });
 
 const Template = (args: Args): TemplateResult => html`
@@ -182,6 +194,51 @@ const Template = (args: Args): TemplateResult => html`
 const withoutHeaderTemplate = (args: Args): TemplateResult => html`
   <table class=${classMap(tableClasses(args))}>
     ${caption()} ${body(args.groupWithNext)}
+  </table>
+`;
+
+const SelectableTemplate = (args: Args): TemplateResult => html`
+  <table class=${classMap(tableClasses(args))}>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Train</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Departure</th>
+        <th>Arrival</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${[
+        ['IC 1', 'Geneva', 'Zürich HB', '08:00', '10:30'],
+        ['IR 15', 'Lausanne', 'Bern', '08:15', '09:10'],
+        ['ICE 375', 'Basel SBB', 'Frankfurt', '09:00', '11:58'],
+        ['RE 3', 'Olten', 'Aarau', '09:45', '10:05'],
+      ].map(
+        ([train, from, to, departure, arrival]) => html`
+          <tr>
+            <td>
+              <sbb-checkbox
+                aria-label="Select train ${train} from ${from} to ${to}"
+                @change=${(e: Event) => {
+                  const tr = (e.target as HTMLElement).closest('tr');
+                  tr?.classList.toggle(
+                    'sbb-table--selected',
+                    (e.target as SbbCheckboxElement).checked,
+                  );
+                }}
+              ></sbb-checkbox>
+            </td>
+            <td>${train}</td>
+            <td>${from}</td>
+            <td>${to}</td>
+            <td>${departure}</td>
+            <td>${arrival}</td>
+          </tr>
+        `,
+      )}
+    </tbody>
   </table>
 `;
 
@@ -243,6 +300,18 @@ export const HeaderSubtitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, withSubtitle: true },
+};
+
+export const Hover: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, striped: true, withRowHover: true },
+};
+
+export const Selectable: StoryObj = {
+  render: SelectableTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, striped: true, withRowHover: true },
 };
 
 /**
