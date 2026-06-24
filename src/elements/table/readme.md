@@ -156,22 +156,6 @@ This enables the hover effect for every row in `<tbody>`.
 </table>
 ```
 
-Alternatively, apply `sbb-table--hover` directly to individual `<tr>` elements to enable the hover
-effect for specific rows only:
-
-```html
-<table class="sbb-table">
-  <tbody>
-    <tr class="sbb-table--hover">
-      <td>Hoverable row</td>
-    </tr>
-    <tr>
-      <td>Normal row</td>
-    </tr>
-  </tbody>
-</table>
-```
-
 ### Row selection
 
 To mark a row as selected, add the `sbb-table--selected` class to the `<tr>` element.
