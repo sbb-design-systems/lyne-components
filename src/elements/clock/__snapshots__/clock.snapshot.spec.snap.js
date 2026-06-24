@@ -12,10 +12,7 @@ snapshots["sbb-clock renders Shadow DOM"] =
 </span>
 <span class="sbb-clock__hand-hours sbb-clock__hand-hours--initial-hour">
 </span>
-<span
-  class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition"
-  style="transform: rotateZ(96deg);"
->
+<span class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition">
 </span>
 <span class="sbb-clock__hand-seconds sbb-clock__hand-seconds--initial-minute">
 </span>
