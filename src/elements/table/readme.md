@@ -145,6 +145,50 @@ class inside a `th` element:
 </table>
 ```
 
+### Row hover
+
+To highlight a row when the user hovers over it, apply `sbb-table--hover` to the `<table>` element.
+This enables the hover effect for every row in `<tbody>`.
+
+```html
+<table class="sbb-table sbb-table--hover">
+  ...
+</table>
+```
+
+Alternatively, apply `sbb-table--hover` directly to individual `<tr>` elements to enable the hover
+effect for specific rows only:
+
+```html
+<table class="sbb-table">
+  <tbody>
+    <tr class="sbb-table--hover">
+      <td>Hoverable row</td>
+    </tr>
+    <tr>
+      <td>Normal row</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+### Row selection
+
+To mark a row as selected, add the `sbb-table--selected` class to the `<tr>` element.
+The class can be set dynamically, e.g. when a user interacts with a checkbox in the row.
+
+```html
+<table class="sbb-table">
+  <tbody>
+    <tr class="sbb-table--selected">
+      <td>Selected row</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+A common pattern is to place a checkbox in the first column and toggle the class on change.
+
 ### Text alignment
 
 By default, table cells are left-aligned.
@@ -182,6 +226,8 @@ This scheme changes the text color of the cells to `sbb-color-iron`.
 | `sbb-table--negative`       | Negative variant style                                                  |
 | `sbb-table--striped`        | Striped table style                                                     |
 | `sbb-table--unstriped`      | Non-striped table style                                                 |
+| `sbb-table--hover`          | Enables row hover highlighting; apply on `table` or individual `tr`     |
+| `sbb-table--selected`       | Applied on a `tr`, marks the row as selected                            |
 | `sbb-table-row--striped`    | Force the striped state on a `tr`                                       |
 | `sbb-table-filter`          | `th` element that contains an inline filter                             |
 | `sbb-table-group-with-next` | Removes the border to the next column                                   |
