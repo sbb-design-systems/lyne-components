@@ -39,6 +39,10 @@ $theme: 'standard' !default;
         filter,
         scale var(--sbb-teaser-image-animation-duration) var(--sbb-teaser-image-animation-easing);
     }
+
+    .sbb-figure {
+      max-width: 100%;
+    }
   }
 
   sbb-teaser :is(sbb-image, img):not(.sbb-figure-overlap-image) {
