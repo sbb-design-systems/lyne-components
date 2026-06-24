@@ -51,6 +51,9 @@ Similar to the native `<input>` element, the `<sbb-time-input>` component
 dispatches the usual `input`, `change`, `blur`, `invalid` and keyboard
 and focus related events.
 
+<!-- #region forms -->
+<!-- #endregion -->
+
 <!-- Auto Generated Below -->
 
 ## API Documentation
