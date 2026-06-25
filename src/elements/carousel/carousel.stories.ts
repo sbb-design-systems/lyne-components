@@ -109,6 +109,7 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
                     href="https://github.com/sbb-design-systems/lyne-components"
                     target="_blank"
                     aria-label="Navigate to lyne-angular repo"
+                    style="border-radius: var(--sbb-carousel-border-radius)"
                   >
                     <sbb-image
                       image-src=${img}
