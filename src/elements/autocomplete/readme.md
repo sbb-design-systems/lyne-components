@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-autocomplete>` is a component that can be used to display a panel of suggested options connected to a text input.
 Use it when you need a basic autocomplete: a panel with a list of selectable and possibly grouped options.
 If you need buttons connected to the options, use the [sbb-autocomplete-grid](/docs/experimental-autocomplete-grid--docs).

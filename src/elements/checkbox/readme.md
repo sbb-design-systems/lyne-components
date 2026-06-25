@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-checkbox>` component provides the same functionality as a native `<input type="checkbox"/>` enhanced with the SBB Design.
 
 ## Slots
