@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-checkbox-panel>` component provides the same functionality as a native `<input type="checkbox"/>` enhanced with the selection panel design and functionalities.
 
 ## Slots

@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-file-selector>` and `<sbb-file-selector-dropzone>` are components which allows user to select
 one or more files from storage devices.
 These are two variants with the same functionality.
