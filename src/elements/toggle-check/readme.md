@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-toggle-check>` is a component which provides the same functionality as a native `<input type="checkbox" />`
 enhanced with the SBB Design.
 

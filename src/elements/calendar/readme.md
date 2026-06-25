@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-calendar>` component displays a calendar that allows the user to select a date.
 
 ```html
