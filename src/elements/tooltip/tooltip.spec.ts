@@ -79,6 +79,15 @@ describe('sbb-tooltip', () => {
       expect(element).to.match(':state(state-opened)');
     });
 
+    it('should not open on focus when input modality is not keyboard', async () => {
+      // Programmatic focus without a preceding keyboard event must not open the tooltip.
+      trigger.focus();
+      await aTimeout(50);
+
+      expect(openSpy.count).to.equal(0);
+      expect(element).to.match(':state(state-closed)');
+    });
+
     it('should close on blur', async () => {
       otherElem.focus();
       await sendKeys({ press: tabKey });
