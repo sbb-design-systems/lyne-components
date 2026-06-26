@@ -83,7 +83,7 @@
     "@storybook/addon-a11y": "10.4.6",
     "@storybook/addon-docs": "10.4.6",
     "@storybook/addon-links": "10.4.6",
-    "@storybook/icons": "2.0.2",
+    "@storybook/icons": "2.1.0",
     "@storybook/web-components-vite": "10.4.6",
     "@tsdown/css": "0.22.3",
     "@types/chai": "5.2.3",
