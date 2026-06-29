@@ -55,10 +55,10 @@ export class SbbTimetableOccupancyElement extends SbbNegativeMixin(SbbElement) {
                   </span>
                   <span class="sbb-screen-reader-only">
                     ${`${
-                    i18nClass[this.firstClassOccupancy && index === 0 ? 'first' : 'second'][
-                      this._language.current
-                    ]
-                  }.`}
+                      i18nClass[this.firstClassOccupancy && index === 0 ? 'first' : 'second'][
+                        this._language.current
+                      ]
+                    }.`}
                   </span>
                   <sbb-timetable-occupancy-icon
                     class="sbb-timetable-occupancy__list-item-icon"

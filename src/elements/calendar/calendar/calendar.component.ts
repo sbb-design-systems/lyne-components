@@ -1415,12 +1415,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                                       <sbb-calendar-weeknumber
                                         .value=${weekNumbers[0]}
                                         @click=${() => {
-                                        const days: Day<T>[] =
-                                          weeksForSelectMultipleWeekNumbers.filter(
-                                            (day: Day<T>) => day.weekValue === weekNumbers[0],
-                                          )!;
-                                        this._selectMultipleDates(days);
-                                      }}
+                                          const days: Day<T>[] =
+                                            weeksForSelectMultipleWeekNumbers.filter(
+                                              (day: Day<T>) => day.weekValue === weekNumbers[0],
+                                            )!;
+                                          this._selectMultipleDates(days);
+                                        }}
                                       ></sbb-calendar-weeknumber>
                                     `
                                   : html`
@@ -1453,12 +1453,13 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                                     <sbb-calendar-weeknumber
                                       .value=${weekNumbers[rowIndex]}
                                       @click=${() => {
-                                      const days: Day<T>[] =
-                                        weeksForSelectMultipleWeekNumbers.filter(
-                                          (day: Day<T>) => day.weekValue === weekNumbers[rowIndex],
-                                        )!;
-                                      this._selectMultipleDates(days);
-                                    }}
+                                        const days: Day<T>[] =
+                                          weeksForSelectMultipleWeekNumbers.filter(
+                                            (day: Day<T>) =>
+                                              day.weekValue === weekNumbers[rowIndex],
+                                          )!;
+                                        this._selectMultipleDates(days);
+                                      }}
                                     ></sbb-calendar-weeknumber>
                                   `
                                 : html`
@@ -1515,26 +1516,26 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                         (weekNumber: number) => html`
                           <th class="sbb-calendar__table-header-cell">
                             ${
-                            this.multiple
-                              ? html`
-                                  <sbb-calendar-weeknumber
-                                    .value=${weekNumber}
-                                    @click=${() => {
-                                      const days: Day<T>[] =
-                                        weeksForSelectMultipleWeekNumbers.filter(
-                                          (day: Day<T>) => day.weekValue === weekNumber,
-                                        )!;
-                                      this._selectMultipleDates(days);
-                                    }}
-                                  ></sbb-calendar-weeknumber>
-                                `
-                              : html`
-                                  <span class="sbb-screen-reader-only"
-                                    >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumber}`}</span
-                                  >
-                                  <span aria-hidden="true">${weekNumber}</span>
-                                `
-                          }
+                              this.multiple
+                                ? html`
+                                    <sbb-calendar-weeknumber
+                                      .value=${weekNumber}
+                                      @click=${() => {
+                                        const days: Day<T>[] =
+                                          weeksForSelectMultipleWeekNumbers.filter(
+                                            (day: Day<T>) => day.weekValue === weekNumber,
+                                          )!;
+                                        this._selectMultipleDates(days);
+                                      }}
+                                    ></sbb-calendar-weeknumber>
+                                  `
+                                : html`
+                                    <span class="sbb-screen-reader-only"
+                                      >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumber}`}</span
+                                    >
+                                    <span aria-hidden="true">${weekNumber}</span>
+                                  `
+                            }
                           </th>
                         `,
                       )}

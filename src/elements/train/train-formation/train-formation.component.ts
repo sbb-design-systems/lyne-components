@@ -154,17 +154,17 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
                   html`<span
                     class="sbb-train-formation__sector"
                     style=${styleMap({
-                    '--sbb-train-formation-wagon-count': aggregatedSector.wagonCount,
-                    '--sbb-train-formation-wagon-blocked-passage-count':
-                      aggregatedSector.blockedPassageCount,
-                  })}
+                      '--sbb-train-formation-wagon-count': aggregatedSector.wagonCount,
+                      '--sbb-train-formation-wagon-blocked-passage-count':
+                        aggregatedSector.blockedPassageCount,
+                    })}
                   >
                     <span class="sbb-train-formation__sector-sticky-wrapper">
                       ${`${
-                      aggregatedSector.wagonCount === 1 && aggregatedSector.label
-                        ? i18nSectorShort[this._language.current]
-                        : i18nSector[this._language.current]
-                    } ${aggregatedSector.label ? aggregatedSector.label : ''}`}
+                        aggregatedSector.wagonCount === 1 && aggregatedSector.label
+                          ? i18nSectorShort[this._language.current]
+                          : i18nSector[this._language.current]
+                      } ${aggregatedSector.label ? aggregatedSector.label : ''}`}
                     </span>
                   </span>`,
               )}
