@@ -22,8 +22,6 @@ jobs:
           path: node_modules/.cache/
           key: test-build-cache-${{ hashFiles('**/*.ts') }}
           restore-keys: test-build-cache-
-      - name: Output test cache structure
-        run: ls -llR node_modules/.cache/
 
       - name: Run lint
         run: yarn test:tsc
@@ -63,8 +61,6 @@ jobs:
         with:
           name: test-artifacts
           path: node_modules/.cache/
-      - name: Output test cache structure
-        run: ls -llR node_modules/.cache/
 
       - name: Run tests
         run: yarn test --segment=${{ matrix.segment }}/${{ env.max-segment }}
