@@ -120,9 +120,11 @@ describe(`sbb-selection-action-panel`, () => {
           visualDiffFocus.with(async (setup) => {
             await setup.withFixture(html`
               <sbb-selection-expansion-panel>
-                ${input === 'checkbox'
-                  ? withCheckboxPanel({ checked: true })
-                  : withRadioPanel({ checked: true })}
+                ${
+                  input === 'checkbox'
+                    ? withCheckboxPanel({ checked: true })
+                    : withRadioPanel({ checked: true })
+                }
                 <div slot="content">Inner Content</div>
               </sbb-selection-expansion-panel>
             `);
@@ -143,9 +145,11 @@ describe(`sbb-selection-action-panel`, () => {
           `size=xs`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
-              ${input === 'checkbox'
-                ? withCheckboxPanel({ size: 'xs' })
-                : withRadioPanel({ size: 'xs' })}
+              ${
+                input === 'checkbox'
+                  ? withCheckboxPanel({ size: 'xs' })
+                  : withRadioPanel({ size: 'xs' })
+              }
             `);
           }),
         );
@@ -154,9 +158,11 @@ describe(`sbb-selection-action-panel`, () => {
           `size=s`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
-              ${input === 'checkbox'
-                ? withCheckboxPanel({ size: 's' })
-                : withRadioPanel({ size: 's' })}
+              ${
+                input === 'checkbox'
+                  ? withCheckboxPanel({ size: 's' })
+                  : withRadioPanel({ size: 's' })
+              }
             `);
           }),
         );

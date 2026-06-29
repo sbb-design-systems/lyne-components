@@ -76,14 +76,16 @@ describe(`sbb-status`, () => {
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
               <sbb-status type="success">
-                ${title
-                  ? html`
-                      <sbb-title level="3">
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                        eirmod tempor
-                      </sbb-title>
-                    `
-                  : nothing}
+                ${
+                  title
+                    ? html`
+                        <sbb-title level="3">
+                          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                          eirmod tempor
+                        </sbb-title>
+                      `
+                    : nothing
+                }
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
                 tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
                 eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea

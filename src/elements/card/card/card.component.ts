@@ -18,10 +18,7 @@ export class SbbCardElement extends SbbElement {
 
   /** Option to set the component's background color. */
   @property({ reflect: true }) public accessor color:
-    | 'white'
-    | 'milk'
-    | 'transparent-bordered'
-    | 'transparent-bordered-dashed' = 'white';
+    'white' | 'milk' | 'transparent-bordered' | 'transparent-bordered-dashed' = 'white';
 
   protected override render(): TemplateResult {
     return html`

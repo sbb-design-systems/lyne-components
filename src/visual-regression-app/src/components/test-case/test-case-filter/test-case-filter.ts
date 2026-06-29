@@ -57,8 +57,10 @@ class TestCaseFilter extends LitElement {
           <sbb-tag-group @change=${this._handleViewportChange}>
             <sbb-tag
               value="all"
-              amount=${((this.testCase?.stats.failedTests || this.testCase?.stats.baselines) ?? 0) +
-              (this.testCase?.stats.newTests ?? 0)}
+              amount=${
+                ((this.testCase?.stats.failedTests || this.testCase?.stats.baselines) ?? 0) +
+                (this.testCase?.stats.newTests ?? 0)
+              }
               checked
             >
               All

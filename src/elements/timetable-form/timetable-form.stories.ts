@@ -24,12 +24,14 @@ const fromToFields = (_args: Args, opt: { withVia?: boolean } = {}): TemplateRes
     <input type="text" name="from" />
   </sbb-timetable-form-field>
   <sbb-timetable-form-swap-button></sbb-timetable-form-swap-button>
-  ${opt.withVia
-    ? html` <sbb-timetable-form-field>
-        <label>Via</label>
-        <input type="text" name="via" />
-      </sbb-timetable-form-field>`
-    : nothing}
+  ${
+    opt.withVia
+      ? html` <sbb-timetable-form-field>
+          <label>Via</label>
+          <input type="text" name="via" />
+        </sbb-timetable-form-field>`
+      : nothing
+  }
   <sbb-timetable-form-field>
     <label>To</label>
     <input type="text" name="to" />

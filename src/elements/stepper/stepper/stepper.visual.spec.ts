@@ -46,9 +46,11 @@ describe(`sbb-stepper`, () => {
         <p>Step content 2</p>
       </sbb-step>
       <sbb-step-label
-        >${longLabel
-          ? 'Step 3 - Long label  lorem ipsum dolor sit amet, consetetur sadipscing elitr'
-          : 'Step 3'}</sbb-step-label
+        >${
+          longLabel
+            ? 'Step 3 - Long label  lorem ipsum dolor sit amet, consetetur sadipscing elitr'
+            : 'Step 3'
+        }</sbb-step-label
       >
       <sbb-step>
         <p>Step content 3</p>

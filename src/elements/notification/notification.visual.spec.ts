@@ -35,10 +35,12 @@ describe(`sbb-notification`, () => {
       icon-name=${iconName || nothing}
     >
       ${showTitle ? html`<sbb-title>Title</sbb-title>` : nothing}
-      ${hasText
-        ? html` The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
-          dog.`
-        : nothing}
+      ${
+        hasText
+          ? html` The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the
+            lazy dog.`
+          : nothing
+      }
       <sbb-link href="/">Link one</sbb-link>
       <sbb-link href="/">Link two</sbb-link>
       <sbb-link href="/">Link three</sbb-link>

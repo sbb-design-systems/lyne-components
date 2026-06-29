@@ -279,16 +279,21 @@ export class SbbPearlChainElement extends SbbElement {
           };
 
           return html` <div
-            class="sbb-pearl-chain__leg ${legStatus ||
-            ''} ${cancelled} ${skippedLeg} ${cancelledExpected}"
+            class="sbb-pearl-chain__leg ${
+              legStatus || ''
+            } ${cancelled} ${skippedLeg} ${cancelledExpected}"
             style=${styleMap(legStyle())}
           >
-            ${index > 0 && index < rideLegs.length
-              ? html`<span class="sbb-pearl-chain__stop ${departureSkippedBullet}"></span>`
-              : nothing}
-            ${status === 'progress' && !cancelled && !skippedLeg
-              ? this._renderPosition(now, legDepartureWithDelay, legArrivalWithDelay)
-              : nothing}
+            ${
+              index > 0 && index < rideLegs.length
+                ? html`<span class="sbb-pearl-chain__stop ${departureSkippedBullet}"></span>`
+                : nothing
+            }
+            ${
+              status === 'progress' && !cancelled && !skippedLeg
+                ? this._renderPosition(now, legDepartureWithDelay, legArrivalWithDelay)
+                : nothing
+            }
           </div>`;
         })}
         <span

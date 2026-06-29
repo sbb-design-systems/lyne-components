@@ -59,11 +59,7 @@ export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(Sb
 
   /** The type of the notification. */
   @property({ reflect: true }) public accessor type:
-    | 'info'
-    | 'note'
-    | 'success'
-    | 'warn'
-    | 'error' = 'info';
+    'info' | 'note' | 'success' | 'warn' | 'error' = 'info';
 
   /**
    * Size variant, either s (lean theme default) or m (standard theme default).
@@ -227,18 +223,23 @@ export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(Sb
             </p>
           </span>
 
-          ${!this.readOnly
-            ? html`
-                <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
-                <sbb-secondary-button
-                  size=${this.size || nothing}
-                  icon-name="cross-small"
-                  @click=${() => this.close()}
-                  aria-label=${i18nCloseNotification[this._language.current]}
-                  class="sbb-notification__close"
-                ></sbb-secondary-button>
-              `
-            : nothing}
+          ${
+            !this.readOnly
+              ? html`
+                  <sbb-divider
+                    class="sbb-notification__divider"
+                    orientation="vertical"
+                  ></sbb-divider>
+                  <sbb-secondary-button
+                    size=${this.size || nothing}
+                    icon-name="cross-small"
+                    @click=${() => this.close()}
+                    aria-label=${i18nCloseNotification[this._language.current]}
+                    class="sbb-notification__close"
+                  ></sbb-secondary-button>
+                `
+              : nothing
+          }
         </div>
       </div>
     `;

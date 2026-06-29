@@ -75,9 +75,11 @@ export class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
               </span>
             </span>
             <slot name="subtext"></slot>
-            ${this.expansionState
-              ? html`<span class="sbb-screen-reader-only">${this.expansionState}</span>`
-              : nothing}
+            ${
+              this.expansionState
+                ? html`<span class="sbb-screen-reader-only">${this.expansionState}</span>`
+                : nothing
+            }
           </span>
         </span>
       </span>

@@ -37,8 +37,7 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
 
   /** Backdrop density. */
   @property({ attribute: 'backdrop', reflect: true }) public accessor backdrop:
-    | 'opaque'
-    | 'translucent' = 'opaque';
+    'opaque' | 'translucent' = 'opaque';
 
   // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.
   // For more details:

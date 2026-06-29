@@ -217,12 +217,14 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
       (slot, index, array) => html`
         <li class="sbb-breadcrumb-group__item">
           <slot name=${slot.name}></slot>
-          ${index !== array.length - 1
-            ? html`<sbb-icon
-                name="chevron-small-right-small"
-                class="sbb-breadcrumb-group__divider-icon"
-              ></sbb-icon>`
-            : nothing}
+          ${
+            index !== array.length - 1
+              ? html`<sbb-icon
+                  name="chevron-small-right-small"
+                  class="sbb-breadcrumb-group__divider-icon"
+                ></sbb-icon>`
+              : nothing
+          }
         </li>
       `,
     );

@@ -126,8 +126,7 @@ export const SbbPaginatorCommonElementMixin = <
 
     /** Position of the prev/next buttons. */
     @property({ attribute: 'pager-position', reflect: true }) public accessor pagerPosition:
-      | 'start'
-      | 'end' = 'start';
+      'start' | 'end' = 'start';
 
     /**
      * Size variant, either s (lean theme default) or m (standard theme default).
@@ -298,9 +297,11 @@ export const SbbPaginatorCommonElementMixin = <
         <sbb-mini-button-group ?negative=${this.negative} size=${this.size || nothing}>
           <sbb-mini-button
             id="sbb-paginator-prev-page"
-            aria-label=${this.accessibilityPreviousPageLabel
-              ? this.accessibilityPreviousPageLabel
-              : i18nPreviousPage[this.language.current]}
+            aria-label=${
+              this.accessibilityPreviousPageLabel
+                ? this.accessibilityPreviousPageLabel
+                : i18nPreviousPage[this.language.current]
+            }
             icon-name="chevron-small-left-small"
             ?disabled=${this.disabled || !this.hasPreviousPage()}
             @click=${() => {
@@ -316,9 +317,11 @@ export const SbbPaginatorCommonElementMixin = <
           <sbb-divider orientation="vertical"></sbb-divider>
           <sbb-mini-button
             id="sbb-paginator-next-page"
-            aria-label=${this.accessibilityNextPageLabel
-              ? this.accessibilityNextPageLabel
-              : i18nNextPage[this.language.current]}
+            aria-label=${
+              this.accessibilityNextPageLabel
+                ? this.accessibilityNextPageLabel
+                : i18nNextPage[this.language.current]
+            }
             icon-name="chevron-small-right-small"
             ?disabled=${this.disabled || !this.hasNextPage()}
             @click=${() => {

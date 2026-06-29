@@ -27,10 +27,12 @@ const createDays = (year: number, month: number, withTooltip: boolean): Template
         <sbb-mini-calendar-day
           ${sbbSpread(tooltipAttributes)}
           date=${defaultDateAdapter.toIso8601(date)}
-          marker=${defaultDateAdapter.getDayOfWeek(date) === 0 ||
-          defaultDateAdapter.getDayOfWeek(date) === 6
-            ? 'circle'
-            : ''}
+          marker=${
+            defaultDateAdapter.getDayOfWeek(date) === 0 ||
+            defaultDateAdapter.getDayOfWeek(date) === 6
+              ? 'circle'
+              : ''
+          }
         ></sbb-mini-calendar-day>
       `;
     })}
