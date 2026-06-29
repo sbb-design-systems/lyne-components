@@ -3312,9 +3312,9 @@ bare-fs@^4.0.1, bare-fs@^4.5.5:
     fast-fifo "^1.3.2"
 
 bare-os@^3.0.1:
-  version "3.9.2"
-  resolved "https://registry.yarnpkg.com/bare-os/-/bare-os-3.9.2.tgz#5e380f64368078f92dc68dedbe4ddf7d14e8d280"
-  integrity sha512-h530JsrkYi8518ZfR57GHaLoI5YzXkGGEV0Y+mf4KYPBn4OnNajiznwkDq7FgE+Vnmyss9Utnzi44y7sowiAXA==
+  version "3.9.3"
+  resolved "https://registry.yarnpkg.com/bare-os/-/bare-os-3.9.3.tgz#eaf8a978a5fdda3dafc702b0f001449249eabe49"
+  integrity sha512-fF4Q7QsyKVF5Rj0qvI8BgUNjqzC2JvQlpTaPLjVJVxYVUX5Zr9un+y3w1HmA4nNKdFmRBT8z/WmrjvXzXVerKQ==
 
 bare-path@^3.0.0:
   version "3.0.1"
