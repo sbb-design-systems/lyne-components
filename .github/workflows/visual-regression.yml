@@ -29,6 +29,8 @@ jobs:
           path: node_modules/.cache/
           key: visual-regression-build-cache-${{ hashFiles('**/*.ts') }}
           restore-keys: visual-regression-build-cache-
+      - name: Output test cache structure
+        run: ls -llR node_modules/.cache/
 
       - name: Run lint
         run: yarn test:tsc
@@ -70,6 +72,8 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: test-artifacts
+      - name: Output test cache structure
+        run: ls -llR node_modules/.cache/
 
         # This step must not fail, so we define a fallback, which will succeed, even if
         # the visual regression tests failed. This will be evaluated in the secure workflow.
