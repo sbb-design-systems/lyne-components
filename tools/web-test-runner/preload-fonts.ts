@@ -45,8 +45,12 @@ export async function preloadFonts(): Promise<PreloadedFont[]> {
   console.log(`Preloading fonts`);
   for (const [weight, fontUrl] of preloadFontList) {
     const fontFile = basename(fontUrl);
-    const fontCachePath = join(cacheLocation, fontFile);
+
+    // E.g. v1_9_subset
+    const version = basename(dirname(fontUrl));
+    const fontCachePath = join(cacheLocation, `${version}-${fontFile}`);
     if (!existsSync(fontCachePath)) {
+      console.log(`Fetching ${fontFile} from ${fontUrl} and caching to ${fontCachePath}`);
       let font: ArrayBuffer;
       try {
         font = await downloadFont(fontUrl);
@@ -56,6 +60,8 @@ export async function preloadFonts(): Promise<PreloadedFont[]> {
       }
 
       writeFileSync(fontCachePath, Buffer.from(font), 'utf8');
+    } else {
+      console.log(`Using cached font ${fontFile} from ${fontCachePath}`);
     }
     preloadedFonts.push({
       weight,
