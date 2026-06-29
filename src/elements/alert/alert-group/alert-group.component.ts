@@ -99,11 +99,13 @@ export class SbbAlertGroupElement extends SbbElement {
 
     /* eslint-disable lit/binding-positions */
     return html`
-      ${this._hasAlerts
-        ? html`<${unsafeStatic(TITLE_TAG_NAME)} class="sbb-screen-reader-only">
+      ${
+        this._hasAlerts
+          ? html`<${unsafeStatic(TITLE_TAG_NAME)} class="sbb-screen-reader-only">
             <slot name="accessibility-title">${this.accessibilityTitle}</slot>
           </${unsafeStatic(TITLE_TAG_NAME)}>`
-        : nothing}
+          : nothing
+      }
       <slot @slotchange=${(event: Event) => this._slotChanged(event)}></slot>
     `;
   }

@@ -125,12 +125,14 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
     </sbb-carousel-list>
     <sbb-compact-paginator></sbb-compact-paginator>
   </sbb-carousel>
-  ${imgType === 'native-mobile'
-    ? html` <sbb-card color=${args.shadow ? 'white' : 'milk'}>
-        In mobile, scrolling the carousel can de-sync the paginator if the image is bigger than the
-        viewport. Be sure to set the right dimensions for the slotted image.
-      </sbb-card>`
-    : nothing}
+  ${
+    imgType === 'native-mobile'
+      ? html` <sbb-card color=${args.shadow ? 'white' : 'milk'}>
+          In mobile, scrolling the carousel can de-sync the paginator if the image is bigger than
+          the viewport. Be sure to set the right dimensions for the slotted image.
+        </sbb-card>`
+      : nothing
+  }
 `;
 
 const buttonTemplate = ({ shadow }: Args): TemplateResult => html`

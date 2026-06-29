@@ -93,15 +93,17 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
         <span class="sbb-expansion-panel-header__icon"> ${this.renderIconSlot()} </span>
         <slot></slot>
       </span>
-      ${!this.disabled
-        ? html`<span class="sbb-expansion-panel-header__toggle">
-            <sbb-icon
-              name="chevron-small-down-medium"
-              class="sbb-expansion-panel-header__toggle-icon"
-            >
-            </sbb-icon>
-          </span>`
-        : nothing}
+      ${
+        !this.disabled
+          ? html`<span class="sbb-expansion-panel-header__toggle">
+              <sbb-icon
+                name="chevron-small-down-medium"
+                class="sbb-expansion-panel-header__toggle-icon"
+              >
+              </sbb-icon>
+            </span>`
+          : nothing
+      }
     `;
   }
 }

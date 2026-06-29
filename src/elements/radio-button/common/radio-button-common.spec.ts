@@ -505,8 +505,7 @@ describe(`sbb-radio-button-common`, () => {
 
             // Create and add a new checked radio to the group
             const newRadio = document.createElement(selector) as
-              | SbbRadioButtonElement
-              | SbbRadioButtonPanelElement;
+              SbbRadioButtonElement | SbbRadioButtonPanelElement;
             newRadio.setAttribute('name', 'sbb-group-1');
             newRadio.setAttribute('value', '4');
             newRadio.toggleAttribute('checked', true);
@@ -842,8 +841,7 @@ describe(`sbb-radio-button-common`, () => {
             // TODO: Deserialization needs the compareValue function to work properly, for now we use 'numbers' as complex value.
             (
               elements as unknown as (
-                | SbbRadioButtonElement<number>
-                | SbbRadioButtonPanelElement<number>
+                SbbRadioButtonElement<number> | SbbRadioButtonPanelElement<number>
               )[]
             ).forEach((r, i) => (r.value = i));
             await waitForLitRender(form);

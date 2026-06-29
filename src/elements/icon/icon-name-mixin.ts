@@ -40,9 +40,11 @@ export const SbbIconNameMixin = <T extends AbstractConstructor<SbbElement> & Sbb
 
       return html`
         <slot name="icon">
-          ${iconName
-            ? html`<sbb-icon name=${iconName} class=${classname || nothing}></sbb-icon>`
-            : nothing}
+          ${
+            iconName
+              ? html`<sbb-icon name=${iconName} class=${classname || nothing}></sbb-icon>`
+              : nothing
+          }
         </slot>
       `;
     }

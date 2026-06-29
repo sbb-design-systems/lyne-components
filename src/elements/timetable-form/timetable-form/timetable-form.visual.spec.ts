@@ -23,14 +23,16 @@ const fromToFields = (opt: { hasVia?: boolean } = {}): TemplateResult => html`
     <input type="text" name="from" />
   </sbb-timetable-form-field>
   <sbb-timetable-form-swap-button></sbb-timetable-form-swap-button>
-  ${opt.hasVia
-    ? html`
-        <sbb-timetable-form-field>
-          <label>Via</label>
-          <input type="text" name="via" />
-        </sbb-timetable-form-field>
-      `
-    : nothing}
+  ${
+    opt.hasVia
+      ? html`
+          <sbb-timetable-form-field>
+            <label>Via</label>
+            <input type="text" name="via" />
+          </sbb-timetable-form-field>
+        `
+      : nothing
+  }
   <sbb-timetable-form-field>
     <label>To</label>
     <input type="text" name="to" />

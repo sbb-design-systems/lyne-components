@@ -46,9 +46,11 @@ describe(`sbb-time-input`, () => {
         ?disabled=${args.disabled}
         ?readonly="${args.readonly}"
       ></sbb-time-input>
-      ${!args.noIcons
-        ? html`<sbb-icon slot="suffix" name="circle-information-small"></sbb-icon>`
-        : nothing}
+      ${
+        !args.noIcons
+          ? html`<sbb-icon slot="suffix" name="circle-information-small"></sbb-icon>`
+          : nothing
+      }
       ${args.withError ? html`<sbb-error>Error message</sbb-error>` : nothing}
     </sbb-form-field>
   `;

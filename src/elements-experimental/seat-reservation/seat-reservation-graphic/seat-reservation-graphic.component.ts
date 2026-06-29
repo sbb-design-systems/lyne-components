@@ -47,13 +47,15 @@ export class SbbSeatReservationGraphicElement extends SbbElement {
         'sbb-sr-graphic': !!svgObj.svg,
       })}"
     >
-      ${svgObj.svgName
-        ? html` <sbb-icon
-            name="${svgObj.svgName || ''}"
-            aria-hidden="false"
-            aria-label="${getI18nSeatReservation(svgObj.svgName, this._language.current)}"
-          ></sbb-icon>`
-        : html`${this._getSvgElement(svgObj.svg!)}`}
+      ${
+        svgObj.svgName
+          ? html` <sbb-icon
+              name="${svgObj.svgName || ''}"
+              aria-hidden="false"
+              aria-label="${getI18nSeatReservation(svgObj.svgName, this._language.current)}"
+            ></sbb-icon>`
+          : html`${this._getSvgElement(svgObj.svg!)}`
+      }
     </span>`;
   }
 

@@ -56,8 +56,7 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(SbbEleme
    * the sbb-select for the pageSize change will be positioned oppositely, with the page numbers always in the center.
    */
   @property({ attribute: 'pager-position', reflect: true }) public override accessor pagerPosition:
-    | 'start'
-    | 'end' = 'start';
+    'start' | 'end' = 'start';
 
   /**
    * Accessibility label for the items per page. Defaults to `Items per page.`.
@@ -140,9 +139,11 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(SbbEleme
       ? html`
           <div class="sbb-paginator__page-size-options">
             <label for="select"
-              >${this.accessibilityItemsPerPageLabel
-                ? this.accessibilityItemsPerPageLabel
-                : i18nItemsPerPage[this.language.current]}</label
+              >${
+                this.accessibilityItemsPerPageLabel
+                  ? this.accessibilityItemsPerPageLabel
+                  : i18nItemsPerPage[this.language.current]
+              }</label
             >
             <sbb-form-field
               borderless
@@ -153,8 +154,9 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(SbbEleme
               <sbb-select
                 id="select"
                 ?disabled=${this.disabled}
-                value=${this.pageSizeOptions?.find((e) => e === this.pageSize) ??
-                this.pageSizeOptions![0]}
+                value=${
+                  this.pageSizeOptions?.find((e) => e === this.pageSize) ?? this.pageSizeOptions![0]
+                }
                 @change=${(e: Event) =>
                   (this.pageSize = +((e.target as SbbSelectElement).value as string))}
               >
@@ -172,32 +174,32 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(SbbEleme
   private _renderPageNumbers(): TemplateResult {
     return html`
       <ul class="sbb-paginator__pages">
-        ${repeat(
-          this._getVisiblePagesIndex(),
-          (item: number | 'ellipsis'): TemplateResult =>
-            item === 'ellipsis'
-              ? html`
-                  <li class="sbb-paginator__page--ellipsis">
-                    <span class="sbb-paginator__page--ellipsis-item">…</span>
-                  </li>
-                `
-              : html`
-                  <li class="sbb-paginator__page--number">
-                    <button
-                      ?data-selected=${this.pageIndex === item}
-                      ?disabled=${this.disabled}
-                      class="sbb-paginator__page--number-item"
-                      data-index=${item}
-                      aria-label="${this.accessibilityPageLabel
+        ${repeat(this._getVisiblePagesIndex(), (item: number | 'ellipsis'): TemplateResult =>
+          item === 'ellipsis'
+            ? html`
+                <li class="sbb-paginator__page--ellipsis">
+                  <span class="sbb-paginator__page--ellipsis-item">…</span>
+                </li>
+              `
+            : html`
+                <li class="sbb-paginator__page--number">
+                  <button
+                    ?data-selected=${this.pageIndex === item}
+                    ?disabled=${this.disabled}
+                    class="sbb-paginator__page--number-item"
+                    data-index=${item}
+                    aria-label="${
+                      this.accessibilityPageLabel
                         ? this.accessibilityPageLabel
-                        : i18nPage[this.language.current]} ${item + 1}"
-                      aria-current=${this.pageIndex === item ? 'true' : nothing}
-                      @click=${() => this._onPageNumberClick(item)}
-                    >
-                      <span class="sbb-paginator__page--number-item-label">${item + 1}</span>
-                    </button>
-                  </li>
-                `,
+                        : i18nPage[this.language.current]
+                    } ${item + 1}"
+                    aria-current=${this.pageIndex === item ? 'true' : nothing}
+                    @click=${() => this._onPageNumberClick(item)}
+                  >
+                    <span class="sbb-paginator__page--number-item-label">${item + 1}</span>
+                  </button>
+                </li>
+              `,
         )}
       </ul>
     `;

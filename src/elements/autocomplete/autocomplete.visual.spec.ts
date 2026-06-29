@@ -97,15 +97,19 @@ describe('sbb-autocomplete', () => {
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
       <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
-        ${args.withGroup
-          ? args.withMixedOptionAndGroup
-            ? createMixedOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
-            : createOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
-          : createOptions(args.withIcon, args.disableOption)}
+        ${
+          args.withGroup
+            ? args.withMixedOptionAndGroup
+              ? createMixedOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
+              : createOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
+            : createOptions(args.withIcon, args.disableOption)
+        }
       </sbb-autocomplete>
-      ${args.required
-        ? html`<sbb-error slot="error">This is a required field.</sbb-error>`
-        : nothing}
+      ${
+        args.required
+          ? html`<sbb-error slot="error">This is a required field.</sbb-error>`
+          : nothing
+      }
     </sbb-form-field>
     ${textBlock()}
   `;

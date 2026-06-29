@@ -37,12 +37,14 @@ export class SbbTimetableFormFieldElement extends SbbFormFieldElement {
 
   public override render(): TemplateResult {
     return html`
-      ${this._routeIcon
-        ? html` <sbb-icon
-            name="route-circle-start-small"
-            class="sbb-timetable-form-field__start-route-icon"
-          ></sbb-icon>`
-        : html` <span class="sbb-timetable-form-field__via-route-icon"></span> `}
+      ${
+        this._routeIcon
+          ? html` <sbb-icon
+              name="route-circle-start-small"
+              class="sbb-timetable-form-field__start-route-icon"
+            ></sbb-icon>`
+          : html` <span class="sbb-timetable-form-field__via-route-icon"></span> `
+      }
       ${super.render()}
     `;
   }

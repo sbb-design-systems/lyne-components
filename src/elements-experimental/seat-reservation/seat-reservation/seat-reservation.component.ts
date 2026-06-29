@@ -510,25 +510,27 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
           background="dark"
           aria-hidden="true"
         >
-          ${areaProperty
-            ? html`
-                <sbb-seat-reservation-graphic
-                  style=${styleMap({
-                    '--sbb-seat-reservation-graphic-max-width': this.globalAreaIconDim.w,
-                    '--sbb-seat-reservation-graphic-max-height': this.globalAreaIconDim.h,
-                    '--sbb-seat-reservation-graphic-width': graphicElement.dimension.w,
-                    '--sbb-seat-reservation-graphic-height': graphicElement.dimension.h,
-                    '--sbb-seat-reservation-graphic-rotation': graphicElement.rotation,
-                    '--sbb-seat-reservation-graphic-padding-percent':
-                      areaProperty !== 'ENTRY_EXIT' ? this.globalAreaIconPadding : 1,
-                  })}
-                  name=${areaProperty}
-                  role="img"
-                  aria-hidden="true"
-                  class="sbb-sr-graphic__dimension--square-dim"
-                ></sbb-seat-reservation-graphic>
-              `
-            : nothing}
+          ${
+            areaProperty
+              ? html`
+                  <sbb-seat-reservation-graphic
+                    style=${styleMap({
+                      '--sbb-seat-reservation-graphic-max-width': this.globalAreaIconDim.w,
+                      '--sbb-seat-reservation-graphic-max-height': this.globalAreaIconDim.h,
+                      '--sbb-seat-reservation-graphic-width': graphicElement.dimension.w,
+                      '--sbb-seat-reservation-graphic-height': graphicElement.dimension.h,
+                      '--sbb-seat-reservation-graphic-rotation': graphicElement.rotation,
+                      '--sbb-seat-reservation-graphic-padding-percent':
+                        areaProperty !== 'ENTRY_EXIT' ? this.globalAreaIconPadding : 1,
+                    })}
+                    name=${areaProperty}
+                    role="img"
+                    aria-hidden="true"
+                    class="sbb-sr-graphic__dimension--square-dim"
+                  ></sbb-seat-reservation-graphic>
+                `
+              : nothing
+          }
         </sbb-seat-reservation-area>
         ${areaProperty ? this._popover(triggerId, ariaLabelForArea) : nothing}
       `;

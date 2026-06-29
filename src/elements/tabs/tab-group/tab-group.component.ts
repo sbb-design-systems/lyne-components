@@ -274,13 +274,15 @@ export class SbbTabGroupElement extends SbbElement {
       >
         <slot name="tab-bar" @slotchange=${this._onLabelSlotChange}></slot>
       </div>
-      ${!this.fixedHeight
-        ? html`
-            <div class="sbb-tab-group-content">
-              <slot @slotchange=${this._onContentSlotChange}></slot>
-            </div>
-          `
-        : html`<slot @slotchange=${this._onContentSlotChange}></slot>`}
+      ${
+        !this.fixedHeight
+          ? html`
+              <div class="sbb-tab-group-content">
+                <slot @slotchange=${this._onContentSlotChange}></slot>
+              </div>
+            `
+          : html`<slot @slotchange=${this._onContentSlotChange}></slot>`
+      }
     `;
   }
 }

@@ -74,9 +74,9 @@ describe('sbb-calendar', () => {
                         .value=${new Date(2023, 0, 20)}
                         .min=${min.value ? defaultDateAdapter.toIso8601(min.value) : nothing}
                         .max=${max.value ? defaultDateAdapter.toIso8601(max.value) : nothing}
-                        >${variant === 'default'
-                          ? nothing
-                          : createSlottedDays(2023, 1, true)}</sbb-calendar
+                        >${
+                          variant === 'default' ? nothing : createSlottedDays(2023, 1, true)
+                        }</sbb-calendar
                       >
                     `);
                   }),
@@ -95,16 +95,18 @@ describe('sbb-calendar', () => {
                         orientation=${orientation}
                         amount=${amount}
                         .value=${new Date(2023, 0, 20)}
-                        >${variant === 'default'
-                          ? nothing
-                          : html`${Array.from({ length: amount }, (_, i) => {
-                              const date = defaultDateAdapter.addCalendarMonths(today, i);
-                              return createSlottedDays(
-                                defaultDateAdapter.getYear(date),
-                                defaultDateAdapter.getMonth(date),
-                                true,
-                              );
-                            })}`}
+                        >${
+                          variant === 'default'
+                            ? nothing
+                            : html`${Array.from({ length: amount }, (_, i) => {
+                                const date = defaultDateAdapter.addCalendarMonths(today, i);
+                                return createSlottedDays(
+                                  defaultDateAdapter.getYear(date),
+                                  defaultDateAdapter.getMonth(date),
+                                  true,
+                                );
+                              })}`
+                        }
                       </sbb-calendar>
                     `);
                   }),
@@ -119,16 +121,18 @@ describe('sbb-calendar', () => {
                         orientation=${orientation}
                         amount=${amount}
                         .value=${new Date(2023, 0, 20)}
-                        >${variant === 'default'
-                          ? nothing
-                          : html`${Array.from({ length: amount }, (_, i) => {
-                              const date = defaultDateAdapter.addCalendarMonths(today, i);
-                              return createSlottedDays(
-                                defaultDateAdapter.getYear(date),
-                                defaultDateAdapter.getMonth(date),
-                                true,
-                              );
-                            })}`}
+                        >${
+                          variant === 'default'
+                            ? nothing
+                            : html`${Array.from({ length: amount }, (_, i) => {
+                                const date = defaultDateAdapter.addCalendarMonths(today, i);
+                                return createSlottedDays(
+                                  defaultDateAdapter.getYear(date),
+                                  defaultDateAdapter.getMonth(date),
+                                  true,
+                                );
+                              })}`
+                        }
                       </sbb-calendar>
                     `);
 
@@ -164,16 +168,18 @@ describe('sbb-calendar', () => {
                           amount=${amount}
                           .value=${selected}
                           week-numbers
-                          >${variant === 'default'
-                            ? nothing
-                            : html`${Array.from({ length: amount }, (_, i) => {
-                                const date = defaultDateAdapter.addCalendarMonths(today, i);
-                                return createSlottedDays(
-                                  defaultDateAdapter.getYear(date),
-                                  defaultDateAdapter.getMonth(date),
-                                  true,
-                                );
-                              })}`}
+                          >${
+                            variant === 'default'
+                              ? nothing
+                              : html`${Array.from({ length: amount }, (_, i) => {
+                                  const date = defaultDateAdapter.addCalendarMonths(today, i);
+                                  return createSlottedDays(
+                                    defaultDateAdapter.getYear(date),
+                                    defaultDateAdapter.getMonth(date),
+                                    true,
+                                  );
+                                })}`
+                          }
                         </sbb-calendar>
                       `);
                     }),
@@ -192,16 +198,18 @@ describe('sbb-calendar', () => {
                           .max=${defaultDateAdapter.toIso8601(new Date(2023, 1, 17))}
                           .value=${new Date(2023, 0, 20)}
                           .dateFilter=${fn.dateFilter}
-                          >${variant === 'default'
-                            ? nothing
-                            : html`${Array.from({ length: amount }, (_, i) => {
-                                const date = defaultDateAdapter.addCalendarMonths(today, i);
-                                return createSlottedDays(
-                                  defaultDateAdapter.getYear(date),
-                                  defaultDateAdapter.getMonth(date),
-                                  true,
-                                );
-                              })}`}
+                          >${
+                            variant === 'default'
+                              ? nothing
+                              : html`${Array.from({ length: amount }, (_, i) => {
+                                  const date = defaultDateAdapter.addCalendarMonths(today, i);
+                                  return createSlottedDays(
+                                    defaultDateAdapter.getYear(date),
+                                    defaultDateAdapter.getMonth(date),
+                                    true,
+                                  );
+                                })}`
+                          }
                         </sbb-calendar>
                       `);
                     }),
@@ -219,16 +227,18 @@ describe('sbb-calendar', () => {
                           amount=${amount}
                           .value=${new Date(2023, 0, 20)}
                         >
-                          ${variant === 'default'
-                            ? nothing
-                            : html`${Array.from({ length: amount }, (_, i) => {
-                                const date = defaultDateAdapter.addCalendarMonths(today, i);
-                                return createSlottedDays(
-                                  defaultDateAdapter.getYear(date),
-                                  defaultDateAdapter.getMonth(date),
-                                  true,
-                                );
-                              })}`}
+                          ${
+                            variant === 'default'
+                              ? nothing
+                              : html`${Array.from({ length: amount }, (_, i) => {
+                                  const date = defaultDateAdapter.addCalendarMonths(today, i);
+                                  return createSlottedDays(
+                                    defaultDateAdapter.getYear(date),
+                                    defaultDateAdapter.getMonth(date),
+                                    true,
+                                  );
+                                })}`
+                          }
                         </sbb-calendar>
                       `);
                     }),
@@ -244,16 +254,18 @@ describe('sbb-calendar', () => {
                         orientation=${orientation}
                         amount=${amount}
                         .value=${new Date(2023, 0, 20)}
-                        >${variant === 'default'
-                          ? nothing
-                          : html`${Array.from({ length: amount }, (_, i) => {
-                              const date = defaultDateAdapter.addCalendarMonths(today, i);
-                              return createSlottedDays(
-                                defaultDateAdapter.getYear(date),
-                                defaultDateAdapter.getMonth(date),
-                                true,
-                              );
-                            })}`}
+                        >${
+                          variant === 'default'
+                            ? nothing
+                            : html`${Array.from({ length: amount }, (_, i) => {
+                                const date = defaultDateAdapter.addCalendarMonths(today, i);
+                                return createSlottedDays(
+                                  defaultDateAdapter.getYear(date),
+                                  defaultDateAdapter.getMonth(date),
+                                  true,
+                                );
+                              })}`
+                        }
                       </sbb-calendar>
                     `);
                   }),

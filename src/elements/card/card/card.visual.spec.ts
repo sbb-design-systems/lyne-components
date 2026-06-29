@@ -40,13 +40,15 @@ describe(`sbb-card`, () => {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. justo.
               </span>
 
-              ${badge !== 'none'
-                ? html`
-                    <sbb-card-badge color=${badge}>
-                      <span>% from CHF 19.99</span>
-                    </sbb-card-badge>
-                  `
-                : nothing}
+              ${
+                badge !== 'none'
+                  ? html`
+                      <sbb-card-badge color=${badge}>
+                        <span>% from CHF 19.99</span>
+                      </sbb-card-badge>
+                    `
+                  : nothing
+              }
             </sbb-card>
           `,
           {
@@ -76,13 +78,15 @@ describe(`sbb-card`, () => {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. justo.
               </span>
 
-              ${badge !== 'none'
-                ? html`
-                    <sbb-card-badge color=${badge}>
-                      <span>% from CHF 19.99</span>
-                    </sbb-card-badge>
-                  `
-                : nothing}
+              ${
+                badge !== 'none'
+                  ? html`
+                      <sbb-card-badge color=${badge}>
+                        <span>% from CHF 19.99</span>
+                      </sbb-card-badge>
+                    `
+                  : nothing
+              }
             </sbb-card>
           `,
           {

@@ -30,12 +30,14 @@ describe('sbb-slider', () => {
       start-icon=${withIcon && !withSlottedIcon ? 'walk-slow-small' : nothing}
       end-icon=${withIcon && !withSlottedIcon ? 'walk-fast-small' : nothing}
     >
-      ${withIcon && withSlottedIcon
-        ? html`
-            <sbb-icon slot="prefix" name="battery-level-empty-small"></sbb-icon>
-            <sbb-icon slot="suffix" name="battery-level-high-small"></sbb-icon>
-          `
-        : nothing}
+      ${
+        withIcon && withSlottedIcon
+          ? html`
+              <sbb-icon slot="prefix" name="battery-level-empty-small"></sbb-icon>
+              <sbb-icon slot="suffix" name="battery-level-high-small"></sbb-icon>
+            `
+          : nothing
+      }
     </sbb-slider>
   `;
 

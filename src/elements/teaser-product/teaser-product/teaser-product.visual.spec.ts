@@ -56,9 +56,11 @@ const template = ({
   longContent?: boolean;
 } = {}): TemplateResult => html`
   <sbb-teaser-product ?negative=${negative} image-alignment=${imageAlignment || nothing} href="#">
-    ${slottedImg
-      ? html`<img slot="image" src=${imageBase64} alt="" />`
-      : html`<sbb-image slot="image" image-src=${imageUrl} skip-lqip></sbb-image>`}
+    ${
+      slottedImg
+        ? html`<img slot="image" src=${imageBase64} alt="" />`
+        : html`<sbb-image slot="image" image-src=${imageUrl} skip-lqip></sbb-image>`
+    }
     ${content(longContent)} ${showFooter ? footer() : nothing}
   </sbb-teaser-product>
 `;
@@ -78,13 +80,17 @@ const withChipTemplate = ({
 } = {}): TemplateResult => html`
   <sbb-teaser-product ?negative=${negative} image-alignment=${imageAlignment || nothing} href="#">
     <figure class="sbb-figure" slot="image">
-      ${slottedImg
-        ? html`<img src=${imageBase64} alt="" />`
-        : html`<sbb-image image-src=${imageUrl} skip-lqip></sbb-image>`}
+      ${
+        slottedImg
+          ? html`<img src=${imageBase64} alt="" />`
+          : html`<sbb-image image-src=${imageUrl} skip-lqip></sbb-image>`
+      }
       <sbb-chip-label
-        class=${imageAlignment === 'after'
-          ? 'sbb-figure-overlap-start-end'
-          : 'sbb-figure-overlap-start-start'}
+        class=${
+          imageAlignment === 'after'
+            ? 'sbb-figure-overlap-start-end'
+            : 'sbb-figure-overlap-start-start'
+        }
         >Label</sbb-chip-label
       >
     </figure>
