@@ -55,7 +55,7 @@ jobs:
           key: test-build-cache-${{ hashFiles('**/tools/web-test-runner/preload-*.ts') }}
           restore-keys: test-build-cache-
       - name: Output test cache structure
-        run: ls -llR ./node_modules/.cache/
+        run: ls -llR node_modules/.cache/
 
       - name: Run tests
         run: yarn test --segment=${{ matrix.segment }}/${{ env.max-segment }}
