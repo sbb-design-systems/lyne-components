@@ -62,6 +62,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: test-artifacts
+          path: node_modules/.cache/
       - name: Output test cache structure
         run: ls -llR node_modules/.cache/
 
