@@ -24,22 +24,25 @@ jobs:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
-      - uses: actions/cache@v6
-        id: cache
+      - uses: actions/cache/restore@v6
         with:
-          path: node_modules/.cache/lyne-cdn/
-          key: test-build-cache-${{ hashFiles('**/tools/web-test-runner/preload-*.ts') }}
-          restore-keys: test-build-cache-
-      - name: Output test cache structure
-        run: echo "${{ github.ref }}"
-        shell: bash
+          path: node_modules/.cache/
+          key: visual-regression-build-cache-${{ hashFiles('**/*.ts') }}
+          restore-keys: visual-regression-build-cache-
 
       - name: Run lint
         run: yarn test:tsc
 
       - name: Preload test artifacts
-        if: steps.cache.outputs.cache-hit != 'true'
         run: node scripts/preload-test-artifacts.ts
+
+      - name: Store test artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-artifacts
+          path: node_modules/.cache/
+          retention-days: 1
+          include-hidden-files: true
 
   test:
     runs-on: ubuntu-latest
@@ -63,17 +66,10 @@ jobs:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
-      - name: Restore test cache
-        uses: actions/cache@v6
+      - name: Restore test artifacts
+        uses: actions/download-artifact@v8
         with:
-          path: node_modules/.cache/lyne-cdn/
-          key: test-build-cache-${{ hashFiles('**/tools/web-test-runner/preload-*.ts') }}
-          restore-keys: test-build-cache-
-      - name: Output test cache structure
-        run: echo "${{ github.ref }}"
-        shell: bash
-      - name: Output test cache structure
-        run: ls -llR node_modules/.cache/
+          name: test-artifacts
 
         # This step must not fail, so we define a fallback, which will succeed, even if
         # the visual regression tests failed. This will be evaluated in the secure workflow.
@@ -90,6 +86,14 @@ jobs:
           NODE_ENV: production
           RELEVANT_SHA: ${{ github.sha }}
 
+      - name: Store build cache
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-cache-${{ matrix.segment }}
+          path: node_modules/.cache/
+          retention-days: 1
+          include-hidden-files: true
       - name: Store visual regression output
         uses: actions/upload-artifact@v7
         with:
@@ -110,8 +114,21 @@ jobs:
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
 
+      - name: Assemble build cache
+        uses: actions/download-artifact@v8
+        with:
+          path: node_modules/.cache/
+          pattern: build-cache-*
+          merge-multiple: true
+      - uses: actions/cache/save@v6
+        with:
+          path: node_modules/.cache/
+          key: visual-regression-build-cache-${{ hashFiles('**/*.ts') }}
+
       - uses: actions/download-artifact@v8
+        if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
       - name: Assemble screenshots
+        if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
         run: |
           mkdir -p dist/screenshots
           for file in matrix-screenshots-*/; do
