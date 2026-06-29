@@ -305,9 +305,11 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
           >
             ${this.renderLabel()}
           </span>
-          ${this._inertAriaGroups && this.groupLabel
-            ? html`<span class="sbb-screen-reader-only"> (${this.groupLabel})</span>`
-            : nothing}
+          ${
+            this._inertAriaGroups && this.groupLabel
+              ? html`<span class="sbb-screen-reader-only"> (${this.groupLabel})</span>`
+              : nothing
+          }
         </span>
         ${this.renderTick()}
       </div>

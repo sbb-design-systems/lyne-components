@@ -120,11 +120,13 @@ function renderTransferTime(
       <sbb-icon name=${icon}></sbb-icon>
       <time datetime=${duration + 'M'}>
         <span class="sbb-screen-reader-only">
-          ${!label && type
-            ? type === 'departure'
-              ? i18nWalkingDistanceDeparture[currentLanguage]
-              : i18nWalkingDistanceArrival[currentLanguage]
-            : nothing}
+          ${
+            !label && type
+              ? type === 'departure'
+                ? i18nWalkingDistanceDeparture[currentLanguage]
+                : i18nWalkingDistanceArrival[currentLanguage]
+              : nothing
+          }
           ${label ? html`<span>${label}</span>` : nothing}&nbsp;
         </span>
         ${duration}
@@ -182,8 +184,7 @@ export function getDepartureArrivalTimeAttribute(
   const connectionRideLeg =
     legs &&
     (legs.filter((leg) => isRideLeg(leg) || isConnectionLeg(leg))[0] as
-      | PtRideLeg
-      | PtConnectionLeg);
+      PtRideLeg | PtConnectionLeg);
 
   const connectionLegNotice = ['YM', 'YB', 'Y', 'YT'];
 
@@ -216,38 +217,44 @@ export function getDepartureArrivalTimeAttribute(
 
   function renderDepartureTimeAttribute(): TemplateResult {
     return html`
-      ${connectionFirstLeg
-        ? renderWalkTime(
-            connectionFirstLeg.duration,
-            connectionFirstLeg.text,
-            'left',
-            connectionFirstLeg.icon,
-          )
-        : nothing}
-      ${departureWalkAttribute && !extendedFirstLeg && !connectionFirstLeg
-        ? renderWalkTime(
-            departureWalkAttribute.duration,
-            departureWalkAttribute.text,
-            'left',
-            departureWalkAttribute.icon,
-          )
-        : nothing}
-      ${extendedFirstLeg
-        ? a11yFootpath
+      ${
+        connectionFirstLeg
           ? renderWalkTime(
-              extendedFirstLeg.duration,
-              extendedFirstLeg.text,
+              connectionFirstLeg.duration,
+              connectionFirstLeg.text,
               'left',
-              extendedFirstLeg.icon,
+              connectionFirstLeg.icon,
             )
-          : renderTransferTime(
-              extendedFirstLeg.duration,
-              extendedFirstLeg.icon,
-              currentLanguage,
-              extendedFirstLeg.text,
-              'departure',
+          : nothing
+      }
+      ${
+        departureWalkAttribute && !extendedFirstLeg && !connectionFirstLeg
+          ? renderWalkTime(
+              departureWalkAttribute.duration,
+              departureWalkAttribute.text,
+              'left',
+              departureWalkAttribute.icon,
             )
-        : nothing}
+          : nothing
+      }
+      ${
+        extendedFirstLeg
+          ? a11yFootpath
+            ? renderWalkTime(
+                extendedFirstLeg.duration,
+                extendedFirstLeg.text,
+                'left',
+                extendedFirstLeg.icon,
+              )
+            : renderTransferTime(
+                extendedFirstLeg.duration,
+                extendedFirstLeg.icon,
+                currentLanguage,
+                extendedFirstLeg.text,
+                'departure',
+              )
+          : nothing
+      }
     `;
   }
 
@@ -282,38 +289,44 @@ export function getDepartureArrivalTimeAttribute(
 
   function renderArrivalTimeAttribute(): TemplateResult {
     return html`
-      ${connectionLastLeg
-        ? renderWalkTime(
-            connectionLastLeg.duration,
-            connectionLastLeg.text,
-            'right',
-            connectionLastLeg.icon,
-          )
-        : nothing}
-      ${arrivalWalkAttribute && !extendedLastLeg && !connectionLastLeg
-        ? renderWalkTime(
-            arrivalWalkAttribute.duration,
-            arrivalWalkAttribute.text,
-            'right',
-            arrivalWalkAttribute.icon,
-          )
-        : nothing}
-      ${extendedLastLeg
-        ? a11yFootpath
+      ${
+        connectionLastLeg
           ? renderWalkTime(
-              extendedLastLeg.duration,
-              extendedLastLeg.text,
+              connectionLastLeg.duration,
+              connectionLastLeg.text,
               'right',
-              extendedLastLeg.icon,
+              connectionLastLeg.icon,
             )
-          : renderTransferTime(
-              extendedLastLeg.duration,
-              extendedLastLeg.icon,
-              currentLanguage,
-              extendedLastLeg.text,
-              'arrival',
+          : nothing
+      }
+      ${
+        arrivalWalkAttribute && !extendedLastLeg && !connectionLastLeg
+          ? renderWalkTime(
+              arrivalWalkAttribute.duration,
+              arrivalWalkAttribute.text,
+              'right',
+              arrivalWalkAttribute.icon,
             )
-        : nothing}
+          : nothing
+      }
+      ${
+        extendedLastLeg
+          ? a11yFootpath
+            ? renderWalkTime(
+                extendedLastLeg.duration,
+                extendedLastLeg.text,
+                'right',
+                extendedLastLeg.icon,
+              )
+            : renderTransferTime(
+                extendedLastLeg.duration,
+                extendedLastLeg.icon,
+                currentLanguage,
+                extendedLastLeg.text,
+                'arrival',
+              )
+          : nothing
+      }
     `;
   }
 

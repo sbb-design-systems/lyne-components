@@ -38,11 +38,7 @@ export class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElement) {
 
   /** Color of the container, like transparent, white etc. */
   @property({ reflect: true }) public accessor color:
-    | 'white'
-    | 'milk'
-    | 'midnight'
-    | 'charcoal'
-    | null = null;
+    'white' | 'milk' | 'midnight' | 'charcoal' | null = null;
 
   /**
    * Size of the sticky bar, either s (lean theme default) or m (standard theme default).

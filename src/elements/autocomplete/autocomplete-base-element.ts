@@ -734,9 +734,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     return html`
       <div class="sbb-option-panel__overlay-container">
         <div
-          class="sbb-option-panel__overlay ${this.negative
-            ? 'sbb-scrollbar-negative'
-            : 'sbb-scrollbar'}"
+          class="sbb-option-panel__overlay ${
+            this.negative ? 'sbb-scrollbar-negative' : 'sbb-scrollbar'
+          }"
           role=${!ariaRoleOnHost ? this.panelRole : nothing}
           id=${!ariaRoleOnHost ? this.overlayId : nothing}
           tabindex="-1"

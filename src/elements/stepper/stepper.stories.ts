@@ -42,8 +42,7 @@ const horizontalFrom: InputType = {
     type: 'select',
   },
   options: ['unset', 'zero', 'small', 'large', 'ultra'] satisfies (
-    | SbbStepperElement['horizontalFrom']
-    | 'unset'
+    SbbStepperElement['horizontalFrom'] | 'unset'
   )[],
 };
 
@@ -142,9 +141,9 @@ const stepperContent = (disabled: boolean, longLabel: boolean): TemplateResult[]
   ['First', 'Second', 'Third', 'Fourth'].map(
     (element, index, arr) => html`
       <sbb-step-label ?disabled=${disabled && index === 2}
-        >${longLabel
-          ? loremIpsum.substring(0, loremIpsumSubstring[index])
-          : `${element} step`}</sbb-step-label
+        >${
+          longLabel ? loremIpsum.substring(0, loremIpsumSubstring[index]) : `${element} step`
+        }</sbb-step-label
       >
       <sbb-step>
         <div
@@ -155,13 +154,17 @@ const stepperContent = (disabled: boolean, longLabel: boolean): TemplateResult[]
           ${element} step
           content${longLabel ? '.' : `: ${loremIpsum.substring(0, loremIpsumSubstring[index])}`}
         </div>
-        ${index !== 0
-          ? html`<sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>`
-          : nothing}
+        ${
+          index !== 0
+            ? html`<sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>`
+            : nothing
+        }
         ${index !== arr.length - 1 ? html`<sbb-button sbb-stepper-next>Next</sbb-button>` : nothing}
-        ${index === arr.length - 1
-          ? html`<sbb-button sbb-stepper-next>Submit</sbb-button>`
-          : nothing}
+        ${
+          index === arr.length - 1
+            ? html`<sbb-button sbb-stepper-next>Submit</sbb-button>`
+            : nothing
+        }
       </sbb-step>
     `,
   );

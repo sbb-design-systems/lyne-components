@@ -116,11 +116,13 @@ describe(`sbb-teaser`, () => {
                     <sbb-teaser href="#" alignment=${alignment}>
                       <figure slot="image" class="sbb-figure">
                         <img src=${imageBase64} />
-                        ${hasChip
-                          ? html`<sbb-chip-label class="sbb-figure-overlap-start-start">
-                              AI chip
-                            </sbb-chip-label>`
-                          : nothing}
+                        ${
+                          hasChip
+                            ? html`<sbb-chip-label class="sbb-figure-overlap-start-start">
+                                AI chip
+                              </sbb-chip-label>`
+                            : nothing
+                        }
                       </figure>
                       ${hasChip ? html`<sbb-chip-label>This is a chip.</sbb-chip-label>` : nothing}
                       <sbb-title level="2">This is a title</sbb-title>

@@ -267,15 +267,17 @@ export class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
               orientation="vertical"
               ?negative=${this._isLightMode()}
             ></sbb-divider>
-            ${!this.readOnly
-              ? html`<sbb-transparent-button
-                  class="sbb-toast__close-button"
-                  icon-name="cross-small"
-                  ?negative=${this._isLightMode()}
-                  aria-label=${i18nCloseAlert[this._language.current]}
-                  sbb-toast-close
-                ></sbb-transparent-button>`
-              : nothing}
+            ${
+              !this.readOnly
+                ? html`<sbb-transparent-button
+                    class="sbb-toast__close-button"
+                    icon-name="cross-small"
+                    ?negative=${this._isLightMode()}
+                    aria-label=${i18nCloseAlert[this._language.current]}
+                    sbb-toast-close
+                  ></sbb-transparent-button>`
+                : nothing
+            }
           </div>
         </div>
       </div>

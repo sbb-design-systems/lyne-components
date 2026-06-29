@@ -152,9 +152,9 @@ export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseE
     const elementsInRow = Array.from(
       this.activeOption
         ?.closest('sbb-autocomplete-grid-row')
-        ?.querySelectorAll<
-          SbbAutocompleteGridOptionElement<T> | SbbAutocompleteGridButtonElement
-        >('sbb-autocomplete-grid-option, sbb-autocomplete-grid-button') ?? [],
+        ?.querySelectorAll<SbbAutocompleteGridOptionElement<T> | SbbAutocompleteGridButtonElement>(
+          'sbb-autocomplete-grid-option, sbb-autocomplete-grid-button',
+        ) ?? [],
     )?.filter((el) => !el.matches(':state(disabled)'));
 
     if (!elementsInRow.length) {

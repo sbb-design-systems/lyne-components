@@ -176,23 +176,25 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
               <slot @slotchange=${this._handleSlotchange}></slot>
             </p>
           </span>
-          ${!this.readOnly
-            ? html`<span class="sbb-alert__close-button-wrapper">
-                <sbb-divider
-                  orientation="vertical"
-                  ?negative=${this._isLightMode()}
-                  class="sbb-alert__close-button-divider"
-                ></sbb-divider>
-                <sbb-transparent-button
-                  ?negative=${this._isLightMode()}
-                  size=${this.size === 'l' ? 'm' : this.size || nothing}
-                  icon-name="cross-small"
-                  @click=${() => this.close()}
-                  aria-label=${i18nCloseAlert[this._language.current]}
-                  class="sbb-alert__close-button"
-                ></sbb-transparent-button>
-              </span>`
-            : nothing}
+          ${
+            !this.readOnly
+              ? html`<span class="sbb-alert__close-button-wrapper">
+                  <sbb-divider
+                    orientation="vertical"
+                    ?negative=${this._isLightMode()}
+                    class="sbb-alert__close-button-divider"
+                  ></sbb-divider>
+                  <sbb-transparent-button
+                    ?negative=${this._isLightMode()}
+                    size=${this.size === 'l' ? 'm' : this.size || nothing}
+                    icon-name="cross-small"
+                    @click=${() => this.close()}
+                    aria-label=${i18nCloseAlert[this._language.current]}
+                    class="sbb-alert__close-button"
+                  ></sbb-transparent-button>
+                </span>`
+              : nothing
+          }
         </div>
       </div>
     `;

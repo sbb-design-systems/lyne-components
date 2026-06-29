@@ -184,9 +184,11 @@ const tableClasses = (args: Args): Record<string, boolean> => ({
 const Template = (args: Args): TemplateResult => html`
   <table class=${classMap(tableClasses(args))}>
     ${caption()}
-    ${args['inline-filters']
-      ? headerWithFilters(args.groupWithNext, args.withSubtitle)
-      : header(args.groupWithNext, args.withSubtitle)}
+    ${
+      args['inline-filters']
+        ? headerWithFilters(args.groupWithNext, args.withSubtitle)
+        : header(args.groupWithNext, args.withSubtitle)
+    }
     ${body(args.groupWithNext)}
   </table>
 `;

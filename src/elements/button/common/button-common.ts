@@ -92,9 +92,11 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
         <span class="sbb-button__label">
           <slot></slot>
         </span>
-        ${this.loading && !this.maybeDisabled
-          ? html`<div class="sbb-button-loading-border"></div>`
-          : nothing}
+        ${
+          this.loading && !this.maybeDisabled
+            ? html`<div class="sbb-button-loading-border"></div>`
+            : nothing
+        }
       `;
     }
   }

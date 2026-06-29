@@ -102,12 +102,14 @@ const content = (staticTeaser: boolean = false): TemplateResult => html`
     vel dapibus lobortis. Sed at ex sit amet leo suscipit fermentum. Donec consequat hendrerit
     tortor, ut laoreet velit congue in.
   </p>
-  ${staticTeaser
-    ? html`<sbb-action-group class="sbb-teaser-product--spacing">
-        <sbb-button size="l">Label</sbb-button>
-        <sbb-secondary-button size="l">Label</sbb-secondary-button>
-      </sbb-action-group>`
-    : html`<sbb-button-static class="sbb-teaser-product--spacing">Label</sbb-button-static>`}
+  ${
+    staticTeaser
+      ? html`<sbb-action-group class="sbb-teaser-product--spacing">
+          <sbb-button size="l">Label</sbb-button>
+          <sbb-secondary-button size="l">Label</sbb-secondary-button>
+        </sbb-action-group>`
+      : html`<sbb-button-static class="sbb-teaser-product--spacing">Label</sbb-button-static>`
+  }
 `;
 
 const footer = (): TemplateResult => html`
@@ -127,9 +129,11 @@ const innerTemplate = ({
   slottedImg: boolean;
   staticTeaser?: boolean;
 }): TemplateResult => html`
-  ${slottedImg
-    ? html`<img slot="image" src=${sampleImages[1]} alt="" />`
-    : html`<sbb-image slot="image" image-src=${sampleImages[1]}></sbb-image>`}
+  ${
+    slottedImg
+      ? html`<img slot="image" src=${sampleImages[1]} alt="" />`
+      : html`<sbb-image slot="image" image-src=${sampleImages[1]}></sbb-image>`
+  }
   ${content(staticTeaser)} ${withFooter ? footer() : nothing}
 `;
 
@@ -145,13 +149,17 @@ const chipInnerTemplate = ({
   staticTeaser?: boolean;
 }): TemplateResult => html`
   <figure slot="image" class="sbb-figure">
-    ${slottedImg
-      ? html`<img src=${sampleImages[1]} alt="" />`
-      : html`<sbb-image image-src=${sampleImages[1]}></sbb-image>`}
+    ${
+      slottedImg
+        ? html`<img src=${sampleImages[1]} alt="" />`
+        : html`<sbb-image image-src=${sampleImages[1]}></sbb-image>`
+    }
     <sbb-chip-label
-      class=${imageAlignment === 'after'
-        ? 'sbb-figure-overlap-start-end'
-        : 'sbb-figure-overlap-start-start'}
+      class=${
+        imageAlignment === 'after'
+          ? 'sbb-figure-overlap-start-end'
+          : 'sbb-figure-overlap-start-start'
+      }
     >
       AI generated
     </sbb-chip-label>

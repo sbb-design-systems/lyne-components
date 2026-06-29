@@ -71,15 +71,19 @@ describe(`sbb-header`, () => {
           English
         </sbb-header-button>
         <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
-        ${opt.noLogoLink
-          ? opt.size === 's'
-            ? html`<sbb-signet class="sbb-header-logo" protective-room="panel"></sbb-signet>`
-            : html`<sbb-logo class="sbb-header-logo" protective-room="none"></sbb-logo>`
-          : html`<a href="#" class="sbb-header-logo">
-              ${opt.size === 's'
-                ? html`<sbb-signet protective-room="panel"></sbb-signet>`
-                : html`<sbb-logo protective-room="none"></sbb-logo>`}
-            </a>`}
+        ${
+          opt.noLogoLink
+            ? opt.size === 's'
+              ? html`<sbb-signet class="sbb-header-logo" protective-room="panel"></sbb-signet>`
+              : html`<sbb-logo class="sbb-header-logo" protective-room="none"></sbb-logo>`
+            : html`<a href="#" class="sbb-header-logo">
+                ${
+                  opt.size === 's'
+                    ? html`<sbb-signet protective-room="panel"></sbb-signet>`
+                    : html`<sbb-logo protective-room="none"></sbb-logo>`
+                }
+              </a>`
+        }
       </sbb-header>
       <div class=${opt.expanded ? 'sbb-page-spacing-expanded' : 'sbb-page-spacing'}>
         ${loremIpsumTemplate}

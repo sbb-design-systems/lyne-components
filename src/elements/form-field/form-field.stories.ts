@@ -40,11 +40,13 @@ const formField = (
     ?floating-label=${floatingLabel}
     ?negative=${negative}
   >
-    ${label && !slottedLabel
-      ? html`<label>${label}${optional ? ` (optional)` : ''}</label>`
-      : label && slottedLabel
-        ? html`<span slot="label">${label}</span>`
-        : nothing}
+    ${
+      label && !slottedLabel
+        ? html`<label>${label}${optional ? ` (optional)` : ''}</label>`
+        : label && slottedLabel
+          ? html`<span slot="label">${label}</span>`
+          : nothing
+    }
     ${template}
   </sbb-form-field>`;
 

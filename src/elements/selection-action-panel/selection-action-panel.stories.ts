@@ -151,9 +151,11 @@ const Template = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-selection-action-panel ${sbbSpread(args)}>
-    ${input === 'checkbox'
-      ? checkboxPanel(checkedInput, disabledInput, size, borderless, color)
-      : radioButtonPanel(checkedInput, disabledInput, size, borderless, color)}
+    ${
+      input === 'checkbox'
+        ? checkboxPanel(checkedInput, disabledInput, size, borderless, color)
+        : radioButtonPanel(checkedInput, disabledInput, size, borderless, color)
+    }
     ${actionButton(disabledInput)} ${cardBadge()}
   </sbb-selection-action-panel>
 `;
@@ -169,9 +171,11 @@ const WithExpansionPanelTemplate = ({
 }: Args): TemplateResult => html`
   <sbb-selection-expansion-panel ${sbbSpread(args)}>
     <sbb-selection-action-panel>
-      ${input === 'checkbox'
-        ? checkboxPanel(checkedInput, disabledInput, size, borderless, color)
-        : radioButtonPanel(checkedInput, disabledInput, size, borderless, color)}
+      ${
+        input === 'checkbox'
+          ? checkboxPanel(checkedInput, disabledInput, size, borderless, color)
+          : radioButtonPanel(checkedInput, disabledInput, size, borderless, color)
+      }
       ${actionButton(disabledInput)} ${cardBadge()}
     </sbb-selection-action-panel>
     <div slot="content">

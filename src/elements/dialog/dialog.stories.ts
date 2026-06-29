@@ -252,12 +252,16 @@ const StepperTemplate = ({
               >
                 ${element} step content ${index === 0 || index === 2 ? loremIpsum : nothing}
               </div>
-              ${index !== 0
-                ? html`<sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>`
-                : nothing}
-              ${index !== arr.length - 1
-                ? html`<sbb-button sbb-stepper-next>Next</sbb-button>`
-                : html`<sbb-button sbb-stepper-next>Submit</sbb-button>`}
+              ${
+                index !== 0
+                  ? html`<sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>`
+                  : nothing
+              }
+              ${
+                index !== arr.length - 1
+                  ? html`<sbb-button sbb-stepper-next>Next</sbb-button>`
+                  : html`<sbb-button sbb-stepper-next>Submit</sbb-button>`
+              }
             </sbb-step>
           `,
         )}

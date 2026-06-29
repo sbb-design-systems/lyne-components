@@ -146,29 +146,31 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
 
   protected override render(): TemplateResult {
     return html`
-      ${this._sectors.length && this._sectors[0].label !== undefined
-        ? html`<div class="sbb-train-formation__sectors" aria-hidden="true">
-            ${this._sectors.map(
-              (aggregatedSector) =>
-                html`<span
-                  class="sbb-train-formation__sector"
-                  style=${styleMap({
+      ${
+        this._sectors.length && this._sectors[0].label !== undefined
+          ? html`<div class="sbb-train-formation__sectors" aria-hidden="true">
+              ${this._sectors.map(
+                (aggregatedSector) =>
+                  html`<span
+                    class="sbb-train-formation__sector"
+                    style=${styleMap({
                     '--sbb-train-formation-wagon-count': aggregatedSector.wagonCount,
                     '--sbb-train-formation-wagon-blocked-passage-count':
                       aggregatedSector.blockedPassageCount,
                   })}
-                >
-                  <span class="sbb-train-formation__sector-sticky-wrapper">
-                    ${`${
+                  >
+                    <span class="sbb-train-formation__sector-sticky-wrapper">
+                      ${`${
                       aggregatedSector.wagonCount === 1 && aggregatedSector.label
                         ? i18nSectorShort[this._language.current]
                         : i18nSector[this._language.current]
                     } ${aggregatedSector.label ? aggregatedSector.label : ''}`}
-                  </span>
-                </span>`,
-            )}
-          </div>`
-        : nothing}
+                    </span>
+                  </span>`,
+              )}
+            </div>`
+          : nothing
+      }
 
       <div class="sbb-train-formation__trains">
         ${this.renderList({

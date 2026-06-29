@@ -99,9 +99,11 @@ const StandaloneTemplate = ({ value, labelBoldClass, ...args }: Args): TemplateR
         new Array(3),
         (_, i) => html`
           <sbb-radio-button ${sbbSpread(args)} value="value-${i + 1}" name="group-1">
-            ${labelBoldClass
-              ? html`<span class="sbb-text--bold">Value ${i + 1}</span>`
-              : `Value ${i + 1}`}
+            ${
+              labelBoldClass
+                ? html`<span class="sbb-text--bold">Value ${i + 1}</span>`
+                : `Value ${i + 1}`
+            }
           </sbb-radio-button>
         `,
       )}
@@ -113,9 +115,11 @@ const StandaloneTemplate = ({ value, labelBoldClass, ...args }: Args): TemplateR
         new Array(4),
         (_, i) => html`
           <sbb-radio-button ${sbbSpread(args)} value="value-${i + 1}" name="group-2">
-            ${labelBoldClass
-              ? html`<span class="sbb-text--bold">Value ${i + 1}</span>`
-              : `Value ${i + 1}`}
+            ${
+              labelBoldClass
+                ? html`<span class="sbb-text--bold">Value ${i + 1}</span>`
+                : `Value ${i + 1}`
+            }
           </sbb-radio-button>
         `,
       )}

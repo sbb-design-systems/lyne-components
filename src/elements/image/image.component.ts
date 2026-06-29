@@ -530,17 +530,19 @@ export class SbbImageElement extends SbbElement {
      */
     return html`
       <div class="sbb-image__wrapper">
-        ${!this.skipLqip
-          ? html`<img
-              alt=""
-              class="sbb-image__blurred"
-              src=${imageUrlLQIP}
-              width="1000"
-              height="562"
-              loading=${this.loading ?? nothing}
-              decoding=${this.decoding ?? nothing}
-            />`
-          : nothing}
+        ${
+          !this.skipLqip
+            ? html`<img
+                alt=""
+                class="sbb-image__blurred"
+                src=${imageUrlLQIP}
+                width="1000"
+                height="562"
+                loading=${this.loading ?? nothing}
+                decoding=${this.decoding ?? nothing}
+              />`
+            : nothing
+        }
 
         <picture>
           <!-- render picture element sources -->
