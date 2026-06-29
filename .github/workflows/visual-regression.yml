@@ -26,7 +26,7 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interactive
       - uses: actions/cache/restore@v6
         with:
-          path: node-modules/.cache/
+          path: node_modules/.cache/
           key: visual-regression-build-cache-${{ hashFiles('**/*.ts') }}
           restore-keys: visual-regression-build-cache-
 
@@ -70,6 +70,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: test-artifacts
+          path: node_modules/.cache/
 
         # This step must not fail, so we define a fallback, which will succeed, even if
         # the visual regression tests failed. This will be evaluated in the secure workflow.

@@ -178,8 +178,10 @@ export async function preloadIcons(): Promise<PreloadedIcon[]> {
     const icon = parts[1] ?? parts[0];
     const iconCachePath = join(cacheLocation, `${namespace}_${icon}.svg`);
     if (existsSync(iconCachePath)) {
+      console.log(`Using cached icon ${namespace}:${icon} from ${iconCachePath}`);
       preloadedIcons.push({ namespace, icon, svg: readFileSync(iconCachePath, 'utf8') });
     } else {
+      console.log(`Fetching ${namespace}:${icon} and caching to ${iconCachePath}`);
       const iconUrl = `https://icons.app.sbb.ch/${namespace === 'default' ? 'icons' : namespace}/${icon}.svg`;
       // eslint-disable-next-line no-useless-assignment
       let svg = '';
