@@ -25,8 +25,9 @@ jobs:
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
       - uses: actions/cache@v6
+        id: cache
         with:
-          path: node-modules/.cache/lyne-cdn/
+          path: node_modules/.cache/lyne-cdn/
           key: test-build-cache-${{ hashFiles('**/tools/web-test-runner/preload-*.ts') }}
           restore-keys: test-build-cache-
 
@@ -34,6 +35,7 @@ jobs:
         run: yarn test:tsc
 
       - name: Preload test artifacts
+        if: steps.cache.outputs.cache-hit != 'true'
         run: node scripts/preload-test-artifacts.ts
 
   test:
@@ -61,7 +63,7 @@ jobs:
       - name: Restore test cache
         uses: actions/cache/restore@v6
         with:
-          path: node-modules/.cache/lyne-cdn/
+          path: node_modules/.cache/lyne-cdn/
           key: test-build-cache-${{ hashFiles('**/tools/web-test-runner/preload-*.ts') }}
           restore-keys: test-build-cache-
       - name: Output test cache structure

@@ -54,7 +54,7 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interactive
       - uses: actions/cache@v6
         with:
-          path: node-modules/.cache
+          path: node_modules/.cache
           key: build-cache-${{ hashFiles('**/*.ts') }}
           restore-keys: build-cache-
 
