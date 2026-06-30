@@ -1,0 +1,13 @@
+name: Reset caches
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 0 31 12 *'
+
+permissions:
+  packages: write
+
+jobs:
+  reset-caches:
+    uses: sbb-design-systems/actions/.github/workflows/reset-caches.yml@main

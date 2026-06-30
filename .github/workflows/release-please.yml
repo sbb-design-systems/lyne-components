@@ -15,101 +15,20 @@ permissions:
   packages: write
   pull-requests: write
 
-env:
-  IMAGE_REPO_DOCS: ghcr.io/sbb-design-systems/lyne-components/docs
-
 jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: googleapis/release-please-action@v5
-        id: release
-        with:
-          target-branch: ${{ github.ref_name }}
-      - name: Release Info
-        run: echo "$RELEASE_OUTPUT"
-        env:
-          RELEASE_OUTPUT: ${{ toJSON(steps.release.outputs) }}
-      - name: 'Release: Determine version'
-        id: version
-        run: echo "version=$([[ "$VERSION" != "" ]] && echo "$VERSION" || echo "rev-$GITHUB_SHA")" >> $GITHUB_OUTPUT
-        env:
-          VERSION: ${{ steps.release.outputs.version }}
-
-      - name: Get token
-        id: get_token
+      - name: Create GitHub App token
+        id: token
         uses: actions/create-github-app-token@v3
         with:
-          client-id: ${{ secrets.MAINTENANCE_APP_ID }}
-          private-key: ${{ secrets.MAINTENANCE_APP_PEM }}
-      - uses: actions/checkout@v7
+          client-id: ${{ secrets.BOT_ID }}
+          private-key: ${{ secrets.BOT_PEM }}
+
+      - name: Release Please
+        uses: sbb-design-systems/actions/release-please@main
         with:
-          fetch-depth: 0
-          token: ${{ steps.get_token.outputs.token }}
-      - uses: actions/setup-node@v6
-        with:
-          node-version-file: .nvmrc
-          cache: yarn
-          registry-url: 'https://registry.npmjs.org'
-          scope: sbb-esta
-      - run: yarn install --frozen-lockfile --non-interactive
-
-      - name: Run build
-        run: STORYBOOK_COMPONENTS_VERSION="${{ steps.version.outputs.version }}" yarn build
-      - name: Remove files with forbidden extensions
-        run: node ./scripts/clean-docs-files.ts
-
-      - name: Update npm
-        run: npm install --global npm@latest
-      - name: Publish packages
-        run: node scripts/publish.ts
-        env:
-          VERSION: ${{ steps.release.outputs.version }}
-
-      - uses: ./.github/actions/setup-mint
-      - name: 'Container: Build and publish release image'
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build --tag ${{ env.IMAGE_REPO_DOCS }}:$VERSION-fat .
-          mint slim \
-            --target ${{ env.IMAGE_REPO_DOCS }}:$VERSION-fat \
-            --tag ${{ env.IMAGE_REPO_DOCS }}:$VERSION \
-            --preserve-path /usr/share/nginx/html \
-            --include-new false
-          docker push ${{ env.IMAGE_REPO_DOCS }}:$VERSION
-          if [[ $VERSION != *"-"* ]]; then
-            docker tag ${{ env.IMAGE_REPO_DOCS }}:$VERSION ${{ env.IMAGE_REPO_DOCS }}:latest
-            docker push ${{ env.IMAGE_REPO_DOCS }}:latest
-          fi
-          docker image list
-        env:
-          DOCKER_BUILDKIT: 1
-          VERSION: ${{ steps.release.outputs.version }}
-
-      - name: Send Teams webhook
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          node scripts/teams-webhook.ts
-        env:
-          RELEASE_TAG: ${{ steps.release.outputs.version }}
-          TEAMS_WEBHOOK: ${{ secrets.TEAMS_WEBHOOK }}
-
-      - name: Apply CHANGELOG.md into ${{ github.event.repository.default_branch }}
-        if: ${{ steps.release.outputs.release_created && github.ref_name != 'main' }}
-        run: |
-          node scripts/changelog.ts extract
-          git config user.email "github-actions@github.com"
-          git config user.name "github-actions"
-          git checkout ${{ github.event.repository.default_branch }}
-          git pull
-          node scripts/changelog.ts insert
-          git commit -a -m "chore: update changelog"
-          git push
-
-      - name: Update maintenance issue
-        if: ${{ steps.release.outputs.release_created && failure() }}
-        run: node scripts/update-maintenance-issue.ts
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FAILED_RELEASE: ${{ steps.release.outputs.version }}
+          app-token: ${{ steps.token.outputs.token }}
+          teams-webhook: ${{ secrets.TEAMS_WEBHOOK }}
+          dev-packages: true

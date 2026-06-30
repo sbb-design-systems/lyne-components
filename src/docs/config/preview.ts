@@ -8,18 +8,18 @@ import type { Preview } from '@storybook/web-components-vite';
 import type { Parameters, StoryContext } from 'storybook/internal/types';
 import { makeDecorator } from 'storybook/preview-api';
 
-import leanOffBrandTheme from '../src/elements/core/styles/lean-off-brand-theme.scss?inline';
-import leanSafetyTheme from '../src/elements/core/styles/lean-safety-theme.scss?inline';
-import leanTheme from '../src/elements/core/styles/lean-theme.scss?inline';
-import offBrandTheme from '../src/elements/core/styles/off-brand-theme.scss?inline';
-import safetyTheme from '../src/elements/core/styles/safety-theme.scss?inline';
-import standardTheme from '../src/elements/core/styles/standard-theme.scss?inline';
-import experimentalLeanOffBrandTheme from '../src/elements-experimental/core/styles/lean-off-brand-theme.scss?inline';
-import experimentalLeanSafetyTheme from '../src/elements-experimental/core/styles/lean-safety-theme.scss?inline';
-import experimentalLeanTheme from '../src/elements-experimental/core/styles/lean-theme.scss?inline';
-import experimentalOffBrandTheme from '../src/elements-experimental/core/styles/off-brand-theme.scss?inline';
-import experimentalSafetyTheme from '../src/elements-experimental/core/styles/safety-theme.scss?inline';
-import experimentalStandardTheme from '../src/elements-experimental/core/styles/standard-theme.scss?inline';
+import leanOffBrandTheme from '../../elements/core/styles/lean-off-brand-theme.scss?inline';
+import leanSafetyTheme from '../../elements/core/styles/lean-safety-theme.scss?inline';
+import leanTheme from '../../elements/core/styles/lean-theme.scss?inline';
+import offBrandTheme from '../../elements/core/styles/off-brand-theme.scss?inline';
+import safetyTheme from '../../elements/core/styles/safety-theme.scss?inline';
+import standardTheme from '../../elements/core/styles/standard-theme.scss?inline';
+import experimentalLeanOffBrandTheme from '../../elements-experimental/core/styles/lean-off-brand-theme.scss?inline';
+import experimentalLeanSafetyTheme from '../../elements-experimental/core/styles/lean-safety-theme.scss?inline';
+import experimentalLeanTheme from '../../elements-experimental/core/styles/lean-theme.scss?inline';
+import experimentalOffBrandTheme from '../../elements-experimental/core/styles/off-brand-theme.scss?inline';
+import experimentalSafetyTheme from '../../elements-experimental/core/styles/safety-theme.scss?inline';
+import experimentalStandardTheme from '../../elements-experimental/core/styles/standard-theme.scss?inline';
 
 if (typeof Temporal !== 'object') {
   await import('temporal-polyfill/global');

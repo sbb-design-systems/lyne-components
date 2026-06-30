@@ -4,7 +4,7 @@ import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import { defaultDateAdapter } from '../core.ts';
 
 import readme from './readme.md?raw';
