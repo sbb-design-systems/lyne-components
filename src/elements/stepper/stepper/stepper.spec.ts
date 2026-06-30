@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { elementInternalsSpy, fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import { SbbStepElement } from '../step/step.component.ts';
+import { SbbStepElement, SbbStepValidateEvent } from '../step/step.component.ts';
 import type { SbbStepLabelElement } from '../step-label/step-label.component.ts';
 
 import { SbbStepChangeEvent, SbbStepperElement } from './stepper.component.ts';
@@ -826,6 +826,367 @@ describe('sbb-stepper', () => {
     // Should still be on step 1
     expect(stepLabelOne).to.match(':state(selected)');
     expect(element.selectedIndex).to.be.equal(0);
+  });
+
+  describe('validate event properties', () => {
+    it('should emit a SbbStepValidateEvent with correct properties when navigating forward', async () => {
+      const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(2)',
+      )!;
+      const validateSpy = new EventSpy<SbbStepValidateEvent>(SbbStepElement.events.validate);
+
+      stepLabelTwo.click();
+      await waitForLitRender(element);
+
+      await validateSpy.calledOnce();
+      const event = validateSpy.lastEvent as SbbStepValidateEvent;
+      expect(event).to.be.instanceOf(SbbStepValidateEvent);
+      expect(event.currentIndex).to.be.equal(0);
+      expect(event.currentStep).to.be.equal(element.steps[0]);
+      expect(event.nextIndex).to.be.equal(1);
+      expect(event.nextStep).to.be.equal(element.steps[1]);
+    });
+
+    it('should emit a SbbStepValidateEvent with correct properties when navigating from second step', async () => {
+      const stepLabelThree = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(3)',
+      )!;
+      element.selectedIndex = 1;
+      await waitForLitRender(element);
+
+      const validateSpy = new EventSpy<SbbStepValidateEvent>(SbbStepElement.events.validate);
+
+      stepLabelThree.click();
+      await waitForLitRender(element);
+
+      await validateSpy.calledOnce();
+      const event = validateSpy.lastEvent as SbbStepValidateEvent;
+      expect(event).to.be.instanceOf(SbbStepValidateEvent);
+      expect(event.currentIndex).to.be.equal(1);
+      expect(event.currentStep).to.be.equal(element.steps[1]);
+      expect(event.nextIndex).to.be.equal(2);
+      expect(event.nextStep).to.be.equal(element.steps[2]);
+    });
+  });
+
+  describe('linear mode label click navigation', () => {
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-stepper linear>
+          <sbb-step-label>Step 1</sbb-step-label>
+          <sbb-step>Step one content.</sbb-step>
+
+          <sbb-step-label>Step 2</sbb-step-label>
+          <sbb-step>Step two content.</sbb-step>
+
+          <sbb-step-label>Step 3</sbb-step-label>
+          <sbb-step>Step three content.</sbb-step>
+        </sbb-stepper>
+      `);
+    });
+
+    it('blocks clicking the directly next step label because it is disabled by linear mode', async () => {
+      const stepLabelOne = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(1)',
+      )!;
+      const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(2)',
+      )!;
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
+        element,
+      );
+
+      // In linear mode, _configureLinearMode disables all labels after the current one
+      expect(stepLabelTwo.disabled).to.be.true;
+
+      stepLabelTwo.click();
+      await waitForLitRender(element);
+
+      // Navigation should be blocked since the label is disabled
+      expect(stepChangeSpy.count).to.be.equal(0);
+      expect(stepLabelOne).to.match(':state(selected)');
+      expect(element.selectedIndex).to.be.equal(0);
+    });
+
+    it('blocks clicking a step label that is more than one step ahead', async () => {
+      const stepLabelOne = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(1)',
+      )!;
+      const stepLabelThree = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(3)',
+      )!;
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
+        element,
+      );
+
+      stepLabelThree.click();
+      await waitForLitRender(element);
+
+      expect(stepChangeSpy.count).to.be.equal(0);
+      expect(stepLabelOne).to.match(':state(selected)');
+      expect(element.selectedIndex).to.be.equal(0);
+    });
+
+    it('allows clicking a previous step label to navigate back', async () => {
+      // Advance to step 3 via next()
+      element.next();
+      await waitForLitRender(element);
+      element.next();
+      await waitForLitRender(element);
+      expect(element.selectedIndex).to.be.equal(2);
+
+      const stepLabelOne = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(1)',
+      )!;
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
+        element,
+      );
+
+      stepLabelOne.click();
+      await waitForLitRender(element);
+
+      await stepChangeSpy.calledOnce();
+      expect(stepChangeSpy.count).to.be.equal(1);
+      expect(stepLabelOne).to.match(':state(selected)');
+      expect(element.selectedIndex).to.be.equal(0);
+    });
+  });
+
+  describe('next() and previous() API methods', () => {
+    it('next() navigates to the next step and emits stepchange', async () => {
+      const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(2)',
+      )!;
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
+        element,
+      );
+
+      element.next();
+      await waitForLitRender(element);
+
+      await stepChangeSpy.calledOnce();
+      expect(stepChangeSpy.count).to.be.equal(1);
+      const event = stepChangeSpy.lastEvent!;
+      expect(event.selectedIndex).to.be.equal(1);
+      expect(event.previousIndex).to.be.equal(0);
+      expect(stepLabelTwo).to.match(':state(selected)');
+    });
+
+    it('previous() navigates to the previous step and emits stepchange', async () => {
+      element.selectedIndex = 1;
+      await waitForLitRender(element);
+
+      const stepLabelOne = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(1)',
+      )!;
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
+        element,
+      );
+
+      element.previous();
+      await waitForLitRender(element);
+
+      await stepChangeSpy.calledOnce();
+      expect(stepChangeSpy.count).to.be.equal(1);
+      const event = stepChangeSpy.lastEvent!;
+      expect(event.selectedIndex).to.be.equal(0);
+      expect(event.previousIndex).to.be.equal(1);
+      expect(stepLabelOne).to.match(':state(selected)');
+    });
+
+    it('next() does not navigate past the last enabled step', async () => {
+      element.selectedIndex = 2;
+      await waitForLitRender(element);
+
+      const stepLabelThree = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(3)',
+      )!;
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
+        element,
+      );
+
+      // Step 4 is disabled, so next() should not navigate there
+      element.next();
+      await waitForLitRender(element);
+
+      expect(stepChangeSpy.count).to.be.equal(0);
+      expect(stepLabelThree).to.match(':state(selected)');
+      expect(element.selectedIndex).to.be.equal(2);
+    });
+
+    it('previous() does not navigate before the first step', async () => {
+      const stepLabelOne = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(1)',
+      )!;
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
+        element,
+      );
+
+      element.previous();
+      await waitForLitRender(element);
+
+      expect(stepChangeSpy.count).to.be.equal(0);
+      expect(stepLabelOne).to.match(':state(selected)');
+      expect(element.selectedIndex).to.be.equal(0);
+    });
+
+    it('next() does not navigate to a disabled step in non-linear mode', async () => {
+      // Navigate to step 3 (index 2) first; step 4 (index 3) has a disabled label
+      element.selectedIndex = 2;
+      await waitForLitRender(element);
+
+      const stepLabelThree = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(3)',
+      )!;
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
+        element,
+      );
+
+      element.next();
+      await waitForLitRender(element);
+
+      expect(stepChangeSpy.count).to.be.equal(0);
+      expect(stepLabelThree).to.match(':state(selected)');
+      expect(element.selectedIndex).to.be.equal(2);
+    });
+  });
+
+  describe('disabled label state management', () => {
+    it('setting disabled on a label adds the user-disabled state', async () => {
+      const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(2)',
+      )!;
+
+      expect(stepLabelTwo.disabled).to.be.false;
+      expect(stepLabelTwo).not.to.match(':state(user-disabled)');
+
+      stepLabelTwo.disabled = true;
+      await waitForLitRender(element);
+
+      expect(stepLabelTwo.disabled).to.be.true;
+      expect(stepLabelTwo).to.match(':state(user-disabled)');
+    });
+
+    it('setting disabled to false removes the user-disabled state', async () => {
+      const stepLabelFour = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(4)',
+      )!;
+
+      expect(stepLabelFour.disabled).to.be.true;
+      expect(stepLabelFour).to.match(':state(user-disabled)');
+
+      stepLabelFour.disabled = false;
+      await waitForLitRender(element);
+
+      expect(stepLabelFour.disabled).to.be.false;
+      expect(stepLabelFour).not.to.match(':state(user-disabled)');
+    });
+
+    it('switching from linear to non-linear: user-disabled labels stay disabled, others get re-enabled', async () => {
+      element = await fixture(html`
+        <sbb-stepper linear>
+          <sbb-step-label>Step 1</sbb-step-label>
+          <sbb-step>Step one content.</sbb-step>
+
+          <sbb-step-label>Step 2</sbb-step-label>
+          <sbb-step>Step two content.</sbb-step>
+
+          <sbb-step-label disabled>Step 3</sbb-step-label>
+          <sbb-step>Step three content.</sbb-step>
+
+          <sbb-step-label>Step 4</sbb-step-label>
+          <sbb-step>Step four content.</sbb-step>
+        </sbb-stepper>
+      `);
+
+      const labels = element.querySelectorAll<SbbStepLabelElement>('sbb-step-label');
+      const [, stepLabelTwo, stepLabelThree, stepLabelFour] = Array.from(labels);
+
+      // In linear mode: steps 2, 3, 4 are all disabled (index > 0)
+      expect(stepLabelTwo.disabled).to.be.true;
+      expect(stepLabelThree.disabled).to.be.true;
+      expect(stepLabelThree).to.match(':state(user-disabled)');
+      expect(stepLabelFour.disabled).to.be.true;
+      expect(stepLabelFour).not.to.match(':state(user-disabled)');
+
+      // Switch to non-linear mode
+      element.linear = false;
+      await waitForLitRender(element);
+
+      // Step 2 and 4: were only linear-disabled → now enabled again
+      expect(stepLabelTwo.disabled).to.be.false;
+      expect(stepLabelFour.disabled).to.be.false;
+
+      // Step 3: was user-disabled → stays disabled
+      expect(stepLabelThree.disabled).to.be.true;
+      expect(stepLabelThree).to.match(':state(user-disabled)');
+    });
+
+    it('switching from non-linear to linear: labels after current get disabled without user-disabled state', async () => {
+      element = await fixture(html`
+        <sbb-stepper>
+          <sbb-step-label>Step 1</sbb-step-label>
+          <sbb-step>Step one content.</sbb-step>
+
+          <sbb-step-label>Step 2</sbb-step-label>
+          <sbb-step>Step two content.</sbb-step>
+
+          <sbb-step-label>Step 3</sbb-step-label>
+          <sbb-step>Step three content.</sbb-step>
+        </sbb-stepper>
+      `);
+
+      const labels = element.querySelectorAll<SbbStepLabelElement>('sbb-step-label');
+      const [, stepLabelTwo, stepLabelThree] = Array.from(labels);
+
+      expect(stepLabelTwo.disabled).to.be.false;
+      expect(stepLabelThree.disabled).to.be.false;
+
+      element.linear = true;
+      await waitForLitRender(element);
+
+      // Labels after current (index 0) are disabled but NOT user-disabled
+      expect(stepLabelTwo.disabled).to.be.true;
+      expect(stepLabelTwo).not.to.match(':state(user-disabled)');
+      expect(stepLabelThree.disabled).to.be.true;
+      expect(stepLabelThree).not.to.match(':state(user-disabled)');
+    });
+
+    it('arrow key navigation skips user-disabled step labels', async () => {
+      element = await fixture(html`
+        <sbb-stepper>
+          <sbb-step-label>Step 1</sbb-step-label>
+          <sbb-step>Step one content.</sbb-step>
+
+          <sbb-step-label disabled>Step 2</sbb-step-label>
+          <sbb-step>Step two content.</sbb-step>
+
+          <sbb-step-label>Step 3</sbb-step-label>
+          <sbb-step>Step three content.</sbb-step>
+        </sbb-stepper>
+      `);
+
+      const stepLabelOne = element.querySelector<SbbStepLabelElement>('sbb-step-label')!;
+      const stepLabelThree = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(3)',
+      )!;
+
+      stepLabelOne.focus();
+      await sendKeys({ press: 'ArrowRight' });
+      await waitForLitRender(element);
+
+      // Step 2 is disabled → should skip to step 3
+      expect(stepLabelThree).to.match(':state(selected)');
+      expect(element.selectedIndex).to.be.equal(2);
+    });
   });
 
   it('proxy size to step children', async () => {

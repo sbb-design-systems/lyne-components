@@ -224,8 +224,8 @@ If important content needs to be announced when a step is changed, use the `aria
 
 | Name       | Privacy | Description                                                                        | Parameters | Return | Inherited From |
 | ---------- | ------- | ---------------------------------------------------------------------------------- | ---------- | ------ | -------------- |
-| `next`     | public  | Selects the next step.                                                             |            | `void` |                |
-| `previous` | public  | Selects the previous step.                                                         |            | `void` |                |
+| `next`     | public  | Selects the next step, if enabled.                                                 |            | `void` |                |
+| `previous` | public  | Selects the previous step, if enabled.                                             |            | `void` |                |
 | `reset`    | public  | Resets the form in which the stepper is nested or every form of each step, if any. |            | `void` |                |
 
 #### Events
