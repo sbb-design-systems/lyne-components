@@ -7,21 +7,4 @@ permissions: read-all
 
 jobs:
   lint:
-    runs-on: ubuntu-slim
-    steps:
-      - uses: actions/checkout@v7
-      - run: npm install --global yarn
-      - uses: actions/setup-node@v6
-        with:
-          node-version-file: .nvmrc
-          cache: yarn
-      - run: yarn install --frozen-lockfile --non-interactive
-
-      - name: 'Lint: Pull request title'
-        env:
-          PR_TITLE: ${{ github.event.pull_request.title }}
-        run: echo "$PR_TITLE" | yarn commitlint
-
-      - name: 'Warning: Pull request title must match conventional commits pattern!'
-        if: ${{ failure() }}
-        run: echo "Pull request title must match conventional commits pattern!"
+    uses: sbb-design-systems/actions/.github/workflows/pr-title-lint.yml@main

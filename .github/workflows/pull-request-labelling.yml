@@ -1,0 +1,13 @@
+name: Pull Request Labelling
+
+on:
+  pull_request_target:
+    types: [opened, edited, labeled]
+    branches: [main] # target branch
+
+permissions:
+  pull-requests: write
+
+jobs:
+  labelling:
+    uses: sbb-design-systems/actions/.github/workflows/pull-request-labelling.yml@main
