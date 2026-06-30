@@ -175,12 +175,12 @@ const elements = 'elements';
 const elementsExperimental = 'elements-experimental';
 const react = 'react';
 const reactExperimental = 'react-experimental';
-const storybook = 'storybook';
+const docs = 'docs';
 const visualRegressionApp = 'visual-regression-app';
 const webshopFrontendCopy = 'webshop-frontend-copy';
 
 const expansions = {
-  all: [elements, elementsExperimental, react, reactExperimental, storybook, visualRegressionApp],
+  all: [elements, elementsExperimental, react, reactExperimental, docs, visualRegressionApp],
   'webshop-frontend': [
     elements,
     elementsExperimental,
@@ -229,10 +229,9 @@ const buildMap: Record<string, () => Builder> = {
       buildPackageJson,
       verifyEntryPoints,
     ]),
-  [storybook]: () =>
-    new PackageBuilder(storybook, [buildStorybook, buildNginxConfig, buildSizeStats]),
+  [docs]: () => new PackageBuilder(docs, [buildDocs, buildNginxConfig, buildSizeStats]),
   [visualRegressionApp]: () => new PackageBuilder(visualRegressionApp, [buildApp]),
-  ['nginx-conf']: () => new PackageBuilder(storybook, [buildNginxConfig]),
+  ['nginx-conf']: () => new PackageBuilder(docs, [buildNginxConfig]),
   [webshopFrontendCopy]: () => asBuilder(copyIntoWebshopFrontend),
 };
 
@@ -247,7 +246,7 @@ if (!buildTargets.size && !isCI) {
         { name: '@sbb-esta/lyne-react', value: react },
         { name: '@sbb-esta/lyne-react-experimental', value: reactExperimental },
         new Separator(),
-        { name: 'Storybook', value: storybook },
+        { name: 'Docs', value: docs },
         { name: 'Visual Regression App', value: visualRegressionApp },
       ],
       pageSize: 100,
@@ -358,9 +357,9 @@ async function buildApp(pkg: PackageBuilder): Promise<void> {
   await buildWithVite(typeof config === 'function' ? config() : config);
 }
 
-async function buildStorybook(pkg: PackageBuilder): Promise<void> {
+async function buildDocs(pkg: PackageBuilder): Promise<void> {
   await buildStaticStandalone({
-    configDir: join(projectRoot, '.storybook'),
+    configDir: join(pkg.root, 'config'),
     outputDir: pkg.outDir,
     quiet: true,
     statsJson: true,

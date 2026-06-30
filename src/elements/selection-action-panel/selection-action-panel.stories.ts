@@ -2,7 +2,7 @@ import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-v
 import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbCheckboxPanelElement } from '../checkbox-panel/checkbox-panel.component.ts';
 import type { SbbRadioButtonElement } from '../radio-button/radio-button.component.ts';
 

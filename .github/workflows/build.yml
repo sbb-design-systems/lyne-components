@@ -67,7 +67,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: docs
-          path: dist/storybook/
+          path: dist/docs/
           retention-days: 1
 
       - name: Build and publish dev image
