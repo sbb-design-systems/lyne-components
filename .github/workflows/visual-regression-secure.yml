@@ -49,7 +49,7 @@ jobs:
 
       - name: Read Pull Request Number
         id: pr-number
-        run: echo "result=$(cat dist/screenshots-artifact/pr)" >> "$GITHUB_OUTPUT"
+        run: echo "result=$(cat dist/screenshots/pr)" >> "$GITHUB_OUTPUT"
 
       - name: "Remove 'diff-available' label"
         # This label is used for filtering deployments in ArgoCD.
