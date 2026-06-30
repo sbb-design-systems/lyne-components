@@ -39,9 +39,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
 
     // We additionally keep track of the `disabled` state to preserve the user configured disabled state
     // of step labels in case of switching between linear and non-linear mode.
-    if (!this._disablingFromLinear) {
-      this.toggleState('user-disabled', value);
-    }
+    this.toggleState('user-disabled', value);
   }
   public override get disabled(): boolean {
     return super.disabled;
@@ -49,8 +47,6 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
 
   private _previousOrientation?: string;
   private _previousSize: SbbStepperElement['size'] = null;
-  /** Guard flag to prevent user-disabled state from being set when `disable()` is called internally. */
-  private _disablingFromLinear = false;
 
   public constructor() {
     super();
@@ -158,9 +154,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
    * disabled state in case of switching between linear and non-linear mode.
    */
   public disable(value: boolean): void {
-    this._disablingFromLinear = true;
     super.disabled = value;
-    this._disablingFromLinear = false;
   }
 
   protected override render(): TemplateResult {
