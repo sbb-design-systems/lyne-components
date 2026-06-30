@@ -11,5 +11,3 @@ permissions:
 jobs:
   labelling:
     uses: sbb-design-systems/actions/.github/workflows/review-labelling.yml@main
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

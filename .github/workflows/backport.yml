@@ -14,9 +14,6 @@ permissions:
 jobs:
   backport:
     if: join(github.event.pull_request.labels) != '' &&
-      github.event.pull_request.merged == true &&
-      github.event.pull_request.user.login != 'renovate[bot]'
+      github.event.pull_request.merged == true
     uses: sbb-design-systems/actions/.github/workflows/backport.yml@main
-    secrets:
-      client-id: ${{ secrets.MAINTENANCE_APP_ID }}
-      private-key: ${{ secrets.MAINTENANCE_APP_PEM }}
+    secrets: inherit

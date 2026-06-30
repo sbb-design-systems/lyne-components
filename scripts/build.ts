@@ -835,14 +835,33 @@ function buildNginxConfig(pkg: PackageBuilder): void {
 }
 
 async function buildSizeStats(pkg: PackageBuilder): Promise<void> {
-  const stats = {
-    jsSize: 0,
-    jsBrotliSize: 0,
-    jsGzipSize: 0,
-    jsCssSize: 0,
-    cssSize: 0,
-    cssBrotliSize: 0,
-    cssGzipSize: 0,
+  interface SizeStats {
+    js: number;
+    jsBrotli: number;
+    jsGzip: number;
+    jsCss: number;
+    css: number;
+    cssBrotli: number;
+    cssGzip: number;
+    cssFiles: Record<string, { size: number; gzipSize: number; brotliSize: number }>;
+    jsFiles: Record<
+      string,
+      { size: number; cssSize?: number; gzipSize: number; brotliSize: number }
+    >;
+  }
+
+  interface Stats {
+    sizes: SizeStats;
+  }
+
+  const stats: SizeStats = {
+    js: 0,
+    jsBrotli: 0,
+    jsGzip: 0,
+    jsCss: 0,
+    css: 0,
+    cssBrotli: 0,
+    cssGzip: 0,
     cssFiles: {} as Record<string, { size: number; gzipSize: number; brotliSize: number }>,
     jsFiles: {} as Record<
       string,
@@ -858,9 +877,9 @@ async function buildSizeStats(pkg: PackageBuilder): Promise<void> {
       const size = content.length;
       const brotliSize = await calculateBrotliSize(content);
       const gzipSize = await calculateGzipSize(content);
-      stats.cssSize += size;
-      stats.cssBrotliSize += brotliSize;
-      stats.cssGzipSize += gzipSize;
+      stats.css += size;
+      stats.cssBrotli += brotliSize;
+      stats.cssGzip += gzipSize;
       stats.cssFiles[key] = { size, brotliSize, gzipSize };
     }
     for (const file of globSync('**/*.js', { cwd: dir })
@@ -872,9 +891,9 @@ async function buildSizeStats(pkg: PackageBuilder): Promise<void> {
       const size = content.length;
       const brotliSize = await calculateBrotliSize(content);
       const gzipSize = await calculateGzipSize(content);
-      stats.jsSize += size;
-      stats.jsBrotliSize += brotliSize;
-      stats.jsGzipSize += gzipSize;
+      stats.js += size;
+      stats.jsBrotli += brotliSize;
+      stats.jsGzip += gzipSize;
       stats.jsFiles[key] = { size, brotliSize, gzipSize };
       const sourceFile = ts.createSourceFile(file, content, scriptTarget, true);
 
@@ -901,13 +920,17 @@ async function buildSizeStats(pkg: PackageBuilder): Promise<void> {
       }
 
       if (cssSize) {
-        stats.jsCssSize += cssSize;
+        stats.jsCss += cssSize;
         stats.jsFiles[key].cssSize = cssSize;
       }
     }
   }
 
-  writeFileSync(join(pkg.outDir, 'lyne-stats.json'), JSON.stringify(stats, null, 2), 'utf8');
+  writeFileSync(
+    join(pkg.outDir, 'stats.json'),
+    JSON.stringify({ sizes: stats } satisfies Stats, null, 2),
+    'utf8',
+  );
 
   console.log(`=> Built size stats in ${relative(projectRoot, pkg.outDir)}`);
 }

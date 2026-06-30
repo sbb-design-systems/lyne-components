@@ -1,6 +1,6 @@
 import { create } from 'storybook/theming';
 
-const version = process.env.STORYBOOK_COMPONENTS_VERSION;
+const version = process.env.VERSION;
 let title = `sbb-components`;
 
 if (version) {
