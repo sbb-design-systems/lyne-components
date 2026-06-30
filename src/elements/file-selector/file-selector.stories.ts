@@ -4,7 +4,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbFileChangeEvent, SbbFileSelectorDropzoneElement } from '../file-selector.ts';
 import { SbbFileSelectorElement } from '../file-selector.ts';
 import type { SbbErrorElement } from '../form-field.ts';
