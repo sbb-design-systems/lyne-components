@@ -194,8 +194,10 @@ export class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement)
     if (!this.value) {
       this._removeValidityErrors();
     } else if (!this._valueAsTime) {
+      this.removeValidityFlag('rangeOverflow');
       this.setValidityFlag('badInput', i18nTimeInvalid[this.language.current]);
     } else if (!this._isTimeValid(this._valueAsTime)) {
+      this.removeValidityFlag('badInput');
       this.setValidityFlag('rangeOverflow', i18nTimeMax[this.language.current]);
     } else {
       this._removeValidityErrors();

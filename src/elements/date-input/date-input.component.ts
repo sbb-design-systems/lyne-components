@@ -255,11 +255,17 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
     if (!this.value) {
       this._removeValidityErrors();
     } else if (!this._dateAdapter.isValid(this.valueAsDate)) {
+      (['rangeUnderflow', 'rangeOverflow', 'sbbDateFilter'] as const).forEach((f) =>
+        this.removeValidityFlag(f),
+      );
       this.setValidityFlag('badInput', i18nDateInvalid[this.language.current]);
     } else if (
       this._dateAdapter.isValid(this.min) &&
       this._dateAdapter.compareDate(this.min, this.valueAsDate) > 0
     ) {
+      (['badInput', 'rangeOverflow', 'sbbDateFilter'] as const).forEach((f) =>
+        this.removeValidityFlag(f),
+      );
       this.setValidityFlag(
         'rangeUnderflow',
         i18nDateMin(this._dateAdapter.format(this.min, { weekdayStyle: 'none' }))[
@@ -270,6 +276,9 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
       this._dateAdapter.isValid(this.max) &&
       this._dateAdapter.compareDate(this.valueAsDate, this.max) > 0
     ) {
+      (['badInput', 'rangeUnderflow', 'sbbDateFilter'] as const).forEach((f) =>
+        this.removeValidityFlag(f),
+      );
       this.setValidityFlag(
         'rangeOverflow',
         i18nDateMax(this._dateAdapter.format(this.max, { weekdayStyle: 'none' }))[
@@ -277,6 +286,9 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
         ],
       );
     } else if (this.dateFilter && !this.dateFilter(this.valueAsDate)) {
+      (['badInput', 'rangeUnderflow', 'rangeOverflow'] as const).forEach((f) =>
+        this.removeValidityFlag(f),
+      );
       this.setValidityFlag('sbbDateFilter', i18nDateInvalid[this.language.current]);
     } else {
       this._removeValidityErrors();

@@ -117,6 +117,27 @@ describe(`sbb-time-input`, () => {
     expect(element).to.match(':valid');
   });
 
+  it.only('should update validity flags when changing from badInput to rangeOverflow', async () => {
+    // 'hh' contains allowed characters but cannot be parsed → badInput.
+    element.value = 'hh';
+    await waitForLitRender(element);
+
+    expect(element).to.match(':invalid');
+    expect(element.validationMessage).to.equal('Please provide a valid time.');
+    expect(element.validity.badInput, 'badInput').to.be.true;
+    expect(element.validity.rangeOverflow, 'rangeOverflow').to.be.false;
+
+    // Transition to rangeOverflow: '99' parses to { hours: 99, minutes: 0 } → out of range.
+    // Without the fix in validate(), badInput would remain set alongside rangeOverflow.
+    element.value = '99';
+    await waitForLitRender(element);
+
+    expect(element).to.match(':invalid');
+    expect(element.validationMessage).to.equal('Time must not be after 23:59.');
+    expect(element.validity.badInput, 'badInput').to.be.false;
+    expect(element.validity.rangeOverflow, 'rangeOverflow').to.be.true;
+  });
+
   it('should interpret valid values', async function (this: Context) {
     const testCases = [
       { value: '0', interpretedAs: '00:00' },
