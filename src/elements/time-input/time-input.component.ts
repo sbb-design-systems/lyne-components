@@ -194,18 +194,20 @@ export class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement)
     if (!this.value) {
       this._removeValidityErrors();
     } else if (!this._valueAsTime) {
-      this.removeValidityFlag('rangeOverflow');
+      this._removeValidityErrors('badInput');
       this.setValidityFlag('badInput', i18nTimeInvalid[this.language.current]);
     } else if (!this._isTimeValid(this._valueAsTime)) {
-      this.removeValidityFlag('badInput');
+      this._removeValidityErrors('rangeOverflow');
       this.setValidityFlag('rangeOverflow', i18nTimeMax[this.language.current]);
     } else {
       this._removeValidityErrors();
     }
   }
 
-  private _removeValidityErrors(): void {
-    (['badInput', 'rangeOverflow'] as const).forEach((f) => this.removeValidityFlag(f));
+  private _removeValidityErrors(except?: keyof ValidityStateFlags): void {
+    (['badInput', 'rangeOverflow'] as const)
+      .filter((v) => v !== except)
+      .forEach((f) => this.removeValidityFlag(f));
   }
 
   /** Checks if values of hours and minutes are possible, to avoid non-existent times. */

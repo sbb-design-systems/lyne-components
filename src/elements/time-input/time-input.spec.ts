@@ -76,16 +76,25 @@ describe(`sbb-time-input`, () => {
 
   it('should dispatch validity event', async () => {
     const validitySpy = new EventSpy('validity', element);
+    expect(element.validity.rangeOverflow).to.be.false;
+    expect(element.validity.badInput).to.be.false;
 
     // When entering an invalid  value
     typeInElement(element, '99');
 
     expect(validitySpy.count).to.be.equal(1);
+    expect(element.validity.rangeOverflow).to.be.true;
+    expect(element.validity.badInput).to.be.false;
 
     // When entering a valid time
+    element.focus();
+    await sendKeys({ press: 'Backspace' });
+    await sendKeys({ press: 'Backspace' });
     typeInElement(element, '1201');
 
     expect(validitySpy.count).to.be.equal(2);
+    expect(element.validity.rangeOverflow).to.be.false;
+    expect(element.validity.badInput).to.be.false;
   });
 
   it('should handle null as value', async () => {
@@ -117,7 +126,7 @@ describe(`sbb-time-input`, () => {
     expect(element).to.match(':valid');
   });
 
-  it.only('should update validity flags when changing from badInput to rangeOverflow', async () => {
+  it('should update validity flags when changing from badInput to rangeOverflow', async () => {
     // 'hh' contains allowed characters but cannot be parsed → badInput.
     element.value = 'hh';
     await waitForLitRender(element);
