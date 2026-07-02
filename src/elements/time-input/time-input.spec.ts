@@ -137,7 +137,6 @@ describe(`sbb-time-input`, () => {
     expect(element.validity.rangeOverflow, 'rangeOverflow').to.be.false;
 
     // Transition to rangeOverflow: '99' parses to { hours: 99, minutes: 0 } → out of range.
-    // Without the fix in validate(), badInput would remain set alongside rangeOverflow.
     element.value = '99';
     await waitForLitRender(element);
 
