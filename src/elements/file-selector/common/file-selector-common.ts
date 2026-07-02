@@ -200,7 +200,7 @@ export const SbbFileSelectorCommonElementMixin = <
       forwardEvent(event, this);
     }
 
-    protected createFileList(files: FileList): void {
+    protected createFileList(files: FileList, emitNativeEvents = false): void {
       const fileArray = Array.from(files);
       if (
         (!this.multiple && files.length > 1) ||
@@ -230,6 +230,9 @@ export const SbbFileSelectorCommonElementMixin = <
       }
       this._updateA11yLiveRegion();
       this._dispatchFileChangedEvent();
+      if (emitNativeEvents) {
+        this._dispatchNativeEvents();
+      }
     }
 
     protected getButtonLabel(): string {
@@ -243,6 +246,11 @@ export const SbbFileSelectorCommonElementMixin = <
       this._updateA11yLiveRegion();
 
       // Dispatch native events as if the reset is done via the file selection window.
+      this._dispatchNativeEvents();
+      this._dispatchFileChangedEvent();
+    }
+
+    private _dispatchNativeEvents(): void {
       /** The input event fires when the value has been changed as a direct result of a user action. */
       this.dispatchEvent(
         new InputEvent('input', {
@@ -257,7 +265,6 @@ export const SbbFileSelectorCommonElementMixin = <
        * for each alteration to an element's value.
        */
       this.dispatchEvent(new Event('change', { bubbles: true }));
-      this._dispatchFileChangedEvent();
     }
 
     private _dispatchFileChangedEvent(): void {
@@ -339,7 +346,7 @@ export const SbbFileSelectorCommonElementMixin = <
       if (!this.disabled && !this.formDisabled) {
         this._setDragState();
         this._blockEvent(event);
-        this.createFileList(event.dataTransfer!.files);
+        this.createFileList(event.dataTransfer!.files, true);
       }
     }
 
