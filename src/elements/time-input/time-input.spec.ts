@@ -76,16 +76,25 @@ describe(`sbb-time-input`, () => {
 
   it('should dispatch validity event', async () => {
     const validitySpy = new EventSpy('validity', element);
+    expect(element.validity.rangeOverflow).to.be.false;
+    expect(element.validity.badInput).to.be.false;
 
     // When entering an invalid  value
     typeInElement(element, '99');
 
     expect(validitySpy.count).to.be.equal(1);
+    expect(element.validity.rangeOverflow).to.be.true;
+    expect(element.validity.badInput).to.be.false;
 
     // When entering a valid time
+    element.focus();
+    await sendKeys({ press: 'Backspace' });
+    await sendKeys({ press: 'Backspace' });
     typeInElement(element, '1201');
 
     expect(validitySpy.count).to.be.equal(2);
+    expect(element.validity.rangeOverflow).to.be.false;
+    expect(element.validity.badInput).to.be.false;
   });
 
   it('should handle null as value', async () => {
@@ -115,6 +124,26 @@ describe(`sbb-time-input`, () => {
     element.blur();
 
     expect(element).to.match(':valid');
+  });
+
+  it('should update validity flags when changing from badInput to rangeOverflow', async () => {
+    // 'hh' contains allowed characters but cannot be parsed → badInput.
+    element.value = 'hh';
+    await waitForLitRender(element);
+
+    expect(element).to.match(':invalid');
+    expect(element.validationMessage).to.equal('Please provide a valid time.');
+    expect(element.validity.badInput, 'badInput').to.be.true;
+    expect(element.validity.rangeOverflow, 'rangeOverflow').to.be.false;
+
+    // Transition to rangeOverflow: '99' parses to { hours: 99, minutes: 0 } → out of range.
+    element.value = '99';
+    await waitForLitRender(element);
+
+    expect(element).to.match(':invalid');
+    expect(element.validationMessage).to.equal('Time must not be after 23:59.');
+    expect(element.validity.badInput, 'badInput').to.be.false;
+    expect(element.validity.rangeOverflow, 'rangeOverflow').to.be.true;
   });
 
   it('should interpret valid values', async function (this: Context) {
