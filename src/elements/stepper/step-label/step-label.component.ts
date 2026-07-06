@@ -53,7 +53,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
 
     this.addEventListener?.('click', () => {
       const stepper = this.stepper;
-      if (stepper && this.step && this._isNotDeactivatedByLinearMode(this.step)) {
+      if (stepper && this.step && this._isNotDeactivatedByLinearMode(this.step) && !this.disabled) {
         stepper.selected = this.step;
       }
     });

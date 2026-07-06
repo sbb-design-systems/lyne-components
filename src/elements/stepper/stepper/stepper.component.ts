@@ -187,17 +187,29 @@ export class SbbStepperElement extends SbbElement {
     this.addEventListener?.('resizechange', (e: Event) => this._onSelectedStepResize(e));
   }
 
-  /** Selects the next step. */
+  /** Selects the next enabled step. If no available step is found, it simply exits. */
   public next(): void {
     if (this.selectedIndex !== null) {
-      this._select(this.steps[this.selectedIndex + 1]);
+      for (let i = this.selectedIndex + 1; i < this.steps.length; i++) {
+        const step = this.steps[i];
+        if (this._isSelectable(step)) {
+          this._select(step);
+          return;
+        }
+      }
     }
   }
 
-  /** Selects the previous step. */
+  /** Selects the previous enabled step. If no available step is found, it simply exits. */
   public previous(): void {
     if (this.selectedIndex !== null) {
-      this._select(this.steps[this.selectedIndex - 1]);
+      for (let i = this.selectedIndex - 1; i >= 0; i--) {
+        const step = this.steps[i];
+        if (this._isSelectable(step)) {
+          this._select(step);
+          return;
+        }
+      }
     }
   }
 
@@ -232,24 +244,24 @@ export class SbbStepperElement extends SbbElement {
   }
 
   private _select(step: SbbStepElement | null): void {
-    if (!this._isSelectable(step) || step === this.selected) {
+    if (!step || step === this.selected) {
       return;
     }
     const currentIndex = this.selectedIndex;
     const currentStep = this.selected;
+    const stepIndex = this.steps.indexOf(step);
     const validatePayload: SbbStepValidateEventDetails = {
       currentIndex,
       currentStep,
-      nextIndex: this.selectedIndex !== null ? this.selectedIndex + 1 : null,
-      nextStep: this.selectedIndex !== null ? this.steps[this.selectedIndex + 1] : null,
+      nextIndex: stepIndex >= 0 ? stepIndex : null,
+      nextStep: step,
     };
 
     if (this.selected && !this.selected['validate'](validatePayload)) {
       return;
     }
 
-    const current = this.selected;
-    current?.['deselect']();
+    currentStep?.['deselect']();
     step['select']();
 
     /** @internal only to provide double entry in docs. It is a public event! */
