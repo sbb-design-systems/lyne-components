@@ -66,9 +66,11 @@ describe('sbb-sidebar', () => {
       position=${position || nothing}
       mode=${mode || nothing}
     >
-      ${hideTitle
-        ? nothing
-        : html`<sbb-sidebar-title>${title ? title : 'Title'}</sbb-sidebar-title>`}
+      ${
+        hideTitle
+          ? nothing
+          : html`<sbb-sidebar-title>${title ? title : 'Title'}</sbb-sidebar-title>`
+      }
       ${hideCloseButton ? nothing : html`<sbb-sidebar-close-button></sbb-sidebar-close-button>`}
 
       <sbb-link-list>

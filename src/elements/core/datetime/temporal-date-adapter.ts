@@ -1,4 +1,5 @@
-/// <reference types="temporal-polyfill/global" />
+/// <reference lib="esnext.intl" />
+/// <reference lib="esnext.temporal" />
 
 import { SbbLanguageController } from '../controllers/language-controller.ts';
 

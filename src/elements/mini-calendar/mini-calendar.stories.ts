@@ -4,7 +4,7 @@ import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import { defaultDateAdapter } from '../core.ts';
 
 import readme from './readme.md?raw';
@@ -27,10 +27,12 @@ const createDays = (year: number, month: number, withTooltip: boolean): Template
         <sbb-mini-calendar-day
           ${sbbSpread(tooltipAttributes)}
           date=${defaultDateAdapter.toIso8601(date)}
-          marker=${defaultDateAdapter.getDayOfWeek(date) === 0 ||
-          defaultDateAdapter.getDayOfWeek(date) === 6
-            ? 'circle'
-            : ''}
+          marker=${
+            defaultDateAdapter.getDayOfWeek(date) === 0 ||
+            defaultDateAdapter.getDayOfWeek(date) === 6
+              ? 'circle'
+              : ''
+          }
         ></sbb-mini-calendar-day>
       `;
     })}

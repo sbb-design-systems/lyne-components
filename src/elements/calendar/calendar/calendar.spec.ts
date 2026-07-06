@@ -91,9 +91,8 @@ describe(`sbb-calendar`, () => {
             case 'enhanced': {
               template = html` <sbb-calendar
                 value="2023-01-15"
-                @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e)}
+                @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e, true)}
               >
-                ${createSlottedDays(2023, 1, true)}
               </sbb-calendar>`;
               break;
             }
@@ -374,15 +373,17 @@ describe(`sbb-calendar`, () => {
           it('focuses current day', async () => {
             element = await fixture(html`
               <sbb-calendar>
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? createSlottedDays(2023, 10, true)
-                    : html`
-                        <sbb-calendar-day slot=${toIso8601(new Date('2023-10-15'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? createSlottedDays(2023, 10, true)
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2023-10-15'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
 
@@ -835,6 +836,26 @@ describe(`sbb-calendar`, () => {
             expect(getDayActiveElementValue()).to.be.equal('2023-01-29');
           });
         });
+
+        it('returns the visible days and updates them after navigation', async () => {
+          const expectedJanuaryDays = Array.from(
+            { length: 31 },
+            (_, index) => `2023-01-${String(index + 1).padStart(2, '0')}`,
+          );
+          expect(element.visibleDays().map((day) => day.value)).to.deep.equal(expectedJanuaryDays);
+
+          const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
+            'sbb-secondary-button[icon-name="chevron-small-right-small"]',
+          )!;
+          nextMonthButton.click();
+          await waitForLitRender(element);
+
+          const expectedFebruaryDays = Array.from(
+            { length: 28 },
+            (_, index) => `2023-02-${String(index + 1).padStart(2, '0')}`,
+          );
+          expect(element.visibleDays().map((day) => day.value)).to.deep.equal(expectedFebruaryDays);
+        });
       });
 
       describe('vertical', () => {
@@ -845,9 +866,8 @@ describe(`sbb-calendar`, () => {
               template = html` <sbb-calendar
                 value="2023-01-15"
                 orientation="vertical"
-                @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e)}
+                @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e, true)}
               >
-                ${createSlottedDays(2023, 1, true)}
               </sbb-calendar>`;
               break;
             }
@@ -962,15 +982,17 @@ describe(`sbb-calendar`, () => {
       it('renders with min and max', async () => {
         element = await fixture(html`
           <sbb-calendar value="2023-01-20" min="2023-01-09" max="2023-01-29">
-            ${variant === 'default'
-              ? nothing
-              : variant === 'enhanced'
-                ? createSlottedDays(2023, 1, true)
-                : html`
-                    <sbb-calendar-day slot=${toIso8601(new Date('2023-01-22'))}>
-                      ${createPrice(true)}
-                    </sbb-calendar-day>
-                  `}
+            ${
+              variant === 'default'
+                ? nothing
+                : variant === 'enhanced'
+                  ? createSlottedDays(2023, 1, true)
+                  : html`
+                      <sbb-calendar-day slot=${toIso8601(new Date('2023-01-22'))}>
+                        ${createPrice(true)}
+                      </sbb-calendar-day>
+                    `
+            }
           </sbb-calendar>
         `);
 
@@ -1025,9 +1047,8 @@ describe(`sbb-calendar`, () => {
                 template = html`<sbb-calendar
                   value="2023-01-15"
                   amount="2"
-                  @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e)}
+                  @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e, true)}
                 >
-                  ${createSlottedDays(2023, 1, true)} ${createSlottedDays(2023, 2, true)}
                 </sbb-calendar>`;
                 break;
               }
@@ -1087,18 +1108,21 @@ describe(`sbb-calendar`, () => {
           it('renders with min and max', async () => {
             element = await fixture(html`
               <sbb-calendar value="2024-11-20" min="2023-11-04" max="2026-12-31" amount="2">
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? html`${createSlottedDays(2024, 11, true)} ${createSlottedDays(2024, 12, true)}`
-                    : html`
-                        <sbb-calendar-day slot=${toIso8601(new Date('2024-11-22'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                        <sbb-calendar-day slot=${toIso8601(new Date('2024-12-18'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? html`${createSlottedDays(2024, 11, true)}
+                        ${createSlottedDays(2024, 12, true)}`
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2024-11-22'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                          <sbb-calendar-day slot=${toIso8601(new Date('2024-12-18'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
 
@@ -1152,18 +1176,21 @@ describe(`sbb-calendar`, () => {
             beforeEach(async () => {
               element = await fixture(html`
                 <sbb-calendar value="2025-01-31" amount="2">
-                  ${variant === 'default'
-                    ? nothing
-                    : variant === 'enhanced'
-                      ? html`${createSlottedDays(2025, 1, true)} ${createSlottedDays(2025, 2, true)}`
-                      : html`
-                          <sbb-calendar-day slot=${toIso8601(new Date('2025-01-01'))}>
-                            ${createPrice(true)}
-                          </sbb-calendar-day>
-                          <sbb-calendar-day slot=${toIso8601(new Date('2025-02-13'))}>
-                            ${createPrice(true)}
-                          </sbb-calendar-day>
-                        `}
+                  ${
+                    variant === 'default'
+                      ? nothing
+                      : variant === 'enhanced'
+                        ? html`${createSlottedDays(2025, 1, true)}
+                          ${createSlottedDays(2025, 2, true)}`
+                        : html`
+                            <sbb-calendar-day slot=${toIso8601(new Date('2025-01-01'))}>
+                              ${createPrice(true)}
+                            </sbb-calendar-day>
+                            <sbb-calendar-day slot=${toIso8601(new Date('2025-02-13'))}>
+                              ${createPrice(true)}
+                            </sbb-calendar-day>
+                          `
+                  }
                 </sbb-calendar>
               `);
             });
@@ -1238,18 +1265,20 @@ describe(`sbb-calendar`, () => {
           beforeEach(async () => {
             element = await fixture(html`
               <sbb-calendar value="2025-01-29" orientation="vertical" amount="2">
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? html`${createSlottedDays(2025, 1, true)} ${createSlottedDays(2025, 2, true)}`
-                    : html`
-                        <sbb-calendar-day slot=${toIso8601(new Date('2025-01-01'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                        <sbb-calendar-day slot=${toIso8601(new Date('2025-02-13'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? html`${createSlottedDays(2025, 1, true)} ${createSlottedDays(2025, 2, true)}`
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-01-01'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-02-13'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
           });
@@ -1448,15 +1477,17 @@ describe(`sbb-calendar`, () => {
         beforeEach(async () => {
           element = await fixture(html`
             <sbb-calendar value="2025-01-22">
-              ${variant === 'default'
-                ? nothing
-                : variant === 'enhanced'
-                  ? createSlottedDays(2025, 1, true)
-                  : html`
-                      <sbb-calendar-day slot=${toIso8601(new Date('2025-01-30'))}>
-                        ${createPrice(true)}
-                      </sbb-calendar-day>
-                    `}
+              ${
+                variant === 'default'
+                  ? nothing
+                  : variant === 'enhanced'
+                    ? createSlottedDays(2025, 1, true)
+                    : html`
+                        <sbb-calendar-day slot=${toIso8601(new Date('2025-01-30'))}>
+                          ${createPrice(true)}
+                        </sbb-calendar-day>
+                      `
+              }
             </sbb-calendar>
           `);
         });
@@ -1483,18 +1514,20 @@ describe(`sbb-calendar`, () => {
             await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
             element = await fixture(html`
               <sbb-calendar value="2025-01-22" amount="2" orientation="horizontal">
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? html`${createSlottedDays(2025, 1, true)} ${createSlottedDays(2025, 2, true)}`
-                    : html`
-                        <sbb-calendar-day slot=${toIso8601(new Date('2025-01-30'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                        <sbb-calendar-day slot=${toIso8601(new Date('2025-02-10'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? html`${createSlottedDays(2025, 1, true)} ${createSlottedDays(2025, 2, true)}`
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-01-30'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-02-10'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             element.dateFilter = (d: Date | null): boolean =>
@@ -1573,18 +1606,20 @@ describe(`sbb-calendar`, () => {
             await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
             element = await fixture(html`
               <sbb-calendar value="2025-01-22" amount="2" orientation="vertical">
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? html`${createSlottedDays(2025, 1, true)} ${createSlottedDays(2025, 2, true)}`
-                    : html`
-                        <sbb-calendar-day slot=${toIso8601(new Date('2025-01-30'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                        <sbb-calendar-day slot=${toIso8601(new Date('2025-02-10'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? html`${createSlottedDays(2025, 1, true)} ${createSlottedDays(2025, 2, true)}`
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-01-30'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-02-10'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             element.dateFilter = (d: Date | null): boolean =>
@@ -1666,15 +1701,17 @@ describe(`sbb-calendar`, () => {
           it('renders', async () => {
             const calendar: SbbCalendarElement = await fixture(html`
               <sbb-calendar value="2025-04-08T00:00:00" week-numbers>
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? createSlottedDays(2025, 4, true)
-                    : html`
-                        <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? createSlottedDays(2025, 4, true)
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             // In horizontal variant, the first cell of each row is the one with the week number
@@ -1695,15 +1732,17 @@ describe(`sbb-calendar`, () => {
           it('renders multiple', async () => {
             const calendar: SbbCalendarElement = await fixture(html`
               <sbb-calendar value="2025-04-08T00:00:00" week-numbers multiple>
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? createSlottedDays(2025, 4, true)
-                    : html`
-                        <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? createSlottedDays(2025, 4, true)
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
@@ -1753,9 +1792,8 @@ describe(`sbb-calendar`, () => {
 
             // Click on Wed button: all missing Wednesdays are added
             const header = calendar.shadowRoot!.querySelectorAll('thead th')!;
-            const headerButtons = Array.from(
-              header,
-              (e) => e.querySelector<SbbCalendarWeekdayElement>('sbb-calendar-weekday')!,
+            const headerButtons = Array.from(header, (e) =>
+              e.querySelector<SbbCalendarWeekdayElement>('sbb-calendar-weekday')!,
             );
             expect(headerButtons.length).to.be.equal(8);
             headerButtons[3].click();
@@ -1808,18 +1846,20 @@ describe(`sbb-calendar`, () => {
             await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
             const calendar: SbbCalendarElement = await fixture(html`
               <sbb-calendar value="2025-04-08T00:00:00" amount="2" week-numbers multiple>
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? html`${createSlottedDays(2025, 4, true)} ${createSlottedDays(2025, 5, true)}`
-                    : html`
-                        <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                        <sbb-calendar-day slot=${toIso8601(new Date('2025-05-05'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? html`${createSlottedDays(2025, 4, true)} ${createSlottedDays(2025, 5, true)}`
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-05-05'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
@@ -1897,15 +1937,17 @@ describe(`sbb-calendar`, () => {
           it('renders', async () => {
             const calendar: SbbCalendarElement = await fixture(html`
               <sbb-calendar value="2025-04-08" orientation="vertical" week-numbers>
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? createSlottedDays(2025, 4, true)
-                    : html`
-                        <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? createSlottedDays(2025, 4, true)
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             // In vertical variant, there's a table header with the week numbers as cells
@@ -1936,15 +1978,17 @@ describe(`sbb-calendar`, () => {
                 week-numbers
                 multiple
               >
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? createSlottedDays(2025, 4, true)
-                    : html`
-                        <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? createSlottedDays(2025, 4, true)
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
@@ -1998,9 +2042,8 @@ describe(`sbb-calendar`, () => {
 
             // Click on Wed button: all missing Wednesdays are added
             const rows = calendar.shadowRoot!.querySelectorAll('tbody tr');
-            const weekDayCells: SbbCalendarWeekdayElement[] = Array.from(
-              rows,
-              (e) => e.querySelector('sbb-calendar-weekday')!,
+            const weekDayCells: SbbCalendarWeekdayElement[] = Array.from(rows, (e) =>
+              e.querySelector('sbb-calendar-weekday')!,
             );
             expect(weekDayCells.length).to.be.equal(7);
             weekDayCells[2].click();
@@ -2071,18 +2114,20 @@ describe(`sbb-calendar`, () => {
                 multiple
                 amount="2"
               >
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? html`${createSlottedDays(2025, 4, true)} ${createSlottedDays(2025, 5, true)}`
-                    : html`
-                        <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                        <sbb-calendar-day slot=${toIso8601(new Date('2025-05-13'))}>
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? html`${createSlottedDays(2025, 4, true)} ${createSlottedDays(2025, 5, true)}`
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-05-13'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
@@ -2166,15 +2211,17 @@ describe(`sbb-calendar`, () => {
         beforeEach(async () => {
           element = await fixture(
             html` <sbb-calendar fixed-month="2023-10">
-              ${variant === 'default'
-                ? nothing
-                : variant === 'enhanced'
-                  ? createSlottedDays(2023, 10, true)
-                  : html`
-                      <sbb-calendar-day slot=${toIso8601(new Date('2023-10-15'))}>
-                        ${createPrice(true)}
-                      </sbb-calendar-day>
-                    `}
+              ${
+                variant === 'default'
+                  ? nothing
+                  : variant === 'enhanced'
+                    ? createSlottedDays(2023, 10, true)
+                    : html`
+                        <sbb-calendar-day slot=${toIso8601(new Date('2023-10-15'))}>
+                          ${createPrice(true)}
+                        </sbb-calendar-day>
+                      `
+              }
             </sbb-calendar>`,
           );
         });

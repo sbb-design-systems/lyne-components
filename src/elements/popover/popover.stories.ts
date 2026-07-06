@@ -5,7 +5,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 
 import { SbbPopoverElement } from './popover/popover.component.ts';
 import readme from './readme.md?raw';
@@ -69,9 +69,11 @@ const popover = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-popover trigger="popover-trigger" ?hover-trigger=${hoverTrigger} ${sbbSpread(args)}>
-    ${hideCloseButton || hoverTrigger
-      ? ''
-      : html`<sbb-popover-close-button></sbb-popover-close-button>`}
+    ${
+      hideCloseButton || hoverTrigger
+        ? ''
+        : html`<sbb-popover-close-button></sbb-popover-close-button>`
+    }
     <sbb-title level="2" visual-level="6" style="margin-block-start: 0"> Title. </sbb-title>
     <p style="margin: 0" class="sbb-text-s">
       Some content.

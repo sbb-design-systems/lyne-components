@@ -3,7 +3,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import { SbbStickyBarElement } from '../container.ts';
 import { sampleImages } from '../core/images.private.ts';
 
@@ -20,18 +20,20 @@ const containerContent = (title: string, isDark: boolean, last = false): Templat
   <sbb-title level="4" ?negative=${isDark}>${title}</sbb-title>
   <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
   <p class="sbb-text-s">
-    ${isDark
-      ? html`
-          In <code>"midnight"</code> and <code>"charcoal"</code> variants the slotted text has
-          <code>"white"</code> color; however, you have to manually set the
-          <code>"negative"</code> property on sbb-components when needed.
-        `
-      : html`
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        `}
+    ${
+      isDark
+        ? html`
+            In <code>"midnight"</code> and <code>"charcoal"</code> variants the slotted text has
+            <code>"white"</code> color; however, you have to manually set the
+            <code>"negative"</code> property on sbb-components when needed.
+          `
+        : html`
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          `
+    }
   </p>
   <sbb-secondary-button style=${last ? 'margin-block-end: 3rem;' : nothing}>
     See more

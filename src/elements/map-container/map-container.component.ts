@@ -114,17 +114,19 @@ export class SbbMapContainerElement extends SbbElement {
 
         <slot></slot>
 
-        ${!this.hideScrollUpButton
-          ? html`<sbb-accent-button
-              class="sbb-map-container__sidebar-button"
-              size="l"
-              icon-name="location-pin-map-small"
-              @click=${() => this._onScrollButtonClick()}
-              ?inert=${!this._scrollUpButtonVisible}
-            >
-              ${i18nMapContainerButtonLabel[this._language.current]}
-            </sbb-accent-button>`
-          : nothing}
+        ${
+          !this.hideScrollUpButton
+            ? html`<sbb-accent-button
+                class="sbb-map-container__sidebar-button"
+                size="l"
+                icon-name="location-pin-map-small"
+                @click=${() => this._onScrollButtonClick()}
+                ?inert=${!this._scrollUpButtonVisible}
+              >
+                ${i18nMapContainerButtonLabel[this._language.current]}
+              </sbb-accent-button>`
+            : nothing
+        }
       </div>
     `;
   }

@@ -38,38 +38,40 @@ export class SbbTimetableOccupancyElement extends SbbNegativeMixin(SbbElement) {
   private _language = new SbbLanguageController(this);
 
   protected override render(): TemplateResult {
-    return html` ${(this.firstClassOccupancy || this.secondClassOccupancy) &&
-    html`
-      <ul
-        class="sbb-timetable-occupancy__list"
-        role=${!this.firstClassOccupancy || !this.secondClassOccupancy ? 'presentation' : nothing}
-      >
-        ${[this.firstClassOccupancy, this.secondClassOccupancy].map(
-          (occupancy: string | null, index: number) =>
-            occupancy &&
-            html`
-              <li class="sbb-timetable-occupancy__list-item">
-                <span class="sbb-timetable-occupancy__list-item-class" aria-hidden="true">
-                  ${this.firstClassOccupancy && index === 0 ? '1' : '2'}.
-                </span>
-                <span class="sbb-screen-reader-only">
-                  ${`${
-                    i18nClass[this.firstClassOccupancy && index === 0 ? 'first' : 'second'][
-                      this._language.current
-                    ]
-                  }.`}
-                </span>
-                <sbb-timetable-occupancy-icon
-                  class="sbb-timetable-occupancy__list-item-icon"
-                  ?negative=${this.negative}
-                  .occupancy=${occupancy}
-                >
-                </sbb-timetable-occupancy-icon>
-              </li>
-            `,
-        )}
-      </ul>
-    `}`;
+    return html` ${
+      (this.firstClassOccupancy || this.secondClassOccupancy) &&
+      html`
+        <ul
+          class="sbb-timetable-occupancy__list"
+          role=${!this.firstClassOccupancy || !this.secondClassOccupancy ? 'presentation' : nothing}
+        >
+          ${[this.firstClassOccupancy, this.secondClassOccupancy].map(
+            (occupancy: string | null, index: number) =>
+              occupancy &&
+              html`
+                <li class="sbb-timetable-occupancy__list-item">
+                  <span class="sbb-timetable-occupancy__list-item-class" aria-hidden="true">
+                    ${this.firstClassOccupancy && index === 0 ? '1' : '2'}.
+                  </span>
+                  <span class="sbb-screen-reader-only">
+                    ${`${
+                      i18nClass[this.firstClassOccupancy && index === 0 ? 'first' : 'second'][
+                        this._language.current
+                      ]
+                    }.`}
+                  </span>
+                  <sbb-timetable-occupancy-icon
+                    class="sbb-timetable-occupancy__list-item-icon"
+                    ?negative=${this.negative}
+                    .occupancy=${occupancy}
+                  >
+                  </sbb-timetable-occupancy-icon>
+                </li>
+              `,
+          )}
+        </ul>
+      `
+    }`;
   }
 }
 

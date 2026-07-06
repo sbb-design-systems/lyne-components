@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-radio-button-panel>` component provides the same functionality as a native `<input type="radio"/>` enhanced with the selection panel design and functionalities.
 
 Radio-buttons should typically be placed inside a [sbb-radio-button-group](/docs/elements-radio-button--docs) component

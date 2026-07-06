@@ -13,7 +13,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import { sampleImages } from '../core/images.private.ts';
 
 import readme from './readme.md?raw';
@@ -108,7 +108,7 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
                   <a
                     href="https://github.com/sbb-design-systems/lyne-components"
                     target="_blank"
-                    tabindex="-1"
+                    aria-label="Navigate to lyne-angular repo"
                   >
                     <sbb-image
                       image-src=${img}
@@ -125,12 +125,14 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
     </sbb-carousel-list>
     <sbb-compact-paginator></sbb-compact-paginator>
   </sbb-carousel>
-  ${imgType === 'native-mobile'
-    ? html` <sbb-card color=${args.shadow ? 'white' : 'milk'}>
-        In mobile, scrolling the carousel can de-sync the paginator if the image is bigger than the
-        viewport. Be sure to set the right dimensions for the slotted image.
-      </sbb-card>`
-    : nothing}
+  ${
+    imgType === 'native-mobile'
+      ? html` <sbb-card color=${args.shadow ? 'white' : 'milk'}>
+          In mobile, scrolling the carousel can de-sync the paginator if the image is bigger than
+          the viewport. Be sure to set the right dimensions for the slotted image.
+        </sbb-card>`
+      : nothing
+  }
 `;
 
 const buttonTemplate = ({ shadow }: Args): TemplateResult => html`

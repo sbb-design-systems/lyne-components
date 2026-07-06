@@ -3,7 +3,7 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbErrorElement, SbbFormFieldElement } from '../form-field.ts';
 
 import readme from './readme.md?raw';
@@ -40,11 +40,13 @@ const formField = (
     ?floating-label=${floatingLabel}
     ?negative=${negative}
   >
-    ${label && !slottedLabel
-      ? html`<label>${label}${optional ? ` (optional)` : ''}</label>`
-      : label && slottedLabel
-        ? html`<span slot="label">${label}</span>`
-        : nothing}
+    ${
+      label && !slottedLabel
+        ? html`<label>${label}${optional ? ` (optional)` : ''}</label>`
+        : label && slottedLabel
+          ? html`<span slot="label">${label}</span>`
+          : nothing
+    }
     ${template}
   </sbb-form-field>`;
 

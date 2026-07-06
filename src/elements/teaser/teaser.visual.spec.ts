@@ -116,11 +116,13 @@ describe(`sbb-teaser`, () => {
                     <sbb-teaser href="#" alignment=${alignment}>
                       <figure slot="image" class="sbb-figure">
                         <img src=${imageBase64} />
-                        ${hasChip
-                          ? html`<sbb-chip-label class="sbb-figure-overlap-start-start">
-                              AI chip
-                            </sbb-chip-label>`
-                          : nothing}
+                        ${
+                          hasChip
+                            ? html`<sbb-chip-label class="sbb-figure-overlap-start-start">
+                                AI chip
+                              </sbb-chip-label>`
+                            : nothing
+                        }
                       </figure>
                       ${hasChip ? html`<sbb-chip-label>This is a chip.</sbb-chip-label>` : nothing}
                       <sbb-title level="2">This is a title</sbb-title>
@@ -254,6 +256,50 @@ describe(`sbb-teaser`, () => {
           );
           setup.withPostSetupAction(
             async () => await waitForImageReady(setup.snapshotElement.querySelector('img')!),
+          );
+        }),
+      );
+    });
+
+    describeViewports({ viewports: ['zero'] }, () => {
+      it(
+        `max-width`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`
+              <sbb-teaser style="max-width: 100%" href="#" alignment="below">
+                <img src=${imageBase64} slot="image" alt="" />
+                <sbb-chip-label>AI chip</sbb-chip-label>
+                <sbb-title level="2">This is a title</sbb-title>
+                This is a paragraph with a long text.
+              </sbb-teaser>
+            `,
+            { maxWidth: '150px' },
+          );
+          setup.withPostSetupAction(
+            async () => await waitForImageReady(setup.snapshotElement.querySelector('img')!),
+          );
+        }),
+      );
+
+      it(
+        `max-width sbb-figure`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`
+              <sbb-teaser style="max-width: 100%" href="#" alignment="below">
+                <figure class="sbb-figure" slot="image">
+                  <sbb-image image-src=${imageUrl}></sbb-image>
+                  <sbb-chip-label class="sbb-figure-overlap-start-start">AI chip</sbb-chip-label>
+                </figure>
+                <sbb-title level="2">This is a title</sbb-title>
+                This is a paragraph with a long text.
+              </sbb-teaser>
+            `,
+            { maxWidth: '150px' },
+          );
+          setup.withPostSetupAction(
+            async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
           );
         }),
       );

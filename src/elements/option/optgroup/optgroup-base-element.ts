@@ -119,14 +119,16 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbElement
 
   protected override render(): TemplateResult {
     return html`
-      ${this.label
-        ? html`
-            <div class="sbb-optgroup__label" aria-hidden="true">
-              <div class="sbb-optgroup__icon-space"></div>
-              <span>${this.label}</span>
-            </div>
-          `
-        : nothing}
+      ${
+        this.label
+          ? html`
+              <div class="sbb-optgroup__label" aria-hidden="true">
+                <div class="sbb-optgroup__icon-space"></div>
+                <span>${this.label}</span>
+              </div>
+            `
+          : nothing
+      }
       <slot @slotchange=${this._handleSlotchange}></slot>
     `;
   }

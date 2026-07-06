@@ -3,7 +3,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import { sampleImages } from '../core/images.private.ts';
 
 import readme from './readme.md?raw';
@@ -97,9 +97,11 @@ const TemplateDefault = ({
         <img src=${sampleImages[9]} alt="400x300" width="400" />
         <sbb-chip-label class="sbb-figure-overlap-start-start">AI Generated</sbb-chip-label>
       </figure>
-      ${chipContent && chipContent !== ''
-        ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
-        : nothing}
+      ${
+        chipContent && chipContent !== ''
+          ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
+          : nothing
+      }
       ${title && title !== '' ? html`<sbb-title level="2">${title}</sbb-title>` : nothing}
       ${description}
     </sbb-teaser>
@@ -115,9 +117,11 @@ const TemplateDefaultFixedWidth = ({
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)} style="width:400px">
       <img src=${sampleImages[9]} alt="400x300" slot="image" width="400" />
-      ${title && chipContent !== ''
-        ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
-        : nothing}
+      ${
+        title && chipContent !== ''
+          ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
+          : nothing
+      }
       ${title && title !== '' ? html`<sbb-title level="2">${title}</sbb-title>` : nothing}
       ${description}
     </sbb-teaser>
@@ -139,9 +143,11 @@ const TemplateCustom = ({
         style="width: 200px;"
         slot="image"
       />
-      ${chipContent && chipContent !== ''
-        ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
-        : nothing}
+      ${
+        chipContent && chipContent !== ''
+          ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
+          : nothing
+      }
       ${title && title !== '' ? html`<sbb-title level="2">${title}</sbb-title>` : nothing}
       ${description}
     </sbb-teaser>
@@ -157,9 +163,11 @@ const TemplateSlots = ({
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
       <img src=${sampleImages[9]} alt="400x300" slot="image" width="400" />
-      ${chipContent && chipContent !== ''
-        ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
-        : nothing}
+      ${
+        chipContent && chipContent !== ''
+          ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
+          : nothing
+      }
       ${title && title !== '' ? html`<sbb-title level="2">${title}</sbb-title>` : nothing}
       ${description}
     </sbb-teaser>

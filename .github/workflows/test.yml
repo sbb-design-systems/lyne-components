@@ -11,15 +11,15 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
-      - uses: actions/cache/restore@v5
+      - uses: actions/cache/restore@v6
         with:
-          path: node-modules/.cache/
+          path: node_modules/.cache/
           key: test-build-cache-${{ hashFiles('**/*.ts') }}
           restore-keys: test-build-cache-
 
@@ -40,7 +40,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.60.0-noble
+      image: mcr.microsoft.com/playwright:v1.61.1-noble
       options: --user 1001
     needs: setup
     env:
@@ -50,7 +50,7 @@ jobs:
       matrix:
         segment: [1, 2, 3, 4, 5]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
@@ -60,6 +60,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: test-artifacts
+          path: node_modules/.cache/
 
       - name: Run tests
         run: yarn test --segment=${{ matrix.segment }}/${{ env.max-segment }}
@@ -87,7 +88,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
@@ -100,7 +101,7 @@ jobs:
           path: node_modules/.cache/
           pattern: build-cache-*
           merge-multiple: true
-      - uses: actions/cache/save@v5
+      - uses: actions/cache/save@v6
         with:
           path: node_modules/.cache/
           key: test-build-cache-${{ hashFiles('**/*.ts') }}
@@ -120,6 +121,9 @@ jobs:
             --report-dir coverage \
             --reporter lcov
           rm -rf coverage-matrix
+      - name: Store PR number
+        if: github.event_name == 'pull_request'
+        run: echo "${{ github.event.number }}" > coverage/pr
       - name: Store coverage
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v7

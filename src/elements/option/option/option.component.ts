@@ -135,20 +135,24 @@ export class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   protected override renderIcon(): TemplateResult {
     return html`
       <!-- Icon -->
-      ${!this._isMultiple()
-        ? html` <span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`
-        : nothing}
+      ${
+        !this._isMultiple()
+          ? html` <span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`
+          : nothing
+      }
 
       <!-- Checkbox -->
-      ${this._isMultiple()
-        ? html`
-            <sbb-visual-checkbox
-              ?checked=${this.selected}
-              ?disabled=${this.disabled || this.disabledFromGroup}
-              ?negative=${this.matches?.(':state(negative)')}
-            ></sbb-visual-checkbox>
-          `
-        : nothing}
+      ${
+        this._isMultiple()
+          ? html`
+              <sbb-visual-checkbox
+                ?checked=${this.selected}
+                ?disabled=${this.disabled || this.disabledFromGroup}
+                ?negative=${this.matches?.(':state(negative)')}
+              ></sbb-visual-checkbox>
+            `
+          : nothing
+      }
     `;
   }
 

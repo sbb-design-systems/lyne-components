@@ -343,6 +343,7 @@ $theme: 'standard' !default;
 @include badge.rules;
 @include breadcrumb.rules;
 @include card.rules;
+@include carousel.rules;
 @include container.rules;
 @include dialog.rules;
 @include flip-card.rules;

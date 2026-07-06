@@ -110,8 +110,7 @@ export class SbbPropertyWatcherController<T extends LitElement> implements React
       return;
     }
     let watchers = propertyWatchers.get(this._reference) as
-      | Map<string, PropertyWatcher<T>>
-      | undefined;
+      Map<string, PropertyWatcher<T>> | undefined;
     if (!watchers) {
       watchers = new Map();
       propertyWatchers.set(this._reference, watchers);

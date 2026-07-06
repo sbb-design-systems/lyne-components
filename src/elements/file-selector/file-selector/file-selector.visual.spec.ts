@@ -50,9 +50,11 @@ describe(`sbb-file-selector`, () => {
         root = await visualRegressionFixture(
           html`
             <sbb-file-selector id="fs" multiple ?disabled=${state.disabled}>
-              ${state.error
-                ? html`<sbb-error slot="error">There has been an error.</sbb-error>`
-                : nothing}
+              ${
+                state.error
+                  ? html`<sbb-error slot="error">There has been an error.</sbb-error>`
+                  : nothing
+              }
             </sbb-file-selector>
           `,
           { forcedColors: forcedColors, darkMode },

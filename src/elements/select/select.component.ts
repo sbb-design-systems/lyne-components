@@ -1033,9 +1033,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
       <div class="sbb-option-panel__overlay-container sbb-popover-reset" popover="manual">
         <div
-          class="sbb-option-panel__overlay ${this.negative
-            ? 'sbb-scrollbar-negative'
-            : 'sbb-scrollbar'}"
+          class="sbb-option-panel__overlay ${
+            this.negative ? 'sbb-scrollbar-negative' : 'sbb-scrollbar'
+          }"
           id=${!ariaRoleOnHost ? this._overlayId : nothing}
           role=${!ariaRoleOnHost ? 'listbox' : nothing}
           ?aria-multiselectable=${this.multiple}

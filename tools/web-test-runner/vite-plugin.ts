@@ -30,6 +30,11 @@ export function vitePlugin(): TestRunnerPlugin {
         // Disable hmr in favor of the @web/test-runner to take care of restarts.
         server: { middlewareMode: true, hmr: false, warmup: { clientFiles } },
         appType: 'custom',
+        // Use inline source maps to avoid separate .map file requests.
+        // When source maps are external, Vite appends `.js.map` to the URL including
+        // the `?wtr-session-id=` query parameter, resulting in a malformed session ID
+        // (e.g. `ABC123.js.map`) that WTR cannot resolve, causing an uncaught exception.
+        esbuild: { sourcemap: 'inline' },
         plugins: [
           {
             name: 'file-name',

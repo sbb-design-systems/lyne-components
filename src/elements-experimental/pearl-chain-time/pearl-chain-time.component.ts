@@ -114,33 +114,39 @@ export class SbbPearlChainTimeElement extends SbbElement {
     return html`
       <div class="sbb-pearl-chain__time">
         ${renderDepartureTimeAttribute()}
-        ${departure
-          ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.departureTime!}>
-              <span class="sbb-screen-reader-only"
-                >${i18nDeparture[this._language.current]}:&nbsp;</span
-              >
-              ${format(departure, 'HH:mm')}
-            </time>`
-          : nothing}
-        ${rideLegs?.length > 1
-          ? html`<span class="sbb-screen-reader-only" role="paragraph">
-              ${rideLegs?.length - 1} ${i18nTransferProcedures[this._language.current]}
-            </span>`
-          : nothing}
+        ${
+          departure
+            ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.departureTime!}>
+                <span class="sbb-screen-reader-only"
+                  >${i18nDeparture[this._language.current]}:&nbsp;</span
+                >
+                ${format(departure, 'HH:mm')}
+              </time>`
+            : nothing
+        }
+        ${
+          rideLegs?.length > 1
+            ? html`<span class="sbb-screen-reader-only" role="paragraph">
+                ${rideLegs?.length - 1} ${i18nTransferProcedures[this._language.current]}
+              </span>`
+            : nothing
+        }
         <sbb-pearl-chain
           class="sbb-pearl-chain__time-chain"
           .legs=${this.legs}
           .disableAnimation=${this.disableAnimation}
           .now=${this.now}
         ></sbb-pearl-chain>
-        ${arrival
-          ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.arrivalTime!}>
-              <span class="sbb-screen-reader-only"
-                >${i18nArrival[this._language.current]}:&nbsp;</span
-              >
-              ${format(arrival, 'HH:mm')}
-            </time>`
-          : nothing}
+        ${
+          arrival
+            ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.arrivalTime!}>
+                <span class="sbb-screen-reader-only"
+                  >${i18nArrival[this._language.current]}:&nbsp;</span
+                >
+                ${format(arrival, 'HH:mm')}
+              </time>`
+            : nothing
+        }
         ${renderArrivalTimeAttribute()}
       </div>
     `;

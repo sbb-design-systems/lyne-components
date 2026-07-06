@@ -9,46 +9,63 @@ on:
     types: [completed]
 
 env:
-  PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0] != null && github.event.workflow_run.pull_requests[0].number || '' }}
   VISUAL_REQUIRED: 'pr: visual review required'
   VISUAL_APPROVED: 'pr: visual review approved'
-  IMAGE_REPO_VISUAL_REGRESSION: ghcr.io/sbb-design-systems/lyne-components/visual-regression
 
 jobs:
   visual-regression:
     runs-on: ubuntu-latest
     if: >
       github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.pull_requests[0] != null
+      github.event.workflow_run.conclusion == 'success'
     permissions:
       checks: write
       deployments: write
       packages: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
 
+      - name: Create GitHub App token
+        id: token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ secrets.BOT_ID }}
+          private-key: ${{ secrets.BOT_PEM }}
       - uses: actions/download-artifact@v8
         with:
           name: visual-regression-screenshots
           path: dist/screenshots/
           run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GH_ACTIONS_ARTIFACT_DOWNLOAD }}
+          github-token: ${{ steps.token.outputs.token }}
 
       - name: Build visual-regression-app
         run: yarn build visual-regression-app
+
+      - name: Read Pull Request Number
+        id: pr-number
+        run: echo "result=$(cat dist/screenshots/pr)" >> "$GITHUB_OUTPUT"
+
+      - name: "Remove 'diff-available' label"
+        # This label is used for filtering deployments in ArgoCD.
+        # At the start of the workflow, we remove the container available labels
+        # which will be re-added after the Secure workflow.
+        run: gh issue edit $PR_NUMBER --repo ${{ github.repository }} --remove-label "diff-available"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.pr-number.outputs.result }}
 
       - name: Create check if changed
         uses: actions/github-script@v9
         id: screenshot-check
         env:
           urlTemplate: https://lyne-components-visual-regression-diff-pr{}.app.sbb.ch
+          PR_NUMBER: ${{ steps.pr-number.outputs.result }}
         with:
           script: |
             const { readdirSync, readFileSync } = await import('fs');
@@ -68,7 +85,7 @@ jobs:
                 },
                 ...(success ? { status: 'completed', conclusion: 'success' } : { status: 'in_progress' }),
               });
-              
+
               const environment = `pr${process.env.PR_NUMBER}-diff`;
               const payload = { owner: context.repo.owner, repo: context.repo.repo, environment };
               const { data: deployment } = await github.rest.repos.createDeployment({
@@ -109,25 +126,15 @@ jobs:
         if: steps.screenshot-check.outputs.result == 'empty'
         run: gh issue edit $PR_NUMBER --remove-label "$VISUAL_REQUIRED"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.pr-number.outputs.result }}
 
-      - uses: ./.github/actions/setup-mint
       - name: Create visual regression container
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build \
-            --file tools/visual-regression-testing/Dockerfile \
-            --tag ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:pr$PR_NUMBER-fat \
-            .
-          mint slim \
-            --target ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:pr$PR_NUMBER-fat \
-            --tag ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:pr$PR_NUMBER \
-            --preserve-path /usr/share/nginx/html \
-            --include-new false
-          docker push ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:pr$PR_NUMBER
-          docker image list
-        env:
-          DOCKER_BUILDKIT: 1
+        uses: sbb-design-systems/actions/build-container@main
+        with:
+          repository: visual-regression
+          tag: pr${{ steps.pr-number.outputs.result }}
+          containerfile: tools/visual-regression-testing/Containerfile
 
       - name: Apply labels
         if: steps.screenshot-check.outputs.result == 'changed' || steps.screenshot-check.outputs.result == 'empty'
@@ -136,4 +143,5 @@ jobs:
           gh issue edit $PR_NUMBER --add-label "$VISUAL_REQUIRED"
           gh issue edit $PR_NUMBER --add-label "diff-available"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.pr-number.outputs.result }}

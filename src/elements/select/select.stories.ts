@@ -12,7 +12,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbErrorElement } from '../form-field.ts';
 import { SbbOptionElement } from '../option.ts';
 
@@ -219,14 +219,16 @@ const valueEllipsis: string = 'This label name is so long that it needs ellipsis
 const textBlock = (text: string | null = null): TemplateResult => {
   return html`
     <sbb-card color="milk" style="margin-block-start: 1rem">
-      ${!text
-        ? html`
-            <span>
-              This text block has a <code style=${styleMap(codeStyle)}>z-index</code> greater than
-              the form field, but it must always be covered by the select overlay.
-            </span>
-          `
-        : text}
+      ${
+        !text
+          ? html`
+              <span>
+                This text block has a <code style=${styleMap(codeStyle)}>z-index</code> greater than
+                the form field, but it must always be covered by the select overlay.
+              </span>
+            `
+          : text
+      }
     </sbb-card>
   `;
 };
@@ -295,9 +297,11 @@ const FormFieldTemplate = ({
     >
       <label>Select</label>
       <sbb-select ${sbbSpread(args)} @change=${(event: Event) => changeEventHandler(event)}>
-        ${withOptionGroup
-          ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
-          : createOptions(numberOfOptions, disableOption, false, args.value)}
+        ${
+          withOptionGroup
+            ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
+            : createOptions(numberOfOptions, disableOption, false, args.value)
+        }
       </sbb-select>
     </sbb-form-field>
     ${textBlock()}
@@ -366,9 +370,11 @@ const SelectEllipsisTemplate = ({
           <sbb-option value=${valueEllipsis} ?selected=${ellipsisSelected}>
             ${valueEllipsis}
           </sbb-option>
-          ${withOptionGroup
-            ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
-            : createOptions(numberOfOptions, disableOption, false, args.value)}
+          ${
+            withOptionGroup
+              ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
+              : createOptions(numberOfOptions, disableOption, false, args.value)
+          }
         </sbb-select>
       </sbb-form-field>
       ${textBlock()}
@@ -421,9 +427,11 @@ const FormFieldTemplateWithError = ({
             }
           }}
         >
-          ${withOptionGroup
-            ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
-            : createOptions(numberOfOptions, disableOption, false, args.value)}
+          ${
+            withOptionGroup
+              ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
+              : createOptions(numberOfOptions, disableOption, false, args.value)
+          }
         </sbb-select>
         ${error}
       </sbb-form-field>

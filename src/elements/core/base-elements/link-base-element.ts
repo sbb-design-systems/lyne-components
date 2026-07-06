@@ -93,11 +93,13 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
       >
         ${renderContent}
       </a>
-      ${opensInNewWindow
-        ? html`<span id="sbb-link-new-window" hidden
-            >${i18nTargetOpensInNewWindow[this.language.current]}</span
-          >`
-        : nothing}
+      ${
+        opensInNewWindow
+          ? html`<span id="sbb-link-new-window" hidden
+              >${i18nTargetOpensInNewWindow[this.language.current]}</span
+            >`
+          : nothing
+      }
     `;
   }
 }

@@ -31,22 +31,26 @@ const content = (
 ): TemplateResult =>
   html`<sbb-flip-card-summary image-alignment=${imageAlignment}>
       <sbb-title level="4">${title}</sbb-title>
-      ${imgTemplate
-        ? imgTemplate()
-        : html`<sbb-image slot="image" image-src=${imageUrl}></sbb-image>`}
+      ${
+        imgTemplate
+          ? imgTemplate()
+          : html`<sbb-image slot="image" image-src=${imageUrl}></sbb-image>`
+      }
     </sbb-flip-card-summary>
     <sbb-flip-card-details>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum.
       Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh.
-      ${longContent
-        ? `Duis dapibus vitae
+      ${
+        longContent
+          ? `Duis dapibus vitae
       tortor ullamcorper maximus. In convallis consectetur felis. Lorem ipsum dolor sit amet,
       consectetur adipiscing elit. Nam luctus ornare condimentum. Vivamus turpis elit, dapibus eget
       fringilla pellentesque, lobortis in nibh. Duis dapibus vitae tortor ullamcorper maximus. In
       convallis consectetur felis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
       luctus ornare condimentum. Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis
       in nibh. Duis dapibus vitae tortor ullamcorper maximus. In convallis consectetur felis.`
-        : nothing}
+          : nothing
+      }
       <sbb-link href="https://www.sbb.ch" negative>Link</sbb-link>
     </sbb-flip-card-details>`;
 

@@ -99,6 +99,7 @@
   overflow: hidden;
   border-radius: var(--sbb-teaser-border-radius);
   transition: box-shadow var(--sbb-teaser-image-animation-duration) var(--sbb-animation-easing);
+  max-width: 100%;
 
   :host(:not(:state(slotted-image))) & {
     display: none;

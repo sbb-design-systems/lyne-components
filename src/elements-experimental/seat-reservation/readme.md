@@ -130,11 +130,7 @@ interface SeatReservationSelectedPlaces {
 type CoachDeckLevel = 'SINGLE_DECK' | 'LOWER_DECK' | 'MIDDLE_DECK' | 'UPPER_DECK';
 type PlaceType = 'SEAT' | 'BICYCLE';
 type CoachType =
-  | 'RESTAURANT_COACH'
-  | 'BICYCLE_COACH'
-  | 'LUGGAGE_COACH'
-  | 'TRAIN_HEAD'
-  | 'LOCOMOTIVE_COACH';
+  'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD' | 'LOCOMOTIVE_COACH';
 type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
 type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
 type VehicleType = 'TRAIN' | 'BUS';

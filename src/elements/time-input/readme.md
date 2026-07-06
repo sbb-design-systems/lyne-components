@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-time-input>` is an input component that displays the typed value as a formatted time (HH:mm).
 
 ```html
@@ -50,6 +52,9 @@ See the table below for some formatting examples:
 Similar to the native `<input>` element, the `<sbb-time-input>` component
 dispatches the usual `input`, `change`, `blur`, `invalid` and keyboard
 and focus related events.
+
+<!-- #region forms -->
+<!-- #endregion -->
 
 <!-- Auto Generated Below -->
 

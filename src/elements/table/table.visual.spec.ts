@@ -2,7 +2,12 @@ import { html, type TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import type { ClassInfo } from 'lit-html/directives/class-map.js';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
+import {
+  describeEach,
+  describeViewports,
+  visualDiffDefault,
+  visualDiffHover,
+} from '../core/testing/private.ts';
 
 describe(`sbb-table`, () => {
   const cases = {
@@ -287,5 +292,79 @@ describe(`sbb-table`, () => {
         }),
       );
     }
+
+    describe('hover', () => {
+      const hoverCases = {
+        striped: [false, true],
+        negative: [false, true],
+        darkMode: [false, true],
+      };
+
+      describeEach(hoverCases, ({ striped, negative, darkMode }) => {
+        it(
+          visualDiffHover.name,
+          visualDiffHover.with(async (setup) => {
+            await setup.withFixture(
+              tableTemplate({
+                'sbb-table': true,
+                'sbb-table--hover': true,
+                'sbb-table--striped': striped,
+                'sbb-table--negative': negative,
+              }),
+              {
+                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                darkMode,
+              },
+            );
+            setup.withStateElement(
+              setup.snapshotElement.querySelector('tbody tr:nth-child(1)') as HTMLElement,
+            );
+          }),
+        );
+      });
+    });
+
+    describe('selected', () => {
+      const selectedCases = {
+        negative: [false, true],
+        darkMode: [false, true],
+      };
+
+      describeEach(selectedCases, ({ negative, darkMode }) => {
+        it(
+          visualDiffDefault.name,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`
+                <table
+                  class=${classMap({
+                    'sbb-table': true,
+                    'sbb-table--negative': negative,
+                  })}
+                >
+                  ${header()}
+                  <tbody>
+                    <tr class="sbb-table--selected">
+                      <td>Chris</td>
+                      <td>HTML tables</td>
+                      <td>22</td>
+                    </tr>
+                    <tr>
+                      <td>Dennis</td>
+                      <td>Web accessibility</td>
+                      <td>45</td>
+                    </tr>
+                  </tbody>
+                </table>
+              `,
+              {
+                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                darkMode,
+              },
+            );
+          }),
+        );
+      });
+    });
   });
 });

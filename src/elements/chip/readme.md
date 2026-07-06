@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-chip-group>` component is a container for one or multiple
 `<sbb-chip>` instances.
 Generally, it is used in combination with an `<sbb-form-field>` to allow the

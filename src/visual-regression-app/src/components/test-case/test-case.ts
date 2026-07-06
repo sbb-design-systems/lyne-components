@@ -150,51 +150,57 @@ class TestCase extends LitElement {
           ></sbb-secondary-button-link>
         </div>
       </sbb-header>
-      ${this._testCase
-        ? html`<div class="app-testcase">
-            <sbb-container expanded>
-              <app-test-title-chip-list
-                .testCaseName=${this.params!.testCaseName}
-              ></app-test-title-chip-list>
-              <div class="app-filter-and-toggle">
-                <app-test-case-filter
-                  .testCase=${this._testCase}
-                  @browserFilterChange=${this._browserFilterChanged}
-                  @viewportFilterChange=${this._viewportFilterChanged}
-                ></app-test-case-filter>
-                ${this._testCase
-                  ?.filter(this._filter.viewport, this._filter.browser)
-                  .some((screenshotFiles) => !screenshotFiles.isNew && !!screenshotFiles.diffFile)
-                  ? html`<sbb-toggle-check
-                      @change=${this._toggleGlobalDiff}
-                      .checked=${this._showGlobalDiff}
-                      size="s"
-                      class="app-diff-global-toggle"
-                    >
-                      Show Diff
-                    </sbb-toggle-check>`
-                  : nothing}
-              </div>
-            </sbb-container>
-            <sbb-container expanded color="milk">
-              <div class="app-image-diffs">
-                ${this._testCase
-                  ?.filter(this._filter.viewport, this._filter.browser)
-                  .map(
-                    (screenshotFiles) =>
-                      html`<app-image-diff
-                        .screenshotFiles=${screenshotFiles}
-                        .showDiff=${this._showGlobalDiff}
-                      ></app-image-diff>`,
-                  )}
-              </div>
-            </sbb-container>
-          </div>`
-        : html`<sbb-container expanded>
-            <sbb-notification type="error" readonly>
-              No screenshots found. Please check component and test case name.
-            </sbb-notification>
-          </sbb-container>`}
+      ${
+        this._testCase
+          ? html`<div class="app-testcase">
+              <sbb-container expanded>
+                <app-test-title-chip-list
+                  .testCaseName=${this.params!.testCaseName}
+                ></app-test-title-chip-list>
+                <div class="app-filter-and-toggle">
+                  <app-test-case-filter
+                    .testCase=${this._testCase}
+                    @browserFilterChange=${this._browserFilterChanged}
+                    @viewportFilterChange=${this._viewportFilterChanged}
+                  ></app-test-case-filter>
+                  ${
+                    this._testCase
+                      ?.filter(this._filter.viewport, this._filter.browser)
+                      .some(
+                        (screenshotFiles) => !screenshotFiles.isNew && !!screenshotFiles.diffFile,
+                      )
+                      ? html`<sbb-toggle-check
+                          @change=${this._toggleGlobalDiff}
+                          .checked=${this._showGlobalDiff}
+                          size="s"
+                          class="app-diff-global-toggle"
+                        >
+                          Show Diff
+                        </sbb-toggle-check>`
+                      : nothing
+                  }
+                </div>
+              </sbb-container>
+              <sbb-container expanded color="milk">
+                <div class="app-image-diffs">
+                  ${this._testCase
+                    ?.filter(this._filter.viewport, this._filter.browser)
+                    .map(
+                      (screenshotFiles) =>
+                        html`<app-image-diff
+                          .screenshotFiles=${screenshotFiles}
+                          .showDiff=${this._showGlobalDiff}
+                        ></app-image-diff>`,
+                    )}
+                </div>
+              </sbb-container>
+            </div>`
+          : html`<sbb-container expanded>
+              <sbb-notification type="error" readonly>
+                No screenshots found. Please check component and test case name.
+              </sbb-notification>
+            </sbb-container>`
+      }
     `;
   }
 }

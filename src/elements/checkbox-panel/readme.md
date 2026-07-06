@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-checkbox-panel>` component provides the same functionality as a native `<input type="checkbox"/>` enhanced with the selection panel design and functionalities.
 
 ## Slots
@@ -5,7 +7,7 @@ The `<sbb-checkbox-panel>` component provides the same functionality as a native
 It is possible to provide a label via an unnamed slot;
 additionally the slots named `subtext` can be used to provide a subtext and
 the slot named `suffix` can be used to provide suffix items.
-If you use a <sbb-card-badge>, the slot `badge` is automatically assigned.
+If you use a `<sbb-card-badge>`, the slot `badge` is automatically assigned.
 
 ```html
 <sbb-checkbox-panel>

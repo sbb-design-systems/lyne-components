@@ -4,7 +4,7 @@ import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import { sampleImages } from '../core/images.private.ts';
 
 import readme from './readme.md?raw';
@@ -115,16 +115,18 @@ const Template = ({
   <sbb-teaser-hero ${sbbSpread(args)}>
     ${content ?? nothing}
     ${linkContent ? html`<span slot="link-content">${linkContent}</span>` : nothing}
-    ${!chipLabel
-      ? html`<sbb-image slot="image" image-src=${imageSrc} alt=${imageAlt}></sbb-image>`
-      : html`
-          <figure class="sbb-figure" slot="image">
-            <sbb-image image-src=${imageSrc} alt=${imageAlt}></sbb-image>
-            <sbb-chip-label class="sbb-figure-overlap-start-start" style="z-index: 1">
-              ${chipLabel}
-            </sbb-chip-label>
-          </figure>
-        `}
+    ${
+      !chipLabel
+        ? html`<sbb-image slot="image" image-src=${imageSrc} alt=${imageAlt}></sbb-image>`
+        : html`
+            <figure class="sbb-figure" slot="image">
+              <sbb-image image-src=${imageSrc} alt=${imageAlt}></sbb-image>
+              <sbb-chip-label class="sbb-figure-overlap-start-start" style="z-index: 1">
+                ${chipLabel}
+              </sbb-chip-label>
+            </figure>
+          `
+    }
   </sbb-teaser-hero>
 `;
 

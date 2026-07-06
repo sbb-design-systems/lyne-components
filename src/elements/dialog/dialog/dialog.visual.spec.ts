@@ -22,19 +22,21 @@ describe(`sbb-dialog`, () => {
         author that wrote it was a terrific friend of yours and you could call him up on the phone
         whenever you felt like it.
       </p>
-      ${longContent
-        ? html`
-            <p>
-              “What really knocks me out is a book that, when you're all done reading it, you wish
-              the author that wrote it was a terrific friend of yours and you could call him up on
-              the phone whenever you felt like it. That doesn't happen much, though. What really
-              knocks me out is a book that, when you're all done reading it, you wish the author
-              that wrote it was a terrific friend of yours and you could call him up on the phone
-              whenever you felt like it. That doesn't happen much, though.” ― J.D. Salinger, The
-              Catcher in the Rye
-            </p>
-          `
-        : nothing}
+      ${
+        longContent
+          ? html`
+              <p>
+                “What really knocks me out is a book that, when you're all done reading it, you wish
+                the author that wrote it was a terrific friend of yours and you could call him up on
+                the phone whenever you felt like it. That doesn't happen much, though. What really
+                knocks me out is a book that, when you're all done reading it, you wish the author
+                that wrote it was a terrific friend of yours and you could call him up on the phone
+                whenever you felt like it. That doesn't happen much, though.” ― J.D. Salinger, The
+                Catcher in the Rye
+              </p>
+            `
+          : nothing
+      }
     </sbb-dialog-content>
   `;
 
@@ -239,9 +241,11 @@ describe(`sbb-dialog`, () => {
                 <sbb-dialog trigger="trigger" negative>
                   <div>
                     ${title ? dialogTitle() : nothing}
-                    ${closeButton
-                      ? html`<sbb-dialog-close-button></sbb-dialog-close-button>`
-                      : nothing}
+                    ${
+                      closeButton
+                        ? html`<sbb-dialog-close-button></sbb-dialog-close-button>`
+                        : nothing
+                    }
                     ${dialogContent(true)} ${dialogFooter()}
                   </div>
                 </sbb-dialog>
