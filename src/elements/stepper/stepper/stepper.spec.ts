@@ -999,6 +999,27 @@ describe('sbb-stepper', () => {
       expect(stepLabelOne).to.match(':state(selected)');
     });
 
+    it('previous() should skip disabled step in-between', async () => {
+      element.steps[1].label!.disabled = true;
+      element.selectedIndex = 2;
+      await waitForLitRender(element);
+
+      const stepLabelThree = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(1)',
+      )!;
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
+        element,
+      );
+
+      element.previous();
+      await waitForLitRender(element);
+
+      expect(stepChangeSpy.count).to.be.equal(1);
+      expect(stepLabelThree).to.match(':state(selected)');
+      expect(element.selectedIndex).to.be.equal(0);
+    });
+
     it('next() does not navigate past the last enabled step', async () => {
       element.selectedIndex = 2;
       await waitForLitRender(element);
@@ -1054,6 +1075,27 @@ describe('sbb-stepper', () => {
       await waitForLitRender(element);
 
       expect(stepChangeSpy.count).to.be.equal(0);
+      expect(stepLabelThree).to.match(':state(selected)');
+      expect(element.selectedIndex).to.be.equal(2);
+    });
+
+    it('next() should skip disabled step in-between', async () => {
+      element.steps[1].label!.disabled = true;
+      element.selectedIndex = 0;
+      await waitForLitRender(element);
+
+      const stepLabelThree = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(3)',
+      )!;
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
+        element,
+      );
+
+      element.next();
+      await waitForLitRender(element);
+
+      expect(stepChangeSpy.count).to.be.equal(1);
       expect(stepLabelThree).to.match(':state(selected)');
       expect(element.selectedIndex).to.be.equal(2);
     });

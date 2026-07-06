@@ -187,22 +187,28 @@ export class SbbStepperElement extends SbbElement {
     this.addEventListener?.('resizechange', (e: Event) => this._onSelectedStepResize(e));
   }
 
-  /** Selects the next step, if enabled. */
+  /** Selects the next enabled step. If no available step is found, it simply exits. */
   public next(): void {
     if (this.selectedIndex !== null) {
-      const nextStep = this.steps[this.selectedIndex + 1];
-      if (this._isSelectable(nextStep)) {
-        this._select(nextStep);
+      for (let i = this.selectedIndex + 1; i < this.steps.length; i++) {
+        const step = this.steps[i];
+        if (this._isSelectable(step)) {
+          this._select(step);
+          return;
+        }
       }
     }
   }
 
-  /** Selects the previous step, if enabled. */
+  /** Selects the previous enabled step. If no available step is found, it simply exits. */
   public previous(): void {
     if (this.selectedIndex !== null) {
-      const previousStep = this.steps[this.selectedIndex - 1];
-      if (this._isSelectable(previousStep)) {
-        this._select(previousStep);
+      for (let i = this.selectedIndex - 1; i >= 0; i--) {
+        const step = this.steps[i];
+        if (this._isSelectable(step)) {
+          this._select(step);
+          return;
+        }
       }
     }
   }
