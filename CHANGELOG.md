@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.2.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.1.0...v5.2.0) (2026-07-06)
+
+
+### Features
+
+* **table:** introduce hover and selected styles for row ([#5030](https://github.com/sbb-design-systems/lyne-components/issues/5030)) ([e05787f](https://github.com/sbb-design-systems/lyne-components/commit/e05787f487cd8c128a4483f3d9f6d77726d6f873))
+
+
+### Bug Fixes
+
+* **clock:** made `start` and `stop` method synchronous ([#5031](https://github.com/sbb-design-systems/lyne-components/issues/5031)) ([df89eb5](https://github.com/sbb-design-systems/lyne-components/commit/df89eb5f2b1da996b9817ca1292e7c25186ce2b0))
+* **date-input, time-input:** improve validation error handling ([#5049](https://github.com/sbb-design-systems/lyne-components/issues/5049)) ([fe48803](https://github.com/sbb-design-systems/lyne-components/commit/fe4880376f36ed4e1e4fef760232f64775cb482a))
+* **file-selector:** emit change event on file drop ([#5047](https://github.com/sbb-design-systems/lyne-components/issues/5047)) ([57be39b](https://github.com/sbb-design-systems/lyne-components/commit/57be39bc1af5a0e83e8ad2e4d60ad90e18d9553d))
+* **mini-calendar:** fix cloud color variant of `sbb-mini-calendar-day` ([#5057](https://github.com/sbb-design-systems/lyne-components/issues/5057)) ([5d1be07](https://github.com/sbb-design-systems/lyne-components/commit/5d1be078213c461a1fbd4016f768a5dc4177b43e)), closes [#5056](https://github.com/sbb-design-systems/lyne-components/issues/5056)
+* **stepper:** allow programmatic selection of disabled step ([#5043](https://github.com/sbb-design-systems/lyne-components/issues/5043)) ([1c10aed](https://github.com/sbb-design-systems/lyne-components/commit/1c10aed5ea9968557137e0d12be24288d245ea4b))
+* **tooltip:** avoid re-opening on browser tab change ([#5035](https://github.com/sbb-design-systems/lyne-components/issues/5035)) ([8f1949f](https://github.com/sbb-design-systems/lyne-components/commit/8f1949f7f9f20c30fcfdf1be5e8c76b7e2360e3e))
+
+
+### Documentation
+
+* **carousel:** improve 'link' use case a11y ([#5032](https://github.com/sbb-design-systems/lyne-components/issues/5032)) ([d185b41](https://github.com/sbb-design-systems/lyne-components/commit/d185b414012c80b86d44a7401d724ca7b5f18bc0))
+* **checkbox-panel:** add backticks to badge tag ([#5048](https://github.com/sbb-design-systems/lyne-components/issues/5048)) ([9f4b48f](https://github.com/sbb-design-systems/lyne-components/commit/9f4b48fe01f5352ca5a689c9ffdb7b48e1e24381))
+
 ## [5.1.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.0.2...v5.1.0) (2026-06-23)
 
 
