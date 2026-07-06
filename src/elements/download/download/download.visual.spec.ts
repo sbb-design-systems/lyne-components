@@ -104,7 +104,7 @@ describe(`sbb-download`, () => {
           <div style="max-width: 300px;">
             <sbb-download
               href="files/annual-report.pdf"
-              label="This download label name is so long that it needs ellipsis to fit and to be pretty sure we get an ellipsis we even add more text"
+              label="This download label name is so long that it wraps."
             >
               ${infoTemplate()}
             </sbb-download>

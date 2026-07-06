@@ -28,8 +28,28 @@ snapshots["sbb-download-info renders with all values A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "generic",
-      "name": ""
+      "ignored": true,
+      "role": "none"
+    },
+    {
+      "ignored": true,
+      "role": "none"
+    },
+    {
+      "ignored": true,
+      "role": "none"
+    },
+    {
+      "ignored": true,
+      "role": "none"
+    },
+    {
+      "ignored": true,
+      "role": "none"
+    },
+    {
+      "ignored": true,
+      "role": "none"
     }
   ]
 }

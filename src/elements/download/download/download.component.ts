@@ -4,9 +4,12 @@ import { property } from 'lit/decorators.js';
 import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
 import {
   forceType,
+  i18nDownload,
   omitEmptyConverter,
-  SbbLinkBaseElement,
   type SbbElementType,
+  SbbLanguageController,
+  SbbLinkBaseElement,
+  screenReaderOnlyStyles,
 } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
@@ -44,7 +47,7 @@ const fileExtensionIcons = new Map<string, string>([
 export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
   public static override readonly elementName: string = 'sbb-download';
   public static override elementDependencies: SbbElementType[] = [SbbSecondaryButtonStaticElement];
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /** Option to set the component's background color. */
   @property({ reflect: true }) public accessor color: 'white' | 'milk' = 'white';
@@ -80,6 +83,8 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
     return fileName.includes('.') ? (fileName.split('.').at(-1)?.toLowerCase() ?? '') : '';
   }
 
+  private _languageController = new SbbLanguageController(this);
+
   /**
    * Provides a default icon based on the `href` extension, if no icon name is
    * set.
@@ -96,6 +101,15 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
     return (extension && fileExtensionIcons.get(extension)) || 'document-standard-small';
   }
 
+  private _handleInfoSlotchange(): void {
+    const downloadInfoElements = this.querySelectorAll('sbb-download-info');
+    const link = this.shadowRoot?.querySelector('a');
+
+    if (link) {
+      link.ariaDescribedByElements = [...downloadInfoElements];
+    }
+  }
+
   protected override renderTemplate(): TemplateResult {
     return html`
       ${this.renderIconSlot('sbb-download__icon')}
@@ -105,7 +119,10 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
           <slot></slot>
         </span>
         <span class="sbb-download__info">
-          <slot name="info"></slot>
+          <slot name="info" @slotchange="${() => this._handleInfoSlotchange()}"></slot>
+        </span>
+        <span class="sbb-screen-reader-only">
+          ${i18nDownload[this._languageController.current]}
         </span>
       </span>
       <sbb-secondary-button-static

@@ -58,8 +58,7 @@
 }
 
 .sbb-download__label {
-  @include sbb.ellipsis;
-
+  overflow-wrap: break-word;
   font-weight: bold;
   color: var(--sbb-download-label-color);
 }

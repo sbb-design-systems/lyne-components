@@ -18,6 +18,7 @@ snapshots["sbb-download renders with derived label and icon DOM"] =
 
 snapshots["sbb-download renders with derived label and icon Shadow DOM"] = 
 `<a
+  aria-describedby=""
   class="sbb-action-base sbb-download"
   download=""
   href="files/annual-report.pdf"
@@ -40,6 +41,9 @@ snapshots["sbb-download renders with derived label and icon Shadow DOM"] =
     <span class="sbb-download__info">
       <slot name="info">
       </slot>
+    </span>
+    <span class="sbb-screen-reader-only">
+      download
     </span>
   </span>
   <sbb-secondary-button-static
@@ -86,6 +90,7 @@ snapshots["sbb-download renders with explicit label and milk color DOM"] =
 
 snapshots["sbb-download renders with explicit label and milk color Shadow DOM"] = 
 `<a
+  aria-describedby=""
   class="sbb-action-base sbb-download"
   download=""
   href="report.pdf"
@@ -108,6 +113,9 @@ snapshots["sbb-download renders with explicit label and milk color Shadow DOM"] 
     <span class="sbb-download__info">
       <slot name="info">
       </slot>
+    </span>
+    <span class="sbb-screen-reader-only">
+      download
     </span>
   </span>
   <sbb-secondary-button-static
@@ -140,6 +148,7 @@ snapshots["sbb-download renders with custom content and info DOM"] =
 
 snapshots["sbb-download renders with custom content and info Shadow DOM"] = 
 `<a
+  aria-describedby=""
   class="sbb-action-base sbb-download"
   download=""
   href="files/annual-report.pdf"
@@ -162,6 +171,9 @@ snapshots["sbb-download renders with custom content and info Shadow DOM"] =
     <span class="sbb-download__info">
       <slot name="info">
       </slot>
+    </span>
+    <span class="sbb-screen-reader-only">
+      download
     </span>
   </span>
   <sbb-secondary-button-static

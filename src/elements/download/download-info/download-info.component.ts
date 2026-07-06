@@ -69,6 +69,10 @@ export class SbbDownloadInfoElement extends SbbElement {
   public constructor() {
     super();
 
+    // The sbb-download-info component will be linked in the download-component with ariaDescribedByElements.
+    /** @internal **/
+    this.internals.ariaHidden = 'true';
+
     // The type can be derived from the parent download's `href`, so re-resolve
     // it whenever that `href` changes.
     this.addController(

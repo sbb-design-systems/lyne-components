@@ -162,6 +162,13 @@ export const i18nNonAccessible: Record<string, string> = {
   it: 'non accessibile',
 };
 
+export const i18nDownload: Record<string, string> = {
+  de: 'herunterladen',
+  en: 'download',
+  fr: 'télécharger',
+  it: 'scaricare',
+};
+
 export const i18nDurationMinute: Record<string, Record<string, Record<string, string>>> = {
   single: {
     long: {
