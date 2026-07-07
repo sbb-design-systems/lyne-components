@@ -14,10 +14,7 @@ snapshots["sbb-download-info renders with all values DOM"] =
 /* end snapshot sbb-download-info renders with all values DOM */
 
 snapshots["sbb-download-info renders with all values Shadow DOM"] = 
-`<span>
-  PDF,
-</span>
-1 MB, not accessible, 24.12.2026
+`PDF, 1 MB, not accessible, 24.12.2026
 `;
 /* end snapshot sbb-download-info renders with all values Shadow DOM */
 
@@ -30,26 +27,6 @@ snapshots["sbb-download-info renders with all values A11y tree Chrome"] =
     {
       "ignored": true,
       "role": "none"
-    },
-    {
-      "ignored": true,
-      "role": "none"
-    },
-    {
-      "ignored": true,
-      "role": "none"
-    },
-    {
-      "ignored": true,
-      "role": "none"
-    },
-    {
-      "ignored": true,
-      "role": "none"
-    },
-    {
-      "ignored": true,
-      "role": "none"
     }
   ]
 }
@@ -58,10 +35,7 @@ snapshots["sbb-download-info renders with all values A11y tree Chrome"] =
 /* end snapshot sbb-download-info renders with all values A11y tree Chrome */
 
 snapshots["sbb-download-info renders with a textual size Shadow DOM"] = 
-`<span>
-  PDF,
-</span>
-123 KB
+`PDF, 123 KB
 `;
 /* end snapshot sbb-download-info renders with a textual size Shadow DOM */
 

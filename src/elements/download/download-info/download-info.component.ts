@@ -1,7 +1,6 @@
 import {
   type CSSResultGroup,
   html,
-  nothing,
   type PropertyValues,
   type TemplateResult,
   unsafeCSS,
@@ -78,6 +77,7 @@ export class SbbDownloadInfoElement extends SbbElement {
     this.addController(
       new SbbPropertyWatcherController(this, () => this.closest('sbb-download'), {
         href: () => this.requestUpdate(),
+        label: () => this.requestUpdate(),
       }),
     );
   }
@@ -119,11 +119,7 @@ export class SbbDownloadInfoElement extends SbbElement {
    * href.
    */
   private _resolveType(): string {
-    if (this.type) {
-      return this.type;
-    }
-
-    return this.closest?.('sbb-download')?.fileExtension.toUpperCase() ?? '';
+    return this.type || (this.closest?.('sbb-download')?.fileExtension.toUpperCase() ?? '');
   }
 
   /**
@@ -134,12 +130,7 @@ export class SbbDownloadInfoElement extends SbbElement {
    */
   private _isTypeRedundant(): boolean {
     const parent = this.closest?.('sbb-download');
-
-    if (!parent || parent.label) {
-      return false;
-    }
-
-    return !!parent.fileExtension;
+    return !!parent && !parent.label && !!parent.fileExtension;
   }
 
   /**
@@ -147,19 +138,16 @@ export class SbbDownloadInfoElement extends SbbElement {
    */
   private _resolveSize(): string {
     const size = this.size.trim();
-
     if (!size || !/^\d+$/.test(size)) {
       return size;
     }
 
     const bytes = Number(size);
-
     if (bytes <= 0) {
       return `0 ${fileSizeSuffixes[0]}`;
     }
 
     const i = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), fileSizeSuffixes.length - 1);
-
     return `${(bytes / 1024 ** i).toFixed(0)} ${fileSizeSuffixes[i]}`;
   }
 
@@ -185,20 +173,17 @@ export class SbbDownloadInfoElement extends SbbElement {
   protected override render(): TemplateResult {
     const separator = ', ';
     const items = [
+      this._resolvedType,
       this._resolvedSize,
       this.nonAccessible ? i18nNonAccessible[this._language.current] : '',
       this._resolvedChanged,
     ].filter(Boolean);
 
-    const list = html`${items.map((item, index) => html`${index > 0 ? separator : ''}${item}`)}`;
+    this.internals.ariaLabel = items
+      .slice(this._typeRedundant && this._resolvedType ? 1 : 0)
+      .join(separator);
 
-    // The type is always wrapped in a span to keep the template structure
-    // stable for SSR hydration, as it is derived from the parent download.
-    // When the type is already conveyed by the parent's label, it is hidden
-    // from assistive technology together with its trailing separator.
-    return html`<span aria-hidden=${this._typeRedundant ? 'true' : nothing}
-        >${this._resolvedType}${this._resolvedType && items.length ? separator : ''}</span
-      >${list}`;
+    return html`${items.join(separator)}`;
   }
 }
 

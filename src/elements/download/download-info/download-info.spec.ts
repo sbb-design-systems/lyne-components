@@ -1,7 +1,7 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.ts';
+import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
 import type { SbbDownloadElement } from '../download/download.component.ts';
 
@@ -11,6 +11,7 @@ import '../../download.ts';
 
 describe(`sbb-download-info`, () => {
   let element: SbbDownloadInfoElement;
+  const elementInternals = elementInternalsSpy();
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-download-info></sbb-download-info>`);
@@ -159,24 +160,28 @@ describe(`sbb-download-info`, () => {
   });
 
   it('hides the redundant type from assistive technology when parent has no label', async () => {
-    const download = await fixture(html`
+    const download = await fixture<SbbDownloadElement>(html`
       <sbb-download href="files/report.pdf">
         <sbb-download-info></sbb-download-info>
       </sbb-download>
     `);
     const info = download.querySelector('sbb-download-info')!;
     await waitForLitRender(info);
-    expect(info.shadowRoot!.querySelector('span')!.getAttribute('aria-hidden')).to.be.equal('true');
+    expect(elementInternals.get(info)!.ariaLabel).not.to.contain('PDF');
+
+    download.label = 'label';
+    await waitForLitRender(info);
+    expect(elementInternals.get(info)!.ariaLabel).to.contain('PDF');
   });
 
   it('does not hide the type when the parent has an explicit label', async () => {
-    const download = await fixture(html`
+    const download = await fixture<SbbDownloadElement>(html`
       <sbb-download href="files/report.pdf" label="Annual report">
         <sbb-download-info></sbb-download-info>
       </sbb-download>
     `);
     const info = download.querySelector('sbb-download-info')!;
     await waitForLitRender(info);
-    expect(info.shadowRoot!.querySelector('span')!.hasAttribute('aria-hidden')).to.be.false;
+    expect(elementInternals.get(info)!.ariaLabel).to.contain('PDF');
   });
 });
