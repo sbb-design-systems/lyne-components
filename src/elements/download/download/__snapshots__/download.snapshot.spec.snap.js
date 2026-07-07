@@ -34,16 +34,19 @@ snapshots["sbb-download renders with derived label and icon Shadow DOM"] =
     <span class="sbb-download__label">
       annual-report.pdf
     </span>
-    <span class="sbb-download__custom-content">
+    <span class="sbb-screen-reader-only">
+      download
+    </span>
+    <span
+      aria-hidden="true"
+      class="sbb-download__custom-content"
+    >
       <slot>
       </slot>
     </span>
     <span class="sbb-download__info">
       <slot name="info">
       </slot>
-    </span>
-    <span class="sbb-screen-reader-only">
-      download
     </span>
   </span>
   <sbb-secondary-button-static
@@ -106,16 +109,19 @@ snapshots["sbb-download renders with explicit label and milk color Shadow DOM"] 
     <span class="sbb-download__label">
       Annual report
     </span>
-    <span class="sbb-download__custom-content">
+    <span class="sbb-screen-reader-only">
+      download
+    </span>
+    <span
+      aria-hidden="true"
+      class="sbb-download__custom-content"
+    >
       <slot>
       </slot>
     </span>
     <span class="sbb-download__info">
       <slot name="info">
       </slot>
-    </span>
-    <span class="sbb-screen-reader-only">
-      download
     </span>
   </span>
   <sbb-secondary-button-static
@@ -164,16 +170,19 @@ snapshots["sbb-download renders with custom content and info Shadow DOM"] =
     <span class="sbb-download__label">
       Annual report
     </span>
-    <span class="sbb-download__custom-content">
+    <span class="sbb-screen-reader-only">
+      download
+    </span>
+    <span
+      aria-hidden="true"
+      class="sbb-download__custom-content"
+    >
       <slot>
       </slot>
     </span>
     <span class="sbb-download__info">
       <slot name="info">
       </slot>
-    </span>
-    <span class="sbb-screen-reader-only">
-      download
     </span>
   </span>
   <sbb-secondary-button-static
@@ -184,4 +193,59 @@ snapshots["sbb-download renders with custom content and info Shadow DOM"] =
 </a>
 `;
 /* end snapshot sbb-download renders with custom content and info Shadow DOM */
+
+snapshots["sbb-download renders with custom content only DOM"] = 
+`<sbb-download
+  color="white"
+  href="files/annual-report.pdf"
+  label="Annual report"
+>
+  <span>
+    Custom description for the downloadable document.
+  </span>
+</sbb-download>
+`;
+/* end snapshot sbb-download renders with custom content only DOM */
+
+snapshots["sbb-download renders with custom content only Shadow DOM"] = 
+`<a
+  aria-describedby=""
+  class="sbb-action-base sbb-download"
+  download=""
+  href="files/annual-report.pdf"
+>
+  <slot name="icon">
+    <sbb-icon
+      class="sbb-download__icon"
+      name="document-pdf-small"
+    >
+    </sbb-icon>
+  </slot>
+  <span class="sbb-download__content">
+    <span class="sbb-download__label">
+      Annual report
+    </span>
+    <span class="sbb-screen-reader-only">
+      pdf download
+    </span>
+    <span
+      aria-hidden="true"
+      class="sbb-download__custom-content"
+    >
+      <slot>
+      </slot>
+    </span>
+    <span class="sbb-download__info">
+      <slot name="info">
+      </slot>
+    </span>
+  </span>
+  <sbb-secondary-button-static
+    class="sbb-download__button"
+    icon-name="download-small"
+  >
+  </sbb-secondary-button-static>
+</a>
+`;
+/* end snapshot sbb-download renders with custom content only Shadow DOM */
 

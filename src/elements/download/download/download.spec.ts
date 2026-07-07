@@ -134,16 +134,23 @@ describe(`sbb-download`, () => {
     // downloadInfoElement should be in ariaDescribedByElements
     const downloadInfoElement = el.querySelector('sbb-download-info');
     const linkElement = el.shadowRoot!.querySelector('a')!;
-    expect(linkElement.ariaDescribedByElements).to.deep.equal([downloadInfoElement]);
+    const customContentElement = el.shadowRoot!.querySelector('.sbb-download__custom-content')!;
+    expect(linkElement.ariaDescribedByElements).to.deep.equal([
+      customContentElement,
+      downloadInfoElement,
+    ]);
 
     // When removing, no ariaDescribedByElements entry should be defined
     downloadInfoElement?.remove();
     await waitForLitRender(el);
-    expect(linkElement.ariaDescribedByElements).to.deep.equal([]);
+    expect(linkElement.ariaDescribedByElements).to.deep.equal([customContentElement]);
 
     // When re-adding, downloadInfoElement should be in ariaDescribedByElements
     el.appendChild(downloadInfoElement!);
     await waitForLitRender(el);
-    expect(linkElement.ariaDescribedByElements).to.deep.equal([downloadInfoElement]);
+    expect(linkElement.ariaDescribedByElements).to.deep.equal([
+      customContentElement,
+      downloadInfoElement,
+    ]);
   });
 });

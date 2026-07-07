@@ -70,4 +70,24 @@ describe(`sbb-download`, () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
   });
+
+  describe('renders with custom content only', () => {
+    let element: SbbDownloadElement;
+
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-download href="files/annual-report.pdf" label="Annual report">
+          <span>Custom description for the downloadable document.</span>
+        </sbb-download>
+      `);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+  });
 });

@@ -1,4 +1,11 @@
-import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
@@ -101,13 +108,29 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
     return (extension && fileExtensionIcons.get(extension)) || 'document-standard-small';
   }
 
-  private _handleInfoSlotchange(): void {
-    const downloadInfoElements = this.querySelectorAll('sbb-download-info');
-    const link = this.shadowRoot?.querySelector('a');
+  protected override firstUpdated(_changedProperties: PropertyValues): void {
+    super.firstUpdated(_changedProperties);
+
+    this._updateDescribedByElements();
+  }
+
+  private _updateDescribedByElements(): void {
+    const link = this.shadowRoot?.querySelector?.('a');
 
     if (link) {
-      link.ariaDescribedByElements = [...downloadInfoElements];
+      const customContentElement = this.shadowRoot?.querySelector?.(
+        '.sbb-download__custom-content',
+      );
+
+      link.ariaDescribedByElements = [
+        ...(customContentElement ? [customContentElement] : []),
+        ...this._downloadInfoElements(),
+      ];
     }
+  }
+
+  private _downloadInfoElements(): NodeListOf<HTMLElement> {
+    return this.querySelectorAll?.('sbb-download-info') ?? [];
   }
 
   protected override renderTemplate(): TemplateResult {
@@ -115,14 +138,14 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
       ${this.renderIconSlot('sbb-download__icon')}
       <span class="sbb-download__content">
         <span class="sbb-download__label">${this.label || this.fileName}</span>
-        <span class="sbb-download__custom-content">
+        <span class="sbb-screen-reader-only">
+          ${!this._downloadInfoElements().length ? html`&nbsp;${this.fileExtension}` : nothing}&nbsp;${i18nDownload[this._languageController.current]}
+        </span>
+        <span class="sbb-download__custom-content" aria-hidden="true">
           <slot></slot>
         </span>
         <span class="sbb-download__info">
-          <slot name="info" @slotchange="${() => this._handleInfoSlotchange()}"></slot>
-        </span>
-        <span class="sbb-screen-reader-only">
-          ${i18nDownload[this._languageController.current]}
+          <slot name="info" @slotchange="${() => this._updateDescribedByElements()}"></slot>
         </span>
       </span>
       <sbb-secondary-button-static
