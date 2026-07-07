@@ -52,6 +52,9 @@ $theme: 'standard' !default;
 @use '../../divider/divider.global' as divider with (
   $theme: $theme
 );
+@use '../../download/download.global' as download with (
+  $theme: $theme
+);
 @use '../../expansion-panel/expansion-panel.global' as expansion-panel with (
   $theme: $theme
 );
@@ -229,6 +232,7 @@ $theme: 'standard' !default;
   @include container.base;
   @include dialog.base;
   @include divider.base;
+  @include download.base;
   @include expansion-panel.base;
   @include file-selector.base;
   @include flip-card.base;
@@ -285,6 +289,7 @@ $theme: 'standard' !default;
     @include breadcrumb.forced-colors;
     @include calendar.forced-colors;
     @include card.forced-colors;
+    @include download.forced-colors;
     @include expansion-panel.forced-colors;
     @include form-field.forced-colors;
     @include header.forced-colors;

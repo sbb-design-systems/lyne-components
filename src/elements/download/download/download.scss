@@ -1,0 +1,79 @@
+@use '../../core/styles' as sbb;
+@use '../../card/card.global' as card;
+
+:host {
+  // Re-declare the card variables on the host so a download nested inside
+  // another card-like element does not inherit the parent's overridden values.
+  @include card.variables--global;
+  @include card.variables--spacing-default;
+
+  display: block;
+}
+
+// :where is needed for lower specificity
+:host(:where([color='white'])) {
+  @include card.variables--white;
+}
+
+:host(:where([color='milk'])) {
+  @include card.variables--milk;
+}
+
+// The anchor acts as the visual card and the click target of the whole
+// component.
+.sbb-download {
+  @include card.element-rules;
+
+  display: flex;
+  align-items: center;
+  gap: var(--sbb-download-gap);
+  text-decoration: none;
+
+  // Consume the hover shift set by `card.state--hover` (the mixin only sets the
+  // `--sbb-card-hover-shift` variable; the actual movement has to be applied
+  // here).
+  translate: 0 var(--sbb-card-hover-shift, 0);
+  transition:
+    box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing),
+    translate var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
+}
+
+.sbb-download:focus-visible {
+  @include sbb.focus-outline;
+}
+
+:host(:hover) .sbb-download {
+  @include card.state--hover;
+}
+
+.sbb-download__icon {
+  flex: 0 0 auto;
+}
+
+.sbb-download__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sbb-download__label {
+  overflow-wrap: break-word;
+  font-weight: bold;
+  color: var(--sbb-download-label-color);
+}
+
+// Custom slotted content and the `sbb-download-info` share the same style
+.sbb-download__custom-content,
+.sbb-download__info {
+  line-height: var(--sbb-typo-line-height-text);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  font-size: var(--sbb-text-font-size-xxs);
+  color: var(--sbb-download-info-color);
+}
+
+// Static button aligned to the end of the component.
+.sbb-download__button {
+  flex: 0 0 auto;
+  margin-inline-start: auto;
+}
