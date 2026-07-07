@@ -29,6 +29,7 @@ const config: StorybookConfig = {
     name: '@storybook/web-components-vite',
     options: {},
   },
+  env: (config) => ({ ...config, VERSION: process.env.VERSION ?? '' }),
   async viteFinal(config) {
     config = mergeConfig(config, viteConfig as UserConfig);
 
