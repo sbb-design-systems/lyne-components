@@ -104,10 +104,9 @@ particularly powerful in the following scenarios:
   <sbb-icon-sidebar-content sbb-header-scroll-origin>
     <sbb-sidebar-container>
       <sbb-sidebar mode="side" opened>...</sbb-sidebar>
-      <sbb-sidebar-content sbb-header-scroll-origin>
-      </sbb-sidebar-content>
+      <sbb-sidebar-content sbb-header-scroll-origin>...</sbb-sidebar-content>
     </sbb-sidebar-container>
-  </sbb-icon-sidebar-contentsbb-header-scroll-origin>
+  </sbb-icon-sidebar-content>
 </sbb-icon-sidebar-container>
 ```
 
