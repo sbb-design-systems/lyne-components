@@ -2737,6 +2737,13 @@
   dependencies:
     errorstacks "^2.4.1"
 
+"@web/browser-logs@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/browser-logs/-/browser-logs-1.0.0.tgz#57e3a4dc4ede3f7eac84b412d7c6e33d64f6c8b3"
+  integrity sha512-hK/pDqdw8SV29QDtFaI/tjU5xBPUCZ2lfi2AnG8NoWZadRJziC5fMDZDR23yWtvqVHyrxJaogBvfOKgzMubSLg==
+  dependencies:
+    errorstacks "^2.4.1"
+
 "@web/config-loader@0.1.3":
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/@web/config-loader/-/config-loader-0.1.3.tgz#8325ea54f75ef2ee7166783e64e66936db25bff7"
@@ -2744,12 +2751,12 @@
   dependencies:
     semver "^7.3.4"
 
-"@web/config-loader@^0.3.0":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@web/config-loader/-/config-loader-0.3.3.tgz#13d4852c479d1f3adbc1f24d79c7e6eeedeb6e5d"
-  integrity sha512-ilzeQzrPpPLWZhzFCV+4doxKDGm7oKVfdKpW9wiUNVgive34NSzCw+WzXTvjE4Jgr5CkyTDIObEmMrqQEjhT0g==
+"@web/config-loader@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/config-loader/-/config-loader-1.0.0.tgz#1b47b2070f1a607ce1c56cea6ead3b00c04da465"
+  integrity sha512-qRz0XX0skqymolAJGP7PwefKDkgxZXufb+G+Gj0xioOS6TseMgGvJ6JmB5+4ZWaQFVk5Oie1zerpG7GKMtdxpw==
 
-"@web/dev-server-core@0.7.5", "@web/dev-server-core@^0.4.1", "@web/dev-server-core@^0.7.2", "@web/dev-server-core@^0.7.3":
+"@web/dev-server-core@0.7.5", "@web/dev-server-core@^0.4.1", "@web/dev-server-core@^0.7.3", "@web/dev-server-core@^1.0.0":
   version "0.7.5"
   resolved "https://registry.yarnpkg.com/@web/dev-server-core/-/dev-server-core-0.7.5.tgz#b283d46eb2c0384e848311ec9da25d06bbbc47df"
   integrity sha512-Da65zsiN6iZPMRuj4Oa6YPwvsmZmo5gtPWhW2lx3GTUf5CAEapjVpZVlUXnKPL7M7zRuk72jSsIl8lo+XpTCtw==
@@ -2773,28 +2780,28 @@
     picomatch "^2.2.2"
     ws "^7.5.10"
 
-"@web/dev-server-rollup@^0.6.1":
-  version "0.6.4"
-  resolved "https://registry.yarnpkg.com/@web/dev-server-rollup/-/dev-server-rollup-0.6.4.tgz#d0a4f69e4a659d2b79f172e86236cea6c872e81c"
-  integrity sha512-sJZfTGCCrdku5xYnQQG51odGI092hKY9YFM0X3Z0tRY3iXKXcYRaLZrErw5KfCxr6g0JRuhe4BBhqXTA5Q2I3Q==
+"@web/dev-server-rollup@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/dev-server-rollup/-/dev-server-rollup-1.0.0.tgz#28f5e3ee722e408779ac892ce1a8535c3eefc0b2"
+  integrity sha512-73eZNb5IA/ecrxZKZQq+lRFlPNl75XQ+hltVoWgsP3vQa5aTGWppBc/uuYLc74tGT7jp5WCdpsno7u5uX6GkcQ==
   dependencies:
     "@rollup/plugin-node-resolve" "^15.0.1"
-    "@web/dev-server-core" "^0.7.2"
+    "@web/dev-server-core" "^1.0.0"
     nanocolors "^0.2.1"
     parse5 "^6.0.1"
     rollup "^4.4.0"
     whatwg-url "^14.0.0"
 
-"@web/dev-server@^0.4.0":
-  version "0.4.6"
-  resolved "https://registry.yarnpkg.com/@web/dev-server/-/dev-server-0.4.6.tgz#18a4421d474a9bd1bfc90419a7a798ed0b5538c5"
-  integrity sha512-jj/1bcElAy5EZet8m2CcUdzxT+CRvUjIXGh8Lt7vxtthkN9PzY9wlhWx/9WOs5iwlnG1oj0VGo6f/zvbPO0s9w==
+"@web/dev-server@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/dev-server/-/dev-server-1.0.0.tgz#8a6d66427b900ca95d0677de8cc18a9c8345ee66"
+  integrity sha512-V8Qf1bdlN3tP2Vsakiu8mvC3IwyTmxOY0Phuk410MzkYK4wOxBFllSFMb8dOmBEMVqrJgvexeiE3TKCLuQYlBg==
   dependencies:
     "@babel/code-frame" "^7.12.11"
     "@types/command-line-args" "^5.0.0"
-    "@web/config-loader" "^0.3.0"
-    "@web/dev-server-core" "^0.7.2"
-    "@web/dev-server-rollup" "^0.6.1"
+    "@web/config-loader" "^1.0.0"
+    "@web/dev-server-core" "^1.0.0"
+    "@web/dev-server-rollup" "^1.0.0"
     camelcase "^6.2.0"
     command-line-args "^5.1.1"
     command-line-usage "^7.0.1"
@@ -2813,13 +2820,13 @@
     "@types/parse5" "^6.0.1"
     parse5 "^6.0.1"
 
-"@web/test-runner-chrome@^0.18.1":
-  version "0.18.1"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-chrome/-/test-runner-chrome-0.18.1.tgz#490a371990084b8d050dd778bd58e47d21522332"
-  integrity sha512-eO6ctCaqSguGM6G3cFobGHnrEs9wlv9Juj/Akyr4XLjeEMTheNULdvOXw9Bygi+QC/ir/0snMmt+/YKnfy8rYA==
+"@web/test-runner-chrome@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-chrome/-/test-runner-chrome-1.0.0.tgz#4bd6ef0a2bb160ea0d4c105990047f7db174fe4b"
+  integrity sha512-faga8SDJ8XaIHHKXwd0xaWIAl6OBoHgoT+mWsP9tqD6TWxbgkYFgpdWUJ6AdN1DFXoBNkHZTSNABF7ZM73vU1A==
   dependencies:
-    "@web/test-runner-core" "^0.13.0"
-    "@web/test-runner-coverage-v8" "^0.8.0"
+    "@web/test-runner-core" "^1.0.0"
+    "@web/test-runner-coverage-v8" "^1.0.0"
     chrome-launcher "^0.15.0"
     puppeteer-core "^24.0.0"
 
@@ -2837,6 +2844,14 @@
   integrity sha512-2DcK/+7f8QTicQpGFq/TmvKHDK/6Zald6rn1zqRlmj3pcH8fX6KHNVMU60Za9QgAKdorMBPfd8dJwWba5otzdw==
   dependencies:
     "@web/test-runner-core" "^0.10.29"
+    mkdirp "^1.0.4"
+
+"@web/test-runner-commands@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-commands/-/test-runner-commands-1.0.0.tgz#6a7fd692c85c7257def8d18e869a1a1fc76ad3eb"
+  integrity sha512-8wXJkwvWWCc6GTPsdjbEN141kz+4MQPFjsId47hoibkY3FhkgeKJUm+cnwMYCIXHuWA0e7V+L2fmH087UPrXXQ==
+  dependencies:
+    "@web/test-runner-core" "^1.0.0"
     mkdirp "^1.0.4"
 
 "@web/test-runner-core@^0.10.29":
@@ -2903,6 +2918,38 @@
     picomatch "^2.2.2"
     source-map "^0.7.3"
 
+"@web/test-runner-core@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-core/-/test-runner-core-1.0.0.tgz#24d4a5daa81c1041bfc78720cc90bdc8e7cc64b9"
+  integrity sha512-rn+yYVQGrnr0dW7e/6CjwiefjXAGbQV+ddKJ1PLQ6WOvDAzqPBs7rBYFasy3nkJdgyDRhZStvWtunYGmiR53DA==
+  dependencies:
+    "@babel/code-frame" "^7.12.11"
+    "@types/babel__code-frame" "^7.0.2"
+    "@types/co-body" "^6.1.0"
+    "@types/convert-source-map" "^2.0.0"
+    "@types/debounce" "^1.2.0"
+    "@types/istanbul-lib-coverage" "^2.0.3"
+    "@types/istanbul-reports" "^3.0.0"
+    "@web/browser-logs" "^1.0.0"
+    "@web/dev-server-core" "^1.0.0"
+    chokidar "^4.0.1"
+    cli-cursor "^3.1.0"
+    co-body "^6.1.0"
+    convert-source-map "^2.0.0"
+    debounce "^1.2.0"
+    dependency-graph "^0.11.0"
+    globby "^11.0.1"
+    internal-ip "^6.2.0"
+    istanbul-lib-coverage "^3.0.0"
+    istanbul-lib-report "^3.0.1"
+    istanbul-reports "^3.0.2"
+    log-update "^4.0.0"
+    nanocolors "^0.2.1"
+    nanoid "^3.1.25"
+    open "^8.0.2"
+    picomatch "^2.3.2"
+    source-map "^0.7.3"
+
 "@web/test-runner-coverage-v8@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@web/test-runner-coverage-v8/-/test-runner-coverage-v8-0.8.0.tgz#783e9f685f14cafc34a6bf323f7d9268c1477933"
@@ -2914,12 +2961,23 @@
     picomatch "^2.2.2"
     v8-to-istanbul "^9.0.1"
 
-"@web/test-runner-mocha@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-mocha/-/test-runner-mocha-0.9.0.tgz#4fbfa5c3222c8c787fdcc057dd932a0763267b10"
-  integrity sha512-ZL9F6FXd0DBQvo/h/+mSfzFTSRVxzV9st/AHhpgABtUtV/AIpVE9to6+xdkpu6827kwjezdpuadPfg+PlrBWqQ==
+"@web/test-runner-coverage-v8@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-coverage-v8/-/test-runner-coverage-v8-1.0.0.tgz#e748df1f19ce69394d30bc0c8719e99f43ae4cd3"
+  integrity sha512-w8mMT6htB3xvHdNtnZeG3vahOKq5G3ns1Z6DXLFcgqNTnYESFHrUR9zdqzPzMfg0qrV6BNpWM7C/whQBjW7NjA==
   dependencies:
-    "@web/test-runner-core" "^0.13.0"
+    "@web/test-runner-core" "^1.0.0"
+    istanbul-lib-coverage "^3.0.0"
+    lru-cache "^8.0.4"
+    picomatch "^2.3.2"
+    v8-to-istanbul "^9.0.1"
+
+"@web/test-runner-mocha@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-mocha/-/test-runner-mocha-1.0.0.tgz#be005ee48d7d7d6dbab0ac7918994af3d6f756d0"
+  integrity sha512-5Fb5JvCIa1wJN/mPUG/kz5nMeo8bQys+8mqWsd4g2zVg1HcLzOJiRderOQZXgxOrqDth7lcZDxhIGlyS7gjuzw==
+  dependencies:
+    "@web/test-runner-core" "^1.0.0"
 
 "@web/test-runner-playwright@0.11.1":
   version "0.11.1"
@@ -2944,23 +3002,23 @@
     pixelmatch "^5.2.1"
     pngjs "^7.0.0"
 
-"@web/test-runner@0.20.2":
-  version "0.20.2"
-  resolved "https://registry.yarnpkg.com/@web/test-runner/-/test-runner-0.20.2.tgz#3045de8f14eb9f9b8aa51aa7fd9849dd95bb0a93"
-  integrity sha512-zfEGYEDnS0EI8qgoWFjmtkIXhqP15W40NW3dCaKtbxj5eU0a7E53f3GV/tZGD0GlZKF8d4Fyw+AFrwOJU9Z4GA==
+"@web/test-runner@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/test-runner/-/test-runner-1.0.0.tgz#a690f385ecfd98e8ee5773cc6b67f79ca52e52ab"
+  integrity sha512-eZkVgRcrhPiPG4V8PlBsnpEjVWzGjyRhWzhsH2QzZKvIgIqamwLfH5NFQqLOQQ7OW+G7bjUE8Pg4URRH0XmhDw==
   dependencies:
-    "@web/browser-logs" "^0.4.0"
-    "@web/config-loader" "^0.3.0"
-    "@web/dev-server" "^0.4.0"
-    "@web/test-runner-chrome" "^0.18.1"
-    "@web/test-runner-commands" "^0.9.0"
-    "@web/test-runner-core" "^0.13.0"
-    "@web/test-runner-mocha" "^0.9.0"
+    "@web/browser-logs" "^1.0.0"
+    "@web/config-loader" "^1.0.0"
+    "@web/dev-server" "^1.0.0"
+    "@web/test-runner-chrome" "^1.0.0"
+    "@web/test-runner-commands" "^1.0.0"
+    "@web/test-runner-core" "^1.0.0"
+    "@web/test-runner-mocha" "^1.0.0"
     camelcase "^6.2.0"
     command-line-args "^5.1.1"
     command-line-usage "^7.0.1"
     convert-source-map "^2.0.0"
-    diff "^5.0.0"
+    diff "^5.2.2"
     globby "^11.0.1"
     nanocolors "^0.2.1"
     portfinder "^1.0.32"
@@ -4367,7 +4425,7 @@ diff-sequences@^29.0.0:
   resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-29.6.3.tgz#4deaf894d11407c51efc8418012f9e70b84ea921"
   integrity sha512-EjePK1srD3P08o2j4f0ExnylqRs5B9tJjcp9t1krH2qRi8CCdsYfwe9JgSLurFBWwq4uOlipzfk5fHNvwFKr8Q==
 
-diff@^5.0.0:
+diff@^5.0.0, diff@^5.2.2:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/diff/-/diff-5.2.2.tgz#0a4742797281d09cfa699b79ea32d27723623bad"
   integrity sha512-vtcDfH3TOjP8UekytvnHH1o1P4FcUdt4eQ1Y+Abap1tk/OB2MWQvcwS2ClCd1zuIhc3JKOx6p3kod8Vfys3E+A==
@@ -8304,7 +8362,7 @@ picocolors@^1.1.1:
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.1.1.tgz#3d321af3eab939b083c8f929a1d12cda81c26b6b"
   integrity sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==
 
-picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.2, picomatch@^2.3.1:
+picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.2, picomatch@^2.3.1, picomatch@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.2.tgz#5a942915e26b372dc0f0e6753149a16e6b1c5601"
   integrity sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==
