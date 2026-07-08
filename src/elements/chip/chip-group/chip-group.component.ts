@@ -19,6 +19,7 @@ import {
   isArrowKeyPressed,
   SbbDisabledMixin,
   SbbElement,
+  type SbbElementType,
   SbbFormAssociatedMixin,
   SbbLanguageController,
   SbbNegativeMixin,
@@ -75,6 +76,7 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   SbbDisabledMixin(SbbNegativeMixin(SbbFormAssociatedMixin(SbbElement))),
 ) {
   public static override readonly elementName: string = 'sbb-chip-group';
+  public static override elementDependencies: SbbElementType[] = [SbbChipElement];
   public static override readonly role = 'listbox';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
@@ -401,7 +403,6 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
     if (isServer) {
       return;
     }
-    SbbChipElement.define();
     const newChip = document.createElement('sbb-chip') as SbbChipElement<T>;
     newChip.value = value;
     newChip.innerText = label ?? (value ? this.displayWith?.(value) : null) ?? '';
