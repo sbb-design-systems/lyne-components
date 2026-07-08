@@ -401,6 +401,7 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
     if (isServer) {
       return;
     }
+    SbbChipElement.define();
     const newChip = document.createElement('sbb-chip') as SbbChipElement<T>;
     newChip.value = value;
     newChip.innerText = label ?? (value ? this.displayWith?.(value) : null) ?? '';
