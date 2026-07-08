@@ -2751,28 +2751,28 @@
   resolved "https://registry.yarnpkg.com/@web/config-loader/-/config-loader-1.0.0.tgz#1b47b2070f1a607ce1c56cea6ead3b00c04da465"
   integrity sha512-qRz0XX0skqymolAJGP7PwefKDkgxZXufb+G+Gj0xioOS6TseMgGvJ6JmB5+4ZWaQFVk5Oie1zerpG7GKMtdxpw==
 
-"@web/dev-server-core@0.7.5", "@web/dev-server-core@^0.4.1", "@web/dev-server-core@^0.7.3", "@web/dev-server-core@^1.0.0":
-  version "0.7.5"
-  resolved "https://registry.yarnpkg.com/@web/dev-server-core/-/dev-server-core-0.7.5.tgz#b283d46eb2c0384e848311ec9da25d06bbbc47df"
-  integrity sha512-Da65zsiN6iZPMRuj4Oa6YPwvsmZmo5gtPWhW2lx3GTUf5CAEapjVpZVlUXnKPL7M7zRuk72jSsIl8lo+XpTCtw==
+"@web/dev-server-core@1.0.0", "@web/dev-server-core@^0.4.1", "@web/dev-server-core@^0.7.3", "@web/dev-server-core@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/dev-server-core/-/dev-server-core-1.0.0.tgz#c0e1e24045a205b072c4378cac06f8878e23d32e"
+  integrity sha512-xe7hE/MMHy0mE8PKSu6lLEYTgk0AKqCKC2Ait80OokQ8RD9n1D/GF4aU3CwFP0KgLZUPkiWj2D4qq6mbgaW6Sg==
   dependencies:
     "@types/koa" "^2.11.6"
     "@types/ws" "^7.4.0"
-    "@web/parse5-utils" "^2.1.0"
+    "@web/parse5-utils" "^3.0.0"
     chokidar "^4.0.1"
     clone "^2.1.2"
     es-module-lexer "^1.0.0"
     get-stream "^6.0.0"
     is-stream "^2.0.0"
     isbinaryfile "^5.0.0"
-    koa "^2.13.0"
+    koa "^2.16.1"
     koa-etag "^4.0.0"
     koa-send "^5.0.1"
     koa-static "^5.0.0"
     lru-cache "^8.0.4"
     mime-types "^2.1.27"
     parse5 "^6.0.1"
-    picomatch "^2.2.2"
+    picomatch "^2.3.2"
     ws "^7.5.10"
 
 "@web/dev-server-rollup@^1.0.0":
@@ -2807,10 +2807,10 @@
     open "^8.0.2"
     portfinder "^1.0.32"
 
-"@web/parse5-utils@^2.1.0":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@web/parse5-utils/-/parse5-utils-2.1.1.tgz#a14114ece60f7f55772410b0813585e046478fdd"
-  integrity sha512-7rBVZEMGfrq2iPcAEwJ0KSNSvmA2a6jT2CK8/gyIOHgn4reg7bSSRbzyWIEYWyIkeRoYEukX/aW+nAeCgSSqhQ==
+"@web/parse5-utils@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@web/parse5-utils/-/parse5-utils-3.0.0.tgz#9edc09745ccbfeee483da7de2bd6c58e879db282"
+  integrity sha512-NmmZneHvBHjZ5rHpEtD7AnvrUQQL4KUyLhj5YH8CDagIfTC/PTTEl7fXYNwA7+diJuaOPXGfYzpxzhAy829ijg==
   dependencies:
     "@types/parse5" "^6.0.1"
     parse5 "^6.0.1"
@@ -2825,12 +2825,12 @@
     chrome-launcher "^0.15.0"
     puppeteer-core "^24.0.0"
 
-"@web/test-runner-commands@0.9.0", "@web/test-runner-commands@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-commands/-/test-runner-commands-0.9.0.tgz#ed15a021249948204bb27559eb437ff6ceeee067"
-  integrity sha512-zeLI6QdH0jzzJMDV5O42Pd8WLJtYqovgdt0JdytgHc0d1EpzXDsc7NTCJSImboc2NcayIsWAvvGGeRF69SMMYg==
+"@web/test-runner-commands@1.0.0", "@web/test-runner-commands@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-commands/-/test-runner-commands-1.0.0.tgz#6a7fd692c85c7257def8d18e869a1a1fc76ad3eb"
+  integrity sha512-8wXJkwvWWCc6GTPsdjbEN141kz+4MQPFjsId47hoibkY3FhkgeKJUm+cnwMYCIXHuWA0e7V+L2fmH087UPrXXQ==
   dependencies:
-    "@web/test-runner-core" "^0.13.0"
+    "@web/test-runner-core" "^1.0.0"
     mkdirp "^1.0.4"
 
 "@web/test-runner-commands@^0.6.1":
@@ -2841,12 +2841,12 @@
     "@web/test-runner-core" "^0.10.29"
     mkdirp "^1.0.4"
 
-"@web/test-runner-commands@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-commands/-/test-runner-commands-1.0.0.tgz#6a7fd692c85c7257def8d18e869a1a1fc76ad3eb"
-  integrity sha512-8wXJkwvWWCc6GTPsdjbEN141kz+4MQPFjsId47hoibkY3FhkgeKJUm+cnwMYCIXHuWA0e7V+L2fmH087UPrXXQ==
+"@web/test-runner-commands@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-commands/-/test-runner-commands-0.9.0.tgz#ed15a021249948204bb27559eb437ff6ceeee067"
+  integrity sha512-zeLI6QdH0jzzJMDV5O42Pd8WLJtYqovgdt0JdytgHc0d1EpzXDsc7NTCJSImboc2NcayIsWAvvGGeRF69SMMYg==
   dependencies:
-    "@web/test-runner-core" "^1.0.0"
+    "@web/test-runner-core" "^0.13.0"
     mkdirp "^1.0.4"
 
 "@web/test-runner-core@^0.10.29":
@@ -2945,17 +2945,6 @@
     picomatch "^2.3.2"
     source-map "^0.7.3"
 
-"@web/test-runner-coverage-v8@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-coverage-v8/-/test-runner-coverage-v8-0.8.0.tgz#783e9f685f14cafc34a6bf323f7d9268c1477933"
-  integrity sha512-PskiucYpjUtgNfR2zF2AWqWwjXL7H3WW/SnCAYmzUrtob7X9o/+BjdyZ4wKbOxWWSbJO4lEdGIDLu+8X2Xw+lA==
-  dependencies:
-    "@web/test-runner-core" "^0.13.0"
-    istanbul-lib-coverage "^3.0.0"
-    lru-cache "^8.0.4"
-    picomatch "^2.2.2"
-    v8-to-istanbul "^9.0.1"
-
 "@web/test-runner-coverage-v8@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@web/test-runner-coverage-v8/-/test-runner-coverage-v8-1.0.0.tgz#e748df1f19ce69394d30bc0c8719e99f43ae4cd3"
@@ -2974,13 +2963,13 @@
   dependencies:
     "@web/test-runner-core" "^1.0.0"
 
-"@web/test-runner-playwright@0.11.1":
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-playwright/-/test-runner-playwright-0.11.1.tgz#d993112ae2126eb74c1c5a171d6ea44c2dd24b4e"
-  integrity sha512-l9tmX0LtBqMaKAApS4WshpB87A/M8sOHZyfCobSGuYqnREgz5rqQpX314yx+4fwHXLLTa5N64mTrawsYkLjliw==
+"@web/test-runner-playwright@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-playwright/-/test-runner-playwright-1.0.0.tgz#f0ecb019bf737b17239be8958a55a8cac4f979f1"
+  integrity sha512-aRSi/N2PIZfniXZHSFEQtlQO0u/hEt0098IGlQBeJj4PQEdoR6/vVxl1wfo1qNwAvwhB9qihjLoRTS8BnTQmGQ==
   dependencies:
-    "@web/test-runner-core" "^0.13.0"
-    "@web/test-runner-coverage-v8" "^0.8.0"
+    "@web/test-runner-core" "^1.0.0"
+    "@web/test-runner-coverage-v8" "^1.0.0"
     playwright "^1.53.0"
 
 "@web/test-runner-visual-regression@0.9.0":
@@ -6406,7 +6395,7 @@ koa-static@^5.0.0:
     debug "^3.1.0"
     koa-send "^5.0.0"
 
-koa@^2.13.0:
+koa@^2.16.1:
   version "2.16.4"
   resolved "https://registry.yarnpkg.com/koa/-/koa-2.16.4.tgz#303b996f5c3f2a3bb771c7db5e4303ee05f2265f"
   integrity sha512-3An0GCLDSR34tsCO4H8Tef8Pp2ngtaZDAZnsWJYelqXUK5wyiHvGItgK/xcSkmHLSTn1Jcho1mRQs2ehRzvKKw==
