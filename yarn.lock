@@ -2756,28 +2756,28 @@
   resolved "https://registry.yarnpkg.com/@web/config-loader/-/config-loader-1.0.0.tgz#1b47b2070f1a607ce1c56cea6ead3b00c04da465"
   integrity sha512-qRz0XX0skqymolAJGP7PwefKDkgxZXufb+G+Gj0xioOS6TseMgGvJ6JmB5+4ZWaQFVk5Oie1zerpG7GKMtdxpw==
 
-"@web/dev-server-core@0.7.5", "@web/dev-server-core@^0.4.1", "@web/dev-server-core@^0.7.3", "@web/dev-server-core@^1.0.0":
-  version "0.7.5"
-  resolved "https://registry.yarnpkg.com/@web/dev-server-core/-/dev-server-core-0.7.5.tgz#b283d46eb2c0384e848311ec9da25d06bbbc47df"
-  integrity sha512-Da65zsiN6iZPMRuj4Oa6YPwvsmZmo5gtPWhW2lx3GTUf5CAEapjVpZVlUXnKPL7M7zRuk72jSsIl8lo+XpTCtw==
+"@web/dev-server-core@1.0.0", "@web/dev-server-core@^0.4.1", "@web/dev-server-core@^0.7.3", "@web/dev-server-core@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/dev-server-core/-/dev-server-core-1.0.0.tgz#c0e1e24045a205b072c4378cac06f8878e23d32e"
+  integrity sha512-xe7hE/MMHy0mE8PKSu6lLEYTgk0AKqCKC2Ait80OokQ8RD9n1D/GF4aU3CwFP0KgLZUPkiWj2D4qq6mbgaW6Sg==
   dependencies:
     "@types/koa" "^2.11.6"
     "@types/ws" "^7.4.0"
-    "@web/parse5-utils" "^2.1.0"
+    "@web/parse5-utils" "^3.0.0"
     chokidar "^4.0.1"
     clone "^2.1.2"
     es-module-lexer "^1.0.0"
     get-stream "^6.0.0"
     is-stream "^2.0.0"
     isbinaryfile "^5.0.0"
-    koa "^2.13.0"
+    koa "^2.16.1"
     koa-etag "^4.0.0"
     koa-send "^5.0.1"
     koa-static "^5.0.0"
     lru-cache "^8.0.4"
     mime-types "^2.1.27"
     parse5 "^6.0.1"
-    picomatch "^2.2.2"
+    picomatch "^2.3.2"
     ws "^7.5.10"
 
 "@web/dev-server-rollup@^1.0.0":
@@ -2812,10 +2812,10 @@
     open "^8.0.2"
     portfinder "^1.0.32"
 
-"@web/parse5-utils@^2.1.0":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@web/parse5-utils/-/parse5-utils-2.1.1.tgz#a14114ece60f7f55772410b0813585e046478fdd"
-  integrity sha512-7rBVZEMGfrq2iPcAEwJ0KSNSvmA2a6jT2CK8/gyIOHgn4reg7bSSRbzyWIEYWyIkeRoYEukX/aW+nAeCgSSqhQ==
+"@web/parse5-utils@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@web/parse5-utils/-/parse5-utils-3.0.0.tgz#9edc09745ccbfeee483da7de2bd6c58e879db282"
+  integrity sha512-NmmZneHvBHjZ5rHpEtD7AnvrUQQL4KUyLhj5YH8CDagIfTC/PTTEl7fXYNwA7+diJuaOPXGfYzpxzhAy829ijg==
   dependencies:
     "@types/parse5" "^6.0.1"
     parse5 "^6.0.1"
@@ -6419,7 +6419,7 @@ koa-static@^5.0.0:
     debug "^3.1.0"
     koa-send "^5.0.0"
 
-koa@^2.13.0:
+koa@^2.16.1:
   version "2.16.4"
   resolved "https://registry.yarnpkg.com/koa/-/koa-2.16.4.tgz#303b996f5c3f2a3bb771c7db5e4303ee05f2265f"
   integrity sha512-3An0GCLDSR34tsCO4H8Tef8Pp2ngtaZDAZnsWJYelqXUK5wyiHvGItgK/xcSkmHLSTn1Jcho1mRQs2ehRzvKKw==
