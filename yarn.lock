@@ -2972,16 +2972,16 @@
     "@web/test-runner-coverage-v8" "^1.0.0"
     playwright "^1.53.0"
 
-"@web/test-runner-visual-regression@0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-visual-regression/-/test-runner-visual-regression-0.9.0.tgz#9875a4871a24f8bf520c97b80ce548e81bce51e6"
-  integrity sha512-06M1WffLy+BJo08s57RumKYUULD/UB8u7DgZ8/MJZYCt+7r4Vt54w34CwSGHCpeDLY8Z/YkxecafvzDjuLnEJQ==
+"@web/test-runner-visual-regression@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-visual-regression/-/test-runner-visual-regression-1.0.0.tgz#78c6aa098954d6380b80182f7164ac89014e8bcf"
+  integrity sha512-ia4tJ6O4JzZuYNc/Z1h80J4/Wzp6IASprkTPBoHjmClubmRkAb27D4xwz5A1N4Gaw7GXgGhbPGwr8JYXV8VxVw==
   dependencies:
     "@types/mkdirp" "^1.0.1"
     "@types/pixelmatch" "^5.2.2"
     "@types/pngjs" "^6.0.0"
-    "@web/test-runner-commands" "^0.9.0"
-    "@web/test-runner-core" "^0.13.0"
+    "@web/test-runner-commands" "^1.0.0"
+    "@web/test-runner-core" "^1.0.0"
     mkdirp "^1.0.4"
     pixelmatch "^5.2.1"
     pngjs "^7.0.0"
