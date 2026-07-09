@@ -669,6 +669,22 @@ describe(`sbb-popover`, () => {
       expect(document.activeElement).to.equal(trigger);
       expect(element).not.to.have.attribute('tabindex');
     });
+
+    it('should not scroll to page top on focus', async () => {
+      trigger.style.marginBlockStart = '2000px';
+      expect(document.documentElement.scrollTop).to.be.equal(0);
+
+      // When focusing trigger, page should scroll to trigger
+      trigger.focus();
+      const originalScrollTop = document.documentElement.scrollTop;
+      expect(originalScrollTop).to.be.greaterThan(1000);
+
+      // When opening popover, scroll state should remain
+      await sendKeys({ press: 'Space' });
+      await openSpy.calledOnce();
+      expect(document.activeElement!).to.equal(element);
+      expect(document.documentElement.scrollTop).to.be.equal(originalScrollTop);
+    });
   });
 
   it('should close an open popover when another one is opened', async () => {
