@@ -1,5 +1,7 @@
 The `<sbb-tooltip>` component displays contextual information related to an element.
 
+<!-- #region trigger -->
+
 The standard way to use it is through the `trigger` property, referencing the element which activate the tooltip.
 
 ```html
@@ -7,7 +9,6 @@ The standard way to use it is through the `trigger` property, referencing the el
 <sbb-tooltip trigger="tooltip-trigger">Tooltip message</sbb-tooltip>
 ```
 
-<!-- #region trigger -->
 <!-- #endregion -->
 
 ## Attribute usage
@@ -79,9 +80,9 @@ When using the `sbb-tooltip` attribute, you can configure the position by settin
 The value of the attribute is a comma-separated list of positions.
 
 ```html
-<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-position="block-end, block-start, inline-end"
-  >Button</sbb-button
->
+<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-position="block-end, block-start, inline-end">
+  Button
+</sbb-button>
 ```
 
 ## Configuration

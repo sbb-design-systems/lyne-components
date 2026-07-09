@@ -34,6 +34,8 @@ It's possible to display the component in `negative` variant using the self-name
 
 ## Interactions
 
+<!-- #region trigger -->
+
 In order to show the overlay, you need to provide a trigger or call the `open()` method on the `<sbb-overlay>` component.
 
 ```html
@@ -44,7 +46,6 @@ In order to show the overlay, you need to provide a trigger or call the `open()`
 </sbb-overlay>
 ```
 
-<!-- #region trigger -->
 <!-- #endregion -->
 
 ### Closing the overlay

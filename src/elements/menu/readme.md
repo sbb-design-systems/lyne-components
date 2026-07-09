@@ -2,6 +2,8 @@ The `<sbb-menu>` is a component that can be attached to any element to open and 
 which allows to perform actions relevant to the current task by using the `<sbb-menu-button>`
 or to navigate within or outside the application by using the `<sbb-menu-link>` component along with it.
 
+<!-- #region intro-example -->
+
 ```html
 <!-- Trigger element -->
 <sbb-button id="menu-trigger">Menu trigger</sbb-button>
@@ -18,24 +20,12 @@ or to navigate within or outside the application by using the `<sbb-menu-link>` 
 </sbb-menu>
 ```
 
-## Interactions
+<!-- #endregion -->
 
-The element that will trigger the menu dialog must be set using the `trigger` property.
-
-The `<sbb-menu>` appears on trigger left click, and it is displayed as a sheet with a backdrop on mobile,  
-while on desktop it will be shown as a floating menu, and it will calculate the optimal position relative to the trigger element
-by evaluating the available space with the following priority: start/below, start/above, end/below, end/above.
-
-Clicking in the backdrop or pressing the `ESC` key closes the menu.
-
-You can also provide custom content inside the `<sbb-menu>`:
+You can provide custom content inside the `<sbb-menu>`:
 
 ```html
-<!-- Trigger element -->
-<sbb-button id="menu-trigger">Menu trigger</sbb-button>
-
-<!-- Menu component with custom content and menu actions -->
-<sbb-menu trigger="menu-trigger">
+<sbb-menu>
   <div>Christina Müller</div>
   <span>UIS9057</span>
   <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
@@ -50,16 +40,37 @@ You can also provide custom content inside the `<sbb-menu>`:
 </sbb-menu>
 ```
 
+## Interactions
+
+The `<sbb-menu>` appears on trigger left click, and it is displayed as a sheet with a backdrop on mobile,  
+while on desktop it will be shown as a floating menu, and it will calculate the optimal position relative to the trigger element
+by evaluating the available space with the following priority: start/below, start/above, end/below, end/above.
+
+Clicking in the backdrop or pressing the `ESC` key closes the menu.
+
 <!-- #region trigger -->
+
+The element that will trigger the menu dialog must be set using the `trigger` property.
+
+```html
+<!-- Trigger element -->
+<sbb-button id="menu-trigger">Menu trigger</sbb-button>
+
+<!-- Menu component with custom content and menu actions -->
+<sbb-menu trigger="menu-trigger">...</sbb-menu>
+```
+
 <!-- #endregion -->
 
 ## Nesting menus
 
 It is possible to create submenus by connecting a menu to a `<sbb-menu-button>`/`<sbb-menu-link>`
-element via trigger property / attribute of the `<sbb-menu>`.
+element to another `sbb-menu`.
 On smaller screens, submenus will automatically display a back button to navigate back to the parent menu.
 
 Please note that nesting the menus in DOM is not supported. The `<sbb-menu>` elements have to be siblings in order to work.
+
+<!-- #region nesting-example -->
 
 ```html
 <sbb-menu>
@@ -70,6 +81,8 @@ Please note that nesting the menus in DOM is not supported. The `<sbb-menu>` ele
   <sbb-menu-button icon="swisspass-small" sbb-badge="12">Details</sbb-menu-button>
 </sbb-menu>
 ```
+
+<!-- #endregion -->
 
 ## Menu Actions
 

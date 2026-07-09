@@ -18,6 +18,8 @@ It is possible to use it either with or without `<sbb-navigation-section>` insta
 
 ## Interactions
 
+<!-- #region trigger -->
+
 To display the `<sbb-navigation>` component you can either provide a trigger element using the `trigger` property,
 or call the `open()` method on the `<sbb-navigation>` component.
 
@@ -54,7 +56,6 @@ or call the `open()` method on the `<sbb-navigation>` component.
 </sbb-navigation>
 ```
 
-<!-- #region trigger -->
 <!-- #endregion -->
 
 ## Navigation Actions
@@ -123,14 +124,13 @@ Optionally, a label can be provided via the `label` attribute/property or the `l
 The `<sbb-navigation-section>` is a container for both `<sbb-navigation-list>` and `<sbb-button>`.
 Its intended use is inside a `<sbb-navigation>` component, in which it can be seen as a 'second-level' panel.
 
-## Trigger
+Optionally, a label can be provided via slot or via the `titleContent` property.
 
-To display the `<sbb-navigation-section>` component you must provide a trigger element using the `trigger` property.
+### Trigger
 
 <!-- #region trigger-section -->
-<!-- #endregion -->
 
-Optionally, a label can be provided via slot or via the `titleContent` property.
+To display the `<sbb-navigation-section>` component you must provide a trigger element using the `trigger` property.
 
 ```html
 <sbb-navigation-section trigger="nav1" titleContent="Title 1">
@@ -143,7 +143,9 @@ Optionally, a label can be provided via slot or via the `titleContent` property.
 </sbb-navigation-section>
 ```
 
-## Accessibility
+<!-- #endregion -->
+
+### Accessibility
 
 On opening, the focus will be automatically set on the first focusable element (unless manually specified, see below).
 If there is a trigger for a navigation section with the CSS class `sbb-active`,
@@ -154,7 +156,7 @@ should be set on that action.
 Similarly, if a navigation action is marked to indicate a selected option (e.g. the selected language),
 `aria-pressed` should be set on that action.
 
-### Controlling initial focus
+#### Controlling initial focus
 
 The first element with the attribute `sbb-focus-initial` will receive focus on opening.
 If the attribute is not used, the first focusable element receives focus (recommended).
