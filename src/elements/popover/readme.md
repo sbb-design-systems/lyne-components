@@ -9,7 +9,6 @@ The component could be used:
 
 The component must be connected with the trigger element using the `trigger` property,
 which accepts the id of the element, or directly its reference;
-the [sbb-menu-button](/docs/elements-button--docs) is meant to be used as trigger.
 
 ```html
 <sbb-mini-button icon-name="circle-information-small" id="popover-trigger"></sbb-mini-button>
@@ -20,6 +19,9 @@ the [sbb-menu-button](/docs/elements-button--docs) is meant to be used as trigge
   <p id="popover-content">Popover content.</p>
 </sbb-popover>
 ```
+
+<!-- #region trigger -->
+<!-- #endregion -->
 
 ## Configuration
 

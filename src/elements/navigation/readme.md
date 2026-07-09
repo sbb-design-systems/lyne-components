@@ -54,6 +54,9 @@ or call the `open()` method on the `<sbb-navigation>` component.
 </sbb-navigation>
 ```
 
+<!-- #region trigger -->
+<!-- #endregion -->
+
 ## Navigation Actions
 
 There are two types of navigation actions: links and buttons, represented by the `<sbb-navigation-link>`
@@ -122,8 +125,12 @@ Its intended use is inside a `<sbb-navigation>` component, in which it can be se
 
 ## Trigger
 
-To display the `<sbb-navigation-section>` component you must provide a trigger element using the `trigger` property,
-Optionally a label can be provided via slot or via the `titleContent` property.
+To display the `<sbb-navigation-section>` component you must provide a trigger element using the `trigger` property.
+
+<!-- #region trigger-section -->
+<!-- #endregion -->
+
+Optionally, a label can be provided via slot or via the `titleContent` property.
 
 ```html
 <sbb-navigation-section trigger="nav1" titleContent="Title 1">

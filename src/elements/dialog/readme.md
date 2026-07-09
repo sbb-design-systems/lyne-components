@@ -85,6 +85,9 @@ or the `open()` method on the `<sbb-dialog>` component can be called.
 </sbb-dialog>
 ```
 
+<!-- #region trigger -->
+<!-- #endregion -->
+
 ### Closing the dialog
 
 The dialog can be closed in several ways:

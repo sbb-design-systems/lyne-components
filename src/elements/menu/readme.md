@@ -50,6 +50,9 @@ You can also provide custom content inside the `<sbb-menu>`:
 </sbb-menu>
 ```
 
+<!-- #region trigger -->
+<!-- #endregion -->
+
 ## Nesting menus
 
 It is possible to create submenus by connecting a menu to a `<sbb-menu-button>`/`<sbb-menu-link>`

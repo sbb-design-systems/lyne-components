@@ -44,6 +44,9 @@ In order to show the overlay, you need to provide a trigger or call the `open()`
 </sbb-overlay>
 ```
 
+<!-- #region trigger -->
+<!-- #endregion -->
+
 ### Closing the overlay
 
 The overlay can be closed in several ways:

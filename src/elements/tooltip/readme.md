@@ -7,6 +7,9 @@ The standard way to use it is through the `trigger` property, referencing the el
 <sbb-tooltip trigger="tooltip-trigger">Tooltip message</sbb-tooltip>
 ```
 
+<!-- #region trigger -->
+<!-- #endregion -->
+
 ## Attribute usage
 
 It's also possible to use the component by setting the `sbb-tooltip` attribute on the trigger element.  

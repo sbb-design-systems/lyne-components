@@ -86,6 +86,9 @@ todayStub = stub(defaultDateAdapter, 'today').returns(new Date(2022, 4, 1, 0, 0,
 todayStub.restore();
 ```
 
+<!-- #region trigger -->
+<!-- #endregion -->
+
 <!-- Auto Generated Below -->
 
 ## API Documentation
