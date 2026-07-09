@@ -675,6 +675,7 @@ describe(`sbb-popover`, () => {
       expect(document.documentElement.scrollTop).to.be.equal(0);
 
       // When focusing trigger, page should scroll to trigger
+      trigger.scrollIntoView();
       trigger.focus();
       const originalScrollTop = document.documentElement.scrollTop;
       expect(originalScrollTop).to.be.greaterThan(1000);
