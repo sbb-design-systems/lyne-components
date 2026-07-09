@@ -64,8 +64,7 @@ The element that will trigger the menu dialog must be set using the `trigger` pr
 
 ## Nesting menus
 
-It is possible to create submenus by connecting a menu to a `<sbb-menu-button>`/`<sbb-menu-link>`
-element to another `sbb-menu`.
+It is possible to create submenus by connecting a menu to a `<sbb-menu-button>`/`<sbb-menu-link>` element.
 On smaller screens, submenus will automatically display a back button to navigate back to the parent menu.
 
 Please note that nesting the menus in DOM is not supported. The `<sbb-menu>` elements have to be siblings in order to work.
