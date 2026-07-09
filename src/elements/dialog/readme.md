@@ -72,6 +72,8 @@ component. Use it to display a footer with an action group.
 
 ## Interactions
 
+<!-- #region trigger -->
+
 To display the dialog, a trigger can be connected via the `trigger` property,
 or the `open()` method on the `<sbb-dialog>` component can be called.
 
@@ -84,6 +86,8 @@ or the `open()` method on the `<sbb-dialog>` component can be called.
   <sbb-dialog-actions><sbb-button sbb-dialog-close>Close</sbb-button></sbb-dialog-actions>
 </sbb-dialog>
 ```
+
+<!-- #endregion -->
 
 ### Closing the dialog
 
