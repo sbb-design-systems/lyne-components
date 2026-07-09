@@ -326,7 +326,9 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
 
     if (!focused && this._openStateController) {
       this.setAttribute('tabindex', '0');
-      this.focus();
+
+      // As the popover is in a fixed container, the browser would scroll to the page top if not preventing scroll.
+      this.focus({ preventScroll: true });
 
       // When a blur occurs, we know that the popover has to be closed,
       // because there are no interactive elements inside the popover.
