@@ -2,11 +2,14 @@ The `<sbb-datepicker>` is a component which can be used together with
 an `<sbb-date-input>` and an `<sbb-datepicker-toggle>` element to attach
 a dropdown to select a date from a calendar.
 
-It's also possible to display a two-months view using the `wide` property.
+It is also possible to display a two-months view using the `wide` property.
 
-The component and the `<sbb-date-input>` can be connected using the
-`input` property, which accepts the id of the native input, or directly
-its reference.
+It is recommended to use the datepicker inside an `<sbb-form-field>`, which will
+automatically take care of connecting the corresponding components.
+
+<!-- #region trigger -->
+
+To manually connect the components, see the example below:
 
 ```html
 <sbb-date-input id="datepicker-input"></sbb-date-input>
@@ -14,8 +17,7 @@ its reference.
 <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
 ```
 
-It is however recommend to use it in an `<sbb-form-field>`, which will
-automatically take care of connecting the corresponding components.
+<!-- #endregion -->
 
 ## In `<sbb-form-field>`
 
