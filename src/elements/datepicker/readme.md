@@ -7,9 +7,9 @@ It is also possible to display a two-months view using the `wide` property.
 It is recommended to use the datepicker inside an `<sbb-form-field>`, which will
 automatically take care of connecting the corresponding components.
 
-<!-- #region trigger -->
-
 To manually connect the components, see the example below:
+
+<!-- #region trigger -->
 
 ```html
 <sbb-date-input id="datepicker-input"></sbb-date-input>
