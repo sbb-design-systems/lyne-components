@@ -1,6 +1,398 @@
 @use '../core/styles' as sbb;
 
 $theme: 'standard' !default;
+$disabled: '[disabled], :disabled, [disabled-interactive], .sbb-disabled-interactive';
+$active: ':active, :state(active)';
+$loading: '[loading], .sbb-loading';
+
+@mixin variables--host {
+  display: inline-block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize CSS of several frameworks.
+  outline: none !important;
+
+  --sbb-button-transition-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-2x)
+  );
+  --sbb-button-box-shadow-definition:
+    var(--sbb-shadow-elevation-level-3-shadow-2-offset-x) var(--sbb-button-shadow-2-offset-y)
+      var(--sbb-button-shadow-2-blur) var(--sbb-shadow-elevation-level-3-shadow-2-spread)
+      var(--sbb-button-shadow-2-color),
+    var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-button-shadow-1-offset-y)
+      var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
+      var(--sbb-button-shadow-1-color);
+
+  // Calculated and private variables
+  --_width: unset;
+
+  // The min-height modifier is used to adjust height and width for loading state.
+  --_min-height-modifier: 0rem;
+  --_border-color: var(--sbb-button-color-default-border);
+  --_background-color: var(--sbb-button-color-default-background);
+  --_background: var(--_background-color);
+  --_color: var(--sbb-button-color-default-text);
+  --_button-inset: 0;
+  --_hover-offset: 1px;
+  --_padding-block: var(--sbb-button-padding-block-min);
+  --_padding-inline: var(--sbb-button-padding-inline);
+  --_line-height: calc(var(--sbb-button-min-height) - var(--sbb-spacing-fixed-1x));
+
+  // The overlap-fix closes a small visual gap between border and background color when hovered.
+  // As long as the border color corresponds to the background color, we slightly increase the border width.
+  // This doesn't interfere with the content, but visually closes the small gap.
+  // The secondary button itself can override it to 0 because it doesn't need the workaround.
+  // We used px unit as it is not relative to anything.
+  --_border: calc(var(--sbb-button-border-width) + var(--sbb-button-border-overlap-fix, 1px)) solid
+    var(--_border-color);
+  --_animation-loading-delay: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-button-loading-delay)
+  );
+  --_animation-loading-duration: var(--sbb-disable-animation-duration, 3s);
+  --_animation-loading-rotate-function: linear(0, 0.25 12.5% 37.5%, 0.75 62.5% 87.5%, 1);
+  --_animation-loading-rotate: rotate var(--_animation-loading-duration)
+    var(--_animation-loading-delay) infinite var(--_animation-loading-rotate-function);
+  --_animation-loading-move: move calc(var(--_animation-loading-duration) / 2)
+    var(--_animation-loading-delay) alternate infinite linear;
+
+  @media (forced-colors: active) {
+    --sbb-button-color-default-border: CanvasText !important;
+    --sbb-button-color-active-border: Highlight !important;
+    --sbb-button-color-default-background: Canvas !important;
+    --sbb-button-color-hover-background: Canvas !important;
+    --sbb-button-color-active-background: Canvas !important;
+    --sbb-button-color-disabled-background: Canvas !important;
+    --sbb-button-color-disabled-text: GrayText !important;
+    --sbb-button-color-loading-border: Highlight !important;
+
+    // For static cases, button and link roles will override it.
+    --sbb-button-color-default-text: CanvasText !important;
+    --sbb-button-color-hover-text: CanvasText !important;
+    --sbb-button-color-active-text: CanvasText !important;
+
+    // Calculated and private variables
+    --sbb-button-border-overlap-fix: 0rem;
+  }
+}
+
+@mixin variables--action-base {
+  gap: var(--sbb-button-gap);
+  align-items: center;
+  justify-content: center;
+  font-size: var(--sbb-text-font-size-xs);
+  font-weight: bold;
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
+  text-align: left;
+  white-space: nowrap;
+  text-decoration: none;
+  min-height: calc(var(--sbb-button-min-height) + var(--_min-height-modifier));
+  outline: none;
+
+  // Width is set in icon-only variant
+  width: var(--_width);
+  border-radius: var(--sbb-button-border-radius);
+  color: var(--_color);
+  cursor: var(--sbb-button-cursor);
+  user-select: none;
+  background: var(--_background);
+  border: var(--_border-action);
+  transition-duration: var(--sbb-button-transition-duration);
+  transition-timing-function: var(--sbb-button-transition-easing-function);
+  transition-property: color, background-color, padding-block;
+  animation: var(--_animation);
+
+  // Used for loading state
+  transform-style: var(--_transform-style, flat);
+
+  // The padding block value is only a minimal padding to preserve a padding if the content becomes larger than intended.
+  // Positioning of the content is made by flexbox vertical centering.
+  // The real padding displayed is larger than the defined value below.
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
+
+  // Needed for support border (see below)
+  position: relative;
+}
+
+@mixin variables--forced-colors-button {
+  @media (forced-colors: active) {
+    --sbb-button-color-default-text: ButtonText !important;
+    --sbb-button-color-hover-text: ButtonText !important;
+    --sbb-button-color-active-text: ButtonText !important;
+  }
+}
+
+@mixin variables--forced-colors-link {
+  @media (forced-colors: active) {
+    --sbb-button-color-default-text: LinkText !important;
+    --sbb-button-color-hover-text: LinkText !important;
+    --sbb-button-color-active-text: LinkText !important;
+  }
+}
+
+@mixin variables--negative {
+  --sbb-button-color-disabled-background: var(--sbb-background-color-3-negative);
+  --sbb-button-color-disabled-text: var(--sbb-color-aluminium);
+}
+
+@mixin variables--size-l {
+  --sbb-button-min-height: var(--sbb-button-min-height-size-l);
+  --sbb-button-padding-inline: var(--sbb-button-padding-inline-size-l);
+}
+
+@mixin variables--size-m {
+  --sbb-button-min-height: var(--sbb-button-min-height-size-m);
+  --sbb-button-padding-inline: var(--sbb-button-padding-inline-size-m);
+}
+
+@mixin variables--size-s {
+  --sbb-button-min-height: var(--sbb-button-min-height-size-s);
+  --sbb-button-padding-inline: var(--sbb-button-padding-inline-size-s);
+  --sbb-button-gap: var(--sbb-spacing-fixed-1x);
+}
+
+@mixin variables--icon-only {
+  --sbb-button-padding-inline: 0;
+  --_width: calc(var(--sbb-button-min-height) + var(--_min-height-modifier));
+}
+
+@mixin variables--hover {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-button-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
+    --sbb-button-shadow-1-offset-y: calc(
+      0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
+    );
+    --sbb-button-shadow-1-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-blur));
+    --sbb-button-shadow-2-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-2-blur));
+    --sbb-button-cursor: var(--sbb-cursor-pointer);
+    --_border-color: var(--sbb-button-color-hover-border);
+    --_color: var(--sbb-button-color-hover-text);
+    --_background-color: var(--sbb-button-color-hover-background);
+    --_button-inset: calc(var(--sbb-button-border-width) * -1);
+    @content;
+  }
+
+  @media (forced-colors: active) {
+    --sbb-button-color-hover-border: Highlight !important;
+  }
+}
+
+@mixin variables--disabled {
+  --sbb-button-cursor: var(--sbb-cursor-default);
+  --_color: var(--sbb-button-color-disabled-text);
+  --_background-color: var(--sbb-button-color-disabled-background);
+  --_border-color: var(--sbb-button-color-disabled-border);
+  --_border: var(--sbb-button-border-disabled-width) var(--sbb-button-border-disabled-style)
+    var(--_border-color);
+}
+
+@mixin variables--active {
+  --_color: var(--sbb-button-color-active-text);
+  --_background-color: var(--sbb-button-color-active-background);
+  --_border-color: var(--sbb-button-color-active-border);
+}
+
+@mixin variables--loading {
+  --_min-height-modifier: calc(-2 * var(--sbb-button-loading-border-width));
+  --sbb-button-focus-outline-offset-override: calc(
+    var(--sbb-focus-outline-offset) + var(--sbb-button-loading-border-width)
+  );
+  --_border: none;
+  --_transform-style: preserve-3d;
+}
+
+@mixin variables--before {
+  content: '';
+  position: absolute;
+  inset: var(--_button-inset);
+  border: var(--_border);
+  border-radius: var(--sbb-button-border-radius);
+  pointer-events: none;
+  box-shadow: var(--sbb-button-box-shadow);
+  transition-duration: var(--sbb-button-transition-duration);
+  transition-timing-function: var(--sbb-button-transition-easing-function);
+  transition-property: inset, border, box-shadow;
+}
+
+@mixin variables--focus-visible {
+  @include sbb.focus-outline;
+
+  outline-offset: var(--sbb-button-focus-outline-offset-override, var(--sbb-focus-outline-offset));
+}
+
+@mixin variables--primary {
+  --sbb-button-color-active-background: var(--sbb-color-primary150);
+  --sbb-button-color-active-border: var(--sbb-color-primary150);
+  --sbb-button-color-active-text: var(--sbb-color-4-negative);
+  --sbb-button-color-default-background: var(--sbb-color-primary);
+  --sbb-button-color-default-border: var(--sbb-color-primary);
+  --sbb-button-color-default-text: var(--sbb-color-1-negative);
+  --sbb-button-color-hover-background: var(--sbb-color-primary125);
+  --sbb-button-color-hover-border: var(--sbb-color-primary125);
+  --sbb-button-color-hover-text: var(--sbb-color-3-negative);
+  --sbb-button-color-loading-border: light-dark(
+    color-mix(
+      in srgb,
+      var(--sbb-button-color-active-background) 50%,
+      var(--sbb-button-color-default-text)
+    ),
+    color-mix(
+      in srgb,
+      var(--sbb-button-color-active-background) 70%,
+      var(--sbb-button-color-default-text)
+    )
+  );
+  --sbb-button-shadow-1-color: light-dark(
+    color-mix(in srgb, var(--sbb-color-primary) 20%, transparent),
+    color-mix(in srgb, var(--sbb-color-primary) 40%, transparent)
+  );
+  --sbb-button-shadow-2-color: light-dark(
+    color-mix(in srgb, var(--sbb-color-primary125) 20%, transparent),
+    color-mix(in srgb, var(--sbb-color-primary125) 40%, transparent)
+  );
+}
+
+@mixin variables--primary-negative {
+  --sbb-button-color-active-background: var(--sbb-color-primary150);
+  --sbb-button-color-active-border: var(--sbb-color-primary150);
+  --sbb-button-color-active-text: var(--sbb-color-4-negative);
+  --sbb-button-color-default-background: var(--sbb-color-primary);
+  --sbb-button-color-default-border: var(--sbb-color-primary);
+  --sbb-button-color-default-text: var(--sbb-color-1-negative);
+  --sbb-button-color-hover-background: var(--sbb-color-primary125);
+  --sbb-button-color-hover-border: var(--sbb-color-primary125);
+  --sbb-button-color-hover-text: var(--sbb-color-3-negative);
+  --sbb-button-color-loading-border: color-mix(
+    in srgb,
+    var(--sbb-button-color-active-background) 70%,
+    var(--sbb-button-color-default-text)
+  );
+  --sbb-button-shadow-1-color: light-dark(
+    color-mix(in srgb, var(--sbb-color-primary) 60%, transparent),
+    color-mix(in srgb, var(--sbb-color-primary) 40%, transparent)
+  );
+  --sbb-button-shadow-2-color: light-dark(
+    color-mix(in srgb, var(--sbb-color-primary125) 60%, transparent),
+    color-mix(in srgb, var(--sbb-color-primary125) 40%, transparent)
+  );
+}
+
+@mixin variables--primary-box-shadow {
+  --sbb-button-box-shadow: var(--sbb-button-box-shadow-definition);
+}
+
+@mixin variables--secondary {
+  --sbb-button-color-active-background: var(--sbb-background-color-3);
+  --sbb-button-color-active-border: var(--sbb-border-color-4-inverted);
+  --sbb-button-color-active-text: light-dark(
+    var(--sbb-color-anthracite),
+    var(--sbb-color-graphite)
+  );
+  --sbb-button-color-default-background: var(--sbb-background-color-1);
+  --sbb-button-color-default-border: var(--sbb-border-color-4-inverted);
+  --sbb-button-color-default-text: var(--sbb-color-3);
+  --sbb-button-color-hover-background: var(--sbb-background-color-1);
+  --sbb-button-color-hover-border: var(--sbb-border-color-4-inverted);
+  --sbb-button-color-hover-text: var(--sbb-color-4);
+  --sbb-button-color-loading-border: var(--sbb-border-color-4-inverted);
+  --sbb-button-shadow-1-color: light-dark(
+    color-mix(in srgb, var(--sbb-color-platinum) 20%, transparent),
+    color-mix(in srgb, var(--sbb-color-black) 30%, transparent)
+  );
+  --sbb-button-shadow-2-color: light-dark(
+    color-mix(in srgb, var(--sbb-color-cement) 20%, transparent),
+    color-mix(in srgb, var(--sbb-color-black) 30%, transparent)
+  );
+  --sbb-button-border-overlap-fix: 0rem;
+}
+
+@mixin variables--secondary-negative {
+  --sbb-button-color-active-background: var(--sbb-background-color-2-negative);
+  --sbb-button-color-active-border: var(--sbb-border-color-4-negative-inverted);
+  --sbb-button-color-active-text: var(--sbb-color-graphite);
+  --sbb-button-color-default-background: var(--sbb-background-color-1-negative);
+  --sbb-button-color-default-border: var(--sbb-border-color-4-negative-inverted);
+  --sbb-button-color-default-text: var(--sbb-color-3-negative);
+  --sbb-button-color-hover-background: var(--sbb-background-color-1-negative);
+  --sbb-button-color-hover-border: var(--sbb-border-color-4-negative-inverted);
+  --sbb-button-color-hover-text: var(--sbb-color-4-negative);
+  --sbb-button-color-loading-border: var(--sbb-border-color-4-negative-inverted);
+  --sbb-button-shadow-1-color: color-mix(in srgb, var(--sbb-color-black) 30%, transparent);
+  --sbb-button-shadow-2-color: color-mix(in srgb, var(--sbb-color-black) 30%, transparent);
+}
+
+@mixin variables--secondary-box-shadow {
+  --sbb-button-box-shadow: var(--sbb-button-box-shadow-definition);
+}
+
+@mixin variables--accent {
+  --sbb-button-color-active-background: var(--sbb-background-color-1-inverted);
+  --sbb-button-color-active-border: var(--sbb-border-color-1);
+  --sbb-button-color-active-text: light-dark(var(--sbb-color-cloud), var(--sbb-color-anthracite));
+  --sbb-button-color-default-background: var(--sbb-background-color-3-inverted);
+  --sbb-button-color-default-border: var(--sbb-border-color-3);
+  --sbb-button-color-default-text: var(--sbb-color-1-inverted);
+  --sbb-button-color-hover-background: var(--sbb-background-color-3-inverted);
+  --sbb-button-color-hover-border: var(--sbb-border-color-3);
+  --sbb-button-color-hover-text: var(--sbb-color-3-inverted);
+  --sbb-button-color-loading-border: light-dark(var(--sbb-color-iron), var(--sbb-color-silver));
+  --sbb-button-shadow-1-color: light-dark(
+    color-mix(in srgb, var(--sbb-color-platinum) 20%, transparent),
+    color-mix(in srgb, var(--sbb-color-black) 30%, transparent)
+  );
+  --sbb-button-shadow-2-color: light-dark(
+    color-mix(in srgb, var(--sbb-color-cement) 20%, transparent),
+    color-mix(in srgb, var(--sbb-color-black) 30%, transparent)
+  );
+}
+
+@mixin variables--accent-negative {
+  --sbb-button-color-active-background: var(--sbb-background-color-1-negative-inverted);
+  --sbb-button-color-active-border: var(--sbb-border-color-1-negative);
+  --sbb-button-color-active-text: var(--sbb-color-anthracite);
+  --sbb-button-color-default-background: var(--sbb-background-color-3-negative-inverted);
+  --sbb-button-color-default-border: var(--sbb-border-color-3-negative);
+  --sbb-button-color-default-text: var(--sbb-color-1-negative-inverted);
+  --sbb-button-color-hover-background: var(--sbb-background-color-3-negative-inverted);
+  --sbb-button-color-hover-border: var(--sbb-border-color-3-negative);
+  --sbb-button-color-hover-text: var(--sbb-color-4-negative-inverted);
+  --sbb-button-color-loading-border: var(--sbb-color-silver);
+  --sbb-button-shadow-1-color: color-mix(in srgb, var(--sbb-color-black) 30%, transparent);
+  --sbb-button-shadow-2-color: color-mix(in srgb, var(--sbb-color-black) 30%, transparent);
+}
+
+@mixin variables--accent-box-shadow {
+  --sbb-button-box-shadow: var(--sbb-button-box-shadow-definition);
+}
+
+@mixin variables--transparent {
+  --sbb-button-color-active-background: var(--sbb-background-color-4);
+  --sbb-button-color-active-border: var(--sbb-border-color-4-inverted);
+  --sbb-button-color-active-text: var(--sbb-color-1);
+  --sbb-button-color-default-background: transparent;
+  --sbb-button-color-default-border: transparent;
+  --sbb-button-color-default-text: var(--sbb-color-1);
+  --sbb-button-color-hover-background: var(--sbb-background-color-3);
+  --sbb-button-color-hover-border: var(--sbb-border-color-3-inverted);
+  --sbb-button-color-hover-text: var(--sbb-color-1);
+  --sbb-button-color-loading-border: light-dark(var(--sbb-color-silver), var(--sbb-color-granite));
+}
+
+@mixin variables--transparent-negative {
+  --sbb-button-color-active-background: var(--sbb-background-color-4-negative);
+  --sbb-button-color-active-border: var(--sbb-border-color-4-negative-inverted);
+  --sbb-button-color-active-text: var(--sbb-color-1-negative);
+  --sbb-button-color-default-background: transparent;
+  --sbb-button-color-default-border: transparent;
+  --sbb-button-color-default-text: var(--sbb-color-1-negative);
+  --sbb-button-color-hover-background: var(--sbb-background-color-3-negative);
+  --sbb-button-color-hover-border: var(--sbb-border-color-3-negative-inverted);
+  --sbb-button-color-hover-text: var(--sbb-color-1-negative);
+  --sbb-button-color-loading-border: var(--sbb-color-granite);
+}
 
 @mixin base {
   --sbb-button-box-shadow: transparent 0 0;
@@ -96,4 +488,222 @@ $theme: 'standard' !default;
   --sbb-button-padding-inline-size-l: var(--sbb-spacing-fixed-10x);
   --sbb-button-padding-inline-size-m: var(--sbb-spacing-fixed-8x);
   --sbb-button-padding-inline-size-s: var(--sbb-spacing-fixed-5x);
+}
+
+@mixin rules {
+  :is(
+    .sbb-button,
+    .sbb-button-s,
+    .sbb-button-m,
+    .sbb-button-l,
+    .sbb-secondary-button,
+    .sbb-secondary-button-s,
+    .sbb-secondary-button-m,
+    .sbb-secondary-button-l,
+    .sbb-accent-button,
+    .sbb-accent-button-s,
+    .sbb-accent-button-m,
+    .sbb-accent-button-l,
+    .sbb-transparent-button,
+    .sbb-transparent-button-s,
+    .sbb-transparent-button-m,
+    .sbb-transparent-button-l
+  ) {
+    @include sbb.button-reset;
+    @include variables--host;
+    @include variables--action-base;
+
+    vertical-align: middle;
+    line-height: var(--_line-height);
+
+    &:not(a) {
+      @include variables--forced-colors-button;
+    }
+
+    &:is(a) {
+      @include variables--forced-colors-link;
+    }
+
+    &.sbb-negative {
+      @include variables--negative;
+    }
+
+    &.sbb-icon-button {
+      @include variables--icon-only;
+
+      --_animation-loading-rotate-function: linear;
+
+      text-align: center;
+    }
+
+    &:not(#{$disabled}, #{$active}, #{$loading}):is(:hover, .sbb-hover) {
+      @include variables--hover {
+        --sbb-button-padding-block-min: calc(var(--sbb-spacing-fixed-1x) - var(--_hover-offset))
+          calc(var(--sbb-spacing-fixed-1x) + var(--_hover-offset));
+      }
+    }
+
+    &:is(#{$disabled}) {
+      @include variables--disabled;
+    }
+
+    &:not(#{$disabled}):is(#{$active}, #{$loading}) {
+      @include variables--active;
+    }
+
+    &::before {
+      @include variables--before;
+    }
+
+    &:not(#{$disabled}):is(#{$loading}) {
+      --_border: none;
+      --_border-action: var(--sbb-button-loading-border-width) dotted transparent;
+      --_padding-block: calc(
+        var(--sbb-button-padding-block-min) - var(--sbb-button-loading-border-width)
+      );
+      --_padding-inline: calc(
+        var(--sbb-button-padding-inline) - var(--sbb-button-loading-border-width)
+      );
+      --_loading-border-color: color-mix(
+        in srgb,
+        var(--sbb-button-color-active-text) 50%,
+        transparent
+      );
+      --_background:
+        border-box padding-box linear-gradient(var(--_background-color)),
+        border-box
+          conic-gradient(
+            from var(--_button-loading-angle) at
+              clamp(
+                calc(var(--sbb-button-min-height) / 2),
+                var(--_button-loading-offset),
+                calc(100% - var(--sbb-button-min-height) / 2)
+              )
+              50%,
+            var(--sbb-button-color-loading-border) 0deg,
+            var(--sbb-button-color-loading-border) 300deg,
+            var(--sbb-button-color-active-text) 360deg
+          ),
+        var(--_background-color);
+      --_animation: var(--_animation-loading-rotate), var(--_animation-loading-move);
+    }
+
+    &:focus-visible::before {
+      @include variables--focus-visible;
+    }
+
+    > .sbb-button-icon {
+      vertical-align: middle;
+      translate: 0 #{sbb.px-to-rem-build(-2)};
+    }
+
+    &:not(.sbb-icon-button) > .sbb-button-icon {
+      // Factor has been manually evaluated to align with design specification
+      margin-inline-end: calc(var(--sbb-button-gap) / 2.15);
+    }
+
+    > .sbb-button-label {
+      @include sbb.ellipsis;
+
+      display: block;
+    }
+  }
+
+  :is(.sbb-button-s, .sbb-secondary-button-s, .sbb-accent-button-s, .sbb-transparent-button-s) {
+    @include variables--size-s;
+  }
+
+  :is(.sbb-button-m, .sbb-secondary-button-m, .sbb-accent-button-m, .sbb-transparent-button-m) {
+    @include variables--size-m;
+  }
+
+  :is(.sbb-button-l, .sbb-secondary-button-l, .sbb-accent-button-l, .sbb-transparent-button-l) {
+    @include variables--size-l;
+  }
+
+  :is(.sbb-button, .sbb-button-s, .sbb-button-m, .sbb-button-l) {
+    @include variables--primary;
+
+    &.sbb-negative {
+      @include variables--primary-negative;
+    }
+
+    &:not(#{$disabled}, #{$active}, #{$loading}) {
+      @include variables--primary-box-shadow;
+    }
+  }
+
+  :is(
+    .sbb-secondary-button,
+    .sbb-secondary-button-s,
+    .sbb-secondary-button-m,
+    .sbb-secondary-button-l
+  ) {
+    @include variables--secondary;
+
+    &.sbb-negative {
+      @include variables--secondary-negative;
+    }
+
+    &:not(#{$disabled}, #{$active}, #{$loading}) {
+      @include variables--secondary-box-shadow;
+    }
+  }
+
+  :is(.sbb-accent-button, .sbb-accent-button-s, .sbb-accent-button-m, .sbb-accent-button-l) {
+    @include variables--accent;
+
+    &.sbb-negative {
+      @include variables--accent-negative;
+    }
+
+    &:not(#{$disabled}, #{$active}, #{$loading}) {
+      @include variables--accent-box-shadow;
+    }
+  }
+
+  :is(
+    .sbb-transparent-button,
+    .sbb-transparent-button-s,
+    .sbb-transparent-button-m,
+    .sbb-transparent-button-l
+  ) {
+    @include variables--transparent;
+
+    &.sbb-negative {
+      @include variables--transparent-negative;
+    }
+  }
+
+  @keyframes rotate {
+    from {
+      --_button-loading-angle: -90deg;
+    }
+
+    to {
+      --_button-loading-angle: 270deg;
+    }
+  }
+
+  @keyframes move {
+    from {
+      --_button-loading-offset: 0%;
+    }
+
+    to {
+      --_button-loading-offset: 100%;
+    }
+  }
+
+  @property --_button-loading-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  @property --_button-loading-offset {
+    syntax: '<percentage>';
+    initial-value: 0%;
+    inherits: false;
+  }
 }
