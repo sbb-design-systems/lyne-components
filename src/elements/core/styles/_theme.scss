@@ -342,6 +342,7 @@ $theme: 'standard' !default;
 // start-auto-generated-scss-module-rules
 @include badge.rules;
 @include breadcrumb.rules;
+@include button.rules;
 @include card.rules;
 @include carousel.rules;
 @include container.rules;
