@@ -2384,7 +2384,7 @@
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-8.62.1.tgz#c58be954e483b2fc98275374d5bcb40b99842dc1"
   integrity sha512-ooCzJFaf+Hg+uG6fA3NRFGuFjlfNlDhBthbv4ZPU/0elCAFUfnyXUvf/WOpHz/jYwSmvU2GkR2LtyUfy1AxZ1Q==
 
-"@typescript-eslint/types@8.63.0", "@typescript-eslint/types@^8.63.0":
+"@typescript-eslint/types@8.63.0", "@typescript-eslint/types@^8.48.0", "@typescript-eslint/types@^8.63.0":
   version "8.63.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-8.63.0.tgz#6b32b0a5913520554d81a986acfffba2d32b6963"
   integrity sha512-xyLtl9DUBBFrcJS4x2pIqGLH68/tC2uOa4Z7pUteW09D3bXnnXUom4dyPikzWgB7llmIc1zoeI3aoUdC4rPK/Q==
@@ -4899,11 +4899,12 @@ eslint-plugin-react@7.37.5:
     string.prototype.matchall "^4.0.12"
     string.prototype.repeat "^1.0.0"
 
-eslint-plugin-storybook@10.4.6:
-  version "10.4.6"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-storybook/-/eslint-plugin-storybook-10.4.6.tgz#77d36b47f32c42832f09c110c7f687fc7b190a10"
-  integrity sha512-CfGSXn6zFspeYTU8R7v797MOmJFj8xc6MWf/oGuRwbKeMoSwnliR+OlXSjMZYM1D6gfmwiuH1VX58LSHdn+ZPg==
+eslint-plugin-storybook@10.5.0:
+  version "10.5.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-storybook/-/eslint-plugin-storybook-10.5.0.tgz#e8b85834ce13144365503e1d7029ffba9754f28a"
+  integrity sha512-UyhbK11baKAYqzyDUHlwDlm1aP/wxPMR0vFmsxA5984BGaPwarhoXUWng1Xa0cd9BdPbQ+zr/y8ADk6XxtwkYg==
   dependencies:
+    "@typescript-eslint/types" "^8.48.0"
     "@typescript-eslint/utils" "^8.48.0"
 
 eslint-plugin-yml@3.6.0:
