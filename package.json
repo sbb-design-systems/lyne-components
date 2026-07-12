@@ -132,7 +132,7 @@
     "stylelint-scss": "7.2.0",
     "temporal-polyfill": "1.0.1",
     "ts-lit-plugin": "2.0.2",
-    "tsdown": "0.22.4",
+    "tsdown": "0.22.5",
     "typescript": "6.0.3",
     "typescript-eslint": "8.63.0",
     "urlpattern-polyfill": "10.1.0",
