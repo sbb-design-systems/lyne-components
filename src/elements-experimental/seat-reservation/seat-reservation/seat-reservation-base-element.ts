@@ -31,6 +31,8 @@ import type {
 } from '../common/types.ts';
 import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
 
+type GraphicalElementType = 'SERVICE' | 'AREA' | 'OTHER';
+
 enum ScrollDirection {
   right = 'right',
   left = 'left',
@@ -1715,17 +1717,17 @@ export class SeatReservationBaseElement extends SbbElement {
                 !this.notAreaElements.includes(graphicalElement.icon!),
             )
             .map((ele) =>
-              this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, true),
+              this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, 'AREA'),
             );
           const otherElements = coachItem.graphicElements
             ?.filter((graphicalElement: BaseElement) =>
               this.notAreaElements.includes(graphicalElement.icon!),
             )
             .map((ele) =>
-              this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, false),
+              this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, 'OTHER'),
             );
           const serviceElements = coachItem.serviceElements?.map((ele) =>
-            this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, true),
+            this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, 'SERVICE'),
           );
           const borderMiddleElement = this._getCalculatedMiddleBorderElement(coachItem);
           const calcCoachDimension = this.getCalculatedDimension({ ...coachItem.dimension });
@@ -1840,7 +1842,7 @@ export class SeatReservationBaseElement extends SbbElement {
   private _getCalculatedDimensionPositionElement(
     element: BaseElement,
     coachDimension: ElementDimension,
-    isCalcAreaElement: boolean,
+    elementType: GraphicalElementType,
   ): BaseElement {
     const dim = { ...element.dimension };
     const pos = { ...element.position };
@@ -1851,8 +1853,8 @@ export class SeatReservationBaseElement extends SbbElement {
       this.alignVertical && isNotFixedRotationGraphicalElement ? rotation - 90 : rotation;
     let areaMounting: ElementMounting | null = null;
 
-    // Calculate position and dimension for AreaElements
-    if (isCalcAreaElement) {
+    // Calculate position and dimension for Area elements that positioned at the border of coach
+    if (elementType === 'AREA') {
       const isNotTableGraphic = element.icon?.indexOf('TABLE') === -1;
       const areaProperty = element.icon && isNotTableGraphic ? element.icon : null;
       const stretchHeight =
@@ -1872,8 +1874,8 @@ export class SeatReservationBaseElement extends SbbElement {
         dim.h += this.coachBorderOffset - this.coachBorderOffset / 3;
       }
     }
-    // Calculate position and dimension for all other graphical elements
-    else {
+    // Calculate position and dimension for other graphical coach elements that positioned at the border of coach
+    else if (elementType === 'OTHER') {
       if (element.position.y === 0) {
         pos.y -= this.coachBorderOffset;
       }
