@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.14.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.14.0...v4.14.1) (2026-07-13)
+
+
+### Bug Fixes
+
+* **flip-card:** activate resize observer when using SSR ([#5089](https://github.com/sbb-design-systems/lyne-components/issues/5089)) ([c70fc2c](https://github.com/sbb-design-systems/lyne-components/commit/c70fc2ce788f6ce18cee58bd7d54c761540ecaad)), closes [#5088](https://github.com/sbb-design-systems/lyne-components/issues/5088)
+
 ## [4.14.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.13.1...v4.14.0) (2026-06-15)
 
 
