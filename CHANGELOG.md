@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.3.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.2.0...v5.3.0) (2026-07-13)
+
+
+### Features
+
+* **download:** initial implementation ([#5006](https://github.com/sbb-design-systems/lyne-components/issues/5006)) ([8fbaeaf](https://github.com/sbb-design-systems/lyne-components/commit/8fbaeafcf6e8681d5a472c945224885910f5fa17))
+
+
+### Bug Fixes
+
+* **chip:** ensure `sbb-chip` is defined when created ([#5077](https://github.com/sbb-design-systems/lyne-components/issues/5077)) ([c8fa446](https://github.com/sbb-design-systems/lyne-components/commit/c8fa446ad360455bcf4bbead1ba470d69d9148f8))
+* **flip-card:** activate resize observer when using SSR ([#5089](https://github.com/sbb-design-systems/lyne-components/issues/5089)) ([c688c9c](https://github.com/sbb-design-systems/lyne-components/commit/c688c9c7a63e037821deb08e93e484cd464e3830)), closes [#5088](https://github.com/sbb-design-systems/lyne-components/issues/5088)
+* **popover:** avoid scrolling to page top on opening ([#5081](https://github.com/sbb-design-systems/lyne-components/issues/5081)) ([0c14f10](https://github.com/sbb-design-systems/lyne-components/commit/0c14f10cca1a0d7b6651ceba608f501cac9dd4d2)), closes [#5046](https://github.com/sbb-design-systems/lyne-components/issues/5046)
+
+
+### Documentation
+
+* **header:** fix typo ([#5061](https://github.com/sbb-design-systems/lyne-components/issues/5061)) ([a096136](https://github.com/sbb-design-systems/lyne-components/commit/a096136d1fc26b6d57c216efcbdf999578cd2f5e))
+
 ## [5.2.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.1.0...v5.2.0) (2026-07-06)
 
 
