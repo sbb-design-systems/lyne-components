@@ -8971,10 +8971,10 @@ rimraf@^6.1.3:
     glob "^13.0.3"
     package-json-from-dist "^1.0.1"
 
-rolldown-plugin-dts@^0.27.4:
-  version "0.27.8"
-  resolved "https://registry.yarnpkg.com/rolldown-plugin-dts/-/rolldown-plugin-dts-0.27.8.tgz#7240b01b2d5dc8f83ece93b1e518ba5d1ad9a433"
-  integrity sha512-IjBTFpkrYYJPRUmIjUJFsZdR1zeHskFcEwFDzSfFDoC2pZcSNgLrBUcDFY9K0Q+A1TZJR3q9MlVomxMDP8AuLQ==
+rolldown-plugin-dts@^0.27.8:
+  version "0.27.9"
+  resolved "https://registry.yarnpkg.com/rolldown-plugin-dts/-/rolldown-plugin-dts-0.27.9.tgz#b80af241f0e61da812c44342feba82f573cdc236"
+  integrity sha512-d54yt65+ZF/Mk8H6P36As02PAMdaiWRSzVNtJRc1h7nCgUFjuRI4cN2DyTfJyfVpPH6pgy7/2D7YQH1/Rh75Yg==
   dependencies:
     dts-resolver "^3.0.0"
     get-tsconfig "5.0.0-beta.5"
@@ -10058,10 +10058,10 @@ tsconfig-paths@^4.2.0:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tsdown@0.22.5:
-  version "0.22.5"
-  resolved "https://registry.yarnpkg.com/tsdown/-/tsdown-0.22.5.tgz#8721b3d1d0e0a4997c49c0fcd5e137a6a82069ef"
-  integrity sha512-0iEpnuOVBGo7mPW+FlyglErHBExYOAlpLBlCl/QcTrRUJ+TF2prfzl6ipQS5VsjJejFXnmbkdh0Ta53B3stWxg==
+tsdown@0.22.7:
+  version "0.22.7"
+  resolved "https://registry.yarnpkg.com/tsdown/-/tsdown-0.22.7.tgz#01e32aa11c7625196af29fc7e52faa5db69aa286"
+  integrity sha512-4egbOzc9dxVv/QS+gDV75FIxDIjQQeOnXBlUuikyjmn0ozuc6FW11djJjEEo3vqkuJRygpnKHurnj+Iwftk4VA==
   dependencies:
     ansis "^4.3.1"
     cac "^7.0.0"
@@ -10072,7 +10072,7 @@ tsdown@0.22.5:
     obug "^2.1.3"
     picomatch "^4.0.5"
     rolldown "~1.1.5"
-    rolldown-plugin-dts "^0.27.4"
+    rolldown-plugin-dts "^0.27.8"
     semver "^7.8.5"
     tinyexec "^1.2.4"
     tinyglobby "^0.2.17"
