@@ -5,8 +5,7 @@
   "keywords": [
     "design system",
     "web components",
-    "lit",
-    "storybook"
+    "lit"
   ],
   "author": "Lyne Team",
   "license": "MIT",
@@ -46,7 +45,7 @@
     "lint:tsc:scripts": "tsc --noEmit --project scripts/tsconfig.json",
     "lint:tsc:tools": "tsc --noEmit --project tools/tsconfig.json",
     "size-check": "node scripts/compare-stats.ts",
-    "start": "storybook dev -p 6006",
+    "start": "storybook dev -p 6006 --config-dir src/docs/config",
     "start:visual-regression-app": "vite --config src/visual-regression-app/vite.config.ts",
     "test": "yarn -s wtr --coverage",
     "test:tsc": "run-s lint:tsc:*-spec",
@@ -55,6 +54,8 @@
     "test:visual-regression": "yarn -s wtr --visual-regression --all-browsers",
     "test:playwright-server": "node tools/web-test-runner/start-playwright-server.ts",
     "wtr": "node node_modules/@web/test-runner/dist/bin.js --config=web-test-runner.config.ts",
+    "publish-packages": "node scripts/publish.ts",
+    "prepare-container": "yarn build nginx-conf",
     "prepare": "husky"
   },
   "dependencies": {

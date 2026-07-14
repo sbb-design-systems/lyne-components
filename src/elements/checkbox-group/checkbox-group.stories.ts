@@ -5,7 +5,7 @@ import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbCheckboxElement } from '../checkbox.ts';
 
 import readme from './readme.md?raw';

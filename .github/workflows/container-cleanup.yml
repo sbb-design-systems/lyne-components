@@ -1,0 +1,15 @@
+name: Container Cleanup
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 3 * * *'
+
+permissions:
+  packages: write
+
+jobs:
+  container-cleanup:
+    uses: sbb-design-systems/actions/.github/workflows/container-cleanup.yml@main
+    with:
+      names: docs-preview, visual-regression

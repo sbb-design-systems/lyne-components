@@ -3,7 +3,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType, StoryContext } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 
 import type { SbbLoadingIndicatorElement } from './loading-indicator.component.ts';
 import readme from './readme.md?raw';

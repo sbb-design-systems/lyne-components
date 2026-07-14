@@ -3,5 +3,5 @@ import theme from './theme.js';
 
 addons.setConfig({
   enableShortcuts: false,
-  theme: theme,
+  theme,
 });
