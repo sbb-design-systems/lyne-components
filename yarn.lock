@@ -1185,13 +1185,13 @@
     "@open-wc/dedupe-mixin" "^2.0.0"
     lit "^3.0.0"
 
-"@open-wc/semantic-dom-diff@^0.20.0":
-  version "0.20.1"
-  resolved "https://registry.yarnpkg.com/@open-wc/semantic-dom-diff/-/semantic-dom-diff-0.20.1.tgz#b1bb78be455bd99fb034d9baadbb959d7d124030"
-  integrity sha512-mPF/RPT2TU7Dw41LEDdaeP6eyTOWBD4z0+AHP4/d0SbgcfJZVRymlIB6DQmtz0fd2CImIS9kszaMmwMt92HBPA==
+"@open-wc/semantic-dom-diff@^0.21.0":
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/@open-wc/semantic-dom-diff/-/semantic-dom-diff-0.21.0.tgz#47607e32e5491b00ac4e156cbd856534d67e30e9"
+  integrity sha512-2hrNt9MWhz4kfuIWI6M6zyK+UJXd2ehjaP+nJ1shf9HZAperr+braPToTbRODx1oE6EvoVvTJGQlsCqHv7NKQg==
   dependencies:
     "@types/chai" "^4.3.1"
-    "@web/test-runner-commands" "^0.9.0"
+    "@web/test-runner-commands" "^1.0.0"
 
 "@open-wc/testing-helpers@^3.0.0":
   version "3.0.1"
@@ -1202,13 +1202,13 @@
     lit "^2.0.0 || ^3.0.0"
     lit-html "^2.0.0 || ^3.0.0"
 
-"@open-wc/testing@4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@open-wc/testing/-/testing-4.0.0.tgz#bfa51210799f86ad1a47c2dece6b9f15dd51bb94"
-  integrity sha512-KI70O0CJEpBWs3jrTju4BFCy7V/d4tFfYWkg8pMzncsDhD7TYNHLw5cy+s1FHXIgVFetnMDhPpwlKIPvtTQW7w==
+"@open-wc/testing@5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@open-wc/testing/-/testing-5.0.0.tgz#6a55e3ab254dc692bc2f36a6a11e6c5bc6a2475d"
+  integrity sha512-2IcM2py1wtz4pyTW5whhltP5L71TVqt0l0IeA2KqHILyxOzI77YnDc9drfN7ezl0+fZbGOXM6qXe4Y4o0R7xpA==
   dependencies:
     "@esm-bundle/chai" "^4.3.4-fix.0"
-    "@open-wc/semantic-dom-diff" "^0.20.0"
+    "@open-wc/semantic-dom-diff" "^0.21.0"
     "@open-wc/testing-helpers" "^3.0.0"
     "@types/chai-dom" "^1.11.0"
     "@types/sinon-chai" "^3.2.3"
