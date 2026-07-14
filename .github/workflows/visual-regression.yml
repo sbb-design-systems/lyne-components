@@ -11,9 +11,6 @@ concurrency:
 
 permissions: read-all
 
-env:
-  IMAGE_REPO_VISUAL_REGRESSION: ghcr.io/sbb-design-systems/lyne-components/visual-regression
-
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -138,6 +135,9 @@ jobs:
       - name: Prepare failed screenshot artifacts
         if: github.event_name == 'pull_request'
         run: node tools/visual-regression-testing/prepare-failed-screenshots-artifact.ts
+      - name: Store PR number
+        if: github.event_name == 'pull_request'
+        run: echo "${{ github.event.number }}" > dist/screenshots-artifact/pr
       - name: Store visual regression output
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v7
@@ -148,22 +148,11 @@ jobs:
       - name: Build visual-regression-app
         if: github.ref == 'refs/heads/main'
         run: yarn build visual-regression-app
-      - uses: ./.github/actions/setup-mint
-        if: github.ref == 'refs/heads/main'
+
       - name: Build and push visual regression baseline
+        uses: sbb-design-systems/actions/build-container@main
         if: github.ref == 'refs/heads/main'
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build \
-            --file tools/visual-regression-testing/Dockerfile \
-            --tag ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline-fat \
-            .
-          mint slim \
-            --target ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline-fat \
-            --tag ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline \
-            --preserve-path /usr/share/nginx/html \
-            --include-new false
-          docker push ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline
-          docker image list
-        env:
-          DOCKER_BUILDKIT: 1
+        with:
+          repository: visual-regression
+          tag: baseline
+          containerfile: tools/visual-regression-testing/Containerfile

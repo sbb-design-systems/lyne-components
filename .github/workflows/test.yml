@@ -120,6 +120,9 @@ jobs:
             --report-dir coverage \
             --reporter lcov
           rm -rf coverage-matrix
+      - name: Store PR number
+        if: github.event_name == 'pull_request'
+        run: echo "${{ github.event.number }}" > coverage/pr
       - name: Store coverage
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v7

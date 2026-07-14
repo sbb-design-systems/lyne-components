@@ -5,7 +5,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import images from '../core/images.ts';
 
 import { SbbImageElement } from './image.component.ts';

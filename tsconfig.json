@@ -76,6 +76,6 @@
       }
     ]
   },
-  "include": [".storybook/**/*.ts", "src/**/*.ts", "tools/**/*.ts", "scripts/**/*.ts"],
+  "include": ["src/**/*.ts", "tools/**/*.ts", "scripts/**/*.ts"],
   "exclude": ["node_modules/"]
 }
