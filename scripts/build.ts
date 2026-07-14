@@ -353,7 +353,7 @@ async function buildApp(pkg: PackageBuilder): Promise<void> {
 
 async function buildDocs(pkg: PackageBuilder): Promise<void> {
   await buildStaticStandalone({
-    configDir: join(projectRoot, '.storybook'),
+    configDir: join(pkg.root, 'config'),
     outputDir: pkg.outDir,
     quiet: true,
     statsJson: true,
