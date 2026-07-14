@@ -21,6 +21,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **header:** fix typo ([#5061](https://github.com/sbb-design-systems/lyne-components/issues/5061)) ([a096136](https://github.com/sbb-design-systems/lyne-components/commit/a096136d1fc26b6d57c216efcbdf999578cd2f5e))
 
+## [4.14.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.14.0...v4.14.1) (2026-07-13)
+
+
+### Bug Fixes
+
+* **flip-card:** activate resize observer when using SSR ([#5089](https://github.com/sbb-design-systems/lyne-components/issues/5089)) ([c70fc2c](https://github.com/sbb-design-systems/lyne-components/commit/c70fc2ce788f6ce18cee58bd7d54c761540ecaad)), closes [#5088](https://github.com/sbb-design-systems/lyne-components/issues/5088)
+
 ## [5.2.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.1.0...v5.2.0) (2026-07-06)
 
 
