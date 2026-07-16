@@ -8,7 +8,7 @@ If you don't need actions, use the [sbb-autocomplete](/docs/elements-autocomplet
 The component is strictly connected to:
 
 - the `<sbb-autocomplete-grid-row>`, which is a wrapper for both option and buttons;
-- the `<sbb-autocomplete-grid-option>`, which displays a selectable option within a panel;`
+- the `<sbb-autocomplete-grid-option>`, which displays a selectable option within a panel;
 - the `<sbb-autocomplete-grid-cell>`, which is a wrapper a for button element;
 - the `<sbb-autocomplete-grid-button>`, which displays a button within a row;
 - the `<sbb-autocomplete-grid-optgroup>`, which can be used to group more row within a group.
