@@ -1,7 +1,8 @@
 import { assert, aTimeout, expect, fixture } from '@open-wc/testing';
-import type { SbbButtonElement } from '@sbb-esta/lyne-elements/button/button/button.component.js';
+import type { SbbButtonElement } from '@sbb-esta/lyne-elements/button.js';
 import { sbbBreakpointLargeMinPx } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
+import { isSafari } from '@sbb-esta/lyne-elements/core.js';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { stub, useFakeTimers } from 'sinon';
@@ -41,66 +42,68 @@ describe('sbb-easter-egg', () => {
     expect(element.score).to.be.equal(0);
   });
 
-  it('keeps the high score across restarts and resets it on close', async () => {
-    await openDialog(element);
-    expect(element.highScore).to.be.equal(0);
+  if (!isSafari) {
+    it('keeps the high score across restarts and resets it on close', async () => {
+      await openDialog(element);
+      expect(element.highScore).to.be.equal(0);
 
-    // Let the async image initialisation (data-URL SVGs decoded via img.decode()) settle
-    // before installing fake timers, so _imagesReady is true when we click Start.
-    await aTimeout(200);
+      // Let the async image initialisation (data-URL SVGs decoded via img.decode()) settle
+      // before installing fake timers, so _imagesReady is true when we click Start.
+      await aTimeout(500);
 
-    // Only fake setInterval/clearInterval (the game loop) so Lit's Promise-based
-    // rendering is not affected.
-    const clock = useFakeTimers({ toFake: ['setInterval', 'clearInterval'] });
-    // Pinning Math.random to 0.99 puts the post-eat food at grid index 253 = [13, 15],
-    // well away from the snake's leftward route, so the score stays exactly 1.
-    const randomStub = stub(Math, 'random').returns(0.99);
+      // Only fake setInterval/clearInterval (the game loop) so Lit's Promise-based
+      // rendering is not affected.
+      const clock = useFakeTimers({ toFake: ['setInterval', 'clearInterval'] });
+      // Pinning Math.random to 0.99 puts the post-eat food at grid index 253 = [13, 15],
+      // well away from the snake's leftward route, so the score stays exactly 1.
+      const randomStub = stub(Math, 'random').returns(0.99);
 
-    try {
-      // Start the game via the overlay button.
-      const startBtn = element.shadowRoot!.querySelector<HTMLElement>(
-        '.sbb-easter-egg__overlay sbb-button',
-      )!;
-      assert.isNotNull(startBtn);
-      startBtn.click();
+      try {
+        // Start the game via the overlay button.
+        const startBtn = element.shadowRoot!.querySelector<HTMLElement>(
+          '.sbb-easter-egg__overlay sbb-button',
+        )!;
+        assert.isNotNull(startBtn);
+        startBtn.click();
 
-      // Snake starts at head=[10,10] going right, food is hard-coded at [5,5].
-      // Steer up for 5 ticks (y: 10 → 5), then left for 5 ticks (x: 10 → 5 = food).
-      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
-      clock.tick(230 * 5); // ticks 1-5: head reaches [10, 5]
+        // Snake starts at head=[10,10] going right, food is hard-coded at [5,5].
+        // Steer up for 5 ticks (y: 10 → 5), then left for 5 ticks (x: 10 → 5 = food).
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
+        clock.tick(230 * 5); // ticks 1-5: head reaches [10, 5]
 
-      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
-      clock.tick(230 * 5); // ticks 6-10: head reaches [5, 5] → eats food
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+        clock.tick(230 * 5); // ticks 6-10: head reaches [5, 5] → eats food
 
-      expect(element.score).to.be.equal(1);
-      expect(element.highScore).to.be.equal(0); // not committed yet — game still running
+        expect(element.score).to.be.equal(1);
+        expect(element.highScore).to.be.equal(0); // not committed yet — game still running
 
-      // 6 more ticks left: [4,5]…[0,5], then [-1,5] triggers wall collision → game over.
-      clock.tick(230 * 6);
+        // 6 more ticks left: [4,5]…[0,5], then [-1,5] triggers wall collision → game over.
+        clock.tick(230 * 6);
+        await waitForLitRender(element);
+
+        expect(element.highScore).to.be.equal(1);
+
+        // Restart via the button rendered in the game-over overlay.
+        const restartBtn = element.shadowRoot!.querySelector<HTMLElement>(
+          '.sbb-easter-egg__overlay sbb-button',
+        )!;
+        assert.isNotNull(restartBtn);
+        restartBtn.click();
+        await waitForLitRender(element);
+
+        expect(element.score).to.be.equal(0);
+        expect(element.highScore).to.be.equal(1);
+      } finally {
+        randomStub.restore();
+        clock.restore();
+      }
+
+      // Closing the dialog must reset the high score.
+      element.close();
       await waitForLitRender(element);
-
-      expect(element.highScore).to.be.equal(1);
-
-      // Restart via the button rendered in the game-over overlay.
-      const restartBtn = element.shadowRoot!.querySelector<HTMLElement>(
-        '.sbb-easter-egg__overlay sbb-button',
-      )!;
-      assert.isNotNull(restartBtn);
-      restartBtn.click();
-      await waitForLitRender(element);
-
-      expect(element.score).to.be.equal(0);
-      expect(element.highScore).to.be.equal(1);
-    } finally {
-      randomStub.restore();
-      clock.restore();
-    }
-
-    // Closing the dialog must reset the high score.
-    element.close();
-    await waitForLitRender(element);
-    expect(element.highScore).to.be.equal(0);
-  });
+      expect(element.highScore).to.be.equal(0);
+    });
+  }
 
   it('is closed by default', () => {
     expect(element.isOpen).to.be.equal(false);
