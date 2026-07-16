@@ -1,0 +1,30 @@
+name: 🌴 Jeri on Vacation
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  auto-approve:
+    name: LGTM, I'm on vacation 🍹
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: 😎 Jeri is chilling
+        run: |
+          echo "🌴 Jeri is currently enjoying a vacation."
+          echo "🍹 No time to review PRs. Approving everything blindly!"
+          echo "🤙 YOLO – ship it!"
+
+      - name: ✅ Approve PR without looking at it
+        uses: hmarr/auto-approve-action@v4
+        with:
+          review-message: |
+            🌴 **Jeri is on vacation!** 🍹
+
+            LGTM! Auto-approved because Jeri is currently unreachable —
+            probably somewhere with no WiFi and zero regrets.
+
+            _This review was brought to you by the "Jeri on Vacation" bot. 🤖☀️_
