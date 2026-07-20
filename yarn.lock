@@ -8087,6 +8087,11 @@ obug@^2.1.3:
   resolved "https://registry.yarnpkg.com/obug/-/obug-2.1.3.tgz#c02c60f95abd603409330e767db7f2823193331e"
   integrity sha512-9miFgM2OFba7hB+pRgvtV84pYTBaoTHohvmIgiRt6dRIzbwEOIaNaP+dIlGs2fNFoB0SeISs0Jz5WFVRid6Xyg==
 
+obug@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/obug/-/obug-2.1.4.tgz#9090d8a548a522517915d2aa6aae907197ac6cf8"
+  integrity sha512-4a+OsYv9UktOJKE+l1A4OufDgdRF9PifWj+tJnHURo/P+WOxpG4GzUFL9qCalmWauao6ogiG+QvnCovwPoyAWA==
+
 octokit@5.0.5:
   version "5.0.5"
   resolved "https://registry.yarnpkg.com/octokit/-/octokit-5.0.5.tgz#8122c8db5c818381839ccc1980295abd9909548f"
@@ -9364,7 +9369,7 @@ semver@^6.0.0, semver@^6.3.1:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.1.tgz#556d2ef8689146e46dcea4bfdd095f3434dffcb4"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
-semver@^7.3.4, semver@^7.5.2, semver@^7.5.3, semver@^7.5.4, semver@^7.6.0, semver@^7.7.1, semver@^7.7.2, semver@^7.7.3, semver@^7.7.4, semver@^7.8.5:
+semver@^7.3.4, semver@^7.5.2, semver@^7.5.3, semver@^7.5.4, semver@^7.6.0, semver@^7.7.1, semver@^7.7.2, semver@^7.7.3, semver@^7.7.4:
   version "7.8.5"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.8.5.tgz#39b646037dd50c14fb451e7e4cac58ed8b863f69"
   integrity sha512-Y7/KDsb8LjooZpwaqGyulO6DQlksgCncchHGk+sZIY4SBvUocMBEFH5Ur1fI4dV+Jvl0w6cjvucaIi40puRioA==
@@ -10131,10 +10136,10 @@ tsconfig-paths@^4.2.0:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tsdown@0.22.9:
-  version "0.22.9"
-  resolved "https://registry.yarnpkg.com/tsdown/-/tsdown-0.22.9.tgz#28276901ea774ab3ad56cd09d8d1a69a844c286d"
-  integrity sha512-/0QEjQEhOU1t1YxOIAGzFN7bIssd8P0pBpkOmNLCQi3c5UtrcMF5bvq3f30xHJNW9QCA9aUNcNAorMr2CTd6Lg==
+tsdown@0.22.12:
+  version "0.22.12"
+  resolved "https://registry.yarnpkg.com/tsdown/-/tsdown-0.22.12.tgz#6bc3035091eb2ce3e6f152d8c6f7b00bfe16d68b"
+  integrity sha512-IzGRfGwSsufXJWOcQ0tmECKMG/dbxhUwDOySTS7JE1AM8pkB9+bpcTPs8bTxxSNrSvGocSczrBlOh97tZObq9Q==
   dependencies:
     ansis "^4.3.1"
     cac "^7.0.0"
@@ -10142,15 +10147,15 @@ tsdown@0.22.9:
     empathic "^2.0.1"
     hookable "^6.1.1"
     import-without-cache "^0.4.0"
-    obug "^2.1.3"
+    obug "^2.1.4"
     picomatch "^4.0.5"
     rolldown "~1.2.0"
     rolldown-plugin-dts "^0.27.9"
-    semver "^7.8.5"
     tinyexec "^1.2.4"
     tinyglobby "^0.2.17"
     tree-kill "^1.2.2"
     unconfig-core "^7.5.0"
+    verkit "^0.1.0"
 
 tslib@2.8.1, tslib@^2.0.1, tslib@^2.1.0, tslib@^2.4.0:
   version "2.8.1"
@@ -10561,6 +10566,11 @@ vary@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
+
+verkit@^0.1.0:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/verkit/-/verkit-0.1.2.tgz#13b6aec0d7ebd25e40393cfef6258f810106bcfb"
+  integrity sha512-WqkT8n3hqizuCu71W3bUzf5fjBmkbXcudsehe/NbxA8PgqoKnSOY5K0Ba2ckg1qaRaSpSz7as/n9K1R9JXjQKg==
 
 vfile-message@^2.0.0:
   version "2.0.4"
