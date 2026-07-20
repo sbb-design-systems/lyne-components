@@ -125,7 +125,7 @@
     "sass-embedded": "1.100.0",
     "sinon": "22.0.0",
     "storybook": "10.5.2",
-    "stylelint": "17.14.0",
+    "stylelint": "17.14.1",
     "stylelint-config-prettier-scss": "1.0.0",
     "stylelint-config-standard-scss": "17.0.0",
     "stylelint-scss": "7.2.0",
