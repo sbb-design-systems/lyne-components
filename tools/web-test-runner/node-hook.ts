@@ -97,6 +97,21 @@ registerHooks({
       const content = readFileSync(new URL(url), 'utf8');
       const source = `export default \`${content.replace(/`/g, '\\`')}\`;`;
       return { format: 'module', shortCircuit: true, source };
+    } else if (url.includes('?inline')) {
+      const filePath = fileURLToPath(new URL(url.split('?')[0]));
+      const ext = filePath.split('.').pop()?.toLowerCase() ?? '';
+      const mimeTypes: Record<string, string> = {
+        png: 'image/png',
+        jpg: 'image/jpeg',
+        jpeg: 'image/jpeg',
+        gif: 'image/gif',
+        svg: 'image/svg+xml',
+        webp: 'image/webp',
+      };
+      const mimeType = mimeTypes[ext] ?? 'application/octet-stream';
+      const content = readFileSync(filePath).toString('base64');
+      const source = `export default "data:${mimeType};base64,${content}";`;
+      return { format: 'module', shortCircuit: true, source };
     } else if (url.includes('.scss?')) {
       const source = `import { css } from 'lit';\nexport default css\`${compileSass(url)}\`;`;
       return { format: 'module', shortCircuit: true, source };
