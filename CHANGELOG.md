@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.4.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.3.0...v5.4.0) (2026-07-20)
+
+
+### Features
+
+* **easter-egg:** add easter egg as experimental component ([#5084](https://github.com/sbb-design-systems/lyne-components/issues/5084)) ([ed3a289](https://github.com/sbb-design-systems/lyne-components/commit/ed3a2899b1bf101e8c0a73edae7e26ceb86db48a))
+
+
+### Bug Fixes
+
+* **seat-reservation:** correction of service icon size at bottom of c… ([#5087](https://github.com/sbb-design-systems/lyne-components/issues/5087)) ([345c0d5](https://github.com/sbb-design-systems/lyne-components/commit/345c0d52a8cb6a49b45061d8a63f73f16b7351ca))
+
+
+### Documentation
+
+* fix typo in autocomplete grid readme ([#5103](https://github.com/sbb-design-systems/lyne-components/issues/5103)) ([3f65981](https://github.com/sbb-design-systems/lyne-components/commit/3f65981dcc0306278731b5d8f56355e8e99efc73))
+* **menu:** use correct class for initial focus ([#5101](https://github.com/sbb-design-systems/lyne-components/issues/5101)) ([06a159b](https://github.com/sbb-design-systems/lyne-components/commit/06a159bc3710cdc82f629f15a2ee9be0b7f0af42))
+
 ## [5.3.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.2.0...v5.3.0) (2026-07-13)
 
 
