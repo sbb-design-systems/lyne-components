@@ -212,6 +212,11 @@ $theme: 'standard' !default;
       @include sbb.scrollbar-variables--color-negative;
     }
 
+    // The model driven and reactive forms of Angular had the .ng-* classes.
+    // The new Angular Signal Forms no longer uses these classes and uses
+    // signals to communicate the state of the form control.
+    // We map these states to `interacted` and `invalid` CSS custom states
+    // on the sbb-form-field.
     &:has(
       :is(
         :is(input, textarea, select):user-invalid,
@@ -220,7 +225,8 @@ $theme: 'standard' !default;
         .sbb-invalid
       )
     ),
-    :is(.ng-submitted, .sbb-show-errors) &:has(:is(:invalid, .ng-invalid)) {
+    :is(.ng-submitted, .sbb-show-errors) &:has(:is(:invalid, .ng-invalid)),
+    &:state(interacted):state(invalid) {
       --sbb-form-field-border-color: var(--sbb-color-error);
       --sbb-form-field-text-color: var(--sbb-color-error);
 
