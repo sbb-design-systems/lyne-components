@@ -65,7 +65,7 @@
   "optionalDependencies": {
     "@lit/react": "1.0.8",
     "tslib": "2.8.1",
-    "react": "19.2.7"
+    "react": "19.2.8"
   },
   "devDependencies": {
     "@commitlint/cli": "21.2.1",
