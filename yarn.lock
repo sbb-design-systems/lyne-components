@@ -2037,10 +2037,10 @@
     "@ts-graphviz/ast" "^2.0.7"
     "@ts-graphviz/common" "^2.1.5"
 
-"@tsdown/css@0.22.13":
-  version "0.22.13"
-  resolved "https://registry.yarnpkg.com/@tsdown/css/-/css-0.22.13.tgz#584052d333eaa80006cb6c22fff8397c7683fbb7"
-  integrity sha512-4Ehe/ys/1EXEgzk0ijt/AUxxM8UCEFmErq8+wWscBCceDwDMW7L4hbt4l9xixwjv+0V8friwRt67UKWAwtXxog==
+"@tsdown/css@0.22.14":
+  version "0.22.14"
+  resolved "https://registry.yarnpkg.com/@tsdown/css/-/css-0.22.14.tgz#7aa059e4247f211956602a8f482491c523682030"
+  integrity sha512-0NpbgqfhfjaAoLdY3DxjrMo08vKFEtvlybCS42Gtolx8OPoKUdZZDyls0qgNEqea0c7XGjlF0NIE1tIxgU8RqA==
   dependencies:
     lightningcss "^1.33.0"
     postcss-load-config "^6.0.1"
