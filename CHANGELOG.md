@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.4.1](https://github.com/sbb-design-systems/lyne-components/compare/v5.4.0...v5.4.1) (2026-07-24)
+
+
+### Code Refactoring
+
+* **form-field:** extend from control to include interacted and invalid ([#5113](https://github.com/sbb-design-systems/lyne-components/issues/5113)) ([2373690](https://github.com/sbb-design-systems/lyne-components/commit/2373690db800e016293696916cd1fcac2d7efabb))
+
 ## [5.4.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.3.0...v5.4.0) (2026-07-20)
 
 
