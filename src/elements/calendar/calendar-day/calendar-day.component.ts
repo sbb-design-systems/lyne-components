@@ -85,10 +85,7 @@ export class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<
   }
 
   private _isDayInRange(min: T | null, max: T | null): boolean {
-    if (!this.value) {
-      return true;
-    }
-    if (!min && !max) {
+    if (!this.value || (!min && !max)) {
       return true;
     }
     return this.dateAdapter.sameDate(this.value, this.dateAdapter.clampDate(this.value, min, max));
