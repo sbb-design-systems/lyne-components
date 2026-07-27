@@ -2761,10 +2761,10 @@
   resolved "https://registry.yarnpkg.com/@web/config-loader/-/config-loader-1.0.0.tgz#1b47b2070f1a607ce1c56cea6ead3b00c04da465"
   integrity sha512-qRz0XX0skqymolAJGP7PwefKDkgxZXufb+G+Gj0xioOS6TseMgGvJ6JmB5+4ZWaQFVk5Oie1zerpG7GKMtdxpw==
 
-"@web/dev-server-core@1.0.0", "@web/dev-server-core@^0.4.1", "@web/dev-server-core@^0.7.3", "@web/dev-server-core@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@web/dev-server-core/-/dev-server-core-1.0.0.tgz#c0e1e24045a205b072c4378cac06f8878e23d32e"
-  integrity sha512-xe7hE/MMHy0mE8PKSu6lLEYTgk0AKqCKC2Ait80OokQ8RD9n1D/GF4aU3CwFP0KgLZUPkiWj2D4qq6mbgaW6Sg==
+"@web/dev-server-core@1.0.1", "@web/dev-server-core@^0.4.1", "@web/dev-server-core@^0.7.3", "@web/dev-server-core@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@web/dev-server-core/-/dev-server-core-1.0.1.tgz#f21e573fa0ff46208d568b129c082368739ea183"
+  integrity sha512-hwps4+UoNDoAP5oM2wLuwWi7AB9drW6k1ybRx0eLSly966zqj3gRSHCJmtGtC0u77HdnlED4PDFSdJfrq2Oo3A==
   dependencies:
     "@types/koa" "^2.11.6"
     "@types/ws" "^7.4.0"
