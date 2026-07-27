@@ -85,6 +85,9 @@ export class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<
   }
 
   private _isDayInRange(min: T | null, max: T | null): boolean {
+    if (!this.value) {
+      return true;
+    }
     if (!min && !max) {
       return true;
     }
@@ -97,7 +100,7 @@ export class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<
 
   protected override renderTemplate(): TemplateResult {
     return html` <span class="sbb-calendar-day__value" aria-hidden="true">
-        ${this.dateAdapter.getDate(this.value)}
+        ${this.value ? this.dateAdapter.getDate(this.value) : ''}
       </span>
       <span class="sbb-calendar-day__extra">
         <slot @slotchange=${(event: Event) => this._handleSlotchange(event)}></slot>

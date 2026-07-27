@@ -29,6 +29,23 @@ describe('sbb-calendar-day', () => {
     assert.instanceOf(todayElement, SbbCalendarDayElement);
   });
 
+  it('does not crash when parent min/max updates before slotted day value is initialized', async () => {
+    root = await fixture(html`
+      <sbb-calendar>
+        <sbb-calendar-day></sbb-calendar-day>
+      </sbb-calendar>
+    `);
+    const min = defaultDateAdapter.createDate(year, month, 10);
+    const max = defaultDateAdapter.createDate(year, month, 20);
+
+    root.min = min;
+    root.max = max;
+    await waitForLitRender(root);
+    const day = root.querySelector<SbbCalendarDayElement>('sbb-calendar-day');
+    expect(day).to.exist;
+    expect(day?.disabled).to.be.false;
+  });
+
   it('should have the correct properties on todayElement', async () => {
     expect(todayElement).to.match(':state(current)');
     expect(todayElement).not.to.match(':state(crossed-out)');
