@@ -2244,4 +2244,23 @@ describe(`sbb-calendar`, () => {
       });
     });
   });
+
+  describe('misconfiguration', () => {
+    it('handles days with no slot', async () => {
+      const elem = await fixture(html`
+        <sbb-calendar min="2026-01-10" max="2026-01-20">
+          <sbb-calendar-day></sbb-calendar-day>
+        </sbb-calendar>
+      `);
+
+      const day = elem.querySelector<SbbCalendarDayElement>('sbb-calendar-day')!;
+      // also, expect not to raise errors
+      expect(day.disabled).to.be.false;
+
+      day.slot = '2026-01-25';
+      await waitForLitRender(elem);
+
+      expect(day.disabled).to.be.true;
+    });
+  });
 });
