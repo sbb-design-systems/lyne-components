@@ -788,8 +788,6 @@ export class SeatReservationBaseElement extends SbbElement {
 
   /**
    * Returns the status whether the seat component with the direction of travel is currently displayed
-   *
-   * @returns boolean
    */
   protected hasTravelDirection(): boolean {
     return this.travelDirection && this.travelDirection !== 'NONE';

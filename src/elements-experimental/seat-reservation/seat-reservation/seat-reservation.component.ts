@@ -95,7 +95,8 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     this._coachesHtmlTemplate = html`
       ${this._renderTravelDirection()}
       <div
-        class="sbb-sr__component ${classMap({
+        class="${classMap({
+          'sbb-sr__component': true,
           'sbb-sr__component--has-travel-direction': this.hasTravelDirection(),
         })}"
       >
