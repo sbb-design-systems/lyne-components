@@ -13,7 +13,8 @@
 
   display: none;
   position: fixed;
-  inset: var(--sbb-dialog-inset);
+  inset-block: var(--sbb-dialog-inset-block);
+  inset-inline: var(--sbb-dialog-inset-inline);
   z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-default-z-index));
 }
 
