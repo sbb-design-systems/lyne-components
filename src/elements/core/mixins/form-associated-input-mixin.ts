@@ -425,12 +425,12 @@ export const SbbFormAssociatedInputMixin = <
 
     private _setCursorAt(position: number): void {
       const selection = window.getSelection();
-      if (!selection) {
+      if (!this.firstChild || !selection) {
         return;
       }
 
       const range = document.createRange();
-      range.setStart(this.firstChild!, position);
+      range.setStart(this.firstChild, position);
       range.collapse(true);
       selection.removeAllRanges();
       selection.addRange(range);
