@@ -102,6 +102,7 @@ export const visualDiffDefault: VisualDiffState = {
   name: 'default',
   with(setup: (setup: VisualDiffSetupBuilder) => void | Promise<void>): Mocha.Func {
     return async function (this: Mocha.Context) {
+      await sendMouse({ type: 'move', position: [-1, -1] });
       const builder = await runSetupWithViewport(setup, this.test?.ctx?.['requestViewport']);
       await visualDiff(builder.snapshotElement, imageName(this.test!));
     };

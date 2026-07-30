@@ -4,7 +4,6 @@ import {
   visualDiffDefault,
   visualRegressionFixture,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
-import { sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit';
 
 import '../../seat-reservation.ts';
@@ -84,7 +83,6 @@ describe('sbb-seat-reservation-place-control', () => {
             `${state.name}`,
             state.with(async (setup) => {
               setup.withSnapshotElement(root);
-              await sendMouse({ type: 'move', position: [-1, -1] });
             }),
           );
         }
