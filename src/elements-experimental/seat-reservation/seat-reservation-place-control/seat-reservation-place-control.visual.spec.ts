@@ -4,6 +4,7 @@ import {
   visualDiffDefault,
   visualRegressionFixture,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
+import { sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit';
 
 import '../../seat-reservation.ts';
@@ -29,7 +30,7 @@ describe('sbb-seat-reservation-place-control', () => {
   // large only viewport because we don't use any other breakpoint media queries
   describeViewports({ viewports: ['large'] }, () => {
     describeEach(rotationCases, ({ rotated, textRotated }) => {
-      beforeEach(async function () {
+      beforeEach(async () => {
         root = await visualRegressionFixture(html`
           <sbb-seat-reservation-place-control
             type="SEAT"
@@ -58,7 +59,7 @@ describe('sbb-seat-reservation-place-control', () => {
     describeEach(
       noRotationCases,
       ({ placeState, placeType, emulateMedia: { forcedColors, darkMode } }) => {
-        beforeEach(async function () {
+        beforeEach(async () => {
           root = await visualRegressionFixture(
             html`
               <sbb-seat-reservation-place-control
@@ -81,8 +82,9 @@ describe('sbb-seat-reservation-place-control', () => {
         for (const state of [visualDiffDefault]) {
           it(
             `${state.name}`,
-            state.with((setup) => {
+            state.with(async (setup) => {
               setup.withSnapshotElement(root);
+              await sendMouse({ type: 'move', position: [-1, -1] });
             }),
           );
         }
