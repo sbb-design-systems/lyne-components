@@ -50,7 +50,6 @@ describe('sbb-seat-reservation-place-control', () => {
           `${state.name}`,
           state.with((setup) => {
             setup.withSnapshotElement(root);
-            setup.withStateElement(root.querySelector('.seat-reservation-place-control')!);
           }),
         );
       }
@@ -84,7 +83,6 @@ describe('sbb-seat-reservation-place-control', () => {
             `${state.name}`,
             state.with((setup) => {
               setup.withSnapshotElement(root);
-              setup.withStateElement(root.querySelector('.seat-reservation-place-control')!);
             }),
           );
         }
