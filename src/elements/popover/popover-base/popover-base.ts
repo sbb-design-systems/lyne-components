@@ -30,7 +30,7 @@ import style from './popover-base.scss?inline';
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
 const VIEWPORT_MARGIN = 2;
-const ARROW_SIZE = 16; // full width of the popover arrow
+const ARROW_SIZE = 16; // Full width of the popover arrow
 
 const popoversRef = new Set<SbbPopoverBaseElement>();
 
@@ -401,7 +401,7 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
     // Read the actual computed border-radius in px so the arrow never overlaps a rounded corner.
     const borderRadius = parseFloat(getComputedStyle(this.overlay).borderTopLeftRadius) || 0;
     const rawArrowXPosition =
-      triggerRect.left - clampedLeft + triggerRect.width / 2 - ARROW_SIZE / 2; // half the size of the popover arrow
+      triggerRect.left - clampedLeft + triggerRect.width / 2 - ARROW_SIZE / 2; // Half the size of the popover arrow
     const arrowXPosition = Math.max(
       borderRadius,
       Math.min(rawArrowXPosition, popoverWidth - borderRadius - ARROW_SIZE),
