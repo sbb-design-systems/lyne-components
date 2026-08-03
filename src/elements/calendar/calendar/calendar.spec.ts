@@ -361,6 +361,110 @@ describe(`sbb-calendar`, () => {
           expect(toIso8601(new Date(dayCells2[0].value!))).to.be.equal('2023-01-01');
         });
 
+        it('clamps day when selecting a month shorter than the current active day (e.g. March 31 → February)', async () => {
+          // Set up calendar with March 31, 2023 as the selected value
+          element = await fixture(html`<sbb-calendar value="2023-03-31"></sbb-calendar>`);
+
+          // Go to year selection
+          const yearSelectionButton: HTMLElement =
+            element.shadowRoot!.querySelector(yearButtonSelector)!;
+          expect(yearSelectionButton).not.to.be.null;
+          yearSelectionButton.click();
+          await waitForLitRender(element);
+
+          // Select year 2022
+          const yearButtonArray: SbbCalendarYearElement[] = Array.from(
+            element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
+          );
+          const year2022Button = yearButtonArray.find((e) => e.value === '2022')!;
+          expect(year2022Button).not.to.be.null;
+          year2022Button.click();
+          await waitForLitRender(element);
+
+          // Select February (index 1, February 2022 has only 28 days)
+          // This must NOT throw "Invalid day '31' for month '2'"
+          const monthCells: SbbCalendarMonthElement[] = Array.from(
+            element.shadowRoot!.querySelectorAll('sbb-calendar-month'),
+          );
+          expect(monthCells.length).to.be.equal(12);
+          expect(monthCells[1].value).to.be.equal('2022-02');
+          monthCells[1].click();
+          await waitForLitRender(element);
+
+          // Calendar should show February 2022 (28 days), no exception thrown
+          const dayCells = getDayCells(element);
+          expect(dayCells.length).to.be.equal(28);
+          expect(toIso8601(new Date(dayCells[0].value!))).to.be.equal('2022-02-01');
+        });
+
+        it('clamps day when selecting a year where the current month/day is invalid (e.g. Feb 29 leap year → non-leap year)', async () => {
+          // Set up calendar with February 29, 2024 (leap year)
+          element = await fixture(html`<sbb-calendar value="2024-02-29"></sbb-calendar>`);
+
+          // Go to year selection
+          const yearSelectionButton: HTMLElement =
+            element.shadowRoot!.querySelector(yearButtonSelector)!;
+          expect(yearSelectionButton).not.to.be.null;
+          yearSelectionButton.click();
+          await waitForLitRender(element);
+
+          // Select year 2023 (non-leap year) — must NOT throw when transitioning to month view
+          const yearButtonArray: SbbCalendarYearElement[] = Array.from(
+            element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
+          );
+          const year2023Button = yearButtonArray.find((e) => e.value === '2023')!;
+          expect(year2023Button).not.to.be.null;
+          year2023Button.click();
+          await waitForLitRender(element);
+
+          // Month view should be visible; now select February
+          const monthCells: SbbCalendarMonthElement[] = Array.from(
+            element.shadowRoot!.querySelectorAll('sbb-calendar-month'),
+          );
+          expect(monthCells.length).to.be.equal(12);
+          expect(monthCells[1].value).to.be.equal('2023-02');
+          monthCells[1].click();
+          await waitForLitRender(element);
+
+          // Calendar should show February 2023 (28 days), day clamped from 29 → 28
+          const dayCells = getDayCells(element);
+          expect(dayCells.length).to.be.equal(28);
+          expect(toIso8601(new Date(dayCells[0].value!))).to.be.equal('2023-02-01');
+        });
+
+        it('clamps day when navigating to a previous year in month view with a day that would be invalid (e.g. Feb 29 leap year → non-leap year)', async () => {
+          // Calendar starts directly in month view with Feb 29, 2024 (leap year).
+          // _activeDate is set to the value, so _activeDate.day = 29.
+          element = await fixture(
+            html`<sbb-calendar value="2024-02-29" view="month"></sbb-calendar>`,
+          );
+
+          // The month view is already shown for year 2024.
+          // Click the left arrow (previous year) → _goToDifferentYear(-1)
+          const prevYearButton: HTMLElement = element.shadowRoot!.querySelector(
+            '.sbb-calendar__month-view [icon-name="chevron-small-left-small"]',
+          )!;
+          expect(prevYearButton).not.to.be.null;
+          prevYearButton.click();
+          await waitForLitRender(element);
+
+          // Month view should now show 2023; no exception must have been thrown.
+          // Select February (index 1).
+          const monthCells: SbbCalendarMonthElement[] = Array.from(
+            element.shadowRoot!.querySelectorAll('sbb-calendar-month'),
+          );
+          expect(monthCells.length).to.be.equal(12);
+          expect(monthCells[1].value).to.be.equal('2023-02');
+          monthCells[1].click();
+          await waitForLitRender(element);
+          await waitForLitRender(element);
+
+          // Calendar should show February 2023 (28 days), no exception thrown.
+          const dayCells = getDayCells(element);
+          expect(dayCells.length).to.be.equal(28);
+          expect(toIso8601(new Date(dayCells[0].value!))).to.be.equal('2023-02-01');
+        });
+
         describe('focusing', () => {
           before(() => {
             today = new Date(2023, 9, 15, 0, 0, 0, 0);
