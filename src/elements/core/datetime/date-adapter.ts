@@ -175,14 +175,18 @@ export abstract class DateAdapter<T = any> {
     }
 
     const strippedValue = value.replace(/\D/g, ' ').trim();
-
     const match: RegExpMatchArray | null | undefined = strippedValue?.match(FORMAT_DATE);
+    try {
+      date = match ? this.createDate(+match[3], +match[2], +match[1]) : null;
+    } catch {
+      /* empty */
+    }
     if (
       !match ||
       match.index !== 0 ||
       match.length <= 2 ||
       match.some((e) => e === undefined) ||
-      !this.isValid(this.createDate(+match[3], +match[2], +match[1]))
+      !this.isValid(date)
     ) {
       return null;
     }
