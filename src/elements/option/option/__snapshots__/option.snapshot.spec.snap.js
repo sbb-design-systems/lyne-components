@@ -62,9 +62,8 @@ snapshots["sbb-option selected Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "option",
-      "name": "",
-      "selected": true
+      "role": "generic",
+      "name": ""
     }
   ]
 }
@@ -89,10 +88,14 @@ snapshots["sbb-option disabled Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "option",
-      "name": "",
-      "disabled": true,
-      "selected": false
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        }
+      ]
     }
   ]
 }
