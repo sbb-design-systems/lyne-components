@@ -230,6 +230,63 @@ describe(`sbb-radio-button-common`, () => {
         expect(element.checked).to.be.false;
       });
 
+      describe('with null value', () => {
+        let nullElement: SbbRadioButtonElement | SbbRadioButtonPanelElement;
+
+        beforeEach(async () => {
+          /* eslint-disable lit/binding-positions */
+          nullElement = await fixture(
+            html`<${tagSingle} name="null-value-test" .value=${null as string | null}></${tagSingle}>`,
+          );
+          await waitForLitRender(nullElement);
+        });
+
+        it('should be checkable when value is null', async () => {
+          nullElement.click();
+          await waitForLitRender(nullElement);
+
+          expect(nullElement.checked).to.be.true;
+        });
+
+        it('should match null state in formStateRestoreCallback when value is null', async () => {
+          // null state should match a radio with null value
+          nullElement.formStateRestoreCallback(null, 'restore');
+          await waitForLitRender(nullElement);
+
+          expect(nullElement.checked).to.be.true;
+        });
+
+        it('should not check when state is a string and value is null', async () => {
+          // non-null state should not match a radio with null value
+          nullElement.formStateRestoreCallback('some-value', 'restore');
+          await waitForLitRender(nullElement);
+
+          expect(nullElement.checked).to.be.false;
+        });
+
+        it('should not submit form value when null-value radio is unchecked', async () => {
+          const wrappedElement = await fixture(html`
+            <form>
+              <${tagSingle} name="group" .value=${null as string | null}>Null</${tagSingle}>
+              <${tagSingle} name="group" value="a">A</${tagSingle}>
+            </form>
+          `);
+          const radios = Array.from(
+            wrappedElement.querySelectorAll<SbbRadioButtonElement | SbbRadioButtonPanelElement>(
+              selector,
+            ),
+          );
+          await waitForLitRender(wrappedElement);
+
+          // click the null-value radio
+          radios[0].click();
+          await waitForLitRender(wrappedElement);
+
+          expect(radios[0].checked).to.be.true;
+          expect(radios[1].checked).to.be.false;
+        });
+      });
+
       it('should ignore interaction when disabled', async () => {
         const inputSpy = new EventSpy('input', element);
         const changeSpy = new EventSpy('change', element);
