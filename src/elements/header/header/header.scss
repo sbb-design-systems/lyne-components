@@ -130,6 +130,7 @@
   display: block;
   padding-block: var(--sbb-spacing-fixed-3x);
   position: relative;
+  flex-basis: 0;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
