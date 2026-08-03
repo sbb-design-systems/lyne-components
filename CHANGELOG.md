@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.14.3](https://github.com/sbb-design-systems/lyne-components/compare/v4.14.2...v4.14.3) (2026-08-03)
+
+
+### Bug Fixes
+
+* **calendar:** fix disabled state and year/month selection ([#5134](https://github.com/sbb-design-systems/lyne-components/issues/5134)) ([#5136](https://github.com/sbb-design-systems/lyne-components/issues/5136)) ([403d2f4](https://github.com/sbb-design-systems/lyne-components/commit/403d2f4779fc6b548f7bd6525a401f7f0c881a63))
+
 ## [4.14.2](https://github.com/sbb-design-systems/lyne-components/compare/v4.14.1...v4.14.2) (2026-07-14)
 
 
