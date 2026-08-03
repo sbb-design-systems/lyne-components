@@ -50,7 +50,11 @@
 
 :host(:disabled) {
   --sbb-calendar-cell-color: var(--sbb-calendar-cell-disabled-color);
-  --sbb-calendar-cell-cursor: unset;
+  --sbb-calendar-cell-cursor: default;
+}
+
+:host(:disabled:state(crossed-out)) {
+  --sbb-calendar-cell-color: var(--sbb-calendar-cell-disabled-crossed-out-color);
 }
 
 :host(:focus-visible) {
@@ -101,7 +105,7 @@
       content: '';
       height: var(--sbb-calendar-cell-disabled-height);
       width: var(--sbb-calendar-cell-disabled-width);
-      background-color: var(--sbb-calendar-cell-disabled-color);
+      background-color: var(--sbb-calendar-cell-disabled-crossed-out-color);
       rotate: -45deg;
     }
   }

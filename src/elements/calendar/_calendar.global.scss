@@ -10,7 +10,14 @@ $theme: 'standard' !default;
   --sbb-calendar-cell-border-color-selected: var(--sbb-border-color-2);
   --sbb-calendar-cell-disabled-height: #{sbb.px-to-rem-build(1.5)};
   --sbb-calendar-cell-disabled-width: #{sbb.px-to-rem-build(25.5)};
-  --sbb-calendar-cell-disabled-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+  --sbb-calendar-cell-disabled-crossed-out-color: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-smoke)
+  );
+  --sbb-calendar-cell-disabled-color: light-dark(
+    var(--sbb-color-graphite),
+    var(--sbb-color-anthracite)
+  );
   --sbb-calendar-cell-transition-easing-function: var(--sbb-animation-easing);
   --sbb-calendar-cell-color: var(--sbb-color-2);
   --sbb-calendar-cell-cursor: var(--sbb-cursor-pointer);
