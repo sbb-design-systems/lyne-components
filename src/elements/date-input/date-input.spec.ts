@@ -271,6 +271,14 @@ describe('sbb-date-input', () => {
       expect(element.validity.badInput, 'badInput').to.be.true;
     });
 
+    it('should update validity with invalid date input', async () => {
+      element.value = '30.02.2023';
+      await waitForLitRender(element);
+
+      expect(element.validationMessage).to.equal('Please provide a valid date.');
+      expect(element.validity.badInput, 'badInput').to.be.true;
+    });
+
     it('should update validity with min and date before', async () => {
       element.min = new Date(2024, 0, 1);
       element.valueAsDate = new Date(2023, 11, 31);

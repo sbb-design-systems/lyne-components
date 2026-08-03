@@ -831,7 +831,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
     this._activeDate = this._dateAdapter.createDate(
       this._chosenYear!,
       this._dateAdapter.getMonth(this._activeDate),
-      this._dateAdapter.getDate(this._activeDate),
+      1,
     );
     this._init();
   }
@@ -1696,13 +1696,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   private _onMonthSelection(month: number, year: number): void {
     this._chosenMonth = month;
     this._nextCalendarView = 'day';
-    this._init(
-      this._dateAdapter.createDate(
-        year,
-        this._chosenMonth,
-        this._dateAdapter.getDate(this._activeDate),
-      ),
-    );
+    this._init(this._dateAdapter.createDate(year, this._chosenMonth, 1));
     this._startTableTransition();
     this._emitMonthChange();
   }
@@ -1805,11 +1799,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
     this._chosenYear = rightSide ? year - 1 : year;
     this._nextCalendarView = 'month';
     this._assignActiveDate(
-      this._dateAdapter.createDate(
-        this._chosenYear,
-        this._dateAdapter.getMonth(this._activeDate),
-        this._dateAdapter.getDate(this._activeDate),
-      ),
+      this._dateAdapter.createDate(year, this._dateAdapter.getMonth(this._activeDate), 1),
     );
     this._startTableTransition();
   }
