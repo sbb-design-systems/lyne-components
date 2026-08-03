@@ -29,6 +29,8 @@ import style from './popover-base.scss?inline';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
+const VIEWPORT_MARGIN = 2;
+const ARROW_SIZE = 16; // full width of the popover arrow
 
 const popoversRef = new Set<SbbPopoverBaseElement>();
 
@@ -386,13 +388,26 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
       this.toggleState(`position-${position}`, position === verticalPosition);
     }
 
-    const arrowXPosition =
-      this._triggerElement.getBoundingClientRect().left -
-      popoverPosition.left +
-      this._triggerElement.clientWidth / 2 -
-      8; // half the size of the popover arrow
+    // Keep a minimum margin of VIEWPORT_MARGIN px to both viewport edges.
+    const popoverWidth = this.overlay.offsetWidth;
+    const viewportWidth = document.documentElement.clientWidth;
+    const clampedLeft = Math.max(
+      VIEWPORT_MARGIN,
+      Math.min(popoverPosition.left, viewportWidth - popoverWidth - VIEWPORT_MARGIN),
+    );
 
-    this.style.setProperty('--_sbb-popover-position-x', `${popoverPosition.left}px`);
+    const triggerRect = this._triggerElement.getBoundingClientRect();
+
+    // Read the actual computed border-radius in px so the arrow never overlaps a rounded corner.
+    const borderRadius = parseFloat(getComputedStyle(this.overlay).borderTopLeftRadius) || 0;
+    const rawArrowXPosition =
+      triggerRect.left - clampedLeft + triggerRect.width / 2 - ARROW_SIZE / 2; // half the size of the popover arrow
+    const arrowXPosition = Math.max(
+      borderRadius,
+      Math.min(rawArrowXPosition, popoverWidth - borderRadius - ARROW_SIZE),
+    );
+
+    this.style.setProperty('--_sbb-popover-position-x', `${clampedLeft}px`);
     this.style.setProperty('--_sbb-popover-position-y', `${popoverPosition.top}px`);
     this.style.setProperty('--_sbb-popover-arrow-position-x', `${arrowXPosition}px`);
     this.style.setProperty('--_sbb-popover-max-height', popoverPosition.maxHeight);

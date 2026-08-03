@@ -176,10 +176,11 @@ describe(`sbb-popover`, () => {
       expect(trigger.offsetTop).to.be.equal(0);
       expect(trigger.offsetLeft).to.be.equal(0);
 
-      // Expect overlay offsetTop to be equal to the trigger height + the overlay offset (8px)
+      // Expect overlay offsetTop to be equal to the trigger height + the overlay offset
       const popoverOverlay = element.shadowRoot!.querySelector<HTMLElement>('.sbb-popover')!;
       expect(popoverOverlay.offsetTop).to.be.equal(buttonHeightPx + 16);
-      expect(popoverOverlay.offsetLeft).to.be.equal(0);
+      // Trigger is at left:0; the popover is clamped to the minimum 2px viewport margin
+      expect(popoverOverlay.offsetLeft).to.be.equal(2);
     });
 
     it('should set correct focus attribute on trigger after backdrop click', async () => {
@@ -370,6 +371,45 @@ describe(`sbb-popover`, () => {
       await aTimeout(50);
 
       expect(element.style.getPropertyValue('--_sbb-popover-position-y')).to.equal(positionBefore);
+    });
+
+    it('should not overflow the right viewport edge when trigger is near the right edge', async () => {
+      const viewportWidth = 600;
+      await setViewport({ width: viewportWidth, height: 800 });
+
+      // Place the trigger at the far right of the viewport
+      trigger.style.position = 'absolute';
+      trigger.style.insetInlineEnd = '0';
+      trigger.style.insetBlockStart = '0';
+
+      element.open();
+      await openSpy.calledOnce();
+      expect(element).to.match(':state(state-opened)');
+
+      const overlay = element.shadowRoot!.querySelector<HTMLElement>('.sbb-popover')!;
+      const left = parseFloat(element.style.getPropertyValue('--_sbb-popover-position-x'));
+      const popoverWidth = overlay.offsetWidth;
+
+      expect(left).to.be.greaterThanOrEqual(2);
+      expect(left + popoverWidth).to.be.lessThanOrEqual(viewportWidth - 2);
+    });
+
+    it('should not overflow the left viewport edge when trigger is near the left edge', async () => {
+      const viewportWidth = 600;
+      await setViewport({ width: viewportWidth, height: 800 });
+
+      // Place the trigger at the far left of the viewport
+      trigger.style.position = 'absolute';
+      trigger.style.insetInlineStart = '0';
+      trigger.style.insetBlockStart = '0';
+
+      element.open();
+      await openSpy.calledOnce();
+      expect(element).to.match(':state(state-opened)');
+
+      const left = parseFloat(element.style.getPropertyValue('--_sbb-popover-position-x'));
+
+      expect(left).to.be.greaterThanOrEqual(2);
     });
 
     it('should update config when changing hoverTrigger', async () => {
