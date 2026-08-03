@@ -50,7 +50,7 @@
 
 :host(:disabled) {
   --sbb-calendar-cell-color: var(--sbb-calendar-cell-disabled-color);
-  --sbb-calendar-cell-cursor: unset;
+  --sbb-calendar-cell-cursor: default;
 }
 
 :host(:focus-visible) {
