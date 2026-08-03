@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.4.1](https://github.com/sbb-design-systems/lyne-components/compare/v5.4.0...v5.4.1) (2026-08-03)
+
+
+### Bug Fixes
+
+* **calendar:** prevent null day crash with min/max updates ([#5123](https://github.com/sbb-design-systems/lyne-components/issues/5123)) ([#5126](https://github.com/sbb-design-systems/lyne-components/issues/5126)) ([ce3c7df](https://github.com/sbb-design-systems/lyne-components/commit/ce3c7dffdd48921a72db59197a71c3fcdc7a3ca5))
+* **date-input, time-input:** avoid setCursorAt exception ([#5128](https://github.com/sbb-design-systems/lyne-components/issues/5128)) ([bf7e5e3](https://github.com/sbb-design-systems/lyne-components/commit/bf7e5e3f48ff1fd19aa1a5967b7e2eb5d4a388b2))
+* **dialog:** replace misused variable ([#5130](https://github.com/sbb-design-systems/lyne-components/issues/5130)) ([0de7212](https://github.com/sbb-design-systems/lyne-components/commit/0de721269c5d44b120096c46d9dd376a44eafab0)), closes [#5117](https://github.com/sbb-design-systems/lyne-components/issues/5117)
+* **popover:** improve positioning for triggers near viewport boundaries ([#5135](https://github.com/sbb-design-systems/lyne-components/issues/5135)) ([8247608](https://github.com/sbb-design-systems/lyne-components/commit/8247608fc0d7ec583ce5d1a594223f2263bae515)), closes [#5116](https://github.com/sbb-design-systems/lyne-components/issues/5116)
+* **seat-reservation:** add handling for incorrect seat-reservation he… ([#5125](https://github.com/sbb-design-systems/lyne-components/issues/5125)) ([30f36a7](https://github.com/sbb-design-systems/lyne-components/commit/30f36a765b8424ed4113b95c5befce618f729710))
+
+
+### Code Refactoring
+
+* **form-field:** extend from control to include interacted and invalid ([#5113](https://github.com/sbb-design-systems/lyne-components/issues/5113)) ([2373690](https://github.com/sbb-design-systems/lyne-components/commit/2373690db800e016293696916cd1fcac2d7efabb))
+
 ## [5.4.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.3.0...v5.4.0) (2026-07-20)
 
 
