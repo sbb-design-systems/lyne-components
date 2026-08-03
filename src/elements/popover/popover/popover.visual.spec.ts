@@ -67,6 +67,28 @@ describe(`sbb-popover`, () => {
     }
 
     it(
+      `near viewport`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <div
+              style=${styleMap({
+                height: '400px',
+                padding: '0px',
+              })}
+            >
+              ${popover()}
+            </div>
+          `,
+          { padding: '0' },
+        );
+        setup.withPostSetupAction(() =>
+          setup.snapshotElement.querySelector('sbb-mini-button')!.click(),
+        );
+      }),
+    );
+
+    it(
       `without close button`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(popover(false), {
