@@ -9554,10 +9554,10 @@ tapable@^2.3.3:
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.3.3.tgz#5da7c9992c46038221267985ab28421a8879f160"
   integrity sha512-uxc/zpqFg6x7C8vOE7lh6Lbda8eEL9zmVm/PLeTPBRhh1xCgdWaQ+J1CUieGpIfm2HdtsUpRv+HshiasBMcc6A==
 
-temporal-polyfill@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/temporal-polyfill/-/temporal-polyfill-1.0.2.tgz#77e941a69750403a2acfda46e56843c94094238b"
-  integrity sha512-pTyp/7kfStJQbJ8YOHmcJItkxvOGCZHu3PaVgLvLnxFS7O12EPiWLElnRre/rw77z4TGZX/gvdqMXWn6ispQvA==
+temporal-polyfill@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/temporal-polyfill/-/temporal-polyfill-1.0.3.tgz#cfd91625429fe599592730412829c96ae4594daf"
+  integrity sha512-U8vuzZBc+dfMIfl8wXWcedfI7AJCxJjjVBIRpJUvIz5+UAp555UJDHguKsfZqHWaHRSdVUThm7mqqIWhN/xPBQ==
   dependencies:
     temporal-spec "1.0.1"
     temporal-utils "1.0.1"
