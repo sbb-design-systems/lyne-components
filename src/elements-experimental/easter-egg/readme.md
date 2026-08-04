@@ -9,10 +9,14 @@ The component extends `sbb-dialog` and inherits the same lifecycle API:
 While the dialog is open, page scroll below it is blocked automatically.
 The game itself is drawn on a `<canvas>` inside the dialog and does not rely on any external image requests: all sprites (grid, food, train segments) are inlined as SVG data URLs at build time. The game should not be used in landscape mode on small screens. A minimum height of 600px is necessary to play the game.
 
+<!-- #region trigger -->
+
 ```html
-<button id="snake-trigger">Play Snake</button>
+<sbb-button id="snake-trigger">Play Snake</sbb-button>
 <sbb-easter-egg trigger="snake-trigger"></sbb-easter-egg>
 ```
+
+<!-- #endregion -->
 
 Or programmatically:
 
