@@ -65,7 +65,7 @@
 
 .sbb-train__direction-arrow {
   :host([direction='right']) & {
-    transform: scale(-1, 1);
+    scale: -1 1;
     order: 2;
   }
 

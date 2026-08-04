@@ -136,12 +136,12 @@
   height: var(--sbb-train-formation-wagon-dimension-short);
   transform-origin: 0 0;
 
-  // Need in order to correctly render in Safari
+  // Needed in order to correctly render in Safari
   will-change: transform;
 
   :host(:state(orientation-vertical)) & {
     rotate: -90deg;
-    transform: scale(-1, 1);
+    scale: -1 1;
   }
 }
 
