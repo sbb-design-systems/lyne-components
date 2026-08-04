@@ -35,9 +35,12 @@ $theme: 'standard' !default;
       // more specific and overrides would not be respected.
       will-change: filter, scale;
       filter: brightness(var(--sbb-teaser-image-brightness, 1));
-      transition:
-        filter,
-        scale var(--sbb-teaser-image-animation-duration) var(--sbb-teaser-image-animation-easing);
+
+      transition: {
+        duration: var(--sbb-teaser-image-animation-duration);
+        timing-function: var(--sbb-teaser-image-animation-easing);
+        property: filter, scale;
+      }
     }
 
     .sbb-figure {
