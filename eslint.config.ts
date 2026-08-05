@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import eslint from '@eslint/js';
+import markdown from '@eslint/markdown';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import { flatConfigs } from 'eslint-plugin-import-x';
 import * as eslintPluginLit from 'eslint-plugin-lit';
@@ -224,6 +225,38 @@ export default [
   {
     rules: {
       curly: 'error',
+    },
+  },
+  // Disable JS/TS rules that are incompatible with the markdown language plugin.
+  // These rules use JS-specific SourceCode APIs (e.g. getAllComments) that the
+  // @eslint/markdown language does not implement.
+  {
+    files: ['**/*.md'],
+    rules: {
+      // Uses sourceCode.getAllComments() which is not available in markdown
+      'no-irregular-whitespace': 'off',
+      // TS/import rules that will fail on non-JS source
+      '@typescript-eslint/no-unused-vars': 'off',
+      'import-x/no-unresolved': 'off',
+      'import-x/no-cycle': 'off',
+    },
+  },
+  // Lint readme.md files for unescaped HTML tags.
+  // Code blocks (fenced ```...``` or indented) are automatically exempt because
+  // @eslint/markdown maps them to `code` AST nodes, not `html` nodes.
+  // Add tag names to `allowed` to permit specific elements (e.g. <kbd>).
+  {
+    files: ['**/readme.md', '**/README.md'],
+    language: 'markdown/gfm',
+    plugins: { markdown },
+    rules: {
+      'markdown/no-html': [
+        'error',
+        {
+          allowed: ['kbd', 'br'],
+          allowedIgnoreCase: true,
+        },
+      ],
     },
   },
 ];

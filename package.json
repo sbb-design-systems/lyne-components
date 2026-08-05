@@ -34,6 +34,7 @@
     "lint:ts": "eslint \"**/*.ts\"",
     "lint:js": "eslint \"**/*.js\"",
     "lint:yml": "eslint \"**/*.{yml,yaml}\"",
+    "lint:md": "eslint \"**/readme.md\" \"**/README.md\"",
     "lint:styles": "stylelint \"**/*.scss\"",
     "lint:lit": "yarn lit-analyzer \"src/**/*.ts\"",
     "lint:circular-imports": "madge --circular --ts-config ./tsconfig.json --extensions ts ./src",
@@ -64,8 +65,8 @@
   },
   "optionalDependencies": {
     "@lit/react": "1.0.8",
-    "tslib": "2.8.1",
-    "react": "19.2.8"
+    "react": "19.2.8",
+    "tslib": "2.8.1"
   },
   "devDependencies": {
     "@commitlint/cli": "21.2.1",
@@ -74,6 +75,7 @@
     "@custom-elements-manifest/to-markdown": "0.1.0",
     "@eslint/eslintrc": "3.3.6",
     "@eslint/js": "10.0.1",
+    "@eslint/markdown": "8.0.3",
     "@inquirer/checkbox": "5.2.1",
     "@lit-labs/router": "0.1.4",
     "@lit-labs/testing": "0.2.8",
