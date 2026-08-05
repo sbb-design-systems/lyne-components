@@ -227,20 +227,6 @@ export default [
       curly: 'error',
     },
   },
-  // Disable JS/TS rules that are incompatible with the markdown language plugin.
-  // These rules use JS-specific SourceCode APIs (e.g. getAllComments) that the
-  // @eslint/markdown language does not implement.
-  {
-    files: ['**/*.md'],
-    rules: {
-      // Uses sourceCode.getAllComments() which is not available in markdown
-      'no-irregular-whitespace': 'off',
-      // TS/import rules that will fail on non-JS source
-      '@typescript-eslint/no-unused-vars': 'off',
-      'import-x/no-unresolved': 'off',
-      'import-x/no-cycle': 'off',
-    },
-  },
   // Lint readme.md files for unescaped HTML tags.
   // Code blocks (fenced ```...``` or indented) are automatically exempt because
   // @eslint/markdown maps them to `code` AST nodes, not `html` nodes.
@@ -250,6 +236,8 @@ export default [
     language: 'markdown/gfm',
     plugins: { markdown },
     rules: {
+      // Uses sourceCode.getAllComments() which is not available in markdown
+      'no-irregular-whitespace': 'off',
       'markdown/no-html': [
         'error',
         {
