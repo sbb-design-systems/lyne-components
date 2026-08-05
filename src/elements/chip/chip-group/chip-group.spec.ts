@@ -139,6 +139,42 @@ describe('sbb-chip-group', () => {
       expect(chips.every((c) => c.disabled)).to.be.false;
     });
 
+    it('should sync disabled to the input when set on the group', async () => {
+      // Setting disabled on the group must disable the input too so the user
+      // cannot type new chips while the group is disabled.
+      element.disabled = true;
+      await waitForLitRender(formField);
+
+      expect(input.disabled).to.be.true;
+      expect(chips.every((c) => c.disabled)).to.be.true;
+
+      element.disabled = false;
+      await waitForLitRender(formField);
+
+      expect(input.disabled).to.be.false;
+      expect(chips.every((c) => c.disabled)).to.be.false;
+    });
+
+    it('should not reset group disabled state when slotchange fires after group.disabled = true', async () => {
+      // Regression: _setupComponent (triggered by slot changes) used to call
+      // _reactToInputChanges which read input.disabled (still false) and reset
+      // group.disabled back to false.
+      element.disabled = true;
+      await waitForLitRender(formField);
+
+      expect(input.disabled).to.be.true;
+
+      // Simulate a slot change (add a new chip) – triggers _setupComponent internally
+      const newChip = document.createElement('sbb-chip') as (typeof chips)[0];
+      newChip.setAttribute('value', 'chip 4');
+      element.insertBefore(newChip, input);
+      await waitForLitRender(element);
+
+      // The disabled state must still be true after the slot change
+      expect(element.disabled).to.be.true;
+      expect(input.disabled).to.be.true;
+    });
+
     it('should react when input is readonly', async () => {
       input.toggleAttribute('readonly', true);
       await waitForLitRender(formField);
