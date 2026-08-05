@@ -1,3 +1,3 @@
 import { createManifestConfig } from './custom-elements-manifest.config.ts';
 
-export default createManifestConfig('elements-experimental');
+export default createManifestConfig('elements-experimental', 'elements');
