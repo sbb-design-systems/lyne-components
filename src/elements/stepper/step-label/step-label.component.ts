@@ -39,7 +39,9 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
 
     // We additionally keep track of the `disabled` state to preserve the user configured disabled state
     // of step labels in case of switching between linear and non-linear mode.
-    this.toggleState('user-disabled', value);
+    if (!this._internalDisable) {
+      this.toggleState('user-disabled', value);
+    }
   }
   public override get disabled(): boolean {
     return super.disabled;
@@ -47,6 +49,7 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
 
   private _previousOrientation?: string;
   private _previousSize: SbbStepperElement['size'] = null;
+  private _internalDisable = false;
 
   public constructor() {
     super();
@@ -150,11 +153,19 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
 
   /**
    * @internal
-   * Disables the step label and avoids setting the `disabled` state to preserve the initial
-   * disabled state in case of switching between linear and non-linear mode.
+   * Disables the step label.
+   * Calling `super.disabled` here will result in the set of the `disabled` attribute in the disabled-mixin,
+   * which triggers the setter of the `disabled` prop of the step-label.
+   * To avoid having all the steps set as 'user-disabled', the `_internalDisable` flag is set
+   * immediately before, avoiding the `toggleState` to be called, and then is reset.
    */
   public disable(value: boolean): void {
-    super.disabled = value;
+    this._internalDisable = true;
+    try {
+      super.disabled = value;
+    } finally {
+      this._internalDisable = false;
+    }
   }
 
   protected override render(): TemplateResult {
