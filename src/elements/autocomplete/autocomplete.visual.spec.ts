@@ -31,6 +31,7 @@ describe('sbb-autocomplete', () => {
     withGroup: false,
     disableGroup: false,
     withMixedOptionAndGroup: false,
+    options: null as TemplateResult | null,
   };
 
   const textBlock = (): TemplateResult => html`
@@ -98,11 +99,13 @@ describe('sbb-autocomplete', () => {
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
       <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
         ${
-          args.withGroup
-            ? args.withMixedOptionAndGroup
-              ? createMixedOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
-              : createOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
-            : createOptions(args.withIcon, args.disableOption)
+          args.options
+            ? args.options
+            : args.withGroup
+              ? args.withMixedOptionAndGroup
+                ? createMixedOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
+                : createOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
+              : createOptions(args.withIcon, args.disableOption)
         }
       </sbb-autocomplete>
       ${
@@ -365,6 +368,22 @@ describe('sbb-autocomplete', () => {
           const element = setup.snapshotElement.querySelector('sbb-autocomplete')!;
           element.style.setProperty('--sbb-options-panel-max-height', '100px');
           openAutocomplete(setup);
+        });
+      }),
+    );
+
+    it(
+      `with only one option`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          template({
+            ...defaultArgs,
+            options: html`<sbb-option value="Option 1">Option 1</sbb-option>`,
+          }),
+        );
+        setup.withPostSetupAction(() => {
+          setup.snapshotElement.querySelector('sbb-form-field')!.style.height = '70px';
+          return openAutocomplete(setup);
         });
       }),
     );

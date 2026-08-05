@@ -10,7 +10,7 @@
     var(--sbb-options-panel-max-height-calculated),
     var(--sbb-options-panel-max-height, 100000em)
   );
-  --sbb-options-panel-min-height: var(--sbb-options-panel-origin-height);
+  --sbb-options-panel-min-height: 1em;
   --sbb-options-panel-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
