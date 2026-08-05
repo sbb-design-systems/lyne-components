@@ -395,10 +395,10 @@ property when the navigation changes.
 
 #### Slots
 
-| Name    | Description                                                |
-| ------- | ---------------------------------------------------------- |
-|         | Use the unnamed slot to slot any content into the sidebar. |
-| `title` | Use the title slot to add an <sbb-title>.                  |
+| Name            | Description                                                |
+| --------------- | ---------------------------------------------------------- |
+|                 | Use the unnamed slot to slot any content into the sidebar. |
+| `title-section` | Use the title-section slot to add an `<sbb-title>`.        |
 
 ### class: `SbbSidebarTitleElement`, `sbb-sidebar-title`
 
