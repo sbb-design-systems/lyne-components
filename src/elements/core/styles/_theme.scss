@@ -198,6 +198,9 @@ $theme: 'standard' !default;
 @use '../../toggle-check/toggle-check.global' as toggle-check with (
   $theme: $theme
 );
+@use '../../toggle-slide/toggle-slide.global' as toggle-slide with (
+  $theme: $theme
+);
 @use '../../tooltip/tooltip.global' as tooltip with (
   $theme: $theme
 );
@@ -280,6 +283,7 @@ $theme: 'standard' !default;
   @include toast.base;
   @include toggle.base;
   @include toggle-check.base;
+  @include toggle-slide.base;
   @include tooltip.base;
   @include train.base;
   @include visual-checkbox.base;
@@ -302,6 +306,7 @@ $theme: 'standard' !default;
     @include tag.forced-colors;
     @include toggle.forced-colors;
     @include toggle-check.forced-colors;
+    @include toggle-slide.forced-colors;
     @include train.forced-colors;
     @include visual-checkbox.forced-colors;
   }

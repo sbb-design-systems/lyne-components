@@ -1,0 +1,83 @@
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyDeclaration,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
+import { property } from 'lit/decorators.js';
+
+import { SbbElement, SbbFormAssociatedCheckboxMixin } from '../core.ts';
+import { SbbIconNameMixin } from '../icon.pure.ts';
+
+import style from './toggle-slide.scss?inline';
+
+/**
+ * It displays a toggle checkbox.
+ *
+ * @slot - Use the unnamed slot to add content to the toggle label.
+ * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
+ * @event {Event} change - The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+ * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
+ * @overrideType value - (T = string) | null
+ */
+export class SbbToggleSlideElement<T = string> extends SbbIconNameMixin(
+  SbbFormAssociatedCheckboxMixin(SbbElement),
+) {
+  public static override readonly elementName: string = 'sbb-toggle-slide';
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+
+  /** Value of the form element. */
+  @property()
+  public accessor value: T | null = null;
+
+  /**
+   * Size variant, either xs (lean theme default), s (standard theme default) or m.
+   */
+  @property({ reflect: true }) public accessor size: 'xs' | 's' | 'm' | null = null;
+
+  /** The label position relative to the toggle. Defaults to 'after' */
+  @property({ attribute: 'label-position', reflect: true })
+  public accessor labelPosition: 'before' | 'after' = 'after';
+
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+    if (name === 'checked') {
+      this.internals.ariaChecked = `${this.checked}`;
+      // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a checked state.
+      this.toggleState('checked', this.checked);
+    }
+  }
+
+  protected override renderIconName(): string {
+    return super.renderIconName() || 'tick-small';
+  }
+
+  protected override render(): TemplateResult {
+    return html`
+      <span class="sbb-toggle-slide">
+        <span class="sbb-toggle-slide__container">
+          <span class="sbb-toggle-slide__label">
+            <slot></slot>
+          </span>
+          <span class="sbb-toggle-slide__track">
+            <span class="sbb-toggle-slide__circle">
+              <span class="sbb-toggle-slide__icon"> ${this.renderIconSlot()} </span>
+            </span>
+          </span>
+        </span>
+      </span>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-toggle-slide': SbbToggleSlideElement;
+  }
+}

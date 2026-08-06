@@ -1,0 +1,145 @@
+@use '../core/styles' as sbb;
+
+:host {
+  --sbb-toggle-slide-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-6x)
+  );
+  --_sbb-toggle-slide-overall-height: var(--sbb-toggle-slide-circle-diameter);
+  --_sbb-toggle-slide-width: calc(2 * var(--sbb-toggle-slide-height));
+
+  display: inline-block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize CSS of several frameworks.
+  outline: none !important;
+}
+
+:host([size='xs']) {
+  --sbb-toggle-slide-font-size: var(--sbb-text-font-size-xs);
+}
+
+:host([size='s']) {
+  --sbb-toggle-slide-font-size: var(--sbb-text-font-size-s);
+}
+
+:host([size='m']) {
+  --sbb-toggle-slide-font-size: var(--sbb-text-font-size-m);
+  --_sbb-toggle-slide-overall-height: calc(1em * var(--sbb-typo-line-height-text));
+}
+
+:host(:state(checked)) {
+  --sbb-toggle-slide-background-color: var(--sbb-toggle-slide-checked-color);
+  --sbb-toggle-slide-circle-background-color: var(--sbb-background-color-1-negative-inverted);
+  --sbb-toggle-slide-circle-border-color: var(--sbb-toggle-slide-background-color);
+
+  // As the circle is greater than the track below,
+  // we have to subtract the difference in order to not overshoot at the right side.
+  // 100% of circle (28px) - 2 * (100% (28px) - 0.5 * width (48px)) => 20px
+  --_sbb-toggle-slide-circle-translate: calc(
+      100% - 2 * (100% - 0.5 * var(--_sbb-toggle-slide-width))
+    ) -50%;
+  --_sbb-toggle-slide-icon-opacity: 1;
+
+  @media (forced-colors: active) {
+    --sbb-toggle-slide-icon-color: Highlight;
+    --sbb-toggle-slide-background-color: Highlight;
+  }
+}
+
+:host(:disabled) {
+  --sbb-toggle-slide-background-color: var(--sbb-background-color-4);
+  --sbb-toggle-slide-circle-background-color: var(--sbb-background-color-3);
+  --sbb-toggle-slide-circle-border-color: var(--sbb-border-color-5);
+  --sbb-toggle-slide-circle-border-style: dashed;
+  --sbb-toggle-slide-icon-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
+  --sbb-toggle-slide-cursor: var(--sbb-cursor-default);
+
+  @media (forced-colors: active) {
+    --sbb-toggle-slide-icon-color: GrayText;
+    --sbb-toggle-slide-background-color: GrayText;
+    --sbb-toggle-slide-circle-border-style: solid;
+  }
+}
+
+:host([label-position='before']) {
+  --_sbb-toggle-slide-flex-direction: row;
+}
+
+.sbb-toggle-check {
+  position: relative;
+  display: flex;
+  color: var(--sbb-toggle-slide-color);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: var(--sbb-toggle-slide-cursor);
+  border-radius: calc(var(--sbb-toggle-slide-border-radius) - var(--sbb-focus-outline-offset));
+
+  // Avoids unwanted space displayed if no label text is set.
+  @include sbb.zero-width-space;
+
+  :host(:focus-visible) & {
+    @include sbb.focus-outline;
+  }
+}
+
+.sbb-toggle-check__container {
+  display: flex;
+  flex-direction: var(--_sbb-toggle-slide-flex-direction, row-reverse);
+  gap: var(--sbb-toggle-slide-gap);
+  align-items: start;
+  width: 100%;
+  font-size: var(--sbb-toggle-slide-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
+}
+
+.sbb-toggle-check__label {
+  flex-grow: 1;
+  padding-block-start: calc(
+    (var(--sbb-toggle-slide-circle-diameter) - (var(--sbb-typo-line-height-text) * 1em)) / 2
+  );
+
+  :host(:not(:state(slotted))) & {
+    display: none;
+  }
+}
+
+.sbb-toggle-check__track {
+  display: inline-block;
+  position: relative;
+  min-width: var(--_sbb-toggle-slide-width);
+  height: var(--sbb-toggle-slide-height);
+  border-radius: var(--sbb-border-radius-infinity);
+  background-color: var(--sbb-toggle-slide-background-color);
+
+  // Reserve space of overlapping circle
+  margin-block: calc(
+    (var(--_sbb-toggle-slide-overall-height) - var(--sbb-toggle-slide-height)) / 2
+  );
+}
+
+.sbb-toggle-check__circle {
+  @include sbb.absolute-center-y;
+
+  width: var(--sbb-toggle-slide-circle-diameter);
+  height: var(--sbb-toggle-slide-circle-diameter);
+  border: var(--sbb-toggle-slide-border-width) var(--sbb-toggle-slide-circle-border-style)
+    var(--sbb-toggle-slide-circle-border-color);
+  border-radius: 50%;
+  background-color: var(--sbb-toggle-slide-circle-background-color);
+  color: var(--sbb-toggle-slide-icon-color);
+  will-change: translate;
+  translate: var(--_sbb-toggle-slide-circle-translate, 0 -50%);
+  transition: translate ease var(--sbb-toggle-slide-animation-duration);
+  box-shadow: var(--sbb-toggle-slide-shadow);
+}
+
+.sbb-toggle-check__icon {
+  @include sbb.absolute-center-x-y;
+
+  width: var(--sbb-size-icon-ui-small);
+  height: var(--sbb-size-icon-ui-small);
+  opacity: var(--_sbb-toggle-slide-icon-opacity, 0);
+  transition: opacity ease var(--sbb-toggle-slide-animation-duration);
+}
