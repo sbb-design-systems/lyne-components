@@ -1,6 +1,7 @@
 import {
   type CSSResultGroup,
   html,
+  type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
   unsafeCSS,
@@ -61,12 +62,16 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
   @property({ reflect: true })
   public accessor size: 's' | 'm' | null = null;
 
+  // Tracks whether the most recent `checked` change was initiated by the user
+  // (via _setCheckedFromUser / click).
+  private _checkedChangedByUser = false;
+
   public constructor() {
     super();
     this.addEventListener?.('click', () => this._handleClick());
     this.addController(
       new SbbPropertyWatcherController(this, () => this._tagGroup(), {
-        multiple: () => this._updateAriaRole(),
+        multiple: (g) => this._updateAriaRole(g),
         size: (g) => {
           this.size = g.size;
         },
@@ -78,8 +83,7 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
     return this.closest?.('sbb-tag-group') ?? null;
   }
 
-  private _updateAriaRole(): void {
-    const tagGroup = this._tagGroup();
+  private _updateAriaRole(tagGroup = this._tagGroup()): void {
     if (tagGroup && !tagGroup.multiple) {
       this.internals.role = 'radio';
       this.internals.ariaChecked = `${this.checked}`;
@@ -106,14 +110,24 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
     if (tagGroup && !tagGroup.multiple && this.checked) {
       return;
     }
-    this.checked = !this.checked;
+    this._setCheckedFromUser(!this.checked);
     this.dispatchEvent(
       new InputEvent('input', {
         bubbles: true,
         composed: true,
       }),
     );
+  }
 
+  private _setCheckedFromUser(checked: boolean): void {
+    if (this.checked === checked) {
+      return;
+    }
+    this._checkedChangedByUser = true;
+    this.checked = checked;
+  }
+
+  private _dispatchChangeEvents(): void {
     /**
      * The change event is fired when the user modifies the element's value.
      * Unlike the input event, the change event is not necessarily fired
@@ -128,24 +142,52 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
     this.dispatchEvent(new Event('didChange', { bubbles: true }));
   }
 
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-    const tagGroup = this._tagGroup();
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
 
-    if (changedProperties.has('checked')) {
-      this._updateAriaRole();
+    if (name === 'checked') {
       this.toggleState('checked', this.checked);
       this.updateFormValue();
+      this._updateAriaRole();
     }
+  }
 
-    if (tagGroup && !tagGroup.multiple && changedProperties.has('checked')) {
-      if (this.checked) {
-        tagGroup.tags.forEach((t) => {
-          t.tabIndex = t === this ? 0 : -1;
-          t.checked = t === this;
-        });
-      } else if (!tagGroup.tags.some((t) => t.checked)) {
-        tagGroup['updateExclusiveTabIndex']();
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
+    super.willUpdate(changedProperties);
+    const checkedChangedByUser = this._checkedChangedByUser;
+
+    if (changedProperties.has('checked')) {
+      const tagGroup = this._tagGroup();
+      if (tagGroup && !tagGroup.multiple) {
+        if (this.checked) {
+          tagGroup.tags.forEach((t) => {
+            t.tabIndex = t === this ? 0 : -1;
+            if (t !== this) {
+              if (checkedChangedByUser) {
+                t._setCheckedFromUser(false);
+              } else {
+                t.checked = false;
+              }
+            }
+          });
+        } else if (!tagGroup.tags.some((t) => t.checked)) {
+          tagGroup['updateExclusiveTabIndex']();
+        }
+      }
+    }
+  }
+
+  protected override updated(changedProperties: PropertyValues<this>): void {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('checked')) {
+      if (this._checkedChangedByUser) {
+        this._dispatchChangeEvents();
+        this._checkedChangedByUser = false;
       }
     }
   }
