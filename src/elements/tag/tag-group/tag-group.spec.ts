@@ -447,8 +447,8 @@ describe(`sbb-tag-group`, () => {
         await inputSpy.calledOnce();
         expect(inputSpy.count).to.be.equal(1);
 
-        await changeSpy.calledOnce();
-        expect(changeSpy.count).to.be.equal(1);
+        await changeSpy.calledTimes(2);
+        expect(changeSpy.count).to.be.equal(2);
 
         expect(element.value).to.be.equal('tag3');
         expect(
@@ -464,8 +464,16 @@ describe(`sbb-tag-group`, () => {
         const tag1 = element.querySelector('sbb-tag#sbb-tag-1') as SbbTagElement;
         const tag2 = element.querySelector('sbb-tag#sbb-tag-2') as SbbTagElement;
 
+        const changePromise = new Promise((resolve) => {
+          tag2.addEventListener('change', resolve, { once: true });
+        });
+
         tag1.click();
-        await waitForLitRender(element);
+        await inputSpy.calledOnce();
+        expect(inputSpy.count).to.be.equal(1);
+
+        // If the first change event occurs, every tag should be configured
+        await changePromise;
 
         expect(elementInternals.get(tag1)!.ariaChecked).to.equal('true');
         expect(tag1.checked).to.be.equal(true);
@@ -473,18 +481,22 @@ describe(`sbb-tag-group`, () => {
         expect(elementInternals.get(tag2)!.ariaChecked).to.equal('false');
         expect(tag2.checked).to.be.equal(false);
 
-        await inputSpy.calledOnce();
-        expect(inputSpy.count).to.be.equal(1);
-
-        await changeSpy.calledOnce();
-        expect(changeSpy.count).to.be.equal(1);
-
         expect(element.value).to.be.equal('tag1');
         expect(
           Array.from(element.querySelectorAll('sbb-tag')).filter(
             (t) => elementInternals.get(t)!.ariaChecked === 'true',
           ).length,
         ).to.be.equal(1);
+
+        expect(changeSpy.count).to.be.equal(2);
+
+        // Programmatic change after a user change should not trigger events.
+        tag2.checked = true;
+        await waitForLitRender(element);
+
+        // Counts should stay like they were before
+        expect(inputSpy.count).to.be.equal(1);
+        expect(changeSpy.count).to.be.equal(2);
       });
 
       it('should select another tag programmatically and uncheck others', async () => {
