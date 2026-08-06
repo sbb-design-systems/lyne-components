@@ -77,6 +77,13 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
         },
       }),
     );
+    this._updateCheckedState();
+  }
+
+  private _updateCheckedState(): void {
+    this.toggleState('checked', this.checked);
+    this.updateFormValue();
+    this._updateAriaRole();
   }
 
   private _tagGroup(): SbbTagGroupElement | null {
@@ -150,9 +157,7 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
     super.requestUpdate(name, oldValue, options);
 
     if (name === 'checked') {
-      this.toggleState('checked', this.checked);
-      this.updateFormValue();
-      this._updateAriaRole();
+      this._updateCheckedState();
     }
   }
 
