@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.4.2](https://github.com/sbb-design-systems/lyne-components/compare/v5.4.1...v5.4.2) (2026-08-08)
+
+
+### Bug Fixes
+
+* **calendar:** fix disabled state and year/month selection ([#5134](https://github.com/sbb-design-systems/lyne-components/issues/5134)) ([3504602](https://github.com/sbb-design-systems/lyne-components/commit/35046027ac8bf842144393ffe984a99880323495))
+* **chip:** correctly sync disabled state from group to input ([#5145](https://github.com/sbb-design-systems/lyne-components/issues/5145)) ([25dc6b1](https://github.com/sbb-design-systems/lyne-components/commit/25dc6b15a63e6784527589a79cbf6a8c7c24c40c))
+* **stepper:** enable steps switching from linear to non-linear ([#5150](https://github.com/sbb-design-systems/lyne-components/issues/5150)) ([d65a85b](https://github.com/sbb-design-systems/lyne-components/commit/d65a85ba4f58c73a129db1a37121d16d7e54742e))
+* **tag:** dispatch change event on deselected tags in exclusive mode ([#5151](https://github.com/sbb-design-systems/lyne-components/issues/5151)) ([bdafaf1](https://github.com/sbb-design-systems/lyne-components/commit/bdafaf122c39ead8f200553230932a934f3faaad))
+* **teaser, teaser-hero, teaser-product:** re-introduce hover transition ([#5143](https://github.com/sbb-design-systems/lyne-components/issues/5143)) ([937e018](https://github.com/sbb-design-systems/lyne-components/commit/937e0180fa4c55cadf8569a7b0e68976c2e3e513))
+* **train:** fix production CSS for vertical orientation ([#5141](https://github.com/sbb-design-systems/lyne-components/issues/5141)) ([3818b0b](https://github.com/sbb-design-systems/lyne-components/commit/3818b0b196b1ccf3c55b906b1981d1502309ccc3))
+
+
+### Documentation
+
+* fix broken escaping of html elements ([#5149](https://github.com/sbb-design-systems/lyne-components/issues/5149)) ([26cb6fb](https://github.com/sbb-design-systems/lyne-components/commit/26cb6fbd06fdb0c9996cd9e1f5fbcfd0ec68e182))
+
 ## [5.4.1](https://github.com/sbb-design-systems/lyne-components/compare/v5.4.0...v5.4.1) (2026-08-03)
 
 
