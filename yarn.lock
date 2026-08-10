@@ -8558,9 +8558,9 @@ readdirp@~3.6.0:
     picomatch "^2.2.1"
 
 recast@^0.23.5:
-  version "0.23.19"
-  resolved "https://registry.yarnpkg.com/recast/-/recast-0.23.19.tgz#e645dba8c3dc2fb3a1a88f89401168c4afa66843"
-  integrity sha512-T98lym7kH+pnZmRaD8yDRdaNqyUbwnbEBx0MuchrzMFOEMray4AO3ZJoTUZ5r78Ao78X/OhzW0DL8GB85w/I2w==
+  version "0.23.20"
+  resolved "https://registry.yarnpkg.com/recast/-/recast-0.23.20.tgz#b7971d323674c0e2f391bc19c4aebcbc2aaa811c"
+  integrity sha512-VtSf75pThDqsIUpdaYrTdQvkw10/+yP0i7+Cax7h+K9SRvYjrJURZcRlcHMrH6TMzV275Q8a2A8+G7y7W9zqsg==
   dependencies:
     ast-types "^0.16.1"
     esprima "~4.0.0"
