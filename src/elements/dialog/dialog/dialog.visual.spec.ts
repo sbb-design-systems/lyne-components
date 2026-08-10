@@ -237,8 +237,8 @@ describe(`sbb-dialog`, () => {
         );
         setup.withPostSetupAction(() => {
           const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('#dialog')!;
-          dialog.style.setProperty('--sbb-dialog-max-width', '50%');
-          dialog.style.setProperty('--sbb-dialog-max-height', '400px');
+          dialog.style.setProperty('--sbb-dialog-width', '50%');
+          dialog.style.setProperty('--sbb-dialog-height', '400px');
           const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
           button.click();
         });
