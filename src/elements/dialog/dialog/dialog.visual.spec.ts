@@ -2,6 +2,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import type { SbbButtonElement } from '../../button.ts';
 import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import type { SbbDialogElement } from '../../dialog.ts';
 
 import '../../dialog.ts';
 
@@ -222,6 +223,27 @@ describe(`sbb-dialog`, () => {
         });
       }),
     );
+
+    it('set dimensions', () => {
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-button id="trigger">Trigger</sbb-button>
+            <sbb-dialog id="dialog" trigger="trigger">
+              ${dialogTitle()} ${dialogContent()}
+            </sbb-dialog>
+          `,
+          { minHeight: '600px' },
+        );
+        setup.withPostSetupAction(() => {
+          const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('#dialog')!;
+          dialog.style.setProperty('--sbb-dialog-max-width', '50%');
+          dialog.style.setProperty('--sbb-dialog-max-height', '400px');
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
+          button.click();
+        });
+      });
+    });
 
     describeEach(
       {
