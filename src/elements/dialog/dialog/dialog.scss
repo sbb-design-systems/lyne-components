@@ -100,13 +100,14 @@
   inset-block: auto 0;
   border: none;
   border-radius: var(--sbb-dialog-border-radius) var(--sbb-dialog-border-radius) 0 0;
-  max-width: var(--sbb-dialog-max-width);
-  max-height: var(--sbb-dialog-max-height);
+  max-width: var(--_sbb-dialog-max-width);
+  max-height: var(--_sbb-dialog-max-height);
   color: var(--_sbb-dialog-color);
   background-color: var(--sbb-dialog-background-color);
+  flex-direction: column;
 
   :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
-    display: block;
+    display: flex;
 
     animation: {
       name: open;
@@ -125,8 +126,10 @@
   }
 
   @include sbb.mq($from: small) {
-    height: var(--sbb-dialog-height);
     width: var(--sbb-dialog-width);
+    height: var(--sbb-dialog-height);
+    max-width: var(--sbb-dialog-max-width, var(--_sbb-dialog-max-width));
+    max-height: var(--sbb-dialog-max-height, var(--_sbb-dialog-max-height));
     inset: unset;
     border-radius: var(--sbb-dialog-border-radius);
     overflow: hidden;
@@ -135,12 +138,12 @@
 
 :host(:state(has-intermediate-element)) ::slotted(:first-child),
 .sbb-dialog__wrapper {
-  max-height: var(--sbb-dialog-max-height);
+  display: flex;
+  flex-direction: column;
 
-  @include sbb.mq($from: small) {
-    width: var(--sbb-dialog-width);
-    height: var(--sbb-dialog-height);
-  }
+  // Width min-height: 0 we allow the container to be adapted to the parent's height
+  min-height: 0;
+  max-height: 100%;
 }
 
 :host(:state(has-intermediate-element)) ::slotted(:first-child),
