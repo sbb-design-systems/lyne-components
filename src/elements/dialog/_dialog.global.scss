@@ -10,9 +10,7 @@ $theme: 'standard' !default;
   --sbb-dialog-color-negative: var(--sbb-color-2-negative);
   --sbb-dialog-block-shadow-negative: var(--sbb-box-shadow-level-9-soft-negative);
   --sbb-dialog-width: auto;
-  --sbb-dialog-max-width: 100%;
   --sbb-dialog-height: auto;
-  --sbb-dialog-max-height: calc(100vh - var(--sbb-spacing-fixed-6x));
   --sbb-dialog-inset-block: 0 auto;
   --sbb-dialog-inset-inline: 0 auto;
   --sbb-dialog-border-radius: var(--sbb-border-radius-8x);
@@ -24,6 +22,11 @@ $theme: 'standard' !default;
   --sbb-dialog-actions-border-color: var(--sbb-background-color-4);
   --sbb-dialog-close-button-inset-inline-end: var(--sbb-spacing-fixed-4x);
   --sbb-dialog-close-button-margin-inline: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+
+  @include sbb.mq($to: small) {
+    --_sbb-dialog-max-width: 100%;
+    --_sbb-dialog-max-height: calc(100vh - var(--sbb-spacing-fixed-6x));
+  }
 }
 
 @mixin breakpoint-small {

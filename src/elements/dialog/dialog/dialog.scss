@@ -100,8 +100,8 @@
   inset-block: auto 0;
   border: none;
   border-radius: var(--sbb-dialog-border-radius) var(--sbb-dialog-border-radius) 0 0;
-  max-width: var(--sbb-dialog-max-width);
-  max-height: var(--sbb-dialog-max-height);
+  max-width: var(--_sbb-dialog-max-width, var(--sbb-dialog-max-width));
+  max-height: var(--_sbb-dialog-max-height, var(--sbb-dialog-max-height));
   color: var(--_sbb-dialog-color);
   background-color: var(--sbb-dialog-background-color);
 
@@ -135,7 +135,7 @@
 
 :host(:state(has-intermediate-element)) ::slotted(:first-child),
 .sbb-dialog__wrapper {
-  max-height: var(--sbb-dialog-max-height);
+  max-height: var(--_sbb-dialog-max-height, var(--sbb-dialog-max-height));
 
   @include sbb.mq($from: small) {
     width: var(--sbb-dialog-width);
