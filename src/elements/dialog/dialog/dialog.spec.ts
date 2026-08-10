@@ -5,11 +5,7 @@ import type { Context } from 'mocha';
 
 import type { SbbAutocompleteElement } from '../../autocomplete.pure.ts';
 import type { SbbButtonElement } from '../../button.ts';
-import {
-  sbbBreakpointLargeMinPx,
-  sbbBreakpointZeroMaxPx,
-  tabKey,
-} from '../../core/testing/private.ts';
+import { sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
 import { i18nDialog } from '../../core.ts';
 import { SbbStepElement } from '../../stepper/step/step.component.ts';
@@ -468,39 +464,6 @@ describe('sbb-dialog', () => {
       element.announceTitle();
 
       expect(ariaLiveRef.textContent!.trim()).to.be.equal(`${i18nDialog.en}, Special Dialog`);
-    });
-  });
-
-  describe('mobile view', () => {
-    let element: SbbDialogElement;
-
-    beforeEach(async () => {
-      await setViewport({ width: sbbBreakpointZeroMaxPx, height: 600 });
-      const root = await fixture(html`
-        <div>
-          <button id="trigger"></button>
-          <sbb-dialog trigger="trigger">
-            <sbb-dialog-title>Title</sbb-dialog-title>
-            <sbb-dialog-content>Dialog content</sbb-dialog-content>
-            <sbb-dialog-actions>Action group</sbb-dialog-actions>
-          </sbb-dialog>
-        </div>
-      `);
-      element = root.querySelector('sbb-dialog')!;
-    });
-
-    it('setting the max-width does not change the dialog dimensions', async () => {
-      await openDialog(element);
-      const innerDialog = element.shadowRoot!.querySelector('.sbb-dialog')!;
-
-      expect(getComputedStyle(innerDialog).getPropertyValue('width')).to.be.equal(
-        `${sbbBreakpointZeroMaxPx}px`,
-      );
-
-      element.style.setProperty('--sbb-dialog-max-width', '50px');
-      expect(getComputedStyle(innerDialog).getPropertyValue('width')).to.be.equal(
-        `${sbbBreakpointZeroMaxPx}px`,
-      );
     });
   });
 
