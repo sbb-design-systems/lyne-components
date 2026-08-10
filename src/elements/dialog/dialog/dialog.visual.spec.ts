@@ -224,7 +224,8 @@ describe(`sbb-dialog`, () => {
       }),
     );
 
-    it('set dimensions', () => {
+    it(
+      'set dimensions',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`
@@ -242,8 +243,8 @@ describe(`sbb-dialog`, () => {
           const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
           button.click();
         });
-      });
-    });
+      }),
+    );
 
     describeEach(
       {
