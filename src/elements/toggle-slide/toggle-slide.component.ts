@@ -15,6 +15,7 @@ import {
   type SbbElementType,
   SbbFormAssociatedCheckboxMixin,
 } from '../core.ts';
+import { SbbIconElement } from '../icon.pure.ts';
 
 import style from './toggle-slide.scss?inline';
 
@@ -31,7 +32,10 @@ import style from './toggle-slide.scss?inline';
 export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckboxMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-toggle-slide';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
-  public static override elementDependencies: SbbElementType[] = [SbbButtonStaticElement];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbIconElement,
+    SbbButtonStaticElement,
+  ];
 
   /** Value of the form element. */
   @property()
@@ -228,14 +232,18 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
         <span class="sbb-toggle-slide__track">
           <sbb-button-static
             class="sbb-toggle-slide__button"
-            icon-name=${this.checked ? 'tick-small' : 'arrow-right-small'}
             size=${this.size ?? nothing}
             ?loading=${this._state === 'checking'}
             @pointerdown=${this._handlePointerDown}
             @pointermove=${this._handlePointerMove}
             @pointerup=${this._handlePointerUp}
             @pointercancel=${this._handlePointerCancel}
-          ></sbb-button-static>
+          >
+            <span slot="icon">
+              <sbb-icon name="arrow-right-small"></sbb-icon>
+              <sbb-icon name="tick-small"></sbb-icon>
+            </span>
+          </sbb-button-static>
         </span>
       </span>
       <span class="sbb-toggle-slide-meta">

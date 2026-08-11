@@ -113,3 +113,30 @@
 .sbb-toggle-slide__call-to-uncheck-action {
   opacity: calc(var(--sbb-toggle-slide-fraction, 0));
 }
+
+span[slot='icon'] {
+  display: block;
+  width: var(--sbb-size-icon-ui-small);
+  height: var(--sbb-size-icon-ui-small);
+}
+
+sbb-icon {
+  position: absolute;
+  transition: opacity var(--sbb-toggle-slide-animation-duration);
+}
+
+sbb-icon[name='arrow-right-small'] {
+  opacity: 1;
+
+  :host(:state(checked)) & {
+    opacity: 0;
+  }
+}
+
+sbb-icon[name='tick-small'] {
+  opacity: 0;
+
+  :host(:state(checked)) & {
+    opacity: 1;
+  }
+}
