@@ -85,6 +85,24 @@ const values = [
 </sbb-radio-button-group>
 ```
 
+When using complex objects, it is possible to provide a custom `compareWith` function to control how values are matched:
+
+```ts
+const complexValues = [
+  { id: 1, name: 'Option 1' },
+  { id: 2, name: 'Option 2' },
+  { id: 3, name: 'Option 3' },
+];
+```
+
+```html
+<sbb-radio-button-group .compareWith="${(v1, v2) => v1?.id === v2?.id}" .value="${complexValue[0}">
+  <sbb-radio-button .value="${complexValues[0]}">${complexValues[0].name}</sbb-radio-button>
+  <sbb-radio-button .value="${complexValues[1]}">${complexValues[1].name}</sbb-radio-button>
+  <sbb-radio-button .value="${complexValues[2]}">${complexValues[2].name}</sbb-radio-button>
+</sbb-radio-button-group>
+```
+
 <!-- Auto Generated Below -->
 
 ## API Documentation
@@ -96,6 +114,7 @@ const values = [
 | Name                  | Attribute               | Privacy | Type                                                            | Default                                    | Description                                                                                                                     |
 | --------------------- | ----------------------- | ------- | --------------------------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
 | `allowEmptySelection` | `allow-empty-selection` | public  | `boolean`                                                       | `false`                                    | Whether the radios can be deselected.                                                                                           |
+| `compareWith`         | -                       | public  | `(v1: T \| null, v2: T \| null) => boolean`                     |                                            | Function used to compare values.                                                                                                |
 | `disabled`            | `disabled`              | public  | `boolean`                                                       | `false`                                    | Whether the component is disabled.                                                                                              |
 | `horizontalFrom`      | `horizontal-from`       | public  | `'zero' \| 'small' \| 'large' \| 'ultra' \| null`               | `null`                                     | Overrides the behavior of `orientation` property.                                                                               |
 | `name`                | `name`                  | public  | `string`                                                        | `` `sbb-radio-button-group-${++nextId}` `` | Name for the group. Will be propagated to the child radio buttons. Must be unique if multiple groups are used on the same page. |

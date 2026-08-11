@@ -130,8 +130,24 @@ const radioButtonPanels = (): TemplateResult => html`
   >
 `;
 
+const complexValues = [
+  { id: 1, name: 'Option 1' },
+  { id: 2, name: 'Option 2' },
+  { id: 3, name: 'Option 3' },
+];
+
 const DefaultTemplate = (args: Args): TemplateResult => html`
   <sbb-radio-button-group ${sbbSpread(args)}>${radioButtons()}</sbb-radio-button-group>
+`;
+
+const CompareWithTemplate = ({ ...args }: Args): TemplateResult => html`
+  <sbb-radio-button-group
+    .compareWith=${(v1, v2) => v1?.id === v2?.id}
+    .value=${complexValues[0]}
+    ${sbbSpread(args)}
+  >
+    ${complexValues.map((v) => html`<sbb-radio-button .value=${v}>${v.name}</sbb-radio-button>`)}
+  </sbb-radio-button-group>
 `;
 
 const PanelTemplate = (args: Args): TemplateResult => html`
@@ -209,6 +225,12 @@ export const AllowEmptySelection: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, value: undefined, 'allow-empty-selection': true },
+};
+
+export const CompareWith: StoryObj = {
+  render: CompareWithTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, value: undefined },
 };
 
 export const ErrorMessage: StoryObj = {

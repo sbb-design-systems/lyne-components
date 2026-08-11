@@ -299,6 +299,49 @@ import '../radio-button-group.ts';
         expect(radios[2].checked).to.be.false;
       });
 
+      describe('with compareWith function', () => {
+        let element: SbbRadioButtonGroupElement<{ id: number; name: string }>;
+        let radios: (SbbRadioButtonElement | SbbRadioButtonPanelElement)[];
+        const values = [
+          { id: 1, name: 'Value 1' },
+          { id: 2, name: 'Value 2' },
+          { id: 3, name: 'Value 3' },
+        ];
+
+        beforeEach(async () => {
+          element = await fixture(html`
+            <sbb-radio-button-group
+              .compareWith=${(v1: any, v2: any) => v1?.id === v2?.id}
+            >
+              <${tagSingle} .value=${values[0]}>${values[0].name}</${tagSingle}>
+              <${tagSingle} .value=${values[1]}>${values[1].name}</${tagSingle}>
+              <${tagSingle} .value=${values[2]}>${values[2].name}</${tagSingle}>
+            </sbb-radio-button-group>
+          `);
+
+          radios = Array.from(element.querySelectorAll(selector));
+          await waitForLitRender(element);
+        });
+
+        it('should set value using compareWith function', async () => {
+          element.value = { id: 2, name: 'Different name' };
+          await waitForLitRender(element);
+
+          expect(radios[0].checked).to.be.false;
+          expect(radios[1].checked).to.be.true;
+          expect(radios[2].checked).to.be.false;
+        });
+
+        it('should not match when compareWith returns false', async () => {
+          element.value = { id: 99, name: 'No match' };
+          await waitForLitRender(element);
+
+          expect(radios[0].checked).to.be.false;
+          expect(radios[1].checked).to.be.false;
+          expect(radios[2].checked).to.be.false;
+        });
+      });
+
       describe('with falsy value', () => {
         let element: SbbRadioButtonGroupElement<boolean | number>;
 
