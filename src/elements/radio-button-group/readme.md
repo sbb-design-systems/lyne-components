@@ -96,7 +96,10 @@ const complexValues = [
 ```
 
 ```html
-<sbb-radio-button-group .compareWith="${(v1, v2) => v1?.id === v2?.id}" .value="${complexValues[0]}">
+<sbb-radio-button-group
+  .compareWith="${(v1, v2) => v1?.id === v2?.id}"
+  .value="${complexValues[0]}"
+>
   <sbb-radio-button .value="${complexValues[0]}">${complexValues[0].name}</sbb-radio-button>
   <sbb-radio-button .value="${complexValues[1]}">${complexValues[1].name}</sbb-radio-button>
   <sbb-radio-button .value="${complexValues[2]}">${complexValues[2].name}</sbb-radio-button>
