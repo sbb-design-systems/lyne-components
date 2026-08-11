@@ -72,10 +72,10 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
    * When the promise is rejected, the component enters the error state. Consumers can
    * provide an error message using the `error` slot.
    */
-  public accessor beforeToggle: (request: 'checked' | 'unchecked') => boolean | Promise<boolean> =
+  public accessor beforeToggle: (nextState: 'checked' | 'unchecked') => boolean | Promise<boolean> =
     () => true;
 
-  @state() private accessor _state: 'default' | 'dragging' | 'checking' = 'default';
+  @state() private accessor _state: 'default' | 'sliding' | 'checking' = 'default';
 
   private _buttonPointerOffsetLeft = 0;
   private _slideFraction = 0;
@@ -85,6 +85,17 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
     super();
 
     this.internals.role = 'switch';
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    this._updateFraction(this.checked ? 1 : 0);
+  }
+
+  public override disconnectedCallback(): void {
+    this._cancelAnimation();
+    super.disconnectedCallback();
   }
 
   public override requestUpdate(
@@ -109,13 +120,13 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
     if (this.disabled || this._state !== 'default') {
       return;
     }
-    cancelAnimationFrame(this._animationFrame);
-    this._state = 'dragging';
+    this._cancelAnimation();
+    this._state = 'sliding';
 
     const button = event.currentTarget as HTMLElement;
 
     // We need to store the offset of the pointer relative to the button's left edge.
-    // With this information we can prevent a jump of the button when starting to drag.
+    // With this information we can prevent a jump of the button when starting to slide.
     this._buttonPointerOffsetLeft = event.clientX - button.getBoundingClientRect().left;
 
     // We need to configure the pointer tracker, otherwise, if leaving the button area, the drag would stop.
@@ -126,7 +137,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
   // Called during sliding to update the position of the button based on the pointer's position.
   private _handlePointerMove(event: PointerEvent): void {
-    if (this._state !== 'dragging') {
+    if (this._state !== 'sliding') {
       return;
     }
 
@@ -135,14 +146,15 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
   // Called when intentionally stopped the sliding.
   private _handlePointerUp(): void {
-    if (this._state !== 'dragging') {
+    if (this._state !== 'sliding') {
       return;
     }
 
     const threshold = Math.min(1, Math.max(0, this.snapThreshold));
     if (this.checked ? this._slideFraction <= 1 - threshold : this._slideFraction >= threshold) {
-      this._animateToCheckedState(+!this.checked);
-      this._requestSlidedState();
+      // Animate from threshold to 100% or to 0%
+      this._animateToCheckedState(this.checked ? 0 : 1);
+      this._requestToggleState();
     } else {
       this._state = 'default';
 
@@ -150,26 +162,33 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
     }
   }
 
-  private async _requestSlidedState(): Promise<void> {
-    if (this._state !== 'dragging' && this._state !== 'default') {
+  private async _requestToggleState(): Promise<void> {
+    if (this._state !== 'sliding' && this._state !== 'default') {
       return;
     }
     this._state = 'checking';
-    const success = await this.beforeToggle(!this.checked ? 'checked' : 'unchecked');
-    this._state = 'default';
 
-    if (success) {
-      this.toggleState('invalid', false);
-      this.toggleByUserInteraction();
-    } else {
+    try {
+      const success = await this.beforeToggle(this.checked ? 'unchecked' : 'checked');
+
+      if (success) {
+        this.toggleState('invalid', false);
+        this.toggleByUserInteraction();
+      } else {
+        this.toggleState('invalid', true);
+        this._animateToCheckedState();
+      }
+    } catch {
       this.toggleState('invalid', true);
       this._animateToCheckedState();
+    } finally {
+      this._state = 'default';
     }
   }
 
   // Called when unintentionally stopped the sliding.
   private _handlePointerCancel(): void {
-    if (this._state !== 'dragging') {
+    if (this._state !== 'sliding') {
       return;
     }
 
@@ -181,6 +200,11 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
     const button = event.currentTarget as HTMLElement;
     const trackRect = button.parentElement!.getBoundingClientRect();
     const trackLength = trackRect.width - button.clientWidth;
+
+    // Unlikely, but exit if so
+    if (trackLength <= 0) {
+      return;
+    }
 
     const position = Math.max(
       0,
@@ -201,13 +225,18 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
    * With that the fraction is always the base for all visual states.
    */
   private _animateToCheckedState(target = this.checked ? 1 : 0): void {
-    cancelAnimationFrame(this._animationFrame!);
+    this._cancelAnimation();
 
     const duration =
       parseFloat(getComputedStyle(this).getPropertyValue('--sbb-toggle-slide-animation-duration')) *
         1000 || 0;
     const start = this._slideFraction;
     const startTime = performance.now();
+
+    if (duration <= 0) {
+      this._updateFraction(target);
+      return;
+    }
 
     const animate = (time: number): void => {
       const progress = Math.min((time - startTime) / duration, 1);
@@ -217,10 +246,19 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
       this._updateFraction(start + (target - start) * eased);
       if (progress < 1) {
         this._animationFrame = requestAnimationFrame(animate);
+      } else {
+        this._animationFrame = -1;
       }
     };
 
     this._animationFrame = requestAnimationFrame(animate);
+  }
+
+  private _cancelAnimation(): void {
+    if (this._animationFrame !== -1) {
+      cancelAnimationFrame(this._animationFrame);
+      this._animationFrame = -1;
+    }
   }
 
   protected override render(): TemplateResult {
