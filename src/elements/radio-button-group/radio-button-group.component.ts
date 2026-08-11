@@ -47,14 +47,11 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
     if (!this.hasUpdated) {
       return;
     }
-    if (val == null) {
-      this.selectionElements.forEach((r) => (r.checked = false));
-      return;
-    }
-    const toCheck = this.selectionElements.find((r) => this.compareWith(r.value, val));
-    if (toCheck) {
-      toCheck.checked = true;
-    }
+    const toCheck =
+      val == null ? null : this.selectionElements.find((r) => this.compareWith(r.value, val));
+
+    // Keep radio checked state in sync with the provided value.
+    this.selectionElements.forEach((r) => (r.checked = r === toCheck));
   }
   public get value(): T | null {
     return (

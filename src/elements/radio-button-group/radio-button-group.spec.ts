@@ -333,12 +333,16 @@ import '../radio-button-group.ts';
         });
 
         it('should not match when compareWith returns false', async () => {
+          radios[0].checked = true;
+          expect(element.value).to.be.deep.equal(values[0]);
+
           element.value = { id: 99, name: 'No match' };
           await waitForLitRender(element);
 
           expect(radios[0].checked).to.be.false;
           expect(radios[1].checked).to.be.false;
           expect(radios[2].checked).to.be.false;
+          expect(element.value).to.be.deep.equal({ id: 99, name: 'No match' });
         });
       });
 
