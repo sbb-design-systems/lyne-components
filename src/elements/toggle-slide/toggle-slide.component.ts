@@ -6,7 +6,7 @@ import {
   type TemplateResult,
   unsafeCSS,
 } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
 import { SbbButtonStaticElement } from '../button.pure.ts';
 import {
@@ -61,7 +61,18 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
   @property({ attribute: 'snap-threshold', type: Number })
   public accessor snapThreshold: number = 0.9;
 
-  private _dragging = false;
+  /**
+   * Function that is called when the user slides far enough to change the checked state.
+   * When a promise is returned, the button is shown in a loading state while the promise is pending.
+   * When the promise resolves, the checked or unchecked state is committed.
+   * When the promise is rejected, the component enters the error state. Consumers can
+   * provide an error message using the `error` slot.
+   */
+  public accessor beforeToggle: (request: 'checked' | 'unchecked') => boolean | Promise<boolean> =
+    () => true;
+
+  @state() private accessor _state: 'default' | 'dragging' | 'checking' = 'default';
+
   private _buttonPointerOffsetLeft = 0;
   private _slideFraction = 0;
   private _animationFrame: number = -1;
@@ -91,8 +102,11 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
   /** Handles the pointer down event on the slide button. */
   private _handlePointerDown(event: PointerEvent): void {
+    if (this._state !== 'default') {
+      return;
+    }
     cancelAnimationFrame(this._animationFrame);
-    this._dragging = true;
+    this._state = 'dragging';
 
     const button = event.currentTarget as HTMLElement;
 
@@ -108,7 +122,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
   // Called during sliding to update the position of the button based on the pointer's position.
   private _handlePointerMove(event: PointerEvent): void {
-    if (!this._dragging) {
+    if (this._state !== 'dragging') {
       return;
     }
 
@@ -117,26 +131,45 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
   // Called when intentionally stopped the sliding.
   private _handlePointerUp(): void {
-    if (!this._dragging) {
+    if (this._state !== 'dragging') {
       return;
     }
-    this._dragging = false;
 
     const threshold = Math.min(1, Math.max(0, this.snapThreshold));
     if (this.checked ? this._slideFraction <= 1 - threshold : this._slideFraction >= threshold) {
-      this.toggleByUserInteraction();
-    }
+      this._animateToCheckedState(+!this.checked);
+      this._requestSlidedState();
+    } else {
+      this._state = 'default';
 
-    this._animateToCheckedState();
+      this._animateToCheckedState();
+    }
+  }
+
+  private async _requestSlidedState(): Promise<void> {
+    if (this._state !== 'dragging' && this._state !== 'default') {
+      return;
+    }
+    this._state = 'checking';
+    const success = await this.beforeToggle(!this.checked ? 'checked' : 'unchecked');
+    this._state = 'default';
+
+    if (success) {
+      this.toggleState('invalid', false);
+      this.toggleByUserInteraction();
+    } else {
+      this.toggleState('invalid', true);
+      this._animateToCheckedState();
+    }
   }
 
   // Called when unintentionally stopped the sliding.
   private _handlePointerCancel(): void {
-    if (!this._dragging) {
+    if (this._state !== 'dragging') {
       return;
     }
 
-    this._dragging = false;
+    this._state = 'default';
     this._animateToCheckedState();
   }
 
@@ -163,8 +196,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
    * we need to animate programmatically instead of CSS.
    * With that the fraction is always the base for all visual states.
    */
-  private _animateToCheckedState(): void {
-    const target = this.checked ? 1 : 0;
+  private _animateToCheckedState(target = this.checked ? 1 : 0): void {
     cancelAnimationFrame(this._animationFrame!);
 
     const duration =
@@ -196,8 +228,9 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
         <span class="sbb-toggle-slide__track">
           <sbb-button-static
             class="sbb-toggle-slide__button"
-            icon-name="arrow-right-small"
+            icon-name=${this.checked ? 'tick-small' : 'arrow-right-small'}
             size=${this.size ?? nothing}
+            ?loading=${this._state === 'checking'}
             @pointerdown=${this._handlePointerDown}
             @pointermove=${this._handlePointerMove}
             @pointerup=${this._handlePointerUp}

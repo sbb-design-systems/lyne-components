@@ -30,7 +30,9 @@
   --sbb-toggle-slide-button-dimension: var(--sbb-button-min-height-size-l);
 }
 
-// TODO: error state
+:host(:is(:invalid, :state(invalid))) {
+  --sbb-toggle-slide-border-color: var(--sbb-color-error);
+}
 
 :host(:disabled) {
   color: var(--sbb-toggle-slide-color-disabled);
