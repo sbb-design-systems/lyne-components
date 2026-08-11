@@ -106,7 +106,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
   /** Handles the pointer down event on the slide button. */
   private _handlePointerDown(event: PointerEvent): void {
-    if (this._state !== 'default') {
+    if (this.disabled || this._state !== 'default') {
       return;
     }
     cancelAnimationFrame(this._animationFrame);
@@ -234,6 +234,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
             class="sbb-toggle-slide__button"
             size=${this.size ?? nothing}
             ?loading=${this._state === 'checking'}
+            ?disabled=${this.disabled}
             @pointerdown=${this._handlePointerDown}
             @pointermove=${this._handlePointerMove}
             @pointerup=${this._handlePointerUp}

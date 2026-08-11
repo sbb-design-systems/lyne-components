@@ -43,7 +43,7 @@
   width: 100%;
   height: var(--sbb-toggle-slide-element-height);
   position: relative;
-  border: var(--sbb-border-width-1x) solid var(--sbb-toggle-slide-border-color);
+  border: var(--sbb-toggle-slide-border-width) solid var(--sbb-toggle-slide-border-color);
   border-radius: var(--sbb-border-radius-infinity);
   background-color: var(--sbb-toggle-slide-background-color);
 
@@ -53,10 +53,18 @@
   :host(:focus-visible) & {
     @include sbb.focus-outline;
   }
+
+  :host(:disabled) & {
+    border-color: var(--sbb-toggle-slide-border-color-disabled);
+  }
 }
 
 .sbb-toggle-slide-meta {
   padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-3x);
+
+  :host(:not(:is(:state(slotted-error), :state(slotted-hint)))) & {
+    display: none;
+  }
 }
 
 .sbb-toggle-slide__track {

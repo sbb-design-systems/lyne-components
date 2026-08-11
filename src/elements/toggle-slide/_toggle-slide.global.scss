@@ -27,4 +27,5 @@ $theme: 'standard' !default;
   --sbb-toggle-slide-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-toggle-slide-color-disabled: var(--sbb-color-5);
   --sbb-toggle-slide-padding-inline: var(--sbb-spacing-fixed-4x);
+  --sbb-toggle-slide-border-width: var(--sbb-border-width-1x);
 }
