@@ -3,143 +3,111 @@
 :host {
   --sbb-toggle-slide-animation-duration: var(
     --sbb-disable-animation-duration,
-    var(--sbb-animation-duration-6x)
+    var(--sbb-animation-duration-12x)
   );
-  --_sbb-toggle-slide-overall-height: var(--sbb-toggle-slide-circle-diameter);
-  --_sbb-toggle-slide-width: calc(2 * var(--sbb-toggle-slide-height));
 
-  display: inline-block;
-
-  // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize CSS of several frameworks.
+  display: flex;
+  flex-direction: column;
+  width: 22rem;
+  max-width: 100%;
+  color: var(--sbb-toggle-slide-color);
+  font-size: var(--sbb-toggle-slide-font-size);
   outline: none !important;
 }
 
-:host([size='xs']) {
-  --sbb-toggle-slide-font-size: var(--sbb-text-font-size-xs);
-}
-
 :host([size='s']) {
-  --sbb-toggle-slide-font-size: var(--sbb-text-font-size-s);
+  --sbb-toggle-slide-element-height: var(--sbb-size-element-s);
+  --sbb-toggle-slide-button-dimension: var(--sbb-button-min-height-size-s);
 }
 
 :host([size='m']) {
-  --sbb-toggle-slide-font-size: var(--sbb-text-font-size-m);
-  --_sbb-toggle-slide-overall-height: calc(1em * var(--sbb-typo-line-height-text));
+  --sbb-toggle-slide-element-height: var(--sbb-size-element-m);
+  --sbb-toggle-slide-button-dimension: var(--sbb-button-min-height-size-m);
 }
 
-:host(:state(checked)) {
-  --sbb-toggle-slide-background-color: var(--sbb-toggle-slide-checked-color);
-  --sbb-toggle-slide-circle-background-color: var(--sbb-background-color-1-negative-inverted);
-  --sbb-toggle-slide-circle-border-color: var(--sbb-toggle-slide-background-color);
-
-  // As the circle is greater than the track below,
-  // we have to subtract the difference in order to not overshoot at the right side.
-  // 100% of circle (28px) - 2 * (100% (28px) - 0.5 * width (48px)) => 20px
-  --_sbb-toggle-slide-circle-translate: calc(
-      100% - 2 * (100% - 0.5 * var(--_sbb-toggle-slide-width))
-    ) -50%;
-  --_sbb-toggle-slide-icon-opacity: 1;
-
-  @media (forced-colors: active) {
-    --sbb-toggle-slide-icon-color: Highlight;
-    --sbb-toggle-slide-background-color: Highlight;
-  }
+:host([size='l']) {
+  --sbb-toggle-slide-element-height: var(--sbb-size-element-l);
+  --sbb-toggle-slide-button-dimension: var(--sbb-button-min-height-size-l);
 }
+
+// TODO: error state
 
 :host(:disabled) {
-  --sbb-toggle-slide-background-color: var(--sbb-background-color-4);
-  --sbb-toggle-slide-circle-background-color: var(--sbb-background-color-3);
-  --sbb-toggle-slide-circle-border-color: var(--sbb-border-color-5);
-  --sbb-toggle-slide-circle-border-style: dashed;
-  --sbb-toggle-slide-icon-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
-  --sbb-toggle-slide-cursor: var(--sbb-cursor-default);
-
-  @media (forced-colors: active) {
-    --sbb-toggle-slide-icon-color: GrayText;
-    --sbb-toggle-slide-background-color: GrayText;
-    --sbb-toggle-slide-circle-border-style: solid;
-  }
+  color: var(--sbb-toggle-slide-color-disabled);
 }
 
-:host([label-position='before']) {
-  --_sbb-toggle-slide-flex-direction: row;
-}
-
-.sbb-toggle-check {
-  position: relative;
+.sbb-toggle-slide {
   display: flex;
-  color: var(--sbb-toggle-slide-color);
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  cursor: var(--sbb-toggle-slide-cursor);
-  border-radius: calc(var(--sbb-toggle-slide-border-radius) - var(--sbb-focus-outline-offset));
+  width: 100%;
+  height: var(--sbb-toggle-slide-element-height);
+  position: relative;
+  border: var(--sbb-border-width-1x) solid var(--sbb-toggle-slide-border-color);
+  border-radius: var(--sbb-border-radius-infinity);
+  background-color: var(--sbb-toggle-slide-background-color);
 
-  // Avoids unwanted space displayed if no label text is set.
-  @include sbb.zero-width-space;
+  // Avoid horizontal scrolling during swiping
+  touch-action: pan-y;
 
   :host(:focus-visible) & {
     @include sbb.focus-outline;
   }
 }
 
-.sbb-toggle-check__container {
-  display: flex;
-  flex-direction: var(--_sbb-toggle-slide-flex-direction, row-reverse);
-  gap: var(--sbb-toggle-slide-gap);
-  align-items: start;
-  width: 100%;
-  font-size: var(--sbb-toggle-slide-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
-  line-height: var(--sbb-typo-line-height-text);
+.sbb-toggle-slide-meta {
+  padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-3x);
 }
 
-.sbb-toggle-check__label {
-  flex-grow: 1;
-  padding-block-start: calc(
-    (var(--sbb-toggle-slide-circle-diameter) - (var(--sbb-typo-line-height-text) * 1em)) / 2
-  );
+.sbb-toggle-slide__track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
 
-  :host(:not(:state(slotted))) & {
+  // Calculate the needed padding from the track to the button.
+  // Because of absolute positioning we use margin here.
+  margin: calc(
+    (var(--sbb-toggle-slide-element-height) - var(--sbb-toggle-slide-button-dimension)) / 2
+  );
+}
+
+.sbb-toggle-slide__button {
+  position: absolute;
+  inset-inline: calc(
+      var(--sbb-toggle-slide-fraction, 0) * 100% -
+        (var(--sbb-toggle-slide-fraction, 0) * var(--sbb-toggle-slide-button-dimension))
+    )
+    0;
+
+  // Calculate start offset based on the toggle slide fraction.
+  // We need to percentually subtract also the button width.
+  width: fit-content;
+}
+
+.sbb-toggle-slide__call-to-actions {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-2x);
+  align-items: center;
+  padding-inline: var(--sbb-toggle-slide-padding-inline);
+  pointer-events: none;
+  width: 100%;
+  overflow: hidden;
+}
+
+.sbb-toggle-slide__call-to-check-action,
+.sbb-toggle-slide__call-to-uncheck-action {
+  text-wrap: balance;
+  flex: 1 1 50%;
+
+  &:empty {
     display: none;
   }
 }
 
-.sbb-toggle-check__track {
-  display: inline-block;
-  position: relative;
-  min-width: var(--_sbb-toggle-slide-width);
-  height: var(--sbb-toggle-slide-height);
-  border-radius: var(--sbb-border-radius-infinity);
-  background-color: var(--sbb-toggle-slide-background-color);
-
-  // Reserve space of overlapping circle
-  margin-block: calc(
-    (var(--_sbb-toggle-slide-overall-height) - var(--sbb-toggle-slide-height)) / 2
-  );
+.sbb-toggle-slide__call-to-check-action {
+  text-align: end;
+  opacity: calc(1 - var(--sbb-toggle-slide-fraction, 0));
 }
 
-.sbb-toggle-check__circle {
-  @include sbb.absolute-center-y;
-
-  width: var(--sbb-toggle-slide-circle-diameter);
-  height: var(--sbb-toggle-slide-circle-diameter);
-  border: var(--sbb-toggle-slide-border-width) var(--sbb-toggle-slide-circle-border-style)
-    var(--sbb-toggle-slide-circle-border-color);
-  border-radius: 50%;
-  background-color: var(--sbb-toggle-slide-circle-background-color);
-  color: var(--sbb-toggle-slide-icon-color);
-  will-change: translate;
-  translate: var(--_sbb-toggle-slide-circle-translate, 0 -50%);
-  transition: translate ease var(--sbb-toggle-slide-animation-duration);
-  box-shadow: var(--sbb-toggle-slide-shadow);
-}
-
-.sbb-toggle-check__icon {
-  @include sbb.absolute-center-x-y;
-
-  width: var(--sbb-size-icon-ui-small);
-  height: var(--sbb-size-icon-ui-small);
-  opacity: var(--_sbb-toggle-slide-icon-opacity, 0);
-  transition: opacity ease var(--sbb-toggle-slide-animation-duration);
+.sbb-toggle-slide__call-to-uncheck-action {
+  opacity: calc(var(--sbb-toggle-slide-fraction, 0));
 }

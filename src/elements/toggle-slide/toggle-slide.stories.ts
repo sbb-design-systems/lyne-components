@@ -14,6 +14,7 @@ import '../button.ts';
 import '../card.ts';
 import '../icon.ts';
 import '../title.ts';
+import '../form-field.ts';
 
 const longLabel = `For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit.
   Cras nec dolor eget leo porttitor ultrices. Mauris sed erat nec justo posuere elementum.
@@ -25,7 +26,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xs', 's', 'm'] satisfies SbbToggleSlideElement['size'][],
+  options: ['s', 'm', 'l'] satisfies SbbToggleSlideElement['size'][],
 };
 
 const checked: InputType = {
@@ -64,13 +65,6 @@ const iconName: InputType = {
   },
 };
 
-const labelPosition: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['before', 'after'] satisfies SbbToggleSlideElement['labelPosition'][],
-};
-
 const ariaLabel: InputType = {
   control: {
     type: 'text',
@@ -85,7 +79,6 @@ const defaultArgTypes: ArgTypes = {
   value,
   name,
   'icon-name': iconName,
-  'label-position': labelPosition,
   'aria-label': ariaLabel,
 };
 
@@ -97,7 +90,6 @@ const defaultArgs: Args = {
   value: 'Value',
   name: 'name',
   'icon-name': undefined,
-  'label-position': labelPosition.options![1],
   'aria-label': undefined,
 };
 
@@ -106,14 +98,21 @@ const defaultArgs: Args = {
 // If only using property, the reset mechanism does not work as expected.
 
 const Template = ({ label, checked, ...args }: Args): TemplateResult => html`
-  <sbb-toggle-slide .checked=${checked} ?checked=${checked} ${sbbSpread(args)}
-    >${label}</sbb-toggle-slide
+  <sbb-toggle-slide
+    .checked=${checked}
+    ?checked=${checked}
+    call-to-check-action="Zum Starten nach rechts ziehen"
+    call-to-uncheck-action="Zum Stoppen nach links ziehen"
+    ${sbbSpread(args)}
   >
+    ${label}
+    <sbb-error slot="error">Error</sbb-error>
+    <span slot="hint">Hint</span>
+  </sbb-toggle-slide>
 `;
 
 const CustomIconTemplate = ({ label, checked, ...args }: Args): TemplateResult => html`
   <sbb-toggle-slide .checked=${checked} ?checked=${checked} ${sbbSpread(args)}>
-    <sbb-icon slot="icon" name="eye-small"></sbb-icon>
     ${label}
   </sbb-toggle-slide>
 `;

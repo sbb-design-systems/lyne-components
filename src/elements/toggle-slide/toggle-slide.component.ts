@@ -1,44 +1,76 @@
 import {
   type CSSResultGroup,
   html,
+  nothing,
   type PropertyDeclaration,
   type TemplateResult,
   unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement, SbbFormAssociatedCheckboxMixin } from '../core.ts';
-import { SbbIconNameMixin } from '../icon.pure.ts';
+import { SbbButtonStaticElement } from '../button.pure.ts';
+import {
+  forceType,
+  SbbElement,
+  type SbbElementType,
+  SbbFormAssociatedCheckboxMixin,
+} from '../core.ts';
 
 import style from './toggle-slide.scss?inline';
 
 /**
- * It displays a toggle checkbox.
+ * Toggle checkbox that needs to be slided in order to confirm an action.
  *
  * @slot - Use the unnamed slot to add content to the toggle label.
- * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
+ * @slot hint - Add general hints to the user about using this component
+ * @slot error - Slot `<sbb-error>` components to indicate a possible error.
  * @event {Event} change - The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
  * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  * @overrideType value - (T = string) | null
  */
-export class SbbToggleSlideElement<T = string> extends SbbIconNameMixin(
-  SbbFormAssociatedCheckboxMixin(SbbElement),
-) {
+export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckboxMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-toggle-slide';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override elementDependencies: SbbElementType[] = [SbbButtonStaticElement];
 
   /** Value of the form element. */
   @property()
   public accessor value: T | null = null;
 
   /**
-   * Size variant, either xs (lean theme default), s (standard theme default) or m.
+   * Size variant, either s (lean theme default), m (standard theme default) or l.
    */
-  @property({ reflect: true }) public accessor size: 'xs' | 's' | 'm' | null = null;
+  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | null = null;
 
-  /** The label position relative to the toggle. Defaults to 'after' */
-  @property({ attribute: 'label-position', reflect: true })
-  public accessor labelPosition: 'before' | 'after' = 'after';
+  /** Action hint to uncheck the toggle slide. */
+  @forceType()
+  @property({ attribute: 'call-to-uncheck-action' })
+  public accessor callToUncheckAction: string = '';
+
+  /** Action hint to check the toggle slide. */
+  @forceType()
+  @property({ attribute: 'call-to-check-action' })
+  public accessor callToCheckAction: string = '';
+
+  /**
+   * Number value as fraction between 0 and 1,
+   * that in minimum a user has to slide to in order change the checked state.
+   * Defaults to 0.9.
+   */
+  @forceType()
+  @property({ attribute: 'snap-threshold', type: Number })
+  public accessor snapThreshold: number = 0.9;
+
+  private _dragging = false;
+  private _buttonPointerOffsetLeft = 0;
+  private _slideFraction = 0;
+  private _animationFrame: number = -1;
+
+  public constructor() {
+    super();
+
+    this.internals.role = 'switch';
+  }
 
   public override requestUpdate(
     name?: PropertyKey,
@@ -50,28 +82,133 @@ export class SbbToggleSlideElement<T = string> extends SbbIconNameMixin(
       this.internals.ariaChecked = `${this.checked}`;
       // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a checked state.
       this.toggleState('checked', this.checked);
+
+      if (this._slideFraction !== (this.checked ? 1 : 0)) {
+        this._updateFraction(this.checked ? 1 : 0);
+      }
     }
   }
 
-  protected override renderIconName(): string {
-    return super.renderIconName() || 'tick-small';
+  /** Handles the pointer down event on the slide button. */
+  private _handlePointerDown(event: PointerEvent): void {
+    cancelAnimationFrame(this._animationFrame);
+    this._dragging = true;
+
+    const button = event.currentTarget as HTMLElement;
+
+    // We need to store the offset of the pointer relative to the button's left edge.
+    // With this information we can prevent a jump of the button when starting to drag.
+    this._buttonPointerOffsetLeft = event.clientX - button.getBoundingClientRect().left;
+
+    // We need to configure the pointer tracker, otherwise, if leaving the button area, the drag would stop.
+    button.setPointerCapture(event.pointerId);
+
+    this._updatePosition(event);
+  }
+
+  // Called during sliding to update the position of the button based on the pointer's position.
+  private _handlePointerMove(event: PointerEvent): void {
+    if (!this._dragging) {
+      return;
+    }
+
+    this._updatePosition(event);
+  }
+
+  // Called when intentionally stopped the sliding.
+  private _handlePointerUp(): void {
+    if (!this._dragging) {
+      return;
+    }
+    this._dragging = false;
+
+    const threshold = Math.min(1, Math.max(0, this.snapThreshold));
+    if (this.checked ? this._slideFraction <= 1 - threshold : this._slideFraction >= threshold) {
+      this.toggleByUserInteraction();
+    }
+
+    this._animateToCheckedState();
+  }
+
+  // Called when unintentionally stopped the sliding.
+  private _handlePointerCancel(): void {
+    if (!this._dragging) {
+      return;
+    }
+
+    this._dragging = false;
+    this._animateToCheckedState();
+  }
+
+  private _updatePosition(event: PointerEvent): void {
+    const button = event.currentTarget as HTMLElement;
+    const trackRect = button.parentElement!.getBoundingClientRect();
+    const trackLength = trackRect.width - button.clientWidth;
+
+    const position = Math.max(
+      0,
+      Math.min(event.clientX - trackRect.left - this._buttonPointerOffsetLeft, trackLength),
+    );
+
+    this._updateFraction(position / trackLength);
+  }
+
+  private _updateFraction(fraction: number): void {
+    this._slideFraction = fraction;
+    this.style.setProperty('--sbb-toggle-slide-fraction', this._slideFraction.toString());
+  }
+
+  /**
+   * As the opacity of the action calls depend on the slide fraction,
+   * we need to animate programmatically instead of CSS.
+   * With that the fraction is always the base for all visual states.
+   */
+  private _animateToCheckedState(): void {
+    const target = this.checked ? 1 : 0;
+    cancelAnimationFrame(this._animationFrame!);
+
+    const duration =
+      parseFloat(getComputedStyle(this).getPropertyValue('--sbb-toggle-slide-animation-duration')) *
+        1000 || 0;
+    const start = this._slideFraction;
+    const startTime = performance.now();
+
+    const animate = (time: number): void => {
+      const progress = Math.min((time - startTime) / duration, 1);
+
+      // Ease-out
+      const eased = 1 - Math.pow(1 - progress, 3);
+      this._updateFraction(start + (target - start) * eased);
+      if (progress < 1) {
+        this._animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    this._animationFrame = requestAnimationFrame(animate);
   }
 
   protected override render(): TemplateResult {
-    return html`
-      <span class="sbb-toggle-slide">
-        <span class="sbb-toggle-slide__container">
-          <span class="sbb-toggle-slide__label">
-            <slot></slot>
-          </span>
-          <span class="sbb-toggle-slide__track">
-            <span class="sbb-toggle-slide__circle">
-              <span class="sbb-toggle-slide__icon"> ${this.renderIconSlot()} </span>
-            </span>
-          </span>
+    return html`<span class="sbb-toggle-slide">
+        <span class="sbb-toggle-slide__call-to-actions">
+          <span class="sbb-toggle-slide__call-to-uncheck-action">${this.callToUncheckAction}</span>
+          <span class="sbb-toggle-slide__call-to-check-action">${this.callToCheckAction}</span>
+        </span>
+        <span class="sbb-toggle-slide__track">
+          <sbb-button-static
+            class="sbb-toggle-slide__button"
+            icon-name="arrow-right-small"
+            size=${this.size ?? nothing}
+            @pointerdown=${this._handlePointerDown}
+            @pointermove=${this._handlePointerMove}
+            @pointerup=${this._handlePointerUp}
+            @pointercancel=${this._handlePointerCancel}
+          ></sbb-button-static>
         </span>
       </span>
-    `;
+      <span class="sbb-toggle-slide-meta">
+        <slot name="error"></slot>
+        <slot name="hint"></slot>
+      </span>`;
   }
 }
 

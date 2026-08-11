@@ -306,7 +306,6 @@ $theme: 'standard' !default;
     @include tag.forced-colors;
     @include toggle.forced-colors;
     @include toggle-check.forced-colors;
-    @include toggle-slide.forced-colors;
     @include train.forced-colors;
     @include visual-checkbox.forced-colors;
   }
