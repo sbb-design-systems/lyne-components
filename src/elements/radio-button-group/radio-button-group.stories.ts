@@ -142,7 +142,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
 
 const CompareWithTemplate = ({ ...args }: Args): TemplateResult => html`
   <sbb-radio-button-group
-    .compareWith=${(v1, v2) => v1?.id === v2?.id}
+    .compareWith=${(v1: (typeof complexValues)[number] | null, v2: (typeof complexValues)[number] | null) => v1?.id === v2?.id}
     .value=${complexValues[0]}
     ${sbbSpread(args)}
   >
