@@ -20,7 +20,9 @@ import { SbbIconElement } from '../icon.pure.ts';
 
 import style from './toggle-slide.scss?inline';
 
-const keyboardPressDuration = 2000;
+const activationPressDuration = 2000;
+const longPressDelay = 500;
+const minMovePxToTriggerSliding = 8;
 
 /**
  * Toggle checkbox that needs to be slided in order to confirm an action.
@@ -79,12 +81,18 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
   public accessor beforeToggle: (nextState: 'checked' | 'unchecked') => boolean | Promise<boolean> =
     () => true;
 
-  @state() private accessor _state: 'default' | 'sliding' | 'keyboard-sliding' | 'checking' =
-    'default';
+  @state() private accessor _state:
+    'default' | 'pending' | 'sliding' | 'activation-sliding' | 'checking' = 'default';
 
-  private _buttonPointerOffsetLeft = 0;
   private _slideFraction = 0;
   private _animationFrame: number = -1;
+
+  private _pointerInteraction: {
+    longPressTimer: number;
+    downX: number;
+    downY: number;
+    buttonPointerOffsetLeft: number;
+  } | null = null;
 
   public constructor() {
     super();
@@ -102,6 +110,8 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
   public override disconnectedCallback(): void {
     this._cancelAnimation();
+    this._resetPointerInteraction();
+
     super.disconnectedCallback();
   }
 
@@ -121,6 +131,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
       }
     } else if (name === 'disabled') {
       this._cancelAnimation();
+      this._resetPointerInteraction();
       this._animateToCheckedState();
     }
   }
@@ -131,35 +142,85 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
       return;
     }
     this._cancelAnimation();
-    this._state = 'sliding';
+    this._resetPointerInteraction();
+
+    this._state = 'pending';
 
     const button = event.currentTarget as HTMLElement;
 
-    // We need to store the offset of the pointer relative to the button's left edge.
-    // With this information we can prevent a jump of the button when starting to slide.
-    this._buttonPointerOffsetLeft = event.clientX - button.getBoundingClientRect().left;
-
-    // We need to configure the pointer tracker, otherwise, if leaving the button area, the drag would stop.
     button.setPointerCapture(event.pointerId);
+    window.addEventListener('pointerup', () => this._handlePointerUp(), { once: true });
 
-    this._updatePosition(event);
+    this._pointerInteraction = {
+      longPressTimer: window.setTimeout(() => {
+        if (this._state === 'pending') {
+          this._pointerInteraction!.longPressTimer = -1;
+          this._startLongPress();
+        }
+      }, longPressDelay),
+      downX: event.clientX,
+      downY: event.clientY,
+
+      // We need to store the offset of the pointer relative to the button's left edge.
+      // With this information we can prevent a jump of the button when starting to slide.
+      buttonPointerOffsetLeft: event.clientX - button.getBoundingClientRect().left,
+    };
+  }
+
+  private _startPointerSliding(): void {
+    this._cancelLongPress();
+    this._cancelAnimation();
+
+    this._state = 'sliding';
+  }
+
+  private _startLongPress(): void {
+    if (this._state !== 'pending') {
+      return;
+    }
+    this._cancelLongPress();
+    this._cancelAnimation();
+
+    this._state = 'activation-sliding';
+
+    this._animateToCheckedState({
+      target: this.checked ? 0 : 1,
+      withEase: false,
+      durationInMs: activationPressDuration,
+      onComplete: () => this._handleEndOfActivation(),
+    });
   }
 
   // Called during sliding to update the position of the button based on the pointer's position.
   private _handlePointerMove(event: PointerEvent): void {
-    if (this._state !== 'sliding' || this.disabled) {
-      return;
-    }
+    if (this._state === 'pending') {
+      const dx = event.clientX - (this._pointerInteraction?.downX ?? 0);
+      const dy = event.clientY - (this._pointerInteraction?.downY ?? 0);
 
-    this._updatePosition(event);
+      // We only want to start the longPress if the cursor / finger is not moving more than between a small range.
+      // If the user moves more than a certain threshold, we start the pointer sliding instead of longPress.
+      if (Math.hypot(dx, dy) > minMovePxToTriggerSliding) {
+        this._startPointerSliding();
+      }
+    } else if (this._state === 'sliding') {
+      this._updatePosition(event);
+    }
   }
 
   // Called when intentionally stopped the sliding.
   private _handlePointerUp(): void {
-    if (this._state !== 'sliding') {
-      return;
+    if (this._state === 'pending') {
+      this._state = 'default';
+    } else if (this._state === 'sliding') {
+      this._handleEndOfPointerSliding();
+    } else if (this._state === 'activation-sliding') {
+      this._handleEndOfActivation();
     }
 
+    this._resetPointerInteraction();
+  }
+
+  private _handleEndOfPointerSliding(): void {
     const threshold = Math.min(1, Math.max(0, this.snapThreshold));
     if (
       this.checked
@@ -179,7 +240,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
   private async _requestToggleState(): Promise<void> {
     if (
       this._state !== 'sliding' &&
-      this._state !== 'keyboard-sliding' &&
+      this._state !== 'activation-sliding' &&
       this._state !== 'default'
     ) {
       return;
@@ -206,10 +267,17 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
   // Called when unintentionally stopped the sliding.
   private _handlePointerCancel(): void {
-    if (this._state !== 'sliding') {
+    console.log('pointercancel');
+
+    if (
+      this._state !== 'pending' &&
+      this._state !== 'sliding' &&
+      this._state !== 'activation-sliding'
+    ) {
       return;
     }
 
+    this._resetPointerInteraction();
     this._state = 'default';
     this._animateToCheckedState();
   }
@@ -226,10 +294,18 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
     const position = Math.max(
       0,
-      Math.min(event.clientX - trackRect.left - this._buttonPointerOffsetLeft, trackLength),
+      Math.min(
+        event.clientX - trackRect.left - (this._pointerInteraction?.buttonPointerOffsetLeft ?? 0),
+        trackLength,
+      ),
     );
 
     this._updateFraction(position / trackLength);
+  }
+
+  private _resetPointerInteraction(): void {
+    this._cancelLongPress();
+    this._pointerInteraction = null;
   }
 
   /** Handles the key down event on the slide button. */
@@ -241,24 +317,32 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
       return;
     }
     this._cancelAnimation();
-    this._state = 'keyboard-sliding';
+    this._toggleButtonActiveState(true);
+
+    this._state = 'activation-sliding';
+
     this._animateToCheckedState({
       target: this.checked ? 0 : 1,
       withEase: false,
-      durationInMs: keyboardPressDuration,
+      durationInMs: activationPressDuration,
+
       // Trigger the checking state as soon as it reaches 1 or 0
-      onComplete: () => this._handleEndOfKeyboardActivation(),
+      onComplete: () => {
+        this._toggleButtonActiveState(false);
+        this._handleEndOfActivation();
+      },
     });
   }
 
   private _handleKeyUp(event: KeyboardEvent): void {
-    if (this._state !== 'keyboard-sliding' || event.key !== ' ') {
+    if (this._state !== 'activation-sliding' || event.key !== ' ') {
       return;
     }
-    this._handleEndOfKeyboardActivation();
+    this._toggleButtonActiveState(false);
+    this._handleEndOfActivation();
   }
 
-  private _handleEndOfKeyboardActivation(): void {
+  private _handleEndOfActivation(): void {
     if (this._slideFraction === (this.checked ? 0 : 1)) {
       this._requestToggleState();
     } else {
@@ -268,7 +352,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
   }
 
   private _handleBlur(): void {
-    if (this._state === 'keyboard-sliding') {
+    if (this._state === 'activation-sliding') {
       this._state = 'default';
       this._animateToCheckedState();
     }
@@ -312,6 +396,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
     if (evaluatedOptions.durationInMs <= 0) {
       this._updateFraction(evaluatedOptions.target);
+      evaluatedOptions.onComplete?.();
       return;
     }
 
@@ -339,6 +424,19 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
     }
   }
 
+  private _cancelLongPress(): void {
+    if (this._pointerInteraction) {
+      clearTimeout(this._pointerInteraction.longPressTimer);
+      this._pointerInteraction.longPressTimer = -1;
+    }
+  }
+
+  private _toggleButtonActiveState(active: boolean): void {
+    this.shadowRoot
+      ?.querySelector<SbbButtonStaticElement>('.sbb-toggle-slide__button')
+      ?.['toggleState']('active', active);
+  }
+
   protected override render(): TemplateResult {
     return html`<span class="sbb-toggle-slide">
         <span class="sbb-toggle-slide__call-to-actions">
@@ -353,7 +451,6 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
             ?disabled=${this.disabled}
             @pointerdown=${this._handlePointerDown}
             @pointermove=${this._handlePointerMove}
-            @pointerup=${this._handlePointerUp}
             @pointercancel=${this._handlePointerCancel}
           >
             <span slot="icon">
