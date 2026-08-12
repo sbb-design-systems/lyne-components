@@ -7,6 +7,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbErrorElement } from '../form-field.ts';
+import type { SbbRadioButtonElement } from '../radio-button.ts';
 
 import type { SbbRadioButtonGroupElement } from './radio-button-group.component.ts';
 import readme from './readme.md?raw';
@@ -115,6 +116,18 @@ const defaultArgs: Args = {
   'aria-label': undefined,
 };
 
+const complexValues = [
+  { id: 1, name: 'Option 1' },
+  { id: 2, name: 'Option 2' },
+  { id: 3, name: 'Option 3' },
+];
+
+const changeEventHandler = (event: Event): void => {
+  const div = document.createElement('div');
+  div.innerText = `current value is: ${JSON.stringify((event.target as SbbRadioButtonElement).value)}`;
+  document.getElementById('container-value')!.append(div);
+};
+
 const radioButtons = (): TemplateResult => html`
   <sbb-radio-button value="Value one">Value one</sbb-radio-button>
   <sbb-radio-button value="Value two">Value two</sbb-radio-button>
@@ -130,12 +143,6 @@ const radioButtonPanels = (): TemplateResult => html`
   >
 `;
 
-const complexValues = [
-  { id: 1, name: 'Option 1' },
-  { id: 2, name: 'Option 2' },
-  { id: 3, name: 'Option 3' },
-];
-
 const DefaultTemplate = (args: Args): TemplateResult => html`
   <sbb-radio-button-group ${sbbSpread(args)}>${radioButtons()}</sbb-radio-button-group>
 `;
@@ -143,11 +150,15 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
 const CompareWithTemplate = ({ ...args }: Args): TemplateResult => html`
   <sbb-radio-button-group
     .compareWith=${(v1: (typeof complexValues)[number] | null, v2: (typeof complexValues)[number] | null) => v1?.id === v2?.id}
-    .value=${complexValues[0]}
+    .value=${{ id: 1 }}
+    @change=${(event: Event) => changeEventHandler(event)}
     ${sbbSpread(args)}
   >
     ${complexValues.map((v) => html`<sbb-radio-button .value=${v}>${v.name}</sbb-radio-button>`)}
   </sbb-radio-button-group>
+  <div id="container-value" style="margin-block-start: 2rem; color: var(--sbb-color-smoke);">
+    <div>current value is: {"id":1}</div>
+  </div>
 `;
 
 const PanelTemplate = (args: Args): TemplateResult => html`
