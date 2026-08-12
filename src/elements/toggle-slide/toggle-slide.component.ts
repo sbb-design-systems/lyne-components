@@ -25,6 +25,69 @@ const longPressDelay = 500;
 const minMovePxToTriggerSliding = 8;
 
 /**
+ * Possible states:
+ *
+ *                                 ┌─────────────────┐
+ *                                 │                 │
+ *                                 │     DEFAULT     │
+ *                                 │                 │
+ *                                 └────────┬────────┘
+ *                                          │
+ *              ┌───────────────────────────┼───────────────────────────┐
+ *              │                           │                           │
+ *         pointerdown                Space keydown                 disabled
+ *              │                           │
+ *              ▼                           ▼
+ *       ┌──────────────┐          ┌──────────────────┐
+ *       │              │          │                  │
+ *       │    PENDING   │          │ ACTIVATION-      │
+ *       │              │          │    SLIDING       │
+ *       └──────┬───────┘          └────────┬─────────┘
+ *              │                           │
+ *        ┌─────┴─────┐                     │
+ *        │           │                     │
+ *     > 8 px      500 ms              Space keyup
+ *        │           │                     │
+ *        ▼           ▼                     │
+ *  ┌───────────┐ ┌──────────────────┐      │
+ *  │           │ │                  │      │
+ *  │  SLIDING  │ │ ACTIVATION-      │◄─────┘
+ *  │           │ │    SLIDING       │
+ *  └─────┬─────┘ │                  │
+ *        │       └────────┬─────────┘
+ *        │                │
+ *        │ pointerup      │ completion
+ *        │                │
+ *        └───────┬────────┘
+ *                ▼
+ *        ┌─────────────────┐
+ *        │                 │
+ *        │    CHECKING     │
+ *        │                 │
+ *        └────────┬────────┘
+ *                 │
+ *            beforeToggle()
+ *                 │
+ *           ┌─────┴─────┐
+ *           │           │
+ *         true       false / reject
+ *           │           │
+ *           ▼           ▼
+ *       ┌────────┐  ┌──────────────┐
+ *       │ DEFAULT │  │    DEFAULT   │
+ *       │         │  │   + invalid  │
+ *       └────────┘  └──────────────┘
+ *
+ *
+ *   Any active pointer state
+ *           │
+ *           │ pointercancel / blur
+ *           ▼
+ *        DEFAULT
+ *        + animate back
+ */
+
+/**
  * Toggle checkbox that needs to be slided in order to confirm an action.
  *
  * @slot - Use the unnamed slot to add content to the toggle label.
