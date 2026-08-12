@@ -11,6 +11,7 @@ import { property, state } from 'lit/decorators.js';
 import { SbbButtonStaticElement } from '../button.pure.ts';
 import {
   forceType,
+  preventScrollOnSpacebarPress,
   SbbElement,
   type SbbElementType,
   SbbFormAssociatedCheckboxMixin,
@@ -18,6 +19,8 @@ import {
 import { SbbIconElement } from '../icon.pure.ts';
 
 import style from './toggle-slide.scss?inline';
+
+const keyboardPressDuration = 2000;
 
 /**
  * Toggle checkbox that needs to be slided in order to confirm an action.
@@ -72,10 +75,12 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
    * When the promise is rejected, the component enters the error state. Consumers can
    * provide an error message using the `error` slot.
    */
+  @property({ attribute: false })
   public accessor beforeToggle: (nextState: 'checked' | 'unchecked') => boolean | Promise<boolean> =
     () => true;
 
-  @state() private accessor _state: 'default' | 'sliding' | 'checking' = 'default';
+  @state() private accessor _state: 'default' | 'sliding' | 'keyboard-sliding' | 'checking' =
+    'default';
 
   private _buttonPointerOffsetLeft = 0;
   private _slideFraction = 0;
@@ -84,7 +89,9 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
   public constructor() {
     super();
 
-    this.internals.role = 'switch';
+    this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
+    this.addEventListener?.('keyup', (e) => this._handleKeyUp(e));
+    this.addEventListener?.('blur', () => this._handleBlur());
   }
 
   public override connectedCallback(): void {
@@ -112,6 +119,9 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
       if (this._slideFraction !== (this.checked ? 1 : 0)) {
         this._updateFraction(this.checked ? 1 : 0);
       }
+    } else if (name === 'disabled') {
+      this._cancelAnimation();
+      this._animateToCheckedState();
     }
   }
 
@@ -137,7 +147,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
   // Called during sliding to update the position of the button based on the pointer's position.
   private _handlePointerMove(event: PointerEvent): void {
-    if (this._state !== 'sliding') {
+    if (this._state !== 'sliding' || this.disabled) {
       return;
     }
 
@@ -151,9 +161,13 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
     }
 
     const threshold = Math.min(1, Math.max(0, this.snapThreshold));
-    if (this.checked ? this._slideFraction <= 1 - threshold : this._slideFraction >= threshold) {
+    if (
+      this.checked
+        ? this._slideFraction <= 1 - threshold
+        : this._slideFraction >= threshold && !this.disabled
+    ) {
       // Animate from threshold to 100% or to 0%
-      this._animateToCheckedState(this.checked ? 0 : 1);
+      this._animateToCheckedState({ target: this.checked ? 0 : 1 });
       this._requestToggleState();
     } else {
       this._state = 'default';
@@ -163,7 +177,11 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
   }
 
   private async _requestToggleState(): Promise<void> {
-    if (this._state !== 'sliding' && this._state !== 'default') {
+    if (
+      this._state !== 'sliding' &&
+      this._state !== 'keyboard-sliding' &&
+      this._state !== 'default'
+    ) {
       return;
     }
     this._state = 'checking';
@@ -214,6 +232,48 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
     this._updateFraction(position / trackLength);
   }
 
+  /** Handles the key down event on the slide button. */
+  private _handleKeyDown(event: KeyboardEvent): void {
+    preventScrollOnSpacebarPress(event);
+
+    // Only handle the initial Space keydown, not repeated keydown events.
+    if (this.disabled || this._state !== 'default' || event.key !== ' ' || event.repeat) {
+      return;
+    }
+    this._cancelAnimation();
+    this._state = 'keyboard-sliding';
+    this._animateToCheckedState({
+      target: this.checked ? 0 : 1,
+      withEase: false,
+      durationInMs: keyboardPressDuration,
+      // Trigger the checking state as soon as it reaches 1 or 0
+      onComplete: () => this._handleEndOfKeyboardActivation(),
+    });
+  }
+
+  private _handleKeyUp(event: KeyboardEvent): void {
+    if (this._state !== 'keyboard-sliding' || event.key !== ' ') {
+      return;
+    }
+    this._handleEndOfKeyboardActivation();
+  }
+
+  private _handleEndOfKeyboardActivation(): void {
+    if (this._slideFraction === (this.checked ? 0 : 1)) {
+      this._requestToggleState();
+    } else {
+      this._state = 'default';
+      this._animateToCheckedState();
+    }
+  }
+
+  private _handleBlur(): void {
+    if (this._state === 'keyboard-sliding') {
+      this._state = 'default';
+      this._animateToCheckedState();
+    }
+  }
+
   private _updateFraction(fraction: number): void {
     this._slideFraction = fraction;
     this.style.setProperty('--sbb-toggle-slide-fraction', this._slideFraction.toString());
@@ -224,30 +284,48 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
    * we need to animate programmatically instead of CSS.
    * With that the fraction is always the base for all visual states.
    */
-  private _animateToCheckedState(target = this.checked ? 1 : 0): void {
+  private _animateToCheckedState(options?: {
+    target?: 0 | 1;
+    durationInMs?: number;
+    withEase?: boolean;
+    onComplete?: () => void;
+  }): void {
     this._cancelAnimation();
 
-    const duration =
-      parseFloat(getComputedStyle(this).getPropertyValue('--sbb-toggle-slide-animation-duration')) *
-        1000 || 0;
+    const evaluatedOptions: {
+      target: 0 | 1;
+      durationInMs: number;
+      withEase: boolean;
+      onComplete?: () => void;
+    } = {
+      target: this.checked ? 1 : 0,
+      durationInMs:
+        parseFloat(
+          getComputedStyle(this).getPropertyValue('--sbb-toggle-slide-animation-duration'),
+        ) * 1000 || 0,
+      withEase: true,
+      ...options,
+    };
+
     const start = this._slideFraction;
     const startTime = performance.now();
 
-    if (duration <= 0) {
-      this._updateFraction(target);
+    if (evaluatedOptions.durationInMs <= 0) {
+      this._updateFraction(evaluatedOptions.target);
       return;
     }
 
     const animate = (time: number): void => {
-      const progress = Math.min((time - startTime) / duration, 1);
+      const progress = Math.min((time - startTime) / evaluatedOptions.durationInMs, 1);
 
       // Ease-out
-      const eased = 1 - Math.pow(1 - progress, 3);
-      this._updateFraction(start + (target - start) * eased);
+      const eased = evaluatedOptions.withEase ? 1 - Math.pow(1 - progress, 3) : progress;
+      this._updateFraction(start + (evaluatedOptions.target - start) * eased);
       if (progress < 1) {
         this._animationFrame = requestAnimationFrame(animate);
       } else {
         this._animationFrame = -1;
+        evaluatedOptions.onComplete?.();
       }
     };
 
