@@ -179,7 +179,7 @@ describe('inert', () => {
 
     describe('nested inside a wrapper', () => {
       let wrapperElement: HTMLDivElement;
-      let overlayOutlet: HTMLTemplateElement;
+      let overlayOutlet: HTMLDivElement;
       let siblingElement: HTMLDivElement;
 
       beforeEach(async () => {
@@ -194,7 +194,7 @@ describe('inert', () => {
         );
 
         wrapperElement = element.querySelector<HTMLDivElement>('#wrapper')!;
-        overlayOutlet = wrapperElement.querySelector<HTMLTemplateElement>('.sbb-overlay-outlet')!;
+        overlayOutlet = wrapperElement.querySelector<HTMLDivElement>('.sbb-overlay-outlet')!;
         siblingElement = element.querySelector<HTMLDivElement>('#sibling')!;
         inertControllerOverlay = createInertController(
           element.querySelector<HTMLDivElement>('#overlay')!,
@@ -222,7 +222,7 @@ describe('inert', () => {
 
     describe('nested through Shadow DOM', () => {
       let shadowWrapperElement: ShadowWrapperElement;
-      let announcerElement: HTMLStyleElement;
+      let announcerElement: HTMLDivElement;
       let siblingElement: HTMLDivElement;
 
       beforeEach(async () => {
@@ -235,7 +235,7 @@ describe('inert', () => {
 
         shadowWrapperElement =
           element.querySelector<ShadowWrapperElement>('shadow-wrapper-element')!;
-        announcerElement = shadowWrapperElement.shadowRoot!.querySelector<HTMLStyleElement>(
+        announcerElement = shadowWrapperElement.shadowRoot!.querySelector<HTMLDivElement>(
           '.sbb-live-announcer-element',
         )!;
         siblingElement =

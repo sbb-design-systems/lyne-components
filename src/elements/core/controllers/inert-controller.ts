@@ -143,8 +143,8 @@ export class SbbInertController implements ReactiveController {
   }
 
   /**
-   * Ignored elements (matching `IGNORED_ELEMENTS_SELECTOR`, e.g. `script`, `head`, `template`,
-   * `style`) must never be inert, no matter how deeply nested they are within the tree (looking
+   * Ignored elements (matching `DEEP_IGNORED_ELEMENTS_SELECTOR`)
+   * must never be inert, no matter how deeply nested they are within the tree (looking
    * from `document.documentElement` down). As inert is inherited by descendants, simply excluding
    * them from being marked inert themselves is not enough if one of their ancestors is inert. In
    * that case, the whole path from the ignored element up to `element` needs to stay "carved
@@ -165,7 +165,7 @@ export class SbbInertController implements ReactiveController {
 
   /**
    * Recursively (Shadow DOM piercing) checks whether `element` itself, or one of its
-   * descendants, matches `IGNORED_ELEMENTS_SELECTOR`.
+   * descendants, matches `DEEP_IGNORED_ELEMENTS_SELECTOR`.
    */
   private _containsIgnoredElement(element: HTMLElement): boolean {
     if (
@@ -176,11 +176,21 @@ export class SbbInertController implements ReactiveController {
       return true;
     }
 
-    return (
-      element.shadowRoot ? Array.from(element.shadowRoot.querySelectorAll<HTMLElement>('*')) : []
-    )
-      .concat(Array.from(element.querySelectorAll<HTMLElement>('*')))
-      .some((candidate) => !!candidate.shadowRoot && this._containsIgnoredElement(candidate));
+    for (const candidate of element.querySelectorAll<HTMLElement>('*')) {
+      if (candidate.shadowRoot && this._containsIgnoredElement(candidate)) {
+        return true;
+      }
+    }
+
+    if (element.shadowRoot) {
+      for (const candidate of element.shadowRoot.querySelectorAll<HTMLElement>('*')) {
+        if (candidate.shadowRoot && this._containsIgnoredElement(candidate)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   private _isHTMLElement(child: Node): child is HTMLElement {
