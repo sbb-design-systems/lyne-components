@@ -87,6 +87,8 @@ const values = [
 
 When using complex objects, it is possible to provide a custom `compareWith` function to control how values are matched:
 
+<!-- #region radio-group-compare-with-example -->
+
 ```ts
 const complexValues = [
   { id: 1, name: 'Option 1' },
@@ -105,6 +107,8 @@ const complexValues = [
   <sbb-radio-button .value="${complexValues[2]}">${complexValues[2].name}</sbb-radio-button>
 </sbb-radio-button-group>
 ```
+
+<!-- #endregion -->
 
 <!-- Auto Generated Below -->
 
