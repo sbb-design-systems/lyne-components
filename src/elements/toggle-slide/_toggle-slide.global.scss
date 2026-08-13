@@ -29,3 +29,7 @@ $theme: 'standard' !default;
   --sbb-toggle-slide-padding-inline: var(--sbb-spacing-fixed-4x);
   --sbb-toggle-slide-border-width: var(--sbb-border-width-1x);
 }
+
+@mixin forced-colors {
+  --sbb-toggle-slide-border-color-disabled: GrayText;
+}

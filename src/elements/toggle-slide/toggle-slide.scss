@@ -91,6 +91,20 @@
   // Calculate start offset based on the toggle slide fraction.
   // We need to percentually subtract also the button width.
   width: fit-content;
+
+  &:not([disabled]) {
+    --sbb-button-cursor: grab;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  :host(:state(checked)) & {
+    @media (forced-colors: active) {
+      --_border-color: Highlight !important;
+    }
+  }
 }
 
 .sbb-toggle-slide__call-to-actions {
@@ -126,6 +140,12 @@ span[slot='icon'] {
   display: block;
   width: var(--sbb-size-icon-ui-small);
   height: var(--sbb-size-icon-ui-small);
+
+  :host(:state(checked)) & {
+    @media (forced-colors: active) {
+      color: Highlight !important;
+    }
+  }
 }
 
 sbb-icon {
