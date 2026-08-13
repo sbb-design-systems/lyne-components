@@ -59,14 +59,6 @@
   }
 }
 
-.sbb-toggle-slide-meta {
-  padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-3x);
-
-  :host(:not(:is(:state(slotted-error), :state(slotted-hint)))) & {
-    display: none;
-  }
-}
-
 .sbb-toggle-slide__track {
   position: absolute;
   inset: 0;
@@ -166,5 +158,21 @@ sbb-icon[name='tick-small'] {
 
   :host(:state(checked)) & {
     opacity: 1;
+  }
+}
+
+.sbb-toggle-slide-meta {
+  padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-3x);
+
+  :host(:not(:is(:state(slotted-error), :state(slotted-hint)))) & {
+    display: none;
+  }
+}
+
+slot[name='hint'] {
+  font-size: var(--sbb-toggle-slide-hint-font-size);
+
+  :host(:state(has-error)) & {
+    display: none;
   }
 }

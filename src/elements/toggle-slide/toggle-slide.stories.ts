@@ -90,7 +90,7 @@ const defaultArgs: Args = {
   value: 'Value',
   name: 'name',
   'icon-name': undefined,
-  'aria-label': undefined,
+  'aria-label': 'Journey checkin state',
 };
 
 // We use property and attribute for `checked` to provide consistency to storybook controls.
@@ -99,11 +99,11 @@ const defaultArgs: Args = {
 
 const Template = ({ label, checked, ...args }: Args): TemplateResult => html`
   <sbb-toggle-slide
+    ${sbbSpread(args)}
     .checked=${checked}
     ?checked=${checked}
-    call-to-check-action="Zum Starten nach rechts ziehen"
-    call-to-uncheck-action="Zum Stoppen nach links ziehen"
-    ${sbbSpread(args)}
+    call-to-check-action="To start pull right"
+    call-to-uncheck-action="To stop pull left"
   >
     ${label}
     <sbb-error slot="error">Error</sbb-error>

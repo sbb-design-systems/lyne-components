@@ -3,6 +3,7 @@ import {
   html,
   nothing,
   type PropertyDeclaration,
+  type PropertyValues,
   type TemplateResult,
   unsafeCSS,
 } from 'lit';
@@ -10,11 +11,14 @@ import { property, state } from 'lit/decorators.js';
 
 import { SbbButtonStaticElement } from '../button.pure.ts';
 import {
+  appendAriaElements,
   forceType,
   preventScrollOnSpacebarPress,
+  removeAriaElements,
   SbbElement,
   type SbbElementType,
   SbbFormAssociatedCheckboxMixin,
+  screenReaderOnlyStyles,
 } from '../core.ts';
 import { SbbIconElement } from '../icon.pure.ts';
 
@@ -99,11 +103,12 @@ const minMovePxToTriggerSliding = 8;
  */
 export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckboxMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-toggle-slide';
-  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
   public static override elementDependencies: SbbElementType[] = [
     SbbIconElement,
     SbbButtonStaticElement,
   ];
+  public static override role = 'switch';
 
   /** Value of the form element. */
   @property()
@@ -147,8 +152,15 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
   @state() private accessor _state:
     'idle' | 'pointer-pending' | 'pointer-sliding' | 'activation-sliding' | 'validating' = 'idle';
 
+  /** It is used internally to get the `error` slot. */
+  @state() private accessor _errorElements: Element[] = [];
+
+  /** It is used internally to get the `hint` slot. */
+  @state() private accessor _hintElements: Element[] = [];
+
   private _slideFraction = 0;
   private _animationFrame: number = -1;
+  private _ariaLiveRefToggle = false;
 
   private _pointerInteraction: {
     longPressTimer: number;
@@ -176,6 +188,16 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
     this._resetPointerInteraction();
 
     super.disconnectedCallback();
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
+    // TODO: control order of describedByElements
+    this.internals.ariaDescribedByElements = appendAriaElements(
+      this.internals.ariaDescribedByElements,
+      this.shadowRoot?.querySelector?.('#interactiondescription') ?? null,
+    );
   }
 
   public override requestUpdate(
@@ -332,6 +354,8 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
     this._state = 'activation-sliding';
 
+    // TODO: re-think term. activation can be misleading.
+    this._announce('Activation running. Release to abort.');
     this._animateToCheckedState({
       target: this.checked ? 0 : 1,
       withEase: false,
@@ -346,6 +370,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
     this._state = 'activation-sliding';
 
+    this._announce('Activation running. Release to abort.');
     this._animateToCheckedState({
       target: this.checked ? 0 : 1,
       withEase: false,
@@ -364,6 +389,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
       this._validate();
     } else {
       this._state = 'idle';
+      this._announce('Activation aborted.');
       this._animateToCheckedState();
     }
   }
@@ -376,7 +402,10 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
     ) {
       return;
     }
+
     this._state = 'validating';
+    this.internals.ariaBusy = 'true';
+    this._announce('Validating.');
 
     try {
       const success = await this.beforeToggle(this.checked ? 'unchecked' : 'checked');
@@ -384,14 +413,18 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
       if (success) {
         this.toggleState('invalid', false);
         this.toggleByUserInteraction();
+        this._announce('');
       } else {
         this.toggleState('invalid', true);
         this._animateToCheckedState();
+        this._announce(`Validation failed. Reverted checked state to ${this.checked}.`);
       }
     } catch {
       this.toggleState('invalid', true);
       this._animateToCheckedState();
+      this._announce(`Validating failed. Reverted checked state to ${this.checked}.`);
     } finally {
+      this.internals.ariaBusy = null;
       this._state = 'idle';
     }
   }
@@ -501,8 +534,69 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
     }
   }
 
+  private _onSlotErrorChange(event: Event): void {
+    const errorElements = (event.target as HTMLSlotElement).assignedElements();
+    if (this.internals.ariaDescribedByElements?.length) {
+      this.internals.ariaDescribedByElements = removeAriaElements(
+        this.internals.ariaDescribedByElements,
+        ...(this._errorElements ?? []),
+        // Also remove hint elements since their visibility depends on error state
+        ...(this._hintElements ?? []),
+      );
+    }
+
+    this._errorElements = errorElements;
+    for (const el of this._errorElements) {
+      // Instead of defining a container with an aria-live region as expected, we had to change
+      // setting it for every slotted element to properly work in all browsers and screen reader combinations.
+      el.role ||= 'status';
+    }
+
+    this._assignAriaDescribedByElements();
+    this.toggleState('has-error', !!this._errorElements.length);
+  }
+
+  private _onSlotHintChange(event: Event): void {
+    const hintElements = (event.target as HTMLSlotElement).assignedElements();
+    if (this.internals.ariaDescribedByElements?.length && this._hintElements?.length) {
+      this.internals.ariaDescribedByElements = removeAriaElements(
+        this.internals.ariaDescribedByElements,
+        ...this._hintElements,
+      );
+    }
+
+    this._hintElements = hintElements;
+    this._assignAriaDescribedByElements();
+  }
+
+  private _assignAriaDescribedByElements(): void {
+    // Hint elements are only linked when there are no errors
+    const elements = this._errorElements.length ? this._errorElements : this._hintElements;
+    this.internals.ariaDescribedByElements = appendAriaElements(
+      this.internals.ariaDescribedByElements,
+      ...elements,
+    );
+  }
+
+  private _announce(message: string): void {
+    // TODO: store ref
+    const statusElement = this.shadowRoot?.querySelector('.sbb-toggle-slide__status');
+    if (!statusElement) {
+      return;
+    }
+    this._ariaLiveRefToggle = !this._ariaLiveRefToggle;
+
+    // If the text content remains the same, on VoiceOver the aria-live region is not announced a second time.
+    // In order to support reading on every opening, we toggle an invisible space.
+    statusElement.textContent = `${message}${this._ariaLiveRefToggle ? ' ' : ''}`; // Add random number to ensure screen reader announces the same string again
+  }
+
   protected override render(): TemplateResult {
-    return html`<span class="sbb-toggle-slide">
+    return html`<span class="sbb-toggle-slide" aria-hidden="true">
+        <span class="sbb-screen-reader-only" id="interactiondescription">
+          Press and hold space bar or finger to toggle the state.
+          ${this.checked ? this.callToUncheckAction : this.callToCheckAction}.
+        </span>
         <span class="sbb-toggle-slide__call-to-actions">
           <span class="sbb-toggle-slide__call-to-uncheck-action">${this.callToUncheckAction}</span>
           <span class="sbb-toggle-slide__call-to-check-action">${this.callToCheckAction}</span>
@@ -525,9 +619,10 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
         </span>
       </span>
       <span class="sbb-toggle-slide-meta">
-        <slot name="error"></slot>
-        <slot name="hint"></slot>
-      </span>`;
+        <slot name="hint" @slotchange=${this._onSlotHintChange}></slot>
+        <slot name="error" @slotchange=${this._onSlotErrorChange}></slot>
+      </span>
+      <span class="sbb-toggle-slide__status sbb-screen-reader-only" role="alert"></span>`;
   }
 }
 
