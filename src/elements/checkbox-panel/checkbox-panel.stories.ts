@@ -101,7 +101,8 @@ const defaultArgs: Args = {
   size: undefined,
 };
 
-const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
+const cardBadge = (): TemplateResult =>
+  html`<sbb-card-badge aria-label="Special offer">%</sbb-card-badge>`;
 
 const Template = ({ label, checked, ...args }: Args): TemplateResult =>
   html`<sbb-checkbox-panel .checked=${checked} ?checked=${checked} ${sbbSpread(args)}>
