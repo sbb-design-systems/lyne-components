@@ -7,11 +7,11 @@ import {
   visualDiffFocus,
 } from '../core/testing/private.ts';
 
-import type { SbbToggleCheckElement } from './toggle-check.component.ts';
+import type { SbbToggleSlideElement } from './toggle-slide.component.ts';
 
 import '../icon.ts';
 import '../title.ts';
-import '../toggle-check.ts';
+import '../toggle-slide.ts';
 
 describe(`sbb-toggle-slide`, () => {
   const longLabel = `For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -20,7 +20,7 @@ describe(`sbb-toggle-slide`, () => {
   Pellentesque urna justo, lacinia at velit eu, sagittis tempus nibh.
   Quisque vitae massa et turpis fermentum tristique.`;
 
-  const sizeCases = { size: [null, 'xs', 's', 'm'] satisfies SbbToggleCheckElement['size'][] };
+  const sizeCases = { size: [null, 's', 'm', 'l'] satisfies SbbToggleSlideElement['size'][] };
 
   const cases = {
     ...sizeCases,
@@ -33,9 +33,9 @@ describe(`sbb-toggle-slide`, () => {
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-toggle-check size=${size || nothing}>
+            <sbb-toggle-slide size=${size || nothing}>
               ${label !== 'Long label' ? label : longLabel}
-            </sbb-toggle-check>
+            </sbb-toggle-slide>
           `);
         }),
       );
@@ -60,9 +60,9 @@ describe(`sbb-toggle-slide`, () => {
             state.with(async (setup) => {
               await setup.withFixture(
                 html`
-                  <sbb-toggle-check ?disabled=${disabled} ?checked=${checked}>
+                  <sbb-toggle-slide ?disabled=${disabled} ?checked=${checked}>
                     Label
-                  </sbb-toggle-check>
+                  </sbb-toggle-slide>
                 `,
                 { forcedColors, darkMode },
               );
@@ -73,46 +73,9 @@ describe(`sbb-toggle-slide`, () => {
     );
 
     it(
-      `long label ${visualDiffFocus.name}`,
-      visualDiffFocus.with(async (setup) => {
-        await setup.withFixture(html`<sbb-toggle-check>${longLabel}</sbb-toggle-check>`);
-      }),
-    );
-
-    it(
-      'without label',
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`<sbb-toggle-check></sbb-toggle-check>`);
-      }),
-    );
-
-    it(
-      'label before',
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-toggle-check label-position="before">Label</sbb-toggle-check>
-        `);
-      }),
-    );
-
-    it(
       'custom icon',
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-toggle-check checked icon-name="face-smiling-small">Label</sbb-toggle-check>
-        `);
-      }),
-    );
-
-    it(
-      'custom icon slotted',
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-toggle-check checked>
-            Label
-            <sbb-icon slot="icon" name="eye-small"></sbb-icon>
-          </sbb-toggle-check>
-        `);
+        await setup.withFixture(html` <sbb-toggle-slide checked>Label</sbb-toggle-slide> `);
       }),
     );
 
@@ -121,14 +84,14 @@ describe(`sbb-toggle-slide`, () => {
         `block variant ${state.name}`,
         state.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-toggle-check label-position="before" style="display: block;">
+            <sbb-toggle-slide style="display: block;">
               <sbb-title level="5" style="margin: 0;">Accessible Connection.</sbb-title>
               <span class="sbb-text-s" style="color: var(--sbb-color-4);">
                 Show connections for accessible journeys.
               </span>
-            </sbb-toggle-check>
+            </sbb-toggle-slide>
             <p class="sbb-text-xs">
-              In this example <code>&lt;sbb-toggle-check&gt;</code> is converted to a block element
+              In this example <code>&lt;sbb-toggle-slide&gt;</code> is converted to a block element
               by setting <code>display: block</code>.
             </p>
           `);
