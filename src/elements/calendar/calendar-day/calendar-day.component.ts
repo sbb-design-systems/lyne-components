@@ -64,7 +64,7 @@ export class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<
 
   protected override setSelectedState(parent: SbbCalendarElement<T>): void {
     const selected =
-      !!this.value &&
+      this.dateAdapter.isValid(this.value) &&
       (parent.multiple
         ? (parent.value as Date[]).some((selDay) => this.dateAdapter.sameDate(this.value, selDay))
         : !!parent.value && this.dateAdapter.compareDate(this.value, parent.value) === 0);
@@ -81,11 +81,11 @@ export class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<
   }
 
   private _isActiveDate(dateFilter: ((date: T) => boolean) | null): boolean {
-    return dateFilter && this.value ? dateFilter(this.value) : true;
+    return dateFilter && this.dateAdapter.isValid(this.value) ? dateFilter(this.value!) : true;
   }
 
   private _isDayInRange(min: T | null, max: T | null): boolean {
-    if (!this.value || (!min && !max)) {
+    if (!this.dateAdapter.isValid(this.value) || (!min && !max)) {
       return true;
     }
     return this.dateAdapter.sameDate(this.value, this.dateAdapter.clampDate(this.value, min, max));
