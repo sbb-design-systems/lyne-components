@@ -112,7 +112,8 @@ const suffixStyle: Readonly<StyleInfo> = {
   marginInlineStart: 'auto',
 };
 
-const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
+const cardBadge = (): TemplateResult =>
+  html`<sbb-card-badge aria-label="Special offer">%</sbb-card-badge>`;
 
 const suffixAndSubtext = (size: string): TemplateResult => html`
   <span slot="subtext">Subtext</span>

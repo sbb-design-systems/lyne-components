@@ -94,7 +94,8 @@ const defaultArgs: Args = {
   'allow-empty-selection': false,
 };
 
-const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
+const cardBadge = (): TemplateResult =>
+  html`<sbb-card-badge aria-label="Special offer">%</sbb-card-badge>`;
 
 const DefaultTemplate = ({ labelBoldClass, ...args }: Args): TemplateResult =>
   html`<sbb-radio-button-panel ${sbbSpread(args)} name=${args.name || nothing}
