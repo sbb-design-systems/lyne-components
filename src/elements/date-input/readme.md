@@ -31,6 +31,9 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation
 
 The validation state can be checked via the `validityState` property.
 
+<!-- #region validation-end -->
+<!-- #endregion -->
+
 ### min/max
 
 It is possible to set a min and/or max date. Dates outside this range will
@@ -48,11 +51,15 @@ An attached `<sbb-datepicker>` will also respect these limits.
 You can pass a function to the `dateFilter` property, which will
 be used to validate the given date.
 
+<!-- #region date-filter-example -->
+
 ```ts
 const input = document.querySelector('sbb-date-input');
 // Exclude Saturday and Sunday
 input.dateFilter = (d: Date): boolean => d.getDay() !== 6 && d.getDay() !== 0;
 ```
+
+<!-- #region date-filter-example -->
 
 An attached `<sbb-datepicker>` will also use this function to
 calculate selectable dates.
