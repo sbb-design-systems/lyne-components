@@ -67,6 +67,7 @@ $theme: 'standard' !default;
 
     :is(.sbb-timetable-form-block, .sbb-timetable-form-mobile-block) {
       --sbb-form-field-focus-underline-z-index: 1;
+      --sbb-form-field-border-block-end-inset-inline: var(--sbb-form-field-padding-inline) 0;
 
       width: 100%;
       position: relative;
@@ -75,7 +76,7 @@ $theme: 'standard' !default;
         content: '';
         position: absolute;
         border-block-end: var(--sbb-border-width-1x) solid var(--sbb-border-color-4-inverted);
-        inset-inline: var(--sbb-form-field-padding-inline);
+        inset-inline: var(--sbb-form-field-border-block-end-inset-inline);
         inset-block-end: 0;
       }
 

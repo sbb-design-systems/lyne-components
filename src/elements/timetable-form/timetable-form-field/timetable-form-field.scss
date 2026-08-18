@@ -21,14 +21,17 @@
   --sbb-timetable-form-field-route-icon-translate: #{sbb.px-to-rem-build(-1)} 0; // the 'route-circle-start-small' is not perfectly symmetrical
 }
 
-:host(:where(:not(:last-of-type))) {
-  .sbb-form-field__wrapper::after {
-    content: '';
-    position: absolute;
-    border-block-end: var(--sbb-border-width-1x) var(--sbb-form-field-border-style)
-      var(--sbb-border-color-4-inverted);
-    inset-inline: var(--sbb-form-field-padding-inline);
-    inset-block-end: 0;
+.sbb-form-field__wrapper {
+  &::after {
+    inset-inline-end: 0;
+
+    :host(:where(:not(:last-of-type))) & {
+      content: '';
+    }
+
+    :host(:not(:state(focus), :state(disabled))) & {
+      border-color: var(--sbb-border-color-4-inverted);
+    }
   }
 }
 
