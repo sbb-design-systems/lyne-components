@@ -5,7 +5,7 @@ import type { SbbOpenCloseBaseElement } from '../base-elements/open-close-base-e
 const IGNORED_ELEMENTS = ['script', 'head', 'template', 'style'];
 
 const DEEP_IGNORED_ELEMENTS_SELECTOR =
-  'sbb-toast,.sbb-overlay-outlet,.sbb-live-announcer-element,.cdk-overlay-container';
+  'sbb-toast,.sbb-overlay-outlet,.sbb-live-announcer-element,.cdk-live-announcer-element,.cdk-overlay-container';
 const inertElements = new Set<HTMLElement>();
 const exemptedElements = new Set<HTMLElement>();
 const inertOverlays = new Set<HTMLElement>();
