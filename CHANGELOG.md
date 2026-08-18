@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.5.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.4.2...v5.5.0) (2026-08-18)
+
+
+### Features
+
+* **radio-group:** add compareWith property ([#5161](https://github.com/sbb-design-systems/lyne-components/issues/5161)) ([976ff98](https://github.com/sbb-design-systems/lyne-components/commit/976ff9812d5fc177022342e73a2ca75748d049e7))
+
+
+### Bug Fixes
+
+* avoid inerting relevant overlays that don't use the inert controller ([#5167](https://github.com/sbb-design-systems/lyne-components/issues/5167)) ([aaf6cad](https://github.com/sbb-design-systems/lyne-components/commit/aaf6cadee1fff7cfedd9a6abd8f6859bb2ae4c67)), closes [#5165](https://github.com/sbb-design-systems/lyne-components/issues/5165)
+
+
+### Documentation
+
+* add missing aria-label on card-badge ([#5170](https://github.com/sbb-design-systems/lyne-components/issues/5170)) ([8985292](https://github.com/sbb-design-systems/lyne-components/commit/8985292824072653fa497e5b22cff66d6b38633d))
+* **radio-group:** add region for new section ([#5164](https://github.com/sbb-design-systems/lyne-components/issues/5164)) ([7d77f4a](https://github.com/sbb-design-systems/lyne-components/commit/7d77f4a335361f35f29c7271bb0b93a0bfb3a1f1))
+
 ## [5.4.2](https://github.com/sbb-design-systems/lyne-components/compare/v5.4.1...v5.4.2) (2026-08-10)
 
 
