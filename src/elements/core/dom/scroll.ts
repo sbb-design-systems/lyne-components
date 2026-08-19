@@ -89,7 +89,7 @@ export class SbbScrollHandler {
     // Save any pre-existing styles to reapply them to the body when enabling the scroll again.
     this._position = document.body.style.position;
     this._top = document.body.style.top;
-    this._insetInline = document.body.style.insetInlineStart;
+    this._insetInline = document.body.style.insetInline;
     this._overflow = document.body.style.overflow;
 
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
@@ -103,7 +103,7 @@ export class SbbScrollHandler {
     // iOS Safari can still allow touch scrolling/rubber-banding in some edge cases even with the
     // styles above, so we additionally intercept touch events as a safety net.
     document.addEventListener('touchstart', this._touchStart, { passive: true });
-    document.addEventListener('touchmove', this._touchMove, { passive: false });
+    document.addEventListener('touchmove', this._touchMove);
 
     document.body.toggleAttribute('data-sbb-scroll-disabled', true);
   }
