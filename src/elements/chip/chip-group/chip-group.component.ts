@@ -290,7 +290,7 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
 
   /**
    * Listen for keyboard events on the chip elements
-   **/
+   */
   private _onChipKeyDown(event: KeyboardEvent): void {
     const eventTarget = event.target as SbbChipElement<T>;
     if (eventTarget.localName !== 'sbb-chip') {
@@ -375,6 +375,7 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
     const chips = this._enabledChipElements();
     chip.remove();
     this._emitInputEvents();
+    chip['dispatchDeleteEvent']();
     this._focusChip(chips.indexOf(chip)); // Focus the next chip
   }
 
