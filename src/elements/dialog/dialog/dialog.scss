@@ -28,17 +28,7 @@
 
 :host(:is(:state(state-opening), :state(state-opened))) {
   --sbb-dialog-pointer-events: all;
-  --sbb-dialog-backdrop-color: var(--sbb-background-color-3);
-  --sbb-dialog-backdrop-visibility: visible;
   --sbb-dialog-backdrop-pointer-events: all;
-}
-
-:host([backdrop='translucent']:is(:state(state-opening), :state(state-opened))) {
-  --sbb-dialog-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 50%, transparent);
-}
-
-:host([backdrop='opaque']:not([negative]):is(:state(state-opening), :state(state-opened))) {
-  --sbb-dialog-backdrop-color: var(--sbb-background-color-3);
 }
 
 :host(:not([negative])) {
@@ -57,9 +47,17 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
+:host([backdrop='translucent']) {
+  --sbb-dialog-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 50%, transparent);
+}
+
 :host(:state(bottom-shadow)) {
   --sbb-dialog-block-end-box-shadow: var(--_sbb-dialog-block-shadow);
   --sbb-dialog-actions-border-color: transparent;
+}
+
+:host(:state(state-closing)) {
+  --sbb-dialog-backdrop-animation-name: backdrop-close;
 }
 
 :host(:not(:state(state-closed))) {
@@ -76,19 +74,20 @@
   inset-block: var(--sbb-dialog-inset-block);
   inset-inline: var(--sbb-dialog-inset-inline);
 
-  // Dialog backdrop (not visible on mobile)
+  // Dialog backdrop
   &::before {
     content: '';
-    visibility: var(--sbb-dialog-backdrop-visibility);
     pointer-events: var(--sbb-dialog-backdrop-pointer-events);
     position: fixed;
     inset-block: var(--sbb-dialog-inset-block);
     inset-inline: var(--sbb-dialog-inset-inline);
-    background-color: var(--sbb-dialog-backdrop-color);
-    transition: {
+    background-color: var(--sbb-dialog-backdrop-color, transparent);
+
+    animation: {
+      name: var(--sbb-dialog-backdrop-animation-name, backdrop-open);
       duration: var(--sbb-dialog-animation-duration);
       timing-function: var(--sbb-dialog-animation-easing);
-      property: background-color, visibility;
+      fill-mode: forwards;
     }
   }
 }
@@ -180,5 +179,19 @@
   to {
     opacity: 0;
     translate: 0 var(--sbb-dialog-translate-y, 100%);
+  }
+}
+
+@keyframes backdrop-open {
+  from {
+    background-color: transparent;
+    visibility: visible;
+  }
+}
+
+@keyframes backdrop-close {
+  to {
+    background-color: transparent;
+    visibility: hidden;
   }
 }
