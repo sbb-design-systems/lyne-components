@@ -247,15 +247,21 @@
       }
     }
 
+    &::after {
+      position: absolute;
+      border-block-end: var(--sbb-border-width-1x) var(--sbb-form-field-border-style)
+        var(--sbb-form-field-border-color);
+      inset-inline: var(
+        --sbb-form-field-border-block-end-inset-inline,
+        var(--sbb-form-field-padding-inline)
+      );
+      inset-block-end: 0;
+      z-index: var(--sbb-form-field-focus-underline-z-index, initial);
+    }
+
     :host(:where(:state(focus), :state(disabled))[borderless]) & {
       &::after {
         content: '';
-        position: absolute;
-        border-block-end: var(--sbb-border-width-1x) var(--sbb-form-field-border-style)
-          var(--sbb-form-field-border-color);
-        inset-inline: var(--sbb-form-field-padding-inline);
-        inset-block-end: 0;
-        z-index: var(--sbb-form-field-focus-underline-z-index, initial);
       }
     }
   }
