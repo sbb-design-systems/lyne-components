@@ -1,0 +1,46 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-toggle-slide-element-height-s: var(--sbb-size-element-xs);
+  --sbb-toggle-slide-element-height-m: var(--sbb-size-element-s);
+  --sbb-toggle-slide-element-height-l: var(--sbb-size-element-m);
+  --sbb-toggle-slide-element-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-toggle-slide-element-height-m),
+        'lean': var(--sbb-toggle-slide-element-height-s),
+      ),
+      $theme
+    )};
+  --sbb-toggle-slide-button-dimension-s: var(--sbb-size-element-xxxs);
+  --sbb-toggle-slide-button-dimension-m: var(--sbb-size-element-xs);
+  --sbb-toggle-slide-button-dimension-l: #{sbb.px-to-rem-build(40)};
+  --sbb-toggle-slide-button-dimension: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-toggle-slide-button-dimension-m),
+        'lean': var(--sbb-toggle-slide-button-dimension-s),
+      ),
+      $theme
+    )};
+  --sbb-toggle-slide-font-size: var(--sbb-text-font-size-xs);
+  --sbb-toggle-slide-border-color: var(--sbb-border-color-5);
+  --sbb-toggle-slide-border-color-disabled: light-dark(
+    var(--sbb-color-graphite),
+    var(--sbb-color-smoke)
+  );
+  --sbb-toggle-slide-background-color: var(--sbb-background-color-1);
+  --sbb-toggle-slide-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-toggle-slide-color-disabled: var(--sbb-color-5);
+  --sbb-toggle-slide-padding-inline: var(--sbb-spacing-fixed-4x);
+  --sbb-toggle-slide-border-width: var(--sbb-border-width-1x);
+  --sbb-toggle-slide-hint-font-size: var(--sbb-text-size-xxs);
+}
+
+@mixin breakpoint-large {
+  --sbb-toggle-slide-button-dimension-l: #{sbb.px-to-rem-build(48)};
+}
+
+@mixin forced-colors {
+  --sbb-toggle-slide-border-color-disabled: GrayText;
+}

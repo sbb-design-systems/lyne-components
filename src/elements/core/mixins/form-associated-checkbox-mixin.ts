@@ -28,7 +28,9 @@ export declare abstract class SbbFormAssociatedCheckboxMixinType extends SbbDisa
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
 
+  protected setupEventListeners: () => void;
   protected isRequiredExternally(): boolean;
+  protected toggleByUserInteraction(): void;
   protected withUserInteraction?(): void;
   protected updateFormValue(): void;
 }
@@ -93,13 +95,6 @@ export const SbbFormAssociatedCheckboxMixin = <
       return 'checkbox';
     }
 
-    protected constructor() {
-      super();
-      this.addEventListener?.('click', this._handleUserInteraction);
-      this.addEventListener?.('keydown', preventScrollOnSpacebarPress);
-      this.addEventListener?.('keyup', this._handleKeyboardInteraction);
-    }
-
     public override connectedCallback(): void {
       super.connectedCallback();
       this.tabIndex = 0;
@@ -144,6 +139,13 @@ export const SbbFormAssociatedCheckboxMixin = <
       }
     }
 
+    /** Binds pointer and keyboard events */
+    protected setupEventListeners(): void {
+      this.addEventListener?.('click', this.toggleByUserInteraction);
+      this.addEventListener?.('keydown', preventScrollOnSpacebarPress);
+      this.addEventListener?.('keyup', this._handleKeyboardInteraction);
+    }
+
     /**
      * Additional logic which is being executed when user
      * interaction happens and state is not disabled.
@@ -181,12 +183,12 @@ export const SbbFormAssociatedCheckboxMixin = <
     /** Method triggered on keyboard user interaction with checkbox. */
     private _handleKeyboardInteraction = (event: KeyboardEvent): void => {
       if (event.key === ' ') {
-        this._handleUserInteraction();
+        this.toggleByUserInteraction();
       }
     };
 
     /** Method triggered on user interaction with checkbox. */
-    private _handleUserInteraction = (): void => {
+    protected toggleByUserInteraction = (): void => {
       if (this.disabled) {
         return;
       }

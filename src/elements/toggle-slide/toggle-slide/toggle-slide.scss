@@ -1,0 +1,181 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --sbb-toggle-slide-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-12x)
+  );
+
+  display: flex;
+  flex-direction: column;
+  width: 22rem;
+  max-width: 100%;
+  color: var(--sbb-toggle-slide-color);
+  font-size: var(--sbb-toggle-slide-font-size);
+  outline: none !important;
+}
+
+:host([size='s']) {
+  --sbb-toggle-slide-element-height: var(--sbb-toggle-slide-element-height-s);
+  --sbb-toggle-slide-button-dimension: var(--sbb-toggle-slide-button-dimension-s);
+}
+
+:host([size='m']) {
+  --sbb-toggle-slide-element-height: var(--sbb-toggle-slide-element-height-m);
+  --sbb-toggle-slide-button-dimension: var(--sbb-toggle-slide-button-dimension-m);
+}
+
+:host([size='l']) {
+  --sbb-toggle-slide-element-height: var(--sbb-toggle-slide-element-height-l);
+  --sbb-toggle-slide-button-dimension: var(--sbb-toggle-slide-button-dimension-l);
+}
+
+:host(:is(:invalid, :state(invalid))) {
+  --sbb-toggle-slide-border-color: var(--sbb-color-error);
+}
+
+:host(:disabled) {
+  color: var(--sbb-toggle-slide-color-disabled);
+}
+
+.sbb-toggle-slide {
+  display: flex;
+  width: 100%;
+  height: var(--sbb-toggle-slide-element-height);
+  position: relative;
+  border: var(--sbb-toggle-slide-border-width) solid var(--sbb-toggle-slide-border-color);
+  border-radius: var(--sbb-border-radius-infinity);
+  background-color: var(--sbb-toggle-slide-background-color);
+
+  // Avoid horizontal scrolling during swiping
+  touch-action: pan-y;
+
+  :host(:focus-visible) & {
+    @include sbb.focus-outline;
+  }
+
+  :host(:disabled) & {
+    border-color: var(--sbb-toggle-slide-border-color-disabled);
+  }
+}
+
+.sbb-toggle-slide__track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+
+  // Calculate the needed padding from the track to the button.
+  // Because of absolute positioning we use margin here.
+  margin: calc(
+    (var(--sbb-toggle-slide-element-height) - var(--sbb-toggle-slide-button-dimension)) / 2
+  );
+}
+
+.sbb-toggle-slide__button {
+  --sbb-button-min-height: var(--sbb-toggle-slide-button-dimension);
+
+  position: absolute;
+  inset-inline: calc(
+      var(--sbb-toggle-slide-fraction, 0) * 100% -
+        (var(--sbb-toggle-slide-fraction, 0) * var(--sbb-toggle-slide-button-dimension))
+    )
+    0;
+
+  // Calculate start offset based on the toggle slide fraction.
+  // We need to percentually subtract also the button width.
+  width: fit-content;
+
+  &:not([disabled], [loading]) {
+    --sbb-button-cursor: grab;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  :host(:state(checked)) & {
+    @media (forced-colors: active) {
+      --_border-color: Highlight !important;
+    }
+  }
+}
+
+.sbb-toggle-slide__call-to-actions {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-2x);
+  align-items: center;
+  padding-inline: var(--sbb-toggle-slide-padding-inline);
+  pointer-events: none;
+  width: 100%;
+  overflow: hidden;
+}
+
+.sbb-toggle-slide__call-to-check-action,
+.sbb-toggle-slide__call-to-uncheck-action {
+  text-wrap: balance;
+  flex: 1 1 50%;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.sbb-toggle-slide__call-to-check-action {
+  text-align: end;
+  opacity: calc(1 - var(--sbb-toggle-slide-fraction, 0));
+}
+
+.sbb-toggle-slide__call-to-uncheck-action {
+  opacity: calc(var(--sbb-toggle-slide-fraction, 0));
+}
+
+span[slot='icon'] {
+  position: absolute;
+  display: block;
+  width: var(--sbb-size-icon-ui-small);
+  height: var(--sbb-size-icon-ui-small);
+
+  :host(:state(checked)) & {
+    @media (forced-colors: active) {
+      color: Highlight !important;
+    }
+  }
+}
+
+sbb-icon {
+  position: absolute;
+  transition: opacity var(--sbb-toggle-slide-animation-duration);
+}
+
+sbb-icon[name='arrow-right-small'] {
+  opacity: 1;
+
+  :host(:state(checked)) & {
+    opacity: 0;
+  }
+}
+
+sbb-icon[name='tick-small'] {
+  opacity: 0;
+
+  :host(:state(checked)) & {
+    opacity: 1;
+  }
+}
+
+.sbb-toggle-slide-meta {
+  padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-3x);
+
+  :host(:not(:is(:state(slotted-error), :state(slotted-hint)))) & {
+    display: none;
+  }
+}
+
+slot[name='hint'] {
+  font-size: var(--sbb-toggle-slide-hint-font-size);
+
+  :host(:state(has-error)) & {
+    display: none;
+  }
+}
