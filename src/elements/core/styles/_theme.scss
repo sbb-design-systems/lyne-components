@@ -330,6 +330,7 @@ $theme: 'standard' !default;
     @include teaser-panel.breakpoint-large;
     @include teaser-product.breakpoint-large;
     @include time-input.breakpoint-large;
+    @include toggle-slide.breakpoint-large;
   }
   @include sbb.mq($from: ultra) {
     @include sbb-css-tokens.breakpoint-ultra;

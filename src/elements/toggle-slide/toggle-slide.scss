@@ -16,18 +16,18 @@
 }
 
 :host([size='s']) {
-  --sbb-toggle-slide-element-height: var(--sbb-size-element-s);
-  --sbb-toggle-slide-button-dimension: var(--sbb-button-min-height-size-s);
+  --sbb-toggle-slide-element-height: var(--sbb-toggle-slide-element-height-s);
+  --sbb-toggle-slide-button-dimension: var(--sbb-toggle-slide-button-dimension-s);
 }
 
 :host([size='m']) {
-  --sbb-toggle-slide-element-height: var(--sbb-size-element-m);
-  --sbb-toggle-slide-button-dimension: var(--sbb-button-min-height-size-m);
+  --sbb-toggle-slide-element-height: var(--sbb-toggle-slide-element-height-m);
+  --sbb-toggle-slide-button-dimension: var(--sbb-toggle-slide-button-dimension-m);
 }
 
 :host([size='l']) {
-  --sbb-toggle-slide-element-height: var(--sbb-size-element-l);
-  --sbb-toggle-slide-button-dimension: var(--sbb-button-min-height-size-l);
+  --sbb-toggle-slide-element-height: var(--sbb-toggle-slide-element-height-l);
+  --sbb-toggle-slide-button-dimension: var(--sbb-toggle-slide-button-dimension-l);
 }
 
 :host(:is(:invalid, :state(invalid))) {
@@ -73,6 +73,8 @@
 }
 
 .sbb-toggle-slide__button {
+  --sbb-button-min-height: var(--sbb-toggle-slide-button-dimension);
+
   position: absolute;
   inset-inline: calc(
       var(--sbb-toggle-slide-fraction, 0) * 100% -
@@ -84,7 +86,7 @@
   // We need to percentually subtract also the button width.
   width: fit-content;
 
-  &:not([disabled]) {
+  &:not([disabled], [loading]) {
     --sbb-button-cursor: grab;
   }
 
@@ -129,6 +131,7 @@
 }
 
 span[slot='icon'] {
+  position: absolute;
   display: block;
   width: var(--sbb-size-icon-ui-small);
   height: var(--sbb-size-icon-ui-small);
