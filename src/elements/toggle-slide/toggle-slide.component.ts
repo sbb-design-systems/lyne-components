@@ -15,6 +15,7 @@ import {
   forceType,
   preventScrollOnSpacebarPress,
   removeAriaElements,
+  SbbDynamicStylesheetMixin,
   SbbElement,
   type SbbElementType,
   SbbFormAssociatedCheckboxMixin,
@@ -24,16 +25,45 @@ import { SbbIconElement } from '../icon.pure.ts';
 
 import style from './toggle-slide.scss?inline';
 
-const activationPressDuration = 2000;
+const activationPressDuration = 1500;
 const longPressDelay = 500;
 const minMovePxToTriggerSliding = 8;
+
+/**
+ * An event that is dispatched when the user is about to change the checked state.
+ * The event is cancelable, so the consumer can prevent the state change by calling `preventDefault()`.
+ * For asynchronous validation, the consumer can call `preventDefaultConditionally()` with a promise that resolves to a boolean.
+ */
+export class SbbToggleSlideValidateEvent extends Event {
+  /**
+   * The prevent-default condition if `preventDefaultConditionally()` was called.
+   */
+  public get condition(): Promise<boolean> | null {
+    return this._condition ?? null;
+  }
+  private _condition?: Promise<boolean>;
+
+  public constructor() {
+    super('validate', { bubbles: true, composed: true, cancelable: true });
+  }
+
+  /**
+   * When validation needs to happen asynchronously, this method can be called with a
+   * promise that resolves to a boolean.
+   * If the promise resolves to true, then the validation is successful and the checked state is changed.
+   * If the promise resolves to false or is rejected, then the validation fails and the checked state remains unchanged.
+   */
+  public preventDefaultConditionally(condition: Promise<boolean>): void {
+    this._condition = condition;
+  }
+}
 
 /**
  * Possible states:
  *
  *                                 ┌─────────────────┐
  *                                 │                 │
- *                                 │     DEFAULT     │
+ *                                 │      IDLE       │
  *                                 │                 │
  *                                 └────────┬────────┘
  *                                          │
@@ -41,53 +71,54 @@ const minMovePxToTriggerSliding = 8;
  *              │                           │                           │
  *         pointerdown                Space keydown                 disabled
  *              │                           │
- *              ▼                           ▼
- *       ┌──────────────┐          ┌──────────────────┐
- *       │              │          │                  │
- *       │    PENDING   │          │ ACTIVATION-      │
- *       │              │          │    SLIDING       │
- *       └──────┬───────┘          └────────┬─────────┘
+ *              ▼                           │
+ *       ┌──────────────┐                   │
+ *       │              │                   │
+ *       │    PENDING   │                   │
+ *       │              │                   │
+ *       └──────┬───────┘                   │
  *              │                           │
  *        ┌─────┴─────┐                     │
  *        │           │                     │
- *     > 8 px      500 ms              Space keyup
+ *     > 8 px      500 ms                   │
  *        │           │                     │
- *        ▼           ▼                     │
- *  ┌───────────┐ ┌──────────────────┐      │
- *  │           │ │                  │      │
- *  │  SLIDING  │ │ ACTIVATION-      │◄─────┘
- *  │           │ │    SLIDING       │
- *  └─────┬─────┘ │                  │
- *        │       └────────┬─────────┘
+ *        ▼           ▼                     ▼
+ *  ┌───────────┐ ┌─────────────────────────────┐
+ *  │           │ │                             │
+ *  │  SLIDING  │ │     ACTIVATION-SLIDING      │
+ *  │           │ │                             │
+ *  └─────┬─────┘ └────────┬────────────────────┘
  *        │                │
- *        │ pointerup      │ completion
+ *        │                │
+ *    pointerup  Space keyup / pointerup
  *        │                │
  *        └───────┬────────┘
  *                ▼
- *        ┌─────────────────┐
- *        │                 │
- *        │   VALIDATING    │
- *        │                 │
- *        └────────┬────────┘
- *                 │
- *            beforeToggle()
- *                 │
- *           ┌─────┴─────┐
+ *        ┌────────────────┐
+ *        │                │
+ *        │   VALIDATING   │
+ *        │                │
+ *        └───────┬────────┘
+ *                │
+ *     validate-event validation
+ *                │
+ *           ┌────┴──────┐
  *           │           │
  *         true       false / reject
  *           │           │
- *           ▼           ▼
- *       ┌────────┐  ┌──────────────┐
- *       │ DEFAULT │  │    DEFAULT   │
- *       │         │  │   + invalid  │
- *       └────────┘  └──────────────┘
+ *           ▼           │
+ * CHECKED STATE CHANGE  │
+ *           │           ▼
+ *       ┌────────────────┐
+ *       │      IDLE      │
+ *       └────────────────┘
  *
  *
  *   Any active pointer state
  *           │
  *           │ pointercancel / blur
  *           ▼
- *        DEFAULT
+ *          IDLE
  *        + animate back
  */
 
@@ -99,9 +130,13 @@ const minMovePxToTriggerSliding = 8;
  * @slot error - Slot `<sbb-error>` components to indicate a possible error.
  * @event {Event} change - The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
  * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
+ * @event {SbbToggleSlideValidateEvent} validate - An event that is dispatched when the user is about to change the checked state. The event is cancelable, so the consumer can prevent the state change by calling `preventDefault()`. For asynchronous validation, the consumer can call `preventDefaultConditionally()` with a promise that resolves to a boolean.
+ *
  * @overrideType value - (T = string) | null
  */
-export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckboxMixin(SbbElement) {
+export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin(
+  SbbFormAssociatedCheckboxMixin(SbbElement),
+) {
   public static override readonly elementName: string = 'sbb-toggle-slide';
   public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
   public static override elementDependencies: SbbElementType[] = [
@@ -109,6 +144,9 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
     SbbButtonStaticElement,
   ];
   public static override role = 'switch';
+  public static readonly events = {
+    validate: 'validate',
+  } as const;
 
   /** Value of the form element. */
   @property()
@@ -138,17 +176,6 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
   @property({ attribute: 'snap-threshold', type: Number })
   public accessor snapThreshold: number = 0.9;
 
-  /**
-   * Function that is called when the user slides far enough to change the checked state.
-   * When a promise is returned, the button is shown in a loading state while the promise is pending.
-   * When the promise resolves, the checked or unchecked state is committed.
-   * When the promise is rejected, the component enters the error state. Consumers can
-   * provide an error message using the `error` slot.
-   */
-  @property({ attribute: false })
-  public accessor beforeToggle: (nextState: 'checked' | 'unchecked') => boolean | Promise<boolean> =
-    () => true;
-
   @state() private accessor _state:
     'idle' | 'pointer-pending' | 'pointer-sliding' | 'activation-sliding' | 'validating' = 'idle';
 
@@ -168,6 +195,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
     downY: number;
     buttonPointerOffsetLeft: number;
   } | null = null;
+  private _hostRules?: CSSStyleRule | null;
 
   public constructor() {
     super();
@@ -354,8 +382,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
     this._state = 'activation-sliding';
 
-    // TODO: re-think term. activation can be misleading.
-    this._announce('Activation running. Release to abort.');
+    this._announce('Activating'); // TODO: Deactivating
     this._animateToCheckedState({
       target: this.checked ? 0 : 1,
       withEase: false,
@@ -370,7 +397,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
     this._state = 'activation-sliding';
 
-    this._announce('Activation running. Release to abort.');
+    this._announce('Activating'); // TODO: Deactivating
     this._animateToCheckedState({
       target: this.checked ? 0 : 1,
       withEase: false,
@@ -389,7 +416,7 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
       this._validate();
     } else {
       this._state = 'idle';
-      this._announce('Activation aborted.');
+      this._announce('Activation aborted'); // TODO: Deactivating
       this._animateToCheckedState();
     }
   }
@@ -405,28 +432,30 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
     this._state = 'validating';
     this.internals.ariaBusy = 'true';
-    this._announce('Validating.');
 
-    try {
-      const success = await this.beforeToggle(this.checked ? 'unchecked' : 'checked');
-
-      if (success) {
-        this.toggleState('invalid', false);
-        this.toggleByUserInteraction();
-        this._announce('');
-      } else {
-        this.toggleState('invalid', true);
-        this._animateToCheckedState();
-        this._announce(`Validation failed. Reverted checked state to ${this.checked}.`);
-      }
-    } catch {
-      this.toggleState('invalid', true);
+    const success = await this._dispatchValidateEvent();
+    if (success) {
+      this.toggleByUserInteraction();
+      this._announce('');
+    } else {
       this._animateToCheckedState();
-      this._announce(`Validating failed. Reverted checked state to ${this.checked}.`);
-    } finally {
-      this.internals.ariaBusy = null;
-      this._state = 'idle';
+      this._announce(`Validation failed. Falling back to initial state.`);
     }
+
+    this.internals.ariaBusy = null;
+    this._state = 'idle';
+  }
+
+  private async _dispatchValidateEvent(): Promise<boolean> {
+    const validateEvent = new SbbToggleSlideValidateEvent();
+    const validateResult = this.dispatchEvent(validateEvent);
+
+    if (!validateEvent.condition) {
+      return validateResult;
+    }
+
+    this._announce('Validating');
+    return await validateEvent.condition.catch(() => false);
   }
 
   private _updatePosition(event: PointerEvent): void {
@@ -452,7 +481,11 @@ export class SbbToggleSlideElement<T = string> extends SbbFormAssociatedCheckbox
 
   private _updateFraction(fraction: number): void {
     this._slideFraction = fraction;
-    this.style.setProperty('--sbb-toggle-slide-fraction', this._slideFraction.toString());
+
+    (this._hostRules ??= this.createHostRules())?.style.setProperty(
+      '--sbb-toggle-slide-fraction',
+      `${this._slideFraction}`,
+    );
   }
 
   /**

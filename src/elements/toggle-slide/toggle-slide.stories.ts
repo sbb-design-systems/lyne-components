@@ -7,7 +7,10 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../docs/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import type { SbbToggleSlideElement } from './toggle-slide.component.ts';
+import type {
+  SbbToggleSlideValidateEvent,
+  SbbToggleSlideElement,
+} from './toggle-slide.component.ts';
 
 import '../toggle-slide.ts';
 import '../button.ts';
@@ -104,9 +107,16 @@ const Template = ({ label, checked, ...args }: Args): TemplateResult => html`
     ?checked=${checked}
     call-to-check-action="To start pull right"
     call-to-uncheck-action="To stop pull left"
+    @validate=${(e: SbbToggleSlideValidateEvent) => {
+      // Example for asynchronous validation
+      e.preventDefaultConditionally(
+        new Promise((resolve) => {
+          setTimeout(() => resolve(true), 1500);
+        }),
+      );
+    }}
   >
     ${label}
-    <sbb-error slot="error">Error</sbb-error>
     <span slot="hint">Hint</span>
   </sbb-toggle-slide>
 `;
