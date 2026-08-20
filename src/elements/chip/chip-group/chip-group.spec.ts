@@ -7,7 +7,7 @@ import { fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
 import type { SbbOptionElement } from '../../option.ts';
-import type { SbbChipElement } from '../chip/chip.component.ts';
+import { SbbChipElement } from '../chip/chip.component.ts';
 
 import { SbbChipGroupElement, type SbbChipInputTokenEndEvent } from './chip-group.component.ts';
 
@@ -108,6 +108,7 @@ describe('sbb-chip-group', () => {
       const toDeleteValue = toDelete.value;
       const inputEventSpy = new EventSpy(SbbChipGroupElement.events.input, element);
       const changeEventSpy = new EventSpy(SbbChipGroupElement.events.change, element);
+      const deleteEventSpy = new EventSpy(SbbChipElement.events.delete, toDelete);
 
       // Click the delete button
       (toDelete.shadowRoot!.querySelector('.sbb-chip__delete') as HTMLElement).click();
@@ -120,6 +121,7 @@ describe('sbb-chip-group', () => {
       ).to.be.true;
       expect(inputEventSpy.count).to.be.equal(1);
       expect(changeEventSpy.count).to.be.equal(1);
+      expect(deleteEventSpy.count).to.be.equal(1);
 
       // Except the new last chip to be focused
       expect((document.activeElement as SbbChipElement).value).to.be.equal(chips[1]!.value);
@@ -340,18 +342,22 @@ describe('sbb-chip-group', () => {
       });
 
       it('should remove chip on delete key', async () => {
+        const deleteEventSpies = chips.map((c) => new EventSpy(SbbChipElement.events.delete, c));
+
         input.focus();
         await sendKeys({ type: 'a' });
         await sendKeys({ press: 'Backspace' });
 
         // If the input is not empty, it should not move the focus to the chip
         expect(document.activeElement!.localName).to.be.equal('input');
+        expect(deleteEventSpies.every((spy) => spy.count === 0)).to.be.true;
 
         await sendKeys({ press: 'Backspace' });
 
         // Should focus the last enabled chip
         expect(document.activeElement!.localName).to.be.equal('sbb-chip');
         expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-1)!.value);
+        expect(deleteEventSpies.every((spy) => spy.count === 0)).to.be.true;
 
         input.focus();
         await sendKeys({ press: 'ArrowLeft' });
@@ -360,7 +366,9 @@ describe('sbb-chip-group', () => {
         expect(document.activeElement!.localName).to.be.equal('sbb-chip');
         expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-1)!.value);
 
-        const focusedChipValue = (document.activeElement as SbbChipElement).value;
+        const focusedChip = document.activeElement as SbbChipElement;
+        const focusedChipValue = focusedChip.value;
+        const focusedChipDeleteSpy = deleteEventSpies[chips.indexOf(focusedChip)];
         await sendKeys({ press: 'Backspace' });
         await waitForLitRender(element);
 
@@ -368,6 +376,12 @@ describe('sbb-chip-group', () => {
         expect(element.value).not.to.contain(focusedChipValue);
         expect(document.activeElement!.localName).to.be.equal('sbb-chip');
         expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-2)!.value);
+        expect(focusedChipDeleteSpy.count).to.be.equal(1);
+        expect(
+          deleteEventSpies
+            .filter((spy) => spy !== focusedChipDeleteSpy)
+            .every((spy) => spy.count === 0),
+        ).to.be.true;
 
         // Deletes the two remaining chips
         await sendKeys({ press: 'Backspace' });
@@ -376,6 +390,8 @@ describe('sbb-chip-group', () => {
 
         // Expect the input to be focused
         expect(document.activeElement!.localName).to.be.equal('input');
+        // All chips should have fired their 'delete' event exactly once
+        expect(deleteEventSpies.every((spy) => spy.count === 1)).to.be.true;
       });
 
       it('should prevent delete on readonly chip', async () => {
