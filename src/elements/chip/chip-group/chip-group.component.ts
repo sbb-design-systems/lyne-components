@@ -373,9 +373,9 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
 
   private _deleteChip(chip: SbbChipElement<T>): void {
     const chips = this._enabledChipElements();
+    chip['dispatchDeleteEvent']();
     chip.remove();
     this._emitInputEvents();
-    chip['dispatchDeleteEvent']();
     this._focusChip(chips.indexOf(chip)); // Focus the next chip
   }
 
