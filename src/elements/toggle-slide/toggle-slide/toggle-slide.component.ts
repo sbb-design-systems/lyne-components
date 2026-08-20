@@ -9,7 +9,7 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbButtonStaticElement } from '../button.pure.ts';
+import { SbbButtonStaticElement } from '../../button.pure.ts';
 import {
   appendAriaElements,
   forceType,
@@ -20,8 +20,8 @@ import {
   type SbbElementType,
   SbbFormAssociatedCheckboxMixin,
   screenReaderOnlyStyles,
-} from '../core.ts';
-import { SbbIconElement } from '../icon.pure.ts';
+} from '../../core.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
 
 import style from './toggle-slide.scss?inline';
 

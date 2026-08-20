@@ -1,3 +1,3 @@
-import '../toggle-slide.ts';
+import '../../toggle-slide.ts';
 
 describe(`sbb-toggle-slide`, () => {});

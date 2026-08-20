@@ -5,12 +5,9 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../docs/helpers/spread.ts';
+import type { SbbToggleSlideValidateEvent, SbbToggleSlideElement } from '../toggle-slide.ts';
 
 import readme from './readme.md?raw';
-import type {
-  SbbToggleSlideValidateEvent,
-  SbbToggleSlideElement,
-} from './toggle-slide.component.ts';
 
 import '../toggle-slide.ts';
 import '../button.ts';

@@ -5,13 +5,13 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../core/testing/private.ts';
+} from '../../core/testing/private.ts';
 
 import type { SbbToggleSlideElement } from './toggle-slide.component.ts';
 
-import '../icon.ts';
-import '../title.ts';
-import '../toggle-slide.ts';
+import '../../icon.ts';
+import '../../title.ts';
+import '../../toggle-slide.ts';
 
 describe(`sbb-toggle-slide`, () => {
   const longLabel = `For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit.

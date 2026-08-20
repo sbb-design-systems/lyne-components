@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbToggleSlideElement } from './toggle-slide.component.ts';
 
-import '../toggle-slide.ts';
+import '../../toggle-slide.ts';
 
 describe(`sbb-toggle-slide`, () => {
   describe('renders', async () => {
