@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.5.1](https://github.com/sbb-design-systems/lyne-components/compare/v5.5.0...v5.5.1) (2026-08-21)
+
+
+### Bug Fixes
+
+* **calendar:** support number based date adapters for calendar-day ([#5180](https://github.com/sbb-design-systems/lyne-components/issues/5180)) ([efdada5](https://github.com/sbb-design-systems/lyne-components/commit/efdada5ff58fd335e6bd68d7ed2aa1514a5bd586))
+
 ## [5.5.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.4.2...v5.5.0) (2026-08-18)
 
 
