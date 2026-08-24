@@ -59,7 +59,7 @@ const input = document.querySelector('sbb-date-input');
 input.dateFilter = (d: Date): boolean => d.getDay() !== 6 && d.getDay() !== 0;
 ```
 
-<!-- #region date-filter-example -->
+<!-- #endregion -->
 
 An attached `<sbb-datepicker>` will also use this function to
 calculate selectable dates.
