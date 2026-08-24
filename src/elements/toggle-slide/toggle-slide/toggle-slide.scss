@@ -5,6 +5,14 @@
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-12x)
   );
+  --sbb-toggle-slide-label-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-3x)
+  );
+
+  // We transfer the checked state in to a variable with 0 for unchecked and 1 for checked.
+  // We then can use this for opacity calculation.
+  --_sbb-toggle-slide-checked: 0;
 
   display: flex;
   flex-direction: column;
@@ -36,6 +44,15 @@
 
 :host(:disabled) {
   color: var(--sbb-toggle-slide-color-disabled);
+}
+
+:host(:not(:state(checked))) {
+  --_sbb-toggle-slide-deactivation-display: none;
+}
+
+:host(:state(checked)) {
+  --_sbb-toggle-slide-activation-display: none;
+  --_sbb-toggle-slide-checked: 1;
 }
 
 .sbb-toggle-slide {
@@ -102,37 +119,37 @@
 }
 
 .sbb-toggle-slide__call-to-actions {
-  display: flex;
-  gap: var(--sbb-spacing-fixed-2x);
+  display: grid;
   align-items: center;
   padding-inline: var(--sbb-toggle-slide-padding-inline);
   pointer-events: none;
   width: 100%;
-  overflow: hidden;
 }
 
-.sbb-toggle-slide__call-to-check-action,
-.sbb-toggle-slide__call-to-uncheck-action {
-  text-wrap: balance;
-  flex: 1 1 50%;
-
-  &:empty {
-    display: none;
+::slotted(sbb-toggle-slide-activation-label),
+::slotted(sbb-toggle-slide-deactivation-label) {
+  :host(:state(label-fade)) & {
+    animation: label-fade-in var(--sbb-toggle-slide-label-animation-duration)
+      var(--sbb-animation-easing);
   }
 }
 
-.sbb-toggle-slide__call-to-check-action {
-  text-align: end;
+::slotted(sbb-toggle-slide-activation-label) {
+  display: var(--_sbb-toggle-slide-activation-display);
   opacity: calc(1 - var(--sbb-toggle-slide-fraction, 0));
+  text-align: end;
+  padding-inline-start: var(--sbb-toggle-slide-button-dimension);
 }
 
-.sbb-toggle-slide__call-to-uncheck-action {
+::slotted(sbb-toggle-slide-deactivation-label) {
+  display: var(--_sbb-toggle-slide-deactivation-display);
   opacity: calc(var(--sbb-toggle-slide-fraction, 0));
+  padding-inline-end: var(--sbb-toggle-slide-button-dimension);
 }
 
 span[slot='icon'] {
-  position: absolute;
   display: block;
+  position: absolute;
   width: var(--sbb-size-icon-ui-small);
   height: var(--sbb-size-icon-ui-small);
 
@@ -145,23 +162,18 @@ span[slot='icon'] {
 
 sbb-icon {
   position: absolute;
-  transition: opacity var(--sbb-toggle-slide-animation-duration);
+
+  :host(:state(icon-transition)) & {
+    transition: opacity var(--sbb-toggle-slide-animation-duration);
+  }
 }
 
 sbb-icon[name='arrow-right-small'] {
-  opacity: 1;
-
-  :host(:state(checked)) & {
-    opacity: 0;
-  }
+  opacity: calc(1 - var(--_sbb-toggle-slide-checked));
 }
 
 sbb-icon[name='tick-small'] {
-  opacity: 0;
-
-  :host(:state(checked)) & {
-    opacity: 1;
-  }
+  opacity: var(--_sbb-toggle-slide-checked);
 }
 
 .sbb-toggle-slide-meta {
@@ -177,5 +189,15 @@ slot[name='hint'] {
 
   :host(:state(has-error)) & {
     display: none;
+  }
+}
+
+@keyframes label-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }

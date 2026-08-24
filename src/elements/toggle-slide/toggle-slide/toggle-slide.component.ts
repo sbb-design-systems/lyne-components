@@ -157,16 +157,6 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
    */
   @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | null = null;
 
-  /** Action hint to uncheck the toggle slide. */
-  @forceType()
-  @property({ attribute: 'call-to-uncheck-action' })
-  public accessor callToUncheckAction: string = '';
-
-  /** Action hint to check the toggle slide. */
-  @forceType()
-  @property({ attribute: 'call-to-check-action' })
-  public accessor callToCheckAction: string = '';
-
   /**
    * Number value as fraction between 0 and 1,
    * that in minimum a user has to slide to in order change the checked state.
@@ -435,6 +425,9 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
 
     const success = await this._dispatchValidateEvent();
     if (success) {
+      // The label fade-in and icon animation should only occur on user interaction, so we need to set the state here.
+      this.toggleState('label-fade', true);
+      this.toggleState('icon-transition', true);
       this.toggleByUserInteraction();
       this._announce('');
     } else {
@@ -624,15 +617,27 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     statusElement.textContent = `${message}${this._ariaLiveRefToggle ? ' ' : ''}`; // Add random number to ensure screen reader announces the same string again
   }
 
+  /**
+   * As the label fade-in animation should only occur on user interaction,
+   * we need to reset the state after the every animation is done.
+   * */
+  private _handleLabelAnimationEnd(event: AnimationEvent): void {
+    if (event.animationName === 'label-fade-in') {
+      this.toggleState('label-fade', false);
+    }
+  }
+
+  private _handleIconTransitionEnd(): void {
+    this.toggleState('icon-transition', false);
+  }
+
   protected override render(): TemplateResult {
     return html`<span class="sbb-toggle-slide" aria-hidden="true">
         <span class="sbb-screen-reader-only" id="interactiondescription">
           Press and hold space bar or finger to toggle the state.
-          ${this.checked ? this.callToUncheckAction : this.callToCheckAction}.
         </span>
         <span class="sbb-toggle-slide__call-to-actions">
-          <span class="sbb-toggle-slide__call-to-uncheck-action">${this.callToUncheckAction}</span>
-          <span class="sbb-toggle-slide__call-to-check-action">${this.callToCheckAction}</span>
+          <slot @animationend=${this._handleLabelAnimationEnd}></slot>
         </span>
         <span class="sbb-toggle-slide__track">
           <sbb-button-static
@@ -644,7 +649,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
             @pointermove=${this._handlePointerMove}
             @pointercancel=${this._handlePointerCancel}
           >
-            <span slot="icon">
+            <span slot="icon" @transitionend=${this._handleIconTransitionEnd}>
               <sbb-icon name="arrow-right-small"></sbb-icon>
               <sbb-icon name="tick-small"></sbb-icon>
             </span>

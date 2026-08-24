@@ -97,13 +97,10 @@ const defaultArgs: Args = {
 // Otherwise, after first user manipulation, the storybook control gets ignored.
 // If only using property, the reset mechanism does not work as expected.
 
-const Template = ({ label, checked, ...args }: Args): TemplateResult => html`
+const Template = ({ checked, ...args }: Args): TemplateResult => html`
   <sbb-toggle-slide
     ${sbbSpread(args)}
-    .checked=${checked}
     ?checked=${checked}
-    call-to-check-action="To start pull right"
-    call-to-uncheck-action="To stop pull left"
     @validate=${(e: SbbToggleSlideValidateEvent) => {
       // Example for asynchronous validation
       e.preventDefaultConditionally(
@@ -113,8 +110,8 @@ const Template = ({ label, checked, ...args }: Args): TemplateResult => html`
       );
     }}
   >
-    ${label}
-    <span slot="hint">Hint</span>
+    <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
+    <sbb-toggle-slide-deactivation-label>To stop pull left</sbb-toggle-slide-deactivation-label>
   </sbb-toggle-slide>
 `;
 
