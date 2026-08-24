@@ -79,17 +79,17 @@ The type can be specified using the generic type parameter `T` of `SbbToggleSlid
 
 #### Slots
 
-| Name | Description                                                                     |
-| ---- | ------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add content to the `sbb-toggle-slide-activation-label`. |
+| Name | Description                                                                          |
+| ---- | ------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add text content to the `sbb-toggle-slide-activation-label`. |
 
 ### class: `SbbToggleSlideDeactivationLabelElement`, `sbb-toggle-slide-deactivation-label`
 
 #### Slots
 
-| Name | Description                                                                       |
-| ---- | --------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add content to the `sbb-toggle-slide-deactivation-label`. |
+| Name | Description                                                                            |
+| ---- | -------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add text content to the `sbb-toggle-slide-deactivation-label`. |
 
 ### class: `SbbToggleSlideElement`, `sbb-toggle-slide`
 
