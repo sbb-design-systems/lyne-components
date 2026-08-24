@@ -185,7 +185,6 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     downY: number;
     buttonPointerOffsetLeft: number;
   } | null = null;
-  private _hostRules?: CSSStyleRule | null;
 
   public constructor() {
     super();
@@ -475,9 +474,8 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   private _updateFraction(fraction: number): void {
     this._slideFraction = fraction;
 
-    (this._hostRules ??= this.createHostRules())?.style.setProperty(
-      '--sbb-toggle-slide-fraction',
-      `${this._slideFraction}`,
+    this.dynamicStyleSheet?.replaceSync(
+      `:host { --sbb-toggle-slide-fraction: ${this._slideFraction}; }`,
     );
   }
 
