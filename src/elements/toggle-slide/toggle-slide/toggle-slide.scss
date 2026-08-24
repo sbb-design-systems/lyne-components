@@ -10,9 +10,29 @@
     var(--sbb-animation-duration-3x)
   );
 
+  // Calculate the needed padding from the track to the button.
+  --_sbb-toggle-slide-track-margin: calc(
+    (var(--sbb-toggle-slide-element-height) - var(--sbb-toggle-slide-button-dimension)) / 2
+  );
+
   // We transfer the checked state in to a variable with 0 for unchecked and 1 for checked.
   // We then can use this for opacity calculation.
   --_sbb-toggle-slide-checked: 0;
+
+  // As we want to hide the text "behind" the slided area, starting from the button, we need to calculate a mask.
+  // We calculate the start of the gradient based on the toggle slide fraction.
+  // We need to percentually subtract also the button width and 2 times the track margin.
+  // At last we need to add the track margin back, because the gradient should start at the end of the button.
+  --_sbb-toggle-slide-mask-start: calc(
+    var(--sbb-toggle-slide-fraction, 0) * 100% + (1 - var(--sbb-toggle-slide-fraction, 0)) *
+      (var(--sbb-toggle-slide-button-dimension) + 2 * var(--_sbb-toggle-slide-track-margin)) - var(
+        --_sbb-toggle-slide-track-margin
+      )
+  );
+  --_sbb-toggle-slide-mask-start-reverse: calc(
+    100% - var(--_sbb-toggle-slide-mask-start) + var(--sbb-toggle-slide-button-dimension)
+  );
+  --_sbb-toggle-slide-mask-start-current: var(--_sbb-toggle-slide-mask-start);
 
   display: flex;
   flex-direction: column;
@@ -53,6 +73,8 @@
 :host(:state(checked)) {
   --_sbb-toggle-slide-activation-display: none;
   --_sbb-toggle-slide-checked: 1;
+  --_sbb-toggle-slide-mask-direction: to left;
+  --_sbb-toggle-slide-mask-start-current: var(--_sbb-toggle-slide-mask-start-reverse);
 }
 
 .sbb-toggle-slide {
@@ -61,7 +83,7 @@
   height: var(--sbb-toggle-slide-element-height);
   position: relative;
   border: var(--sbb-toggle-slide-border-width) solid var(--sbb-toggle-slide-border-color);
-  border-radius: var(--sbb-border-radius-infinity);
+  border-radius: var(--sbb-toggle-slide-border-radius);
   background-color: var(--sbb-toggle-slide-background-color);
 
   // Avoid horizontal scrolling during swiping
@@ -82,11 +104,8 @@
   display: flex;
   align-items: center;
 
-  // Calculate the needed padding from the track to the button.
   // Because of absolute positioning we use margin here.
-  margin: calc(
-    (var(--sbb-toggle-slide-element-height) - var(--sbb-toggle-slide-button-dimension)) / 2
-  );
+  margin: var(--_sbb-toggle-slide-track-margin);
 }
 
 .sbb-toggle-slide__button {
@@ -124,6 +143,18 @@
   padding-inline: var(--sbb-toggle-slide-padding-inline);
   pointer-events: none;
   width: 100%;
+
+  // We use a mask to fade out the content behind the button.
+  // The mask is set to the left side by default, but when the toggle slide is checked, we need to set it to the right side.
+  mask-image: linear-gradient(
+    var(--_sbb-toggle-slide-mask-direction, to right),
+    transparent var(--_sbb-toggle-slide-mask-start-current),
+    black
+      calc(
+        var(--_sbb-toggle-slide-mask-start-current) + var(--sbb-toggle-slide-button-gradient-width)
+      ),
+    black 100%
+  );
 }
 
 ::slotted(sbb-toggle-slide-activation-label),

@@ -35,6 +35,8 @@ $theme: 'standard' !default;
   --sbb-toggle-slide-padding-inline: var(--sbb-spacing-fixed-4x);
   --sbb-toggle-slide-border-width: var(--sbb-border-width-1x);
   --sbb-toggle-slide-hint-font-size: var(--sbb-text-size-xxs);
+  --sbb-toggle-slide-border-radius: var(--sbb-border-radius-infinity);
+  --sbb-toggle-slide-button-gradient-width: var(--sbb-spacing-fixed-4x);
 }
 
 @mixin breakpoint-large {
