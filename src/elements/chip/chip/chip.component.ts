@@ -36,6 +36,7 @@ export class SbbChipElement<T = string> extends SbbNegativeMixin(
   public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
   public static readonly events = {
     requestdelete: 'requestdelete',
+    delete: 'delete',
   } as const;
 
   /** The value of chip. Will be used as label if nothing is slotted. */
@@ -70,6 +71,11 @@ export class SbbChipElement<T = string> extends SbbNegativeMixin(
   private _handleDeleteButtonClick(): void {
     /** @internal */
     this.dispatchEvent(new Event('requestdelete', { bubbles: true, composed: true }));
+  }
+
+  protected dispatchDeleteEvent(): void {
+    /** The `delete` event is emitted when a chip gets deleted by a user action (click or keyboard). */
+    this.dispatchEvent(new Event('delete', { bubbles: true, composed: true }));
   }
 
   protected override render(): TemplateResult {

@@ -210,6 +210,12 @@ The `<sbb-chip-group>` follows the `grid` aria pattern.
 | `readOnly` | `readonly` | public  | `boolean`              | `false` | Whether the component is readonly.                              |
 | `value`    | `value`    | public  | `(T = string) \| null` | `null`  | The value of chip. Will be used as label if nothing is slotted. |
 
+#### Events
+
+| Name     | Type    | Description                                                                                  | Inherited From |
+| -------- | ------- | -------------------------------------------------------------------------------------------- | -------------- |
+| `delete` | `Event` | The `delete` event is emitted when a chip gets deleted by a user action (click or keyboard). |                |
+
 #### Slots
 
 | Name | Description                                                                               |
