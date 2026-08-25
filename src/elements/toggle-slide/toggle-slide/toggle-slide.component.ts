@@ -1,19 +1,18 @@
 import {
   type CSSResultGroup,
   html,
-  nothing,
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
   unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
 
 import { SbbButtonStaticElement } from '../../button.pure.ts';
 import {
   appendAriaElements,
   preventScrollOnSpacebarPress,
-  removeAriaElements,
   SbbDynamicStylesheetMixin,
   SbbElement,
   type SbbElementType,
@@ -132,11 +131,9 @@ export class SbbToggleSlideValidateEvent extends Event {
  */
 
 /**
- * Toggle checkbox that needs to be slided in order to confirm an action.
+ * Toggle checkbox that needs to be slided in order to confirm activation or deactivation.
  *
- * @slot - Use the unnamed slot to add content to the toggle label.
- * @slot hint - Add general hints to the user about using this component
- * @slot error - Slot `<sbb-error>` components to indicate a possible error.
+ * @slot - Use the unnamed slot to slot `sbb-toggle-slide-activation-label` and `sbb-toggle-slide-deactivation-label` elements.
  * @event {Event} change - The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
  * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  * @event {SbbToggleSlideValidateEvent} validate - An event that is dispatched when the user is about to change the checked state. The event is cancelable, so the consumer can prevent the state change by calling `preventDefault()`. For asynchronous validation, the consumer can call `preventDefaultConditionally()` with a promise that resolves to a boolean.
@@ -169,15 +166,11 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   @state() private accessor _state:
     'idle' | 'pointer-pending' | 'pointer-sliding' | 'activation-sliding' | 'validating' = 'idle';
 
-  /** It is used internally to get the `error` slot. */
-  @state() private accessor _errorElements: Element[] = [];
-
-  /** It is used internally to get the `hint` slot. */
-  @state() private accessor _hintElements: Element[] = [];
-
   private _slideFraction = 0;
   private _animationFrame: number = -1;
   private _ariaLiveRefToggle = false;
+  private _statusElement?: HTMLElement;
+  private _instructionElement?: HTMLElement;
 
   private _pointerInteraction: {
     longPressTimer: number;
@@ -213,7 +206,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     // TODO: control order of describedByElements
     this.internals.ariaDescribedByElements = appendAriaElements(
       this.internals.ariaDescribedByElements,
-      this.shadowRoot?.querySelector?.('#interactiondescription') ?? null,
+      this._instructionElement ?? null,
     );
   }
 
@@ -556,61 +549,15 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     }
   }
 
-  private _onSlotErrorChange(event: Event): void {
-    const errorElements = (event.target as HTMLSlotElement).assignedElements();
-    if (this.internals.ariaDescribedByElements?.length) {
-      this.internals.ariaDescribedByElements = removeAriaElements(
-        this.internals.ariaDescribedByElements,
-        ...(this._errorElements ?? []),
-        // Also remove hint elements since their visibility depends on error state
-        ...(this._hintElements ?? []),
-      );
-    }
-
-    this._errorElements = errorElements;
-    for (const el of this._errorElements) {
-      // Instead of defining a container with an aria-live region as expected, we had to change
-      // setting it for every slotted element to properly work in all browsers and screen reader combinations.
-      el.role ||= 'status';
-    }
-
-    this._assignAriaDescribedByElements();
-    this.toggleState('has-error', !!this._errorElements.length);
-  }
-
-  private _onSlotHintChange(event: Event): void {
-    const hintElements = (event.target as HTMLSlotElement).assignedElements();
-    if (this.internals.ariaDescribedByElements?.length && this._hintElements?.length) {
-      this.internals.ariaDescribedByElements = removeAriaElements(
-        this.internals.ariaDescribedByElements,
-        ...this._hintElements,
-      );
-    }
-
-    this._hintElements = hintElements;
-    this._assignAriaDescribedByElements();
-  }
-
-  private _assignAriaDescribedByElements(): void {
-    // Hint elements are only linked when there are no errors
-    const elements = this._errorElements.length ? this._errorElements : this._hintElements;
-    this.internals.ariaDescribedByElements = appendAriaElements(
-      this.internals.ariaDescribedByElements,
-      ...elements,
-    );
-  }
-
   private _announce(message: string): void {
-    // TODO: store ref
-    const statusElement = this.shadowRoot?.querySelector('.sbb-toggle-slide__status');
-    if (!statusElement) {
+    if (!this._statusElement) {
       return;
     }
     this._ariaLiveRefToggle = !this._ariaLiveRefToggle;
 
     // If the text content remains the same, on VoiceOver the aria-live region is not announced a second time.
     // In order to support reading on every opening, we toggle an invisible space.
-    statusElement.textContent = `${message}${this._ariaLiveRefToggle ? ' ' : ''}`; // Add random number to ensure screen reader announces the same string again
+    this._statusElement.textContent = `${message}${this._ariaLiveRefToggle ? ' ' : ''}`; // Add random number to ensure screen reader announces the same string again
   }
 
   /**
@@ -628,35 +575,42 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   }
 
   protected override render(): TemplateResult {
-    return html`<span class="sbb-toggle-slide" aria-hidden="true">
-        <span class="sbb-screen-reader-only" id="interactiondescription">
-          Press and hold space bar or finger to toggle the state.
-        </span>
-        <span class="sbb-toggle-slide__call-to-actions">
-          <slot @animationend=${this._handleLabelAnimationEnd}></slot>
-        </span>
-        <span class="sbb-toggle-slide__track">
-          <sbb-button-static
-            class="sbb-toggle-slide__button"
-            size=${this.size ?? nothing}
-            ?loading=${this._state === 'validating'}
-            ?disabled=${this.disabled}
-            @pointerdown=${this._handlePointerDown}
-            @pointermove=${this._handlePointerMove}
-            @pointercancel=${this._handlePointerCancel}
+    return html`
+      <span
+        class="sbb-screen-reader-only"
+        aria-hidden="true"
+        ${ref((el?: Element) => (this._instructionElement = el as HTMLElement))}
+      >
+        Press and hold space bar or finger to toggle the state.
+      </span>
+      <span class="sbb-toggle-slide__call-to-actions" aria-hidden="true">
+        <slot @animationend=${this._handleLabelAnimationEnd}></slot>
+      </span>
+      <span class="sbb-toggle-slide__track" aria-hidden="true">
+        <sbb-button-static
+          class="sbb-toggle-slide__button"
+          ?loading=${this._state === 'validating'}
+          ?disabled=${this.disabled}
+          @pointerdown=${this._handlePointerDown}
+          @pointermove=${this._handlePointerMove}
+          @pointercancel=${this._handlePointerCancel}
+        >
+          <span
+            slot="icon"
+            class="sbb-toggle-slide__icon-wrapper"
+            @transitionend=${this._handleIconTransitionEnd}
           >
-            <span slot="icon" @transitionend=${this._handleIconTransitionEnd}>
-              <sbb-icon name="arrow-right-small"></sbb-icon>
-              <sbb-icon name="tick-small"></sbb-icon>
-            </span>
-          </sbb-button-static>
-        </span>
+            <sbb-icon name="arrow-right-small"></sbb-icon>
+            <sbb-icon name="tick-small"></sbb-icon>
+          </span>
+        </sbb-button-static>
       </span>
-      <span class="sbb-toggle-slide-meta">
-        <slot name="hint" @slotchange=${this._onSlotHintChange}></slot>
-        <slot name="error" @slotchange=${this._onSlotErrorChange}></slot>
-      </span>
-      <span class="sbb-toggle-slide__status sbb-screen-reader-only" role="alert"></span>`;
+      <span
+        class="sbb-toggle-slide__status sbb-screen-reader-only"
+        role="alert"
+        ${ref((el?: Element) => (this._statusElement = el as HTMLElement))}
+      ></span>
+    `;
   }
 }
 

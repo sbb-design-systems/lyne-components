@@ -98,21 +98,24 @@ const defaultArgs: Args = {
 // If only using property, the reset mechanism does not work as expected.
 
 const Template = ({ checked, ...args }: Args): TemplateResult => html`
-  <sbb-toggle-slide
-    ${sbbSpread(args)}
-    ?checked=${checked}
-    @validate=${(e: SbbToggleSlideValidateEvent) => {
-      // Example for asynchronous validation
-      e.preventDefaultConditionally(
-        new Promise((resolve) => {
-          setTimeout(() => resolve(true), 1500);
-        }),
-      );
-    }}
-  >
-    <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
-    <sbb-toggle-slide-deactivation-label>To stop pull left</sbb-toggle-slide-deactivation-label>
-  </sbb-toggle-slide>
+  <span class="sbb-form-information">
+    <sbb-toggle-slide
+      ${sbbSpread(args)}
+      ?checked=${checked}
+      @validate=${(e: SbbToggleSlideValidateEvent) => {
+        // Example for asynchronous validation
+        e.preventDefaultConditionally(
+          new Promise((resolve) => {
+            setTimeout(() => resolve(true), 1500);
+          }),
+        );
+      }}
+    >
+      <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
+      <sbb-toggle-slide-deactivation-label>To stop pull left</sbb-toggle-slide-deactivation-label>
+    </sbb-toggle-slide>
+    <sbb-hint>This is a hint</sbb-hint>
+  </span>
 `;
 
 const CustomIconTemplate = ({ label, checked, ...args }: Args): TemplateResult => html`
