@@ -37,7 +37,7 @@ console.log(egg.score); // current score of the finished/running game
 
 ## Internationalization
 
-The visible labels — the dialog title (**Swiss Boa Express.**), the score label (**Score**), and the start / restart button — are localized in English, German, French and Italian. They follow the current UI language, read from the `lang` attribute on `<html>`.
+The visible labels — the dialog title (**SBB Boa Express.**), the score label (**Score**), and the start / restart button — are localized in English, German, French and Italian. They follow the current UI language, read from the `lang` attribute on `<html>`.
 The screen-reader announcement (`accessibilityLabel`) is kept in sync automatically.
 
 <!-- Auto Generated Below -->
