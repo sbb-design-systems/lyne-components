@@ -1,9 +1,9 @@
 /** Localized dialog title. */
 export const i18nSnakeTitle: Record<string, string> = {
-  de: 'Swiss Boa Express.',
-  en: 'Swiss Boa Express.',
-  fr: 'Swiss Boa Express.',
-  it: 'Swiss Boa Express.',
+  de: 'SBB Boa Express.',
+  en: 'SBB Boa Express.',
+  fr: 'SBB Boa Express.',
+  it: 'SBB Boa Express.',
 };
 
 /** Localized label shown next to the current score value. */
