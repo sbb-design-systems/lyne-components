@@ -18,7 +18,7 @@ snapshots["sbb-easter-egg closed Shadow DOM"] =
         level="2"
         visual-level="4"
       >
-        Swiss Boa Express.
+        SBB Boa Express.
       </sbb-dialog-title>
       <sbb-dialog-close-button
         size="s"
