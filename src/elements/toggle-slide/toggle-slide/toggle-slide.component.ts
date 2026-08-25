@@ -12,7 +12,6 @@ import { property, state } from 'lit/decorators.js';
 import { SbbButtonStaticElement } from '../../button.pure.ts';
 import {
   appendAriaElements,
-  forceType,
   preventScrollOnSpacebarPress,
   removeAriaElements,
   SbbDynamicStylesheetMixin,
@@ -25,9 +24,19 @@ import { SbbIconElement } from '../../icon.pure.ts';
 
 import style from './toggle-slide.scss?inline';
 
+// The duration in milliseconds for the activation press animation.
 const activationPressDuration = 1500;
+
+// The delay in milliseconds before a long press is recognized.
 const longPressDelay = 500;
+
+// The minimum distance in pixels that the pointer must move to trigger sliding instead of a long press.
 const minMovePxToTriggerSliding = 8;
+
+// The fraction of the track that needs to be covered to trigger a state change.
+// For example, a value of 0.95 means that the user needs to slide the button to at least 95% of
+// the track length to trigger a state change.
+const snapThreshold = 0.95;
 
 /**
  * An event that is dispatched when the user is about to change the checked state.
@@ -156,15 +165,6 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
    * Size variant, either s (lean theme default), m (standard theme default) or l.
    */
   @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | null = null;
-
-  /**
-   * Number value as fraction between 0 and 1,
-   * that in minimum a user has to slide to in order change the checked state.
-   * Defaults to 0.9.
-   */
-  @forceType()
-  @property({ attribute: 'snap-threshold', type: Number })
-  public accessor snapThreshold: number = 0.9;
 
   @state() private accessor _state:
     'idle' | 'pointer-pending' | 'pointer-sliding' | 'activation-sliding' | 'validating' = 'idle';
@@ -348,18 +348,16 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   }
 
   private _finishPointerSliding(): void {
-    const threshold = Math.min(1, Math.max(0, this.snapThreshold));
     if (
       this.checked
-        ? this._slideFraction <= 1 - threshold
-        : this._slideFraction >= threshold && !this.disabled
+        ? this._slideFraction <= 1 - snapThreshold
+        : this._slideFraction >= snapThreshold && !this.disabled
     ) {
-      // Animate from threshold to 100% or to 0%
+      // Animate from snapThreshold to 100% or to 0%
       this._animateToCheckedState({ target: this.checked ? 0 : 1 });
       this._validate();
     } else {
       this._state = 'idle';
-
       this._animateToCheckedState();
     }
   }
