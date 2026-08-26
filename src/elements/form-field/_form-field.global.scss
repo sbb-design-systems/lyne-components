@@ -284,6 +284,7 @@ $theme: 'standard' !default;
     flex-direction: column;
     gap: var(--sbb-form-field-hint-divider-width);
     width: min-content;
+    max-width: 100%;
 
     :is(sbb-hint, sbb-error) {
       margin-inline-start: var(--sbb-spacing-fixed-3x);
