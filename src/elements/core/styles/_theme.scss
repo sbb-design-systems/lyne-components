@@ -1,4 +1,5 @@
 $theme: 'standard' !default;
+$skip-font-face: false !default;
 
 @use 'sass:meta';
 @use './_index' as sbb;
@@ -210,7 +211,9 @@ $theme: 'standard' !default;
 
 // end-auto-generated-scss-module-imports
 
-@include meta.load-css('./features/font-face');
+@if not $skip-font-face {
+  @include meta.load-css('./features/font-face');
+}
 @include meta.load-css('./features/normalize');
 
 :root {

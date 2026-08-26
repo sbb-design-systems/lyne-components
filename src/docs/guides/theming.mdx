@@ -50,13 +50,34 @@ We provide further utilities to improve the safety relevant theme:
 
 ##### Font Customization
 
-Note that the font family should support changing the font-weight.
+Whenever the SBB font is not used, it is possible to override the font family.
+The replacement font should support font weights 300 (thin), 400 (normal), and 700 (bold).
 
-| CSS variable                        | Description                                                      |
-| ----------------------------------- | ---------------------------------------------------------------- |
-| `--sbb-typo-font-family`            | Can be used to override the font family for all texts and titles |
-| `--sbb-typo-letter-spacing-text`    | Can be used to override letter spacing for texts                 |
-| `--sbb-typo-letter-spacing-heading` | Can be used to override letter spacing for titles                |
+| CSS variable                        | Description                                                       |
+| ----------------------------------- | ----------------------------------------------------------------- |
+| `--sbb-typo-font-family`            | Can be used to override the font family for all text and headings |
+| `--sbb-typo-letter-spacing-text`    | Can be used to override the letter spacing for text               |
+| `--sbb-typo-letter-spacing-heading` | Can be used to override the letter spacing for headings           |
+
+To avoid loading the potentially unused SBB font files that are hardcoded into our theme files,
+a custom theme that skips the SBB font-faces can be built using our SCSS API:
+
+```scss
+@use '@sbb-esta/lyne-elements/theme' with (
+  // 'standard', 'lean', 'safety' or 'lean-safety'
+  $theme: 'standard',
+  $skip-font-face: true
+);
+
+:root {
+  // Override the font family for all text
+  --sbb-typo-font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+```
+
+Include the generated theme instead of Lyne's pre-rendered theme file.
+Note that for the off-brand theme, font-faces are not included in the pre-rendered theme file,
+so you can use the `off-brand-theme.css` file directly.
 
 ##### Cursor customization
 
@@ -72,17 +93,17 @@ In certain safety relevant applications, it might be necessary to change the cur
 Basically, all our styles are included in the theme files (e.g. `standard-theme.css`) which should be included in your application.
 For more fine-grained control over which styles are included, a custom theme file can be created that imports only the required features from our Sass API.
 
-| File name                         | Description                                                                                           |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `standard-theme.css`              | Contains normalizing, core styles and available CSS classes.                                          |
-| `off-brand-theme.css`             | Contains the standard theme with primary color set to an alternative color (blue).                    |
-| `safety-theme.css`                | Contains the standard theme with primary and brand colors set to an alternative color (gray).         |
-| `lean-theme.css`                  | Contains normalizing, core styles and available CSS classes with smaller default sizes of components. |
-| `lean-off-brand-theme.css`        | Contains the lean theme with primary color set to an alternative color (blue).                        |
-| `lean-safety-theme.css`           | Contains the lean theme with primary and brand colors set to an alternative color (gray).             |
-|                                   |                                                                                                       |
-| `font-characters-extension.css`   | Provides full character set of SBB fonts, needs larger files to load.                                 |
-| `disable-animation-extension.css` | Disables animations on root level, ideally for a global test setup.                                   |
+| File name                         | Description                                                                                                      |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `standard-theme.css`              | Contains normalizing, core styles and available CSS classes.                                                     |
+| `off-brand-theme.css`             | Contains the standard theme with primary color set to an alternative color (blue) and doesn't include SBB fonts. |
+| `safety-theme.css`                | Contains the standard theme with primary and brand colors set to an alternative color (gray).                    |
+| `lean-theme.css`                  | Contains normalizing, core styles and available CSS classes with smaller default sizes of components.            |
+| `lean-off-brand-theme.css`        | Contains the lean theme with primary color set to an alternative color (blue) and doesn't include SBB fonts.     |
+| `lean-safety-theme.css`           | Contains the lean theme with primary and brand colors set to an alternative color (gray).                        |
+|                                   |                                                                                                                  |
+| `font-characters-extension.css`   | Provides full character set of SBB fonts, needs larger files to load.                                            |
+| `disable-animation-extension.css` | Disables animations on root level, ideally for a global test setup.                                              |
 
 ### Full Font
 
