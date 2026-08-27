@@ -145,7 +145,7 @@ export class SbbToggleSlideValidateEvent extends Event {
 /**
  * Toggle checkbox that needs to be slided in order to confirm activation or deactivation.
  *
- * @slot - Use the unnamed slot to slot `sbb-toggle-slide-activation-label` and `sbb-toggle-slide-deactivation-label` elements.
+ * @slot - Use the unnamed slot to place `sbb-toggle-slide-activation-label` and `sbb-toggle-slide-deactivation-label` elements.
  * @event {Event} change - The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
  * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  * @event {SbbToggleSlideValidateEvent} validate - An event that is dispatched when the user is about to change the checked state. The event is cancelable, so the consumer can prevent the state change by calling `preventDefault()`. For asynchronous validation, the consumer can call `preventDefaultConditionally()` with a promise that resolves to a boolean.

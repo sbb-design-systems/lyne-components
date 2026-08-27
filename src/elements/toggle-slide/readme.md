@@ -128,8 +128,6 @@ The type can be specified using the generic type parameter `T` of `SbbToggleSlid
 
 #### Slots
 
-| Name    | Description                                                 |
-| ------- | ----------------------------------------------------------- |
-|         | Use the unnamed slot to add content to the toggle label.    |
-| `error` | Slot `<sbb-error>` components to indicate a possible error. |
-| `hint`  | Add general hints to the user about using this component    |
+| Name | Description                                                                                                           |
+| ---- | --------------------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to place `sbb-toggle-slide-activation-label` and `sbb-toggle-slide-deactivation-label` elements. |
