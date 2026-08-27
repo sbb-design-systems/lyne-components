@@ -602,7 +602,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     // As with VoiceOver which is only available on macOS, the user needs to press and hold the space bar,
     // we need to provide a description for this behavior.
     if (isMacOS) {
-      this.internals.ariaRoleDescription = this.checked
+      this.internals.ariaDescription = this.checked
         ? i18nToggleSlidePressAndHoldDeactivate[this._language.current]
         : i18nToggleSlidePressAndHoldActivate[this._language.current];
     }
