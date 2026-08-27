@@ -322,6 +322,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   private _assignSlots(): void {
     this.querySelectorAll('label:not([slot])').forEach((e) => e.setAttribute('slot', 'label'));
     this.querySelectorAll('sbb-error:not([slot])').forEach((e) => e.setAttribute('slot', 'error'));
+    this.querySelectorAll('sbb-hint:not([slot])').forEach((e) => e.setAttribute('slot', 'hint'));
   }
 
   private _connectInputElement(): 'changed' | 'no-input' | 'unchanged' {
