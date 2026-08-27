@@ -64,7 +64,7 @@
   --sbb-toggle-slide-button-dimension: var(--sbb-toggle-slide-button-dimension-l);
 }
 
-:host(:is(:invalid, :state(invalid))) {
+:host(:invalid) {
   --sbb-toggle-slide-border-color: var(--sbb-color-error);
 }
 
