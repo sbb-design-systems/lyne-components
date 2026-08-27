@@ -599,8 +599,8 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   }
 
   private _updateAriaDescription(): void {
-    // As with VoiceOver which is only available on macOS, the user needs to press and hold the space bar,
-    // we need to provide a description for this behavior.
+    // On macOS, VoiceOver users can activate the component using the same
+    // press-and-hold interaction as keyboard users, so explain the interaction.
     if (isMacOS) {
       this.internals.ariaDescription = this.checked
         ? i18nToggleSlidePressAndHoldDeactivate[this._language.current]
