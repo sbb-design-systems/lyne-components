@@ -1,66 +1,104 @@
 <!-- keywords: form -->
 
-The `<sbb-toggle-slide>` is a component which provides the same functionality as a native `<input type="checkbox" />`
-enhanced with the SBB Design.
+The `<sbb-toggle-slide>` provides functionality similar to a native `<input type="checkbox" />`,
+but requires the user to actively slide or press and hold the button in order to change its state.
+This deliberate interaction helps to prevent the state from being changed by accident,
+which makes the component especially suitable for safety-relevant or hard-to-reverse actions
+(e.g. confirming a check-in). Before activation oder deactivation is finally confirmed,
+the component dispatches a cancelable `validate` event, which allows consumers to prevent
+or asynchronously confirm the state change.
 
 ```html
-<sbb-toggle-slide name="check" value="single-checkbox">Example</sbb-toggle-slide>
+<sbb-toggle-slide aria-label="Journey check-in" name="checkin" value="checked-in">
+  <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
+  <sbb-toggle-slide-deactivation-label>To stop pull left</sbb-toggle-slide-deactivation-label>
+</sbb-toggle-slide>
 ```
 
 ## Slots
 
-It is possible to provide a label via an unnamed slot; the component can optionally display a `<sbb-icon>`
-using the `iconName` property or via custom content using the `icon` slot.
-The icon can be at the component start or end based on the value of the `labelPosition` property (default: `after`).
-
-```html
-<sbb-toggle-slide name="check" value="single-checkbox" icon-name="pie-small">
-  Example
-</sbb-toggle-slide>
-
-<sbb-toggle-slide name="other" value="single-checkbox" icon-name="pie-small" label-position="start">
-  Another example
-</sbb-toggle-slide>
-```
+The two dedicated `<sbb-toggle-slide-activation-label>` and `<sbb-toggle-slide-deactivation-label>`
+elements can be slotted into the unnamed slot to provide context-specific labels: the activation label
+is displayed while the component is unchecked, and the deactivation label is displayed while the component is checked.
 
 ## States
 
 The component can be displayed in `checked` or `disabled` states using the self-named properties.
-
-```html
-<sbb-toggle-slide name="check" value="Value" checked>Option</sbb-toggle-slide>
-
-<sbb-toggle-slide name="other" value="Value" disabled>Option</sbb-toggle-slide>
-```
+Any programmatic change of the `checked` state is immediately applied and therefore
+overrides an in-progress state change of a user.
 
 ## Style
 
-The component has three different sizes (`xs`, `s` and `m`),
-which can be changed using the `size` property.
+The component has three different sizes (`s`, `m` and `l`), which can be changed using the `size` property.
+If not set, the size defaults to `s` in the lean theme and to `m` in the standard theme.
 
 ```html
-<sbb-toggle-slide size="m" value="single-checkbox"> Example in m size</sbb-toggle-slide>
-
-<sbb-toggle-slide size="xs" value="single-checkbox"> Example in xs size </sbb-toggle-slide>
+<sbb-toggle-slide size="l" aria-label="Confirm payment">
+  <sbb-toggle-slide-activation-label>To confirm pull right</sbb-toggle-slide-activation-label>
+</sbb-toggle-slide>
 ```
+
+## Interactions
+
+The state of the component can only be changed with a deliberate interaction:
+
+- **Slide**: the button can be dragged along the track; releasing it near the end of the track
+  completes the state change, while releasing it before that point animates the button back to its
+  original position.
+- **Press and hold**: pressing and holding the button (or the <kbd>Space</kbd> key, see below)
+  triggers a slow sliding animation from the current state to the opposite one.
+  Releasing before the animation completes aborts the action and the button animates back.
+
+Once a slide or press-and-hold interaction is completed, the component dispatches a cancelable
+`validate` event before actually changing the `checked` state (see [Events](#events) below).
+This allows consumers to prevent or asynchronously confirm the state change,
+e.g. to request a confirmation from a backend service.
 
 ## Events
 
 Consumers can listen to the native `change` event on the `<sbb-toggle-slide>` component to intercept the input's change;
 the current state can be read from `event.target.checked` and the value from `event.target.value`.
 
+The `validate` event is dispatched right before the `checked` state actually changes, once the user
+has completed a slide or press-and-hold interaction.
+The event is cancelable, so consumers can call `preventDefault()` to synchronously reject the state change.
+For asynchronous validation (e.g. waiting for a backend call), consumers can call
+`preventDefaultConditionally()` with a `Promise<boolean>`;
+while the promise is pending, the component displays a loading state,
+and if the promise resolves to `false` or rejects, the state change is reverted.
+Without any handling of the `validate` event, the state change is always immediately applied.
+
+```ts
+toggleSlide.addEventListener('validate', (event: SbbToggleSlideValidateEvent) => {
+  event.preventDefaultConditionally(fetch('/api/confirm-checkin').then((response) => response.ok));
+});
+```
+
+## Keyboard interaction
+
+| Keyboard                          | Action                                                                                                                  |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| <kbd>Space</kbd> (press and hold) | Starts the sliding animation towards the opposite state. <br/>As soon as the end is reached the activation is commited. |
+| <kbd>Space</kbd> (release)        | Confirms the state change if the animation has completed; otherwise aborts it.                                          |
+
 ## Accessibility
 
-The component provides the same accessibility features as the native checkbox.
+The component has the role `switch` and reflects its state via `aria-checked`,
+so it is announced by assistive technology in the same way as a native switch control.
 
-Avoid adding other interactive controls into the content of `<sbb-toggle-slide>`, as this degrades the experience for users of assistive technology.
+### Screen reader usage
 
-If you don't want the label to appear next to the `<sbb-toggle-slide>` component,
-you can not provide it and then use `aria-label` to specify an appropriate label for screen-readers.
+It's mandatory to provide an accessible name for the component, either via `aria-label` or `aria-labelledby`.
 
-```html
-<sbb-toggle-slide aria-label="Subscribed to email message"></sbb-toggle-slide>
-```
+On touch devices, the state can be changed with a double tap gesture, like for a native switch.
+A second double-tap while the action is in progress aborts it.
+
+For NVDA and JAWS, the component behaves like a switch and change is triggered with a single <kbd>Space</kbd> key press.
+
+For VoiceOver on macOS, the user is required to press and hold the <kbd>Space</kbd> key like without the screen reader.
+This is announced as aria description, so the user knows how to interact with the component.
+
+All state changes are announced by the screen reader.
 
 ## Complex Values
 
