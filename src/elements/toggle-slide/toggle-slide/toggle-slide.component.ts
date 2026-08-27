@@ -230,16 +230,20 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
       if (this._slideFraction !== (this.checked ? 1 : 0)) {
         this._updateFraction(this.checked ? 1 : 0);
       }
-    } else if (name === 'disabled') {
+    } else if (name === 'disabled' || name === 'formDisabled') {
       this._cancelAnimation();
       this._resetPointerInteraction();
       this._animateToCheckedState();
     }
   }
 
+  private _isDisabled(): boolean {
+    return this.disabled || this.formDisabled;
+  }
+
   /** Handles the pointer down event on the slide button. */
   private _handlePointerDown(event: PointerEvent): void {
-    if (this.disabled || this._state !== 'idle') {
+    if (this._isDisabled() || this._state !== 'idle') {
       return;
     }
     this._cancelAnimation();
@@ -313,7 +317,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     preventScrollOnSpacebarPress(event);
 
     // Only handle the initial Space keydown, not repeated keydown events.
-    if (this.disabled || this._state !== 'idle' || event.key !== ' ' || event.repeat) {
+    if (this._isDisabled() || this._state !== 'idle' || event.key !== ' ' || event.repeat) {
       return;
     }
     this._startActivation();
@@ -344,7 +348,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
    * During activation, another double-tap will abort the activation.
    */
   private _handleClick(event: PointerEvent): void {
-    if (this.disabled) {
+    if (this._isDisabled()) {
       return;
     }
 
@@ -374,7 +378,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     if (
       this.checked
         ? this._slideFraction <= 1 - snapThreshold
-        : this._slideFraction >= snapThreshold && !this.disabled
+        : this._slideFraction >= snapThreshold && !this._isDisabled()
     ) {
       // Animate from snapThreshold to 100% or to 0%
       this._animateToCheckedState({ target: this.checked ? 0 : 1 });
@@ -617,7 +621,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
         <sbb-button-static
           class="sbb-toggle-slide__button"
           ?loading=${this._state === 'validating'}
-          ?disabled=${this.disabled}
+          ?disabled=${this._isDisabled()}
           @pointerdown=${this._handlePointerDown}
           @pointermove=${this._handlePointerMove}
           @pointercancel=${this._handlePointerCancel}
