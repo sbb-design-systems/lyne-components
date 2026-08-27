@@ -9,6 +9,16 @@ import { property, state } from 'lit/decorators.js';
 
 import { SbbButtonStaticElement } from '../../button.pure.ts';
 import {
+  i18nToggleSlideActivated,
+  i18nToggleSlideActivating,
+  i18nToggleSlideActivationAborted,
+  i18nToggleSlideDeactivated,
+  i18nToggleSlideDeactivating,
+  i18nToggleSlideDeactivationAborted,
+  i18nToggleSlidePressAndHoldActivate,
+  i18nToggleSlidePressAndHoldDeactivate,
+  i18nToggleSlideValidating,
+  i18nToggleSlideValidationFailed,
   isIOS,
   isMacOS,
   preventScrollOnSpacebarPress,
@@ -17,6 +27,7 @@ import {
   type SbbElementType,
   SbbFormAssociatedCheckboxMixin,
   sbbInputModalityDetector,
+  SbbLanguageController,
   sbbLiveAnnouncer,
   screenReaderOnlyStyles,
 } from '../../core.ts';
@@ -169,6 +180,9 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
 
   private _slideFraction = 0;
   private _animationFrame: number = -1;
+  private _language = new SbbLanguageController(this).withHandler(() =>
+    this._updateAriaDescription(),
+  );
 
   private _pointerInteraction: {
     longPressTimer: number;
@@ -380,7 +394,11 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   private _startActivation(): void {
     this._state = 'activation-sliding';
     this._toggleButtonActiveState(true);
-    this._announce(this.checked ? 'Deactivating' : 'Activating');
+    this._announce(
+      this.checked
+        ? i18nToggleSlideDeactivating[this._language.current]
+        : i18nToggleSlideActivating[this._language.current],
+    );
     this._animateToCheckedState({
       target: this.checked ? 0 : 1,
       withEase: false,
@@ -396,7 +414,11 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
       this._validate();
     } else {
       this._state = 'idle';
-      this._announce(this.checked ? 'Deactivation aborted' : 'Activation aborted');
+      this._announce(
+        this.checked
+          ? i18nToggleSlideDeactivationAborted[this._language.current]
+          : i18nToggleSlideActivationAborted[this._language.current],
+      );
       this._animateToCheckedState();
     }
   }
@@ -422,10 +444,16 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
 
       // On iOS, the screen reader doesn't announce the state change automatically, so we need to announce it manually.
       // Override potential validating announcement with ''.
-      this._announce(isIOS ? (this.checked ? 'Activated' : 'Deactivated') : '');
+      this._announce(
+        isIOS
+          ? this.checked
+            ? i18nToggleSlideActivated[this._language.current]
+            : i18nToggleSlideDeactivated[this._language.current]
+          : '',
+      );
     } else {
       this._animateToCheckedState();
-      this._announce(`Validation failed. Falling back to initial state.`);
+      this._announce(i18nToggleSlideValidationFailed[this._language.current]);
     }
 
     this.internals.ariaBusy = null;
@@ -440,7 +468,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
       return validateResult;
     }
 
-    this._announce('Validating');
+    this._announce(i18nToggleSlideValidating[this._language.current]);
     return await validateEvent.condition.catch(() => false);
   }
 
@@ -574,7 +602,9 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     // As with VoiceOver which is only available on macOS, the user needs to press and hold the space bar,
     // we need to provide a description for this behavior.
     if (isMacOS) {
-      this.internals.ariaRoleDescription = `Press and hold space bar to ${this.checked ? 'deactivate' : 'activate'}`;
+      this.internals.ariaRoleDescription = this.checked
+        ? i18nToggleSlidePressAndHoldDeactivate[this._language.current]
+        : i18nToggleSlidePressAndHoldActivate[this._language.current];
     }
   }
 
