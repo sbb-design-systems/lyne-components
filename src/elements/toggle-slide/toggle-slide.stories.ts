@@ -12,15 +12,7 @@ import readme from './readme.md?raw';
 import '../toggle-slide.ts';
 import '../button.ts';
 import '../card.ts';
-import '../icon.ts';
-import '../title.ts';
 import '../form-field.ts';
-
-const longLabel = `For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Cras nec dolor eget leo porttitor ultrices. Mauris sed erat nec justo posuere elementum.
-  In pharetra ante vel fringilla tincidunt. Fusce congue accumsan arcu dictum porttitor.
-  Pellentesque urna justo, lacinia at velit eu, sagittis tempus nibh.
-  Quisque vitae massa et turpis fermentum tristique.`;
 
 const size: InputType = {
   control: {
@@ -38,12 +30,6 @@ const checked: InputType = {
 const disabled: InputType = {
   control: {
     type: 'boolean',
-  },
-};
-
-const label: InputType = {
-  control: {
-    type: 'text',
   },
 };
 
@@ -75,7 +61,6 @@ const defaultArgTypes: ArgTypes = {
   size,
   checked,
   disabled,
-  label,
   value,
   name,
   'icon-name': iconName,
@@ -86,22 +71,16 @@ const defaultArgs: Args = {
   size: undefined,
   checked: false,
   disabled: false,
-  label: 'Label',
   value: 'Value',
   name: 'name',
   'icon-name': undefined,
   'aria-label': 'Journey checkin state',
 };
 
-// We use property and attribute for `checked` to provide consistency to storybook controls.
-// Otherwise, after first user manipulation, the storybook control gets ignored.
-// If only using property, the reset mechanism does not work as expected.
-
-const Template = ({ checked, ...args }: Args): TemplateResult => html`
+const Template = ({ ...args }: Args): TemplateResult => html`
   <span class="sbb-form-information">
     <sbb-toggle-slide
       ${sbbSpread(args)}
-      ?checked=${checked}
       @validate=${(e: SbbToggleSlideValidateEvent) => {
         // Example for asynchronous validation
         e.preventDefaultConditionally(
@@ -116,32 +95,6 @@ const Template = ({ checked, ...args }: Args): TemplateResult => html`
     </sbb-toggle-slide>
     <sbb-hint>This is a hint</sbb-hint>
   </span>
-`;
-
-const CustomIconTemplate = ({ label, checked, ...args }: Args): TemplateResult => html`
-  <sbb-toggle-slide .checked=${checked} ?checked=${checked} ${sbbSpread(args)}>
-    ${label}
-  </sbb-toggle-slide>
-`;
-
-const BlockVariantTemplate = ({ checked, ...args }: Args): TemplateResult => html`
-  <div>
-    <sbb-toggle-slide
-      .checked=${checked}
-      ?checked=${checked}
-      ${sbbSpread(args)}
-      style="display: block;"
-    >
-      <sbb-title level="5" style="margin: 0;"> Accessible Connection. </sbb-title>
-      <span class="sbb-text-s" style="color: var(--sbb-color-iron);">
-        Show connections for accessible journeys.
-      </span>
-    </sbb-toggle-slide>
-    <p class="sbb-text-xs">
-      In this example <code>&lt;sbb-toggle-slide&gt;</code> is converted to a block element by
-      setting <code>display: block</code>.
-    </p>
-  </div>
 `;
 
 const TemplateWithForm = (args: Args): TemplateResult => html`
@@ -180,7 +133,7 @@ export const SbbToggleSlideDefault: StoryObj = {
   },
 };
 
-export const SbbToggleSlideDefaultSizeXS: StoryObj = {
+export const SbbToggleSlideDefaultSizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -189,7 +142,7 @@ export const SbbToggleSlideDefaultSizeXS: StoryObj = {
   },
 };
 
-export const SbbToggleSlideDefaultSizeS: StoryObj = {
+export const SbbToggleSlideDefaultSizeM: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -198,7 +151,7 @@ export const SbbToggleSlideDefaultSizeS: StoryObj = {
   },
 };
 
-export const SbbToggleSlideDefaultSizeM: StoryObj = {
+export const SbbToggleSlideDefaultSizeL: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -213,33 +166,6 @@ export const SbbToggleSlideDefaultChecked: StoryObj = {
   args: {
     ...defaultArgs,
     checked: true,
-  },
-};
-
-export const SbbToggleSlideDefaultLongLabel: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    label: longLabel,
-  },
-};
-
-export const SbbToggleSlideLabelBefore: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    'label-position': 'before',
-  },
-};
-
-export const SbbToggleSlideWithoutLabel: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    label: undefined,
   },
 };
 
@@ -262,36 +188,6 @@ export const SbbToggleSlideDisabledChecked: StoryObj = {
   },
 };
 
-export const SbbToggleSlideCustomIcon: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    checked: true,
-    'icon-name': 'face-smiling-small',
-  },
-};
-
-export const SbbToggleSlideCustomIconSlotted: StoryObj = {
-  render: CustomIconTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    checked: true,
-    iconName: undefined,
-  },
-};
-
-export const SbbToggleSlideBlockVariant: StoryObj = {
-  render: BlockVariantTemplate,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    'label-position': 'before',
-    label: undefined,
-  },
-};
-
 export const withForm: StoryObj = {
   render: TemplateWithForm,
   argTypes: defaultArgTypes,
@@ -302,7 +198,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: ['change', 'input'],
+      handles: ['change', 'input', 'validate'],
     },
     docs: {
       extractComponentDescription: () => readme,
