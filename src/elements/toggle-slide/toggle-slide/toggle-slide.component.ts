@@ -2,21 +2,22 @@ import {
   type CSSResultGroup,
   html,
   type PropertyDeclaration,
-  type PropertyValues,
   type TemplateResult,
   unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { ref } from 'lit/directives/ref.js';
 
 import { SbbButtonStaticElement } from '../../button.pure.ts';
 import {
-  appendAriaElements,
+  isIOS,
+  isMacOS,
   preventScrollOnSpacebarPress,
   SbbDynamicStylesheetMixin,
   SbbElement,
   type SbbElementType,
   SbbFormAssociatedCheckboxMixin,
+  sbbInputModalityDetector,
+  sbbLiveAnnouncer,
   screenReaderOnlyStyles,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
@@ -168,9 +169,6 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
 
   private _slideFraction = 0;
   private _animationFrame: number = -1;
-  private _ariaLiveRefToggle = false;
-  private _statusElement?: HTMLElement;
-  private _instructionElement?: HTMLElement;
 
   private _pointerInteraction: {
     longPressTimer: number;
@@ -185,6 +183,8 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
     this.addEventListener?.('keyup', (e) => this._handleKeyUp(e));
     this.addEventListener?.('blur', () => this._handleBlur());
+    this.addEventListener?.('click', (e) => this._handleClick(e));
+    this._updateAriaDescription();
   }
 
   public override connectedCallback(): void {
@@ -200,16 +200,6 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     super.disconnectedCallback();
   }
 
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-
-    // TODO: control order of describedByElements
-    this.internals.ariaDescribedByElements = appendAriaElements(
-      this.internals.ariaDescribedByElements,
-      this._instructionElement ?? null,
-    );
-  }
-
   public override requestUpdate(
     name?: PropertyKey,
     oldValue?: unknown,
@@ -218,8 +208,10 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     super.requestUpdate(name, oldValue, options);
     if (name === 'checked') {
       this.internals.ariaChecked = `${this.checked}`;
+
       // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a checked state.
       this.toggleState('checked', this.checked);
+      this._updateAriaDescription();
 
       if (this._slideFraction !== (this.checked ? 1 : 0)) {
         this._updateFraction(this.checked ? 1 : 0);
@@ -333,6 +325,46 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     }
   }
 
+  /**
+   * Handles click events triggered by accessibility tools like VoiceOver on iOS or TalkBack double-tap.
+   * On mobile screen readers we can only activate by double-tap.
+   * During activation, another double-tap will abort the activation.
+   */
+  private _handleClick(event: PointerEvent): void {
+    if (this.disabled) {
+      return;
+    }
+
+    // Escape patch for iOS VoiceOver where instead of the keyboard modality, touch modality is reported.
+    const isScreenReaderClick =
+      event.detail === 0 ||
+      (event.clientX === 0 && event.clientY === 0) ||
+      (event as PointerEvent).pointerType === '';
+
+    if (!sbbInputModalityDetector.isScreenReader && !isScreenReaderClick) {
+      return;
+    }
+
+    // In this case, keyboard means that it was triggered by a screen reader, as the click event is triggered by a double-tap on mobile screen readers.
+    if (this._state === 'idle') {
+      this._state = 'activation-sliding';
+
+      this._announce(this.checked ? 'Deactivating' : 'Activating');
+
+      this._animateToCheckedState({
+        target: this.checked ? 0 : 1,
+        withEase: false,
+        durationInMs: activationPressDuration,
+        onComplete: () => this._finishActivation(),
+      });
+    } else if (this._state === 'activation-sliding') {
+      // This if is triggered if another double tap during activation / deactivation is triggered,
+      // which should abort the activation / deactivation.
+
+      this._finishActivation();
+    }
+  }
+
   private _startPointerSliding(): void {
     this._cancelLongPress();
     this._cancelAnimation();
@@ -419,7 +451,10 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
       this.toggleState('label-fade', true);
       this.toggleState('icon-transition', true);
       this.toggleByUserInteraction();
-      this._announce('');
+
+      // On iOS, the screen reader doesn't announce the state change automatically, so we need to announce it manually.
+      // Override potential validating announcement with ''.
+      this._announce(isIOS ? (this.checked ? 'Activated' : 'Deactivated') : '');
     } else {
       this._animateToCheckedState();
       this._announce(`Validation failed. Falling back to initial state.`);
@@ -550,14 +585,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   }
 
   private _announce(message: string): void {
-    if (!this._statusElement) {
-      return;
-    }
-    this._ariaLiveRefToggle = !this._ariaLiveRefToggle;
-
-    // If the text content remains the same, on VoiceOver the aria-live region is not announced a second time.
-    // In order to support reading on every opening, we toggle an invisible space.
-    this._statusElement.textContent = `${message}${this._ariaLiveRefToggle ? ' ' : ''}`; // Add random number to ensure screen reader announces the same string again
+    sbbLiveAnnouncer.announce(message, 'assertive');
   }
 
   /**
@@ -574,15 +602,14 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     this.toggleState('icon-transition', false);
   }
 
+  private _updateAriaDescription(): void {
+    if (isMacOS) {
+      this.internals.ariaDescription = `Press and hold space bar to ${this.checked ? 'deactivate' : 'activate'}`;
+    }
+  }
+
   protected override render(): TemplateResult {
     return html`
-      <span
-        class="sbb-screen-reader-only"
-        aria-hidden="true"
-        ${ref((el?: Element) => (this._instructionElement = el as HTMLElement))}
-      >
-        Press and hold space bar or finger to toggle the state.
-      </span>
       <span class="sbb-toggle-slide__call-to-actions" aria-hidden="true">
         <slot @animationend=${this._handleLabelAnimationEnd}></slot>
       </span>
@@ -605,11 +632,6 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
           </span>
         </sbb-button-static>
       </span>
-      <span
-        class="sbb-toggle-slide__status sbb-screen-reader-only"
-        role="alert"
-        ${ref((el?: Element) => (this._statusElement = el as HTMLElement))}
-      ></span>
     `;
   }
 }
