@@ -4,7 +4,7 @@ The `<sbb-toggle-slide>` provides functionality similar to a native `<input type
 but requires the user to actively slide or press and hold the button in order to change its state.
 This deliberate interaction helps to prevent the state from being changed by accident,
 which makes the component especially suitable for safety-relevant or hard-to-reverse actions
-(e.g. confirming a check-in). Before activation oder deactivation is finally confirmed,
+(e.g. confirming a check-in). Before activation or deactivation is finally confirmed,
 the component dispatches a cancelable `validate` event, which allows consumers to prevent
 or asynchronously confirm the state change.
 
@@ -21,11 +21,18 @@ The two dedicated `<sbb-toggle-slide-activation-label>` and `<sbb-toggle-slide-d
 elements can be slotted into the unnamed slot to provide context-specific labels: the activation label
 is displayed while the component is unchecked, and the deactivation label is displayed while the component is checked.
 
+The slotted content is purely visual and is hidden from assistive technology.
+Therefore, an accessible name must always be provided separately via `aria-label` or `aria-labelledby`
+(see [Accessibility](#accessibility) below), regardless of what is slotted.
+
 ## States
 
 The component can be displayed in `checked` or `disabled` states using the self-named properties.
-Any programmatic change of the `checked` state is immediately applied and therefore
-overrides an in-progress state change of a user.
+Any programmatic change of the `checked` property immediately updates the visual position of the button,
+even while the user is currently interacting with the component.
+
+Like a native checkbox, the component can be marked as `required`; while `required` and unchecked,
+the component is `invalid` (see [Hint and error messages](#hint-and-error-messages) below).
 
 ## Style
 
@@ -43,10 +50,9 @@ If not set, the size defaults to `s` in the lean theme and to `m` in the standar
 As `<sbb-toggle-slide>` is not meant to be used inside a `<sbb-form-field>`,
 the `sbb-form-information` CSS class can be applied to a wrapping element (e.g. a `<div>` or `<span>`)
 to correctly arrange an `<sbb-hint>` and/or `<sbb-error>` below it, with the correct gap and indentation.
-The `<sbb-error>` is typically toggled based on the component's validity
-(e.g. using the `validity`/`invalid` events or the `validationMessage` property).
-
-It should either a hint or an error message be displayed, but not both at the same time.
+Only one of `<sbb-hint>` or `<sbb-error>` should be displayed at a time.
+The `<sbb-error>` is typically toggled based on the component's validity (e.g. using the `validity`/`invalid` events or the
+`validationMessage` property, see [setCustomValidity()](#setcustomvalidity) below).
 
 For assistive technologies, the component's `aria-describedby` attribute should point to the ID of the hint or error message.
 **Attention** Due to very limited possibilities and due to the fact that the `aria-describedby` attribute overrides the internal
@@ -104,7 +110,7 @@ if (isMacOS) {
 
 For more details, see the [sbb-form-field documentation](/docs/elements-form-field--docs#standalone-hint--error-layout).
 
-### invalid state and custom validity
+### Invalid state and custom validity
 
 It is possible to set a custom validity for this component, similar to native form elements.
 Use the `setCustomValidity(message: string)` method to set a custom error message as the state
@@ -113,7 +119,7 @@ While a custom validity message is set, the component reflects the `invalid` sta
 and `validationMessage` returns the provided message, which can be displayed via an `<sbb-error>` (see above).
 
 ```ts
-const toggleSlide = document.querySelector('sbb-toggle-slide');
+const toggleSlide = document.querySelector('sbb-toggle-slide')!;
 // Set error state/message
 toggleSlide.setCustomValidity('Backend check-in failed. Please try again.');
 // Remove error state/message
@@ -126,10 +132,14 @@ The state of the component can only be changed with a deliberate interaction:
 
 - **Slide**: the button can be dragged along the track; releasing it near the end of the track
   completes the state change, while releasing it before that point animates the button back to its
-  original position.
+  original position. Note that only the button itself (not the surrounding track or labels) can be grabbed.
 - **Press and hold**: pressing and holding the button (or the <kbd>Space</kbd> key, see below)
   triggers a slow sliding animation from the current state to the opposite one.
   Releasing before the animation completes aborts the action and the button animates back.
+
+Unlike a native checkbox, a plain click or tap on the component does **not** change its state;
+the state can only be changed via one of the deliberate interactions described above
+(or their assistive technology equivalents described in [Screen reader usage](#screen-reader-usage) below).
 
 Once a slide or press-and-hold interaction is completed, the component dispatches a cancelable
 `validate` event before actually changing the `checked` state (see [Events](#events) below).
@@ -158,10 +168,10 @@ toggleSlide.addEventListener('validate', (event: SbbToggleSlideValidateEvent) =>
 
 ## Keyboard interaction
 
-| Keyboard                          | Action                                                                                                                  |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| <kbd>Space</kbd> (press and hold) | Starts the sliding animation towards the opposite state. <br/>As soon as the end is reached the activation is commited. |
-| <kbd>Space</kbd> (release)        | Confirms the state change if the animation has completed; otherwise aborts it.                                          |
+| Keyboard                          | Action                                                                                                                    |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| <kbd>Space</kbd> (press and hold) | Starts the sliding animation towards the opposite state. <br/>As soon as the end is reached, the activation is committed. |
+| <kbd>Space</kbd> (release)        | Confirms the state change if the animation has completed; otherwise aborts it.                                            |
 
 ## Accessibility
 
@@ -170,15 +180,24 @@ so it is announced by assistive technology in the same way as a native switch co
 
 ### Screen reader usage
 
-It's mandatory to provide an accessible name for the component, either via `aria-label` or `aria-labelledby`.
+It's mandatory to provide an accessible name for the component, either via `aria-label` or `aria-labelledby`,
+since the slotted labels are not exposed to assistive technology (see [Slots](#slots) above).
 
-On touch devices, the state can be changed with a double tap gesture, like for a native switch.
-A second double-tap while the action is in progress aborts it.
+When using a screen reader on a touch device (e.g. VoiceOver on iOS or TalkBack), the state can be
+changed with a double-tap gesture instead of sliding, like for a native switch; a second double-tap
+while the action is in progress aborts it.
 
-For NVDA and JAWS, the component behaves like a switch and change is triggered with a single <kbd>Space</kbd> key press.
+For NVDA and JAWS on Windows, activating the component (e.g. via a single <kbd>Space</kbd> or
+<kbd>Enter</kbd> key press) synthesizes a click event, which is handled the same way as the
+double-tap gesture above: it starts the full sliding animation automatically, and triggering the
+same activation again while it is in progress aborts it.
 
-For VoiceOver on macOS, the user is required to press and hold the <kbd>Space</kbd> key like without the screen reader.
-This is announced as aria description, so the user knows how to interact with the component.
+For VoiceOver on macOS, no such synthetic click is generated, so the user is required to physically
+press and hold the <kbd>Space</kbd> key, the same as sighted keyboard users (see
+[Keyboard interaction](#keyboard-interaction) above). Since this differs from the single-press
+behavior on other screen readers, the component provides an additional `aria-description` explaining
+this interaction; this description is lost if you set your own `aria-describedby` on the component
+(see [Hint and error messages](#hint-and-error-messages) above).
 
 All state changes are announced by the screen reader.
 
