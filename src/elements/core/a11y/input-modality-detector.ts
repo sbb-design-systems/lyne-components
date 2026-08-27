@@ -94,19 +94,6 @@ class SbbInputModalityDetector {
     return this._mostRecentTarget;
   }
   private _mostRecentTarget: HTMLElement | null = null;
-
-  /**
-   * Whether a screen reader is currently assumed to be active.
-   *
-   * This is derived from fake `mousedown`/`touchstart` events, which are dispatched by screen
-   * readers when their controls are activated (e.g. by pressing enter/space or double-tapping).
-   * As soon as a genuine (i.e. not faked) mouse or touch interaction is detected, this flag is
-   * reset to `false` again, since a real pointer interaction is a strong signal that no screen
-   * reader is (currently) driving the interaction.
-   */
-  public get isScreenReader(): boolean {
-    return this._isScreenReader;
-  }
   private _isScreenReader = false;
 
   /** Options for this SbbInputModalityDetector. */
@@ -132,6 +119,31 @@ class SbbInputModalityDetector {
     this._updateState('mouse', null);
     this._setScreenReader(false);
     this._lastTouchMs = 0;
+  }
+
+  /**
+   * Whether a screen reader is currently assumed to be active.
+   *
+   * This is derived from fake `mousedown`/`touchstart` events, which are dispatched by screen
+   * readers when their controls are activated (e.g. by pressing enter/space or double-tapping).
+   * As soon as a genuine (i.e. not faked) mouse or touch interaction is detected, this flag is
+   * reset to `false` again, since a real pointer interaction is a strong signal that no screen
+   * reader is (currently) driving the interaction.
+   *
+   * @param event Optional PointerEvent to check if it was potentially triggered by a screen reader.
+   *   If the event is present it will also be checked for the special case of iOS VoiceOver
+   *   where instead of the screenreader / keyboard modality, touch modality is reported.
+   * @returns Whether a screen reader is currently assumed to be active.
+   */
+  public isScreenReader(event?: PointerEvent): boolean {
+    // Escape patch for iOS VoiceOver where instead of the keyboard modality, touch modality is reported.
+    const isScreenReaderClick =
+      event &&
+      (event.detail === 0 ||
+        (event.clientX === 0 && event.clientY === 0) ||
+        (event as PointerEvent).pointerType === '');
+
+    return this._isScreenReader || (isScreenReaderClick ?? false);
   }
 
   /**

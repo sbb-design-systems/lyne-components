@@ -302,7 +302,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     if (this.disabled || this._state !== 'idle' || event.key !== ' ' || event.repeat) {
       return;
     }
-    this._startKeyboardActivation();
+    this._startActivation();
   }
 
   /** Handles the key up event on the toggle slide element. */
@@ -320,8 +320,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
    */
   private _handleBlur(): void {
     if (this._state === 'activation-sliding') {
-      this._state = 'idle';
-      this._animateToCheckedState();
+      this._finishActivation();
     }
   }
 
@@ -335,32 +334,17 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
       return;
     }
 
-    // Escape patch for iOS VoiceOver where instead of the keyboard modality, touch modality is reported.
-    const isScreenReaderClick =
-      event.detail === 0 ||
-      (event.clientX === 0 && event.clientY === 0) ||
-      (event as PointerEvent).pointerType === '';
-
-    if (!sbbInputModalityDetector.isScreenReader && !isScreenReaderClick) {
+    // We only want to continue if the click was triggered by a screen reader, otherwise we would trigger activation on every click.
+    if (!sbbInputModalityDetector.isScreenReader(event)) {
       return;
     }
 
     // In this case, keyboard means that it was triggered by a screen reader, as the click event is triggered by a double-tap on mobile screen readers.
     if (this._state === 'idle') {
-      this._state = 'activation-sliding';
-
-      this._announce(this.checked ? 'Deactivating' : 'Activating');
-
-      this._animateToCheckedState({
-        target: this.checked ? 0 : 1,
-        withEase: false,
-        durationInMs: activationPressDuration,
-        onComplete: () => this._finishActivation(),
-      });
+      this._startActivation();
     } else if (this._state === 'activation-sliding') {
-      // This if is triggered if another double tap during activation / deactivation is triggered,
+      // This if is triggered if another double tap or click event during activation / deactivation occurs,
       // which should abort the activation / deactivation.
-
       this._finishActivation();
     }
   }
@@ -390,11 +374,13 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   private _startLongPressActivation(): void {
     this._pointerInteraction!.longPressTimer = -1;
     this._cancelLongPress();
-    this._cancelAnimation();
+    this._startActivation();
+  }
 
+  private _startActivation(): void {
     this._state = 'activation-sliding';
-
-    this._announce('Activating'); // TODO: Deactivating
+    this._toggleButtonActiveState(true);
+    this._announce(this.checked ? 'Deactivating' : 'Activating');
     this._animateToCheckedState({
       target: this.checked ? 0 : 1,
       withEase: false,
@@ -403,32 +389,14 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     });
   }
 
-  private _startKeyboardActivation(): void {
-    this._cancelAnimation();
-    this._toggleButtonActiveState(true);
-
-    this._state = 'activation-sliding';
-
-    this._announce('Activating'); // TODO: Deactivating
-    this._animateToCheckedState({
-      target: this.checked ? 0 : 1,
-      withEase: false,
-      durationInMs: activationPressDuration,
-
-      // Trigger the validating state as soon as it reaches 1 or 0
-      onComplete: () => {
-        this._toggleButtonActiveState(false);
-        this._finishActivation();
-      },
-    });
-  }
-
   private _finishActivation(): void {
+    this._toggleButtonActiveState(false);
+
     if (this._slideFraction === (this.checked ? 0 : 1)) {
       this._validate();
     } else {
       this._state = 'idle';
-      this._announce('Activation aborted'); // TODO: Deactivating
+      this._announce(this.checked ? 'Deactivation aborted' : 'Activation aborted');
       this._animateToCheckedState();
     }
   }
@@ -603,8 +571,10 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   }
 
   private _updateAriaDescription(): void {
+    // As with VoiceOver which is only available on macOS, the user needs to press and hold the space bar,
+    // we need to provide a description for this behavior.
     if (isMacOS) {
-      this.internals.ariaDescription = `Press and hold space bar to ${this.checked ? 'deactivate' : 'activate'}`;
+      this.internals.ariaRoleDescription = `Press and hold space bar to ${this.checked ? 'deactivate' : 'activate'}`;
     }
   }
 
