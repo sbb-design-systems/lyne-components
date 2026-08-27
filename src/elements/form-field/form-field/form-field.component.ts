@@ -545,14 +545,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
    */
   private _onSlotErrorChange(event: Event): void {
     const errorElements = (event.target as HTMLSlotElement).assignedElements();
-    if (this._input && this._input.ariaDescribedByElements?.length) {
-      this._input.ariaDescribedByElements = removeAriaElements(
-        this._input.ariaDescribedByElements,
-        ...(this._errorElements ?? []),
-        // Also remove hint elements since their visibility depends on error state
-        ...(this._hintElements ?? []),
-      );
-    }
+    this._cleanHintsAndErrors();
 
     this._errorElements = errorElements;
     for (const el of this._errorElements) {
@@ -571,17 +564,22 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
    */
   private _onSlotHintChange(event: Event): void {
     const hintElements = (event.target as HTMLSlotElement).assignedElements();
-    if (this._input?.ariaDescribedByElements?.length && this._hintElements?.length) {
-      this._input.ariaDescribedByElements = removeAriaElements(
-        this._input.ariaDescribedByElements,
-        ...this._hintElements,
-      );
-    }
+    this._cleanHintsAndErrors();
 
     this._hintElements = hintElements;
     this._assignAriaDescribedByElements();
     this.toggleState('has-hint', !!this._hintElements.length);
     this._syncNegative();
+  }
+
+  private _cleanHintsAndErrors(): void {
+    if (this._input?.ariaDescribedByElements?.length) {
+      this._input.ariaDescribedByElements = removeAriaElements(
+        this._input.ariaDescribedByElements,
+        ...(this._errorElements ?? []),
+        ...(this._hintElements ?? []),
+      );
+    }
   }
 
   private _assignAriaDescribedByElements(): void {
