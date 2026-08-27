@@ -38,6 +38,88 @@ If not set, the size defaults to `s` in the lean theme and to `m` in the standar
 </sbb-toggle-slide>
 ```
 
+### Hint and error messages
+
+As `<sbb-toggle-slide>` is not meant to be used inside a `<sbb-form-field>`,
+the `sbb-form-information` CSS class can be applied to a wrapping element (e.g. a `<div>` or `<span>`)
+to correctly arrange an `<sbb-hint>` and/or `<sbb-error>` below it, with the correct gap and indentation.
+The `<sbb-error>` is typically toggled based on the component's validity
+(e.g. using the `validity`/`invalid` events or the `validationMessage` property).
+
+It should either a hint or an error message be displayed, but not both at the same time.
+
+For assistive technologies, the component's `aria-describedby` attribute should point to the ID of the hint or error message.
+**Attention** Due to very limited possibilities and due to the fact that the `aria-describedby` attribute overrides the internal
+instructions for screen readers, the instructions also have to be mimicked by the consumers.
+
+```ts
+import {
+  i18nToggleSlidePressAndHoldActivate,
+  i18nToggleSlidePressAndHoldDeactivate,
+  isMacOS,
+} from '@sbb-esta/lyne-elements/core.js';
+
+// On macOS, VoiceOver users can activate the component using the same
+// press-and-hold interaction as keyboard users, so explain the interaction.
+if (isMacOS) {
+  const lang = document.documentElement.lang;
+  const component = document.querySelector('sbb-toggle-slide')!;
+  const additionalAriaDescribedByAction = component.checked
+    ? i18nToggleSlidePressAndHoldDeactivate[lang]
+    : i18nToggleSlidePressAndHoldActivate[lang];
+}
+```
+
+```html
+<span class="sbb-form-information">
+  <sbb-toggle-slide
+    aria-label="Journey check-in"
+    name="checkin"
+    value="checked-in"
+    aria-describedby="error instruction"
+  >
+    <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
+    <sbb-toggle-slide-deactivation-label>To stop pull left</sbb-toggle-slide-deactivation-label>
+  </sbb-toggle-slide>
+  <sbb-error id="error">Backend check-in failed. Please try again.</sbb-error>
+  <span id="instruction" class="sbb-screen-reader-only">${additionalAriaDescribedByAction}</span>
+</span>
+```
+
+```html
+<span class="sbb-form-information">
+  <sbb-toggle-slide
+    aria-label="Journey check-in"
+    name="checkin"
+    value="checked-in"
+    aria-describedby="hint instruction"
+  >
+    <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
+    <sbb-toggle-slide-deactivation-label>To stop pull left</sbb-toggle-slide-deactivation-label>
+  </sbb-toggle-slide>
+  <sbb-hint id="hint">Activate to start your journey.</sbb-hint>
+  <span id="instruction" class="sbb-screen-reader-only">${additionalAriaDescribedByAction}</span>
+</span>
+```
+
+For more details, see the [sbb-form-field documentation](/docs/elements-form-field--docs#standalone-hint--error-layout).
+
+### invalid state and custom validity
+
+It is possible to set a custom validity for this component, similar to native form elements.
+Use the `setCustomValidity(message: string)` method to set a custom error message as the state
+and pass an empty string to reset the error state.
+While a custom validity message is set, the component reflects the `invalid` state (e.g. showing the red border)
+and `validationMessage` returns the provided message, which can be displayed via an `<sbb-error>` (see above).
+
+```ts
+const toggleSlide = document.querySelector('sbb-toggle-slide');
+// Set error state/message
+toggleSlide.setCustomValidity('Backend check-in failed. Please try again.');
+// Remove error state/message
+toggleSlide.setCustomValidity('');
+```
+
 ## Interactions
 
 The state of the component can only be changed with a deliberate interaction:
