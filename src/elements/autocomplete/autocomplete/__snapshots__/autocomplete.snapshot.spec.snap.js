@@ -233,3 +233,195 @@ snapshots["sbb-autocomplete renders in form field A11y tree Chrome"] =
 `;
 /* end snapshot sbb-autocomplete renders in form field A11y tree Chrome */
 
+snapshots["sbb-autocomplete with actions Chrome-Firefox DOM"] = 
+`<sbb-autocomplete
+  origin="anchor"
+  popover="manual"
+>
+  <sbb-autocomplete-row>
+    <sbb-option value="1">
+      Option 1
+    </sbb-option>
+    <sbb-autocomplete-button icon-name="pen-small">
+    </sbb-autocomplete-button>
+  </sbb-autocomplete-row>
+  <sbb-autocomplete-row>
+    <sbb-option
+      disabled=""
+      value="1"
+    >
+      Option 2
+    </sbb-option>
+    <sbb-autocomplete-button
+      disabled=""
+      icon-name="pen-small"
+    >
+    </sbb-autocomplete-button>
+  </sbb-autocomplete-row>
+</sbb-autocomplete>
+`;
+/* end snapshot sbb-autocomplete with actions Chrome-Firefox DOM */
+
+snapshots["sbb-autocomplete with actions Chrome-Firefox Shadow DOM"] = 
+`<div class="sbb-option-panel__overlay-container">
+  <div
+    class="sbb-option-panel__overlay sbb-scrollbar"
+    id="sbb-autocomplete-7"
+    role="listbox"
+    tabindex="-1"
+  >
+    <slot>
+    </slot>
+  </div>
+</div>
+`;
+/* end snapshot sbb-autocomplete with actions Chrome-Firefox Shadow DOM */
+
+snapshots["sbb-autocomplete with actions Safari DOM"] = 
+`<sbb-autocomplete
+  origin="anchor"
+  popover="manual"
+>
+  <sbb-autocomplete-row>
+    <sbb-option value="1">
+      Option 1
+    </sbb-option>
+    <sbb-autocomplete-button icon-name="pen-small">
+    </sbb-autocomplete-button>
+  </sbb-autocomplete-row>
+  <sbb-autocomplete-row>
+    <sbb-option
+      disabled=""
+      value="1"
+    >
+      Option 2
+    </sbb-option>
+    <sbb-autocomplete-button
+      disabled=""
+      icon-name="pen-small"
+    >
+    </sbb-autocomplete-button>
+  </sbb-autocomplete-row>
+</sbb-autocomplete>
+`;
+/* end snapshot sbb-autocomplete with actions Safari DOM */
+
+snapshots["sbb-autocomplete with actions Safari Shadow DOM"] = 
+`<div class="sbb-option-panel__overlay-container">
+  <div
+    class="sbb-option-panel__overlay sbb-scrollbar"
+    tabindex="-1"
+  >
+    <slot>
+    </slot>
+  </div>
+</div>
+`;
+/* end snapshot sbb-autocomplete with actions Safari Shadow DOM */
+
+snapshots["sbb-autocomplete with actions A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none",
+                      "children": [
+                        {
+                          "ignored": true,
+                          "role": "none"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none",
+                      "children": [
+                        {
+                          "ignored": true,
+                          "role": "none"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none",
+                      "children": [
+                        {
+                          "ignored": true,
+                          "role": "none"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none",
+                      "children": [
+                        {
+                          "ignored": true,
+                          "role": "none"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete with actions A11y tree Chrome */
+

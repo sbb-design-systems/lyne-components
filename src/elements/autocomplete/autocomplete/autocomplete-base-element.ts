@@ -26,11 +26,13 @@ import {
   SbbPropertyWatcherController,
   scrollbarStyles,
   setOverlayPosition,
-} from '../core.ts';
-import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
-import { optionPanelStyles, type SbbOptionBaseElement } from '../option.pure.ts';
+} from '../../core.ts';
+import type { SbbFormFieldElement } from '../../form-field/form-field/form-field.component.ts';
+import { optionPanelStyles, type SbbOptionBaseElement } from '../../option.pure.ts';
 
 import style from './autocomplete-base-element.scss?inline';
+
+// TODO: The base class will no longer be needed once the autocomplete-grid is deleted in the next major release. Merge this in the main class.
 
 /**
  * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.

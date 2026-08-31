@@ -109,7 +109,7 @@
 
     &::before {
       content: '';
-      display: block;
+      display: var(--sbb-option-disabled-display, block);
       position: absolute;
       inset: #{sbb.px-to-rem-build(6)};
       border: var(--sbb-border-width-1x) dashed var(--sbb-option-disabled-border-color);

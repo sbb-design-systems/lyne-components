@@ -5,15 +5,16 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 import { type SinonSpy, spy } from 'sinon';
 
-import { fixture, tabKey } from '../core/testing/private.ts';
-import { EventSpy, waitForLitRender } from '../core/testing.ts';
-import { isSafari } from '../core.ts';
-import { SbbFormFieldElement } from '../form-field.ts';
-import { SbbOptionElement } from '../option.ts';
+import { fixture, tabKey } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import { isSafari } from '../../core.ts';
+import { SbbFormFieldElement } from '../../form-field.ts';
+import { SbbOptionElement } from '../../option.ts';
+import type { SbbAutocompleteButtonElement } from '../autocomplete-button/autocomplete-button.component.ts';
 
 import { SbbAutocompleteElement } from './autocomplete.component.ts';
 
-import '../autocomplete.ts';
+import '../../autocomplete.ts';
 
 // TODO: Create a 'sbb-autocomplete-base.spec' that factorize tests between the 'autocomplete' and the 'autocomplete-grid'
 
@@ -1166,6 +1167,190 @@ describe(`sbb-autocomplete`, () => {
 
         await openSpy.calledTimes(2);
         expect(element.isOpen).to.be.true;
+      });
+    });
+  });
+
+  describe('with actions', () => {
+    let optOne: SbbOptionElement,
+      optTwo: SbbOptionElement,
+      optThree: SbbOptionElement,
+      actionOneOne: SbbAutocompleteButtonElement,
+      actionTwoOne: SbbAutocompleteButtonElement,
+      actionTwoTwo: SbbAutocompleteButtonElement;
+
+    beforeEach(async () => {
+      formField = await fixture(html`
+        <sbb-form-field>
+          <input />
+          <sbb-autocomplete id="myAutocomplete">
+            <sbb-autocomplete-row id="option-row-1">
+              <sbb-option value="1" id="option-1">1</sbb-option>
+              <sbb-autocomplete-button id="action-1-1"></sbb-autocomplete-button>
+            </sbb-autocomplete-row>
+            <sbb-autocomplete-row id="option-row-2">
+              <sbb-option value="2" id="option-2">2</sbb-option>
+              <sbb-autocomplete-button id="action-2-1"></sbb-autocomplete-button>
+              <sbb-autocomplete-button id="action-2-2"></sbb-autocomplete-button>
+            </sbb-autocomplete-row>
+            <sbb-option id="option-3" value="3">3</sbb-option>
+          </sbb-autocomplete>
+        </sbb-form-field>
+        <button>Use this for backdrop click</button>
+      `);
+      input = formField.querySelector<HTMLInputElement>('input')!;
+      element = formField.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
+      optOne = element.querySelector<SbbOptionElement>('#option-1')!;
+      optTwo = element.querySelector<SbbOptionElement>('#option-2')!;
+      optThree = element.querySelector<SbbOptionElement>('#option-3')!;
+      actionOneOne = element.querySelector<SbbAutocompleteButtonElement>('#action-1-1')!;
+      actionTwoOne = element.querySelector<SbbAutocompleteButtonElement>('#action-2-1')!;
+      actionTwoTwo = element.querySelector<SbbAutocompleteButtonElement>('#action-2-2')!;
+    });
+
+    it('selects the option on click', async () => {
+      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+      const optionSelectedSpy = new EventSpy(SbbOptionElement.events.optionselected);
+
+      input.focus();
+      await openSpy.calledOnce();
+
+      optOne.click();
+      await closeSpy.calledOnce();
+
+      expect(optionSelectedSpy.count).to.be.equal(1);
+      expect(optOne).to.have.attribute('selected');
+      expect(input.value).to.be.equal('1');
+    });
+
+    it('clicking an action emits click and does not close the panel', async () => {
+      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+      const actionClickSpy = new EventSpy('click', actionOneOne);
+
+      input.focus();
+      await openSpy.calledOnce();
+      actionOneOne.click();
+
+      expect(actionClickSpy.count).to.be.equal(1);
+      expect(closeSpy.count).to.be.equal(0);
+      expect(element).to.match(':state(state-opened)');
+      expect(optOne).not.to.have.attribute('selected');
+    });
+
+    describe('keyboard navigation', () => {
+      beforeEach(async () => {
+        const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+        input.focus();
+        await openSpy.calledOnce();
+      });
+
+      it('ArrowDown/ArrowUp navigate between options only', async () => {
+        await sendKeys({ press: 'ArrowDown' });
+        await sendKeys({ press: 'ArrowDown' });
+        expect(optTwo).to.match(':state(active)');
+        expect(input.ariaActiveDescendantElement).to.be.equal(optTwo);
+
+        await sendKeys({ press: 'ArrowUp' });
+        expect(optTwo).not.to.match(':state(active)');
+        expect(optOne).to.match(':state(active)');
+        expect(input.ariaActiveDescendantElement).to.be.equal(optOne);
+      });
+
+      it('ArrowRight/ArrowLeft do nothing on an option without actions', async () => {
+        await sendKeys({ press: 'ArrowDown' });
+        await sendKeys({ press: 'ArrowDown' });
+        await sendKeys({ press: 'ArrowDown' }); // optThree, no row/actions
+
+        await sendKeys({ press: 'ArrowRight' });
+        expect(optThree).to.match(':state(active)');
+        expect(input.ariaActiveDescendantElement).to.be.equal(optThree);
+      });
+
+      it('ArrowRight moves to the action(s), ArrowLeft moves back to the option', async () => {
+        await sendKeys({ press: 'ArrowDown' });
+        await sendKeys({ press: 'ArrowDown' }); // optTwo, has 2 actions
+
+        await sendKeys({ press: 'ArrowRight' });
+        expect(optTwo).not.to.match(':state(active)');
+        expect(actionTwoOne).to.match(':state(focus-visible)');
+        expect(input.ariaActiveDescendantElement).to.be.equal(actionTwoOne);
+
+        await sendKeys({ press: 'ArrowRight' });
+        expect(actionTwoOne).not.to.match(':state(focus-visible)');
+        expect(actionTwoTwo).to.match(':state(focus-visible)');
+        expect(input.ariaActiveDescendantElement).to.be.equal(actionTwoTwo);
+
+        // should wrap back to option
+        await sendKeys({ press: 'ArrowRight' });
+        expect(actionTwoTwo).not.to.match(':state(focus-visible)');
+        expect(optTwo).to.match(':state(active)');
+        expect(input.ariaActiveDescendantElement).to.be.equal(optTwo);
+
+        await sendKeys({ press: 'ArrowLeft' });
+        expect(optTwo).not.to.match(':state(active)');
+        expect(actionTwoTwo).to.match(':state(focus-visible)');
+        expect(input.ariaActiveDescendantElement).to.be.equal(actionTwoTwo);
+      });
+
+      it('ArrowRight then ArrowDown moves to the next option and resets the column', async () => {
+        await sendKeys({ press: 'ArrowDown' });
+        await sendKeys({ press: 'ArrowDown' }); // optTwo
+        await sendKeys({ press: 'ArrowRight' }); // action-2-1
+
+        await sendKeys({ press: 'ArrowDown' }); // optThree
+        expect(actionTwoOne).not.to.match(':state(focus-visible)');
+        expect(optThree).to.match(':state(active)');
+        expect(input.ariaActiveDescendantElement).to.be.equal(optThree);
+      });
+
+      it('ArrowRight then close resets the active column', async () => {
+        const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+
+        await sendKeys({ press: 'ArrowDown' }); // optOne
+        await sendKeys({ press: 'ArrowRight' }); // action-1-1
+        expect(actionOneOne).to.match(':state(focus-visible)');
+
+        await sendKeys({ press: 'Escape' });
+        await closeSpy.calledOnce();
+        expect(actionOneOne).not.to.match(':state(focus-visible)');
+        expect(input.ariaActiveDescendantElement).to.be.null;
+
+        const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+        input.focus();
+        await sendKeys({ press: 'ArrowDown' });
+        await openSpy.calledOnce();
+
+        await sendKeys({ press: 'ArrowDown' });
+        expect(optOne).to.match(':state(active)');
+        expect(input.ariaActiveDescendantElement).to.be.equal(optOne);
+      });
+
+      it('Enter on an option selects it and closes the panel', async () => {
+        const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+        const optionSelectedSpy = new EventSpy(SbbOptionElement.events.optionselected);
+
+        await sendKeys({ press: 'ArrowDown' }); // optOne
+        await sendKeys({ press: 'Enter' });
+        await closeSpy.calledOnce();
+
+        expect(optionSelectedSpy.count).to.be.equal(1);
+        expect(optOne).to.have.attribute('selected');
+      });
+
+      it('Enter on a focused action clicks it and keeps the panel open', async () => {
+        const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+        const actionClickSpy = new EventSpy('click', actionOneOne);
+
+        await sendKeys({ press: 'ArrowDown' }); // optOne
+        await sendKeys({ press: 'ArrowRight' }); // action-1-1
+        await sendKeys({ press: 'Enter' });
+        await actionClickSpy.calledOnce();
+
+        expect(closeSpy.count).to.be.equal(0);
+        expect(optOne).not.to.have.attribute('selected');
+        expect(element).to.match(':state(state-opened)');
       });
     });
   });

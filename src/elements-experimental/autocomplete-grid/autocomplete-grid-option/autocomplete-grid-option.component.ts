@@ -9,6 +9,7 @@ export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
 /**
  * It displays an option item which can be used in `sbb-autocomplete-grid`.
  *
+ * @deprecated Use `sbb-autocomplete` with `sbb-autocomplete-row` and `sbb-autocomplete-button` instead. Will be removed with the next major release.
  * @slot - Use the unnamed slot to add content to the option label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
  * @cssprop [--sbb-option-icon-container-display=none] - Can be used to reserve space even

@@ -6,6 +6,7 @@ import style from './autocomplete-grid-cell.scss?inline';
 /**
  * A wrapper component for autocomplete-grid action button.
  *
+ * @deprecated Use `sbb-autocomplete` with `sbb-autocomplete-row` and `sbb-autocomplete-button` instead. Will be removed with the next major release.
  * @slot - Use the unnamed slot to add a `sbb-autocomplete-grid-button` element.
  */
 export class SbbAutocompleteGridCellElement extends SbbElement {

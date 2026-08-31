@@ -1,16 +1,16 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
-import { describeIf } from '../core/testing.ts';
-import { isSafari } from '../core.ts';
-import type { SbbFormFieldElement } from '../form-field.ts';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
+import { describeIf } from '../../core/testing.ts';
+import { isSafari } from '../../core.ts';
+import type { SbbFormFieldElement } from '../../form-field.ts';
 
 import type { SbbAutocompleteElement } from './autocomplete.component.ts';
 
-import '../form-field.ts';
-import '../option.ts';
-import '../autocomplete.ts';
+import '../../form-field.ts';
+import '../../option.ts';
+import '../../autocomplete.ts';
 
 describe(`sbb-autocomplete`, () => {
   describe('renders standalone', async () => {
@@ -79,6 +79,46 @@ describe(`sbb-autocomplete`, () => {
     describeIf(isSafari, 'Safari', async () => {
       it('DOM', async () => {
         await expect(root).dom.to.be.equalSnapshot();
+      });
+
+      it('Shadow DOM', async () => {
+        await expect(root).shadowDom.to.be.equalSnapshot();
+      });
+    });
+
+    testA11yTreeSnapshot();
+  });
+
+  describe('with actions', () => {
+    let root: SbbAutocompleteElement;
+    beforeEach(async () => {
+      root = await fixture(html`
+        <sbb-autocomplete origin="anchor">
+          <sbb-autocomplete-row>
+            <sbb-option value="1">Option 1</sbb-option>
+            <sbb-autocomplete-button icon-name="pen-small"></sbb-autocomplete-button>
+          </sbb-autocomplete-row>
+          <sbb-autocomplete-row>
+            <sbb-option disabled value="1">Option 2</sbb-option>
+            <sbb-autocomplete-button disabled icon-name="pen-small"></sbb-autocomplete-button>
+          </sbb-autocomplete-row>
+        </sbb-autocomplete>
+      `);
+    });
+
+    describeIf(!isSafari, 'Chrome-Firefox', async () => {
+      it('DOM', async () => {
+        await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
+      });
+
+      it('Shadow DOM', async () => {
+        await expect(root).shadowDom.to.be.equalSnapshot();
+      });
+    });
+
+    describeIf(isSafari, 'Safari', async () => {
+      it('DOM', async () => {
+        await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
 
       it('Shadow DOM', async () => {
