@@ -962,15 +962,15 @@ export const i18nToggleSlideValidationFailed: Record<string, string> = {
 };
 
 export const i18nToggleSlidePressAndHoldActivate: Record<string, string> = {
-  de: 'Leertaste gedrückt halten zum Aktivieren',
-  en: 'Press and hold space bar to activate',
-  fr: 'Maintenez la barre d’espace enfoncée pour activer',
-  it: 'Tenere premuta la barra spaziatrice per attivare',
+  de: 'Leertaste gedrückt halten zum Aktivieren.',
+  en: 'Press and hold space bar to activate.',
+  fr: 'Maintenez la barre d’espace enfoncée pour activer.',
+  it: 'Tenere premuta la barra spaziatrice per attivare.',
 };
 
 export const i18nToggleSlidePressAndHoldDeactivate: Record<string, string> = {
-  de: 'Leertaste gedrückt halten zum Deaktivieren',
-  en: 'Press and hold space bar to deactivate',
-  fr: 'Maintenez la barre d’espace enfoncée pour désactiver',
-  it: 'Tenere premuta la barra spaziatrice per disattivare',
+  de: 'Leertaste gedrückt halten zum Deaktivieren.',
+  en: 'Press and hold space bar to deactivate.',
+  fr: 'Maintenez la barre d’espace enfoncée pour désactiver.',
+  it: 'Tenere premuta la barra spaziatrice per disattivare.',
 };
