@@ -163,6 +163,8 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   ];
   public static override role = 'switch';
   public static readonly events = {
+    input: 'input',
+    change: 'change',
     validate: 'validate',
   } as const;
 
@@ -251,6 +253,8 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     this._state = 'pointer-pending';
     const button = event.currentTarget as HTMLElement;
     button.setPointerCapture(event.pointerId);
+
+    // Global listener needed although we have pointer capture. Seems more stable than just pointer capture.
     window.addEventListener('pointerup', () => this._handlePointerUp(), { once: true });
 
     this._pointerInteraction = {
