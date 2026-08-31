@@ -41,6 +41,13 @@ Possible values are `after-centered` (default), `after` and `below`.
 <sbb-teaser href="https://www.sbb.ch" alignment="below"> ... </sbb-teaser>
 ```
 
+The component has two different sizes (`m` and `l`), which can be changed using the `size` property.
+The size defaults to `m` in both the standard and the lean theme.
+
+```html
+<sbb-teaser size="l" href="https://www.sbb.ch"> ... </sbb-teaser>
+```
+
 By default, the image dimensions are set using the width and the aspect ratio.
 Default values are `300px` and `4/3`. Consumers can change these values on their slotted image element.
 
@@ -85,6 +92,7 @@ The description text is wrapped into an `<p>` element to guarantee the semantic 
 | `download`             | `download`              | public  | `boolean`                                              | `false`            | Whether the browser will show the download dialog on click.               |
 | `href`                 | `href`                  | public  | `string`                                               | `''`               | The href value you want to link to.                                       |
 | `rel`                  | `rel`                   | public  | `string`                                               | `''`               | The relationship of the linked URL as space-separated link types.         |
+| `size`                 | `size`                  | public  | `'l' \| 'm'`                                           | `'m'`              | Size variant, either m (default) or l.                                    |
 | `target`               | `target`                | public  | `'_blank' \| '_self' \| '_parent' \| '_top' \| string` | `''`               | Where to display the linked URL.                                          |
 
 #### Slots

@@ -153,6 +153,20 @@ describe(`sbb-teaser`, () => {
               );
             }),
           );
+
+          it(
+            `size=l`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                html`<sbb-teaser href="#" alignment=${alignment} size="l">
+                  <img src=${imageBase64} slot="image" alt="" />
+                  <sbb-chip-label>AI chip</sbb-chip-label>
+                  <sbb-title level="2">This is a title</sbb-title>
+                  This is a paragraph with a long text.
+                </sbb-teaser>`,
+              );
+            }),
+          );
         });
       }
 

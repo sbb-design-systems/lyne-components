@@ -7,6 +7,8 @@ import { sbbSpread } from '../../docs/helpers/spread.ts';
 import { sampleImages } from '../core/images.private.ts';
 
 import readme from './readme.md?raw';
+import type { SbbTeaserElement } from './teaser.component.ts';
+
 import '../chip-label.ts';
 import '../image.ts';
 import '../title.ts';
@@ -33,6 +35,13 @@ const alignment: InputType = {
     type: 'select',
   },
   options: ['after-centered', 'after', 'below'],
+};
+
+const size: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['m', 'l'] satisfies SbbTeaserElement['size'][],
 };
 
 const hrefs: string[] = [
@@ -70,6 +79,7 @@ const defaultArgTypes: ArgTypes = {
   title,
   chipContent,
   alignment,
+  size,
   href,
   description,
   'accessibility-label': accessibilityLabel,
@@ -79,6 +89,7 @@ const defaultArgs: Args = {
   title: 'This is a title',
   chipContent: undefined,
   alignment: 'after-centered',
+  size: 'm',
   href: href.options![1],
   description: 'This is a paragraph',
   'accessibility-label':
@@ -215,6 +226,12 @@ export const Below: StoryObj = {
   render: TemplateDefault,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, alignment: 'below' },
+};
+
+export const SizeL: StoryObj = {
+  render: TemplateDefault,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: 'l' },
 };
 
 export const AfterCenteredChip: StoryObj = {

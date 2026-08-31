@@ -24,6 +24,9 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
   @property({ reflect: true }) public accessor alignment: 'after-centered' | 'after' | 'below' =
     'after-centered';
 
+  /** Size variant, either m (default) or l. */
+  @property({ reflect: true }) public accessor size: 'm' | 'l' | null = null;
+
   private _handleSlotchange(): void {
     const chip = Array.from(this.children).find((el) => el.localName === 'sbb-chip-label');
     if (chip) {
@@ -56,7 +59,7 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
 
     if (title) {
       customElements.upgrade(title);
-      title.visualLevel = '5';
+      title.visualLevel = this.size === 'l' ? '2' : '5';
     }
   }
 
