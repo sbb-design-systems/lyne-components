@@ -9,7 +9,7 @@ the component dispatches a cancelable `validate` event, which allows consumers t
 or asynchronously confirm the state change.
 
 ```html
-<sbb-toggle-slide aria-label="Journey check-in" name="checkin" value="checked-in">
+<sbb-toggle-slide aria-label="Journey check-in" name="check-in" value="checked-in">
   <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
   <sbb-toggle-slide-deactivation-label>To stop pull left</sbb-toggle-slide-deactivation-label>
 </sbb-toggle-slide>
@@ -80,7 +80,7 @@ if (isMacOS) {
 <span class="sbb-form-information">
   <sbb-toggle-slide
     aria-label="Journey check-in"
-    name="checkin"
+    name="check-in"
     value="checked-in"
     aria-describedby="error instruction"
   >
@@ -96,7 +96,7 @@ if (isMacOS) {
 <span class="sbb-form-information">
   <sbb-toggle-slide
     aria-label="Journey check-in"
-    name="checkin"
+    name="check-in"
     value="checked-in"
     aria-describedby="hint instruction"
   >
@@ -162,7 +162,7 @@ Without any handling of the `validate` event, the state change is always immedia
 
 ```ts
 toggleSlide.addEventListener('validate', (event: SbbToggleSlideValidateEvent) => {
-  event.preventDefaultConditionally(fetch('/api/confirm-checkin').then((response) => response.ok));
+  event.preventDefaultConditionally(fetch('/api/confirm-check-in').then((response) => response.ok));
 });
 ```
 

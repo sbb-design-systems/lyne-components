@@ -1,11 +1,15 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../docs/helpers/spread.ts';
-import type { SbbToggleSlideValidateEvent, SbbToggleSlideElement } from '../toggle-slide.ts';
+import { isMacOS } from '../core/dom/platform.ts';
+import {
+  i18nToggleSlidePressAndHoldActivate,
+  i18nToggleSlidePressAndHoldDeactivate,
+} from '../core/i18n/i18n.ts';
+import { SbbToggleSlideElement, type SbbToggleSlideValidateEvent } from '../toggle-slide.ts';
 
 import readme from './readme.md?raw';
 
@@ -13,12 +17,19 @@ import '../toggle-slide.ts';
 import '../button.ts';
 import '../card.ts';
 import '../form-field.ts';
+import '../title.ts';
 
 const size: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['s', 'm', 'l'] satisfies SbbToggleSlideElement['size'][],
+};
+
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
 };
 
 const checked: InputType = {
@@ -45,56 +56,135 @@ const name: InputType = {
   },
 };
 
-const iconName: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const ariaLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   size,
+  'aria-label': ariaLabel,
   checked,
   disabled,
   value,
   name,
-  'icon-name': iconName,
-  'aria-label': ariaLabel,
 };
 
 const defaultArgs: Args = {
   size: undefined,
+  'aria-label': 'Journey check-in state',
   checked: false,
   disabled: false,
   value: 'Value',
   name: 'name',
-  'icon-name': undefined,
-  'aria-label': 'Journey checkin state',
 };
 
-const Template = ({ ...args }: Args): TemplateResult => html`
+const title = html`<sbb-title level="6" style="margin-block-start: 0;"
+  >Journey check-in</sbb-title
+>`;
+
+const labels = html`
+  <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
+  <sbb-toggle-slide-deactivation-label>To stop pull left</sbb-toggle-slide-deactivation-label>
+`;
+
+const Template = ({ checked, ...args }: Args): TemplateResult => html`
+  ${title}
+  <sbb-toggle-slide ${sbbSpread(args)} .checked=${checked}>${labels}</sbb-toggle-slide>
+`;
+
+const TemplateWithAsynchronousValidation = ({ checked, ...args }: Args): TemplateResult => html`
+  <sbb-toggle-slide
+    ${sbbSpread(args)}
+    .checked=${checked}
+    @validate=${(e: SbbToggleSlideValidateEvent) => {
+      e.preventDefaultConditionally(
+        // Simulate a backend call with a timeout.
+        new Promise((resolve) => setTimeout(() => resolve(true), 1500)),
+      );
+    }}
+  >
+    ${labels}
+  </sbb-toggle-slide>
+`;
+
+const TemplateWithHint = ({ checked, ...args }: Args): TemplateResult => html`
+  ${title}
   <span class="sbb-form-information">
     <sbb-toggle-slide
       ${sbbSpread(args)}
+      .checked=${checked}
+      aria-describedby="instruction journey-hint"
+      @change=${(e: Event) => {
+        const target = e.target as SbbToggleSlideElement;
+        const instructionElement = target.parentElement!.querySelector('#instruction');
+        if (instructionElement) {
+          instructionElement.innerHTML = isMacOS
+            ? target.checked
+              ? i18nToggleSlidePressAndHoldDeactivate[document.documentElement.lang]
+              : i18nToggleSlidePressAndHoldActivate[document.documentElement.lang]
+            : '';
+        }
+      }}
+    >
+      ${labels}
+    </sbb-toggle-slide>
+    <span id="instruction" class="sbb-screen-reader-only">
+      ${
+        isMacOS
+          ? checked
+            ? i18nToggleSlidePressAndHoldDeactivate[document.documentElement.lang]
+            : i18nToggleSlidePressAndHoldActivate[document.documentElement.lang]
+          : nothing
+      }
+    </span>
+    <sbb-hint id="journey-hint">After the journey started, you can stop it at any time.</sbb-hint>
+  </span>
+`;
+
+const TemplateWithError = ({ checked, ...args }: Args): TemplateResult => html`
+  ${title}
+  <span class="sbb-form-information">
+    <sbb-toggle-slide
+      ${sbbSpread(args)}
+      .checked=${checked}
+      aria-describedby="instruction journey-error"
       @validate=${(e: SbbToggleSlideValidateEvent) => {
-        // Example for asynchronous validation
         e.preventDefaultConditionally(
+          // Simulate a backend call with a timeout and a negative answer.
           new Promise((resolve) => {
-            setTimeout(() => resolve(true), 1500);
+            setTimeout(() => {
+              resolve(false);
+              const formInformationElement = (e.target as SbbToggleSlideElement).parentElement!;
+              formInformationElement.querySelector('sbb-error')?.remove();
+              const error = document.createElement('sbb-error');
+              error.id = 'journey-error';
+              error.innerHTML = 'The journey could not be started. Retry later.';
+              formInformationElement.append(error);
+            }, 1500);
           }),
         );
       }}
+      @change=${(e: Event) => {
+        const target = e.target as SbbToggleSlideElement;
+        const instructionElement = target.parentElement!.querySelector('#instruction');
+        if (instructionElement) {
+          instructionElement.innerHTML = isMacOS
+            ? target.checked
+              ? i18nToggleSlidePressAndHoldDeactivate[document.documentElement.lang]
+              : i18nToggleSlidePressAndHoldActivate[document.documentElement.lang]
+            : '';
+        }
+      }}
     >
-      <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
-      <sbb-toggle-slide-deactivation-label>To stop pull left</sbb-toggle-slide-deactivation-label>
+      ${labels}
     </sbb-toggle-slide>
-    <sbb-hint>This is a hint</sbb-hint>
+    <span id="instruction" class="sbb-screen-reader-only">
+      ${
+        isMacOS
+          ? checked
+            ? i18nToggleSlidePressAndHoldDeactivate[document.documentElement.lang]
+            : i18nToggleSlidePressAndHoldActivate[document.documentElement.lang]
+          : nothing
+      }
+    </span>
   </span>
+  <p>Try to check in and see the asynchronous validation failing.</p>
 `;
 
 const TemplateWithForm = (args: Args): TemplateResult => html`
@@ -125,15 +215,13 @@ const TemplateWithForm = (args: Args): TemplateResult => html`
   </form>
 `;
 
-export const SbbToggleSlideDefault: StoryObj = {
+export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-  },
+  args: defaultArgs,
 };
 
-export const SbbToggleSlideDefaultSizeS: StoryObj = {
+export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -142,7 +230,7 @@ export const SbbToggleSlideDefaultSizeS: StoryObj = {
   },
 };
 
-export const SbbToggleSlideDefaultSizeM: StoryObj = {
+export const SizeM: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -151,7 +239,7 @@ export const SbbToggleSlideDefaultSizeM: StoryObj = {
   },
 };
 
-export const SbbToggleSlideDefaultSizeL: StoryObj = {
+export const SizeL: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -160,7 +248,7 @@ export const SbbToggleSlideDefaultSizeL: StoryObj = {
   },
 };
 
-export const SbbToggleSlideDefaultChecked: StoryObj = {
+export const Checked: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -169,7 +257,7 @@ export const SbbToggleSlideDefaultChecked: StoryObj = {
   },
 };
 
-export const SbbToggleSlideDisabled: StoryObj = {
+export const Disabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -178,17 +266,25 @@ export const SbbToggleSlideDisabled: StoryObj = {
   },
 };
 
-export const SbbToggleSlideDisabledChecked: StoryObj = {
-  render: Template,
+export const WithAsynchronousValidation: StoryObj = {
+  render: TemplateWithAsynchronousValidation,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    disabled: true,
-    checked: true,
-  },
+  args: defaultArgs,
 };
 
-export const withForm: StoryObj = {
+export const WithHint: StoryObj = {
+  render: TemplateWithHint,
+  argTypes: defaultArgTypes,
+  args: defaultArgs,
+};
+
+export const WithError: StoryObj = {
+  render: TemplateWithError,
+  argTypes: defaultArgTypes,
+  args: defaultArgs,
+};
+
+export const WithForm: StoryObj = {
   render: TemplateWithForm,
   argTypes: defaultArgTypes,
   args: defaultArgs,
@@ -198,7 +294,11 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: ['change', 'input', 'validate'],
+      handles: [
+        SbbToggleSlideElement.events.change,
+        SbbToggleSlideElement.events.input,
+        SbbToggleSlideElement.events.validate,
+      ],
     },
     docs: {
       extractComponentDescription: () => readme,
