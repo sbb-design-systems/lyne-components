@@ -266,7 +266,6 @@ snapshots["sbb-autocomplete with actions Chrome-Firefox Shadow DOM"] =
 `<div class="sbb-option-panel__overlay-container">
   <div
     class="sbb-option-panel__overlay sbb-scrollbar"
-    id="sbb-autocomplete-7"
     role="listbox"
     tabindex="-1"
   >
