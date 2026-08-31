@@ -9,10 +9,11 @@ import { sampleImages } from '../core/images.private.ts';
 import readme from './readme.md?raw';
 import type { SbbTeaserElement } from './teaser.component.ts';
 
+import '../button.ts';
 import '../chip-label.ts';
 import '../image.ts';
-import '../title.ts';
 import '../teaser.ts';
+import '../title.ts';
 
 const loremIpsum: string = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
 invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
@@ -106,6 +107,7 @@ const TemplateDefault = ({
   description,
   title,
   chipContent,
+  withButton,
   ...remainingArgs
 }: Args): TemplateResult => {
   return html`
@@ -121,6 +123,7 @@ const TemplateDefault = ({
       }
       ${title && title !== '' ? html`<sbb-title level="2">${title}</sbb-title>` : nothing}
       ${description}
+      ${withButton ? html`<sbb-secondary-button-static>See more</sbb-secondary-button-static>` : nothing}
     </sbb-teaser>
   `;
 };
@@ -288,6 +291,12 @@ export const BelowWithLongContentChip: StoryObj = {
     alignment: 'below',
     chipContent: 'This is a chip which has a very long content and should receive ellipsis.',
   },
+};
+
+export const WithButton: StoryObj = {
+  render: TemplateDefault,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, withButton: true, alignment: 'below' },
 };
 
 export const WithLongTextCentered: StoryObj = {

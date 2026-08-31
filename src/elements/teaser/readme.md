@@ -32,6 +32,22 @@ Optionally, you can add an overlapping `<sbb-chip-label>` to the slotted `figure
 </sbb-teaser>
 ```
 
+Use the `action` slot to display a static action below the description,
+e.g. a [sbb-secondary-button-static](/docs/elements-button-secondary-button-static--docs) or another static button variant.
+Since the `<sbb-teaser>` itself already behaves like a link, the slotted action must be a **static** element
+(non-interactive, no own `href`/click handling) to avoid nested interactive/focusable elements.
+Sbb buttons are automatically assigned to the `action` slot when slotted in the default slot.
+
+```html
+<sbb-teaser href="https://www.sbb.ch">
+  <img slot="image" src="..." alt="400x300" />
+  <sbb-chip-label>Chip label</sbb-chip-label>
+  <sbb-title level="2">Title</sbb-title>
+  A brief description.
+  <sbb-secondary-button-static>Read more</sbb-secondary-button-static>
+</sbb-teaser>
+```
+
 ## Style
 
 Using the `alignment` property, it is possible to change the text position respect to the image.
@@ -97,9 +113,10 @@ The description text is wrapped into an `<p>` element to guarantee the semantic 
 
 #### Slots
 
-| Name    | Description                                                                                                                                 |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-|         | Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label.                                                       |
-| `chip`  | Slot for the `sbb-chip-label` element. The slot on the `sbb-chip-label` element is automatically assigned when slotted in the unnamed slot. |
-| `image` | Slot used to render the image.                                                                                                              |
-| `title` | Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.              |
+| Name     | Description                                                                                                                                 |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+|          | Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label.                                                       |
+| `action` | Slot for a static action, e.g. a `<sbb-secondary-button-static>` element. The action is displayed below the description.                    |
+| `chip`   | Slot for the `sbb-chip-label` element. The slot on the `sbb-chip-label` element is automatically assigned when slotted in the unnamed slot. |
+| `image`  | Slot used to render the image.                                                                                                              |
+| `title`  | Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.              |

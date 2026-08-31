@@ -91,12 +91,26 @@
   pointer-events: none;
 }
 
+.sbb-teaser__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-fixed-1x);
+  width: 100%;
+}
+
 .sbb-teaser__text {
   color: var(--sbb-teaser-description-color);
   font-size: var(--sbb-teaser-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
   overflow: hidden;
   max-width: 100%;
+}
+
+// With display: block we don't force the slotted content to be 100% width, but allow it to be smaller if it wants to.
+slot[name='action'] {
+  :host(:state(slotted-action)) & {
+    display: block;
+  }
 }
 
 ::slotted([slot='image']) {

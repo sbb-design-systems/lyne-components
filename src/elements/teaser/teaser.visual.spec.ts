@@ -13,10 +13,11 @@ import { waitForImageReady } from '../core/testing.ts';
 
 import type { SbbTeaserElement } from './teaser.component.ts';
 
-import '../teaser.ts';
+import '../button.ts';
 import '../chip-label.ts';
 import '../container.ts';
 import '../image.ts';
+import '../teaser.ts';
 import '../title.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
@@ -166,7 +167,7 @@ describe(`sbb-teaser`, () => {
           );
 
           it(
-            `size=l`,
+            `size=l with static button`,
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(
                 html`<sbb-teaser href="#" alignment=${alignment} size="l">
@@ -174,6 +175,7 @@ describe(`sbb-teaser`, () => {
                   <sbb-chip-label>AI chip</sbb-chip-label>
                   <sbb-title level="2">This is a title</sbb-title>
                   This is a paragraph with a long text.
+                  <sbb-secondary-button-static>See more</sbb-secondary-button-static>
                 </sbb-teaser>`,
               );
             }),

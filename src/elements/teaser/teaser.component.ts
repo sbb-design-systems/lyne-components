@@ -11,8 +11,9 @@ import style from './teaser.scss?inline';
 /**
  * It displays an interactive image with caption.
  *
- * @slot image - Slot used to render the image.
+ * @slot action - Slot for a static action, e.g. a `<sbb-secondary-button-static>` element. The action is displayed below the description.
  * @slot chip - Slot for the `sbb-chip-label` element. The slot on the `sbb-chip-label` element is automatically assigned when slotted in the unnamed slot.
+ * @slot image - Slot used to render the image.
  * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
  * @slot - Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label.
  */
@@ -28,14 +29,20 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
   @property({ reflect: true }) public accessor size: 'm' | 'l' | null = null;
 
   private _handleSlotchange(): void {
-    const chip = Array.from(this.children).find((el) => el.localName === 'sbb-chip-label');
-    if (chip) {
-      chip.slot = 'chip';
-    }
-
-    const title = Array.from(this.children).find((el) => el.localName === 'sbb-title');
-    if (title) {
-      title.slot = 'title';
+    let foundChipLabel = false;
+    let foundTitle = false;
+    for (const child of this.children) {
+      if (child.localName === 'sbb-chip-label' && !foundChipLabel) {
+        foundChipLabel = true;
+        child.slot = 'chip';
+      } else if (child.localName === 'sbb-title' && !foundTitle) {
+        foundTitle = true;
+        child.slot = 'title';
+      } else if (
+        /^sbb-(secondary-|accent-|transparent-)?button(-static|-link)?$/.test(child.localName)
+      ) {
+        child.slot = 'action';
+      }
     }
   }
 
@@ -82,12 +89,15 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
         <span class="sbb-teaser__image-wrapper">
           <slot name="image"></slot>
         </span>
-        <span class="sbb-teaser__text">
-          <slot name="chip" @slotchange=${this._configureChip}></slot>
-          <slot name="title" @slotchange=${this._configureTitle}></slot>
-          <p class="sbb-teaser__description">
-            <slot @slotchange=${this._handleSlotchange}></slot>
-          </p>
+        <span class="sbb-teaser__content">
+          <span class="sbb-teaser__text">
+            <slot name="chip" @slotchange=${this._configureChip}></slot>
+            <slot name="title" @slotchange=${this._configureTitle}></slot>
+            <p class="sbb-teaser__description">
+              <slot @slotchange=${this._handleSlotchange}></slot>
+            </p>
+          </span>
+          <slot name="action"></slot>
         </span>
       </span>
     `;
