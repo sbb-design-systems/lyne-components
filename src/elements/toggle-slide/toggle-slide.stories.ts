@@ -74,9 +74,9 @@ const defaultArgs: Args = {
   name: 'name',
 };
 
-const title = html`<sbb-title level="6" style="margin-block-start: 0;"
-  >Journey check-in</sbb-title
->`;
+const title = html`<sbb-title level="6" style="margin-block-start: 0;">
+  Journey check-in
+</sbb-title>`;
 
 const labels = html`
   <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
@@ -150,7 +150,15 @@ const TemplateWithError = ({ checked, ...args }: Args): TemplateResult => html`
           new Promise((resolve) => {
             setTimeout(() => {
               resolve(false);
-              const formInformationElement = (e.target as SbbToggleSlideElement).parentElement!;
+              const toggleSlideElement = e.target as SbbToggleSlideElement;
+
+              // Set the component into a invalid state.
+              toggleSlideElement.setCustomValidity(
+                'The journey could not be started. Retry later.',
+              );
+              const formInformationElement = toggleSlideElement.parentElement!;
+
+              // Add an error message to the form information element.
               formInformationElement.querySelector('sbb-error')?.remove();
               const error = document.createElement('sbb-error');
               error.id = 'journey-error';
