@@ -478,19 +478,19 @@ export const Basic: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const BasicNegative: StoryObj = {
+export const Negative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true },
 };
 
-export const BasicSizeS: StoryObj = {
+export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![1] },
 };
 
-export const BasicOpenAbove: StoryObj = {
+export const OpenAbove: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
@@ -503,40 +503,16 @@ export const Borderless: StoryObj = {
   args: { ...defaultArgs, borderless: true },
 };
 
-export const BorderlessNegative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, borderless: true, negative: true },
-};
-
-export const BorderlessSizeS: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, borderless: true, size: size.options![1] },
-};
-
 export const FloatingLabel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, floatingLabel: true },
 };
 
-export const FloatingLabelSizeS: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, floatingLabel: true, size: size.options![1] },
-};
-
 export const WithError: StoryObj = {
   render: RequiredTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs },
-};
-
-export const WithErrorNegative: StoryObj = {
-  render: RequiredTemplate,
-  argTypes: withGroupsArgTypes,
-  args: { ...withGroupsDefaultArgs, negative: true },
 };
 
 export const Disabled: StoryObj = {
@@ -563,13 +539,6 @@ export const RequireSelection: StoryObj = {
   args: { ...defaultArgs, requireSelection: true },
 };
 
-export const BorderlessOpenAbove: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, borderless: true },
-  decorators: [aboveDecorator],
-};
-
 export const NoIconSpace: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -593,18 +562,6 @@ export const MixedSingleOptionWithOptionGroup: StoryObj = {
   render: MixedTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs },
-};
-
-export const MixedSingleOptionWithOptionGroupNegative: StoryObj = {
-  render: MixedTemplate,
-  argTypes: withGroupsArgTypes,
-  args: { ...withGroupsDefaultArgs, negative: true },
-};
-
-export const MixedSingleOptionWithOptionGroupSizeS: StoryObj = {
-  render: MixedTemplate,
-  argTypes: withGroupsArgTypes,
-  args: { ...withGroupsDefaultArgs, size: size.options![1] },
 };
 
 export const WithEllipsis: StoryObj = {
