@@ -102,7 +102,7 @@ It's recommended to set the time to 00:00:00.
 <sbb-calendar min="1599955200" max="1699920000" value="1649980800"></sbb-calendar>
 ```
 
-By default, the component takes, in order of priority,
+By default, the component takes, in order of priority, the `activeMonth` property,
 the `value` property or the current date to calculate which month it has to show.
 It's possible to move to the previous/next month using the two buttons at the top of the component.
 
@@ -157,6 +157,17 @@ all the days in the week.
 
 ```html
 <sbb-calendar multiple week-numbers></sbb-calendar>
+```
+
+### Active month
+
+Use the `activeMonth` property to define the currently displayed month.
+This can be done initially or dynamically after creation.
+It is recommended not to change this during user interaction, as this
+can be disorienting.
+
+```html
+<sbb-calendar active-month="2025-01"></sbb-calendar>
 ```
 
 ### Fixed month
