@@ -226,21 +226,31 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   /**
    * Set this with the format `YYYY-MM` to limit the calendar to a specific month,
    * and prevent navigation to other months.
+   * This will override any other month selection.
    */
-  @forceType()
   @property({ attribute: 'fixed-month' })
-  public set fixedMonth(value: string) {
-    const match = value ? value.match(/^(\d{4})-(\d{2})$/) : null;
-    this._fixedMonth = match
-      ? this._dateAdapter.createDate(Number(match[1]), Number(match[2]), 1)
-      : null;
+  public set fixedMonth(value: string | T | null) {
+    this._fixedMonth = this._parseMonth(value);
   }
   public get fixedMonth(): string {
-    return this._fixedMonth
-      ? this._dateAdapter.toIso8601(this._fixedMonth).split('-').slice(0, 2).join('-')
-      : '';
+    return this._fixedMonth ? this._toMonthIsoString(this._fixedMonth) : '';
   }
   private _fixedMonth: T | null = null;
+
+  /**
+   * Set this with the format `YYYY-MM` to have the calendar show this month.
+   * This will not update when a user changes the month, and will not prevent navigation to other months.
+   * Changing this property will reset the calendar view to the given month.
+   */
+  @property({ attribute: 'active-month' })
+  public set activeMonth(value: string | T | null) {
+    this._activeMonth = this._parseMonth(value);
+    this._resetCalendarView();
+  }
+  public get activeMonth(): string {
+    return this._activeMonth ? this._toMonthIsoString(this._activeMonth) : '';
+  }
+  private _activeMonth: T | null = null;
 
   /** The orientation of days in the calendar. */
   @property({ reflect: true }) public accessor orientation: 'horizontal' | 'vertical' =
@@ -358,10 +368,25 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     return this.dateFilter?.(date) ?? true;
   }
 
+  private _parseMonth(value: unknown): T | null {
+    if (typeof value === 'string') {
+      const match = value ? value.match(/^(\d{4})-(\d{2})$/) : null;
+      return match ? this._dateAdapter.createDate(Number(match[1]), Number(match[2]), 1) : null;
+    } else if (value instanceof Date) {
+      return this._dateAdapter.createDate(value.getFullYear(), value.getMonth() + 1, 1);
+    } else if (this._dateAdapter.isDateInstance(value) && this._dateAdapter.isValid(value as T)) {
+      return this._dateAdapter.clone(value as T);
+    }
+    return null;
+  }
+
+  private _toMonthIsoString(value: T): string {
+    return this._dateAdapter.toIso8601(value).split('-').slice(0, 2).join('-');
+  }
+
   /** Resets the active month according to the new state of the calendar. */
   public resetPosition(): void {
     this._resetCalendarView();
-    this._init();
   }
 
   public override connectedCallback(): void {
@@ -507,12 +532,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   }
 
   /** Initializes the component. */
-  private _init(activeDate?: T): void {
+  private _createCalendarState(activeDate?: T): void {
     // Due to its complexity, the calendar is only initialized on client side
     if (isServer) {
       return;
     } else if (this.hydrationRequired) {
-      this.hydrationComplete.then(() => this._init());
+      this.hydrationComplete.then(() => this._createCalendarState());
       return;
     }
 
@@ -522,6 +547,13 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
     const startDate = this._fixedMonth ?? this._activeDate;
     const amount = this.amount < 1 ? 1 : this.amount;
+    if (
+      this._weeks.length === amount &&
+      this._isSameMonth(this._weeks[0][0][0].dateValue, startDate)
+    ) {
+      return;
+    }
+
     this._weeks = Array.from({ length: amount }, (_, i) =>
       this._createWeekRows(this._dateAdapter.addCalendarMonths(startDate, i)),
     );
@@ -551,6 +583,13 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         .filter((v, i, a) => a.indexOf(v) === i),
     );
     this._initialized = true;
+  }
+
+  private _isSameMonth(a: T, b: T): boolean {
+    return (
+      this._dateAdapter.getYear(a) === this._dateAdapter.getYear(b) &&
+      this._dateAdapter.getMonth(a) === this._dateAdapter.getMonth(b)
+    );
   }
 
   /** Focuses on a day cell prioritizing the selected day, the current day, and lastly, the first selectable day. */
@@ -871,7 +910,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
   /** Goes to the month identified by the shift. */
   private _goToDifferentMonth(months: number): void {
-    this._init(this._dateAdapter.addCalendarMonths(this._activeDate, months));
+    this._createCalendarState(this._dateAdapter.addCalendarMonths(this._activeDate, months));
     this._emitMonthChange();
   }
 
@@ -883,11 +922,11 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       this._dateAdapter.getMonth(this._activeDate),
       1,
     );
-    this._init();
+    this._createCalendarState();
   }
 
   private _goToDifferentYearRange(years: number): void {
-    this._init(this._dateAdapter.addCalendarYears(this._activeDate, years));
+    this._createCalendarState(this._dateAdapter.addCalendarYears(this._activeDate, years));
   }
 
   private _prevDisabled(prevDate: T): boolean {
@@ -1337,11 +1376,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       this._resetFocus = true;
     }
     this._activeDate =
+      this._activeMonth ??
       (this.multiple ? (this._value as T[]).at(-1) : (this._value as T)) ??
       this._dateAdapter.today();
     this._setChosenYear();
     this._chosenMonth = undefined;
-    this._init();
+    this._createCalendarState();
     this._calendarView = this.view;
   }
 
@@ -1683,7 +1723,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   private _onMonthSelection(month: number, year: number): void {
     this._chosenMonth = month;
     this._calendarView = 'day';
-    this._init(this._dateAdapter.createDate(year, this._chosenMonth, 1));
+    this._createCalendarState(this._dateAdapter.createDate(year, this._chosenMonth, 1));
     this._emitMonthChange();
   }
 
