@@ -12,7 +12,10 @@ describe(`sbb-toggle-slide ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(
-      html`<sbb-toggle-slide id="focus-id" name="name" value="value"></sbb-toggle-slide>`,
+      html`<sbb-toggle-slide name="name" value="value">
+        <sbb-toggle-slide-activation-label>Pull right to start</sbb-toggle-slide-activation-label>
+        <sbb-toggle-slide-deactivation-label>Pull left to stop</sbb-toggle-slide-deactivation-label>
+      </sbb-toggle-slide>`,
       {
         modules: ['../../toggle-slide.ts'],
       },
