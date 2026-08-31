@@ -25,8 +25,12 @@
   --sbb-teaser-gap: var(--sbb-teaser-gap-l);
 }
 
-:host([alignment='after']) {
+:host(:is([alignment='after'], [alignment='before'])) {
   --sbb-teaser-align-items: start;
+}
+
+:host(:is([alignment='before'], [alignment='before-centered'])) {
+  --sbb-teaser-flex-direction: row-reverse;
 }
 
 :host([alignment='below']) {

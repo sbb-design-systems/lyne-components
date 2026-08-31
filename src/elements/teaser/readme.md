@@ -35,7 +35,7 @@ Optionally, you can add an overlapping `<sbb-chip-label>` to the slotted `figure
 ## Style
 
 Using the `alignment` property, it is possible to change the text position respect to the image.
-Possible values are `after-centered` (default), `after` and `below`.
+Possible values are `before`, `after-centered`, `after-centered` (default), `after` and `below`.
 
 ```html
 <sbb-teaser href="https://www.sbb.ch" alignment="below"> ... </sbb-teaser>
@@ -84,16 +84,16 @@ The description text is wrapped into an `<p>` element to guarantee the semantic 
 
 #### Properties
 
-| Name                   | Attribute               | Privacy | Type                                                   | Default            | Description                                                               |
-| ---------------------- | ----------------------- | ------- | ------------------------------------------------------ | ------------------ | ------------------------------------------------------------------------- |
-| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                               | `''`               | This will be forwarded as aria-current to the inner anchor element.       |
-| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                               | `''`               | This will be forwarded as aria-label to the inner anchor element.         |
-| `alignment`            | `alignment`             | public  | `'after-centered' \| 'after' \| 'below'`               | `'after-centered'` | Teaser variant - define the position and the alignment of the text block. |
-| `download`             | `download`              | public  | `boolean`                                              | `false`            | Whether the browser will show the download dialog on click.               |
-| `href`                 | `href`                  | public  | `string`                                               | `''`               | The href value you want to link to.                                       |
-| `rel`                  | `rel`                   | public  | `string`                                               | `''`               | The relationship of the linked URL as space-separated link types.         |
-| `size`                 | `size`                  | public  | `'l' \| 'm'`                                           | `'m'`              | Size variant, either m (default) or l.                                    |
-| `target`               | `target`                | public  | `'_blank' \| '_self' \| '_parent' \| '_top' \| string` | `''`               | Where to display the linked URL.                                          |
+| Name                   | Attribute               | Privacy | Type                                                                      | Default            | Description                                                               |
+| ---------------------- | ----------------------- | ------- | ------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                                                  | `''`               | This will be forwarded as aria-current to the inner anchor element.       |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                                                  | `''`               | This will be forwarded as aria-label to the inner anchor element.         |
+| `alignment`            | `alignment`             | public  | `'before' \| 'before-centered' \| 'after' \| 'after-centered' \| 'below'` | `'after-centered'` | Teaser variant - define the position and the alignment of the text block. |
+| `download`             | `download`              | public  | `boolean`                                                                 | `false`            | Whether the browser will show the download dialog on click.               |
+| `href`                 | `href`                  | public  | `string`                                                                  | `''`               | The href value you want to link to.                                       |
+| `rel`                  | `rel`                   | public  | `string`                                                                  | `''`               | The relationship of the linked URL as space-separated link types.         |
+| `size`                 | `size`                  | public  | `'m' \| 'l' \| null`                                                      | `null`             | Size variant, either m (default) or l.                                    |
+| `target`               | `target`                | public  | `'_blank' \| '_self' \| '_parent' \| '_top' \| string`                    | `''`               | Where to display the linked URL.                                          |
 
 #### Slots
 

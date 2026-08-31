@@ -21,8 +21,8 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
   public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /** Teaser variant - define the position and the alignment of the text block. */
-  @property({ reflect: true }) public accessor alignment: 'after-centered' | 'after' | 'below' =
-    'after-centered';
+  @property({ reflect: true }) public accessor alignment:
+    'before' | 'before-centered' | 'after' | 'after-centered' | 'below' = 'after-centered';
 
   /** Size variant, either m (default) or l. */
   @property({ reflect: true }) public accessor size: 'm' | 'l' | null = null;

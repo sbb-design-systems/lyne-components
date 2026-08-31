@@ -34,7 +34,13 @@ const alignment: InputType = {
   control: {
     type: 'select',
   },
-  options: ['after-centered', 'after', 'below'],
+  options: [
+    'before',
+    'before-centered',
+    'after-centered',
+    'after',
+    'below',
+  ] satisfies SbbTeaserElement['alignment'][],
 };
 
 const size: InputType = {
@@ -210,16 +216,28 @@ const TemplateGrid = ({ description, ...remainingArgs }: Args): TemplateResult =
   </div>
 `;
 
-export const AfterCentered: StoryObj = {
+export const Before: StoryObj = {
   render: TemplateDefault,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  args: { ...defaultArgs, alignment: 'before' },
+};
+
+export const BeforeCentered: StoryObj = {
+  render: TemplateDefault,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, alignment: 'before-centered' },
 };
 
 export const After: StoryObj = {
   render: TemplateDefault,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, alignment: 'after' },
+};
+
+export const AfterCentered: StoryObj = {
+  render: TemplateDefault,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
 
 export const Below: StoryObj = {

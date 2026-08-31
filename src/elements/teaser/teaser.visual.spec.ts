@@ -11,6 +11,8 @@ import {
 } from '../core/testing/private.ts';
 import { waitForImageReady } from '../core/testing.ts';
 
+import type { SbbTeaserElement } from './teaser.component.ts';
+
 import '../teaser.ts';
 import '../chip-label.ts';
 import '../container.ts';
@@ -67,8 +69,17 @@ describe(`sbb-teaser`, () => {
   };
 
   const screenCombinations = [
-    { viewport: 'small' as const, alignments: ['below'] },
-    { viewport: 'large' as const, alignments: ['after-centered', 'after', 'below'] },
+    { viewport: 'small' as const, alignments: ['below'] satisfies SbbTeaserElement['alignment'][] },
+    {
+      viewport: 'large' as const,
+      alignments: [
+        'before',
+        'before-centered',
+        'after-centered',
+        'after',
+        'below',
+      ] satisfies SbbTeaserElement['alignment'][],
+    },
   ];
 
   for (const screenCombination of screenCombinations) {
