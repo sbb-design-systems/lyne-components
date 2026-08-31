@@ -25,7 +25,7 @@ describe(`sbb-autocomplete ssr`, () => {
         </sbb-form-field>
         <button>Use this for backdrop click</button>
       `,
-      { modules: ['../autocomplete.ts', '../form-field.ts', '../option.ts'] },
+      { modules: ['../../autocomplete.ts', '../../form-field.ts', '../../option.ts'] },
     );
   });
 

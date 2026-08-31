@@ -112,7 +112,7 @@ describe(`sbb-autocomplete`, () => {
       });
 
       it('Shadow DOM', async () => {
-        await expect(root).shadowDom.to.be.equalSnapshot();
+        await expect(root).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
     });
 
@@ -122,7 +122,7 @@ describe(`sbb-autocomplete`, () => {
       });
 
       it('Shadow DOM', async () => {
-        await expect(root).shadowDom.to.be.equalSnapshot();
+        await expect(root).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
     });
 

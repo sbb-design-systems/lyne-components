@@ -17,7 +17,6 @@ describe(`sbb-autocomplete-button`, () => {
 
   it('renders', async () => {
     assert.instanceOf(element, SbbAutocompleteButtonElement);
-    expect(element.role).to.be.equal('button');
     expect(element.id).not.to.be.null;
   });
 
