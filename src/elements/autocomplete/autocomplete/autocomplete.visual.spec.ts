@@ -356,7 +356,7 @@ describe('sbb-autocomplete', () => {
       });
     }
 
-    describe.only('with actions', () => {
+    describe('with actions', () => {
       const style = {
         minHeight: '400px',
       };
