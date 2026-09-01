@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.7.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.6.0...v5.7.0) (2026-08-31)
+
+
+### Features
+
+* **calendar:** add `activeMonth` property ([#5205](https://github.com/sbb-design-systems/lyne-components/issues/5205)) ([b4a53d1](https://github.com/sbb-design-systems/lyne-components/commit/b4a53d1eb080c196cec919e38d2f14c98487000f))
+
+
+### Bug Fixes
+
+* **easter-egg:** use correct translations in title ([#5199](https://github.com/sbb-design-systems/lyne-components/issues/5199)) ([412a6b1](https://github.com/sbb-design-systems/lyne-components/commit/412a6b1d62a3c0f3f887c04565385175cccb2fe7))
+
+## [5.6.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.5.0...v5.6.0) (2026-08-24)
+
+
+### Features
+
+* **chip:** add delete event ([#5188](https://github.com/sbb-design-systems/lyne-components/issues/5188)) ([fbfe115](https://github.com/sbb-design-systems/lyne-components/commit/fbfe11578f549c00681fd90c49b7d28924719e1a))
+
+
+### Bug Fixes
+
+* **calendar:** support number based date adapters for calendar-day ([#5180](https://github.com/sbb-design-systems/lyne-components/issues/5180)) ([efdada5](https://github.com/sbb-design-systems/lyne-components/commit/efdada5ff58fd335e6bd68d7ed2aa1514a5bd586))
+
+
+### Styles
+
+* **dialog:** fix max-height on mobile ([#5181](https://github.com/sbb-design-systems/lyne-components/issues/5181)) ([d7e374d](https://github.com/sbb-design-systems/lyne-components/commit/d7e374d31b71df7077dd094ddb72d5d84bd77bea))
+* **timetable-form:** fix border length of input fields ([#5184](https://github.com/sbb-design-systems/lyne-components/issues/5184)) ([554e552](https://github.com/sbb-design-systems/lyne-components/commit/554e5526f6f05fec81e25793a48360e5ddaabafd)), closes [#5175](https://github.com/sbb-design-systems/lyne-components/issues/5175)
+
 ## [5.5.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.4.2...v5.5.0) (2026-08-18)
 
 
