@@ -33,15 +33,21 @@ export class SbbTeaserElement extends SbbLinkBaseElement {
     let foundTitle = false;
     for (const child of this.children) {
       if (child.localName === 'sbb-chip-label' && !foundChipLabel) {
-        foundChipLabel = true;
-        child.slot = 'chip';
+        child.slot ||= 'chip';
+        if (child.slot === 'chip') {
+          foundChipLabel = true;
+        }
       } else if (child.localName === 'sbb-title' && !foundTitle) {
-        foundTitle = true;
-        child.slot = 'title';
+        child.slot ||= 'title';
+        if (child.slot === 'title') {
+          foundTitle = true;
+        }
       } else if (
         /^sbb-(secondary-|accent-|transparent-)?button(-static|-link)?$/.test(child.localName)
       ) {
-        child.slot = 'action';
+        if (!child.slot) {
+          child.slot = 'action';
+        }
       }
     }
   }

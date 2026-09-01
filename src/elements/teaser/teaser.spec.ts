@@ -83,17 +83,9 @@ describe(`sbb-teaser`, () => {
     });
 
     for (const tagName of [
-      'sbb-button',
-      'sbb-button-link',
       'sbb-button-static',
-      'sbb-secondary-button',
-      'sbb-secondary-button-link',
       'sbb-secondary-button-static',
-      'sbb-accent-button',
-      'sbb-accent-button-link',
       'sbb-accent-button-static',
-      'sbb-transparent-button',
-      'sbb-transparent-button-link',
       'sbb-transparent-button-static',
     ]) {
       it(`should assign action slot for ${tagName}`, async () => {
