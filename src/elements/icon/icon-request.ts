@@ -10,7 +10,7 @@ const iconCdn = 'https://icons.app.sbb.ch/';
 const iconNamespaces = new Map<string, string>()
   .set('default', `${iconCdn}icons/`)
   .set('picto', `${iconCdn}picto/`);
-const requests = new Map<string, Promise<any>>();
+const requests = new Map<string, Promise<string>>();
 
 /** Fetches icon svg content from providers and asserts only one request per icon is made. */
 export const getSvgContent = (
@@ -37,23 +37,35 @@ export const getSvgContent = (
     if (typeof fetch !== 'undefined' && !isServer) {
       const interceptor = config.interceptor ?? ((i) => i.request());
 
-      req = interceptor({
-        namespace,
-        name,
-        url,
-        request: () =>
-          fetch(url)
-            .then(async (response) => {
+      const interceptorRequest = (async () =>
+        interceptor({
+          namespace,
+          name,
+          url,
+          request: () =>
+            fetch(url).then(async (response) => {
               if (!response.ok) {
                 throw new Error(`Failed to load icon ${namespace}:${name}`);
               }
               return validateContent(await response.text(), sanitize);
-            })
-            .catch((error) => {
-              console.warn(error);
-              return '';
             }),
-      });
+        }))();
+
+      req = interceptorRequest.then(
+        (content) => {
+          if (!content && requests.get(url) === req) {
+            requests.delete(url);
+          }
+          return content;
+        },
+        (error: unknown) => {
+          if (requests.get(url) === req) {
+            requests.delete(url);
+          }
+          console.warn(error);
+          return '';
+        },
+      );
       // Cache for the same requests
       requests.set(url, req);
     } else {
