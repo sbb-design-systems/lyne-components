@@ -1,5 +1,9 @@
 The `<sbb-teaser>` is a component which can display an image with a caption, and it behaves like a link on user interaction.
 
+Use the `<sbb-teaser-static>` variant instead, if the teaser must not behave like a link itself,
+e.g. because it already contains one or more interactive/focusable elements
+(more than a single static action is not supported within a link).
+
 Simple teaser example:
 
 ```html
@@ -92,6 +96,24 @@ It's important to set the `accessibilityLabel` on the `<sbb-teaser>`, which desc
 
 The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
 
+## Static variant
+
+The `<sbb-teaser-static>` is a non-interactive version of the `<sbb-teaser>` component.
+Unlike `<sbb-teaser>`, it does not render an anchor and therefore has no `href`, `target`, `rel`,
+`download`, `accessibilityLabel` or `accessibilityCurrent` property.
+It should be used whenever the teaser has to contain more than one interactive element,
+e.g. multiple links or buttons, since nesting interactive elements inside a link is not allowed.
+
+```html
+<sbb-teaser-static>
+  <img slot="image" src="..." alt="400x300" />
+  <sbb-chip-label>Chip label</sbb-chip-label>
+  <sbb-title level="2">Title</sbb-title>
+  A brief description.
+  <sbb-secondary-button-link href="#">Read more</sbb-secondary-button-link>
+</sbb-teaser-static>
+```
+
 <!-- Auto Generated Below -->
 
 ## API Documentation
@@ -117,6 +139,25 @@ The description text is wrapped into an `<p>` element to guarantee the semantic 
 | -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 |          | Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label.                                                       |
 | `action` | Slot for a static action, e.g. a `<sbb-secondary-button-static>` element. The action is displayed below the description.                    |
+| `chip`   | Slot for the `sbb-chip-label` element. The slot on the `sbb-chip-label` element is automatically assigned when slotted in the unnamed slot. |
+| `image`  | Slot used to render the image.                                                                                                              |
+| `title`  | Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.              |
+
+### class: `SbbTeaserStaticElement`, `sbb-teaser-static`
+
+#### Properties
+
+| Name        | Attribute   | Privacy | Type                                                                      | Default            | Description                                                               |
+| ----------- | ----------- | ------- | ------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------- |
+| `alignment` | `alignment` | public  | `'before' \| 'before-centered' \| 'after' \| 'after-centered' \| 'below'` | `'after-centered'` | Teaser variant - define the position and the alignment of the text block. |
+| `size`      | `size`      | public  | `'m' \| 'l' \| null`                                                      | `null`             | Size variant, either m (default) or l.                                    |
+
+#### Slots
+
+| Name     | Description                                                                                                                                 |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+|          | Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label.                                                       |
+| `action` | Slot for an interactive action, e.g. a `<sbb-secondary-button-link>` element. The action is displayed below the description.                |
 | `chip`   | Slot for the `sbb-chip-label` element. The slot on the `sbb-chip-label` element is automatically assigned when slotted in the unnamed slot. |
 | `image`  | Slot used to render the image.                                                                                                              |
 | `title`  | Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.              |

@@ -1,15 +1,15 @@
 import { assert, expect } from '@open-wc/testing';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private.ts';
-import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
 import { SbbTeaserElement } from './teaser.component.ts';
 
-import '../teaser.ts';
-import '../button.ts';
-import '../chip-label.ts';
-import '../title.ts';
+import '../../teaser.ts';
+import '../../button.ts';
+import '../../chip-label.ts';
+import '../../title.ts';
 
 describe(`sbb-teaser`, () => {
   let element: SbbTeaserElement;

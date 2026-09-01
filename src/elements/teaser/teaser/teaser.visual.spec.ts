@@ -8,19 +8,19 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
-} from '../core/testing/private.ts';
-import { waitForImageReady } from '../core/testing.ts';
+} from '../../core/testing/private.ts';
+import { waitForImageReady } from '../../core/testing.ts';
 
 import type { SbbTeaserElement } from './teaser.component.ts';
 
-import '../button.ts';
-import '../chip-label.ts';
-import '../container.ts';
-import '../image.ts';
-import '../teaser.ts';
-import '../title.ts';
+import '../../button.ts';
+import '../../chip-label.ts';
+import '../../container.ts';
+import '../../image.ts';
+import '../../teaser.ts';
+import '../../title.ts';
 
-const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
+const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 const imageBase64 = await loadAssetAsBase64(imageUrl);
 
 describe(`sbb-teaser`, () => {

@@ -50,13 +50,13 @@ $theme: 'standard' !default;
         property: filter, scale;
       }
     }
-
-    .sbb-figure {
-      max-width: 100%;
-    }
   }
 
-  sbb-teaser :is(sbb-image, img):not(.sbb-figure-overlap-image) {
+  :is(sbb-teaser, sbb-teaser-static, sbb-teaser-hero, sbb-teaser-product) .sbb-figure {
+    max-width: 100%;
+  }
+
+  :is(sbb-teaser, sbb-teaser-static) :is(sbb-image, img):not(.sbb-figure-overlap-image) {
     --sbb-image-object-fit: cover;
     --sbb-image-aspect-ratio: 4 / 3;
 

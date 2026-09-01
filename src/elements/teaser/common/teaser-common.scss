@@ -1,4 +1,4 @@
-@use '../core/styles' as sbb;
+@use '../../core/styles' as sbb;
 
 :host {
   --_sbb-teaser-forced-colors-inset: calc(-1 * var(--sbb-focus-outline-offset));
@@ -8,15 +8,6 @@
   );
 
   display: inline-block;
-
-  // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize CSS of several frameworks.
-  outline: none !important;
-
-  @media (forced-colors: active) {
-    --sbb-teaser-description-color: LinkText;
-    --sbb-title-color: LinkText !important;
-  }
 }
 
 :host([size='l']) {
@@ -39,38 +30,15 @@
   --sbb-teaser-gap: var(--sbb-teaser-gap-below);
 }
 
-@include sbb.hover-mq($hover: true) {
-  :host(:hover) {
-    --sbb-teaser-scale: var(--sbb-teaser-scale-hover);
-  }
-}
-
 .sbb-teaser__wrapper {
   display: flex;
   position: relative;
-  cursor: var(--sbb-cursor-pointer);
 
   @include sbb.zero-width-space;
-}
-
-.sbb-teaser {
-  text-decoration: none;
-  position: absolute;
-  inset: 0;
-
-  &:focus-visible {
-    @include sbb.focus-outline;
-
-    border-radius: var(--sbb-teaser-border-radius);
-
-    // We move the focus outline further out to not overlap with the teaser border in forced colors
-    @media (forced-colors: active) {
-      outline-offset: var(--_sbb-teaser-forced-colors-outline-offset);
-    }
-  }
 
   @media (forced-colors: active) {
-    &::before {
+    // Static outline to visualize the sbb teaser box
+    &::after {
       content: '';
       position: absolute;
       inset: var(--_sbb-teaser-forced-colors-inset);
@@ -88,7 +56,6 @@
   gap: var(--sbb-teaser-gap);
   max-width: 100%;
   width: 100%;
-  pointer-events: none;
 }
 
 .sbb-teaser__content {
@@ -127,12 +94,6 @@ slot[name='action'] {
 
   :host(:not(:state(slotted-image))) & {
     display: none;
-  }
-
-  @include sbb.hover-mq($hover: true) {
-    :host(:hover) & {
-      box-shadow: var(--sbb-box-shadow-level-9-hard);
-    }
   }
 }
 
