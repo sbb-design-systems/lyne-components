@@ -104,6 +104,7 @@
   color: var(--_sbb-dialog-color);
   background-color: var(--sbb-dialog-background-color);
   flex-direction: column;
+  padding-block-end: env(safe-area-inset-bottom, 0);
 
   :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
     display: flex;

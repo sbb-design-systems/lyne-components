@@ -20,13 +20,17 @@ $theme: 'standard' !default;
   --sbb-dialog-close-button-inset-inline-end: var(--sbb-spacing-fixed-4x);
   --sbb-dialog-close-button-margin-inline: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
   --_sbb-dialog-max-width: 100%;
-  --_sbb-dialog-max-height: calc(100dvh - var(--sbb-spacing-fixed-6x));
+  --_sbb-dialog-max-height: calc(
+    100dvh - env(safe-area-inset-top, 0) - var(--sbb-spacing-fixed-6x)
+  );
 }
 
 @mixin breakpoint-small {
   --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-8x);
   --sbb-dialog-translate-y: var(--sbb-spacing-fixed-4x);
-  --_sbb-dialog-max-height: calc(100dvh - 2 * var(--sbb-spacing-fixed-6x));
+  --_sbb-dialog-max-height: calc(
+    100dvh - env(safe-area-inset-top, 0) - 2 * var(--sbb-spacing-fixed-6x)
+  );
   --_sbb-dialog-max-width: 90vw;
 }
 
