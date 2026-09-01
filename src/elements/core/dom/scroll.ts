@@ -102,8 +102,11 @@ export class SbbScrollHandler {
 
     // iOS Safari can still allow touch scrolling/rubber-banding in some edge cases even with the
     // styles above, so we additionally intercept touch events as a safety net.
+    // Note: `touchmove` listeners on `document`/`window`/`document.body` default to passive:true
+    // in some browsers (e.g. Chrome's "scrolling intervention"), which would silently ignore our
+    // `event.preventDefault()` call. We explicitly opt out of that by passing `passive: false`.
     document.addEventListener('touchstart', this._touchStart, { passive: true });
-    document.addEventListener('touchmove', this._touchMove);
+    document.addEventListener('touchmove', this._touchMove, { passive: false });
 
     document.body.toggleAttribute('data-sbb-scroll-disabled', true);
   }
