@@ -46,6 +46,11 @@ export class SbbAutocompleteButtonElement extends SbbDisabledMixin(
           disabled: () => this._updateInternals(),
         }),
       );
+      this.addController(
+        new SbbPropertyWatcherController(this, () => this.closest('sbb-autocomplete'), {
+          negative: (e) => (this.negative = e.negative),
+        }),
+      );
     }
   }
 

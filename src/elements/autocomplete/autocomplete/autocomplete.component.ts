@@ -75,10 +75,7 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
       if (this._activeColumnIndex === 0) {
         this.activeOption['selectViaUserInteraction'](true);
       } else {
-        this.activeOption
-          .closest('sbb-autocomplete-row')
-          ?.querySelectorAll('sbb-autocomplete-button')
-          [this._activeColumnIndex - 1]?.click();
+        this._elementsInRow()[this._activeColumnIndex]?.click();
       }
     }
   }
@@ -128,13 +125,7 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
       return;
     }
 
-    const elementsInRow = Array.from(
-      this.activeOption
-        .closest('sbb-autocomplete-row')
-        ?.querySelectorAll<SbbOptionElement<T> | SbbAutocompleteButtonElement>(
-          'sbb-option, sbb-autocomplete-button',
-        ) ?? [],
-    ).filter((el) => !el.matches(':state(disabled)'));
+    const elementsInRow = this._elementsInRow();
 
     if (elementsInRow.length < 2) {
       return;
@@ -162,6 +153,18 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
       ?.closest('sbb-autocomplete-row')
       ?.querySelectorAll('sbb-autocomplete-button')
       .forEach((button) => button.setActive(false));
+  }
+
+  private _elementsInRow(
+    option = this.activeOption,
+  ): (SbbOptionElement<T> | SbbAutocompleteButtonElement)[] {
+    return Array.from(
+      option
+        ?.closest('sbb-autocomplete-row')
+        ?.querySelectorAll<SbbOptionElement<T> | SbbAutocompleteButtonElement>(
+          'sbb-option, sbb-autocomplete-button',
+        ) ?? [],
+    ).filter((el) => !el.matches(':state(disabled)'));
   }
 
   protected resetActiveElement(): void {

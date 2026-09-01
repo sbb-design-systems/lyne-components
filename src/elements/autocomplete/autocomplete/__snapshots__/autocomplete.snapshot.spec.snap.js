@@ -234,42 +234,79 @@ snapshots["sbb-autocomplete renders in form field A11y tree Chrome"] =
 /* end snapshot sbb-autocomplete renders in form field A11y tree Chrome */
 
 snapshots["sbb-autocomplete with actions Chrome-Firefox DOM"] = 
-`<sbb-autocomplete
-  origin="anchor"
-  popover="manual"
+`<sbb-form-field
+  error-space="none"
+  width="default"
 >
-  <sbb-autocomplete-row>
-    <sbb-option value="1">
-      Option 1
-    </sbb-option>
-    <sbb-autocomplete-button icon-name="pen-small">
-    </sbb-autocomplete-button>
-  </sbb-autocomplete-row>
-  <sbb-autocomplete-row>
-    <sbb-option
-      disabled=""
-      value="1"
-    >
-      Option 2
-    </sbb-option>
-    <sbb-autocomplete-button
-      disabled=""
-      icon-name="pen-small"
-    >
-    </sbb-autocomplete-button>
-  </sbb-autocomplete-row>
-</sbb-autocomplete>
+  <input
+    aria-autocomplete="list"
+    aria-controls="sbb-autocomplete-6"
+    aria-expanded="false"
+    aria-haspopup="listbox"
+    aria-owns="sbb-autocomplete-6"
+    autocomplete="off"
+    role="combobox"
+  >
+  <sbb-autocomplete popover="manual">
+    <sbb-autocomplete-row>
+      <sbb-option value="1">
+        Option 1
+      </sbb-option>
+      <sbb-autocomplete-button icon-name="pen-small">
+      </sbb-autocomplete-button>
+    </sbb-autocomplete-row>
+    <sbb-autocomplete-row>
+      <sbb-option
+        disabled=""
+        value="1"
+      >
+        Option 2
+      </sbb-option>
+      <sbb-autocomplete-button
+        disabled=""
+        icon-name="pen-small"
+      >
+      </sbb-autocomplete-button>
+    </sbb-autocomplete-row>
+  </sbb-autocomplete>
+</sbb-form-field>
 `;
 /* end snapshot sbb-autocomplete with actions Chrome-Firefox DOM */
 
 snapshots["sbb-autocomplete with actions Chrome-Firefox Shadow DOM"] = 
-`<div class="sbb-option-panel__overlay-container">
-  <div
-    class="sbb-option-panel__overlay sbb-scrollbar"
-    role="listbox"
-    tabindex="-1"
-  >
-    <slot>
+`<div class="sbb-form-field__space-wrapper">
+  <div class="sbb-form-field__wrapper">
+    <slot name="prefix">
+    </slot>
+    <div class="sbb-form-field__input-container">
+      <span
+        aria-hidden="true"
+        class="sbb-form-field__label-spacer"
+      >
+      </span>
+      <span class="sbb-form-field__label">
+        <span class="sbb-form-field__label-ellipsis">
+          <slot name="label">
+          </slot>
+        </span>
+      </span>
+      <div class="sbb-form-field__input">
+        <slot>
+        </slot>
+      </div>
+      <sbb-icon
+        class="sbb-form-field__select-input-icon"
+        name="chevron-small-down-small"
+      >
+      </sbb-icon>
+    </div>
+    <slot name="suffix">
+    </slot>
+  </div>
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
+    <slot name="error">
     </slot>
   </div>
 </div>
@@ -277,41 +314,79 @@ snapshots["sbb-autocomplete with actions Chrome-Firefox Shadow DOM"] =
 /* end snapshot sbb-autocomplete with actions Chrome-Firefox Shadow DOM */
 
 snapshots["sbb-autocomplete with actions Safari DOM"] = 
-`<sbb-autocomplete
-  origin="anchor"
-  popover="manual"
+`<sbb-form-field
+  error-space="none"
+  width="default"
 >
-  <sbb-autocomplete-row>
-    <sbb-option value="1">
-      Option 1
-    </sbb-option>
-    <sbb-autocomplete-button icon-name="pen-small">
-    </sbb-autocomplete-button>
-  </sbb-autocomplete-row>
-  <sbb-autocomplete-row>
-    <sbb-option
-      disabled=""
-      value="1"
-    >
-      Option 2
-    </sbb-option>
-    <sbb-autocomplete-button
-      disabled=""
-      icon-name="pen-small"
-    >
-    </sbb-autocomplete-button>
-  </sbb-autocomplete-row>
-</sbb-autocomplete>
+  <input
+    aria-autocomplete="list"
+    aria-controls="sbb-autocomplete-5"
+    aria-expanded="false"
+    aria-haspopup="listbox"
+    aria-owns="sbb-autocomplete-5"
+    autocomplete="off"
+    role="combobox"
+  >
+  <sbb-autocomplete popover="manual">
+    <sbb-autocomplete-row>
+      <sbb-option value="1">
+        Option 1
+      </sbb-option>
+      <sbb-autocomplete-button icon-name="pen-small">
+      </sbb-autocomplete-button>
+    </sbb-autocomplete-row>
+    <sbb-autocomplete-row>
+      <sbb-option
+        disabled=""
+        value="1"
+      >
+        Option 2
+      </sbb-option>
+      <sbb-autocomplete-button
+        disabled=""
+        icon-name="pen-small"
+      >
+      </sbb-autocomplete-button>
+    </sbb-autocomplete-row>
+  </sbb-autocomplete>
+</sbb-form-field>
 `;
 /* end snapshot sbb-autocomplete with actions Safari DOM */
 
 snapshots["sbb-autocomplete with actions Safari Shadow DOM"] = 
-`<div class="sbb-option-panel__overlay-container">
-  <div
-    class="sbb-option-panel__overlay sbb-scrollbar"
-    tabindex="-1"
-  >
-    <slot>
+`<div class="sbb-form-field__space-wrapper">
+  <div class="sbb-form-field__wrapper">
+    <slot name="prefix">
+    </slot>
+    <div class="sbb-form-field__input-container">
+      <span
+        aria-hidden="true"
+        class="sbb-form-field__label-spacer"
+      >
+      </span>
+      <span class="sbb-form-field__label">
+        <span class="sbb-form-field__label-ellipsis">
+          <slot name="label">
+          </slot>
+        </span>
+      </span>
+      <div class="sbb-form-field__input">
+        <slot>
+        </slot>
+      </div>
+      <sbb-icon
+        class="sbb-form-field__select-input-icon"
+        name="chevron-small-down-small"
+      >
+      </sbb-icon>
+    </div>
+    <slot name="suffix">
+    </slot>
+  </div>
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
+    <slot name="error">
     </slot>
   </div>
 </div>
@@ -329,92 +404,16 @@ snapshots["sbb-autocomplete with actions A11y tree Chrome"] =
       "role": "none",
       "children": [
         {
-          "ignored": true,
-          "role": "none",
-          "children": [
-            {
-              "ignored": true,
-              "role": "none",
-              "children": [
-                {
-                  "ignored": true,
-                  "role": "none",
-                  "children": [
-                    {
-                      "ignored": true,
-                      "role": "none",
-                      "children": [
-                        {
-                          "ignored": true,
-                          "role": "none"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "ignored": true,
-                  "role": "none",
-                  "children": [
-                    {
-                      "ignored": true,
-                      "role": "none",
-                      "children": [
-                        {
-                          "ignored": true,
-                          "role": "none"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "role": "generic",
+          "name": ""
         },
         {
           "ignored": true,
-          "role": "none",
-          "children": [
-            {
-              "ignored": true,
-              "role": "none",
-              "children": [
-                {
-                  "ignored": true,
-                  "role": "none",
-                  "children": [
-                    {
-                      "ignored": true,
-                      "role": "none",
-                      "children": [
-                        {
-                          "ignored": true,
-                          "role": "none"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "ignored": true,
-                  "role": "none",
-                  "children": [
-                    {
-                      "ignored": true,
-                      "role": "none",
-                      "children": [
-                        {
-                          "ignored": true,
-                          "role": "none"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "role": "none"
         }
       ]
     }

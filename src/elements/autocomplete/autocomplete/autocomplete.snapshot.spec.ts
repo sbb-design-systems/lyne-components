@@ -93,16 +93,19 @@ describe(`sbb-autocomplete`, () => {
     let root: SbbAutocompleteElement;
     beforeEach(async () => {
       root = await fixture(html`
-        <sbb-autocomplete origin="anchor">
-          <sbb-autocomplete-row>
-            <sbb-option value="1">Option 1</sbb-option>
-            <sbb-autocomplete-button icon-name="pen-small"></sbb-autocomplete-button>
-          </sbb-autocomplete-row>
-          <sbb-autocomplete-row>
-            <sbb-option disabled value="1">Option 2</sbb-option>
-            <sbb-autocomplete-button disabled icon-name="pen-small"></sbb-autocomplete-button>
-          </sbb-autocomplete-row>
-        </sbb-autocomplete>
+        <sbb-form-field>
+          <input />
+          <sbb-autocomplete>
+            <sbb-autocomplete-row>
+              <sbb-option value="1">Option 1</sbb-option>
+              <sbb-autocomplete-button icon-name="pen-small"></sbb-autocomplete-button>
+            </sbb-autocomplete-row>
+            <sbb-autocomplete-row>
+              <sbb-option disabled value="1">Option 2</sbb-option>
+              <sbb-autocomplete-button disabled icon-name="pen-small"></sbb-autocomplete-button>
+            </sbb-autocomplete-row>
+          </sbb-autocomplete>
+        </sbb-form-field>
       `);
     });
 
