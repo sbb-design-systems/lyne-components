@@ -32,7 +32,7 @@ import { optionPanelStyles, type SbbOptionBaseElement } from '../../option.pure.
 
 import style from './autocomplete-base-element.scss?inline';
 
-// TODO: The base class will no longer be needed once the autocomplete-grid is deleted in the next major release. Merge this in the main class.
+// TODO(breaking-change): The base class will no longer be needed once the autocomplete-grid is deleted in the next major release. Merge this in the main class.
 
 /**
  * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.

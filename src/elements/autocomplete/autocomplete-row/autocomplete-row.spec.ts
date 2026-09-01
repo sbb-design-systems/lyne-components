@@ -17,6 +17,5 @@ describe('sbb-autocomplete-row', () => {
   it('renders', async () => {
     assert.instanceOf(element, SbbAutocompleteRowElement);
     expect(element.role).to.be.null;
-    expect(element.id).not.to.be.null;
   });
 });

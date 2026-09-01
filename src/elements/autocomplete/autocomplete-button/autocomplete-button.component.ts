@@ -10,8 +10,6 @@ import {
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbOptGroupElement, SbbOptionElement } from '../../option.pure.ts';
 
-let autocompleteButtonNextId = 0;
-
 /**
  * It displays an icon-only button that can be used in a `sbb-autocomplete-row`.
  *
@@ -60,12 +58,6 @@ export class SbbAutocompleteButtonElement extends SbbDisabledMixin(
    */
   public setActive(value: boolean): void {
     this.toggleState('focus-visible', value);
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.id ||= `sbb-autocomplete-button-${++autocompleteButtonNextId}`;
-    this.removeAttribute('tabindex');
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

@@ -130,6 +130,8 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
     if (elementsInRow.length < 2) {
       return;
     }
+
+    // Prevent the input cursor (caret) from moving when pressing left/right arrow keys
     event.preventDefault();
 
     const nextIndex = getNextElementIndex(event, this._activeColumnIndex, elementsInRow.length);
@@ -139,7 +141,9 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
     current.setActive(false);
     next.setActive(true);
 
-    this.triggerElement!.ariaActiveDescendantElement = next;
+    if (this.triggerElement) {
+      this.triggerElement.ariaActiveDescendantElement = next;
+    }
     next.scrollIntoView({ block: 'nearest' });
     this._activeColumnIndex = nextIndex;
   }

@@ -4,8 +4,6 @@ import { SbbElement, SbbPropertyWatcherController } from '../../core.ts';
 
 import style from './autocomplete-row.scss?inline';
 
-let autocompleteRowNextId = 0;
-
 /**
  * The component is used as a wrapper for an option and one or more action buttons.
  *
@@ -31,13 +29,8 @@ export class SbbAutocompleteRowElement extends SbbElement {
     );
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.id ||= `sbb-autocomplete-row-${++autocompleteRowNextId}`;
-  }
-
   protected override render(): TemplateResult {
-    return html` <slot></slot> `;
+    return html`<slot></slot>`;
   }
 }
 
