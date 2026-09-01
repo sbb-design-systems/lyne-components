@@ -37,19 +37,25 @@ export const getSvgContent = (
     if (typeof fetch !== 'undefined' && !isServer) {
       const interceptor = config.interceptor ?? ((i) => i.request());
 
-      const interceptorRequest = (async () =>
-        interceptor({
-          namespace,
-          name,
-          url,
-          request: () =>
-            fetch(url).then(async (response) => {
-              if (!response.ok) {
-                throw new Error(`Failed to load icon ${namespace}:${name}`);
-              }
-              return validateContent(await response.text(), sanitize);
-            }),
-        }))();
+      let interceptorRequest: Promise<string>;
+      try {
+        interceptorRequest = Promise.resolve(
+          interceptor({
+            namespace,
+            name,
+            url,
+            request: () =>
+              fetch(url).then(async (response) => {
+                if (!response.ok) {
+                  throw new Error(`Failed to load icon ${namespace}:${name}`);
+                }
+                return validateContent(await response.text(), sanitize);
+              }),
+          }),
+        );
+      } catch (error) {
+        interceptorRequest = Promise.reject(error);
+      }
 
       req = interceptorRequest.then(
         (content) => {
