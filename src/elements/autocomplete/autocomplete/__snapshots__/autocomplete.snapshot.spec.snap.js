@@ -320,10 +320,10 @@ snapshots["sbb-autocomplete with actions Safari DOM"] =
 >
   <input
     aria-autocomplete="list"
-    aria-controls="sbb-autocomplete-5"
+    aria-controls="autocomplete-actions"
     aria-expanded="false"
     aria-haspopup="listbox"
-    aria-owns="sbb-autocomplete-5"
+    aria-owns="autocomplete-actions"
     autocomplete="off"
     role="combobox"
   >
