@@ -36,11 +36,11 @@ Optionally, you can add an overlapping `<sbb-chip-label>` to the slotted `figure
 </sbb-teaser>
 ```
 
-Use the `action` slot to display a static action below the description,
-e.g. a [sbb-secondary-button-static](/docs/elements-button-secondary-button-static--docs) or another static button variant.
-Since the `<sbb-teaser>` itself already behaves like a link, the slotted action must be a **static** element
-(non-interactive, no own `href`/click handling) to avoid nested interactive/focusable elements.
-Sbb buttons are automatically assigned to the `action` slot when slotted in the default slot.
+Use the `action` slot to display a static action
+e.g. a [sbb-secondary-button-static](/docs/elements-button-secondary-button-static--docs) within an `<sbb-teaser>` element
+or interactive action (e.g. a [sbb-secondary-button-link](/docs/elements-button-secondary-button-link--docs) within a `<sbb-teaser-static>` element)
+below the description.
+Lyne buttons are automatically assigned to the `action` slot when slotted in the default slot.
 
 ```html
 <sbb-teaser href="https://www.sbb.ch">

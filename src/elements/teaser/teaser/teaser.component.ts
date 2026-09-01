@@ -24,7 +24,7 @@ export class SbbTeaserElement extends SbbTeaserCommonElementMixin(SbbLinkBaseEle
     return html`
       <div class="sbb-teaser__wrapper">
         ${this.renderLink(
-          // For SEO, we add the accessibility hidden as hidden content of the link
+          // For SEO, we add the accessibility label as hidden content of the link
           html`<span class="sbb-screen-reader-only">${this.accessibilityLabel}</span>`,
         )}
         ${this.renderTemplate()}
