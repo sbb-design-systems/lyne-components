@@ -382,19 +382,44 @@ describe('sbb-autocomplete', () => {
         );
       }
 
-      it(
-        'negative=true',
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            withActionsTemplate({ ...defaultArgs, disableOption: true, negative: true }),
-            { ...style, backgroundColor: 'var(--sbb-background-color-1-negative)' },
+      for (const negative of [false, true]) {
+        describe(`negative=${negative}`, () => {
+          it(
+            'option active',
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                withActionsTemplate({ ...defaultArgs, negative, disableOption: true }),
+                {
+                  ...style,
+                  backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                },
+              );
+              setup.withPostSetupAction(async () => {
+                await openAutocomplete(setup);
+                await sendKeys({ press: 'ArrowDown' });
+              });
+            }),
           );
-          setup.withPostSetupAction(async () => {
-            await openAutocomplete(setup);
-            await sendKeys({ press: 'ArrowDown' });
-          });
-        }),
-      );
+
+          it(
+            'action active',
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                withActionsTemplate({ ...defaultArgs, negative, disableOption: true }),
+                {
+                  ...style,
+                  backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                },
+              );
+              setup.withPostSetupAction(async () => {
+                await openAutocomplete(setup);
+                await sendKeys({ press: 'ArrowDown' });
+                await sendKeys({ press: 'ArrowRight' });
+              });
+            }),
+          );
+        });
+      }
 
       it(
         'darkMode=true',

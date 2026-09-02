@@ -108,10 +108,10 @@ snapshots["sbb-autocomplete with actions Chrome-Firefox DOM"] =
 >
   <input
     aria-autocomplete="list"
-    aria-controls="sbb-autocomplete-6"
+    aria-controls="sbb-autocomplete-5"
     aria-expanded="false"
     aria-haspopup="listbox"
-    aria-owns="sbb-autocomplete-6"
+    aria-owns="sbb-autocomplete-5"
     autocomplete="off"
     role="combobox"
   >
@@ -141,9 +141,29 @@ snapshots["sbb-autocomplete with actions Chrome-Firefox DOM"] =
 `;
 /* end snapshot sbb-autocomplete with actions Chrome-Firefox DOM */
 
+snapshots["sbb-autocomplete renders standalone Safari DOM"] = 
+`<sbb-autocomplete
+  id="sbb-autocomplete-1"
+  origin="origin"
+  popover="manual"
+  trigger="trigger"
+>
+  <sbb-option value="1">
+    1
+  </sbb-option>
+  <sbb-option value="2">
+    2
+  </sbb-option>
+</sbb-autocomplete>
+`;
+/* end snapshot sbb-autocomplete renders standalone Safari DOM */
+
 snapshots["sbb-autocomplete with actions Chrome-Firefox Shadow DOM"] = 
 `<div class="sbb-form-field__space-wrapper">
-  <div class="sbb-form-field__wrapper">
+  <div
+    class="sbb-form-field__wrapper"
+    id="overlay-anchor"
+  >
     <slot name="prefix">
     </slot>
     <div class="sbb-form-field__input-container">
@@ -180,23 +200,6 @@ snapshots["sbb-autocomplete with actions Chrome-Firefox Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-autocomplete with actions Chrome-Firefox Shadow DOM */
-
-snapshots["sbb-autocomplete renders standalone Safari DOM"] = 
-`<sbb-autocomplete
-  id="sbb-autocomplete-1"
-  origin="origin"
-  popover="manual"
-  trigger="trigger"
->
-  <sbb-option value="1">
-    1
-  </sbb-option>
-  <sbb-option value="2">
-    2
-  </sbb-option>
-</sbb-autocomplete>
-`;
-/* end snapshot sbb-autocomplete renders standalone Safari DOM */
 
 snapshots["sbb-autocomplete renders standalone Safari Shadow DOM"] = 
 `<div class="sbb-option-panel__overlay-container">
@@ -239,36 +242,6 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
 </sbb-form-field>
 `;
 /* end snapshot sbb-autocomplete renders in form field Safari DOM */
-
-snapshots["sbb-autocomplete renders in form field A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "generic",
-  "name": "Fixture Container",
-  "children": [
-    {
-      "ignored": true,
-      "role": "none",
-      "children": [
-        {
-          "role": "generic",
-          "name": ""
-        },
-        {
-          "role": "generic",
-          "name": ""
-        },
-        {
-          "ignored": true,
-          "role": "none"
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete renders in form field A11y tree Chrome */
 
 snapshots["sbb-autocomplete renders in form field Safari Shadow DOM"] = 
 `<div class="sbb-form-field__space-wrapper">
@@ -320,14 +293,17 @@ snapshots["sbb-autocomplete with actions Safari DOM"] =
 >
   <input
     aria-autocomplete="list"
-    aria-controls="autocomplete-actions"
+    aria-controls="sbb-autocomplete-5"
     aria-expanded="false"
     aria-haspopup="listbox"
-    aria-owns="autocomplete-actions"
+    aria-owns="sbb-autocomplete-5"
     autocomplete="off"
     role="combobox"
   >
-  <sbb-autocomplete popover="manual">
+  <sbb-autocomplete
+    id="sbb-autocomplete-5"
+    popover="manual"
+  >
     <sbb-autocomplete-row>
       <sbb-option value="1">
         Option 1
@@ -355,7 +331,10 @@ snapshots["sbb-autocomplete with actions Safari DOM"] =
 
 snapshots["sbb-autocomplete with actions Safari Shadow DOM"] = 
 `<div class="sbb-form-field__space-wrapper">
-  <div class="sbb-form-field__wrapper">
+  <div
+    class="sbb-form-field__wrapper"
+    id="overlay-anchor"
+  >
     <slot name="prefix">
     </slot>
     <div class="sbb-form-field__input-container">
@@ -392,6 +371,36 @@ snapshots["sbb-autocomplete with actions Safari Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-autocomplete with actions Safari Shadow DOM */
+
+snapshots["sbb-autocomplete renders in form field A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete renders in form field A11y tree Chrome */
 
 snapshots["sbb-autocomplete with actions A11y tree Chrome"] = 
 `<p>

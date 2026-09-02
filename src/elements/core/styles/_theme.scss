@@ -13,6 +13,9 @@ $theme: 'standard' !default;
 @use '../../alert/alert.global' as alert with (
   $theme: $theme
 );
+@use '../../autocomplete/autocomplete.global' as autocomplete with (
+  $theme: $theme
+);
 @use '../../badge/badge.global' as badge with (
   $theme: $theme
 );
@@ -220,6 +223,7 @@ $theme: 'standard' !default;
   @include sbb-css-tokens.base;
   @include action-group.base;
   @include alert.base;
+  @include autocomplete.base;
   @include breadcrumb.base;
   @include button.base;
   @include calendar.base;

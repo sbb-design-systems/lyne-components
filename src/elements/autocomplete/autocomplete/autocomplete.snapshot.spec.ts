@@ -91,11 +91,12 @@ describe(`sbb-autocomplete`, () => {
 
   describe('with actions', () => {
     let root: SbbAutocompleteElement;
+
     beforeEach(async () => {
       root = await fixture(html`
         <sbb-form-field>
           <input />
-          <sbb-autocomplete id="autocomplete-actions">
+          <sbb-autocomplete>
             <sbb-autocomplete-row>
               <sbb-option value="1">Option 1</sbb-option>
               <sbb-autocomplete-button icon-name="pen-small"></sbb-autocomplete-button>
@@ -115,17 +116,17 @@ describe(`sbb-autocomplete`, () => {
       });
 
       it('Shadow DOM', async () => {
-        await expect(root).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
+        await expect(root).shadowDom.to.be.equalSnapshot();
       });
     });
 
     describeIf(isSafari, 'Safari', async () => {
       it('DOM', async () => {
-        await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
+        await expect(root).dom.to.be.equalSnapshot();
       });
 
       it('Shadow DOM', async () => {
-        await expect(root).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
+        await expect(root).shadowDom.to.be.equalSnapshot();
       });
     });
 
