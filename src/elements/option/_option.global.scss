@@ -43,7 +43,6 @@ $theme: 'standard' !default;
       ),
       $theme
     )};
-  --sbb-option-focus-outline-color: transparent;
   --sbb-option-focus-outline-inset: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-spacing-fixed-1x),
