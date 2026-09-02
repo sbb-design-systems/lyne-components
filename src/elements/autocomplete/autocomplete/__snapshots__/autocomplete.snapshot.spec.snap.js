@@ -21,7 +21,7 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM"] =
 `<div class="sbb-option-panel__overlay-container">
   <div
     class="sbb-option-panel__overlay sbb-scrollbar"
-    id="sbb-autocomplete-2"
+    id="standalone-overlay"
     role="listbox"
     tabindex="-1"
   >
@@ -39,10 +39,10 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
 >
   <input
     aria-autocomplete="list"
-    aria-controls="sbb-autocomplete-3"
+    aria-controls="in-form-field-overlay"
     aria-expanded="false"
     aria-haspopup="listbox"
-    aria-owns="sbb-autocomplete-3"
+    aria-owns="in-form-field-overlay"
     autocomplete="off"
     role="combobox"
   >
@@ -108,10 +108,10 @@ snapshots["sbb-autocomplete with actions Chrome-Firefox DOM"] =
 >
   <input
     aria-autocomplete="list"
-    aria-controls="sbb-autocomplete-6"
+    aria-controls="with-actions-overlay"
     aria-expanded="false"
     aria-haspopup="listbox"
-    aria-owns="sbb-autocomplete-6"
+    aria-owns="with-actions-overlay"
     autocomplete="off"
     role="combobox"
   >
@@ -143,7 +143,7 @@ snapshots["sbb-autocomplete with actions Chrome-Firefox DOM"] =
 
 snapshots["sbb-autocomplete renders standalone Safari DOM"] = 
 `<sbb-autocomplete
-  id="sbb-autocomplete-1"
+  id="standalone"
   origin="origin"
   popover="manual"
   trigger="trigger"
@@ -221,15 +221,15 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
 >
   <input
     aria-autocomplete="list"
-    aria-controls="sbb-autocomplete-3"
+    aria-controls="in-form-field"
     aria-expanded="false"
     aria-haspopup="listbox"
-    aria-owns="sbb-autocomplete-3"
+    aria-owns="in-form-field"
     autocomplete="off"
     role="combobox"
   >
   <sbb-autocomplete
-    id="sbb-autocomplete-3"
+    id="in-form-field"
     popover="manual"
   >
     <sbb-option value="1">

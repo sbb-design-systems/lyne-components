@@ -21,7 +21,7 @@ describe(`sbb-autocomplete`, () => {
         html`<div>
           <div id="origin"></div>
           <input id="trigger" />
-          <sbb-autocomplete origin="origin" trigger="trigger">
+          <sbb-autocomplete origin="origin" trigger="trigger" id="standalone">
             <sbb-option value="1">1</sbb-option>
             <sbb-option value="2">2</sbb-option>
           </sbb-autocomplete>
@@ -58,7 +58,7 @@ describe(`sbb-autocomplete`, () => {
       root = await fixture(html`
         <sbb-form-field>
           <input />
-          <sbb-autocomplete>
+          <sbb-autocomplete id="in-form-field">
             <sbb-option value="1">1</sbb-option>
             <sbb-option value="2">2</sbb-option>
           </sbb-autocomplete>

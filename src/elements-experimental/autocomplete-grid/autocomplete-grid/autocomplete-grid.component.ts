@@ -36,7 +36,7 @@ const ariaRoleOnHost = isSafari;
 export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<T> {
   public static override readonly elementName: string = 'sbb-autocomplete-grid';
   public static override readonly role = ariaRoleOnHost ? 'grid' : null;
-  protected overlayId = `sbb-autocomplete-grid-${++nextId}`;
+  protected generatedId = `sbb-autocomplete-grid-${++nextId}`;
   protected panelRole = 'grid';
   private _activeColumnIndex = 0;
 

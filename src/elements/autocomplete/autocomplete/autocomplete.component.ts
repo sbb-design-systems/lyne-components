@@ -26,7 +26,7 @@ const ariaRoleOnHost = isSafari;
 export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
   public static override readonly elementName: string = 'sbb-autocomplete';
   public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
-  protected overlayId = `sbb-autocomplete-${++nextId}`;
+  protected generatedId = `sbb-autocomplete-${++nextId}`;
   protected panelRole = 'listbox';
 
   /** Index of the active element within the active option's row (0 = option, >0 = a button). */

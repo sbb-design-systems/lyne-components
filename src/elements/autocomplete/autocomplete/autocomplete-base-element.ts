@@ -158,7 +158,11 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   }
   private _triggerElement?: HTMLInputElement | null;
 
-  protected abstract overlayId: string;
+  protected get overlayId(): string {
+    return `${this.id}-overlay`;
+  }
+
+  protected abstract generatedId: string;
   protected abstract panelRole: string;
   protected activeOption: SbbOptionBaseElement<T> | null = null;
   protected pendingAutoSelectedOption: SbbOptionBaseElement<T> | null = null;
@@ -299,9 +303,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   public override connectedCallback(): void {
     this.popover = 'manual';
     super.connectedCallback();
-    if (ariaRoleOnHost) {
-      this.id ||= this.overlayId;
-    }
+    this.id ||= this.generatedId;
 
     if (this.hasUpdated) {
       this._componentSetup();
