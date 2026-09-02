@@ -54,9 +54,9 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   'hover-trigger': false,
   hideCloseButton: false,
+  negative: false,
   'open-delay': undefined,
   'close-delay': undefined,
-  negative: false,
 };
 
 const popoverTrigger = (position: Record<string, string>): TemplateResult => html`
@@ -196,6 +196,12 @@ export const EndAbove: StoryObj = {
   render: EndAboveTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+};
+
+export const Negative: StoryObj = {
+  render: LongContentTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true },
 };
 
 export const LongContent: StoryObj = {
