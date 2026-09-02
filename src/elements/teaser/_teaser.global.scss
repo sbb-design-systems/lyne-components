@@ -19,6 +19,9 @@ $theme: 'standard' !default;
   --sbb-teaser-title-gap-m: 0;
   --sbb-teaser-title-gap-l: var(--sbb-spacing-responsive-xxxs);
   --sbb-teaser-title-gap: var(--sbb-teaser-title-gap-m);
+  --sbb-teaser-button-gap-m: var(--sbb-spacing-fixed-2x);
+  --sbb-teaser-button-gap-l: var(--sbb-spacing-responsive-xxs);
+  --sbb-teaser-button-gap: var(--sbb-teaser-button-gap-m);
 }
 
 @mixin rules {

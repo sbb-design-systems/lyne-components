@@ -11,9 +11,10 @@
 }
 
 :host([size='l']) {
-  --sbb-teaser-title-gap: var(--sbb-teaser-title-gap-l);
-  --sbb-teaser-font-size: var(--sbb-teaser-font-size-l);
   --sbb-teaser-gap: var(--sbb-teaser-gap-l);
+  --sbb-teaser-title-gap: var(--sbb-teaser-title-gap-l);
+  --sbb-teaser-button-gap: var(--sbb-teaser-button-gap-l);
+  --sbb-teaser-font-size: var(--sbb-teaser-font-size-l);
 }
 
 :host(:is([alignment='after'], [alignment='before'])) {
@@ -61,7 +62,7 @@
 .sbb-teaser__content {
   display: flex;
   flex-direction: column;
-  gap: var(--sbb-spacing-fixed-1x);
+  gap: var(--sbb-teaser-button-gap);
   width: 100%;
 }
 
