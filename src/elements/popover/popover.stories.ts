@@ -37,11 +37,18 @@ const closeDelay: InputType = {
   },
 };
 
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   'hover-trigger': hoverTrigger,
   hideCloseButton,
   'open-delay': openDelay,
   'close-delay': closeDelay,
+  negative,
 };
 
 const defaultArgs: Args = {
@@ -49,6 +56,7 @@ const defaultArgs: Args = {
   hideCloseButton: false,
   'open-delay': undefined,
   'close-delay': undefined,
+  negative: false,
 };
 
 const popoverTrigger = (position: Record<string, string>): TemplateResult => html`
@@ -74,7 +82,9 @@ const popover = ({
         ? ''
         : html`<sbb-popover-close-button></sbb-popover-close-button>`
     }
-    <sbb-title level="2" visual-level="6" style="margin-block-start: 0"> Title. </sbb-title>
+    <sbb-title level="2" visual-level="6" style="margin-block-start: 0" ?negative=${args.negative}>
+      Title.
+    </sbb-title>
     <p style="margin: 0" class="sbb-text-s">
       Some content.
       <sbb-block-link
@@ -82,6 +92,7 @@ const popover = ({
         icon-name="chevron-small-right-small"
         icon-placement="end"
         href="https://www.sbb.ch"
+        ?negative=${args.negative}
         sbb-popover-close
       >
         Learn More
@@ -132,7 +143,7 @@ const LongContentTemplate = (args: Args): TemplateResult => html`
   ${popoverTrigger({ 'inset-inline-start': '2rem' })}
   <sbb-popover trigger="popover-trigger" ${sbbSpread(args)}>
     <sbb-popover-close-button></sbb-popover-close-button>
-    <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
+    <sbb-title level="2" visual-level="6" style="margin-block-start: 0" ?negative=${args.negative}>
       Popover with long content.
     </sbb-title>
     <p style="margin: 0;" class="sbb-text-s">

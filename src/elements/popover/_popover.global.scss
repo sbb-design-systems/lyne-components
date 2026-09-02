@@ -8,5 +8,6 @@ $theme: 'standard' !default;
   --sbb-popover-border-radius: var(--sbb-border-radius-8x);
   --sbb-popover-padding: var(--sbb-spacing-fixed-4x);
   --sbb-popover-background: var(--sbb-background-color-2);
+  --sbb-popover-color: inherit;
   --sbb-popover-animation-easing: ease-out;
 }

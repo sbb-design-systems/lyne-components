@@ -15,6 +15,11 @@
   );
 }
 
+:host([negative]) {
+  --sbb-popover-background: var(--sbb-background-color-2-negative);
+  --sbb-popover-color: var(--sbb-color-2-negative);
+}
+
 .sbb-popover__content {
   // We use half of the padding on the container and half on the scroll context.
   // With that, the focus outline is not cut and the scrollable context doesn't touch the borders.
@@ -22,6 +27,7 @@
   padding-inline: var(--_sbb-popover-half-padding)
     var(--_sbb-popover-close-button-min-width, var(--_sbb-popover-half-padding));
   min-height: var(--_sbb-popover-close-button-min-height);
+  color: var(--sbb-popover-color);
 }
 
 .sbb-popover__scrollable-content {
