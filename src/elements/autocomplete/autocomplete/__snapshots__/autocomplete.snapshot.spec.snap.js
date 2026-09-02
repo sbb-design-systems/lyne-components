@@ -108,10 +108,10 @@ snapshots["sbb-autocomplete with actions Chrome-Firefox DOM"] =
 >
   <input
     aria-autocomplete="list"
-    aria-controls="sbb-autocomplete-5"
+    aria-controls="sbb-autocomplete-6"
     aria-expanded="false"
     aria-haspopup="listbox"
-    aria-owns="sbb-autocomplete-5"
+    aria-owns="sbb-autocomplete-6"
     autocomplete="off"
     role="combobox"
   >
@@ -293,15 +293,15 @@ snapshots["sbb-autocomplete with actions Safari DOM"] =
 >
   <input
     aria-autocomplete="list"
-    aria-controls="sbb-autocomplete-5"
+    aria-controls="with-actions"
     aria-expanded="false"
     aria-haspopup="listbox"
-    aria-owns="sbb-autocomplete-5"
+    aria-owns="with-actions"
     autocomplete="off"
     role="combobox"
   >
   <sbb-autocomplete
-    id="sbb-autocomplete-5"
+    id="with-actions"
     popover="manual"
   >
     <sbb-autocomplete-row>

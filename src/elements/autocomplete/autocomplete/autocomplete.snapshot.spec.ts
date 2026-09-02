@@ -96,7 +96,7 @@ describe(`sbb-autocomplete`, () => {
       root = await fixture(html`
         <sbb-form-field>
           <input />
-          <sbb-autocomplete>
+          <sbb-autocomplete id="with-actions">
             <sbb-autocomplete-row>
               <sbb-option value="1">Option 1</sbb-option>
               <sbb-autocomplete-button icon-name="pen-small"></sbb-autocomplete-button>

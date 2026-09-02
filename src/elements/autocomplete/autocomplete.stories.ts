@@ -428,6 +428,7 @@ const WithActionsTemplate = (args: Args): TemplateResult => html`
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
 
       <sbb-autocomplete
+        id="with-actions"
         position=${args.position}
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
