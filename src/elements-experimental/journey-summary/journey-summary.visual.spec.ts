@@ -9,7 +9,7 @@ import {
   longFutureLeg,
   pastLeg,
   progressLeg,
-} from '../pearl-chain/pearl-chain.sample-data.private.ts';
+} from '../pearl-chain-legacy/pearl-chain-legacy.sample-data.private.ts';
 
 import '../journey-summary.ts';
 import '@sbb-esta/lyne-elements/button.js';

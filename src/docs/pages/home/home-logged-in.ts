@@ -5,7 +5,7 @@ import { html } from 'lit';
 import {
   futureLeg,
   pastLeg,
-} from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.private.ts';
+} from '../../../elements-experimental/pearl-chain-legacy/pearl-chain-legacy.sample-data.private.ts';
 
 import {
   bikeProduct,
@@ -19,7 +19,7 @@ import {
 } from './home.common.ts';
 import '../../../elements/dialog.ts';
 import '../../../elements/journey-header.ts';
-import '../../../elements-experimental/pearl-chain.ts';
+import '../../../elements-experimental/pearl-chain-legacy.ts';
 import './home.scss';
 
 export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
@@ -119,10 +119,10 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
                     <span class="sbb-text-s card-description">
                       2nd class, valid until 30.11.2022
                     </span>
-                    <sbb-pearl-chain
+                    <sbb-pearl-chain-legacy
                       .legs=${[pastLeg, futureLeg]}
                       now="2021-12-08T12:11:00+01:00"
-                    ></sbb-pearl-chain>
+                    ></sbb-pearl-chain-legacy>
                   </span>
                   <sbb-secondary-button-static icon-name="qrcode-small" size="l">
                     Ticket
@@ -166,10 +166,10 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
                     <span class="sbb-text-s card-description">
                       Saturday, 21.02.2021, 1 h 26 min
                     </span>
-                    <sbb-pearl-chain
+                    <sbb-pearl-chain-legacy
                       .legs=${[pastLeg, futureLeg]}
                       now="2021-12-08T12:11:00+01:00"
-                    ></sbb-pearl-chain>
+                    ></sbb-pearl-chain-legacy>
                   </span>
                   <sbb-secondary-button-static size="l"> Details </sbb-secondary-button-static>
                 </span>

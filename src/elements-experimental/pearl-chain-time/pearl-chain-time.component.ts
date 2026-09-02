@@ -20,18 +20,18 @@ import {
   isRideLeg,
   removeTimezoneFromISOTimeString,
 } from '../core.ts';
-import { SbbPearlChainElement } from '../pearl-chain.pure.ts';
+import { SbbPearlChainLegacyElement } from '../pearl-chain-legacy.pure.ts';
 
 import style from './pearl-chain-time.scss?inline';
 
 /**
- * Combined with `sbb-pearl-chain`, it displays walk time information.
+ * Combined with `sbb-pearl-chain-legacy`, it displays walk time information.
  */
 export class SbbPearlChainTimeElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain-time';
   public static override elementDependencies: SbbElementType[] = [
     SbbIconElement,
-    SbbPearlChainElement,
+    SbbPearlChainLegacyElement,
   ];
   public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
@@ -131,12 +131,12 @@ export class SbbPearlChainTimeElement extends SbbElement {
               </span>`
             : nothing
         }
-        <sbb-pearl-chain
+        <sbb-pearl-chain-legacy
           class="sbb-pearl-chain__time-chain"
           .legs=${this.legs}
           .disableAnimation=${this.disableAnimation}
           .now=${this.now}
-        ></sbb-pearl-chain>
+        ></sbb-pearl-chain-legacy>
         ${
           arrival
             ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.arrivalTime!}>
