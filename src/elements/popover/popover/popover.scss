@@ -16,6 +16,7 @@
 }
 
 :host([negative]) {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-popover-background: var(--sbb-background-color-2-negative);
   --sbb-popover-color: var(--sbb-color-2-negative);
 }
