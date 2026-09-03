@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.7.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.6.0...v5.7.0) (2026-08-31)
+
+
+### Features
+
+* **calendar:** add `activeMonth` property ([#5205](https://github.com/sbb-design-systems/lyne-components/issues/5205)) ([b4a53d1](https://github.com/sbb-design-systems/lyne-components/commit/b4a53d1eb080c196cec919e38d2f14c98487000f))
+
+
+### Bug Fixes
+
+* **easter-egg:** use correct translations in title ([#5199](https://github.com/sbb-design-systems/lyne-components/issues/5199)) ([412a6b1](https://github.com/sbb-design-systems/lyne-components/commit/412a6b1d62a3c0f3f887c04565385175cccb2fe7))
+
 ## [5.6.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.5.0...v5.6.0) (2026-08-24)
 
 

@@ -21,12 +21,27 @@ customElements.define('shadow-element', ShadowElement);
 
 class ShadowWrapperElement extends LitElement {
   protected override render(): TemplateResult {
-    return html`<div class="sbb-live-announcer-element"></div>
+    return html`<div class="sbb-live-announcer-element">
+        <div id="announcer-content">Announcer content</div>
+      </div>
       <div id="sibling"></div>`;
   }
 }
 
 customElements.define('shadow-wrapper-element', ShadowWrapperElement);
+
+/**
+ * Simulates an element like `sbb-toast`: the host itself matches
+ * `DEEP_IGNORED_ELEMENTS_SELECTOR` (via the `cdk-overlay-container` class here, standing in for
+ * the `sbb-toast` tag name) and renders its own content into its Shadow DOM.
+ */
+class IgnoredHostElement extends LitElement {
+  protected override render(): TemplateResult {
+    return html`<div id="ignored-host-content">Content</div>`;
+  }
+}
+
+customElements.define('ignored-host-element', IgnoredHostElement);
 
 /**
  * `HTMLElement.inert` only reflects the element's own `inert` attribute, not whether it is
@@ -180,6 +195,7 @@ describe('inert', () => {
     describe('nested inside a wrapper', () => {
       let wrapperElement: HTMLDivElement;
       let overlayOutlet: HTMLDivElement;
+      let overlayOutletContent: HTMLDivElement;
       let siblingElement: HTMLDivElement;
 
       beforeEach(async () => {
@@ -187,7 +203,7 @@ describe('inert', () => {
           html`<div>
             <div id="overlay"></div>
             <div id="wrapper">
-              <div class="sbb-overlay-outlet"></div>
+              <div class="sbb-overlay-outlet"><div id="outlet-content"></div></div>
               <div id="sibling"></div>
             </div>
           </div>`,
@@ -195,6 +211,7 @@ describe('inert', () => {
 
         wrapperElement = element.querySelector<HTMLDivElement>('#wrapper')!;
         overlayOutlet = wrapperElement.querySelector<HTMLDivElement>('.sbb-overlay-outlet')!;
+        overlayOutletContent = overlayOutlet.querySelector<HTMLDivElement>('#outlet-content')!;
         siblingElement = element.querySelector<HTMLDivElement>('#sibling')!;
         inertControllerOverlay = createInertController(
           element.querySelector<HTMLDivElement>('#overlay')!,
@@ -210,6 +227,12 @@ describe('inert', () => {
         await expect(element).dom.to.equalSnapshot();
       });
 
+      it('should never mark content nested inside the ignored element as inert', async () => {
+        inertControllerOverlay.activate();
+
+        expect(isEffectivelyInert(overlayOutletContent)).to.be.false;
+      });
+
       it('should fully remove the inert state again on deactivation', async () => {
         inertControllerOverlay.activate();
         inertControllerOverlay.deactivate();
@@ -223,6 +246,7 @@ describe('inert', () => {
     describe('nested through Shadow DOM', () => {
       let shadowWrapperElement: ShadowWrapperElement;
       let announcerElement: HTMLDivElement;
+      let announcerContent: HTMLDivElement;
       let siblingElement: HTMLDivElement;
 
       beforeEach(async () => {
@@ -238,6 +262,7 @@ describe('inert', () => {
         announcerElement = shadowWrapperElement.shadowRoot!.querySelector<HTMLDivElement>(
           '.sbb-live-announcer-element',
         )!;
+        announcerContent = announcerElement.querySelector<HTMLDivElement>('#announcer-content')!;
         siblingElement =
           shadowWrapperElement.shadowRoot!.querySelector<HTMLDivElement>('#sibling')!;
         inertControllerOverlay = createInertController(
@@ -253,11 +278,58 @@ describe('inert', () => {
         expect(isEffectivelyInert(siblingElement)).to.be.true;
       });
 
+      it('should never mark content nested inside the ignored element as inert', async () => {
+        inertControllerOverlay.activate();
+
+        expect(isEffectivelyInert(announcerContent)).to.be.false;
+      });
+
       it('should fully remove the inert state again on deactivation', async () => {
         inertControllerOverlay.activate();
         inertControllerOverlay.deactivate();
 
         expect(shadowWrapperElement.inert).to.be.false;
+        expect(siblingElement.inert).to.be.false;
+      });
+    });
+
+    describe('ignored element hosting its own Shadow DOM content (e.g. sbb-toast)', () => {
+      let ignoredHostElement: IgnoredHostElement;
+      let ignoredHostContent: HTMLDivElement;
+      let siblingElement: HTMLDivElement;
+
+      beforeEach(async () => {
+        element = await fixture(
+          html`<div>
+            <div id="overlay"></div>
+            <ignored-host-element class="cdk-overlay-container"></ignored-host-element>
+            <div id="sibling"></div>
+          </div>`,
+        );
+
+        ignoredHostElement = element.querySelector<IgnoredHostElement>('ignored-host-element')!;
+        ignoredHostContent =
+          ignoredHostElement.shadowRoot!.querySelector<HTMLDivElement>('#ignored-host-content')!;
+        siblingElement = element.querySelector<HTMLDivElement>('#sibling')!;
+        inertControllerOverlay = createInertController(
+          element.querySelector<HTMLDivElement>('#overlay')!,
+        );
+      });
+
+      it('should never mark the ignored element itself or its Shadow DOM content as inert', async () => {
+        inertControllerOverlay.activate();
+
+        expect(ignoredHostElement.inert).to.be.false;
+        expect(isEffectivelyInert(ignoredHostElement)).to.be.false;
+        expect(isEffectivelyInert(ignoredHostContent)).to.be.false;
+        expect(isEffectivelyInert(siblingElement)).to.be.true;
+      });
+
+      it('should fully remove the inert state again on deactivation', async () => {
+        inertControllerOverlay.activate();
+        inertControllerOverlay.deactivate();
+
+        expect(ignoredHostElement.inert).to.be.false;
         expect(siblingElement.inert).to.be.false;
       });
     });
@@ -322,5 +394,7 @@ declare global {
     'shadow-element': ShadowElement;
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'shadow-wrapper-element': ShadowWrapperElement;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'ignored-host-element': IgnoredHostElement;
   }
 }

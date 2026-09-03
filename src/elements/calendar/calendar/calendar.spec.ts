@@ -2346,6 +2346,38 @@ describe(`sbb-calendar`, () => {
           expect(defaultDateAdapter.sameDate(day?.value ?? null, new Date(2024, 1, 1))).to.be.true;
         });
       });
+
+      describe('active-month', () => {
+        beforeEach(async () => {
+          element = await fixture(
+            html` <sbb-calendar active-month="2023-10">
+              ${
+                variant === 'default'
+                  ? nothing
+                  : variant === 'enhanced'
+                    ? createSlottedDays(2023, 10, true)
+                    : html`
+                        <sbb-calendar-day slot=${toIso8601(new Date('2023-10-15'))}>
+                          ${createPrice(true)}
+                        </sbb-calendar-day>
+                      `
+              }
+            </sbb-calendar>`,
+          );
+        });
+
+        it('should render the given month', () => {
+          const day = element.shadowRoot!.querySelector('sbb-calendar-day');
+          expect(defaultDateAdapter.sameDate(day?.value ?? null, new Date(2023, 9, 1))).to.be.true;
+        });
+
+        it('should change the month on active-month attribute change', async () => {
+          element.activeMonth = '2024-02';
+          await waitForLitRender(element);
+          const day = element.shadowRoot!.querySelector('sbb-calendar-day');
+          expect(defaultDateAdapter.sameDate(day?.value ?? null, new Date(2024, 1, 1))).to.be.true;
+        });
+      });
     });
   });
 
