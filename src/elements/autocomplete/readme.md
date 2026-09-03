@@ -2,7 +2,6 @@
 
 The `<sbb-autocomplete>` is a component that can be used to display a panel of suggested options connected to a text input.
 Use it when you need a basic autocomplete: a panel with a list of selectable and possibly grouped options.
-If you need buttons connected to the options, use the [sbb-autocomplete-grid](/docs/experimental-autocomplete-grid--docs).
 
 It's possible to set the element to which the component's panel will be attached using the `origin` prop,
 and the input which will work as a trigger using the `trigger` prop.
@@ -94,6 +93,22 @@ The component has a `size` property with two sizes available. When slotted in a 
 It's possible to truncate the label (apply ellipsis) of slotted `<sbb-option>` elements with the `sbb-options-nowrap` CSS class.
 To select which elements should be affected, the consumer can set the class on either the `html` tag, the `<sbb-autocomplete>`, or the single `<sbb-option>`.
 
+## Actions
+
+An `<sbb-option>` can be paired with one or more action buttons by wrapping it, together with one or more `<sbb-autocomplete-button>`, in an `<sbb-autocomplete-row>`:
+
+```html
+<sbb-autocomplete>
+  <sbb-autocomplete-row>
+    <sbb-option value="Option 1">Option 1</sbb-option>
+    <sbb-autocomplete-button icon-name="pen-small"></sbb-autocomplete-button>
+  </sbb-autocomplete-row>
+  <sbb-option value="Option 2">Option 2</sbb-option>
+</sbb-autocomplete>
+```
+
+Options without an associated action can be used as usual, without wrapping them in an `<sbb-autocomplete-row>`.
+
 ## Events
 
 The `<sbb-option>` emits the `optionSelected` event when selected via user interaction.
@@ -103,12 +118,14 @@ The `<sbb-option>` emits the `optionSelected` event when selected via user inter
 The options panel opens on `focus`, `click` or `input` events on the trigger element, or on `ArrowDown` keypress;
 it can be closed on backdrop click, or using the `Escape` or `Tab` keys.
 
-| Keyboard              | Action                                                  |
-| --------------------- | ------------------------------------------------------- |
-| <kbd>Down Arrow</kbd> | Navigate to the next option. Open the panel, if closed. |
-| <kbd>Up Arrow</kbd>   | Navigate to the previous option.                        |
-| <kbd>Enter</kbd>      | Select the active option.                               |
-| <kbd>Escape</kbd>     | Close the autocomplete panel.                           |
+| Keyboard               | Action                                                                                              |
+| ---------------------- | --------------------------------------------------------------------------------------------------- |
+| <kbd>Down Arrow</kbd>  | Navigate to the next option. Open the panel, if closed.                                             |
+| <kbd>Up Arrow</kbd>    | Navigate to the previous option.                                                                    |
+| <kbd>Right Arrow</kbd> | If the active option has one or more action buttons, navigate to the next one. No-op otherwise.     |
+| <kbd>Left Arrow</kbd>  | If the active option has one or more action buttons, navigate to the previous one. No-op otherwise. |
+| <kbd>Enter</kbd>       | Select the active option, or activate the focused action button.                                    |
+| <kbd>Escape</kbd>      | Close the autocomplete panel.                                                                       |
 
 ### `autoSelectActiveOption`
 
@@ -137,6 +154,9 @@ Nesting interactive controls like this interferes with many assistive technologi
 
 The component preserves focus on the input trigger,
 using `aria-activedescendant` to support navigation though the autocomplete options.
+
+The `<sbb-autocomplete-button>` has `role="button"`. Since focus is always kept on the input trigger,
+buttons can't be reached via <kbd>Tab</kbd>, but only with the <kbd>Left</kbd>/<kbd>Right Arrow</kbd> keys.
 
 ## Complex Values
 
@@ -175,6 +195,24 @@ align with the type information.
 <!-- Auto Generated Below -->
 
 ## API Documentation
+
+### class: `SbbAutocompleteButtonElement`, `sbb-autocomplete-button`
+
+#### Properties
+
+| Name       | Attribute   | Privacy | Type                         | Default | Description                                                                                                                      |
+| ---------- | ----------- | ------- | ---------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `disabled`  | public  | `boolean`                    | `false` | Whether the component is disabled.                                                                                               |
+| `iconName` | `icon-name` | public  | `string`                     | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `negative` | `negative`  | public  | `boolean`                    | `false` | Negative coloring variant flag.                                                                                                  |
+| `optgroup` | -           | public  | `SbbOptGroupElement \| null` |         | Gets the parent SbbOptGroupElement, if present.                                                                                  |
+| `option`   | -           | public  | `SbbOptionElement \| null`   |         | Gets the SbbOptionElement on the same row of the button.                                                                         |
+
+#### Slots
+
+| Name   | Description                                  |
+| ------ | -------------------------------------------- |
+| `icon` | Slot used to display the icon, if one is set |
 
 ### class: `SbbAutocompleteElement`, `sbb-autocomplete`
 
@@ -228,3 +266,11 @@ align with the type information.
 | Name | Description                                                                                    |
 | ---- | ---------------------------------------------------------------------------------------------- |
 |      | Use the unnamed slot to add `sbb-option` or `sbb-optgroup` elements to the `sbb-autocomplete`. |
+
+### class: `SbbAutocompleteRowElement`, `sbb-autocomplete-row`
+
+#### Slots
+
+| Name | Description                                                                                            |
+| ---- | ------------------------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add a `sbb-option` followed by one or more `sbb-autocomplete-button` elements. |

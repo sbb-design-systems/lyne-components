@@ -25,6 +25,7 @@ const ariaRoleOnHost = isSafari;
 /**
  * Combined with a native input, it displays a panel with a list of available options with connected buttons.
  *
+ * @deprecated Use `sbb-autocomplete` with `sbb-autocomplete-row` and `sbb-autocomplete-button` instead. Will be removed with the next major release.
  * @slot - Use the unnamed slot to add `sbb-autocomplete-grid-row` or `sbb-autocomplete-grid-optgroup` elements to the `sbb-autocomplete-grid`.
  * @cssprop [--sbb-autocomplete-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
@@ -35,7 +36,7 @@ const ariaRoleOnHost = isSafari;
 export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<T> {
   public static override readonly elementName: string = 'sbb-autocomplete-grid';
   public static override readonly role = ariaRoleOnHost ? 'grid' : null;
-  protected overlayId = `sbb-autocomplete-grid-${++nextId}`;
+  protected generatedId = `sbb-autocomplete-grid-${++nextId}`;
   protected panelRole = 'grid';
   private _activeColumnIndex = 0;
 

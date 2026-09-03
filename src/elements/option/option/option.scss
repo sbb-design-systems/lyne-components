@@ -66,7 +66,7 @@
 }
 
 :host(:state(active)) {
-  --sbb-option-focus-outline-color: var(--sbb-focus-outline-color);
+  --sbb-option-focus-outline-display: block;
 }
 
 .sbb-option__label--highlight {
@@ -94,11 +94,11 @@
   // We use the pseudo element to display the focus outline (inline in this case)
   &::after {
     content: '';
-    display: block;
+    display: var(--sbb-option-focus-outline-display, none);
     position: absolute;
     inset: var(--sbb-option-focus-outline-inset);
     pointer-events: none;
-    border: var(--sbb-focus-outline-width) solid var(--sbb-option-focus-outline-color);
+    border: var(--sbb-focus-outline-width) solid var(--sbb-focus-outline-color);
     border-radius: var(--sbb-option-border-radius);
   }
 
@@ -109,11 +109,11 @@
 
     &::before {
       content: '';
-      display: block;
+      display: var(--sbb-option-disabled-display, block);
       position: absolute;
-      inset: #{sbb.px-to-rem-build(6)};
+      inset: var(--sbb-option-disabled-inset);
       border: var(--sbb-border-width-1x) dashed var(--sbb-option-disabled-border-color);
-      border-radius: var(--sbb-border-radius-2x);
+      border-radius: var(--sbb-option-disabled-border-radius);
       background-color: var(--sbb-option-disabled-background-color);
       z-index: -1;
 

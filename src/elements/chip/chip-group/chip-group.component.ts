@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbInputAutocompleteEvent } from '../../autocomplete/autocomplete-base-element.ts';
+import type { SbbInputAutocompleteEvent } from '../../autocomplete.pure.ts';
 import {
   forceType,
   type FormRestoreReason,

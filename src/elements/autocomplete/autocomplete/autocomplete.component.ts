@@ -1,6 +1,7 @@
-import { getNextElementIndex, isSafari, setAriaComboBoxAttributes } from '../core.ts';
-import type { SbbDividerElement } from '../divider/divider.component.ts';
-import type { SbbOptionElement, SbbOptionHintElement } from '../option.pure.ts';
+import { getNextElementIndex, isSafari, setAriaComboBoxAttributes } from '../../core.ts';
+import type { SbbDividerElement } from '../../divider/divider.component.ts';
+import type { SbbOptionElement, SbbOptionHintElement } from '../../option.pure.ts';
+import type { SbbAutocompleteButtonElement } from '../autocomplete-button/autocomplete-button.component.ts';
 
 import { SbbAutocompleteBaseElement } from './autocomplete-base-element.ts';
 
@@ -25,8 +26,11 @@ const ariaRoleOnHost = isSafari;
 export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
   public static override readonly elementName: string = 'sbb-autocomplete';
   public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
-  protected overlayId = `sbb-autocomplete-${++nextId}`;
+  protected generatedId = `sbb-autocomplete-${++nextId}`;
   protected panelRole = 'listbox';
+
+  /** Index of the active element within the active option's row (0 = option, >0 = a button). */
+  private _activeColumnIndex = 0;
 
   protected get options(): SbbOptionElement<T>[] {
     return Array.from(this.querySelectorAll?.<SbbOptionElement<T>>('sbb-option') ?? []);
@@ -51,23 +55,37 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
       case 'ArrowUp':
         this.setNextActiveOption(event);
         break;
+
+      case 'ArrowRight':
+      case 'ArrowLeft':
+        this._setNextHorizontalActiveElement(event);
+        break;
     }
   }
 
+  /**
+   * Select or activate an element on 'Enter' keypress.
+   * If a button is currently focused, it is clicked instead.
+   */
   protected selectByKeyboard(event: KeyboardEvent): void {
     if (this.activeOption) {
       // We are currently selecting an option and therefore the Enter press shouldn't trigger a form submit
       event.preventDefault();
 
-      this.activeOption['selectViaUserInteraction'](true);
+      if (this._activeColumnIndex === 0) {
+        this.activeOption['selectViaUserInteraction'](true);
+      } else {
+        this._elementsInRow()[this._activeColumnIndex]?.click();
+      }
     }
   }
 
   protected setNextActiveOption(event?: KeyboardEvent): void {
     const enabledOptions = this.options.filter((opt) => !opt.matches(':state(disabled)'));
 
-    // Reset potentially active option
+    // Reset potentially active element
     this.activeOption?.setActive(false);
+    this._resetActiveButton();
     this.triggerElement!.ariaActiveDescendantElement = null;
 
     if (!enabledOptions.length) {
@@ -97,7 +115,64 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
     }
   }
 
+  /**
+   * Moves the active element horizontally within the active option's `sbb-autocomplete-row`,
+   * between the option itself and its `sbb-autocomplete-button`s.
+   * Does nothing if the active option is not wrapped in a row, or the row has no buttons.
+   */
+  private _setNextHorizontalActiveElement(event: KeyboardEvent): void {
+    if (!this.activeOption) {
+      return;
+    }
+
+    const elementsInRow = this._elementsInRow();
+
+    if (elementsInRow.length < 2) {
+      return;
+    }
+
+    // Prevent the input cursor (caret) from moving when pressing left/right arrow keys
+    event.preventDefault();
+
+    const nextIndex = getNextElementIndex(event, this._activeColumnIndex, elementsInRow.length);
+    const current = elementsInRow[this._activeColumnIndex];
+    const next = elementsInRow[nextIndex];
+
+    current.setActive(false);
+    next.setActive(true);
+
+    if (this.triggerElement) {
+      this.triggerElement.ariaActiveDescendantElement = next;
+    }
+    next.scrollIntoView({ block: 'nearest' });
+    this._activeColumnIndex = nextIndex;
+  }
+
+  private _resetActiveButton(): void {
+    if (this._activeColumnIndex === 0) {
+      return;
+    }
+    this._activeColumnIndex = 0;
+    this.activeOption
+      ?.closest('sbb-autocomplete-row')
+      ?.querySelectorAll('sbb-autocomplete-button')
+      .forEach((button) => button.setActive(false));
+  }
+
+  private _elementsInRow(
+    option = this.activeOption,
+  ): (SbbOptionElement<T> | SbbAutocompleteButtonElement)[] {
+    return Array.from(
+      option
+        ?.closest('sbb-autocomplete-row')
+        ?.querySelectorAll<SbbOptionElement<T> | SbbAutocompleteButtonElement>(
+          'sbb-option, sbb-autocomplete-button',
+        ) ?? [],
+    ).filter((el) => !el.matches(':state(disabled)'));
+  }
+
   protected resetActiveElement(): void {
+    this._resetActiveButton();
     this.activeOption?.setActive(false);
     this.activeOption = null;
 

@@ -26,11 +26,13 @@ import {
   SbbPropertyWatcherController,
   scrollbarStyles,
   setOverlayPosition,
-} from '../core.ts';
-import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
-import { optionPanelStyles, type SbbOptionBaseElement } from '../option.pure.ts';
+} from '../../core.ts';
+import type { SbbFormFieldElement } from '../../form-field/form-field/form-field.component.ts';
+import { optionPanelStyles, type SbbOptionBaseElement } from '../../option.pure.ts';
 
 import style from './autocomplete-base-element.scss?inline';
+
+// TODO(breaking-change): The base class will no longer be needed once the autocomplete-grid is deleted in the next major release. Merge this in the main class.
 
 /**
  * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
@@ -156,7 +158,11 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   }
   private _triggerElement?: HTMLInputElement | null;
 
-  protected abstract overlayId: string;
+  protected get overlayId(): string {
+    return `${this.id}-overlay`;
+  }
+
+  protected abstract generatedId: string;
   protected abstract panelRole: string;
   protected activeOption: SbbOptionBaseElement<T> | null = null;
   protected pendingAutoSelectedOption: SbbOptionBaseElement<T> | null = null;
@@ -297,9 +303,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   public override connectedCallback(): void {
     this.popover = 'manual';
     super.connectedCallback();
-    if (ariaRoleOnHost) {
-      this.id ||= this.overlayId;
-    }
+    this.id ||= this.generatedId;
 
     if (this.hasUpdated) {
       this._componentSetup();
