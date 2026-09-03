@@ -32,6 +32,7 @@
   --sbb-calendar-day-height: var(--sbb-calendar-day-size);
 
   color: var(--sbb-calendar-header-color);
+  margin: 0 auto;
 }
 
 :host(:is(sbb-calendar-day, sbb-calendar-weekday, sbb-calendar-weeknumber)) {
@@ -93,8 +94,10 @@
 
 .sbb-calendar-year,
 .sbb-calendar-month {
+  justify-content: center;
   height: var(--sbb-calendar-cell-year-month-height);
-  width: var(--sbb-calendar-cell-year-month-width);
+  min-width: var(--sbb-calendar-cell-year-month-width);
+  width: 100%;
 }
 
 :is(.sbb-calendar-year, .sbb-calendar-month, .sbb-calendar-day__value) {
