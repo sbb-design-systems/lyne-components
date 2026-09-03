@@ -1,4 +1,4 @@
 @use './theme' with (
   $theme: 'off-brand',
-  $skip-font-face: true
+  $font-face: 'Inter'
 );

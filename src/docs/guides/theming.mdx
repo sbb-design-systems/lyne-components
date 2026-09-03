@@ -66,18 +66,21 @@ a custom theme that skips the SBB font-faces can be built using our SCSS API:
 @use '@sbb-esta/lyne-elements/theme' with (
   // 'standard', 'lean', 'safety' or 'lean-safety'
   $theme: 'standard',
-  $skip-font-face: true
+
+  // 'SBB', 'Inter' or 'none' (default: 'SBB')
+  $font-face: 'none'
 );
 
 :root {
-  // Override the font family for all text
+  // Override the font family for all texts
   --sbb-typo-font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 ```
 
 Include the generated theme instead of Lyne's pre-rendered theme file.
-Note that for the off-brand theme, font-faces are not included in the pre-rendered theme file,
-so you can use the `off-brand-theme.css` file directly.
+
+Note that for the off-brand theme, the `Inter` font is configured in the pre-rendered theme file,
+so you can use the `off-brand-theme.css` file without any additional config.
 
 ##### Cursor customization
 

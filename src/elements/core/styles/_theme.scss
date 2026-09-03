@@ -1,5 +1,5 @@
 $theme: 'standard' !default;
-$skip-font-face: false !default;
+$font-face: 'SBB' !default;
 
 @use 'sass:meta';
 @use './_index' as sbb;
@@ -211,8 +211,10 @@ $skip-font-face: false !default;
 
 // end-auto-generated-scss-module-imports
 
-@if not $skip-font-face {
+@if $font-face == 'SBB' {
   @include meta.load-css('./features/font-face');
+} @else if $font-face == 'Inter' {
+  @include meta.load-css('./features/font-face-inter');
 }
 @include meta.load-css('./features/normalize');
 
@@ -221,6 +223,12 @@ $skip-font-face: false !default;
 
   // start-auto-generated-scss-module-root
   @include sbb-css-tokens.base;
+
+  @if $font-face != 'SBB' {
+    --sbb-typo-letter-spacing-heading: 0;
+    --sbb-typo-letter-spacing-text: 0;
+  }
+
   @include action-group.base;
   @include alert.base;
   @include breadcrumb.base;
