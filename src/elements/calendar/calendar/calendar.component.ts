@@ -153,7 +153,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
    * The amount of months to display in this calendar.
    */
   @forceType()
-  @property({ type: Number, reflect: true })
+  @property({ type: Number })
   public accessor amount: number = 1;
 
   /** The initial view of the calendar which should be displayed on opening. */
@@ -490,6 +490,8 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       if (this._containingFocus) {
         this._resetFocus = true;
       }
+    } else if (name === 'amount') {
+      this.toggleState('single-month', this.amount === 1);
     }
   }
 
