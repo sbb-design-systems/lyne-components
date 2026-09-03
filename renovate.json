@@ -15,7 +15,14 @@
   },
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance", "bump"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "lockFileMaintenance",
+        "bump"
+      ],
       "automerge": true,
       "automergeType": "branch",
       "automergeStrategy": "squash"
@@ -51,8 +58,7 @@
     },
     {
       "groupName": "webtestrunner",
-      "matchPackageNames": ["@web/**"],
-      "excludePackageNames": ["@web/test-runner-visual-regression"]
+      "matchPackageNames": ["@web/**", "!@web/test-runner-visual-regression"]
     }
   ]
 }
