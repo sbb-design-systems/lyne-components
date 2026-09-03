@@ -1,15 +1,15 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbTeaserElement } from './teaser.component.ts';
 
-import '../chip-label.ts';
-import '../title.ts';
-import '../teaser.ts';
+import '../../chip-label.ts';
+import '../../title.ts';
+import '../../teaser.ts';
 
-const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
+const imageUrl = import.meta.resolve('../../core/testing/assets/lucerne.png');
 
 describe(`sbb-teaser`, () => {
   let element: SbbTeaserElement;
