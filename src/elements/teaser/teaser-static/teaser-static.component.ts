@@ -17,7 +17,7 @@ export class SbbTeaserStaticElement extends SbbTeaserCommonElementMixin(SbbActio
   public static override readonly elementName: string = 'sbb-teaser-static';
 
   protected override render(): TemplateResult {
-    return html` <div class="sbb-teaser__wrapper">${this.renderTemplate()}</div> `;
+    return html`<div class="sbb-teaser__wrapper">${this.renderTemplate()}</div>`;
   }
 }
 
