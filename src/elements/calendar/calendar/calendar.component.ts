@@ -153,7 +153,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
    * The amount of months to display in this calendar.
    */
   @forceType()
-  @property({ type: Number })
+  @property({ type: Number, reflect: true })
   public accessor amount: number = 1;
 
   /** The initial view of the calendar which should be displayed on opening. */

@@ -32,7 +32,7 @@
   --sbb-calendar-day-height: var(--sbb-calendar-day-size);
 
   color: var(--sbb-calendar-header-color);
-  margin: 0 auto;
+  margin-inline: auto;
 }
 
 :host(:is(sbb-calendar-day, sbb-calendar-weekday, sbb-calendar-weeknumber)) {

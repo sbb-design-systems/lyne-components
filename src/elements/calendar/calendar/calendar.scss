@@ -24,7 +24,8 @@
 }
 
 .sbb-calendar__table-wrapper {
-  :host(:is([amount='1'], :not([amount]), [orientation='vertical'])) & {
+  // Adapts width of calendar to host width. This only works with amount of 1.
+  :host(:is([amount='1'], :not([amount]))) & {
     width: 100%;
     min-width: fit-content;
   }
