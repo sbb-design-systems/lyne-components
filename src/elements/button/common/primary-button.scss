@@ -1,60 +1,13 @@
+@use '../button.global' as button;
+
 :host {
-  --sbb-button-color-active-background: var(--sbb-color-primary150);
-  --sbb-button-color-active-border: var(--sbb-color-primary150);
-  --sbb-button-color-active-text: var(--sbb-color-4-negative);
-  --sbb-button-color-default-background: var(--sbb-color-primary);
-  --sbb-button-color-default-border: var(--sbb-color-primary);
-  --sbb-button-color-default-text: var(--sbb-color-1-negative);
-  --sbb-button-color-hover-background: var(--sbb-color-primary125);
-  --sbb-button-color-hover-border: var(--sbb-color-primary125);
-  --sbb-button-color-hover-text: var(--sbb-color-3-negative);
-  --sbb-button-color-loading-border: light-dark(
-    color-mix(
-      in srgb,
-      var(--sbb-button-color-active-background) 50%,
-      var(--sbb-button-color-default-text)
-    ),
-    color-mix(
-      in srgb,
-      var(--sbb-button-color-active-background) 70%,
-      var(--sbb-button-color-default-text)
-    )
-  );
-  --sbb-button-shadow-1-color: light-dark(
-    color-mix(in srgb, var(--sbb-color-primary) 20%, transparent),
-    color-mix(in srgb, var(--sbb-color-primary) 40%, transparent)
-  );
-  --sbb-button-shadow-2-color: light-dark(
-    color-mix(in srgb, var(--sbb-color-primary125) 20%, transparent),
-    color-mix(in srgb, var(--sbb-color-primary125) 40%, transparent)
-  );
+  @include button.variables--primary;
 }
 
 :host([negative]) {
-  --sbb-button-color-active-background: var(--sbb-color-primary150);
-  --sbb-button-color-active-border: var(--sbb-color-primary150);
-  --sbb-button-color-active-text: var(--sbb-color-4-negative);
-  --sbb-button-color-default-background: var(--sbb-color-primary);
-  --sbb-button-color-default-border: var(--sbb-color-primary);
-  --sbb-button-color-default-text: var(--sbb-color-1-negative);
-  --sbb-button-color-hover-background: var(--sbb-color-primary125);
-  --sbb-button-color-hover-border: var(--sbb-color-primary125);
-  --sbb-button-color-hover-text: var(--sbb-color-3-negative);
-  --sbb-button-color-loading-border: color-mix(
-    in srgb,
-    var(--sbb-button-color-active-background) 70%,
-    var(--sbb-button-color-default-text)
-  );
-  --sbb-button-shadow-1-color: light-dark(
-    color-mix(in srgb, var(--sbb-color-primary) 60%, transparent),
-    color-mix(in srgb, var(--sbb-color-primary) 40%, transparent)
-  );
-  --sbb-button-shadow-2-color: light-dark(
-    color-mix(in srgb, var(--sbb-color-primary125) 60%, transparent),
-    color-mix(in srgb, var(--sbb-color-primary125) 40%, transparent)
-  );
+  @include button.variables--primary-negative;
 }
 
 :host(:not([disabled], :disabled, [disabled-interactive], :active, :state(active), [loading])) {
-  --sbb-button-box-shadow: var(--sbb-button-box-shadow-definition);
+  @include button.variables--primary-box-shadow;
 }
