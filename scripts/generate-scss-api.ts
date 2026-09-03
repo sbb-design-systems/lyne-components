@@ -89,7 +89,7 @@ async function generateTheme(
             hasBreakpointLarge: true,
             hasBreakpointUltra: true,
             hasRules: false,
-            additionalBaseScss: `@if ($font-face != 'SBB') {
+            additionalBaseScss: `@if $font-face != 'SBB' {
     --sbb-typo-letter-spacing-heading: 0;
     --sbb-typo-letter-spacing-text: 0;
   }`,
