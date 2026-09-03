@@ -573,6 +573,21 @@ describe(`sbb-form-field`, () => {
         );
       }),
     );
+
+    it(
+      'sbb-form-information class',
+      visualDiffDefault.with(async (setup) => {
+        // Normally, the sbb-hint and sbb-error are not displayed at the same time.
+        // But in this test, we want to also test the spacing between them, so we display both.
+        await setup.withFixture(
+          html`<div class="sbb-form-information">
+            <div style="width: 200px">Generic form input</div>
+            <sbb-hint>This is a hint. This is a hint. This is a hint.</sbb-hint>
+            <sbb-error>This is a required field.</sbb-error>
+          </div>`,
+        );
+      }),
+    );
   });
 
   describeViewports({ viewports: ['large'] }, () => {

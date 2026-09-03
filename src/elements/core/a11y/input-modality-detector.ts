@@ -94,6 +94,7 @@ class SbbInputModalityDetector {
     return this._mostRecentTarget;
   }
   private _mostRecentTarget: HTMLElement | null = null;
+  private _isScreenReader = false;
 
   /** Options for this SbbInputModalityDetector. */
   private readonly _options: SbbInputModalityDetectorOptions = {
@@ -116,7 +117,33 @@ class SbbInputModalityDetector {
 
   public reset(): void {
     this._updateState('mouse', null);
+    this._setScreenReader(false);
     this._lastTouchMs = 0;
+  }
+
+  /**
+   * Whether a screen reader is currently assumed to be active.
+   *
+   * This is derived from fake `mousedown`/`touchstart` events, which are dispatched by screen
+   * readers when their controls are activated (e.g. by pressing enter/space or double-tapping).
+   * As soon as a genuine (i.e. not faked) mouse or touch interaction is detected, this flag is
+   * reset to `false` again, since a real pointer interaction is a strong signal that no screen
+   * reader is (currently) driving the interaction.
+   *
+   * @param event Optional PointerEvent to check if it was potentially triggered by a screen reader.
+   *   If the event is present it will also be checked for the special case of iOS VoiceOver
+   *   where instead of the screenreader / keyboard modality, touch modality is reported.
+   * @returns Whether a screen reader is currently assumed to be active.
+   */
+  public isScreenReader(event?: PointerEvent): boolean {
+    // Escape patch for iOS VoiceOver where instead of the keyboard modality, touch modality is reported.
+    const isScreenReaderClick =
+      event &&
+      (event.detail === 0 ||
+        (event.clientX === 0 && event.clientY === 0) ||
+        (event as PointerEvent).pointerType === '');
+
+    return this._isScreenReader || (isScreenReaderClick ?? false);
   }
 
   /**
@@ -147,7 +174,9 @@ class SbbInputModalityDetector {
 
     // Fake mousedown events are fired by some screen readers when controls are activated by the
     // screen reader. Attribute them to keyboard input modality.
-    this._updateState(isFakeMousedownFromScreenReader(event) ? 'keyboard' : 'mouse', event);
+    const isFakeMousedown = isFakeMousedownFromScreenReader(event);
+    this._setScreenReader(isFakeMousedown);
+    this._updateState(isFakeMousedown ? 'keyboard' : 'mouse', event);
   };
 
   /**
@@ -158,9 +187,12 @@ class SbbInputModalityDetector {
     // Same scenario as mentioned in _onMousedown, but on touch screen devices, fake touchstart
     // events are fired. Again, attribute to keyboard input modality.
     if (isFakeTouchstartFromScreenReader(event)) {
+      this._setScreenReader(true);
       this._updateState('keyboard', event);
       return;
     }
+
+    this._setScreenReader(false);
 
     // Store the timestamp of this touch event, as it's used to distinguish between mouse events
     // triggered via mouse vs touch.
@@ -176,6 +208,13 @@ class SbbInputModalityDetector {
     this._mostRecentModality = modality;
     this._mostRecentTarget = event ? getEventTarget(event) : null;
     document.documentElement.classList.add(`sbb-focus-modality-${this._mostRecentModality}`);
+  }
+
+  private _setScreenReader(isScreenReader: boolean): void {
+    if (this._isScreenReader === isScreenReader) {
+      return;
+    }
+    this._isScreenReader = isScreenReader;
   }
 }
 
