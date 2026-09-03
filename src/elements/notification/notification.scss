@@ -222,6 +222,10 @@ $open-anim-height-to: calc(
   align-self: flex-start;
   margin-block-start: var(--sbb-notification-content-margin-block-start);
 
+  // With min height of icon, we ensure that the text is centered to the icon, if there is only one line.
+  min-height: var(--sbb-size-icon-ui-small);
+  align-content: center;
+
   @include sbb.mq($from: small) {
     order: initial;
     grid-area: initial;
