@@ -149,9 +149,14 @@ export class SbbInertController implements ReactiveController {
    * them from being marked inert themselves is not enough if one of their ancestors is inert. In
    * that case, the whole path from the ignored element up to `element` needs to stay "carved
    * free", while every other branch along that path is properly inert instead.
+   * Additionally, once an ignored element itself is reached, its entire subtree (light DOM and
+   * Shadow DOM descendants alike, e.g. the content rendered inside `sbb-toast`'s Shadow DOM) must
+   * be left completely untouched as well - we must not recurse any further into it.
    */
   private _addInertOrCarveIgnoredElements(element: HTMLElement): void {
-    if (!this._containsIgnoredElement(element)) {
+    if (element.matches?.(DEEP_IGNORED_ELEMENTS_SELECTOR)) {
+      return;
+    } else if (!this._containsIgnoredElement(element)) {
       this._addInertAttributes(element);
       return;
     }
