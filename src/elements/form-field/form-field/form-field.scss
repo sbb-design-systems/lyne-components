@@ -2,7 +2,7 @@
 
 :host {
   --_sbb-form-field-spacer-margin-block-end-textarea: calc(
-    var(--_sbb-form-field-spacer-margin-block-end) + 4px
+    var(--_sbb-form-field-spacer-margin-block-end) + var(--sbb-spacing-fixed-1x)
   );
   --sbb-form-field-hint-divider-width: var(--sbb-spacing-fixed-1x);
   --sbb-form-field-hint-padding-block-start: var(--sbb-form-field-hint-divider-width);
