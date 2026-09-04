@@ -51,8 +51,7 @@
     },
     {
       "groupName": "webtestrunner",
-      "matchPackageNames": ["@web/**"],
-      "excludePackageNames": ["@web/test-runner-visual-regression"]
+      "matchPackageNames": ["@web/**", "!@web/test-runner-visual-regression"]
     }
   ]
 }

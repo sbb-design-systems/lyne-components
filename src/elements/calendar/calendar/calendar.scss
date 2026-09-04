@@ -23,6 +23,19 @@
   position: relative;
 }
 
+.sbb-calendar__table-wrapper {
+  // Adapts width of calendar to host width. This only works with amount of 1.
+  :host(:state(single-month)) & {
+    width: 100%;
+    min-width: fit-content;
+  }
+}
+
+.sbb-calendar__table-data > slot {
+  display: flex;
+  justify-content: center;
+}
+
 :is(.sbb-calendar__year-view, .sbb-calendar__month-view) {
   position: absolute;
   inset-block-start: 0;
@@ -74,6 +87,7 @@
   font-size: var(--sbb-text-font-size-xs);
   font-weight: normal;
   letter-spacing: var(--sbb-typo-letter-spacing-text);
+  justify-content: center;
 
   :host(:not([multiple])) & {
     height: var(--sbb-calendar-cell-size);
