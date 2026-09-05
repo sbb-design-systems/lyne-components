@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.8.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.7.0...v5.8.0) (2026-09-05)
+
+
+### Features
+
+* **popover:** negative variant ([#5213](https://github.com/sbb-design-systems/lyne-components/issues/5213)) ([d305b7a](https://github.com/sbb-design-systems/lyne-components/commit/d305b7abfee70ab3f213c7f952ead740f7f80e52))
+* **select,autocomplete:** expose CSS variable for panel gap ([#5219](https://github.com/sbb-design-systems/lyne-components/issues/5219)) ([ad3ef27](https://github.com/sbb-design-systems/lyne-components/commit/ad3ef270a9264bab60574fa6a65f014e53321438))
+* **teaser:** add new size, alignment and static options ([#5207](https://github.com/sbb-design-systems/lyne-components/issues/5207)) ([5ea4e91](https://github.com/sbb-design-systems/lyne-components/commit/5ea4e9125276d67358e85e3e8808c1cbbdf1f557)), closes [#4914](https://github.com/sbb-design-systems/lyne-components/issues/4914)
+
+
+### Bug Fixes
+
+* **core:** avoid to inert subtree of excluded elements ([#5218](https://github.com/sbb-design-systems/lyne-components/issues/5218)) ([cf366da](https://github.com/sbb-design-systems/lyne-components/commit/cf366da3ced7df36705d9c30968ceb0e2bdbb8be)), closes [#5165](https://github.com/sbb-design-systems/lyne-components/issues/5165)
+* **icon:** avoid caching failed requests ([#5208](https://github.com/sbb-design-systems/lyne-components/issues/5208)) ([ce8acb8](https://github.com/sbb-design-systems/lyne-components/commit/ce8acb81fc287dd94a41894b4da905975542064c)), closes [#5187](https://github.com/sbb-design-systems/lyne-components/issues/5187)
+
+
+### Documentation
+
+* add i18n guide ([#5210](https://github.com/sbb-design-systems/lyne-components/issues/5210)) ([8e28cd7](https://github.com/sbb-design-systems/lyne-components/commit/8e28cd7ac03b993ec9f0dc6dc3599e9c5798e05f))
+
+
+### Styles
+
+* **calendar:** allow flexible width when amount is one ([#5216](https://github.com/sbb-design-systems/lyne-components/issues/5216)) ([4f5151b](https://github.com/sbb-design-systems/lyne-components/commit/4f5151b334f11912c90ee89b2ebd79759b14385b)), closes [#5214](https://github.com/sbb-design-systems/lyne-components/issues/5214)
+
 ## [5.7.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.6.0...v5.7.0) (2026-08-31)
 
 
