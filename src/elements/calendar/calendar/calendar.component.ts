@@ -258,7 +258,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
   /** Whether it has to display the week numbers in addition to week days. */
   @forceType()
-  @property({ attribute: 'week-numbers', type: Boolean })
+  @property({ attribute: 'week-numbers', type: Boolean, reflect: true })
   public accessor weekNumbers: boolean = false;
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
