@@ -5,7 +5,7 @@
 @mixin heading-rules {
   font-family: var(--sbb-typo-font-family);
   font-weight: bold;
-  letter-spacing: var(--sbb-typo-letter-spacing-heading);
+  letter-spacing: var(--sbb-letter-spacing-heading);
   line-height: var(--sbb-typo-line-height-heading);
 }
 
@@ -113,7 +113,7 @@
   font-family: var(--sbb-typo-font-family);
   font-weight: normal;
   line-height: var(--sbb-typo-line-height-text);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
   font-size: var(--sbb-text-font-size);
 }
 
@@ -155,7 +155,7 @@
 
 @mixin legend {
   line-height: var(--sbb-typo-line-height-text);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
   font-size: var(--sbb-text-font-size-xs);
   padding: 0;
   color: light-dark(var(--sbb-color-granite), var(--sbb-color-cement));

@@ -21,6 +21,12 @@ import experimentalOffBrandTheme from '../../elements-experimental/core/styles/o
 import experimentalSafetyTheme from '../../elements-experimental/core/styles/safety-theme.scss?inline';
 import experimentalStandardTheme from '../../elements-experimental/core/styles/standard-theme.scss?inline';
 
+// We use the Inter font for off-brand themes
+const interFontElement = document.createElement('link');
+interFontElement.href =
+  'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap';
+interFontElement.rel = 'stylesheet';
+
 if (typeof Temporal !== 'object') {
   await import('temporal-polyfill/global');
 }
@@ -49,6 +55,12 @@ const themeDecorator = makeDecorator({
       'standard' | 'off-brand' | 'safety' | 'lean' | 'lean-off-brand' | 'lean-safety';
 
     themeStyleSheet?.replaceSync(themeMap[selectedTheme]);
+
+    if (selectedTheme.includes('off-brand')) {
+      document.head.appendChild(interFontElement);
+    } else {
+      interFontElement.remove();
+    }
 
     return getStory(context);
   },

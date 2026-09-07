@@ -1,4 +1,5 @@
 $theme: 'standard' !default;
+$font-face: 'SBB' !default;
 
 @use 'sass:meta';
 @use './_index' as sbb;
@@ -210,11 +211,18 @@ $theme: 'standard' !default;
 
 // end-auto-generated-scss-module-imports
 
-@include meta.load-css('./features/font-face');
+@if $font-face == 'SBB' {
+  @include meta.load-css('./features/font-face');
+}
 @include meta.load-css('./features/normalize');
 
 :root {
   @include sbb.core-base;
+
+  @if $font-face == 'SBB' {
+    --sbb-letter-spacing-heading: var(--sbb-typo-letter-spacing-heading);
+    --sbb-letter-spacing-text: var(--sbb-typo-letter-spacing-text);
+  }
 
   // start-auto-generated-scss-module-root
   @include sbb-css-tokens.base;
