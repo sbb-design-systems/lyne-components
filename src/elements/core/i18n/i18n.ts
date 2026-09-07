@@ -904,3 +904,73 @@ export const i18nRemainingCharacters: Record<string, string> = {
   fr: 'caractères restants',
   it: 'caratteri rimanenti',
 };
+
+export const i18nToggleSlideActivating: Record<string, string> = {
+  de: 'Aktiviere',
+  en: 'Activating',
+  fr: 'Activation en cours',
+  it: 'Attivazione in corso',
+};
+
+export const i18nToggleSlideDeactivating: Record<string, string> = {
+  de: 'Deaktiviere',
+  en: 'Deactivating',
+  fr: 'Désactivation en cours',
+  it: 'Disattivazione in corso',
+};
+
+export const i18nToggleSlideActivationAborted: Record<string, string> = {
+  de: 'Aktivierung abgebrochen',
+  en: 'Activation aborted',
+  fr: 'Activation annulée',
+  it: 'Attivazione annullata',
+};
+
+export const i18nToggleSlideDeactivationAborted: Record<string, string> = {
+  de: 'Deaktivierung abgebrochen',
+  en: 'Deactivation aborted',
+  fr: 'Désactivation annulée',
+  it: 'Disattivazione annullata',
+};
+
+export const i18nToggleSlideActivated: Record<string, string> = {
+  de: 'Aktiviert',
+  en: 'Activated',
+  fr: 'Activé',
+  it: 'Attivato',
+};
+
+export const i18nToggleSlideDeactivated: Record<string, string> = {
+  de: 'Deaktiviert',
+  en: 'Deactivated',
+  fr: 'Désactivé',
+  it: 'Disattivato',
+};
+
+export const i18nToggleSlideValidating: Record<string, string> = {
+  de: 'Validierung',
+  en: 'Validating',
+  fr: 'Validation en cours',
+  it: 'Convalida in corso',
+};
+
+export const i18nToggleSlideValidationFailed: Record<string, string> = {
+  de: 'Validierung fehlgeschlagen. Ausgangszustand wiederhergestellt.',
+  en: 'Validation failed. Falling back to initial state.',
+  fr: 'Échec de la validation. Retour à l’état initial.',
+  it: 'Convalida non riuscita. Ritorno allo stato iniziale.',
+};
+
+export const i18nToggleSlidePressAndHoldActivate: Record<string, string> = {
+  de: 'Leertaste gedrückt halten zum Aktivieren.',
+  en: 'Press and hold space bar to activate.',
+  fr: 'Maintenez la barre d’espace enfoncée pour activer.',
+  it: 'Tenere premuta la barra spaziatrice per attivare.',
+};
+
+export const i18nToggleSlidePressAndHoldDeactivate: Record<string, string> = {
+  de: 'Leertaste gedrückt halten zum Deaktivieren.',
+  en: 'Press and hold space bar to deactivate.',
+  fr: 'Maintenez la barre d’espace enfoncée pour désactiver.',
+  it: 'Tenere premuta la barra spaziatrice per disattivare.',
+};

@@ -74,6 +74,7 @@ $theme: 'standard' !default;
       ),
       $theme
     )};
+  --sbb-form-field-hint-divider-width: var(--sbb-spacing-fixed-1x);
 }
 
 @mixin forced-colors {
@@ -275,6 +276,18 @@ $theme: 'standard' !default;
           color: Highlight;
         }
       }
+    }
+  }
+
+  .sbb-form-information {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sbb-form-field-hint-divider-width);
+    width: min-content;
+    max-width: 100%;
+
+    :is(sbb-hint, sbb-error) {
+      margin-inline-start: var(--sbb-spacing-fixed-3x);
     }
   }
 }

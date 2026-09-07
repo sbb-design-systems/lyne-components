@@ -240,6 +240,22 @@ The styling is then applied to all `<sbb-form-field>` elements that contain an i
 Please note that with forced colors and `sbb-form-field-required-highlight` CSS class,
 there is an Asterix (\*) added to the label of required fields.
 
+### Standalone hint / error layout
+
+Some components (e.g. [sbb-toggle-slide](/docs/elements-toggle-slide--docs)) are not meant to be used
+inside a `<sbb-form-field>`, but still need to display an `<sbb-hint>` and/or `<sbb-error>` below them.
+For this purpose, the `sbb-form-information` CSS class can be applied to a wrapping element
+(e.g. a `<div>` or `<span>`), which arranges the form control and the following
+`<sbb-hint>`/`<sbb-error>` elements in a column with the correct gap and indentation.
+
+```html
+<span class="sbb-form-information">
+  <sbb-toggle-slide>...</sbb-toggle-slide>
+  <sbb-hint>This is a hint.</sbb-hint>
+  <sbb-error>This is a required field.</sbb-error>
+</span>
+```
+
 ## Custom form control
 
 The form field looks for native form controls (i.e. `<input>`, `<select>`

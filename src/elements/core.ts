@@ -45,6 +45,7 @@ export * from './core/interfaces/types.ts';
 export * from './core/mixins/animation-complete-mixin.ts';
 export * from './core/mixins/constructor.ts';
 export * from './core/mixins/disabled-mixin.ts';
+export * from './core/mixins/dynamic-styleheet-mixin.ts';
 export * from './core/mixins/form-associated-checkbox-mixin.ts';
 export * from './core/mixins/form-associated-input-mixin.ts';
 export * from './core/mixins/form-associated-mixin.ts';
