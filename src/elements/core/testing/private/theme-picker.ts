@@ -2,6 +2,7 @@ import leanTheme from '../../styles/lean-theme.scss?inline';
 import offBrandTheme from '../../styles/off-brand-theme.scss?inline';
 import safetyTheme from '../../styles/safety-theme.scss?inline';
 
+// We use the Inter font for off-brand themes
 const interFontElement = document.createElement('link');
 interFontElement.href =
   'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap';
