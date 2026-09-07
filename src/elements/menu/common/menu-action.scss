@@ -103,6 +103,10 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
     @include sbb.focus-outline;
   }
 
+  :host([hide-icon-space]) & {
+    padding-inline-start: var(--sbb-menu-action-content-padding-inline-no-icon);
+  }
+
   @media (forced-colors: active) {
     border: var(--sbb-border-width-2x) solid var(--sbb-menu-action-forced-color-border-color);
   }
