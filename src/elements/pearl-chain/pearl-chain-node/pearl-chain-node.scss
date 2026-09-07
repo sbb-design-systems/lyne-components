@@ -1,12 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-pearl-chain-node-size: 0.75em;
-  --sbb-pearl-chain-bullet-size: 0.5em;
-  --sbb-pearl-chain-bullet-start-end-size: 0.625em;
-  --sbb-pearl-chain-bullet-color: var(--sbb-color-3);
-  --sbb-pearl-chain-bullet-past-color: light-dark(var(--sbb-color-metal), var(--sbb-color-granite));
-
   display: inline-flex;
   position: relative;
   width: var(--sbb-pearl-chain-node-size);
@@ -20,10 +14,6 @@
   height: var(--sbb-pearl-chain-bullet-size);
   color: var(--sbb-pearl-chain-bullet-color);
 
-  @media (forced-colors: active) {
-    --sbb-pearl-chain-bullet-color: CanvasText;
-  }
-
   &--start,
   &--end {
     width: var(--sbb-pearl-chain-bullet-start-end-size);
@@ -34,11 +24,13 @@
     --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-past-color);
   }
 
-  &--irrelevant {
-    // TODO:
+  &--disruption {
+    --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-disruption-color);
   }
 
-  &--disruption {
-    // TODO:
+  &--irrelevant {
+    --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-irrelevant-color);
+
+    // thinner stroke
   }
 }

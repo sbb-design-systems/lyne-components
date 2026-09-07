@@ -37,14 +37,53 @@ const TableTemplate = (): TemplateResult => html`
   </sbb-pearl-chain>
 `;
 
+/**
+ * A single flex-laid-out chain showcasing every line state left-to-right:
+ * default, disrupted, irrelevant, walk, past, and the irrelevant+disrupted combo.
+ */
 const FlexTemplate = (): TemplateResult => html`
-  <sbb-pearl-chain>
-    <div style="display: flex; align-items: center; width: 400px;">
+  <sbb-pearl-chain now="2026-07-21T12:00:00">
+    <div style="display: flex; align-items: center; width: 700px;">
+      <!-- Normal -->
       <sbb-pearl-chain-node type="start"></sbb-pearl-chain-node>
       <span style="flex: 1;"></span>
-      <sbb-pearl-chain-node type="start"></sbb-pearl-chain-node>
-      <span style="flex: 2;"></span>
-      <sbb-pearl-chain-node type="end"></sbb-pearl-chain-node>
+      <!-- Disrupted -->
+      <sbb-pearl-chain-node type="start" disrupted="departure"></sbb-pearl-chain-node>
+      <span style="flex: 1;"></span>
+      <!-- Irrelevant -->
+      <sbb-pearl-chain-node
+        type="start"
+        disrupted="arrival"
+        irrelevant="departure"
+      ></sbb-pearl-chain-node>
+      <span style="flex: 1;"></span>
+      <!-- Walk -->
+      <sbb-pearl-chain-node
+        type="start"
+        irrelevant="arrival"
+        walk="departure"
+      ></sbb-pearl-chain-node>
+      <span style="flex: 1;"></span>
+      <!-- Past -->
+      <sbb-pearl-chain-node
+        type="start"
+        walk="arrival"
+        departure="2026-07-21T11:00:00"
+      ></sbb-pearl-chain-node>
+      <span style="flex: 1;"></span>
+      <!-- Disrupted + Irrelevant -->
+      <sbb-pearl-chain-node
+        arrival="2026-07-21T11:30:00"
+        disrupted="departure"
+        irrelevant="departure"
+        type="start"
+      ></sbb-pearl-chain-node>
+      <span style="flex: 1;"></span>
+      <sbb-pearl-chain-node
+        type="end"
+        disrupted="arrival"
+        irrelevant="arrival"
+      ></sbb-pearl-chain-node>
     </div>
   </sbb-pearl-chain>
 `;
@@ -55,6 +94,27 @@ export const Table: StoryObj = {
 
 export const Flex: StoryObj = {
   render: FlexTemplate,
+};
+
+/** "now" is set mid-journey: gray line before, normal after, red pulsing dot at "now". */
+const ProgressTemplate = (): TemplateResult => html`
+  <sbb-pearl-chain now="2026-07-21T11:30:00">
+    <div style="display: flex; align-items: center; width: 400px;">
+      <sbb-pearl-chain-node type="start" departure="2026-07-21T11:00:00"></sbb-pearl-chain-node>
+      <span style="flex: 1;"></span>
+      <sbb-pearl-chain-node
+        arrival="2026-07-21T11:58:00"
+        departure="2026-07-21T12:00:00"
+        type="start"
+      ></sbb-pearl-chain-node>
+      <span style="flex: 1;"></span>
+      <sbb-pearl-chain-node type="end" arrival="2026-07-21T12:30:00"></sbb-pearl-chain-node>
+    </div>
+  </sbb-pearl-chain>
+`;
+
+export const Progress: StoryObj = {
+  render: ProgressTemplate,
 };
 
 const meta: Meta = {
