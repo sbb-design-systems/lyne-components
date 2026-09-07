@@ -1,15 +1,25 @@
 import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../docs/helpers/spread.ts';
 
-import type { SbbLogoElement } from './logo.component.ts';
+import type { SbbLogoElement } from './logo/logo.component.ts';
 import readme from './readme.md?raw';
+
 import '../logo.ts';
 
-const Template = (args: Args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
+const Template = ({ tag, ...args }: Args): TemplateResult =>
+  // eslint-disable-next-line lit/binding-positions
+  html`<${unsafeStatic(tag)} ${sbbSpread(args)}></>`;
+
+const tag: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['sbb-logo', 'sbb-cargo'],
+};
 
 const negative: InputType = {
   control: {
@@ -31,12 +41,14 @@ const accessibilityLabel: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
+  tag,
   negative,
   'protective-room': protectiveRoom,
   'accessibility-label': accessibilityLabel,
 };
 
 const defaultArgs: Args = {
+  tag: tag.options![0],
   negative: false,
   'protective-room': protectiveRoom.options![0],
   'accessibility-label': undefined,
@@ -68,6 +80,12 @@ export const Negative: StoryObj = {
     negative: true,
     'protective-room': protectiveRoom.options![2],
   },
+};
+
+export const Cargo: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, tag: tag.options![1] },
 };
 
 const meta: Meta = {

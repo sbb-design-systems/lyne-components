@@ -1,8 +1,8 @@
 import { html } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
+import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import '../logo.ts';
+import '../../logo.ts';
 
 describe(`sbb-logo`, () => {
   const cases = {

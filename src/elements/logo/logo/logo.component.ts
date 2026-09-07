@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType, SbbElement, SbbNegativeMixin } from '../core.ts';
+import { forceType, SbbElement, SbbNegativeMixin } from '../../core.ts';
 
 import style from './logo.scss?inline';
 

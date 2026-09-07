@@ -2,6 +2,7 @@
 
 :host {
   --sbb-logo-height: #{sbb.px-to-rem-build(16)};
+  --sbb-cargo-height: #{sbb.px-to-rem-build(16)};
   --sbb-signet-height: #{sbb.px-to-rem-build(16)};
   --sbb-header-transition-duration: var(
     --sbb-disable-animation-duration,
@@ -10,6 +11,7 @@
 
   @include sbb.mq($from: large) {
     --sbb-logo-height: #{sbb.px-to-rem-build(20)};
+    --sbb-cargo-height: #{sbb.px-to-rem-build(20)};
     --sbb-signet-height: #{sbb.px-to-rem-build(20)};
   }
 
