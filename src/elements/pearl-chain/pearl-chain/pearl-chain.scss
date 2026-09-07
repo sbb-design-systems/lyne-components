@@ -1,11 +1,10 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-pearl-chain-color: var(--sbb-color-3);
-  --sbb-pearl-chain-border-width: var(--sbb-border-width-2x);
-
   position: relative;
   display: block;
+
+  --sbb-now-bullet-animation-duration: var(--sbb-disable-animation-duration, 1.6s);
 }
 
 .sbb-pearl-chain__svg {
@@ -17,7 +16,47 @@
   pointer-events: none;
 }
 
-.sbb-pearl-chain__line {
+.line {
   stroke: var(--sbb-pearl-chain-color);
   stroke-width: var(--sbb-pearl-chain-border-width);
+
+  &--past {
+    stroke: var(--sbb-pearl-chain-past-color);
+  }
+
+  &--walk {
+    stroke: var(--sbb-pearl-chain-walk-color);
+    stroke-dasharray: #{sbb.px-to-rem-build(2)};
+  }
+
+  &--disruption {
+    stroke: var(--sbb-pearl-chain-disruption-color);
+    stroke-dasharray: #{sbb.px-to-rem-build(2)};
+  }
+
+  &--irrelevant {
+    stroke: var(--sbb-pearl-chain-irrelevant-color);
+    stroke-width: var(--sbb-pearl-chain-irrelevant-border-width);
+  }
+}
+
+.now-dot {
+  fill: var(--sbb-pearl-chain-now-color);
+  stroke: var(--sbb-pearl-chain-now-color);
+  r: calc(var(--sbb-pearl-chain-now-size) / 2);
+  animation: sbb-pearl-chain-pulse var(--sbb-now-bullet-animation-duration) ease-out infinite;
+}
+
+// The static core (fill) stays fully opaque; only the stroke ring expands and fades.
+// TODO: define pulse specs
+@keyframes sbb-pearl-chain-pulse {
+  from {
+    stroke-width: 0;
+    stroke-opacity: 0.6;
+  }
+
+  to {
+    stroke-width: calc(var(--sbb-pearl-chain-now-size) / 2);
+    stroke-opacity: 0;
+  }
 }

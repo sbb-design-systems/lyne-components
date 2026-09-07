@@ -42,10 +42,7 @@ export type SbbPearlChainNodeType =
   | 'boarding-on-demand'
   | 'alighting-on-demand';
 
-/** Convenience tri-state value: an empty string attribute is treated as `true` (both ways). */
-export type SbbPearlChainNodeTriState = 'arrival' | 'departure' | true | null;
-
-const parseTriState = (value: unknown): SbbPearlChainNodeTriState =>
+const parseTriState = (value: unknown): 'arrival' | 'departure' | true | null =>
   value === 'arrival' || value === 'departure'
     ? value
     : value === '' || value === true
@@ -65,17 +62,17 @@ export class SbbPearlChainNodeElement extends SbbElement {
   /** Marks the node as disrupted, coloring the bullet red (if rendered). */
   @forceType(parseTriState)
   @property()
-  public accessor disrupted: SbbPearlChainNodeTriState = null;
+  public accessor disrupted: 'arrival' | 'departure' | true | null = null;
 
   /** Marks the node as a walk connection. Does not affect the bullet color. */
   @forceType(parseTriState)
   @property()
-  public accessor walk: SbbPearlChainNodeTriState = null;
+  public accessor walk: 'arrival' | 'departure' | true | null = null;
 
   /** Marks the node as irrelevant, coloring the bullet gray (if rendered); supersedes `disrupted`. */
   @forceType(parseTriState)
   @property()
-  public accessor irrelevant: SbbPearlChainNodeTriState = null;
+  public accessor irrelevant: 'arrival' | 'departure' | true | null = null;
 
   /** The arrival date/time at this node. Accepts ISO 8601 datetime strings. */
   @property()

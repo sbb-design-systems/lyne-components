@@ -1,0 +1,22 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-pearl-chain-color: var(--sbb-color-3);
+  --sbb-pearl-chain-border-width: var(--sbb-border-width-2x);
+  --sbb-pearl-chain-past-color: light-dark(var(--sbb-color-metal), var(--sbb-color-granite));
+  --sbb-pearl-chain-irrelevant-color: light-dark(var(--sbb-color-metal), var(--sbb-color-granite));
+  --sbb-pearl-chain-irrelevant-border-width: var(--sbb-border-width-1x);
+  --sbb-pearl-chain-disruption-color: var(--sbb-color-error);
+  --sbb-pearl-chain-walk-color: var(--sbb-color-sky);
+  --sbb-pearl-chain-now-color: var(--sbb-color-red);
+  --sbb-pearl-chain-now-size: 0.625em;
+  --sbb-pearl-chain-node-size: 0.75em;
+  --sbb-pearl-chain-bullet-size: 0.5em;
+  --sbb-pearl-chain-bullet-start-end-size: 0.625em;
+  --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-color);
+  --sbb-pearl-chain-bullet-past-color: var(--sbb-pearl-chain-past-color);
+  --sbb-pearl-chain-bullet-irrelevant-color: var(--sbb-pearl-chain-irrelevant-color);
+  --sbb-pearl-chain-bullet-disruption-color: var(--sbb-color-error);
+}
