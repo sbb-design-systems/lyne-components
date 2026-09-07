@@ -14,7 +14,6 @@ interface GlobalScssFile {
   hasBreakpointLarge: boolean;
   hasBreakpointUltra: boolean;
   hasRules: boolean;
-  additionalBaseScss?: string;
 }
 
 function replaceGeneratedBlock(section: string, content: string, newContent: string): string {
@@ -89,10 +88,6 @@ async function generateTheme(
             hasBreakpointLarge: true,
             hasBreakpointUltra: true,
             hasRules: false,
-            additionalBaseScss: `@if $font-face != 'SBB' {
-    --sbb-typo-letter-spacing-heading: 0;
-    --sbb-typo-letter-spacing-text: 0;
-  }`,
           } satisfies GlobalScssFile,
         ]
       : []),
@@ -118,10 +113,7 @@ async function generateTheme(
 
   let rootBlock = themeFiles
     .filter((f) => f.hasBase)
-    .map(
-      (f) =>
-        `@include ${f.moduleName}.base;${f.additionalBaseScss ? `\n\n${f.additionalBaseScss}\n\n` : ''}`,
-    )
+    .map((f) => `@include ${f.moduleName}.base;`)
     .join('\n');
 
   const forcedColors = themeFiles.filter((f) => f.hasForcedColors);
