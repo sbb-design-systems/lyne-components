@@ -369,7 +369,7 @@ slot[name='hint'] {
   inset-block-start: 0;
   color: var(--sbb-form-field-label-color);
   font-size: var(--sbb-form-field-label-text-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
 
   :host(:where(:state(input-element-select), :state(input-element-sbb-select))) & {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
