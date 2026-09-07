@@ -145,6 +145,32 @@ describe(`sbb-menu`, () => {
         });
       }),
     );
+
+    it(
+      'no icons',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-button id="menu-trigger-1">Menu trigger</sbb-button>
+            <sbb-menu trigger="menu-trigger-1">
+              <sbb-menu-link href="https://www.sbb.ch/en"> View </sbb-menu-link>
+              <sbb-menu-button disabled>Edit</sbb-menu-button>
+              <sbb-menu-button> Details </sbb-menu-button>
+              <sbb-divider></sbb-divider>
+              <sbb-menu-button>Cancel</sbb-menu-button>
+            </sbb-menu>
+          `,
+          { minHeight: '400px' },
+        );
+        setup.withPostSetupAction(async () => {
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#menu-trigger-1')!;
+          button.click();
+
+          // Test focus outline
+          await sendKeys({ press: tabKey });
+        });
+      }),
+    );
   });
 
   describeViewports({ viewports: ['large'], viewportHeight: 500 }, () => {
