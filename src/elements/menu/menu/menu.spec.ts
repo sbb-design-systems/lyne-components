@@ -13,6 +13,7 @@ import {
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
 import { isWebkit } from '../../core.ts';
 import type { SbbMenuButtonElement } from '../menu-button/menu-button.component.ts';
+import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.ts';
 
 import { SbbMenuElement } from './menu.component.ts';
 
@@ -675,6 +676,54 @@ describe(`sbb-menu`, () => {
 
       expect(element).to.match(':state(state-opened)');
       expect(nestedMenu).to.match(':state(state-opened)');
+    });
+  });
+
+  describe('no icons', () => {
+    it('it removes icon space if all items have no icon', async () => {
+      const root = await fixture(html`
+        <div>
+          <sbb-button id="menu-trigger" size="l">Menu trigger</sbb-button>
+          <sbb-menu trigger="menu-trigger">
+            <sbb-menu-link id="menu-link" href="#">Profile</sbb-menu-link>
+            <sbb-menu-button id="menu-action">View</sbb-menu-button>
+          </sbb-menu>
+        </div>
+      `);
+      trigger = root.querySelector<SbbButtonElement>('sbb-button')!;
+      element = root.querySelector<SbbMenuElement>('sbb-menu')!;
+      const link = element.querySelector<SbbMenuLinkElement>('#menu-link')!;
+      const button = element.querySelector<SbbMenuButtonElement>('#menu-action')!;
+
+      await waitForLitRender(element);
+
+      expect(link.hideIconSpace).to.be.true;
+      expect(button.hideIconSpace).to.be.true;
+    });
+
+    it('it removes icon space if item has hide-icon-space set to true', async () => {
+      const root = await fixture(html`
+        <div>
+          <sbb-button id="menu-trigger" size="l">Menu trigger</sbb-button>
+          <sbb-menu trigger="menu-trigger">
+            <sbb-menu-link id="menu-link" href="#" hide-icon-space>Profile</sbb-menu-link>
+            <sbb-menu-button id="menu-action" icon-name="tick-small">View</sbb-menu-button>
+          </sbb-menu>
+        </div>
+      `);
+      trigger = root.querySelector<SbbButtonElement>('sbb-button')!;
+      element = root.querySelector<SbbMenuElement>('sbb-menu')!;
+      const linkIconSlot = element
+        .querySelector<SbbMenuLinkElement>('#menu-link')!
+        .shadowRoot?.querySelector('.sbb-menu-action__icon');
+      const buttonIconSlot = element
+        .querySelector<SbbMenuButtonElement>('#menu-action')!
+        .shadowRoot?.querySelector('.sbb-menu-action__icon');
+
+      await waitForLitRender(element);
+
+      expect(linkIconSlot).to.be.null;
+      expect(buttonIconSlot).not.to.be.null;
     });
   });
 });
