@@ -3,6 +3,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbTitleElement } from '../../title.pure.ts';
 
 import { SbbTeaserElement } from './teaser.component.ts';
 
@@ -104,6 +105,48 @@ describe(`sbb-teaser`, () => {
       );
       const miniButton = element.querySelector('sbb-mini-button')!;
       expect(miniButton.hasAttribute('slot')).to.be.false;
+    });
+  });
+
+  describe('title configuration', () => {
+    let title: SbbTitleElement;
+
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-teaser href="#"><sbb-title level="2">Title</sbb-title></sbb-teaser>`,
+      );
+      title = element.querySelector<SbbTitleElement>('sbb-title')!;
+    });
+
+    it('should set the visual level according to the initial size', async () => {
+      expect(title.visualLevel).to.be.equal('5');
+    });
+
+    it('should update the visual level when size changes', async () => {
+      element.size = 'l';
+      await waitForLitRender(element);
+
+      expect(title.visualLevel).to.be.equal('2');
+
+      element.size = null;
+      await waitForLitRender(element);
+
+      expect(title.visualLevel).to.be.equal('5');
+    });
+
+    it('should configure a new title when the previous one is replaced', async () => {
+      element.size = 'l';
+
+      title.remove();
+
+      const newTitle = document.createElement('sbb-title');
+      newTitle.visualLevel = '3';
+      newTitle.textContent = 'New title';
+      element.append(newTitle);
+      await waitForLitRender(element);
+
+      expect(newTitle.getAttribute('slot')).to.be.equal('title');
+      expect(newTitle.visualLevel).to.be.equal('2');
     });
   });
 });
