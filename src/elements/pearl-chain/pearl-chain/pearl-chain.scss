@@ -1,0 +1,23 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --sbb-pearl-chain-color: var(--sbb-color-3);
+  --sbb-pearl-chain-border-width: var(--sbb-border-width-2x);
+
+  position: relative;
+  display: block;
+}
+
+.sbb-pearl-chain__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.sbb-pearl-chain__line {
+  stroke: var(--sbb-pearl-chain-color);
+  stroke-width: var(--sbb-pearl-chain-border-width);
+}
