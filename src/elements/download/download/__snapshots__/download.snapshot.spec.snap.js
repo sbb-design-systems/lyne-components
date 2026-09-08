@@ -31,6 +31,12 @@ snapshots["sbb-download renders with derived label and icon Shadow DOM"] =
     >
     </sbb-icon>
   </slot>
+  <sbb-divider
+    aria-hidden="true"
+    class="sbb-download__divider"
+    orientation="vertical"
+  >
+  </sbb-divider>
   <span class="sbb-download__content">
     <span class="sbb-download__label">
       annual-report.pdf
@@ -113,6 +119,12 @@ snapshots["sbb-download renders with explicit label and milk color Shadow DOM"] 
     >
     </sbb-icon>
   </slot>
+  <sbb-divider
+    aria-hidden="true"
+    class="sbb-download__divider"
+    orientation="vertical"
+  >
+  </sbb-divider>
   <span class="sbb-download__content">
     <span class="sbb-download__label">
       Annual report
@@ -181,6 +193,12 @@ snapshots["sbb-download renders with custom content and info Shadow DOM"] =
     >
     </sbb-icon>
   </slot>
+  <sbb-divider
+    aria-hidden="true"
+    class="sbb-download__divider"
+    orientation="vertical"
+  >
+  </sbb-divider>
   <span class="sbb-download__content">
     <span class="sbb-download__label">
       Annual report
@@ -243,6 +261,12 @@ snapshots["sbb-download renders with custom content only Shadow DOM"] =
     >
     </sbb-icon>
   </slot>
+  <sbb-divider
+    aria-hidden="true"
+    class="sbb-download__divider"
+    orientation="vertical"
+  >
+  </sbb-divider>
   <span class="sbb-download__content">
     <span class="sbb-download__label">
       Annual report
@@ -307,6 +331,12 @@ snapshots["sbb-download renders with download attribute Shadow DOM"] =
     >
     </sbb-icon>
   </slot>
+  <sbb-divider
+    aria-hidden="true"
+    class="sbb-download__divider"
+    orientation="vertical"
+  >
+  </sbb-divider>
   <span class="sbb-download__content">
     <span class="sbb-download__label">
       annual-report.pdf

@@ -18,6 +18,7 @@ import {
   SbbLinkBaseElement,
   screenReaderOnlyStyles,
 } from '../../core.ts';
+import { SbbDividerElement } from '../../divider.pure.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
 import style from './download.scss?inline';
@@ -55,7 +56,10 @@ const fileExtensionIcons = new Map<string, string>([
  */
 export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
   public static override readonly elementName: string = 'sbb-download';
-  public static override elementDependencies: SbbElementType[] = [SbbSecondaryButtonStaticElement];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbDividerElement,
+    SbbSecondaryButtonStaticElement,
+  ];
   public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /** Option to set the component's background color. */
@@ -140,6 +144,11 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
   protected override renderTemplate(): TemplateResult {
     return html`
       ${this.renderIconSlot('sbb-download__icon')}
+      <sbb-divider
+        class="sbb-download__divider"
+        orientation="vertical"
+        aria-hidden="true"
+      ></sbb-divider>
       <span class="sbb-download__content">
         <span class="sbb-download__label">${this.label || this.fileName}</span>
         <span class="sbb-screen-reader-only">

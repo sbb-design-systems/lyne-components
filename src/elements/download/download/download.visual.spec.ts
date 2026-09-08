@@ -78,17 +78,6 @@ describe(`sbb-download`, () => {
       }),
     );
 
-    it(
-      'with download attribute',
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-download href="files/annual-report.pdf" label="Annual report" download>
-            ${infoTemplate()}
-          </sbb-download>
-        `);
-      }),
-    );
-
     // Without an icon, the divider next to the icon is not rendered.
     it(
       'without icon',

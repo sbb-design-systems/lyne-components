@@ -17,22 +17,28 @@ import type { SbbDownloadElement } from '../download.ts';
 import readme from './readme.md?raw';
 import '../download.ts';
 
+const downloadCategory = { table: { category: 'Download' } };
+const downloadInfoCategory = { table: { category: 'Download Info' } };
+
 const label: InputType = {
   control: {
     type: 'text',
   },
+  ...downloadCategory,
 };
 
 const href: InputType = {
   control: {
     type: 'text',
   },
+  ...downloadCategory,
 };
 
 const download: InputType = {
   control: {
     type: 'boolean',
   },
+  ...downloadCategory,
 };
 
 const color: InputType = {
@@ -40,36 +46,42 @@ const color: InputType = {
     type: 'inline-radio',
   },
   options: ['white', 'milk'] satisfies SbbDownloadElement['color'][],
+  ...downloadCategory,
 };
 
 const iconName: InputType = {
   control: {
     type: 'text',
   },
+  ...downloadCategory,
 };
 
 const type: InputType = {
   control: {
     type: 'text',
   },
+  ...downloadInfoCategory,
 };
 
 const size: InputType = {
   control: {
     type: 'text',
   },
+  ...downloadInfoCategory,
 };
 
 const changed: InputType = {
   control: {
     type: 'text',
   },
+  ...downloadInfoCategory,
 };
 
 const nonAccessible: InputType = {
   control: {
     type: 'boolean',
   },
+  ...downloadInfoCategory,
 };
 
 const defaultArgTypes: ArgTypes = {
