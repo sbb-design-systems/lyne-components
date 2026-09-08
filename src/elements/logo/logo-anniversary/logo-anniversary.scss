@@ -1,0 +1,145 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--sbb-logo-height);
+  aspect-ratio: var(--sbb-logo-aspect-ratio);
+  background-color: var(--sbb-logo-background-color, none);
+  position: relative;
+
+  @media (forced-colors: active) {
+    --sbb-logo-word-mark-color: ButtonText !important;
+  }
+
+  --sbb-logo-anniversary-125-pull-out-delay: 3s;
+  --sbb-logo-anniversary-signet-delay: 4s;
+  --sbb-logo-anniversary-claim-delay: 6s;
+  --sbb-logo-anniversary-animation-duration: 1s;
+  --sbb-logo-anniversary-animation-easing: cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+:host([negative]) {
+  --sbb-logo-word-mark-color: var(--sbb-color-white);
+}
+
+:host([protective-room='minimal']) {
+  --sbb-logo-aspect-ratio: 502 / 96;
+  --sbb-logo-svg-container-height: 50%; // 48/96 Adapted from Figma
+}
+
+:host([protective-room='ideal']) {
+  --sbb-logo-aspect-ratio: 550 / 144;
+  --sbb-logo-svg-container-height: calc(48 / 144 * 100%);
+}
+
+.sbb-logo__svg-container {
+  display: flex;
+  height: var(--sbb-logo-svg-container-height, 100%);
+  width: 100%;
+}
+
+// As the logo should stay with it natuarl size (without additional text) we position it absolute.
+svg {
+  position: absolute;
+}
+
+// Clips the texts left of the signet
+#sbb-logo__word-mark,
+#sbb-logo-125 {
+  clip-path: url("#sbb-logo-letter-mask");
+}
+
+#sbb-logo__word-mark-1,
+#sbb-logo__word-mark-2,
+#sbb-logo__word-mark-3 {
+  fill: var(--sbb-logo-word-mark-color);
+  translate: -100% 0;
+  opacity: 0;
+  animation: pull-in var(--sbb-logo-anniversary-animation-duration)
+    var(--sbb-logo-anniversary-signet-delay) var(--sbb-logo-anniversary-animation-easing);
+  animation-fill-mode: forwards;
+}
+
+#sbb-logo__word-mark-2 {
+  animation-delay: calc(var(--sbb-logo-anniversary-signet-delay) + 50ms);
+}
+
+#sbb-logo__word-mark-1 {
+  animation-delay: calc(var(--sbb-logo-anniversary-signet-delay) + 2 * 50ms);
+}
+
+#sbb-logo__panel {
+  fill: var(--sbb-logo-panel-color);
+  stroke: var(--sbb-logo-panel-color);
+}
+
+#sbb-logo__signet {
+  fill: var(--sbb-logo-signet-color);
+}
+
+#sbb-logo__panel,
+#sbb-logo__signet {
+  // We us px values here because it relates to the svg context
+  translate: 68px 0;
+  animation: signet var(--sbb-logo-anniversary-animation-duration)
+    var(--sbb-logo-anniversary-signet-delay) var(--sbb-logo-anniversary-animation-easing);
+  animation-fill-mode: forwards;
+}
+
+#sbb-logo-125-1,
+#sbb-logo-125-2,
+#sbb-logo-125-3 {
+  animation: pull-out var(--sbb-logo-anniversary-animation-duration)
+    var(--sbb-logo-anniversary-125-pull-out-delay) var(--sbb-logo-anniversary-animation-easing);
+  animation-fill-mode: forwards;
+}
+
+#sbb-logo-125-2 {
+  animation-delay: calc(var(--sbb-logo-anniversary-125-pull-out-delay) + 50ms);
+}
+
+#sbb-logo-125-3 {
+  animation-delay: calc(var(--sbb-logo-anniversary-125-pull-out-delay) + 2 * 50ms);
+}
+
+#sbb-logo__claim {
+  opacity: 0;
+  animation: fade-in var(--sbb-logo-anniversary-animation-duration)
+    var(--sbb-logo-anniversary-claim-delay) var(--sbb-logo-anniversary-animation-easing);
+  animation-fill-mode: forwards;
+}
+
+@keyframes signet {
+  100% {
+    translate: 0;
+  }
+}
+
+@keyframes pull-out {
+  80% {
+    opacity: 0;
+  }
+
+  100% {
+    translate: -100% 0;
+  }
+}
+
+@keyframes pull-in {
+  20% {
+    opacity: 0;
+  }
+
+  100% {
+    translate: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  100% {
+    opacity: 1;
+  }
+}

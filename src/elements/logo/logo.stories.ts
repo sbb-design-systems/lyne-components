@@ -11,6 +11,9 @@ import '../logo.ts';
 
 const Template = (args: Args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
 
+const TemplateAnniversary = (args: Args): TemplateResult =>
+  html`<sbb-logo-anniversary ${sbbSpread(args)}></sbb-logo-anniversary>`;
+
 const negative: InputType = {
   control: {
     type: 'boolean',
@@ -68,6 +71,12 @@ export const Negative: StoryObj = {
     negative: true,
     'protective-room': protectiveRoom.options![2],
   },
+};
+
+export const LogoAnniversary: StoryObj = {
+  render: TemplateAnniversary,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
 
 const meta: Meta = {
