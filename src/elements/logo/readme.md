@@ -48,6 +48,22 @@ Possible values are `ideal` (default), `minimal` and `none`.
 | -------------------- | ------- | ------------------------------------------------ |
 | `--sbb-cargo-height` | `auto`  | Can be used to set the height of the Cargo logo. |
 
+### class: `SbbCargoInternationalElement`, `sbb-cargo-international`
+
+#### Properties
+
+| Name                 | Attribute             | Privacy | Type                             | Default   | Description                                                  |
+| -------------------- | --------------------- | ------- | -------------------------------- | --------- | ------------------------------------------------------------ |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'Logo'`  | Accessibility label which will be forwarded to the SVG logo. |
+| `negative`           | `negative`            | public  | `boolean`                        | `false`   | Negative coloring variant flag.                              |
+| `protectiveRoom`     | `protective-room`     | public  | `'none' \| 'minimal' \| 'ideal'` | `'ideal'` | Visual protective room around Cargo logo.                    |
+
+#### CSS Properties
+
+| Name                               | Default | Description                                      |
+| ---------------------------------- | ------- | ------------------------------------------------ |
+| `--sbb-cargo-international-height` | `auto`  | Can be used to set the height of the Cargo logo. |
+
 ### class: `SbbLogoElement`, `sbb-logo`
 
 #### Properties

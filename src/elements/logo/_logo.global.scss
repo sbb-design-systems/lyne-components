@@ -4,6 +4,7 @@ $theme: 'standard' !default;
 
 @mixin base {
   --sbb-cargo-aspect-ratio: 599 / 49.3;
+  --sbb-cargo-international-aspect-ratio: 693 / 49.3;
   --sbb-logo-panel-color: var(--sbb-color-brand);
   --sbb-logo-signet-color: var(--sbb-color-white);
   --sbb-logo-word-mark-color: light-dark(var(--sbb-color-black), var(--sbb-color-white));

@@ -18,7 +18,7 @@ const tag: InputType = {
   control: {
     type: 'select',
   },
-  options: ['sbb-logo', 'sbb-cargo'],
+  options: ['sbb-logo', 'sbb-cargo', 'sbb-cargo-international'],
 };
 
 const negative: InputType = {
