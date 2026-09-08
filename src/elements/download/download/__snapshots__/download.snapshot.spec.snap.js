@@ -20,8 +20,9 @@ snapshots["sbb-download renders with derived label and icon Shadow DOM"] =
 `<a
   aria-describedby=""
   class="sbb-action-base sbb-download"
-  download=""
   href="files/annual-report.pdf"
+  rel="external noopener nofollow"
+  target="_blank"
 >
   <slot name="icon">
     <sbb-icon
@@ -55,6 +56,12 @@ snapshots["sbb-download renders with derived label and icon Shadow DOM"] =
   >
   </sbb-secondary-button-static>
 </a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-download renders with derived label and icon Shadow DOM */
 
@@ -95,8 +102,9 @@ snapshots["sbb-download renders with explicit label and milk color Shadow DOM"] 
 `<a
   aria-describedby=""
   class="sbb-action-base sbb-download"
-  download=""
   href="report.pdf"
+  rel="external noopener nofollow"
+  target="_blank"
 >
   <slot name="icon">
     <sbb-icon
@@ -130,6 +138,12 @@ snapshots["sbb-download renders with explicit label and milk color Shadow DOM"] 
   >
   </sbb-secondary-button-static>
 </a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-download renders with explicit label and milk color Shadow DOM */
 
@@ -156,8 +170,9 @@ snapshots["sbb-download renders with custom content and info Shadow DOM"] =
 `<a
   aria-describedby=""
   class="sbb-action-base sbb-download"
-  download=""
   href="files/annual-report.pdf"
+  rel="external noopener nofollow"
+  target="_blank"
 >
   <slot name="icon">
     <sbb-icon
@@ -191,6 +206,12 @@ snapshots["sbb-download renders with custom content and info Shadow DOM"] =
   >
   </sbb-secondary-button-static>
 </a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-download renders with custom content and info Shadow DOM */
 
@@ -211,8 +232,9 @@ snapshots["sbb-download renders with custom content only Shadow DOM"] =
 `<a
   aria-describedby=""
   class="sbb-action-base sbb-download"
-  download=""
   href="files/annual-report.pdf"
+  rel="external noopener nofollow"
+  target="_blank"
 >
   <slot name="icon">
     <sbb-icon
@@ -246,6 +268,86 @@ snapshots["sbb-download renders with custom content only Shadow DOM"] =
   >
   </sbb-secondary-button-static>
 </a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-download renders with custom content only Shadow DOM */
+
+snapshots["sbb-download renders with download attribute DOM"] = 
+`<sbb-download
+  color="white"
+  download=""
+  href="files/annual-report.pdf"
+>
+  <sbb-download-info
+    changed="2026-12-24"
+    size="1234567"
+    slot="info"
+  >
+  </sbb-download-info>
+</sbb-download>
+`;
+/* end snapshot sbb-download renders with download attribute DOM */
+
+snapshots["sbb-download renders with download attribute Shadow DOM"] = 
+`<a
+  aria-describedby=""
+  class="sbb-action-base sbb-download"
+  download=""
+  href="files/annual-report.pdf"
+>
+  <slot name="icon">
+    <sbb-icon
+      class="sbb-download__icon"
+      name="document-pdf-small"
+    >
+    </sbb-icon>
+  </slot>
+  <span class="sbb-download__content">
+    <span class="sbb-download__label">
+      annual-report.pdf
+    </span>
+    <span class="sbb-screen-reader-only">
+      download
+    </span>
+    <span
+      aria-hidden="true"
+      class="sbb-download__custom-content"
+    >
+      <slot>
+      </slot>
+    </span>
+    <span class="sbb-download__info">
+      <slot name="info">
+      </slot>
+    </span>
+  </span>
+  <sbb-secondary-button-static
+    class="sbb-download__button"
+    icon-name="download-small"
+  >
+  </sbb-secondary-button-static>
+</a>
+`;
+/* end snapshot sbb-download renders with download attribute Shadow DOM */
+
+snapshots["sbb-download renders with download attribute A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "generic",
+      "name": ""
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-download renders with download attribute A11y tree Chrome */
 

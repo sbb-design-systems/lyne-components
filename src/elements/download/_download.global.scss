@@ -2,11 +2,17 @@ $theme: 'standard' !default;
 
 @mixin base {
   --sbb-download-gap: var(--sbb-spacing-fixed-3x);
+  --sbb-download-content-padding-inline-start: var(--sbb-spacing-fixed-4x);
+  --sbb-download-divider-width: var(--sbb-border-width-1x);
+  --sbb-download-divider-inset-block: var(--sbb-spacing-fixed-1x);
+  --sbb-download-divider-color: var(--sbb-background-color-4);
+  --sbb-download-label-font-size: var(--sbb-heading-font-size-5);
   --sbb-download-label-color: var(--sbb-color-3);
   --sbb-download-info-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
 }
 
 @mixin forced-colors {
+  --sbb-download-divider-color: CanvasText;
   --sbb-download-label-color: CanvasText;
   --sbb-download-info-color: CanvasText;
 }

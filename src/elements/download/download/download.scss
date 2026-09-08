@@ -55,10 +55,34 @@
   flex-direction: column;
   flex: 1 1 auto;
   min-width: 0;
+  position: relative;
+  padding-inline-start: var(--sbb-download-content-padding-inline-start);
+}
+
+// Vertical divider between the icon and the content.
+.sbb-download__content::before {
+  content: '';
+  position: absolute;
+  inset-block: var(--sbb-download-divider-inset-block);
+  inset-inline-start: 0;
+  width: var(--sbb-download-divider-width);
+  background-color: var(--sbb-download-divider-color);
+}
+
+// Without an icon there is nothing to separate, so the divider and its
+// spacing are removed.
+:host(:not(:state(slotted-icon), :state(has-icon-name))) .sbb-download__content {
+  padding-inline-start: 0;
+}
+
+:host(:not(:state(slotted-icon), :state(has-icon-name))) .sbb-download__content::before {
+  display: none;
 }
 
 .sbb-download__label {
   overflow-wrap: break-word;
+  font-size: var(--sbb-download-label-font-size);
+  line-height: var(--sbb-typo-line-height-text);
   font-weight: bold;
   color: var(--sbb-download-label-color);
 }

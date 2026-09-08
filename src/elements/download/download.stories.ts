@@ -29,6 +29,12 @@ const href: InputType = {
   },
 };
 
+const download: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const color: InputType = {
   control: {
     type: 'inline-radio',
@@ -69,6 +75,7 @@ const nonAccessible: InputType = {
 const defaultArgTypes: ArgTypes = {
   label,
   href,
+  download,
   color,
   'icon-name': iconName,
   type,
@@ -80,6 +87,7 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   label: undefined,
   href: 'https://www.sbb.ch/annual-report.pdf',
+  download: false,
   color: 'white',
   'icon-name': undefined,
   type: undefined,
@@ -89,12 +97,13 @@ const defaultArgs: Args = {
 };
 
 const downloadWrapper = (
-  { label, href, color, 'icon-name': iconName }: Args,
+  { label, href, download, color, 'icon-name': iconName }: Args,
   content: TemplateResult,
 ): TemplateResult => html`
   <sbb-download
     label=${label || nothing}
     href=${href || nothing}
+    ?download=${download}
     color=${color}
     icon-name=${iconName || nothing}
   >
@@ -108,86 +117,64 @@ const customContent = (): TemplateResult =>
 const infoBlock = (infoArgs: Args): TemplateResult =>
   html`<sbb-download-info ${sbbSpread(infoArgs)}></sbb-download-info>`;
 
-// Renders only the `sbb-download-info` block.
-const Template = ({
+// Splits the story args into the args of the `sbb-download` and the ones of
+// the `sbb-download-info`.
+const splitArgs = ({
   label,
   href,
+  download,
   color,
   'icon-name': iconName,
   ...infoArgs
-}: Args): TemplateResult =>
-  downloadWrapper(
-    {
-      label,
-      href,
-      color,
-      'icon-name': iconName,
-    },
-    infoBlock(infoArgs),
-  );
+}: Args): { downloadArgs: Args; infoArgs: Args } => ({
+  downloadArgs: { label, href, download, color, 'icon-name': iconName },
+  infoArgs,
+});
 
-const SlottedIconTemplate = ({
-  label,
-  href,
-  color,
-  'icon-name': _iconName,
-  ...infoArgs
-}: Args): TemplateResult =>
-  downloadWrapper(
-    {
-      label,
-      href,
-      color,
-    },
+// Renders only the `sbb-download-info` block.
+const Template = (args: Args): TemplateResult => {
+  const { downloadArgs, infoArgs } = splitArgs(args);
+  return downloadWrapper(downloadArgs, infoBlock(infoArgs));
+};
+
+const SlottedIconTemplate = (args: Args): TemplateResult => {
+  const { downloadArgs, infoArgs } = splitArgs(args);
+  return downloadWrapper(
+    { ...downloadArgs, 'icon-name': undefined },
     html`
       <sbb-icon slot="icon" name="circle-information-small"></sbb-icon>
       ${infoBlock(infoArgs)}
     `,
   );
+};
 
 // Renders only custom content in the unnamed slot, without a `sbb-download-info`.
-const CustomContentTemplate = ({
-  label,
-  href,
-  color,
-  'icon-name': iconName,
-}: Args): TemplateResult =>
-  downloadWrapper(
-    {
-      label,
-      href,
-      color,
-      'icon-name': iconName,
-    },
-    customContent(),
-  );
+const CustomContentTemplate = (args: Args): TemplateResult =>
+  downloadWrapper(splitArgs(args).downloadArgs, customContent());
 
 // Renders both custom content and a `sbb-download-info` block.
-const CustomContentAndInfoTemplate = ({
-  label,
-  href,
-  color,
-  'icon-name': iconName,
-  ...infoArgs
-}: Args): TemplateResult =>
-  downloadWrapper(
-    {
-      label,
-      href,
-      color,
-      'icon-name': iconName,
-    },
-    html`${customContent()} ${infoBlock(infoArgs)}`,
-  );
+const CustomContentAndInfoTemplate = (args: Args): TemplateResult => {
+  const { downloadArgs, infoArgs } = splitArgs(args);
+  return downloadWrapper(downloadArgs, html`${customContent()} ${infoBlock(infoArgs)}`);
+};
 
 // Renders neither custom content nor a `sbb-download-info` block.
-const NoContentTemplate = ({ label, href, color, 'icon-name': iconName }: Args): TemplateResult =>
-  downloadWrapper({ label, href, color, 'icon-name': iconName }, html``);
+const NoContentTemplate = (args: Args): TemplateResult =>
+  downloadWrapper(splitArgs(args).downloadArgs, html``);
 
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+};
+
+export const Download: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    download: true,
+  },
 };
 
 export const CustomLabel: StoryObj = {

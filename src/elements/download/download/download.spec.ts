@@ -24,16 +24,38 @@ describe(`sbb-download`, () => {
     expect(anchor).to.have.attribute('href', 'files/annual-report.pdf');
   });
 
-  it('always enables the download attribute on the anchor', async () => {
-    const anchor = element.shadowRoot!.querySelector('a');
-    expect(anchor).to.have.attribute('download');
+  it('opens the document inline in a new tab by default', async () => {
+    const anchor = element.shadowRoot!.querySelector('a')!;
+    expect(element.download).to.be.false;
+    expect(anchor).not.to.have.attribute('download');
+    expect(anchor).to.have.attribute('target', '_blank');
+    expect(anchor).to.have.attribute('rel', 'external noopener nofollow');
   });
 
-  it('keeps the download behavior enabled even when set to false', async () => {
-    element.download = false;
+  it('announces that the document opens in a new window', async () => {
+    const anchor = element.shadowRoot!.querySelector('a')!;
+    const hint = element.shadowRoot!.querySelector('#sbb-link-new-window')!;
+    expect(hint).not.to.be.null;
+    expect(anchor.ariaDescribedByElements).to.include(hint);
+  });
+
+  it('enables the download attribute on the anchor when download is set', async () => {
+    element.download = true;
     await waitForLitRender(element);
-    expect(element.download).to.be.true;
-    expect(element.shadowRoot!.querySelector('a')).to.have.attribute('download');
+    const anchor = element.shadowRoot!.querySelector('a')!;
+    expect(element).to.have.attribute('download');
+    expect(anchor).to.have.attribute('download');
+    expect(anchor).not.to.have.attribute('target');
+    expect(anchor).not.to.have.attribute('rel');
+    expect(element.shadowRoot!.querySelector('#sbb-link-new-window')).to.be.null;
+  });
+
+  it('respects an explicitly set target when opening inline', async () => {
+    element.target = '_self';
+    await waitForLitRender(element);
+    const anchor = element.shadowRoot!.querySelector('a')!;
+    expect(anchor).to.have.attribute('target', '_self');
+    expect(element.shadowRoot!.querySelector('#sbb-link-new-window')).to.be.null;
   });
 
   it('uses the file name of the href as default label', async () => {
@@ -135,18 +157,32 @@ describe(`sbb-download`, () => {
     const downloadInfoElement = el.querySelector('sbb-download-info');
     const linkElement = el.shadowRoot!.querySelector('a')!;
     const customContentElement = el.shadowRoot!.querySelector('.sbb-download__custom-content')!;
+    const newWindowHintElement = el.shadowRoot!.querySelector('#sbb-link-new-window')!;
     expect(linkElement.ariaDescribedByElements).to.deep.equal([
       customContentElement,
       downloadInfoElement,
+      newWindowHintElement,
     ]);
 
     // When removing, no ariaDescribedByElements entry should be defined
     downloadInfoElement?.remove();
     await waitForLitRender(el);
-    expect(linkElement.ariaDescribedByElements).to.deep.equal([customContentElement]);
+    expect(linkElement.ariaDescribedByElements).to.deep.equal([
+      customContentElement,
+      newWindowHintElement,
+    ]);
 
     // When re-adding, downloadInfoElement should be in ariaDescribedByElements
     el.appendChild(downloadInfoElement!);
+    await waitForLitRender(el);
+    expect(linkElement.ariaDescribedByElements).to.deep.equal([
+      customContentElement,
+      downloadInfoElement,
+      newWindowHintElement,
+    ]);
+
+    // When downloading, the new window hint is not rendered anymore
+    el.download = true;
     await waitForLitRender(el);
     expect(linkElement.ariaDescribedByElements).to.deep.equal([
       customContentElement,
