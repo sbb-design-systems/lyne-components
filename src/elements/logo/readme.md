@@ -29,6 +29,22 @@ Possible values are `ideal` (default), `minimal` and `none`.
 
 ## API Documentation
 
+### class: `SbbLogoAnniversaryElement`, `sbb-logo-anniversary`
+
+#### Properties
+
+| Name                 | Attribute             | Privacy | Type                             | Default   | Description                                                  |
+| -------------------- | --------------------- | ------- | -------------------------------- | --------- | ------------------------------------------------------------ |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'Logo'`  | Accessibility label which will be forwarded to the SVG logo. |
+| `negative`           | `negative`            | public  | `boolean`                        | `false`   | Negative coloring variant flag.                              |
+| `protectiveRoom`     | `protective-room`     | public  | `'none' \| 'minimal' \| 'ideal'` | `'ideal'` | Visual protective room around logo.                          |
+
+#### CSS Properties
+
+| Name                | Default | Description                                |
+| ------------------- | ------- | ------------------------------------------ |
+| `--sbb-logo-height` | `auto`  | Can be used to set the height of the logo. |
+
 ### class: `SbbLogoElement`, `sbb-logo`
 
 #### Properties
