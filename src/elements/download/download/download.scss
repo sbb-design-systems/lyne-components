@@ -26,7 +26,6 @@
 
   display: flex;
   align-items: center;
-  gap: var(--sbb-download-gap);
   text-decoration: none;
 
   // Consume the hover shift set by `card.state--hover` (the mixin only sets the
@@ -50,6 +49,22 @@
   flex: 0 0 auto;
 }
 
+// Vertical divider between the icon and the content. It carries the spacing
+// towards both neighbours and is stretched to the height of the component,
+// minus a small block inset.
+.sbb-download__divider {
+  align-self: stretch;
+  height: auto;
+  margin-block: var(--sbb-download-divider-margin-block);
+  margin-inline: var(--sbb-download-gap) var(--sbb-download-content-gap);
+
+  // Without an icon there is nothing to separate, so the divider and its
+  // spacing are removed.
+  :host(:not(:state(slotted-icon), :state(has-icon-name))) & {
+    display: none;
+  }
+}
+
 .sbb-download__content {
   display: flex;
   flex-direction: column;
@@ -59,6 +74,9 @@
 
 .sbb-download__label {
   overflow-wrap: break-word;
+  font-size: var(--sbb-download-label-font-size);
+  line-height: var(--sbb-typo-line-height-heading);
+  letter-spacing: var(--sbb-letter-spacing-heading);
   font-weight: bold;
   color: var(--sbb-download-label-color);
 }
@@ -75,5 +93,5 @@
 // Static button aligned to the end of the component.
 .sbb-download__button {
   flex: 0 0 auto;
-  margin-inline-start: auto;
+  margin-inline-start: var(--sbb-download-content-gap);
 }

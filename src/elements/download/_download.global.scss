@@ -1,7 +1,13 @@
 $theme: 'standard' !default;
 
 @mixin base {
+  // Gap between the icon and the divider.
   --sbb-download-gap: var(--sbb-spacing-fixed-3x);
+
+  // Gap between the divider and the content, and the content and the button.
+  --sbb-download-content-gap: var(--sbb-spacing-fixed-4x);
+  --sbb-download-divider-margin-block: var(--sbb-divider-border-width);
+  --sbb-download-label-font-size: var(--sbb-heading-font-size-5);
   --sbb-download-label-color: var(--sbb-color-3);
   --sbb-download-info-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
 }
