@@ -50,6 +50,28 @@ describe(`sbb-download`, () => {
     });
   });
 
+  describe('renders with download attribute', () => {
+    let element: SbbDownloadElement;
+
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-download href="files/annual-report.pdf" download>
+          <sbb-download-info size="1234567" changed="2026-12-24"></sbb-download-info>
+        </sbb-download>
+      `);
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
+  });
+
   describe('renders with custom content and info', () => {
     let element: SbbDownloadElement;
 
