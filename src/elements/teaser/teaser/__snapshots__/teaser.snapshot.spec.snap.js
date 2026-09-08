@@ -27,15 +27,19 @@ snapshots["sbb-teaser renders after centered Shadow DOM"] =
       <slot name="image">
       </slot>
     </span>
-    <span class="sbb-teaser__text">
-      <slot name="chip">
-      </slot>
-      <slot name="title">
-      </slot>
-      <p class="sbb-teaser__description">
-        <slot>
+    <span class="sbb-teaser__content">
+      <span class="sbb-teaser__text">
+        <slot name="chip">
         </slot>
-      </p>
+        <slot name="title">
+        </slot>
+        <p class="sbb-teaser__description">
+          <slot>
+          </slot>
+        </p>
+      </span>
+      <slot name="action">
+      </slot>
     </span>
   </span>
 </div>
@@ -75,15 +79,19 @@ snapshots["sbb-teaser renders after with title set Shadow DOM"] =
       <slot name="image">
       </slot>
     </span>
-    <span class="sbb-teaser__text">
-      <slot name="chip">
-      </slot>
-      <slot name="title">
-      </slot>
-      <p class="sbb-teaser__description">
-        <slot>
+    <span class="sbb-teaser__content">
+      <span class="sbb-teaser__text">
+        <slot name="chip">
         </slot>
-      </p>
+        <slot name="title">
+        </slot>
+        <p class="sbb-teaser__description">
+          <slot>
+          </slot>
+        </p>
+      </span>
+      <slot name="action">
+      </slot>
     </span>
   </span>
 </div>
@@ -137,15 +145,19 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
       <slot name="image">
       </slot>
     </span>
-    <span class="sbb-teaser__text">
-      <slot name="chip">
-      </slot>
-      <slot name="title">
-      </slot>
-      <p class="sbb-teaser__description">
-        <slot>
+    <span class="sbb-teaser__content">
+      <span class="sbb-teaser__text">
+        <slot name="chip">
         </slot>
-      </p>
+        <slot name="title">
+        </slot>
+        <p class="sbb-teaser__description">
+          <slot>
+          </slot>
+        </p>
+      </span>
+      <slot name="action">
+      </slot>
     </span>
   </span>
 </div>

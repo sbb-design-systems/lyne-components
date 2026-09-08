@@ -8,16 +8,19 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
-} from '../core/testing/private.ts';
-import { waitForImageReady } from '../core/testing.ts';
+} from '../../core/testing/private.ts';
+import { waitForImageReady } from '../../core/testing.ts';
 
-import '../teaser.ts';
-import '../chip-label.ts';
-import '../container.ts';
-import '../image.ts';
-import '../title.ts';
+import type { SbbTeaserElement } from './teaser.component.ts';
 
-const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
+import '../../button.ts';
+import '../../chip-label.ts';
+import '../../container.ts';
+import '../../image.ts';
+import '../../teaser.ts';
+import '../../title.ts';
+
+const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 const imageBase64 = await loadAssetAsBase64(imageUrl);
 
 describe(`sbb-teaser`, () => {
@@ -67,8 +70,17 @@ describe(`sbb-teaser`, () => {
   };
 
   const screenCombinations = [
-    { viewport: 'small' as const, alignments: ['below'] },
-    { viewport: 'large' as const, alignments: ['after-centered', 'after', 'below'] },
+    { viewport: 'small' as const, alignments: ['below'] satisfies SbbTeaserElement['alignment'][] },
+    {
+      viewport: 'large' as const,
+      alignments: [
+        'before',
+        'before-centered',
+        'after-centered',
+        'after',
+        'below',
+      ] satisfies SbbTeaserElement['alignment'][],
+    },
   ];
 
   for (const screenCombination of screenCombinations) {
@@ -150,6 +162,21 @@ describe(`sbb-teaser`, () => {
                   </sbb-teaser>
                 `,
                 { maxWidth: '760px' },
+              );
+            }),
+          );
+
+          it(
+            `size=l with static button`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                html`<sbb-teaser href="#" alignment=${alignment} size="l">
+                  <img src=${imageBase64} slot="image" alt="" />
+                  <sbb-chip-label>AI chip</sbb-chip-label>
+                  <sbb-title level="2">This is a title</sbb-title>
+                  This is a paragraph with a long text.
+                  <sbb-secondary-button-static>See more</sbb-secondary-button-static>
+                </sbb-teaser>`,
               );
             }),
           );

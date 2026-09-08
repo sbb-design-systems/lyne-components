@@ -59,7 +59,7 @@
 
 :host(:state(options-panel-position-above)) {
   --sbb-options-panel-animation-translate: calc(-1 * var(--sbb-spacing-fixed-2x));
-  --sbb-options-panel-margin-block-start: calc(-1 * var(--sbb-spacing-fixed-2x));
+  --_sbb-options-panel-offset: calc(-1 * var(--sbb-options-panel-offset));
 }
 
 :host([preserve-icon-space]) {
@@ -110,7 +110,7 @@
     var(--sbb-options-panel-animation-timing-function);
   box-shadow: var(--sbb-options-panel-box-shadow);
   background-color: var(--sbb-options-panel-background-color);
-  margin-block-start: var(--sbb-options-panel-margin-block-start);
+  margin-block-start: var(--_sbb-options-panel-offset, var(--sbb-options-panel-offset));
   padding-block: var(--sbb-options-panel-padding-block);
   padding-inline: 0;
   max-height: var(--_sbb-options-panel-max-height);

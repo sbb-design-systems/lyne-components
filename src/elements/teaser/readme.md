@@ -1,5 +1,9 @@
 The `<sbb-teaser>` is a component which can display an image with a caption, and it behaves like a link on user interaction.
 
+Use the `<sbb-teaser-static>` variant instead, if the teaser must not behave like a link itself,
+e.g. because it already contains one or more interactive/focusable elements
+(more than a single static action is not supported within a link).
+
 Simple teaser example:
 
 ```html
@@ -32,13 +36,36 @@ Optionally, you can add an overlapping `<sbb-chip-label>` to the slotted `figure
 </sbb-teaser>
 ```
 
+Use the `action` slot to display a static action
+e.g. a [sbb-secondary-button-static](/docs/elements-button-secondary-button-static--docs) within an `<sbb-teaser>` element
+or interactive action (e.g. a [sbb-secondary-button-link](/docs/elements-button-secondary-button-link--docs) within a `<sbb-teaser-static>` element)
+below the description.
+Lyne buttons are automatically assigned to the `action` slot when slotted in the default slot.
+
+```html
+<sbb-teaser href="https://www.sbb.ch">
+  <img slot="image" src="..." alt="400x300" />
+  <sbb-chip-label>Chip label</sbb-chip-label>
+  <sbb-title level="2">Title</sbb-title>
+  A brief description.
+  <sbb-secondary-button-static>Read more</sbb-secondary-button-static>
+</sbb-teaser>
+```
+
 ## Style
 
 Using the `alignment` property, it is possible to change the text position respect to the image.
-Possible values are `after-centered` (default), `after` and `below`.
+Possible values are `before`, `after-centered`, `after-centered` (default), `after` and `below`.
 
 ```html
 <sbb-teaser href="https://www.sbb.ch" alignment="below"> ... </sbb-teaser>
+```
+
+The component has two different sizes (`m` and `l`), which can be changed using the `size` property.
+The size defaults to `m` in both the standard and the lean theme.
+
+```html
+<sbb-teaser size="l" href="https://www.sbb.ch"> ... </sbb-teaser>
 ```
 
 By default, the image dimensions are set using the width and the aspect ratio.
@@ -69,6 +96,24 @@ It's important to set the `accessibilityLabel` on the `<sbb-teaser>`, which desc
 
 The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
 
+## Static variant
+
+The `<sbb-teaser-static>` is a non-interactive version of the `<sbb-teaser>` component.
+Unlike `<sbb-teaser>`, it does not render an anchor and therefore has no `href`, `target`, `rel`,
+`download`, `accessibilityLabel` or `accessibilityCurrent` property.
+It should be used whenever the teaser has to contain more than one interactive element,
+e.g. multiple links or buttons, since nesting interactive elements inside a link is not allowed.
+
+```html
+<sbb-teaser-static>
+  <img slot="image" src="..." alt="400x300" />
+  <sbb-chip-label>Chip label</sbb-chip-label>
+  <sbb-title level="2">Title</sbb-title>
+  A brief description.
+  <sbb-secondary-button-link href="#">Read more</sbb-secondary-button-link>
+</sbb-teaser-static>
+```
+
 <!-- Auto Generated Below -->
 
 ## API Documentation
@@ -77,21 +122,42 @@ The description text is wrapped into an `<p>` element to guarantee the semantic 
 
 #### Properties
 
-| Name                   | Attribute               | Privacy | Type                                                   | Default            | Description                                                               |
-| ---------------------- | ----------------------- | ------- | ------------------------------------------------------ | ------------------ | ------------------------------------------------------------------------- |
-| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                               | `''`               | This will be forwarded as aria-current to the inner anchor element.       |
-| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                               | `''`               | This will be forwarded as aria-label to the inner anchor element.         |
-| `alignment`            | `alignment`             | public  | `'after-centered' \| 'after' \| 'below'`               | `'after-centered'` | Teaser variant - define the position and the alignment of the text block. |
-| `download`             | `download`              | public  | `boolean`                                              | `false`            | Whether the browser will show the download dialog on click.               |
-| `href`                 | `href`                  | public  | `string`                                               | `''`               | The href value you want to link to.                                       |
-| `rel`                  | `rel`                   | public  | `string`                                               | `''`               | The relationship of the linked URL as space-separated link types.         |
-| `target`               | `target`                | public  | `'_blank' \| '_self' \| '_parent' \| '_top' \| string` | `''`               | Where to display the linked URL.                                          |
+| Name                   | Attribute               | Privacy | Type                                                                      | Default            | Description                                                               |
+| ---------------------- | ----------------------- | ------- | ------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                                                  | `''`               | This will be forwarded as aria-current to the inner anchor element.       |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                                                  | `''`               | This will be forwarded as aria-label to the inner anchor element.         |
+| `alignment`            | `alignment`             | public  | `'before' \| 'before-centered' \| 'after' \| 'after-centered' \| 'below'` | `'after-centered'` | Teaser variant - define the position and the alignment of the text block. |
+| `download`             | `download`              | public  | `boolean`                                                                 | `false`            | Whether the browser will show the download dialog on click.               |
+| `href`                 | `href`                  | public  | `string`                                                                  | `''`               | The href value you want to link to.                                       |
+| `rel`                  | `rel`                   | public  | `string`                                                                  | `''`               | The relationship of the linked URL as space-separated link types.         |
+| `size`                 | `size`                  | public  | `'m' \| 'l' \| null`                                                      | `null`             | Size variant, either m (default) or l.                                    |
+| `target`               | `target`                | public  | `'_blank' \| '_self' \| '_parent' \| '_top' \| string`                    | `''`               | Where to display the linked URL.                                          |
 
 #### Slots
 
-| Name    | Description                                                                                                                                 |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-|         | Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label.                                                       |
-| `chip`  | Slot for the `sbb-chip-label` element. The slot on the `sbb-chip-label` element is automatically assigned when slotted in the unnamed slot. |
-| `image` | Slot used to render the image.                                                                                                              |
-| `title` | Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.              |
+| Name     | Description                                                                                                                                 |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+|          | Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label.                                                       |
+| `action` | Slot for a static action, e.g. a `<sbb-secondary-button-static>` element. The action is displayed below the description.                    |
+| `chip`   | Slot for the `sbb-chip-label` element. The slot on the `sbb-chip-label` element is automatically assigned when slotted in the unnamed slot. |
+| `image`  | Slot used to render the image.                                                                                                              |
+| `title`  | Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.              |
+
+### class: `SbbTeaserStaticElement`, `sbb-teaser-static`
+
+#### Properties
+
+| Name        | Attribute   | Privacy | Type                                                                      | Default            | Description                                                               |
+| ----------- | ----------- | ------- | ------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------- |
+| `alignment` | `alignment` | public  | `'before' \| 'before-centered' \| 'after' \| 'after-centered' \| 'below'` | `'after-centered'` | Teaser variant - define the position and the alignment of the text block. |
+| `size`      | `size`      | public  | `'m' \| 'l' \| null`                                                      | `null`             | Size variant, either m (default) or l.                                    |
+
+#### Slots
+
+| Name     | Description                                                                                                                                 |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+|          | Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label.                                                       |
+| `action` | Slot for an interactive action, e.g. a `<sbb-secondary-button-link>` element. The action is displayed below the description.                |
+| `chip`   | Slot for the `sbb-chip-label` element. The slot on the `sbb-chip-label` element is automatically assigned when slotted in the unnamed slot. |
+| `image`  | Slot used to render the image.                                                                                                              |
+| `title`  | Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.              |

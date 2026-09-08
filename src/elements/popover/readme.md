@@ -78,6 +78,10 @@ if neither the trigger element nor the popover are on hover or if another action
 
 The `<sbb-popover>` automatically calculates where it should place itself, based on available space. Default is below and center.
 
+The component has a negative variant which can be set using the `negative` property.
+The `<sbb-popover-close-button>` component, if present, is automatically rendered in the `negative` variant,
+while consumers need to set it manually on other components, or adjust styling accordingly.
+
 ## Accessibility
 
 As the popover opens, the focus will automatically be set to the first focusable item within the component.
@@ -157,6 +161,7 @@ If the attribute is not used, the first focusable element receives focus (recomm
 | `closeDelay`   | `close-delay`   | public  | `number`              | `0`     | Close the popover after a given delay in milliseconds. Global configuration is used as default, if not set. |
 | `hoverTrigger` | `hover-trigger` | public  | `boolean`             | `false` | Whether the popover should be triggered on hover.                                                           |
 | `isOpen`       | -               | public  | `boolean`             |         | Whether the element is open.                                                                                |
+| `negative`     | `negative`      | public  | `boolean`             | `false` | Negative coloring variant flag.                                                                             |
 | `openDelay`    | `open-delay`    | public  | `number`              | `0`     | Open the popover after a given delay in milliseconds. Global configuration is used as default, if not set.  |
 | `trigger`      | `trigger`       | public  | `HTMLElement \| null` | `null`  | The element that will trigger the popover overlay. For attribute usage, provide an id reference.            |
 

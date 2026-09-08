@@ -1,0 +1,63 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+{/* keywords: i18n, internationalization, localization, language, lang, translation, ssr */}
+
+<Meta title="guides/I18n" />
+
+# I18n
+
+Some components of the Lyne Design System encapsulate words and phrases (e.g. button labels,
+accessibility texts) that need to be localized to the user's language.
+We provide out-of-the-box translations for all supported languages, so there is nothing to
+configure on the translation side: as a consumer, the only responsibility you have is to tell
+the components **which language to use**.
+
+## Supported languages
+
+The following languages are supported: `de`, `fr`, `it` and `en` (default).
+
+Region subtags are supported as well and are normalized to their base language
+(e.g. `de-CH` is treated as `de`). If an unsupported or invalid language is provided,
+the components fall back to `en`.
+
+## Setting the language
+
+The preferred approach is to set the [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+attribute on the `<html>` tag. This is the standard, framework-agnostic way to declare the
+document's language and is what the components read from by default.
+
+```html
+<html lang="de">
+  ...
+</html>
+```
+
+Components observe changes to the `lang` attribute at runtime, so updating it (e.g. when the
+user switches language in your application) will automatically re-render any already connected
+component with the new language, without needing to reload the page.
+
+```ts
+document.documentElement.lang = 'fr';
+```
+
+## Server-side rendering (SSR)
+
+When rendering components on the server, there is no `document` and therefore no `<html lang="...">`
+attribute to read from. To have components render with the correct language during SSR, set the
+language explicitly via `mergeConfig` before rendering:
+
+```ts
+import { mergeConfig } from '@sbb-esta/lyne-elements/core.js';
+
+// Determine the language for the current request, e.g. from the request headers,
+// a route parameter, or the user's session.
+mergeConfig({
+  language: 'fr',
+});
+```
+
+Make sure this call happens before the components are rendered on the server (and ideally also on
+the client, before hydration, to avoid a mismatch/flash of the default language). We still
+recommend setting the `lang` attribute on the `<html>` tag for the rendered document, both for
+accessibility/SEO reasons and so that the client picks up the correct language once `mergeConfig`
+is no longer set (e.g. in a different request/page).

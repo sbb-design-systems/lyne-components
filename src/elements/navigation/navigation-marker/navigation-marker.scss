@@ -21,13 +21,13 @@
     var(--sbb-spacing-fixed-6x) + var(--sbb-spacing-fixed-1x)
   );
   --sbb-navigation-marker-font-size: var(--sbb-text-font-size-xxs);
-  --sbb-navigation-marker-letter-spacing: var(--sbb-typo-letter-spacing-text);
+  --sbb-navigation-marker-letter-spacing: var(--sbb-letter-spacing-text);
   --sbb-navigation-marker-line-height: var(--sbb-typo-line-height-text);
 }
 
 :host([size='l']) {
   --sbb-navigation-marker-font-size: var(--sbb-heading-font-size-4);
-  --sbb-navigation-marker-letter-spacing: var(--sbb-typo-letter-spacing-heading);
+  --sbb-navigation-marker-letter-spacing: var(--sbb-letter-spacing-heading);
   --sbb-navigation-marker-line-height: var(--sbb-typo-line-height-heading);
 }
 
