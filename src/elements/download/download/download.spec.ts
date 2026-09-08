@@ -58,6 +58,16 @@ describe(`sbb-download`, () => {
     expect(element.shadowRoot!.querySelector('#sbb-link-new-window')).to.be.null;
   });
 
+  it('opts out of the new tab behavior with an empty target attribute', async () => {
+    const el = await fixture<SbbDownloadElement>(
+      html`<sbb-download href="files/annual-report.pdf" target=""></sbb-download>`,
+    );
+    const anchor = el.shadowRoot!.querySelector('a')!;
+    expect(anchor).not.to.have.attribute('target');
+    expect(anchor).not.to.have.attribute('rel');
+    expect(el.shadowRoot!.querySelector('#sbb-link-new-window')).to.be.null;
+  });
+
   it('uses the file name of the href as default label', async () => {
     const label = element.shadowRoot!.querySelector('.sbb-download__label');
     expect(label!.textContent!.trim()).to.be.equal('annual-report.pdf');

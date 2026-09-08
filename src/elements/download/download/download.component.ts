@@ -103,9 +103,13 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
   /**
    * Documents which are not downloaded are shown inline, in which case they
    * are opened in a new browser tab, unless a target is explicitly set.
+   * An explicitly empty `target` attribute also counts as set, which allows
+   * to opt out of the new tab behavior.
    */
   protected override resolveTarget(): string {
-    return this.target || (this.download ? '' : '_blank');
+    const hasExplicitTarget = !!this.target || this.hasAttribute('target');
+
+    return hasExplicitTarget ? this.target : this.download ? '' : '_blank';
   }
 
   protected override updated(changedProperties: PropertyValues<this>): void {
