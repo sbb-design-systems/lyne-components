@@ -14,11 +14,6 @@ export class SbbLogoElement extends SbbLogoCommonElementMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-logo';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.accessibilityLabel ||= 'SBB Logo';
-  }
-
   protected override render(): TemplateResult {
     return html`
       <span class="sbb-logo__svg-container">

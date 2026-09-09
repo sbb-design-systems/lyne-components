@@ -1,6 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
+import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core.ts';
+import { forceType, SbbElement } from '../../core.ts';
 import { SbbLogoCommonElementMixin } from '../common/logo-common.ts';
 
 import style from './cargo.scss?inline';
@@ -14,10 +15,10 @@ export class SbbCargoElement extends SbbLogoCommonElementMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-cargo';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.accessibilityLabel ||= 'SBB Cargo logo';
-  }
+  /** Accessibility label which will be forwarded to the SVG logo. */
+  @forceType()
+  @property({ attribute: 'accessibility-label' })
+  public override accessor accessibilityLabel: string = 'Sbb Cargo Logo';
 
   protected override render(): TemplateResult {
     return html`

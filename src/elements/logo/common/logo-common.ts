@@ -32,7 +32,7 @@ export const SbbLogoCommonElementMixin = <
     /** Accessibility label which will be forwarded to the SVG logo. */
     @forceType()
     @property({ attribute: 'accessibility-label' })
-    public accessor accessibilityLabel: string = '';
+    public accessor accessibilityLabel: string = 'Logo';
   }
 
   return SbbLogoCommonElement as unknown as AbstractConstructor<SbbLogoCommonElementMixinType> & T;
