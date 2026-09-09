@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
-import { property } from 'lit/decorators.js';
 
-import { forceType, SbbElement, SbbNegativeMixin } from '../../core.ts';
+import { SbbElement } from '../../core.ts';
+import { SbbLogoCommonElementMixin } from '../common/logo-common.ts';
 
 import style from './logo.scss?inline';
 
@@ -10,18 +10,9 @@ import style from './logo.scss?inline';
  *
  * @cssprop [--sbb-logo-height=auto] - Can be used to set the height of the logo.
  */
-export class SbbLogoElement extends SbbNegativeMixin(SbbElement) {
+export class SbbLogoElement extends SbbLogoCommonElementMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-logo';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
-
-  /** Visual protective room around logo. */
-  @property({ attribute: 'protective-room', reflect: true })
-  public accessor protectiveRoom: 'none' | 'minimal' | 'ideal' = 'ideal';
-
-  /** Accessibility label which will be forwarded to the SVG logo. */
-  @forceType()
-  @property({ attribute: 'accessibility-label' })
-  public accessor accessibilityLabel: string = 'Logo';
 
   protected override render(): TemplateResult {
     return html`

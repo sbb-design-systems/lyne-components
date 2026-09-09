@@ -18,7 +18,7 @@ const tag: InputType = {
   control: {
     type: 'select',
   },
-  options: ['sbb-logo', 'sbb-cargo', 'sbb-cargo-international'],
+  options: ['sbb-logo', 'sbb-cargo', 'sbb-cargo-international', 'sbb-elvetino'],
 };
 
 const negative: InputType = {
@@ -86,6 +86,18 @@ export const Cargo: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, tag: tag.options![1] },
+};
+
+export const CargoInternational: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, tag: tag.options![2] },
+};
+
+export const Elvetino: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, tag: tag.options![3] },
 };
 
 const meta: Meta = {
