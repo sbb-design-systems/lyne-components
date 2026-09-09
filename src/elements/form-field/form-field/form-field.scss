@@ -82,6 +82,10 @@
   }
 }
 
+:host([size='s']:where(:state(input-element-textarea))) {
+  --_sbb-form-field-spacer-margin-block-end-textarea: var(--sbb-form-field-textarea-s-spacer);
+}
+
 :host([size='m']) {
   --sbb-form-field-min-height: var(--sbb-size-element-m);
   --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-3x);
@@ -347,7 +351,10 @@ slot[name='hint'] {
   height: calc(var(--sbb-form-field-label-text-size) * var(--sbb-typo-line-height-text));
 
   // Moves label down and input up to meet positioning requirements
-  margin-block-end: var(--_sbb-form-field-spacer-margin-block-end);
+  margin-block-end: calc(
+    var(--_sbb-form-field-spacer-margin-block-end) +
+      var(--_sbb-form-field-spacer-margin-block-end-textarea, 0px)
+  );
 }
 
 // To avoid doubled payload, we group the rules.
