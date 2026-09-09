@@ -12,7 +12,7 @@ import '../logo.ts';
 
 const Template = ({ tag, ...args }: Args): TemplateResult =>
   // eslint-disable-next-line lit/binding-positions
-  html`<${unsafeStatic(tag)} ${sbbSpread(args)}></>`;
+  html`<${unsafeStatic(tag)} ${sbbSpread(args)}></${unsafeStatic(tag)}>`;
 
 const tag: InputType = {
   control: {

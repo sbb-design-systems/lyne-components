@@ -19,7 +19,7 @@ export const SbbLogoCommonElementMixin = <
 >(
   superclass: T,
 ): AbstractConstructor<SbbLogoCommonElementMixinType> & T => {
-  abstract class SbbFileSelectorCommonElement
+  abstract class SbbLogoCommonElement
     extends SbbNegativeMixin(superclass)
     implements Partial<SbbLogoCommonElementMixinType>
   {
@@ -35,6 +35,5 @@ export const SbbLogoCommonElementMixin = <
     public accessor accessibilityLabel: string = 'Logo';
   }
 
-  return SbbFileSelectorCommonElement as unknown as AbstractConstructor<SbbLogoCommonElementMixinType> &
-    T;
+  return SbbLogoCommonElement as unknown as AbstractConstructor<SbbLogoCommonElementMixinType> & T;
 };
