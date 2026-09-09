@@ -17,15 +17,21 @@
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
-  --sbb-logo-anniversary-125-pull-out-delay: var(--sbb-disable-animation-duration, 3s);
+  --sbb-logo-anniversary-125-pull-out-delay: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-logo-anniversary-initial-delay)
+  );
   --sbb-logo-anniversary-125-pull-out-duration: var(--sbb-disable-animation-duration, 0.6s);
-  --sbb-logo-anniversary-125-pull-out-easing: cubic-bezier(0.42, 0, 1, 1);
-  --sbb-logo-anniversary-signet-delay: var(--sbb-disable-animation-duration, 3.6s);
-  --sbb-logo-anniversary-signet-duration: var(--sbb-disable-animation-duration, 0.6s);
-  --sbb-logo-anniversary-signet-easing: cubic-bezier(0, 0, 0.58, 1);
-  --sbb-logo-anniversary-claim-delay: var(--sbb-disable-animation-duration, 4.8s);
+  --sbb-logo-anniversary-word-mark-delay: var(
+    --sbb-disable-animation-duration,
+    calc(var(--sbb-logo-anniversary-initial-delay) + 0.6s)
+  );
+  --sbb-logo-anniversary-word-mark-duration: var(--sbb-disable-animation-duration, 0.6s);
+  --sbb-logo-anniversary-claim-delay: var(
+    --sbb-disable-animation-duration,
+    calc(var(--sbb-logo-anniversary-initial-delay) + 1.8s)
+  );
   --sbb-logo-anniversary-claim-duration: var(--sbb-disable-animation-duration, 0.8s);
-  --sbb-logo-anniversary-claim-easing: cubic-bezier(0.42, 0, 0.58, 1);
 }
 
 :host([animation='none']) {
@@ -36,94 +42,85 @@
   --sbb-logo-word-mark-color: var(--sbb-color-white);
 }
 
-.sbb-logo__svg-container {
-  display: flex;
-  height: var(--sbb-logo-svg-container-height, 100%);
-  width: 100%;
-}
-
 // As the logo should stay with it natural size (without additional text) we position it absolute.
 svg {
   position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
 }
 
-// Clips the texts left of the signet
-#sbb-logo__word-mark,
-#sbb-logo-125 {
+// Clips area left of the signet to hide animating texts
+#sbb-logo-anniversary__word-mark,
+#sbb-logo-anniversary__125 {
   clip-path: url('#sbb-logo-letter-mask');
 }
 
-#sbb-logo__word-mark-1,
-#sbb-logo__word-mark-2,
-#sbb-logo__word-mark-3 {
+#sbb-logo-anniversary__125 :is(path, rect) {
+  fill: var(--sbb-logo-word-mark-color);
+  animation: pull-out var(--sbb-logo-anniversary-125-pull-out-duration)
+    var(--sbb-logo-anniversary-125-pull-out-delay) var(--sbb-logo-anniversary-125-pull-out-easing)
+    forwards;
+
+  &:nth-child(2) {
+    animation-delay: calc(
+      var(--sbb-logo-anniversary-125-pull-out-delay) + var(--sbb-logo-anniversary-bounce-delay)
+    );
+  }
+
+  &:nth-child(3) {
+    animation-delay: calc(
+      var(--sbb-logo-anniversary-125-pull-out-delay) + 2 * var(--sbb-logo-anniversary-bounce-delay)
+    );
+  }
+}
+
+#sbb-logo-anniversary__word-mark path {
   fill: var(--sbb-logo-word-mark-color);
   translate: -100% 0;
   opacity: 0;
-  animation: pull-in var(--sbb-logo-anniversary-signet-duration)
-    var(--sbb-logo-anniversary-signet-delay) var(--sbb-logo-anniversary-signet-easing);
-  animation-fill-mode: forwards;
+  animation: pull-in var(--sbb-logo-anniversary-word-mark-duration)
+    var(--sbb-logo-anniversary-word-mark-delay) var(--sbb-logo-anniversary-word-mark-easing)
+    forwards;
+
+  &:nth-child(1) {
+    animation-delay: calc(
+      var(--sbb-logo-anniversary-word-mark-delay) + 2 * var(--sbb-logo-anniversary-bounce-delay)
+    );
+  }
+
+  &:nth-child(2) {
+    animation-delay: calc(
+      var(--sbb-logo-anniversary-word-mark-delay) + var(--sbb-logo-anniversary-bounce-delay)
+    );
+  }
 }
 
-#sbb-logo__word-mark-2 {
-  animation-delay: calc(
-    var(--sbb-logo-anniversary-signet-delay) + var(--sbb-logo-anniversary-bounce-delay)
-  );
+#sbb-logo-anniversary__panel,
+#sbb-logo-anniversary__signet {
+  // We us px values here because it relates to the svg context
+  translate: 68px 0;
+  animation: move-to-origin var(--sbb-logo-anniversary-word-mark-duration)
+    var(--sbb-logo-anniversary-word-mark-delay) var(--sbb-logo-anniversary-word-mark-easing)
+    forwards;
 }
 
-#sbb-logo__word-mark-1 {
-  animation-delay: calc(
-    var(--sbb-logo-anniversary-signet-delay) + 2 * var(--sbb-logo-anniversary-bounce-delay)
-  );
-}
-
-#sbb-logo__panel {
+#sbb-logo-anniversary__panel {
   fill: var(--sbb-logo-panel-color);
   stroke: var(--sbb-logo-panel-color);
 }
 
-#sbb-logo__signet {
+#sbb-logo-anniversary__signet {
   fill: var(--sbb-logo-signet-color);
 }
 
-#sbb-logo__panel,
-#sbb-logo__signet {
-  // We us px values here because it relates to the svg context
-  translate: 68px 0;
-  animation: signet var(--sbb-logo-anniversary-signet-duration)
-    var(--sbb-logo-anniversary-signet-delay) var(--sbb-logo-anniversary-signet-easing);
-  animation-fill-mode: forwards;
-}
-
-#sbb-logo-125-1,
-#sbb-logo-125-2,
-#sbb-logo-125-3 {
-  fill: var(--sbb-logo-word-mark-color);
-  animation: pull-out var(--sbb-logo-anniversary-125-pull-out-duration)
-    var(--sbb-logo-anniversary-125-pull-out-delay) var(--sbb-logo-anniversary-125-pull-out-easing);
-  animation-fill-mode: forwards;
-}
-
-#sbb-logo-125-2 {
-  animation-delay: calc(
-    var(--sbb-logo-anniversary-125-pull-out-delay) + var(--sbb-logo-anniversary-bounce-delay)
-  );
-}
-
-#sbb-logo-125-3 {
-  animation-delay: calc(
-    var(--sbb-logo-anniversary-125-pull-out-delay) + 2 * var(--sbb-logo-anniversary-bounce-delay)
-  );
-}
-
-#sbb-logo__claim {
+#sbb-logo-anniversary__claim {
   fill: var(--sbb-logo-word-mark-color);
   opacity: 0;
   animation: fade-in var(--sbb-logo-anniversary-claim-duration)
-    var(--sbb-logo-anniversary-claim-delay) var(--sbb-logo-anniversary-claim-easing);
-  animation-fill-mode: forwards;
+    var(--sbb-logo-anniversary-claim-delay) var(--sbb-logo-anniversary-claim-easing) forwards;
 }
 
-@keyframes signet {
+@keyframes move-to-origin {
   100% {
     translate: 0;
   }

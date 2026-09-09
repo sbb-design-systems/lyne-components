@@ -7,6 +7,10 @@ $theme: 'standard' !default;
   --sbb-logo-signet-color: var(--sbb-color-white);
   --sbb-logo-word-mark-color: light-dark(var(--sbb-color-black), var(--sbb-color-white));
   --sbb-logo-aspect-ratio: 454 / 48;
+  --sbb-logo-anniversary-initial-delay: 3s;
+  --sbb-logo-anniversary-125-pull-out-easing: cubic-bezier(0.42, 0, 1, 1);
+  --sbb-logo-anniversary-word-mark-easing: cubic-bezier(0, 0, 0.58, 1);
+  --sbb-logo-anniversary-claim-easing: cubic-bezier(0.42, 0, 0.58, 1);
 }
 
 @mixin forced-colors {

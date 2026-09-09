@@ -41,9 +41,10 @@ Possible values are `ideal` (default), `minimal` and `none`.
 
 #### CSS Properties
 
-| Name                | Default | Description                                |
-| ------------------- | ------- | ------------------------------------------ |
-| `--sbb-logo-height` | `auto`  | Can be used to set the height of the logo. |
+| Name                                   | Default | Description                                     |
+| -------------------------------------- | ------- | ----------------------------------------------- |
+| `--sbb-logo-anniversary-initial-delay` | `3s`    | Initial delay after which the animation starts. |
+| `--sbb-logo-height`                    | `auto`  | Can be used to set the height of the logo.      |
 
 ### class: `SbbLogoElement`, `sbb-logo`
 
