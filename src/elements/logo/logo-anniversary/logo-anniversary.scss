@@ -13,6 +13,9 @@
     --sbb-logo-word-mark-color: ButtonText !important;
   }
 
+  // We us px values here because it relates to the svg context
+  // Value is only used for calculations of offsets
+  --_sbb-logo-anniversary-signet-width: 143px;
   --sbb-logo-anniversary-bounce-delay: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
@@ -42,6 +45,22 @@
   --sbb-logo-word-mark-color: var(--sbb-color-white);
 }
 
+.lang-en {
+  --_sbb-logo-anniversary-signet-left-offset: var(--sbb-logo-anniversary-signet-left-offset-en);
+}
+
+.lang-de {
+  --_sbb-logo-anniversary-signet-left-offset: var(--sbb-logo-anniversary-signet-left-offset-de);
+}
+
+.lang-fr {
+  --_sbb-logo-anniversary-signet-left-offset: var(--sbb-logo-anniversary-signet-left-offset-fr);
+}
+
+.lang-it {
+  --_sbb-logo-anniversary-signet-left-offset: var(--sbb-logo-anniversary-signet-left-offset-it);
+}
+
 // As the logo should stay with it natural size (without additional text) we position it absolute.
 svg {
   position: absolute;
@@ -49,10 +68,25 @@ svg {
   inset-inline-start: 0;
 }
 
+#sbb-logo-anniversary-letter-mask,
+#sbb-logo-anniversary__panel,
+#sbb-logo-anniversary__signet {
+  animation: move-to-origin var(--sbb-logo-anniversary-word-mark-duration)
+    var(--sbb-logo-anniversary-word-mark-delay) var(--sbb-logo-anniversary-word-mark-easing)
+    forwards;
+}
+
+#sbb-logo-anniversary-letter-mask {
+  translate: calc(
+      var(--_sbb-logo-anniversary-signet-left-offset) + var(--_sbb-logo-anniversary-signet-width)
+    )
+    0;
+}
+
 // Clips area left of the signet to hide animating texts
 #sbb-logo-anniversary__word-mark,
 #sbb-logo-anniversary__125 {
-  clip-path: url('#sbb-logo-letter-mask');
+  clip-path: url('#sbb-logo-anniversary-letter-mask');
 }
 
 #sbb-logo-anniversary__125 :is(path, rect) {
@@ -60,6 +94,16 @@ svg {
   animation: pull-out var(--sbb-logo-anniversary-125-pull-out-duration)
     var(--sbb-logo-anniversary-125-pull-out-delay) var(--sbb-logo-anniversary-125-pull-out-easing)
     forwards;
+
+  // The number is stable with all languages and is positioned with a gap of 15px after the panel
+  // We us px values here because it relates to the svg context
+  &:first-child {
+    translate: calc(
+        var(--_sbb-logo-anniversary-signet-left-offset) +
+          var(--_sbb-logo-anniversary-signet-width) + 15px
+      )
+      0;
+  }
 
   &:nth-child(2) {
     animation-delay: calc(
@@ -97,11 +141,7 @@ svg {
 
 #sbb-logo-anniversary__panel,
 #sbb-logo-anniversary__signet {
-  // We us px values here because it relates to the svg context
-  translate: 68px 0;
-  animation: move-to-origin var(--sbb-logo-anniversary-word-mark-duration)
-    var(--sbb-logo-anniversary-word-mark-delay) var(--sbb-logo-anniversary-word-mark-easing)
-    forwards;
+  translate: var(--_sbb-logo-anniversary-signet-left-offset) 0;
 }
 
 #sbb-logo-anniversary__panel {

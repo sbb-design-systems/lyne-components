@@ -11,6 +11,12 @@ $theme: 'standard' !default;
   --sbb-logo-anniversary-125-pull-out-easing: cubic-bezier(0.42, 0, 1, 1);
   --sbb-logo-anniversary-word-mark-easing: cubic-bezier(0, 0, 0.58, 1);
   --sbb-logo-anniversary-claim-easing: cubic-bezier(0.42, 0, 0.58, 1);
+
+  // We us px values for the following variables because it relates to the svg context
+  --sbb-logo-anniversary-signet-left-offset-en: 71.5px;
+  --sbb-logo-anniversary-signet-left-offset-de: 68px;
+  --sbb-logo-anniversary-signet-left-offset-fr: 114.4px;
+  --sbb-logo-anniversary-signet-left-offset-it: 100px;
 }
 
 @mixin forced-colors {

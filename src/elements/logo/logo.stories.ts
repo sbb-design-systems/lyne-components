@@ -13,8 +13,10 @@ import '../logo.ts';
 
 const Template = (args: Args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
 
-const TemplateAnniversary = (args: Args): TemplateResult =>
-  html`<sbb-logo-anniversary ${sbbSpread(args)}></sbb-logo-anniversary>`;
+const TemplateAnniversary = ({ lang, ...args }: Args): TemplateResult => {
+  document.documentElement.setAttribute('lang', lang);
+  return html`<sbb-logo-anniversary ${sbbSpread(args)}></sbb-logo-anniversary>`;
+};
 
 const negative: InputType = {
   control: {
@@ -42,6 +44,13 @@ const animation: InputType = {
   options: ['all', 'none'] satisfies SbbLogoAnniversaryElement['animation'][],
 };
 
+const lang: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['en', 'de', 'fr', 'it'],
+};
+
 const commonArgTypes = {
   negative,
   'accessibility-label': accessibilityLabel,
@@ -55,6 +64,7 @@ const logoArgTypes: ArgTypes = {
 const anniversaryArgTypes = {
   ...commonArgTypes,
   animation,
+  lang,
 };
 
 const commonArgs: Args = {
@@ -70,6 +80,7 @@ const logoArgs: Args = {
 const anniversaryArgs: Args = {
   ...commonArgs,
   animation: 'all',
+  lang: 'en',
 };
 
 export const NoProtectiveRoom: StoryObj = {
