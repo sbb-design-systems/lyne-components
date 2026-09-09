@@ -13,12 +13,19 @@
     --sbb-logo-word-mark-color: ButtonText !important;
   }
 
-  --sbb-logo-anniversary-animation-duration: var(--sbb-disable-animation-duration, 1s);
+  --sbb-logo-anniversary-bounce-delay: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-2x)
+  );
   --sbb-logo-anniversary-125-pull-out-delay: var(--sbb-disable-animation-duration, 3s);
-  --sbb-logo-anniversary-signet-delay: var(--sbb-disable-animation-duration, 4s);
-  --sbb-logo-anniversary-claim-delay: var(--sbb-disable-animation-duration, 6s);
-  --sbb-logo-anniversary-bounce-delay: var(--sbb-disable-animation-duration, 50ms);
-  --sbb-logo-anniversary-animation-easing: cubic-bezier(0.5, 0, 0.5, 1);
+  --sbb-logo-anniversary-125-pull-out-duration: var(--sbb-disable-animation-duration, 0.6s);
+  --sbb-logo-anniversary-125-pull-out-easing: cubic-bezier(0.42, 0, 1, 1);
+  --sbb-logo-anniversary-signet-delay: var(--sbb-disable-animation-duration, 3.6s);
+  --sbb-logo-anniversary-signet-duration: var(--sbb-disable-animation-duration, 0.6s);
+  --sbb-logo-anniversary-signet-easing: cubic-bezier(0, 0, 0.58, 1);
+  --sbb-logo-anniversary-claim-delay: var(--sbb-disable-animation-duration, 4.8s);
+  --sbb-logo-anniversary-claim-duration: var(--sbb-disable-animation-duration, 0.8s);
+  --sbb-logo-anniversary-claim-easing: cubic-bezier(0.42, 0, 0.58, 1);
 }
 
 :host([animation='none']) {
@@ -52,8 +59,8 @@ svg {
   fill: var(--sbb-logo-word-mark-color);
   translate: -100% 0;
   opacity: 0;
-  animation: pull-in var(--sbb-logo-anniversary-animation-duration)
-    var(--sbb-logo-anniversary-signet-delay) var(--sbb-logo-anniversary-animation-easing);
+  animation: pull-in var(--sbb-logo-anniversary-signet-duration)
+    var(--sbb-logo-anniversary-signet-delay) var(--sbb-logo-anniversary-signet-easing);
   animation-fill-mode: forwards;
 }
 
@@ -82,16 +89,17 @@ svg {
 #sbb-logo__signet {
   // We us px values here because it relates to the svg context
   translate: 68px 0;
-  animation: signet var(--sbb-logo-anniversary-animation-duration)
-    var(--sbb-logo-anniversary-signet-delay) var(--sbb-logo-anniversary-animation-easing);
+  animation: signet var(--sbb-logo-anniversary-signet-duration)
+    var(--sbb-logo-anniversary-signet-delay) var(--sbb-logo-anniversary-signet-easing);
   animation-fill-mode: forwards;
 }
 
 #sbb-logo-125-1,
 #sbb-logo-125-2,
 #sbb-logo-125-3 {
-  animation: pull-out var(--sbb-logo-anniversary-animation-duration)
-    var(--sbb-logo-anniversary-125-pull-out-delay) var(--sbb-logo-anniversary-animation-easing);
+  fill: var(--sbb-logo-word-mark-color);
+  animation: pull-out var(--sbb-logo-anniversary-125-pull-out-duration)
+    var(--sbb-logo-anniversary-125-pull-out-delay) var(--sbb-logo-anniversary-125-pull-out-easing);
   animation-fill-mode: forwards;
 }
 
@@ -108,9 +116,10 @@ svg {
 }
 
 #sbb-logo__claim {
+  fill: var(--sbb-logo-word-mark-color);
   opacity: 0;
-  animation: fade-in var(--sbb-logo-anniversary-animation-duration)
-    var(--sbb-logo-anniversary-claim-delay) var(--sbb-logo-anniversary-animation-easing);
+  animation: fade-in var(--sbb-logo-anniversary-claim-duration)
+    var(--sbb-logo-anniversary-claim-delay) var(--sbb-logo-anniversary-claim-easing);
   animation-fill-mode: forwards;
 }
 
