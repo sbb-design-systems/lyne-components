@@ -1,6 +1,6 @@
 The logo components from Lyne are used as a wrapper for the SBB logos, and they ensure the correct aspect ratio and protective room.
 
-To use the component, please define the desired height or width on `<sbb-logo>`.
+To use the component, please define the desired height or width on the components.
 
 ```css
 sbb-cargo-international,
@@ -29,7 +29,7 @@ All the components have a negative variant which can be set using the `negative`
 <sbb-logo negative></sbb-logo>
 ```
 
-The aspect ratio of the logo can be changed using the `protectiveRoom` property.
+The aspect ratio of the logos can be changed using the `protectiveRoom` property.
 Possible values are `ideal` (default), `minimal` and `none`.
 
 ```html
