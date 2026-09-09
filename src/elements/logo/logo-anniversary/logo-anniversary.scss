@@ -13,11 +13,16 @@
     --sbb-logo-word-mark-color: ButtonText !important;
   }
 
-  --sbb-logo-anniversary-125-pull-out-delay: 3s;
-  --sbb-logo-anniversary-signet-delay: 4s;
-  --sbb-logo-anniversary-claim-delay: 6s;
-  --sbb-logo-anniversary-animation-duration: 1s;
+  --sbb-logo-anniversary-animation-duration: var(--sbb-disable-animation-duration, 1s);
+  --sbb-logo-anniversary-125-pull-out-delay: var(--sbb-disable-animation-duration, 3s);
+  --sbb-logo-anniversary-signet-delay: var(--sbb-disable-animation-duration, 4s);
+  --sbb-logo-anniversary-claim-delay: var(--sbb-disable-animation-duration, 6s);
+  --sbb-logo-anniversary-bounce-delay: var(--sbb-disable-animation-duration, 50ms);
   --sbb-logo-anniversary-animation-easing: cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+:host([animation='none']) {
+  @include sbb.disable-animation;
 }
 
 :host([negative]) {
@@ -63,11 +68,15 @@ svg {
 }
 
 #sbb-logo__word-mark-2 {
-  animation-delay: calc(var(--sbb-logo-anniversary-signet-delay) + 50ms);
+  animation-delay: calc(
+    var(--sbb-logo-anniversary-signet-delay) + var(--sbb-logo-anniversary-bounce-delay)
+  );
 }
 
 #sbb-logo__word-mark-1 {
-  animation-delay: calc(var(--sbb-logo-anniversary-signet-delay) + 2 * 50ms);
+  animation-delay: calc(
+    var(--sbb-logo-anniversary-signet-delay) + 2 * var(--sbb-logo-anniversary-bounce-delay)
+  );
 }
 
 #sbb-logo__panel {
@@ -97,11 +106,15 @@ svg {
 }
 
 #sbb-logo-125-2 {
-  animation-delay: calc(var(--sbb-logo-anniversary-125-pull-out-delay) + 50ms);
+  animation-delay: calc(
+    var(--sbb-logo-anniversary-125-pull-out-delay) + var(--sbb-logo-anniversary-bounce-delay)
+  );
 }
 
 #sbb-logo-125-3 {
-  animation-delay: calc(var(--sbb-logo-anniversary-125-pull-out-delay) + 2 * 50ms);
+  animation-delay: calc(
+    var(--sbb-logo-anniversary-125-pull-out-delay) + 2 * var(--sbb-logo-anniversary-bounce-delay)
+  );
 }
 
 #sbb-logo__claim {

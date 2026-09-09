@@ -12,7 +12,7 @@ import '../logo.ts';
 const Template = (args: Args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
 
 const TemplateAnniversary = (args: Args): TemplateResult =>
-  html`<sbb-logo-anniversary ${sbbSpread(args)}></sbb-logo-anniversary>`;
+  html`<sbb-logo-anniversary ${sbbSpread(args)} animation="none"></sbb-logo-anniversary>`;
 
 const negative: InputType = {
   control: {

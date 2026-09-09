@@ -23,6 +23,9 @@ export class SbbLogoAnniversaryElement extends SbbNegativeMixin(SbbElement) {
   @property({ attribute: 'accessibility-label' })
   public accessor accessibilityLabel: string = 'Logo';
 
+  /** The enabled animations. */
+  @property({ reflect: true }) public accessor animation: 'all' | 'none' = 'all';
+
   protected override render(): TemplateResult {
     return html`
       <span class="sbb-logo__svg-container">
