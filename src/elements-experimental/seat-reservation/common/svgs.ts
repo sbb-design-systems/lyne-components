@@ -18,6 +18,18 @@ import interiorPlaceSeatNotBookable from './svgs/interior-place-seat-not-bookabl
 import interiorPlaceSeatSelected from './svgs/interior-place-seat-selected.svg?raw';
 import interiorPlaceSeatUnavailable from './svgs/interior-place-seat-unavailable.svg?raw';
 import layoutEntrance from './svgs/layout-entrance.svg?raw';
+import partitionWallLeftLong from './svgs/partition-wall-left-long.svg?raw';
+import partitionWallLeftMedium from './svgs/partition-wall-left-medium.svg?raw';
+import partitionWallLeftShort from './svgs/partition-wall-left-short.svg?raw';
+import partitionWallLong from './svgs/partition-wall-long.svg?raw';
+import partitionWallMedium from './svgs/partition-wall-medium.svg?raw';
+import partitionWallRightLong from './svgs/partition-wall-right-long.svg?raw';
+import partitionWallRightMedium from './svgs/partition-wall-right-medium.svg?raw';
+import partitionWallRightShort from './svgs/partition-wall-right-short.svg?raw';
+import partitionWallShort from './svgs/partition-wall-short.svg?raw';
+import partitionWallTLong from './svgs/partition-wall-t-long.svg?raw';
+import partitionWallTMedium from './svgs/partition-wall-t-medium.svg?raw';
+import partitionWallTShort from './svgs/partition-wall-t-short.svg?raw';
 
 const svgs = {
   chassisDriverBus,
@@ -40,6 +52,18 @@ const svgs = {
   interiorPlaceSeatSelected,
   interiorPlaceSeatUnavailable,
   layoutEntrance,
+  partitionWallLeftLong,
+  partitionWallLeftMedium,
+  partitionWallLeftShort,
+  partitionWallLong,
+  partitionWallMedium,
+  partitionWallRightLong,
+  partitionWallRightMedium,
+  partitionWallRightShort,
+  partitionWallShort,
+  partitionWallTLong,
+  partitionWallTMedium,
+  partitionWallTShort,
 };
 
 export { svgs };
