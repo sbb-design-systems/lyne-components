@@ -4,15 +4,17 @@ import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../docs/helpers/spread.ts';
+import type { SbbLogoAnniversaryElement } from '../logo.pure.ts';
 
 import type { SbbLogoElement } from './logo.component.ts';
 import readme from './readme.md?raw';
+
 import '../logo.ts';
 
 const Template = (args: Args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
 
 const TemplateAnniversary = (args: Args): TemplateResult =>
-  html`<sbb-logo-anniversary ${sbbSpread(args)} animation="none"></sbb-logo-anniversary>`;
+  html`<sbb-logo-anniversary ${sbbSpread(args)}></sbb-logo-anniversary>`;
 
 const negative: InputType = {
   control: {
@@ -33,50 +35,81 @@ const accessibilityLabel: InputType = {
   },
 };
 
-const defaultArgTypes: ArgTypes = {
+const animation: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['all', 'none'] satisfies SbbLogoAnniversaryElement['animation'][],
+};
+
+const commonArgTypes = {
   negative,
-  'protective-room': protectiveRoom,
   'accessibility-label': accessibilityLabel,
 };
 
-const defaultArgs: Args = {
+const logoArgTypes: ArgTypes = {
+  ...commonArgTypes,
+  'protective-room': protectiveRoom,
+};
+
+const anniversaryArgTypes = {
+  ...commonArgTypes,
+  animation,
+};
+
+const commonArgs: Args = {
   negative: false,
-  'protective-room': protectiveRoom.options![0],
   'accessibility-label': undefined,
+};
+
+const logoArgs: Args = {
+  ...commonArgs,
+  'protective-room': protectiveRoom.options![0],
+};
+
+const anniversaryArgs: Args = {
+  ...commonArgs,
+  animation: 'all',
 };
 
 export const NoProtectiveRoom: StoryObj = {
   render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  argTypes: logoArgTypes,
+  args: { ...logoArgs },
 };
 
 export const MinimalProtectiveRoom: StoryObj = {
   render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'protective-room': protectiveRoom.options![1] },
+  argTypes: logoArgTypes,
+  args: { ...logoArgs, 'protective-room': protectiveRoom.options![1] },
 };
 
 export const IdealProtectiveRoom: StoryObj = {
   render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'protective-room': protectiveRoom.options![2] },
+  argTypes: logoArgTypes,
+  args: { ...logoArgs, 'protective-room': protectiveRoom.options![2] },
 };
 
 export const Negative: StoryObj = {
   render: Template,
-  argTypes: defaultArgTypes,
+  argTypes: logoArgTypes,
   args: {
-    ...defaultArgs,
+    ...logoArgs,
     negative: true,
     'protective-room': protectiveRoom.options![2],
   },
 };
 
-export const LogoAnniversary: StoryObj = {
+export const Anniversary: StoryObj = {
   render: TemplateAnniversary,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  argTypes: anniversaryArgTypes,
+  args: { ...anniversaryArgs },
+};
+
+export const AnniversaryNegative: StoryObj = {
+  render: TemplateAnniversary,
+  argTypes: anniversaryArgTypes,
+  args: { ...anniversaryArgs, negative: true },
 };
 
 const meta: Meta = {

@@ -14,10 +14,6 @@ export class SbbLogoAnniversaryElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-logo-anniversary';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
-  /** Visual protective room around logo. */
-  @property({ attribute: 'protective-room', reflect: true })
-  public accessor protectiveRoom: 'none' | 'minimal' | 'ideal' = 'ideal';
-
   /** Accessibility label which will be forwarded to the SVG logo. */
   @forceType()
   @property({ attribute: 'accessibility-label' })

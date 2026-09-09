@@ -29,23 +29,13 @@
   --sbb-logo-word-mark-color: var(--sbb-color-white);
 }
 
-:host([protective-room='minimal']) {
-  --sbb-logo-aspect-ratio: 502 / 96;
-  --sbb-logo-svg-container-height: 50%; // 48/96 Adapted from Figma
-}
-
-:host([protective-room='ideal']) {
-  --sbb-logo-aspect-ratio: 550 / 144;
-  --sbb-logo-svg-container-height: calc(48 / 144 * 100%);
-}
-
 .sbb-logo__svg-container {
   display: flex;
   height: var(--sbb-logo-svg-container-height, 100%);
   width: 100%;
 }
 
-// As the logo should stay with it natuarl size (without additional text) we position it absolute.
+// As the logo should stay with it natural size (without additional text) we position it absolute.
 svg {
   position: absolute;
 }
