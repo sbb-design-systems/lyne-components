@@ -21,7 +21,7 @@ const TableTemplate = (): TemplateResult => html`
           <sbb-pearl-chain-node
             arrival="2026-07-21T11:58:00"
             departure="2026-07-21T12:00:00"
-            type="start"
+            type="stop"
           ></sbb-pearl-chain-node>
         </td>
         <td>Olten</td>
@@ -48,25 +48,25 @@ const FlexTemplate = (): TemplateResult => html`
       <sbb-pearl-chain-node type="start"></sbb-pearl-chain-node>
       <span style="flex: 1;"></span>
       <!-- Disrupted -->
-      <sbb-pearl-chain-node type="start" disrupted="departure"></sbb-pearl-chain-node>
+      <sbb-pearl-chain-node type="stop" disrupted="departure"></sbb-pearl-chain-node>
       <span style="flex: 1;"></span>
       <!-- Irrelevant -->
       <sbb-pearl-chain-node
-        type="start"
+        type="stop"
         disrupted="arrival"
         irrelevant="departure"
       ></sbb-pearl-chain-node>
       <span style="flex: 1;"></span>
       <!-- Walk -->
       <sbb-pearl-chain-node
-        type="start"
+        type="stop"
         irrelevant="arrival"
         walk="departure"
       ></sbb-pearl-chain-node>
       <span style="flex: 1;"></span>
       <!-- Past -->
       <sbb-pearl-chain-node
-        type="start"
+        type="stop"
         walk="arrival"
         departure="2026-07-21T11:00:00"
       ></sbb-pearl-chain-node>
@@ -76,7 +76,7 @@ const FlexTemplate = (): TemplateResult => html`
         arrival="2026-07-21T11:30:00"
         disrupted="departure"
         irrelevant="departure"
-        type="start"
+        type="stop"
       ></sbb-pearl-chain-node>
       <span style="flex: 1;"></span>
       <sbb-pearl-chain-node
@@ -105,7 +105,7 @@ const ProgressTemplate = (): TemplateResult => html`
       <sbb-pearl-chain-node
         arrival="2026-07-21T11:58:00"
         departure="2026-07-21T12:00:00"
-        type="start"
+        type="stop"
       ></sbb-pearl-chain-node>
       <span style="flex: 1;"></span>
       <sbb-pearl-chain-node type="end" arrival="2026-07-21T12:30:00"></sbb-pearl-chain-node>
