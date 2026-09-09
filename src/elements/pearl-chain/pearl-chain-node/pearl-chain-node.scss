@@ -30,7 +30,14 @@
 
   &--irrelevant {
     --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-irrelevant-color);
+    --sbb-pearl-chain-bullet-stroke-width: var(--sbb-pearl-chain-irrelevant-border-width);
 
     // thinner stroke
+  }
+
+  &--stop circle {
+    fill: var(--sbb-pearl-chain-bullet-fill-color);
+    r: calc(50% - var(--sbb-pearl-chain-bullet-stroke-width) / 2);
+    stroke-width: var(--sbb-pearl-chain-bullet-stroke-width);
   }
 }

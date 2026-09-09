@@ -17,6 +17,8 @@ $theme: 'standard' !default;
   --sbb-pearl-chain-bullet-start-end-size: 0.625em;
   --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-color);
   --sbb-pearl-chain-bullet-past-color: var(--sbb-pearl-chain-past-color);
+  --sbb-pearl-chain-bullet-fill-color: var(--sbb-color-1-inverted);
   --sbb-pearl-chain-bullet-irrelevant-color: var(--sbb-pearl-chain-irrelevant-color);
   --sbb-pearl-chain-bullet-disruption-color: var(--sbb-color-error);
+  --sbb-pearl-chain-bullet-stroke-width: var(--sbb-pearl-chain-border-width);
 }

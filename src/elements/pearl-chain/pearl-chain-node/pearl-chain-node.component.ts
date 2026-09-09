@@ -131,6 +131,14 @@ export class SbbPearlChainNodeElement extends SbbElement {
         return svg`
           <circle cx="50%" cy="50%" r="50%" fill="currentcolor" />
         `;
+      case 'stop':
+        return svg`
+          <circle
+            cx="50%"
+            cy="50%"
+            stroke="currentcolor"
+          />
+        `;
       default:
         // ponytail: other types deferred until Figma designs are confirmed.
         return nothing;
