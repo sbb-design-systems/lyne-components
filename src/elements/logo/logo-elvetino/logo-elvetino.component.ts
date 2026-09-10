@@ -1,7 +1,6 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
-import { property } from 'lit/decorators.js';
 
-import { forceType, SbbElement } from '../../core.ts';
+import { SbbElement } from '../../core.ts';
 import { SbbLogoCommonElementMixin } from '../common/logo-common.ts';
 
 import style from './logo-elvetino.scss?inline';
@@ -15,10 +14,13 @@ export class SbbLogoElvetinoElement extends SbbLogoCommonElementMixin(SbbElement
   public static override readonly elementName: string = 'sbb-logo-elvetino';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
-  /** Accessibility label which will be forwarded to the SVG logo. */
-  @forceType()
-  @property({ attribute: 'accessibility-label' })
-  public override accessor accessibilityLabel: string = 'Elvetino Logo';
+  public constructor() {
+    super();
+    /**
+     * @default 'Elvetino Logo'
+     */
+    this.accessibilityLabel ||= 'Elvetino Logo';
+  }
 
   protected override render(): TemplateResult {
     return html`
