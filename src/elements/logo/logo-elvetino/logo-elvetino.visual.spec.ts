@@ -4,7 +4,7 @@ import { describeEach, describeViewports, visualDiffDefault } from '../../core/t
 
 import '../../logo.ts';
 
-describe(`sbb-elvetino`, () => {
+describe(`sbb-logo-elvetino`, () => {
   const cases = {
     negative: [false, true],
     protectiveRoom: ['none', 'minimal', 'ideal'],
@@ -23,10 +23,10 @@ describe(`sbb-elvetino`, () => {
           ``,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
-              html`<sbb-elvetino
+              html`<sbb-logo-elvetino
                 ?negative=${negative}
                 protective-room=${protectiveRoom}
-              ></sbb-elvetino>`,
+              ></sbb-logo-elvetino>`,
               {
                 backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
                 padding: '0',
@@ -46,7 +46,10 @@ describe(`sbb-elvetino`, () => {
       'custom width',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<sbb-elvetino protective-room="none" style="width: 1000px;"></sbb-elvetino>`,
+          html`<sbb-logo-elvetino
+            protective-room="none"
+            style="width: 1000px;"
+          ></sbb-logo-elvetino>`,
           { padding: '0px' },
         );
       }),

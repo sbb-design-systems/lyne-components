@@ -1,19 +1,19 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  aspect-ratio: var(--sbb-elvetino-aspect-ratio);
+  aspect-ratio: var(--sbb-logo-elvetino-aspect-ratio);
 }
 
 :host([protective-room='minimal']) {
-  --sbb-elvetino-aspect-ratio: 185 / 96;
+  --sbb-logo-elvetino-aspect-ratio: 185 / 96;
   --sbb-logo-svg-container-height: 50%;
 }
 
 :host([protective-room='ideal']) {
-  --sbb-elvetino-aspect-ratio: 233 / 144;
+  --sbb-logo-elvetino-aspect-ratio: 233 / 144;
   --sbb-logo-svg-container-height: calc(48 / 144 * 100%);
 }
 
 #sbb-logo-elvetino__word-mark {
-  fill: var(--sbb-elvetino-color);
+  fill: var(--sbb-logo-elvetino-color);
 }

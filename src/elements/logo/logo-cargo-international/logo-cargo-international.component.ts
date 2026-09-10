@@ -4,15 +4,15 @@ import { property } from 'lit/decorators.js';
 import { forceType, SbbElement } from '../../core.ts';
 import { SbbLogoCommonElementMixin } from '../common/logo-common.ts';
 
-import style from './cargo-international.scss?inline';
+import style from './logo-cargo-international.scss?inline';
 
 /**
  * It displays the SBB Cargo International logo.
  *
  * @cssprop [--sbb-logo-height=auto] - Can be used to set the height of the logo.
  */
-export class SbbCargoInternationalElement extends SbbLogoCommonElementMixin(SbbElement) {
-  public static override readonly elementName: string = 'sbb-cargo-international';
+export class SbbLogoCargoInternationalElement extends SbbLogoCommonElementMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-logo-cargo-international';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Accessibility label which will be forwarded to the SVG logo. */
@@ -43,6 +43,6 @@ export class SbbCargoInternationalElement extends SbbLogoCommonElementMixin(SbbE
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-cargo-international': SbbCargoInternationalElement;
+    'sbb-logo-cargo-international': SbbLogoCargoInternationalElement;
   }
 }

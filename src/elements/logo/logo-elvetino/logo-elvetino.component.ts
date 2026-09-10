@@ -4,15 +4,15 @@ import { property } from 'lit/decorators.js';
 import { forceType, SbbElement } from '../../core.ts';
 import { SbbLogoCommonElementMixin } from '../common/logo-common.ts';
 
-import style from './elvetino.scss?inline';
+import style from './logo-elvetino.scss?inline';
 
 /**
  * It displays the SBB Elvetino logo.
  *
  * @cssprop [--sbb-logo-height=auto] - Can be used to set the height of the logo.
  */
-export class SbbElvetinoElement extends SbbLogoCommonElementMixin(SbbElement) {
-  public static override readonly elementName: string = 'sbb-elvetino';
+export class SbbLogoElvetinoElement extends SbbLogoCommonElementMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-logo-elvetino';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Accessibility label which will be forwarded to the SVG logo. */
@@ -42,6 +42,6 @@ export class SbbElvetinoElement extends SbbLogoCommonElementMixin(SbbElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-elvetino': SbbElvetinoElement;
+    'sbb-logo-elvetino': SbbLogoElvetinoElement;
   }
 }

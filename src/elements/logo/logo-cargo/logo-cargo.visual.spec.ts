@@ -4,7 +4,7 @@ import { describeEach, describeViewports, visualDiffDefault } from '../../core/t
 
 import '../../logo.ts';
 
-describe(`sbb-cargo`, () => {
+describe(`sbb-logo-cargo`, () => {
   const cases = {
     negative: [false, true],
     protectiveRoom: ['none', 'minimal', 'ideal'],
@@ -23,7 +23,10 @@ describe(`sbb-cargo`, () => {
           ``,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
-              html`<sbb-cargo ?negative=${negative} protective-room=${protectiveRoom}></sbb-cargo>`,
+              html`<sbb-logo-cargo
+                ?negative=${negative}
+                protective-room=${protectiveRoom}
+              ></sbb-logo-cargo>`,
               {
                 backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
                 padding: '0',
@@ -43,7 +46,7 @@ describe(`sbb-cargo`, () => {
       'custom width',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<sbb-cargo protective-room="none" style="width: 1000px;"></sbb-cargo>`,
+          html`<sbb-logo-cargo protective-room="none" style="width: 1000px;"></sbb-logo-cargo>`,
           { padding: '0px' },
         );
       }),
