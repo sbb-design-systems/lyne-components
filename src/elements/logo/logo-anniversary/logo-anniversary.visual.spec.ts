@@ -62,7 +62,7 @@ describe(`sbb-logo-anniversary`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`<sbb-logo protective-room="none" style="width: 1000px;"></sbb-logo>`,
-          { padding: '0px' },
+          { padding: '0px', minHeight: '180px' },
         );
       }),
     );
