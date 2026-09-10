@@ -68,8 +68,7 @@
 // As the logo should stay with it natural size (without additional text) we position it absolute.
 svg {
   position: absolute;
-  inset-block-start: 0;
-  inset-inline-start: 0;
+  inset: 0 auto auto 0;
 }
 
 #sbb-logo-anniversary-letter-mask,
@@ -93,28 +92,38 @@ svg {
   clip-path: url('#sbb-logo-anniversary-letter-mask');
 }
 
-#sbb-logo-anniversary__125-years :is(path, rect) {
+#sbb-logo-anniversary__125-years :is(text, rect) {
+  // Variable is set here as it is depending on language variable
+  --_sbb-logo-anniversary-signet-end-offset: calc(
+    var(--_sbb-logo-anniversary-signet-left-offset) + var(--_sbb-logo-anniversary-signet-width) +
+      11px
+  );
+
+  // We us px values here because it relates to the svg context
+  font-size: 47px;
+  letter-spacing: 0.0078em;
+  font-weight: bold;
   fill: var(--sbb-logo-word-mark-color);
   animation: pull-out var(--sbb-logo-anniversary-125-pull-out-duration)
     var(--sbb-logo-anniversary-125-pull-out-delay) var(--sbb-logo-anniversary-125-pull-out-easing)
     forwards;
 
-  // The number is stable with all languages and is positioned with a gap of 15px after the panel
-  // We us px values here because it relates to the svg context
+  // `125`
   &:first-child {
-    translate: calc(
-        var(--_sbb-logo-anniversary-signet-left-offset) +
-          var(--_sbb-logo-anniversary-signet-width) + 15px
-      )
-      0;
+    // Start offset of `125`
+    translate: var(--_sbb-logo-anniversary-signet-end-offset) 0;
   }
 
+  // `years`
   &:nth-child(2) {
+    // Start offset of `years` (`125` has a width of 93px)
+    translate: calc(var(--_sbb-logo-anniversary-signet-end-offset) + 93px) 0;
     animation-delay: calc(
       var(--sbb-logo-anniversary-125-pull-out-delay) + var(--sbb-logo-anniversary-bounce-delay)
     );
   }
 
+  // `.` (absolute positioned)
   &:nth-child(3) {
     animation-delay: calc(
       var(--sbb-logo-anniversary-125-pull-out-delay) + 2 * var(--sbb-logo-anniversary-bounce-delay)
@@ -180,6 +189,9 @@ svg {
 
   100% {
     translate: -100% 0;
+
+    // Remove artifacts near the logo border
+    display: none;
   }
 }
 

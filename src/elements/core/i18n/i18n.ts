@@ -911,3 +911,10 @@ export const i18nLogo125Anniversary: Record<string, string> = {
   fr: '125 ans à tisser des liens qui font la Suisse.',
   it: 'Da 125 anni uniamo la Svizzera.',
 };
+
+export const i18nLogo125AnniversaryYears: Record<string, string> = {
+  de: 'Jahre',
+  en: 'years',
+  fr: 'ans',
+  it: 'anni',
+};
