@@ -36,6 +36,9 @@ a wrapping `<div>` with the desired dimensions and padding can be created instea
 
 For accessibility reasons, the text is set as the title of the image, which is read out by screen readers.
 
+In order to correctly render the logo, the SBB font must be loaded and the global variables
+of the logo must be included. When using a Lyne theme, this is automatically taken care of.
+
 ### Animation
 
 The animation is triggered when the element is attached to the DOM. The initial delay is set to
