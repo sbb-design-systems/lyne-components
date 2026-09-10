@@ -37,10 +37,6 @@
   --sbb-logo-anniversary-claim-duration: var(--sbb-disable-animation-duration, 0.8s);
 }
 
-:host([animation='none']) {
-  @include sbb.disable-animation;
-}
-
 :host([negative]) {
   --sbb-logo-word-mark-color: var(--sbb-color-white);
 }

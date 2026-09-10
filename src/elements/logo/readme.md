@@ -42,8 +42,8 @@ The animation is triggered when the element is attached to the DOM. The initial 
 3 seconds but can be configured via the `--sbb-logo-anniversary-initial-delay` CSS variable.
 
 To prevent the animation from being triggered again on subsequent renders, consumers need to decide
-when the animation is needed, or set the `animation` property to `none` to display the end state
-immediately.
+when the animation is needed, or set the `sbb-disable-animation` class on the `<sbb-logo-anniversary>`
+to display the end state immediately.
 
 ```html
 <sbb-logo-anniversary></sbb-logo-anniversary>

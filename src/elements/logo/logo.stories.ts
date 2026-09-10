@@ -5,7 +5,6 @@ import type { InputType } from 'storybook/internal/types';
 import { useEffect, useRef } from 'storybook/preview-api';
 
 import { sbbSpread } from '../../docs/helpers/spread.ts';
-import type { SbbLogoAnniversaryElement } from '../logo.pure.ts';
 
 import type { SbbLogoElement } from './logo.component.ts';
 import readme from './readme.md?raw';
@@ -40,10 +39,13 @@ const useDocumentLanguage = (language: string): void => {
   );
 };
 
-const TemplateAnniversary = ({ language, ...args }: Args): TemplateResult => {
+const TemplateAnniversary = ({ language, disableAnimation, ...args }: Args): TemplateResult => {
   useDocumentLanguage(language);
 
-  return html`<sbb-logo-anniversary ${sbbSpread(args)}></sbb-logo-anniversary>`;
+  return html`<sbb-logo-anniversary
+    ${sbbSpread(args)}
+    class=${disableAnimation ? 'sbb-disable-animation' : ''}
+  ></sbb-logo-anniversary>`;
 };
 
 const LoremIpsumTemplate = (): TemplateResult => html`
@@ -55,7 +57,11 @@ const LoremIpsumTemplate = (): TemplateResult => html`
   <br />
 `;
 
-const TemplateAnniversaryInHeader = ({ language, ...args }: Args): TemplateResult => {
+const TemplateAnniversaryInHeader = ({
+  language,
+  disableAnimation,
+  ...args
+}: Args): TemplateResult => {
   useDocumentLanguage(language);
 
   return html`
@@ -90,7 +96,10 @@ const TemplateAnniversaryInHeader = ({ language, ...args }: Args): TemplateResul
       </sbb-menu>
       <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
       <a aria-label="Homepage" href="/" class="sbb-header-logo">
-        <sbb-logo-anniversary ${sbbSpread(args)}></sbb-logo-anniversary>
+        <sbb-logo-anniversary
+          ${sbbSpread(args)}
+          class=${disableAnimation ? 'sbb-disable-animation' : ''}
+        ></sbb-logo-anniversary>
       </a>
     </sbb-header>
     <sbb-container color="milk">${new Array(4).fill(null).map(LoremIpsumTemplate)}</sbb-container>
@@ -116,11 +125,10 @@ const accessibilityLabel: InputType = {
   },
 };
 
-const animation: InputType = {
+const disableAnimation: InputType = {
   control: {
-    type: 'inline-radio',
+    type: 'boolean',
   },
-  options: ['all', 'none'] satisfies SbbLogoAnniversaryElement['animation'][],
 };
 
 const language: InputType = {
@@ -143,7 +151,7 @@ const logoArgTypes: ArgTypes = {
 const anniversaryArgTypes = {
   language,
   ...commonArgTypes,
-  animation,
+  disableAnimation,
 };
 
 const commonArgs: Args = {
@@ -159,7 +167,7 @@ const logoArgs: Args = {
 const anniversaryArgs: Args = {
   language: 'en',
   ...commonArgs,
-  animation: 'all',
+  disableAnimation: false,
 };
 
 export const NoProtectiveRoom: StoryObj = {
