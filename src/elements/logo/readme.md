@@ -57,11 +57,10 @@ to display the end state immediately.
 
 #### Properties
 
-| Name                 | Attribute             | Privacy | Type              | Default | Description                                                  |
-| -------------------- | --------------------- | ------- | ----------------- | ------- | ------------------------------------------------------------ |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`          | `''`    | Accessibility label which will be forwarded to the SVG logo. |
-| `animation`          | `animation`           | public  | `'all' \| 'none'` | `'all'` | The enabled animations.                                      |
-| `negative`           | `negative`            | public  | `boolean`         | `false` | Negative coloring variant flag.                              |
+| Name                 | Attribute             | Privacy | Type      | Default | Description                                                  |
+| -------------------- | --------------------- | ------- | --------- | ------- | ------------------------------------------------------------ |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`  | `''`    | Accessibility label which will be forwarded to the SVG logo. |
+| `negative`           | `negative`            | public  | `boolean` | `false` | Negative coloring variant flag.                              |
 
 #### CSS Properties
 
