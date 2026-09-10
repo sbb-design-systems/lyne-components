@@ -2,6 +2,7 @@ import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/we
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
+import { useEffect, useRef } from 'storybook/preview-api';
 
 import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbLogoAnniversaryElement } from '../logo.pure.ts';
@@ -13,8 +14,28 @@ import '../logo.ts';
 
 const Template = (args: Args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
 
-const TemplateAnniversary = ({ lang, ...args }: Args): TemplateResult => {
-  document.documentElement.setAttribute('lang', lang);
+const TemplateAnniversary = ({ language, ...args }: Args): TemplateResult => {
+  // Store the original document language once per mount, and restore it when the story
+  // unmounts (e.g. when the user navigates to another story). The attribute itself is set
+  // synchronously during render (not in an effect) so there is no visible delay/flicker
+  // when Storybook re-applies the previously selected `lang` arg on remount.
+  const originalLang = useRef<string | null>(null);
+  if (originalLang.current === null) {
+    originalLang.current = document.documentElement.getAttribute('lang');
+  }
+  document.documentElement.setAttribute('lang', language);
+
+  // Reset the language when user chooses another story
+  useEffect(() => {
+    return () => {
+      if (originalLang.current !== null) {
+        document.documentElement.setAttribute('lang', originalLang.current);
+      } else {
+        document.documentElement.removeAttribute('lang');
+      }
+    };
+  }, []);
+
   return html`<sbb-logo-anniversary ${sbbSpread(args)}></sbb-logo-anniversary>`;
 };
 
@@ -44,7 +65,7 @@ const animation: InputType = {
   options: ['all', 'none'] satisfies SbbLogoAnniversaryElement['animation'][],
 };
 
-const lang: InputType = {
+const language: InputType = {
   control: {
     type: 'inline-radio',
   },
@@ -62,9 +83,9 @@ const logoArgTypes: ArgTypes = {
 };
 
 const anniversaryArgTypes = {
+  language,
   ...commonArgTypes,
   animation,
-  lang,
 };
 
 const commonArgs: Args = {
@@ -78,9 +99,9 @@ const logoArgs: Args = {
 };
 
 const anniversaryArgs: Args = {
+  language: 'en',
   ...commonArgs,
   animation: 'all',
-  lang: 'en',
 };
 
 export const NoProtectiveRoom: StoryObj = {
