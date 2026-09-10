@@ -85,11 +85,11 @@ svg {
 
 // Clips area left of the signet to hide animating texts
 #sbb-logo-anniversary__word-mark,
-#sbb-logo-anniversary__125 {
+#sbb-logo-anniversary__125-years {
   clip-path: url('#sbb-logo-anniversary-letter-mask');
 }
 
-#sbb-logo-anniversary__125 :is(path, rect) {
+#sbb-logo-anniversary__125-years :is(path, rect) {
   fill: var(--sbb-logo-word-mark-color);
   animation: pull-out var(--sbb-logo-anniversary-125-pull-out-duration)
     var(--sbb-logo-anniversary-125-pull-out-delay) var(--sbb-logo-anniversary-125-pull-out-easing)
