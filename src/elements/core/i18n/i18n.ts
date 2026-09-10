@@ -906,8 +906,8 @@ export const i18nRemainingCharacters: Record<string, string> = {
 };
 
 export const i18nLogo125Anniversary: Record<string, string> = {
-  de: 'Logo, wir verbinden die Schweiz seit 125 Jahren.',
-  en: 'Logo, connecting Switzerland for 125 years.',
-  fr: 'Logo, 125 ans à tisser des liens qui font la Suisse.',
-  it: 'Logo, da 125 anni uniamo la Svizzera.',
+  de: 'Wir verbinden die Schweiz seit 125 Jahren.',
+  en: 'Connecting Switzerland for 125 years.',
+  fr: '125 ans à tisser des liens qui font la Suisse.',
+  it: 'Da 125 anni uniamo la Svizzera.',
 };

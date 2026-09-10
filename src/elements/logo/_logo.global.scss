@@ -17,6 +17,14 @@ $theme: 'standard' !default;
   --sbb-logo-anniversary-signet-left-offset-de: 68px;
   --sbb-logo-anniversary-signet-left-offset-fr: 114.4px;
   --sbb-logo-anniversary-signet-left-offset-it: 100px;
+  --sbb-logo-anniversary-claim-top-offset-en: 87px;
+  --sbb-logo-anniversary-claim-top-offset-de: 85px;
+  --sbb-logo-anniversary-claim-top-offset-fr: 84px;
+  --sbb-logo-anniversary-claim-top-offset-it: 90px;
+  --sbb-logo-anniversary-claim-font-size-en: 25.21px;
+  --sbb-logo-anniversary-claim-font-size-de: 22.31px;
+  --sbb-logo-anniversary-claim-font-size-fr: 21.89px;
+  --sbb-logo-anniversary-claim-font-size-it: 30.15px;
 }
 
 @mixin forced-colors {

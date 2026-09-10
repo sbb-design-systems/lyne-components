@@ -43,18 +43,26 @@
 
 .lang-en {
   --_sbb-logo-anniversary-signet-left-offset: var(--sbb-logo-anniversary-signet-left-offset-en);
+  --_sbb-logo-anniversary-claim-top-offset: var(--sbb-logo-anniversary-claim-top-offset-en);
+  --_sbb-logo-anniversary-claim-font-size: var(--sbb-logo-anniversary-claim-font-size-en);
 }
 
 .lang-de {
   --_sbb-logo-anniversary-signet-left-offset: var(--sbb-logo-anniversary-signet-left-offset-de);
+  --_sbb-logo-anniversary-claim-top-offset: var(--sbb-logo-anniversary-claim-top-offset-de);
+  --_sbb-logo-anniversary-claim-font-size: var(--sbb-logo-anniversary-claim-font-size-de);
 }
 
 .lang-fr {
   --_sbb-logo-anniversary-signet-left-offset: var(--sbb-logo-anniversary-signet-left-offset-fr);
+  --_sbb-logo-anniversary-claim-top-offset: var(--sbb-logo-anniversary-claim-top-offset-fr);
+  --_sbb-logo-anniversary-claim-font-size: var(--sbb-logo-anniversary-claim-font-size-fr);
 }
 
 .lang-it {
   --_sbb-logo-anniversary-signet-left-offset: var(--sbb-logo-anniversary-signet-left-offset-it);
+  --_sbb-logo-anniversary-claim-top-offset: var(--sbb-logo-anniversary-claim-top-offset-it);
+  --_sbb-logo-anniversary-claim-font-size: var(--sbb-logo-anniversary-claim-font-size-it);
 }
 
 // As the logo should stay with it natural size (without additional text) we position it absolute.
@@ -150,6 +158,9 @@ svg {
 }
 
 #sbb-logo-anniversary__claim {
+  translate: 0 var(--_sbb-logo-anniversary-claim-top-offset);
+  font-size: var(--_sbb-logo-anniversary-claim-font-size);
+  letter-spacing: var(--sbb-letter-spacing-text);
   fill: var(--sbb-logo-word-mark-color);
   opacity: 0;
   animation: fade-in var(--sbb-logo-anniversary-claim-duration)
