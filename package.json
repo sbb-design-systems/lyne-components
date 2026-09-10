@@ -46,7 +46,6 @@
     "lint:tsc:visual-regression-app": "tsc --noEmit --project src/visual-regression-app/tsconfig.json",
     "lint:tsc:scripts": "tsc --noEmit --project scripts/tsconfig.json",
     "lint:tsc:tools": "tsc --noEmit --project tools/tsconfig.json",
-    "size-check": "node scripts/compare-stats.ts",
     "start": "storybook dev -p 6006 --config-dir src/docs/config",
     "start:visual-regression-app": "vite --config src/visual-regression-app/vite.config.ts",
     "test": "yarn -s wtr --coverage",
