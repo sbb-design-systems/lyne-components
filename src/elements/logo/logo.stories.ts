@@ -28,15 +28,16 @@ const useDocumentLanguage = (language: string): void => {
   document.documentElement.setAttribute('lang', language);
 
   // Reset the language when user chooses another story
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       if (originalLang.current !== null) {
         document.documentElement.setAttribute('lang', originalLang.current);
       } else {
         document.documentElement.removeAttribute('lang');
       }
-    };
-  }, []);
+    },
+    [],
+  );
 };
 
 const TemplateAnniversary = ({ language, ...args }: Args): TemplateResult => {
