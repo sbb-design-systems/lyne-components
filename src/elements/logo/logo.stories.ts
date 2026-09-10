@@ -10,15 +10,17 @@ import type { SbbLogoAnniversaryElement } from '../logo.pure.ts';
 import type { SbbLogoElement } from './logo.component.ts';
 import readme from './readme.md?raw';
 
+import '../container.ts';
+import '../header.ts';
 import '../logo.ts';
+import '../menu.ts';
 
 const Template = (args: Args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
 
-const TemplateAnniversary = ({ language, ...args }: Args): TemplateResult => {
-  // Store the original document language once per mount, and restore it when the story
-  // unmounts (e.g. when the user navigates to another story). The attribute itself is set
-  // synchronously during render (not in an effect) so there is no visible delay/flicker
-  // when Storybook re-applies the previously selected `lang` arg on remount.
+// Sets `lang` on the document element synchronously during render (avoiding flicker on
+// remount), and restores the original value once the story unmounts (e.g. when the user
+// navigates to another story).
+const useDocumentLanguage = (language: string): void => {
   const originalLang = useRef<string | null>(null);
   if (originalLang.current === null) {
     originalLang.current = document.documentElement.getAttribute('lang');
@@ -35,8 +37,63 @@ const TemplateAnniversary = ({ language, ...args }: Args): TemplateResult => {
       }
     };
   }, []);
+};
+
+const TemplateAnniversary = ({ language, ...args }: Args): TemplateResult => {
+  useDocumentLanguage(language);
 
   return html`<sbb-logo-anniversary ${sbbSpread(args)}></sbb-logo-anniversary>`;
+};
+
+const LoremIpsumTemplate = (): TemplateResult => html`
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
+    eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
+    mollis urna, a lacinia mauris risus mattis massa.
+  </p>
+  <br />
+`;
+
+const TemplateAnniversaryInHeader = ({ language, ...args }: Args): TemplateResult => {
+  useDocumentLanguage(language);
+
+  return html`
+    <sbb-header hide-on-scroll>
+      <sbb-header-button icon-name="hamburger-menu-small" hide-label-below="small">
+        Menu
+      </sbb-header-button>
+      <div class="sbb-header-spacer"></div>
+      <sbb-header-link icon-name="magnifying-glass-small" href="/" hide-label-below="large">
+        Search
+      </sbb-header-link>
+      <sbb-header-button
+        icon-name="user-small"
+        class="sbb-header-shrinkable"
+        hide-label-below="large"
+      >
+        Sign in
+      </sbb-header-button>
+      <sbb-header-button
+        icon-name="globe-small"
+        id="logo-anniversary-language-menu-trigger"
+        class="last-element"
+        hide-label-below="small"
+      >
+        English
+      </sbb-header-button>
+      <sbb-menu trigger="logo-anniversary-language-menu-trigger">
+        <sbb-menu-button>Deutsch</sbb-menu-button>
+        <sbb-menu-button>Français</sbb-menu-button>
+        <sbb-menu-button>Italiano</sbb-menu-button>
+        <sbb-menu-button icon-name="tick-small">English</sbb-menu-button>
+      </sbb-menu>
+      <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
+      <a aria-label="Homepage" href="/" class="sbb-header-logo">
+        <sbb-logo-anniversary ${sbbSpread(args)}></sbb-logo-anniversary>
+      </a>
+    </sbb-header>
+    <sbb-container color="milk">${new Array(4).fill(null).map(LoremIpsumTemplate)}</sbb-container>
+  `;
 };
 
 const negative: InputType = {
@@ -144,8 +201,29 @@ export const AnniversaryNegative: StoryObj = {
   args: { ...anniversaryArgs, negative: true },
 };
 
+export const AnniversaryInHeader: StoryObj = {
+  render: TemplateAnniversaryInHeader,
+  argTypes: anniversaryArgTypes,
+  args: { ...anniversaryArgs },
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      story: {
+        inline: false,
+        // Setting the iFrame height ensures that the story has enough space when used in the docs section.
+        iframeHeight: '250px',
+      },
+    },
+  },
+};
+
 const meta: Meta = {
-  decorators: [(story) => html`<div style="max-width: 300px;">${story()}</div>`],
+  decorators: [
+    (story, context) =>
+      context.name === 'Anniversary In Header'
+        ? story()
+        : html`<div style="max-width: 300px;">${story()}</div>`,
+  ],
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.negative

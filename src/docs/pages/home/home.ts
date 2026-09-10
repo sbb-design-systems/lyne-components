@@ -56,7 +56,7 @@ export const homeTemplate = (args: Args): TemplateResult => html`
       </sbb-menu>
       <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
       <a href="https://www.sbb.ch" class="sbb-header-logo">
-        <sbb-logo-anniversary></sbb-logo-anniversary>
+        <sbb-logo protective-room="none"></sbb-logo>
       </a>
     </sbb-header>
 
