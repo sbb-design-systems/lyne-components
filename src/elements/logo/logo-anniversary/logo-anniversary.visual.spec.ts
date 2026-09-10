@@ -61,8 +61,8 @@ describe(`sbb-logo-anniversary`, () => {
       'custom width',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<sbb-logo protective-room="none" style="width: 1000px;"></sbb-logo>`,
-          { padding: '0px', minHeight: '180px' },
+          html`<sbb-logo-anniversary style="width: 1000px;"></sbb-logo-anniversary>`,
+          { padding: '0px', minHeight: '210px' },
         );
       }),
     );
