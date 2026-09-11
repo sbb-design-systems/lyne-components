@@ -19,8 +19,8 @@ import interiorPlaceSeatNotBookable from './svgs/interior-place-seat-not-bookabl
 import interiorPlaceSeatSelected from './svgs/interior-place-seat-selected.svg?raw';
 import interiorPlaceSeatUnavailable from './svgs/interior-place-seat-unavailable.svg?raw';
 import layoutEntrance from './svgs/layout-entrance.svg?raw';
-import mobileForbidden from './svgs/mobile-forbidden.svg?raw';
-import mobile from './svgs/mobile.svg?raw';
+import mobilePhoneForbidden from './svgs/mobile-phone-forbidden.svg?raw';
+import mobilePhone from './svgs/mobile-phone.svg?raw';
 import toddler from './svgs/toddler.svg?raw';
 
 const svgs = {
@@ -45,8 +45,8 @@ const svgs = {
   interiorPlaceSeatSelected,
   interiorPlaceSeatUnavailable,
   layoutEntrance,
-  mobile,
-  mobileForbidden,
+  mobilePhone,
+  mobilePhoneForbidden,
   toddler,
 };
 
