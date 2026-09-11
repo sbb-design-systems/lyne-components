@@ -11,7 +11,7 @@
   cursor: var(--sbb-toggle-option-cursor, var(--sbb-cursor-pointer));
   overflow: hidden;
   font-size: var(--sbb-toggle-option-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
   font-weight: bold;
 
   // Use !important here to not interfere with Firefox focus ring definition

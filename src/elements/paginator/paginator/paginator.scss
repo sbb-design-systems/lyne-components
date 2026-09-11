@@ -45,13 +45,13 @@
   white-space: nowrap;
   color: var(--sbb-paginator-color);
   font-size: var(--sbb-paginator-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
 
   // Reapply part of the global form-field css that does not pierce the shadow DOM.
   sbb-select {
     color: var(--sbb-form-field-text-color);
     font-size: var(--sbb-form-field-input-text-size);
-    letter-spacing: var(--sbb-typo-letter-spacing-text);
+    letter-spacing: var(--sbb-letter-spacing-text);
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 }
@@ -69,7 +69,7 @@
 .sbb-paginator__page--number {
   position: relative;
   font-size: var(--sbb-paginator-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
   color: var(--sbb-paginator-color);
 }
 
@@ -84,7 +84,7 @@
 
 .sbb-paginator__page--number-item {
   font-family: var(--sbb-typo-font-family);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
   font-size: var(--sbb-paginator-font-size);
   line-height: var(--sbb-typo-line-height-text);
   font-weight: normal;
