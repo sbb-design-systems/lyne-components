@@ -7,6 +7,25 @@ $theme: 'standard' !default;
   --sbb-logo-signet-color: var(--sbb-color-white);
   --sbb-logo-word-mark-color: light-dark(var(--sbb-color-black), var(--sbb-color-white));
   --sbb-logo-aspect-ratio: 454 / 48;
+  --sbb-logo-anniversary-initial-delay: 3s;
+  --sbb-logo-anniversary-125-pull-out-easing: cubic-bezier(0.42, 0, 1, 1);
+  --sbb-logo-anniversary-word-mark-easing: cubic-bezier(0, 0, 0.58, 1);
+  --sbb-logo-anniversary-claim-easing: cubic-bezier(0.42, 0, 0.58, 1);
+
+  // We us px values for the following variables because it relates to the svg context
+  // Px values are taken from Figma or by trying out.
+  --sbb-logo-anniversary-signet-left-offset-en: 71.5px;
+  --sbb-logo-anniversary-signet-left-offset-de: 68px;
+  --sbb-logo-anniversary-signet-left-offset-fr: 114.4px;
+  --sbb-logo-anniversary-signet-left-offset-it: 100px;
+  --sbb-logo-anniversary-claim-top-offset-en: 87px;
+  --sbb-logo-anniversary-claim-top-offset-de: 85px;
+  --sbb-logo-anniversary-claim-top-offset-fr: 84px;
+  --sbb-logo-anniversary-claim-top-offset-it: 90px;
+  --sbb-logo-anniversary-claim-font-size-en: 25.21px;
+  --sbb-logo-anniversary-claim-font-size-de: 22.31px;
+  --sbb-logo-anniversary-claim-font-size-fr: 21.89px;
+  --sbb-logo-anniversary-claim-font-size-it: 30.15px;
 }
 
 @mixin forced-colors {
