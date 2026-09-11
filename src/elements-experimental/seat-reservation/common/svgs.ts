@@ -21,7 +21,19 @@ import interiorPlaceSeatUnavailable from './svgs/interior-place-seat-unavailable
 import layoutEntrance from './svgs/layout-entrance.svg?raw';
 import mobilePhoneForbidden from './svgs/mobile-phone-forbidden.svg?raw';
 import mobilePhone from './svgs/mobile-phone.svg?raw';
+import tWallCompartments1 from './svgs/t-wall-compartments-1.svg?raw';
+import tWallCompartments2 from './svgs/t-wall-compartments-2.svg?raw';
+import tWallCompartments3 from './svgs/t-wall-compartments-3.svg?raw';
 import toddler from './svgs/toddler.svg?raw';
+import wallCompartments1 from './svgs/wall-compartments-1.svg?raw';
+import wallCompartments2 from './svgs/wall-compartments-2.svg?raw';
+import wallCompartments3 from './svgs/wall-compartments-3.svg?raw';
+import wallLeft1 from './svgs/wall-left-1.svg?raw';
+import wallLeft2 from './svgs/wall-left-2.svg?raw';
+import wallLeft3 from './svgs/wall-left-3.svg?raw';
+import wallRight1 from './svgs/wall-right-1.svg?raw';
+import wallRight2 from './svgs/wall-right-2.svg?raw';
+import wallRight3 from './svgs/wall-right-3.svg?raw';
 
 const svgs = {
   chassisDriverBus,
@@ -48,6 +60,18 @@ const svgs = {
   mobilePhone,
   mobilePhoneForbidden,
   toddler,
+  tWallCompartments1,
+  tWallCompartments2,
+  tWallCompartments3,
+  wallCompartments1,
+  wallCompartments2,
+  wallCompartments3,
+  wallLeft1,
+  wallLeft2,
+  wallLeft3,
+  wallRight1,
+  wallRight2,
+  wallRight3,
 };
 
 export { svgs };
