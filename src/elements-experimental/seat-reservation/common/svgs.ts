@@ -9,6 +9,7 @@ import chassisPassageWaggonTopLeft from './svgs/chassis-passage-waggon-top-left.
 import chassisRowMiddle from './svgs/chassis-row-middle.svg?raw';
 import chassisRowOuter from './svgs/chassis-row-outer.svg?raw';
 import chassisSeparator from './svgs/chassis-separator.svg?raw';
+import familyArea from './svgs/family-area.svg?raw';
 import interiorPlaceBikeDefault from './svgs/interior-place-bike-default.svg?raw';
 import interiorPlaceBikeNotBookable from './svgs/interior-place-bike-not-bookable.svg?raw';
 import interiorPlaceBikeSelected from './svgs/interior-place-bike-selected.svg?raw';
@@ -18,6 +19,8 @@ import interiorPlaceSeatNotBookable from './svgs/interior-place-seat-not-bookabl
 import interiorPlaceSeatSelected from './svgs/interior-place-seat-selected.svg?raw';
 import interiorPlaceSeatUnavailable from './svgs/interior-place-seat-unavailable.svg?raw';
 import layoutEntrance from './svgs/layout-entrance.svg?raw';
+import mobileForbidden from './svgs/mobile-forbidden.svg?raw';
+import mobile from './svgs/mobile.svg?raw';
 import partitionWallLeftLong from './svgs/partition-wall-left-long.svg?raw';
 import partitionWallLeftMedium from './svgs/partition-wall-left-medium.svg?raw';
 import partitionWallLeftShort from './svgs/partition-wall-left-short.svg?raw';
@@ -30,6 +33,7 @@ import partitionWallShort from './svgs/partition-wall-short.svg?raw';
 import partitionWallTLong from './svgs/partition-wall-t-long.svg?raw';
 import partitionWallTMedium from './svgs/partition-wall-t-medium.svg?raw';
 import partitionWallTShort from './svgs/partition-wall-t-short.svg?raw';
+import toddler from './svgs/toddler.svg?raw';
 
 const svgs = {
   chassisDriverBus,
@@ -43,6 +47,7 @@ const svgs = {
   chassisRowOuter,
   chassisRowMiddle,
   chassisSeparator,
+  familyArea,
   interiorPlaceBikeDefault,
   interiorPlaceBikeNotBookable,
   interiorPlaceBikeSelected,
@@ -52,6 +57,9 @@ const svgs = {
   interiorPlaceSeatSelected,
   interiorPlaceSeatUnavailable,
   layoutEntrance,
+  mobile,
+  mobileForbidden,
+  toddler,
   partitionWallLeftLong,
   partitionWallLeftMedium,
   partitionWallLeftShort,

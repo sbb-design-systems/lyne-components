@@ -46,7 +46,6 @@
     "lint:tsc:visual-regression-app": "tsc --noEmit --project src/visual-regression-app/tsconfig.json",
     "lint:tsc:scripts": "tsc --noEmit --project scripts/tsconfig.json",
     "lint:tsc:tools": "tsc --noEmit --project tools/tsconfig.json",
-    "size-check": "node scripts/compare-stats.ts",
     "start": "storybook dev -p 6006 --config-dir src/docs/config",
     "start:visual-regression-app": "vite --config src/visual-regression-app/vite.config.ts",
     "test": "yarn -s wtr --coverage",
@@ -65,7 +64,7 @@
   },
   "optionalDependencies": {
     "@lit/react": "1.0.8",
-    "react": "19.2.8",
+    "react": "19.3.0",
     "tslib": "2.8.1"
   },
   "devDependencies": {
@@ -90,8 +89,8 @@
     "@tsdown/css": "0.23.0",
     "@types/chai": "5.2.3",
     "@types/mocha": "10.0.10",
-    "@types/node": "24.13.3",
-    "@types/react": "19.2.18",
+    "@types/node": "24.13.4",
+    "@types/react": "19.3.0",
     "@typescript-eslint/eslint-plugin": "8.70.0",
     "@typescript-eslint/parser": "8.70.0",
     "@web/test-runner": "1.0.0",
@@ -113,7 +112,7 @@
     "globals": "17.12.0",
     "husky": "9.1.7",
     "jiti": "2.7.0",
-    "lint-staged": "17.5.0",
+    "lint-staged": "17.5.1",
     "lit-analyzer": "2.0.3",
     "madge": "8.0.0",
     "npm-run-all2": "9.0.3",
@@ -141,7 +140,7 @@
     "vite-plugin-dts": "5.1.0"
   },
   "resolutions": {
-    "@types/node": "24.13.3",
+    "@types/node": "24.13.4",
     "@webcomponents/template-shadowroot": "0.2.1",
     "@web/dev-server-core": "1.0.1",
     "lit": "3.3.3",
