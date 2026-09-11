@@ -1,0 +1,15 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  aspect-ratio: var(--sbb-logo-cargo-international-aspect-ratio);
+}
+
+:host([protective-room='minimal']) {
+  --sbb-logo-cargo-international-aspect-ratio: 741 / 96;
+  --sbb-logo-svg-container-height: calc(49.3 / 96 * 100%);
+}
+
+:host([protective-room='ideal']) {
+  --sbb-logo-cargo-international-aspect-ratio: 789 / 144;
+  --sbb-logo-svg-container-height: calc(49.3 / 144 * 100%);
+}

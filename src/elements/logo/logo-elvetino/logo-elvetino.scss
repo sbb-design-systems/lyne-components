@@ -1,0 +1,19 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  aspect-ratio: var(--sbb-logo-elvetino-aspect-ratio);
+}
+
+:host([protective-room='minimal']) {
+  --sbb-logo-elvetino-aspect-ratio: 185 / 96;
+  --sbb-logo-svg-container-height: 50%;
+}
+
+:host([protective-room='ideal']) {
+  --sbb-logo-elvetino-aspect-ratio: 233 / 144;
+  --sbb-logo-svg-container-height: calc(48 / 144 * 100%);
+}
+
+#sbb-logo-elvetino__word-mark {
+  fill: var(--sbb-logo-elvetino-color);
+}

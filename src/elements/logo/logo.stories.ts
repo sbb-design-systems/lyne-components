@@ -5,11 +5,18 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../docs/helpers/spread.ts';
 
-import type { SbbLogoElement } from './logo.component.ts';
+import type { SbbLogoElement } from './logo/logo.component.ts';
 import readme from './readme.md?raw';
+
 import '../logo.ts';
 
-const Template = (args: Args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
+const TemplateLogo = (args: Args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
+const TemplateCargoLogo = (args: Args): TemplateResult =>
+  html`<sbb-logo-cargo ${sbbSpread(args)}></sbb-logo-cargo>`;
+const TemplateCargoInternationalLogo = (args: Args): TemplateResult =>
+  html`<sbb-logo-cargo-international ${sbbSpread(args)}></sbb-logo-cargo-international>`;
+const TemplateElvetinoLogo = (args: Args): TemplateResult =>
+  html`<sbb-logo-elvetino ${sbbSpread(args)}></sbb-logo-elvetino>`;
 
 const negative: InputType = {
   control: {
@@ -43,31 +50,49 @@ const defaultArgs: Args = {
 };
 
 export const NoProtectiveRoom: StoryObj = {
-  render: Template,
+  render: TemplateLogo,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
 
 export const MinimalProtectiveRoom: StoryObj = {
-  render: Template,
+  render: TemplateLogo,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'protective-room': protectiveRoom.options![1] },
 };
 
 export const IdealProtectiveRoom: StoryObj = {
-  render: Template,
+  render: TemplateLogo,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'protective-room': protectiveRoom.options![2] },
 };
 
 export const Negative: StoryObj = {
-  render: Template,
+  render: TemplateLogo,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
     negative: true,
     'protective-room': protectiveRoom.options![2],
   },
+};
+
+export const Cargo: StoryObj = {
+  render: TemplateCargoLogo,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const CargoInternational: StoryObj = {
+  render: TemplateCargoInternationalLogo,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const Elvetino: StoryObj = {
+  render: TemplateElvetinoLogo,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
 
 const meta: Meta = {
