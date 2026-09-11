@@ -39,6 +39,7 @@ import {
   ɵstateController,
 } from '../../core.ts';
 import { SbbDividerElement } from '../../divider.pure.ts';
+import type { SbbMenuActionCommonElementMixinType } from '../common/menu-action-common.ts';
 import { SbbMenuButtonElement } from '../menu-button/menu-button.component.ts';
 import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.ts';
 
@@ -115,6 +116,7 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
   public constructor() {
     super();
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
+    this.updateComplete.then(() => this._checkIcons());
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -261,6 +263,24 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
 
     // Starting from breakpoint large, enable scroll
     this._scrollHandler.enableScroll();
+  }
+
+  private _checkIcons(): void {
+    const menuItems = Array.from(
+      this.querySelectorAll?.<SbbMenuActionCommonElementMixinType>(
+        'SBB-MENU-LINK, SBB-MENU-BUTTON',
+      ) ?? [],
+    ).filter((el) => el.closest?.(this.localName) === this);
+
+    const hasIcons = menuItems.some((e) =>
+      e.matches(':state(has-icon-name), :state(slotted-icon)'),
+    );
+
+    if (!menuItems.length || hasIcons) {
+      return;
+    }
+
+    menuItems.map((e) => (e.hideIconSpace = true));
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
