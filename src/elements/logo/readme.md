@@ -3,6 +3,7 @@ The logo components from Lyne are used as a wrapper for the SBB logos, and they 
 To use the component, please define the desired height or width on the components.
 
 ```css
+/** Selector combination for demo purposes only. */
 sbb-logo,
 sbb-logo-cargo-international,
 sbb-logo-cargo,
