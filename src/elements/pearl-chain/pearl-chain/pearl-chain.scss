@@ -7,6 +7,10 @@
   --sbb-pearl-chain-bullet-now-animation-duration: var(--sbb-disable-animation-duration, 0.96s);
 }
 
+:host(:state(horizontal)) {
+  --sbb-pearl-chain-bullet-rotation: -90deg;
+}
+
 .sbb-pearl-chain__svg {
   position: absolute;
   inset: 0;

@@ -6,9 +6,9 @@
 
 #### Properties
 
-| Name  | Attribute | Privacy | Type   | Default      | Description                                                                                                               |
-| ----- | --------- | ------- | ------ | ------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| `now` | `now`     | public  | `Date` | `new Date()` | A configured date which acts as the current date instead of the real current date. Only recommended for testing purposes. |
+| Name  | Attribute | Privacy | Type   | Default | Description                                                                                                               |
+| ----- | --------- | ------- | ------ | ------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `now` | `now`     | public  | `Date` |         | A configured date which acts as the current date instead of the real current date. Only recommended for testing purposes. |
 
 ### class: `SbbPearlChainNodeElement`, `sbb-pearl-chain-node`
 
