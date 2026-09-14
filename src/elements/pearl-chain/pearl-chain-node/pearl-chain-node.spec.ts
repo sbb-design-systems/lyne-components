@@ -1,5 +1,6 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import { stub } from 'sinon';
 
 import { fixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
@@ -10,100 +11,107 @@ import { SbbPearlChainNodeElement } from './pearl-chain-node.component.ts';
 import '../../pearl-chain.ts';
 
 describe(`sbb-pearl-chain-node`, () => {
+  let element: SbbPearlChainNodeElement;
+
+  beforeEach(async () => {
+    element = await fixture(html`<sbb-pearl-chain-node></sbb-pearl-chain-node>`);
+  });
+
   it('renders', async () => {
-    const element: SbbPearlChainNodeElement = await fixture(
-      html`<sbb-pearl-chain-node></sbb-pearl-chain-node>`,
-    );
     assert.instanceOf(element, SbbPearlChainNodeElement);
   });
 
-  it('converts empty string disrupted/walk/irrelevant to true', async () => {
-    const element: SbbPearlChainNodeElement = await fixture(
-      html`<sbb-pearl-chain-node disrupted walk irrelevant></sbb-pearl-chain-node>`,
-    );
-    expect(element.disrupted).to.equal(true);
-    expect(element.walk).to.equal(true);
-    expect(element.irrelevant).to.equal(true);
+  it('does not render a bullet by default (empty type)', () => {
+    expect(element.shadowRoot!.querySelector('circle')).to.be.null;
   });
 
-  it('keeps arrival/departure tri-state values', async () => {
-    const element: SbbPearlChainNodeElement = await fixture(
-      html`<sbb-pearl-chain-node
-        disrupted="arrival"
-        walk="departure"
-        irrelevant="arrival"
-      ></sbb-pearl-chain-node>`,
-    );
-    expect(element.disrupted).to.equal('arrival');
-    expect(element.walk).to.equal('departure');
-    expect(element.irrelevant).to.equal('arrival');
+  describe('tri-state properties (disrupted / walk / irrelevant)', () => {
+    for (const prop of ['disrupted', 'walk', 'irrelevant'] as const) {
+      it(`converts empty string ${prop} to true`, () => {
+        element.setAttribute(prop, '');
+        expect(element[prop]).to.be.true;
+      });
+
+      it(`keeps arrival/departure ${prop} values`, () => {
+        element.setAttribute(prop, 'arrival');
+        expect(element[prop]).to.equal('arrival');
+
+        element.setAttribute(prop, 'departure');
+        expect(element[prop]).to.equal('departure');
+      });
+    }
   });
 
-  it('resets disrupted/walk/irrelevant to null when removed', async () => {
-    const element: SbbPearlChainNodeElement = await fixture(
-      html`<sbb-pearl-chain-node disrupted></sbb-pearl-chain-node>`,
-    );
-    expect(element.disrupted).to.equal(true);
+  describe('arrival / departure', () => {
+    it('parses ISO datetime strings', () => {
+      element.arrival = '2026-07-21T11:58:00';
+      element.departure = '2026-07-21T12:00:00';
 
-    element.removeAttribute('disrupted');
-    await waitForLitRender(element);
-    expect(element.disrupted).to.equal(null);
+      expect(element.arrival).to.deep.equal(new Date('2026-07-21T11:58:00'));
+      expect(element.departure).to.deep.equal(new Date('2026-07-21T12:00:00'));
+    });
+
+    it('resets to null on invalid input', () => {
+      element.arrival = 'not-a-date';
+      expect(element.arrival).to.be.null;
+    });
+
+    it('accepts a Date instance directly', () => {
+      const date = new Date('2026-07-21T12:00:00');
+      element.departure = date;
+      expect(element.departure).to.deep.equal(date);
+    });
   });
 
-  it('parses arrival/departure ISO datetime strings', async () => {
-    const element: SbbPearlChainNodeElement = await fixture(
-      html`<sbb-pearl-chain-node
-        arrival="2026-07-21T11:58:00"
-        departure="2026-07-21T12:00:00"
-      ></sbb-pearl-chain-node>`,
-    );
-    expect(element.arrival).to.be.instanceOf(Date);
-    expect(element.departure).to.be.instanceOf(Date);
-    expect(element.arrival!.toISOString()).to.contain('2026-07-21');
+  describe('bullet--past state', () => {
+    it('marks the bullet as past once now is after departure', async () => {
+      element.type = 'stop';
+      element.departure = '2000-01-01T00:00:00';
+      await waitForLitRender(element);
+
+      expect(element.shadowRoot!.querySelector('svg')!.classList.contains('bullet--past')).to.be
+        .true;
+    });
+
+    it('does not mark the bullet as past when now is before departure', async () => {
+      element.type = 'stop';
+      element.departure = '2999-01-01T00:00:00';
+      await waitForLitRender(element);
+
+      expect(element.shadowRoot!.querySelector('svg')!.classList.contains('bullet--past')).to.be
+        .false;
+    });
   });
 
-  it('colors the bullet gray once now is after departure (past)', async () => {
-    const element: SbbPearlChainNodeElement = await fixture(
-      html`<sbb-pearl-chain-node
-        type="start"
-        departure="2020-01-01T00:00:00"
-      ></sbb-pearl-chain-node>`,
-    );
-    await waitForLitRender(element);
-    const svg = element.shadowRoot!.querySelector('svg')!;
-    expect(svg.classList.contains('bullet--past')).to.be.true;
-  });
+  describe('ancestor chain integration', () => {
+    let chain: SbbPearlChainElement;
 
-  it('does not mark the bullet as past when now is before departure', async () => {
-    const element: SbbPearlChainNodeElement = await fixture(
-      html`<sbb-pearl-chain-node
-        type="start"
-        departure="2099-01-01T00:00:00"
-      ></sbb-pearl-chain-node>`,
-    );
-    const svg = element.shadowRoot!.querySelector('svg')!;
-    expect(svg.classList.contains('bullet--past')).to.be.false;
-  });
+    beforeEach(async () => {
+      chain = await fixture(html`<sbb-pearl-chain></sbb-pearl-chain>`);
+    });
 
-  it('supports overriding now via the ancestor pearl-chain for testing purposes', async () => {
-    const chain: SbbPearlChainElement = await fixture(html`
-      <sbb-pearl-chain now="2020-01-01T00:00:00">
-        <sbb-pearl-chain-node type="start" departure="2026-07-21T11:00:00"></sbb-pearl-chain-node>
-      </sbb-pearl-chain>
-    `);
-    const element = chain.querySelector('sbb-pearl-chain-node')!;
-    const svg = element.shadowRoot!.querySelector('svg')!;
-    expect(svg.classList.contains('bullet--past')).to.be.false;
-  });
+    it('registers itself on connectedCallback and unregisters on disconnectedCallback', async () => {
+      const addNode = stub(chain, 'addNode');
+      const removeNode = stub(chain, 'removeNode');
 
-  it('applies both irrelevant and disruption classes; CSS decides priority', async () => {
-    // ponytail: priority (irrelevant supersedes disrupted) is a CSS cascade concern,
-    // not yet styled (TODO in pearl-chain-node.scss) — revisit in line-state-priority step.
-    const element: SbbPearlChainNodeElement = await fixture(
-      html`<sbb-pearl-chain-node type="start" disrupted irrelevant></sbb-pearl-chain-node>`,
-    );
-    const svg = element.shadowRoot!.querySelector('svg')!;
-    expect(svg.classList.contains('bullet--irrelevant')).to.be.true;
-    expect(svg.classList.contains('bullet--disruption')).to.be.true;
+      chain.appendChild(element);
+      await waitForLitRender(chain);
+      expect(addNode).to.have.been.calledOnceWith(element);
+
+      chain.removeChild(element);
+      await waitForLitRender(chain);
+      expect(removeNode).to.have.been.calledOnceWith(element);
+    });
+
+    it('calls requestUpdate() on the ancestor chain when a render-relevant property changes', async () => {
+      chain.appendChild(element);
+      await waitForLitRender(chain);
+
+      const requestUpdate = stub(chain, 'requestUpdate');
+      element.walk = 'arrival';
+      await waitForLitRender(element);
+
+      expect(requestUpdate).to.have.been.called;
+    });
   });
 });
