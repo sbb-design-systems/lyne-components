@@ -1,35 +1,129 @@
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, type TemplateResult } from 'lit';
+import type { InputType } from 'storybook/internal/types';
+
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
 import '../pearl-chain.ts';
 
-const TableTemplate = (): TemplateResult => html`
-  <sbb-pearl-chain>
+const today = new Date();
+// today.setHours(0, 0, 0);
+
+const startTime = new Date(today);
+startTime.setHours(10, 0);
+
+const stopTime = new Date(today);
+stopTime.setHours(12, 0);
+
+const endTime = new Date(today);
+endTime.setHours(15, 0);
+
+const type: InputType = {
+  control: { type: 'select' },
+  options: [
+    'stop',
+    'boarding',
+    'alighting',
+    'skip',
+    'stop-duty',
+    'stop-on-demand',
+    'boarding-on-demand',
+    'alighting-on-demand',
+    'start',
+    'end',
+    null,
+  ],
+};
+
+const disrupted: InputType = {
+  control: { type: 'inline-radio' },
+  options: [null, true, 'arrival', 'departure'],
+};
+
+const irrelevant: InputType = {
+  control: { type: 'inline-radio' },
+  options: [null, true, 'arrival', 'departure'],
+};
+
+const walk: InputType = {
+  control: { type: 'inline-radio' },
+  options: [null, true, 'arrival', 'departure'],
+};
+
+const now: InputType = {
+  control: {
+    type: 'date',
+  },
+};
+
+const defaultArgTypes: ArgTypes = {
+  type,
+  disrupted,
+  irrelevant,
+  walk,
+  now,
+};
+
+const defaultArgs: Args = {
+  type: type.options![0],
+  disrupted: null,
+  irrelevant: null,
+  walk: null,
+  now: new Date(today),
+};
+
+const HorizontalTemplate = ({ now, ...args }: Args): TemplateResult => html`
+  <sbb-pearl-chain .now=${new Date(now)}>
+    <div style="display: flex; align-items: center; width: 400px;">
+      <div>
+        <sbb-pearl-chain-node type="start" .departure=${startTime}></sbb-pearl-chain-node>
+        <div>10:00</div>
+      </div>
+      <span style="flex: 1;"></span>
+      <div>
+        <sbb-pearl-chain-node
+          ${sbbSpread(args)}
+          .arrival=${stopTime}
+          .departure=${stopTime}
+        ></sbb-pearl-chain-node>
+        <div>12:00</div>
+      </div>
+      <span style="flex: 1;"></span>
+      <div>
+        <sbb-pearl-chain-node type="end" .arrival=${endTime}></sbb-pearl-chain-node>
+        <div>15:00</div>
+      </div>
+    </div>
+  </sbb-pearl-chain>
+`;
+
+const TableTemplate = ({ now, ...args }: Args): TemplateResult => html`
+  <sbb-pearl-chain .now=${new Date(now)}>
     <table>
-      <tr>
-        <td>11:00</td>
+      <tr style="height: 5rem;">
+        <td>10:00</td>
         <td>
-          <sbb-pearl-chain-node type="start" departure="2026-07-21T11:00:00"></sbb-pearl-chain-node>
+          <sbb-pearl-chain-node type="start" .departure=${startTime}></sbb-pearl-chain-node>
         </td>
         <td>Bern</td>
       </tr>
-      <tr>
+      <tr style="height: 5rem;">
         <td>12:00</td>
         <td>
           <sbb-pearl-chain-node
-            arrival="2026-07-21T11:58:00"
-            departure="2026-07-21T12:00:00"
-            type="stop"
+            ${sbbSpread(args)}
+            .arrival=${stopTime}
+            .departure=${stopTime}
           ></sbb-pearl-chain-node>
         </td>
         <td>Olten</td>
       </tr>
-      <tr>
-        <td>12:30</td>
+      <tr style="height: 5rem;">
+        <td>15:00</td>
         <td>
-          <sbb-pearl-chain-node type="end" arrival="2026-07-21T12:30:00"></sbb-pearl-chain-node>
+          <sbb-pearl-chain-node type="end" .arrival=${endTime}></sbb-pearl-chain-node>
         </td>
         <td>Zürich HB</td>
       </tr>
@@ -37,84 +131,22 @@ const TableTemplate = (): TemplateResult => html`
   </sbb-pearl-chain>
 `;
 
-/**
- * A single flex-laid-out chain showcasing every line state left-to-right:
- * default, disrupted, irrelevant, walk, past, and the irrelevant+disrupted combo.
- */
-const FlexTemplate = (): TemplateResult => html`
-  <sbb-pearl-chain now="2026-07-21T12:00:00">
-    <div style="display: flex; align-items: center; width: 700px;">
-      <!-- Normal -->
-      <sbb-pearl-chain-node type="start"></sbb-pearl-chain-node>
-      <span style="flex: 1;"></span>
-      <!-- Disrupted -->
-      <sbb-pearl-chain-node type="stop" disrupted="departure"></sbb-pearl-chain-node>
-      <span style="flex: 1;"></span>
-      <!-- Irrelevant -->
-      <sbb-pearl-chain-node
-        type="stop"
-        disrupted="arrival"
-        irrelevant="departure"
-      ></sbb-pearl-chain-node>
-      <span style="flex: 1;"></span>
-      <!-- Walk -->
-      <sbb-pearl-chain-node
-        type="stop"
-        irrelevant="arrival"
-        walk="departure"
-      ></sbb-pearl-chain-node>
-      <span style="flex: 1;"></span>
-      <!-- Past -->
-      <sbb-pearl-chain-node
-        type="stop"
-        walk="arrival"
-        departure="2026-07-21T11:00:00"
-      ></sbb-pearl-chain-node>
-      <span style="flex: 1;"></span>
-      <!-- Disrupted + Irrelevant -->
-      <sbb-pearl-chain-node
-        arrival="2026-07-21T11:30:00"
-        disrupted="departure"
-        irrelevant="departure"
-        type="stop"
-      ></sbb-pearl-chain-node>
-      <span style="flex: 1;"></span>
-      <sbb-pearl-chain-node
-        type="end"
-        disrupted="arrival"
-        irrelevant="arrival"
-      ></sbb-pearl-chain-node>
-    </div>
-  </sbb-pearl-chain>
-`;
+export const Horizontal: StoryObj = {
+  render: HorizontalTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
 
 export const Table: StoryObj = {
   render: TableTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
-
-export const Flex: StoryObj = {
-  render: FlexTemplate,
-};
-
-/** "now" is set mid-journey: gray line before, normal after, red pulsing dot at "now". */
-const ProgressTemplate = (): TemplateResult => html`
-  <sbb-pearl-chain now="2026-07-21T11:30:00">
-    <div style="display: flex; align-items: center; width: 400px;">
-      <sbb-pearl-chain-node type="start" departure="2026-07-21T11:00:00"></sbb-pearl-chain-node>
-      <span style="flex: 1;"></span>
-      <sbb-pearl-chain-node
-        arrival="2026-07-21T11:58:00"
-        departure="2026-07-21T12:00:00"
-        type="stop"
-      ></sbb-pearl-chain-node>
-      <span style="flex: 1;"></span>
-      <sbb-pearl-chain-node type="end" arrival="2026-07-21T12:30:00"></sbb-pearl-chain-node>
-    </div>
-  </sbb-pearl-chain>
-`;
 
 export const Progress: StoryObj = {
-  render: ProgressTemplate,
+  render: HorizontalTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, now: new Date(today).setHours(11, 0, 0) },
 };
 
 const meta: Meta = {
