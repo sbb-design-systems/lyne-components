@@ -13,6 +13,7 @@
   width: var(--sbb-pearl-chain-bullet-size);
   height: var(--sbb-pearl-chain-bullet-size);
   color: var(--sbb-pearl-chain-bullet-color);
+  rotate: var(--sbb-pearl-chain-bullet-rotation, 0deg);
 
   &--start,
   &--end {

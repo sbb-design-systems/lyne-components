@@ -54,13 +54,14 @@ export class SbbPearlChainElement extends SbbElement {
    */
   @property()
   public set now(value: Date | string | null) {
-    this._now =
+    this._userNow =
       defaultDateAdapter.getValidDateOrNull(defaultDateAdapter.deserialize(value)) ?? new Date();
   }
   public get now(): Date {
-    return this._now;
+    return this._userNow ?? this._systemNow;
   }
-  private _now: Date = new Date();
+  private _userNow: Date | null = null;
+  private _systemNow = new Date();
 
   private _svgElem: Element | undefined;
   private _nodes: SbbPearlChainNodeElement[] = [];
@@ -77,6 +78,8 @@ export class SbbPearlChainElement extends SbbElement {
         skipInitial: true,
       }),
     );
+
+    // TODO Add interval that updates `_systemNow` every second, and calls `requestUpdate()` is null.
   }
 
   /**
@@ -251,11 +254,9 @@ export class SbbPearlChainElement extends SbbElement {
     };
   }
 
-  /** A line is "past" once we've already arrived at its ending node.
-   * TODO: maybe optimize it by avoiding the 'new Date()'
-   */
+  /** A line is "past" once we've already arrived at its ending node. */
   private _isLinePast(end: SbbPearlChainNodeElement): boolean {
-    const now = this.now ?? new Date();
+    const now = this.now;
     const pastTime = end.arrival ?? end.departure;
     return !!pastTime && pastTime.getTime() < now.getTime();
   }
