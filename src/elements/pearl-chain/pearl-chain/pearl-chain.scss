@@ -4,7 +4,7 @@
   position: relative;
   display: block;
 
-  --sbb-now-bullet-animation-duration: var(--sbb-disable-animation-duration, 1.6s);
+  --sbb-pearl-chain-bullet-now-animation-duration: var(--sbb-disable-animation-duration, 0.96s);
 }
 
 .sbb-pearl-chain__svg {
@@ -43,20 +43,22 @@
 .now-dot {
   fill: var(--sbb-pearl-chain-now-color);
   stroke: var(--sbb-pearl-chain-now-color);
+  stroke-opacity: var(--sbb-pearl-chain-bullet-now-animation-opacity);
   r: calc(var(--sbb-pearl-chain-now-size) / 2);
-  animation: sbb-pearl-chain-pulse var(--sbb-now-bullet-animation-duration) ease-out infinite;
+  animation: sbb-pearl-chain-pulse var(--sbb-pearl-chain-bullet-now-animation-duration) ease-out
+    infinite;
 }
 
-// The static core (fill) stays fully opaque; only the stroke ring expands and fades.
-// TODO: define pulse specs
 @keyframes sbb-pearl-chain-pulse {
-  from {
+  0% {
     stroke-width: 0;
-    stroke-opacity: 0.6;
   }
 
-  to {
+  50% {
     stroke-width: calc(var(--sbb-pearl-chain-now-size) / 2);
-    stroke-opacity: 0;
+  }
+
+  100% {
+    stroke-width: 0;
   }
 }

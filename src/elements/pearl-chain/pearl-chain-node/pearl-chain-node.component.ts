@@ -9,6 +9,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ref } from 'lit/directives/ref.js';
 
 import { defaultDateAdapter, forceType, SbbElement } from '../../core.ts';
 import type { SbbPearlChainElement } from '../pearl-chain/pearl-chain.component.ts';
@@ -99,6 +100,8 @@ export class SbbPearlChainNodeElement extends SbbElement {
   }
   private _now: Date = new Date();
 
+  protected svgElem: Element | undefined;
+
   private _chain: SbbPearlChainElement | null = null;
 
   public override connectedCallback(): void {
@@ -148,7 +151,15 @@ export class SbbPearlChainNodeElement extends SbbElement {
   protected override render(): TemplateResult {
     return html`
       <svg
-        class="bullet ${classMap({ [`bullet--${this.type}`]: !!this.type, 'bullet--irrelevant': !!this.irrelevant, 'bullet--disruption': !!this.disrupted, 'bullet--past': this._isPast() })}"
+        class="bullet ${classMap({
+          [`bullet--${this.type}`]: !!this.type,
+          'bullet--irrelevant': !!this.irrelevant,
+          'bullet--disruption': !!this.disrupted,
+          'bullet--past': this._isPast(),
+        })}"
+        ${ref((el?: Element): void => {
+          this.svgElem = el;
+        })}
       >
         ${this._renderBullet()}
       </svg>

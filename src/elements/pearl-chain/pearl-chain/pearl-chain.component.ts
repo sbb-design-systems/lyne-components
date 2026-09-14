@@ -21,6 +21,9 @@ interface Point {
   y: number;
 }
 
+/** Gap (in px) left before a node's bullet, so the line doesn't touch it. */
+const NODE_GAP = 2;
+
 /**
  * Linearly interpolates between two points.
  */
@@ -28,6 +31,12 @@ const lerp = (from: Point, to: Point, ratio: number): Point => ({
   x: from.x + (to.x - from.x) * ratio,
   y: from.y + (to.y - from.y) * ratio,
 });
+
+/** Pulls `to` back towards `from` by `gap` px, along the line's direction. */
+const pullBack = (from: Point, to: Point, gap: number): Point => {
+  const length = Math.hypot(to.x - from.x, to.y - from.y);
+  return length === 0 ? to : lerp(from, to, Math.max(0, (length - gap) / length));
+};
 
 /**
  * It displays a chain of `sbb-pearl-chain-node` elements connected by lines,
@@ -53,6 +62,7 @@ export class SbbPearlChainElement extends SbbElement {
 
   private _svgElem: Element | undefined;
   private _nodes: SbbPearlChainNodeElement[] = [];
+  private _orientation: 'horizontal' | 'vertical' = 'vertical';
 
   /**
    * Registers a `sbb-pearl-chain-node` with this pearl chain.
@@ -87,7 +97,8 @@ export class SbbPearlChainElement extends SbbElement {
   }
 
   /**
-   * Positions the rendered lines (and dot) to connect the bullet nodes.
+   * Positions the rendered lines (and dot) to connect the bullet nodes, and toggles
+   * `:state(horizontal)` based on whether nodes are spread more horizontally than vertically.
    */
   private _positionLines(): void {
     const elements = this.shadowRoot?.querySelectorAll<SVGLineElement | SVGCircleElement>(
@@ -100,22 +111,27 @@ export class SbbPearlChainElement extends SbbElement {
 
     // Get the center coordinates of each node relative to the svg
     const nodesCords = this._nodes.map((node) => {
-      const rect = node.getBoundingClientRect();
+      const rect = node['svgElem']?.getBoundingClientRect() ?? node.getBoundingClientRect();
       return {
         x: rect.left + rect.width / 2 - svgRect.left,
         y: rect.top + rect.height / 2 - svgRect.top,
+        size: rect.width,
       };
     });
+
+    this._updateOrientation(nodesCords);
 
     elements.forEach((el) => {
       const index = Number(el.dataset.segment);
       const start = nodesCords[index];
-      const end = nodesCords[index + 1];
+      const end = this._needsGap(this._nodes[index + 1])
+        ? pullBack(start, nodesCords[index + 1], NODE_GAP + nodesCords[index + 1].size / 2)
+        : nodesCords[index + 1];
 
       switch (el.dataset.role) {
         case 'dot': {
           const ratio = this._progressRatio(this._nodes[index], this._nodes[index + 1])!;
-          const nowCords = lerp(start, end, ratio);
+          const nowCords = lerp(nodesCords[index], nodesCords[index + 1], ratio);
           el.setAttribute('cx', `${nowCords.x}`);
           el.setAttribute('cy', `${nowCords.y}`);
           break;
@@ -123,7 +139,7 @@ export class SbbPearlChainElement extends SbbElement {
         // The line immediately before the pulsing dot.
         case 'before': {
           const ratio = this._progressRatio(this._nodes[index], this._nodes[index + 1])!;
-          const nowCords = lerp(start, end, ratio);
+          const nowCords = lerp(nodesCords[index], nodesCords[index + 1], ratio);
           el.setAttribute('x1', `${start.x}`);
           el.setAttribute('y1', `${start.y}`);
           el.setAttribute('x2', `${nowCords.x}`);
@@ -148,6 +164,29 @@ export class SbbPearlChainElement extends SbbElement {
         }
       }
     });
+  }
+
+  /**
+   * Toggles `:state(horizontal)` when the nodes are spread more horizontally than vertically
+   * TODO: maybe optimize it
+   */
+  private _updateOrientation(nodesCords: Point[]): void {
+    const xs = nodesCords.map((c) => c.x);
+    const ys = nodesCords.map((c) => c.y);
+    const spreadX = Math.max(...xs) - Math.min(...xs);
+    const spreadY = Math.max(...ys) - Math.min(...ys);
+    this.toggleState('horizontal', spreadX > spreadY);
+    this._orientation = spreadX > spreadY ? 'horizontal' : 'vertical';
+  }
+
+  /** No gap for `start` or `end` bullets. */
+  private _needsGap(node: SbbPearlChainNodeElement): boolean {
+    return (
+      this._orientation === 'horizontal' &&
+      node.type !== null &&
+      node.type !== 'start' &&
+      node.type !== 'end'
+    );
   }
 
   /**
@@ -197,7 +236,9 @@ export class SbbPearlChainElement extends SbbElement {
     };
   }
 
-  /** A line is "past" once we've already arrived at its ending node. */
+  /** A line is "past" once we've already arrived at its ending node.
+   * TODO: maybe optimize it by avoiding the 'new Date()'
+   */
   private _isLinePast(end: SbbPearlChainNodeElement): boolean {
     const now = this.now ?? new Date();
     const pastTime = end.arrival ?? end.departure;
