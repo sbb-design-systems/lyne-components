@@ -1,10 +1,10 @@
 import { html } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
+import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import '../logo.ts';
+import '../../logo.ts';
 
-describe(`sbb-logo`, () => {
+describe(`sbb-logo-elvetino`, () => {
   const cases = {
     negative: [false, true],
     protectiveRoom: ['none', 'minimal', 'ideal'],
@@ -23,7 +23,10 @@ describe(`sbb-logo`, () => {
           ``,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
-              html`<sbb-logo ?negative=${negative} protective-room=${protectiveRoom}></sbb-logo>`,
+              html`<sbb-logo-elvetino
+                ?negative=${negative}
+                protective-room=${protectiveRoom}
+              ></sbb-logo-elvetino>`,
               {
                 backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
                 padding: '0',
@@ -43,7 +46,10 @@ describe(`sbb-logo`, () => {
       'custom width',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<sbb-logo protective-room="none" style="width: 1000px;"></sbb-logo>`,
+          html`<sbb-logo-elvetino
+            protective-room="none"
+            style="width: 1000px;"
+          ></sbb-logo-elvetino>`,
           { padding: '0px' },
         );
       }),

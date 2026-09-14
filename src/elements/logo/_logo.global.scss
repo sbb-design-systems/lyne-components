@@ -3,10 +3,14 @@
 $theme: 'standard' !default;
 
 @mixin base {
+  --sbb-logo-cargo-aspect-ratio: 599 / 50;
+  --sbb-logo-cargo-international-aspect-ratio: 694 / 50;
+  --sbb-logo-elvetino-aspect-ratio: 138 / 48;
+  --sbb-logo-elvetino-color: #c60018; // no token
+  --sbb-logo-aspect-ratio: 454 / 48;
   --sbb-logo-panel-color: var(--sbb-color-brand);
   --sbb-logo-signet-color: var(--sbb-color-white);
   --sbb-logo-word-mark-color: light-dark(var(--sbb-color-black), var(--sbb-color-white));
-  --sbb-logo-aspect-ratio: 454 / 48;
 }
 
 @mixin forced-colors {
