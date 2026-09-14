@@ -1,0 +1,212 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --sbb-toggle-slide-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-12x)
+  );
+  --sbb-toggle-slide-label-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-3x)
+  );
+
+  // Calculate the needed padding from the track to the button.
+  --_sbb-toggle-slide-track-margin: calc(
+    (var(--sbb-toggle-slide-element-height) - var(--sbb-toggle-slide-button-dimension)) / 2
+  );
+
+  // We transfer the checked state in to a variable with 0 for unchecked and 1 for checked.
+  // We then can use this for opacity calculation.
+  --_sbb-toggle-slide-checked: 0;
+
+  // As we want to hide the text "behind" the slided area, starting from the button, we need to calculate a mask.
+  // We calculate the start of the gradient based on the toggle slide fraction.
+  // We need to percentually subtract also the button width and 2 times the track margin.
+  // At last we need to add the track margin back, because the gradient should start at the end of the button.
+  --_sbb-toggle-slide-mask-start: calc(
+    var(--sbb-toggle-slide-fraction, 0) * 100% + (1 - var(--sbb-toggle-slide-fraction, 0)) *
+      (var(--sbb-toggle-slide-button-dimension) + 2 * var(--_sbb-toggle-slide-track-margin)) - var(
+        --_sbb-toggle-slide-track-margin
+      )
+  );
+  --_sbb-toggle-slide-mask-start-reverse: calc(
+    100% - var(--_sbb-toggle-slide-mask-start) + var(--sbb-toggle-slide-button-dimension)
+  );
+  --_sbb-toggle-slide-mask-start-current: var(--_sbb-toggle-slide-mask-start);
+
+  display: inline-flex;
+  width: 22rem;
+  max-width: 100%;
+  color: var(--sbb-toggle-slide-color);
+  font-size: var(--sbb-toggle-slide-font-size);
+  height: var(--sbb-toggle-slide-element-height);
+  border: var(--sbb-toggle-slide-border-width) solid var(--sbb-toggle-slide-border-color);
+  border-radius: var(--sbb-toggle-slide-border-radius);
+  background-color: var(--sbb-toggle-slide-background-color);
+  position: relative;
+
+  // Avoid horizontal scrolling during swiping
+  touch-action: pan-y;
+}
+
+:host([size='s']) {
+  --sbb-toggle-slide-element-height: var(--sbb-toggle-slide-element-height-s);
+  --sbb-toggle-slide-button-dimension: var(--sbb-toggle-slide-button-dimension-s);
+}
+
+:host([size='m']) {
+  --sbb-toggle-slide-element-height: var(--sbb-toggle-slide-element-height-m);
+  --sbb-toggle-slide-button-dimension: var(--sbb-toggle-slide-button-dimension-m);
+}
+
+:host([size='l']) {
+  --sbb-toggle-slide-element-height: var(--sbb-toggle-slide-element-height-l);
+  --sbb-toggle-slide-button-dimension: var(--sbb-toggle-slide-button-dimension-l);
+}
+
+:host(:invalid) {
+  --sbb-toggle-slide-border-color: var(--sbb-color-error);
+}
+
+:host(:disabled) {
+  color: var(--sbb-toggle-slide-color-disabled);
+  border-color: var(--sbb-toggle-slide-border-color-disabled);
+}
+
+:host(:focus-visible) {
+  @include sbb.focus-outline;
+}
+
+:host(:not(:state(checked))) {
+  --_sbb-toggle-slide-deactivation-display: none;
+}
+
+:host(:state(checked)) {
+  --_sbb-toggle-slide-activation-display: none;
+  --_sbb-toggle-slide-checked: 1;
+  --_sbb-toggle-slide-mask-direction: to left;
+  --_sbb-toggle-slide-mask-start-current: var(--_sbb-toggle-slide-mask-start-reverse);
+}
+
+.sbb-toggle-slide__track {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  inset: 0;
+
+  // Due to the absolute positioning we use margin here to achieve the padding
+  margin: var(--_sbb-toggle-slide-track-margin);
+}
+
+.sbb-toggle-slide__button {
+  --sbb-button-min-height: var(--sbb-toggle-slide-button-dimension);
+
+  width: fit-content;
+  position: absolute;
+
+  // Calculate start offset based on the toggle slide fraction.
+  // We need to percentually subtract also the button width.
+  inset-inline: calc(
+      var(--sbb-toggle-slide-fraction, 0) * 100% -
+        (var(--sbb-toggle-slide-fraction, 0) * var(--sbb-toggle-slide-button-dimension))
+    )
+    0;
+
+  &:not([disabled], [loading]) {
+    --sbb-button-cursor: grab;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  :host(:state(checked)) & {
+    @media (forced-colors: active) {
+      // We override the border color of the button.
+      --_border-color: Highlight !important;
+    }
+  }
+}
+
+.sbb-toggle-slide__call-to-actions {
+  display: grid;
+  align-items: center;
+  padding-inline: var(--sbb-toggle-slide-padding-inline);
+  pointer-events: none;
+  width: 100%;
+
+  // We use a mask to fade out the content behind the button when it's sliding.
+  // The mask is set to the right side by default, but when the toggle slide is checked, we need to set it to the left side.
+  mask-image: linear-gradient(
+    var(--_sbb-toggle-slide-mask-direction, to right),
+    transparent var(--_sbb-toggle-slide-mask-start-current),
+    black
+      calc(
+        var(--_sbb-toggle-slide-mask-start-current) + var(--sbb-toggle-slide-button-gradient-width)
+      ),
+    black 100%
+  );
+}
+
+::slotted(sbb-toggle-slide-activation-label),
+::slotted(sbb-toggle-slide-deactivation-label) {
+  :host(:state(label-fade)) & {
+    animation: label-fade-in var(--sbb-toggle-slide-label-animation-duration)
+      var(--sbb-animation-easing);
+  }
+}
+
+::slotted(sbb-toggle-slide-activation-label) {
+  display: var(--_sbb-toggle-slide-activation-display);
+  opacity: calc(1 - var(--sbb-toggle-slide-fraction, 0));
+  padding-inline-start: var(--sbb-toggle-slide-button-dimension);
+  text-align: end;
+}
+
+::slotted(sbb-toggle-slide-deactivation-label) {
+  display: var(--_sbb-toggle-slide-deactivation-display);
+  opacity: calc(var(--sbb-toggle-slide-fraction, 0));
+  padding-inline-end: var(--sbb-toggle-slide-button-dimension);
+}
+
+// In order to have a transition between the checked and unchecked icon,
+// we need to have both icons in the DOM and just change their opacity.
+// We stack the two icons on top of each other and use the opacity to show the correct one.
+.sbb-toggle-slide__icon-wrapper {
+  display: block;
+  position: absolute;
+  width: var(--sbb-size-icon-ui-small);
+  height: var(--sbb-size-icon-ui-small);
+
+  :host(:state(checked)) & {
+    @media (forced-colors: active) {
+      color: Highlight !important;
+    }
+  }
+}
+
+sbb-icon {
+  position: absolute;
+
+  :host(:state(icon-transition)) & {
+    transition: opacity var(--sbb-toggle-slide-animation-duration);
+  }
+}
+
+sbb-icon[name='arrow-right-small'] {
+  opacity: calc(1 - var(--_sbb-toggle-slide-checked));
+}
+
+sbb-icon[name='tick-small'] {
+  opacity: var(--_sbb-toggle-slide-checked);
+}
+
+@keyframes label-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
