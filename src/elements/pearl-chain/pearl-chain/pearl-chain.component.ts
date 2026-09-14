@@ -1,3 +1,5 @@
+import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
@@ -63,6 +65,19 @@ export class SbbPearlChainElement extends SbbElement {
   private _svgElem: Element | undefined;
   private _nodes: SbbPearlChainNodeElement[] = [];
   private _orientation: 'horizontal' | 'vertical' = 'vertical';
+
+  public constructor() {
+    super();
+    this.addController(
+      new ResizeController(this, { callback: () => this._positionLines(), skipInitial: true }),
+    );
+    this.addController(
+      new IntersectionController(this, {
+        callback: () => this._positionLines(),
+        skipInitial: true,
+      }),
+    );
+  }
 
   /**
    * Registers a `sbb-pearl-chain-node` with this pearl chain.

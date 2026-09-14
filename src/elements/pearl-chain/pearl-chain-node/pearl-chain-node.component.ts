@@ -11,20 +11,15 @@ import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { defaultDateAdapter, forceType, SbbElement } from '../../core.ts';
+import {
+  defaultDateAdapter,
+  forceType,
+  SbbElement,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
 import type { SbbPearlChainElement } from '../pearl-chain/pearl-chain.component.ts';
 
 import style from './pearl-chain-node.scss?inline';
-
-/** Properties that affect the chain's rendering when changed. */
-const RENDER_RELEVANT_PROPERTIES = [
-  'type',
-  'disrupted',
-  'irrelevant',
-  'walk',
-  'arrival',
-  'departure',
-] as const;
 
 /**
  * The possible bullet types of a `sbb-pearl-chain-node`.
@@ -104,6 +99,15 @@ export class SbbPearlChainNodeElement extends SbbElement {
 
   private _chain: SbbPearlChainElement | null = null;
 
+  public constructor() {
+    super();
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-pearl-chain'), {
+        now: () => this.requestUpdate(),
+      }),
+    );
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
     this._chain = this.closest('sbb-pearl-chain');
@@ -118,9 +122,7 @@ export class SbbPearlChainNodeElement extends SbbElement {
 
   protected override updated(changedProperties: PropertyValues<this>): void {
     super.updated(changedProperties);
-    if (RENDER_RELEVANT_PROPERTIES.some((prop) => changedProperties.has(prop))) {
-      this._chain?.requestUpdate();
-    }
+    this._chain?.requestUpdate();
   }
 
   private _isPast(): boolean {

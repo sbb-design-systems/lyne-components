@@ -164,3 +164,4 @@ Following, some non-negotiable rules agents must adhere to when contributing to 
 
 - Do not run any commands that modify the repository state (e.g., `yarn lint`, `yarn docs`, `yarn format`) unless explicitly instructed to do so.
 - Do not interact with git (e.g., `git add`, `git commit`, `git push`) unless explicitly instructed to do so.
+- Local storybook instance is running on 'localhost:6006'.
