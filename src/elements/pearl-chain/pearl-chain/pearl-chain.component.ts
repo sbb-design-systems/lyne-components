@@ -29,6 +29,8 @@ const NODE_GAP = 2;
 /** Interval (in ms) at which the component is re-rendered. */
 const RENDERING_INTERVAL = 30 * 1000;
 
+const DEBOUNCE_TIME = 150;
+
 /**
  * Linearly interpolates between two points.
  */
@@ -70,15 +72,19 @@ export class SbbPearlChainElement extends SbbElement {
   private _nodes: SbbPearlChainNodeElement[] = [];
   private _orientation: 'horizontal' | 'vertical' = 'vertical';
   private _systemNowIntervalId: ReturnType<typeof setInterval> | undefined;
+  private _debounceId: ReturnType<typeof setTimeout> | undefined;
 
   public constructor() {
     super();
     this.addController(
-      new ResizeController(this, { callback: () => this._positionLines(), skipInitial: true }),
+      new ResizeController(this, {
+        callback: () => this._debouncedPositionLines(),
+        skipInitial: true,
+      }),
     );
     this.addController(
       new IntersectionController(this, {
-        callback: () => this._positionLines(),
+        callback: () => this._debouncedPositionLines(),
         skipInitial: true,
       }),
     );
@@ -131,6 +137,11 @@ export class SbbPearlChainElement extends SbbElement {
     this._positionLines();
   }
 
+  private _debouncedPositionLines(): void {
+    clearTimeout(this._debounceId);
+    this._debounceId = setTimeout(() => this._positionLines(), DEBOUNCE_TIME);
+  }
+
   /**
    * Positions the rendered lines (and dot) to connect the bullet nodes, and toggles
    * `:state(horizontal)` based on whether nodes are spread more horizontally than vertically.
@@ -143,6 +154,7 @@ export class SbbPearlChainElement extends SbbElement {
       return;
     }
     const svgRect = this._svgElem.getBoundingClientRect();
+    console.log('position lines');
 
     // Get the center coordinates of each node relative to the svg
     const nodesCords = this._nodes.map((node) => {
@@ -164,6 +176,7 @@ export class SbbPearlChainElement extends SbbElement {
         : nodesCords[index + 1];
 
       switch (el.dataset.role) {
+        // The "now" pulsing dot
         case 'dot': {
           const ratio = this._progressRatio(this._nodes[index], this._nodes[index + 1])!;
           const nowCords = lerp(nodesCords[index], nodesCords[index + 1], ratio);
@@ -191,6 +204,7 @@ export class SbbPearlChainElement extends SbbElement {
           el.setAttribute('y2', `${end.y}`);
           break;
         }
+        // The normal case: a single line connecting two nodes.
         default: {
           el.setAttribute('x1', `${start.x}`);
           el.setAttribute('y1', `${start.y}`);
@@ -201,17 +215,31 @@ export class SbbPearlChainElement extends SbbElement {
     });
   }
 
-  /**
-   * Toggles `:state(horizontal)` when the nodes are spread more horizontally than vertically
-   * TODO: maybe optimize it
-   */
+  /** Toggles `:state(horizontal)` when the nodes are spread more horizontally than vertically. */
   private _updateOrientation(nodesCords: Point[]): void {
-    const xs = nodesCords.map((c) => c.x);
-    const ys = nodesCords.map((c) => c.y);
-    const spreadX = Math.max(...xs) - Math.min(...xs);
-    const spreadY = Math.max(...ys) - Math.min(...ys);
-    this.toggleState('horizontal', spreadX > spreadY);
-    this._orientation = spreadX > spreadY ? 'horizontal' : 'vertical';
+    let minX = Infinity,
+      maxX = -Infinity,
+      minY = Infinity,
+      maxY = -Infinity;
+    for (const { x, y } of nodesCords) {
+      if (x < minX) {
+        minX = x;
+      }
+      if (x > maxX) {
+        maxX = x;
+      }
+      if (y < minY) {
+        minY = y;
+      }
+      if (y > maxY) {
+        maxY = y;
+      }
+    }
+
+    // If horizontal spread > vertical spread, the chain is considered horizontal.
+    const horizontal = maxX - minX > maxY - minY;
+    this.toggleState('horizontal', horizontal);
+    this._orientation = horizontal ? 'horizontal' : 'vertical';
   }
 
   /** No gap for `start` or `end` bullets. */

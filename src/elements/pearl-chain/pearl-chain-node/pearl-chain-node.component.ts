@@ -126,7 +126,9 @@ export class SbbPearlChainNodeElement extends SbbElement {
 
   protected override updated(changedProperties: PropertyValues<this>): void {
     super.updated(changedProperties);
-    this._chain?.requestUpdate();
+    if (changedProperties.size > 0) {
+      this._chain?.requestUpdate();
+    }
   }
 
   private _isPast(): boolean {
