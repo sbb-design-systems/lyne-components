@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.9.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.8.0...v5.9.0) (2026-09-15)
+
+
+### Features
+
+* **download:** add vertical divider, correct title font-size, support download attribute ([#5236](https://github.com/sbb-design-systems/lyne-components/issues/5236)) ([e0cd632](https://github.com/sbb-design-systems/lyne-components/commit/e0cd632b0b04d213956fa80609b92da64499af76))
+* **logo:** add SBB Cargo and Elvetino logos ([#5240](https://github.com/sbb-design-systems/lyne-components/issues/5240)) ([4e04f38](https://github.com/sbb-design-systems/lyne-components/commit/4e04f383d39b507d7ae79aa08669caa8f55904ab))
+* **seat-reservation:** add db icons ([#5242](https://github.com/sbb-design-systems/lyne-components/issues/5242)) ([fe2161f](https://github.com/sbb-design-systems/lyne-components/commit/fe2161f1a11fd91484a163e39501e05d47c86cf1))
+
+
+### Bug Fixes
+
+* **dialog:** various mobile view optimizations ([#5209](https://github.com/sbb-design-systems/lyne-components/issues/5209)) ([95ce1c5](https://github.com/sbb-design-systems/lyne-components/commit/95ce1c5ebb9c3282130dc7b73c8ca982d148a3a1))
+* **form-field:** increase label space for textarea in 's' size ([#5223](https://github.com/sbb-design-systems/lyne-components/issues/5223)) ([2e3be1f](https://github.com/sbb-design-systems/lyne-components/commit/2e3be1f11f87ad6cb47ae8e3f5857ed363f26104)), closes [#5196](https://github.com/sbb-design-systems/lyne-components/issues/5196)
+* **map-container:** fix keyboard navigation order ([#5245](https://github.com/sbb-design-systems/lyne-components/issues/5245)) ([a0bd958](https://github.com/sbb-design-systems/lyne-components/commit/a0bd9587aca150091ab7d8d9e3f6afbf47955f9c)), closes [#5179](https://github.com/sbb-design-systems/lyne-components/issues/5179)
+
+
+### Styles
+
+* **notification:** improve mobile layout and text alignment ([#5217](https://github.com/sbb-design-systems/lyne-components/issues/5217)) ([fba8dab](https://github.com/sbb-design-systems/lyne-components/commit/fba8dab959227aabe00fbd00116c82491c1d64d9))
+
 ## [5.8.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.7.0...v5.8.0) (2026-09-07)
 
 
