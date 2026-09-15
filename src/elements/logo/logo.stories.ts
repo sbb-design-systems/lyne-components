@@ -6,15 +6,22 @@ import { useEffect, useRef } from 'storybook/preview-api';
 
 import { sbbSpread } from '../../docs/helpers/spread.ts';
 
-import type { SbbLogoElement } from './logo.component.ts';
+import type { SbbLogoElement } from './logo/logo.component.ts';
 import readme from './readme.md?raw';
 
 import '../container.ts';
 import '../header.ts';
+
 import '../logo.ts';
 import '../menu.ts';
 
-const Template = (args: Args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
+const TemplateLogo = (args: Args): TemplateResult => html`<sbb-logo ${sbbSpread(args)}></sbb-logo>`;
+const TemplateCargoLogo = (args: Args): TemplateResult =>
+  html`<sbb-logo-cargo ${sbbSpread(args)}></sbb-logo-cargo>`;
+const TemplateCargoInternationalLogo = (args: Args): TemplateResult =>
+  html`<sbb-logo-cargo-international ${sbbSpread(args)}></sbb-logo-cargo-international>`;
+const TemplateElvetinoLogo = (args: Args): TemplateResult =>
+  html`<sbb-logo-elvetino ${sbbSpread(args)}></sbb-logo-elvetino>`;
 
 // Sets `lang` on the document element synchronously during render (avoiding flicker on
 // remount), and restores the original value once the story unmounts (e.g. when the user
@@ -171,31 +178,49 @@ const anniversaryArgs: Args = {
 };
 
 export const NoProtectiveRoom: StoryObj = {
-  render: Template,
+  render: TemplateLogo,
   argTypes: logoArgTypes,
-  args: { ...logoArgs },
+  args: logoArgs,
 };
 
 export const MinimalProtectiveRoom: StoryObj = {
-  render: Template,
+  render: TemplateLogo,
   argTypes: logoArgTypes,
   args: { ...logoArgs, 'protective-room': protectiveRoom.options![1] },
 };
 
 export const IdealProtectiveRoom: StoryObj = {
-  render: Template,
+  render: TemplateLogo,
   argTypes: logoArgTypes,
   args: { ...logoArgs, 'protective-room': protectiveRoom.options![2] },
 };
 
 export const Negative: StoryObj = {
-  render: Template,
+  render: TemplateLogo,
   argTypes: logoArgTypes,
   args: {
     ...logoArgs,
     negative: true,
     'protective-room': protectiveRoom.options![2],
   },
+};
+
+export const Cargo: StoryObj = {
+  render: TemplateCargoLogo,
+  argTypes: logoArgTypes,
+  args: logoArgs,
+};
+
+export const CargoInternational: StoryObj = {
+  render: TemplateCargoInternationalLogo,
+  argTypes: logoArgTypes,
+  args: logoArgs,
+};
+
+export const Elvetino: StoryObj = {
+  render: TemplateElvetinoLogo,
+  argTypes: logoArgTypes,
+  args: logoArgs,
 };
 
 export const Anniversary: StoryObj = {

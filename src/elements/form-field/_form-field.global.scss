@@ -18,6 +18,7 @@ $theme: 'standard' !default;
   --sbb-form-field-arrow-color: var(--sbb-color-3);
   --sbb-form-field-gap: var(--sbb-spacing-fixed-2x);
   --sbb-form-field-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-form-field-textarea-s-spacer: var(--sbb-spacing-fixed-1x);
   --sbb-form-field-min-height: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-size-element-m),
