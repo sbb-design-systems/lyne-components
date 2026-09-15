@@ -1,6 +1,6 @@
 @use '../mixins/functions';
 
-.sbb-form-field-test {
+.sbb-form-field {
   position: relative;
   min-width: #{functions.px-to-rem-build(150)};
   width: min(#{functions.px-to-rem-build(300)}, 100%);
@@ -51,6 +51,18 @@
     outline-offset: var(--sbb-form-field-outline-offset, var(--sbb-focus-outline-offset));
   }
 
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: var(--sbb-form-field-border-width) var(--sbb-form-field-border-style)
+      var(--sbb-form-field-border-color);
+    border-radius: var(--sbb-form-field-border-radius);
+    pointer-events: none;
+  }
+
   > input {
     display: inline-block;
     color: var(--sbb-form-field-color);
@@ -67,17 +79,5 @@
     font-family: var(--sbb-typo-font-family);
     border-radius: var(--sbb-form-field-border-radius);
     outline: none;
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: var(--sbb-form-field-border-width) var(--sbb-form-field-border-style)
-      var(--sbb-form-field-border-color);
-    border-radius: var(--sbb-form-field-border-radius);
-    pointer-events: none;
   }
 }

@@ -273,7 +273,7 @@ const textBlock = (): TemplateResult => html`
 
 const NoFormTemplate = (args: Args): TemplateResult => html`
   <div>
-    <div class="sbb-form-field-test">
+    <div class="sbb-form-field">
       <input
         id="test"
         placeholder="Placeholder"
