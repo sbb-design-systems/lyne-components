@@ -9,7 +9,6 @@ import readme from './readme.md?raw';
 import '../pearl-chain.ts';
 
 const today = new Date();
-// today.setHours(0, 0, 0);
 
 const startTime = new Date(today);
 startTime.setHours(10, 0);

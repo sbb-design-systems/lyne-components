@@ -22,7 +22,7 @@
 
 .line {
   stroke: var(--sbb-pearl-chain-color);
-  stroke-width: var(--sbb-pearl-chain-border-width);
+  stroke-width: var(--sbb-pearl-chain-stroke-width);
 
   &--past {
     stroke: var(--sbb-pearl-chain-past-color);
@@ -44,7 +44,7 @@
 
   &--irrelevant {
     stroke: var(--sbb-pearl-chain-irrelevant-color);
-    stroke-width: var(--sbb-pearl-chain-irrelevant-border-width);
+    stroke-width: var(--sbb-pearl-chain-irrelevant-stroke-width);
   }
 }
 
