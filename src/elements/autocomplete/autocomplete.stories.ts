@@ -271,6 +271,31 @@ const textBlock = (): TemplateResult => html`
   </sbb-card>
 `;
 
+const NoFormTemplate = (args: Args): TemplateResult => html`
+  <div>
+    <div class="sbb-form-field">
+      <input
+        id="test"
+        placeholder="Placeholder"
+        ?disabled=${args.disabled}
+        ?readonly=${args.readonly}
+      />
+      <sbb-autocomplete
+        trigger="test"
+        position=${args.position}
+        ?preserve-icon-space=${args.preserveIconSpace}
+        ?auto-active-first-option=${args.autoActiveFirstOption}
+        ?auto-select-active-option=${args.autoSelectActiveOption}
+        ?auto-select-active-option-on-blur=${args.autoSelectActiveOptionOnBlur}
+        ?require-selection=${args.requireSelection}
+      >
+        ${createOptionGroup1(args.iconName, args.disableOption)} ${createOptionGroup2()}
+      </sbb-autocomplete>
+    </div>
+    ${textBlock()}
+  </div>
+`;
+
 const Template = (args: Args): TemplateResult => html`
   <div>
     <sbb-form-field
@@ -554,6 +579,12 @@ export const WithEllipsis: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, ellipsis: true },
+};
+
+export const WithoutForm: StoryObj = {
+  render: NoFormTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
 
 const meta: Meta = {
