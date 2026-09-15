@@ -226,7 +226,7 @@ export const Elvetino: StoryObj = {
 export const Anniversary: StoryObj = {
   render: TemplateAnniversary,
   argTypes: anniversaryArgTypes,
-  args: { ...anniversaryArgs },
+  args: anniversaryArgs,
 };
 
 export const AnniversaryNegative: StoryObj = {
@@ -238,7 +238,7 @@ export const AnniversaryNegative: StoryObj = {
 export const AnniversaryInHeader: StoryObj = {
   render: TemplateAnniversaryInHeader,
   argTypes: anniversaryArgTypes,
-  args: { ...anniversaryArgs },
+  args: anniversaryArgs,
   parameters: {
     layout: 'fullscreen',
     docs: {
