@@ -1,5 +1,6 @@
 @use '../mixins/functions';
 
+// TODO: negative, size property? empty state? support other inputs?
 .sbb-form-field {
   position: relative;
   min-width: #{functions.px-to-rem-build(150)};
