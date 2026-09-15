@@ -13,12 +13,12 @@
   width: var(--sbb-pearl-chain-bullet-size);
   height: var(--sbb-pearl-chain-bullet-size);
   color: var(--sbb-pearl-chain-bullet-color);
+  background-color: var(--sbb-pearl-chain-bullet-background-color);
   rotate: var(--sbb-pearl-chain-bullet-rotation, 0deg);
 
-  &--start,
-  &--end {
-    width: var(--sbb-pearl-chain-bullet-start-end-size);
-    height: var(--sbb-pearl-chain-bullet-start-end-size);
+  circle {
+    cx: 50%;
+    cy: 50%;
   }
 
   &--past {
@@ -31,14 +31,47 @@
 
   &--irrelevant {
     --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-irrelevant-color);
-    --sbb-pearl-chain-bullet-stroke-width: var(--sbb-pearl-chain-irrelevant-border-width);
-
-    // thinner stroke
+    --sbb-pearl-chain-bullet-stop-stroke-width: var(--sbb-pearl-chain-irrelevant-stroke-width);
   }
 
-  &--stop circle {
-    fill: var(--sbb-pearl-chain-bullet-fill-color);
-    r: calc(50% - var(--sbb-pearl-chain-bullet-stroke-width) / 2);
-    stroke-width: var(--sbb-pearl-chain-bullet-stroke-width);
+  &--stop {
+    width: var(--sbb-pearl-chain-bullet-stop-size);
+    height: var(--sbb-pearl-chain-bullet-stop-size);
+
+    circle {
+      fill: var(--sbb-pearl-chain-bullet-fill-color);
+      r: calc(50% - var(--sbb-pearl-chain-bullet-stop-stroke-width) / 2);
+      stroke-width: var(--sbb-pearl-chain-bullet-stop-stroke-width);
+    }
+  }
+
+  &--skip {
+    width: var(--sbb-pearl-chain-bullet-skip-size);
+    height: var(--sbb-pearl-chain-bullet-skip-size);
+
+    .dash {
+      fill: var(--sbb-color-red);
+    }
+  }
+
+  &--stop-duty {
+    .outer-circle {
+      fill: transparent;
+      r: calc(50% - var(--sbb-pearl-chain-bullet-stroke-width) / 2);
+      stroke-width: var(--sbb-pearl-chain-bullet-stroke-width);
+      stroke-dasharray: 2.1 1;
+    }
+  }
+
+  &--boarding,
+  &--alighting,
+  &--stop-on-demand,
+  &--boarding-on-demand,
+  &--alighting-on-demand {
+    .outer-circle {
+      fill: transparent;
+      r: calc(50% - var(--sbb-pearl-chain-bullet-stroke-width) / 2);
+      stroke-width: var(--sbb-pearl-chain-bullet-stroke-width);
+    }
   }
 }
