@@ -65,14 +65,10 @@ $open-anim-height-to: calc(
 :host([size='s']) {
   --sbb-notification-font-size: var(--sbb-text-font-size-xs);
   --sbb-notification-padding-block: var(--sbb-spacing-responsive-xxxs);
-  --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs)
-    var(--sbb-spacing-responsive-xxxs);
+  --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs);
   --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
     var(--sbb-spacing-responsive-xxs);
-
-  @include sbb.mq($from: small) {
-    --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs);
-  }
+  --sbb-notification-close-button-size: var(--sbb-button-min-height-size-s);
 }
 
 :host([size='m']) {
@@ -81,10 +77,7 @@ $open-anim-height-to: calc(
   --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
     var(--sbb-spacing-responsive-xs);
-
-  @include sbb.mq($from: small) {
-    --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xs);
-  }
+  --sbb-notification-close-button-size: var(--sbb-button-min-height-size-m);
 }
 
 // Types
@@ -172,7 +165,7 @@ $open-anim-height-to: calc(
 .sbb-notification {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto 1fr auto auto;
   align-items: center;
   padding-block: var(--sbb-notification-padding-block);
   padding-inline: var(--sbb-notification-padding-inline);
@@ -183,51 +176,38 @@ $open-anim-height-to: calc(
     var(--sbb-notification-border-radius-start);
   overflow: hidden;
   background-color: var(--sbb-notification-background-color);
-
-  @include sbb.mq($from: small) {
-    grid-template-columns: auto 1fr auto auto;
-  }
 }
 
 .sbb-notification__icon,
 ::slotted(sbb-icon) {
   color: var(--sbb-notification-icon-color);
-  align-self: var(--sbb-notification-icon-align-self);
+  align-self: flex-start;
+
+  // In order to align the icon position to the text, we set the icon height equals the text height.
+  // Although the icon can be smaller than 24px, it looks correctly positioned
+  height: calc(1em * var(--_sbb-notification-icon-authoritative-line-height));
 
   // This is an undocumented feature for sbb.ch, to have the ability to hide the icon.
   --sbb-icon-svg-width: var(--sbb-notification-icon-size);
 
-  @include sbb.mq($from: small) {
-    margin-block-start: max(
-      0rem,
-      calc(
+  margin-block-start: calc(
+    (
         (
-            (
-                var(--_sbb-notification-icon-authoritative-font-size) *
-                  var(--_sbb-notification-icon-authoritative-line-height)
-              ) - var(--sbb-size-icon-ui-small)
-          ) /
-          2
-      )
-    );
-  }
+            var(--_sbb-notification-icon-authoritative-font-size) *
+              var(--_sbb-notification-icon-authoritative-line-height)
+          ) - var(--sbb-size-icon-ui-small)
+      ) /
+      2
+  );
 }
 
 .sbb-notification__content {
   // The content of the notification is always displayed in positive mode,
   // therefore, to have slotted content correctly display, we need only allow light mode.
   color-scheme: only light;
-  order: 3;
-  grid-area: 2 / 1 / 3 / 3;
   align-self: flex-start;
-  margin-block-start: var(--sbb-notification-content-margin-block-start);
-
-  @include sbb.mq($from: small) {
-    order: initial;
-    grid-area: initial;
-    margin-block-start: 0;
-    padding-inline: var(--sbb-notification-content-padding-inline);
-  }
+  align-content: center;
+  padding-inline: var(--sbb-notification-content-padding-inline);
 }
 
 .sbb-notification__text {
@@ -251,15 +231,18 @@ $open-anim-height-to: calc(
     )
   );
 
-  display: none;
-  position: relative;
+  display: block;
   inset-inline-start: var(--sbb-border-width-1x);
+  margin-inline-end: calc(
+    var(--sbb-notification-close-wrapper-gap) +
+      var(--sbb-notification-close-button-size) - var(--sbb-divider-border-width)
+  );
+  height: calc(100% - (var(--sbb-spacing-fixed-1x) * 2));
+}
 
-  @include sbb.mq($from: small) {
-    display: block;
-    margin-inline-end: var(--sbb-notification-close-wrapper-gap);
-    height: calc(100% - (var(--sbb-spacing-fixed-1x) * 2));
-  }
+.sbb-notification__close {
+  position: absolute;
+  inset-inline-end: var(--sbb-notification-padding-inline);
 }
 
 @keyframes open {

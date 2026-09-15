@@ -318,7 +318,6 @@ $font-face: 'SBB' !default;
     @include alert.breakpoint-small;
     @include dialog.breakpoint-small;
     @include footer.breakpoint-small;
-    @include notification.breakpoint-small;
   }
   @include sbb.mq($from: large) {
     @include sbb-css-tokens.breakpoint-large;
