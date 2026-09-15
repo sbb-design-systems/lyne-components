@@ -787,6 +787,13 @@ export class SeatReservationBaseElement extends SbbElement {
   }
 
   /**
+   * Returns the status whether the seat component with the direction of travel is currently displayed
+   */
+  protected hasTravelDirection(): boolean {
+    return this.travelDirection && this.travelDirection !== 'NONE';
+  }
+
+  /**
    * At the end of a scroll Event from the coach scrollable area,
    * the reached coach is marked as selected
    */

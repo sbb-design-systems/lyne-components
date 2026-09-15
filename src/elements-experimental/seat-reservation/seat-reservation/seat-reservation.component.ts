@@ -94,7 +94,12 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
   private _initVehicleSeatReservationConstruction(): void {
     this._coachesHtmlTemplate = html`
       ${this._renderTravelDirection()}
-      <div class="sbb-sr__component">
+      <div
+        class="${classMap({
+          'sbb-sr__component': true,
+          'sbb-sr__component--has-travel-direction': this.hasTravelDirection(),
+        })}"
+      >
         ${this._renderNavigation()}
         <div
           class="sbb-sr__wrapper-coach-decks"
@@ -188,7 +193,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _renderTravelDirection(): TemplateResult | null {
-    if (!this.travelDirection || this.travelDirection === 'NONE') {
+    if (!this.hasTravelDirection()) {
       return null;
     }
 

@@ -12,6 +12,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import type { SbbFormFieldElement } from '../form-field.ts';
 
+import { SbbChipElement } from './chip/chip.component.ts';
 import { SbbChipGroupElement } from './chip-group/chip-group.component.ts';
 import readme from './readme.md?raw';
 
@@ -224,6 +225,7 @@ const meta: Meta = {
         SbbChipGroupElement.events.input,
         SbbChipGroupElement.events.change,
         SbbChipGroupElement.events.chipinputtokenend,
+        SbbChipElement.events.delete,
       ],
     },
     backgroundColor: (context: StoryContext) =>

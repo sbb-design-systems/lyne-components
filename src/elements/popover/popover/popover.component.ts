@@ -14,6 +14,7 @@ import {
   readConfig,
   sbbInputModalityDetector,
   SbbMediaQueryPointerCoarse,
+  SbbNegativeMixin,
   scrollbarStyles,
   ɵstateController,
 } from '../../core.ts';
@@ -31,7 +32,7 @@ const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export class SbbPopoverElement extends SbbPopoverBaseElement {
+export class SbbPopoverElement extends SbbNegativeMixin(SbbPopoverBaseElement) {
   public static override readonly elementName: string = 'sbb-popover';
   public static override styles: CSSResultGroup = [scrollbarStyles, unsafeCSS(style)];
 

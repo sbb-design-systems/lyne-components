@@ -119,9 +119,9 @@ To not break the accessibility when links are used together with images, please 
 
 #### Slots
 
-| Name | Description                                                                                |
-| ---- | ------------------------------------------------------------------------------------------ |
-|      | Use the unnamed slot to add images for the carousel, as <img>, <sbb-image>, <picture>, ... |
+| Name | Description                                                                                      |
+| ---- | ------------------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add images for the carousel, as `<img>`, `<sbb-image>`, `<picture>`, ... |
 
 ### class: `SbbCarouselListElement`, `sbb-carousel-list`
 

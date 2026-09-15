@@ -39,7 +39,7 @@
   --sbb-header-position: fixed;
   --sbb-header-animation-name: hide;
   --sbb-header-transform: translate3d(0, -100%, 0);
-  --sbb-header-inset-inline-end: var(--sbb-scrollbar-width, 0);
+  --sbb-header-inset-inline-end: var(--sbb-scrollbar-reserved-space, 0);
 }
 
 :host([hide-on-scroll]:state(fixed):state(animated)) {
@@ -130,6 +130,7 @@
   display: block;
   padding-block: var(--sbb-spacing-fixed-3x);
   position: relative;
+  flex-basis: 0;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.

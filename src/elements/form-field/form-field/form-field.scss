@@ -82,6 +82,10 @@
   }
 }
 
+:host([size='s']:where(:state(input-element-textarea))) {
+  --_sbb-form-field-spacer-margin-block-end-textarea: var(--sbb-form-field-textarea-s-spacer);
+}
+
 :host([size='m']) {
   --sbb-form-field-min-height: var(--sbb-size-element-m);
   --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-3x);
@@ -247,15 +251,21 @@
       }
     }
 
+    &::after {
+      position: absolute;
+      border-block-end: var(--sbb-border-width-1x) var(--sbb-form-field-border-style)
+        var(--sbb-form-field-border-color);
+      inset-inline: var(
+        --sbb-form-field-border-block-end-inset-inline,
+        var(--sbb-form-field-padding-inline)
+      );
+      inset-block-end: 0;
+      z-index: var(--sbb-form-field-focus-underline-z-index, initial);
+    }
+
     :host(:where(:state(focus), :state(disabled))[borderless]) & {
       &::after {
         content: '';
-        position: absolute;
-        border-block-end: var(--sbb-border-width-1x) var(--sbb-form-field-border-style)
-          var(--sbb-form-field-border-color);
-        inset-inline: var(--sbb-form-field-padding-inline);
-        inset-block-end: 0;
-        z-index: var(--sbb-form-field-focus-underline-z-index, initial);
       }
     }
   }
@@ -341,7 +351,10 @@ slot[name='hint'] {
   height: calc(var(--sbb-form-field-label-text-size) * var(--sbb-typo-line-height-text));
 
   // Moves label down and input up to meet positioning requirements
-  margin-block-end: var(--_sbb-form-field-spacer-margin-block-end);
+  margin-block-end: calc(
+    var(--_sbb-form-field-spacer-margin-block-end) +
+      var(--_sbb-form-field-spacer-margin-block-end-textarea, 0px)
+  );
 }
 
 // To avoid doubled payload, we group the rules.
@@ -363,7 +376,7 @@ slot[name='hint'] {
   inset-block-start: 0;
   color: var(--sbb-form-field-label-color);
   font-size: var(--sbb-form-field-label-text-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
 
   :host(:where(:state(input-element-select), :state(input-element-sbb-select))) & {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);

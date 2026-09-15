@@ -152,7 +152,7 @@ const leanExampleTemplate = (): TemplateResult => html`
             ></sbb-icon>
             <span class="sbb-text-m sbb-text--bold"> CHF 40.00 </span>
           </span>
-          <sbb-card-badge>%</sbb-card-badge>
+          <sbb-card-badge aria-label="Special offer">%</sbb-card-badge>
         </sbb-checkbox-panel>
       </div>
     </section>

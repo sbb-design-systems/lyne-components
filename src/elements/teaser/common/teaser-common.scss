@@ -1,0 +1,117 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --_sbb-teaser-forced-colors-inset: calc(-1 * var(--sbb-focus-outline-offset));
+  --_sbb-teaser-forced-colors-outline-offset: calc(2 * var(--sbb-focus-outline-offset));
+  --_sbb-teaser-forced-colors-border-radius: calc(
+    var(--sbb-teaser-border-radius) + var(--sbb-focus-outline-offset)
+  );
+
+  display: inline-block;
+}
+
+:host([size='l']) {
+  --sbb-teaser-gap: var(--sbb-teaser-gap-l);
+  --sbb-teaser-title-gap: var(--sbb-teaser-title-gap-l);
+  --sbb-teaser-button-gap: var(--sbb-teaser-button-gap-l);
+  --sbb-teaser-font-size: var(--sbb-teaser-font-size-l);
+}
+
+:host(:is([alignment='after'], [alignment='before'])) {
+  --sbb-teaser-align-items: start;
+}
+
+:host(:is([alignment='before'], [alignment='before-centered'])) {
+  --sbb-teaser-flex-direction: row-reverse;
+}
+
+:host([alignment='below']) {
+  --sbb-teaser-flex-direction: column;
+  --sbb-teaser-align-items: baseline;
+  --sbb-teaser-gap: var(--sbb-teaser-gap-below);
+}
+
+.sbb-teaser__wrapper {
+  display: flex;
+  position: relative;
+
+  @include sbb.zero-width-space;
+
+  @media (forced-colors: active) {
+    // Static outline to visualize the sbb teaser box
+    &::after {
+      content: '';
+      position: absolute;
+      inset: var(--_sbb-teaser-forced-colors-inset);
+      pointer-events: none;
+      border-radius: var(--_sbb-teaser-forced-colors-border-radius);
+      border: var(--sbb-border-width-1x) solid CanvasText;
+    }
+  }
+}
+
+.sbb-teaser__container {
+  display: flex;
+  flex-flow: var(--sbb-teaser-flex-direction) nowrap;
+  align-items: var(--sbb-teaser-align-items);
+  gap: var(--sbb-teaser-gap);
+  max-width: 100%;
+  width: 100%;
+}
+
+.sbb-teaser__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-teaser-button-gap);
+  width: 100%;
+}
+
+.sbb-teaser__text {
+  color: var(--sbb-teaser-description-color);
+  font-size: var(--sbb-teaser-font-size);
+  letter-spacing: var(--sbb-letter-spacing-text);
+  overflow: hidden;
+  max-width: 100%;
+}
+
+// With display: block we don't force the slotted content to be 100% width, but allow it to be smaller if it wants to.
+slot[name='action'] {
+  :host(:state(slotted-action)) & {
+    display: block;
+  }
+}
+
+::slotted([slot='image']) {
+  display: block;
+  width: var(--sbb-teaser-image-width);
+}
+
+.sbb-teaser__image-wrapper {
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: var(--sbb-teaser-border-radius);
+  transition: box-shadow var(--sbb-teaser-image-animation-duration) var(--sbb-animation-easing);
+  max-width: 100%;
+
+  :host(:not(:state(slotted-image))) & {
+    display: none;
+  }
+}
+
+.sbb-teaser__description {
+  // Reset paragraph styles
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+::slotted(sbb-chip-label) {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  margin-block-end: var(--sbb-spacing-fixed-1x);
+}
+
+::slotted(sbb-title) {
+  margin-block: 0 var(--sbb-teaser-title-gap);
+}

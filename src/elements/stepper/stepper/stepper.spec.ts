@@ -1159,6 +1159,65 @@ describe('sbb-stepper', () => {
       expect(stepLabelThree).to.match(':state(selected)');
       expect(element.selectedIndex).to.be.equal(2);
     });
+
+    it('user-disabled steps do not change switching from linear to non-linear and back', async () => {
+      const labels = Array.from(element.querySelectorAll<SbbStepLabelElement>('sbb-step-label'));
+      const [stepLabelOne, stepLabelTwo, stepLabelThree, stepLabelFour] = labels;
+
+      // Initial state: only step 4 is disabled by the user via the `disabled` attribute.
+      expect(stepLabelOne.disabled).to.be.false;
+      expect(stepLabelOne).not.to.match(':state(user-disabled)');
+      expect(stepLabelTwo.disabled).to.be.false;
+      expect(stepLabelTwo).not.to.match(':state(user-disabled)');
+      expect(stepLabelThree.disabled).to.be.false;
+      expect(stepLabelThree).not.to.match(':state(user-disabled)');
+      expect(stepLabelFour.disabled).to.be.true;
+      expect(stepLabelFour).to.match(':state(user-disabled)');
+
+      // Switch to linear mode: all labels after the first get disabled by the stepper.
+      element.linear = true;
+      await waitForLitRender(element);
+
+      expect(element.selectedIndex).to.be.equal(0);
+      expect(stepLabelOne.disabled).to.be.false;
+      expect(stepLabelTwo.disabled).to.be.true;
+      expect(stepLabelThree.disabled).to.be.true;
+      expect(stepLabelFour.disabled).to.be.true;
+
+      // The internal disabling must not mark the labels as user-disabled.
+      expect(stepLabelTwo).not.to.match(':state(user-disabled)');
+      expect(stepLabelThree).not.to.match(':state(user-disabled)');
+      expect(stepLabelFour).to.match(':state(user-disabled)');
+
+      // Switch back to non-linear mode: labels not disabled by the user must be enabled again.
+      element.linear = false;
+      await waitForLitRender(element);
+
+      expect(stepLabelOne.disabled).to.be.false;
+      expect(stepLabelOne).not.to.have.attribute('disabled');
+      expect(stepLabelTwo.disabled).to.be.false;
+      expect(stepLabelTwo).not.to.have.attribute('disabled');
+      expect(stepLabelThree.disabled).to.be.false;
+      expect(stepLabelThree).not.to.have.attribute('disabled');
+      expect(stepLabelFour.disabled).to.be.true;
+      expect(stepLabelFour).to.have.attribute('disabled');
+      expect(stepLabelFour).to.match(':state(user-disabled)');
+
+      // Clicking on enabled and disabled labels has different result
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
+        element,
+      );
+      stepLabelThree.click();
+      await waitForLitRender(element);
+      await stepChangeSpy.calledOnce();
+      expect(stepLabelThree).to.match(':state(selected)');
+      expect(element.selectedIndex).to.be.equal(2);
+      stepLabelFour.click();
+      await waitForLitRender(element);
+      expect(stepChangeSpy.count).to.be.equal(1);
+      expect(element.selectedIndex).to.be.equal(2);
+    });
   });
 
   it('proxy size to step children', async () => {

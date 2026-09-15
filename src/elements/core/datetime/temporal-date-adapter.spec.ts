@@ -210,6 +210,7 @@ describe('TemporalDateAdapter', () => {
       expect(date.month).to.be.equal(1);
       expect(date.day).to.be.equal(1);
     }
+    expect(dateAdapter.parse('30.02.2023')).to.be.null;
   });
 
   it('format should return the correct string', function () {

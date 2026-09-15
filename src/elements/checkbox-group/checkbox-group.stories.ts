@@ -29,7 +29,8 @@ const suffixStyle: Readonly<StyleInfo> = {
   alignItems: 'center',
 };
 
-const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
+const cardBadge = (): TemplateResult =>
+  html`<sbb-card-badge aria-label="Special offer">%</sbb-card-badge>`;
 
 const suffixAndSubtext = (): TemplateResult => html`
   <span slot="subtext">Subtext</span>

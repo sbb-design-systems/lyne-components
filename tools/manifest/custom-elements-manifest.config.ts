@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import path, { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -47,16 +48,43 @@ interface TSTypeInternal extends TsType {
   value?: string | number;
 }
 
+interface ManifestContext {
+  thirdPartyCEMs?: Package[];
+}
+
 /**
  * Docs: https://custom-elements-manifest.open-wc.org/analyzer/getting-started/
  */
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function createManifestConfig(library = '') {
+export function createManifestConfig(library = '', externalManifestFolderName?: string) {
   let typeChecker: TypeChecker;
   // Map of type alias name -> resolved string-literal union text, e.g. "SbbCheckboxSize" -> "'xs' | 's' | 'm'"
   const resolvedTypeAliasMap = new Map<string, string>();
   // Map of "ClassName.memberName" -> resolved type text
   const resolvedTypeMap = new Map<string, string>();
+
+  function loadContextManifest(manifestId: string): Package {
+    const manifestPath = path.resolve(`dist/${manifestId}/custom-elements.json`);
+    let parsedManifest: Partial<Package>;
+
+    try {
+      parsedManifest = JSON.parse(readFileSync(manifestPath, 'utf-8')) as Partial<Package>;
+    } catch (error) {
+      const details = error instanceof Error ? error.message : String(error);
+      throw new Error(
+        `Unable to load context custom elements manifest "${manifestId}" from ${manifestPath}. Build "${manifestId}" first or verify the manifest contents. ${details}`,
+        { cause: error },
+      );
+    }
+
+    if (!Array.isArray(parsedManifest.modules)) {
+      throw new Error(
+        `Invalid context custom elements manifest "${manifestId}" at ${manifestPath}: missing \`modules\` array.`,
+      );
+    }
+
+    return parsedManifest as Package;
+  }
 
   /**
    * Recursively expands a TypeScript type to its primitive literal representation.
@@ -208,10 +236,17 @@ export function createManifestConfig(library = '') {
             throw new Error('Inheritance plugin not found');
           }
           inheritancePlugin.packageLinkPhase = ({ customElementsManifest, context }) => {
-            const allManifests: Package[] = [
-              customElementsManifest,
-              ...((context.thirdPartyCEMs as Package[]) || []),
-            ];
+            const manifestContext = context as ManifestContext;
+            manifestContext.thirdPartyCEMs ??= [];
+            const thirdPartyCEMs = manifestContext.thirdPartyCEMs;
+
+            if (externalManifestFolderName) {
+              const loaded = loadContextManifest(externalManifestFolderName);
+              if (!thirdPartyCEMs.includes(loaded)) {
+                thirdPartyCEMs.push(loaded);
+              }
+            }
+            const allManifests: Package[] = [customElementsManifest, ...thirdPartyCEMs];
             const classLikes: (ClassDeclaration | MixinDeclaration)[] = [];
 
             allManifests.forEach((manifest) => {

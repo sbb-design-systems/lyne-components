@@ -424,6 +424,22 @@ export const CalendarEnhancedWideWeekNumbersMultiple: StoryObj = {
   },
 };
 
+export const CalendarActiveMonth: StoryObj = {
+  render: () =>
+    html`<sbb-calendar
+        active-month="2023-08"
+        value="2023-09-15"
+        multiple
+        week-numbers
+      ></sbb-calendar>
+
+      <p>
+        Setting the active month will control which month is initially displayed, even if the
+        selected date is in a different month (i.e., September 15, 2023 is the selected value but
+        August is initially displayed).
+      </p> `,
+};
+
 export const CalendarFixedMonth: StoryObj = {
   render: ({ amount }: Args) =>
     html`<sbb-calendar

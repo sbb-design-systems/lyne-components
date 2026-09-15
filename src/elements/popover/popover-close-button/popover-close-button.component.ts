@@ -1,7 +1,12 @@
 import { type TemplateResult } from 'lit';
 
 import { SbbSecondaryButtonElement } from '../../button.pure.ts';
-import { i18nClosePopover, SbbLanguageController } from '../../core.ts';
+import {
+  i18nClosePopover,
+  SbbLanguageController,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
+import type { SbbPopoverElement } from '../popover/popover.component.ts';
 
 /**
  * Popover close button, intended to be placed inside sbb-popover.
@@ -19,6 +24,11 @@ export class SbbPopoverCloseButtonElement extends SbbSecondaryButtonElement {
   public constructor() {
     super();
     this.size = 's' as this['size'];
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.closest<SbbPopoverElement>('sbb-popover'), {
+        negative: (p) => (this.negative = p.negative),
+      }),
+    );
   }
 
   protected override renderTemplate(): TemplateResult {

@@ -148,7 +148,7 @@ If the attribute is not used, the first focusable element receives focus (recomm
 ```html
 <sbb-menu>
   <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
-  <sbb-menu-link sbb-initial-focus icon="link-small" href="https://www.sbb.ch/en">
+  <sbb-menu-link sbb-focus-initial icon="link-small" href="https://www.sbb.ch/en">
     Receives initial focus
   </sbb-menu-link>
 </sbb-menu>

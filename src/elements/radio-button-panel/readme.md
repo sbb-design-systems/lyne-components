@@ -24,7 +24,7 @@ In cases where that's not possible, you can define a group of radios using the s
 It is possible to provide a label via an unnamed slot;
 additionally the slots named `subtext` can be used to provide a subtext and
 the slot named `suffix` can be used to provide suffix items.
-If you use a <sbb-card-badge>, the slot `badge` is automatically assigned.
+If you use a `<sbb-card-badge>`, the slot `badge` is automatically assigned.
 
 ```html
 <sbb-radio-button-panel>

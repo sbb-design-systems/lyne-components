@@ -1,7 +1,7 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
 import '../../popover.ts';
 import '../../button.ts';
@@ -18,18 +18,26 @@ describe(`sbb-popover`, () => {
     { name: 'bottom-right', alignItems: 'end', justifyContent: 'end' },
   ];
 
-  const popover = (withCloseButton = true): TemplateResult => html`
+  const variantCases = {
+    negative: [false, true],
+    darkMode: [false, true],
+  };
+
+  const popover = (withCloseButton = true, negative = false): TemplateResult => html`
     <sbb-mini-button icon-name="circle-information-small" id="popover-trigger"></sbb-mini-button>
 
-    <sbb-popover trigger="popover-trigger">
+    <sbb-popover trigger="popover-trigger" ?negative=${negative}>
       ${withCloseButton ? html`<sbb-popover-close-button></sbb-popover-close-button>` : nothing}
-      <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Title.</sbb-title>
+      <sbb-title level="2" visual-level="6" style="margin-block-start: 0" ?negative=${negative}
+        >Title.</sbb-title
+      >
       <p style="margin: 0" class="sbb-text-s">
         Some content.
         <sbb-block-link
           size="s"
           icon-name="chevron-small-right-small"
           icon-placement="end"
+          ?negative=${negative}
           sbb-popover-close
         >
           Learn More
@@ -66,13 +74,38 @@ describe(`sbb-popover`, () => {
       );
     }
 
+    describeEach(variantCases, ({ negative, darkMode }) => {
+      it(
+        visualDiffDefault.name,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(popover(true, negative), {
+            minHeight: '400px',
+            padding: '3rem',
+            darkMode,
+          });
+          setup.withPostSetupAction(() =>
+            setup.snapshotElement.querySelector('sbb-mini-button')!.click(),
+          );
+        }),
+      );
+    });
+
     it(
-      `without close button`,
+      `near viewport`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(popover(false), {
-          minHeight: '400px',
-          padding: '3rem',
-        });
+        await setup.withFixture(
+          html`
+            <div
+              style=${styleMap({
+                height: '400px',
+                padding: '0px',
+              })}
+            >
+              ${popover()}
+            </div>
+          `,
+          { padding: '0' },
+        );
         setup.withPostSetupAction(() =>
           setup.snapshotElement.querySelector('sbb-mini-button')!.click(),
         );
@@ -80,12 +113,11 @@ describe(`sbb-popover`, () => {
     );
 
     it(
-      `darkMode=true`,
+      `without close button`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(popover(), {
+        await setup.withFixture(popover(false), {
           minHeight: '400px',
           padding: '3rem',
-          darkMode: true,
         });
         setup.withPostSetupAction(() =>
           setup.snapshotElement.querySelector('sbb-mini-button')!.click(),

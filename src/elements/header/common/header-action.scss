@@ -187,7 +187,7 @@
   display: block;
   font-weight: bold;
   line-height: var(--sbb-typo-line-height-text);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
   font-size: var(--sbb-text-font-size-xs);
 
   :host(:not(:state(slotted))) & {

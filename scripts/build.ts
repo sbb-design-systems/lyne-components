@@ -387,12 +387,27 @@ function stateTransform(): PluginOption {
 }
 
 function rawLoader(): PluginOption {
+  const mimeByExtension: Record<string, string> = {
+    gif: 'image/gif',
+    jpeg: 'image/jpeg',
+    jpg: 'image/jpeg',
+    png: 'image/png',
+    webp: 'image/webp',
+  };
   return {
     name: 'raw-loader',
     load(id) {
       if (id.endsWith('?raw')) {
         const code = `export default ${JSON.stringify(readFileSync(id.replace('?raw', ''), 'utf8'))};`;
         return { code };
+      } else if (id.endsWith('?inline')) {
+        const filePath = id.replace('?inline', '');
+        const mime = mimeByExtension[extname(filePath).slice(1).toLowerCase()];
+        if (!mime) {
+          return;
+        }
+        const dataUrl = `data:${mime};base64,${readFileSync(filePath).toString('base64')}`;
+        return { code: `export default ${JSON.stringify(dataUrl)};` };
       }
     },
   };

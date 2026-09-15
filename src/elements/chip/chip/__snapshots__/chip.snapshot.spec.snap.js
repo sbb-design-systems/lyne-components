@@ -99,10 +99,9 @@ snapshots["sbb-chip renders A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "option",
-      "name": "Value , Press the Delete button to remove the chip",
-      "focusable": true,
-      "selected": false
+      "role": "generic",
+      "name": "",
+      "focusable": true
     }
   ]
 }
@@ -117,10 +116,9 @@ snapshots["sbb-chip renders with label A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "option",
-      "name": "Value label , Press the Delete button to remove the chip",
-      "focusable": true,
-      "selected": false
+      "role": "generic",
+      "name": "",
+      "focusable": true
     }
   ]
 }
@@ -135,9 +133,50 @@ snapshots["sbb-chip renders disabled A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "option",
-      "name": "Value , Press the Delete button to remove the chip",
-      "selected": false
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "StaticText",
+              "name": "Value"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "StaticText",
+          "name": ", "
+        },
+        {
+          "role": "StaticText",
+          "name": "Press the Delete button to remove the chip"
+        }
+      ]
     }
   ]
 }

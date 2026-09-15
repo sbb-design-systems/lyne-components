@@ -32,14 +32,26 @@ const nativeInputElements = ['input', 'textarea', 'select'];
 
 /** An interface which allows a control to work inside a `SbbFormField`. */
 export interface SbbFormFieldElementControl {
-  /** The id of the form field control. */
-  readonly id: string;
+  /**
+   * The id of the form field control.
+   * @deprecated Use `element` instead.
+   */
+  readonly id?: string;
+  /**
+   * The form field control element.
+   * TODO(breaking-change): Change to required property.
+   */
+  readonly element?: HTMLElement;
   /** Whether the control is empty. */
   readonly empty: boolean;
   /** Whether the control is readonly. */
   readonly readOnly?: boolean;
   /** Whether the control is disabled. */
   readonly disabled: boolean;
+  /** Whether the control has been interacted with. */
+  readonly interacted?: boolean;
+  /** Whether the control is invalid. */
+  readonly invalid?: boolean;
   /**
    * The type of the control. This is used as a state representation.
    * When using 'select', the form field will display the dropdown icon.
@@ -314,7 +326,9 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
 
   private _connectInputElement(): 'changed' | 'no-input' | 'unchanged' {
     let newInput: HTMLElement | null;
-    if (this._control?.id) {
+    if (this._control?.element) {
+      newInput = this._control.element;
+    } else if (this._control?.id) {
       newInput = (this.getRootNode() as Document | ShadowRoot).getElementById(this._control.id);
     } else {
       // Find the slotted input element, even if it's nested (e.g. chip group)
@@ -410,6 +424,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
     this.toggleState('readonly', this._control?.readOnly ?? this._input!.hasAttribute('readonly'));
     this.toggleState('disabled', this._control?.disabled ?? this._input!.hasAttribute('disabled'));
     this.toggleState('has-popup-open', this._input!.hasAttribute('data-expanded'));
+    this.toggleState('interacted', !!this._control?.interacted);
+    this.toggleState('invalid', !!this._control?.invalid);
 
     if (this._previousType) {
       this.internals.states.delete(`input-type-${this._previousType}`);

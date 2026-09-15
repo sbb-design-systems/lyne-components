@@ -1,6 +1,7 @@
 /** @entrypoint */
-import { SbbTeaserElement } from './teaser.pure.ts';
+import { SbbTeaserElement, SbbTeaserStaticElement } from './teaser.pure.ts';
 
 export * from './teaser.pure.ts';
 
 SbbTeaserElement.define();
+SbbTeaserStaticElement.define();

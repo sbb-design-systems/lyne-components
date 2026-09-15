@@ -78,6 +78,16 @@ describe(`sbb-download`, () => {
       }),
     );
 
+    // Without an icon, the divider next to the icon is not rendered.
+    it(
+      'without icon',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-download label="Annual report">${infoTemplate()}</sbb-download>
+        `);
+      }),
+    );
+
     // The parent card overrides card variables (color, spacing) which would
     // otherwise be inherited by the nested download; the download has to reset
     // them on its host to keep its own appearance.

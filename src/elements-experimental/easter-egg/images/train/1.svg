@@ -1,0 +1,7 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 19.5L4 19.5L4 0.500001L16 0.5L16 19.5Z" fill="white"/>
+<path d="M15 19.5L5 19.5L5 0.500001L15 0.5L15 19.5Z" fill="#EB0000"/>
+<path d="M14 19.5L6 19.5L6 0.500001L14 0.5L14 19.5Z" fill="#151515"/>
+<line x1="5" y1="19.75" x2="15" y2="19.75" stroke="#686868" stroke-width="0.5"/>
+<line x1="5" y1="0.25" x2="15" y2="0.25" stroke="#686868" stroke-width="0.5"/>
+</svg>
