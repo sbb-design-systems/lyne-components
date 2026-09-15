@@ -73,7 +73,7 @@ describe(`sbb-pearl-chain`, () => {
     expect(element.matches(':state(horizontal)')).to.be.false;
   });
 
-  describe('disrupted / irrelevant / walk lines', () => {
+  describe('disrupted / irrelevant / walk / unsure lines', () => {
     it('mark both lines on "true" adjacent nodes', async () => {
       element = await fixture(html`
         <sbb-pearl-chain>
@@ -81,6 +81,7 @@ describe(`sbb-pearl-chain`, () => {
           <sbb-pearl-chain-node type="stop" disrupted></sbb-pearl-chain-node>
           <sbb-pearl-chain-node type="stop" irrelevant></sbb-pearl-chain-node>
           <sbb-pearl-chain-node type="stop" walk></sbb-pearl-chain-node>
+          <sbb-pearl-chain-node type="stop" unsure></sbb-pearl-chain-node>
           <sbb-pearl-chain-node type="end"></sbb-pearl-chain-node>
         </sbb-pearl-chain>
       `);
@@ -91,6 +92,8 @@ describe(`sbb-pearl-chain`, () => {
       expect(lines[2].classList.contains('line--irrelevant')).to.be.true;
       expect(lines[2].classList.contains('line--walk')).to.be.true;
       expect(lines[3].classList.contains('line--walk')).to.be.true;
+      expect(lines[3].classList.contains('line--unsure')).to.be.true;
+      expect(lines[4].classList.contains('line--unsure')).to.be.true;
     });
 
     it('mark lines based adjacent nodes state', async () => {
