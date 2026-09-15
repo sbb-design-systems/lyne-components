@@ -1,0 +1,83 @@
+@use '../mixins/functions';
+
+.sbb-form-field-test {
+  position: relative;
+  min-width: #{functions.px-to-rem-build(150)};
+  width: min(#{functions.px-to-rem-build(300)}, 100%);
+
+  &:has(input:disabled, input:read-only) {
+    --sbb-form-field-background-color: var(--sbb-background-color-3);
+    --sbb-form-field-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
+
+    @media (forced-colors: active) {
+      --sbb-form-field-border-color: ButtonBorder;
+    }
+  }
+
+  &:has(input:disabled) {
+    --sbb-form-field-border-style: dashed;
+
+    @media (forced-colors: active) {
+      --sbb-form-field-label-color: GrayText !important;
+      --sbb-form-field-prefix-color: GrayText !important;
+      --sbb-form-field-text-color: GrayText !important;
+      --sbb-form-field-border-color: GrayText !important;
+    }
+  }
+
+  &:has(input:focus) {
+    --sbb-form-field-border-color: var(--sbb-border-color-3);
+    --sbb-form-field-border-width: var(--sbb-border-width-2x);
+
+    @media (forced-colors: active) {
+      --sbb-form-field-border-color: Highlight;
+      --sbb-form-field-prefix-color: Highlight;
+    }
+  }
+
+  &:has(input:user-invalid, input:invalid) {
+    --sbb-form-field-border-color: var(--sbb-color-error);
+    --sbb-form-field-text-color: var(--sbb-color-error);
+
+    @media (forced-colors: active) {
+      --sbb-form-field-border-color: LinkText !important;
+      --sbb-form-field-text-color: LinkText !important;
+    }
+  }
+
+  &:has(input:focus-visible)::before {
+    outline: var(--sbb-focus-outline-color) var(--sbb-focus-outline-style, solid)
+      var(--sbb-focus-outline-width);
+    outline-offset: var(--sbb-form-field-outline-offset, var(--sbb-focus-outline-offset));
+  }
+
+  > input {
+    display: inline-block;
+    color: var(--sbb-form-field-color);
+    background-color: var(--sbb-form-field-background-color);
+    min-height: var(--sbb-form-field-min-height);
+    max-height: var(--sbb-form-field-max-height);
+    line-height: var(--sbb-typo-line-height-text);
+    width: 100%;
+    padding-inline: var(--sbb-form-field-padding-inline);
+    border: none;
+    font-size: var(--sbb-form-field-input-text-size);
+    font-weight: normal;
+    letter-spacing: var(--sbb-letter-spacing-text);
+    font-family: var(--sbb-typo-font-family);
+    border-radius: var(--sbb-form-field-border-radius);
+    outline: none;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: var(--sbb-form-field-border-width) var(--sbb-form-field-border-style)
+      var(--sbb-form-field-border-color);
+    border-radius: var(--sbb-form-field-border-radius);
+    pointer-events: none;
+  }
+}
