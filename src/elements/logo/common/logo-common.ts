@@ -8,7 +8,7 @@ import { SbbNegativeMixin } from '../../core/mixins/negative-mixin.ts';
 
 import style from './logo-common.scss?inline';
 
-export declare abstract class SbbLogoCommonElementMixinType extends SbbElement {
+export declare abstract class SbbLogoCommonElementMixinType extends SbbNegativeMixin(SbbElement) {
   public accessor protectiveRoom: 'none' | 'minimal' | 'ideal';
   public accessor accessibilityLabel: string;
 }
@@ -21,7 +21,7 @@ export const SbbLogoCommonElementMixin = <
 ): AbstractConstructor<SbbLogoCommonElementMixinType> & T => {
   abstract class SbbLogoCommonElement
     extends SbbNegativeMixin(superclass)
-    implements Partial<SbbLogoCommonElementMixinType>
+    implements SbbLogoCommonElementMixinType
   {
     public static styles: CSSResultGroup = [unsafeCSS(style)];
 
