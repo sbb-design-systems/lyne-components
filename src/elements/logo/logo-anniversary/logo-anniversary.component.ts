@@ -22,18 +22,22 @@ export class SbbLogoAnniversaryElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-logo-anniversary';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
-  /** Accessibility label which will be forwarded to the SVG logo. */
+  /**
+   * Accessibility label which will be forwarded to the SVG logo.
+   *
+   * @default 'Logo, Connecting Switzerland for 125 years.'
+   */
   @forceType()
   @property({ attribute: 'accessibility-label' })
-  public accessor accessibilityLabel: string = '';
+  public set accessibilityLabel(value: string) {
+    this.#accessibilityLabel = value;
+  }
+  public get accessibilityLabel(): string {
+    return this.#accessibilityLabel || `Logo, ${i18nLogo125Anniversary[this._language.current]}`;
+  }
+  #accessibilityLabel: string = '';
 
   private _language = new SbbLanguageController(this);
-
-  private _accessibilityLabel(): string {
-    return this.accessibilityLabel
-      ? this.accessibilityLabel
-      : `Logo, ${i18nLogo125Anniversary[this._language.current]}`;
-  }
 
   protected override render(): TemplateResult {
     return html`
@@ -43,7 +47,7 @@ export class SbbLogoAnniversaryElement extends SbbNegativeMixin(SbbElement) {
         viewBox="0 0 454 92.6"
         class="lang-${this._language.current}"
         role="img"
-        aria-label=${this._accessibilityLabel()}
+        aria-label=${this.accessibilityLabel}
       >
         <defs>
           <clipPath id="sbb-logo-anniversary-letter-mask">

@@ -75,10 +75,10 @@ to display the end state immediately.
 
 #### Properties
 
-| Name                 | Attribute             | Privacy | Type      | Default | Description                                                  |
-| -------------------- | --------------------- | ------- | --------- | ------- | ------------------------------------------------------------ |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`  | `''`    | Accessibility label which will be forwarded to the SVG logo. |
-| `negative`           | `negative`            | public  | `boolean` | `false` | Negative coloring variant flag.                              |
+| Name                 | Attribute             | Privacy | Type      | Default                                         | Description                                                  |
+| -------------------- | --------------------- | ------- | --------- | ----------------------------------------------- | ------------------------------------------------------------ |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`  | `'Logo, Connecting Switzerland for 125 years.'` | Accessibility label which will be forwarded to the SVG logo. |
+| `negative`           | `negative`            | public  | `boolean` | `false`                                         | Negative coloring variant flag.                              |
 
 #### CSS Properties
 
@@ -91,11 +91,11 @@ to display the end state immediately.
 
 #### Properties
 
-| Name                 | Attribute             | Privacy | Type                             | Default            | Description                                                  |
-| -------------------- | --------------------- | ------- | -------------------------------- | ------------------ | ------------------------------------------------------------ |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'SBB Cargo Logo'` | Accessibility label which will be forwarded to the SVG logo. |
-| `negative`           | `negative`            | public  | `boolean`                        | `false`            | Negative coloring variant flag.                              |
-| `protectiveRoom`     | `protective-room`     | public  | `'none' \| 'minimal' \| 'ideal'` | `'ideal'`          | Visual protective room around logo.                          |
+| Name                 | Attribute             | Privacy | Type                             | Default                    | Description                                                  |
+| -------------------- | --------------------- | ------- | -------------------------------- | -------------------------- | ------------------------------------------------------------ |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'SBB CFF FFS Cargo Logo'` | Accessibility label which will be forwarded to the SVG logo. |
+| `negative`           | `negative`            | public  | `boolean`                        | `false`                    | Negative coloring variant flag.                              |
+| `protectiveRoom`     | `protective-room`     | public  | `'none' \| 'minimal' \| 'ideal'` | `'ideal'`                  | Visual protective room around logo.                          |
 
 #### CSS Properties
 
@@ -107,11 +107,11 @@ to display the end state immediately.
 
 #### Properties
 
-| Name                 | Attribute             | Privacy | Type                             | Default                          | Description                                                  |
-| -------------------- | --------------------- | ------- | -------------------------------- | -------------------------------- | ------------------------------------------------------------ |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'SBB Cargo International Logo'` | Accessibility label which will be forwarded to the SVG logo. |
-| `negative`           | `negative`            | public  | `boolean`                        | `false`                          | Negative coloring variant flag.                              |
-| `protectiveRoom`     | `protective-room`     | public  | `'none' \| 'minimal' \| 'ideal'` | `'ideal'`                        | Visual protective room around logo.                          |
+| Name                 | Attribute             | Privacy | Type                             | Default                                  | Description                                                  |
+| -------------------- | --------------------- | ------- | -------------------------------- | ---------------------------------------- | ------------------------------------------------------------ |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'SBB CFF FFS Cargo International Logo'` | Accessibility label which will be forwarded to the SVG logo. |
+| `negative`           | `negative`            | public  | `boolean`                        | `false`                                  | Negative coloring variant flag.                              |
+| `protectiveRoom`     | `protective-room`     | public  | `'none' \| 'minimal' \| 'ideal'` | `'ideal'`                                | Visual protective room around logo.                          |
 
 #### CSS Properties
 
@@ -123,11 +123,11 @@ to display the end state immediately.
 
 #### Properties
 
-| Name                 | Attribute             | Privacy | Type                             | Default   | Description                                                  |
-| -------------------- | --------------------- | ------- | -------------------------------- | --------- | ------------------------------------------------------------ |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'Logo'`  | Accessibility label which will be forwarded to the SVG logo. |
-| `negative`           | `negative`            | public  | `boolean`                        | `false`   | Negative coloring variant flag.                              |
-| `protectiveRoom`     | `protective-room`     | public  | `'none' \| 'minimal' \| 'ideal'` | `'ideal'` | Visual protective room around logo.                          |
+| Name                 | Attribute             | Privacy | Type                             | Default              | Description                                                  |
+| -------------------- | --------------------- | ------- | -------------------------------- | -------------------- | ------------------------------------------------------------ |
+| `accessibilityLabel` | `accessibility-label` | public  | `string`                         | `'SBB CFF FFS Logo'` | Accessibility label which will be forwarded to the SVG logo. |
+| `negative`           | `negative`            | public  | `boolean`                        | `false`              | Negative coloring variant flag.                              |
+| `protectiveRoom`     | `protective-room`     | public  | `'none' \| 'minimal' \| 'ideal'` | `'ideal'`            | Visual protective room around logo.                          |
 
 #### CSS Properties
 
