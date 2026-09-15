@@ -23,8 +23,6 @@ import style from './pearl-chain-node.scss?inline';
 
 /**
  * The possible bullet types of a `sbb-pearl-chain-node`.
- * ponytail: only 'start'/'end' are visually implemented for now; the remaining
- * types are pending confirmed designs and currently render like _empty_.
  */
 export type SbbPearlChainNodeType =
   | 'start'
