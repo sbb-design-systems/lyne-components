@@ -106,7 +106,7 @@ const HorizontalTemplate = ({ now, ...args }: Args): TemplateResult => html`
   </sbb-pearl-chain>
 `;
 
-const TableTemplate = ({ now, ...args }: Args): TemplateResult => html`
+const VerticalTemplate = ({ now, ...args }: Args): TemplateResult => html`
   <sbb-pearl-chain .now=${new Date(now)}>
     <table>
       <tr style="height: 5rem;">
@@ -144,8 +144,8 @@ export const Horizontal: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const Table: StoryObj = {
-  render: TableTemplate,
+export const Vertical: StoryObj = {
+  render: VerticalTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
