@@ -234,7 +234,8 @@ $open-anim-height-to: calc(
   display: block;
   inset-inline-start: var(--sbb-border-width-1x);
   margin-inline-end: calc(
-    var(--sbb-notification-close-wrapper-gap) + var(--sbb-notification-close-button-size)
+    var(--sbb-notification-close-wrapper-gap) +
+      var(--sbb-notification-close-button-size) - var(--sbb-divider-border-width)
   );
   height: calc(100% - (var(--sbb-spacing-fixed-1x) * 2));
 }
