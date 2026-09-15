@@ -34,7 +34,7 @@ $loading: '[loading], .sbb-loading';
   --_background: var(--_background-color);
   --_color: var(--sbb-button-color-default-text);
   --_button-inset: 0;
-  --_hover-offset: 1px;
+  --_hover-offset: #{sbb.px-to-rem-build(1)};
   --_padding-block: var(--sbb-button-padding-block-min);
   --_padding-inline: var(--sbb-button-padding-inline);
 
@@ -51,9 +51,9 @@ $loading: '[loading], .sbb-loading';
   );
   --_animation-loading-duration: var(--sbb-disable-animation-duration, 3s);
   --_animation-loading-rotate-function: linear(0, 0.25 12.5% 37.5%, 0.75 62.5% 87.5%, 1);
-  --_animation-loading-rotate: rotate var(--_animation-loading-duration)
+  --_animation-loading-rotate: sbb-button-rotate var(--_animation-loading-duration)
     var(--_animation-loading-delay) infinite var(--_animation-loading-rotate-function);
-  --_animation-loading-move: move calc(var(--_animation-loading-duration) / 2)
+  --_animation-loading-move: sbb-button-move calc(var(--_animation-loading-duration) / 2)
     var(--_animation-loading-delay) alternate infinite linear;
 
   @media (forced-colors: active) {
@@ -102,9 +102,6 @@ $loading: '[loading], .sbb-loading';
   transition-timing-function: var(--sbb-button-transition-easing-function);
   transition-property: color, background-color, padding-block;
   animation: var(--_animation);
-
-  // Used for loading state
-  transform-style: var(--_transform-style, flat);
 
   // The padding block value is only a minimal padding to preserve a padding if the content becomes larger than intended.
   // Positioning of the content is made by flexbox vertical centering.
@@ -156,6 +153,7 @@ $loading: '[loading], .sbb-loading';
 @mixin variables--icon-only {
   --sbb-button-padding-inline: 0;
   --_width: calc(var(--sbb-button-min-height) + var(--_min-height-modifier));
+  --_animation-loading-rotate-function: linear;
 }
 
 @mixin variables--hover {
@@ -194,15 +192,6 @@ $loading: '[loading], .sbb-loading';
   --_border-color: var(--sbb-button-color-active-border);
 }
 
-@mixin variables--loading {
-  --_min-height-modifier: calc(-2 * var(--sbb-button-loading-border-width));
-  --sbb-button-focus-outline-offset-override: calc(
-    var(--sbb-focus-outline-offset) + var(--sbb-button-loading-border-width)
-  );
-  --_border: none;
-  --_transform-style: preserve-3d;
-}
-
 @mixin variables--before {
   content: '';
   position: absolute;
@@ -222,6 +211,28 @@ $loading: '[loading], .sbb-loading';
   outline-offset: var(--sbb-button-focus-outline-offset-override, var(--sbb-focus-outline-offset));
 }
 
+@mixin variables--loading-animation-keyframes {
+  @keyframes sbb-button-rotate {
+    from {
+      --sbb-button-loading-angle: -90deg;
+    }
+
+    to {
+      --sbb-button-loading-angle: 270deg;
+    }
+  }
+
+  @keyframes sbb-button-move {
+    from {
+      --sbb-button-loading-offset: 0%;
+    }
+
+    to {
+      --sbb-button-loading-offset: 100%;
+    }
+  }
+}
+
 @mixin variables--loading-animation {
   --_border: none;
   --_border-action: var(--sbb-button-loading-border-width) dotted transparent;
@@ -236,10 +247,10 @@ $loading: '[loading], .sbb-loading';
     border-box padding-box linear-gradient(var(--_background-color)),
     border-box
       conic-gradient(
-        from var(--_button-loading-angle) at
+        from var(--sbb-button-loading-angle) at
           clamp(
             calc(var(--sbb-button-min-height) / 2),
-            var(--_button-loading-offset),
+            var(--sbb-button-loading-offset),
             calc(100% - var(--sbb-button-min-height) / 2)
           )
           50%,
@@ -558,8 +569,6 @@ $loading: '[loading], .sbb-loading';
 
     &.sbb-icon-button {
       @include variables--icon-only;
-
-      --_animation-loading-rotate-function: linear;
     }
 
     &:not(#{$disabled}, #{$active}, #{$loading}):is(:hover, .sbb-hover) {
@@ -660,33 +669,15 @@ $loading: '[loading], .sbb-loading';
     }
   }
 
-  @keyframes rotate {
-    from {
-      --_button-loading-angle: -90deg;
-    }
+  @include variables--loading-animation-keyframes;
 
-    to {
-      --_button-loading-angle: 270deg;
-    }
-  }
-
-  @keyframes move {
-    from {
-      --_button-loading-offset: 0%;
-    }
-
-    to {
-      --_button-loading-offset: 100%;
-    }
-  }
-
-  @property --_button-loading-angle {
+  @property --sbb-button-loading-angle {
     syntax: '<angle>';
     initial-value: 0deg;
     inherits: false;
   }
 
-  @property --_button-loading-offset {
+  @property --sbb-button-loading-offset {
     syntax: '<percentage>';
     initial-value: 0%;
     inherits: false;
