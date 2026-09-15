@@ -30,9 +30,10 @@ export type SbbPearlChainNodeType =
   | 'start'
   | 'end'
   | 'stop'
+  | 'skip'
+  | 'commercial'
   | 'boarding'
   | 'alighting'
-  | 'skip'
   | 'stop-duty'
   | 'stop-on-demand'
   | 'boarding-on-demand'
@@ -64,6 +65,11 @@ export class SbbPearlChainNodeElement extends SbbElement {
   @forceType(parseTriState)
   @property()
   public accessor walk: 'arrival' | 'departure' | true | null = null;
+
+  /** Marks the connection as unsure, rendering the line dashed. Does not affect the bullet. */
+  @forceType(parseTriState)
+  @property()
+  public accessor unsure: 'arrival' | 'departure' | true | null = null;
 
   /** Marks the node as irrelevant, coloring the bullet gray (if rendered); supersedes `disrupted`. */
   @forceType(parseTriState)
@@ -133,6 +139,7 @@ export class SbbPearlChainNodeElement extends SbbElement {
     switch (this.type) {
       case 'start':
       case 'end':
+      case 'commercial':
         return svg`
           <circle cx="50%" cy="50%" r="50%" fill="currentcolor" />
         `;

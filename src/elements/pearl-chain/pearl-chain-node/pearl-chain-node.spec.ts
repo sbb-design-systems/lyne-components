@@ -25,8 +25,8 @@ describe(`sbb-pearl-chain-node`, () => {
     expect(element.shadowRoot!.querySelector('circle')).to.be.null;
   });
 
-  describe('tri-state properties (disrupted / walk / irrelevant)', () => {
-    for (const prop of ['disrupted', 'walk', 'irrelevant'] as const) {
+  describe('tri-state properties (disrupted / walk / irrelevant / unsure)', () => {
+    for (const prop of ['disrupted', 'walk', 'irrelevant', 'unsure'] as const) {
       it(`converts empty string ${prop} to true`, () => {
         element.setAttribute(prop, '');
         expect(element[prop]).to.be.true;

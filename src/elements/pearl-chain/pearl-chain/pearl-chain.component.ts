@@ -26,6 +26,9 @@ interface Point {
 /** Gap (in px) left before a node's bullet, so the line doesn't touch it. */
 const NODE_GAP = 2;
 
+/** Interval (in ms) at which the component is re-rendered. */
+const RENDERING_INTERVAL = 30 * 1000;
+
 /**
  * Linearly interpolates between two points.
  */
@@ -66,6 +69,7 @@ export class SbbPearlChainElement extends SbbElement {
   private _svgElem: Element | undefined;
   private _nodes: SbbPearlChainNodeElement[] = [];
   private _orientation: 'horizontal' | 'vertical' = 'vertical';
+  private _systemNowIntervalId: ReturnType<typeof setInterval> | undefined;
 
   public constructor() {
     super();
@@ -78,8 +82,6 @@ export class SbbPearlChainElement extends SbbElement {
         skipInitial: true,
       }),
     );
-
-    // TODO Add interval that updates `_systemNow` every second, and calls `requestUpdate()` is null.
   }
 
   /**
@@ -107,6 +109,21 @@ export class SbbPearlChainElement extends SbbElement {
     }
     this._nodes.splice(index, 1);
     this.requestUpdate();
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    // Update the component every RENDERING_INTERVAL ms, so the pulsing dot and line segments are re-rendered as "now" progresses.
+    this._systemNowIntervalId = setInterval(() => {
+      this._systemNow = new Date();
+      this.requestUpdate();
+    }, RENDERING_INTERVAL);
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    clearInterval(this._systemNowIntervalId);
   }
 
   protected override updated(changedProperties: PropertyValues<this>): void {
@@ -241,6 +258,11 @@ export class SbbPearlChainElement extends SbbElement {
         start.walk === 'departure' ||
         end.walk === true ||
         end.walk === 'arrival',
+      'line--unsure':
+        start.unsure === true ||
+        start.unsure === 'departure' ||
+        end.unsure === true ||
+        end.unsure === 'arrival',
       'line--irrelevant':
         start.irrelevant === true ||
         start.irrelevant === 'departure' ||

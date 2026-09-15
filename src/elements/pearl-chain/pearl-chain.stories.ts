@@ -24,11 +24,12 @@ const type: InputType = {
   control: { type: 'select' },
   options: [
     'stop',
-    'boarding',
-    'alighting',
     'skip',
+    'commercial',
     'stop-duty',
     'stop-on-demand',
+    'boarding',
+    'alighting',
     'boarding-on-demand',
     'alighting-on-demand',
     'start',
@@ -52,6 +53,11 @@ const walk: InputType = {
   options: [null, true, 'arrival', 'departure'],
 };
 
+const unsure: InputType = {
+  control: { type: 'inline-radio' },
+  options: [null, true, 'arrival', 'departure'],
+};
+
 const now: InputType = {
   control: {
     type: 'date',
@@ -60,18 +66,20 @@ const now: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   type,
+  now,
   disrupted,
   irrelevant,
   walk,
-  now,
+  unsure,
 };
 
 const defaultArgs: Args = {
   type: type.options![0],
+  now: new Date(today),
   disrupted: null,
   irrelevant: null,
   walk: null,
-  now: new Date(today),
+  unsure: null,
 };
 
 const HorizontalTemplate = ({ now, ...args }: Args): TemplateResult => html`
