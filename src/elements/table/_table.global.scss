@@ -77,7 +77,7 @@ $theme: 'standard' !default;
 
     th {
       font-size: var(--sbb-table-header-cell-font-size);
-      letter-spacing: var(--sbb-typo-letter-spacing-text);
+      letter-spacing: var(--sbb-letter-spacing-text);
       font-weight: bold;
       background-color: var(--sbb-table-background-color);
       border-block-end: var(--sbb-table-border);
@@ -88,7 +88,7 @@ $theme: 'standard' !default;
 
     td {
       font-size: var(--sbb-table-data-cell-font-size);
-      letter-spacing: var(--sbb-typo-letter-spacing-text);
+      letter-spacing: var(--sbb-letter-spacing-text);
       background-color: var(--sbb-table-background-color);
       border-block-end: var(--sbb-table-border);
       border-inline-end: var(--sbb-table-border);
@@ -130,7 +130,7 @@ $theme: 'standard' !default;
     );
 
     font-size: var(--sbb-text-font-size-xs);
-    letter-spacing: var(--sbb-typo-letter-spacing-text);
+    letter-spacing: var(--sbb-letter-spacing-text);
 
     // Defaults are needed for cases where the caption is used outside a table
     color: var(--sbb-table-caption-color, var(--sbb-table-caption-color-fallback));
@@ -252,7 +252,7 @@ $theme: 'standard' !default;
     );
 
     font-size: var(--sbb-text-font-size-xs);
-    letter-spacing: var(--sbb-typo-letter-spacing-text);
+    letter-spacing: var(--sbb-letter-spacing-text);
 
     // Defaults are needed for cases where the caption is used outside a table
     color: var(--sbb-table-caption-color, var(--sbb-table-caption-color-fallback));

@@ -490,6 +490,8 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       if (this._containingFocus) {
         this._resetFocus = true;
       }
+    } else if (name === 'amount') {
+      this.toggleState('single-month', this.amount === 1);
     }
   }
 

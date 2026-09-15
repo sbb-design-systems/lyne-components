@@ -1,4 +1,10 @@
-import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbChipLabelElement } from '../../chip-label.pure.ts';
@@ -29,6 +35,14 @@ export const SbbTeaserCommonElementMixin = <T extends AbstractConstructor<SbbAct
     /** Size variant, either m (default) or l. */
     @property({ reflect: true })
     public accessor size: SbbTeaserCommonElementMixinType['size'] = null;
+
+    protected override willUpdate(changedProperties: PropertyValues<this>): void {
+      super.willUpdate(changedProperties);
+
+      if (changedProperties.has('size')) {
+        this._configureTitle();
+      }
+    }
 
     private _handleSlotchange(): void {
       let foundChipLabel = false;
@@ -67,9 +81,10 @@ export const SbbTeaserCommonElementMixin = <T extends AbstractConstructor<SbbAct
       }
     }
 
-    private _configureTitle(event: Event): void {
-      const title = (event.target as HTMLSlotElement)
-        .assignedElements()
+    private _configureTitle(): void {
+      const title = this.shadowRoot
+        ?.querySelector<HTMLSlotElement>('slot[name="title"]')
+        ?.assignedElements()
         .find((e): e is SbbTitleElement => e.localName === 'sbb-title');
 
       if (title) {

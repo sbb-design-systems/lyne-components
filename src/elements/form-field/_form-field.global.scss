@@ -18,6 +18,7 @@ $theme: 'standard' !default;
   --sbb-form-field-arrow-color: var(--sbb-color-3);
   --sbb-form-field-gap: var(--sbb-spacing-fixed-2x);
   --sbb-form-field-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-form-field-textarea-s-spacer: var(--sbb-spacing-fixed-1x);
   --sbb-form-field-min-height: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-size-element-m),
@@ -133,7 +134,7 @@ $theme: 'standard' !default;
       // To be more specific than the styles in normalize.scss we need to use !important
       // TODO: Find a better solution
       font-size: var(--sbb-form-field-input-text-size) !important;
-      letter-spacing: var(--sbb-typo-letter-spacing-text) !important;
+      letter-spacing: var(--sbb-letter-spacing-text) !important;
       font-family: var(--sbb-typo-font-family) !important;
       line-height: var(--sbb-typo-line-height-text) !important;
 

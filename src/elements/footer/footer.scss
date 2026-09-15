@@ -15,7 +15,7 @@
 .sbb-footer {
   // Include text style and color as fallback for paragraph texts inside the footer.
   font-size: var(--sbb-footer-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
   line-height: var(--sbb-typo-line-height-text);
   color: var(--sbb-footer-color);
   padding-block: var(--sbb-footer-padding-block);

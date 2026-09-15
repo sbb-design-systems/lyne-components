@@ -13,7 +13,7 @@
   min-height: var(--_sbb-error-height);
   font-size: var(--sbb-error-font-size);
   line-height: var(--sbb-typo-line-height-text);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
 
   @media (forced-colors: active) {
     --sbb-error-color: LinkText !important;
