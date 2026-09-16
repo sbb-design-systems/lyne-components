@@ -26,9 +26,6 @@ $loading: '[loading], .sbb-loading';
 
   // Calculated and private variables
   --_width: unset;
-
-  // The min-height modifier is used to adjust height and width for loading state.
-  --_min-height-modifier: 0rem;
   --_border-color: var(--sbb-button-color-default-border);
   --_background-color: var(--sbb-button-color-default-background);
   --_background: var(--_background-color);
@@ -87,7 +84,7 @@ $loading: '[loading], .sbb-loading';
   text-align: left;
   white-space: nowrap;
   text-decoration: none;
-  min-height: calc(var(--sbb-button-min-height) + var(--_min-height-modifier));
+  min-height: var(--sbb-button-min-height);
   outline: none;
 
   // Width is set in icon-only variant
@@ -154,7 +151,7 @@ $loading: '[loading], .sbb-loading';
 
 @mixin variables--icon-only {
   --sbb-button-padding-inline: 0;
-  --_width: calc(var(--sbb-button-min-height) + var(--_min-height-modifier));
+  --_width: var(--sbb-button-min-height);
   --_animation-loading-rotate-function: linear;
 }
 
