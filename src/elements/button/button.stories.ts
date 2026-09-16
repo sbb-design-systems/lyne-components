@@ -73,6 +73,7 @@ const controlsHint = html`<sbb-notification
 
 export const Overview: StoryObj = {
   render: ({ size, negative }: Args) => html`
+    <sbb-title ?negative=${negative} visual-level="5">Web component</sbb-title>
     ${tableHeader(
       negative,
       html`<tr>
@@ -146,9 +147,47 @@ export const Overview: StoryObj = {
               Label
             </sbb-transparent-button>
           </td>
-        </tr>
-        <tr>
-          <td>Default CSS Class</td>
+        </tr>`,
+    )}
+    <sbb-table-wrapper>
+      <table class="sbb-table sbb-table--unstriped ${negative ? `sbb-table--negative` : ``}">
+        <thead>
+          <tr>
+            <th>With Icon</th>
+            <th>Icon Only</th>
+            <th>Slotted Icon</th>
+            <th>With Ellipsis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <sbb-button size=${size} ?negative=${negative} icon-name="pie-small">
+                Label
+              </sbb-button>
+            </td>
+            <td>
+              <sbb-button size=${size} ?negative=${negative} icon-name="unicorn-small"></sbb-button>
+            </td>
+            <td>
+              <sbb-button size=${size} ?negative=${negative}>
+                <sbb-icon name="train-small" slot="icon"></sbb-icon>
+              </sbb-button>
+            </td>
+            <td>
+              <sbb-button size=${size} ?negative=${negative} style="width: 10rem">
+                Label that is very long and exceeds the available space
+              </sbb-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </sbb-table-wrapper>
+    <sbb-title ?negative=${negative} visual-level="5">CSS class on native button</sbb-title>
+    ${tableHeader(
+      negative,
+      html` <tr>
+          <td>Default</td>
           <td>
             <button class="sbb-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''}">
               Label
@@ -177,7 +216,7 @@ export const Overview: StoryObj = {
           </td>
         </tr>
         <tr>
-          <td>Disabled CSS Class</td>
+          <td>Disabled</td>
           <td>
             <button
               class="sbb-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''}"
@@ -212,7 +251,7 @@ export const Overview: StoryObj = {
           </td>
         </tr>
         <tr>
-          <td>Disabled interactive CSS Class</td>
+          <td>Disabled interactive</td>
           <td>
             <button
               class="sbb-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''} sbb-disabled-interactive"
@@ -243,7 +282,7 @@ export const Overview: StoryObj = {
           </td>
         </tr>
         <tr>
-          <td>Loading CSS Class</td>
+          <td>Loading</td>
           <td>
             <button
               class="sbb-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''} sbb-loading"
@@ -275,95 +314,52 @@ export const Overview: StoryObj = {
         </tr>`,
     )}
 
-    <div>
-      <sbb-title ?negative=${negative} level="6" style="margin-block-start:0"
-        >Icon Variants</sbb-title
-      >
-      <sbb-table-wrapper>
-        <table class="sbb-table sbb-table--unstriped ${negative ? `sbb-table--negative` : ``}">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Without Icon</th>
-              <th>With Icon</th>
-              <th>Icon Only</th>
-              <th>Slotted Icon</th>
-              <th>With Ellipsis</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th>Web Component</th>
-              <td><sbb-button size=${size} ?negative=${negative}>Label</sbb-button></td>
-              <td>
-                <sbb-button size=${size} ?negative=${negative} icon-name="pie-small"
-                  >Label</sbb-button
-                >
-              </td>
-              <td>
-                <sbb-button
-                  size=${size}
-                  ?negative=${negative}
-                  icon-name="unicorn-small"
-                ></sbb-button>
-              </td>
-              <td>
-                <sbb-button size=${size} ?negative=${negative}>
-                  <sbb-icon name="train-small" slot="icon"></sbb-icon>
-                </sbb-button>
-              </td>
-              <td>
-                <sbb-button size=${size} ?negative=${negative} style="width: 10rem"
-                  >Label that is very long and exceeds the available space</sbb-button
-                >
-              </td>
-            </tr>
-            <tr>
-              <th>CSS Class</th>
-              <td>
-                <button
-                  class="sbb-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''}"
-                >
-                  Label
-                </button>
-              </td>
-              <td>
-                <button
-                  class="sbb-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''}"
-                >
-                  <sbb-icon name="pie-small" class="sbb-button-icon"></sbb-icon>
-                  Label
-                </button>
-              </td>
-              <td>
-                <button
-                  class="sbb-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''} sbb-icon-button"
-                >
-                  <sbb-icon name="unicorn-small" class="sbb-button-icon"></sbb-icon>
-                </button>
-              </td>
-              <td>
-                <button
-                  class="sbb-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''} sbb-icon-button"
-                >
-                  <sbb-icon name="train-small" class="sbb-button-icon"></sbb-icon>
-                </button>
-              </td>
-              <td>
-                <button
-                  class="sbb-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''}"
-                  style="width: 10rem"
-                >
-                  <span class="sbb-button-label"
-                    >Label that is very long and exceeds the available space</span
-                  >
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </sbb-table-wrapper>
-    </div>
+    <sbb-table-wrapper>
+      <table class="sbb-table sbb-table--unstriped ${negative ? `sbb-table--negative` : ``}">
+        <thead>
+          <tr>
+            <th>With Icon</th>
+            <th>Icon Only</th>
+            <th>Slotted Icon</th>
+            <th>With Ellipsis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <button class="sbb-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''}">
+                <sbb-icon name="pie-small" class="sbb-button-icon"></sbb-icon>
+                Label
+              </button>
+            </td>
+            <td>
+              <button
+                class="sbb-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''} sbb-icon-button"
+              >
+                <sbb-icon name="unicorn-small" class="sbb-button-icon"></sbb-icon>
+              </button>
+            </td>
+            <td>
+              <button
+                class="sbb-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''} sbb-icon-button"
+              >
+                <sbb-icon name="train-small" class="sbb-button-icon"></sbb-icon>
+              </button>
+            </td>
+            <td>
+              <button
+                class="sbb-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''}"
+                style="width: 10rem"
+              >
+                <span class="sbb-button-label">
+                  Label that is very long and exceeds the available space
+                </span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </sbb-table-wrapper>
     ${controlsHint}
   `,
   argTypes: defaultArgTypes,
