@@ -121,7 +121,7 @@
     "playwright": "1.63.0",
     "postcss": "8.5.28",
     "postcss-value-parser": "4.2.0",
-    "prettier": "3.9.6",
+    "prettier": "3.9.7",
     "remark-gfm": "^4.0.1",
     "sass-embedded": "1.104.1",
     "sinon": "22.1.0",
