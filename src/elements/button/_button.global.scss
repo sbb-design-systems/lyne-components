@@ -207,7 +207,7 @@ $loading: '[loading], .sbb-loading';
 @mixin variables--focus-visible {
   @include sbb.focus-outline;
 
-  outline-offset: var(--sbb-button-focus-outline-offset-override, var(--sbb-focus-outline-offset));
+  outline-offset: var(--_loading-outline-offset, var(--sbb-focus-outline-offset));
 }
 
 @mixin variables--loading-animation-keyframes {
@@ -252,6 +252,9 @@ $loading: '[loading], .sbb-loading';
 }
 
 @mixin variables--loading-animation {
+  --_loading-outline-offset: calc(
+    var(--sbb-focus-outline-offset) + var(--sbb-button-loading-border-width)
+  );
   --_border: none;
   --_border-action: var(--sbb-button-loading-border-width) dotted transparent;
   --_padding-block: calc(
