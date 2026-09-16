@@ -43,6 +43,12 @@
   --sbb-scrollbar-color-hover: color-mix(in srgb, var(--sbb-color-black) 60%, transparent);
 }
 
+:host(:is(:state(hide-icon-space), [hide-icon-space])) {
+  --sbb-menu-item-icon-visibility: hidden;
+  --sbb-menu-item-icon-display: none;
+  --sbb-menu-action-content-padding-inline: var(--sbb-spacing-fixed-3x);
+}
+
 @include sbb.mq($to: large) {
   :host(:state(skip-animation)) {
     --sbb-menu-animation-duration: 0ms;
