@@ -414,10 +414,10 @@ const meta: Meta = {
           gap: var(--sbb-spacing-fixed-4x);
 
           ${
-            context.args.negative
-              ? '--sbb-focus-outline-color: var(--sbb-focus-outline-color-dark); color: var(--sbb-color-1-negative);'
-              : ''
-          };
+          context.args.negative
+            ? '--sbb-focus-outline-color: var(--sbb-focus-outline-color-dark); color: var(--sbb-color-1-negative);'
+            : ''
+        };
 
           sbb-notification {
             max-width: 800px;
