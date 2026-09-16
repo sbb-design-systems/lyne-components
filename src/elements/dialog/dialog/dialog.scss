@@ -122,7 +122,11 @@
   @include sbb.mq($from: small) {
     width: var(--sbb-dialog-width);
     height: var(--sbb-dialog-height);
+
+    // --sbb-dialog-max-width can be set by consumer or is used in lyne-angular
     max-width: var(--sbb-dialog-max-width, var(--_sbb-dialog-max-width));
+
+    // --sbb-dialog-max-height can be set by consumer or is used in lyne-angular
     max-height: var(--sbb-dialog-max-height, var(--_sbb-dialog-max-height));
     inset: unset;
     border-radius: var(--sbb-dialog-border-radius);

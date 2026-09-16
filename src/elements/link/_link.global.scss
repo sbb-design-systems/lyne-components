@@ -82,6 +82,8 @@ $theme: 'standard' !default;
 @mixin hover-rules {
   @include sbb.hover-mq($hover: true) {
     color: var(--sbb-link-color-hover);
+
+    // --sbb-link-hover-text-decoration is used by consumer projects
     text-decoration-line: var(--sbb-link-hover-text-decoration, underline);
   }
 }
