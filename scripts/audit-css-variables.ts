@@ -185,30 +185,40 @@ const undefinedWithFallbackOnly = undefinedVariables.filter(
   (name) => !referencedWithoutFallback.has(name),
 );
 
-function print(title: string, description: string, names: string[]): void {
-  console.log(`\n${title} (${names.length})`);
-  console.log(`${description}\n`);
-  if (!names.length) {
-    console.log('  -');
-    return;
+const hasIssues =
+  obsolete.length > 0 ||
+  undefinedWithoutFallback.length > 0 ||
+  undefinedWithFallbackOnly.length > 0;
+
+if (!hasIssues) {
+  console.log('✔ CSS variable audit passed! No issues found.');
+} else {
+  process.exitCode = 1;
+
+  function print(title: string, description: string, names: string[]): void {
+    if (!names.length) {
+      return;
+    }
+    console.log(`\n${title} (${names.length})`);
+    console.log(`${description}\n`);
+    for (const name of names) {
+      const files = varReferences.get(name);
+      console.log(`  ${name}${files ? ` (e.g. ${[...files][0]})` : ''}`);
+    }
   }
-  for (const name of names) {
-    const files = varReferences.get(name);
-    console.log(`  ${name}${files ? ` (e.g. ${[...files][0]})` : ''}`);
-  }
+
+  print('Obsolete CSS variables', 'Defined in src, but never referenced anywhere.', obsolete);
+
+  print(
+    'Undefined CSS variables, used without a fallback',
+    'Used via var() but never defined. These most likely are bugs or typos.',
+    undefinedWithoutFallback,
+  );
+
+  print(
+    'Undefined CSS variables, used with a fallback only',
+    'Used via var() with a fallback but never defined. Usually intentional, as these\n' +
+      'are meant to be set by the consumer. Still worth checking for typos.',
+    undefinedWithFallbackOnly,
+  );
 }
-
-print('Obsolete CSS variables', 'Defined in src, but never referenced anywhere.', obsolete);
-
-print(
-  'Undefined CSS variables, used without a fallback',
-  'Used via var() but never defined. These most likely are bugs or typos.',
-  undefinedWithoutFallback,
-);
-
-print(
-  'Undefined CSS variables, used with a fallback only',
-  'Used via var() with a fallback but never defined. Usually intentional, as these\n' +
-    'are meant to be set by the consumer. Still worth checking for typos.',
-  undefinedWithFallbackOnly,
-);
