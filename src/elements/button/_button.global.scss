@@ -244,7 +244,6 @@ $loading: '[loading], .sbb-loading';
   --_padding-inline: calc(
     var(--sbb-button-padding-inline) - var(--sbb-button-loading-border-width)
   );
-  --_loading-border-color: color-mix(in srgb, var(--sbb-button-color-active-text) 50%, transparent);
   --_background:
     border-box padding-box linear-gradient(var(--_background-color)),
     border-box
