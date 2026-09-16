@@ -10,8 +10,8 @@
 
   @include mediaqueries.mq($from: ultra) {
     // Subtract padding to get real max-width
+    // @protected --sbb-spacing-max-width
     max-width: var(
-      // Variable used by consumers
       --sbb-spacing-max-width,
       calc(var(--sbb-layout-base-page-max-width) + 2 * var(--sbb-layout-base-offset-responsive))
     );
