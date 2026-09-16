@@ -229,6 +229,18 @@ export class SeatReservationBaseElement extends SbbElement {
     'COMPARTMENT_PASSAGE_MIDDLE',
     'COMPARTMENT_PASSAGE_LOW',
     'COMPARTMENT_WALL',
+    'WALL_LEFT_1',
+    'WALL_LEFT_2',
+    'WALL_LEFT_3',
+    'WALL_COMPARTMENTS_1',
+    'WALL_COMPARTMENTS_2',
+    'WALL_COMPARTMENTS_3',
+    'WALL_RIGHT_1',
+    'WALL_RIGHT_2',
+    'WALL_RIGHT_3',
+    'T_WALL_COMPARTMENTS_1',
+    'T_WALL_COMPARTMENTS_2',
+    'T_WALL_COMPARTMENTS_3',
   ];
 
   // Graphics that should not be rendered with an area
