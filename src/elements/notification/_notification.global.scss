@@ -29,7 +29,6 @@ $theme: 'standard' !default;
       ),
       $theme
     )};
-  --sbb-notification-content-margin-block-start: var(--sbb-spacing-fixed-2x);
   --sbb-notification-content-padding-inline: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-spacing-responsive-xxxs) var(--sbb-spacing-responsive-xs),
