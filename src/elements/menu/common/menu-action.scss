@@ -103,10 +103,6 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
     @include sbb.focus-outline;
   }
 
-  :host([hide-icon-space]) & {
-    padding-inline-start: var(--sbb-menu-action-content-padding-inline-no-icon);
-  }
-
   @media (forced-colors: active) {
     border: var(--sbb-border-width-2x) solid var(--sbb-menu-action-forced-color-border-color);
   }
@@ -117,6 +113,11 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   display: flex;
   min-width: var(--sbb-size-icon-ui-small);
   min-height: var(--sbb-size-icon-ui-small);
+}
+
+.sbb-menu-action__icon {
+  display: var(--sbb-menu-item-icon-display, flex);
+  visibility: var(--sbb-menu-item-icon-visibility, visible);
 }
 
 .sbb-menu-submenu__icon {

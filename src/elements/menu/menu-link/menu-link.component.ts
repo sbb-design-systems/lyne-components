@@ -13,6 +13,9 @@ export class SbbMenuLinkElement extends SbbDisabledInteractiveMixin(
   SbbMenuActionCommonElementMixin(SbbLinkBaseElement),
 ) {
   public static override readonly elementName: string = 'sbb-menu-link';
+  public static readonly events = {
+    iconchange: 'iconchange',
+  } as const;
   protected override readonly anchorRole = 'menuitem';
 }
 

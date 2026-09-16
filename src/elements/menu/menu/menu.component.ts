@@ -11,6 +11,7 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
+  forceType,
   forwardEvent,
   getElementPosition,
   getElementPositionHorizontal,
@@ -39,7 +40,7 @@ import {
   ɵstateController,
 } from '../../core.ts';
 import { SbbDividerElement } from '../../divider.pure.ts';
-import type { SbbMenuActionCommonElementMixinType } from '../common/menu-action-common.ts';
+import { type SbbMenuActionCommonElementMixinType } from '../common/menu-action-common.ts';
 import { SbbMenuButtonElement } from '../menu-button/menu-button.component.ts';
 import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.ts';
 
@@ -90,6 +91,13 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
   @property()
   public accessor trigger: HTMLElement | null = null;
 
+  /**
+   * Whether the space reserved for the icon should be hidden.
+   */
+  @forceType()
+  @property({ attribute: 'hide-icon-space', type: Boolean, reflect: true })
+  public accessor hideIconSpace: boolean = false;
+
   private _menu!: HTMLDivElement;
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController!: AbortController;
@@ -116,7 +124,11 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
   public constructor() {
     super();
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
-    this.updateComplete.then(() => this._checkIcons());
+    this.addEventListener?.(SbbMenuButtonElement.events.iconchange, (ev) => {
+      if ((ev.target as HTMLElement).closest?.(this.localName) === this) {
+        this._checkIcons();
+      }
+    });
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -266,6 +278,7 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
   }
 
   private _checkIcons(): void {
+    console.trace();
     const menuItems = Array.from(
       this.querySelectorAll?.<SbbMenuActionCommonElementMixinType>(
         'SBB-MENU-LINK, SBB-MENU-BUTTON',
@@ -276,11 +289,7 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
       e.matches(':state(has-icon-name), :state(slotted-icon)'),
     );
 
-    if (!menuItems.length || hasIcons) {
-      return;
-    }
-
-    menuItems.map((e) => (e.hideIconSpace = true));
+    this.toggleState('hide-icon-space', !hasIcons || this.hideIconSpace);
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
@@ -597,7 +606,7 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
             @scroll=${(e: Event) => forwardEvent(e, document)}
             class="sbb-menu__content sbb-scrollbar-negative"
           >
-            <slot></slot>
+            <slot @slotchange=${this._checkIcons}></slot>
             <sbb-divider></sbb-divider>
             <sbb-menu-button
               id="sbb-menu__back-button"

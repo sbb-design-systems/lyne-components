@@ -79,7 +79,7 @@ const triggerButton = (id: string): TemplateResult => html`
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-1')}
-  <sbb-menu trigger="menu-trigger-1">
+  <sbb-menu trigger="menu-trigger-1" ?hide-icon-space=${args['hide-icon-space']}>
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-link>
@@ -88,7 +88,6 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
       sbb-badge=${!args.disabled ? '16' : nothing}
       aria-label=${!args.disabled ? 'Edit 16 items' : nothing}
       ?disabled-interactive=${args.disabled}
-      ?hide-icon-space=${args['hide-icon-space']}
     >
       Edit
     </sbb-menu-button>
