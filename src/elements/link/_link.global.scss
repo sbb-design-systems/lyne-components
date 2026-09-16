@@ -83,7 +83,7 @@ $theme: 'standard' !default;
   @include sbb.hover-mq($hover: true) {
     color: var(--sbb-link-color-hover);
 
-    // --sbb-link-hover-text-decoration is used by consumer projects
+    // @protected --sbb-link-hover-text-decoration
     text-decoration-line: var(--sbb-link-hover-text-decoration, underline);
   }
 }

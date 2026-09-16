@@ -1,8 +1,22 @@
 import { globSync, readFileSync } from 'node:fs';
 
-/* -------------------------------------------------------------------------- *
- * Configuration
- * -------------------------------------------------------------------------- */
+/**
+ * CSS Variable Audit Script
+ *
+ * Scans source files (SCSS, TS, SVG) and external design token packages to audit
+ * CSS custom property declarations, API documentation, and usage across the project.
+ *
+ * Recognized definition sources:
+ * - Standard CSS declarations (`--name: value`), JS style objects, and `styleMap` keys
+ * - Browser registrations via `@property` and programmatic calls via `setProperty()`
+ * - Documented public or protected APIs marked with `@cssprop`, `@cssproperty`, or `@protected` (in scss files)
+ * - Dynamically constructed variable name prefixes (e.g., `#{$state}` or `${id}`)
+ *
+ * Reports generated:
+ * 1. Obsolete CSS variables: Defined in `src`, but never referenced anywhere.
+ * 2. Undefined CSS variables (without fallback): Used via `var()` without a fallback and missing a definition (potential bugs/typos).
+ * 3. Undefined CSS variables (with fallback only): Used via `var()` exclusively with fallbacks (intended for consumer configuration).
+ */
 
 /** Files of this repository that can define and/or reference CSS variables. */
 const sourceGlob = 'src/**/*.{scss,ts,svg}';
@@ -12,10 +26,7 @@ const sourceGlob = 'src/**/*.{scss,ts,svg}';
  * design token variables (`--sbb-color-*`, `--sbb-spacing-*`, ...) would all be
  * reported as undefined.
  */
-const externalDefinitionGlobs = [
-  'node_modules/@sbb-esta/lyne-design-tokens/dist/css/*.css',
-  'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/*.scss',
-];
+const externalDefinitionGlobs = ['node_modules/@sbb-esta/lyne-design-tokens/dist/scss/*.scss'];
 
 /* -------------------------------------------------------------------------- *
  * Patterns
@@ -34,6 +45,9 @@ const atPropertyRegex = /@property\s+(--[a-zA-Z0-9_-]+)/g;
 
 /** JSDoc `@cssprop` or `@cssproperty` annotations (e.g., `@cssprop [--name]`, `@cssprop --name`). */
 const cssPropRegex = /@cssprop(?:erty)?\s+(?:\{[^}]*\}\s*)?\[?\s*(--[a-zA-Z0-9_-]+)/g;
+
+/** Comment annotations like `// @protected --name` or `@protected [--name]`. */
+const protectedRegex = /@protected\s+(?:\{[^}]*\}\s*)?\[?\s*(--[a-zA-Z0-9_-]+)/g;
 
 /** `element.style.setProperty('--name', value)` */
 const setPropertyRegex = /setProperty\(\s*['"`](--[a-zA-Z0-9_-]+)/g;
@@ -75,7 +89,7 @@ const referencedWithoutFallback = new Set<string>();
 /**
  * Collects the definitions of a file. A variable counts as defined when it is
  * followed by a colon (declaration, `styleMap` key, inline style string, ...),
- * registered via `@property`, documented via `@cssprop`, or written through `setProperty()`.
+ * registered via `@property`, documented via `@cssprop`/`@protected`, or written through `setProperty()`.
  */
 function collectDefinitions(content: string, isOwnSource: boolean): void {
   const add = (name: string): void => {
@@ -96,6 +110,10 @@ function collectDefinitions(content: string, isOwnSource: boolean): void {
   }
 
   for (const match of content.matchAll(cssPropRegex)) {
+    add(match[1]);
+  }
+
+  for (const match of content.matchAll(protectedRegex)) {
     add(match[1]);
   }
 
