@@ -100,7 +100,9 @@ $loading: '[loading], .sbb-loading';
   border: var(--_border-action);
   transition-duration: var(--sbb-button-transition-duration);
   transition-timing-function: var(--sbb-button-transition-easing-function);
-  transition-property: color, background-color, padding-block;
+
+  // When using padding-block as transition-property, it doesn't work in Safari
+  transition-property: color, background-color, padding-top, padding-bottom;
   animation: var(--_animation);
 
   // The padding block value is only a minimal padding to preserve a padding if the content becomes larger than intended.
