@@ -9,7 +9,10 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../docs/helpers/spread.ts';
 
 import { MOCK_GIRUNO_TRAIN } from './common/mapper/sample-data/seat-reservation-sample-data-giruno.private.ts';
-import { MOCK_TRAIN_LOCOMOTIVE_LAYOUT } from './common/mapper/sample-data/seat-reservation-sample-data-others.private.ts';
+import {
+  MOCK_TRAIN_LOCOMOTIVE_LAYOUT,
+  MOCK_TRAIN_WALL_LAYOUT,
+} from './common/mapper/sample-data/seat-reservation-sample-data-others.private.ts';
 import { mapIconToSvg, mapRawDataToSeatReservation } from './common/mapper.ts';
 import type { CoachItem, CoachItemDetails, SeatReservation } from './common/types.ts';
 import readme from './readme.md?raw';
@@ -261,6 +264,23 @@ export const TrainWithNewLocomotives: StoryObj = {
   args: trainWithNewLocomotives,
 };
 
+const trainWithWallGraphics: Args = {
+  seatReservations: [MOCK_TRAIN_WALL_LAYOUT],
+  'has-navigation': false,
+  'max-seat-reservations': 2,
+  'align-vertical': false,
+  'base-grid-size': 16,
+  height: null,
+  'prevent-place-click': false,
+  'show-title-info': true,
+};
+
+export const TrainWithWallGraphics: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: trainWithWallGraphics,
+};
+
 /****************************************************************************
  *                                                                          *
  *              BEGIN seat-reservation-area Component                       *
@@ -388,6 +408,46 @@ export const GraphicCoachBorderMiddleWidth20Height128Stretch: StoryObj = {
     name: 'COACH_BORDER_MIDDLE',
     stretch: true,
     style: '--sbb-seat-reservation-graphic-width: 20;--sbb-seat-reservation-graphic-height: 128;',
+  },
+};
+
+export const WallHeightComparison: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: (() => {
+    const wallLayoutSmallSeats = structuredClone(MOCK_TRAIN_WALL_LAYOUT);
+    wallLayoutSmallSeats.coachItems[0].places = wallLayoutSmallSeats.coachItems[0].places?.map(
+      (p) => ({
+        ...p,
+        dimension: { ...p.dimension, h: 2 },
+      }),
+    );
+
+    const wallLayoutLargeSeats = structuredClone(MOCK_TRAIN_WALL_LAYOUT);
+    wallLayoutLargeSeats.coachItems[0].places = wallLayoutLargeSeats.coachItems[0].places?.map(
+      (p) => ({
+        ...p,
+        dimension: { ...p.dimension, h: 3 },
+      }),
+    );
+
+    return {
+      seatReservations: [wallLayoutSmallSeats, wallLayoutLargeSeats],
+      'has-navigation': false,
+      'max-seat-reservations': 2,
+      'align-vertical': false,
+      'base-grid-size': 16,
+      'prevent-place-click': false,
+      'show-title-info': true,
+    };
+  })(),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Zwei Decks mit unterschiedlichen Sitzhöhen (h=2 vs h=3) - Walls skalieren je nach lokaler Sitzhöhe',
+      },
+    },
   },
 };
 
