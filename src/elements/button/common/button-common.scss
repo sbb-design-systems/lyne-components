@@ -73,6 +73,12 @@ $active: ':active, :state(active), [loading]';
       @include button.variables--focus-visible;
     }
   }
+
+  // Animation only works if we include the background definition
+  // on the same level where the background property is applied
+  :host([loading]:not(#{$disabled})) & {
+    @include button.variables--loading-animation-background;
+  }
 }
 
 .sbb-button__label {

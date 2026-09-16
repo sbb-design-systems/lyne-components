@@ -232,15 +232,7 @@ $loading: '[loading], .sbb-loading';
   }
 }
 
-@mixin variables--loading-animation {
-  --_border: none;
-  --_border-action: var(--sbb-button-loading-border-width) dotted transparent;
-  --_padding-block: calc(
-    var(--sbb-button-padding-block-min) - var(--sbb-button-loading-border-width)
-  );
-  --_padding-inline: calc(
-    var(--sbb-button-padding-inline) - var(--sbb-button-loading-border-width)
-  );
+@mixin variables--loading-animation-background {
   --_background:
     border-box padding-box linear-gradient(var(--_background-color)),
     border-box
@@ -257,6 +249,17 @@ $loading: '[loading], .sbb-loading';
         var(--sbb-button-color-active-text) 360deg
       ),
     var(--_background-color);
+}
+
+@mixin variables--loading-animation {
+  --_border: none;
+  --_border-action: var(--sbb-button-loading-border-width) dotted transparent;
+  --_padding-block: calc(
+    var(--sbb-button-padding-block-min) - var(--sbb-button-loading-border-width)
+  );
+  --_padding-inline: calc(
+    var(--sbb-button-padding-inline) - var(--sbb-button-loading-border-width)
+  );
   --_animation: var(--_animation-loading-rotate), var(--_animation-loading-move);
 }
 
@@ -589,6 +592,7 @@ $loading: '[loading], .sbb-loading';
     }
 
     &:not(#{$disabled}):is(#{$loading}) {
+      @include variables--loading-animation-background;
       @include variables--loading-animation;
     }
 
