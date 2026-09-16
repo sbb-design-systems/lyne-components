@@ -680,50 +680,39 @@ describe(`sbb-menu`, () => {
   });
 
   describe('no icons', () => {
-    it('it removes icon space if all items have no icon', async () => {
+    let link: SbbMenuLinkElement;
+    beforeEach(async () => {
       const root = await fixture(html`
         <div>
           <sbb-button id="menu-trigger" size="l">Menu trigger</sbb-button>
           <sbb-menu trigger="menu-trigger">
-            <sbb-menu-link id="menu-link" href="#">Profile</sbb-menu-link>
+            <sbb-menu-link icon-name="swisspass-small" id="menu-link" href="#"
+              >Profile</sbb-menu-link
+            >
             <sbb-menu-button id="menu-action">View</sbb-menu-button>
           </sbb-menu>
         </div>
       `);
       trigger = root.querySelector<SbbButtonElement>('sbb-button')!;
       element = root.querySelector<SbbMenuElement>('sbb-menu')!;
-      const link = element.querySelector<SbbMenuLinkElement>('#menu-link')!;
-      const button = element.querySelector<SbbMenuButtonElement>('#menu-action')!;
+      link = element.querySelector<SbbMenuLinkElement>('sbb-menu-link')!;
+    });
+    it('it hides icon space if all items have no icon', async () => {
+      expect(element.matches(':state(hide-icon-space)')).to.be.false;
 
+      link.iconName = '';
       await waitForLitRender(element);
 
-      expect(link.hideIconSpace).to.be.true;
-      expect(button.hideIconSpace).to.be.true;
+      expect(element.matches(':state(hide-icon-space)')).to.be.true;
     });
 
-    it('it removes icon space if item has hide-icon-space set to true', async () => {
-      const root = await fixture(html`
-        <div>
-          <sbb-button id="menu-trigger" size="l">Menu trigger</sbb-button>
-          <sbb-menu trigger="menu-trigger">
-            <sbb-menu-link id="menu-link" href="#" hide-icon-space>Profile</sbb-menu-link>
-            <sbb-menu-button id="menu-action" icon-name="tick-small">View</sbb-menu-button>
-          </sbb-menu>
-        </div>
-      `);
-      trigger = root.querySelector<SbbButtonElement>('sbb-button')!;
-      element = root.querySelector<SbbMenuElement>('sbb-menu')!;
-      const linkIconSlot = element
-        .querySelector<SbbMenuLinkElement>('#menu-link')!
-        .shadowRoot?.querySelector('.sbb-menu-action__icon');
-      const buttonIconSlot = element
-        .querySelector<SbbMenuButtonElement>('#menu-action')!
-        .shadowRoot?.querySelector('.sbb-menu-action__icon');
+    it('it removes icon space if hide-icon-space is set to true', async () => {
+      const linkIconSlot = link.shadowRoot!.querySelector('.sbb-menu-action__icon')!;
+      expect(getComputedStyle(linkIconSlot).getPropertyValue('display')).to.be.equal('flex');
 
+      element.hideIconSpace = true;
       await waitForLitRender(element);
-
-      expect(linkIconSlot).to.be.null;
-      expect(buttonIconSlot).not.to.be.null;
+      expect(getComputedStyle(linkIconSlot).getPropertyValue('display')).to.be.equal('none');
     });
   });
 });
