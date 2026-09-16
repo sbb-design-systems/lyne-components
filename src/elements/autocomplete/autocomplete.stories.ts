@@ -273,25 +273,24 @@ const textBlock = (): TemplateResult => html`
 
 const NoFormTemplate = (args: Args): TemplateResult => html`
   <div>
-    <div class="sbb-form-field">
-      <input
-        id="test"
-        placeholder="Placeholder"
-        ?disabled=${args.disabled}
-        ?readonly=${args.readonly}
-      />
-      <sbb-autocomplete
-        trigger="test"
-        position=${args.position}
-        ?preserve-icon-space=${args.preserveIconSpace}
-        ?auto-active-first-option=${args.autoActiveFirstOption}
-        ?auto-select-active-option=${args.autoSelectActiveOption}
-        ?auto-select-active-option-on-blur=${args.autoSelectActiveOptionOnBlur}
-        ?require-selection=${args.requireSelection}
-      >
-        ${createOptionGroup1(args.iconName, args.disableOption)} ${createOptionGroup2()}
-      </sbb-autocomplete>
-    </div>
+    <input
+      id="test"
+      placeholder="Placeholder"
+      ?disabled=${args.disabled}
+      ?readonly=${args.readonly}
+      class="sbb-input"
+    />
+    <sbb-autocomplete
+      trigger="test"
+      position=${args.position}
+      ?preserve-icon-space=${args.preserveIconSpace}
+      ?auto-active-first-option=${args.autoActiveFirstOption}
+      ?auto-select-active-option=${args.autoSelectActiveOption}
+      ?auto-select-active-option-on-blur=${args.autoSelectActiveOptionOnBlur}
+      ?require-selection=${args.requireSelection}
+    >
+      ${createOptionGroup1(args.iconName, args.disableOption)} ${createOptionGroup2()}
+    </sbb-autocomplete>
     ${textBlock()}
   </div>
 `;

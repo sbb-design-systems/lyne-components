@@ -1,12 +1,25 @@
 @use '../mixins/functions';
 
-// TODO: negative, size property? empty state? support other inputs?
-.sbb-form-field {
-  position: relative;
+.sbb-input {
+  display: inline-block;
   min-width: #{functions.px-to-rem-build(150)};
   width: min(#{functions.px-to-rem-build(300)}, 100%);
+  min-height: var(--sbb-form-field-min-height);
+  max-height: var(--sbb-form-field-max-height);
+  line-height: var(--sbb-typo-line-height-text);
+  background-color: var(--sbb-form-field-background-color);
+  color: var(--sbb-form-field-color);
+  border: var(--sbb-form-field-border-width) var(--sbb-form-field-border-style)
+    var(--sbb-form-field-border-color);
+  border-radius: var(--sbb-form-field-border-radius);
+  padding-inline: var(--sbb-form-field-padding-inline);
+  font-size: var(--sbb-form-field-input-text-size);
+  font-weight: normal;
+  letter-spacing: var(--sbb-letter-spacing-text);
+  font-family: var(--sbb-typo-font-family);
 
-  &:has(input:disabled, input:read-only) {
+  &:read-only,
+  &:disabled {
     --sbb-form-field-background-color: var(--sbb-background-color-3);
     --sbb-form-field-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
 
@@ -15,7 +28,7 @@
     }
   }
 
-  &:has(input:disabled) {
+  &:disabled {
     --sbb-form-field-border-style: dashed;
 
     @media (forced-colors: active) {
@@ -26,7 +39,13 @@
     }
   }
 
-  &:has(input:focus) {
+  &:focus-visible {
+    outline: var(--sbb-focus-outline-color) var(--sbb-focus-outline-style, solid)
+      var(--sbb-focus-outline-width);
+    outline-offset: var(--sbb-form-field-outline-offset, var(--sbb-focus-outline-offset));
+  }
+
+  &:focus {
     --sbb-form-field-border-color: var(--sbb-border-color-3);
     --sbb-form-field-border-width: var(--sbb-border-width-2x);
 
@@ -36,7 +55,8 @@
     }
   }
 
-  &:has(input:user-invalid, input:invalid) {
+  &:user-invalid,
+  &:invalid {
     --sbb-form-field-border-color: var(--sbb-color-error);
     --sbb-form-field-text-color: var(--sbb-color-error);
 
@@ -44,41 +64,5 @@
       --sbb-form-field-border-color: LinkText !important;
       --sbb-form-field-text-color: LinkText !important;
     }
-  }
-
-  &:has(input:focus-visible)::before {
-    outline: var(--sbb-focus-outline-color) var(--sbb-focus-outline-style, solid)
-      var(--sbb-focus-outline-width);
-    outline-offset: var(--sbb-form-field-outline-offset, var(--sbb-focus-outline-offset));
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: var(--sbb-form-field-border-width) var(--sbb-form-field-border-style)
-      var(--sbb-form-field-border-color);
-    border-radius: var(--sbb-form-field-border-radius);
-    pointer-events: none;
-  }
-
-  > input {
-    display: inline-block;
-    color: var(--sbb-form-field-color);
-    background-color: var(--sbb-form-field-background-color);
-    min-height: var(--sbb-form-field-min-height);
-    max-height: var(--sbb-form-field-max-height);
-    line-height: var(--sbb-typo-line-height-text);
-    width: 100%;
-    padding-inline: var(--sbb-form-field-padding-inline);
-    border: none;
-    font-size: var(--sbb-form-field-input-text-size);
-    font-weight: normal;
-    letter-spacing: var(--sbb-letter-spacing-text);
-    font-family: var(--sbb-typo-font-family);
-    border-radius: var(--sbb-form-field-border-radius);
-    outline: none;
   }
 }
