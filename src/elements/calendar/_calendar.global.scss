@@ -3,6 +3,7 @@
 $theme: 'standard' !default;
 
 @mixin base {
+  --bla: test;
   --sbb-calendar-cell-background-color-hover: var(--sbb-background-color-3);
   --sbb-calendar-cell-background-color-active: var(--sbb-background-color-4);
   --sbb-calendar-cell-border-width: var(--sbb-border-width-2x);
