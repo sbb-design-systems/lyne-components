@@ -62,6 +62,7 @@ $loading: '[loading], .sbb-loading';
     --sbb-button-color-disabled-background: Canvas !important;
     --sbb-button-color-disabled-text: GrayText !important;
     --sbb-button-color-loading-border: Highlight !important;
+    --_sbb-button-loading-hidden-border-color: Canvas !important;
 
     // For static cases, button and link roles will override it.
     --sbb-button-color-default-text: CanvasText !important;
@@ -256,7 +257,8 @@ $loading: '[loading], .sbb-loading';
     var(--sbb-focus-outline-offset) + var(--sbb-button-loading-border-width)
   );
   --_border: none;
-  --_border-action: var(--sbb-button-loading-border-width) dotted transparent;
+  --_border-action: var(--sbb-button-loading-border-width) dotted
+    var(--_sbb-button-loading-hidden-border-color, transparent);
   --_padding-block: calc(
     var(--sbb-button-padding-block-min) - var(--sbb-button-loading-border-width)
   );
