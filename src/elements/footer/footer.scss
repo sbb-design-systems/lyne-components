@@ -56,7 +56,6 @@
     }
 
     @include sbb.mq($from: ultra) {
-      max-width: var(--sbb-footer-content-max-width);
       margin-inline: auto;
       grid-template-columns: repeat(4, 1fr);
     }

@@ -21,6 +21,7 @@
   "scripts": {
     "postinstall": "node -e \"!process.env.CI && child_process.spawn('yarn', ['playwright', 'install'], { stdio: 'inherit' })\"",
     "build": "node scripts/build.ts",
+    "css-audit": "node scripts/audit-css-variables.ts",
     "docs": "run-s docs:manifest docs:to-md",
     "docs:manifest": "run-s docs:manifest:*",
     "docs:manifest:elements": "custom-elements-manifest analyze --config tools/manifest/elements-custom-elements-manifest.config.ts",
@@ -28,7 +29,7 @@
     "docs:to-md": "node tools/docs/docs_generate.ts",
     "format": "prettier \"**/*\" --write --ignore-unknown",
     "generate": "node tools/generate-component/index.ts",
-    "integrity": "run-p format docs scss-api",
+    "integrity": "run-p format docs scss-api css-audit",
     "scss-api": "node scripts/generate-scss-api.ts",
     "lint": "run-s lint:*",
     "lint:ts": "eslint \"**/*.ts\"",
