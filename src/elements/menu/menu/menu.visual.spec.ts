@@ -152,7 +152,7 @@ describe(`sbb-menu`, () => {
         await setup.withFixture(
           html`
             <sbb-button id="menu-trigger-1">Menu trigger</sbb-button>
-            <sbb-menu trigger="menu-trigger-1">
+            <sbb-menu trigger="menu-trigger-1" hide-icon-space>
               <sbb-menu-link href="https://www.sbb.ch/en"> View </sbb-menu-link>
               <sbb-menu-button disabled>Edit</sbb-menu-button>
               <sbb-menu-button> Details </sbb-menu-button>
