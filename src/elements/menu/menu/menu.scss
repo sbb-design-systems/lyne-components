@@ -43,7 +43,7 @@
   --sbb-scrollbar-color-hover: color-mix(in srgb, var(--sbb-color-black) 60%, transparent);
 }
 
-:host(:is(:state(hide-icon-space), [hide-icon-space])) {
+:host([hide-icon-space]) {
   --sbb-menu-item-icon-visibility: hidden;
   --sbb-menu-item-icon-display: none;
   --sbb-menu-action-content-padding-inline: var(--sbb-spacing-fixed-3x);
@@ -100,6 +100,7 @@ sbb-divider,
     inset: var(--_sbb-menu-inset);
     height: var(--sbb-menu-container-height);
     background-color: var(--sbb-menu-backdrop-color, transparent);
+
     transition: {
       duration: var(--sbb-menu-animation-duration);
       timing-function: var(--sbb-menu-animation-easing);
