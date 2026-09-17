@@ -274,14 +274,14 @@ const textBlock = (): TemplateResult => html`
 const NoFormTemplate = (args: Args): TemplateResult => html`
   <div>
     <input
-      id="test"
+      id="no-form-field"
       placeholder="Placeholder"
       ?disabled=${args.disabled}
       ?readonly=${args.readonly}
       class="sbb-input"
     />
     <sbb-autocomplete
-      trigger="test"
+      trigger="no-form-field"
       position=${args.position}
       ?preserve-icon-space=${args.preserveIconSpace}
       ?auto-active-first-option=${args.autoActiveFirstOption}
