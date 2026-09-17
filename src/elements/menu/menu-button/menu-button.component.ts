@@ -14,9 +14,6 @@ export class SbbMenuButtonElement extends SbbDisabledTabIndexActionMixin(
 ) {
   public static override readonly elementName: string = 'sbb-menu-button';
   public static override readonly role: ElementInternals['role'] = 'menuitem';
-  public static readonly events = {
-    iconchange: 'iconchange',
-  } as const;
 }
 
 declare global {

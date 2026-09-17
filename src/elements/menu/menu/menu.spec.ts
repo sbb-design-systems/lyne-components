@@ -13,7 +13,6 @@ import {
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
 import { isWebkit } from '../../core.ts';
 import type { SbbMenuButtonElement } from '../menu-button/menu-button.component.ts';
-import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.ts';
 
 import { SbbMenuElement } from './menu.component.ts';
 
@@ -434,6 +433,16 @@ describe(`sbb-menu`, () => {
 
       expect(link.negative).to.be.true;
     });
+
+    it('it removes icon space if hide-icon-space is set to true', async () => {
+      const button = element.querySelector('sbb-menu-button')!;
+      const buttonIconSlot = button.shadowRoot!.querySelector('.sbb-menu-action__icon')!;
+      expect(getComputedStyle(buttonIconSlot).getPropertyValue('display')).to.be.equal('flex');
+
+      element.hideIconSpace = true;
+      await waitForLitRender(element);
+      expect(getComputedStyle(buttonIconSlot).getPropertyValue('display')).to.be.equal('none');
+    });
   });
 
   describe(`nested`, () => {
@@ -676,43 +685,6 @@ describe(`sbb-menu`, () => {
 
       expect(element).to.match(':state(state-opened)');
       expect(nestedMenu).to.match(':state(state-opened)');
-    });
-  });
-
-  describe('no icons', () => {
-    let link: SbbMenuLinkElement;
-    beforeEach(async () => {
-      const root = await fixture(html`
-        <div>
-          <sbb-button id="menu-trigger" size="l">Menu trigger</sbb-button>
-          <sbb-menu trigger="menu-trigger">
-            <sbb-menu-link icon-name="swisspass-small" id="menu-link" href="#"
-              >Profile</sbb-menu-link
-            >
-            <sbb-menu-button id="menu-action">View</sbb-menu-button>
-          </sbb-menu>
-        </div>
-      `);
-      trigger = root.querySelector<SbbButtonElement>('sbb-button')!;
-      element = root.querySelector<SbbMenuElement>('sbb-menu')!;
-      link = element.querySelector<SbbMenuLinkElement>('sbb-menu-link')!;
-    });
-    it('it hides icon space if all items have no icon', async () => {
-      expect(element.matches(':state(hide-icon-space)')).to.be.false;
-
-      link.iconName = '';
-      await waitForLitRender(element);
-
-      expect(element.matches(':state(hide-icon-space)')).to.be.true;
-    });
-
-    it('it removes icon space if hide-icon-space is set to true', async () => {
-      const linkIconSlot = link.shadowRoot!.querySelector('.sbb-menu-action__icon')!;
-      expect(getComputedStyle(linkIconSlot).getPropertyValue('display')).to.be.equal('flex');
-
-      element.hideIconSpace = true;
-      await waitForLitRender(element);
-      expect(getComputedStyle(linkIconSlot).getPropertyValue('display')).to.be.equal('none');
     });
   });
 });

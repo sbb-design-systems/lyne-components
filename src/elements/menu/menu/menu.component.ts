@@ -40,7 +40,6 @@ import {
   ɵstateController,
 } from '../../core.ts';
 import { SbbDividerElement } from '../../divider.pure.ts';
-import { type SbbMenuActionCommonElementMixinType } from '../common/menu-action-common.ts';
 import { SbbMenuButtonElement } from '../menu-button/menu-button.component.ts';
 import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.ts';
 
@@ -94,6 +93,7 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
   /**
    * Whether the space reserved for the icon should be hidden.
    */
+  //TODO: rename to preserveIconSpace and invert logic.
   @forceType()
   @property({ attribute: 'hide-icon-space', type: Boolean, reflect: true })
   public accessor hideIconSpace: boolean = false;
@@ -124,11 +124,6 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
   public constructor() {
     super();
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
-    this.addEventListener?.(SbbMenuButtonElement.events.iconchange, (ev) => {
-      if ((ev.target as HTMLElement).closest?.(this.localName) === this) {
-        this._checkIcons();
-      }
-    });
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -275,21 +270,6 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
 
     // Starting from breakpoint large, enable scroll
     this._scrollHandler.enableScroll();
-  }
-
-  private _checkIcons(): void {
-    console.trace();
-    const menuItems = Array.from(
-      this.querySelectorAll?.<SbbMenuActionCommonElementMixinType>(
-        'SBB-MENU-LINK, SBB-MENU-BUTTON',
-      ) ?? [],
-    ).filter((el) => el.closest?.(this.localName) === this);
-
-    const hasIcons = menuItems.some((e) =>
-      e.matches(':state(has-icon-name), :state(slotted-icon)'),
-    );
-
-    this.toggleState('hide-icon-space', !hasIcons || this.hideIconSpace);
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
@@ -606,7 +586,7 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
             @scroll=${(e: Event) => forwardEvent(e, document)}
             class="sbb-menu__content sbb-scrollbar-negative"
           >
-            <slot @slotchange=${this._checkIcons}></slot>
+            <slot></slot>
             <sbb-divider></sbb-divider>
             <sbb-menu-button
               id="sbb-menu__back-button"
