@@ -119,7 +119,7 @@ describe('sbb-autocomplete', () => {
 
   const templateNoForm = (args: typeof defaultArgs): TemplateResult => html`
     <div>
-      <input id="no-form-field" placeholder="Placeholder" />
+      <input id="no-form-field" class="sbb-input" placeholder="Placeholder" />
       <sbb-autocomplete trigger="no-form-field">
         ${
           args.options
@@ -425,7 +425,7 @@ describe('sbb-autocomplete', () => {
 
     it(
       'standalone=true',
-      visualDiffFocus.with(async (setup) => {
+      visualDiffDefault.with(async (setup) => {
         await setup.withFixture(templateNoForm(defaultArgs));
         setup.withPostSetupAction(() => openAutocomplete(setup));
       }),
