@@ -220,6 +220,8 @@
   padding-inline: var(--sbb-form-field-padding-inline);
   border-radius: var(--sbb-form-field-border-radius);
   min-height: var(--sbb-form-field-min-height);
+
+  // @protected --sbb-form-field-max-height
   max-height: var(--sbb-form-field-max-height);
   background-color: var(--sbb-form-field-background-color);
   position: relative;

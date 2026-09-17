@@ -188,6 +188,7 @@ $open-anim-height-to: calc(
   height: calc(1em * var(--_sbb-notification-icon-authoritative-line-height));
 
   // This is an undocumented feature for sbb.ch, to have the ability to hide the icon.
+  // @protected --sbb-notification-icon-size
   --sbb-icon-svg-width: var(--sbb-notification-icon-size);
 
   margin-block-start: calc(

@@ -55,7 +55,7 @@
 
 .sbb-popover {
   display: none;
-  position: var(--sbb-popover-position, absolute);
+  position: absolute;
   top: var(--_sbb-popover-position-y, 0);
   bottom: unset;
   left: var(--_sbb-popover-position-x, 0);

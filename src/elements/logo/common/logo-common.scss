@@ -5,7 +5,6 @@
   align-items: center;
   justify-content: center;
   height: var(--sbb-logo-height);
-  background-color: var(--sbb-logo-background-color, none);
 
   @media (forced-colors: active) {
     --sbb-logo-word-mark-color: ButtonText !important;
