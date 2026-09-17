@@ -119,8 +119,8 @@ describe('sbb-autocomplete', () => {
 
   const templateNoForm = (args: typeof defaultArgs): TemplateResult => html`
     <div>
-      <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
-      <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
+      <input id="no-form-field" placeholder="Placeholder" />
+      <sbb-autocomplete trigger="no-form-field">
         ${
           args.options
             ? args.options
