@@ -1,0 +1,77 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: flex;
+  position: relative;
+  width: var(--sbb-pearl-chain-node-size);
+  height: var(--sbb-pearl-chain-node-size);
+  align-items: center;
+  justify-content: center;
+}
+
+.bullet {
+  width: var(--sbb-pearl-chain-bullet-size);
+  height: var(--sbb-pearl-chain-bullet-size);
+  color: var(--sbb-pearl-chain-bullet-color);
+  background-color: var(--sbb-pearl-chain-bullet-background-color);
+  rotate: var(--sbb-pearl-chain-bullet-rotation, 0deg);
+
+  circle {
+    cx: 50%;
+    cy: 50%;
+  }
+
+  &--past {
+    --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-past-color);
+  }
+
+  &--disruption {
+    --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-disruption-color);
+  }
+
+  &--irrelevant {
+    --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-irrelevant-color);
+    --sbb-pearl-chain-bullet-stop-stroke-width: var(--sbb-pearl-chain-irrelevant-stroke-width);
+  }
+
+  &--stop {
+    width: var(--sbb-pearl-chain-bullet-stop-size);
+    height: var(--sbb-pearl-chain-bullet-stop-size);
+
+    circle {
+      fill: var(--sbb-pearl-chain-bullet-fill-color);
+      r: calc(50% - var(--sbb-pearl-chain-bullet-stop-stroke-width) / 2);
+      stroke-width: var(--sbb-pearl-chain-bullet-stop-stroke-width);
+    }
+  }
+
+  &--skip {
+    width: var(--sbb-pearl-chain-bullet-skip-size);
+    height: var(--sbb-pearl-chain-bullet-skip-size);
+
+    .dash {
+      fill: var(--sbb-color-red);
+    }
+  }
+
+  &--stop-duty {
+    .outer-circle {
+      fill: transparent;
+      r: calc(50% - var(--sbb-pearl-chain-bullet-stroke-width) / 2);
+      stroke-width: var(--sbb-pearl-chain-bullet-stroke-width);
+      stroke-dasharray: 2.1 1;
+    }
+  }
+
+  &--boarding,
+  &--alighting,
+  &--stop-on-demand,
+  &--boarding-on-demand,
+  &--alighting-on-demand {
+    .outer-circle {
+      fill: transparent;
+      r: calc(50% - var(--sbb-pearl-chain-bullet-stroke-width) / 2);
+      stroke-width: var(--sbb-pearl-chain-bullet-stroke-width);
+    }
+  }
+}

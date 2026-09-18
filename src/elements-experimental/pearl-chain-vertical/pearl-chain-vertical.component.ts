@@ -7,6 +7,7 @@ import style from './pearl-chain-vertical.scss?inline';
  * It can be used as a container for the `sbb-pearl-chain-vertical-item` component.
  *
  * @slot - The unnamed slot is used for the `sbb-pearl-chain-vertical-item` component.
+ * @deprecated Use `sbb-pearl-chain` instead.
  */
 export class SbbPearlChainVerticalElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain-vertical';

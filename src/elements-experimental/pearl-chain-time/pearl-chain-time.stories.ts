@@ -4,7 +4,10 @@ import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../docs/helpers/spread.ts';
-import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.private.ts';
+import {
+  extendedLeg,
+  progressLeg,
+} from '../pearl-chain-legacy/pearl-chain-legacy.sample-data.private.ts';
 
 import readme from './readme.md?raw';
 

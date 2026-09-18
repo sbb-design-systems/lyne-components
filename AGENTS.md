@@ -157,3 +157,11 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/) (
 | `src/elements/core/styles/`                  | Global SCSS design tokens and mixins                                                            |
 | `docs/CODING_STANDARDS.md`                   | Full coding conventions reference                                                               |
 | `docs/CONTRIBUTING.md`                       | Commit message format, PR/coding rules, package overview                                        |
+
+## Agent instructions
+
+Following, some non-negotiable rules agents must adhere to when contributing to this repository:
+
+- Do not run any commands that modify the repository state (e.g., `yarn lint`, `yarn docs`, `yarn format`) unless explicitly instructed to do so.
+- Do not interact with git (e.g., `git add`, `git commit`, `git push`) unless explicitly instructed to do so.
+- Local storybook instance is running on 'localhost:6006'.

@@ -38,6 +38,7 @@
 @forward './overlay/overlay.global' as overlay-*;
 @forward './paginator/paginator.global' as paginator-*;
 @forward './core/mixins/panel-common.global' as panel-common-*;
+@forward './pearl-chain/pearl-chain.global' as pearl-chain-*;
 @forward './popover/popover.global' as popover-*;
 @forward './radio-button/radio-button.global' as radio-button-*;
 @forward './select/select.global' as select-*;
