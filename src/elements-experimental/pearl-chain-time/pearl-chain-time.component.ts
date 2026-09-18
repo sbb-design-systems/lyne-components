@@ -26,6 +26,7 @@ import style from './pearl-chain-time.scss?inline';
 
 /**
  * Combined with `sbb-pearl-chain-legacy`, it displays walk time information.
+ * @deprecated Use `sbb-pearl-chain` instead.
  */
 export class SbbPearlChainTimeElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain-time';

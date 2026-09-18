@@ -22,6 +22,7 @@ interface Time {
 
 /**
  * It visually displays journey information.
+ * @deprecated Use `sbb-pearl-chain` instead.
  */
 export class SbbPearlChainLegacyElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain-legacy';
