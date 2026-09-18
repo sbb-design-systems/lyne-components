@@ -137,6 +137,9 @@ export class SbbPearlChainElement extends SbbElement {
     this._positionLines();
   }
 
+  /**
+   * Optimizes `_positionLines()` calls by debouncing them (called by observers).
+   */
   private _debouncedPositionLines(): void {
     clearTimeout(this._debounceId);
     this._debounceId = setTimeout(() => this._positionLines(), DEBOUNCE_TIME);
@@ -154,7 +157,6 @@ export class SbbPearlChainElement extends SbbElement {
       return;
     }
     const svgRect = this._svgElem.getBoundingClientRect();
-    console.log('position lines');
 
     // Get the center coordinates of each node relative to the svg
     const nodesCords = this._nodes.map((node) => {

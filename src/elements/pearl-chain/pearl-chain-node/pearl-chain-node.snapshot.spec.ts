@@ -7,11 +7,11 @@ import type { SbbPearlChainNodeElement } from './pearl-chain-node.component.ts';
 import '../../pearl-chain.ts';
 
 describe(`sbb-pearl-chain-node`, () => {
-  describe('renders empty', () => {
+  describe('renders', () => {
     let element: SbbPearlChainNodeElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-pearl-chain-node></sbb-pearl-chain-node>`);
+      element = await fixture(html`<sbb-pearl-chain-node type="start"></sbb-pearl-chain-node>`);
     });
 
     it('DOM', async () => {
