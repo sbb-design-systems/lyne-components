@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.10.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.9.0...v5.10.0) (2026-09-19)
+
+
+### Features
+
+* **seat-reservation:** new icons ([#5265](https://github.com/sbb-design-systems/lyne-components/issues/5265)) ([5c216f8](https://github.com/sbb-design-systems/lyne-components/commit/5c216f8f312911f7e7b86eecb0180ab3e594eb0e))
+
+
+### Bug Fixes
+
+* **datepicker:** avoid cutting elements for screen widths below 348px ([#5257](https://github.com/sbb-design-systems/lyne-components/issues/5257)) ([c3f2020](https://github.com/sbb-design-systems/lyne-components/commit/c3f2020b8da0a23c8d1fe59be746cd158d939c33)), closes [#5241](https://github.com/sbb-design-systems/lyne-components/issues/5241)
+
+
+### Documentation
+
+* **mini-calendar:** stories improvement ([#5264](https://github.com/sbb-design-systems/lyne-components/issues/5264)) ([05c26b2](https://github.com/sbb-design-systems/lyne-components/commit/05c26b200d0ddd3261335debde6331f49ea08211))
+
 ## [5.9.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.8.0...v5.9.0) (2026-09-15)
 
 
