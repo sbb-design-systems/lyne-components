@@ -2311,6 +2311,99 @@ describe(`sbb-calendar`, () => {
         });
       });
 
+      describe('tab group keyboard navigation', () => {
+        it('lets Tab and Shift+Tab leave the calendar normally when not multiple', async () => {
+          const calendar: SbbCalendarElement = await fixture(html`
+            <sbb-calendar value="2023-01-15">
+              ${
+                variant === 'default'
+                  ? nothing
+                  : variant === 'enhanced'
+                    ? createSlottedDays(2023, 1, true)
+                    : html`
+                        <sbb-calendar-day slot=${toIso8601(new Date('2023-01-05'))}>
+                          ${createPrice(true)}
+                        </sbb-calendar-day>
+                      `
+              }
+            </sbb-calendar>
+          `);
+          const outsideButton = document.createElement('button');
+          calendar.parentElement!.append(outsideButton);
+
+          calendar.focus();
+          expect(getDayActiveElementValue()).to.be.equal('2023-01-15');
+
+          // No weekday/weeknumber cells are rendered (not `multiple`), so Tab must leave
+          // the calendar instead of being trapped by the tab-group navigation.
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(calendar);
+          expect(document.activeElement).to.be.equal(outsideButton);
+
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(calendar);
+          expect(getDayActiveElementValue()).to.be.equal('2023-01-15');
+        });
+
+        it('cycles Tab/Shift+Tab through weekdays, week-numbers and days when multiple', async () => {
+          const calendar: SbbCalendarElement = await fixture(html`
+            <sbb-calendar value="2025-04-08T00:00:00" week-numbers multiple>
+              ${
+                variant === 'default'
+                  ? nothing
+                  : variant === 'enhanced'
+                    ? createSlottedDays(2025, 4, true)
+                    : html`
+                        <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                          ${createPrice(true)}
+                        </sbb-calendar-day>
+                      `
+              }
+            </sbb-calendar>
+          `);
+          const outsideButton = document.createElement('button');
+          calendar.parentElement!.append(outsideButton);
+
+          const firstWeekday =
+            calendar.shadowRoot!.querySelector<SbbCalendarWeekdayElement>('sbb-calendar-weekday')!;
+          const firstWeekNumber =
+            calendar.shadowRoot!.querySelector<SbbCalendarWeeknumberElement>(
+              'sbb-calendar-weeknumber',
+            )!;
+
+          firstWeekday.focus();
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekday);
+
+          // weekdays -> weekNumbers
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(calendar);
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekNumber);
+
+          // weekNumbers -> days
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(calendar);
+          expect(getDayActiveElementValue()).to.be.equal('2025-04-08');
+
+          // days -> outside the calendar (last group)
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(calendar);
+          expect(document.activeElement).to.be.equal(outsideButton);
+
+          // Shift+Tab travels the groups backwards: outside -> days -> weekNumbers -> weekdays
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(calendar);
+          expect(getDayActiveElementValue()).to.be.equal('2025-04-08');
+
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(calendar);
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekNumber);
+
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(calendar);
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekday);
+        });
+      });
+
       describe('fixed-month', () => {
         beforeEach(async () => {
           element = await fixture(
