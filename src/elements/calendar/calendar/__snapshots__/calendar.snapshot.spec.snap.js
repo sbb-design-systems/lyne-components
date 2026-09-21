@@ -414,6 +414,23 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
 `;
 /* end snapshot sbb-calendar default renders Shadow DOM */
 
+snapshots["sbb-calendar default renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "generic",
+      "name": "",
+      "invalid": false
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-calendar default renders A11y tree Chrome */
+
 snapshots["sbb-calendar default renders vertical DOM"] = 
 `<sbb-calendar
   orientation="vertical"
@@ -834,23 +851,6 @@ snapshots["sbb-calendar default renders in year view DOM"] =
 </sbb-calendar>
 `;
 /* end snapshot sbb-calendar default renders in year view DOM */
-
-snapshots["sbb-calendar default renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "generic",
-  "name": "Fixture Container",
-  "children": [
-    {
-      "role": "generic",
-      "name": "",
-      "invalid": false
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-calendar default renders A11y tree Chrome */
 
 snapshots["sbb-calendar default renders in year view Shadow DOM"] = 
 `<div class="sbb-calendar__wrapper">
@@ -1964,27 +1964,27 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday tabindex="-1">
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday tabindex="-1">
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday tabindex="-1">
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday tabindex="-1">
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday tabindex="-1">
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday tabindex="-1">
             </sbb-calendar-weekday>
           </th>
         </tr>
@@ -6732,27 +6732,27 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday tabindex="-1">
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday tabindex="-1">
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday tabindex="-1">
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday tabindex="-1">
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday tabindex="-1">
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday tabindex="-1">
             </sbb-calendar-weekday>
           </th>
         </tr>
