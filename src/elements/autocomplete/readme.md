@@ -109,6 +109,11 @@ An `<sbb-option>` can be paired with one or more action buttons by wrapping it, 
 
 Options without an associated action can be used as usual, without wrapping them in an `<sbb-autocomplete-row>`.
 
+### Accessibility
+
+If needed, add an `aria-description`/ `aria-described-by` to the `<sbb-option>` to announce the existence of the action buttons.
+This will be read by screen readers when the option is focused.
+
 ## Events
 
 The `<sbb-option>` emits the `optionSelected` event when selected via user interaction.
