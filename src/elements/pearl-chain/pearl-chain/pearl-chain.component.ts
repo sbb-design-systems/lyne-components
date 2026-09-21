@@ -100,7 +100,9 @@ export class SbbPearlChainElement extends SbbElement {
     }
     this._nodes.push(node);
     // Keep nodes ordered by DOM position, regardless of registration order.
-    this._nodes.sort((a, b) => a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING);
+    this._nodes.sort((a, b) =>
+      a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1,
+    );
     this.requestUpdate();
   }
 
