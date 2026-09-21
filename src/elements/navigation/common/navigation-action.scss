@@ -53,7 +53,7 @@ sbb-icon {
 
 :host(:is(:state(size-s), :state(size-m))) {
   --sbb-navigation-action-line-height: var(--sbb-typo-line-height-text);
-  --sbb-navigation-action-letter-spacing: var(--sbb-typo-letter-spacing-text);
+  --sbb-navigation-action-letter-spacing: var(--sbb-letter-spacing-text);
 }
 
 :host(:state(size-s)) {

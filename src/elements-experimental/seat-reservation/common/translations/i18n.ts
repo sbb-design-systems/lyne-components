@@ -247,6 +247,12 @@ const i18nObjects: I18nObjects = {
     fr: 'Voiture-familles',
     it: 'Carrozza famiglia',
   },
+  FAMILY_AREA: {
+    de: 'Familienzone',
+    en: 'Family zone',
+    fr: 'Espace familles',
+    it: 'Zona famiglie',
+  },
   LUGGAGE_AREA: {
     de: 'Gepäckzone',
     en: 'Luggage zone',
@@ -258,6 +264,30 @@ const i18nObjects: I18nObjects = {
     en: 'Luggage zone',
     fr: 'Espace bagages',
     it: 'Zona bagagli',
+  },
+  MOBILE_PHONE_AREA: {
+    de: 'Handyzone',
+    en: 'Mobile phone area',
+    fr: 'Espace téléphones portables',
+    it: 'Zona cellulari',
+  },
+  MOBILE_PHONE_ICON: {
+    de: 'Handyzone',
+    en: 'Mobile phone area',
+    fr: 'Espace téléphones portables',
+    it: 'Zona cellulari',
+  },
+  MOBILE_PHONE_FORBIDDEN_AREA: {
+    de: 'Handyverbot',
+    en: 'Mobile phones prohibited',
+    fr: 'Téléphones portables interdits',
+    it: 'Cellulari vietati',
+  },
+  MOBILE_PHONE_FORBIDDEN_ICON: {
+    de: 'Handyverbot',
+    en: 'Mobile phones prohibited',
+    fr: 'Téléphones portables interdits',
+    it: 'Cellulari vietati',
   },
   MULTI_FUNCTION_AREA: {
     de: 'Multifunktionsbereich',
@@ -360,6 +390,18 @@ const i18nObjects: I18nObjects = {
     en: 'Stair area',
     fr: 'Escalier',
     it: 'Area scale',
+  },
+  TODDLER: {
+    de: 'Kleinkinderbereich',
+    en: 'Toddler compartment',
+    fr: 'Compartiment pour enfants en bas âge',
+    it: 'Compartimento per bambini piccoli',
+  },
+  TODDLER_AREA: {
+    de: 'Kleinkinderbereich',
+    en: 'Toddler compartment',
+    fr: 'Compartiment pour enfants en bas âge',
+    it: 'Compartimento per bambini piccoli',
   },
   TOILET_AREA: {
     de: 'Toilettenbereich',

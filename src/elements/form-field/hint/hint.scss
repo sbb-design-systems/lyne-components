@@ -6,8 +6,8 @@
   display: inline-block;
   color: var(--sbb-form-field-label-color);
   font-size: var(--sbb-form-field-hint-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
-  line-height: var(--sbb-typo-line-height-texts);
+  letter-spacing: var(--sbb-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 :host([negative]) {

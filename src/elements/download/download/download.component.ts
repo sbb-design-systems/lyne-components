@@ -18,6 +18,7 @@ import {
   SbbLinkBaseElement,
   screenReaderOnlyStyles,
 } from '../../core.ts';
+import { SbbDividerElement } from '../../divider.pure.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
 import style from './download.scss?inline';
@@ -42,8 +43,10 @@ const fileExtensionIcons = new Map<string, string>([
 /**
  * It displays a downloadable document, styled as a card.
  *
- * Inherits link properties from `SbbLinkBaseElement`: `href`, `target`, `rel`
- * and `accessibilityLabel`. The download behavior is always enabled.
+ * Inherits link properties from `SbbLinkBaseElement`: `href`, `target`, `rel`,
+ * `download` and `accessibilityLabel`. Without the `download` attribute the
+ * referenced document is opened inline in a new browser tab, unless a `target`
+ * is explicitly set.
  *
  * @slot - Use the unnamed slot to add custom content. Optional.
  * @slot info - Slot used to render a `sbb-download-info`. A `sbb-download-info`
@@ -53,7 +56,10 @@ const fileExtensionIcons = new Map<string, string>([
  */
 export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
   public static override readonly elementName: string = 'sbb-download';
-  public static override elementDependencies: SbbElementType[] = [SbbSecondaryButtonStaticElement];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbDividerElement,
+    SbbSecondaryButtonStaticElement,
+  ];
   public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /** Option to set the component's background color. */
@@ -63,20 +69,6 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
   @forceType()
   @property({ converter: omitEmptyConverter })
   public accessor label: string = '';
-
-  /**
-   * The download behavior is always enabled and handled internally, therefore
-   * this property cannot be disabled and is not reflected to the host element.
-   * @default true
-   */
-  @property({ type: Boolean, reflect: false })
-  public override set download(_value: boolean) {
-    // The download behavior is always enabled and handled internally;
-    // consumer-provided values are intentionally ignored.
-  }
-  public override get download(): boolean {
-    return true;
-  }
 
   /** The file name extracted from the `href` (e.g. `report.pdf`). */
   public get fileName(): string {
@@ -108,9 +100,24 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
     return (extension && fileExtensionIcons.get(extension)) || 'document-standard-small';
   }
 
-  protected override firstUpdated(_changedProperties: PropertyValues): void {
-    super.firstUpdated(_changedProperties);
+  /**
+   * Documents which are not downloaded are shown inline, in which case they
+   * are opened in a new browser tab, unless a target is explicitly set.
+   * An explicitly empty `target` attribute also counts as set, which allows
+   * to opt out of the new tab behavior.
+   */
+  protected override resolveTarget(): string {
+    const hasExplicitTarget = !!this.target || this.hasAttribute('target');
 
+    return hasExplicitTarget ? this.target : this.download ? '' : '_blank';
+  }
+
+  protected override updated(changedProperties: PropertyValues<this>): void {
+    super.updated(changedProperties);
+
+    // The "opens in new window" hint is rendered conditionally by the base
+    // class, therefore the described by elements are re-evaluated after every
+    // update.
     this._updateDescribedByElements();
   }
 
@@ -121,10 +128,15 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
       const customContentElement = this.shadowRoot?.querySelector?.(
         '.sbb-download__custom-content',
       );
+      // Rendered by `SbbLinkBaseElement` when the link opens in a new window.
+      // As setting `ariaDescribedByElements` clears the `aria-describedby`
+      // attribute set by the base class, the hint has to be included here.
+      const newWindowHintElement = this.shadowRoot?.querySelector?.('#sbb-link-new-window');
 
       link.ariaDescribedByElements = [
         ...(customContentElement ? [customContentElement] : []),
         ...this._downloadInfoElements(),
+        ...(newWindowHintElement ? [newWindowHintElement] : []),
       ];
     }
   }
@@ -136,6 +148,11 @@ export class SbbDownloadElement extends SbbIconNameMixin(SbbLinkBaseElement) {
   protected override renderTemplate(): TemplateResult {
     return html`
       ${this.renderIconSlot('sbb-download__icon')}
+      <sbb-divider
+        class="sbb-download__divider"
+        orientation="vertical"
+        aria-hidden="true"
+      ></sbb-divider>
       <span class="sbb-download__content">
         <span class="sbb-download__label">${this.label || this.fileName}</span>
         <span class="sbb-screen-reader-only">

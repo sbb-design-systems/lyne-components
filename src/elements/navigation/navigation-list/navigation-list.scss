@@ -18,7 +18,7 @@
   padding-block-end: var(--sbb-navigation-list-padding-block-end);
   font-weight: bold;
   font-size: var(--sbb-navigation-list-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
 
   :host(:not(:state(slotted-label), [label])) & {
     display: none;

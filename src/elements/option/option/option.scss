@@ -6,7 +6,7 @@
   display: block;
   background-color: var(--sbb-option-background-color);
   font-size: var(--sbb-option-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
 }
 
 :host(:state(negative)) {

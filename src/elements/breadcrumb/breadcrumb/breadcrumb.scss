@@ -28,7 +28,7 @@
   overflow: hidden;
   outline: none;
   font-size: var(--sbb-breadcrumb-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
 
   &:focus-visible {
     @include sbb.focus-outline;
