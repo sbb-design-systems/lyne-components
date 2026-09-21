@@ -351,11 +351,14 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     this._createMonthRows();
   });
 
-  private _tabbableGroups: { key: string; value: () => SbbCalendarTabbableCell[] }[] = [
-    { key: 'weekdays', value: () => this._weekdayCells },
-    { key: 'weekNumbers', value: () => this._weekNumberCells },
-    { key: 'days', value: () => this._cells },
-  ];
+  private get _tabbableGroups(): { key: string; value: () => SbbCalendarTabbableCell[] }[] {
+    const weekdays = { key: 'weekdays', value: () => this._weekdayCells };
+    const weekNumbers = { key: 'weekNumbers', value: () => this._weekNumberCells };
+    const days = { key: 'days', value: () => this._cells };
+    return this.orientation === 'vertical'
+      ? [weekNumbers, weekdays, days]
+      : [weekdays, weekNumbers, days];
+  }
 
   public constructor() {
     super();

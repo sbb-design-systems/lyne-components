@@ -2402,6 +2402,66 @@ describe(`sbb-calendar`, () => {
           await waitForLitRender(calendar);
           expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekday);
         });
+
+        it('cycles Tab/Shift+Tab through week-numbers, weekdays and days in vertical orientation', async () => {
+          const calendar: SbbCalendarElement = await fixture(html`
+            <sbb-calendar value="2025-04-08T00:00:00" orientation="vertical" week-numbers multiple>
+              ${
+                variant === 'default'
+                  ? nothing
+                  : variant === 'enhanced'
+                    ? createSlottedDays(2025, 4, true)
+                    : html`
+                        <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                          ${createPrice(true)}
+                        </sbb-calendar-day>
+                      `
+              }
+            </sbb-calendar>
+          `);
+          const outsideButton = document.createElement('button');
+          calendar.parentElement!.append(outsideButton);
+
+          const firstWeekday =
+            calendar.shadowRoot!.querySelector<SbbCalendarWeekdayElement>('sbb-calendar-weekday')!;
+          const firstWeekNumber =
+            calendar.shadowRoot!.querySelector<SbbCalendarWeeknumberElement>(
+              'sbb-calendar-weeknumber',
+            )!;
+
+          firstWeekNumber.focus();
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekNumber);
+
+          // In vertical orientation, weekNumbers come before weekdays (order is swapped
+          // compared to horizontal, matching the header-row/first-column table layout).
+          // weekNumbers -> weekdays
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(calendar);
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekday);
+
+          // weekdays -> days
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(calendar);
+          expect(getDayActiveElementValue()).to.be.equal('2025-04-08');
+
+          // days -> outside the calendar (last group)
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(calendar);
+          expect(document.activeElement).to.be.equal(outsideButton);
+
+          // Shift+Tab travels the groups backwards: outside -> days -> weekdays -> weekNumbers
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(calendar);
+          expect(getDayActiveElementValue()).to.be.equal('2025-04-08');
+
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(calendar);
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekday);
+
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(calendar);
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekNumber);
+        });
       });
 
       describe('fixed-month', () => {
