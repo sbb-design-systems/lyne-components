@@ -59,8 +59,7 @@ export class SbbPearlChainElement extends SbbElement {
    */
   @property()
   public set now(value: Date | string | null) {
-    this._userNow =
-      defaultDateAdapter.getValidDateOrNull(defaultDateAdapter.deserialize(value)) ?? new Date();
+    this._userNow = defaultDateAdapter.getValidDateOrNull(defaultDateAdapter.deserialize(value));
   }
   public get now(): Date {
     return this._userNow ?? this._systemNow;

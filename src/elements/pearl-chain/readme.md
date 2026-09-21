@@ -59,13 +59,13 @@ For testing or demo purposes, the current time can be overridden using the `now`
 
 ```html
 <sbb-pearl-chain>
-  <sbb-pearl-chain-node type="start" departure="10-04-26T10:30:00"></sbb-pearl-chain-node>
+  <sbb-pearl-chain-node type="start" departure="26-04-10T10:30:00"></sbb-pearl-chain-node>
   <sbb-pearl-chain-node
     type="stop"
-    arrival="10-04-26T10:50:00"
-    departure="10-04-26T10:55:00"
+    arrival="26-04-10T10:50:00"
+    departure="26-04-10T10:55:00"
   ></sbb-pearl-chain-node>
-  <sbb-pearl-chain-node type="end" arrival="10-04-26T11:30:00"></sbb-pearl-chain-node>
+  <sbb-pearl-chain-node type="end" arrival="26-04-10T11:30:00"></sbb-pearl-chain-node>
 </sbb-pearl-chain>
 ```
 
