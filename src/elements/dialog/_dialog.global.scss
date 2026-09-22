@@ -19,7 +19,7 @@ $theme: 'standard' !default;
   --sbb-dialog-close-button-margin-inline: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
   --_sbb-dialog-max-width: 100%;
   --_sbb-dialog-max-height: calc(
-    100dvh - env(safe-area-inset-top, 0) - var(--sbb-spacing-fixed-6x)
+    100dvh - env(safe-area-inset-top, 0) - min(var(--sbb-spacing-fixed-3x), 2dvh)
   );
 }
 
