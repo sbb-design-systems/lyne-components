@@ -1165,8 +1165,33 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     cellArray: TCell[],
   ): void {
     event.preventDefault();
-    const next = getNextElementIndex(event, cellArray.indexOf(cell), cellArray.length);
-    const nextEl = cellArray[next];
+
+    let nextEl: TCell;
+    switch (event.key) {
+      case 'ArrowUp':
+      case 'ArrowDown':
+      case 'ArrowLeft':
+      case 'ArrowRight': {
+        const next = getNextElementIndex(event, cellArray.indexOf(cell), cellArray.length);
+        nextEl = cellArray[next];
+        break;
+      }
+      case 'PageUp':
+      case 'Home': {
+        nextEl = cellArray[0];
+        break;
+      }
+      case 'PageDown':
+      case 'End': {
+        nextEl = cellArray[cellArray.length - 1];
+        break;
+      }
+      default: {
+        nextEl = cell;
+        break;
+      }
+    }
+
     if (nextEl !== cell) {
       nextEl.tabIndex = 0;
       nextEl.focus();
