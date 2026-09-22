@@ -212,6 +212,7 @@ export class SbbPearlChainNodeElement extends SbbElement {
   protected override render(): TemplateResult {
     return html`
       <svg
+        viewBox="0 0 10 10"
         class="bullet ${classMap({
           [`bullet--${this.type}`]: !!this.type,
           'bullet--irrelevant': !!this.irrelevant,
