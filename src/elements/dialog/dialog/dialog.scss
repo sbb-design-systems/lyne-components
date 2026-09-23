@@ -33,7 +33,6 @@
 :host(:not([negative])) {
   --_sbb-dialog-color: var(--sbb-dialog-color);
   --_sbb-dialog-block-shadow: var(--sbb-dialog-block-shadow);
-  --sbb-dialog-actions-border-color: var(--sbb-background-color-4);
   --sbb-dialog-background-color: var(--sbb-background-color-1);
 }
 
@@ -52,7 +51,6 @@
 
 :host(:state(bottom-shadow)) {
   --sbb-dialog-block-end-box-shadow: var(--_sbb-dialog-block-shadow);
-  --sbb-dialog-actions-border-color: transparent;
 }
 
 :host(:state(state-closing)) {
