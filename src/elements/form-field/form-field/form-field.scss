@@ -1,7 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-form-field-hint-divider-width: var(--sbb-spacing-fixed-1x);
   --sbb-form-field-hint-padding-block-start: var(--sbb-form-field-hint-divider-width);
   --sbb-form-field-select-inline-padding-end: calc(
     var(--sbb-icon-svg-width) + var(--sbb-form-field-gap)

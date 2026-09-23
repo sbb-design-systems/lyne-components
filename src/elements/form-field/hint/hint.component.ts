@@ -18,8 +18,6 @@ export class SbbHintElement extends SbbNegativeMixin(SbbElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.slot ||= 'hint';
-
     this.formField = this.closest?.('sbb-form-field');
     this.negative = this.formField?.hasAttribute('negative') ?? false;
   }
