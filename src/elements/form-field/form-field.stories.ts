@@ -654,7 +654,7 @@ export const RequiredHighlight: StoryObj = {
   args: { ...basicArgs, hostClass: 'sbb-form-field-required-highlight', value: undefined },
 };
 
-export const WithoutForm: StoryObj = {
+export const InputWithoutFormField: StoryObj = {
   render: TemplateAutocompleteNoForm,
   argTypes: { disabled, readonly },
   args: { disabled: false, readonly: false },
