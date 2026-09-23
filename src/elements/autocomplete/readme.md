@@ -114,6 +114,8 @@ Options without an associated action can be used as usual, without wrapping them
 If needed, add an `aria-description`/ `aria-described-by` to the `<sbb-option>` to announce the existence of the action buttons.
 This will be read by screen readers when the option is focused.
 
+> There is a known issue with NVDA screen reader about keyboard navigation into actions.
+
 ## Events
 
 The `<sbb-option>` emits the `optionSelected` event when selected via user interaction.
@@ -149,20 +151,6 @@ Be aware that this can lead to unexpected behavior. Carefully test your use case
 
 Use the `requireSelection` to clear the input if the user does not explicitly select an option, via mouse click or keyboard selection.
 
-## Accessibility
-
-The `<sbb-autocomplete>` implements the [ARIA combobox interaction pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).
-
-The text input trigger specifies `role="combobox"` while the content of the pop-up applies `role="listbox"`.
-Because of this `listbox` pattern, you should not put other interactive controls, such as buttons or checkboxes, inside an autocomplete option.
-Nesting interactive controls like this interferes with many assistive technologies.
-
-The component preserves focus on the input trigger,
-using `aria-activedescendant` to support navigation though the autocomplete options.
-
-The `<sbb-autocomplete-button>` has `role="button"`. Since focus is always kept on the input trigger,
-buttons can't be reached via <kbd>Tab</kbd>, but only with the <kbd>Left</kbd>/<kbd>Right Arrow</kbd> keys.
-
 ## Complex Values
 
 This component supports any types of values, including complex objects.
@@ -196,6 +184,20 @@ align with the type information.
 
 <!-- #region display-with -->
 <!-- #endregion -->
+
+## Accessibility
+
+The `<sbb-autocomplete>` implements the [ARIA combobox interaction pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).
+
+The text input trigger specifies `role="combobox"` while the content of the pop-up applies `role="listbox"`.
+Because of this `listbox` pattern, you should not put other interactive controls, such as buttons or checkboxes, inside an autocomplete option.
+Nesting interactive controls like this interferes with many assistive technologies.
+
+The component preserves focus on the input trigger,
+using `aria-activedescendant` to support navigation though the autocomplete options.
+
+The `<sbb-autocomplete-button>` has `role="button"`. Since focus is always kept on the input trigger,
+buttons can't be reached via <kbd>Tab</kbd>, but only with the <kbd>Left</kbd>/<kbd>Right Arrow</kbd> keys.
 
 <!-- Auto Generated Below -->
 
