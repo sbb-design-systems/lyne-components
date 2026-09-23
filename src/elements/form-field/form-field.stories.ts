@@ -8,7 +8,10 @@ import type { SbbErrorElement, SbbFormFieldElement } from '../form-field.ts';
 
 import readme from './readme.md?raw';
 
+import '../autocomplete.ts';
+import '../option.ts';
 import '../button.ts';
+import '../card.ts';
 import '../form-field.ts';
 import '../link.ts';
 import '../popover.ts';
@@ -235,6 +238,25 @@ const TemplateTextareaWithIcon = (args: Args): TemplateResult =>
       </span>
       ${TemplateBasicTextarea(args)}`,
   );
+
+const TemplateAutocompleteNoForm = (args: Args): TemplateResult => html`
+  <input
+    id="no-form-field"
+    placeholder="Placeholder"
+    ?disabled=${args.disabled}
+    ?readonly=${args.readonly}
+    class="sbb-input"
+  />
+  <sbb-autocomplete trigger="no-form-field">
+    <sbb-option value="Option 1">Option 1</sbb-option>
+    <sbb-option value="Option 2">Option 2</sbb-option>
+    <sbb-option value="Option 3">Option 3 with a long text which can wrap</sbb-option>
+  </sbb-autocomplete>
+  <sbb-card color="milk" style="margin-block-start: 1rem; z-index: 100">
+    A native input element used without a \`sbb-form-field\` can take on the appearance of a
+    \`sbb-form-field\` by applying the \`sbb-input\` class to it.
+  </sbb-card>
+`;
 
 const placeholder: InputType = {
   control: {
@@ -630,6 +652,12 @@ export const RequiredHighlight: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
   args: { ...basicArgs, hostClass: 'sbb-form-field-required-highlight', value: undefined },
+};
+
+export const WithoutForm: StoryObj = {
+  render: TemplateAutocompleteNoForm,
+  argTypes: { disabled, readonly },
+  args: { disabled: false, readonly: false },
 };
 
 // sbb-error
