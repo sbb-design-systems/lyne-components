@@ -429,15 +429,13 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       if (isArrowKeyOrPageKeysPressed(event)) {
         if (day) {
           this._handleKeyboardEvent(event, day);
-        }
-        if (weekday) {
+        } else if (weekday) {
           this._handleKeyboardEventWeek<SbbCalendarWeekdayElement>(
             event,
             weekday,
             this._weekdayCells,
           );
-        }
-        if (weekNumber) {
+        } else if (weekNumber) {
           this._handleKeyboardEventWeek<SbbCalendarWeeknumberElement>(
             event,
             weekNumber,
@@ -1110,8 +1108,8 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   }
 
   private _setWeekFocus(): void {
-    Array.from(this._weekdayCells).forEach((e, i) => (e.tabIndex = i === 0 ? 0 : -1));
-    Array.from(this._weekNumberCells).forEach((e, i) => (e.tabIndex = i === 0 ? 0 : -1));
+    this._weekdayCells.forEach((e, i) => (e.tabIndex = i === 0 ? 0 : -1));
+    this._weekNumberCells.forEach((e, i) => (e.tabIndex = i === 0 ? 0 : -1));
   }
 
   /** Get the element in the calendar to assign focus. */
