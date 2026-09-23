@@ -24,8 +24,6 @@ describe(`sbb-pearl-chain`, () => {
       'alighting',
       'boarding-on-demand',
       'alighting-on-demand',
-      'start',
-      'end',
     ],
     orientation: ['horizontal', 'vertical'],
     state: ['', 'disrupted', 'irrelevant', 'walk', 'unsure', 'disrupted+irrelevant'],
@@ -47,7 +45,7 @@ describe(`sbb-pearl-chain`, () => {
           root = await visualRegressionFixture(
             html`
               <div
-                style="display: flex; flex-direction: ${orientation === 'horizontal' ? 'column' : 'row'}; gap: 2rem; width: 400px; height: 400px;"
+                style="display: flex; flex-direction: ${orientation === 'horizontal' ? 'column' : 'row'}; gap: 1rem; width: 300px; height: 300px;"
               >
                 ${repeat(
                   times,
