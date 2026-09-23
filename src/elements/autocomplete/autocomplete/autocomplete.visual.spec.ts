@@ -153,6 +153,24 @@ describe('sbb-autocomplete', () => {
     ${textBlock()}
   `;
 
+  const templateNoForm = (args: typeof defaultArgs): TemplateResult => html`
+    <div>
+      <input id="no-form-field" class="sbb-input" placeholder="Placeholder" />
+      <sbb-autocomplete trigger="no-form-field">
+        ${
+          args.options
+            ? args.options
+            : args.withGroup
+              ? args.withMixedOptionAndGroup
+                ? createMixedOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
+                : createOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
+              : createOptions(args.withIcon, args.disableOption)
+        }
+      </sbb-autocomplete>
+    </div>
+    ${textBlock()}
+  `;
+
   const openAutocomplete = async (setup: VisualDiffSetupBuilder): Promise<void> => {
     // Wait for page is rendered stable. Otherwise, the overlay can be positioned slightly off.
     await aTimeout(10);
@@ -519,6 +537,14 @@ describe('sbb-autocomplete', () => {
           </div>`,
         );
 
+        setup.withPostSetupAction(() => openAutocomplete(setup));
+      }),
+    );
+
+    it(
+      'standalone=true',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(templateNoForm(defaultArgs));
         setup.withPostSetupAction(() => openAutocomplete(setup));
       }),
     );

@@ -353,6 +353,7 @@ $font-face: 'SBB' !default;
 // start-auto-generated-scss-module-rules
 @include badge.rules;
 @include breadcrumb.rules;
+@include button.rules;
 @include card.rules;
 @include carousel.rules;
 @include container.rules;
@@ -380,6 +381,7 @@ $font-face: 'SBB' !default;
 @include meta.load-css('./features/a11y');
 @include meta.load-css('./features/animation');
 @include meta.load-css('./features/color-scheme');
+@include meta.load-css('./features/form-field');
 @include meta.load-css('./features/image');
 @include meta.load-css('./features/layout');
 @include meta.load-css('./features/lists');

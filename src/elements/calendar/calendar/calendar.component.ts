@@ -18,6 +18,7 @@ import {
   forceType,
   type FormRestoreReason,
   type FormRestoreState,
+  getNextElementIndex,
   handleDistinctChange,
   i18nCalendarDateSelection,
   i18nCalendarWeekNumber,
@@ -121,6 +122,12 @@ export interface MonthCell {
 export interface Weekday {
   long: string;
   narrow: string;
+}
+
+/** Minimal configuration for tab-group keyboard navigation between cells. */
+interface SbbCalendarTabbableCell {
+  tabIndex: number;
+  focus(): void;
 }
 
 /**
@@ -307,6 +314,21 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     );
   }
 
+  /** A list of calendar's weekday cells. */
+  private get _weekdayCells(): SbbCalendarWeekdayElement[] {
+    return Array.from<SbbCalendarWeekdayElement>(
+      this.shadowRoot?.querySelectorAll<SbbCalendarWeekdayElement>(`sbb-calendar-weekday`) ?? [],
+    );
+  }
+
+  /** A list of calendar's weeknumber cells. */
+  private get _weekNumberCells(): SbbCalendarWeeknumberElement[] {
+    return Array.from<SbbCalendarWeeknumberElement>(
+      this.shadowRoot?.querySelectorAll<SbbCalendarWeeknumberElement>(`sbb-calendar-weeknumber`) ??
+        [],
+    );
+  }
+
   /** The chosen year in the year selection view. */
   private _chosenYear?: number;
 
@@ -329,6 +351,15 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     this._createMonthRows();
   });
 
+  private get _tabbableGroups(): { key: string; value: () => SbbCalendarTabbableCell[] }[] {
+    const weekdays = { key: 'weekdays', value: () => this._weekdayCells };
+    const weekNumbers = { key: 'weekNumbers', value: () => this._weekNumberCells };
+    const days = { key: 'days', value: () => this._cells };
+    return this.orientation === 'vertical'
+      ? [weekNumbers, weekdays, days]
+      : [weekdays, weekNumbers, days];
+  }
+
   public constructor() {
     super();
     this._createMonthRows();
@@ -347,6 +378,24 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
           (e): e is SbbCalendarDayElement<T> => (e as HTMLElement).localName === 'sbb-calendar-day',
         ) ??
       null;
+    const resolveWeekday = (
+      event: PointerEvent | KeyboardEvent,
+    ): SbbCalendarWeekdayElement | null =>
+      event
+        .composedPath()
+        .find(
+          (e): e is SbbCalendarWeekdayElement =>
+            (e as HTMLElement).localName === 'sbb-calendar-weekday',
+        ) ?? null;
+    const resolveWeekNumber = (
+      event: PointerEvent | KeyboardEvent,
+    ): SbbCalendarWeeknumberElement | null =>
+      event
+        .composedPath()
+        .find(
+          (e): e is SbbCalendarWeeknumberElement =>
+            (e as HTMLElement).localName === 'sbb-calendar-weeknumber',
+        ) ?? null;
     this.addEventListener('click', (event) => {
       const day = resolveDay(event);
       if (day) {
@@ -355,8 +404,44 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     });
     this.addEventListener('keydown', (event) => {
       const day = resolveDay(event);
-      if (day) {
-        this._handleKeyboardEvent(event, day);
+      const weekday = resolveWeekday(event);
+      const weekNumber = resolveWeekNumber(event);
+      if (!(day || weekday || weekNumber)) {
+        return;
+      }
+
+      if (event.key === 'Tab') {
+        const currentKey = weekday ? 'weekdays' : weekNumber ? 'weekNumbers' : 'days';
+        const availableGroups = this._tabbableGroups.filter((tg) => tg.value().length > 0);
+        const groupId = availableGroups.findIndex((tg) => tg.key === currentKey);
+        const nextIdx = event.shiftKey ? groupId - 1 : groupId + 1;
+        if (groupId === -1 || nextIdx < 0 || nextIdx >= availableGroups.length) {
+          return;
+        }
+        const next = availableGroups[nextIdx].value().find((e) => e.tabIndex === 0);
+        if (!next) {
+          return;
+        }
+        event.preventDefault();
+        next.focus();
+      }
+
+      if (isArrowKeyOrPageKeysPressed(event)) {
+        if (day) {
+          this._handleKeyboardEvent(event, day);
+        } else if (weekday) {
+          this._handleKeyboardEventWeek<SbbCalendarWeekdayElement>(
+            event,
+            weekday,
+            this._weekdayCells,
+          );
+        } else if (weekNumber) {
+          this._handleKeyboardEventWeek<SbbCalendarWeeknumberElement>(
+            event,
+            weekNumber,
+            this._weekNumberCells,
+          );
+        }
       }
     });
     this.addEventListener('blur', () => (this._lastSelection = null));
@@ -1002,7 +1087,11 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   }
 
   private _handleTableBlur(eventTarget: HTMLElement): void {
-    if (eventTarget?.localName !== 'sbb-calendar-day') {
+    if (
+      eventTarget?.localName !== 'sbb-calendar-day' &&
+      eventTarget?.localName !== 'sbb-calendar-weeknumber' &&
+      eventTarget?.localName !== 'sbb-calendar-weekday'
+    ) {
       this._setTabIndex();
     }
   }
@@ -1011,10 +1100,16 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     Array.from(this._cells.filter((e) => e.tabIndex === 0) ?? []).forEach(
       (day) => (day.tabIndex = -1),
     );
+    this._setWeekFocus();
     const firstFocusable = this._getFirstFocusable();
     if (firstFocusable) {
       firstFocusable.tabIndex = 0;
     }
+  }
+
+  private _setWeekFocus(): void {
+    this._weekdayCells.forEach((e, i) => (e.tabIndex = i === 0 ? 0 : -1));
+    this._weekNumberCells.forEach((e, i) => (e.tabIndex = i === 0 ? 0 : -1));
   }
 
   /** Get the element in the calendar to assign focus. */
@@ -1059,6 +1154,46 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         .map((e): string => this._dateAdapter.toIso8601(e.value! as T))
         .sort()[0];
       return cells.find((e) => e.matches(`[slot="${firstElement}"]`))! ?? null;
+    }
+  }
+
+  private _handleKeyboardEventWeek<TCell extends SbbCalendarCellBaseElement>(
+    event: KeyboardEvent,
+    cell: TCell,
+    cellArray: TCell[],
+  ): void {
+    event.preventDefault();
+
+    let nextEl: TCell;
+    switch (event.key) {
+      case 'ArrowUp':
+      case 'ArrowDown':
+      case 'ArrowLeft':
+      case 'ArrowRight': {
+        const next = getNextElementIndex(event, cellArray.indexOf(cell), cellArray.length);
+        nextEl = cellArray[next];
+        break;
+      }
+      case 'PageUp':
+      case 'Home': {
+        nextEl = cellArray[0];
+        break;
+      }
+      case 'PageDown':
+      case 'End': {
+        nextEl = cellArray[cellArray.length - 1];
+        break;
+      }
+      default: {
+        nextEl = cell;
+        break;
+      }
+    }
+
+    if (nextEl !== cell) {
+      nextEl.tabIndex = 0;
+      nextEl.focus();
+      cell.tabIndex = -1;
     }
   }
 

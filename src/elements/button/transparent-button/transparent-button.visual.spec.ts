@@ -6,6 +6,7 @@ import {
   visualDiffStandardStates,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
+import { buttonCssClassTemplate } from '../common/button-test-utils.private.ts';
 
 import '../../button.ts';
 
@@ -59,5 +60,40 @@ describe(`sbb-transparent-button`, () => {
         }
       },
     );
+
+    describe('CSS class', () => {
+      describeEach(
+        cases,
+        ({ disabled, negative, loading, emulateMedia: { forcedColors, darkMode } }) => {
+          beforeEach(async () => {
+            root = await visualRegressionFixture(
+              buttonCssClassTemplate('sbb-transparent-button', {
+                disabled,
+                negative,
+                loading,
+                icon: true,
+              }),
+              {
+                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                focusOutlineDark: negative,
+                forcedColors,
+                darkMode,
+              },
+            );
+          });
+
+          for (const state of visualDiffStandardStates) {
+            it(
+              state.name,
+              state.with((setup) => {
+                setup.withSnapshotElement(root);
+                // Without this, the inner <sbb-icon> would be picked as state element.
+                setup.withStateElement(root.querySelector('button')!);
+              }),
+            );
+          }
+        },
+      );
+    });
   });
 });
