@@ -154,8 +154,8 @@ inner wrappers used to lay out the label and the sort arrow icon.
 <th class="sbb-sort-header" tabindex="0" aria-sort="ascending">
   <div class="sbb-sort-header-container sbb-sort-header-sorted">
     <span class="sbb-sort-header-content">Name</span>
-    <span class="sbb-sort-header-arrow active asc">
-      <!-- svg arrow icon, e.g. with a `sbb-sort-indicator` element inside-->
+    <span class="sbb-sort-header-arrow active">
+      <!-- svg arrow icon, e.g. with an `sbb-sort-indicator active-asc` element inside -->
     </span>
   </div>
 </th>
@@ -177,14 +177,14 @@ The `table-wrapper` provides the following utility classes:
 The arrow visibility and position are entirely state-driven and are meant to be toggled by the
 consumer (e.g. on click or on hover) by swapping the modifier classes below:
 
-| State class     | Applied on                                    | Description                                                                                            |
-| --------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `void`          | `sbb-sort-header-arrow`                       | No sorting applied yet, arrow hidden.                                                                  |
-| `hint`          | `sbb-sort-header-arrow`                       | Column is hovered/focused but not sorted, arrow shown at reduced opacity.                              |
-| `active`        | `sbb-sort-header-arrow`                       | Column is actively sorted, arrow fully visible.                                                        |
-| `asc` / `desc`  | `sbb-sort-header-arrow`, `sbb-sort-indicator` | Sets the arrow direction (pointing up/down).                                                           |
-| `*-to-*`        | `sbb-sort-header-arrow`                       | Transitional classes (e.g. `hint-to-active`, `desc-to-hint`) used to animate between the states above. |
-| `no-transition` | `sbb-sort-header-arrow`, `sbb-sort-indicator` | Disables the animation, useful for the initial render.                                                 |
+| State class     | Applied on                                    | Description                                                                                                                                                    |
+| --------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `void`          | `sbb-sort-header-arrow`                       | No sorting applied yet, arrow hidden.                                                                                                                          |
+| `hint`          | `sbb-sort-header-arrow`                       | Column is hovered/focused but not sorted, arrow shown at reduced opacity.                                                                                      |
+| `active`        | `sbb-sort-header-arrow`                       | Column is actively sorted, arrow fully visible.                                                                                                                |
+| `asc` / `desc`  | `sbb-sort-header-arrow`, `sbb-sort-indicator` | Sets the arrow direction (pointing up/down).                                                                                                                   |
+| `*-to-*`        | `sbb-sort-header-arrow`                       | Supported transitions: `desc-to-active`, `asc-to-active`, `desc-to-hint`, `asc-to-hint`, `hint-to-desc`, `active-to-desc`, `hint-to-asc`, and `active-to-asc`. |
+| `no-transition` | `sbb-sort-header-arrow`, `sbb-sort-indicator` | Disables the animation, useful for the initial render.                                                                                                         |
 
 The `sbb-sort-indicator` class should be applied on the actual arrow glyph inside `sbb-sort-header-arrow`;
 it only takes care of flipping the icon (`asc`/`desc`) with a smooth transition, independently

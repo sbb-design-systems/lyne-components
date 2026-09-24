@@ -149,6 +149,7 @@ const headerWithSort: () => TemplateResult = () => html`
   <thead>
     <tr>
       <th class="sbb-sort-header">
+        <!-- Add click and keypress handlers with sort implementation. -->
         <div class="sbb-sort-header-container sbb-sort-header-sorted" tabindex="0" role="button">
           <div class="sbb-sort-header-content">Person</div>
           <div class="sbb-sort-header-arrow active">
@@ -180,6 +181,7 @@ const headerWithSort: () => TemplateResult = () => html`
         </div>
       </th>
       <th class="sbb-sort-header">
+        <!-- Add click and keypress handlers with sort implementation. -->
         <div class="sbb-sort-header-container sbb-sort-header-sorted" tabindex="0" role="button">
           <div class="sbb-sort-header-content">Most interest in</div>
           <div class="sbb-sort-header-arrow active">

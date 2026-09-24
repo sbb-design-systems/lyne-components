@@ -350,7 +350,8 @@ $theme: 'standard' !default;
 
     // Usually we could rely on the arrow showing up to be focus indication, but if a header is
     // active, the arrow will always be shown so the user has no way of telling the difference.
-    &:is(.cdk-keyboard-focused, .cdk-program-focused) {
+    &:is(:focus-visible, .cdk-keyboard-focused, .cdk-program-focused),
+    &:has(.sbb-sort-header-container:focus-visible) {
       --sbb-focus-outline-offset: calc(-1 * var(--sbb-focus-outline-width));
 
       @include sbb.focus-outline;
