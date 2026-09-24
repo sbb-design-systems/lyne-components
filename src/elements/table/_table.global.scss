@@ -352,7 +352,6 @@ $theme: 'standard' !default;
 
   // Sort header classes
   .sbb-sort-header {
-    cursor: pointer;
     position: relative;
 
     // Usually we could rely on the arrow showing up to be focus indication, but if a header is
@@ -364,7 +363,11 @@ $theme: 'standard' !default;
       @include sbb.focus-outline;
     }
 
-    &:hover .sbb-sort-header-container {
+    &:not(.sbb-sort-header-disabled) {
+      cursor: pointer;
+    }
+
+    &:not(.sbb-sort-header-disabled):hover .sbb-sort-header-container {
       color: var(--sbb-table-sort-header-hover-color);
     }
   }
