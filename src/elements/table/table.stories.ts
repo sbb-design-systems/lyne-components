@@ -145,6 +145,76 @@ const headerWithFilters: (groupWithNext?: boolean, withSubtitle?: boolean) => Te
   </thead>
 `;
 
+const headerWithSort: () => TemplateResult = () => html`
+  <thead>
+    <tr>
+      <th class="sbb-sort-header">
+        <div class="sbb-sort-header-container sbb-sort-header-sorted" tabindex="0" role="button">
+          <div class="sbb-sort-header-content">Person</div>
+          <div class="sbb-sort-header-arrow active">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              preserveAspectRatio="xMidYMid meet"
+              focusable="false"
+            >
+              <path
+                fill="none"
+                fill-rule="evenodd"
+                stroke="currentColor"
+                stroke-width="1"
+                d="M11.5,5.75 L11.5,18.25"
+              ></path>
+              <path
+                fill="none"
+                fill-rule="evenodd"
+                stroke="currentColor"
+                stroke-width="1"
+                d="M7.5,14.25 L11.5,18.25 L15.5,14.25"
+                class="sbb-sort-indicator active-asc"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </th>
+      <th class="sbb-sort-header">
+        <div class="sbb-sort-header-container sbb-sort-header-sorted" tabindex="0" role="button">
+          <div class="sbb-sort-header-content">Most interest in</div>
+          <div class="sbb-sort-header-arrow active">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              preserveAspectRatio="xMidYMid meet"
+              focusable="false"
+            >
+              <path
+                fill="none"
+                fill-rule="evenodd"
+                stroke="currentColor"
+                stroke-width="1"
+                d="M11.5,5.75 L11.5,18.25"
+              ></path>
+              <path
+                fill="none"
+                fill-rule="evenodd"
+                stroke="currentColor"
+                stroke-width="1"
+                d="M7.5,14.25 L11.5,18.25 L15.5,14.25"
+                class="sbb-sort-indicator active-desc"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </th>
+      <th>Age</th>
+    </tr>
+  </thead>
+`;
+
 const body: (groupWithNext?: boolean) => TemplateResult = (groupWithNext = false) => html`
   <tbody>
     <tr>
@@ -163,7 +233,7 @@ const body: (groupWithNext?: boolean) => TemplateResult = (groupWithNext = false
       <td>29</td>
     </tr>
     <tr>
-      <td class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>KAREN</td>
+      <td class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Karen</td>
       <td>Web performance</td>
       <td>36</td>
     </tr>
@@ -193,7 +263,16 @@ const Template = (args: Args): TemplateResult => html`
   </table>
 `;
 
-const withoutHeaderTemplate = (args: Args): TemplateResult => html`
+const SortTemplate = (args: Args): TemplateResult => html`
+  <table class=${classMap(tableClasses(args))}>
+    ${headerWithSort()} ${body(args.groupWithNext)}
+    <caption>
+      Sort implementation is on consumer side.
+    </caption>
+  </table>
+`;
+
+const WithoutHeaderTemplate = (args: Args): TemplateResult => html`
   <table class=${classMap(tableClasses(args))}>
     ${caption()} ${body(args.groupWithNext)}
   </table>
@@ -287,9 +366,15 @@ export const WithFilters: StoryObj = {
 };
 
 export const WithoutHeader: StoryObj = {
-  render: withoutHeaderTemplate,
+  render: WithoutHeaderTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'inline-filters': true, size: size.options![1] },
+};
+
+export const Sortable: StoryObj = {
+  render: SortTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
 
 export const GroupWithNext: StoryObj = {

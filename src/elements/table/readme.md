@@ -145,6 +145,51 @@ class inside a `th` element:
 </table>
 ```
 
+### Sorting
+
+A sortable column header is composed of a `th` acting as the interactive element and a set of
+inner wrappers used to lay out the label and the sort arrow icon.
+
+```html
+<th class="sbb-sort-header" tabindex="0" aria-sort="ascending">
+  <div class="sbb-sort-header-container sbb-sort-header-sorted">
+    <span class="sbb-sort-header-content">Name</span>
+    <span class="sbb-sort-header-arrow active asc">
+      <!-- svg arrow icon, e.g. with a `sbb-sort-indicator` element inside-->
+    </span>
+  </div>
+</th>
+```
+
+The `table-wrapper` provides the following utility classes:
+
+| Name                              | Description                                                                                                |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `sbb-sort-header`                 | Applied on a sortable `th` element.                                                                        |
+| `sbb-sort-header-disabled`        | Added next to `sbb-sort-header` to disable interaction on the column.                                      |
+| `sbb-sort-header-container`       | Wraps label and arrow, defines the layout.                                                                 |
+| `sbb-sort-header-position-before` | Renders the arrow before the label instead of after.                                                       |
+| `sbb-sort-header-sorted`          | Applied on the container when the column is actively sorted.                                               |
+| `sbb-sort-header-content`         | Wraps the header text content.                                                                             |
+| `sbb-sort-header-arrow`           | Arrow wrapper; holds the `void`/`hint`/`active`, `asc`/`desc`, `*-to-*` and `no-transition` state classes. |
+| `sbb-sort-indicator`              | Applied on the arrow glyph inside `sbb-sort-header-arrow`; handles the asc/desc flip animation.            |
+
+The arrow visibility and position are entirely state-driven and are meant to be toggled by the
+consumer (e.g. on click or on hover) by swapping the modifier classes below:
+
+| State class     | Applied on                                    | Description                                                                                            |
+| --------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `void`          | `sbb-sort-header-arrow`                       | No sorting applied yet, arrow hidden.                                                                  |
+| `hint`          | `sbb-sort-header-arrow`                       | Column is hovered/focused but not sorted, arrow shown at reduced opacity.                              |
+| `active`        | `sbb-sort-header-arrow`                       | Column is actively sorted, arrow fully visible.                                                        |
+| `asc` / `desc`  | `sbb-sort-header-arrow`, `sbb-sort-indicator` | Sets the arrow direction (pointing up/down).                                                           |
+| `*-to-*`        | `sbb-sort-header-arrow`                       | Transitional classes (e.g. `hint-to-active`, `desc-to-hint`) used to animate between the states above. |
+| `no-transition` | `sbb-sort-header-arrow`, `sbb-sort-indicator` | Disables the animation, useful for the initial render.                                                 |
+
+The `sbb-sort-indicator` class should be applied on the actual arrow glyph inside `sbb-sort-header-arrow`;
+it only takes care of flipping the icon (`asc`/`desc`) with a smooth transition, independently
+of the fade/translate handled by `sbb-sort-header-arrow`.
+
 ### Row hover
 
 To highlight a row when the user hovers over it, apply `sbb-table--hover` to the `<table>` element.
