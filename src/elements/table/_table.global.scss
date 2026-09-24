@@ -56,6 +56,16 @@ $theme: 'standard' !default;
       ),
       $theme
     )};
+  --sbb-table-sort-header-color: var(--sbb-color-2);
+  --sbb-table-sort-header-hover-color: light-dark(
+    var(--sbb-color-primary125),
+    var(--sbb-color-primary85)
+  );
+  --sbb-sort-header-animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --sbb-sort-header-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-6x)
+  );
 }
 
 @mixin rules {
@@ -172,6 +182,8 @@ $theme: 'standard' !default;
     --sbb-table-color: var(--sbb-color-1-negative);
     --sbb-table-row-striped-color: var(--sbb-background-color-3-negative);
     --sbb-table-caption-color: var(--sbb-color-cement);
+    --sbb-table-sort-header-color: var(--sbb-color-2-negative);
+    --sbb-table-sort-header-hover-color: var(--sbb-color-primary85);
   }
 
   .sbb-table--striped {
@@ -336,5 +348,222 @@ $theme: 'standard' !default;
   // Backwards compatibility for sbb-angular
   .sbb-table-align-right {
     text-align: right;
+  }
+
+  // Sort header classes
+  .sbb-sort-header {
+    position: relative;
+
+    // Usually we could rely on the arrow showing up to be focus indication, but if a header is
+    // active, the arrow will always be shown so the user has no way of telling the difference.
+    &:is(:focus-visible, .cdk-keyboard-focused, .cdk-program-focused),
+    &:has(.sbb-sort-header-container:focus-visible) {
+      --sbb-focus-outline-offset: calc(-1 * var(--sbb-focus-outline-width));
+
+      @include sbb.focus-outline;
+    }
+
+    &:not(.sbb-sort-header-disabled) {
+      cursor: pointer;
+    }
+
+    &:not(.sbb-sort-header-disabled):hover .sbb-sort-header-container {
+      color: var(--sbb-table-sort-header-hover-color);
+    }
+  }
+
+  .sbb-sort-header-sorted {
+    color: var(--sbb-table-sort-header-color);
+  }
+
+  .sbb-sort-header-container {
+    display: flex;
+    letter-spacing: normal;
+    text-align: left;
+    height: 100%;
+
+    // Needs to be reset since we don't want an outline around the inner
+    // div which is focusable. We have our own alternate focus styling.
+    outline: 0;
+
+    .sbb-sort-header-disabled & {
+      cursor: default;
+    }
+
+    .sbb-table-align-center & {
+      text-align: center;
+    }
+  }
+
+  .sbb-sort-header-content {
+    flex-shrink: 1;
+    flex-grow: 1;
+  }
+
+  .sbb-sort-header-position-before {
+    flex-direction: row-reverse;
+  }
+
+  .sbb-sort-header-arrow {
+    height: var(--sbb-size-icon-ui-small);
+    width: var(--sbb-size-icon-ui-small);
+    min-width: var(--sbb-size-icon-ui-small);
+    position: relative;
+
+    // Start off at 0 since the arrow may become visible while parent are animating.
+    // This will be overwritten when the arrow animations kick in. See #11819.
+    opacity: 0;
+    animation: var(--sbb-sort-header-animation-name) var(--sbb-sort-header-animation-duration)
+      var(--sbb-sort-header-animation-easing);
+    transition: {
+      property: opacity, translate;
+      duration: var(--sbb-sort-header-animation-duration);
+      timing-function: var(--sbb-sort-header-animation-easing);
+    }
+
+    margin: #{sbb.px-to-rem-build(-1)} #{sbb.px-to-rem-build(-8)} #{sbb.px-to-rem-build(-1)}
+      #{sbb.px-to-rem-build(-4)};
+
+    .sbb-sort-header-position-before & {
+      margin: #{sbb.px-to-rem-build(-1)} #{sbb.px-to-rem-build(-4)} #{sbb.px-to-rem-build(-1)}
+        #{sbb.px-to-rem-build(-1)};
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+
+      :where(path:nth-child(2)) {
+        transform-origin: center;
+      }
+    }
+
+    &.no-transition {
+      transition:
+        opacity 0ms,
+        translate 0ms !important;
+    }
+
+    &.active,
+    &.desc-to-active,
+    &.asc-to-active {
+      opacity: 1;
+    }
+
+    &.hint,
+    &.desc-to-hint,
+    &.asc-to-hint {
+      opacity: 0.54;
+    }
+
+    &.desc,
+    &.asc,
+    &.void,
+    &.hint-to-desc,
+    &.active-to-desc,
+    &.hint-to-asc,
+    &.active-to-asc {
+      opacity: 0;
+    }
+
+    &.hint,
+    &.active,
+    &.desc-to-active,
+    &.asc-to-active {
+      translate: 0;
+    }
+
+    &.desc,
+    &.active-to-desc {
+      translate: 0 25%;
+    }
+
+    &.asc,
+    &.active-to-asc {
+      translate: 0 -25%;
+    }
+
+    &.desc-to-hint {
+      --sbb-sort-header-animation-name: move-desc-to-hint;
+
+      translate: 0;
+    }
+
+    &.hint-to-desc {
+      --sbb-sort-header-animation-name: move-hint-to-desc;
+
+      translate: 0 25%;
+    }
+
+    &.asc-to-hint {
+      --sbb-sort-header-animation-name: move-asc-to-hint;
+
+      translate: 0;
+    }
+
+    &.hint-to-asc {
+      --sbb-sort-header-animation-name: move-hint-to-asc;
+
+      translate: 0 -25%;
+    }
+  }
+
+  .sbb-sort-indicator {
+    transition: scale var(--sbb-sort-header-animation-duration)
+      var(--sbb-sort-header-animation-easing);
+
+    &.asc,
+    &.active-asc {
+      scale: 1 -1;
+    }
+
+    &.desc,
+    &.active-desc {
+      scale: 1 1;
+    }
+
+    &.no-transition {
+      transition: none !important;
+    }
+  }
+
+  @keyframes move-desc-to-hint {
+    from {
+      translate: 0 25%;
+    }
+
+    to {
+      translate: 0 0;
+    }
+  }
+
+  @keyframes move-hint-to-desc {
+    from {
+      translate: 0 0;
+    }
+
+    to {
+      translate: 0 25%;
+    }
+  }
+
+  @keyframes move-asc-to-hint {
+    from {
+      translate: 0 -25%;
+    }
+
+    to {
+      translate: 0 0;
+    }
+  }
+
+  @keyframes move-hint-to-asc {
+    from {
+      translate: 0 0;
+    }
+
+    to {
+      translate: 0 -25%;
+    }
   }
 }
