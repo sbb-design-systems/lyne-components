@@ -217,6 +217,12 @@ export const MultipleNotifications: StoryObj = {
   args: { ...basicArgs },
 };
 
+export const WithoutTitle: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, hasTitle: false },
+};
+
 const meta: Meta = {
   decorators: [
     (story, context) =>

@@ -489,9 +489,24 @@ const layoutItemsTable = html`
           <td>ENTRY_EXIT</td>
         </tr>
         <tr>
+          <td>${svgImageByOSDMCode('FAMILY_AREA')}</td>
+          <td>Family</td>
+          <td>FAMILY_AREA</td>
+        </tr>
+        <tr>
           <td>${svgImageByOSDMCode('LUGGAGE_AREA')}</td>
           <td>Luggage</td>
           <td>LUGGAGE_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('MOBILE_PHONE_AREA')}</td>
+          <td>Mobile Phone</td>
+          <td>MOBILE_PHONE_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('MOBILE_PHONE_FORBIDDEN_AREA')}</td>
+          <td>Mobile Phone Forbidden</td>
+          <td>MOBILE_PHONE_FORBIDDEN_AREA</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('MULTI_FUNCTION_AREA')}</td>
@@ -517,6 +532,11 @@ const layoutItemsTable = html`
           <td>${svgImageByOSDMCode('STAIR_AREA')}</td>
           <td>Stair</td>
           <td>STAIR_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('TODDLER_AREA')}</td>
+          <td>Toddler</td>
+          <td>TODDLER_AREA</td>
         </tr>
         <tr>
           <td>${svgImageByOSDMCode('TOILET_AREA')}</td>
