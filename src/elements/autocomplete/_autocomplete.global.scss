@@ -1,0 +1,8 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-autocomplete-row-padding-inline-end: var(--sbb-spacing-responsive-xxxs);
+  --sbb-autocomplete-row-gap: var(--sbb-spacing-fixed-6x);
+}

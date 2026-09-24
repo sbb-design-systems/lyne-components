@@ -1,13 +1,13 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.ts';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbAutocompleteElement } from './autocomplete.component.ts';
 
-import '../autocomplete.ts';
-import '../form-field.ts';
-import '../option.ts';
+import '../../autocomplete.ts';
+import '../../form-field.ts';
+import '../../option.ts';
 
 describe(`sbb-autocomplete ssr`, () => {
   let root: SbbAutocompleteElement;
@@ -25,7 +25,7 @@ describe(`sbb-autocomplete ssr`, () => {
         </sbb-form-field>
         <button>Use this for backdrop click</button>
       `,
-      { modules: ['../autocomplete.ts', '../form-field.ts', '../option.ts'] },
+      { modules: ['../../autocomplete.ts', '../../form-field.ts', '../../option.ts'] },
     );
   });
 
