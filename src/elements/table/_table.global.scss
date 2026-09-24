@@ -529,7 +529,7 @@ $theme: 'standard' !default;
 
   @keyframes move-desc-to-hint {
     from {
-      translate: 0 -25%;
+      translate: 0 25%;
     }
 
     to {
@@ -549,7 +549,7 @@ $theme: 'standard' !default;
 
   @keyframes move-asc-to-hint {
     from {
-      translate: 0 25%;
+      translate: 0 -25%;
     }
 
     to {
