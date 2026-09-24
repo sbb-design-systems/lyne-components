@@ -1,0 +1,63 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: flex;
+  align-items: center;
+  padding-inline-end: var(--sbb-autocomplete-row-padding-inline-end);
+  gap: var(--sbb-autocomplete-row-gap);
+  color: var(--sbb-option-color);
+  background-color: var(--sbb-option-background-color);
+  cursor: var(--sbb-option-cursor);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-fill-color: var(--sbb-option-color);
+}
+
+:host(:state(negative)) {
+  --sbb-option-color: var(--sbb-color-3-negative);
+  --sbb-option-background-color-hover: var(--sbb-background-color-3-negative);
+  --sbb-option-disabled-border-color: var(--sbb-border-color-5);
+  --sbb-option-disabled-background-color: var(--sbb-background-color-3-negative);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+
+:host(:hover:not(:state(disabled))) {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-option-background-color: var(--sbb-option-background-color-hover);
+  }
+}
+
+// Add inner border and background for disabled option when it's not multiple
+:host(:state(disabled)) {
+  --sbb-option-cursor: var(--sbb-cursor-default);
+
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: var(--sbb-option-disabled-inset);
+    border: var(--sbb-border-width-1x) dashed var(--sbb-option-disabled-border-color);
+    border-radius: var(--sbb-option-disabled-border-radius);
+    background-color: var(--sbb-option-disabled-background-color);
+
+    @media (forced-colors: active) {
+      --sbb-option-disabled-border-color: GrayText;
+    }
+  }
+}
+
+::slotted(sbb-option) {
+  --sbb-option-background-color-active: var(--sbb-option-background-color-hover);
+
+  // Override the option disabled state
+  --sbb-option-disabled-display: none;
+
+  flex: 1 1 auto;
+
+  // Partially compensate for the option padding
+  margin-right: calc(-1 * var(--sbb-spacing-fixed-2x));
+
+  // Used to enable ellipsis
+  overflow-x: hidden;
+}
