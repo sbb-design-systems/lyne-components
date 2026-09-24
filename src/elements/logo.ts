@@ -1,14 +1,16 @@
 /** @entrypoint */
 import {
+  SbbLogoAnniversaryElement,
   SbbLogoCargoElement,
   SbbLogoCargoInternationalElement,
-  SbbLogoElvetinoElement,
   SbbLogoElement,
+  SbbLogoElvetinoElement,
 } from './logo.pure.ts';
 
 export * from './logo.pure.ts';
 
-SbbLogoElement.define();
+SbbLogoAnniversaryElement.define();
 SbbLogoCargoElement.define();
 SbbLogoCargoInternationalElement.define();
+SbbLogoElement.define();
 SbbLogoElvetinoElement.define();
