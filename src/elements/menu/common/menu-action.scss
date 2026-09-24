@@ -110,9 +110,13 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 
 .sbb-menu-action__icon,
 .sbb-menu-submenu__icon {
-  display: flex;
   min-width: var(--sbb-size-icon-ui-small);
   min-height: var(--sbb-size-icon-ui-small);
+}
+
+.sbb-menu-action__icon {
+  display: var(--sbb-menu-item-icon-display, flex);
+  visibility: var(--sbb-menu-item-icon-visibility, visible);
 }
 
 .sbb-menu-submenu__icon {

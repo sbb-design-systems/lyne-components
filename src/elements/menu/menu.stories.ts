@@ -39,16 +39,27 @@ const disabled: InputType = {
   },
 };
 
+const hideIconSpace: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Menu action',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   'icon-name': iconName,
   badge,
   disabled,
+  'hide-icon-space': hideIconSpace,
 };
 
 const defaultArgs: Args = {
   'icon-name': 'link-small',
   badge: '2',
   disabled: false,
+  'hide-icon-space': false,
 };
 
 const userNameStyle: Args = {
@@ -68,7 +79,7 @@ const triggerButton = (id: string): TemplateResult => html`
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-1')}
-  <sbb-menu trigger="menu-trigger-1">
+  <sbb-menu trigger="menu-trigger-1" ?hide-icon-space=${args['hide-icon-space']}>
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-link>
@@ -89,6 +100,17 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     </sbb-menu-button>
     <sbb-divider></sbb-divider>
     <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
+  </sbb-menu>
+`;
+
+const NoIconsTemplate = (args: Args): TemplateResult => html`
+  ${triggerButton('menu-trigger-1')}
+  <sbb-menu trigger="menu-trigger-1">
+    <sbb-menu-link href="https://www.sbb.ch/en"> View </sbb-menu-link>
+    <sbb-menu-button ?disabled-interactive=${args.disabled}> Edit </sbb-menu-button>
+    <sbb-menu-button aria-label="Details"> Details </sbb-menu-button>
+    <sbb-divider></sbb-divider>
+    <sbb-menu-button>Cancel</sbb-menu-button>
   </sbb-menu>
 `;
 
@@ -246,6 +268,12 @@ export const LongContent: StoryObj = {
 
 export const Ellipsis: StoryObj = {
   render: EllipsisTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const NoIcons: StoryObj = {
+  render: NoIconsTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
