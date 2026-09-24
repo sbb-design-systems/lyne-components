@@ -1730,6 +1730,7 @@ export class SeatReservationBaseElement extends SbbElement {
             coachItem.dimension.w,
             allElemenets,
           );
+
           const areaElements = coachItem.graphicElements
             ?.filter(
               (graphicalElement: BaseElement) =>
@@ -1738,6 +1739,7 @@ export class SeatReservationBaseElement extends SbbElement {
             .map((ele) =>
               this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, 'AREA'),
             );
+
           const otherElements = coachItem.graphicElements
             ?.filter((graphicalElement: BaseElement) =>
               this.notAreaElements.includes(graphicalElement.icon!),
@@ -1865,6 +1867,7 @@ export class SeatReservationBaseElement extends SbbElement {
   ): BaseElement {
     const dim = { ...element.dimension };
     const pos = { ...element.position };
+
     const rotation = element.rotation || 0;
     const isNotFixedRotationGraphicalElement =
       this.notAreaElements.concat(this.notFixedRotatableAreaIcons).indexOf(element.icon!) === -1;
@@ -1900,7 +1903,9 @@ export class SeatReservationBaseElement extends SbbElement {
       }
 
       if (coachDimension.h === element.position.y + element.dimension.h) {
-        dim.h += this.coachBorderOffset * 2;
+        const multiplicator =
+          element.icon?.startsWith('WALL') || element.icon?.startsWith('T_WALL') ? 1 : 2;
+        dim.h += this.coachBorderOffset * multiplicator;
       }
     }
 

@@ -698,6 +698,82 @@ const chassisTable = html`
   </sbb-table-wrapper>
 `;
 
+const partitionTable = html`
+  <sbb-table-wrapper>
+    <table class="sbb-table">
+      <thead>
+        <tr>
+          <th scope="col">SVG</th>
+          <th scope="col">Figma</th>
+          <th scope="col">OSDM Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_LEFT_1')}</td>
+          <td>Wall Partition 1 Seat Left</td>
+          <td>WALL_LEFT_1</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_LEFT_2')}</td>
+          <td>Wall Partition 2 Seats Left</td>
+          <td>WALL_LEFT_2</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_LEFT_3')}</td>
+          <td>Wall Partition 3 Seats Left</td>
+          <td>WALL_LEFT_3</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_RIGHT_1')}</td>
+          <td>Wall Partition 1 Seat Right</td>
+          <td>WALL_RIGHT_1</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_RIGHT_2')}</td>
+          <td>Wall Partition 2 Seats Right</td>
+          <td>WALL_RIGHT_2</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_RIGHT_3')}</td>
+          <td>Wall Partition 3 Seats Right</td>
+          <td>WALL_RIGHT_3</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_COMPARTMENTS_1')}</td>
+          <td>Wall Partition 1 Seat Compartment</td>
+          <td>WALL_COMPARTMENTS_1</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_COMPARTMENTS_2')}</td>
+          <td>Wall Partition 2 Seats Compartment</td>
+          <td>WALL_COMPARTMENTS_2</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_COMPARTMENTS_3')}</td>
+          <td>Wall Partition 3 Seats Compartment</td>
+          <td>WALL_COMPARTMENTS_3</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('T_WALL_COMPARTMENTS_1')}</td>
+          <td>Wall Partition 1 Seat T-Shaped Compartment</td>
+          <td>T_WALL_COMPARTMENTS_1</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('T_WALL_COMPARTMENTS_2')}</td>
+          <td>Wall Partition 2 Seats T-Shaped Compartment</td>
+          <td>T_WALL_COMPARTMENTS_2</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('T_WALL_COMPARTMENTS_3')}</td>
+          <td>Wall Partition 3 Seats T-Shaped Compartment</td>
+          <td>T_WALL_COMPARTMENTS_3</td>
+        </tr>
+      </tbody>
+    </table>
+  </sbb-table-wrapper>
+`;
+
 export const GraphicAvailableAssets: StoryObj = {
   render: () => html`
     <style>
@@ -715,6 +791,8 @@ export const GraphicAvailableAssets: StoryObj = {
     ${serviceIconTable}
     <h2>Chassis</h2>
     ${chassisTable}
+    <h2>Partitions</h2>
+    ${partitionTable}
   `,
 };
 
