@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.10.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.9.0...v5.10.0) (2026-09-24)
+
+
+### Features
+
+* **autocomplete:** implement 'actions' in options ([#5206](https://github.com/sbb-design-systems/lyne-components/issues/5206)) ([67ed5fd](https://github.com/sbb-design-systems/lyne-components/commit/67ed5fdbeb77d50d91f77ba1154321c1ae3bb54a))
+* **button:** create CSS class variants ([#5195](https://github.com/sbb-design-systems/lyne-components/issues/5195)) ([289f34f](https://github.com/sbb-design-systems/lyne-components/commit/289f34f9b2af2b1946c3a6b3717141628186aeb2))
+* **calendar:** improve keyboard navigation ([#5271](https://github.com/sbb-design-systems/lyne-components/issues/5271)) ([ab70bdf](https://github.com/sbb-design-systems/lyne-components/commit/ab70bdf2f848db77286f1b142c2c9a3486568a6d))
+* **form-field:** add CSS utility class ([#5256](https://github.com/sbb-design-systems/lyne-components/issues/5256)) ([cc09fac](https://github.com/sbb-design-systems/lyne-components/commit/cc09fac2a6340de28f2e5aa271eb60a28755725f))
+* **logo:** add 125 years anniversary logo ([#5239](https://github.com/sbb-design-systems/lyne-components/issues/5239)) ([23591ac](https://github.com/sbb-design-systems/lyne-components/commit/23591ac477562f639fc46ff3e07c80511fbacd7e))
+* **seat-reservation:** new icons ([#5265](https://github.com/sbb-design-systems/lyne-components/issues/5265)) ([5c216f8](https://github.com/sbb-design-systems/lyne-components/commit/5c216f8f312911f7e7b86eecb0180ab3e594eb0e))
+
+
+### Bug Fixes
+
+* **datepicker:** avoid cutting elements for screen widths below 348px ([#5257](https://github.com/sbb-design-systems/lyne-components/issues/5257)) ([c3f2020](https://github.com/sbb-design-systems/lyne-components/commit/c3f2020b8da0a23c8d1fe59be746cd158d939c33)), closes [#5241](https://github.com/sbb-design-systems/lyne-components/issues/5241)
+* **dialog:** always display divider for actions ([#5272](https://github.com/sbb-design-systems/lyne-components/issues/5272)) ([a1b7140](https://github.com/sbb-design-systems/lyne-components/commit/a1b7140cef613d716d0e21c1f7be40a781ccb854))
+* **dialog:** reduce visual offset from the top in zero breakpoint ([#5269](https://github.com/sbb-design-systems/lyne-components/issues/5269)) ([52152ec](https://github.com/sbb-design-systems/lyne-components/commit/52152ec13a3fad4c412de45f28e499b95af4dfce)), closes [#5267](https://github.com/sbb-design-systems/lyne-components/issues/5267)
+* **logo:** remove obsolete CSS variable ([#5277](https://github.com/sbb-design-systems/lyne-components/issues/5277)) ([15a73bd](https://github.com/sbb-design-systems/lyne-components/commit/15a73bd35b85e9cb83dd88b549f98637c8ac736a))
+
+
+### Documentation
+
+* **loading-indicator:** add 'minimumDisplayTime' examples ([#5274](https://github.com/sbb-design-systems/lyne-components/issues/5274)) ([9b8feb0](https://github.com/sbb-design-systems/lyne-components/commit/9b8feb0ebecaf4f20b88840e822ef91169ae5023))
+* **mini-calendar:** stories improvement ([#5264](https://github.com/sbb-design-systems/lyne-components/issues/5264)) ([05c26b2](https://github.com/sbb-design-systems/lyne-components/commit/05c26b200d0ddd3261335debde6331f49ea08211))
+
 ## [5.9.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.8.0...v5.9.0) (2026-09-15)
 
 
