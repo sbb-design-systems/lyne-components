@@ -1,0 +1,213 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--sbb-logo-height);
+  aspect-ratio: var(--sbb-logo-aspect-ratio);
+  background-color: var(--sbb-logo-background-color, none);
+  position: relative;
+
+  @media (forced-colors: active) {
+    --sbb-logo-word-mark-color: ButtonText !important;
+  }
+
+  // We us px values here because it relates to the svg context
+  // Value is only used for calculations of offsets
+  --_sbb-logo-anniversary-signet-width: 143px;
+  --sbb-logo-anniversary-bounce-delay: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-2x)
+  );
+  --sbb-logo-anniversary-125-pull-out-delay: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-logo-anniversary-initial-delay)
+  );
+  --sbb-logo-anniversary-125-pull-out-duration: var(--sbb-disable-animation-duration, 0.6s);
+  --sbb-logo-anniversary-word-mark-delay: var(
+    --sbb-disable-animation-duration,
+    calc(var(--sbb-logo-anniversary-initial-delay) + 0.6s)
+  );
+  --sbb-logo-anniversary-word-mark-duration: var(--sbb-disable-animation-duration, 0.6s);
+  --sbb-logo-anniversary-claim-delay: var(
+    --sbb-disable-animation-duration,
+    calc(var(--sbb-logo-anniversary-initial-delay) + 1.8s)
+  );
+  --sbb-logo-anniversary-claim-duration: var(--sbb-disable-animation-duration, 0.8s);
+}
+
+:host([negative]) {
+  --sbb-logo-word-mark-color: var(--sbb-color-white);
+}
+
+.lang-en {
+  --_sbb-logo-anniversary-signet-left-offset: var(--sbb-logo-anniversary-signet-left-offset-en);
+  --_sbb-logo-anniversary-claim-top-offset: var(--sbb-logo-anniversary-claim-top-offset-en);
+  --_sbb-logo-anniversary-claim-font-size: var(--sbb-logo-anniversary-claim-font-size-en);
+}
+
+.lang-de {
+  --_sbb-logo-anniversary-signet-left-offset: var(--sbb-logo-anniversary-signet-left-offset-de);
+  --_sbb-logo-anniversary-claim-top-offset: var(--sbb-logo-anniversary-claim-top-offset-de);
+  --_sbb-logo-anniversary-claim-font-size: var(--sbb-logo-anniversary-claim-font-size-de);
+}
+
+.lang-fr {
+  --_sbb-logo-anniversary-signet-left-offset: var(--sbb-logo-anniversary-signet-left-offset-fr);
+  --_sbb-logo-anniversary-claim-top-offset: var(--sbb-logo-anniversary-claim-top-offset-fr);
+  --_sbb-logo-anniversary-claim-font-size: var(--sbb-logo-anniversary-claim-font-size-fr);
+}
+
+.lang-it {
+  --_sbb-logo-anniversary-signet-left-offset: var(--sbb-logo-anniversary-signet-left-offset-it);
+  --_sbb-logo-anniversary-claim-top-offset: var(--sbb-logo-anniversary-claim-top-offset-it);
+  --_sbb-logo-anniversary-claim-font-size: var(--sbb-logo-anniversary-claim-font-size-it);
+}
+
+// As the logo should stay with it natural size (without additional text) we position it absolute.
+svg {
+  position: absolute;
+  inset: 0 auto auto 0;
+}
+
+#sbb-logo-anniversary-letter-mask,
+#sbb-logo-anniversary__panel,
+#sbb-logo-anniversary__signet {
+  animation: move-to-origin var(--sbb-logo-anniversary-word-mark-duration)
+    var(--sbb-logo-anniversary-word-mark-delay) var(--sbb-logo-anniversary-word-mark-easing)
+    forwards;
+}
+
+#sbb-logo-anniversary-letter-mask {
+  translate: calc(
+      var(--_sbb-logo-anniversary-signet-left-offset) + var(--_sbb-logo-anniversary-signet-width)
+    )
+    0;
+}
+
+// Clips area left of the signet to hide animating texts
+#sbb-logo-anniversary__word-mark,
+#sbb-logo-anniversary__125-years {
+  clip-path: url('#sbb-logo-anniversary-letter-mask');
+}
+
+#sbb-logo-anniversary__125-years :is(text, rect) {
+  // Variable is set here as it is depending on language variable
+  --_sbb-logo-anniversary-signet-end-offset: calc(
+    var(--_sbb-logo-anniversary-signet-left-offset) + var(--_sbb-logo-anniversary-signet-width) +
+      11px
+  );
+
+  // We us px values here because it relates to the svg context
+  font-size: 47px;
+  letter-spacing: 0.0078em;
+  font-weight: bold;
+  fill: var(--sbb-logo-word-mark-color);
+  animation: pull-out var(--sbb-logo-anniversary-125-pull-out-duration)
+    var(--sbb-logo-anniversary-125-pull-out-delay) var(--sbb-logo-anniversary-125-pull-out-easing)
+    forwards;
+
+  // `125`
+  &:first-child {
+    // Start offset of `125`
+    translate: var(--_sbb-logo-anniversary-signet-end-offset) 0;
+  }
+
+  // `years`
+  &:nth-child(2) {
+    // Start offset of `years` (`125` has a width of 93px)
+    translate: calc(var(--_sbb-logo-anniversary-signet-end-offset) + 93px) 0;
+    animation-delay: calc(
+      var(--sbb-logo-anniversary-125-pull-out-delay) + var(--sbb-logo-anniversary-bounce-delay)
+    );
+  }
+
+  // `.` (absolute positioned)
+  &:nth-child(3) {
+    animation-delay: calc(
+      var(--sbb-logo-anniversary-125-pull-out-delay) + 2 * var(--sbb-logo-anniversary-bounce-delay)
+    );
+  }
+}
+
+#sbb-logo-anniversary__word-mark path {
+  fill: var(--sbb-logo-word-mark-color);
+  translate: -100% 0;
+  opacity: 0;
+  animation: pull-in var(--sbb-logo-anniversary-word-mark-duration)
+    var(--sbb-logo-anniversary-word-mark-delay) var(--sbb-logo-anniversary-word-mark-easing)
+    forwards;
+
+  &:nth-child(1) {
+    animation-delay: calc(
+      var(--sbb-logo-anniversary-word-mark-delay) + 2 * var(--sbb-logo-anniversary-bounce-delay)
+    );
+  }
+
+  &:nth-child(2) {
+    animation-delay: calc(
+      var(--sbb-logo-anniversary-word-mark-delay) + var(--sbb-logo-anniversary-bounce-delay)
+    );
+  }
+}
+
+#sbb-logo-anniversary__panel,
+#sbb-logo-anniversary__signet {
+  translate: var(--_sbb-logo-anniversary-signet-left-offset) 0;
+}
+
+#sbb-logo-anniversary__panel {
+  fill: var(--sbb-logo-panel-color);
+  stroke: var(--sbb-logo-panel-color);
+}
+
+#sbb-logo-anniversary__signet {
+  fill: var(--sbb-logo-signet-color);
+}
+
+#sbb-logo-anniversary__claim {
+  translate: 0 var(--_sbb-logo-anniversary-claim-top-offset);
+  font-size: var(--_sbb-logo-anniversary-claim-font-size);
+  letter-spacing: var(--sbb-letter-spacing-text);
+  fill: var(--sbb-logo-word-mark-color);
+  opacity: 0;
+  animation: fade-in var(--sbb-logo-anniversary-claim-duration)
+    var(--sbb-logo-anniversary-claim-delay) var(--sbb-logo-anniversary-claim-easing) forwards;
+}
+
+@keyframes move-to-origin {
+  100% {
+    translate: 0;
+  }
+}
+
+@keyframes pull-out {
+  80% {
+    opacity: 0;
+  }
+
+  100% {
+    translate: -100% 0;
+
+    // Remove artifacts near the logo border
+    display: none;
+  }
+}
+
+@keyframes pull-in {
+  20% {
+    opacity: 0;
+  }
+
+  100% {
+    translate: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  100% {
+    opacity: 1;
+  }
+}
