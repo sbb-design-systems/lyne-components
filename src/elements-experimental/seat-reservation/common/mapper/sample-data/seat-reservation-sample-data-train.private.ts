@@ -847,6 +847,23 @@ export const MOCK_COACHES_RAW_TRAIN = [
         },
       ],
       graphicElements: [
+        //partition wall as example
+        {
+          rectangle: {
+            position: {
+              x: 12.375,
+              y: 0,
+              z: 0,
+            },
+            dimension: {
+              width: 1,
+              height: 2.375,
+              borderRadius: null,
+            },
+          },
+          orientation: 0,
+          type: 'WALL_RIGHT_1',
+        },
         {
           rectangle: {
             position: {
