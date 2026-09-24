@@ -1,0 +1,72 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  position: relative;
+  display: block;
+
+  --sbb-pearl-chain-bullet-now-animation-duration: var(--sbb-disable-animation-duration, 0.96s);
+}
+
+:host(:state(horizontal)) {
+  --sbb-pearl-chain-bullet-rotation: -90deg;
+}
+
+.sbb-pearl-chain__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.line {
+  stroke: var(--sbb-pearl-chain-color);
+  stroke-width: var(--sbb-pearl-chain-stroke-width);
+
+  &--past {
+    stroke: var(--sbb-pearl-chain-past-color);
+  }
+
+  &--walk {
+    stroke: var(--sbb-pearl-chain-walk-color);
+    stroke-dasharray: #{sbb.px-to-rem-build(2)};
+  }
+
+  &--unsure {
+    stroke-dasharray: #{sbb.px-to-rem-build(2)};
+  }
+
+  &--disruption {
+    stroke: var(--sbb-pearl-chain-disruption-color);
+    stroke-dasharray: #{sbb.px-to-rem-build(2)};
+  }
+
+  &--irrelevant {
+    stroke: var(--sbb-pearl-chain-irrelevant-color);
+    stroke-width: var(--sbb-pearl-chain-irrelevant-stroke-width);
+  }
+}
+
+.now-dot {
+  fill: var(--sbb-pearl-chain-now-color);
+  stroke: var(--sbb-pearl-chain-now-color);
+  stroke-opacity: var(--sbb-pearl-chain-bullet-now-animation-opacity);
+  r: calc(var(--sbb-pearl-chain-now-size) / 2);
+  animation: sbb-pearl-chain-pulse var(--sbb-pearl-chain-bullet-now-animation-duration) ease-out
+    infinite;
+}
+
+@keyframes sbb-pearl-chain-pulse {
+  0% {
+    stroke-width: 0;
+  }
+
+  50% {
+    stroke-width: calc(var(--sbb-pearl-chain-now-size) / 2);
+  }
+
+  100% {
+    stroke-width: 0;
+  }
+}
