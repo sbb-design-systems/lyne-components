@@ -7,6 +7,8 @@
   );
 
   display: block;
+  transition: transform var(--sbb-expansion-panel-header-transition-duration)
+    var(--sbb-expansion-panel-header-transition-easing-function);
 }
 
 :host(:state(size-s)) {
@@ -45,8 +47,6 @@
 
 :host(:not([disabled], [aria-expanded='true']):state(toggle-hover)) {
   box-shadow: var(--sbb-expansion-panel-header-box-shadow-hover);
-  transition: transform var(--sbb-expansion-panel-header-transition-duration)
-    var(--sbb-expansion-panel-header-transition-easing-function);
   transform: translateY(var(--sbb-expansion-panel-header-translate-y-hover, 0));
 }
 
