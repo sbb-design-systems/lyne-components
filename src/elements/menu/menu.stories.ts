@@ -103,17 +103,6 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
   </sbb-menu>
 `;
 
-const NoIconsTemplate = (args: Args): TemplateResult => html`
-  ${triggerButton('menu-trigger-1')}
-  <sbb-menu trigger="menu-trigger-1">
-    <sbb-menu-link href="https://www.sbb.ch/en"> View </sbb-menu-link>
-    <sbb-menu-button ?disabled-interactive=${args.disabled}> Edit </sbb-menu-button>
-    <sbb-menu-button aria-label="Details"> Details </sbb-menu-button>
-    <sbb-divider></sbb-divider>
-    <sbb-menu-button>Cancel</sbb-menu-button>
-  </sbb-menu>
-`;
-
 const NestedTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-1')}
   <sbb-menu trigger="menu-trigger-1">
@@ -273,9 +262,9 @@ export const Ellipsis: StoryObj = {
 };
 
 export const NoIcons: StoryObj = {
-  render: NoIconsTemplate,
+  render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  args: { ...defaultArgs, 'hide-icon-space': true },
 };
 
 const meta: Meta = {
