@@ -50,6 +50,114 @@ describe(`sbb-timetable-row`, () => {
     });
   });
 
+  describe('badge', () => {
+    const badge = (): HTMLElement | null =>
+      element.shadowRoot!.querySelector<HTMLElement>('sbb-card-badge');
+
+    it('renders no badge without price and badge label', () => {
+      expect(badge()).to.be.null;
+    });
+
+    it('renders no badge while the price is loading', async () => {
+      element = await fixture(
+        html`<sbb-timetable-row badge-label="New" loading-price></sbb-timetable-row>`,
+      );
+      expect(badge()).to.be.null;
+    });
+
+    it('renders the badge label', async () => {
+      element = await fixture(html`<sbb-timetable-row badge-label="New"></sbb-timetable-row>`);
+
+      expect(badge()).not.to.be.null;
+      expect(badge()!.getAttribute('color')).to.be.equal('white');
+      expect(badge()!.textContent!.trim()).to.be.equal('New');
+    });
+
+    it('renders the badge label in dark color', async () => {
+      element = await fixture(
+        html`<sbb-timetable-row badge-label="New" badge-color="dark"></sbb-timetable-row>`,
+      );
+
+      expect(badge()!.getAttribute('color')).to.be.equal('charcoal');
+    });
+
+    it('renders the badge label instead of the price', async () => {
+      element = await fixture(
+        html`<sbb-timetable-row
+          badge-label="New"
+          .price=${{ price: '39.90', text: 'ab CHF', isDiscount: true }}
+        ></sbb-timetable-row>`,
+      );
+
+      expect(badge()!.textContent!.trim()).to.be.equal('New');
+      expect(badge()!.textContent).not.to.contain('%');
+      expect(badge()!.textContent).not.to.contain('39.90');
+    });
+
+    it('renders the discount price in dark color', async () => {
+      element = await fixture(
+        html`<sbb-timetable-row
+          .price=${{ price: '39.90', text: 'ab CHF', isDiscount: true }}
+        ></sbb-timetable-row>`,
+      );
+
+      expect(badge()!.getAttribute('color')).to.be.equal('charcoal');
+      expect(badge()!.textContent).to.contain('%');
+    });
+
+    it('renders the discount price in enforced light color', async () => {
+      element = await fixture(
+        html`<sbb-timetable-row
+          badge-color="light"
+          .price=${{ price: '39.90', text: 'ab CHF', isDiscount: true }}
+        ></sbb-timetable-row>`,
+      );
+
+      expect(badge()!.getAttribute('color')).to.be.equal('white');
+    });
+
+    it('updates the badge when the label changes', async () => {
+      element = await fixture(html`<sbb-timetable-row badge-label="New"></sbb-timetable-row>`);
+
+      element.badgeLabel = '';
+      await waitForLitRender(element);
+      expect(badge()).to.be.null;
+
+      element.badgeLabel = 'Updated';
+      await waitForLitRender(element);
+      expect(badge()!.textContent!.trim()).to.be.equal('Updated');
+    });
+
+    describe('accessibility text', () => {
+      const accessibilityText = (): string =>
+        element.shadowRoot!.querySelector('sbb-card-button')!.textContent!.trim();
+
+      it('contains the price', async () => {
+        element = await fixture(
+          html`<sbb-timetable-row
+            .trip=${walkTimeTrip}
+            .price=${{ price: '39.90', text: 'ab CHF', isDiscount: true }}
+          ></sbb-timetable-row>`,
+        );
+
+        expect(accessibilityText()).to.contain('ab CHF 39.90');
+      });
+
+      it('contains the badge label instead of the price', async () => {
+        element = await fixture(
+          html`<sbb-timetable-row
+            .trip=${walkTimeTrip}
+            badge-label="New"
+            .price=${{ price: '39.90', text: 'ab CHF', isDiscount: true }}
+          ></sbb-timetable-row>`,
+        );
+
+        expect(accessibilityText()).to.contain('New,');
+        expect(accessibilityText()).not.to.contain('39.90');
+      });
+    });
+  });
+
   describe('events', () => {
     it('emits an event when clicked', async () => {
       const card = element.shadowRoot!.querySelector<SbbCardElement>('sbb-card')!;

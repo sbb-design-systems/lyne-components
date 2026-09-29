@@ -261,6 +261,15 @@ export class SbbTimetableRowElement extends SbbElement {
   /** The price Prop, which consists of the data for the badge. */
   @property({ type: Object }) public accessor price: Price = null!;
 
+  /** The label for the badge. Can be used to override the content of the badge. */
+  @forceType()
+  @property({ type: String, attribute: 'badge-label' })
+  public accessor badgeLabel: string = '';
+
+  /** Forces the badge color. If not set, the color is derived from `price.isDiscount`. */
+  @property({ attribute: 'badge-color' }) public accessor badgeColor: 'light' | 'dark' | null =
+    null;
+
   /** This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. */
   @forceType()
   @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
@@ -473,11 +482,13 @@ export class SbbTimetableRowElement extends SbbElement {
 
     const boardingText = this.boarding ? `${this.boarding.text}, ` : '';
 
-    const priceText = `${this.price?.isDiscount ? i18nSupersaver[this._language.current] : ''} ${
-      this.price?.text && this.price?.price
-        ? (this.price?.text || '') + ' ' + (this.price?.price || '') + ', '
-        : ''
-    }`;
+    const badgeContent = this.badgeLabel
+      ? `${this.badgeLabel}, `
+      : `${this.price?.isDiscount ? i18nSupersaver[this._language.current] : ''} ${
+          this.price?.text && this.price?.price
+            ? (this.price?.text || '') + ' ' + (this.price?.price || '') + ', '
+            : ''
+        }`;
 
     const transferProcedures =
       rideLegs.length > 2
@@ -541,7 +552,7 @@ export class SbbTimetableRowElement extends SbbElement {
       directionText,
       cusText,
       boardingText,
-      priceText,
+      badgeContent,
       cusText ? '' : himText,
       arrivalTimeText,
       arrivalWalkText,
@@ -590,10 +601,12 @@ export class SbbTimetableRowElement extends SbbElement {
         </sbb-card-button>
         ${this.loadingPrice ? html`<div class="sbb-loading__badge" slot="badge"></div>` : nothing}
         ${
-          this.price && !this.loadingPrice
-            ? html`<sbb-card-badge color=${this.price.isDiscount ? 'charcoal' : 'white'}>
+          (this.price || this.badgeLabel) && !this.loadingPrice
+            ? html`<sbb-card-badge
+                color=${(this.price?.isDiscount && !this.badgeColor) || this.badgeColor === 'dark' ? 'charcoal' : 'white'}
+              >
                 ${
-                  this.price.isDiscount
+                  this.price?.isDiscount && !this.badgeLabel
                     ? html`<span aria-hidden="true">
                         %<span class="sbb-screen-reader-only"
                           >${i18nSupersaver[this._language.current]}</span
@@ -601,8 +614,8 @@ export class SbbTimetableRowElement extends SbbElement {
                       </span>`
                     : nothing
                 }
-                ${this.price.text ? html`<span>${this.price.text}</span>` : nothing}
-                ${this.price.price ? html`<span>${this.price.price}</span>` : nothing}
+                ${this.price?.text || this.badgeLabel ? html`<span>${this.badgeLabel || this.price.text}</span>` : nothing}
+                ${this.price?.price && !this.badgeLabel ? html`<span>${this.price.price}</span>` : nothing}
               </sbb-card-badge>`
             : nothing
         }
