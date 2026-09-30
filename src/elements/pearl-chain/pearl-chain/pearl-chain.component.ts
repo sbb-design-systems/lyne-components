@@ -11,7 +11,6 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { ref } from 'lit/directives/ref.js';
 
 import { defaultDateAdapter, SbbElement } from '../../core.ts';
 import type { SbbPearlChainNodeElement } from '../../pearl-chain.pure.ts';
@@ -75,18 +74,12 @@ export class SbbPearlChainElement extends SbbElement {
 
   public constructor() {
     super();
-    this.addController(
-      new ResizeController(this, {
-        callback: () => this._debouncedPositionLines(),
-        skipInitial: true,
-      }),
-    );
-    this.addController(
-      new IntersectionController(this, {
-        callback: () => this._debouncedPositionLines(),
-        skipInitial: true,
-      }),
-    );
+    const controllersConfig = {
+      callback: () => this._debouncedPositionLines(),
+      skipInitial: true,
+    };
+    this.addController(new ResizeController(this, controllersConfig));
+    this.addController(new IntersectionController(this, controllersConfig));
   }
 
   /**
@@ -138,6 +131,11 @@ export class SbbPearlChainElement extends SbbElement {
     this._positionLines();
   }
 
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+    this._svgElem = this.shadowRoot!.querySelector('.sbb-pearl-chain__svg')!;
+  }
+
   /**
    * Optimizes `_positionLines()` calls by debouncing them (called by observers).
    */
@@ -171,7 +169,7 @@ export class SbbPearlChainElement extends SbbElement {
 
     this._updateOrientation(nodesCords);
 
-    elements.forEach((el) => {
+    for (const el of elements) {
       const index = Number(el.dataset.segment);
       const start = nodesCords[index];
       const end = this._needsGap(this._nodes[index + 1])
@@ -191,31 +189,30 @@ export class SbbPearlChainElement extends SbbElement {
         case 'before': {
           const ratio = this._progressRatio(this._nodes[index], this._nodes[index + 1])!;
           const nowCords = lerp(nodesCords[index], nodesCords[index + 1], ratio);
-          el.setAttribute('x1', `${start.x}`);
-          el.setAttribute('y1', `${start.y}`);
-          el.setAttribute('x2', `${nowCords.x}`);
-          el.setAttribute('y2', `${nowCords.y}`);
+          this._setLineCords(el, start, nowCords);
           break;
         }
         // The line immediately after the pulsing dot.
         case 'after': {
           const ratio = this._progressRatio(this._nodes[index], this._nodes[index + 1])!;
           const nowCords = lerp(start, end, ratio);
-          el.setAttribute('x1', `${nowCords.x}`);
-          el.setAttribute('y1', `${nowCords.y}`);
-          el.setAttribute('x2', `${end.x}`);
-          el.setAttribute('y2', `${end.y}`);
+          this._setLineCords(el, nowCords, end);
           break;
         }
         // The normal case: a single line connecting two nodes.
         default: {
-          el.setAttribute('x1', `${start.x}`);
-          el.setAttribute('y1', `${start.y}`);
-          el.setAttribute('x2', `${end.x}`);
-          el.setAttribute('y2', `${end.y}`);
+          this._setLineCords(el, start, end);
         }
       }
-    });
+    }
+  }
+
+  /** Sets the coordinates of a line svg element. */
+  private _setLineCords(element: Element, start: Point, end: Point): void {
+    element.setAttribute('x1', `${start.x}`);
+    element.setAttribute('y1', `${start.y}`);
+    element.setAttribute('x2', `${end.x}`);
+    element.setAttribute('y2', `${end.y}`);
   }
 
   /** Toggles `:state(horizontal)` when the nodes are spread more horizontally than vertically. */
@@ -309,9 +306,8 @@ export class SbbPearlChainElement extends SbbElement {
 
   /** A line is "past" once we've already arrived at its ending node. */
   private _isLinePast(end: SbbPearlChainNodeElement): boolean {
-    const now = this.now;
     const pastTime = end.arrival ?? end.departure;
-    return !!pastTime && pastTime.getTime() < now.getTime();
+    return !!pastTime && pastTime.getTime() < this.now.getTime();
   }
 
   /** A line is "current" if "now" falls between its start departure and end arrival. */
@@ -342,12 +338,7 @@ export class SbbPearlChainElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <svg
-        class="sbb-pearl-chain__svg"
-        ${ref((el?: Element): void => {
-          this._svgElem = el;
-        })}
-      >
+      <svg class="sbb-pearl-chain__svg">
         ${
           this._nodes.length > 1
             ? Array.from({ length: this._nodes.length - 1 }, (_, index) =>
