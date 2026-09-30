@@ -74,11 +74,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
     // TODO: with more support for light DOM styles set from a component (rootnode), we should move this into scss with :has(:hover) selector.
     if (!toggleDataAttribute || (parent && this._isHover)) {
       ɵstateController(parent).toggle('toggle-hover', toggleDataAttribute);
-      if (toggleDataAttribute) {
-        this.internals.states.add('toggle-hover');
-      } else {
-        this.internals.states.delete('toggle-hover');
-      }
+      this.toggleState('toggle-hover', toggleDataAttribute);
     }
   }
 
