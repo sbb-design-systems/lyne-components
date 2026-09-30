@@ -1,3 +1,5 @@
+import type { SbbOpenCloseBaseElement } from '../base-elements/open-close-base-element.ts';
+
 export function pageScrollDisabled(): boolean {
   return document.body.hasAttribute('data-sbb-scroll-disabled');
 }
@@ -30,6 +32,48 @@ function findScrollableAncestor(path: EventTarget[]): Element | null {
 }
 
 /**
+ * Overlays currently holding a scroll lock, shared across all `SbbScrollHandler` instances.
+ * Only the transition 'empty => non-empty' actually disables scroll, and only 'non-empty => empty' restores it,
+ * so that closing one overlay never re-enables scroll while another one is still open.
+ */
+const lockers = new Set<object>();
+
+let scrollPosition = 0;
+let savedPosition: string;
+let savedTop: string;
+let savedInsetInline: string;
+let savedOverflow: string;
+let touchStartY = 0;
+
+function touchStart(event: TouchEvent): void {
+  touchStartY = event.touches[0]?.clientY ?? 0;
+}
+
+function touchMove(event: TouchEvent): void {
+  const touch = event.touches[0];
+  if (!touch) {
+    return;
+  }
+
+  const scrollable = findScrollableAncestor(event.composedPath());
+  if (!scrollable) {
+    // The touch did not originate from within a scrollable element: prevent any scroll/bounce
+    // of the page behind (e.g. touching a backdrop or non-scrollable overlay content).
+    event.preventDefault();
+    return;
+  }
+
+  // Prevent rubber-banding at the scroll boundaries, which would otherwise bubble up and
+  // scroll/bounce the page behind on iOS.
+  const deltaY = touch.clientY - touchStartY;
+  const atTop = scrollable.scrollTop <= 0;
+  const atBottom = scrollable.scrollTop + scrollable.clientHeight >= scrollable.scrollHeight;
+  if ((atTop && deltaY > 0) || (atBottom && deltaY < 0)) {
+    event.preventDefault();
+  }
+}
+
+/**
  * Handle the page scroll, allowing to disable/enable the window scroll avoiding a potential
  * content shift caused by the disappearance/appearance of the scrollbar.
  *
@@ -41,61 +85,44 @@ function findScrollableAncestor(path: EventTarget[]): Element | null {
  * As an additional safety net for edge cases, `touchmove` events are intercepted and prevented,
  * unless they originate from within a scrollable element that is not at its scroll boundary
  * (e.g. an internal scrollable content of a dialog, navigation, sidebar, etc.).
+ *
+ * Multiple independent instances (e.g. one per menu/dialog/navigation) can call
+ * `disableScroll()`/`enableScroll()` in any nesting order:
+ * each holds the lock under its own `owner` reference,
+ * so scroll is only re-enabled once every owner that disabled it has re-enabled it again.
  */
 export class SbbScrollHandler {
-  private _scrollPosition = 0;
-  private _position!: string;
-  private _top!: string;
-  private _insetInline!: string;
-  private _overflow!: string;
-  private _touchStartY = 0;
+  private _locked = false;
 
-  private _touchStart = (event: TouchEvent): void => {
-    this._touchStartY = event.touches[0]?.clientY ?? 0;
-  };
-
-  private _touchMove = (event: TouchEvent): void => {
-    const touch = event.touches[0];
-    if (!touch) {
-      return;
-    }
-
-    const scrollable = findScrollableAncestor(event.composedPath());
-    if (!scrollable) {
-      // The touch did not originate from within a scrollable element: prevent any scroll/bounce
-      // of the page behind (e.g. touching a backdrop or non-scrollable overlay content).
-      event.preventDefault();
-      return;
-    }
-
-    // Prevent rubber-banding at the scroll boundaries, which would otherwise bubble up and
-    // scroll/bounce the page behind on iOS.
-    const deltaY = touch.clientY - this._touchStartY;
-    const atTop = scrollable.scrollTop <= 0;
-    const atBottom = scrollable.scrollTop + scrollable.clientHeight >= scrollable.scrollHeight;
-    if ((atTop && deltaY > 0) || (atBottom && deltaY < 0)) {
-      event.preventDefault();
-    }
-  };
+  public constructor(private _owner: SbbOpenCloseBaseElement) {}
 
   public disableScroll(): void {
-    if (pageScrollDisabled()) {
+    // Guard against the same instance calling disableScroll() twice without a matching enableScroll() in between.
+    if (this._locked) {
+      return;
+    }
+    this._locked = true;
+    const wasEmpty = lockers.size === 0;
+    lockers.add(this._owner);
+
+    // Another owner already holds the lock: scroll is already disabled, nothing to do.
+    if (!wasEmpty) {
       return;
     }
 
     // Remember the current scroll position, so it can be restored once the scroll is re-enabled.
-    this._scrollPosition = window.scrollY || document.documentElement.scrollTop;
+    scrollPosition = window.scrollY || document.documentElement.scrollTop;
 
     // Save any pre-existing styles to reapply them to the body when enabling the scroll again.
-    this._position = document.body.style.position;
-    this._top = document.body.style.top;
-    this._insetInline = document.body.style.insetInline;
-    this._overflow = document.body.style.overflow;
+    savedPosition = document.body.style.position;
+    savedTop = document.body.style.top;
+    savedInsetInline = document.body.style.insetInline;
+    savedOverflow = document.body.style.overflow;
 
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
     document.body.style.position = 'fixed';
-    document.body.style.top = `-${this._scrollPosition}px`;
+    document.body.style.top = `-${scrollPosition}px`;
     document.body.style.insetInline = `0 ${scrollbarWidth}px`;
     document.body.style.overflow = 'hidden';
     document.body.style.setProperty('--sbb-scrollbar-reserved-space', `${scrollbarWidth}px`);
@@ -105,30 +132,38 @@ export class SbbScrollHandler {
     // Note: `touchmove` listeners on `document`/`window`/`document.body` default to passive:true
     // in some browsers (e.g. Chrome's "scrolling intervention"), which would silently ignore our
     // `event.preventDefault()` call. We explicitly opt out of that by passing `passive: false`.
-    document.addEventListener('touchstart', this._touchStart, { passive: true });
-    document.addEventListener('touchmove', this._touchMove, { passive: false });
+    document.addEventListener('touchstart', touchStart, { passive: true });
+    document.addEventListener('touchmove', touchMove, { passive: false });
 
     document.body.toggleAttribute('data-sbb-scroll-disabled', true);
   }
 
   public enableScroll(): void {
-    if (!pageScrollDisabled()) {
+    // Guard against calling enableScroll() without this instance having disabled scroll first.
+    if (!this._locked) {
+      return;
+    }
+    this._locked = false;
+    lockers.delete(this._owner);
+
+    // Another owner still holds the lock: keep scroll disabled.
+    if (lockers.size > 0) {
       return;
     }
 
     // Revert body inline styles.
-    document.body.style.position = this._position || '';
-    document.body.style.top = this._top || '';
-    document.body.style.insetInline = this._insetInline || '';
-    document.body.style.overflow = this._overflow || '';
+    document.body.style.position = savedPosition || '';
+    document.body.style.top = savedTop || '';
+    document.body.style.insetInline = savedInsetInline || '';
+    document.body.style.overflow = savedOverflow || '';
     document.body.style.removeProperty('--sbb-scrollbar-reserved-space');
 
-    document.removeEventListener('touchstart', this._touchStart);
-    document.removeEventListener('touchmove', this._touchMove);
+    document.removeEventListener('touchstart', touchStart);
+    document.removeEventListener('touchmove', touchMove);
 
     document.body.removeAttribute('data-sbb-scroll-disabled');
 
     // Restore the scroll position that was saved before fixing the body.
-    window.scrollTo(0, this._scrollPosition);
+    window.scrollTo(0, scrollPosition);
   }
 }
