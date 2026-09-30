@@ -25,6 +25,10 @@ const type: InputType = {
     'stop-on-demand',
     'boarding',
     'alighting',
+    'exceptional',
+    'exceptional-skip',
+    'exceptional-boarding',
+    'exceptional-alighting',
     'boarding-on-demand',
     'alighting-on-demand',
     'start',
@@ -199,7 +203,7 @@ const VerticalFullExampleTemplate = ({ now }: Args): TemplateResult => html`
 const HorizontalFullExampleTemplate = ({ now }: Args): TemplateResult => html`
   <sbb-pearl-chain .now=${new Date(now)}>
     <div
-      style="display: grid; grid-template-columns: auto 1fr auto 1fr auto auto; gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-3x);"
+      style="display: grid; grid-template-columns: auto 1fr auto 1fr auto; gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-3x);"
     >
       <div style="display: flex; align-items: center; gap: 0.25rem;">
         <sbb-icon name="picto:train-right"></sbb-icon>
@@ -214,29 +218,29 @@ const HorizontalFullExampleTemplate = ({ now }: Args): TemplateResult => html`
       </div>
       <span></span>
       <span></span>
-      <span></span>
 
       <span style="font-weight: bold;">Bern</span>
       <span></span>
       <span style="font-weight: bold;">Thun</span>
       <span></span>
       <span style="font-weight: bold; justify-self: end;">Interlaken Ost</span>
-      <span></span>
 
       <sbb-pearl-chain-node type="start" .departure=${at(8, 0)}></sbb-pearl-chain-node>
       <span></span>
       <sbb-pearl-chain-node type="stop" .arrival=${at(8, 22)} .departure=${at(8, 24)}>
       </sbb-pearl-chain-node>
       <span></span>
-      <span></span>
-      <sbb-pearl-chain-node type="end" .arrival=${at(8, 50)}></sbb-pearl-chain-node>
+      <sbb-pearl-chain-node
+        type="end"
+        .arrival=${at(8, 50)}
+        style="justify-self: end;"
+      ></sbb-pearl-chain-node>
 
       <span style="font-weight: bold;">08:00</span>
       <span style="color: var(--sbb-color-granite); justify-self: end;">08:22</span>
       <span style="font-weight: bold;">08:24</span>
       <span></span>
       <span style="font-weight: bold; justify-self: end;">08:50</span>
-      <span></span>
     </div>
   </sbb-pearl-chain>
 `;

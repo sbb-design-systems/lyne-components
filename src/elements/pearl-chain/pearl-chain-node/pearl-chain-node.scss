@@ -46,9 +46,13 @@
   }
 }
 
-.bullet--skip {
-  width: var(--sbb-pearl-chain-bullet-skip-size);
-  height: var(--sbb-pearl-chain-bullet-skip-size);
+.bullet--skip .dash {
+  fill: var(--sbb-color-red);
+}
+
+.bullet--exceptional-skip {
+  width: var(--sbb-pearl-chain-bullet-exceptional-skip-size);
+  height: var(--sbb-pearl-chain-bullet-exceptional-skip-size);
 
   .dash {
     fill: var(--sbb-color-red);
@@ -66,6 +70,8 @@
 
 .bullet--boarding,
 .bullet--alighting,
+.bullet--exceptional-boarding,
+.bullet--exceptional-alighting,
 .bullet--stop-on-demand,
 .bullet--boarding-on-demand,
 .bullet--alighting-on-demand {

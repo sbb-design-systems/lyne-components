@@ -32,6 +32,10 @@ export type SbbPearlChainNodeType =
   | 'commercial'
   | 'boarding'
   | 'alighting'
+  | 'exceptional'
+  | 'exceptional-skip'
+  | 'exceptional-boarding'
+  | 'exceptional-alighting'
   | 'stop-duty'
   | 'stop-on-demand'
   | 'boarding-on-demand'
@@ -140,6 +144,7 @@ export class SbbPearlChainNodeElement extends SbbElement {
       case 'start':
       case 'end':
       case 'commercial':
+      case 'exceptional':
         return svg`
           <circle r="50%" fill="currentColor" />
         `;
@@ -151,8 +156,13 @@ export class SbbPearlChainNodeElement extends SbbElement {
         `;
       case 'skip':
         return svg`
-          <path d="M3.65 2.59c-.36.36-.59.86-.59 1.41 0 1.1.9 2 2 2 .55 0 1.05-.22 1.41-.59L7.89 6.83C7.16 7.55 6.17 8 5.06 8c-2.21 0-4-1.79-4-4 0-1.1.45-2.1 1.17-2.83L3.65 2.59ZM5.06 0c2.21 0 4 1.79 4 4 0 .55-.11 1.08-.32 1.56L7.05 3.87c-.06-1-.86-1.8-1.87-1.87L3.5.32C3.98.11 4.51 0 5.06 0Z" fill="currentColor"/>
-          <path class="dash" d="M1.06 0 8.84 7.78 7.78 8.84 0 1.06 1.06 0Z"/>
+          <path d="m3.65 2.59c-.36.36-.59.86-.59 1.41 0 1.1.9 2 2 2 .55 0 1.05-.22 1.41-.59l1.42 1.42c-.73.72-1.72 1.17-2.83 1.17-2.21 0-4-1.79-4-4 0-1.1.45-2.1 1.17-2.83l1.42 1.42zm1.41-2.59c2.21 0 4 1.79 4 4 0 .55-.11 1.08-.32 1.56l-1.69-1.69c-.06-1-.86-1.8-1.87-1.87l-1.68-1.68c.48-.21 1.01-.32 1.56-.32z" fill="currentColor"/>
+          <path class="dash" d="m1.06 0 7.78 7.78-1.06 1.06-7.78-7.78 1.06-1.06z"/>
+        `;
+      case 'exceptional-skip':
+        return svg`
+          <path d="m9.5 8.5c-.9.9-2.1 1.5-3.5 1.5-2.7 0-5-2.2-5-5 0-1.4.6-2.6 1.5-3.5l7 7zm-3.5-8.5c2.8 0 5 2.2 5 5 0 .8-.2 1.6-.6 2.3l-6.7-6.7c.7-.4 1.5-.6 2.3-.6z" fill="currentColor"/>
+          <rect class="dash" x="1.41431" width="14" height="2" transform="rotate(45 1.41431 0)"/>
         `;
       case 'stop-duty':
         return svg`
@@ -162,20 +172,22 @@ export class SbbPearlChainNodeElement extends SbbElement {
           />
         `;
       case 'boarding':
+      case 'exceptional-boarding':
         return svg`
           <circle
             class="outer-circle"
             stroke="currentColor"
           />
-          <path d="M1.85 5C1.85 5.84 2.19 6.64 2.77 7.23 3.36 7.81 4.16 8.15 5 8.15 5.84 8.15 6.64 7.81 7.23 7.23 7.81 6.64 8.15 5.84 8.15 5L5 5 1.85 5Z" fill="currentColor"/>
+          <path d="m1.85 5c0 .84.34 1.64.92 2.23.59.58 1.39.92 2.23.92.84 0 1.64-.34 2.23-.92.58-.59.92-1.39.92-2.23l-3.15 0-3.15 0z" fill="currentColor"/>
         `;
       case 'alighting':
+      case 'exceptional-alighting':
         return svg`
           <circle
             class="outer-circle"
             stroke="currentColor"
           />
-          <path d="M8.15 5C8.15 4.16 7.81 3.36 7.23 2.77 6.64 2.19 5.84 1.85 5 1.85 4.16 1.85 3.36 2.19 2.77 2.77 2.19 3.36 1.85 4.16 1.85 5L5 5 8.15 5Z" fill="currentColor"/>
+          <path d="m8.15 5c0-.84-.34-1.64-.92-2.23-.59-.58-1.39-.92-2.23-.92-.84 0-1.64.34-2.23.92-.58.59-.92 1.39-.92 2.23l3.15 0 3.15 0z" fill="currentColor"/>
         `;
       case 'stop-on-demand':
         return svg`
@@ -194,7 +206,7 @@ export class SbbPearlChainNodeElement extends SbbElement {
             class="outer-circle"
             stroke="currentColor"
           />
-          <path d="M3 5C3 5.53 3.21 6.04 3.59 6.41 3.96 6.79 4.47 7 5 7 5.53 7 6.04 6.79 6.41 6.41 6.79 6.04 7 5.53 7 5L5 5H3Z" fill="currentColor"/>
+          <path d="m3 5c0 .53.21 1.04.59 1.41.37.38.88.59 1.41.59.53 0 1.04-.21 1.41-.59.38-.37.59-.88.59-1.41l-2 0h-2z" fill="currentColor"/>
         `;
       case 'alighting-on-demand':
         return svg`
@@ -202,7 +214,7 @@ export class SbbPearlChainNodeElement extends SbbElement {
             class="outer-circle"
             stroke="currentColor"
           />
-          <path d="M7 5C7 4.47 6.79 3.96 6.41 3.59 6.04 3.21 5.53 3 5 3 4.47 3 3.96 3.21 3.59 3.59 3.21 3.96 3 4.47 3 5L5 5H7Z" fill="currentColor"/>
+          <path d="m7 5c0-.53-.21-1.04-.59-1.41-.37-.38-.88-.59-1.41-.59-.53 0-1.04.21-1.41.59-.38.37-.59.88-.59 1.41l2 0h2z" fill="currentColor"/>
         `;
       default:
         return nothing;
@@ -212,7 +224,7 @@ export class SbbPearlChainNodeElement extends SbbElement {
   protected override render(): TemplateResult {
     return html`
       <svg
-        viewBox="0 0 10 10"
+        viewBox=${this.type === 'exceptional-skip' ? '0 0 12 12' : '0 0 10 10'}
         class="bullet ${classMap({
           [`bullet--${this.type}`]: !!this.type,
           'bullet--irrelevant': !!this.irrelevant,
