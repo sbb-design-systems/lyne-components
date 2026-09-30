@@ -29,7 +29,7 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox Shadow DOM"] =
 `<div class="sbb-option-panel__overlay-container">
   <div
     class="sbb-option-panel__overlay sbb-scrollbar"
-    id="sbb-autocomplete-grid-2"
+    id="sbb-autocomplete-grid-2-overlay"
     role="grid"
     tabindex="-1"
   >

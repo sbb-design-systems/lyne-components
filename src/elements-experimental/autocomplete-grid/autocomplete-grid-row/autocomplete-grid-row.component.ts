@@ -8,6 +8,7 @@ let autocompleteRowNextId = 0;
 /**
  * The component is used as a wrapper for options and action buttons.
  *
+ * @deprecated Use `sbb-autocomplete` with `sbb-autocomplete-row` and `sbb-autocomplete-button` instead. Will be removed with the next major release.
  * @slot - Use the unnamed slot to add a `sbb-autocomplete-grid-option` and a `sbb-autocomplete-grid-cell` with one or more `sbb-autocomplete-grid-button`.
  */
 export class SbbAutocompleteGridRowElement extends SbbElement {

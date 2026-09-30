@@ -1,21 +1,22 @@
 import { aTimeout } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
 
-import type { SbbAutocompleteElement } from '../autocomplete.ts';
+import type { SbbAutocompleteElement } from '../../autocomplete.ts';
 import {
   describeViewports,
   tabKey,
   visualDiffDefault,
   visualDiffFocus,
   type VisualDiffSetupBuilder,
-} from '../core/testing/private.ts';
-import { waitForLitRender } from '../core/testing.ts';
+} from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
-import '../card.ts';
-import '../form-field.ts';
-import '../option.ts';
-import '../autocomplete.ts';
+import '../../card.ts';
+import '../../form-field.ts';
+import '../../option.ts';
+import '../../autocomplete.ts';
 
 describe('sbb-autocomplete', () => {
   const defaultArgs = {
@@ -114,6 +115,59 @@ describe('sbb-autocomplete', () => {
           : nothing
       }
     </sbb-form-field>
+    ${textBlock()}
+  `;
+
+  const withActionsTemplate = (args: typeof defaultArgs): TemplateResult => html`
+    <sbb-form-field
+      ?negative=${args.negative}
+      ?borderless=${args.borderless}
+      size=${args.size || nothing}
+    >
+      <label>Label</label>
+      <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
+      <sbb-autocomplete ?preserve-icon-space=${args.preserveIconSpace}>
+        ${repeat(
+          new Array(3),
+          (_, i: number) => html`
+            <sbb-autocomplete-row>
+              <sbb-option
+                value=${`1-${i + 1}`}
+                icon-name="clock-small"
+                ?disabled=${args.disableOption && i === 1}
+                >${`Option 1-${i + 1}`}${
+                  i === 2 ? ` with a long text which can wrap` : ``
+                }</sbb-option
+              >
+              <sbb-autocomplete-button
+                ?disabled=${args.disableOption && i === 1}
+                icon-name="trash-small"
+                aria-label="delete"
+              ></sbb-autocomplete-button>
+            </sbb-autocomplete-row>
+          `,
+        )}
+        ${createOptionBlockTwo()}
+      </sbb-autocomplete>
+    </sbb-form-field>
+    ${textBlock()}
+  `;
+
+  const templateNoForm = (args: typeof defaultArgs): TemplateResult => html`
+    <div>
+      <input id="no-form-field" class="sbb-input" placeholder="Placeholder" />
+      <sbb-autocomplete trigger="no-form-field">
+        ${
+          args.options
+            ? args.options
+            : args.withGroup
+              ? args.withMixedOptionAndGroup
+                ? createMixedOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
+                : createOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
+              : createOptions(args.withIcon, args.disableOption)
+        }
+      </sbb-autocomplete>
+    </div>
     ${textBlock()}
   `;
 
@@ -320,6 +374,88 @@ describe('sbb-autocomplete', () => {
       });
     }
 
+    describe('with actions', () => {
+      const style = {
+        minHeight: '400px',
+      };
+
+      it(
+        visualDiffDefault.name,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            withActionsTemplate({ ...defaultArgs, disableOption: true }),
+            style,
+          );
+          setup.withPostSetupAction(() => openAutocomplete(setup));
+        }),
+      );
+
+      for (const size of [null, 's', 'm'] satisfies SbbAutocompleteElement['size'][]) {
+        it(
+          `size=${size}`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(withActionsTemplate({ ...defaultArgs, size }), style);
+            setup.withPostSetupAction(() => openAutocomplete(setup));
+          }),
+        );
+      }
+
+      for (const negative of [false, true]) {
+        describe(`negative=${negative}`, () => {
+          it(
+            'option active',
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                withActionsTemplate({ ...defaultArgs, negative, disableOption: true }),
+                {
+                  ...style,
+                  backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                },
+              );
+              setup.withPostSetupAction(async () => {
+                await openAutocomplete(setup);
+                await sendKeys({ press: 'ArrowDown' });
+              });
+            }),
+          );
+
+          it(
+            'action active',
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                withActionsTemplate({ ...defaultArgs, negative, disableOption: true }),
+                {
+                  ...style,
+                  backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                },
+              );
+              setup.withPostSetupAction(async () => {
+                await openAutocomplete(setup);
+                await sendKeys({ press: 'ArrowDown' });
+                await sendKeys({ press: 'ArrowRight' });
+              });
+            }),
+          );
+        });
+      }
+
+      it(
+        'darkMode=true',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(withActionsTemplate(defaultArgs), { ...style, darkMode: true });
+
+          setup.withPostSetupAction(async () => {
+            // Force focus in input field
+            await sendKeys({ press: tabKey });
+            await sendKeys({ press: `Shift+${tabKey}` });
+
+            await openAutocomplete(setup);
+            await sendKeys({ press: 'ArrowDown' });
+          });
+        }),
+      );
+    });
+
     /**
      * Test whether the overlay reposition itself if the origin element changes in size
      */
@@ -401,6 +537,14 @@ describe('sbb-autocomplete', () => {
           </div>`,
         );
 
+        setup.withPostSetupAction(() => openAutocomplete(setup));
+      }),
+    );
+
+    it(
+      'standalone=true',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(templateNoForm(defaultArgs));
         setup.withPostSetupAction(() => openAutocomplete(setup));
       }),
     );

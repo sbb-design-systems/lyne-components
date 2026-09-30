@@ -251,6 +251,11 @@ pressing the `<kbd>Home</kbd>` when the first day of the month is disabled will 
 | <kbd>Page Up</kbd>     | Go to the first day of the week (eg. from any day to Monday of the same week). |
 | <kbd>Page Down</kbd>   | Go to the last day of the week (eg. from any day to Sunday of the same week).  |
 
+If `multiple` is set, it is possible to navigate among weekdays using arrows and special keys;
+similarly, if `weekNumbers` is set, it is possible to navigate the week numbers group.
+Using the `Tab` button, the first row is reached first (weekday in `horizontal` orientation, week numbers in `vertical`),
+then the opposite group (week numbers in `horizontal` orientation, weekday in `vertical`), then the calendar days.
+
 ## Accessibility
 
 For accessibility purposes, the component is rendered as a native table element and each day is a button.

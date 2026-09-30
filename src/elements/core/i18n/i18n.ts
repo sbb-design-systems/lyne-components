@@ -904,3 +904,17 @@ export const i18nRemainingCharacters: Record<string, string> = {
   fr: 'caractères restants',
   it: 'caratteri rimanenti',
 };
+
+export const i18nLogo125Anniversary: Record<string, string> = {
+  de: 'Wir verbinden die Schweiz seit 125 Jahren.',
+  en: 'Connecting Switzerland for 125 years.',
+  fr: '125 ans à tisser des liens qui font la Suisse.',
+  it: 'Da 125 anni uniamo la Svizzera.',
+};
+
+export const i18nLogo125AnniversaryYears: Record<string, string> = {
+  de: 'Jahre',
+  en: 'years',
+  fr: 'ans',
+  it: 'anni',
+};

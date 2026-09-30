@@ -7,6 +7,7 @@ import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-opti
 /**
  * It can be used as a container for one or more `sbb-autocomplete-grid-option`.
  *
+ * @deprecated Use `sbb-autocomplete` with `sbb-autocomplete-row` and `sbb-autocomplete-button` instead. Will be removed with the next major release.
  * @slot - Use the unnamed slot to add `sbb-autocomplete-grid-option` elements to the `sbb-autocomplete-grid-optgroup`.
  */
 export class SbbAutocompleteGridOptgroupElement extends SbbOptgroupBaseElement {
