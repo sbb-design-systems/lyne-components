@@ -1898,14 +1898,23 @@ export class SeatReservationBaseElement extends SbbElement {
     }
     // Calculate position and dimension for other graphical coach elements that positioned at the border of coach
     else if (elementType === 'OTHER') {
+      const isWallGraphic = element.icon?.startsWith('WALL') || element.icon?.startsWith('T_WALL');
+
       if (element.position.y === 0) {
         pos.y -= this.coachBorderOffset;
+
+        if (isWallGraphic) {
+          //dim.h += this.coachBorderOffset + this.coachBorderOffset / 3;
+        }
       }
 
       if (coachDimension.h === element.position.y + element.dimension.h) {
-        const multiplicator =
-          element.icon?.startsWith('WALL') || element.icon?.startsWith('T_WALL') ? 1 : 2;
-        dim.h += this.coachBorderOffset * multiplicator;
+        if (isWallGraphic) {
+          pos.y += this.coachBorderOffset;
+          //dim.h += this.coachBorderOffset + this.coachBorderOffset / 3;
+        } else {
+          dim.h += this.coachBorderOffset * 2;
+        }
       }
     }
 
