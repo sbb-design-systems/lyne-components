@@ -2,7 +2,7 @@ import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
 import type { SbbOpenCloseBaseElement } from '../base-elements/open-close-base-element.ts';
 
-const IGNORED_ELEMENTS = ['script', 'head', 'template', 'style'];
+const IGNORED_ELEMENTS = ['script', 'head', 'template', 'style', 'link'];
 
 const DEEP_IGNORED_ELEMENTS_SELECTOR =
   'sbb-toast,.sbb-overlay-outlet,.sbb-live-announcer-element,.cdk-live-announcer-element,.cdk-overlay-container';
@@ -11,6 +11,7 @@ const exemptedElements = new Set<HTMLElement>();
 const inertOverlays = new Set<HTMLElement>();
 
 export class SbbInertController implements ReactiveController {
+  // TODO: Convert parameters to just a second options parameter object with optional parameters.
   public constructor(
     private _host: ReactiveControllerHost & SbbOpenCloseBaseElement,
     private _inertElements = inertElements,
@@ -117,89 +118,63 @@ export class SbbInertController implements ReactiveController {
   }
 
   /**
-   * Applies the inert state to every element on the page except the current overlay
-   * (and its ancestors).
+   * Applies the inert state to every element on the page except the current
+   * overlay (and its ancestors).
    *
-   * This walks the tree bottom-up, starting at the overlay and stepping towards
-   * `document.documentElement` one ancestor at a time, inerting every *sibling* branch
-   * along the way (`_addInertOrCarveIgnoredElements`).
+   * This implementation must carefully consider performance, as it involves
+   * traversing the entire DOM tree and managing inert states for potentially
+   * a huge amount of elements (potentially >10000).
+   * See e.g. https://github.com/sbb-design-systems/lyne-components/issues/5273
    */
   private _addAllInertAttributes(): void {
-    let element: Element | null = this._currentOverlay();
-
-    while (element !== document.documentElement && element !== null) {
-      Array.from((element?.parentElement ?? element?.getRootNode())?.childNodes ?? [])
-        .filter(
-          (child): child is HTMLElement =>
-            child !== element &&
-            this._isHTMLElement(child) &&
-            !IGNORED_ELEMENTS.includes(child.localName),
-        )
-        .forEach((sibling) => this._addInertOrCarveIgnoredElements(sibling));
-
-      // We need to pierce through Shadow DOM boundary
-      element = element?.parentElement ?? (element?.getRootNode() as ShadowRoot)?.host ?? null;
-    }
-  }
-
-  /**
-   * Ignored elements (matching `DEEP_IGNORED_ELEMENTS_SELECTOR`)
-   * must never be inert, no matter how deeply nested they are within the tree (looking
-   * from `document.documentElement` down). As inert is inherited by descendants, simply excluding
-   * them from being marked inert themselves is not enough if one of their ancestors is inert. In
-   * that case, the whole path from the ignored element up to `element` needs to stay "carved
-   * free", while every other branch along that path is properly inert instead.
-   * Additionally, once an ignored element itself is reached, its entire subtree (light DOM and
-   * Shadow DOM descendants alike, e.g. the content rendered inside `sbb-toast`'s Shadow DOM) must
-   * be left completely untouched as well - we must not recurse any further into it.
-   */
-  private _addInertOrCarveIgnoredElements(element: HTMLElement): void {
-    if (element.matches?.(DEEP_IGNORED_ELEMENTS_SELECTOR)) {
-      return;
-    } else if (!this._containsIgnoredElement(element)) {
-      this._addInertAttributes(element);
-      return;
-    }
-
-    // `element` contains an ignored element somewhere in its subtree: don't inert it, but
-    // carve a tunnel through its children (including a potential Shadow DOM) instead.
-    [...element.childNodes, ...(element.shadowRoot?.childNodes ?? [])]
-      .filter((child) => this._isHTMLElement(child))
-      .forEach((child) => this._addInertOrCarveIgnoredElements(child));
-  }
-
-  /**
-   * Recursively (Shadow DOM piercing) checks whether `element` itself, or one of its
-   * descendants, matches `DEEP_IGNORED_ELEMENTS_SELECTOR`.
-   */
-  private _containsIgnoredElement(element: HTMLElement): boolean {
-    if (
-      element.matches?.(DEEP_IGNORED_ELEMENTS_SELECTOR) ||
-      element.querySelector?.(DEEP_IGNORED_ELEMENTS_SELECTOR) ||
-      element.shadowRoot?.querySelector(DEEP_IGNORED_ELEMENTS_SELECTOR)
-    ) {
-      return true;
-    }
-
-    for (const candidate of element.querySelectorAll<HTMLElement>('*')) {
-      if (candidate.shadowRoot && this._containsIgnoredElement(candidate)) {
-        return true;
-      }
-    }
-
-    if (element.shadowRoot) {
-      for (const candidate of element.shadowRoot.querySelectorAll<HTMLElement>('*')) {
-        if (candidate.shadowRoot && this._containsIgnoredElement(candidate)) {
-          return true;
+    const currentOverlay: Element | null = this._currentOverlay();
+    const ignoredElements: Element[] = currentOverlay ? [currentOverlay] : [];
+    // Collect all ignored elements by iterating the DOM exactly once, including
+    // Shadow DOMs.
+    const queue: ParentNode[] = [document.documentElement];
+    while (queue.length > 0) {
+      for (const element of queue.shift()!.querySelectorAll('*')) {
+        if (element.matches(DEEP_IGNORED_ELEMENTS_SELECTOR)) {
+          ignoredElements.push(element);
+        }
+        if (element.shadowRoot) {
+          queue.push(element.shadowRoot);
         }
       }
     }
 
-    return false;
-  }
+    // Ignored elements (matching `DEEP_IGNORED_ELEMENTS_SELECTOR`)
+    // must never be inert, no matter how deeply nested they are within the tree (looking
+    // from `document.documentElement` down). As inert is inherited by descendants, simply excluding
+    // them from being marked inert themselves is not enough if one of their ancestors is inert. In
+    // that case, the whole path from the ignored element up to `element` needs to stay "carved
+    // free", while every other branch along that path is properly inert instead.
+    const ignoredElementPaths: EventTarget[] = [];
+    const eventHandler = (e: Event): unknown => ignoredElementPaths.push(...e.composedPath());
+    for (const element of ignoredElements) {
+      element.addEventListener('ɵinert', eventHandler, { once: true });
+      element.dispatchEvent(new Event('ɵinert', { composed: true }));
+    }
 
-  private _isHTMLElement(child: Node): child is HTMLElement {
-    return child instanceof window.HTMLElement;
+    const ignoredElementSet = new Set(ignoredElementPaths);
+    const inertElements = new Set<Element>();
+    for (const element of ignoredElementSet) {
+      for (const localElement of (element as Node).parentNode?.childNodes ?? []) {
+        if (
+          localElement.nodeType === Node.ELEMENT_NODE &&
+          !IGNORED_ELEMENTS.includes((localElement as Element).localName) &&
+          !ignoredElementSet.has(localElement)
+        ) {
+          // We use a Set to avoid processing duplicate elements, as multiple
+          // ignored elements may share the same parent.
+          inertElements.add(localElement as Element);
+        }
+      }
+    }
+
+    for (const element of inertElements) {
+      this._addInertAttributes(element as HTMLElement);
+    }
   }
 
   private _addInertAttributes(element: HTMLElement): void {
