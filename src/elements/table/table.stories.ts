@@ -399,17 +399,16 @@ export const Selectable: StoryObj = {
 const sortingDirection: InputType = {
   control: { type: 'inline-radio' },
   options: ['ascending', 'descending'],
-  table: { category: 'Sorting' },
 };
 
 const sortingArgTypes: ArgTypes = {
-  ...defaultArgTypes,
   sortingDirection,
+  ...defaultArgTypes,
 };
 
 const sortingArgs: Args = {
-  ...defaultArgs,
   sortingDirection: sortingDirection.options![0],
+  ...defaultArgs,
 };
 
 export const Sortable: StoryObj = {

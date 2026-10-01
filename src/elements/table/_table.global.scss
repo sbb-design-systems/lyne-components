@@ -56,16 +56,6 @@ $theme: 'standard' !default;
       ),
       $theme
     )};
-  --sbb-table-sort-header-color: var(--sbb-color-2);
-  --sbb-table-sort-header-hover-color: light-dark(
-    var(--sbb-color-primary125),
-    var(--sbb-color-primary85)
-  );
-  --sbb-sort-header-animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
-  --sbb-sort-header-animation-duration: var(
-    --sbb-disable-animation-duration,
-    var(--sbb-animation-duration-6x)
-  );
 }
 
 @mixin rules {
@@ -77,6 +67,16 @@ $theme: 'standard' !default;
     --sbb-table-sticky-shadow-transition-duration: var(
       --sbb-disable-animation-duration,
       var(--sbb-animation-duration-6x)
+    );
+    --sbb-table-sort-header-animation-duration: var(
+      --sbb-disable-animation-duration,
+      var(--sbb-animation-duration-6x)
+    );
+    --sbb-table-sort-header-animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+    --sbb-table-sort-header-color: var(--sbb-color-2);
+    --sbb-table-sort-header-hover-color: light-dark(
+      var(--sbb-color-primary125),
+      var(--sbb-color-primary85)
     );
 
     border-spacing: 0;
@@ -413,12 +413,12 @@ $theme: 'standard' !default;
     // Start off at 0 since the arrow may become visible while parent are animating.
     // This will be overwritten when the arrow animations kick in. See #11819.
     opacity: 0;
-    animation: var(--sbb-sort-header-animation-name) var(--sbb-sort-header-animation-duration)
-      var(--sbb-sort-header-animation-easing);
+    animation: var(--sbb-sort-header-animation-name) var(--sbb-table-sort-header-animation-duration)
+      var(--sbb-table-sort-header-animation-easing);
     transition: {
       property: opacity, translate;
-      duration: var(--sbb-sort-header-animation-duration);
-      timing-function: var(--sbb-sort-header-animation-easing);
+      duration: var(--sbb-table-sort-header-animation-duration);
+      timing-function: var(--sbb-table-sort-header-animation-easing);
     }
 
     margin: #{sbb.px-to-rem-build(-1)} #{sbb.px-to-rem-build(-8)} #{sbb.px-to-rem-build(-1)}
@@ -509,8 +509,8 @@ $theme: 'standard' !default;
   }
 
   .sbb-sort-indicator {
-    transition: scale var(--sbb-sort-header-animation-duration)
-      var(--sbb-sort-header-animation-easing);
+    transition: scale var(--sbb-table-sort-header-animation-duration)
+      var(--sbb-table-sort-header-animation-easing);
 
     &.asc,
     &.active-asc {
