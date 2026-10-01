@@ -1,7 +1,17 @@
 @use '../../core/styles' as sbb;
 
 :host {
+  --sbb-expansion-panel-header-transition-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-2x)
+  );
+
   display: block;
+  transition: {
+    property: translate, box-shadow;
+    duration: var(--sbb-expansion-panel-header-transition-duration);
+    timing-function: var(--sbb-expansion-panel-header-transition-easing-function);
+  }
 }
 
 :host(:state(size-s)) {
@@ -36,6 +46,11 @@
   @media (forced-colors: active) {
     --sbb-expansion-panel-header-text-color: GrayText;
   }
+}
+
+:host(:not([disabled], [aria-expanded='true']):state(toggle-hover)) {
+  box-shadow: var(--sbb-expansion-panel-header-box-shadow-hover);
+  translate: 0 var(--sbb-expansion-panel-header-translate-y-hover, 0);
 }
 
 :host(:focus-visible) {
