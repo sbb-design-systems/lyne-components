@@ -145,6 +145,8 @@ class inside a `th` element:
 </table>
 ```
 
+<!-- #region override table-docs-sorting -->
+
 ### Sorting
 
 A sortable column header is composed of a `th` carrying the sort state,
@@ -195,6 +197,8 @@ The arrow wrapper controls opacity and movement, while the indicator controls th
 The `*-to-*` classes above are the supported transitions; those between `hint` and `asc`/`desc` also use keyframe animations.
 Do not combine `active` with `asc` or `desc` on the arrow wrapper: `asc`/`desc` make it hidden.
 Apply the direction class to `sbb-sort-indicator` instead.
+
+<!-- #endregion -->
 
 ### Row hover
 
