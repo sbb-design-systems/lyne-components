@@ -56,6 +56,12 @@ $theme: 'standard' !default;
       ),
       $theme
     )};
+  --sbb-table-sort-header-animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --sbb-table-sort-header-color: var(--sbb-color-2);
+  --sbb-table-sort-header-hover-color: light-dark(
+    var(--sbb-color-primary125),
+    var(--sbb-color-primary85)
+  );
 }
 
 @mixin rules {
@@ -71,12 +77,6 @@ $theme: 'standard' !default;
     --sbb-table-sort-header-animation-duration: var(
       --sbb-disable-animation-duration,
       var(--sbb-animation-duration-6x)
-    );
-    --sbb-table-sort-header-animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
-    --sbb-table-sort-header-color: var(--sbb-color-2);
-    --sbb-table-sort-header-hover-color: light-dark(
-      var(--sbb-color-primary125),
-      var(--sbb-color-primary85)
     );
 
     border-spacing: 0;
