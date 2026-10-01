@@ -145,7 +145,7 @@ class inside a `th` element:
 </table>
 ```
 
-<!-- #region override table-docs-sorting -->
+<!-- #region table-docs-sorting -->
 
 ### Sorting
 
