@@ -1,5 +1,6 @@
 import { html, type TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { repeat } from 'lit/directives/repeat.js';
 import type { ClassInfo } from 'lit-html/directives/class-map.js';
 
 import {
@@ -49,6 +50,46 @@ describe(`sbb-table`, () => {
     </thead>
   `;
 
+  const headerWithSort = (sortingDirection: string): TemplateResult => html`
+    <thead>
+      <tr>
+        <th>Person</th>
+        <th class="sbb-sort-header" aria-sort=${sortingDirection}>
+          <div class="sbb-sort-header-container sbb-sort-header-sorted" tabindex="0" role="button">
+            <div class="sbb-sort-header-content">Most interest in</div>
+            <div class="sbb-sort-header-arrow active">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                preserveAspectRatio="xMidYMid meet"
+                focusable="false"
+              >
+                <path
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  d="M11.5,5.75 L11.5,18.25"
+                ></path>
+                <path
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  d="M7.5,14.25 L11.5,18.25 L15.5,14.25"
+                  class="sbb-sort-indicator ${sortingDirection === 'ascending' ? 'active-asc' : 'active-desc'}"
+                ></path>
+              </svg>
+            </div>
+          </div>
+        </th>
+        <th>Age</th>
+      </tr>
+    </thead>
+  `;
+
   const body = (): TemplateResult => html`
     <tbody>
       <tr>
@@ -63,6 +104,32 @@ describe(`sbb-table`, () => {
       </tr>
     </tbody>
   `;
+
+  const sortedBody: (sortingDirection: string) => TemplateResult = (sortingDirection: string) => {
+    const data = [
+      { name: 'Chris', subject: 'HTML tables', age: 22 },
+      { name: 'Dennis', subject: 'Web accessibility', age: 45 },
+      { name: 'Sarah', subject: 'JavaScript frameworks', age: 29 },
+      { name: 'Karen', subject: 'Web performance', age: 36 },
+    ].sort((a, b) => {
+      const comparison = a.subject.localeCompare(b.subject);
+      return sortingDirection === 'ascending' ? comparison : -comparison;
+    });
+    return html`
+      <tbody>
+        ${repeat(
+          data,
+          (item) => html`
+            <tr>
+              <td>${item.name}</td>
+              <td>${item.subject}</td>
+              <td>${item.age}</td>
+            </tr>
+          `,
+        )}
+      </tbody>
+    `;
+  };
 
   const caption = (): TemplateResult => html`
     <caption>
@@ -366,5 +433,21 @@ describe(`sbb-table`, () => {
         );
       });
     });
+
+    for (const sortingDirection of ['ascending', 'descending']) {
+      it(
+        `sorting=${sortingDirection}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
+            <table class="sbb-table">
+              <caption>
+                Sort header visual demo.
+              </caption>
+              ${headerWithSort(sortingDirection)} ${sortedBody(sortingDirection)}
+            </table>
+          `);
+        }),
+      );
+    }
   });
 });
