@@ -171,6 +171,8 @@ export class SeatReservationBaseElement extends SbbElement {
   protected coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
   // Describes the gap between the coaches decks by multiple deck visualization
   protected gapBetweenCoachDecks = 48;
+  // Describes the gap between wall compartment elements and the places
+  protected gapWallCompartmentToPlace = 4;
   // Describes the fix width of coach navigation button
   protected coachNavButtonDim: number = 0;
   // Describes the calculated dimension for the area icons, which is used to set the max width and height of the area icons
@@ -1882,10 +1884,10 @@ export class SeatReservationBaseElement extends SbbElement {
       const stretchHeight =
         this.isElementDirectlyOnBorder(element, coachDimension) && areaProperty !== 'ENTRY_EXIT';
 
-      if (element.position.y === 0) {
+      if (this._isElementAtTopBorder(element)) {
         areaMounting = 'upper-border';
         pos.y -= this.coachBorderOffset - this.coachBorderOffset / 3;
-      } else if (element.position.y + element.dimension.h === coachDimension.h) {
+      } else if (this._isElementAtBottomBorder(element, coachDimension)) {
         areaMounting = 'lower-border';
         if (!stretchHeight) {
           pos.y += this.coachBorderOffset - this.coachBorderOffset / 3;
@@ -1898,22 +1900,28 @@ export class SeatReservationBaseElement extends SbbElement {
     }
     // Calculate position and dimension for other graphical coach elements that positioned at the border of coach
     else if (elementType === 'OTHER') {
-      const isWallGraphic = element.icon?.startsWith('WALL') || element.icon?.startsWith('T_WALL');
+      const isElementWallGraphic =
+        element.icon?.startsWith('WALL') || element.icon?.startsWith('T_WALL');
 
-      if (element.position.y === 0) {
-        pos.y -= this.coachBorderOffset;
-
-        if (isWallGraphic) {
-          //dim.h += this.coachBorderOffset + this.coachBorderOffset / 3;
+      if (!isElementWallGraphic) {
+        if (this._isElementAtTopBorder(element)) {
+          pos.y -= this.coachBorderOffset;
         }
-      }
 
-      if (coachDimension.h === element.position.y + element.dimension.h) {
-        if (isWallGraphic) {
-          pos.y += this.coachBorderOffset;
-          //dim.h += this.coachBorderOffset + this.coachBorderOffset / 3;
-        } else {
+        if (this._isElementAtBottomBorder(element, coachDimension)) {
           dim.h += this.coachBorderOffset * 2;
+        }
+      } else {
+        // WALL + T_WALL Compartments position and height handling for place gap
+        const calcGapWallPlace = this.gapWallCompartmentToPlace / this.baseGridSize;
+        if (this._isElementAtTopBorder(element)) {
+          pos.y -= this.coachBorderOffset;
+          dim.h += this.coachBorderOffset + calcGapWallPlace;
+        }
+
+        if (this._isElementAtBottomBorder(element, coachDimension)) {
+          pos.y -= calcGapWallPlace;
+          dim.h += this.coachBorderOffset + calcGapWallPlace;
         }
       }
     }
@@ -1936,6 +1944,17 @@ export class SeatReservationBaseElement extends SbbElement {
       position: pos,
       mounting: areaMounting,
     };
+  }
+
+  private _isElementAtTopBorder(element: BaseElement): boolean {
+    return element.position.y === 0;
+  }
+
+  private _isElementAtBottomBorder(
+    element: BaseElement,
+    coachDimension: ElementDimension,
+  ): boolean {
+    return coachDimension.h === element.position.y + element.dimension.h;
   }
 
   /**
