@@ -42,6 +42,8 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 }
 
 :host([sbb-badge]:not(:state(has-icon-name), :state(slotted-icon)))::after {
+  // !important is necessary here to override badge mixin
+  display: var(--sbb-menu-item-icon-display, unset) !important;
   inset: 50%
     calc(
       100% - var(--sbb-menu-action-outer-horizontal-padding) - var(
@@ -54,6 +56,8 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 }
 
 :host([sbb-badge]:is(:state(has-icon-name), :state(slotted-icon)))::after {
+  // !important is necessary here to override badge mixin
+  display: var(--sbb-menu-item-icon-display, unset) !important;
   inset: calc(
       var(--sbb-menu-action-outer-vertical-padding) + var(--sbb-menu-action-content-padding-block) +
         var(--sbb-badge-position-offset)
@@ -110,9 +114,13 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 
 .sbb-menu-action__icon,
 .sbb-menu-submenu__icon {
-  display: flex;
   min-width: var(--sbb-size-icon-ui-small);
   min-height: var(--sbb-size-icon-ui-small);
+}
+
+.sbb-menu-action__icon {
+  display: var(--sbb-menu-item-icon-display, flex);
+  visibility: var(--sbb-menu-item-icon-visibility, visible);
 }
 
 .sbb-menu-submenu__icon {

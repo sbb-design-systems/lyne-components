@@ -227,10 +227,11 @@ guard against such cases in your component.
 
 #### Properties
 
-| Name      | Attribute | Privacy | Type                  | Default | Description                                                                                   |
-| --------- | --------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------- |
-| `isOpen`  | -         | public  | `boolean`             |         | Whether the element is open.                                                                  |
-| `trigger` | `trigger` | public  | `HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. For attribute usage, provide an id reference. |
+| Name            | Attribute         | Privacy | Type                  | Default | Description                                                                                   |
+| --------------- | ----------------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------- |
+| `hideIconSpace` | `hide-icon-space` | public  | `boolean`             | `false` | Whether the space reserved for the icon should be hidden.                                     |
+| `isOpen`        | -                 | public  | `boolean`             |         | Whether the element is open.                                                                  |
+| `trigger`       | `trigger`         | public  | `HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. For attribute usage, provide an id reference. |
 
 #### Methods
 
