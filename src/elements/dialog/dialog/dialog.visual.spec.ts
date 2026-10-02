@@ -3,8 +3,10 @@ import { html, nothing, type TemplateResult } from 'lit';
 import type { SbbButtonElement } from '../../button.ts';
 import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 import type { SbbDialogElement } from '../../dialog.ts';
+import type { SbbMenuButtonElement } from '../../menu.ts';
 
 import '../../dialog.ts';
+import '../../menu.ts';
 
 import '../../link.ts';
 import '../../button.ts';
@@ -284,6 +286,38 @@ describe(`sbb-dialog`, () => {
           }),
         );
       },
+    );
+    it(
+      'scroll from menu',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <div id="scroll-container" style="overflow: auto; height: 400px;">
+              <p style="height: 800px;">Scrollable content - must be hidden in snapshots</p>
+              <sbb-button id="menu-trigger">Menu trigger</sbb-button>
+              <sbb-menu id="menu" trigger="menu-trigger">
+                <sbb-menu-button id="dialog-trigger">Open dialog</sbb-menu-button>
+              </sbb-menu>
+              <sbb-dialog id="dialog" trigger="dialog-trigger" backdrop="translucent">
+                ${dialogTitle()} ${dialogContent()} ${dialogFooter()}
+              </sbb-dialog>
+            </div>
+          `,
+          { minHeight: '600px' },
+        );
+        setup.withPostSetupAction(() => {
+          const scrollContainer =
+            setup.snapshotElement.querySelector<HTMLElement>('#scroll-container')!;
+          // Scroll down to show the trigger button
+          scrollContainer.scrollTop = scrollContainer.scrollHeight;
+
+          const menuTrigger = scrollContainer.querySelector<SbbButtonElement>('#menu-trigger')!;
+          const dialogTrigger =
+            scrollContainer.querySelector<SbbMenuButtonElement>('#dialog-trigger')!;
+          menuTrigger.click();
+          dialogTrigger.click();
+        });
+      }),
     );
   });
 });

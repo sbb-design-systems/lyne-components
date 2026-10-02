@@ -95,7 +95,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   protected lastClosedTarget?: HTMLElement;
   protected openOverlayController?: AbortController;
   protected focusTrapController = new SbbFocusTrapController(this);
-  protected scrollHandler = new SbbScrollHandler();
+  protected scrollHandler = new SbbScrollHandler(this);
   protected lastResult: any;
   protected language = new SbbLanguageController(this);
   protected inertController = new SbbInertController(this);
