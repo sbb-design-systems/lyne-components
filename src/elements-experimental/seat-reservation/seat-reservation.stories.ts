@@ -8,6 +8,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../docs/helpers/spread.ts';
 
+import { MOCK_DB_WALLS_TRAIN } from './common/mapper/sample-data/seat-reservation-sample-data-db-walls.private.ts';
 import { MOCK_GIRUNO_TRAIN } from './common/mapper/sample-data/seat-reservation-sample-data-giruno.private.ts';
 import { MOCK_TRAIN_LOCOMOTIVE_LAYOUT } from './common/mapper/sample-data/seat-reservation-sample-data-others.private.ts';
 import { mapIconToSvg, mapRawDataToSeatReservation } from './common/mapper.ts';
@@ -191,6 +192,24 @@ export const TrainGiruno: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: trainGirunoArgs,
+};
+
+const trainDbWallsArgs: Args = {
+  seatReservations: [MOCK_DB_WALLS_TRAIN],
+  'has-navigation': true,
+  'max-reservations': 4,
+  'align-vertical': false,
+  'base-grid-size': 16,
+  height: 200,
+  'prevent-place-click': false,
+  'show-title-info': false,
+};
+
+export const TrainDbWalls: StoryObj = {
+  name: 'Train DB Walls',
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: trainDbWallsArgs,
 };
 
 const mappedSeatReservationBus = mapRawDataToSeatReservation('BUS');
