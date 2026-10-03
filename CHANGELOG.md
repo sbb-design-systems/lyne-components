@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.11.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.10.0...v5.11.0) (2026-10-03)
+
+
+### Features
+
+* **expansion-panel:** improve hover state ([#5281](https://github.com/sbb-design-systems/lyne-components/issues/5281)) ([f3ca14b](https://github.com/sbb-design-systems/lyne-components/commit/f3ca14b510f761769b401f03cc61b7249c6018d0))
+* **timetable-row:** new attributes to control badge content and coloring for group travel searches ([#5285](https://github.com/sbb-design-systems/lyne-components/issues/5285)) ([09be34d](https://github.com/sbb-design-systems/lyne-components/commit/09be34ddb50ad3b8c7c06ec64903fcf80bf02d9b))
+
+
+### Bug Fixes
+
+* **table:** add new region in readme ([#5290](https://github.com/sbb-design-systems/lyne-components/issues/5290)) ([1e4a74f](https://github.com/sbb-design-systems/lyne-components/commit/1e4a74fa790619ad104169bc6a8f576b6a6dfa1e))
+* **table:** add new region in readme ([#5291](https://github.com/sbb-design-systems/lyne-components/issues/5291)) ([6866bca](https://github.com/sbb-design-systems/lyne-components/commit/6866bca8411845de316124fd061fc2e77c7f1a79))
+
+
+### Performance Improvements
+
+* **core:** improve DOM traversal in inert controller ([#5282](https://github.com/sbb-design-systems/lyne-components/issues/5282)) ([f7f73f7](https://github.com/sbb-design-systems/lyne-components/commit/f7f73f7e5d69625abce8257a9b007f0b5b737fa5)), closes [#5273](https://github.com/sbb-design-systems/lyne-components/issues/5273)
+
+
+### Styles
+
+* **table:** move sorting CSS classes from lyne-angular ([#5276](https://github.com/sbb-design-systems/lyne-components/issues/5276)) ([69385ac](https://github.com/sbb-design-systems/lyne-components/commit/69385ac61e43bc8b9b6e8daaf02d0a7db2feaf8f))
+
 ## [5.10.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.9.0...v5.10.0) (2026-09-24)
 
 
