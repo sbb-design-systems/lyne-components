@@ -7785,10 +7785,15 @@ nanocolors@^0.2.1:
   resolved "https://registry.yarnpkg.com/nanocolors/-/nanocolors-0.2.13.tgz#dfd1ed0bfab05e9fe540eb6874525f0a1684099b"
   integrity sha512-0n3mSAQLPpGLV9ORXT5+C/D4mwew7Ebws69Hx4E2sgz2ZA5+32Q80B9tL8PbL7XHnRDiAxH/pnrUJ9a4fkTNTA==
 
-nanoid@^3.1.25, nanoid@^3.3.18:
+nanoid@^3.1.25:
   version "3.3.19"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.19.tgz#336d4aa4bcd4fb24d2cddede7ffeae40bec03f0a"
   integrity sha512-Y2tUNy4ouw6tq5oDSKeQYGOyhkUBhNOcGV/02KC+6kd9eDGqdZd++mjMiIDilrBYvjEnCYvVtsuHCuP+okSfug==
+
+nanoid@^3.3.19:
+  version "3.3.20"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.20.tgz#dfd4444d85aa10111ef66ba85ed72e08ba0855d8"
+  integrity sha512-uKdg2G3GNCKQn9byYOpxbGqrT2fGO5KRt5J/8b3pok8rT6qxGWF6hxMyJiEYtAf+FVyYuD9hRaDqX5uPFYJ4ZQ==
 
 napi-postinstall@^0.3.4:
   version "0.3.4"
@@ -8488,14 +8493,14 @@ postcss-values-parser@^6.0.2:
     is-url-superb "^4.0.0"
     quote-unquote "^1.0.0"
 
-postcss@8.5.28, postcss@^8.5.14, postcss@^8.5.26, postcss@^8.5.28:
-  version "8.5.28"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.5.28.tgz#da4563a99a06e62d6c1cd1acae363224bcaed6e9"
-  integrity sha512-RRuzqDtt5Y9h3quz5hWhK+TPnsmVs6WwSU6LkJMeY4HstUEDuYTG8UJSdawMRzmzAtV+KEoG8N3Qg2qLy5vM/A==
+postcss@8.5.29, postcss@^8.5.14, postcss@^8.5.26, postcss@^8.5.28:
+  version "8.5.29"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.5.29.tgz#086a0ded2c0257c71efb8c68776b477774714b4a"
+  integrity sha512-49cGhUbXj8Qenv0iTMxA1cFBzxXoctpC9Ujd77t1WcbJIr6nF/eI7g/8MgxrYldFRuAXvja7xQRwavoW7kgrxQ==
   dependencies:
-    nanoid "^3.3.18"
+    nanoid "^3.3.19"
     picocolors "^1.1.1"
-    source-map-js "^1.2.1"
+    source-map-js "^1.2.2"
 
 precinct@^12.3.2:
   version "12.3.2"
@@ -9342,7 +9347,7 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-"source-map-js@>=0.6.2 <2.0.0", source-map-js@^1.2.1:
+"source-map-js@>=0.6.2 <2.0.0", source-map-js@^1.2.1, source-map-js@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.2.2.tgz#79fb88d97535a21cb27162cb05d211b67acea4ab"
   integrity sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==
