@@ -199,7 +199,6 @@ const trainDbWallsArgs: Args = {
   'has-navigation': true,
   'max-reservations': 4,
   'align-vertical': false,
-  'base-grid-size': 16,
   height: 200,
   'prevent-place-click': false,
   'show-title-info': false,
