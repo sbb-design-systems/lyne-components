@@ -172,7 +172,7 @@ export class SeatReservationBaseElement extends SbbElement {
   // Describes the gap between the coaches decks by multiple deck visualization
   protected gapBetweenCoachDecks = 48;
   // Describes the gap between wall compartment elements and the places
-  protected gapWallCompartmentToPlace = 4;
+  protected gapWallCompartmentToPlace = 2;
   // Describes the fix width of coach navigation button
   protected coachNavButtonDim: number = 0;
   // Describes the calculated dimension for the area icons, which is used to set the max width and height of the area icons
@@ -1900,10 +1900,11 @@ export class SeatReservationBaseElement extends SbbElement {
     }
     // Calculate position and dimension for other graphical coach elements that positioned at the border of coach
     else if (elementType === 'OTHER') {
-      const isElementWallGraphic =
+      const isElementCompartmentWall =
         element.icon?.startsWith('WALL') || element.icon?.startsWith('T_WALL');
 
-      if (!isElementWallGraphic) {
+      // COACH WALL ELEMENTS
+      if (!isElementCompartmentWall) {
         if (this._isElementAtTopBorder(element)) {
           pos.y -= this.coachBorderOffset;
         }
@@ -1911,7 +1912,9 @@ export class SeatReservationBaseElement extends SbbElement {
         if (this._isElementAtBottomBorder(element, coachDimension)) {
           dim.h += this.coachBorderOffset * 2;
         }
-      } else {
+      }
+      // COMPARTMENT WALL
+      else {
         // WALL + T_WALL Compartments position and height handling for place gap
         const calcGapWallPlace = this.gapWallCompartmentToPlace / this.baseGridSize;
         if (this._isElementAtTopBorder(element)) {
@@ -1922,6 +1925,15 @@ export class SeatReservationBaseElement extends SbbElement {
         if (this._isElementAtBottomBorder(element, coachDimension)) {
           pos.y -= calcGapWallPlace;
           dim.h += this.coachBorderOffset + calcGapWallPlace;
+        }
+
+        // Optimized the position x from the compartment wall, because the default x pos of the vertical svg wall graphic lies directly behind the place.
+        // To get better look of the comaprtment wall, we move the x pos by 1px to prevent hidden from place.
+        const optimizedWallPos = 1 / this.baseGridSize;
+        if (element.icon?.indexOf('RIGHT') !== -1) {
+          pos.x -= element.rotation === 0 ? optimizedWallPos : -optimizedWallPos;
+        } else if (element.icon?.indexOf('LEFT') !== -1) {
+          pos.x += element.rotation === 0 ? optimizedWallPos : -optimizedWallPos;
         }
       }
     }
