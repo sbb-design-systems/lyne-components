@@ -105,7 +105,7 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
 
 const NestedTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-1')}
-  <sbb-menu trigger="menu-trigger-1">
+  <sbb-menu trigger="menu-trigger-1" ?hide-icon-space=${args['hide-icon-space']}>
     <sbb-menu-button icon-name=${args['icon-name']}> New Document </sbb-menu-button>
     <sbb-menu-button icon-name="pen-small" sbb-badge=${args.badge} ?disabled=${args.disabled}>
       Edit
@@ -144,7 +144,7 @@ const NestedTemplate = (args: Args): TemplateResult => html`
 
 const CustomContentTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-2')}
-  <sbb-menu trigger="menu-trigger-2">
+  <sbb-menu trigger="menu-trigger-2" ?hide-icon-space=${args['hide-icon-space']}>
     <div style=${styleMap(userNameStyle)}>Christina Müller</div>
     <span style=${styleMap(userInfoStyle)}>UIS9057</span>
     <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
@@ -169,7 +169,7 @@ const CustomContentTemplate = (args: Args): TemplateResult => html`
 
 const LongContentTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-3')}
-  <sbb-menu trigger="menu-trigger-3">
+  <sbb-menu trigger="menu-trigger-3" ?hide-icon-space=${args['hide-icon-space']}>
     <sbb-menu-button
       icon-name=${args['icon-name']}
       ?disabled-interactive=${args.disabled}
@@ -207,7 +207,7 @@ const LongContentTemplate = (args: Args): TemplateResult => html`
 
 const EllipsisTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-4')}
-  <sbb-menu trigger="menu-trigger-4">
+  <sbb-menu trigger="menu-trigger-4" ?hide-icon-space=${args['hide-icon-space']}>
     <div style=${styleMap(userNameStyle)}>Christina Müller</div>
     <span style=${styleMap(userInfoStyle)}>UIS9057</span>
     <sbb-block-link href="https://www.sbb.ch/en" size="xs"> Profile </sbb-block-link>
