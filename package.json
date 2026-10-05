@@ -120,7 +120,7 @@
     "nyc": "18.0.0",
     "octokit": "5.0.5",
     "playwright": "1.63.0",
-    "postcss": "8.5.28",
+    "postcss": "8.5.29",
     "postcss-value-parser": "4.2.0",
     "prettier": "3.9.9",
     "remark-gfm": "^4.0.1",
@@ -146,7 +146,7 @@
     "@web/dev-server-core": "1.0.1",
     "lit": "3.3.3",
     "playwright": "1.63.0",
-    "postcss": "8.5.28"
+    "postcss": "8.5.29"
   },
   "prettier": {
     "singleQuote": true,
