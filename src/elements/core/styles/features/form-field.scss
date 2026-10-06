@@ -37,7 +37,8 @@
 
   &:read-only,
   &:disabled {
-    --sbb-form-field-background-color: var(--sbb-background-color-3);
+    background-color: var(--sbb-form-field-background-color-disabled);
+
     --sbb-form-field-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
 
     @media (forced-colors: active) {

@@ -7,6 +7,18 @@ $theme: 'standard' !default;
   --sbb-error-icon-size: #{sbb.px-to-rem-build(17)};
   --sbb-error-font-size: var(--sbb-text-font-size-xs);
   --sbb-form-field-background-color: var(--sbb-background-color-1);
+  --sbb-form-field-background-color-disabled: var(--sbb-background-color-3);
+  --sbb-form-field-background-color-negative: var(--sbb-background-color-1-negative);
+  --sbb-form-field-background-color-disabled-negative: var(--sbb-background-color-3-negative);
+  --sbb-form-field-background-color-required-highlight: light-dark(
+    color-mix(in srgb, var(--sbb-color-peach) 5%, var(--sbb-background-color-1)),
+    color-mix(in srgb, var(--sbb-color-peach) 10%, var(--sbb-background-color-1))
+  );
+  --sbb-form-field-background-color-required-highlight-negative: color-mix(
+    in srgb,
+    var(--sbb-color-peach) 10%,
+    var(--sbb-background-color-1-negative)
+  );
   --sbb-form-field-border-color: var(--sbb-border-color-5);
   --sbb-form-field-border-style: solid;
   --sbb-form-field-border-radius: var(--sbb-border-radius-4x);
@@ -250,16 +262,11 @@ $theme: 'standard' !default;
     :root.sbb-form-field-required-highlight
       &:has(:where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input)[required]),
     &.sbb-form-field-required-highlight {
-      --sbb-form-field-background-color: light-dark(
-        color-mix(in srgb, var(--sbb-color-peach) 5%, var(--sbb-background-color-1)),
-        color-mix(in srgb, var(--sbb-color-peach) 10%, var(--sbb-background-color-1))
-      );
+      --sbb-form-field-background-color: var(--sbb-form-field-background-color-required-highlight);
 
       &[negative] {
-        --sbb-form-field-background-color: color-mix(
-          in srgb,
-          var(--sbb-color-peach) 10%,
-          var(--sbb-background-color-1-negative)
+        --sbb-form-field-background-color: var(
+          --sbb-form-field-background-color-required-highlight-negative
         );
       }
     }
