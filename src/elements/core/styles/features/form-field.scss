@@ -22,7 +22,7 @@
   border: var(--sbb-form-field-border-width) var(--sbb-form-field-border-style)
     var(--sbb-form-field-border-color);
   border-radius: var(--sbb-form-field-border-radius);
-  padding-inline: var(--sbb-form-field-padding-inline);
+  padding-inline: calc(var(--sbb-form-field-padding-inline) - var(--sbb-form-field-border-width));
 
   // Using `!important` keeps the utility consistent with the existing form-field
   // rules when normalize/reset styles are loaded by the consumer.
