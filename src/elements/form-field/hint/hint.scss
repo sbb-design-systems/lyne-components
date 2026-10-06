@@ -11,5 +11,5 @@
 }
 
 :host([negative]) {
-  --sbb-form-field-label-color: var(--sbb-color-5);
+  --sbb-form-field-label-color: var(--sbb-form-field-label-color-negative);
 }

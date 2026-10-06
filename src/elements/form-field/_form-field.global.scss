@@ -30,12 +30,18 @@ $theme: 'standard' !default;
   --sbb-form-field-border-color-focus-negative: var(--sbb-border-color-3-negative);
   --sbb-form-field-border-color-error: var(--sbb-color-error);
   --sbb-form-field-border-color-error-negative: var(--sbb-color-red85);
+  --sbb-form-field-label-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-form-field-label-color-disabled: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-smoke)
+  );
+  --sbb-form-field-label-color-negative: var(--sbb-color-5);
+  --sbb-form-field-label-color-disabled-negative: var(--sbb-color-5);
   --sbb-form-field-border-style: solid;
   --sbb-form-field-border-style-disabled: dashed;
   --sbb-form-field-border-radius: var(--sbb-border-radius-4x);
   --sbb-form-field-border-width: var(--sbb-border-width-1x);
   --sbb-form-field-color: var(--sbb-color-3);
-  --sbb-form-field-label-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-form-field-prefix-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-form-field-text-color: var(--sbb-color-3);
   --sbb-form-field-arrow-color: var(--sbb-color-3);
@@ -113,6 +119,10 @@ $theme: 'standard' !default;
   --sbb-form-field-border-color-focus-negative: Highlight;
   --sbb-form-field-border-color-error: LinkText;
   --sbb-form-field-border-color-error-negative: LinkText;
+  --sbb-form-field-label-color: GrayText;
+  --sbb-form-field-label-color-disabled: GrayText;
+  --sbb-form-field-label-color-negative: GrayText;
+  --sbb-form-field-label-color-disabled-negative: GrayText;
 }
 
 @mixin breakpoint-large {
