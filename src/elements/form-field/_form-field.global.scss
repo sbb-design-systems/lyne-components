@@ -20,6 +20,16 @@ $theme: 'standard' !default;
     var(--sbb-background-color-1-negative)
   );
   --sbb-form-field-border-color: var(--sbb-border-color-5);
+  --sbb-form-field-border-color-disabled: light-dark(
+    var(--sbb-color-graphite),
+    var(--sbb-color-smoke)
+  );
+  --sbb-form-field-border-color-negative: var(--sbb-border-color-5);
+  --sbb-form-field-border-color-disabled-negative: var(--sbb-border-color-5);
+  --sbb-form-field-border-color-focus: var(--sbb-border-color-3);
+  --sbb-form-field-border-color-focus-negative: var(--sbb-border-color-3-negative);
+  --sbb-form-field-border-color-error: var(--sbb-color-error);
+  --sbb-form-field-border-color-error-negative: var(--sbb-color-red85);
   --sbb-form-field-border-style: solid;
   --sbb-form-field-border-radius: var(--sbb-border-radius-4x);
   --sbb-form-field-border-width: var(--sbb-border-width-1x);
@@ -91,6 +101,13 @@ $theme: 'standard' !default;
 
 @mixin forced-colors {
   --sbb-form-field-border-color: ButtonBorder;
+  --sbb-form-field-border-color-disabled: GrayText;
+  --sbb-form-field-border-color-disabled-negative: GrayText;
+  --sbb-form-field-border-color-negative: ButtonBorder;
+  --sbb-form-field-border-color-focus: Highlight;
+  --sbb-form-field-border-color-focus-negative: Highlight;
+  --sbb-form-field-border-color-error: LinkText;
+  --sbb-form-field-border-color-error-negative: LinkText;
 }
 
 @mixin breakpoint-large {
@@ -240,16 +257,15 @@ $theme: 'standard' !default;
     ),
     :is(.ng-submitted, .sbb-show-errors) &:has(:is(:invalid, .ng-invalid)),
     &:state(interacted):state(invalid) {
-      --sbb-form-field-border-color: var(--sbb-color-error);
+      --sbb-form-field-border-color: var(--sbb-form-field-border-color-error);
       --sbb-form-field-text-color: var(--sbb-color-error);
 
       &[negative] {
-        --sbb-form-field-border-color: var(--sbb-color-red85);
+        --sbb-form-field-border-color: var(--sbb-form-field-border-color-error-negative);
         --sbb-form-field-text-color: var(--sbb-color-red85);
       }
 
       @media (forced-colors: active) {
-        --sbb-form-field-border-color: LinkText !important;
         --sbb-form-field-text-color: LinkText !important;
       }
     }

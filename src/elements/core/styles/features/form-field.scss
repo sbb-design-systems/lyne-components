@@ -38,12 +38,7 @@
   &:read-only,
   &:disabled {
     background-color: var(--sbb-form-field-background-color-disabled);
-
-    --sbb-form-field-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
-
-    @media (forced-colors: active) {
-      --sbb-form-field-border-color: ButtonBorder;
-    }
+    border-color: var(--sbb-form-field-border-color-disabled);
   }
 
   &:disabled {
@@ -58,7 +53,6 @@
       --sbb-form-field-label-color: GrayText !important;
       --sbb-form-field-prefix-color: GrayText !important;
       --sbb-form-field-text-color: GrayText !important;
-      --sbb-form-field-border-color: GrayText !important;
     }
   }
 
@@ -69,21 +63,21 @@
   }
 
   &:focus {
-    --sbb-form-field-border-color: var(--sbb-border-color-3);
+    border-color: var(--sbb-form-field-border-color-focus);
+
     --sbb-form-field-border-width: var(--sbb-border-width-2x);
 
     @media (forced-colors: active) {
-      --sbb-form-field-border-color: Highlight;
       --sbb-form-field-prefix-color: Highlight;
     }
   }
 
   &:user-invalid {
-    --sbb-form-field-border-color: var(--sbb-color-error);
+    border-color: var(--sbb-form-field-border-color-error);
+
     --sbb-form-field-text-color: var(--sbb-color-error);
 
     @media (forced-colors: active) {
-      --sbb-form-field-border-color: LinkText !important;
       --sbb-form-field-text-color: LinkText !important;
     }
   }

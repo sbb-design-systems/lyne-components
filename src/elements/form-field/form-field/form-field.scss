@@ -50,16 +50,12 @@
   color: var(--sbb-color-3-negative);
 
   --sbb-form-field-background-color: var(--sbb-form-field-background-color-negative);
-  --sbb-form-field-border-color: var(--sbb-border-color-5);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-negative);
   --sbb-form-field-label-color: var(--sbb-color-5);
   --sbb-form-field-prefix-color: var(--sbb-color-5);
   --sbb-form-field-text-color: var(--sbb-color-3-negative);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-form-field-arrow-color: var(--sbb-color-3-negative);
-
-  @media (forced-colors: active) {
-    --sbb-form-field-border-color: ButtonBorder;
-  }
 }
 
 :host([size='s']) {
@@ -120,17 +116,13 @@
 
 :host(:where(:state(readonly), :state(disabled))) {
   --sbb-form-field-background-color: var(--sbb-form-field-background-color-disabled);
-  --sbb-form-field-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-disabled);
   --sbb-form-field-arrow-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
-
-  @media (forced-colors: active) {
-    --sbb-form-field-border-color: ButtonBorder;
-  }
 }
 
 :host(:where(:state(readonly), :state(disabled))[negative]) {
   --sbb-form-field-background-color: var(--sbb-form-field-background-color-disabled-negative);
-  --sbb-form-field-border-color: var(--sbb-border-color-5);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-disabled-negative);
   --sbb-form-field-arrow-color: var(--sbb-border-color-5);
 }
 
@@ -143,7 +135,6 @@
     --sbb-form-field-label-color: GrayText !important;
     --sbb-form-field-prefix-color: GrayText !important;
     --sbb-form-field-text-color: GrayText !important;
-    --sbb-form-field-border-color: GrayText !important;
   }
 }
 
@@ -162,21 +153,20 @@
 
 // :where is to align specificity
 :host(:where(:state(focus))) {
-  --sbb-form-field-border-color: var(--sbb-border-color-3);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-focus);
   --sbb-form-field-prefix-color: var(--sbb-color-3);
   --sbb-form-field-border-width: var(--sbb-border-width-2x);
 }
 
 // :where is to align specificity
 :host(:where(:state(focus))[negative]) {
-  --sbb-form-field-border-color: var(--sbb-border-color-3-negative);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-focus-negative);
   --sbb-form-field-prefix-color: var(--sbb-color-3-negative);
 }
 
 // We must not use :where here, as it needs the added specificity to properly work
 :host(:state(focus)) {
   @media (forced-colors: active) {
-    --sbb-form-field-border-color: Highlight;
     --sbb-form-field-prefix-color: Highlight;
   }
 }
