@@ -129,7 +129,7 @@
 :host(:where(:state(disabled))) {
   --sbb-form-field-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   --sbb-form-field-prefix-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
-  --sbb-form-field-border-style: dashed;
+  --sbb-form-field-border-style: var(--sbb-form-field-border-style-disabled);
 
   @media (forced-colors: active) {
     --sbb-form-field-label-color: GrayText !important;

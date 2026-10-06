@@ -42,7 +42,7 @@
   }
 
   &:disabled {
-    --sbb-form-field-border-style: dashed;
+    border-style: var(--sbb-form-field-border-style-disabled);
 
     &::placeholder {
       color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
