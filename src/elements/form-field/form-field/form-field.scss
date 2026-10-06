@@ -55,7 +55,7 @@
   --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-negative);
   --sbb-form-field-text-color: var(--sbb-form-field-text-color-negative);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-form-field-arrow-color: var(--sbb-color-3-negative);
+  --sbb-form-field-arrow-color: var(--sbb-form-field-arrow-color-negative);
 }
 
 :host([size='s']) {
@@ -117,13 +117,13 @@
 :host(:where(:state(readonly), :state(disabled))) {
   --sbb-form-field-background-color: var(--sbb-form-field-background-color-disabled);
   --sbb-form-field-border-color: var(--sbb-form-field-border-color-disabled);
-  --sbb-form-field-arrow-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
+  --sbb-form-field-arrow-color: var(--sbb-form-field-arrow-color-disabled);
 }
 
 :host(:where(:state(readonly), :state(disabled))[negative]) {
   --sbb-form-field-background-color: var(--sbb-form-field-background-color-disabled-negative);
   --sbb-form-field-border-color: var(--sbb-form-field-border-color-disabled-negative);
-  --sbb-form-field-arrow-color: var(--sbb-border-color-5);
+  --sbb-form-field-arrow-color: var(--sbb-form-field-arrow-color-disabled-negative);
 }
 
 :host(:where(:state(disabled))) {

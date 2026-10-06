@@ -61,6 +61,12 @@ $theme: 'standard' !default;
   --sbb-form-field-text-color-error: var(--sbb-color-error);
   --sbb-form-field-text-color-error-negative: var(--sbb-color-red85);
   --sbb-form-field-arrow-color: var(--sbb-color-3);
+  --sbb-form-field-arrow-color-disabled: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-storm)
+  );
+  --sbb-form-field-arrow-color-negative: var(--sbb-color-3-negative);
+  --sbb-form-field-arrow-color-disabled-negative: var(--sbb-border-color-5);
   --sbb-form-field-placeholder-color-disabled: light-dark(
     var(--sbb-color-granite),
     var(--sbb-color-smoke)
