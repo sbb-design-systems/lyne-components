@@ -1,11 +1,10 @@
 // import { cleanupFixtures } from '@lit-labs/testing/fixtures.js';
 import { beforeEach } from 'vitest';
 
-import { sbbInputModalityDetector } from './src/elements/core/a11y.ts';
-import { mergeConfig, type SbbIconConfig } from './src/elements/core/config.ts';
 // Import global styles (standard theme + experimental)
 // These files are excluded from postcssLit in the vite config, so they remain as plain CSS.
 import standardTheme from './src/elements/core/styles/standard-theme.scss?inline';
+import { sbbInputModalityDetector, mergeConfig, type SbbIconConfig } from './src/elements/core.ts';
 import experimentalTheme from './src/elements-experimental/core/styles/standard-theme.scss?inline';
 
 // Inject styles into the document

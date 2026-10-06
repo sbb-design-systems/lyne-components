@@ -31,6 +31,7 @@ describe(`sbb-chip-label`, () => {
     const screen2 = render(html`<input />`);
     const input = screen2.container.firstElementChild as HTMLInputElement;
 
+    // Simulate user interaction example
     await userEvent.click(element);
     await userEvent.click(element, { modifiers: ['Shift'] });
     await userEvent.tab();
