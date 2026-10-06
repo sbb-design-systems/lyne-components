@@ -37,12 +37,20 @@ $theme: 'standard' !default;
   );
   --sbb-form-field-label-color-negative: var(--sbb-color-5);
   --sbb-form-field-label-color-disabled-negative: var(--sbb-color-5);
+  --sbb-form-field-prefix-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-form-field-prefix-color-disabled: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-storm)
+  );
+  --sbb-form-field-prefix-color-negative: var(--sbb-color-5);
+  --sbb-form-field-prefix-color-disabled-negative: var(--sbb-color-5);
+  --sbb-form-field-prefix-color-focus: var(--sbb-color-3);
+  --sbb-form-field-prefix-color-focus-negative: var(--sbb-color-3-negative);
   --sbb-form-field-border-style: solid;
   --sbb-form-field-border-style-disabled: dashed;
   --sbb-form-field-border-radius: var(--sbb-border-radius-4x);
   --sbb-form-field-border-width: var(--sbb-border-width-1x);
   --sbb-form-field-color: var(--sbb-color-3);
-  --sbb-form-field-prefix-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-form-field-text-color: var(--sbb-color-3);
   --sbb-form-field-arrow-color: var(--sbb-color-3);
   --sbb-form-field-placeholder-color-disabled: light-dark(
@@ -123,6 +131,11 @@ $theme: 'standard' !default;
   --sbb-form-field-label-color-disabled: GrayText;
   --sbb-form-field-label-color-negative: GrayText;
   --sbb-form-field-label-color-disabled-negative: GrayText;
+  --sbb-form-field-prefix-color: GrayText;
+  --sbb-form-field-prefix-color-disabled: GrayText;
+  --sbb-form-field-prefix-color-disabled-negative: GrayText;
+  --sbb-form-field-prefix-color-focus: Highlight;
+  --sbb-form-field-prefix-color-focus-negative: Highlight;
 }
 
 @mixin breakpoint-large {
