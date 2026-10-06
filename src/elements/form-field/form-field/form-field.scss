@@ -116,13 +116,11 @@
 
 :host(:where(:state(readonly), :state(disabled))) {
   --sbb-form-field-background-color: var(--sbb-form-field-background-color-disabled);
-  --sbb-form-field-border-color: var(--sbb-form-field-border-color-disabled);
   --sbb-form-field-arrow-color: var(--sbb-form-field-arrow-color-disabled);
 }
 
 :host(:where(:state(readonly), :state(disabled))[negative]) {
   --sbb-form-field-background-color: var(--sbb-form-field-background-color-disabled-negative);
-  --sbb-form-field-border-color: var(--sbb-form-field-border-color-disabled-negative);
   --sbb-form-field-arrow-color: var(--sbb-form-field-arrow-color-disabled-negative);
 }
 
@@ -130,33 +128,43 @@
   --sbb-form-field-label-color: var(--sbb-form-field-label-color-disabled);
   --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-disabled);
   --sbb-form-field-text-color: var(--sbb-form-field-text-color-disabled);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-disabled);
   --sbb-form-field-border-style: var(--sbb-form-field-border-style-disabled);
 }
 
 // :where is to align specificity
 :host(:where(:state(disabled))[negative]) {
-  --sbb-form-field-text-color: var(--sbb-form-field-text-color-disabled-negative);
   --sbb-form-field-label-color: var(--sbb-form-field-label-color-disabled-negative);
   --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-disabled-negative);
+  --sbb-form-field-text-color: var(--sbb-form-field-text-color-disabled-negative);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-disabled-negative);
 }
 
 // :where is to align specificity
 :host(:where(:state(readonly)):not([negative])) {
-  --sbb-form-field-label-color: var(--sbb-form-field-label-color-disabled);
-  --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-disabled);
+  --sbb-form-field-label-color: var(--sbb-form-field-label-color-readonly);
+  --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-readonly);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-readonly);
+}
+
+// :where is to align specificity
+:host(:where(:state(readonly))[negative]) {
+  --sbb-form-field-label-color: var(--sbb-form-field-label-color-readonly-negative);
+  --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-readonly-negative);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-readonly-negative);
 }
 
 // :where is to align specificity
 :host(:where(:state(focus))) {
-  --sbb-form-field-border-color: var(--sbb-form-field-border-color-focus);
   --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-focus);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-focus);
   --sbb-form-field-border-width: var(--sbb-form-field-border-width-focus);
 }
 
 // :where is to align specificity
 :host(:where(:state(focus))[negative]) {
-  --sbb-form-field-border-color: var(--sbb-form-field-border-color-focus-negative);
   --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-focus-negative);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-focus-negative);
 }
 
 // :where is to align specificity

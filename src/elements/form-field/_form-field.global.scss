@@ -30,6 +30,11 @@ $theme: 'standard' !default;
   --sbb-form-field-border-color-focus-negative: var(--sbb-border-color-3-negative);
   --sbb-form-field-border-color-error: var(--sbb-color-error);
   --sbb-form-field-border-color-error-negative: var(--sbb-color-red85);
+  --sbb-form-field-border-color-readonly: light-dark(
+    var(--sbb-color-graphite),
+    var(--sbb-color-smoke)
+  );
+  --sbb-form-field-border-color-readonly-negative: var(--sbb-border-color-5);
   --sbb-form-field-label-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-form-field-label-color-disabled: light-dark(
     var(--sbb-color-granite),
@@ -37,6 +42,11 @@ $theme: 'standard' !default;
   );
   --sbb-form-field-label-color-negative: var(--sbb-color-5);
   --sbb-form-field-label-color-disabled-negative: var(--sbb-color-5);
+  --sbb-form-field-label-color-readonly: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-smoke)
+  );
+  --sbb-form-field-label-color-readonly-negative: var(--sbb-color-5);
   --sbb-form-field-prefix-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-form-field-prefix-color-disabled: light-dark(
     var(--sbb-color-granite),
@@ -46,6 +56,11 @@ $theme: 'standard' !default;
   --sbb-form-field-prefix-color-disabled-negative: var(--sbb-color-5);
   --sbb-form-field-prefix-color-focus: var(--sbb-color-3);
   --sbb-form-field-prefix-color-focus-negative: var(--sbb-color-3-negative);
+  --sbb-form-field-prefix-color-readonly: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-storm)
+  );
+  --sbb-form-field-prefix-color-readonly-negative: var(--sbb-color-5);
   --sbb-form-field-border-style: solid;
   --sbb-form-field-border-style-disabled: dashed;
   --sbb-form-field-border-radius: var(--sbb-border-radius-4x);
