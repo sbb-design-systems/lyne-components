@@ -59,23 +59,14 @@
 }
 
 :host([size='s']) {
-  --sbb-form-field-min-height: var(--sbb-size-element-xs);
-  --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-2x);
-  --sbb-form-field-input-text-size: var(--sbb-text-font-size-s);
-  --sbb-form-field-label-text-size: var(--sbb-text-font-size-xxs);
-  --_sbb-form-field-input-margin-block-end: #{sbb.px-to-rem-build(-2)};
-
-  // Values found by try and error
-  --_sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(10)};
-  --_sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5.5)};
-  --_sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8.5)};
-
-  @include sbb.mq($from: large) {
-    // Values found by try and error
-    --_sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(11)};
-    --_sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5)};
-    --_sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8)};
-  }
+  --sbb-form-field-min-height: var(--sbb-form-field-min-height-s);
+  --sbb-form-field-padding-inline: var(--sbb-form-field-padding-inline-s);
+  --sbb-form-field-input-text-size: var(--sbb-form-field-input-text-size-s);
+  --sbb-form-field-label-text-size: var(--sbb-form-field-label-text-size-s);
+  --_sbb-form-field-input-margin-block-end: var(--_sbb-form-field-input-margin-block-end-s);
+  --_sbb-form-field-label-to-input-overlapping: var(--_sbb-form-field-label-to-input-overlapping-s);
+  --_sbb-form-field-floating-label-transform: var(--_sbb-form-field-floating-label-transform-s);
+  --_sbb-form-field-spacer-margin-block-end: var(--_sbb-form-field-spacer-margin-block-end-s);
 }
 
 :host([size='s']:where(:state(input-element-textarea))) {
@@ -83,28 +74,25 @@
 }
 
 :host([size='m']) {
-  --sbb-form-field-min-height: var(--sbb-size-element-m);
-  --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-3x);
+  --sbb-form-field-min-height: var(--sbb-form-field-min-height-m);
+  --sbb-form-field-padding-inline: var(--sbb-form-field-padding-inline-m);
+  --sbb-form-field-input-text-size: var(--sbb-form-field-input-text-size-m);
+  --sbb-form-field-label-text-size: var(--sbb-form-field-label-text-size-m);
+  --_sbb-form-field-input-margin-block-end: var(--_sbb-form-field-input-margin-block-end-m);
+  --_sbb-form-field-label-to-input-overlapping: var(--_sbb-form-field-label-to-input-overlapping-m);
+  --_sbb-form-field-floating-label-transform: var(--_sbb-form-field-floating-label-transform-m);
+  --_sbb-form-field-spacer-margin-block-end: var(--_sbb-form-field-spacer-margin-block-end-m);
 }
 
 :host([size='l']) {
-  --sbb-form-field-min-height: var(--sbb-size-element-l);
-  --sbb-form-field-padding-inline: var(--sbb-spacing-responsive-xxxs);
-}
-
-:host(:is([size='m'], [size='l'])) {
-  --sbb-form-field-input-text-size: var(--sbb-text-font-size-m);
-  --sbb-form-field-label-text-size: var(--sbb-text-font-size-xs);
-  --_sbb-form-field-input-margin-block-end: 0;
-  --_sbb-form-field-label-to-input-overlapping: var(--sbb-spacing-fixed-1x);
-  --_sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(8.5)};
-  --_sbb-form-field-spacer-margin-block-end: calc(
-    -1 * var(--_sbb-form-field-label-to-input-overlapping)
-  );
-
-  @include sbb.mq($from: large) {
-    --_sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(10.5)};
-  }
+  --sbb-form-field-min-height: var(--sbb-form-field-min-height-l);
+  --sbb-form-field-padding-inline: var(--sbb-form-field-padding-inline-l);
+  --sbb-form-field-input-text-size: var(--sbb-form-field-input-text-size-l);
+  --sbb-form-field-label-text-size: var(--sbb-form-field-label-text-size-l);
+  --_sbb-form-field-input-margin-block-end: var(--_sbb-form-field-input-margin-block-end-l);
+  --_sbb-form-field-label-to-input-overlapping: var(--_sbb-form-field-label-to-input-overlapping-l);
+  --_sbb-form-field-floating-label-transform: var(--_sbb-form-field-floating-label-transform-l);
+  --_sbb-form-field-spacer-margin-block-end: var(--_sbb-form-field-spacer-margin-block-end-l);
 }
 
 :host([error-space='reserve']) {
