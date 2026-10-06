@@ -52,6 +52,8 @@ $theme: 'standard' !default;
   --sbb-form-field-border-width: var(--sbb-border-width-1x);
   --sbb-form-field-border-width-focus: var(--sbb-border-width-2x);
   --sbb-form-field-color: var(--sbb-color-3);
+  --sbb-form-field-min-width: #{sbb.px-to-rem-build(150)};
+  --sbb-form-field-max-width: #{sbb.px-to-rem-build(300)};
   --sbb-form-field-text-color: var(--sbb-color-3);
   --sbb-form-field-text-color-disabled: var(--sbb-color-3);
   --sbb-form-field-text-color-negative: var(--sbb-color-3-negative);

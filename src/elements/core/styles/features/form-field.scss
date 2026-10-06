@@ -1,12 +1,11 @@
-@use '../mixins/functions';
 @use '../mixins/typo';
 
 .sbb-input {
   --_sbb-input-border-width: var(--sbb-form-field-border-width);
 
   display: inline-block;
-  min-width: #{functions.px-to-rem-build(150)};
-  width: min(#{functions.px-to-rem-build(300)}, 100%);
+  min-width: var(--sbb-form-field-min-width);
+  width: min(var(--sbb-form-field-max-width), 100%);
   min-height: var(--sbb-form-field-min-height);
   max-height: var(--sbb-form-field-max-height);
   appearance: none;

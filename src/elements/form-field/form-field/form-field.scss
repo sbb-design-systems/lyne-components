@@ -42,8 +42,8 @@
 }
 
 :host(:where(:not([width='collapse']))) {
-  min-width: #{sbb.px-to-rem-build(150)};
-  width: min(#{sbb.px-to-rem-build(300)}, 100%);
+  min-width: var(--sbb-form-field-min-width);
+  width: min(var(--sbb-form-field-max-width), 100%);
 }
 
 :host([negative]) {
