@@ -47,7 +47,7 @@
 }
 
 :host([negative]) {
-  color: var(--sbb-color-3-negative);
+  color: var(--sbb-form-field-color-negative);
 
   --sbb-form-field-background-color: var(--sbb-form-field-background-color-negative);
   --sbb-form-field-border-color: var(--sbb-form-field-border-color-negative);
