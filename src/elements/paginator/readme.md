@@ -49,7 +49,7 @@ The component can be disabled by using the `disabled` property.
 
 ## Style
 
-The component has two `size`, named `s` and `m` (default).
+The component has two `size`, named `s` and `m`.
 
 ```html
 <sbb-paginator length="100" page-size="20" size="s"></sbb-paginator>
@@ -58,7 +58,7 @@ The component has two `size`, named `s` and `m` (default).
 ## Events
 
 Consumers can listen to the `page` event on the `<sbb-paginator>` component to intercept the page change event.
-The `event.detail` contains both the information about the `pageIndex` and the `previousPageIndex`,
+The `event` contains both the information about the `pageIndex` and the `previousPageIndex`,
 as well as the `length` and the `pageSize`.
 
 ## Accessibility
@@ -79,18 +79,18 @@ that describes the content controlled by the paginator.
 
 #### Properties
 
-| Name                             | Attribute                           | Privacy | Type               | Default            | Description                                                                                                                                         |
-| -------------------------------- | ----------------------------------- | ------- | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityNextPageLabel`     | `accessibility-next-page-label`     | public  | `string`           | `''`               | Accessibility label for the next page. Defaults to `next page`. Can be set for cases like a carousel, where `slide` or `image` fits better.         |
-| `accessibilityPageLabel`         | `accessibility-page-label`          | public  | `string`           | `''`               | Accessibility label for the page. Defaults to `page`. Can be set for cases like a carousel, where `slide` or `image` fits better.                   |
-| `accessibilityPreviousPageLabel` | `accessibility-previous-page-label` | public  | `string`           | `''`               | Accessibility label for the previous page. Defaults to `previous page`. Can be set for cases like a carousel, where `slide` or `image` fits better. |
-| `disabled`                       | `disabled`                          | public  | `boolean`          | `false`            | Whether the component is disabled.                                                                                                                  |
-| `length`                         | `length`                            | public  | `number`           | `0`                | Total number of items.                                                                                                                              |
-| `negative`                       | `negative`                          | public  | `boolean`          | `false`            | Negative coloring variant flag.                                                                                                                     |
-| `pageIndex`                      | `page-index`                        | public  | `number`           | `0`                | Current page index.                                                                                                                                 |
-| `pagerPosition`                  | `pager-position`                    | public  | `'start' \| 'end'` | `'start'`          | Position of the prev/next buttons.                                                                                                                  |
-| `pageSize`                       | `page-size`                         | public  | `number`           | `10`               | Number of items per page.                                                                                                                           |
-| `size`                           | `size`                              | public  | `'m' \| 's'`       | `'m' / 's' (lean)` | Size variant, either m or s.                                                                                                                        |
+| Name                             | Attribute                           | Privacy | Type                 | Default   | Description                                                                                                                                         |
+| -------------------------------- | ----------------------------------- | ------- | -------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityNextPageLabel`     | `accessibility-next-page-label`     | public  | `string`             | `''`      | Accessibility label for the next page. Defaults to `next page`. Can be set for cases like a carousel, where `slide` or `image` fits better.         |
+| `accessibilityPageLabel`         | `accessibility-page-label`          | public  | `string`             | `''`      | Accessibility label for the page. Defaults to `page`. Can be set for cases like a carousel, where `slide` or `image` fits better.                   |
+| `accessibilityPreviousPageLabel` | `accessibility-previous-page-label` | public  | `string`             | `''`      | Accessibility label for the previous page. Defaults to `previous page`. Can be set for cases like a carousel, where `slide` or `image` fits better. |
+| `disabled`                       | `disabled`                          | public  | `boolean`            | `false`   | Whether the component is disabled.                                                                                                                  |
+| `length`                         | `length`                            | public  | `number`             | `0`       | Total number of items.                                                                                                                              |
+| `negative`                       | `negative`                          | public  | `boolean`            | `false`   | Negative coloring variant flag.                                                                                                                     |
+| `pageIndex`                      | `page-index`                        | public  | `number`             | `0`       | Current page index.                                                                                                                                 |
+| `pagerPosition`                  | `pager-position`                    | public  | `'start' \| 'end'`   | `'start'` | Position of the prev/next buttons.                                                                                                                  |
+| `pageSize`                       | `page-size`                         | public  | `number`             | `10`      | Number of items per page.                                                                                                                           |
+| `size`                           | `size`                              | public  | `'s' \| 'm' \| null` | `null`    | Size variant, either s (lean theme default) or m (standard theme default).                                                                          |
 
 #### Methods
 
@@ -107,28 +107,28 @@ that describes the content controlled by the paginator.
 
 #### Events
 
-| Name   | Type                                        | Description                                                                    | Inherited From                 |
-| ------ | ------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------ |
-| `page` | `CustomEvent<SbbPaginatorPageEventDetails>` | The page event is dispatched when the page index, length or page size changes. | SbbPaginatorCommonElementMixin |
+| Name   | Type                    | Description                                                                    | Inherited From                 |
+| ------ | ----------------------- | ------------------------------------------------------------------------------ | ------------------------------ |
+| `page` | `SbbPaginatorPageEvent` | The page event is dispatched when the page index, length or page size changes. | SbbPaginatorCommonElementMixin |
 
 ### class: `SbbPaginatorElement`, `sbb-paginator`
 
 #### Properties
 
-| Name                             | Attribute                            | Privacy | Type               | Default            | Description                                                                                                                                                                       |
-| -------------------------------- | ------------------------------------ | ------- | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityItemsPerPageLabel` | `accessibility-items-per-page-label` | public  | `string`           | `''`               | Accessibility label for the items per page. Defaults to `Items per page.`. Can be set for cases like a carousel, where `slide` or `image` fits better.                            |
-| `accessibilityNextPageLabel`     | `accessibility-next-page-label`      | public  | `string`           | `''`               | Accessibility label for the next page. Defaults to `next page`. Can be set for cases like a carousel, where `slide` or `image` fits better.                                       |
-| `accessibilityPageLabel`         | `accessibility-page-label`           | public  | `string`           | `''`               | Accessibility label for the page. Defaults to `page`. Can be set for cases like a carousel, where `slide` or `image` fits better.                                                 |
-| `accessibilityPreviousPageLabel` | `accessibility-previous-page-label`  | public  | `string`           | `''`               | Accessibility label for the previous page. Defaults to `previous page`. Can be set for cases like a carousel, where `slide` or `image` fits better.                               |
-| `disabled`                       | `disabled`                           | public  | `boolean`          | `false`            | Whether the component is disabled.                                                                                                                                                |
-| `length`                         | `length`                             | public  | `number`           | `0`                | Total number of items.                                                                                                                                                            |
-| `negative`                       | `negative`                           | public  | `boolean`          | `false`            | Negative coloring variant flag.                                                                                                                                                   |
-| `pageIndex`                      | `page-index`                         | public  | `number`           | `0`                | Current page index.                                                                                                                                                               |
-| `pagerPosition`                  | `pager-position`                     | public  | `'start' \| 'end'` | `'start'`          | Position of the prev/next buttons: if `pageSizeOptions` is set, the sbb-select for the pageSize change will be positioned oppositely, with the page numbers always in the center. |
-| `pageSize`                       | `page-size`                          | public  | `number`           | `10`               | Number of items per page.                                                                                                                                                         |
-| `pageSizeOptions`                | `page-size-options`                  | public  | `number[]`         | `[]`               | The available `pageSize` choices.                                                                                                                                                 |
-| `size`                           | `size`                               | public  | `'m' \| 's'`       | `'m' / 's' (lean)` | Size variant, either m or s.                                                                                                                                                      |
+| Name                             | Attribute                            | Privacy | Type                 | Default   | Description                                                                                                                                                                       |
+| -------------------------------- | ------------------------------------ | ------- | -------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityItemsPerPageLabel` | `accessibility-items-per-page-label` | public  | `string`             | `''`      | Accessibility label for the items per page. Defaults to `Items per page.`. Can be set for cases like a carousel, where `slide` or `image` fits better.                            |
+| `accessibilityNextPageLabel`     | `accessibility-next-page-label`      | public  | `string`             | `''`      | Accessibility label for the next page. Defaults to `next page`. Can be set for cases like a carousel, where `slide` or `image` fits better.                                       |
+| `accessibilityPageLabel`         | `accessibility-page-label`           | public  | `string`             | `''`      | Accessibility label for the page. Defaults to `page`. Can be set for cases like a carousel, where `slide` or `image` fits better.                                                 |
+| `accessibilityPreviousPageLabel` | `accessibility-previous-page-label`  | public  | `string`             | `''`      | Accessibility label for the previous page. Defaults to `previous page`. Can be set for cases like a carousel, where `slide` or `image` fits better.                               |
+| `disabled`                       | `disabled`                           | public  | `boolean`            | `false`   | Whether the component is disabled.                                                                                                                                                |
+| `length`                         | `length`                             | public  | `number`             | `0`       | Total number of items.                                                                                                                                                            |
+| `negative`                       | `negative`                           | public  | `boolean`            | `false`   | Negative coloring variant flag.                                                                                                                                                   |
+| `pageIndex`                      | `page-index`                         | public  | `number`             | `0`       | Current page index.                                                                                                                                                               |
+| `pagerPosition`                  | `pager-position`                     | public  | `'start' \| 'end'`   | `'start'` | Position of the prev/next buttons: if `pageSizeOptions` is set, the sbb-select for the pageSize change will be positioned oppositely, with the page numbers always in the center. |
+| `pageSize`                       | `page-size`                          | public  | `number`             | `10`      | Number of items per page.                                                                                                                                                         |
+| `pageSizeOptions`                | `page-size-options`                  | public  | `number[]`           | `[]`      | The available `pageSize` choices.                                                                                                                                                 |
+| `size`                           | `size`                               | public  | `'s' \| 'm' \| null` | `null`    | Size variant, either s (lean theme default) or m (standard theme default).                                                                                                        |
 
 #### Methods
 
@@ -145,6 +145,6 @@ that describes the content controlled by the paginator.
 
 #### Events
 
-| Name   | Type                                        | Description                                                                    | Inherited From                 |
-| ------ | ------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------ |
-| `page` | `CustomEvent<SbbPaginatorPageEventDetails>` | The page event is dispatched when the page index, length or page size changes. | SbbPaginatorCommonElementMixin |
+| Name   | Type                    | Description                                                                    | Inherited From                 |
+| ------ | ----------------------- | ------------------------------------------------------------------------------ | ------------------------------ |
+| `page` | `SbbPaginatorPageEvent` | The page event is dispatched when the page index, length or page size changes. | SbbPaginatorCommonElementMixin |

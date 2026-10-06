@@ -1,9 +1,7 @@
 import type { CSSResultGroup } from 'lit';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { buttonCommonStyle, buttonAccentStyle, SbbButtonCommonElementMixin } from '../common.ts';
+import { SbbButtonBaseElement, SbbDisabledTabIndexActionMixin } from '../../core.ts';
+import { buttonAccentStyle, SbbButtonCommonElementMixin } from '../common/button-common.ts';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'accent' variant.
@@ -16,11 +14,7 @@ export class SbbAccentButtonElement extends SbbButtonCommonElementMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
 ) {
   public static override readonly elementName: string = 'sbb-accent-button';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    buttonCommonStyle,
-    buttonAccentStyle,
-  ];
+  public static override styles: CSSResultGroup = [buttonAccentStyle];
 }
 
 declare global {

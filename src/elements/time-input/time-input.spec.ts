@@ -74,6 +74,29 @@ describe(`sbb-time-input`, () => {
     expect(element.validity.rangeOverflow).to.be.false;
   });
 
+  it('should dispatch validity event', async () => {
+    const validitySpy = new EventSpy('validity', element);
+    expect(element.validity.rangeOverflow).to.be.false;
+    expect(element.validity.badInput).to.be.false;
+
+    // When entering an invalid  value
+    typeInElement(element, '99');
+
+    expect(validitySpy.count).to.be.equal(1);
+    expect(element.validity.rangeOverflow).to.be.true;
+    expect(element.validity.badInput).to.be.false;
+
+    // When entering a valid time
+    element.focus();
+    await sendKeys({ press: 'Backspace' });
+    await sendKeys({ press: 'Backspace' });
+    typeInElement(element, '1201');
+
+    expect(validitySpy.count).to.be.equal(2);
+    expect(element.validity.rangeOverflow).to.be.false;
+    expect(element.validity.badInput).to.be.false;
+  });
+
   it('should handle null as value', async () => {
     element.value = null!;
 
@@ -101,6 +124,26 @@ describe(`sbb-time-input`, () => {
     element.blur();
 
     expect(element).to.match(':valid');
+  });
+
+  it('should update validity flags when changing from badInput to rangeOverflow', async () => {
+    // 'hh' contains allowed characters but cannot be parsed → badInput.
+    element.value = 'hh';
+    await waitForLitRender(element);
+
+    expect(element).to.match(':invalid');
+    expect(element.validationMessage).to.equal('Please provide a valid time.');
+    expect(element.validity.badInput, 'badInput').to.be.true;
+    expect(element.validity.rangeOverflow, 'rangeOverflow').to.be.false;
+
+    // Transition to rangeOverflow: '99' parses to { hours: 99, minutes: 0 } → out of range.
+    element.value = '99';
+    await waitForLitRender(element);
+
+    expect(element).to.match(':invalid');
+    expect(element.validationMessage).to.equal('Time must not be after 23:59.');
+    expect(element.validity.badInput, 'badInput').to.be.false;
+    expect(element.validity.rangeOverflow, 'rangeOverflow').to.be.true;
   });
 
   it('should interpret valid values', async function (this: Context) {
@@ -198,6 +241,54 @@ describe(`sbb-time-input`, () => {
     const dateCalculated = element.valueAsDate.getTime();
     expect(new Date(dateCalculated).getHours()).to.be.equal(date.getHours());
     expect(new Date(dateCalculated).getMinutes()).to.be.equal(date.getMinutes());
+  });
+
+  it('should support asynchronously adding input by element reference', async () => {
+    const root = await fixture(html`
+      <div>
+        <sbb-time-input></sbb-time-input>
+      </div>
+    `);
+    element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
+    element.valueAsDate = new Date('2023-01-01T15:00:00');
+    await waitForLitRender(element);
+
+    expect(element.value).to.be.equal('15:00');
+  });
+
+  it('should support asynchronously adding input by id', async () => {
+    const root = await fixture(html`
+      <div>
+        <sbb-time-input id="time-input"></sbb-time-input>
+        <input id="input-2" />
+      </div>
+    `);
+    element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
+
+    element.setAttribute('input', 'input-2');
+    element.valueAsDate = new Date('2023-01-01T15:00:00');
+    await waitForLitRender(element);
+
+    expect(element.value).to.be.equal('15:00');
+  });
+
+  it('should not update value while editing', async () => {
+    element.focus();
+    typeInElement(element, '1:1');
+    const sameTime = new Date(0);
+    sameTime.setHours(1);
+    sameTime.setMinutes(1);
+    element.valueAsDate = sameTime;
+    expect(element.value).to.be.equal('1:1');
+  });
+
+  it('should update value while not editing', async () => {
+    element.value = '1:1';
+    const sameTime = new Date(0);
+    sameTime.setHours(1);
+    sameTime.setMinutes(1);
+    element.valueAsDate = sameTime;
+    expect(element.value).to.be.equal('01:01');
   });
 
   describe('form field integration', () => {
@@ -343,34 +434,5 @@ describe(`sbb-time-input`, () => {
       expect(element).not.to.match(':disabled');
       expect(element).not.to.have.attribute('disabled');
     });
-  });
-
-  it('should support asynchronously adding input by element reference', async () => {
-    const root = await fixture(html`
-      <div>
-        <sbb-time-input></sbb-time-input>
-      </div>
-    `);
-    element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
-    element.valueAsDate = new Date('2023-01-01T15:00:00');
-    await waitForLitRender(element);
-
-    expect(element.value).to.be.equal('15:00');
-  });
-
-  it('should support asynchronously adding input by id', async () => {
-    const root = await fixture(html`
-      <div>
-        <sbb-time-input id="time-input"></sbb-time-input>
-        <input id="input-2" />
-      </div>
-    `);
-    element = root.querySelector<SbbTimeInputElement>('sbb-time-input')!;
-
-    element.setAttribute('input', 'input-2');
-    element.valueAsDate = new Date('2023-01-01T15:00:00');
-    await waitForLitRender(element);
-
-    expect(element.value).to.be.equal('15:00');
   });
 });

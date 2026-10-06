@@ -116,9 +116,38 @@ which can clear the input value.
 
 **Note:** it currently works with simple inputs and does not support, for example, `select` inputs.
 
+### Hint
+
+The `<sbb-hint>` component can be used to display a hint message below the form field.
+When an `<sbb-error>` is present, the hint is automatically hidden and no longer linked to the input.
+
+```html
+<sbb-form-field>
+  <label>Description</label>
+  <input placeholder="Enter text" />
+  <sbb-hint>This is a hint.</sbb-hint>
+</sbb-form-field>
+```
+
+### Text Counter
+
+The `sbb-form-field-text-counter` is a specific `<sbb-hint>` that displays the remaining characters count
+for `<input>` or `<textarea>` elements with a `maxlength` attribute within an `sbb-form-field`.
+
+If the input/textarea is `disabled`, `readonly` or there is an `<sbb-error>` present,
+the `sbb-form-field-text-counter` is hidden.
+
+```html
+<sbb-form-field>
+  <label>Description</label>
+  <textarea maxlength="200"></textarea>
+  <sbb-form-field-text-counter></sbb-form-field-text-counter>
+</sbb-form-field>
+```
+
 ## Style
 
-The component has a `size` property, which accepts three different values: `s`, `m` (default) and `l`.
+The component has a `size` property, which accepts three different values: `s`, `m` and `l`.
 
 ```html
 <sbb-form-field size="s">
@@ -148,7 +177,7 @@ it's possible to apply any desired width by setting just the `width` and `min-wi
 ### Reflected state from input
 
 The form field reflects certain states as custom states. This includes `focus`, `disabled`,
-`readonly`, `empty`, `has-error`, `has-popup-open` and `input-type-{tag name of the input}`.
+`readonly`, `empty`, `has-error`, `has-popup-open` and `input-element-{tag name of the input}`.
 
 This can be targeted via CSS via the `:state()` pseudo-class:
 
@@ -170,6 +199,55 @@ to the input element.
 
 If you want to directly show the error state without having had an interaction, you can use the
 `sbb-show-errors` class on an ancestor (e.g. `<form>`).
+
+### Visualization of `required` / optional state
+
+Generally, as an SBB standard, all form elements are considered required and optional inputs should be marked with `(optional)` in the label.
+
+| English  | German   | French     | Italian     |
+| -------- | -------- | ---------- | ----------- |
+| optional | optional | facultatif | facoltativo |
+
+```html
+<sbb-form-field>
+  <label>Label (optional)</label>
+  <input />
+</sbb-form-field>
+```
+
+However, some applications need a stronger visual representation of the `required` state.
+
+In such cases it's possible to add the `sbb-form-field-required-highlight` CSS class to the `<sbb-form-field>` element.
+This changes the background color to a subtle peach tint, giving users a clear visual cue.
+It only has an effect as long as the input is empty and neither `readonly` nor `disabled`.
+
+```html
+<sbb-form-field class="sbb-form-field-required-highlight">
+  <label>Required Field</label>
+  <input required />
+</sbb-form-field>
+```
+
+It's also possible to opt in globally by setting the CSS class `sbb-form-field-required-highlight` on the `<html>` element.
+The styling is then applied to all `<sbb-form-field>` elements that contain an input with a `required` attribute.
+
+```html
+<html class="sbb-form-field-required-highlight">
+  ...
+</html>
+```
+
+Please note that with forced colors and `sbb-form-field-required-highlight` CSS class,
+there is an Asterix (\*) added to the label of required fields.
+
+### Input without form-field
+
+A native input element used without a `sbb-form-field` can take on the appearance of a `sbb-form-field`
+by applying the `sbb-input` class to it.
+
+```html
+<input class="sbb-input" placeholder="Enter text.." />
+```
 
 ## Custom form control
 
@@ -248,6 +326,10 @@ If you like to visually hide a label, but still present it with screen readers, 
 When you provide informational text via `<sbb-error>`, it automatically adds these elements' IDs
 to the form element's `ariaErrorMessageElements` property (or `aria-errormessage` attribute as fallback).
 
+When you provide a hint via `<sbb-hint>`, it automatically links the hint element to the form element
+via `ariaDescribedByElements`. When an `<sbb-error>` is present, the hint is unlinked and hidden,
+as the error takes precedence.
+
 <!-- Auto Generated Below -->
 
 ## API Documentation
@@ -271,16 +353,16 @@ to the form element's `ariaErrorMessageElements` property (or `aria-errormessage
 
 #### Properties
 
-| Name                | Attribute  | Privacy | Type                      | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| ------------------- | ---------- | ------- | ------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `form`              | `form`     | public  | `HTMLFormElement \| null` |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `name`              | `name`     | public  | `string`                  |            | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
-| `negative`          | `negative` | public  | `boolean`                 | `false`    | Negative coloring variant flag.                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `type`              | `type`     | public  | `SbbButtonType`           | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `validationMessage` | -          | public  | `string`                  |            | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
-| `validity`          | -          | public  | `ValidityState`           |            | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `value`             | `value`    | public  | `string`                  | `''`       | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `willValidate`      | -          | public  | `boolean`                 |            | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+| Name                | Attribute  | Privacy | Type                              | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ---------- | ------- | --------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `form`              | `form`     | public  | `HTMLFormElement \| null`         |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `name`              | `name`     | public  | `string`                          |            | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `negative`          | `negative` | public  | `boolean`                         | `false`    | Negative coloring variant flag.                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `type`              | `type`     | public  | `'button' \| 'reset' \| 'submit'` | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `validationMessage` | -          | public  | `string`                          |            | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -          | public  | `ValidityState`                   |            | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | `value`    | public  | `string`                          | `''`       | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `willValidate`      | -          | public  | `boolean`                         |            | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
 
 #### Methods
 
@@ -290,22 +372,29 @@ to the form element's `ariaErrorMessageElements` property (or `aria-errormessage
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
+#### Events
+
+| Name       | Type         | Description                                                                                                                                                                                                            | Inherited From         |
+| ---------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| `change`   | `Event`      | The change event is fired on the component's associated input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                        |
+| `input`    | `InputEvent` | The input event fires on the component's associated input when the value has been changed as a direct result of a user action.                                                                                         |                        |
+| `validity` | `Event`      | The validity event is dispatched whenever the validity state of the element changes.                                                                                                                                   | SbbFormAssociatedMixin |
+
 ### class: `SbbFormFieldElement`, `sbb-form-field`
 
 #### Properties
 
-| Name            | Attribute        | Privacy | Type                                                           | Default            | Description                                                                                                                                                           |
-| --------------- | ---------------- | ------- | -------------------------------------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `borderless`    | `borderless`     | public  | `boolean`                                                      | `false`            | Whether to display the form field without a border.                                                                                                                   |
-| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                          | `'none'`           | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.                                |
-| `floatingLabel` | `floating-label` | public  | `boolean`                                                      | `false`            | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 |
-| `hiddenLabel`   | `hidden-label`   | public  | `boolean`                                                      | `false`            | Whether to visually hide the label. If hidden, screen readers will still read it.                                                                                     |
-| `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| null` |                    | Returns the input element.                                                                                                                                            |
-| `label`         | -                | public  | `HTMLLabelElement \| null`                                     |                    | Reference to the slotted label.                                                                                                                                       |
-| `negative`      | `negative`       | public  | `boolean`                                                      | `false`            | Negative coloring variant flag.                                                                                                                                       |
-| `optional`      | `optional`       | public  | `boolean`                                                      | `false`            | Indicates whether the input is optional.                                                                                                                              |
-| `size`          | `size`           | public  | `'l' \| 'm' \| 's'`                                            | `'m' / 's' (lean)` | Size variant, either l, m or s.                                                                                                                                       |
-| `width`         | `width`          | public  | `'default' \| 'collapse'`                                      | `'default'`        | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. |
+| Name            | Attribute        | Privacy | Type                                                           | Default     | Description                                                                                                                                                           |
+| --------------- | ---------------- | ------- | -------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `borderless`    | `borderless`     | public  | `boolean`                                                      | `false`     | Whether to display the form field without a border.                                                                                                                   |
+| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                          | `'none'`    | Whether to reserve space for an error message, hint or text-counter. `none` does not reserve any space. `reserve` does reserve one row for an error message.          |
+| `floatingLabel` | `floating-label` | public  | `boolean`                                                      | `false`     | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 |
+| `hiddenLabel`   | `hidden-label`   | public  | `boolean`                                                      | `false`     | Whether to visually hide the label. If hidden, screen readers will still read it.                                                                                     |
+| `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| null` |             | Returns the input element.                                                                                                                                            |
+| `label`         | -                | public  | `HTMLLabelElement \| null`                                     |             | Reference to the slotted label.                                                                                                                                       |
+| `negative`      | `negative`       | public  | `boolean`                                                      | `false`     | Negative coloring variant flag.                                                                                                                                       |
+| `size`          | `size`           | public  | `'s' \| 'm' \| 'l' \| null`                                    | `null`      | Size variant, either s (lean theme default), m (standard theme default) or l.                                                                                         |
+| `width`         | `width`          | public  | `'default' \| 'collapse'`                                      | `'default'` | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. |
 
 #### Methods
 
@@ -323,10 +412,39 @@ to the form element's `ariaErrorMessageElements` property (or `aria-errormessage
 
 #### Slots
 
-| Name     | Description                                                                |
-| -------- | -------------------------------------------------------------------------- |
-|          | Use this slot to render an input/select or a supported non-native element. |
-| `error`  | Use this slot to render an error.                                          |
-| `label`  | Use this slot to render a label.                                           |
-| `prefix` | Use this slot to render an icon on the left side of the input.             |
-| `suffix` | Use this slot to render an icon on the right side of the input.            |
+| Name     | Description                                                                            |
+| -------- | -------------------------------------------------------------------------------------- |
+|          | Use this slot to render an input/select or a supported non-native element.             |
+| `error`  | Use this slot to render an error.                                                      |
+| `hint`   | Use this slot to render an `<sbb-hint>` or an `<sbb-form-field-text-counter>` element. |
+| `label`  | Use this slot to render a label.                                                       |
+| `prefix` | Use this slot to render an icon on the left side of the input.                         |
+| `suffix` | Use this slot to render an icon on the right side of the input.                        |
+
+### class: `SbbFormFieldTextCounterElement`, `sbb-form-field-text-counter`
+
+#### Properties
+
+| Name       | Attribute  | Privacy | Type      | Default | Description                     |
+| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
+| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
+
+#### Slots
+
+| Name | Description                                                                  |
+| ---- | ---------------------------------------------------------------------------- |
+|      | Use the unnamed slot to display a custom description text after the counter. |
+
+### class: `SbbHintElement`, `sbb-hint`
+
+#### Properties
+
+| Name       | Attribute  | Privacy | Type      | Default | Description                     |
+| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
+| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
+
+#### Slots
+
+| Name | Description                                       |
+| ---- | ------------------------------------------------- |
+|      | Use the unnamed slot to display the hint message. |

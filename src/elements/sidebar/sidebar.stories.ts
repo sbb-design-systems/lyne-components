@@ -3,7 +3,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbIconSidebarElement } from '../icon-sidebar.ts';
 import { SbbSidebarElement } from '../sidebar.ts';
 
@@ -11,7 +11,7 @@ import readme from './readme.md?raw';
 
 import '../chip-label.ts';
 import '../header.ts';
-import '../link/block-link.ts';
+import '../link.ts';
 import '../link-list.ts';
 import '../logo.ts';
 import '../icon-sidebar.ts';
@@ -100,23 +100,27 @@ const header = (twoButtons = false): TemplateResult =>
           ?.toggle()}
       aria-controls="sidebar-1"
       aria-expanded="true"
+      hide-label-below="large"
     >
       Toggle sidebar
     </sbb-header-button>
-    ${twoButtons
-      ? html`<sbb-header-button
-          id="toggle-button-2"
-          icon-name="arrows-right-left-small"
-          @click=${(event: PointerEvent) =>
-            (event.currentTarget as HTMLElement)?.parentElement?.parentElement
-              ?.querySelector<SbbSidebarElement>('#sidebar-2')
-              ?.toggle()}
-          aria-controls="sidebar-2"
-          aria-expanded="true"
-        >
-          Toggle end sidebar
-        </sbb-header-button>`
-      : nothing}
+    ${
+      twoButtons
+        ? html`<sbb-header-button
+            id="toggle-button-2"
+            icon-name="arrows-right-left-small"
+            @click=${(event: PointerEvent) =>
+              (event.currentTarget as HTMLElement)?.parentElement?.parentElement
+                ?.querySelector<SbbSidebarElement>('#sidebar-2')
+                ?.toggle()}
+            aria-controls="sidebar-2"
+            aria-expanded="true"
+            hide-label-below="large"
+          >
+            Toggle end sidebar
+          </sbb-header-button>`
+        : nothing
+    }
     <div style="flex-grow: 1"></div>
     <a aria-label="Homepage" href="/" class="sbb-header-logo">
       <sbb-logo protective-room="none"></sbb-logo>

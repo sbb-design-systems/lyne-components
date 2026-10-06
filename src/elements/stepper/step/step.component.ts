@@ -1,22 +1,64 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { appendAriaElements, removeAriaElements } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  appendAriaElements,
+  removeAriaElements,
+  SbbElement,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
 import type { SbbStepLabelElement } from '../step-label/step-label.component.ts';
 import type { SbbStepperElement } from '../stepper/stepper.component.ts';
 
-import style from './step.scss?lit&inline';
-
-let nextId = 0;
+import style from './step.scss?inline';
 
 export interface SbbStepValidateEventDetails {
   currentIndex: number | null;
   currentStep: SbbStepElement | null;
   nextIndex: number | null;
   nextStep: SbbStepElement | null;
+}
+
+export class SbbStepValidateEvent extends Event {
+  private readonly _currentIndex: number | null;
+  private readonly _currentStep: SbbStepElement | null;
+  private readonly _nextIndex: number | null;
+  private readonly _nextStep: SbbStepElement | null;
+
+  public get currentIndex(): number | null {
+    return this._currentIndex;
+  }
+
+  public get currentStep(): SbbStepElement | null {
+    return this._currentStep;
+  }
+
+  public get nextIndex(): number | null {
+    return this._nextIndex;
+  }
+
+  public get nextStep(): SbbStepElement | null {
+    return this._nextStep;
+  }
+
+  public constructor({
+    currentIndex,
+    currentStep,
+    nextIndex,
+    nextStep,
+  }: Omit<SbbStepValidateEvent, keyof Event>) {
+    super('validate', { bubbles: true, composed: true, cancelable: true });
+    this._currentIndex = currentIndex;
+    this._currentStep = currentStep;
+    this._nextIndex = nextIndex;
+    this._nextStep = nextStep;
+  }
 }
 
 /**
@@ -27,10 +69,11 @@ export interface SbbStepValidateEventDetails {
 export class SbbStepElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-step';
   public static override readonly role = 'tabpanel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     validate: 'validate',
     resizechange: 'resizechange',
+    active: 'active',
   } as const;
 
   // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.
@@ -75,23 +118,24 @@ export class SbbStepElement extends SbbElement {
 
   /**
    * Selects and configures the step.
-   * @internal
-   * TODO: @breaking-change: make protected
    */
-  public select(): void {
+  protected select(): void {
     if (!this.hasUpdated || !this.label) {
       return;
     }
     this.internals.states.add('selected');
     this.label.select();
+    /**
+     * @type {Event}
+     * The active event is dispatched when a step is activated.
+     */
+    this.dispatchEvent(new Event('active', { bubbles: true, composed: true }));
   }
 
   /**
    * Deselects and configures the step.
-   * @internal
-   * TODO: @breaking-change: make protected
    */
-  public deselect(): void {
+  protected deselect(): void {
     if (!this.label) {
       return;
     }
@@ -101,31 +145,22 @@ export class SbbStepElement extends SbbElement {
 
   /**
    * Emits a validate event whenever step switch is triggered.
-   * @internal
-   * TODO: @breaking-change: make protected
    */
-  public validate(eventData: SbbStepValidateEventDetails): boolean {
-    // TODO: @breaking-change: Create a specific event type for this event.
+  protected validate(validate: SbbStepValidateEventDetails): boolean {
+    // FIXME: the name of the event variable appears as event name in the readme
+    //  due to a bug in the custom-elements-manifest library.
+    //  https://github.com/open-wc/custom-elements-manifest/issues/149
     /**
-     * @type {CustomEvent<SbbStepValidateEventDetails>}
+     * @type {SbbStepValidateEvent}
      * The validate event is dispatched when a step change is triggered. Can be canceled to abort the step change.
      */
-    return this.dispatchEvent(
-      new CustomEvent<SbbStepValidateEventDetails>('validate', {
-        bubbles: true,
-        composed: true,
-        cancelable: true,
-        detail: eventData,
-      }),
-    );
+    return this.dispatchEvent(new SbbStepValidateEvent(validate));
   }
 
   /**
    * Configures the step.
-   * @internal
-   * TODO: @breaking-change: make protected
    */
-  public configure(stepperLoaded: boolean): void {
+  protected configure(stepperLoaded: boolean): void {
     if (stepperLoaded) {
       this._assignLabel();
     }
@@ -136,19 +171,11 @@ export class SbbStepElement extends SbbElement {
     const composedPathElements = event
       .composedPath()
       .filter((el) => el instanceof window.HTMLElement);
-    if (composedPathElements.some((el) => this._isGoNextElement(el as HTMLElement))) {
+    if (composedPathElements.some((el) => el.hasAttribute('sbb-stepper-next'))) {
       this.stepper?.next();
-    } else if (composedPathElements.some((el) => this._isGoPreviousElement(el as HTMLElement))) {
+    } else if (composedPathElements.some((el) => el.hasAttribute('sbb-stepper-previous'))) {
       this.stepper?.previous();
     }
-  }
-
-  private _isGoNextElement(element: HTMLElement): boolean {
-    return element.hasAttribute('sbb-stepper-next') && !element.hasAttribute('disabled');
-  }
-
-  private _isGoPreviousElement(element: HTMLElement): boolean {
-    return element.hasAttribute('sbb-stepper-previous') && !element.hasAttribute('disabled');
   }
 
   private _onStepElementResize(): void {
@@ -165,7 +192,6 @@ export class SbbStepElement extends SbbElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.id ||= `sbb-step-${nextId++}`;
     this.slot ||= 'step';
     this._assignLabel();
   }
@@ -197,10 +223,8 @@ export class SbbStepElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-step--wrapper">
-        <div class="sbb-step">
-          <slot></slot>
-        </div>
+      <div class="sbb-step">
+        <slot></slot>
       </div>
     `;
   }

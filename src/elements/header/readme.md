@@ -27,11 +27,11 @@ after it to the right.
 Setting the `expanded` property will cause the `<sbb-header>` component to take up the full width of the page.
 
 To avoid that tabbed/focused elements get hidden behind the header,
-it's recommended to set on the `<html>` tag the CSS property `scroll-padding-top` to `var(--sbb-header-height)` or to a greater value.
+it's recommended to set on the `<html>` tag the CSS property `scroll-padding-top` to `var(--sbb-header-vertical-spacing)` or to a greater value.
 With this, it's ensured that content will be visible all the time.
 
-The component has two sizes, named `m` (default) and `s`.
-For the latter, the usage of the `<sbb-signet>` with `protective-room='panel'` is suggested.
+The component has two sizes `s` and `m`.
+For size `s`, the usage of the `<sbb-signet>` with `protective-room='panel'` is suggested.
 
 ```html
 <sbb-header size="s">
@@ -104,10 +104,9 @@ particularly powerful in the following scenarios:
   <sbb-icon-sidebar-content sbb-header-scroll-origin>
     <sbb-sidebar-container>
       <sbb-sidebar mode="side" opened>...</sbb-sidebar>
-      <sbb-sidebar-content sbb-header-scroll-origin>
-      </sbb-sidebar-content>
+      <sbb-sidebar-content sbb-header-scroll-origin>...</sbb-sidebar-content>
     </sbb-sidebar-container>
-  </sbb-icon-sidebar-contentsbb-header-scroll-origin>
+  </sbb-icon-sidebar-content>
 </sbb-icon-sidebar-container>
 ```
 
@@ -137,7 +136,7 @@ by adding classes to `<sbb-header-button>`/`<sbb-header-link>` elements and then
 All the examples have the following requirements:
 
 1. four action items (with custom icons);
-2. the first item is always left aligned and has `expand-from` set to `small`;
+2. the first item is always left aligned and has `hide-label-below` set to `small`;
 3. the other three items are left aligned in breakpoints zero to large, and right aligned from large to ultra;
 4. the last item is not visible in breakpoints zero to small;
 5. the logo is always aligned to the right.
@@ -176,7 +175,7 @@ Finally, the following custom CSS has been added(\*).
 
 ```html
 <sbb-header>
-  <sbb-header-button icon-name="..." expand-from="small"> ... </sbb-header-button>
+  <sbb-header-button icon-name="..." hide-label-below="small"> ... </sbb-header-button>
 
   <!-- Will be hidden on small screen sizes -->
   <div class="sbb-header-spacer"></div>
@@ -258,13 +257,13 @@ property or via custom content using the `icon` slot.
 <sbb-header-button><sbb-icon slot="icon" name="pie-small" />Another text</sbb-header-button>
 ```
 
-If the component's icon is set, the property `expandFrom` can be used to define the minimum breakpoint
-from which the label is displayed; below that, only the icon is visible.
-Without an icon, the label is always displayed.
+If the component's icon and label are set, the property `hideLabelBelow` can be used to define the maximum (not including) breakpoint
+to which the label is displayed. Below that breakpoint, only the icon is visible.
+Without an icon, the label is always displayed and the property is ignored.
 
 ```html
-<sbb-header-link href="#" expand-from="large" icon-name="pie-small">Text</sbb-header-link>
-<sbb-header-button expand-from="large" icon-name="pie-small">Text</sbb-header-button>
+<sbb-header-link href="#" hide-label-below="large" icon-name="pie-small">Text</sbb-header-link>
+<sbb-header-button hide-label-below="large" icon-name="pie-small">Text</sbb-header-button>
 ```
 
 To indicate an active state, the CSS class `sbb-active` should be used.
@@ -333,17 +332,17 @@ sbb-header-environment {
 
 #### Properties
 
-| Name                | Attribute     | Privacy | Type                      | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| ------------------- | ------------- | ------- | ------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `expandFrom`        | `expand-from` | public  | `SbbHorizontalFrom`       | `'large'`  | Used to set the minimum breakpoint from which the text is displayed. E.g. if set to 'large', the text will be visible for breakpoints large and ultra, and hidden for all the others. Ignored if no icon is set.                                                                                                                                                                                                                                        |
-| `form`              | `form`        | public  | `HTMLFormElement \| null` |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `iconName`          | `icon-name`   | public  | `string`                  | `''`       | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                                                                                                                                                                                                                                                                                        |
-| `name`              | `name`        | public  | `string`                  |            | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
-| `type`              | `type`        | public  | `SbbButtonType`           | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `validationMessage` | -             | public  | `string`                  |            | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
-| `validity`          | -             | public  | `ValidityState`           |            | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `value`             | `value`       | public  | `string`                  | `''`       | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `willValidate`      | -             | public  | `boolean`                 |            | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+| Name                | Attribute          | Privacy | Type                                    | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ------------------ | ------- | --------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `form`              | `form`             | public  | `HTMLFormElement \| null`               |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `hideLabelBelow`    | `hide-label-below` | public  | `'small' \| 'large' \| 'ultra' \| null` | `null`     | Used to set the maximum breakpoint (not including) to which the text is displayed. E.g. if set to 'large', the text will be visible for breakpoints large and ultra, and hidden for all the others. Ignored if no icon is set.                                                                                                                                                                                                                          |
+| `iconName`          | `icon-name`        | public  | `string`                                | `''`       | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                                                                                                                                                                                                                                                                                        |
+| `name`              | `name`             | public  | `string`                                |            | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `type`              | `type`             | public  | `'button' \| 'reset' \| 'submit'`       | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `validationMessage` | -                  | public  | `string`                                |            | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -                  | public  | `ValidityState`                         |            | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | `value`            | public  | `string`                                | `''`       | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `willValidate`      | -                  | public  | `boolean`                               |            | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
 
 #### Methods
 
@@ -352,6 +351,12 @@ sbb-header-environment {
 | `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
 
 #### Slots
 
@@ -364,19 +369,21 @@ sbb-header-environment {
 
 #### Properties
 
-| Name           | Attribute        | Privacy | Type                  | Default            | Description                                                                                                             |
-| -------------- | ---------------- | ------- | --------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `expanded`     | `expanded`       | public  | `boolean`             | `false`            | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size.    |
-| `hideOnScroll` | `hide-on-scroll` | public  | `boolean`             | `false`            | Whether the header should hide and show on scroll.                                                                      |
-| `scrollOrigin` | `scroll-origin`  | public  | `HTMLElement \| null` | `null`             | The element's id or the element on which the scroll listener is attached. For attribute usage, provide an id reference. |
-| `size`         | `size`           | public  | `'m' \| 's'`          | `'m' / 's' (lean)` | Size of the header, either m or s.                                                                                      |
+| Name           | Attribute        | Privacy | Type                  | Default | Description                                                                                                             |
+| -------------- | ---------------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `expanded`     | `expanded`       | public  | `boolean`             | `false` | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size.    |
+| `hideOnScroll` | `hide-on-scroll` | public  | `boolean`             | `false` | Whether the header should hide and show on scroll.                                                                      |
+| `scrollOrigin` | `scroll-origin`  | public  | `HTMLElement \| null` | `null`  | The element's id or the element on which the scroll listener is attached. For attribute usage, provide an id reference. |
+| `size`         | `size`           | public  | `'s' \| 'm' \| null`  | `null`  | Size of the header, either s (lean theme default) or m (standard theme default).                                        |
 
 #### CSS Properties
 
-| Name                   | Default                                                                            | Description                                      |
-| ---------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------ |
-| `--sbb-header-height`  | `zero-small:var(--sbb-spacing-fixed-14x);large-ultra:var(--sbb-spacing-fixed-24x)` | Can be used to modify height of the header.      |
-| `--sbb-header-z-index` | `10`                                                                               | Can be used to modify the z-index of the header. |
+| Name                                                           | Default                                                                            | Description                                                                                                                                                                                                                                                                                                                         |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-header-height`                                          | `zero-small:var(--sbb-spacing-fixed-14x);large-ultra:var(--sbb-spacing-fixed-24x)` | Can be used to modify height of the header.                                                                                                                                                                                                                                                                                         |
+| `--sbb-header-padding-block-start:env(safe-area-inset-top, 0)` |                                                                                    | Defines the header's padding-block-start. It defaults to the device's safe-area inset to prevent the header from being obscured by display cutouts or system UI elements. This variable must be set on the root document element (`<html>`) so that components relying on the header's height can calculate their layout correctly. |
+| `--sbb-header-vertical-spacing`                                |                                                                                    | Readonly; sum of var(--sbb-header-height) and var(--sbb-header-padding-block-start) that can be used to manage spacing of absolute positioned elements that shouldn't overlap the header.                                                                                                                                           |
+| `--sbb-header-z-index`                                         | `10`                                                                               | Can be used to modify the z-index of the header.                                                                                                                                                                                                                                                                                    |
 
 #### Slots
 
@@ -403,16 +410,16 @@ sbb-header-environment {
 
 #### Properties
 
-| Name                   | Attribute               | Privacy | Type                       | Default   | Description                                                                                                                                                                                                      |
-| ---------------------- | ----------------------- | ------- | -------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityCurrent` | `accessibility-current` | public  | `string`                   | `''`      | This will be forwarded as aria-current to the inner anchor element.                                                                                                                                              |
-| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                   | `''`      | This will be forwarded as aria-label to the inner anchor element.                                                                                                                                                |
-| `download`             | `download`              | public  | `boolean`                  | `false`   | Whether the browser will show the download dialog on click.                                                                                                                                                      |
-| `expandFrom`           | `expand-from`           | public  | `SbbHorizontalFrom`        | `'large'` | Used to set the minimum breakpoint from which the text is displayed. E.g. if set to 'large', the text will be visible for breakpoints large and ultra, and hidden for all the others. Ignored if no icon is set. |
-| `href`                 | `href`                  | public  | `string`                   | `''`      | The href value you want to link to.                                                                                                                                                                              |
-| `iconName`             | `icon-name`             | public  | `string`                   | `''`      | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                                                 |
-| `rel`                  | `rel`                   | public  | `string`                   | `''`      | The relationship of the linked URL as space-separated link types.                                                                                                                                                |
-| `target`               | `target`                | public  | `LinkTargetType \| string` | `''`      | Where to display the linked URL.                                                                                                                                                                                 |
+| Name                   | Attribute               | Privacy | Type                                                   | Default | Description                                                                                                                                                                                                                    |
+| ---------------------- | ----------------------- | ------- | ------------------------------------------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                               | `''`    | This will be forwarded as aria-current to the inner anchor element.                                                                                                                                                            |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                               | `''`    | This will be forwarded as aria-label to the inner anchor element.                                                                                                                                                              |
+| `download`             | `download`              | public  | `boolean`                                              | `false` | Whether the browser will show the download dialog on click.                                                                                                                                                                    |
+| `hideLabelBelow`       | `hide-label-below`      | public  | `'small' \| 'large' \| 'ultra' \| null`                | `null`  | Used to set the maximum breakpoint (not including) to which the text is displayed. E.g. if set to 'large', the text will be visible for breakpoints large and ultra, and hidden for all the others. Ignored if no icon is set. |
+| `href`                 | `href`                  | public  | `string`                                               | `''`    | The href value you want to link to.                                                                                                                                                                                            |
+| `iconName`             | `icon-name`             | public  | `string`                                               | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                                                               |
+| `rel`                  | `rel`                   | public  | `string`                                               | `''`    | The relationship of the linked URL as space-separated link types.                                                                                                                                                              |
+| `target`               | `target`                | public  | `'_blank' \| '_self' \| '_parent' \| '_top' \| string` | `''`    | Where to display the linked URL.                                                                                                                                                                                               |
 
 #### Slots
 

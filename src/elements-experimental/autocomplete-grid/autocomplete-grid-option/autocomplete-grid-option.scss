@@ -1,12 +1,26 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
 :host {
+  --sbb-focus-outline-offset: var(--sbb-option-focus-outline-offset);
+
   display: block;
 }
 
 :host(:state(negative)) {
   --sbb-option-color: var(--sbb-color-3-negative);
   --sbb-option-icon-color: var(--sbb-color-5);
+}
+
+:host(:state(size-s)) {
+  --sbb-option-min-height: var(--sbb-size-element-xxs);
+  --sbb-option-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
+  --sbb-option-focus-outline-inset: 0 var(--sbb-spacing-fixed-1x);
+}
+
+:host(:state(size-m)) {
+  --sbb-option-min-height: var(--sbb-size-element-s);
+  --sbb-option-focus-outline-offset: inherit;
+  --sbb-option-focus-outline-inset: var(--sbb-spacing-fixed-1x);
 }
 
 // If highlighting is enabled, hide the original slot content
@@ -17,12 +31,12 @@
 }
 
 :host(:state(active)) {
-  --sbb-option-focus-outline-color: var(--sbb-focus-outline-color);
+  --sbb-option-focus-outline-display: block;
 }
 
 .sbb-option {
   font-size: var(--sbb-option-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
   position: relative;
   display: flex;
   align-items: center;
@@ -35,19 +49,19 @@
   // We use the pseudo element to display the focus outline (inline in this case)
   &::after {
     content: '';
-    display: block;
+    display: var(--sbb-option-focus-outline-display, none);
     position: absolute;
     inset: var(--sbb-option-focus-outline-inset);
     pointer-events: none;
-    border: var(--sbb-focus-outline-width) solid var(--sbb-option-focus-outline-color);
+    border: var(--sbb-focus-outline-width) solid var(--sbb-focus-outline-color);
     border-radius: var(--sbb-option-border-radius);
   }
 }
 
 .sbb-option__label--highlight {
   :host(:not(:state(disabled))) & {
-    @include sbb.text--bold;
-    @include sbb.if-forced-colors {
+    font-weight: bold;
+    @media (forced-colors: active) {
       color: Highlight;
     }
   }

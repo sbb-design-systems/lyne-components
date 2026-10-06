@@ -1,14 +1,13 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
+import type { SbbButtonElement } from '../../button.ts';
 import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
-
-import type { SbbDialogElement } from './dialog.component.ts';
+import type { SbbDialogElement } from '../../dialog.ts';
 
 import '../../dialog.ts';
 
-import '../../link/block-link.ts';
-import '../../button/button.ts';
-import '../../button/secondary-button.ts';
+import '../../link.ts';
+import '../../button.ts';
 
 describe(`sbb-dialog`, () => {
   const negativeCases = [false, true];
@@ -24,27 +23,32 @@ describe(`sbb-dialog`, () => {
         author that wrote it was a terrific friend of yours and you could call him up on the phone
         whenever you felt like it.
       </p>
-      ${longContent
-        ? html`
-            <p>
-              What really knocks me out is a book that, when you're all done reading it, you wish
-              the author that wrote it was a terrific friend of yours and you could call him up on
-              the phone whenever you felt like it. That doesn't happen much, though.” ― J.D.
-              Salinger, The Catcher in the Rye
-            </p>
-          `
-        : nothing}
+      ${
+        longContent
+          ? html`
+              <p>
+                “What really knocks me out is a book that, when you're all done reading it, you wish
+                the author that wrote it was a terrific friend of yours and you could call him up on
+                the phone whenever you felt like it. That doesn't happen much, though. What really
+                knocks me out is a book that, when you're all done reading it, you wish the author
+                that wrote it was a terrific friend of yours and you could call him up on the phone
+                whenever you felt like it. That doesn't happen much, though.” ― J.D. Salinger, The
+                Catcher in the Rye
+              </p>
+            `
+          : nothing
+      }
     </sbb-dialog-content>
   `;
 
-  const dialogFooter = (negative = false, alignGroup = 'stretch'): TemplateResult => html`
-    <sbb-dialog-actions align-group=${alignGroup} orientation="vertical" horizontal-from="large">
+  const dialogFooter = (negative = false, justifyContent = 'end'): TemplateResult => html`
+    <sbb-dialog-actions style="justify-content: ${justifyContent}">
       <sbb-block-link
-        align-self="start"
         icon-name="chevron-small-left-small"
         href="https://www.sbb.ch/en/"
         ?negative=${negative}
         sbb-dialog-close
+        style=${justifyContent === 'end' ? `margin-inline-end: auto;` : nothing}
       >
         Link
       </sbb-block-link>
@@ -62,17 +66,19 @@ describe(`sbb-dialog`, () => {
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(
                 html`
-                  <sbb-dialog ?negative=${negative}>
+                  <sbb-button id="trigger">Trigger</sbb-button>
+                  <sbb-dialog ?negative="${negative}" trigger="trigger">
                     ${dialogTitle()}
                     <sbb-dialog-close-button></sbb-dialog-close-button>
                     ${dialogContent()} ${dialogFooter(negative)}
                   </sbb-dialog>
                 `,
-                { darkMode },
+                { darkMode, minHeight: '600px' },
               );
-              const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
-              setup.withSnapshotElement(dialog);
-              setup.withPostSetupAction(() => dialog.open());
+              setup.withPostSetupAction(() => {
+                const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
+                button.click();
+              });
             }),
           );
         }
@@ -82,60 +88,78 @@ describe(`sbb-dialog`, () => {
     it(
       `no footer`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-dialog> ${dialogTitle()} ${dialogContent()} </sbb-dialog>
-        `);
-        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
-        setup.withSnapshotElement(dialog);
-        setup.withPostSetupAction(() => dialog.open());
+        await setup.withFixture(
+          html`
+            <sbb-button id="trigger">Trigger</sbb-button>
+            <sbb-dialog trigger="trigger"> ${dialogTitle()} ${dialogContent()} </sbb-dialog>
+          `,
+          { minHeight: '600px' },
+        );
+        setup.withPostSetupAction(() => {
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
+          button.click();
+        });
       }),
     );
 
     it(
       `no title with close button`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-dialog>
-            <sbb-dialog-close-button></sbb-dialog-close-button>
-            ${dialogContent()}
-          </sbb-dialog>
-        `);
-        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
-        setup.withSnapshotElement(dialog);
-        setup.withPostSetupAction(() => dialog.open());
+        await setup.withFixture(
+          html`
+            <sbb-button id="trigger">Trigger</sbb-button>
+            <sbb-dialog trigger="trigger">
+              <sbb-dialog-close-button></sbb-dialog-close-button>
+              ${dialogContent()}
+            </sbb-dialog>
+          `,
+          { minHeight: '600px' },
+        );
+        setup.withPostSetupAction(() => {
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
+          button.click();
+        });
       }),
     );
 
     it(
       `long content`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-dialog>
-            ${dialogTitle()}
-            <sbb-dialog-close-button></sbb-dialog-close-button>
-            ${dialogContent(true)} ${dialogFooter()}
-          </sbb-dialog>
-        `);
-        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
-        setup.withSnapshotElement(dialog);
-        setup.withPostSetupAction(() => dialog.open());
+        await setup.withFixture(
+          html`
+            <sbb-button id="trigger">Trigger</sbb-button>
+            <sbb-dialog trigger="trigger">
+              ${dialogTitle()}
+              <sbb-dialog-close-button></sbb-dialog-close-button>
+              ${dialogContent(true)} ${dialogFooter()}
+            </sbb-dialog>
+          `,
+          { minHeight: '600px' },
+        );
+        setup.withPostSetupAction(() => {
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
+          button.click();
+        });
       }),
     );
 
     it(
       `long content scrolled`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-dialog>
-            ${dialogTitle()}
-            <sbb-dialog-close-button></sbb-dialog-close-button>
-            ${dialogContent(true)} ${dialogFooter()}
-          </sbb-dialog>
-        `);
-        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
-        setup.withSnapshotElement(dialog);
+        await setup.withFixture(
+          html`
+            <sbb-button id="trigger">Trigger</sbb-button>
+            <sbb-dialog trigger="trigger">
+              ${dialogTitle()}
+              <sbb-dialog-close-button></sbb-dialog-close-button>
+              ${dialogContent(true)} ${dialogFooter()}
+            </sbb-dialog>
+          `,
+          { minHeight: '600px' },
+        );
         setup.withPostSetupAction(() => {
-          dialog.open();
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
+          button.click();
           const content = setup.snapshotElement.querySelector('sbb-dialog-content')!;
           content.scrollTo(0, content.scrollHeight);
         });
@@ -145,15 +169,20 @@ describe(`sbb-dialog`, () => {
     it(
       `backdrop=translucent`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <p>Other content visible in the background</p>
-          <sbb-dialog backdrop="translucent">
-            ${dialogTitle()} ${dialogContent()} ${dialogFooter()}
-          </sbb-dialog>
-        `);
-        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
-        setup.withSnapshotElement(dialog);
-        setup.withPostSetupAction(() => dialog.open());
+        await setup.withFixture(
+          html`
+            <p>Other content visible in the background</p>
+            <sbb-button id="trigger">Trigger</sbb-button>
+            <sbb-dialog trigger="trigger" backdrop="translucent">
+              ${dialogTitle()} ${dialogContent()} ${dialogFooter(false, 'end')}
+            </sbb-dialog>
+          `,
+          { minHeight: '600px' },
+        );
+        setup.withPostSetupAction(() => {
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
+          button.click();
+        });
       }),
     );
 
@@ -161,13 +190,18 @@ describe(`sbb-dialog`, () => {
       `forcedColors=true`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<sbb-dialog>${dialogTitle()} ${dialogContent()} ${dialogFooter()} </sbb-dialog>`,
-          { forcedColors: true },
+          html`
+            <sbb-button id="trigger">Trigger</sbb-button>
+            <sbb-dialog trigger="trigger">
+              ${dialogTitle()} ${dialogContent()} ${dialogFooter()}
+            </sbb-dialog>
+          `,
+          { forcedColors: true, minHeight: '600px' },
         );
-
-        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
-        setup.withSnapshotElement(dialog);
-        setup.withPostSetupAction(() => dialog.open());
+        setup.withPostSetupAction(() => {
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
+          button.click();
+        });
       }),
     );
 
@@ -175,14 +209,40 @@ describe(`sbb-dialog`, () => {
       `with align-group=end on sbb-dialog-actions`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
-          html`<sbb-dialog
-            >${dialogTitle()} ${dialogContent()} ${dialogFooter(false, 'end')}
-          </sbb-dialog>`,
+          html`
+            <sbb-button id="trigger">Trigger</sbb-button>
+            <sbb-dialog trigger="trigger">
+              ${dialogTitle()} ${dialogContent()} ${dialogFooter(false, 'end')}
+            </sbb-dialog>
+          `,
+          { minHeight: '600px' },
         );
+        setup.withPostSetupAction(() => {
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
+          button.click();
+        });
+      }),
+    );
 
-        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
-        setup.withSnapshotElement(dialog);
-        setup.withPostSetupAction(() => dialog.open());
+    it(
+      'set dimensions',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-button id="trigger">Trigger</sbb-button>
+            <sbb-dialog id="dialog" trigger="trigger">
+              ${dialogTitle()} ${dialogContent()}
+            </sbb-dialog>
+          `,
+          { minHeight: '600px' },
+        );
+        setup.withPostSetupAction(() => {
+          const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('#dialog')!;
+          dialog.style.setProperty('--sbb-dialog-width', '50%');
+          dialog.style.setProperty('--sbb-dialog-height', '400px');
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
+          button.click();
+        });
       }),
     );
 
@@ -198,21 +258,26 @@ describe(`sbb-dialog`, () => {
         it(
           `with intermediate element`,
           visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(html`
-              <sbb-dialog negative>
-                <div>
-                  ${title ? dialogTitle() : nothing}
-                  ${closeButton
-                    ? html`<sbb-dialog-close-button></sbb-dialog-close-button>`
-                    : nothing}
-                  ${dialogContent(true)} ${dialogFooter()}
-                </div>
-              </sbb-dialog>
-            `);
-            const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
-            setup.withSnapshotElement(dialog);
+            await setup.withFixture(
+              html`
+                <sbb-button id="trigger">Trigger</sbb-button>
+                <sbb-dialog trigger="trigger" negative>
+                  <div>
+                    ${title ? dialogTitle() : nothing}
+                    ${
+                      closeButton
+                        ? html`<sbb-dialog-close-button></sbb-dialog-close-button>`
+                        : nothing
+                    }
+                    ${dialogContent(true)} ${dialogFooter()}
+                  </div>
+                </sbb-dialog>
+              `,
+              { minHeight: '600px' },
+            );
             setup.withPostSetupAction(() => {
-              dialog.open();
+              const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
+              button.click();
               const content = setup.snapshotElement.querySelector('sbb-dialog-content')!;
               content.scrollTo(0, content.scrollHeight);
             });

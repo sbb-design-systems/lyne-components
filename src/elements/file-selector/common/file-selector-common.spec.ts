@@ -7,9 +7,10 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import { SbbFileSelectorElement } from '../file-selector/file-selector.component.ts';
 import type { SbbFileSelectorDropzoneElement } from '../file-selector-dropzone/file-selector-dropzone.component.ts';
 
-import '../../file-selector.ts';
+import type { SbbFileChangeEvent } from './file-selector-common.ts';
 
-import '../../button/secondary-button.ts';
+import '../../file-selector.ts';
+import '../../button.ts';
 
 function createDataTransfer(
   numberOfFiles: number,
@@ -61,7 +62,8 @@ describe(`sbb-file-selector-common`, () => {
       let elemChangeEvent: EventSpy<Event>,
         elemInputEvent: EventSpy<Event>,
         nativeChangeEvent: EventSpy<Event>,
-        nativeInputEvent: EventSpy<Event>;
+        nativeInputEvent: EventSpy<Event>,
+        fileChangedEvent: EventSpy<SbbFileChangeEvent>;
 
       beforeEach(async () => {
         /* eslint-disable lit/binding-positions */
@@ -84,6 +86,7 @@ describe(`sbb-file-selector-common`, () => {
         elemInputEvent = new EventSpy('input', element);
         nativeChangeEvent = new EventSpy('change', input);
         nativeInputEvent = new EventSpy('input', input);
+        fileChangedEvent = new EventSpy(SbbFileSelectorElement.events.filechanged);
 
         await waitForLitRender(form);
       });
@@ -144,12 +147,11 @@ describe(`sbb-file-selector-common`, () => {
       });
 
       it('loads a file, then deletes it', async () => {
-        const fileChangedSpy = new EventSpy(SbbFileSelectorElement.events.filechanged);
         addFiles(element, 1);
         addFiles(input, 1);
         await waitForLitRender(form);
 
-        expect(fileChangedSpy.count).to.be.equal(1);
+        expect(fileChangedEvent.count).to.be.equal(1);
         expect(element.files.length).to.be.equal(1);
         compareToNativeInput();
 
@@ -165,7 +167,6 @@ describe(`sbb-file-selector-common`, () => {
               </span>
               <sbb-secondary-button aria-label="Remove file - hello0.txt"
                                     icon-name="trash-small"
-                                    size="m"
                                     tabindex="0">
               </sbb-secondary-button>
             </span>
@@ -180,18 +181,17 @@ describe(`sbb-file-selector-common`, () => {
         await waitForLitRender(form);
 
         const files = element.shadowRoot!.querySelectorAll('.sbb-file-selector__file');
-        expect(fileChangedSpy.count).to.be.equal(2);
+        expect(fileChangedEvent.count).to.be.equal(2);
         expect(files.length).to.be.equal(0);
         compareToNativeInput();
       });
 
       it('loads a file, then reset the form', async () => {
-        const fileChangedSpy = new EventSpy(SbbFileSelectorElement.events.filechanged);
         addFiles(element, 1);
         addFiles(input, 1);
         await waitForLitRender(form);
 
-        expect(fileChangedSpy.count).to.be.equal(1);
+        expect(fileChangedEvent.count).to.be.equal(1);
         expect(element.files.length).to.be.equal(1);
         compareToNativeInput();
 
@@ -212,14 +212,13 @@ describe(`sbb-file-selector-common`, () => {
       });
 
       it('loads more than one file in multiple mode', async () => {
-        const fileChangedSpy = new EventSpy(SbbFileSelectorElement.events.filechanged);
         element.multiple = true;
         input.multiple = true;
         await waitForLitRender(form);
         addFiles(element, 2);
         addFiles(input, 2);
         await waitForLitRender(form);
-        expect(fileChangedSpy.count).to.be.equal(1);
+        expect(fileChangedEvent.count).to.be.equal(1);
         compareToNativeInput();
 
         const listItems = element.shadowRoot!.querySelectorAll('li');
@@ -238,13 +237,12 @@ describe(`sbb-file-selector-common`, () => {
       });
 
       it('loads files in multiple persistent mode', async () => {
-        const fileChangedSpy = new EventSpy(SbbFileSelectorElement.events.filechanged);
         element.multiple = true;
         element.multipleMode = 'persistent';
         await waitForLitRender(form);
         addFiles(element, 1);
         await waitForLitRender(form);
-        expect(fileChangedSpy.count).to.be.equal(1);
+        expect(fileChangedEvent.count).to.be.equal(1);
 
         const filesDetails = element.shadowRoot!.querySelectorAll(
           '.sbb-file-selector__file-details',
@@ -267,7 +265,7 @@ describe(`sbb-file-selector-common`, () => {
         filesName = element.shadowRoot!.querySelectorAll('.sbb-file-selector__file-name');
         filesSize = element.shadowRoot!.querySelectorAll('.sbb-file-selector__file-size');
 
-        expect(fileChangedSpy.count).to.be.equal(2);
+        expect(fileChangedEvent.count).to.be.equal(2);
         expect(files.length).to.be.equal(2);
         expect(filesName[0]).dom.text('hello1.txt');
         expect(filesSize[0]).dom.text('3 kB');
@@ -331,6 +329,9 @@ describe(`sbb-file-selector-common`, () => {
         await waitForLitRender(element);
 
         expect(element.files.length).to.be.equal(1);
+        expect(fileChangedEvent.count).to.be.equal(1);
+        expect(elemInputEvent.count).to.be.equal(1);
+        expect(elemChangeEvent.count).to.be.equal(1);
       });
 
       it('should block multiple files drop when multiple=false', async () => {
@@ -350,6 +351,9 @@ describe(`sbb-file-selector-common`, () => {
         await waitForLitRender(element);
 
         expect(element.files.length).to.be.equal(0);
+        expect(fileChangedEvent.count).to.be.equal(0);
+        expect(elemInputEvent.count).to.be.equal(0);
+        expect(elemChangeEvent.count).to.be.equal(0);
       });
 
       it('should allow correct file type drop', async () => {
@@ -370,6 +374,9 @@ describe(`sbb-file-selector-common`, () => {
         await waitForLitRender(element);
 
         expect(element.files.length).to.be.equal(1);
+        expect(fileChangedEvent.count).to.be.equal(1);
+        expect(elemInputEvent.count).to.be.equal(1);
+        expect(elemChangeEvent.count).to.be.equal(1);
       });
 
       it('should block wrong file types drop', async () => {
@@ -391,6 +398,9 @@ describe(`sbb-file-selector-common`, () => {
         await waitForLitRender(element);
 
         expect(element.files.length).to.be.equal(0);
+        expect(fileChangedEvent.count).to.be.equal(0);
+        expect(elemInputEvent.count).to.be.equal(0);
+        expect(elemChangeEvent.count).to.be.equal(0);
       });
 
       it('should allow correct file type drop when multiple=true', async () => {
@@ -413,6 +423,9 @@ describe(`sbb-file-selector-common`, () => {
         await waitForLitRender(element);
 
         expect(element.files.length).to.be.equal(2);
+        expect(fileChangedEvent.count).to.be.equal(1);
+        expect(elemInputEvent.count).to.be.equal(1);
+        expect(elemChangeEvent.count).to.be.equal(1);
       });
 
       it('should block wrong file types drop when multiple = true', async () => {
@@ -436,6 +449,9 @@ describe(`sbb-file-selector-common`, () => {
         await waitForLitRender(element);
 
         expect(element.files.length).to.be.equal(0);
+        expect(fileChangedEvent.count).to.be.equal(0);
+        expect(elemInputEvent.count).to.be.equal(0);
+        expect(elemChangeEvent.count).to.be.equal(0);
       });
     });
   });

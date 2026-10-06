@@ -7,8 +7,9 @@ import {
   visualDiffStandardStates,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
+import type { SbbBlockLinkButtonElement } from '../../link.ts';
 
-import '../block-link-button.ts';
+import '../../link.ts';
 
 describe(`sbb-block-link-button`, () => {
   const cases = {
@@ -27,12 +28,14 @@ describe(`sbb-block-link-button`, () => {
   };
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    for (const size of ['xs', 's', 'm']) {
+    for (const size of [null, 'xs', 's', 'm'] satisfies SbbBlockLinkButtonElement['size'][]) {
       it(
         `size=${size} ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-block-link-button size=${size}>Travelcards & tickets</sbb-block-link-button>`,
+            html`<sbb-block-link-button size=${size || nothing}
+              >Travelcards & tickets</sbb-block-link-button
+            >`,
           );
         }),
       );
@@ -78,9 +81,11 @@ describe(`sbb-block-link-button`, () => {
               icon-name=${slotted ? nothing : 'chevron-small-right-small'}
               icon-placement=${iconPlacement}
             >
-              ${slotted
-                ? html`<sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>`
-                : nothing}
+              ${
+                slotted
+                  ? html`<sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>`
+                  : nothing
+              }
               Travelcards & tickets
             </sbb-block-link-button>
           `);

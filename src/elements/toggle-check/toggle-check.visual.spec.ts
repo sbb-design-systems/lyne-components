@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import {
   describeEach,
@@ -6,6 +6,8 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../core/testing/private.ts';
+
+import type { SbbToggleCheckElement } from './toggle-check.component.ts';
 
 import '../icon.ts';
 import '../title.ts';
@@ -18,7 +20,7 @@ describe(`sbb-toggle-check`, () => {
   Pellentesque urna justo, lacinia at velit eu, sagittis tempus nibh.
   Quisque vitae massa et turpis fermentum tristique.`;
 
-  const sizeCases = { size: ['xs', 's', 'm'] };
+  const sizeCases = { size: [null, 'xs', 's', 'm'] satisfies SbbToggleCheckElement['size'][] };
 
   const cases = {
     ...sizeCases,
@@ -31,7 +33,7 @@ describe(`sbb-toggle-check`, () => {
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-toggle-check size=${size}>
+            <sbb-toggle-check size=${size || nothing}>
               ${label !== 'Long label' ? label : longLabel}
             </sbb-toggle-check>
           `);

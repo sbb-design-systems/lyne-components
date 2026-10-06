@@ -2,21 +2,16 @@
 export const snapshots = {};
 
 snapshots["sbb-step renders DOM"] = 
-`<sbb-step
-  id="sbb-step-0"
-  slot="step"
->
+`<sbb-step slot="step">
   Step content
 </sbb-step>
 `;
 /* end snapshot sbb-step renders DOM */
 
 snapshots["sbb-step renders Shadow DOM"] = 
-`<div class="sbb-step--wrapper">
-  <div class="sbb-step">
-    <slot>
-    </slot>
-  </div>
+`<div class="sbb-step">
+  <slot>
+  </slot>
 </div>
 `;
 /* end snapshot sbb-step renders Shadow DOM */

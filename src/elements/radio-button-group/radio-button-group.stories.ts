@@ -1,12 +1,13 @@
-import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
+import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbErrorElement } from '../form-field.ts';
+import type { SbbRadioButtonElement } from '../radio-button.ts';
 
 import type { SbbRadioButtonGroupElement } from './radio-button-group.component.ts';
 import readme from './readme.md?raw';
@@ -23,7 +24,8 @@ const suffixStyle: Readonly<StyleInfo> = {
   marginInlineStart: 'auto',
 };
 
-const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
+const cardBadge = (): TemplateResult =>
+  html`<sbb-card-badge aria-label="Special offer">%</sbb-card-badge>`;
 
 const suffixAndSubtext = (): TemplateResult => html`
   <span slot="subtext">Subtext</span>
@@ -82,7 +84,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xs', 's', 'm'],
+  options: ['xs', 's', 'm'] satisfies SbbRadioButtonGroupElement['size'][],
 };
 
 const ariaLabel: InputType = {
@@ -111,8 +113,20 @@ const defaultArgs: Args = {
   'allow-empty-selection': false,
   orientation: orientation.options![0],
   'horizontal-from': undefined,
-  size: size.options![2],
+  size: undefined,
   'aria-label': undefined,
+};
+
+const complexValues = [
+  { id: 1, name: 'Option 1' },
+  { id: 2, name: 'Option 2' },
+  { id: 3, name: 'Option 3' },
+];
+
+const changeEventHandler = (event: Event): void => {
+  const div = document.createElement('div');
+  div.innerText = `current value is: ${JSON.stringify((event.target as SbbRadioButtonElement).value)}`;
+  document.getElementById('container-value')!.append(div);
 };
 
 const radioButtons = (): TemplateResult => html`
@@ -132,6 +146,20 @@ const radioButtonPanels = (): TemplateResult => html`
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
   <sbb-radio-button-group ${sbbSpread(args)}>${radioButtons()}</sbb-radio-button-group>
+`;
+
+const CompareWithTemplate = ({ ...args }: Args): TemplateResult => html`
+  <sbb-radio-button-group
+    .compareWith=${(v1: (typeof complexValues)[number] | null, v2: (typeof complexValues)[number] | null) => v1?.id === v2?.id}
+    .value=${{ id: 1 }}
+    @change=${(event: Event) => changeEventHandler(event)}
+    ${sbbSpread(args)}
+  >
+    ${complexValues.map((v) => html`<sbb-radio-button .value=${v}>${v.name}</sbb-radio-button>`)}
+  </sbb-radio-button-group>
+  <div id="container-value" style="margin-block-start: 2rem; color: var(--sbb-color-smoke);">
+    <div>current value is: {"id":1}</div>
+  </div>
 `;
 
 const PanelTemplate = (args: Args): TemplateResult => html`
@@ -209,6 +237,12 @@ export const AllowEmptySelection: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, value: undefined, 'allow-empty-selection': true },
+};
+
+export const CompareWith: StoryObj = {
+  render: CompareWithTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, value: undefined },
 };
 
 export const ErrorMessage: StoryObj = {

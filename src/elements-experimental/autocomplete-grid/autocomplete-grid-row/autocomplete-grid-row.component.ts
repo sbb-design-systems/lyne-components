@@ -1,20 +1,20 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { SbbElement } from '@sbb-esta/lyne-elements/core.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import style from './autocomplete-grid-row.scss?lit&inline';
+import style from './autocomplete-grid-row.scss?inline';
 
 let autocompleteRowNextId = 0;
 
 /**
  * The component is used as a wrapper for options and action buttons.
  *
+ * @deprecated Use `sbb-autocomplete` with `sbb-autocomplete-row` and `sbb-autocomplete-button` instead. Will be removed with the next major release.
  * @slot - Use the unnamed slot to add a `sbb-autocomplete-grid-option` and a `sbb-autocomplete-grid-cell` with one or more `sbb-autocomplete-grid-button`.
  */
 export class SbbAutocompleteGridRowElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-autocomplete-grid-row';
   public static override readonly role = 'row';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   public override connectedCallback(): void {
     super.connectedCallback();

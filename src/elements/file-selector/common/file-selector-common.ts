@@ -1,39 +1,52 @@
-import type { TemplateResult } from 'lit';
-import { nothing } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonStaticElement } from '../../button.ts';
-import { sbbInputModalityDetector } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
-import { forwardEvent } from '../../core/eventing.ts';
 import {
+  SbbSecondaryButtonElement,
+  type SbbSecondaryButtonStaticElement,
+} from '../../button.pure.ts';
+import {
+  type AbstractConstructor,
+  forceType,
+  type FormRestoreReason,
+  type FormRestoreState,
+  forwardEvent,
   i18nFileSelectorButtonLabel,
   i18nFileSelectorButtonLabelMultiple,
   i18nFileSelectorCurrentlySelected,
   i18nFileSelectorDeleteFile,
-} from '../../core/i18n.ts';
-import {
-  type Constructor,
-  type FormRestoreReason,
-  type FormRestoreState,
   SbbDisabledMixin,
+  SbbElement,
+  type SbbElementConstructor,
+  type SbbElementType,
   SbbFormAssociatedMixin,
+  sbbInputModalityDetector,
+  SbbLanguageController,
+  screenReaderOnlyStyles,
   ɵstateController,
-} from '../../core/mixins.ts';
+} from '../../core.ts';
 
-import '../../button/secondary-button.ts';
+import style from './file-selector-common.scss?inline';
 
-export { default as fileSelectorCommonStyle } from './file-selector-common.scss?lit&inline';
+export class SbbFileChangeEvent extends Event {
+  private readonly _files: readonly File[];
+
+  public get files(): readonly File[] {
+    return this._files;
+  }
+
+  public constructor(files: readonly File[]) {
+    super('filechanged', { bubbles: true, composed: true });
+    this._files = Object.freeze(files || []);
+  }
+}
 
 export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbDisabledMixin(
   SbbFormAssociatedMixin(SbbElement),
 ) {
-  public accessor size: 's' | 'm';
+  public accessor size: 's' | 'm' | null;
   public accessor multiple: boolean;
   public accessor multipleMode: 'default' | 'persistent';
   public accessor accept: string;
@@ -51,22 +64,25 @@ export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbD
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFileSelectorCommonElementMixin = <T extends Constructor<SbbElement>>(
+export const SbbFileSelectorCommonElementMixin = <
+  T extends AbstractConstructor<SbbElement> & SbbElementConstructor,
+>(
   superclass: T,
-): Constructor<SbbFileSelectorCommonElementMixinType> & T => {
+): AbstractConstructor<SbbFileSelectorCommonElementMixinType> & T => {
   abstract class SbbFileSelectorCommonElement
     extends SbbDisabledMixin(SbbFormAssociatedMixin(superclass))
     implements Partial<SbbFileSelectorCommonElementMixinType>
   {
+    public static override elementDependencies: SbbElementType[] = [SbbSecondaryButtonElement];
     public static readonly events = {
       filechanged: 'filechanged',
     } as const;
+    public static styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
     /**
-     * Size variant, either s or m.
-     * @default 'm' / 's' (lean)
+     * Size variant, either s (lean theme default) or m (standard theme default).
      */
-    @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
+    @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 
     /** Whether more than one file can be selected. */
     @forceType()
@@ -184,7 +200,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<SbbEleme
       forwardEvent(event, this);
     }
 
-    protected createFileList(files: FileList): void {
+    protected createFileList(files: FileList, emitNativeEvents = false): void {
       const fileArray = Array.from(files);
       if (
         (!this.multiple && files.length > 1) ||
@@ -214,6 +230,9 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<SbbEleme
       }
       this._updateA11yLiveRegion();
       this._dispatchFileChangedEvent();
+      if (emitNativeEvents) {
+        this._dispatchNativeEvents();
+      }
     }
 
     protected getButtonLabel(): string {
@@ -227,6 +246,11 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<SbbEleme
       this._updateA11yLiveRegion();
 
       // Dispatch native events as if the reset is done via the file selection window.
+      this._dispatchNativeEvents();
+      this._dispatchFileChangedEvent();
+    }
+
+    private _dispatchNativeEvents(): void {
       /** The input event fires when the value has been changed as a direct result of a user action. */
       this.dispatchEvent(
         new InputEvent('input', {
@@ -241,21 +265,18 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<SbbEleme
        * for each alteration to an element's value.
        */
       this.dispatchEvent(new Event('change', { bubbles: true }));
-      this._dispatchFileChangedEvent();
     }
 
     private _dispatchFileChangedEvent(): void {
+      // FIXME: the name of this variable appears as event name in the readme
+      //  due to a bug in the custom-elements-manifest library.
+      //  https://github.com/open-wc/custom-elements-manifest/issues/149
+      const filechanged = this.files;
       /**
-       * @type {CustomEvent<Readonly<File>[]>}
+       * @type {SbbFileChangeEvent}
        * An event which is emitted each time the file list changes.
        */
-      this.dispatchEvent(
-        new CustomEvent<Readonly<File>[]>('filechanged', {
-          bubbles: true,
-          composed: true,
-          detail: this.files,
-        }),
-      );
+      this.dispatchEvent(new SbbFileChangeEvent(filechanged));
     }
 
     /** Calculates the correct unit for the file's size. */
@@ -278,19 +299,19 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<SbbEleme
 
       /* eslint-disable lit/binding-positions */
       return html`
-      <${unsafeStatic(TAG_NAME.WRAPPER)} class='sbb-file-selector__file-list'>
+      <${unsafeStatic(TAG_NAME.WRAPPER)} class="sbb-file-selector__file-list">
         ${this.files.map(
           (file: Readonly<File>) => html`
-            <${unsafeStatic(TAG_NAME.ELEMENT)} class='sbb-file-selector__file'>
-                <span class='sbb-file-selector__file-details'>
-                  <span class='sbb-file-selector__file-name'>${file.name}</span>
-                  <span class='sbb-file-selector__file-size'>${this._formatFileSize(file.size)}</span>
+            <${unsafeStatic(TAG_NAME.ELEMENT)} class="sbb-file-selector__file">
+                <span class="sbb-file-selector__file-details">
+                  <span class="sbb-file-selector__file-name">${file.name}</span>
+                  <span class="sbb-file-selector__file-size">${this._formatFileSize(file.size)}</span>
                 </span>
               <sbb-secondary-button
-                size='${this.size}'
-                icon-name='trash-small'
-                @click='${() => this._removeFile(file)}'
-                aria-label='${`${i18nFileSelectorDeleteFile[this.language.current]} - ${file.name}`}'
+                size=${this.size || nothing}
+                icon-name="trash-small"
+                @click=${() => this._removeFile(file)}
+                aria-label=${`${i18nFileSelectorDeleteFile[this.language.current]} - ${file.name}`}
               ></sbb-secondary-button>
             </${unsafeStatic(TAG_NAME.ELEMENT)}>`,
         )}
@@ -325,7 +346,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<SbbEleme
       if (!this.disabled && !this.formDisabled) {
         this._setDragState();
         this._blockEvent(event);
-        this.createFileList(event.dataTransfer!.files);
+        this.createFileList(event.dataTransfer!.files, true);
       }
     }
 
@@ -348,44 +369,42 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<SbbEleme
         ? `${this.getButtonLabel()} - ${this.accessibilityLabel}`
         : undefined;
       return html`
-        <div class="sbb-file-selector">
-          <div
-            class="sbb-file-selector__input-container"
-            @dragenter=${this._onDragEnter}
-            @dragover=${this._blockEvent}
-            @dragleave=${this._onDragLeave}
-            @drop=${this._onFileDrop}
-          >
-            ${this.renderTemplate(
-              html`<input
-                class="sbb-file-selector__visually-hidden"
-                type="file"
-                ?disabled="${this.disabled || this.formDisabled}"
-                ?multiple="${this.multiple}"
-                accept="${this.accept || nothing}"
-                aria-label="${ariaLabel || nothing}"
-                @change="${this._readFiles}"
-                @focus="${this._onFocus}"
-                @blur="${this._onBlur}"
-                ${ref((el?: Element): void => {
-                  this._hiddenInput = el as HTMLInputElement;
-                })}
-              />`,
-            )}
-          </div>
-          <p
-            role="status"
-            class="sbb-file-selector__visually-hidden"
-            ${ref((p?: Element) => (this._liveRegion = p as HTMLParagraphElement))}
-          ></p>
-          ${this.files.length > 0 ? this._renderFileList() : nothing}
-          <div class="sbb-file-selector__error">
-            <slot name="error"></slot>
-          </div>
+        <div
+          class="sbb-file-selector__input-container"
+          @dragenter=${this._onDragEnter}
+          @dragover=${this._blockEvent}
+          @dragleave=${this._onDragLeave}
+          @drop=${this._onFileDrop}
+        >
+          ${this.renderTemplate(
+            html`<input
+              class="sbb-screen-reader-only"
+              type="file"
+              ?disabled=${this.disabled || this.formDisabled}
+              ?multiple=${this.multiple}
+              accept=${this.accept || nothing}
+              aria-label=${ariaLabel || nothing}
+              @change=${this._readFiles}
+              @focus=${this._onFocus}
+              @blur=${this._onBlur}
+              ${ref((el?: Element): void => {
+                this._hiddenInput = el as HTMLInputElement;
+              })}
+            />`,
+          )}
+        </div>
+        <p
+          role="status"
+          class="sbb-screen-reader-only"
+          ${ref((p?: Element) => (this._liveRegion = p as HTMLParagraphElement))}
+        ></p>
+        ${this.files.length > 0 ? this._renderFileList() : nothing}
+        <div class="sbb-file-selector__error">
+          <slot name="error"></slot>
         </div>
       `;
     }
   }
-  return SbbFileSelectorCommonElement as unknown as Constructor<SbbFileSelectorCommonElementMixinType> &
+  return SbbFileSelectorCommonElement as unknown as AbstractConstructor<SbbFileSelectorCommonElementMixinType> &
     T;
 };

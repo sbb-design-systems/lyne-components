@@ -3,8 +3,8 @@ import type {
   ArgTypes,
   Decorator,
   Meta,
-  StoryObj,
   StoryContext,
+  StoryObj,
 } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
@@ -12,14 +12,14 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbFormFieldElement } from '../form-field.ts';
 
 import readme from './readme.md?raw';
 import type { SbbTimeInputElement } from './time-input.component.ts';
 
 import '../time-input.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../form-field.ts';
 
 const updateOutput = (timeInput: SbbTimeInputElement): void => {
@@ -87,7 +87,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm', 'l'],
+  options: ['s', 'm', 'l'] satisfies SbbFormFieldElement['size'][],
   table: {
     category: 'Form-field',
   },
@@ -105,15 +105,6 @@ const negative: InputType = {
 const label: InputType = {
   control: {
     type: 'text',
-  },
-  table: {
-    category: 'Form-field',
-  },
-};
-
-const optional: InputType = {
-  control: {
-    type: 'boolean',
   },
   table: {
     category: 'Form-field',
@@ -158,7 +149,6 @@ const formFieldBasicArgsTypes: ArgTypes = {
   ...basicArgTypes,
   label,
   size,
-  optional,
   borderless,
   iconStart,
   iconEnd,
@@ -174,8 +164,7 @@ const basicArgs: Args = {
 const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
-  size: size.options![1],
-  optional: false,
+  size: undefined,
   borderless: false,
   iconStart: undefined,
   iconEnd: undefined,
@@ -184,8 +173,7 @@ const formFieldBasicArgs = {
 const formFieldBasicArgsWithIcons = {
   ...basicArgs,
   label: 'Label',
-  size: size.options![1],
-  optional: false,
+  size: undefined,
   borderless: false,
   iconStart: 'clock-small',
   iconEnd: 'circle-information-small',
@@ -193,7 +181,6 @@ const formFieldBasicArgsWithIcons = {
 
 const TemplateSbbTimeInput = ({
   label,
-  optional,
   borderless,
   negative,
   iconStart,
@@ -203,8 +190,7 @@ const TemplateSbbTimeInput = ({
 }: Args): TemplateResult => html`
   <div class="example-parent">
     <sbb-form-field
-      size=${size}
-      ?optional=${optional}
+      size=${size || nothing}
       ?borderless=${borderless}
       ?negative=${negative}
       width="collapse"
@@ -220,12 +206,10 @@ const TemplateSbbTimeInput = ({
       })}
     >
       <div style="display: flex; gap: 1em; margin-block-start: 2rem;">
-        <sbb-secondary-button size="m" @click=${setValueAsDate}>
+        <sbb-secondary-button @click=${setValueAsDate}>
           Set valueAsDate to current time
         </sbb-secondary-button>
-        <sbb-secondary-button size="m" @click=${setValue}>
-          Set value to 00:00
-        </sbb-secondary-button>
+        <sbb-secondary-button @click=${setValue}> Set value to 00:00 </sbb-secondary-button>
       </div>
       <p style="margin-block-start: 1rem;">
         Time in input:

@@ -95,13 +95,13 @@ describe(`sbb-form-field`, () => {
     });
   });
 
-  describe('renders select with optional flag and borderless', () => {
+  describe('renders select borderless', () => {
     let element: SbbFormFieldElement;
 
     beforeEach(async () => {
       element = await fixture(html`
-        <sbb-form-field optional borderless>
-          <label>Select option:</label>
+        <sbb-form-field borderless>
+          <label>Select option (optional)</label>
           <select>
             <option>Value 1</option>
             <option>Value 2</option>

@@ -1,16 +1,14 @@
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { html, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
-import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts';
+import { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-element.ts';
 
 /**
  * It displays a single year cell in the `sbb-calendar` years view.
  */
 export class SbbCalendarYearElement<T = Date> extends SbbCalendarCellBaseElement<T> {
   public static override readonly elementName: string = 'sbb-calendar-year';
-  public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle];
 
   /**
    * Value of the calendar-year element.
@@ -43,11 +41,13 @@ export class SbbCalendarYearElement<T = Date> extends SbbCalendarCellBaseElement
   }
 
   protected override setSelectedState(parent: SbbCalendarElement<T>): void {
-    const selected = parent.multiple
-      ? ((parent.selected as Date[])?.some(
-          (date: Date) => Number(this.value) === this.dateAdapter.getYear(date),
-        ) ?? false)
-      : !!parent.selected && this.dateAdapter.getYear(parent.selected) === Number(this.value);
+    const selected =
+      !!this.value &&
+      (parent.multiple
+        ? ((parent.value as Date[])?.some(
+            (date: Date) => Number(this.value) === this.dateAdapter.getYear(date),
+          ) ?? false)
+        : !!parent.value && this.dateAdapter.getYear(parent.value) === Number(this.value));
     this.toggleState('selected', selected);
     this.internals.ariaPressed = String(selected);
   }

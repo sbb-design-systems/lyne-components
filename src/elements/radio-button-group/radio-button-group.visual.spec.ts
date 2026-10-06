@@ -1,4 +1,4 @@
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import {
   describeEach,
@@ -7,16 +7,19 @@ import {
   visualDiffFocus,
 } from '../core/testing/private.ts';
 
+import type { SbbRadioButtonGroupElement } from './radio-button-group.component.ts';
+
 import '../card.ts';
 import '../form-field.ts';
 import '../icon.ts';
 import '../radio-button.ts';
 import '../radio-button-group.ts';
+import '../radio-button-panel.ts';
 
 const cases = {
   disabled: [false, true],
-  orientation: ['vertical', 'horizontal'],
-  size: ['xs', 's', 'm'],
+  orientation: ['vertical', 'horizontal'] satisfies SbbRadioButtonGroupElement['orientation'][],
+  size: [null, 'xs', 's', 'm'] satisfies SbbRadioButtonGroupElement['size'][],
 };
 
 const suffixAndSubtext = (): TemplateResult => html`
@@ -58,7 +61,7 @@ describe(`sbb-radio-button-group`, () => {
                   await setup.withFixture(html`
                     <sbb-radio-button-group
                       orientation=${orientation}
-                      size=${size}
+                      size=${size || nothing}
                       ?disabled=${disabled}
                       value="Value one"
                     >

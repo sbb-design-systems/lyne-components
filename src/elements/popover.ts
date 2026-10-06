@@ -1,6 +1,7 @@
 /** @entrypoint */
-import { SbbPopoverElement } from './popover.pure.ts';
+import { SbbPopoverCloseButtonElement, SbbPopoverElement } from './popover.pure.ts';
 
 export * from './popover.pure.ts';
 
 SbbPopoverElement.define();
+SbbPopoverCloseButtonElement.define();

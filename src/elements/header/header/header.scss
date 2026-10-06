@@ -17,13 +17,18 @@
 
   // Setting the height here reserves the space for the header which will else be lost with fixed position.
   height: var(--sbb-header-height);
+
+  // Set the line-height for adjacent elements in order to prevent from influence of a consumer-set line-height.
+  line-height: var(--sbb-typo-line-height-text);
+  padding-block-start: calc(var(--sbb-header-height) + var(--sbb-header-padding-block-start));
 }
 
 :host([size='s']) {
-  ::slotted(:is(sbb-header-button, sbb-header-link)) {
-    --sbb-header-action-min-height: var(--sbb-size-element-xs);
-    --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-4x);
-  }
+  --sbb-header-height: var(--sbb-header-height-s);
+}
+
+:host([size='m']) {
+  --sbb-header-height: var(--sbb-header-height-m);
 }
 
 :host([hide-on-scroll]) {
@@ -34,7 +39,7 @@
   --sbb-header-position: fixed;
   --sbb-header-animation-name: hide;
   --sbb-header-transform: translate3d(0, -100%, 0);
-  --sbb-header-inset-inline-end: var(--sbb-scrollbar-width, 0);
+  --sbb-header-inset-inline-end: var(--sbb-scrollbar-reserved-space, 0);
 }
 
 :host([hide-on-scroll]:state(fixed):state(animated)) {
@@ -58,6 +63,7 @@
 .sbb-header {
   position: var(--sbb-header-position);
   inset: 0 var(--sbb-header-inset-inline-end) auto 0;
+  padding-block-start: var(--sbb-header-padding-block-start);
   background: var(--sbb-header-background);
   z-index: var(--sbb-header-z-index, 10);
   transform: var(--sbb-header-transform);
@@ -76,7 +82,7 @@
     box-shadow: var(--sbb-header-box-shadow);
   }
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     border-block-end: var(--sbb-border-width-1x) solid CanvasText;
   }
 }
@@ -124,6 +130,7 @@
   display: block;
   padding-block: var(--sbb-spacing-fixed-3x);
   position: relative;
+  flex-basis: 0;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.

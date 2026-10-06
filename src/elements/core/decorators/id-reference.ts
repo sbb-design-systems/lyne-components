@@ -149,6 +149,7 @@ export const idReference = <C extends Interface<ReactiveElement>, V>() => {
                   ? `#${value.id}`
                   : value.classList.value
                       .split(' ')
+                      .filter((c) => !!c)
                       .map((c) => `.${c}`)
                       .join('');
                 console.warn(

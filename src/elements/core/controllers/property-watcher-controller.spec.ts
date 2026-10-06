@@ -2,7 +2,7 @@ import { aTimeout, expect } from '@open-wc/testing';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType } from '../decorators.ts';
+import { forceType } from '../decorators/force-type.ts';
 import { fixture } from '../testing/private.ts';
 import { waitForLitRender } from '../testing/wait-for-render.ts';
 

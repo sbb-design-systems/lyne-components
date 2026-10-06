@@ -1,13 +1,14 @@
-import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
+import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbCheckboxElement } from '../checkbox.ts';
 
+import type { SbbCheckboxGroupElement } from './checkbox-group.component.ts';
 import readme from './readme.md?raw';
 
 import '../checkbox-group.ts';
@@ -28,7 +29,8 @@ const suffixStyle: Readonly<StyleInfo> = {
   alignItems: 'center',
 };
 
-const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
+const cardBadge = (): TemplateResult =>
+  html`<sbb-card-badge aria-label="Special offer">%</sbb-card-badge>`;
 
 const suffixAndSubtext = (): TemplateResult => html`
   <span slot="subtext">Subtext</span>
@@ -232,7 +234,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xs', 's', 'm'],
+  options: ['xs', 's', 'm'] satisfies SbbCheckboxGroupElement['size'][],
   table: {
     category: 'Checkbox group',
   },
@@ -306,7 +308,7 @@ const basicArgs: Args = {
   required: false,
   orientation: orientation.options![0],
   'horizontal-from': undefined,
-  size: size.options![1],
+  size: undefined,
   label: 'Label',
   checked: true,
   disabledSingle: false,
@@ -351,16 +353,16 @@ export const verticalToHorizontal: StoryObj = {
   args: { ...checkboxArgsVertical, 'horizontal-from': 'large' },
 };
 
-export const horizontalSizeM: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: checkboxArgTypes,
-  args: { ...checkboxArgs, size: 'm' },
-};
-
 export const horizontalSizeXS: StoryObj = {
   render: DefaultTemplate,
   argTypes: checkboxArgTypes,
   args: { ...checkboxArgs, size: 'xs' },
+};
+
+export const horizontalSizeM: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: checkboxArgTypes,
+  args: { ...checkboxArgs, size: 'm' },
 };
 
 export const horizontalDisabled: StoryObj = {

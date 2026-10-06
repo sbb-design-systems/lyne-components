@@ -1,15 +1,16 @@
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 
 import readme from './readme.md?raw';
+import type { SbbToggleCheckElement } from './toggle-check.component.ts';
+
 import '../toggle-check.ts';
-import '../button/button.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../card.ts';
 import '../icon.ts';
 import '../title.ts';
@@ -24,7 +25,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xs', 's', 'm'],
+  options: ['xs', 's', 'm'] satisfies SbbToggleCheckElement['size'][],
 };
 
 const checked: InputType = {
@@ -67,7 +68,7 @@ const labelPosition: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['before', 'after'],
+  options: ['before', 'after'] satisfies SbbToggleCheckElement['labelPosition'][],
 };
 
 const ariaLabel: InputType = {
@@ -89,7 +90,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options![1],
+  size: undefined,
   checked: false,
   disabled: false,
   label: 'Label',
@@ -173,21 +174,30 @@ export const SbbToggleCheckDefault: StoryObj = {
   },
 };
 
-export const SbbToggleCheckDefaultSizeM: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    size: size.options![2],
-  },
-};
-
 export const SbbToggleCheckDefaultSizeXS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
     size: size.options![0],
+  },
+};
+
+export const SbbToggleCheckDefaultSizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    size: size.options![1],
+  },
+};
+
+export const SbbToggleCheckDefaultSizeM: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    size: size.options![2],
   },
 };
 
@@ -206,26 +216,6 @@ export const SbbToggleCheckDefaultLongLabel: StoryObj = {
   args: {
     ...defaultArgs,
     label: longLabel,
-  },
-};
-
-export const SbbToggleCheckDefaultLongLabelSizeM: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    label: longLabel,
-    size: size.options![2],
-  },
-};
-
-export const SbbToggleCheckDefaultLongLabelSizeXS: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    label: longLabel,
-    size: size.options![0],
   },
 };
 

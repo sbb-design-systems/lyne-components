@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-link renders DOM"] = 
 `<sbb-link
   href="https://sbb.ch"
-  size="m"
   target="_blank"
 >
   Travelcards & tickets.
@@ -53,7 +52,6 @@ snapshots["sbb-link reflects properties DOM"] =
   download=""
   href="https://sbb.ch/"
   rel="nofollow"
-  size="m"
   target="_blank"
 >
   Travelcards & tickets.

@@ -1,16 +1,25 @@
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { i18nChipDelete } from '../../core/i18n.ts';
-import { SbbDisabledMixin, SbbNegativeMixin, SbbReadonlyMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbMiniButtonElement } from '../../button.pure.ts';
+import {
+  i18nChipDelete,
+  SbbDisabledMixin,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbNegativeMixin,
+  SbbReadonlyMixin,
+  screenReaderOnlyStyles,
+} from '../../core.ts';
 
-import '../../button/mini-button.ts';
-import '../../screen-reader-only.ts';
-
-import style from './chip.scss?lit&inline';
+import style from './chip.scss?inline';
 
 /**
  * It displays a chip. Usually used in combination with `sbb-chip-group`.
@@ -22,10 +31,12 @@ export class SbbChipElement<T = string> extends SbbNegativeMixin(
   SbbDisabledMixin(SbbReadonlyMixin(SbbElement)),
 ) {
   public static override readonly elementName: string = 'sbb-chip';
+  public static override elementDependencies: SbbElementType[] = [SbbMiniButtonElement];
   public static override readonly role = 'option';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
   public static readonly events = {
     requestdelete: 'requestdelete',
+    delete: 'delete',
   } as const;
 
   /** The value of chip. Will be used as label if nothing is slotted. */
@@ -62,6 +73,11 @@ export class SbbChipElement<T = string> extends SbbNegativeMixin(
     this.dispatchEvent(new Event('requestdelete', { bubbles: true, composed: true }));
   }
 
+  protected dispatchDeleteEvent(): void {
+    /** The `delete` event is emitted when a chip gets deleted by a user action (click or keyboard). */
+    this.dispatchEvent(new Event('delete', { bubbles: true, composed: true }));
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-chip__label-wrapper">
@@ -76,7 +92,7 @@ export class SbbChipElement<T = string> extends SbbNegativeMixin(
         @click=${this._handleDeleteButtonClick}
       >
       </sbb-mini-button>
-      <sbb-screen-reader-only>, ${i18nChipDelete[this._language.current]}</sbb-screen-reader-only>
+      <span class="sbb-screen-reader-only">, ${i18nChipDelete[this._language.current]}</span>
     `;
   }
 }

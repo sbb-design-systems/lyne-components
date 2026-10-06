@@ -3,36 +3,24 @@
 :host {
   --sbb-journey-header-gap: var(--sbb-spacing-fixed-1x);
 
-  display: block;
-}
-
-:host([id]) {
-  @include sbb.scroll-margin-block-start;
-}
-
-:host([negative]) {
-  @include sbb.title--negative;
-}
-
-sbb-icon {
-  // Avoid layout shift after loading the icon
-  min-width: var(--sbb-size-icon-ui-small);
-}
-
-.sbb-journey-header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   column-gap: var(--sbb-journey-header-gap);
   width: fit-content;
+}
 
-  &:dir(rtl) {
-    sbb-icon {
-      transform: rotate(-180deg);
-    }
+:host(:dir(rtl)) {
+  sbb-icon {
+    rotate: -180deg;
   }
+}
 
-  > span {
-    max-width: 100%;
-  }
+:host([negative]) {
+  --sbb-title-color: var(--sbb-color-3-negative);
+}
+
+sbb-icon {
+  // Avoid layout shift after loading the icon
+  min-width: var(--sbb-size-icon-ui-small);
 }

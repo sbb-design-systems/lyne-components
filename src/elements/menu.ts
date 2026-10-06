@@ -1,5 +1,5 @@
 /** @entrypoint */
-import { SbbMenuElement, SbbMenuButtonElement, SbbMenuLinkElement } from './menu.pure.ts';
+import { SbbMenuButtonElement, SbbMenuElement, SbbMenuLinkElement } from './menu.pure.ts';
 
 export * from './menu.pure.ts';
 

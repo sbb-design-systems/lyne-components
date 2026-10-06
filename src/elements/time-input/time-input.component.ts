@@ -1,18 +1,18 @@
-import { type CSSResultGroup, isServer } from 'lit';
+import { type CSSResultGroup, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { sbbLiveAnnouncer } from '../core/a11y.ts';
-import { SbbElement } from '../core/base-elements.ts';
-import { SbbLanguageController } from '../core/controllers.ts';
 import {
   i18nTimeInputChange,
   i18nTimeInvalid,
   i18nTimeMax,
   i18nTimeMaxLength,
-} from '../core/i18n.ts';
-import { SbbFormAssociatedInputMixin } from '../core/mixins.ts';
+  SbbElement,
+  SbbFormAssociatedInputMixin,
+  SbbLanguageController,
+  sbbLiveAnnouncer,
+} from '../core.ts';
 
-import style from './time-input.scss?lit&inline';
+import style from './time-input.scss?inline';
 
 const REGEX_ALLOWED_CHARACTERS = /[0-9.:,\-;_hH]/;
 const REGEX_DISALLOWED_CHARACTERS = /[^0-9.:,\-;_hH]/g;
@@ -29,7 +29,7 @@ interface Time {
  */
 export class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-time-input';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
    * The value of the time input. Reflects the current text value
@@ -43,7 +43,7 @@ export class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement)
     this._tryParseValue(value);
     // As long as this element has focus we delay automatically updating
     // the value with the formatted string of the parsed date.
-    if (!isServer && !this.matches(':focus') && this.valueAsDate !== null) {
+    if (!isServer && !this.isSelected() && this.valueAsDate !== null) {
       value = this._formatTime();
     }
     super.value = value;
@@ -54,12 +54,18 @@ export class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement)
 
   /** Formats the current input's value as date. */
   @property({ attribute: false })
-  public set valueAsDate(date: Date | null) {
-    if (date instanceof Date && !isNaN(date.valueOf())) {
-      this._valueAsTime = {
-        hours: date.getHours(),
-        minutes: date.getMinutes(),
-      };
+  public set valueAsDate(value: Date | null) {
+    const time = this._toTime(value);
+    if (
+      this.isSelected() &&
+      (time === null || this._isSameTime(time, this._parseValue(this.value)))
+    ) {
+      // Do nothing, as the user is currently editing the value and the parsed
+      // time is the same as the current value.
+      // This can also happen with Angular Forms Signals, as it currently
+      // continuously invokes writeValue, which assigns to this setter.
+    } else if (time) {
+      this._valueAsTime = time;
       const formattedValue = this._formatTime();
       if (this.value !== formattedValue) {
         this.value = formattedValue;
@@ -138,6 +144,19 @@ export class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement)
     return null;
   }
 
+  private _toTime(value: Date | null): Time | null {
+    return value instanceof Date && !isNaN(value.valueOf())
+      ? { hours: value.getHours(), minutes: value.getMinutes() }
+      : null;
+  }
+
+  private _isSameTime(time1: Time | null, time2: Time | null): boolean {
+    return !!(
+      time1 == time2 ||
+      (time1 && time2 && time1.hours === time2.hours && time1.minutes === time2.minutes)
+    );
+  }
+
   private _updateValueDateFormat(): void {
     if (this.valueAsDate) {
       const formattedDate = this._formatTime();
@@ -175,16 +194,20 @@ export class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement)
     if (!this.value) {
       this._removeValidityErrors();
     } else if (!this._valueAsTime) {
+      this._removeValidityErrors('badInput');
       this.setValidityFlag('badInput', i18nTimeInvalid[this.language.current]);
     } else if (!this._isTimeValid(this._valueAsTime)) {
+      this._removeValidityErrors('rangeOverflow');
       this.setValidityFlag('rangeOverflow', i18nTimeMax[this.language.current]);
     } else {
       this._removeValidityErrors();
     }
   }
 
-  private _removeValidityErrors(): void {
-    (['badInput', 'rangeOverflow'] as const).forEach((f) => this.removeValidityFlag(f));
+  private _removeValidityErrors(except?: keyof ValidityStateFlags): void {
+    (['badInput', 'rangeOverflow'] as const)
+      .filter((v) => v !== except)
+      .forEach((f) => this.removeValidityFlag(f));
   }
 
   /** Checks if values of hours and minutes are possible, to avoid non-existent times. */

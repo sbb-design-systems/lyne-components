@@ -1,12 +1,425 @@
 import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
 import { html, type TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import type { InputType } from 'storybook/internal/types';
+
+import type { SbbCheckboxElement } from '../checkbox.pure.ts';
 
 import readme from './readme.md?raw';
 
 import '../table.ts';
+import '../form-field.ts';
+import '../checkbox.ts';
+
+/**
+ * Table examples.
+ */
+
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['xs', 's', 'm'],
+};
+
+const striped: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const inlineFilters: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const groupWithNext: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const withSubtitle: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const colorTheme: InputType = {
+  options: ['none', 'iron'],
+  control: {
+    type: 'select',
+  },
+};
+
+const withRowHover: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const defaultArgTypes: ArgTypes = {
+  size,
+  negative,
+  striped,
+  inlineFilters,
+  groupWithNext,
+  withSubtitle,
+  'color-theme': colorTheme,
+  withRowHover,
+};
+
+const defaultArgs: Args = {
+  size: undefined,
+  negative: false,
+  striped: false,
+  'inline-filters': false,
+  groupWithNext: false,
+  withSubtitle: false,
+  'color-theme': colorTheme.options![0],
+  withRowHover: false,
+};
+
+const caption: () => TemplateResult = () => html`
+  <caption>
+    Front-end web developer course 2021
+  </caption>
+`;
+
+const header: (groupWithNext?: boolean, withSubtitle?: boolean) => TemplateResult = (
+  groupWithNext = false,
+  withSubtitle = false,
+) => html`
+  <thead>
+    <tr>
+      <th class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>
+        Person${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+      <th>
+        Most interest
+        in${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+      <th>
+        Age${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+    </tr>
+  </thead>
+`;
+
+const headerWithFilters: (groupWithNext?: boolean, withSubtitle?: boolean) => TemplateResult = (
+  groupWithNext = false,
+  withSubtitle = false,
+) => html`
+  <thead>
+    <tr>
+      <th class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>
+        Person${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+      <th>
+        Most interest
+        in${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+      <th>
+        Age${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+    </tr>
+    <tr>
+      <th class="sbb-table-filter">
+        <sbb-form-field size="s"><input placeholder="Placeholder" /></sbb-form-field>
+      </th>
+      <th class="sbb-table-filter">
+        <sbb-form-field size="s"><input placeholder="Placeholder" /></sbb-form-field>
+      </th>
+      <th class="sbb-table-filter">
+        <sbb-form-field size="s"><input placeholder="Placeholder" /></sbb-form-field>
+      </th>
+    </tr>
+  </thead>
+`;
+
+const headerWithSort: (sortingDirection: string) => TemplateResult = (
+  sortingDirection: string,
+) => html`
+  <thead>
+    <tr>
+      <th>Person</th>
+      <th class="sbb-sort-header" aria-sort=${sortingDirection}>
+        <!-- Add click and keypress handlers with sort implementation. -->
+        <div class="sbb-sort-header-container sbb-sort-header-sorted" tabindex="0" role="button">
+          <div class="sbb-sort-header-content">Most interest in</div>
+          <div class="sbb-sort-header-arrow active">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              preserveAspectRatio="xMidYMid meet"
+              focusable="false"
+            >
+              <path
+                fill="none"
+                fill-rule="evenodd"
+                stroke="currentColor"
+                stroke-width="1"
+                d="M11.5,5.75 L11.5,18.25"
+              ></path>
+              <path
+                fill="none"
+                fill-rule="evenodd"
+                stroke="currentColor"
+                stroke-width="1"
+                d="M7.5,14.25 L11.5,18.25 L15.5,14.25"
+                class="sbb-sort-indicator ${sortingDirection === 'ascending' ? 'active-asc' : 'active-desc'}"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </th>
+      <th>Age</th>
+    </tr>
+  </thead>
+`;
+
+const body: (groupWithNext?: boolean) => TemplateResult = (groupWithNext = false) => html`
+  <tbody>
+    <tr>
+      <td class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Chris</td>
+      <td>HTML tables</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <td class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Dennis</td>
+      <td>Web accessibility</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <td class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Sarah</td>
+      <td>JavaScript frameworks</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <td class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Karen</td>
+      <td>Web performance</td>
+      <td>36</td>
+    </tr>
+  </tbody>
+`;
+
+const sortedBody: (sortingDirection: string) => TemplateResult = (sortingDirection: string) => {
+  const data = [
+    { name: 'Chris', subject: 'HTML tables', age: 22 },
+    { name: 'Dennis', subject: 'Web accessibility', age: 45 },
+    { name: 'Sarah', subject: 'JavaScript frameworks', age: 29 },
+    { name: 'Karen', subject: 'Web performance', age: 36 },
+  ].sort((a, b) => {
+    const comparison = a.subject.localeCompare(b.subject);
+    return sortingDirection === 'ascending' ? comparison : -comparison;
+  });
+  return html`
+    <tbody>
+      ${repeat(
+        data,
+        (item) => html`
+          <tr>
+            <td>${item.name}</td>
+            <td>${item.subject}</td>
+            <td>${item.age}</td>
+          </tr>
+        `,
+      )}
+    </tbody>
+  `;
+};
+
+const tableClasses = (args: Args): Record<string, boolean> => ({
+  'sbb-table--negative': args.negative,
+  'sbb-table': !args.size,
+  'sbb-table-xs': args.size === 'xs',
+  'sbb-table-s': args.size === 's',
+  'sbb-table-m': args.size === 'm',
+  'sbb-table--striped': args.striped,
+  'sbb-table--theme-iron': args['color-theme'] === 'iron',
+  'sbb-table--hover': args.withRowHover,
+});
+
+const Template = (args: Args): TemplateResult => html`
+  <table class=${classMap(tableClasses(args))}>
+    ${caption()}
+    ${
+      args['inline-filters']
+        ? headerWithFilters(args.groupWithNext, args.withSubtitle)
+        : header(args.groupWithNext, args.withSubtitle)
+    }
+    ${body(args.groupWithNext)}
+  </table>
+`;
+
+const SortTemplate = ({ sortingDirection, ...args }: Args): TemplateResult => html`
+  <table class=${classMap(tableClasses(args))}>
+    <caption>
+      Sort header visual demo. Sorting by clicking or using the keyboard on the header is on
+      consumer side.
+    </caption>
+    ${headerWithSort(sortingDirection)} ${sortedBody(sortingDirection)}
+  </table>
+`;
+
+const WithoutHeaderTemplate = (args: Args): TemplateResult => html`
+  <table class=${classMap(tableClasses(args))}>
+    ${caption()} ${body(args.groupWithNext)}
+  </table>
+`;
+
+const SelectableTemplate = (args: Args): TemplateResult => html`
+  <table class=${classMap(tableClasses(args))}>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Train</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Departure</th>
+        <th>Arrival</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${[
+        ['IC 1', 'Geneva', 'Zürich HB', '08:00', '10:30'],
+        ['IR 15', 'Lausanne', 'Bern', '08:15', '09:10'],
+        ['ICE 375', 'Basel SBB', 'Frankfurt', '09:00', '11:58'],
+        ['RE 3', 'Olten', 'Aarau', '09:45', '10:05'],
+      ].map(
+        ([train, from, to, departure, arrival]) => html`
+          <tr>
+            <td>
+              <sbb-checkbox
+                aria-label="Select train ${train} from ${from} to ${to}"
+                @change=${(e: Event) => {
+                  const tr = (e.target as HTMLElement).closest('tr');
+                  tr?.classList.toggle(
+                    'sbb-table--selected',
+                    (e.target as SbbCheckboxElement).checked,
+                  );
+                }}
+              ></sbb-checkbox>
+            </td>
+            <td>${train}</td>
+            <td>${from}</td>
+            <td>${to}</td>
+            <td>${departure}</td>
+            <td>${arrival}</td>
+          </tr>
+        `,
+      )}
+    </tbody>
+  </table>
+`;
+
+export const Default: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const SizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1] },
+};
+
+export const SizeXS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![0] },
+};
+
+export const Striped: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, striped: true },
+};
+
+export const Negative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true },
+};
+
+export const IronTheme: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'color-theme': 'iron' },
+};
+
+export const WithFilters: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'inline-filters': true, size: size.options![1] },
+};
+
+export const WithoutHeader: StoryObj = {
+  render: WithoutHeaderTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'inline-filters': true, size: size.options![1] },
+};
+
+export const GroupWithNext: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, groupWithNext: true },
+};
+
+export const HeaderSubtitle: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, withSubtitle: true },
+};
+
+export const Hover: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, striped: true, withRowHover: true },
+};
+
+export const Selectable: StoryObj = {
+  render: SelectableTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, striped: true, withRowHover: true },
+};
+
+const sortingDirection: InputType = {
+  control: { type: 'inline-radio' },
+  options: ['ascending', 'descending'],
+};
+
+const sortingArgTypes: ArgTypes = {
+  sortingDirection,
+  ...defaultArgTypes,
+};
+
+const sortingArgs: Args = {
+  sortingDirection: sortingDirection.options![0],
+  ...defaultArgs,
+};
+
+export const Sortable: StoryObj = {
+  render: SortTemplate,
+  argTypes: sortingArgTypes,
+  args: { ...sortingArgs },
+};
+
+/**
+ * Table-wrapper examples.
+ */
 
 const columns = [
   'Line',
@@ -66,12 +479,6 @@ const data = [
   ],
 ];
 
-const negative: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const focusable: InputType = {
   control: {
     type: 'boolean',
@@ -84,19 +491,19 @@ const sticky: InputType = {
   },
 };
 
-const defaultArgTypes: ArgTypes = {
+const withWrapperArgTypes: ArgTypes = {
   negative,
   focusable,
   sticky,
 };
 
-const defaultArgs: Args = {
+const withWrapperArgs: Args = {
   negative: false,
   focusable: false,
   sticky: false,
 };
 
-const header = (sticky = false): TemplateResult => html`
+const withWrapperHeader = (sticky = false): TemplateResult => html`
   <thead>
     <tr>
       ${columns.map(
@@ -123,7 +530,7 @@ const header = (sticky = false): TemplateResult => html`
   </thead>
 `;
 
-const body = (sticky = false): TemplateResult => html`
+const withWrapperBody = (sticky = false): TemplateResult => html`
   <tbody>
     ${data.map(
       (row) => html`
@@ -152,7 +559,7 @@ const body = (sticky = false): TemplateResult => html`
   </tbody>
 `;
 
-const Template = (args: Args): TemplateResult => html`
+const WithWrapperTemplate = (args: Args): TemplateResult => html`
   <sbb-table-wrapper ?negative=${args.negative} ?focusable=${args.focusable} style="height: 75vh">
     <table
       aria-label="Train lines 2024"
@@ -161,28 +568,28 @@ const Template = (args: Args): TemplateResult => html`
         'sbb-table--negative': args.negative,
       })}
     >
-      ${header(args.sticky)} ${body(args.sticky)}
+      ${withWrapperHeader(args.sticky)} ${withWrapperBody(args.sticky)}
     </table>
   </sbb-table-wrapper>
   <p class="sbb-table-caption">Train lines 2024</p>
 `;
 
-export const Default: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+export const TableWrapper: StoryObj = {
+  render: WithWrapperTemplate,
+  argTypes: withWrapperArgTypes,
+  args: { ...withWrapperArgs },
 };
 
-export const Negative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true },
+export const TableWrapperNegative: StoryObj = {
+  render: WithWrapperTemplate,
+  argTypes: withWrapperArgTypes,
+  args: { ...withWrapperArgs, negative: true },
 };
 
-export const Sticky: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, sticky: true },
+export const TableWrapperSticky: StoryObj = {
+  render: WithWrapperTemplate,
+  argTypes: withWrapperArgTypes,
+  args: { ...withWrapperArgs, sticky: true },
 };
 
 const meta: Meta = {

@@ -1,0 +1,58 @@
+@use '../mixins/typo';
+
+sub,
+sup {
+  font-size: 60%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.36em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+.sbb-text-xxs,
+.sbb-text-xs,
+.sbb-text-s,
+.sbb-text-m,
+.sbb-text-l,
+.sbb-text-xl {
+  @include typo.text;
+}
+
+.sbb-text-xxs {
+  --sbb-text-font-size: var(--sbb-text-font-size-xxs);
+}
+
+.sbb-text-xs {
+  --sbb-text-font-size: var(--sbb-text-font-size-xs);
+}
+
+.sbb-text-s {
+  --sbb-text-font-size: var(--sbb-text-font-size-s);
+}
+
+.sbb-text-m {
+  --sbb-text-font-size: var(--sbb-text-font-size-m);
+}
+
+.sbb-text-l {
+  --sbb-text-font-size: var(--sbb-text-font-size-l);
+}
+
+.sbb-text-xl {
+  --sbb-text-font-size: var(--sbb-text-font-size-xl);
+}
+
+.sbb-text--bold {
+  font-weight: bold;
+}
+
+.sbb-legend {
+  @include typo.legend;
+}

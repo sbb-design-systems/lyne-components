@@ -8,8 +8,9 @@ import {
   visualDiffHover,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
+import type { SbbBlockLinkStaticElement } from '../../link.ts';
 
-import '../block-link-static.ts';
+import '../../link.ts';
 
 describe(`sbb-block-link-static`, () => {
   const cases = {
@@ -28,12 +29,12 @@ describe(`sbb-block-link-static`, () => {
   };
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    for (const size of ['xs', 's', 'm']) {
+    for (const size of [null, 'xs', 's', 'm'] satisfies SbbBlockLinkStaticElement['size'][]) {
       it(
         `size=${size} ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-block-link-static size=${size}>
+            html`<sbb-block-link-static size=${size || nothing}>
               Travelcards & tickets
             </sbb-block-link-static>`,
           );
@@ -81,9 +82,11 @@ describe(`sbb-block-link-static`, () => {
               icon-name=${slotted ? nothing : 'chevron-small-right-small'}
               icon-placement=${iconPlacement}
             >
-              ${slotted
-                ? html`<sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>`
-                : nothing}
+              ${
+                slotted
+                  ? html`<sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>`
+                  : nothing
+              }
               Travelcards & tickets
             </sbb-block-link-static>
           `);

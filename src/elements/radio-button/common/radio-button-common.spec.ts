@@ -2,14 +2,14 @@ import { aTimeout, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { isChromium, isWebkit } from '../../core/dom.ts';
-import { radioButtonRegistry } from '../../core/mixins.ts';
 import { a11yTreeSnapshot, fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { isChromium, isWebkit, radioButtonRegistry } from '../../core.ts';
 import type { SbbRadioButtonPanelElement } from '../../radio-button-panel/radio-button-panel.component.ts';
 import type { SbbRadioButtonElement } from '../radio-button.component.ts';
 
 import '../../radio-button.ts';
+import '../../radio-button-panel.ts';
 
 describe(`sbb-radio-button-common`, () => {
   ['sbb-radio-button', 'sbb-radio-button-panel'].forEach((selector) => {
@@ -505,8 +505,7 @@ describe(`sbb-radio-button-common`, () => {
 
             // Create and add a new checked radio to the group
             const newRadio = document.createElement(selector) as
-              | SbbRadioButtonElement
-              | SbbRadioButtonPanelElement;
+              SbbRadioButtonElement | SbbRadioButtonPanelElement;
             newRadio.setAttribute('name', 'sbb-group-1');
             newRadio.setAttribute('value', '4');
             newRadio.toggleAttribute('checked', true);
@@ -842,8 +841,7 @@ describe(`sbb-radio-button-common`, () => {
             // TODO: Deserialization needs the compareValue function to work properly, for now we use 'numbers' as complex value.
             (
               elements as unknown as (
-                | SbbRadioButtonElement<number>
-                | SbbRadioButtonPanelElement<number>
+                SbbRadioButtonElement<number> | SbbRadioButtonPanelElement<number>
               )[]
             ).forEach((r, i) => (r.value = i));
             await waitForLitRender(form);

@@ -1,4 +1,4 @@
-import { type SbbElementInternalsMixinType, ɵstateController } from '../mixins.ts';
+import type { SbbElement } from '../base-elements/element.ts';
 
 import { getElementPosition } from './position.ts';
 
@@ -7,7 +7,7 @@ import { getElementPosition } from './position.ts';
  * @param dialog The reference to the dialog element.
  * @param originElement The reference to the element the dialog is attached to.
  * @param optionContainer The reference to the option panel.
- * @param container The element which has the position:fixed applied.
+ * @param container The element that has the position:fixed applied.
  * @param element The reference to the component.
  * @param position The allowed position of the overlay relative to the origin.
  */
@@ -16,18 +16,22 @@ export function setOverlayPosition(
   originElement: HTMLElement,
   optionContainer: HTMLElement,
   container: HTMLElement,
-  element: HTMLElement & SbbElementInternalsMixinType,
+  element: SbbElement,
   position: 'auto' | 'above' | 'below' = 'auto',
 ): void {
   if (!dialog || !originElement) {
     return;
   }
 
+  const originRect = originElement.getBoundingClientRect();
+
   // Set the width to match the trigger element
   element.style.setProperty('--sbb-options-panel-width', `${originElement.offsetWidth}px`);
 
-  // Set the origin height
+  // Set the origin height and position
   element.style.setProperty('--sbb-options-panel-origin-height', `${originElement.offsetHeight}px`);
+  element.style.setProperty('--sbb-options-panel-origin-position-x', `${originRect.left}px`);
+  element.style.setProperty('--sbb-options-panel-origin-position-y', `${originRect.top}px`);
 
   // Calculate and set the position
   const panelPosition = getElementPosition(optionContainer, originElement, container, {
@@ -38,13 +42,8 @@ export function setOverlayPosition(
   element.style.setProperty('--sbb-options-panel-position-x', `${panelPosition.left}px`);
   element.style.setProperty('--sbb-options-panel-position-y', `${panelPosition.top}px`);
   element.style.setProperty('--sbb-options-panel-max-height-calculated', panelPosition.maxHeight);
-  const controller = ɵstateController(element);
-  if (panelPosition.alignment.vertical === 'above') {
-    controller.add('options-panel-position-above');
-    controller.delete('options-panel-position-below');
-  } else {
-    controller.add('options-panel-position-below');
-    controller.delete('options-panel-position-above');
-  }
+  const above = panelPosition.alignment.vertical === 'above';
+  element['toggleState']?.('options-panel-position-above', above);
+  element['toggleState']?.('options-panel-position-below', !above);
   originElement.setAttribute('data-options-panel-position', panelPosition.alignment.vertical);
 }

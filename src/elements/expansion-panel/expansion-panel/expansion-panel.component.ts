@@ -1,18 +1,18 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
-import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean, isZeroAnimationDuration } from '../../core/dom.ts';
-import type { SbbOpenedClosedState } from '../../core/interfaces.ts';
-import { ɵstateController } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbTitleLevel } from '../../title.ts';
+import {
+  forceType,
+  isZeroAnimationDuration,
+  SbbElement,
+  type SbbHeadingLevel,
+  type SbbOpenedClosedState,
+  ɵstateController,
+} from '../../core.ts';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content/expansion-panel-content.component.ts';
 import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header/expansion-panel-header.component.ts';
 
-import style from './expansion-panel.scss?lit&inline';
+import style from './expansion-panel.scss?inline';
 
 let nextId = 0;
 
@@ -23,7 +23,7 @@ let nextId = 0;
  */
 export class SbbExpansionPanelElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-expansion-panel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',
@@ -32,7 +32,7 @@ export class SbbExpansionPanelElement extends SbbElement {
   } as const;
 
   /** Heading level; if unset, a `div` will be rendered. */
-  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel | null = null;
+  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbHeadingLevel | null = null;
 
   /** The background color of the panel. */
   @property({ reflect: true }) public accessor color: 'white' | 'milk' = 'white';
@@ -65,10 +65,9 @@ export class SbbExpansionPanelElement extends SbbElement {
   public accessor borderless: boolean = false;
 
   /**
-   * Size variant, either l or s.
-   * @default 'l' / 's' (lean)
+   * Size variant, either s (lean theme default) or l (standard theme default).
    */
-  @property({ reflect: true }) public accessor size: 's' | 'l' = isLean() ? 's' : 'l';
+  @property({ reflect: true }) public accessor size: 's' | 'l' | null = null;
 
   /** The state of the component. */
   private set _state(state: SbbOpenedClosedState) {
@@ -213,20 +212,21 @@ export class SbbExpansionPanelElement extends SbbElement {
   }
 
   protected override render(): TemplateResult {
-    const TAGNAME = this.titleLevel ? `h${this.titleLevel}` : 'div';
-
-    /* eslint-disable lit/binding-positions */
     return html`
-      <${unsafeStatic(TAGNAME)} class="sbb-expansion-panel__header">
+      <div
+        role=${this.titleLevel ? 'heading' : nothing}
+        aria-level=${this.titleLevel || nothing}
+        class="sbb-expansion-panel__header"
+      >
         <slot name="header" @slotchange=${this._handleSlotchange}></slot>
-      </${unsafeStatic(TAGNAME)}>
+      </div>
+
       <div class="sbb-expansion-panel__content-wrapper" @animationend=${this._onAnimationEnd}>
         <span class="sbb-expansion-panel__content">
           <slot name="content" @slotchange=${this._handleSlotchange}></slot>
         </span>
       </div>
     `;
-    /* eslint-enable lit/binding-positions */
   }
 }
 

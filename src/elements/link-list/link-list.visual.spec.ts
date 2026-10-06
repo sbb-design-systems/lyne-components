@@ -1,4 +1,4 @@
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import {
   describeEach,
@@ -6,17 +6,18 @@ import {
   visualDiffDefault,
   visualRegressionFixture,
 } from '../core/testing/private.ts';
+import type { SbbLinkListElement } from '../link-list.ts';
 
 import '../link-list.ts';
-import '../link/block-link.ts';
+import '../link.ts';
 
 describe(`sbb-link-list`, () => {
   let root: HTMLElement;
 
   const cases = {
     negative: [false, true],
-    orientation: ['horizontal', 'vertical'],
-    size: ['xs', 's', 'm'],
+    orientation: ['horizontal', 'vertical'] satisfies SbbLinkListElement['orientation'][],
+    size: [null, 'xs', 's', 'm'] satisfies SbbLinkListElement['size'][],
   };
 
   const linksTemplate = (): TemplateResult => html`
@@ -33,7 +34,7 @@ describe(`sbb-link-list`, () => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
-            <sbb-link-list ?negative=${negative} orientation=${orientation} size=${size}>
+            <sbb-link-list ?negative=${negative} orientation=${orientation} size=${size || nothing}>
               <span slot="title">Help &amp; Contact</span>
               ${linksTemplate()}
             </sbb-link-list>

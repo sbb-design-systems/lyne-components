@@ -1,10 +1,13 @@
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
 
+import type { SbbCheckboxPanelElement } from './checkbox-panel.component.ts';
+
 import '../card.ts';
-import '../icon.ts';
+import '../checkbox-group.ts';
 import '../checkbox-panel.ts';
+import '../icon.ts';
 
 describe('sbb-checkbox-panel', () => {
   const defaultArgs = {
@@ -12,7 +15,7 @@ describe('sbb-checkbox-panel', () => {
     disabled: false,
     color: 'white',
     borderless: false,
-    size: 'm',
+    size: 'm' as SbbCheckboxPanelElement['size'],
   };
 
   const template = ({
@@ -28,7 +31,7 @@ describe('sbb-checkbox-panel', () => {
       ?disabled=${disabled}
       color=${color}
       ?borderless=${borderless}
-      size=${size}
+      size=${size || nothing}
     >
       Label ${size}
       <span slot="subtext">Subtext</span>
@@ -84,6 +87,13 @@ describe('sbb-checkbox-panel', () => {
     }
 
     it(
+      `size=null`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template({ ...defaultArgs, size: null }));
+      }),
+    );
+
+    it(
       `size=s`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ ...defaultArgs, size: 's' }));
@@ -110,6 +120,21 @@ describe('sbb-checkbox-panel', () => {
       `forcedColors=true`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ ...defaultArgs }), { forcedColors: true });
+      }),
+    );
+
+    it(
+      `horizontal group with align-items=stretch renders panels at equal height`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-checkbox-group orientation="horizontal" style="align-items: stretch;">
+            <sbb-checkbox-panel value="Value one">Short label</sbb-checkbox-panel>
+            <sbb-checkbox-panel value="Value two">
+              Label with subtext
+              <span slot="subtext">Subtext</span>
+            </sbb-checkbox-panel>
+          </sbb-checkbox-group>
+        `);
       }),
     );
   });

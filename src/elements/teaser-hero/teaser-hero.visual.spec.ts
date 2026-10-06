@@ -129,7 +129,8 @@ describe(`sbb-teaser-hero`, () => {
               setup.snapshotElement.querySelectorAll<SbbImageElement | HTMLImageElement>(
                 'img,sbb-image',
               ),
-            ).map((el) => waitForImageReady(el)),
+              (el) => waitForImageReady(el),
+            ),
           );
         });
       }),

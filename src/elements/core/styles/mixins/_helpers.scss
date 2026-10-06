@@ -1,0 +1,57 @@
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin absolute-center-x-y {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+@mixin absolute-center-x {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+}
+
+@mixin absolute-center-y {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+}
+
+// This mixin can be used to avoid spacing problems by inserting an invisible space as pseudo element.
+// As of 19.05.2026, all usages of this mixin are currently required.
+// TODO: Find alternative
+@mixin zero-width-space {
+  &::before {
+    content: '\200B';
+    user-select: none;
+    width: 0;
+    height: 0;
+  }
+}
+
+// Placing content before and after the container stops the margin of inner elements from overflowing
+// TODO: Check necessity
+@mixin ignore-children-margin {
+  &::after,
+  &::before {
+    content: '\a0';
+    display: block;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+@mixin box-sizing {
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+}

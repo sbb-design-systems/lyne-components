@@ -11,22 +11,24 @@ concurrency:
 
 permissions: read-all
 
-env:
-  IMAGE_REPO_VISUAL_REGRESSION: ghcr.io/sbb-design-systems/lyne-components/visual-regression
-
 jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
+      - uses: actions/cache/restore@v6
+        with:
+          path: node_modules/.cache/
+          key: visual-regression-build-cache-${{ hashFiles('**/*.ts') }}
+          restore-keys: visual-regression-build-cache-
 
-      - name: Run eslint
-        run: yarn lint:tsc
+      - name: Run lint
+        run: yarn test:tsc
 
       - name: Preload test artifacts
         run: node scripts/preload-test-artifacts.ts
@@ -35,12 +37,14 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: test-artifacts
-          path: node_modules/.cache/lyne-cdn/
+          path: node_modules/.cache/
+          retention-days: 1
+          include-hidden-files: true
 
   test:
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.58.2-noble
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
       options: --user 1001
     needs: setup
     services:
@@ -53,8 +57,8 @@ jobs:
       matrix:
         segment: [1, 2, 3, 4, 5]
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: yarn
@@ -63,6 +67,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: test-artifacts
+          path: node_modules/.cache/
 
         # This step must not fail, so we define a fallback, which will succeed, even if
         # the visual regression tests failed. This will be evaluated in the secure workflow.
@@ -79,6 +84,14 @@ jobs:
           NODE_ENV: production
           RELEVANT_SHA: ${{ github.sha }}
 
+      - name: Store build cache
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-cache-${{ matrix.segment }}
+          path: node_modules/.cache/
+          retention-days: 1
+          include-hidden-files: true
       - name: Store visual regression output
         uses: actions/upload-artifact@v7
         with:
@@ -86,20 +99,34 @@ jobs:
           path: dist/screenshots/
           retention-days: 1
 
-  collect-test-results:
+  finalize:
     runs-on: ubuntu-latest
     permissions:
       packages: write
     needs: test
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Assemble build cache
+        uses: actions/download-artifact@v8
+        with:
+          path: node_modules/.cache/
+          pattern: build-cache-*
+          merge-multiple: true
+      - uses: actions/cache/save@v6
+        with:
+          path: node_modules/.cache/
+          key: visual-regression-build-cache-${{ hashFiles('**/*.ts') }}
+
       - uses: actions/download-artifact@v8
+        if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
       - name: Assemble screenshots
+        if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
         run: |
           mkdir -p dist/screenshots
           for file in matrix-screenshots-*/; do
@@ -109,6 +136,9 @@ jobs:
       - name: Prepare failed screenshot artifacts
         if: github.event_name == 'pull_request'
         run: node tools/visual-regression-testing/prepare-failed-screenshots-artifact.ts
+      - name: Store PR number
+        if: github.event_name == 'pull_request'
+        run: echo "${{ github.event.number }}" > dist/screenshots-artifact/pr
       - name: Store visual regression output
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v7
@@ -119,22 +149,11 @@ jobs:
       - name: Build visual-regression-app
         if: github.ref == 'refs/heads/main'
         run: yarn build visual-regression-app
-      - uses: ./.github/actions/setup-mint
-        if: github.ref == 'refs/heads/main'
+
       - name: Build and push visual regression baseline
+        uses: sbb-design-systems/actions/build-container@main
         if: github.ref == 'refs/heads/main'
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build \
-            --file tools/visual-regression-testing/Dockerfile \
-            --tag ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline-fat \
-            .
-          mint slim \
-            --target ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline-fat \
-            --tag ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline \
-            --preserve-path /usr/share/nginx/html \
-            --include-new false
-          docker push ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline
-          docker image list
-        env:
-          DOCKER_BUILDKIT: 1
+        with:
+          repository: visual-regression
+          tag: baseline
+          containerfile: tools/visual-regression-testing/Containerfile

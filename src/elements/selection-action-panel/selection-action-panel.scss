@@ -42,7 +42,7 @@
 
 :host(:not(:state(with-expansion-panel))) {
   // For high contrast mode we need a real border, but only without an outer expansion-panel
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     &::after {
       content: '';
       display: block;

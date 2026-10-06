@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-checkbox-panel renders unchecked DOM"] = 
 `<sbb-checkbox-panel
   color="white"
-  size="m"
   tabindex="0"
 >
   Label
@@ -28,7 +27,7 @@ snapshots["sbb-checkbox-panel renders unchecked Shadow DOM"] =
     <span class="sbb-checkbox">
       <span class="sbb-checkbox__inner">
         <span class="sbb-checkbox__aligner">
-          <sbb-visual-checkbox size="m">
+          <sbb-visual-checkbox>
           </sbb-visual-checkbox>
         </span>
         <span class="sbb-checkbox__label">
@@ -50,7 +49,6 @@ snapshots["sbb-checkbox-panel renders checked DOM"] =
 `<sbb-checkbox-panel
   checked=""
   color="white"
-  size="m"
   tabindex="0"
 >
   Label
@@ -74,10 +72,7 @@ snapshots["sbb-checkbox-panel renders checked Shadow DOM"] =
     <span class="sbb-checkbox">
       <span class="sbb-checkbox__inner">
         <span class="sbb-checkbox__aligner">
-          <sbb-visual-checkbox
-            checked=""
-            size="m"
-          >
+          <sbb-visual-checkbox checked="">
           </sbb-visual-checkbox>
         </span>
         <span class="sbb-checkbox__label">
@@ -99,7 +94,6 @@ snapshots["sbb-checkbox-panel renders indeterminate DOM"] =
 `<sbb-checkbox-panel
   color="white"
   indeterminate=""
-  size="m"
   tabindex="0"
 >
   Label
@@ -123,10 +117,7 @@ snapshots["sbb-checkbox-panel renders indeterminate Shadow DOM"] =
     <span class="sbb-checkbox">
       <span class="sbb-checkbox__inner">
         <span class="sbb-checkbox__aligner">
-          <sbb-visual-checkbox
-            indeterminate=""
-            size="m"
-          >
+          <sbb-visual-checkbox indeterminate="">
           </sbb-visual-checkbox>
         </span>
         <span class="sbb-checkbox__label">
@@ -148,7 +139,6 @@ snapshots["sbb-checkbox-panel renders unchecked disabled DOM"] =
 `<sbb-checkbox-panel
   color="white"
   disabled=""
-  size="m"
   tabindex="0"
 >
   Label
@@ -172,10 +162,7 @@ snapshots["sbb-checkbox-panel renders unchecked disabled Shadow DOM"] =
     <span class="sbb-checkbox">
       <span class="sbb-checkbox__inner">
         <span class="sbb-checkbox__aligner">
-          <sbb-visual-checkbox
-            disabled=""
-            size="m"
-          >
+          <sbb-visual-checkbox disabled="">
           </sbb-visual-checkbox>
         </span>
         <span class="sbb-checkbox__label">

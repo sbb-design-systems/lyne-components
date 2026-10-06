@@ -1,24 +1,42 @@
-import { html, type PropertyDeclaration, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyDeclaration,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { readConfig } from '../../core/config.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.ts';
-import { idReference } from '../../core/decorators.ts';
-import { i18nToday } from '../../core/i18n.ts';
-import { SbbNegativeMixin } from '../../core/mixins.ts';
-import { SbbDateInputElement, type SbbDateInputAssociated } from '../../date-input.ts';
+import { miniButtonStyle } from '../../button/common/button-common.ts';
+import {
+  type DateAdapter,
+  defaultDateAdapter,
+  i18nToday,
+  idReference,
+  readConfig,
+  SbbButtonBaseElement,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbNegativeMixin,
+} from '../../core.ts';
+import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.pure.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
 
-import '../../icon.ts';
+import style from './datepicker-button.scss?inline';
 
-export { default as datepickerButtonStyle } from './datepicker-button.scss?lit&inline';
-
+/**
+ * Base component for datepicker's buttons.
+ *
+ * @event {Event} change - The change event is fired on the datepicker's input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+ * @event {InputEvent} input - The input event fires on the datepicker's input when the value has been changed as a direct result of a user action.
+ */
 export abstract class SbbDatepickerButtonBase<T = Date>
   extends SbbNegativeMixin(SbbButtonBaseElement)
   implements SbbDateInputAssociated<T>
 {
+  public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static readonly sbbDateInputAssociated = true;
+  public static override styles: CSSResultGroup = [miniButtonStyle, unsafeCSS(style)];
 
   /**
    * The associated date input element.
@@ -122,11 +140,6 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbDatepickerButtonB
   public constructor() {
     super();
     this.addEventListener?.('click', () => this._handleClick());
-  }
-
-  /** @deprecated Use `getFollowingDate(date: T)` instead. */
-  protected findAvailableDate(_date: T): T | null {
-    return this.getFollowingDate(_date);
   }
 
   protected abstract getFollowingDate(_date: T): T | null;

@@ -1,11 +1,10 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbNegativeMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.pure.ts';
+import { SbbElement, SbbNegativeMixin, SbbPropertyWatcherController } from '../../core.ts';
+import type { SbbSelectElement } from '../../select.pure.ts';
 
-import style from './option-hint.scss?lit&inline';
+import style from './option-hint.scss?inline';
 
 /**
  * Display a textual hint inside a `sbb-autocomplete` or a `sbb-select`.
@@ -14,7 +13,31 @@ import style from './option-hint.scss?lit&inline';
  */
 export class SbbOptionHintElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-option-hint';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
+
+  private _previousSize: 's' | 'm' | null = null;
+
+  public constructor() {
+    super();
+
+    this.addController(
+      new SbbPropertyWatcherController<SbbAutocompleteBaseElement | SbbSelectElement>(
+        this,
+        () => this.closest('sbb-autocomplete, sbb-autocomplete-grid, sbb-select'),
+        {
+          size: (e) => {
+            if (this._previousSize) {
+              this.internals.states.delete(`size-${this._previousSize}`);
+            }
+            this._previousSize = e.size;
+            if (this._previousSize) {
+              this.internals.states.add(`size-${this._previousSize}`);
+            }
+          },
+        },
+      ),
+    );
+  }
 
   protected override render(): TemplateResult {
     return html`

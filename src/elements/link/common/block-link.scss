@@ -1,21 +1,22 @@
 @use '../../core/styles' as sbb;
+@use '../link.global' as link;
 
 :host {
-  @include sbb.block-link-variables;
+  @include link.block-variables;
 
   display: block;
 }
 
 :host([negative]) {
-  @include sbb.block-link-variables--negative;
+  @include link.block-variables--negative;
 }
 
 :host(.sbb-active) {
-  @include sbb.block-link-variables--active;
+  @include link.block-variables--active;
 }
 
 :host(.sbb-active[negative]) {
-  @include sbb.block-link-variables--active-negative;
+  @include link.block-variables--active-negative;
 }
 
 :host([size='xs']) {
@@ -32,8 +33,9 @@
 
 .sbb-action-base {
   gap: var(--sbb-block-link-gap);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
   font-size: var(--sbb-block-link-font-size);
+  letter-spacing: var(--sbb-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 .sbb-link__icon {
@@ -53,6 +55,9 @@
 
   ::slotted([slot='icon']),
   sbb-icon {
+    // Fixes layout issues
+    --sbb-icon-svg-display: block;
+
     @include sbb.absolute-center-y;
   }
 }

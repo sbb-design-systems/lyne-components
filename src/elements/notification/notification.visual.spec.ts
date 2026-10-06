@@ -3,17 +3,20 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import '../link/link.ts';
+import type { SbbNotificationElement } from './notification.component.ts';
+
+import '../link.ts';
 import '../title.ts';
 import '../notification.ts';
 
 describe(`sbb-notification`, () => {
   const defaultArgs = {
-    type: 'info',
-    size: 'm',
+    type: 'info' as SbbNotificationElement['type'],
+    size: 'm' as SbbNotificationElement['size'],
     readonly: false,
     showTitle: true,
     iconName: '',
+    hasText: true,
   };
 
   const notificationTemplate = ({
@@ -22,16 +25,22 @@ describe(`sbb-notification`, () => {
     readonly,
     showTitle,
     iconName,
+    hasText,
   }: typeof defaultArgs): TemplateResult => html`
     <sbb-notification
-      size=${size}
+      size=${size || nothing}
       ?readonly=${readonly}
       type=${type}
       style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
       icon-name=${iconName || nothing}
     >
-      ${showTitle ? html`<sbb-title>Title</sbb-title>` : nothing} The quick brown fox jumps over the
-      lazy dog. The quick brown fox jumps over the lazy dog.
+      ${showTitle ? html`<sbb-title>Title</sbb-title>` : nothing}
+      ${
+        hasText
+          ? html` The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the
+            lazy dog.`
+          : nothing
+      }
       <sbb-link href="/">Link one</sbb-link>
       <sbb-link href="/">Link two</sbb-link>
       <sbb-link href="/">Link three</sbb-link>
@@ -48,16 +57,26 @@ describe(`sbb-notification`, () => {
   const states = {
     readonly: [false, true],
     showTitle: [false, true],
+    hasText: [false, true],
+    size: [null, 's', 'm'] satisfies SbbNotificationElement['size'][],
   };
 
-  const types = ['info', 'note', 'success', 'warn', 'error'];
+  const types = [
+    'info',
+    'note',
+    'success',
+    'warn',
+    'error',
+  ] satisfies SbbNotificationElement['type'][];
   const visualStates = {
-    state: [...types.map((type) => ({ type, multiple: false })), { multiple: true, type: 'all' }],
-    size: ['s', 'm'],
+    state: [
+      ...types.map((type) => ({ type, multiple: false })),
+      { multiple: true, type: 'all' },
+    ] satisfies { multiple: boolean; type: SbbNotificationElement['type'] | 'all' }[],
   };
 
   describeViewports({ viewports: ['zero', 'small', 'large'] }, () => {
-    describeEach(states, ({ readonly, showTitle }) => {
+    describeEach(states, ({ readonly, showTitle, hasText, size }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
@@ -65,19 +84,23 @@ describe(`sbb-notification`, () => {
             ...defaultArgs,
             readonly,
             showTitle,
+            hasText,
+            size,
           } satisfies typeof defaultArgs;
           await setup.withFixture(html`${notificationTemplate(args)} ${textTemplate}`);
         }),
       );
     });
 
-    describeEach(visualStates, ({ state, size }) => {
+    describeEach(visualStates, ({ state }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            ${repeat(state.multiple ? types : [state.type], (type: string) =>
-              notificationTemplate({ ...defaultArgs, type, size }),
+            ${repeat(
+              state.multiple ? types : [state.type],
+              (type: SbbNotificationElement['type']) =>
+                notificationTemplate({ ...defaultArgs, type }),
             )}
             ${textTemplate}
           `);

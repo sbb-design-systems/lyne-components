@@ -1,25 +1,9 @@
+@use '../button.global' as button;
+
 :host {
-  --sbb-button-color-active-background: var(--sbb-background-color-4);
-  --sbb-button-color-active-border: var(--sbb-border-color-4-inverted);
-  --sbb-button-color-active-text: var(--sbb-color-1);
-  --sbb-button-color-default-background: transparent;
-  --sbb-button-color-default-border: transparent;
-  --sbb-button-color-default-text: var(--sbb-color-1);
-  --sbb-button-color-hover-background: var(--sbb-background-color-3);
-  --sbb-button-color-hover-border: var(--sbb-border-color-3-inverted);
-  --sbb-button-color-hover-text: var(--sbb-color-1);
-  --sbb-button-color-loading-border: light-dark(var(--sbb-color-silver), var(--sbb-color-granite));
+  @include button.variables--transparent;
 }
 
 :host([negative]) {
-  --sbb-button-color-active-background: var(--sbb-background-color-4-negative);
-  --sbb-button-color-active-border: var(--sbb-border-color-4-negative-inverted);
-  --sbb-button-color-active-text: var(--sbb-color-1-negative);
-  --sbb-button-color-default-background: transparent;
-  --sbb-button-color-default-border: transparent;
-  --sbb-button-color-default-text: var(--sbb-color-1-negative);
-  --sbb-button-color-hover-background: var(--sbb-background-color-3-negative);
-  --sbb-button-color-hover-border: var(--sbb-border-color-3-negative-inverted);
-  --sbb-button-color-hover-text: var(--sbb-color-1-negative);
-  --sbb-button-color-loading-border: var(--sbb-color-granite);
+  @include button.variables--transparent-negative;
 }

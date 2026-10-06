@@ -1,17 +1,23 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { forceType, handleDistinctChange } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import { isEventPrevented } from '../core/eventing.ts';
-import { ɵstateController } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbExpansionPanelElement } from '../expansion-panel.ts';
-import type { SbbTitleLevel } from '../title.ts';
+import {
+  forceType,
+  handleDistinctChange,
+  isEventPrevented,
+  SbbElement,
+  type SbbHeadingLevel,
+  ɵstateController,
+} from '../core.ts';
+import type { SbbExpansionPanelElement } from '../expansion-panel.pure.ts';
 
-import style from './accordion.scss?lit&inline';
+import style from './accordion.scss?inline';
 
 /**
  * It can be used as a container for one or more `sbb-expansion-panel` component.
@@ -20,22 +26,21 @@ import style from './accordion.scss?lit&inline';
  */
 export class SbbAccordionElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-accordion';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
-   * Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`.
-   * @default 'l' / 's' (lean)
+   * Size variant, either s (lean theme default) or l (standard theme default).
+   * The property overrides the size on any projected `sbb-expansion-panel`.
    */
-  @property({ reflect: true })
-  public accessor size: 's' | 'l' = isLean() ? 's' : 'l';
+  @property()
+  public accessor size: 's' | 'l' | null = null;
 
   /**
    * The heading level for the sbb-expansion-panel-headers within the component.
-   * @controls SbbExpansionPanelElement.titleLevel
    */
   @handleDistinctChange((e: SbbAccordionElement) => e._setTitleLevelOnChildren())
   @property({ attribute: 'title-level' })
-  public accessor titleLevel: SbbTitleLevel | null = null;
+  public accessor titleLevel: SbbHeadingLevel | null = null;
 
   /** Whether more than one sbb-expansion-panel can be open at the same time. */
   @forceType()
@@ -63,11 +68,18 @@ export class SbbAccordionElement extends SbbElement {
   }
 
   private _expansionPanels(): SbbExpansionPanelElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []);
+    return Array.from(this.querySelectorAll?.('sbb-expansion-panel') ?? []).filter(
+      (p) => p.closest('sbb-accordion') === this,
+    );
   }
 
   private _closePanels(e: Event): void {
-    if ((e.target as HTMLElement)?.localName !== 'sbb-expansion-panel' || this.multi) {
+    const target = e.target as HTMLElement;
+    if (
+      target?.localName !== 'sbb-expansion-panel' ||
+      this.multi ||
+      target?.closest('sbb-accordion') !== this
+    ) {
       return;
     }
 

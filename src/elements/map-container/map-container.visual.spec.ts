@@ -12,16 +12,18 @@ import '../title.ts';
 describe(`sbb-map-container`, () => {
   const template = (stickyOffset = false): TemplateResult => html`
     <sbb-header expanded>
-      <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
+      <sbb-header-button icon-name="hamburger-menu-small" hide-label-below="small">
         Menu
       </sbb-header-button>
       <div class="sbb-header-spacer"></div>
       <sbb-logo protective-room="none" class="sbb-header-logo"></sbb-logo>
     </sbb-header>
     <sbb-map-container
-      style=${stickyOffset
-        ? `--sbb-map-container-mobile-sticky-block-start: var(--sbb-header-height);`
-        : nothing}
+      style=${
+        stickyOffset
+          ? `--sbb-map-container-mobile-sticky-block-start: var(--sbb-header-vertical-spacing);`
+          : nothing
+      }
     >
       <!-- Content slot -->
       <div style="padding: var(--sbb-spacing-fixed-4x)">

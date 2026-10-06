@@ -1,31 +1,32 @@
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 import {
-  defaultTrip,
-  progressTrip,
-  cancelledTrip,
-  partiallyCancelled,
-  pastTrip,
-  disturbanceTrip,
-  trainTrip,
-  busTrip,
-  quayChangeTrip,
-  shipTrip,
-  walkTimeTrip,
   a11yFootpathTrip,
+  busTrip,
+  cancelledTrip,
+  cancelledExpectedTrip,
+  defaultTrip,
+  disturbanceTrip,
   extendedEnterTimeTrip,
   noticesTrip,
-  skippedDepartureStopTrip,
+  partiallyCancelled,
+  pastTrip,
+  progressTrip,
+  quayChangeTrip,
+  shipTrip,
   skippedArrivalStopTrip,
+  skippedDepartureStopTrip,
   skippedFirstDepartureStopTrip,
   skippedLastArrivalStopTrip,
+  trainTrip,
+  walkTimeTrip,
 } from './timetable-row.sample-data.private.ts';
 
 import '../timetable-row.ts';
@@ -93,6 +94,19 @@ const price: InputType = {
   },
 };
 
+const badgeLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const badgeColor: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['light', 'dark'],
+};
+
 const defaultArgTypes: ArgTypes = {
   'card-action-label': cardActionLabel,
   'disable-animation': disableAnimation,
@@ -104,6 +118,8 @@ const defaultArgTypes: ArgTypes = {
   now,
   boarding,
   price,
+  'badge-label': badgeLabel,
+  'badge-color': badgeColor,
 };
 
 const defaultArgs: Args = {
@@ -118,6 +134,8 @@ const defaultArgs: Args = {
   trip: defaultTrip,
   boarding: undefined,
   price: undefined,
+  'badge-label': undefined,
+  'badge-color': undefined,
 };
 
 const Template = ({ trip, price, boarding, now, ...args }: Args): TemplateResult =>
@@ -183,6 +201,45 @@ export const LoadingPrice: StoryObj = {
   },
 };
 
+export const BadgeLabel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    'badge-label': 'Neu',
+  },
+};
+
+export const BadgeLabelDark: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    'badge-label': 'Neu',
+    'badge-color': 'dark',
+  },
+};
+
+export const BadgeLabelOverridingPrice: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    'badge-label': 'Neu',
+    price: { price: '39.90', text: 'ab CHF', isDiscount: true },
+  },
+};
+
+export const DiscountLightBadgeColor: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    'badge-color': 'light',
+    price: { price: '39.90', text: 'ab CHF', isDiscount: true },
+  },
+};
+
 export const AriaExpanded: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -239,6 +296,15 @@ export const Cancelled: StoryObj = {
   args: {
     ...defaultArgs,
     trip: cancelledTrip,
+  },
+};
+
+export const CancelledExpected: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    trip: cancelledExpectedTrip,
   },
 };
 

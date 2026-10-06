@@ -1,4 +1,3 @@
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
 import {
   type CSSResultGroup,
@@ -7,15 +6,17 @@ import {
   nothing,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { screenshots, type ScreenshotTestCase } from '../../screenshots.ts';
+import { sharedStyles } from '../../shared-styles.ts';
 
 import type { TestCaseFilter } from './test-case-filter/test-case-filter.ts';
-import style from './test-case.scss?lit&inline';
+import style from './test-case.scss?inline';
 
-import '@sbb-esta/lyne-elements/button/secondary-button-link.js';
+import '@sbb-esta/lyne-elements/button.js';
 import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/container.js';
 import '@sbb-esta/lyne-elements/header.js';
@@ -38,7 +39,7 @@ interface Filter {
 export
 @customElement('app-test-case')
 class TestCase extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [sharedStyles, unsafeCSS(style)];
 
   @property({ attribute: false }) public accessor params: {
     componentName: string;
@@ -49,6 +50,25 @@ class TestCase extends LitElement {
   @state() private accessor _testCaseIndex: number = -1;
   @state() private accessor _filter: Filter = {};
   @state() private accessor _showGlobalDiff = true;
+
+  public constructor() {
+    super();
+
+    // For expert usage we handle arrow left and right keyboard events on the arrow buttons for a faster navigation between test cases.
+    this.addEventListener('keydown', (evt) => {
+      const previous = this.shadowRoot?.querySelector<HTMLElement>('#previous');
+      const next = this.shadowRoot?.querySelector<HTMLElement>('#next');
+      const composedPath = evt.composedPath();
+      if (!previous || !next || !(composedPath.includes(previous) || composedPath.includes(next))) {
+        return;
+      }
+      if (evt.key === 'ArrowLeft') {
+        previous.click();
+      } else if (evt.key === 'ArrowRight') {
+        next.click();
+      }
+    });
+  }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -101,7 +121,7 @@ class TestCase extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <sbb-header expanded>
+      <sbb-header expanded size="m">
         <div class="app-progress" style="--app-progress: ${this._progressFraction()}"></div>
         <div class="app-file-name-box sbb-header-shrinkable">
           <sbb-chip-label color="charcoal">${this.params?.componentName}</sbb-chip-label>
@@ -111,66 +131,76 @@ class TestCase extends LitElement {
         </div>
         <div class="sbb-header-spacer"></div>
         <div class="sbb-header-logo app-navigation-block">
-          <sbb-header-link href="/" icon-name="house-small">Overview</sbb-header-link>
+          <sbb-header-link href="/" icon-name="house-small" hide-label-below="large">
+            Overview
+          </sbb-header-link>
           <sbb-secondary-button-link
             href="/compare/${this._previous()?.path}"
             size="s"
             icon-name="arrow-left-small"
             ?disabled=${!this._previous()}
+            id="previous"
           ></sbb-secondary-button-link>
           <sbb-secondary-button-link
             href="/compare/${this._next()?.path}"
             size="s"
             icon-name="arrow-right-small"
             ?disabled=${!this._next()}
+            id="next"
           ></sbb-secondary-button-link>
         </div>
       </sbb-header>
-      ${this._testCase
-        ? html`<div class="app-testcase">
-            <sbb-container expanded>
-              <app-test-title-chip-list
-                .testCaseName=${this.params!.testCaseName}
-              ></app-test-title-chip-list>
-              <div class="app-filter-and-toggle">
-                <app-test-case-filter
-                  .testCase=${this._testCase}
-                  @browserFilterChange=${this._browserFilterChanged}
-                  @viewportFilterChange=${this._viewportFilterChanged}
-                ></app-test-case-filter>
-                ${this._testCase
-                  ?.filter(this._filter.viewport, this._filter.browser)
-                  .some((screenshotFiles) => !screenshotFiles.isNew && !!screenshotFiles.diffFile)
-                  ? html`<sbb-toggle-check
-                      @change=${this._toggleGlobalDiff}
-                      .checked=${this._showGlobalDiff}
-                      size="s"
-                      class="app-diff-global-toggle"
-                    >
-                      Show Diff
-                    </sbb-toggle-check>`
-                  : nothing}
-              </div>
-            </sbb-container>
-            <sbb-container expanded color="milk">
-              <div class="app-image-diffs">
-                ${this._testCase
-                  ?.filter(this._filter.viewport, this._filter.browser)
-                  .map(
-                    (screenshotFiles) =>
-                      html`<app-image-diff
-                        .screenshotFiles=${screenshotFiles}
-                        .showDiff=${this._showGlobalDiff}
-                      ></app-image-diff>`,
-                  )}
-              </div>
-            </sbb-container>
-          </div>`
-        : html`<sbb-container expanded>
-            <sbb-notification type="error" readonly>
-              No screenshots found. Please check component and test case name.
-            </sbb-notification>
-          </sbb-container>`}
+      ${
+        this._testCase
+          ? html`<div class="app-testcase">
+              <sbb-container expanded>
+                <app-test-title-chip-list
+                  .testCaseName=${this.params!.testCaseName}
+                ></app-test-title-chip-list>
+                <div class="app-filter-and-toggle">
+                  <app-test-case-filter
+                    .testCase=${this._testCase}
+                    @browserFilterChange=${this._browserFilterChanged}
+                    @viewportFilterChange=${this._viewportFilterChanged}
+                  ></app-test-case-filter>
+                  ${
+                    this._testCase
+                      ?.filter(this._filter.viewport, this._filter.browser)
+                      .some(
+                        (screenshotFiles) => !screenshotFiles.isNew && !!screenshotFiles.diffFile,
+                      )
+                      ? html`<sbb-toggle-check
+                          @change=${this._toggleGlobalDiff}
+                          .checked=${this._showGlobalDiff}
+                          size="s"
+                          class="app-diff-global-toggle"
+                        >
+                          Show Diff
+                        </sbb-toggle-check>`
+                      : nothing
+                  }
+                </div>
+              </sbb-container>
+              <sbb-container expanded color="milk">
+                <div class="app-image-diffs">
+                  ${this._testCase
+                    ?.filter(this._filter.viewport, this._filter.browser)
+                    .map(
+                      (screenshotFiles) =>
+                        html`<app-image-diff
+                          .screenshotFiles=${screenshotFiles}
+                          .showDiff=${this._showGlobalDiff}
+                        ></app-image-diff>`,
+                    )}
+                </div>
+              </sbb-container>
+            </div>`
+          : html`<sbb-container expanded>
+              <sbb-notification type="error" readonly>
+                No screenshots found. Please check component and test case name.
+              </sbb-notification>
+            </sbb-container>`
+      }
     `;
   }
 }

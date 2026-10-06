@@ -193,6 +193,7 @@ describe('NativeDateAdapter', () => {
       expect(date.getMonth()).to.be.equal(0);
       expect(date.getDate()).to.be.equal(1);
     }
+    expect(nativeDateAdapter.parse('30.02.2023')).to.be.null;
   });
 
   it('format should return the correct string', function () {

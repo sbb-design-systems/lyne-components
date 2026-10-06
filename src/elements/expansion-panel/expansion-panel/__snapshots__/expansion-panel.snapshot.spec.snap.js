@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-expansion-panel renders DOM"] = 
-`<sbb-expansion-panel
-  color="white"
-  size="l"
->
+`<sbb-expansion-panel color="white">
   <sbb-expansion-panel-header
     aria-controls="sbb-expansion-panel-content-1"
     aria-expanded="false"
@@ -84,7 +81,6 @@ snapshots["sbb-expansion-panel renders size s Shadow DOM"] =
 snapshots["sbb-expansion-panel renders with level set DOM"] = 
 `<sbb-expansion-panel
   color="white"
-  size="l"
   title-level="4"
 >
   <sbb-expansion-panel-header
@@ -109,10 +105,14 @@ snapshots["sbb-expansion-panel renders with level set DOM"] =
 /* end snapshot sbb-expansion-panel renders with level set DOM */
 
 snapshots["sbb-expansion-panel renders with level set Shadow DOM"] = 
-`<h4 class="sbb-expansion-panel__header">
+`<div
+  aria-level="4"
+  class="sbb-expansion-panel__header"
+  role="heading"
+>
   <slot name="header">
   </slot>
-</h4>
+</div>
 <div class="sbb-expansion-panel__content-wrapper">
   <span class="sbb-expansion-panel__content">
     <slot name="content">

@@ -1,18 +1,23 @@
-import { SbbButtonLikeBaseElement } from '../../core/base-elements/button-base-element.ts';
-import { readConfig } from '../../core/config/config.ts';
-import { SbbPropertyWatcherController } from '../../core/controllers/property-watcher-controller.ts';
-import type { DateAdapter } from '../../core/datetime/date-adapter.ts';
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
-import { SbbDisabledMixin } from '../../core/mixins/disabled-mixin.ts';
-import type {
-  FormRestoreReason,
-  FormRestoreState,
-} from '../../core/mixins/form-associated-mixin.ts';
+import { type CSSResultGroup, unsafeCSS } from 'lit';
+
+import {
+  type DateAdapter,
+  defaultDateAdapter,
+  type FormRestoreReason,
+  type FormRestoreState,
+  readConfig,
+  SbbButtonLikeBaseElement,
+  SbbDisabledMixin,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
+
+import style from './calendar-cell-base-element.scss?inline';
 
 export abstract class SbbCalendarCellBaseElement<T = Date> extends SbbDisabledMixin(
   SbbButtonLikeBaseElement,
 ) {
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   protected dateAdapter: DateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
   public constructor() {
@@ -22,7 +27,7 @@ export abstract class SbbCalendarCellBaseElement<T = Date> extends SbbDisabledMi
         dateFilter: (component) => this.setDisabledFilteredState(component),
         min: (component) => this.setDisabledFilteredState(component),
         max: (component) => this.setDisabledFilteredState(component),
-        selected: (component) => this.setSelectedState(component),
+        value: (component) => this.setSelectedState(component),
       }),
     );
   }

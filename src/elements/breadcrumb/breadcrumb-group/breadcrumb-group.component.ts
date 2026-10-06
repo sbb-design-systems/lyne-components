@@ -1,22 +1,31 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { state } from 'lit/decorators.js';
 
 import {
+  buttonResetStyles,
   getNextElementIndex,
+  i18nBreadcrumbEllipsisButtonLabel,
   isArrowKeyPressed,
+  listResetStyles,
+  SbbElement,
+  type SbbElementType,
   sbbInputModalityDetector,
-} from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n.ts';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+  SbbLanguageController,
+  SbbNamedSlotListMixin,
+  type WithListChildren,
+} from '../../core.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
 import type { SbbBreadcrumbElement } from '../breadcrumb/breadcrumb.component.ts';
 
-import style from './breadcrumb-group.scss?lit&inline';
-
-import '../../icon.ts';
+import style from './breadcrumb-group.scss?inline';
 
 const MIN_BREADCRUMBS_TO_COLLAPSE = 3;
 
@@ -30,8 +39,13 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-breadcrumb-group';
+  public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static override readonly role = 'navigation';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [
+    listResetStyles,
+    buttonResetStyles,
+    unsafeCSS(style),
+  ];
   protected override readonly listChildLocalNames = ['sbb-breadcrumb'];
 
   /** The state of the breadcrumb group. */
@@ -203,12 +217,14 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
       (slot, index, array) => html`
         <li class="sbb-breadcrumb-group__item">
           <slot name=${slot.name}></slot>
-          ${index !== array.length - 1
-            ? html`<sbb-icon
-                name="chevron-small-right-small"
-                class="sbb-breadcrumb-group__divider-icon"
-              ></sbb-icon>`
-            : nothing}
+          ${
+            index !== array.length - 1
+              ? html`<sbb-icon
+                  name="chevron-small-right-small"
+                  class="sbb-breadcrumb-group__divider-icon"
+                ></sbb-icon>`
+              : nothing
+          }
         </li>
       `,
     );

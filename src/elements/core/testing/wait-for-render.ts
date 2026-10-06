@@ -1,6 +1,6 @@
 import type { ReactiveElement } from 'lit';
 
-import type { SbbHydrationMixinType } from '../mixins.ts';
+import type { SbbElement } from '../base-elements/element.ts';
 
 /**
  * Tests if an element is a Lit `ReactiveElement`.
@@ -10,7 +10,7 @@ import type { SbbHydrationMixinType } from '../mixins.ts';
  */
 export const isReactiveElement = (
   element: Element,
-): element is ReactiveElement & Partial<SbbHydrationMixinType> => {
+): element is ReactiveElement & Partial<SbbElement> => {
   return Boolean((element as ReactiveElement).updateComplete);
 };
 

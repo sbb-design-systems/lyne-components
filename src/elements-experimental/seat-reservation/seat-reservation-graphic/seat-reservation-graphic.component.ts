@@ -1,25 +1,26 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { type CSSResultGroup, isServer, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  forceType,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+} from '@sbb-esta/lyne-elements/core.js';
+import { SbbIconElement } from '@sbb-esta/lyne-elements/icon.pure.js';
+import { type CSSResultGroup, html, isServer, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { mapIconToSvg } from '../common/mapper.ts';
 import { getI18nSeatReservation } from '../common/translations.ts';
 
-import style from './seat-reservation-graphic.scss?lit&inline';
-
-import '@sbb-esta/lyne-elements/icon.js';
+import style from './seat-reservation-graphic.scss?inline';
 
 /**
  * Output one of the SVG graphics based on its code.
  */
 export class SbbSeatReservationGraphicElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-graphic';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [SbbIconElement];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Name of the SVG graphic to be displayed. */
   @forceType()
@@ -46,13 +47,15 @@ export class SbbSeatReservationGraphicElement extends SbbElement {
         'sbb-sr-graphic': !!svgObj.svg,
       })}"
     >
-      ${svgObj.svgName
-        ? html` <sbb-icon
-            name="${svgObj.svgName || ''}"
-            aria-hidden="false"
-            aria-label="${getI18nSeatReservation(svgObj.svgName, this._language.current)}"
-          ></sbb-icon>`
-        : html`${this._getSvgElement(svgObj.svg!)}`}
+      ${
+        svgObj.svgName
+          ? html` <sbb-icon
+              name="${svgObj.svgName || ''}"
+              aria-hidden="false"
+              aria-label="${getI18nSeatReservation(svgObj.svgName, this._language.current)}"
+            ></sbb-icon>`
+          : html`${this._getSvgElement(svgObj.svg!)}`
+      }
     </span>`;
   }
 

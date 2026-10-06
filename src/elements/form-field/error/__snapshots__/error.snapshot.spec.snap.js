@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-error renders DOM"] = 
-`<sbb-error id="sbb-error-0">
+`<sbb-error>
   Required
 </sbb-error>
 `;
@@ -27,8 +27,24 @@ snapshots["sbb-error renders A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "generic",
-      "name": ""
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none"
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "StaticText",
+              "name": "Required"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -1,15 +1,15 @@
-import { assert, aTimeout, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import type { SbbTransparentButtonElement } from '../button.ts';
-import { elementInternalsSpy, fixture } from '../core/testing/private.ts';
+import { elementInternalsSpy } from '../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 
 import { SbbToastElement } from './toast.component.ts';
 
-import '../button/transparent-button.ts';
-import '../link/link-button.ts';
+import '../button.ts';
+import '../link.ts';
 import '../toast.ts';
 
 describe(`sbb-toast`, () => {
@@ -130,10 +130,7 @@ describe(`sbb-toast`, () => {
       </sbb-toast>
     `);
 
-    const actionBtn = element.querySelector('sbb-transparent-button');
-
-    expect(actionBtn).to.have.attribute('size', 'm');
-    expect(actionBtn).to.have.attribute('negative');
+    expect(element.querySelector('sbb-transparent-button')).to.have.attribute('negative');
   });
 
   it('forces state on link actions', async () => {

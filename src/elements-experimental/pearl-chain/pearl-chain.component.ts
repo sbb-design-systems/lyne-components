@@ -1,18 +1,18 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import {
+  defaultDateAdapter,
+  forceType,
+  SbbElement,
+  screenReaderOnlyStyles,
+} from '@sbb-esta/lyne-elements/core.js';
 import { addMinutes, differenceInMinutes, isAfter, isBefore } from 'date-fns';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { removeTimezoneFromISOTimeString } from '../core/datetime.ts';
-import type { Leg, PtRideLeg } from '../core/timetable.ts';
-import { isRideLeg } from '../core/timetable.ts';
+import type { Leg, PtRideLeg } from '../core.ts';
+import { isRideLeg, removeTimezoneFromISOTimeString } from '../core.ts';
 
-import style from './pearl-chain.scss?lit&inline';
+import style from './pearl-chain.scss?inline';
 
 type Status = 'progress' | 'future' | 'past';
 interface Time {
@@ -25,7 +25,7 @@ interface Time {
  */
 export class SbbPearlChainElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /**
    * Define the legs of the pearl-chain.
@@ -130,7 +130,9 @@ export class SbbPearlChainElement extends SbbElement {
 
   private _renderPosition(now: Date, start?: Time, end?: Time): TemplateResult | undefined {
     const currentPosition = this._getProgress(now, start, end);
-    if (currentPosition < 0 && currentPosition > 100) return undefined;
+    if (currentPosition < 0 && currentPosition > 100) {
+      return undefined;
+    }
 
     const statusStyle = (): Record<string, string> => {
       return {
@@ -256,6 +258,10 @@ export class SbbPearlChainElement extends SbbElement {
               ? 'sbb-pearl-chain__leg--disruption'
               : '';
 
+          const cancelledExpected = leg.serviceJourney?.serviceAlteration?.cancelledExpected
+            ? 'sbb-pearl-chain__leg--cancelled-expected'
+            : '';
+
           const legDepartureWithDelay = { time: departure, delay: leg.departure?.delay ?? 0 };
           const legArrivalWithDelay = { time: arrival, delay: leg.arrival?.delay ?? 0 };
           const status = this._getStatus(now, legDepartureWithDelay, legArrivalWithDelay);
@@ -264,7 +270,7 @@ export class SbbPearlChainElement extends SbbElement {
           const legStyle = (): Record<string, string> => {
             return {
               '--sbb-pearl-chain-leg-width': `${duration}%`,
-              ...(status === 'progress' && !cancelled && !skippedLeg
+              ...(status === 'progress' && !cancelled && !skippedLeg && !cancelledExpected
                 ? {
                     '--sbb-pearl-chain-leg-status': `${this._getProgress(now, legDepartureWithDelay, legArrivalWithDelay)}%`,
                   }
@@ -273,15 +279,21 @@ export class SbbPearlChainElement extends SbbElement {
           };
 
           return html` <div
-            class="sbb-pearl-chain__leg ${legStatus || ''} ${cancelled} ${skippedLeg}"
+            class="sbb-pearl-chain__leg ${
+              legStatus || ''
+            } ${cancelled} ${skippedLeg} ${cancelledExpected}"
             style=${styleMap(legStyle())}
           >
-            ${index > 0 && index < rideLegs.length
-              ? html`<span class="sbb-pearl-chain__stop ${departureSkippedBullet}"></span>`
-              : nothing}
-            ${status === 'progress' && !cancelled && !skippedLeg
-              ? this._renderPosition(now, legDepartureWithDelay, legArrivalWithDelay)
-              : nothing}
+            ${
+              index > 0 && index < rideLegs.length
+                ? html`<span class="sbb-pearl-chain__stop ${departureSkippedBullet}"></span>`
+                : nothing
+            }
+            ${
+              status === 'progress' && !cancelled && !skippedLeg
+                ? this._renderPosition(now, legDepartureWithDelay, legArrivalWithDelay)
+                : nothing
+            }
           </div>`;
         })}
         <span

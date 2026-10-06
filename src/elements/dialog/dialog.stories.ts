@@ -4,9 +4,9 @@ import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import sampleImages from '../core/images.ts';
-import type { SbbTitleLevel } from '../title.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
+import { sampleImages } from '../core/images.private.ts';
+import type { SbbHeadingLevel } from '../core.ts';
 
 import { SbbDialogElement } from './dialog/dialog.component.ts';
 import readme from './readme.md?raw';
@@ -93,19 +93,26 @@ const basicArgs: Args = {
 };
 
 const triggerButton = (triggerId: string): TemplateResult => html`
-  <sbb-button id=${triggerId} size="m">Open dialog</sbb-button>
+  <sbb-button id=${triggerId}>Open dialog</sbb-button>
 `;
 
 const dialogActions = (negative: boolean, includeCloseButton: boolean): TemplateResult => html`
-  <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="large">
-    <sbb-secondary-button sbb-dialog-close ?negative=${negative}>Cancel</sbb-secondary-button>
-    <sbb-button sbb-dialog-close ?sbb-focus-initial=${!includeCloseButton} ?negative=${negative}>
+  <sbb-dialog-actions style="justify-content: space-between">
+    <sbb-secondary-button sbb-dialog-close ?negative=${negative} size="l">
+      Cancel
+    </sbb-secondary-button>
+    <sbb-button
+      sbb-dialog-close
+      ?sbb-focus-initial=${!includeCloseButton}
+      ?negative=${negative}
+      size="l"
+    >
       Confirm
     </sbb-button>
   </sbb-dialog-actions>
 `;
 
-const dialogTitle = (level: SbbTitleLevel): TemplateResult => html`
+const dialogTitle = (level: SbbHeadingLevel): TemplateResult => html`
   <sbb-dialog-title level=${level}>A describing title of the dialog</sbb-dialog-title>
 `;
 
@@ -118,13 +125,18 @@ const textBlock = (): TemplateResult => html`
   </sbb-card>
 `;
 
-const DefaultTemplate = ({ level, includeCloseButton, ...args }: Args): TemplateResult => html`
+const DefaultTemplate = ({
+  level,
+  includeCloseButton,
+  style,
+  ...args
+}: Args): TemplateResult => html`
   ${triggerButton('dialog-trigger')}
   <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
     ${dialogTitle(level)}
     ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
     <sbb-dialog-content>
-      <p style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); margin: 0;">
+      <p style="${style} display: flex; gap: var(--sbb-spacing-fixed-1x); margin: 0;">
         Dialog content
         <sbb-mini-button
           icon-name="circle-information-small"
@@ -132,6 +144,7 @@ const DefaultTemplate = ({ level, includeCloseButton, ...args }: Args): Template
         ></sbb-mini-button>
       </p>
       <sbb-popover trigger="popover-trigger">
+        <sbb-popover-close-button></sbb-popover-close-button>
         <p style="margin: 0" class="sbb-text-s">Some content.</p>
       </sbb-popover>
     </sbb-dialog-content>
@@ -192,8 +205,8 @@ const NestedTemplate = ({
     ${dialogTitle(level)}
     ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
     <sbb-dialog-content> Click the button to open a nested dialog. </sbb-dialog-content>
-    <sbb-dialog-actions align-group="end">
-      ${triggerButton('dialog-trigger-2')}
+    <sbb-dialog-actions style="justify-content: end;">
+      <sbb-button id="dialog-trigger-2" size="m">Open dialog</sbb-button>
     </sbb-dialog-actions>
     <sbb-dialog ?negative=${!negative} trigger="dialog-trigger-2" ${sbbSpread(args)}>
       ${dialogTitle(level)}
@@ -239,14 +252,16 @@ const StepperTemplate = ({
               >
                 ${element} step content ${index === 0 || index === 2 ? loremIpsum : nothing}
               </div>
-              ${index !== 0
-                ? html`<sbb-secondary-button size="m" sbb-stepper-previous
-                    >Back</sbb-secondary-button
-                  >`
-                : nothing}
-              ${index !== arr.length - 1
-                ? html`<sbb-button size="m" sbb-stepper-next>Next</sbb-button>`
-                : html`<sbb-button size="m" sbb-stepper-next>Submit</sbb-button>`}
+              ${
+                index !== 0
+                  ? html`<sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>`
+                  : nothing
+              }
+              ${
+                index !== arr.length - 1
+                  ? html`<sbb-button sbb-stepper-next>Next</sbb-button>`
+                  : html`<sbb-button sbb-stepper-next>Submit</sbb-button>`
+              }
             </sbb-step>
           `,
         )}
@@ -288,7 +303,7 @@ export const TranslucentBackdrop: StoryObj = {
   },
 };
 
-export const AllowBackdropClick: StoryObj = {
+export const DisallowBackdropClick: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, 'backdrop-action': backdropAction.options![1] },
@@ -332,6 +347,12 @@ export const Stepper: StoryObj = {
     linear: false,
     includeCloseButton: true,
   },
+};
+
+export const CustomDimensions: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, style: 'height: 400px;' },
 };
 
 const meta: Meta = {

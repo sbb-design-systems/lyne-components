@@ -23,6 +23,6 @@ This is helpful if you need a specific state of the component.
 
 #### Properties
 
-| Name  | Attribute | Privacy | Type              | Default | Description                                                    |
-| ----- | --------- | ------- | ----------------- | ------- | -------------------------------------------------------------- |
-| `now` | `now`     | public  | `SbbTime \| null` | `null`  | Define a specific time which the clock should show statically. |
+| Name  | Attribute | Privacy | Type                                          | Default | Description                                                    |
+| ----- | --------- | ------- | --------------------------------------------- | ------- | -------------------------------------------------------------- |
+| `now` | `now`     | public  | `` `${number}:${number}:${number}` \| null `` | `null`  | Define a specific time which the clock should show statically. |

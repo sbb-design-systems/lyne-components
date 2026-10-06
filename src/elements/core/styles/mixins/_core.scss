@@ -1,0 +1,69 @@
+@use './helpers';
+@use './typo';
+@use './mediaqueries';
+
+@mixin core-base {
+  // Overlay
+  --sbb-overlay-default-z-index: 1000;
+
+  // Cursor
+  --sbb-cursor-default: default;
+  --sbb-cursor-pointer: pointer;
+
+  // Infinity border radius, can be used to achieve rounded border on start and end
+  --sbb-border-radius-infinity: calc(infinity * 1px);
+
+  @include typo.text;
+
+  color-scheme: light dark;
+  color: var(--sbb-font-color-default);
+  background-color: var(--sbb-background-color-1);
+}
+
+@mixin core-rules {
+  @include helpers.box-sizing;
+
+  // When the input modality is either mouse or touch,
+  // the focus outline should be hidden.
+  // We achieve this by setting the outline style to none.
+  // This is primarily to work around Safari bugs.
+  :root:where(.sbb-focus-modality-mouse, .sbb-focus-modality-touch) {
+    --sbb-focus-outline-style: none;
+  }
+
+  // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
+  ::placeholder {
+    @include typo.placeholder;
+  }
+
+  // Hiding components until they are instantiated
+  :is(
+    sbb-autocomplete,
+    sbb-autocomplete-grid,
+    sbb-datepicker,
+    sbb-dialog,
+    sbb-menu,
+    sbb-navigation,
+    sbb-navigation-section,
+    sbb-overlay,
+    sbb-popover,
+    sbb-select,
+    sbb-skiplink-list,
+    sbb-toast,
+    sbb-tooltip
+  ):not(:defined) {
+    display: none;
+  }
+
+  img {
+    aspect-ratio: var(--sbb-image-aspect-ratio);
+    object-fit: var(--sbb-image-object-fit);
+    object-position: var(--sbb-image-object-position);
+  }
+
+  .sbb-overlay-outlet {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+  }
+}

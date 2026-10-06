@@ -18,7 +18,6 @@ describe(`sbb-link-button`, () => {
           type="button"
           form="form"
           value="value"
-          size="m"
           aria-label="Travelcards &amp; tickets"
         >
           Travelcards &amp; tickets.

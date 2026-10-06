@@ -35,16 +35,16 @@ describe(`sbb-navigation-section`, () => {
         </sbb-navigation-button>
         <sbb-navigation-section trigger="navigation-section-trigger">
           <sbb-navigation-list>
-            <sbb-navigation-button id="first-navigation-section-button" size="m">
+            <sbb-navigation-button id="first-navigation-section-button">
               Tickets & Offers
             </sbb-navigation-button>
-            <sbb-navigation-button id="navigation-section-button-2" size="m">
+            <sbb-navigation-button id="navigation-section-button-2">
               Vacations & Recreation
             </sbb-navigation-button>
-            <sbb-navigation-button id="navigation-section-button-3" size="m">
+            <sbb-navigation-button id="navigation-section-button-3">
               Travel information
             </sbb-navigation-button>
-            <sbb-navigation-button id="last-navigation-section-button" size="m">
+            <sbb-navigation-button id="last-navigation-section-button">
               Help & Contact
             </sbb-navigation-button>
           </sbb-navigation-list>

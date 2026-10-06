@@ -10,9 +10,10 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import { defaultDateAdapter } from '../core/datetime.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
+import { defaultDateAdapter } from '../core.ts';
 import type { SbbDateInputElement } from '../date-input.ts';
+import type { SbbFormFieldElement } from '../form-field.pure.ts';
 
 import readme from './readme.md?raw';
 
@@ -130,7 +131,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm', 'l'],
+  options: ['s', 'm', 'l'] satisfies SbbFormFieldElement['size'][],
   table: {
     category: 'Form-field attribute',
   },
@@ -148,15 +149,6 @@ const negative: InputType = {
 const label: InputType = {
   control: {
     type: 'text',
-  },
-  table: {
-    category: 'Form-field attribute',
-  },
-};
-
-const optional: InputType = {
-  control: {
-    type: 'boolean',
   },
   table: {
     category: 'Form-field attribute',
@@ -203,16 +195,14 @@ const formFieldBasicArgsTypes: ArgTypes = {
   label,
   size,
   negative,
-  optional,
   borderless,
 };
 
 const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
-  size: size.options![1],
+  size: undefined,
   negative: false,
-  optional: false,
   borderless: false,
 };
 
@@ -255,7 +245,6 @@ const TemplateFormField = ({
   min,
   max,
   label,
-  optional,
   borderless,
   size,
   negative,
@@ -264,12 +253,7 @@ const TemplateFormField = ({
   ...args
 }: Args): TemplateResult => {
   return html`
-    <sbb-form-field
-      size=${size}
-      ?negative=${negative}
-      ?optional=${optional}
-      ?borderless=${borderless}
-    >
+    <sbb-form-field size=${size || nothing} ?negative=${negative} ?borderless=${borderless}>
       ${label ? html`<label>${label}</label>` : nothing}
       <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
       <sbb-date-input
@@ -347,22 +331,22 @@ export const InFormFieldWithDateFilter: StoryObj = {
   args: { ...formFieldBasicArgs, dateFilter: dateFilter.options![1] },
 };
 
-export const InFormFieldSmall: StoryObj = {
+export const InFormFieldS: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs, size: size.options![0] },
 };
 
-export const InFormFieldLarge: StoryObj = {
+export const InFormFieldM: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, size: size.options![1] },
+};
+
+export const InFormFieldL: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs, size: size.options![2] },
-};
-
-export const InFormFieldOptional: StoryObj = {
-  render: TemplateFormField,
-  argTypes: { ...formFieldBasicArgsTypes },
-  args: { ...formFieldBasicArgs, optional: true },
 };
 
 export const InFormFieldBorderless: StoryObj = {

@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": ["config:recommended", ":semanticCommitTypeAll(chore)"],
   "ignorePaths": ["**/node_modules/**", "**/src/*/package.json"],
   "nodenv": {
     "enabled": false
@@ -8,7 +8,7 @@
   "nvm": {
     "enabled": false
   },
-  "baseBranchPatterns": ["main", "4.x"],
+  "baseBranchPatterns": ["main", "5.x"],
   "lockFileMaintenance": {
     "schedule": ["before 7am on monday"],
     "enabled": true
@@ -35,7 +35,7 @@
       "groupName": "playwright",
       "prPriority": 10,
       "automerge": false,
-      "matchPackageNames": ["playwright**"]
+      "matchPackageNames": ["playwright**", "mcr.microsoft.com/playwright"]
     },
     {
       "groupName": "eslint",
@@ -48,6 +48,10 @@
     {
       "groupName": "stylelint",
       "matchPackageNames": ["postcss", "stylelint**"]
+    },
+    {
+      "groupName": "webtestrunner",
+      "matchPackageNames": ["@web/**", "!@web/test-runner-visual-regression"]
     }
   ]
 }

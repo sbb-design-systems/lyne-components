@@ -1,0 +1,19 @@
+$theme: 'standard' !default;
+
+// start-auto-generated-scss-module-imports
+@use '../../autocomplete-grid/autocomplete-grid.global' as autocomplete-grid with (
+  $theme: $theme
+);
+
+// end-auto-generated-scss-module-imports
+
+:root {
+  // start-auto-generated-scss-module-root
+  @include autocomplete-grid.base;
+
+  // end-auto-generated-scss-module-root
+}
+
+// start-auto-generated-scss-module-rules
+
+// end-auto-generated-scss-module-rules

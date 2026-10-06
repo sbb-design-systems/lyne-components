@@ -17,22 +17,22 @@ import {
 import { registerHooks } from 'node:module';
 import { basename, dirname, extname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parseArgs, promisify } from 'node:util';
+import { parseArgs, promisify, styleText } from 'node:util';
 import { brotliCompress, gzip } from 'node:zlib';
 
 import { cli as customElementManifestCli } from '@custom-elements-manifest/analyzer/cli.js';
 import checkbox, { Separator } from '@inquirer/checkbox';
-import type { CustomElementDeclaration, Export, Module, Package } from 'custom-elements-manifest';
+import type { CustomElementDeclaration, Module, Package } from 'custom-elements-manifest';
 import MagicString from 'magic-string';
 import postcss from 'postcss';
-import * as sass from 'sass';
+import * as sass from 'sass-embedded';
 import { buildStaticStandalone } from 'storybook/internal/core-server';
+import { build } from 'tsdown';
 import * as ts from 'typescript';
-import { build, type InlineConfig, mergeConfig, type Plugin, type PluginOption } from 'vite';
-import dtsPlugin from 'vite-plugin-dts';
+import { build as buildWithVite, type PluginOption } from 'vite';
 
 import { lightDarkPlugin, statePlugin } from '../tools/postcss/index.ts';
-import globalConfig from '../vite.config.ts';
+import { typescriptTransform, parseCompilerOptions } from '../tools/typescript/index.ts';
 
 if (typeof Temporal !== 'object') {
   await import('temporal-polyfill/global');
@@ -41,22 +41,46 @@ if (typeof Temporal !== 'object') {
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 const currentDirectory = fileURLToPath(new URL('./', import.meta.url));
 const distDirectory = join(projectRoot, 'dist');
+const loadPaths = [projectRoot, join(projectRoot, '/node_modules/')];
 const isCI = !!process.env.CI;
 const entrypointMarker = `/** @entrypoint */\n`;
+const internalPrefix = '@sbb-esta/lyne-';
 const gzipAsync = promisify(gzip);
 const brotliAsync = promisify(brotliCompress);
 const calculateGzipSize = async (content: string): Promise<number> =>
   (await gzipAsync(content)).length;
 const calculateBrotliSize = async (content: string): Promise<number> =>
   (await brotliAsync(content)).length;
+const importers: sass.FileImporter[] = [
+  {
+    findFileUrl(url, _context) {
+      return url.startsWith(internalPrefix) && url !== '@sbb-esta/lyne-design-tokens'
+        ? new URL(`../src/${url.substring(internalPrefix.length)}`, import.meta.url)
+        : null;
+    },
+  },
+];
+
+const result = ts.readConfigFile(join(projectRoot, 'tsconfig.json'), ts.sys.readFile);
+if (result.error) {
+  throw new Error(`Error reading tsconfig.json: ${result.error.messageText}`);
+}
+const options = ts.convertCompilerOptionsFromJson(result.config.compilerOptions, projectRoot);
+if (options.errors.length) {
+  throw new Error(
+    `Error parsing tsconfig.json: ${options.errors.map((e) => e.messageText).join(', ')}`,
+  );
+}
+const scriptTarget = options.options.target!;
+
 const { positionals } = parseArgs({ allowPositionals: true });
 const buildTargets = new Set(positionals);
 
 registerHooks({
   resolve: (specifier, context, nextResolve) =>
     nextResolve(
-      specifier.includes('@sbb-esta/lyne-')
-        ? join(distDirectory, specifier.replace('@sbb-esta/lyne-', ''))
+      specifier.includes(internalPrefix)
+        ? join(distDirectory, specifier.replace(internalPrefix, ''))
         : specifier,
       context,
     ),
@@ -83,12 +107,20 @@ interface Builder extends Disposable {
   build(): Promise<void>;
 }
 
+function asBuilder(action: () => void | Promise<void>): Builder {
+  return {
+    build: async () => {
+      await action();
+    },
+    [Symbol.dispose]() {},
+  };
+}
+
 class PackageBuilder implements Builder {
   #steps: ((pkg: PackageBuilder) => StepResult)[];
   #results: Disposable[] = [];
   readonly name: string;
   readonly root: string;
-  readonly production: boolean;
   readonly outDir: string;
   readonly files: FileEntry[];
   get tsFiles(): FileEntry[] {
@@ -98,21 +130,17 @@ class PackageBuilder implements Builder {
   constructor(name: string, steps: ((pkg: PackageBuilder) => StepResult)[]) {
     this.name = name;
     this.#steps = steps;
-    const [dirName, mode] = name.split(':');
-    this.production = mode !== 'development';
-    this.root = join(projectRoot, 'src', dirName);
-    this.outDir = join(distDirectory, basename(this.root), this.production ? '' : 'development');
-    this.files = !mode
-      ? []
-      : readdirSync(this.root, { withFileTypes: true, recursive: true })
-          .filter(
-            (d) =>
-              !['vite.config.ts', 'private.ts'].includes(d.name) &&
-              ['.spec.ts', '.stories.ts', '.private.ts'].every((e) => !d.name.endsWith(e)) &&
-              !relative(projectRoot, join(d.parentPath, d.name)).includes('/private/') &&
-              !relative(projectRoot, join(d.parentPath, d.name)).includes('/interfaces/'),
-          )
-          .map((d) => new FileEntry(join(d.parentPath, d.name)));
+    this.root = join(projectRoot, 'src', name);
+    this.outDir = join(distDirectory, basename(this.root));
+    this.files = readdirSync(this.root, { withFileTypes: true, recursive: true })
+      .filter(
+        (d) =>
+          !['vite.config.ts', 'private.ts'].includes(d.name) &&
+          ['.spec.ts', '.stories.ts', '.private.ts'].every((e) => !d.name.endsWith(e)) &&
+          !relative(projectRoot, join(d.parentPath, d.name)).includes('/private/') &&
+          !relative(projectRoot, join(d.parentPath, d.name)).includes('/interfaces/'),
+      )
+      .map((d) => new FileEntry(join(d.parentPath, d.name)));
   }
 
   async build(): Promise<void> {
@@ -143,86 +171,68 @@ function* iterate(node: ts.Node): Generator<ts.Node, void, unknown> {
   }
 }
 
-const elementsDevelopment = 'elements:development';
-const elementsProduction = 'elements:production';
-const elementsExperimentalDevelopment = 'elements-experimental:development';
-const elementsExperimentalProduction = 'elements-experimental:production';
-const reactDevelopment = 'react:development';
-const reactProduction = 'react:production';
-const reactExperimentalDevelopment = 'react-experimental:development';
-const reactExperimentalProduction = 'react-experimental:production';
-const storybook = 'storybook';
+const elements = 'elements';
+const elementsExperimental = 'elements-experimental';
+const react = 'react';
+const reactExperimental = 'react-experimental';
+const docs = 'docs';
 const visualRegressionApp = 'visual-regression-app';
+const webshopFrontendCopy = 'webshop-frontend-copy';
 
 const expansions = {
-  all: [
-    elementsDevelopment,
-    elementsProduction,
-    elementsExperimentalDevelopment,
-    elementsExperimentalProduction,
-    reactDevelopment,
-    reactProduction,
-    reactExperimentalDevelopment,
-    reactExperimentalProduction,
-    storybook,
-    visualRegressionApp,
+  all: [elements, elementsExperimental, react, reactExperimental, docs, visualRegressionApp],
+  'webshop-frontend': [
+    elements,
+    elementsExperimental,
+    react,
+    reactExperimental,
+    webshopFrontendCopy,
   ],
-  elements: [elementsProduction, elementsDevelopment],
-  'elements-experimental': [elementsExperimentalProduction, elementsExperimentalDevelopment],
-  react: [reactProduction, reactDevelopment],
-  'react-experimental': [reactExperimentalProduction, reactExperimentalDevelopment],
 };
 
 const buildMap: Record<string, () => Builder> = {
-  [elementsDevelopment]: () => new PackageBuilder(elementsDevelopment, [buildLibrary]),
-  [elementsProduction]: () =>
-    new PackageBuilder(elementsProduction, [
+  [elements]: () =>
+    new PackageBuilder(elements, [
       buildLibrary,
       buildRootIndex,
-      buildElementsStyles,
+      buildStyles,
       buildSassLibrary,
       buildCustomElementsManifest,
       copyReadme,
       buildPackageJson,
       verifyEntryPoints,
     ]),
-  [elementsExperimentalDevelopment]: () =>
-    new PackageBuilder(elementsExperimentalDevelopment, [buildLibrary]),
-  [elementsExperimentalProduction]: () =>
-    new PackageBuilder(elementsExperimentalProduction, [
+  [elementsExperimental]: () =>
+    new PackageBuilder(elementsExperimental, [
       buildLibrary,
       buildRootIndex,
-      buildStylesExperimental,
+      buildStyles,
       buildSassLibrary,
       buildCustomElementsManifest,
       copyReadme,
       buildPackageJson,
       verifyEntryPoints,
     ]),
-  [reactDevelopment]: () =>
-    new PackageBuilder(reactDevelopment, [generateReactWrappers, buildLibrary]),
-  [reactProduction]: () =>
-    new PackageBuilder(reactProduction, [
+  [react]: () =>
+    new PackageBuilder(react, [
       generateReactWrappers,
       buildLibrary,
       copyReadme,
       buildPackageJson,
       verifyEntryPoints,
     ]),
-  [reactExperimentalDevelopment]: () =>
-    new PackageBuilder(reactExperimentalDevelopment, [generateReactWrappers, buildLibrary]),
-  [reactExperimentalProduction]: () =>
-    new PackageBuilder(reactExperimentalProduction, [
+  [reactExperimental]: () =>
+    new PackageBuilder(reactExperimental, [
       generateReactWrappers,
       buildLibrary,
       copyReadme,
       buildPackageJson,
       verifyEntryPoints,
     ]),
-  [storybook]: () =>
-    new PackageBuilder(storybook, [buildStorybook, buildNginxConfig, buildSizeStats]),
+  [docs]: () => new PackageBuilder(docs, [buildDocs, buildNginxConfig, buildSizeStats]),
   [visualRegressionApp]: () => new PackageBuilder(visualRegressionApp, [buildApp]),
-  ['nginx-conf']: () => new PackageBuilder(storybook, [buildNginxConfig]),
+  ['nginx-conf']: () => new PackageBuilder(docs, [buildNginxConfig]),
+  [webshopFrontendCopy]: () => asBuilder(copyIntoWebshopFrontend),
 };
 
 if (!buildTargets.size && !isCI) {
@@ -230,23 +240,13 @@ if (!buildTargets.size && !isCI) {
     const answer = await checkbox({
       message: 'Select the build steps to run',
       choices: [
-        { name: '@sbb-esta/lyne-elements', value: elementsProduction },
-        { name: '@sbb-esta/lyne-elements (Development)', value: elementsDevelopment },
-        { name: '@sbb-esta/lyne-elements-experimental', value: elementsExperimentalProduction },
-        {
-          name: '@sbb-esta/lyne-elements-experimental (Development)',
-          value: elementsExperimentalDevelopment,
-        },
+        { name: '@sbb-esta/lyne-elements', value: elements },
+        { name: '@sbb-esta/lyne-elements-experimental', value: elementsExperimental },
         new Separator(),
-        { name: '@sbb-esta/lyne-react', value: reactProduction },
-        { name: '@sbb-esta/lyne-react (Development)', value: reactDevelopment },
-        { name: '@sbb-esta/lyne-react-experimental', value: reactExperimentalProduction },
-        {
-          name: '@sbb-esta/lyne-react-experimental (Development)',
-          value: reactExperimentalDevelopment,
-        },
+        { name: '@sbb-esta/lyne-react', value: react },
+        { name: '@sbb-esta/lyne-react-experimental', value: reactExperimental },
         new Separator(),
-        { name: 'Storybook', value: storybook },
+        { name: 'Docs', value: docs },
         { name: 'Visual Regression App', value: visualRegressionApp },
       ],
       pageSize: 100,
@@ -277,49 +277,76 @@ for (const factory of Object.keys(buildMap)
 }
 
 async function buildLibrary(pkg: PackageBuilder): Promise<void> {
-  if (existsSync(pkg.outDir)) {
-    readdirSync(pkg.outDir, { withFileTypes: true })
-      .filter((d) => !d.isDirectory() || d.name !== 'development')
-      .forEach((d) => rmSync(join(pkg.outDir, d.name), { recursive: true, force: true }));
-  }
-  await build(
-    mergeConfig(globalConfig, {
-      root: pkg.root,
-      mode: pkg.production ? 'production' : 'development',
-      assetsInclude: ['_index.scss', 'core/styles/**/*.scss', 'README.md'],
-      plugins: [stateTransform(), pkg.production ? [] : [dts()]].flat(),
-      build: {
-        lib: {
-          entry: toEntryPoints(pkg),
-          formats: ['es'],
-        },
-        outDir: pkg.outDir,
-        cssMinify: pkg.production ? 'esbuild' : false,
-        minify: pkg.production,
-        emptyOutDir: false,
-        sourcemap: pkg.production ? false : 'inline',
-        rollupOptions: {
-          external(source: string, importer: string | undefined): boolean | undefined {
-            if (
-              source.match(
-                /(^lit$|^lit\/|^@lit\/|^@lit-labs\/|^react|^tslib$|^@sbb-esta\/lyne-elements\/?|^@sbb-esta\/lyne-elements-experimental\/?|^@sbb-esta\/lyne-react\/?)/,
-              ) ||
-              (!!importer && source.startsWith('../') && !importer.includes('/node_modules/'))
-            ) {
-              if (source.includes('.scss')) {
-                throw Error(`Do not import scss from another directory.
-               Re export sass via barrel export (index.ts). See button/common.ts.
-               Source: ${source}.
-               Importer: ${importer}.`);
-              }
-
-              return true;
-            }
+  rmSync(pkg.outDir, { recursive: true, force: true });
+  const entrypoints = pkg.tsFiles
+    .filter((f) => f.content.includes('@entrypoint'))
+    .map((f) => f.path);
+  const builds: Promise<unknown>[] = [true, false].flatMap((production) =>
+    entrypoints.map((entry) =>
+      build({
+        clean: false,
+        css: {
+          minify: production,
+          postcss: {
+            plugins: [lightDarkPlugin, statePlugin],
           },
+          preprocessorOptions: {
+            scss: { loadPaths, importers },
+          },
+          transformer: 'postcss',
         },
-      },
-    } satisfies InlineConfig),
+        deps: {
+          onlyBundle: ['@sbb-esta/lyne-design-tokens', 'date-fns'],
+          neverBundle: [
+            /(^@sbb-esta\/lyne-(elements|react)(-experimental)?\/?|tslib)/,
+            new RegExp(
+              `[./]?/(${entrypoints.map((e) => basename(e, extname(e))).join('|')})\\.(js|ts)`,
+            ),
+          ],
+        },
+        dts: false,
+        entry,
+        env: { DEV: !production, PROD: production },
+        logLevel: 'error',
+        minify: production,
+        outDir: join(pkg.outDir, production ? '' : 'development'),
+        platform: 'neutral',
+        plugins: [typescriptTransform(), stateTransform(), rawLoader()],
+        root: pkg.root,
+        target: false,
+        tsconfig: join(pkg.root, 'tsconfig.json'),
+      }).then(() =>
+        console.log(
+          styleText(
+            'green',
+            `  => Built ${relative(pkg.root, entry)} (${production ? 'production' : 'development'})`,
+          ),
+        ),
+      ),
+    ),
   );
+  builds.push(
+    Promise.resolve().then(() => {
+      const files = pkg.tsFiles.map((f) => f.path);
+      const outDir = join(pkg.outDir, 'development');
+      const compilerOptions = parseCompilerOptions(join(pkg.root, 'tsconfig.json'));
+      compilerOptions.declarationMap = false;
+      compilerOptions.emitDeclarationOnly = true;
+      compilerOptions.outDir = outDir;
+      compilerOptions.rootDir = '.';
+
+      const host = ts.createCompilerHost(compilerOptions);
+      host.getCurrentDirectory = () => pkg.root;
+      host.writeFile = (fileName: string, source: string) => {
+        if (fileName.startsWith(outDir)) {
+          mkdirSync(dirname(fileName), { recursive: true });
+          writeFileSync(fileName, source, 'utf8');
+        }
+      };
+      ts.createProgram(files, compilerOptions, host).emit();
+    }),
+  );
+  await Promise.all(builds);
 }
 
 async function buildApp(pkg: PackageBuilder): Promise<void> {
@@ -327,12 +354,12 @@ async function buildApp(pkg: PackageBuilder): Promise<void> {
   const { default: config } = await import(
     relative(currentDirectory, join(pkg.root, 'vite.config.ts'))
   );
-  await build(typeof config === 'function' ? config() : config);
+  await buildWithVite(typeof config === 'function' ? config() : config);
 }
 
-async function buildStorybook(pkg: PackageBuilder): Promise<void> {
+async function buildDocs(pkg: PackageBuilder): Promise<void> {
   await buildStaticStandalone({
-    configDir: join(projectRoot, '.storybook'),
+    configDir: join(pkg.root, 'config'),
     outputDir: pkg.outDir,
     quiet: true,
     statsJson: true,
@@ -346,7 +373,7 @@ function stateTransform(): PluginOption {
     transform(code: string, id: string) {
       if (/.(js|ts)$/.test(id)) {
         const ms = new MagicString(code);
-        ms.replaceAll(/:state\(([^)]+)\)/g, (_match, p1) => {
+        ms.replaceAll(/(?<!selector\():state\(([^)]+)\)/g, (_match, p1) => {
           return `:is(:state(${p1}),[state--${p1}])`;
         });
         return {
@@ -359,45 +386,31 @@ function stateTransform(): PluginOption {
   };
 }
 
-function dts(): Plugin {
-  return dtsPlugin({
-    entryRoot: '.',
-    exclude: ['**/(*.)?{stories,spec,private}.ts', '**/private/*', 'vite.config.ts'],
-    pathsToAliases: false,
-    strictOutput: false,
-    aliasesExclude: [
-      /^@sbb-esta\/lyne-elements\/?/,
-      /^@sbb-esta\/lyne-elements-experimental\/?/,
-      /^@sbb-esta\/lyne-react\/?/,
-    ],
-    afterDiagnostic(diagnostics) {
-      if (diagnostics.length) {
-        throw new Error('dts generation for react package failed! See logs for details.');
+function rawLoader(): PluginOption {
+  const mimeByExtension: Record<string, string> = {
+    gif: 'image/gif',
+    jpeg: 'image/jpeg',
+    jpg: 'image/jpeg',
+    png: 'image/png',
+    webp: 'image/webp',
+  };
+  return {
+    name: 'raw-loader',
+    load(id) {
+      if (id.endsWith('?raw')) {
+        const code = `export default ${JSON.stringify(readFileSync(id.replace('?raw', ''), 'utf8'))};`;
+        return { code };
+      } else if (id.endsWith('?inline')) {
+        const filePath = id.replace('?inline', '');
+        const mime = mimeByExtension[extname(filePath).slice(1).toLowerCase()];
+        if (!mime) {
+          return;
+        }
+        const dataUrl = `data:${mime};base64,${readFileSync(filePath).toString('base64')}`;
+        return { code: `export default ${JSON.stringify(dataUrl)};` };
       }
     },
-    beforeWriteFile: (filePath, content) => {
-      if (content.includes('.scss?lit&inline') || content.includes('.scss?inline&lit')) {
-        return {
-          filePath,
-          // Remove lines with scss modules
-          content: content.replace(
-            /export \{[^}]+\}\s+from\s+'[^']+\.scss\?(lit&inline|inline&lit)';\n?/gm,
-            '',
-          ),
-        };
-      }
-    },
-  });
-}
-
-function toEntryPoints(pkg: PackageBuilder): Record<string, string> {
-  return pkg.tsFiles
-    .map((f) => relative(pkg.root, f.path))
-    .reduce(
-      (current, next) =>
-        Object.assign(current, { [join(dirname(next), basename(next, extname(next)))]: next }),
-      {} as Record<string, string>,
-    );
+  };
 }
 
 function buildRootIndex(pkg: PackageBuilder): void {
@@ -407,7 +420,7 @@ function buildRootIndex(pkg: PackageBuilder): void {
     const content = readFileSync(file, 'utf8');
     if (content.includes('elementName')) {
       const moduleName = relative(pkg.root, file).split('/')[0];
-      const sourceFile = ts.createSourceFile(file, content, ts.ScriptTarget.ES2022, true);
+      const sourceFile = ts.createSourceFile(file, content, scriptTarget, true);
       const customElements = sourceFile.statements
         .filter(ts.isClassDeclaration)
         .filter((c) =>
@@ -454,56 +467,15 @@ function buildRootIndex(pkg: PackageBuilder): void {
   console.log(`=> Generated index files in ${relative(projectRoot, pkg.outDir)}`);
 }
 
-interface StyleSheet {
-  inputName: string;
-  outputName: string;
-}
-function buildElementsStyles(pkg: PackageBuilder): void {
-  const sheets = [
-    { inputName: 'core/styles/a11y.scss', outputName: 'a11y.css' },
-    { inputName: 'core/styles/animation.scss', outputName: 'animation.css' },
-    { inputName: 'core/styles/badge.scss', outputName: 'badge.css' },
-    { inputName: 'core/styles/core.scss', outputName: 'core.css' },
-    { inputName: 'core/styles/disable-animation.scss', outputName: 'disable-animation.css' },
-    {
-      inputName: 'core/styles/font-characters-extension.scss',
-      outputName: 'font-characters-extension.css',
-    },
-    { inputName: 'core/styles/layout.scss', outputName: 'layout.css' },
-    { inputName: 'core/styles/lists.scss', outputName: 'lists.css' },
-    { inputName: 'core/styles/normalize.scss', outputName: 'normalize.css' },
-    { inputName: 'core/styles/off-brand-theme.scss', outputName: 'off-brand-theme.css' },
-    {
-      inputName: 'core/styles/safety-theme.scss',
-      outputName: 'safety-theme.css',
-    },
-    { inputName: 'core/styles/scrollbar.scss', outputName: 'scrollbar.css' },
-    { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
-    { inputName: 'core/styles/table.scss', outputName: 'table.css' },
-    { inputName: 'core/styles/timetable-form.scss', outputName: 'timetable-form.css' },
-    { inputName: 'core/styles/typography.scss', outputName: 'typography.css' },
-  ];
-  buildStyles(pkg, sheets);
-}
+async function buildStyles(pkg: PackageBuilder): Promise<void> {
+  const sheets = globSync('core/styles/*.scss', { cwd: pkg.root })
+    .filter((f) => !basename(f).startsWith('_'))
+    .sort()
+    .map((f) => ({ inputName: f, outputName: basename(f, '.scss') + '.css' }));
 
-function buildStylesExperimental(pkg: PackageBuilder): void {
-  const sheets = [
-    { inputName: 'core/styles/core.scss', outputName: 'core.css' },
-    { inputName: 'core/styles/off-brand-theme.scss', outputName: 'off-brand-theme.css' },
-    {
-      inputName: 'core/styles/safety-theme.scss',
-      outputName: 'safety-theme.css',
-    },
-    { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
-  ];
-  buildStyles(pkg, sheets);
-}
-
-function buildStyles(pkg: PackageBuilder, sheets: StyleSheet[]): void {
   for (const entry of sheets) {
-    const compiled = sass.compile(join(pkg.root, entry.inputName), {
-      loadPaths: [projectRoot, join(projectRoot, '/node_modules/')],
-    });
+    const fileName = join(pkg.root, entry.inputName);
+    const compiled = await sass.compileAsync(fileName, { loadPaths });
     const result = postcss([lightDarkPlugin, statePlugin]).process(compiled.css);
     writeFileSync(join(pkg.outDir, entry.outputName), result.css, 'utf8');
   }
@@ -515,7 +487,9 @@ function buildSassLibrary(pkg: PackageBuilder): void {
     .filter((f) => f.path.endsWith('.scss'))
     .filter(
       (f) =>
-        basename(f.path) === '_index.scss' || relative(pkg.root, f.path).startsWith('core/styles/'),
+        basename(f.path) === '_index.scss' ||
+        relative(pkg.root, f.path).startsWith('core/styles/') ||
+        f.path.includes('.global'),
     );
   for (const fileEntry of sassFiles) {
     const relativePath = relative(pkg.root, fileEntry.path);
@@ -568,11 +542,15 @@ function copyReadme(pkg: PackageBuilder): void {
 function buildPackageJson(pkg: PackageBuilder): void {
   const exportsExtensions = basename(pkg.root).includes('react') ? ['', '.js'] : ['.js'];
   const rootPackageJson = JSON.parse(readFileSync(join(projectRoot, 'package.json'), 'utf8'));
-  const litVersion = rootPackageJson.dependencies.lit.match(/\d+\.\d+\.\d+/);
-  const litObserversVersion =
-    rootPackageJson.devDependencies['@lit-labs/observers'].match(/\d+\.\d+\.\d+/);
-  const litReactVersion = rootPackageJson.devDependencies['@lit/react'].match(/\d+\.\d+\.\d+/);
-  const tslibVersion = rootPackageJson.devDependencies.tslib.match(/\d+\.\d+\.\d+/);
+  const dependencies: Record<string, string> = {
+    ...rootPackageJson.dependencies,
+    ...rootPackageJson.optionalDependencies,
+    ...rootPackageJson.devDependencies,
+  };
+  const litVersion = dependencies.lit.match(/\d+\.\d+\.\d+/);
+  const litObserversVersion = dependencies['@lit-labs/observers'].match(/\d+\.\d+\.\d+/);
+  const litReactVersion = dependencies['@lit/react'].match(/\d+\.\d+\.\d+/);
+  const tslibVersion = dependencies.tslib.match(/\d+\.\d+\.\d+/);
 
   const packageJsonContent = readFileSync(join(pkg.root, 'package.json'), 'utf8')
     .replaceAll('0.0.0-PLACEHOLDER', rootPackageJson.version)
@@ -660,10 +638,6 @@ async function generateReactWrappers(pkg: PackageBuilder): Promise<Disposable> {
   }
 
   // Render components
-  const exports = manifest.modules.reduce(
-    (current, next) => current.concat(next.exports ?? []),
-    [] as Export[],
-  );
   for (const module of manifest.modules.filter((m) => !m.path.startsWith('core/'))) {
     for (const declaration of module.declarations?.filter(
       (d): d is CustomElementDeclaration => 'customElement' in d && d.customElement,
@@ -671,7 +645,7 @@ async function generateReactWrappers(pkg: PackageBuilder): Promise<Disposable> {
       const entryPoint = module.path.replace(/.js$/, '.ts');
       const targetPath = join(pkg.root, entryPoint);
       createDir(dirname(targetPath));
-      const reactTemplate = renderTemplate(declaration, module, exports, pairedPackage);
+      const reactTemplate = renderTemplate(declaration, module, pairedPackage);
       generatedPaths.push(targetPath);
       writeFileSync(targetPath, reactTemplate, 'utf8');
       pkg.files.push(new FileEntry(targetPath));
@@ -681,7 +655,6 @@ async function generateReactWrappers(pkg: PackageBuilder): Promise<Disposable> {
   // Render entry points
   for (const dirent of readdirSync(pkg.root, {
     withFileTypes: true,
-    recursive: true,
   }).filter((d) => d.isDirectory())) {
     const dir = join(dirent.parentPath, dirent.name);
     const relativeDir = relative(pkg.root, dir);
@@ -693,7 +666,7 @@ async function generateReactWrappers(pkg: PackageBuilder): Promise<Disposable> {
       const files = readdirSync(dir, { withFileTypes: true, recursive: true }).filter((d) =>
         d.isFile(),
       );
-      let content =
+      const content =
         entrypointMarker +
         files
           .map(
@@ -701,13 +674,6 @@ async function generateReactWrappers(pkg: PackageBuilder): Promise<Disposable> {
               `export * from './${relative(dirname(dirEntryPoint), join(d.parentPath, d.name)).replace(/\.ts$/, '.js')}';\n`,
           )
           .join('');
-      if (dirname(dirEntryPoint) !== pkg.root) {
-        content += `
-
-console.warn(\`The entrypoint '@sbb-esta/${basename(pkg.root)}/${relative(pkg.root, dirEntryPoint).replace(/\.ts$/, '.js')}' has been deprecated.
-Use '@sbb-esta/${basename(pkg.root)}/${relative(pkg.root, dirEntryPoint).split('/')[0]}.js' instead.\`);
-`;
-      }
       writeFileSync(dirEntryPoint, content, 'utf8');
       pkg.files.push(new FileEntry(dirEntryPoint));
     }
@@ -733,7 +699,6 @@ Use '@sbb-esta/${basename(pkg.root)}/${relative(pkg.root, dirEntryPoint).split('
 function renderTemplate(
   declaration: CustomElementDeclaration,
   module: Module,
-  exports: Export[],
   library: string,
 ): string {
   const dirDepth = module.path.split('/').length - 1;
@@ -743,37 +708,27 @@ function renderTemplate(
       : `@sbb-esta/lyne-react/core.js`;
   const moduleParts = module.path.split('/');
   const moduleName = moduleParts[0];
-  const importPath = `${['button', 'link'].includes(moduleName) ? `${moduleName}/${moduleParts[1]}` : moduleName}.js`;
+  const importPath = `${moduleName}.pure.js`;
   const componentsImports = new Map<string, string[]>().set(importPath, [declaration.name]);
 
   if (declaration.events?.some((e) => !e.type)) {
     console.error(`(Inherited) events need jsdocs on class level! (${declaration.name})`);
   }
 
-  // Generic <T> types and Sbb* events are filtered out from imports
-  const customEventTypes = [
-    ...(declaration.events?.filter((e) => e.type.text.startsWith('Sbb')).map((e) => e.type.text) ??
-      []),
-    ...(declaration.events
-      ?.filter(
-        (e) =>
-          e.type.text.startsWith('CustomEvent<') &&
-          ['void', '{', 'File', 'T'].every((m) => !e.type.text.includes(`<${m}`)),
-      )
-      .map((e) => e.type.text.substring(12).slice(0, -1)) ?? []),
-  ]
-    .sort()
-    .filter((v, i, a) => a.indexOf(v) === i && v.length > 1);
+  // Sbb* events are filtered out from imports
+  const customEventTypes =
+    declaration.events
+      ?.filter((e) => e.type.text.startsWith('Sbb'))
+      .map((e) => e.type.text)
+      .sort()
+      .filter((v, i, a) => a.indexOf(v) === i && v.length > 1) ?? [];
 
-  // If a type or interface needs to be imported, the custom elements analyzer will not detect/extract these,
-  // and therefore we need to have a manual list of required types/interfaces.
+  // If an event type needs to be imported outside its module, it must be added in this map.
+  // E.g., the SbbDateSelectedEvent is declared in the calendar module, but it's also used in datepicker module.
   const interfaces = new Map<string, string>()
-    .set('SbbOverlayCloseEventDetails', 'core/interfaces.js')
-    .set('SbbPaginatorPageEventDetails', 'core/interfaces.js')
-    .set('SeatReservationPlaceSelection', 'seat-reservation/common.js')
-    .set('SeatReservationSelectedCoach', 'seat-reservation/common.js')
-    .set('SeatReservationSelectedPlaces', 'seat-reservation/common.js')
-    .set('PlaceSelection', 'seat-reservation/common.js');
+    .set('SbbDateSelectedEvent', 'calendar.pure.js')
+    .set('SbbPopoverCloseEvent', 'popover.pure.js')
+    .set('SbbPopoverBeforeCloseEvent', 'popover.pure.js');
 
   // In case of properties that are not string, but can be used as a string attribute in
   // React (e.g. trigger), we need to patch the class property types to allow string as
@@ -816,31 +771,27 @@ const ${patchClassName} = ${declaration.name} as typeof ${patchClassName}Type;
     : '';
 
   for (const customEventType of customEventTypes) {
-    const exportModule = exports.find((e) => e.name === customEventType);
-    if (exportModule) {
-      if (!componentsImports.has(importPath!)) {
-        componentsImports.set(importPath!, [`type ${customEventType}`]);
-      } else {
-        componentsImports.get(importPath!)!.push(`type ${customEventType}`);
-      }
-    } else if (interfaces.has(customEventType)) {
-      const moduleName = interfaces.get(customEventType)!;
+    const baseType = customEventType.split('<')[0];
+    // The 'interfaces' map has priority on the default case
+    if (interfaces.has(baseType)) {
+      const moduleName = interfaces.get(baseType)!;
       if (!componentsImports.has(moduleName)) {
-        componentsImports.set(moduleName, [`type ${customEventType}`]);
+        componentsImports.set(moduleName, [`type ${baseType}`]);
       } else {
-        componentsImports.get(moduleName)!.push(`type ${customEventType}`);
+        componentsImports.get(moduleName)!.push(`type ${baseType}`);
       }
+    } else if (!componentsImports.has(importPath!)) {
+      componentsImports.set(importPath!, [`type ${baseType}`]);
     } else {
-      componentsImports.get(importPath)!.push(`type ${customEventType.split('<')[0]}`);
+      componentsImports.get(importPath!)!.push(`type ${baseType}`);
     }
   }
   const reactTemplate = `/* autogenerated */
 import { createComponent${declaration.events?.length ? ', type EventName' : ''} } from '${coreImportPath}';
-${Array.from(componentsImports)
-  .map(
-    ([key, imports]) => `import { ${imports.join(', ')} } from '@sbb-esta/lyne-${library}/${key}';`,
-  )
-  .join('\n')}
+${Array.from(
+  componentsImports,
+  ([key, imports]) => `import { ${imports.join(', ')} } from '@sbb-esta/lyne-${library}/${key}';`,
+).join('\n')}
 import react from 'react';${memberPatchClass}
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -879,7 +830,7 @@ function buildNginxConfig(pkg: PackageBuilder): void {
 
   const shaVersion = 'sha256' as const;
   const toPlainArray = (matches: RegExpStringIterator<RegExpMatchArray>): string[] =>
-    Array.from(matches).map((match) => match[1]);
+    Array.from(matches, (match) => match[1]);
   const scriptHash = toPlainArray(htmlFiles.matchAll(/<script[\s\S]*?>([\s\S]*?)<\/script>/gi))
     .map((script) => `'${shaVersion}-${createHash(shaVersion).update(script).digest('base64')}'`)
     .join(' ');
@@ -898,14 +849,33 @@ function buildNginxConfig(pkg: PackageBuilder): void {
 }
 
 async function buildSizeStats(pkg: PackageBuilder): Promise<void> {
-  const stats = {
-    jsSize: 0,
-    jsBrotliSize: 0,
-    jsGzipSize: 0,
-    jsCssSize: 0,
-    cssSize: 0,
-    cssBrotliSize: 0,
-    cssGzipSize: 0,
+  interface SizeStats {
+    js: number;
+    jsBrotli: number;
+    jsGzip: number;
+    jsCss: number;
+    css: number;
+    cssBrotli: number;
+    cssGzip: number;
+    cssFiles: Record<string, { size: number; gzipSize: number; brotliSize: number }>;
+    jsFiles: Record<
+      string,
+      { size: number; cssSize?: number; gzipSize: number; brotliSize: number }
+    >;
+  }
+
+  interface Stats {
+    sizes: SizeStats;
+  }
+
+  const stats: SizeStats = {
+    js: 0,
+    jsBrotli: 0,
+    jsGzip: 0,
+    jsCss: 0,
+    css: 0,
+    cssBrotli: 0,
+    cssGzip: 0,
     cssFiles: {} as Record<string, { size: number; gzipSize: number; brotliSize: number }>,
     jsFiles: {} as Record<
       string,
@@ -921,9 +891,9 @@ async function buildSizeStats(pkg: PackageBuilder): Promise<void> {
       const size = content.length;
       const brotliSize = await calculateBrotliSize(content);
       const gzipSize = await calculateGzipSize(content);
-      stats.cssSize += size;
-      stats.cssBrotliSize += brotliSize;
-      stats.cssGzipSize += gzipSize;
+      stats.css += size;
+      stats.cssBrotli += brotliSize;
+      stats.cssGzip += gzipSize;
       stats.cssFiles[key] = { size, brotliSize, gzipSize };
     }
     for (const file of globSync('**/*.js', { cwd: dir })
@@ -935,11 +905,11 @@ async function buildSizeStats(pkg: PackageBuilder): Promise<void> {
       const size = content.length;
       const brotliSize = await calculateBrotliSize(content);
       const gzipSize = await calculateGzipSize(content);
-      stats.jsSize += size;
-      stats.jsBrotliSize += brotliSize;
-      stats.jsGzipSize += gzipSize;
+      stats.js += size;
+      stats.jsBrotli += brotliSize;
+      stats.jsGzip += gzipSize;
       stats.jsFiles[key] = { size, brotliSize, gzipSize };
-      const sourceFile = ts.createSourceFile(file, content, ts.ScriptTarget.ES2022, true);
+      const sourceFile = ts.createSourceFile(file, content, scriptTarget, true);
 
       let cssTaggedName = '';
       let cssSize = 0;
@@ -964,13 +934,43 @@ async function buildSizeStats(pkg: PackageBuilder): Promise<void> {
       }
 
       if (cssSize) {
-        stats.jsCssSize += cssSize;
+        stats.jsCss += cssSize;
         stats.jsFiles[key].cssSize = cssSize;
       }
     }
   }
 
-  writeFileSync(join(pkg.outDir, 'lyne-stats.json'), JSON.stringify(stats, null, 2), 'utf8');
+  writeFileSync(
+    join(pkg.outDir, 'stats.json'),
+    JSON.stringify({ sizes: stats } satisfies Stats, null, 2),
+    'utf8',
+  );
 
   console.log(`=> Built size stats in ${relative(projectRoot, pkg.outDir)}`);
+}
+
+function copyIntoWebshopFrontend(): void {
+  const webshopDir = resolve(projectRoot, '../webshop-frontend/');
+  if (!existsSync(webshopDir)) {
+    console.warn(
+      `=> webshop-frontend directory not found at ${relative(projectRoot, webshopDir)}. Skipping copy step.`,
+    );
+    return;
+  }
+
+  const packageMap = ['elements', 'elements-experimental', 'react', 'react-experimental'].reduce(
+    (map, name) => Object.assign(map, { [name]: `lyne-${name}` }),
+    {} as Record<string, string>,
+  );
+
+  for (const [localName, remoteName] of Object.entries(packageMap)) {
+    const sourceDir = join(projectRoot, 'dist', localName);
+    const targetDir = join(webshopDir, 'node_modules', '@sbb-esta', remoteName);
+    rmSync(targetDir, { recursive: true, force: true });
+    cpSync(sourceDir, targetDir, { recursive: true });
+    console.log(`=> Copied ${localName} to webshop-frontend`);
+  }
+
+  rmSync(join(webshopDir, '.next'), { recursive: true, force: true });
+  console.log(`=> Removed .next directory in webshop-frontend to ensure clean build`);
 }

@@ -1,20 +1,29 @@
-import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
-import { SbbDarkModeController, SbbLanguageController } from '../../core/controllers.ts';
-import { isLean, isZeroAnimationDuration } from '../../core/dom.ts';
-import { i18nCloseAlert } from '../../core/i18n.ts';
-import { SbbReadonlyMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
-import type { SbbLinkElement } from '../../link.ts';
-import type { SbbTitleElement } from '../../title.ts';
+import { SbbTransparentButtonElement } from '../../button.pure.ts';
+import {
+  i18nCloseAlert,
+  isZeroAnimationDuration,
+  SbbDarkModeController,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbOpenCloseBaseElement,
+  SbbReadonlyMixin,
+} from '../../core.ts';
+import { SbbDividerElement } from '../../divider.pure.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
+import type { SbbLinkElement } from '../../link.pure.ts';
+import type { SbbTitleElement } from '../../title.pure.ts';
 
-import style from './alert.scss?lit&inline';
-
-import '../../button/transparent-button.ts';
-import '../../divider.ts';
+import style from './alert.scss?inline';
 
 /**
  * It displays messages which require user's attention.
@@ -25,7 +34,11 @@ import '../../divider.ts';
  */
 export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
   public static override readonly elementName: string = 'sbb-alert';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbTransparentButtonElement,
+    SbbDividerElement,
+  ];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static override readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',
@@ -34,10 +47,9 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
   } as const;
 
   /**
-   * You can choose between `s`, `m` or `l` size.
-   * @default 'm' / 's' (lean)
+   * Size variant, either `s` (lean theme default), `m` (standard theme default) or `l`.
    */
-  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | null = null;
 
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
@@ -48,6 +60,11 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
     this._configureTitle();
     this.requestUpdate();
   });
+
+  public constructor() {
+    super();
+    this.addEventListener('animationend', (e: AnimationEvent) => this._onAnimationEnd(e));
+  }
 
   /** Open the alert. */
   public open(): void {
@@ -149,18 +166,18 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-alert__transition-wrapper" @animationend=${this._onAnimationEnd}>
-        <!-- sub wrapper needed to properly support fade in animation -->
-        <div class="sbb-alert__transition-sub-wrapper">
-          <div class="sbb-alert">
-            <span class="sbb-alert__icon"> ${this.renderIconSlot()} </span>
-            <span class="sbb-alert__content">
-              <slot name="title" @slotchange=${this._configureTitle}></slot>
-              <p class="sbb-alert__content-slot">
-                <slot @slotchange=${this._handleSlotchange}></slot>
-              </p>
-            </span>
-            ${!this.readOnly
+      <!-- wrapper needed to properly support fade in animation -->
+      <div class="sbb-alert__transition-wrapper">
+        <div class="sbb-alert">
+          <span class="sbb-alert__icon"> ${this.renderIconSlot()} </span>
+          <span class="sbb-alert__content">
+            <slot name="title" @slotchange=${this._configureTitle}></slot>
+            <p class="sbb-alert__content-slot">
+              <slot @slotchange=${this._handleSlotchange}></slot>
+            </p>
+          </span>
+          ${
+            !this.readOnly
               ? html`<span class="sbb-alert__close-button-wrapper">
                   <sbb-divider
                     orientation="vertical"
@@ -169,15 +186,15 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
                   ></sbb-divider>
                   <sbb-transparent-button
                     ?negative=${this._isLightMode()}
-                    size=${this.size === 'l' ? 'm' : this.size}
+                    size=${this.size === 'l' ? 'm' : this.size || nothing}
                     icon-name="cross-small"
                     @click=${() => this.close()}
                     aria-label=${i18nCloseAlert[this._language.current]}
                     class="sbb-alert__close-button"
                   ></sbb-transparent-button>
                 </span>`
-              : nothing}
-          </div>
+              : nothing
+          }
         </div>
       </div>
     `;

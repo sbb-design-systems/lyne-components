@@ -8,7 +8,7 @@ import {
 
 import type { SbbButtonStaticElement } from './button-static.component.ts';
 
-import '../button-static.ts';
+import '../../button.ts';
 
 describe(`sbb-button-static`, () => {
   let element: SbbButtonStaticElement;

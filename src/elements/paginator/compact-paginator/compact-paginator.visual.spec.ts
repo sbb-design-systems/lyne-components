@@ -1,6 +1,8 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+
+import type { SbbCompactPaginatorElement } from './compact-paginator.component.ts';
 
 import '../../paginator.ts';
 
@@ -63,7 +65,7 @@ describe('sbb-compact-paginator', () => {
           }),
         );
 
-        for (const size of ['s', 'm']) {
+        for (const size of [null, 's', 'm'] satisfies SbbCompactPaginatorElement['size'][]) {
           describe(`size=${size}`, () => {
             for (const pageIndex of [0, 5, 9]) {
               it(
@@ -74,7 +76,7 @@ describe('sbb-compact-paginator', () => {
                       length="50"
                       page-size="5"
                       page-index=${pageIndex}
-                      size=${size}
+                      size=${size || nothing}
                       ?negative=${negative}
                     ></sbb-compact-paginator>`,
                     wrapperStyle,

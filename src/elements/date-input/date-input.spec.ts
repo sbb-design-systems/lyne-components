@@ -2,10 +2,9 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { defaultDateAdapter } from '../core/datetime.ts';
-import { isMacOS, isWebkit } from '../core/dom.ts';
 import { fixture, typeInElement } from '../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import { defaultDateAdapter, isMacOS, isWebkit } from '../core.ts';
 import type { SbbFormFieldElement } from '../form-field.ts';
 
 import { SbbDateInputElement } from './date-input.component.ts';
@@ -114,6 +113,21 @@ describe('sbb-date-input', () => {
     element = await fixture(html`<sbb-date-input></sbb-date-input>`);
     element.value = undefined!;
     expect(element.value).to.be.equal('undefined');
+  });
+
+  it('should not update value while editing', async () => {
+    element = await fixture(html`<sbb-date-input></sbb-date-input>`);
+    element.focus();
+    typeInElement(element, '1.1.2024');
+    element.valueAsDate = new Date(2024, 0, 1);
+    expect(element.value).to.be.equal('1.1.2024');
+  });
+
+  it('should update value while not editing', async () => {
+    element = await fixture(html`<sbb-date-input></sbb-date-input>`);
+    element.value = '1.1.2024';
+    element.valueAsDate = new Date(2024, 0, 1);
+    expect(element.value).to.be.equal('Mo, 01.01.2024');
   });
 
   describe('with no value', () => {
@@ -256,6 +270,14 @@ describe('sbb-date-input', () => {
       expect(element.validity.badInput, 'badInput').to.be.true;
     });
 
+    it('should update validity with invalid date input', async () => {
+      element.value = '30.02.2023';
+      await waitForLitRender(element);
+
+      expect(element.validationMessage).to.equal('Please provide a valid date.');
+      expect(element.validity.badInput, 'badInput').to.be.true;
+    });
+
     it('should update validity with min and date before', async () => {
       element.min = new Date(2024, 0, 1);
       element.valueAsDate = new Date(2023, 11, 31);
@@ -331,6 +353,24 @@ describe('sbb-date-input', () => {
       expect(element.validationMessage).to.equal(checkedMessage, 'Without custom error');
       expect(element.validity.customError, 'customError').to.be.false;
       expect(element.validity.valueMissing, 'valueMissing').to.be.true;
+    });
+
+    it('should remove validation error when becoming valid but other error was active', async () => {
+      element.max = new Date(2026, 0, 1);
+      element.min = new Date(2024, 0, 1);
+      element.valueAsDate = new Date(2023, 11, 31);
+      await waitForLitRender(element);
+
+      expect(element.validationMessage).to.equal('Date must not be before 01.01.2024.');
+      expect(element.validity.rangeUnderflow, 'rangeUnderflow').to.be.true;
+      expect(element.validity.rangeOverflow, 'rangeOverflow').to.be.false;
+
+      element.valueAsDate = new Date(2027, 11, 31);
+      await waitForLitRender(element);
+
+      expect(element.validationMessage).to.equal('Date must not be after 01.01.2026.');
+      expect(element.validity.rangeUnderflow, 'rangeUnderflow').to.be.false;
+      expect(element.validity.rangeOverflow, 'rangeOverflow').to.be.true;
     });
   });
 

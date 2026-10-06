@@ -1,14 +1,18 @@
 /** @entrypoint */
 import {
-  SbbTrainElement,
   SbbTrainBlockedPassageElement,
+  SbbTrainElement,
   SbbTrainFormationElement,
+  SbbTrainWagonButtonElement,
   SbbTrainWagonElement,
+  SbbTrainWagonLinkElement,
 } from './train.pure.ts';
 
 export * from './train.pure.ts';
 
-SbbTrainElement.define();
 SbbTrainBlockedPassageElement.define();
+SbbTrainElement.define();
 SbbTrainFormationElement.define();
+SbbTrainWagonButtonElement.define();
+SbbTrainWagonLinkElement.define();
 SbbTrainWagonElement.define();

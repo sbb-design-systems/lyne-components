@@ -1,4 +1,5 @@
-import { containsPierceShadowDom, isAndroid, isIOS } from '../dom.ts';
+import { containsPierceShadowDom } from '../dom/contains-pierce-shadow-dom.ts';
+import { isAndroid, isIOS } from '../dom/platform.ts';
 
 /**
  * Listens globally to pointer events that happen outside the overlay area.
@@ -86,7 +87,7 @@ export class SbbOverlayOutsidePointerEventListener {
         break;
       }
 
-      overlay.dispatchEvent(new CustomEvent('overlayOutsidePointer'));
+      overlay.dispatchEvent(new Event('overlayOutsidePointer'));
     }
   };
 }
@@ -96,6 +97,6 @@ export const sbbOverlayOutsidePointerEventListener = new SbbOverlayOutsidePointe
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    overlayOutsidePointer: CustomEvent;
+    overlayOutsidePointer: Event;
   }
 }

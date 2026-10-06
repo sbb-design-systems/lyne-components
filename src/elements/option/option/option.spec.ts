@@ -2,7 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAutocompleteElement } from '../../autocomplete.ts';
+import type { SbbAutocompleteElement } from '../../autocomplete.pure.ts';
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
@@ -304,6 +304,18 @@ describe(`sbb-option`, () => {
       `,
         { ignoreAttributes: ['aria-hidden'] },
       );
+    });
+
+    it('watches for size changes', async () => {
+      const opt = element.querySelector('sbb-option')!;
+      element.size = 'm';
+      await waitForLitRender(element);
+      expect(opt).to.match(':state(size-m)');
+
+      element.size = 's';
+      await waitForLitRender(element);
+      expect(opt).not.to.match(':state(size-m)');
+      expect(opt).to.match(':state(size-s)');
     });
   });
 });

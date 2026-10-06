@@ -1,12 +1,12 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import type { visualRegressionFixture } from '../../core/testing/private.ts';
 import {
   describeEach,
   describeViewports,
   visualDiffDefault,
   visualDiffHover,
+  type visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
 import '../../menu.ts';
@@ -40,9 +40,11 @@ describe(`sbb-menu-link`, () => {
           ?disabled-interactive=${disabledInteractive}
         >
           ${label} ${index}
-          ${slottedIcon
-            ? html`<sbb-icon slot="icon" name="face-smiling-small"></sbb-icon>`
-            : nothing}
+          ${
+            slottedIcon
+              ? html`<sbb-icon slot="icon" name="face-smiling-small"></sbb-icon>`
+              : nothing
+          }
         </sbb-menu-link>
       `,
     )}

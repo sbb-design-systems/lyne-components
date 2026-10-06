@@ -4,13 +4,29 @@ import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import { defaultDateAdapter } from '../core/datetime.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
+import { defaultDateAdapter } from '../core.ts';
 
 import readme from './readme.md?raw';
 
 import '../tooltip.ts';
 import '../mini-calendar.ts';
+
+const getDayMarker = (date: Date): string => {
+  return defaultDateAdapter.getDayOfWeek(date) % 6 === 0 ? 'circle' : '';
+};
+
+const getDayColor = (date: Date): string => {
+  const month = date.getMonth();
+  if (month < 2 || month > 6) {
+    return '';
+  }
+  const day = date.getDate();
+  if (month === 5 && day > 15 && day < 30) {
+    return 'sky';
+  }
+  return 'charcoal';
+};
 
 const createDays = (year: number, month: number, withTooltip: boolean): TemplateResult => {
   const numDays = defaultDateAdapter.getNumDaysInMonth(new Date(year, month));
@@ -27,10 +43,8 @@ const createDays = (year: number, month: number, withTooltip: boolean): Template
         <sbb-mini-calendar-day
           ${sbbSpread(tooltipAttributes)}
           date=${defaultDateAdapter.toIso8601(date)}
-          marker=${defaultDateAdapter.getDayOfWeek(date) === 0 ||
-          defaultDateAdapter.getDayOfWeek(date) === 6
-            ? 'circle'
-            : ''}
+          color=${getDayColor(date)}
+          marker=${getDayMarker(date)}
         ></sbb-mini-calendar-day>
       `;
     })}

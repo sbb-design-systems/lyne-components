@@ -6,36 +6,45 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
-import type { CalendarView } from '../../calendar.ts';
-import { readConfig } from '../../core/config.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.ts';
-import { forceType, idReference } from '../../core/decorators.ts';
-import { i18nDateChangedTo } from '../../core/i18n.ts';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
-import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.ts';
-import { SbbPopoverBaseElement } from '../../popover.ts';
+import { SbbCalendarElement } from '../../calendar.pure.ts';
+import {
+  type DateAdapter,
+  defaultDateAdapter,
+  forceType,
+  i18nDateChangedTo,
+  idReference,
+  readConfig,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbMediaMatcherController,
+  SbbMediaQueryBreakpointLargeAndAbove,
+  SbbUpdateSchedulerMixin,
+  screenReaderOnlyStyles,
+} from '../../core.ts';
+import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.pure.ts';
+import { SbbPopoverBaseElement } from '../../popover.pure.ts';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker-toggle.component.ts';
 
-import style from './datepicker.scss?lit&inline';
-
-import '../../calendar.ts';
-
-let nextId = 0;
+import style from './datepicker.scss?inline';
 
 /**
  * A datepicker component that allows users to select a date from a calendar view.
- * @event {CustomEvent<T>} dateselected - Event emitted on date selection.
+ *
+ * @event {SbbDateSelectedEvent<T>} dateselected - Event emitted on date selection.
+ * @event {Event} change - The change event is fired on the datepicker's input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+ * @event {InputEvent} input - The input event fires  on the datepicker's input when the value has been changed as a direct result of a user action.
  */
 export class SbbDatepickerElement<T = Date>
   extends SbbUpdateSchedulerMixin(SbbPopoverBaseElement)
   implements SbbDateInputAssociated<T>
 {
   public static override readonly elementName: string = 'sbb-datepicker';
-  public static override styles: CSSResultGroup = [SbbPopoverBaseElement.styles, style];
+  public static override elementDependencies: SbbElementType[] = [SbbCalendarElement];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
   public static readonly sbbDateInputAssociated = true;
 
   /** If set to true, two months are displayed. */
@@ -53,12 +62,18 @@ export class SbbDatepickerElement<T = Date>
   public accessor input: SbbDateInputElement<T> | null = null;
 
   /** The initial view of calendar which should be displayed on opening. */
-  @property() public accessor view: CalendarView = 'day';
+  @property() public accessor view: SbbCalendarElement['view'] = 'day';
 
   private _inputAbortController?: AbortController;
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
   private _language = new SbbLanguageController(this);
   private _ready = false;
+  private _mediaMatcher = new SbbMediaMatcherController(this, {
+    [SbbMediaQueryBreakpointLargeAndAbove]: (m) => (this._isBreakpointLargeOrAbove = m),
+  });
+
+  @state() private accessor _isBreakpointLargeOrAbove: boolean =
+    this._mediaMatcher.matches(SbbMediaQueryBreakpointLargeAndAbove) ?? false;
 
   public constructor() {
     super();
@@ -72,7 +87,6 @@ export class SbbDatepickerElement<T = Date>
   }
 
   public override connectedCallback(): void {
-    this.id ||= `sbb-datepicker-${++nextId}`;
     super.connectedCallback();
 
     const formField = this.closest?.('sbb-form-field');
@@ -140,19 +154,20 @@ export class SbbDatepickerElement<T = Date>
 
   protected override renderContent(): TemplateResult {
     return html`
-      <p id="status-container" role="status"></p>
+      <p id="status-container" class="sbb-screen-reader-only" role="status"></p>
       <sbb-calendar
         .view=${this.view}
         .min=${this.input?.min ?? null}
         .max=${this.input?.max ?? null}
         .dateFilter=${this.input?.dateFilter ?? null}
-        .selected=${this.input?.valueAsDate ?? null}
-        ?wide=${this.wide}
-        @dateselected=${(d: CustomEvent<T>) => {
+        .value=${this.input?.valueAsDate ?? null}
+        .amount=${this.wide && this._isBreakpointLargeOrAbove ? 2 : 1}
+        @change=${(event: Event) => {
+          const value = (event.target as SbbCalendarElement<T>).value as T | null;
           if (this.input) {
-            this.input.valueAsDate = d.detail;
+            this.input.valueAsDate = value;
             this.input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-            this.input.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+            this.input.dispatchEvent(new Event('change', { bubbles: true }));
             // Emit blur event when value is changed programmatically to notify
             // frameworks that rely on that event to update form status.
             this.input.dispatchEvent(new Event('blur', { composed: true }));

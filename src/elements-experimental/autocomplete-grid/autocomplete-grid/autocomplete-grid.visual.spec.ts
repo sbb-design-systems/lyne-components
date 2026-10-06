@@ -1,15 +1,15 @@
 import { aTimeout } from '@open-wc/testing';
 import {
-  tabKey,
-  type VisualDiffSetupBuilder,
-} from '@sbb-esta/lyne-elements/core/testing/private.js';
-import {
   describeViewports,
+  tabKey,
   visualDiffDefault,
   visualDiffFocus,
+  type VisualDiffSetupBuilder,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';
+
+import type { SbbAutocompleteGridElement } from '../../autocomplete-grid.pure.ts';
 
 import '@sbb-esta/lyne-elements/card.js';
 import '@sbb-esta/lyne-elements/form-field.js';
@@ -25,7 +25,7 @@ describe('sbb-autocomplete-grid', () => {
     preserveIconSpace: true,
     disableOption: false,
     borderless: false,
-    size: 'm',
+    size: 'm' as SbbAutocompleteGridElement['size'],
     withGroup: false,
     disableGroup: false,
     withMixedOptionAndGroup: false,
@@ -127,19 +127,27 @@ describe('sbb-autocomplete-grid', () => {
   `;
 
   const template = (args: typeof defaultArgs): TemplateResult => html`
-    <sbb-form-field ?negative=${args.negative} ?borderless=${args.borderless} size=${args.size}>
+    <sbb-form-field
+      ?negative=${args.negative}
+      ?borderless=${args.borderless}
+      size=${args.size || nothing}
+    >
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
       <sbb-autocomplete-grid ?preserve-icon-space=${args.preserveIconSpace}>
-        ${args.withGroup
-          ? args.withMixedOptionAndGroup
-            ? createMixedOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
-            : createOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
-          : createOptions(args.withIcon, args.disableOption)}
+        ${
+          args.withGroup
+            ? args.withMixedOptionAndGroup
+              ? createMixedOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
+              : createOptionsGroup(args.withIcon, args.disableOption, args.disableGroup)
+            : createOptions(args.withIcon, args.disableOption)
+        }
       </sbb-autocomplete-grid>
-      ${args.required
-        ? html`<sbb-error slot="error">This is a required field.</sbb-error>`
-        : nothing}
+      ${
+        args.required
+          ? html`<sbb-error slot="error">This is a required field.</sbb-error>`
+          : nothing
+      }
     </sbb-form-field>
     ${textBlock()}
   `;
@@ -192,7 +200,7 @@ describe('sbb-autocomplete-grid', () => {
           backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
         };
 
-        for (const size of ['m', 's']) {
+        for (const size of [null, 's', 'm'] satisfies SbbAutocompleteGridElement['size'][]) {
           for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
             it(
               `state=${visualDiffState.name} size=${size}`,
@@ -320,7 +328,7 @@ describe('sbb-autocomplete-grid', () => {
             }),
           );
 
-          for (const size of ['m', 's']) {
+          for (const size of [null, 's', 'm'] satisfies SbbAutocompleteGridElement['size'][]) {
             it(
               `size=${size} withMixedOptionAndGroup=true`,
               visualDiffDefault.with(async (setup) => {
@@ -378,6 +386,41 @@ describe('sbb-autocomplete-grid', () => {
           element.style.setProperty('--sbb-options-panel-max-height', '100px');
           openAutocomplete(setup);
         });
+      }),
+    );
+
+    it(
+      'inside bold context',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div style="font-weight: bold;">
+            <input id="bold-input" placeholder="Placeholder" />
+            <sbb-autocomplete-grid origin="bold-input" trigger="bold-input">
+              <sbb-autocomplete-grid-row>
+                <sbb-autocomplete-grid-option value="Option 1"
+                  >Option 1</sbb-autocomplete-grid-option
+                >
+                <sbb-autocomplete-grid-cell>
+                  <sbb-autocomplete-grid-button
+                    icon-name="pen-small"
+                  ></sbb-autocomplete-grid-button>
+                </sbb-autocomplete-grid-cell>
+              </sbb-autocomplete-grid-row>
+              <sbb-autocomplete-grid-row>
+                <sbb-autocomplete-grid-option value="Option 2"
+                  >Option 2</sbb-autocomplete-grid-option
+                >
+                <sbb-autocomplete-grid-cell>
+                  <sbb-autocomplete-grid-button
+                    icon-name="pen-small"
+                  ></sbb-autocomplete-grid-button>
+                </sbb-autocomplete-grid-cell>
+              </sbb-autocomplete-grid-row>
+            </sbb-autocomplete-grid>
+          </div>`,
+        );
+
+        setup.withPostSetupAction(() => openAutocomplete(setup));
       }),
     );
   });

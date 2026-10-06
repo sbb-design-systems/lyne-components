@@ -1,10 +1,15 @@
-import { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.js';
-import { getNextElementIndex } from '@sbb-esta/lyne-elements/core/a11y.js';
-import { isSafari } from '@sbb-esta/lyne-elements/core/dom.js';
-import { ɵstateController } from '@sbb-esta/lyne-elements/core/mixins.js';
-import { setAriaComboBoxAttributes } from '@sbb-esta/lyne-elements/core/overlay.js';
-import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.js';
-import type { SbbOptGroupElement, SbbOptionHintElement } from '@sbb-esta/lyne-elements/option.js';
+import { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.pure.js';
+import {
+  getNextElementIndex,
+  isSafari,
+  setAriaComboBoxAttributes,
+  ɵstateController,
+} from '@sbb-esta/lyne-elements/core.js';
+import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.pure.js';
+import type {
+  SbbOptGroupElement,
+  SbbOptionHintElement,
+} from '@sbb-esta/lyne-elements/option.pure.js';
 
 import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button/autocomplete-grid-button.component.ts';
 import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/autocomplete-grid-option.component.ts';
@@ -20,6 +25,7 @@ const ariaRoleOnHost = isSafari;
 /**
  * Combined with a native input, it displays a panel with a list of available options with connected buttons.
  *
+ * @deprecated Use `sbb-autocomplete` with `sbb-autocomplete-row` and `sbb-autocomplete-button` instead. Will be removed with the next major release.
  * @slot - Use the unnamed slot to add `sbb-autocomplete-grid-row` or `sbb-autocomplete-grid-optgroup` elements to the `sbb-autocomplete-grid`.
  * @cssprop [--sbb-autocomplete-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
@@ -30,7 +36,7 @@ const ariaRoleOnHost = isSafari;
 export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<T> {
   public static override readonly elementName: string = 'sbb-autocomplete-grid';
   public static override readonly role = ariaRoleOnHost ? 'grid' : null;
-  protected overlayId = `sbb-autocomplete-grid-${++nextId}`;
+  protected generatedId = `sbb-autocomplete-grid-${++nextId}`;
   protected panelRole = 'grid';
   private _activeColumnIndex = 0;
 
@@ -106,7 +112,7 @@ export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseE
 
     // Reset potentially active option
     this.activeOption?.setActive(false);
-    this.triggerElement?.removeAttribute('aria-activedescendant');
+    this.triggerElement!.ariaActiveDescendantElement = null;
     Array.from(
       this.querySelectorAll?.('sbb-autocomplete-grid-row :state(focus-visible)') ?? [],
     ).forEach((row) => ɵstateController(row).delete('focus-visible'));
@@ -125,7 +131,7 @@ export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseE
     const next = getNextElementIndex(event, activeItemIndex, enabledOptions.length);
     this.activeOption = enabledOptions[next];
     this.activeOption.setActive(true);
-    this.triggerElement?.setAttribute('aria-activedescendant', this.activeOption.id);
+    this.triggerElement!.ariaActiveDescendantElement = this.activeOption;
     this.activeOption.scrollIntoView({ block: 'nearest' });
 
     // Moving the active option should not move the input cursor (caret)
@@ -147,9 +153,9 @@ export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseE
     const elementsInRow = Array.from(
       this.activeOption
         ?.closest('sbb-autocomplete-grid-row')
-        ?.querySelectorAll<
-          SbbAutocompleteGridOptionElement<T> | SbbAutocompleteGridButtonElement
-        >('sbb-autocomplete-grid-option, sbb-autocomplete-grid-button') ?? [],
+        ?.querySelectorAll<SbbAutocompleteGridOptionElement<T> | SbbAutocompleteGridButtonElement>(
+          'sbb-autocomplete-grid-option, sbb-autocomplete-grid-button',
+        ) ?? [],
     )?.filter((el) => !el.matches(':state(disabled)'));
 
     if (!elementsInRow.length) {
@@ -171,7 +177,7 @@ export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseE
     } else {
       ɵstateController(lastActiveElement).delete('focus-visible');
     }
-    this.triggerElement?.setAttribute('aria-activedescendant', nextElement.id);
+    this.triggerElement!.ariaActiveDescendantElement = nextElement;
     nextElement.scrollIntoView({ block: 'nearest' });
     this._activeColumnIndex = next;
   }
@@ -186,7 +192,10 @@ export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseE
     this.activeOption?.setActive(false);
     this.activeOption = null;
     this._activeColumnIndex = 0;
-    this.triggerElement?.removeAttribute('aria-activedescendant');
+
+    if (this.triggerElement) {
+      this.triggerElement.ariaActiveDescendantElement = null;
+    }
   }
 
   protected setTriggerAttributes(element: HTMLInputElement): void {

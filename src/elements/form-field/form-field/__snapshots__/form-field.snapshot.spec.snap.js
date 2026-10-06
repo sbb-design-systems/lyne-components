@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-form-field renders input DOM"] = 
 `<sbb-form-field
   error-space="none"
-  size="m"
   width="default"
 >
   <label
@@ -45,11 +44,18 @@ snapshots["sbb-form-field renders input Shadow DOM"] =
         <slot>
         </slot>
       </div>
+      <sbb-icon
+        class="sbb-form-field__select-input-icon"
+        name="chevron-small-down-small"
+      >
+      </sbb-icon>
     </div>
     <slot name="suffix">
     </slot>
   </div>
-  <div class="sbb-form-field__error">
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
     <slot name="error">
     </slot>
   </div>
@@ -60,7 +66,6 @@ snapshots["sbb-form-field renders input Shadow DOM"] =
 snapshots["sbb-form-field renders disabled input DOM"] = 
 `<sbb-form-field
   error-space="none"
-  size="m"
   width="default"
 >
   <label
@@ -103,11 +108,18 @@ snapshots["sbb-form-field renders disabled input Shadow DOM"] =
         <slot>
         </slot>
       </div>
+      <sbb-icon
+        class="sbb-form-field__select-input-icon"
+        name="chevron-small-down-small"
+      >
+      </sbb-icon>
     </div>
     <slot name="suffix">
     </slot>
   </div>
-  <div class="sbb-form-field__error">
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
     <slot name="error">
     </slot>
   </div>
@@ -118,7 +130,6 @@ snapshots["sbb-form-field renders disabled input Shadow DOM"] =
 snapshots["sbb-form-field renders readonly input with error DOM"] = 
 `<sbb-form-field
   error-space="none"
-  size="m"
   width="default"
 >
   <label
@@ -169,11 +180,18 @@ snapshots["sbb-form-field renders readonly input with error Shadow DOM"] =
         <slot>
         </slot>
       </div>
+      <sbb-icon
+        class="sbb-form-field__select-input-icon"
+        name="chevron-small-down-small"
+      >
+      </sbb-icon>
     </div>
     <slot name="suffix">
     </slot>
   </div>
-  <div class="sbb-form-field__error">
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
     <slot name="error">
     </slot>
   </div>
@@ -184,7 +202,6 @@ snapshots["sbb-form-field renders readonly input with error Shadow DOM"] =
 snapshots["sbb-form-field should render select without label DOM"] = 
 `<sbb-form-field
   error-space="none"
-  size="m"
   width="default"
 >
   <select>
@@ -235,7 +252,9 @@ snapshots["sbb-form-field should render select without label Shadow DOM"] =
     <slot name="suffix">
     </slot>
   </div>
-  <div class="sbb-form-field__error">
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
     <slot name="error">
     </slot>
   </div>
@@ -243,19 +262,17 @@ snapshots["sbb-form-field should render select without label Shadow DOM"] =
 `;
 /* end snapshot sbb-form-field should render select without label Shadow DOM */
 
-snapshots["sbb-form-field renders select with optional flag and borderless DOM"] = 
+snapshots["sbb-form-field renders select borderless DOM"] = 
 `<sbb-form-field
   borderless=""
   error-space="none"
-  optional=""
-  size="m"
   width="default"
 >
   <label
     for="sbb-form-field-input-6"
     slot="label"
   >
-    Select option:
+    Select option (optional)
   </label>
   <select id="sbb-form-field-input-6">
     <option>
@@ -270,9 +287,9 @@ snapshots["sbb-form-field renders select with optional flag and borderless DOM"]
   </select>
 </sbb-form-field>
 `;
-/* end snapshot sbb-form-field renders select with optional flag and borderless DOM */
+/* end snapshot sbb-form-field renders select borderless DOM */
 
-snapshots["sbb-form-field renders select with optional flag and borderless Shadow DOM"] = 
+snapshots["sbb-form-field renders select borderless Shadow DOM"] = 
 `<div class="sbb-form-field__space-wrapper">
   <div
     class="sbb-form-field__wrapper"
@@ -290,9 +307,6 @@ snapshots["sbb-form-field renders select with optional flag and borderless Shado
         <span class="sbb-form-field__label-ellipsis">
           <slot name="label">
           </slot>
-          <span aria-hidden="true">
-            (optional)
-          </span>
         </span>
       </span>
       <div class="sbb-form-field__input">
@@ -308,13 +322,15 @@ snapshots["sbb-form-field renders select with optional flag and borderless Shado
     <slot name="suffix">
     </slot>
   </div>
-  <div class="sbb-form-field__error">
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
     <slot name="error">
     </slot>
   </div>
 </div>
 `;
-/* end snapshot sbb-form-field renders select with optional flag and borderless Shadow DOM */
+/* end snapshot sbb-form-field renders select borderless Shadow DOM */
 
 snapshots["sbb-form-field A11y tree Chrome"] = 
 `<p>

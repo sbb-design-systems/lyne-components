@@ -1,19 +1,21 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.ts';
-import type { SbbHorizontalFrom } from '../../core/interfaces.ts';
-import type { AbstractConstructor } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+import {
+  type AbstractConstructor,
+  type SbbActionBaseElement,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
+import type { SbbHeaderElement } from '../header/header.component.ts';
 
-import style from './header-action.scss?lit&inline';
+import style from './header-action.scss?inline';
 
 export declare class SbbHeaderActionCommonElementMixinType extends SbbIconNameMixin(
   SbbActionBaseElement,
 ) {
-  public accessor expandFrom: SbbHorizontalFrom;
+  public accessor hideLabelBelow: 'small' | 'large' | 'ultra' | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -26,15 +28,35 @@ export const SbbHeaderActionCommonElementMixin = <
     extends SbbIconNameMixin(superClass)
     implements Partial<SbbHeaderActionCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, style];
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
 
     /**
-     * Used to set the minimum breakpoint from which the text is displayed.
+     * Used to set the maximum breakpoint (not including) to which the text is displayed.
      * E.g. if set to 'large', the text will be visible for breakpoints large and ultra,
      * and hidden for all the others. Ignored if no icon is set.
      */
-    @property({ attribute: 'expand-from', reflect: true })
-    public accessor expandFrom: SbbHorizontalFrom = 'large';
+    @property({ attribute: 'hide-label-below', reflect: true })
+    public accessor hideLabelBelow: 'small' | 'large' | 'ultra' | null = null;
+
+    private _previousSize: SbbHeaderElement['size'] = null;
+
+    protected constructor() {
+      super();
+
+      this.addController(
+        new SbbPropertyWatcherController(this, () => this.closest('sbb-header'), {
+          size: (header) => {
+            if (this._previousSize) {
+              this.internals.states.delete(`size-${this._previousSize}`);
+            }
+            this._previousSize = header.size ?? null;
+            if (this._previousSize) {
+              this.internals.states.add(`size-${this._previousSize}`);
+            }
+          },
+        }),
+      );
+    }
 
     protected override renderTemplate(): TemplateResult {
       return html`

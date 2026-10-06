@@ -1,22 +1,21 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
-import { SbbDisabledMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  forceType,
+  omitEmptyConverter,
+  SbbDisabledMixin,
+  SbbElement,
+  type SbbHeadingLevel,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
-import type { SbbTitleLevel } from '../../title.pure.ts';
 import { tabLabelCommonStyles } from '../common/styles.ts';
 import type { SbbTabElement } from '../tab/tab.component.ts';
-import type {
-  SbbTabChangedEventDetails,
-  SbbTabGroupElement,
-} from '../tab-group/tab-group.component.ts';
+import { SbbTabChangeEvent, type SbbTabGroupElement } from '../tab-group/tab-group.component.ts';
 
-import style from './tab-label.scss?lit&inline';
+import style from './tab-label.scss?inline';
 
 /**
  * Combined with a `sbb-tab-group`, it displays a tab's title.
@@ -28,17 +27,17 @@ import style from './tab-label.scss?lit&inline';
 export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbElement)) {
   public static override readonly elementName: string = 'sbb-tab-label';
   public static override role = 'tab';
-  public static override styles: CSSResultGroup = [boxSizingStyles, tabLabelCommonStyles, style];
+  public static override styles: CSSResultGroup = [tabLabelCommonStyles, unsafeCSS(style)];
 
   /** Whether the tab is selected. */
   private _selected: boolean = false;
-  private _previousSize: SbbTabGroupElement['size'] | null = null;
+  private _previousSize: SbbTabGroupElement['size'] = null;
 
   /**
    * The level will correspond to the heading tag generated in the title.
    * Use this property to generate the appropriate header tag, taking SEO into consideration.
    */
-  @property() public accessor level: SbbTitleLevel = '1';
+  @property() public accessor level: SbbHeadingLevel = '1';
 
   /** Active tab state. */
   @forceType()
@@ -72,7 +71,7 @@ export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbEle
           if (this._previousSize) {
             this.internals.states.delete(`size-${this._previousSize}`);
           }
-          this._previousSize = g?.size || null;
+          this._previousSize = g.size ?? null;
           if (this._previousSize) {
             this.internals.states.add(`size-${this._previousSize}`);
           }
@@ -135,20 +134,18 @@ export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbEle
       this._selected = true;
       this.tabIndex = 0;
       this.tab?.dispatchEvent(new Event('active', { bubbles: true, composed: true }));
-      this.group?.dispatchEvent(
-        new CustomEvent<SbbTabChangedEventDetails>('tabchange', {
-          bubbles: true,
-          composed: true,
-          detail: {
-            activeIndex: tabLabels.findIndex((e) => e === this),
-            activeTabLabel: this,
-            activeTab: this.tab as SbbTabElement,
-            previousIndex: tabLabels.findIndex((e) => e === prevActiveTabLabel),
-            previousTabLabel: prevActiveTabLabel,
-            previousTab: prevActiveTabLabel?.tab as SbbTabElement,
-          },
-        }),
-      );
+      // FIXME: the name of the variable appears as event name in the readme
+      //  due to a bug in the custom-elements-manifest library.
+      //   https://github.com/open-wc/custom-elements-manifest/issues/149
+      const tabchange = {
+        activeIndex: tabLabels.findIndex((e) => e === this),
+        activeTabLabel: this,
+        activeTab: this.tab as SbbTabElement,
+        previousIndex: tabLabels.findIndex((e) => e === prevActiveTabLabel),
+        previousTabLabel: prevActiveTabLabel,
+        previousTab: prevActiveTabLabel?.tab as SbbTabElement,
+      };
+      this.group?.dispatchEvent(new SbbTabChangeEvent(tabchange));
     }
   }
 

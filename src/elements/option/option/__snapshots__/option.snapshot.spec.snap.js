@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-option autocomplete renders selected DOM"] = 
 `<sbb-option
-  id="sbb-option-0"
   selected=""
   value="1"
 >
@@ -32,7 +31,6 @@ snapshots["sbb-option autocomplete renders selected Shadow DOM"] =
 snapshots["sbb-option autocomplete renders disabled DOM"] = 
 `<sbb-option
   disabled=""
-  id="sbb-option-2"
   value="1"
 >
   Option 1
@@ -64,9 +62,8 @@ snapshots["sbb-option selected Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "option",
-      "name": "",
-      "selected": true
+      "role": "generic",
+      "name": ""
     }
   ]
 }
@@ -91,10 +88,14 @@ snapshots["sbb-option disabled Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "option",
-      "name": "",
-      "disabled": true,
-      "selected": false
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        }
+      ]
     }
   ]
 }

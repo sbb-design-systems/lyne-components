@@ -110,7 +110,7 @@ describe(`sbb-header`, () => {
         </sbb-header>
         <div
           id="container"
-          style="position:fixed; inset: var(--sbb-header-height) 0 0 0; width: 100vw; overflow: auto;"
+          style="position:fixed; inset: var(--sbb-header-vertical-spacing) 0 0 0; width: 100vw; overflow: auto;"
         >
           <div style="height: 2000px">Content</div>
         </div>
@@ -144,7 +144,7 @@ describe(`sbb-header`, () => {
           <sbb-header-button id="action-2">Action 2</sbb-header-button>
         </sbb-header>
         <div
-          style="position:fixed; inset: var(--sbb-header-height) 0 0 0; width: 100vw; overflow: auto;"
+          style="position:fixed; inset: var(--sbb-header-vertical-spacing) 0 0 0; width: 100vw; overflow: auto;"
         >
           <div style="height: 2000px">Content</div>
         </div>
@@ -332,6 +332,36 @@ describe(`sbb-header`, () => {
       expect(element).to.match(':state(shadow)');
     });
 
+    it('should not consider a disconnected element as scroll origin when a connected one exists', async () => {
+      const root = await fixture(html`
+        <div>
+          <sbb-header></sbb-header>
+          <div id="remaining" sbb-header-scroll-origin style="height: 300px; overflow: auto;">
+            <div style="height: 2000px">Remaining container</div>
+          </div>
+          <div id="removed-parent">
+            <div id="removed-child" sbb-header-scroll-origin style="height: 300px; overflow: auto;">
+              <div style="height: 2000px">Removed child container</div>
+            </div>
+          </div>
+        </div>
+      `);
+
+      element = root.querySelector<SbbHeaderElement>('sbb-header')!;
+      const removedParent = root.querySelector<HTMLDivElement>('#removed-parent')!;
+      const remainingContainer = root.querySelector<HTMLDivElement>('#remaining')!;
+
+      // Remove the parent.
+      removedParent.remove();
+      await aTimeout(30);
+
+      // The remaining connected container must now be the sole active scroll origin.
+      remainingContainer.scrollTo({ top: 200, behavior: 'instant' });
+
+      await waitForCondition(() => element.matches(':state(shadow)'));
+      expect(element).to.match(':state(shadow)');
+    });
+
     it('scroll-origin property should take priority over sbb-header-scroll-origin attribute', async () => {
       const root = await fixture(html`
         <div>
@@ -405,8 +435,7 @@ describe(`sbb-header`, () => {
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
-    const menuId = menuTrigger.getAttribute('aria-controls');
-    const menu = root.querySelector(`#${menuId}`);
+    const menu = root.querySelector(`sbb-menu`);
 
     // Assert menu opened
     expect(menuTrigger).to.have.attribute('aria-controls');

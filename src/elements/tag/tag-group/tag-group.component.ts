@@ -1,18 +1,25 @@
-import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean, setOrRemoveAttribute } from '../../core/dom.ts';
 import {
+  forceType,
+  getNextElementIndex,
+  isArrowKeyPressed,
   SbbDisabledMixin,
+  SbbElement,
   SbbNamedSlotListMixin,
   type WithListChildren,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbTagElement, SbbTagSize } from '../tag/tag.component.ts';
+} from '../../core.ts';
+import type { SbbTagElement } from '../tag/tag.component.ts';
 
-import style from './tag-group.scss?lit&inline';
+import style from './tag-group.scss?inline';
 
 /**
  * It can be used as a container for one or more `sbb-tag`.
@@ -24,7 +31,7 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
   SbbNamedSlotListMixin<SbbTagElement, typeof SbbElement>(SbbElement),
 ) {
   public static override readonly elementName: string = 'sbb-tag-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   // DIV is added here due to special requirements from sbb.ch.
   protected override readonly listChildLocalNames = ['sbb-tag', 'div'];
 
@@ -32,8 +39,8 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
    * This will be forwarded as aria-label to the inner list.
    */
   @forceType()
-  @property({ attribute: 'list-accessibility-label' })
-  public accessor listAccessibilityLabel: string = '';
+  @property({ attribute: 'accessibility-label' })
+  public accessor accessibilityLabel: string = '';
 
   /**
    * If set multiple to false, the selection is exclusive and the value is a string (or null).
@@ -46,10 +53,9 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
   public accessor multiple: boolean = false;
 
   /**
-   * Tag group size, either s or m.
-   * @default 'm' / 's' (lean)
+   * Tag group size, either s (lean theme default) or m (standard theme default).
    */
-  @property({ reflect: true }) public accessor size: SbbTagSize = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: SbbTagElement['size'] = null;
 
   /**
    * Value of the sbb-tag-group.
@@ -75,7 +81,15 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
 
   /** The child instances of sbb-tag as an array. */
   public get tags(): SbbTagElement<T>[] {
-    return Array.from(this.querySelectorAll?.<SbbTagElement<T>>('sbb-tag') ?? []);
+    return Array.from(this.querySelectorAll?.<SbbTagElement<T>>('sbb-tag') ?? [], (t) => {
+      customElements.upgrade(t);
+      return t;
+    });
+  }
+
+  public constructor() {
+    super();
+    this.addEventListener?.('keydown', (e) => this._handleArrowKeyDown(e));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
@@ -85,31 +99,65 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
       this._applyValueToTags(this.value);
     }
 
-    if (changedProperties.has('size')) {
-      this.tags.forEach((t) => t.requestUpdate?.('size'));
-    }
-
     if (changedProperties.has('disabled')) {
       this.tags.forEach((r) => r.requestUpdate?.('disabled'));
     }
 
-    if (
-      (changedProperties.has('listChildren') || changedProperties.has('multiple')) &&
-      !this.multiple
-    ) {
-      // Ensure only one tag checked
-      this.tags
-        .filter((tag) => tag.checked)
-        .slice(1)
-        .forEach((tag) => (tag.checked = false));
+    if (changedProperties.has('listChildren') || changedProperties.has('multiple')) {
+      if (!this.multiple) {
+        // Ensure only one tag checked
+        this.tags
+          .filter((tag) => tag.checked)
+          .slice(1)
+          .forEach((tag) => (tag.checked = false));
+
+        this.updateExclusiveTabIndex();
+      } else if (changedProperties.has('multiple')) {
+        // In multiple mode all enabled tags should be focusable
+        this._enabledTags().forEach((t) => (t.tabIndex = 0));
+      }
     }
-    setOrRemoveAttribute(
-      this,
-      'role',
-      changedProperties.has('listAccessibilityLabel') && this.listAccessibilityLabel
-        ? null
-        : 'group',
-    );
+
+    if (changedProperties.has('accessibilityLabel') || changedProperties.has('multiple')) {
+      if (this.multiple) {
+        this.internals.role = this.accessibilityLabel ? null : 'group';
+        this.internals.ariaLabel = null;
+      } else {
+        this.internals.role = 'radiogroup';
+        this.internals.ariaLabel = this.accessibilityLabel;
+      }
+    }
+  }
+
+  private _enabledTags(): SbbTagElement<T>[] {
+    return this.tags.filter((t) => !t.disabled);
+  }
+
+  /** In exclusive mode, only the checked tag (or the first non-disabled tag) should be focusable. */
+  protected updateExclusiveTabIndex(): void {
+    const enabledTags = this._enabledTags();
+    const focusTarget = enabledTags.find((t) => t.checked) ?? enabledTags[0];
+    enabledTags.forEach((t) => (t.tabIndex = t === focusTarget ? 0 : -1));
+  }
+
+  private _handleArrowKeyDown(evt: KeyboardEvent): void {
+    if (this.multiple || !isArrowKeyPressed(evt)) {
+      return;
+    }
+    evt.preventDefault();
+
+    const enabledTags = this._enabledTags();
+    const current = enabledTags.indexOf(evt.target as SbbTagElement<T>);
+    if (current === -1) {
+      return;
+    }
+
+    const nextIndex = getNextElementIndex(evt, current, enabledTags.length);
+    const nextTag = enabledTags[nextIndex];
+
+    // Only move focus, do not select. Selection happens via click or Space/Enter.
+    enabledTags.forEach((t) => (t.tabIndex = t === nextTag ? 0 : -1));
+    nextTag.focus();
   }
 
   private _applyValueToTags(value: any): void {
@@ -140,12 +188,10 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-tag-group">
-        ${this.renderList({
-          class: 'sbb-tag-group__list',
-          ariaLabel: this.listAccessibilityLabel,
-        })}
-      </div>
+      ${this.renderList({
+        class: 'sbb-tag-group__list',
+        ariaLabel: this.multiple ? this.accessibilityLabel : undefined,
+      })}
     `;
   }
 }

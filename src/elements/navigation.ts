@@ -1,7 +1,7 @@
 /** @entrypoint */
 import {
-  SbbNavigationElement,
   SbbNavigationButtonElement,
+  SbbNavigationElement,
   SbbNavigationLinkElement,
   SbbNavigationListElement,
   SbbNavigationMarkerElement,

@@ -1,40 +1,86 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
-import { throttle } from '../../core/eventing.ts';
-import { ɵstateController } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  forceType,
+  getNextElementIndex,
+  isArrowKeyPressed,
+  SbbElement,
+  ɵstateController,
+} from '../../core.ts';
 import { tabGroupCommonStyles } from '../common/styles.ts';
 import type { SbbTabElement } from '../tab/tab.component.ts';
 import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
-import style from './tab-group.scss?lit&inline';
+import style from './tab-group.scss?inline';
 
-export interface SbbTabChangedEventDetails {
-  activeIndex: number;
-  activeTabLabel: SbbTabLabelElement;
-  activeTab: SbbTabElement;
-  previousIndex: number;
-  previousTabLabel: SbbTabLabelElement | undefined;
-  previousTab: SbbTabElement | undefined;
+export class SbbTabChangeEvent extends Event {
+  private readonly _activeIndex: number;
+  private readonly _activeTabLabel: SbbTabLabelElement;
+  private readonly _activeTab: SbbTabElement;
+  private readonly _previousIndex: number;
+  private readonly _previousTabLabel: SbbTabLabelElement | undefined;
+  private readonly _previousTab: SbbTabElement | undefined;
+
+  public get activeIndex(): number {
+    return this._activeIndex;
+  }
+
+  public get activeTabLabel(): SbbTabLabelElement {
+    return this._activeTabLabel;
+  }
+
+  public get activeTab(): SbbTabElement {
+    return this._activeTab;
+  }
+
+  public get previousIndex(): number {
+    return this._previousIndex;
+  }
+
+  public get previousTabLabel(): SbbTabLabelElement | undefined {
+    return this._previousTabLabel;
+  }
+
+  public get previousTab(): SbbTabElement | undefined {
+    return this._previousTab;
+  }
+
+  public constructor({
+    activeIndex,
+    activeTabLabel,
+    activeTab,
+    previousIndex,
+    previousTabLabel,
+    previousTab,
+  }: Omit<SbbTabChangeEvent, keyof Event>) {
+    super('tabchange', { bubbles: true, composed: true });
+    this._activeIndex = activeIndex;
+    this._activeTabLabel = activeTabLabel;
+    this._activeTab = activeTab;
+    this._previousIndex = previousIndex;
+    this._previousTabLabel = previousTabLabel;
+    this._previousTab = previousTab;
+  }
 }
 
 /**
  * It displays one or more tabs, each one with a label and some content.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-tab-group` via `sbb-tab-label` and `sbb-tab` instances.
- * @event {CustomEvent<SbbTabChangedEventDetails>} tabchange - The tabchange event is dispatched when a tab is selected.
+ * @event {SbbTabChangeEvent} tabchange - The tabchange event is dispatched when a tab is selected.
  */
 export class SbbTabGroupElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-tab-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, tabGroupCommonStyles, style];
+  public static override styles: CSSResultGroup = [tabGroupCommonStyles, unsafeCSS(style)];
   public static readonly events = {
     tabchange: 'tabchange',
   } as const;
@@ -45,13 +91,13 @@ export class SbbTabGroupElement extends SbbElement {
     skipInitial: true,
     callback: () => this._onTabGroupElementResize(),
   });
+  private _contentSlotChangeDebounceId?: ReturnType<typeof setTimeout>;
 
   /**
-   * Size variant, either s, l or xl.
-   * @default 'l' / 's' (lean)
+   * Size variant, either s (lean theme default), l (standard theme default) or xl.
    */
-  @property()
-  public accessor size: 's' | 'l' | 'xl' = isLean() ? 's' : 'l';
+  @property({ reflect: true })
+  public accessor size: 's' | 'l' | 'xl' | null = null;
 
   /**
    * Sets the initial tab. If it matches a disabled tab or exceeds the length of
@@ -143,21 +189,23 @@ export class SbbTabGroupElement extends SbbElement {
     });
   }
 
-  private _onContentSlotChange = (): void => {
-    this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
-    this.labels.find((tabLabel) => tabLabel.active)?.activate();
-  };
+  private _onContentSlotChange(): void {
+    if (this._contentSlotChangeDebounceId) {
+      clearTimeout(this._contentSlotChangeDebounceId);
+    }
+    this._contentSlotChangeDebounceId = setTimeout(() => {
+      this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
+      this.labels.find((tabLabel) => tabLabel.active)?.activate();
+    }, 150);
+  }
 
-  private _onLabelSlotChange = (): void => {
+  private _onLabelSlotChange(): void {
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
     this._ensureActiveTab();
-  };
+  }
 
   private _ensureActiveTab(): void {
-    if (
-      this.internals.states.has('initialized') &&
-      !this.labels.some((tabLabel) => tabLabel.active)
-    ) {
+    if (this.matches?.(':state(initialized)') && !this.labels.some((tabLabel) => tabLabel.active)) {
       this._initSelection();
     }
   }
@@ -226,13 +274,15 @@ export class SbbTabGroupElement extends SbbElement {
       >
         <slot name="tab-bar" @slotchange=${this._onLabelSlotChange}></slot>
       </div>
-      ${!this.fixedHeight
-        ? html`
-            <div class="sbb-tab-group-content">
-              <slot @slotchange=${throttle(this._onContentSlotChange, 150)}></slot>
-            </div>
-          `
-        : html`<slot @slotchange=${throttle(this._onContentSlotChange, 150)}></slot>`}
+      ${
+        !this.fixedHeight
+          ? html`
+              <div class="sbb-tab-group-content">
+                <slot @slotchange=${this._onContentSlotChange}></slot>
+              </div>
+            `
+          : html`<slot @slotchange=${this._onContentSlotChange}></slot>`
+      }
     `;
   }
 }

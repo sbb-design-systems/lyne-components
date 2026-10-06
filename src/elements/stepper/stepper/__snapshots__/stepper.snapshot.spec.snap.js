@@ -5,7 +5,6 @@ snapshots["sbb-stepper renders DOM"] =
 `<sbb-stepper
   orientation="horizontal"
   selected-index="0"
-  size="m"
 >
   <sbb-step-label
     slot="step-label"
@@ -46,18 +45,16 @@ snapshots["sbb-stepper renders DOM"] =
 /* end snapshot sbb-stepper renders DOM */
 
 snapshots["sbb-stepper renders Shadow DOM"] = 
-`<div class="sbb-stepper">
-  <div
-    class="sbb-stepper__labels"
-    role="tablist"
-  >
-    <slot name="step-label">
-    </slot>
-  </div>
-  <div class="sbb-stepper__steps">
-    <slot name="step">
-    </slot>
-  </div>
+`<div
+  class="sbb-stepper__labels"
+  role="tablist"
+>
+  <slot name="step-label">
+  </slot>
+</div>
+<div class="sbb-stepper__steps">
+  <slot name="step">
+  </slot>
 </div>
 `;
 /* end snapshot sbb-stepper renders Shadow DOM */

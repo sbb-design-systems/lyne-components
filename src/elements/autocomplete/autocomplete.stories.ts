@@ -6,8 +6,8 @@ import type {
   StoryContext,
   StoryObj,
 } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
@@ -15,7 +15,7 @@ import type { InputType } from 'storybook/internal/types';
 import type { SbbErrorElement } from '../form-field.ts';
 import { SbbOptionElement } from '../option.ts';
 
-import { SbbAutocompleteElement } from './autocomplete.component.ts';
+import { SbbAutocompleteElement } from './autocomplete/autocomplete.component.ts';
 import readme from './readme.md?raw';
 
 import '../autocomplete.ts';
@@ -98,7 +98,7 @@ const position: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['auto', 'below', 'above'],
+  options: ['auto', 'below', 'above'] satisfies SbbAutocompleteElement['position'][],
   table: {
     category: 'Autocomplete',
   },
@@ -144,7 +144,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['s', 'm'] satisfies SbbAutocompleteElement['size'][],
   table: {
     category: 'Form field',
   },
@@ -217,7 +217,7 @@ const defaultArgs: Args = {
 
   // Form field args
   borderless: false,
-  size: size.options![0],
+  size: undefined,
   floatingLabel: false,
 };
 
@@ -278,7 +278,7 @@ const Template = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
-      size=${args.size}
+      size=${args.size || nothing}
     >
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
@@ -304,7 +304,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
-      size=${args.size}
+      size=${args.size || nothing}
     >
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
@@ -333,7 +333,7 @@ const MixedTemplate = (args: Args): TemplateResult => html`
       ?negative=${args.negative}
       ?borderless=${args.borderless}
       ?floating-label=${args.floatingLabel}
-      size=${args.size}
+      size=${args.size || nothing}
     >
       <label>Label</label>
       <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
@@ -375,7 +375,7 @@ const RequiredTemplate = (args: Args): TemplateResult => {
         ?negative=${args.negative}
         ?borderless=${args.borderless}
         ?floating-label=${args.floatingLabel}
-        size=${args.size}
+        size=${args.size || nothing}
         id="sbb-form-field"
       >
         <label>Label</label>
@@ -416,25 +416,92 @@ const RequiredTemplate = (args: Args): TemplateResult => {
   `;
 };
 
+const WithActionsTemplate = (args: Args): TemplateResult => html`
+  <div>
+    <sbb-form-field
+      ?negative=${args.negative}
+      ?borderless=${args.borderless}
+      ?floating-label=${args.floatingLabel}
+      size=${args.size || nothing}
+    >
+      <label>Label</label>
+      <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
+
+      <sbb-autocomplete
+        id="with-actions"
+        position=${args.position}
+        ?preserve-icon-space=${args.preserveIconSpace}
+        ?auto-active-first-option=${args.autoActiveFirstOption}
+        ?auto-select-active-option=${args.autoSelectActiveOption}
+        ?auto-select-active-option-on-blur=${args.autoSelectActiveOptionOnBlur}
+        ?require-selection=${args.requireSelection}
+      >
+        ${repeat(
+          new Array(4),
+          (_, i: number) => html`
+            <sbb-autocomplete-row>
+              <sbb-option
+                value=${`1-${i + 1}`}
+                icon-name=${args.iconName || nothing}
+                ?disabled=${args.disableOption && i === 1}
+                aria-describedby="option-description"
+                >${`Option 1-${i + 1}`}${
+                  i === 2 ? ` with a long text which can wrap` : ``
+                }</sbb-option
+              >
+              <sbb-autocomplete-button
+                ?disabled=${args.disableOption && i === 1}
+                icon-name="trash-small"
+                aria-label="delete option ${i + 1}"
+              ></sbb-autocomplete-button>
+            </sbb-autocomplete-row>
+          `,
+        )}
+        <sbb-autocomplete-row>
+          <sbb-option
+            value=${`1-5`}
+            icon-name=${args.iconName || nothing}
+            aria-describedby="option-description"
+            >Option 1-5</sbb-option
+          >
+          <sbb-autocomplete-button
+            icon-name="pen-small"
+            aria-label="edit option 1-5"
+          ></sbb-autocomplete-button>
+          <sbb-autocomplete-button
+            icon-name="trash-small"
+            aria-label="delete option 1-5"
+          ></sbb-autocomplete-button>
+        </sbb-autocomplete-row>
+      </sbb-autocomplete>
+    </sbb-form-field>
+    ${textBlock()}
+
+    <span class="sbb-screen-reader-only" id="option-description"
+      >press arrow left/right for available actions</span
+    >
+  </div>
+`;
+
 export const Basic: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
 
-export const BasicNegative: StoryObj = {
+export const Negative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true },
 };
 
-export const BasicSizeS: StoryObj = {
+export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![1] },
 };
 
-export const BasicOpenAbove: StoryObj = {
+export const OpenAbove: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
@@ -447,40 +514,16 @@ export const Borderless: StoryObj = {
   args: { ...defaultArgs, borderless: true },
 };
 
-export const BorderlessNegative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, borderless: true, negative: true },
-};
-
-export const BorderlessSizeS: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, borderless: true, size: size.options![1] },
-};
-
 export const FloatingLabel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, floatingLabel: true },
 };
 
-export const FloatingLabelSizeS: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, floatingLabel: true, size: size.options![1] },
-};
-
 export const WithError: StoryObj = {
   render: RequiredTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs },
-};
-
-export const WithErrorNegative: StoryObj = {
-  render: RequiredTemplate,
-  argTypes: withGroupsArgTypes,
-  args: { ...withGroupsDefaultArgs, negative: true },
 };
 
 export const Disabled: StoryObj = {
@@ -505,13 +548,6 @@ export const RequireSelection: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, requireSelection: true },
-};
-
-export const BorderlessOpenAbove: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, borderless: true },
-  decorators: [aboveDecorator],
 };
 
 export const NoIconSpace: StoryObj = {
@@ -539,22 +575,16 @@ export const MixedSingleOptionWithOptionGroup: StoryObj = {
   args: { ...withGroupsDefaultArgs },
 };
 
-export const MixedSingleOptionWithOptionGroupNegative: StoryObj = {
-  render: MixedTemplate,
-  argTypes: withGroupsArgTypes,
-  args: { ...withGroupsDefaultArgs, negative: true },
-};
-
-export const MixedSingleOptionWithOptionGroupSizeS: StoryObj = {
-  render: MixedTemplate,
-  argTypes: withGroupsArgTypes,
-  args: { ...withGroupsDefaultArgs, size: size.options![1] },
-};
-
 export const WithEllipsis: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, ellipsis: true },
+};
+
+export const WithActions: StoryObj = {
+  render: WithActionsTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
 
 const meta: Meta = {

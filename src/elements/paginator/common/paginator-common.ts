@@ -1,23 +1,69 @@
-import { html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { sbbInputModalityDetector } from '../../core/a11y/input-modality-detector.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
+import { SbbMiniButtonElement, SbbMiniButtonGroupElement } from '../../button.pure.ts';
 import {
+  type AbstractConstructor,
+  forceType,
   i18nNextPage,
   i18nPage,
   i18nPaginatorSelected,
   i18nPreviousPage,
-} from '../../core/i18n.ts';
-import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.ts';
-import { type AbstractConstructor, SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.ts';
+  SbbDisabledMixin,
+  type SbbElement,
+  type SbbElementConstructor,
+  type SbbElementType,
+  sbbInputModalityDetector,
+  SbbLanguageController,
+  SbbNegativeMixin,
+  screenReaderOnlyStyles,
+} from '../../core.ts';
+import { SbbDividerElement } from '../../divider.pure.ts';
 
-import '../../button/mini-button.ts';
-import '../../button/mini-button-group.ts';
-import '../../divider.ts';
+import style from './paginator-common.scss?inline';
+
+export class SbbPaginatorPageEvent extends Event {
+  private readonly _length: number;
+  private readonly _pageSize: number;
+  private readonly _pageIndex: number;
+  private readonly _previousPageIndex: number;
+
+  public get length(): number {
+    return this._length;
+  }
+
+  public get pageSize(): number {
+    return this._pageSize;
+  }
+
+  public get pageIndex(): number {
+    return this._pageIndex;
+  }
+
+  public get previousPageIndex(): number {
+    return this._previousPageIndex;
+  }
+
+  public constructor({
+    length,
+    pageSize,
+    pageIndex,
+    previousPageIndex,
+  }: Omit<SbbPaginatorPageEvent, keyof Event>) {
+    super('page', { bubbles: true, composed: true });
+    this._length = length;
+    this._pageSize = pageSize;
+    this._pageIndex = pageIndex;
+    this._previousPageIndex = previousPageIndex;
+  }
+}
 
 export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNegativeMixin(
   SbbDisabledMixin(SbbElement),
@@ -26,7 +72,7 @@ export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNega
   public accessor pageSize: number;
   public accessor pageIndex: number;
   public accessor pagerPosition: 'start' | 'end';
-  public accessor size: 'm' | 's';
+  public accessor size: 's' | 'm' | null;
   public accessor accessibilityPageLabel: string;
   public accessor accessibilityPreviousPageLabel: string;
   public accessor accessibilityNextPageLabel: string;
@@ -45,14 +91,23 @@ export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNega
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<SbbElement>>(
+export const SbbPaginatorCommonElementMixin = <
+  T extends AbstractConstructor<SbbElement> & SbbElementConstructor,
+>(
   superClass: T,
 ): AbstractConstructor<SbbPaginatorCommonElementMixinType> & T => {
   abstract class SbbPaginatorCommonElement
     extends SbbNegativeMixin(SbbDisabledMixin(superClass))
     implements Partial<SbbPaginatorCommonElementMixinType>
   {
-    public static role = 'group';
+    public static styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
+    public static override elementDependencies: SbbElementType[] = [
+      SbbMiniButtonGroupElement,
+      SbbMiniButtonElement,
+      SbbDividerElement,
+    ];
+
+    public static override role = 'group';
 
     /** Total number of items. */
     @forceType()
@@ -71,14 +126,13 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Sbb
 
     /** Position of the prev/next buttons. */
     @property({ attribute: 'pager-position', reflect: true }) public accessor pagerPosition:
-      | 'start'
-      | 'end' = 'start';
+      'start' | 'end' = 'start';
 
     /**
-     * Size variant, either m or s.
-     * @default 'm' / 's' (lean)
+     * Size variant, either s (lean theme default) or m (standard theme default).
      */
-    @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
+    @property({ reflect: true }) public accessor size: SbbPaginatorCommonElementMixinType['size'] =
+      null;
 
     /**
      * Accessibility label for the page. Defaults to `page`.
@@ -159,7 +213,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Sbb
       super.updated(changedProperties);
 
       // To reliably announce page change, we have to set the label in updated() (a tick later than the other changes).
-      this.shadowRoot!.querySelector('sbb-screen-reader-only#status')!.textContent =
+      this.shadowRoot!.querySelector('.sbb-screen-reader-only#status')!.textContent =
         this._currentPageLabel();
     }
 
@@ -221,33 +275,33 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Sbb
 
     private _emitPageEvent(previousPageIndex: number): void {
       if (this.hasUpdated) {
+        // FIXME: the name of this variable appears as event name in the readme
+        //  due to a bug in the custom-elements-manifest library.
+        //  https://github.com/open-wc/custom-elements-manifest/issues/149
+        const page = {
+          previousPageIndex,
+          pageIndex: this.pageIndex,
+          length: this.length,
+          pageSize: this.pageSize,
+        };
         /**
-         * @type {CustomEvent<SbbPaginatorPageEventDetails>}
+         * @type {SbbPaginatorPageEvent}
          * The page event is dispatched when the page index, length or page size changes.
          */
-        this.dispatchEvent(
-          new CustomEvent<SbbPaginatorPageEventDetails>('page', {
-            bubbles: true,
-            composed: true,
-            detail: {
-              previousPageIndex,
-              pageIndex: this.pageIndex,
-              length: this.length,
-              pageSize: this.pageSize,
-            },
-          }),
-        );
+        this.dispatchEvent(new SbbPaginatorPageEvent(page));
       }
     }
 
     protected renderPrevNextButtons(): TemplateResult {
       return html`
-        <sbb-mini-button-group ?negative=${this.negative} size=${this.size === 's' ? 's' : 'l'}>
+        <sbb-mini-button-group ?negative=${this.negative} size=${this.size || nothing}>
           <sbb-mini-button
             id="sbb-paginator-prev-page"
-            aria-label=${this.accessibilityPreviousPageLabel
-              ? this.accessibilityPreviousPageLabel
-              : i18nPreviousPage[this.language.current]}
+            aria-label=${
+              this.accessibilityPreviousPageLabel
+                ? this.accessibilityPreviousPageLabel
+                : i18nPreviousPage[this.language.current]
+            }
             icon-name="chevron-small-left-small"
             ?disabled=${this.disabled || !this.hasPreviousPage()}
             @click=${() => {
@@ -263,9 +317,11 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Sbb
           <sbb-divider orientation="vertical"></sbb-divider>
           <sbb-mini-button
             id="sbb-paginator-next-page"
-            aria-label=${this.accessibilityNextPageLabel
-              ? this.accessibilityNextPageLabel
-              : i18nNextPage[this.language.current]}
+            aria-label=${
+              this.accessibilityNextPageLabel
+                ? this.accessibilityNextPageLabel
+                : i18nNextPage[this.language.current]
+            }
             icon-name="chevron-small-right-small"
             ?disabled=${this.disabled || !this.hasNextPage()}
             @click=${() => {
@@ -285,7 +341,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Sbb
     protected override render(): TemplateResult {
       return html`
         ${this.renderPaginator()}
-        <sbb-screen-reader-only id="status" role="status"></sbb-screen-reader-only>
+        <span class="sbb-screen-reader-only" id="status" role="status"></span>
       `;
     }
   }
@@ -295,6 +351,6 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Sbb
 
 declare global {
   interface HTMLElementEventMap {
-    page: CustomEvent<SbbPaginatorPageEventDetails>;
+    page: SbbPaginatorPageEvent;
   }
 }

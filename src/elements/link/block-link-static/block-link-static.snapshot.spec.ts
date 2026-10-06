@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbBlockLinkStaticElement } from './block-link-static.component.ts';
 
-import '../block-link-static.ts';
+import '../../link.ts';
 import '../../icon.ts';
 
 describe(`sbb-block-link-static`, () => {
@@ -14,7 +14,7 @@ describe(`sbb-block-link-static`, () => {
   describe('renders', () => {
     beforeEach(async () => {
       element = await fixture(
-        html` <sbb-block-link-static icon-placement="end" size="m">
+        html` <sbb-block-link-static icon-placement="end">
           <sbb-icon
             aria-hidden="true"
             name="chevron-small-right-small"

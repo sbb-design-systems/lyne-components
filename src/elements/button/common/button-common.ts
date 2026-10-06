@@ -1,20 +1,34 @@
-import { nothing, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
-import type { AbstractConstructor } from '../../core/mixins.ts';
-import { SbbNegativeMixin } from '../../core/mixins.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+import {
+  type AbstractConstructor,
+  forceType,
+  type SbbActionBaseElement,
+  SbbNegativeMixin,
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 
-export type SbbButtonSize = 'l' | 'm' | 's';
+import buttonAccentStyleString from './accent-button.scss?inline';
+import style from './button-common.scss?inline';
+import miniButtonStyleString from './mini-button-common.scss?inline';
+import miniButtonLabelStyleString from './mini-button-label-common.scss?inline';
+import buttonPrimaryStyleString from './primary-button.scss?inline';
+import buttonSecondaryStyleString from './secondary-button.scss?inline';
+import buttonTransparentStyleString from './transparent-button.scss?inline';
+
+export const buttonPrimaryStyle = unsafeCSS(buttonPrimaryStyleString);
+export const buttonSecondaryStyle = unsafeCSS(buttonSecondaryStyleString);
+export const buttonAccentStyle = unsafeCSS(buttonAccentStyleString);
+export const buttonTransparentStyle = unsafeCSS(buttonTransparentStyleString);
+export const miniButtonStyle = unsafeCSS(miniButtonStyleString);
+export const miniButtonLabelStyle = unsafeCSS(miniButtonLabelStyleString);
 
 export declare class SbbButtonCommonElementMixinType extends SbbNegativeMixin(
   SbbIconNameMixin(SbbActionBaseElement),
 ) {
-  public accessor size: SbbButtonSize;
+  public accessor size: 's' | 'm' | 'l' | null;
   public accessor loading: boolean;
 }
 
@@ -26,11 +40,12 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
     extends SbbNegativeMixin(SbbIconNameMixin(superClass))
     implements Partial<SbbButtonCommonElementMixinType>
   {
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
     /**
-     * Size variant, either l, m or s.
-     * @default 'l' / 's' (lean)
+     * Size variant, either s (lean theme default), m (standard theme default) or l.
      */
-    @property({ reflect: true }) public accessor size: SbbButtonSize = isLean() ? 's' : 'l';
+    @property({ reflect: true }) public accessor size: SbbButtonCommonElementMixinType['size'] =
+      null;
 
     /**
      * Whether the button indicates a loading state.
@@ -52,12 +67,8 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
         if (this.loading) {
           this.internals.ariaBusy = 'true';
           this.internals.ariaDisabled = 'true';
-          // For performance reasons, we only set the width if the button is loading and don't track width changes during active loading state.
-          const offsetWidth = this.offsetWidth;
-          this.style?.setProperty('--sbb-button-width', `${offsetWidth || 136}px`);
         } else {
           this.internals.ariaBusy = null;
-          this.style?.removeProperty('--sbb-button-width');
           if (!this.maybeDisabledInteractive) {
             this.internals.ariaDisabled = null;
           }
@@ -71,9 +82,6 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
         <span class="sbb-button__label">
           <slot></slot>
         </span>
-        ${this.loading && !this.maybeDisabled
-          ? html`<div class="sbb-button-loading-border"></div>`
-          : nothing}
       `;
     }
   }

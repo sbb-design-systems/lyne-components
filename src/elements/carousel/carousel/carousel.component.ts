@@ -1,28 +1,25 @@
 import type { PropertyValues } from '@lit/reactive-element';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers/language-controller.ts';
-import { forceType } from '../../core/decorators.ts';
 import {
+  forceType,
   i18nCarouselArrowsNavigationHint,
   i18nNextSlide,
   i18nPreviousSlide,
   i18nSlide,
-} from '../../core/i18n/i18n.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.ts';
+  SbbElement,
+  SbbLanguageController,
+  screenReaderOnlyStyles,
+} from '../../core.ts';
+import type { SbbCompactPaginatorElement } from '../../paginator.pure.ts';
 import type {
   SbbCarouselItemElement,
-  SbbCarouselItemEventDetail,
+  SbbCarouselItemShowEvent,
 } from '../carousel-item/carousel-item.component.ts';
 import type { SbbCarouselListElement } from '../carousel-list/carousel-list.component.ts';
 
-import '../../screen-reader-only.ts';
-
-import style from './carousel.scss?lit&inline';
+import style from './carousel.scss?inline';
 
 /**
  * It displays a carousel component.
@@ -31,7 +28,7 @@ import style from './carousel.scss?lit&inline';
  */
 export class SbbCarouselElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-carousel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /**
    * Used to display a box-shadow around the component.
@@ -49,18 +46,18 @@ export class SbbCarouselElement extends SbbElement {
     super();
 
     // If the list is scrolled using mouse/keyboard, it keeps the paginator updated.
-    this.addEventListener?.('show', (e: CustomEvent<SbbCarouselItemEventDetail>) => {
+    this.addEventListener?.('show', (e: SbbCarouselItemShowEvent) => {
       // We have to give priority to the paginator for the case,
       // if during an animation the next page is called from the paginator, the paginator is reset.
       if (
         this._requestedPageIndexByPaginator !== -1 &&
-        this._requestedPageIndexByPaginator !== e.detail.index
+        this._requestedPageIndexByPaginator !== e.index
       ) {
         return;
       }
       if (this._paginator) {
-        if (e.detail.index !== this._paginator.pageIndex) {
-          this._paginator.pageIndex = e.detail.index;
+        if (e.index !== this._paginator.pageIndex) {
+          this._paginator.pageIndex = e.index;
         }
       }
       this._requestedPageIndexByPaginator = -1;
@@ -157,8 +154,8 @@ export class SbbCarouselElement extends SbbElement {
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-carousel">
-        <sbb-screen-reader-only id="sbb-carousel-arrows-navigation-hint"
-          >${i18nCarouselArrowsNavigationHint[this._language.current]}</sbb-screen-reader-only
+        <span class="sbb-screen-reader-only" id="sbb-carousel-arrows-navigation-hint"
+          >${i18nCarouselArrowsNavigationHint[this._language.current]}</span
         >
         <slot @slotchange=${this._handleSlotchange}></slot>
       </div>

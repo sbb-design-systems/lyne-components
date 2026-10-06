@@ -15,8 +15,8 @@ describe(`sbb-navigation`, () => {
   `;
 
   const template = html`
-    <sbb-navigation id="navigation" trigger="navigation-trigger-1">
-      <sbb-navigation-marker id="nav-marker">${navigationActions()}</sbb-navigation-marker>
+    <sbb-navigation trigger="navigation-trigger-1">
+      <sbb-navigation-marker>${navigationActions()}</sbb-navigation-marker>
       <sbb-navigation-marker size="s">${navigationActions()}</sbb-navigation-marker>
     </sbb-navigation>
   `;

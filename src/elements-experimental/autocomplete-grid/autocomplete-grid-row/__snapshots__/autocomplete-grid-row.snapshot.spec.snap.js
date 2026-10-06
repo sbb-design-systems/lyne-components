@@ -3,10 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-autocomplete-grid-row renders DOM"] = 
 `<sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
-  <sbb-autocomplete-grid-option
-    id="sbb-autocomplete-grid-option-0"
-    value="1"
-  >
+  <sbb-autocomplete-grid-option value="1">
     Option 1
   </sbb-autocomplete-grid-option>
   <sbb-autocomplete-grid-cell>

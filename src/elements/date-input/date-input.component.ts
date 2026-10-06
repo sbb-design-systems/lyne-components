@@ -1,20 +1,22 @@
-import { type CSSResultGroup, isServer, type PropertyDeclaration } from 'lit';
+import { type CSSResultGroup, isServer, type PropertyDeclaration, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { readConfig } from '../core/config.ts';
-import { type DateAdapter, defaultDateAdapter } from '../core/datetime.ts';
-import { plainDate, plainDateConverter } from '../core/decorators.ts';
 import {
+  type DateAdapter,
+  defaultDateAdapter,
   i18nDateInvalid,
   i18nDateMax,
   i18nDateMin,
   i18nDatePickerPlaceholder,
-} from '../core/i18n.ts';
-import { SbbFormAssociatedInputMixin } from '../core/mixins.ts';
-import type { SbbDatepickerElement } from '../datepicker.ts';
+  plainDate,
+  plainDateConverter,
+  readConfig,
+  SbbElement,
+  SbbFormAssociatedInputMixin,
+} from '../core.ts';
+import type { SbbDatepickerElement } from '../datepicker.pure.ts';
 
-import style from './date-input.scss?lit&inline';
+import style from './date-input.scss?inline';
 
 // As documented in form-associated-mixin.ts, we extend the prototype of
 // ValidityState with custom error states for the date input.
@@ -37,7 +39,7 @@ export interface SbbDateInputAssociated<T> {
  */
 export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-date-input';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
    * The value of the date input. Reflects the current text value
@@ -49,7 +51,7 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
     this._tryParseValue(value);
     // As long as this element has focus we delay automatically updating
     // the value with the formatted string of the parsed date.
-    if (!isServer && !this.matches(':focus') && this.valueAsDate !== null) {
+    if (!isServer && !this.isSelected() && this.valueAsDate !== null) {
       value = this._formatDate();
     }
     super.value = value;
@@ -62,7 +64,15 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
   @property({ attribute: false })
   public set valueAsDate(value: T | null) {
     value = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
-    if (!value) {
+    if (
+      this.isSelected() &&
+      (value === null || this._dateAdapter.sameDate(value, this._dateAdapter.parse(this.value)))
+    ) {
+      // Do nothing, as the user is currently editing the value and the parsed
+      // date is the same as the current value.
+      // This can also happen with Angular Forms Signals, as it currently
+      // continuously invokes writeValue, which assigns to this setter.
+    } else if (!value) {
       this._valueAsDate = null;
       this._valueCache = ['', null];
       this.value = '';
@@ -112,10 +122,10 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
    * this filter.
    */
   @property({ attribute: false })
-  public set dateFilter(value: (date: T | null) => boolean) {
+  public set dateFilter(value: (date: T) => boolean) {
     this._dateFilter = value;
   }
-  public get dateFilter(): (date: T | null) => boolean {
+  public get dateFilter(): (date: T) => boolean {
     return this._dateFilter;
   }
 
@@ -164,7 +174,7 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
     }
   }
 
-  private _dateFilter: (date: T | null) => boolean = () => true;
+  private _dateFilter: (date: T) => boolean = () => true;
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -242,14 +252,17 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
 
   protected override validate(): void {
     super.validate();
+
     if (!this.value) {
       this._removeValidityErrors();
     } else if (!this._dateAdapter.isValid(this.valueAsDate)) {
+      this._removeValidityErrors('badInput');
       this.setValidityFlag('badInput', i18nDateInvalid[this.language.current]);
     } else if (
       this._dateAdapter.isValid(this.min) &&
       this._dateAdapter.compareDate(this.min, this.valueAsDate) > 0
     ) {
+      this._removeValidityErrors('rangeUnderflow');
       this.setValidityFlag(
         'rangeUnderflow',
         i18nDateMin(this._dateAdapter.format(this.min, { weekdayStyle: 'none' }))[
@@ -260,6 +273,7 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
       this._dateAdapter.isValid(this.max) &&
       this._dateAdapter.compareDate(this.valueAsDate, this.max) > 0
     ) {
+      this._removeValidityErrors('rangeOverflow');
       this.setValidityFlag(
         'rangeOverflow',
         i18nDateMax(this._dateAdapter.format(this.max, { weekdayStyle: 'none' }))[
@@ -267,16 +281,17 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
         ],
       );
     } else if (this.dateFilter && !this.dateFilter(this.valueAsDate)) {
+      this._removeValidityErrors('sbbDateFilter');
       this.setValidityFlag('sbbDateFilter', i18nDateInvalid[this.language.current]);
     } else {
       this._removeValidityErrors();
     }
   }
 
-  private _removeValidityErrors(): void {
-    (['badInput', 'rangeUnderflow', 'rangeOverflow', 'sbbDateFilter'] as const).forEach((f) =>
-      this.removeValidityFlag(f),
-    );
+  private _removeValidityErrors(except?: keyof ValidityStateFlags): void {
+    (['badInput', 'rangeUnderflow', 'rangeOverflow', 'sbbDateFilter'] as const)
+      .filter((v) => v !== except)
+      .forEach((f) => this.removeValidityFlag(f));
   }
 }
 

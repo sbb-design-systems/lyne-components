@@ -6,8 +6,8 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 import type { SbbActionGroupElement } from './action-group.component.ts';
 
 import '../action-group.ts';
-import '../button/secondary-button.ts';
-import '../link/block-link.ts';
+import '../button.ts';
+import '../link.ts';
 
 describe(`sbb-action-group`, () => {
   describe('renders', () => {
@@ -15,7 +15,7 @@ describe(`sbb-action-group`, () => {
 
     beforeEach(async () => {
       element = await fixture(html`
-        <sbb-action-group align-group="start" orientation="horizontal">
+        <sbb-action-group>
           <sbb-secondary-button>Button</sbb-secondary-button>
           <sbb-block-link
             icon-name="chevron-small-left-small"

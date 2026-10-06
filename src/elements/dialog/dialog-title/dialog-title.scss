@@ -1,7 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
   padding-block: var(--sbb-dialog-padding-block);
   padding-inline: var(--sbb-dialog-padding-inline);
   hyphens: auto;
@@ -10,7 +9,7 @@
 }
 
 :host([negative]) {
-  @include sbb.title--negative;
+  --sbb-title-color: var(--sbb-color-3-negative);
 }
 
 // Shadow below the title bar
@@ -26,4 +25,7 @@
   inset: 0 -10rem 0 0;
   transition: box-shadow var(--sbb-animation-easing) var(--sbb-dialog-shadow-animation-duration);
   box-shadow: var(--sbb-dialog-block-start-box-shadow, none);
+
+  // Clip shadow that overflows the top of the title.
+  clip-path: polygon(0% 50%, 0% 200%, 100% 200%, 100% 50%);
 }

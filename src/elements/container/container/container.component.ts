@@ -1,12 +1,15 @@
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { ɵstateController } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { forceType, SbbElement, ɵstateController } from '../../core.ts';
 
-import style from './container.scss?lit&inline';
+import style from './container.scss?inline';
 
 /**
  * It displays its content with the default page spacing.
@@ -19,7 +22,7 @@ import style from './container.scss?lit&inline';
  */
 export class SbbContainerElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-container';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Whether the container is expanded. */
   @forceType()
@@ -33,11 +36,7 @@ export class SbbContainerElement extends SbbElement {
 
   /** Color of the container, like transparent, white etc. */
   @property({ reflect: true }) public accessor color:
-    | 'transparent'
-    | 'white'
-    | 'milk'
-    | 'midnight'
-    | 'charcoal' = 'white';
+    'transparent' | 'white' | 'milk' | 'midnight' | 'charcoal' = 'white';
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

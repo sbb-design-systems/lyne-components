@@ -1,21 +1,28 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { SbbLanguageController } from '../core/controllers.ts';
-import { isLean, isZeroAnimationDuration } from '../core/dom.ts';
-import { i18nCloseNotification } from '../core/i18n.ts';
-import type { SbbOpenedClosedState } from '../core/interfaces.ts';
-import { SbbReadonlyMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import { SbbIconNameMixin } from '../icon.ts';
-import type { SbbTitleElement } from '../title.ts';
+import { SbbSecondaryButtonElement } from '../button.pure.ts';
+import {
+  i18nCloseNotification,
+  isZeroAnimationDuration,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  type SbbOpenedClosedState,
+  SbbReadonlyMixin,
+} from '../core.ts';
+import { SbbDividerElement } from '../divider.pure.ts';
+import { SbbIconNameMixin } from '../icon.pure.ts';
 
-import style from './notification.scss?lit&inline';
-
-import '../button/secondary-button.ts';
-import '../divider.ts';
+import style from './notification.scss?inline';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],
@@ -38,7 +45,11 @@ const DEBOUNCE_TIME = 150;
  */
 export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbElement)) {
   public static override readonly elementName: string = 'sbb-notification';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbSecondaryButtonElement,
+    SbbDividerElement,
+  ];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',
@@ -48,17 +59,12 @@ export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(Sb
 
   /** The type of the notification. */
   @property({ reflect: true }) public accessor type:
-    | 'info'
-    | 'note'
-    | 'success'
-    | 'warn'
-    | 'error' = 'info';
+    'info' | 'note' | 'success' | 'warn' | 'error' = 'info';
 
   /**
-   * Size variant, either s or m.
-   * @default 'm' / 's' (lean)
+   * Size variant, either s (lean theme default) or m (standard theme default).
    */
-  @property({ reflect: true }) public accessor size: 's' | 'm' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
@@ -90,14 +96,6 @@ export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(Sb
   public constructor() {
     super();
     this._state = 'closed';
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('size')) {
-      this._configureTitle();
-    }
   }
 
   private _open(): void {
@@ -209,14 +207,6 @@ export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(Sb
     }
   }
 
-  private _configureTitle(): void {
-    const title = this.querySelector?.<SbbTitleElement>('sbb-title');
-    if (title) {
-      customElements.upgrade(title);
-      title.visualLevel = this.size === 'm' ? '5' : '6';
-    }
-  }
-
   protected override renderIconName(): string {
     return super.renderIconName() || notificationTypes.get(this.type)!;
   }
@@ -227,24 +217,29 @@ export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(Sb
         <div class="sbb-notification">
           ${this.renderIconSlot('sbb-notification__icon')}
           <span class="sbb-notification__content">
-            <slot name="title" @slotchange=${this._configureTitle}></slot>
+            <slot name="title"></slot>
             <p class="sbb-notification__text">
               <slot @slotchange=${this._handleSlotchange}></slot>
             </p>
           </span>
 
-          ${!this.readOnly
-            ? html`
-                <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
-                <sbb-secondary-button
-                  size=${this.size}
-                  icon-name="cross-small"
-                  @click=${() => this.close()}
-                  aria-label=${i18nCloseNotification[this._language.current]}
-                  class="sbb-notification__close"
-                ></sbb-secondary-button>
-              `
-            : nothing}
+          ${
+            !this.readOnly
+              ? html`
+                  <sbb-divider
+                    class="sbb-notification__divider"
+                    orientation="vertical"
+                  ></sbb-divider>
+                  <sbb-secondary-button
+                    size=${this.size || nothing}
+                    icon-name="cross-small"
+                    @click=${() => this.close()}
+                    aria-label=${i18nCloseNotification[this._language.current]}
+                    class="sbb-notification__close"
+                  ></sbb-secondary-button>
+                `
+              : nothing
+          }
         </div>
       </div>
     `;

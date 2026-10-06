@@ -1,0 +1,32 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-container-background-border-radius: 0;
+  --sbb-container-color: inherit;
+  --sbb-sticky-bar-animation-easing: var(--sbb-animation-easing);
+  --sbb-sticky-bar-border-radius: var(--sbb-border-radius-8x);
+  --sbb-sticky-bar-padding-block: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-responsive-xs),
+        'lean': var(--sbb-spacing-responsive-xxxs),
+      ),
+      $theme
+    )};
+  --sbb-sticky-bar-position: sticky;
+  --sbb-sticky-bar-slide-vertically-animation-easing: ease-out;
+}
+
+@mixin rules {
+  sbb-container {
+    > [slot='image']:is(sbb-image, img),
+    > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
+      --sbb-image-object-fit: cover;
+
+      border-radius: var(--sbb-container-background-border-radius);
+      height: 100%;
+      position: absolute;
+    }
+  }
+}

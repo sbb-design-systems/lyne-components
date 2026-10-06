@@ -1,11 +1,12 @@
-import { miniButtonStyle } from '@sbb-esta/lyne-elements/button/common.js';
-import { SbbActionBaseElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbPropertyWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { hostAttributes } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { isEventPrevented } from '@sbb-esta/lyne-elements/core/eventing.js';
-import { SbbDisabledMixin, SbbNegativeMixin } from '@sbb-esta/lyne-elements/core/mixins.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { SbbIconNameMixin } from '@sbb-esta/lyne-elements/icon.js';
+import { miniButtonStyle } from '@sbb-esta/lyne-elements/button.pure.js';
+import {
+  isEventPrevented,
+  SbbActionBaseElement,
+  SbbDisabledMixin,
+  SbbNegativeMixin,
+  SbbPropertyWatcherController,
+} from '@sbb-esta/lyne-elements/core.js';
+import { SbbIconNameMixin } from '@sbb-esta/lyne-elements/icon.pure.js';
 import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 
 import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup/autocomplete-grid-optgroup.component.ts';
@@ -16,18 +17,15 @@ let autocompleteButtonNextId = 0;
 /**
  * It displays an icon-only button that can be used in `sbb-autocomplete-grid`.
  *
+ * @deprecated Use `sbb-autocomplete` with `sbb-autocomplete-row` and `sbb-autocomplete-button` instead. Will be removed with the next major release.
  * @slot icon - Slot used to display the icon, if one is set
  */
-export
-@hostAttributes({
-  tabindex: null,
-})
-class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
+export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbActionBaseElement)),
 ) {
   public static override readonly elementName: string = 'sbb-autocomplete-grid-button';
   public static override readonly role = 'button';
-  public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle];
+  public static override styles: CSSResultGroup = [miniButtonStyle];
 
   /** Gets the SbbAutocompleteGridOptionElement on the same row of the button. */
   public get option(): SbbAutocompleteGridOptionElement | null {
@@ -70,6 +68,7 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-autocomplete-grid-button-${++autocompleteButtonNextId}`;
+    this.removeAttribute('tabindex');
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

@@ -1,8 +1,17 @@
-import { SbbButtonBaseElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { type CSSResultGroup, html, nothing, type TemplateResult, type PropertyValues } from 'lit';
+import {
+  forceType,
+  SbbButtonBaseElement,
+  type SbbElementType,
+  SbbLanguageController,
+} from '@sbb-esta/lyne-elements/core.js';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -10,21 +19,33 @@ import { getI18nSeatReservation } from '../common/translations.ts';
 import type { PlaceSelection, PlaceState, PlaceType, TravelDirection } from '../common/types.ts';
 import { SbbSeatReservationGraphicElement } from '../seat-reservation-graphic/seat-reservation-graphic.component.ts';
 
-import style from './seat-reservation-place-control.scss?lit&inline';
-
-SbbSeatReservationGraphicElement.define();
+import style from './seat-reservation-place-control.scss?inline';
 
 type TravelDirectionI18nKey =
   | 'TRAVEL_DIRECTION_IN_DIRECTION'
   | 'TRAVEL_DIRECTION_IN_OPPOSITE_DIRECTION'
   | 'TRAVEL_DIRECTION_TRANSVERSELY';
 
+export class SbbPlaceSelectionEvent extends Event {
+  private readonly _detail: PlaceSelection;
+
+  public get detail(): PlaceSelection {
+    return this._detail;
+  }
+
+  public constructor(detail: PlaceSelection) {
+    super('selectplace', { bubbles: true, composed: true });
+    this._detail = detail;
+  }
+}
+
 /**
  * Output the graphic of a seat or a bicycle place as a control element.
  */
 export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-place-control';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [SbbSeatReservationGraphicElement];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     selectplace: 'selectplace',
   } as const;
@@ -77,8 +98,6 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
   @property({ type: Boolean, useDefault: true })
   public accessor showTitleInfo: boolean = false;
 
-  private _optionalScreenreaderInfo: string = '';
-
   private _language = new SbbLanguageController(this);
 
   public constructor() {
@@ -92,15 +111,6 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
     if (changedProperties.has('keyfocus')) {
       if (this.keyfocus === 'focus') {
         this.focus();
-      }
-    }
-
-    // if title was shown once, we cannot unset it completely, but this
-    // behavior should not happen very often as the title should
-    // not switch from on to off and on again
-    if (changedProperties.has('showTitleInfo')) {
-      if (!this.showTitleInfo) {
-        this.title = '';
       }
     }
   }
@@ -118,42 +128,37 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
     );
     const inverseRotationPlaceCheckIcon = Number(textRotation) - Number(rotation);
     const disabledClass = this.preventClick ? 'sbb-reservation-place-control--disabled' : null;
+    const placeDescription = this._getTitleDescriptionPlace(rotation);
 
     // only set title to the SbbButtonBaseElement if requested; otherwise provide the title
-    // information to screen readers via an additional element
+    // information to screen readers via aria-label at host element
     if (this.showTitleInfo) {
-      this.title = this._getTitleDescriptionPlace(rotation);
+      this.title = placeDescription;
+      this.internals.ariaLabel = null;
     } else {
-      this._optionalScreenreaderInfo = this._getTitleDescriptionPlace(rotation);
+      // Set aria-label screen reader info
+      this.internals.ariaLabel = placeDescription;
+      this.removeAttribute('title');
     }
 
     this.tabIndex = -1;
 
-    return html`
-      <div
-        part="sbb-sr-place-part"
-        class="sbb-sr-place-ctrl sbb-sr-place-ctrl--orientation-${rotation} sbb-sr-place-ctrl--state-${state} sbb-sr-place-ctrl--type-${type} ${disabledClass}"
-      >
-        <sbb-seat-reservation-graphic
-          style=${styleMap({
-            '--sbb-seat-reservation-graphic-width': width,
-            '--sbb-seat-reservation-graphic-height': height,
-            '--sbb-seat-reservation-graphic-rotation': rotation,
-            '--sbb-seat-reservation-graphic-inverse-rotation': inverseRotationPlaceCheckIcon,
-          })}
-          .name=${name}
-          aria-hidden="true"
-        ></sbb-seat-reservation-graphic>
-        <span ${this.text ?? nothing} class="sbb-sr-place-ctrl__text" aria-hidden="true"
-          >${text}</span
-        >
-        ${!this.showTitleInfo
-          ? html`<sbb-screen-reader-only id="${this.id}"
-              >${this._optionalScreenreaderInfo}</sbb-screen-reader-only
-            >`
-          : nothing}
-      </div>
-    `;
+    return html` <div
+      part="sbb-sr-place-part"
+      class="sbb-sr-place-ctrl sbb-sr-place-ctrl--orientation-${rotation} sbb-sr-place-ctrl--state-${state} sbb-sr-place-ctrl--type-${type} ${disabledClass}"
+      aria-hidden="true"
+    >
+      <sbb-seat-reservation-graphic
+        style=${styleMap({
+          '--sbb-seat-reservation-graphic-width': width,
+          '--sbb-seat-reservation-graphic-height': height,
+          '--sbb-seat-reservation-graphic-rotation': rotation,
+          '--sbb-seat-reservation-graphic-inverse-rotation': inverseRotationPlaceCheckIcon,
+        })}
+        .name=${name}
+      ></sbb-seat-reservation-graphic>
+      <span ${this.text ?? nothing} class="sbb-sr-place-ctrl__text">${text} </span>
+    </div>`;
   }
 
   private _getPlaceSvg(type: PlaceType, state: PlaceState): string {
@@ -191,8 +196,9 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
       this.travelDirection === 'NONE' ||
       this.placeType !== 'SEAT' ||
       !rotationValue
-    )
+    ) {
       return undefined;
+    }
     const rotation = Number(rotationValue);
 
     if (rotation === 90 || rotation === 270) {
@@ -218,7 +224,11 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
 
     if (selectable) {
       this.state = this.state === 'FREE' ? 'SELECTED' : 'FREE';
-      const placeSelection: PlaceSelection = {
+
+      // FIXME: the name of this variable appears as event name in the readme
+      //  due to a bug in the custom-elements-manifest library.
+      //  https://github.com/open-wc/custom-elements-manifest/issues/149
+      const selectplace: PlaceSelection = {
         id: this.id,
         deckIndex: this.deckIndex,
         coachIndex: this.coachIndex,
@@ -228,17 +238,11 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
       };
 
       /**
-       * @type {CustomEvent<PlaceSelection>}
+       * @type {SbbPlaceSelectionEvent}
        * Emits when a place was selected via user interaction and returns a
        * PlaceSelection object with necessary place information.
        */
-      this.dispatchEvent(
-        new CustomEvent<PlaceSelection>('selectplace', {
-          detail: placeSelection,
-          bubbles: true,
-          composed: true,
-        }),
-      );
+      this.dispatchEvent(new SbbPlaceSelectionEvent(selectplace));
     }
   }
 }

@@ -126,6 +126,40 @@ import '../radio-button-group.ts';
         expect(disabledRadio.disabled).to.be.true;
       });
 
+      it('should respect name changes', async () => {
+        const [firstRadio, middleRadio, lastRadio] = radios;
+        firstRadio.checked = true;
+        expect(firstRadio.checked).to.be.true;
+        expect(middleRadio.checked).to.be.false;
+        expect(lastRadio.checked).to.be.false;
+
+        for (const radio of radios) {
+          radio.name = 'other-name';
+        }
+
+        lastRadio.checked = true;
+        expect(firstRadio.checked).to.be.false;
+        expect(middleRadio.checked).to.be.false;
+        expect(lastRadio.checked).to.be.true;
+      });
+
+      it('should respect name changes via attribute', async () => {
+        const [firstRadio, middleRadio, lastRadio] = radios;
+        firstRadio.checked = true;
+        expect(firstRadio.checked).to.be.true;
+        expect(middleRadio.checked).to.be.false;
+        expect(lastRadio.checked).to.be.false;
+
+        for (const radio of radios) {
+          radio.setAttribute('name', 'other-name');
+        }
+
+        lastRadio.checked = true;
+        expect(firstRadio.checked).to.be.false;
+        expect(middleRadio.checked).to.be.false;
+        expect(lastRadio.checked).to.be.true;
+      });
+
       if (selector === 'sbb-radio-button-panel') {
         it('recognizes panel when added later', async () => {
           element = await fixture(html`<sbb-radio-button-group></sbb-radio-button-group>`);
@@ -265,6 +299,53 @@ import '../radio-button-group.ts';
         expect(radios[2].checked).to.be.false;
       });
 
+      describe('with compareWith function', () => {
+        let element: SbbRadioButtonGroupElement<{ id: number; name: string }>;
+        let radios: (SbbRadioButtonElement | SbbRadioButtonPanelElement)[];
+        const values = [
+          { id: 1, name: 'Value 1' },
+          { id: 2, name: 'Value 2' },
+          { id: 3, name: 'Value 3' },
+        ];
+
+        beforeEach(async () => {
+          element = await fixture(html`
+            <sbb-radio-button-group
+              .compareWith=${(v1: any, v2: any) => v1?.id === v2?.id}
+            >
+              <${tagSingle} .value=${values[0]}>${values[0].name}</${tagSingle}>
+              <${tagSingle} .value=${values[1]}>${values[1].name}</${tagSingle}>
+              <${tagSingle} .value=${values[2]}>${values[2].name}</${tagSingle}>
+            </sbb-radio-button-group>
+          `);
+
+          radios = Array.from(element.querySelectorAll(selector));
+          await waitForLitRender(element);
+        });
+
+        it('should set value using compareWith function', async () => {
+          element.value = { id: 2, name: 'Different name' };
+          await waitForLitRender(element);
+
+          expect(radios[0].checked).to.be.false;
+          expect(radios[1].checked).to.be.true;
+          expect(radios[2].checked).to.be.false;
+        });
+
+        it('should not match when compareWith returns false', async () => {
+          radios[0].checked = true;
+          expect(element.value).to.be.deep.equal(values[0]);
+
+          element.value = { id: 99, name: 'No match' };
+          await waitForLitRender(element);
+
+          expect(radios[0].checked).to.be.false;
+          expect(radios[1].checked).to.be.false;
+          expect(radios[2].checked).to.be.false;
+          expect(element.value).to.be.deep.equal({ id: 99, name: 'No match' });
+        });
+      });
+
       describe('with falsy value', () => {
         let element: SbbRadioButtonGroupElement<boolean | number>;
 
@@ -322,6 +403,18 @@ import '../radio-button-group.ts';
         const radioOne = document.createElement('sbb-radio-button');
         radioOne.value = 'Value one';
         element.appendChild(radioOne);
+        await waitForLitRender(element);
+
+        expect(element.value).to.equal('Value one');
+        expect(radioOne.checked).to.be.true;
+      });
+
+      it('should match group value when the radio value changes', async () => {
+        const radioOne = element.querySelector<SbbRadioButtonElement>(
+          'sbb-radio-button[value="42"]',
+        )!;
+
+        radioOne.value = 'Value one';
         await waitForLitRender(element);
 
         expect(element.value).to.equal('Value one');

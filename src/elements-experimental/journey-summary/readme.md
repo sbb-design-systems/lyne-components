@@ -13,7 +13,7 @@ If this is not the case, the times and the date will not be displayed.
 If the tripBack prop is passed to the component a second journey-summary, without the header, is displayed.
 
 ```html
-<sbb-journey-summary trip="{trip}"><sbb-button></sbb-button></sbb-journey-summary>
+<sbb-journey-summary trip="{trip}"><sbb-button size="l"></sbb-button></sbb-journey-summary>
 ```
 
 To simulate the current datetime, you can use the `now` property,
@@ -28,15 +28,15 @@ This is helpful if you need a specific state of the component.
 
 #### Properties
 
-| Name               | Attribute           | Privacy | Type                                   | Default | Description                                                                                                                   |
-| ------------------ | ------------------- | ------- | -------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `a11yFootpath`     | `a11y-footpath`     | public  | `boolean`                              | `false` | The Footpath attribute for rendering different icons true: render a11y-icon false: render walk-icon default: render walk-icon |
-| `disableAnimation` | `disable-animation` | public  | `boolean`                              | `false` | Per default, the current location has a pulsating animation. You can disable the animation with this property.                |
-| `headerLevel`      | `header-level`      | public  | `SbbTitleLevel`                        | `'3'`   | Heading level of the journey header element (e.g. h1-h6).                                                                     |
-| `now`              | `now`               | public  | `Date`                                 | `null`  | A configured date which acts as the current date instead of the real current date. Only recommended for testing purposes.     |
-| `roundTrip`        | `round-trip`        | public  | `boolean`                              | `false` | The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.                                      |
-| `trip`             | `trip`              | public  | `InterfaceSbbJourneySummaryAttributes` | `null!` | The trip prop                                                                                                                 |
-| `tripBack`         | `trip-back`         | public  | `InterfaceSbbJourneySummaryAttributes` | `null!` | The tripBack prop                                                                                                             |
+| Name               | Attribute           | Privacy | Type                                     | Default | Description                                                                                                                   |
+| ------------------ | ------------------- | ------- | ---------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `a11yFootpath`     | `a11y-footpath`     | public  | `boolean`                                | `false` | The Footpath attribute for rendering different icons true: render a11y-icon false: render walk-icon default: render walk-icon |
+| `disableAnimation` | `disable-animation` | public  | `boolean`                                | `false` | Per default, the current location has a pulsating animation. You can disable the animation with this property.                |
+| `headerLevel`      | `header-level`      | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6'` | `'3'`   | Heading level of the journey header element (e.g. h1-h6).                                                                     |
+| `now`              | `now`               | public  | `Date`                                   | `null`  | A configured date which acts as the current date instead of the real current date. Only recommended for testing purposes.     |
+| `roundTrip`        | `round-trip`        | public  | `boolean`                                | `false` | The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.                                      |
+| `trip`             | `trip`              | public  | `InterfaceSbbJourneySummaryAttributes`   | `null!` | The trip prop                                                                                                                 |
+| `tripBack`         | `trip-back`         | public  | `InterfaceSbbJourneySummaryAttributes`   | `null!` | The tripBack prop                                                                                                             |
 
 #### Slots
 

@@ -1,4 +1,4 @@
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
+import { SbbButtonBaseElement } from '../../core.ts';
 import { SbbCardActionCommonElementMixin } from '../common/card-action-common.ts';
 
 /**

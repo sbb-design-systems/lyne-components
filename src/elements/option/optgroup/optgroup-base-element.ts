@@ -1,17 +1,25 @@
-import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isSafari } from '../../core/dom.ts';
-import { SbbDisabledMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.pure.ts';
+import {
+  forceType,
+  isSafari,
+  SbbDisabledMixin,
+  SbbElement,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
+import type { SbbSelectElement } from '../../select.pure.ts';
 import type { SbbOptionBaseElement } from '../option/option-base-element.ts';
 
-import style from './optgroup-base-element.scss?lit&inline';
-
-import '../../divider.ts';
+import style from './optgroup-base-element.scss?inline';
 
 /**
  * On Safari, the groups labels are not read by VoiceOver.
@@ -22,7 +30,7 @@ const inertAriaGroups = isSafari;
 
 export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbElement) {
   public static override readonly role = !inertAriaGroups ? 'group' : null;
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Option group label. */
   @forceType()
@@ -33,8 +41,28 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbElement
 
   protected abstract get options(): SbbOptionBaseElement[];
 
-  public constructor() {
+  private _previousSize: 's' | 'm' | null = null;
+
+  protected constructor() {
     super();
+
+    this.addController(
+      new SbbPropertyWatcherController<SbbAutocompleteBaseElement | SbbSelectElement>(
+        this,
+        () => this.closest('sbb-autocomplete, sbb-autocomplete-grid, sbb-select'),
+        {
+          size: (e) => {
+            if (this._previousSize) {
+              this.internals.states.delete(`size-${this._previousSize}`);
+            }
+            this._previousSize = e.size;
+            if (this._previousSize) {
+              this.internals.states.add(`size-${this._previousSize}`);
+            }
+          },
+        },
+      ),
+    );
 
     if (inertAriaGroups) {
       if (this.hydrationRequired) {
@@ -90,19 +118,17 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbElement
   }
 
   protected override render(): TemplateResult {
-    // TODO: replace divider with CSS
     return html`
-      <div class="sbb-optgroup__divider">
-        <sbb-divider ?negative=${this.matches?.(':state(negative)')}></sbb-divider>
-      </div>
-      ${this.label
-        ? html`
-            <div class="sbb-optgroup__label" aria-hidden="true">
-              <div class="sbb-optgroup__icon-space"></div>
-              <span>${this.label}</span>
-            </div>
-          `
-        : nothing}
+      ${
+        this.label
+          ? html`
+              <div class="sbb-optgroup__label" aria-hidden="true">
+                <div class="sbb-optgroup__icon-space"></div>
+                <span>${this.label}</span>
+              </div>
+            `
+          : nothing
+      }
       <slot @slotchange=${this._handleSlotchange}></slot>
     `;
   }

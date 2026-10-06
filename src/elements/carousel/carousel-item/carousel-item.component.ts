@@ -1,24 +1,32 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbElement } from '../../core/base-elements.ts';
+import { SbbElement } from '../../core.ts';
 
-import style from './carousel-item.scss?lit&inline';
+import style from './carousel-item.scss?inline';
 
-export interface SbbCarouselItemEventDetail {
-  index: number;
+export class SbbCarouselItemShowEvent extends Event {
+  private readonly _index: number;
+
+  public get index(): number {
+    return this._index;
+  }
+
+  public constructor(type: string, { index }: Omit<SbbCarouselItemShowEvent, keyof Event>) {
+    super(type, { bubbles: true, composed: true });
+    this._index = index;
+  }
 }
 
 /**
  * It displays an item contained into the `sbb-carousel` component.
  *
- * @slot - Use the unnamed slot to add images for the carousel, as <img>, <sbb-image>, <picture>, ...
- * @event {CustomEvent<SbbCarouselItemEventDetail>} beforeshow - Event emitted when the item is starting scrolling.
- * @event {CustomEvent<SbbCarouselItemEventDetail>} show - Event emitted when the item is full visible after scrolling.
+ * @slot - Use the unnamed slot to add images for the carousel, as `<img>`, `<sbb-image>`, `<picture>`, ...
+ * @event {SbbCarouselItemShowEvent} beforeshow - Event emitted when the item is starting scrolling.
+ * @event {SbbCarouselItemShowEvent} show - Event emitted when the item is full visible after scrolling.
  */
 export class SbbCarouselItemElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-carousel-item';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events: Record<string, string> = {
     beforeshow: 'beforeshow',
     show: 'show',
@@ -43,7 +51,7 @@ declare global {
   }
 
   interface GlobalEventHandlersEventMap {
-    beforeshow: CustomEvent<SbbCarouselItemEventDetail>;
-    show: CustomEvent<SbbCarouselItemEventDetail>;
+    beforeshow: SbbCarouselItemShowEvent;
+    show: SbbCarouselItemShowEvent;
   }
 }

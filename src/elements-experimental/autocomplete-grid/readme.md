@@ -1,3 +1,9 @@
+<!-- keywords: form -->
+
+> [!WARNING]
+> `<sbb-autocomplete-grid>` and its connected components are **deprecated** and will be removed with the next major release.
+> Use [sbb-autocomplete](/docs/elements-autocomplete--docs) together with `sbb-autocomplete-row` and `sbb-autocomplete-button` instead.
+
 The `<sbb-autocomplete-grid>` is a component that can be used to display a panel of suggested options connected to a text input,
 with each option connected to one or more buttons.
 Use it when you need an autocomplete in which every selectable option in the panel needs one or more related button.
@@ -6,7 +12,7 @@ If you don't need actions, use the [sbb-autocomplete](/docs/elements-autocomplet
 The component is strictly connected to:
 
 - the `<sbb-autocomplete-grid-row>`, which is a wrapper for both option and buttons;
-- the `<sbb-autocomplete-grid-option>`, which displays a selectable option within a panel;`
+- the `<sbb-autocomplete-grid-option>`, which displays a selectable option within a panel;
 - the `<sbb-autocomplete-grid-cell>`, which is a wrapper a for button element;
 - the `<sbb-autocomplete-grid-button>`, which displays a button within a row;
 - the `<sbb-autocomplete-grid-optgroup>`, which can be used to group more row within a group.
@@ -45,7 +51,8 @@ it will automatically connect to the native `<input>` as trigger and will displa
 
 ```html
 <!-- Origin element -->
-<sbb-form-field label="Label">
+<sbb-form-field>
+  <label>Label</label>
   <!-- Trigger element -->
   <input placeholder="Trigger element" />
 
@@ -79,7 +86,8 @@ The displayed `<sbb-autocomplete-grid-option>` can be collected into groups usin
 
 ```html
 <!-- Origin element -->
-<sbb-form-field label="Label">
+<sbb-form-field>
+  <label>Label</label>
   <!-- Trigger element -->
   <input placeholder="Trigger element" />
 
@@ -108,7 +116,7 @@ The displayed `<sbb-autocomplete-grid-option>` can be collected into groups usin
 
 ### Size
 
-The component has no `size` property but, when slotted in a `<sbb-form-field>`, it adapts to the parent `size`.
+The component has a `size` property with two sizes available. When slotted in a `<sbb-form-field>` element, it adapts to the `<sbb-form-field>` element `size`.
 
 ```html
 <sbb-form-field size="s">
@@ -201,10 +209,13 @@ align with the type information.
 
 #### Properties
 
-| Name       | Attribute | Privacy | Type                                         | Default | Description                                                              |
-| ---------- | --------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `optgroup` | -         | public  | `SbbAutocompleteGridOptgroupElement \| null` |         |                                                                          |
-| `option`   | -         | public  | `SbbAutocompleteGridOptionElement \| null`   |         | Gets the SbbAutocompleteGridOptionElement on the same row of the button. |
+| Name       | Attribute   | Privacy | Type                                         | Default | Description                                                                                                                      |
+| ---------- | ----------- | ------- | -------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `disabled`  | public  | `boolean`                                    | `false` | Whether the component is disabled.                                                                                               |
+| `iconName` | `icon-name` | public  | `string`                                     | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `negative` | `negative`  | public  | `boolean`                                    | `false` | Negative coloring variant flag.                                                                                                  |
+| `optgroup` | -           | public  | `SbbAutocompleteGridOptgroupElement \| null` |         |                                                                                                                                  |
+| `option`   | -           | public  | `SbbAutocompleteGridOptionElement \| null`   |         | Gets the SbbAutocompleteGridOptionElement on the same row of the button.                                                         |
 
 #### Slots
 
@@ -222,6 +233,44 @@ align with the type information.
 
 ### class: `SbbAutocompleteGridElement`, `sbb-autocomplete-grid`
 
+#### Properties
+
+| Name                           | Attribute                           | Privacy | Type                             | Default  | Description                                                                                                                                                                                                                                                                                                                           |
+| ------------------------------ | ----------------------------------- | ------- | -------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `autoActiveFirstOption`        | `auto-active-first-option`          | public  | `boolean`                        | `false`  | Whether the first option is automatically activated when the autocomplete is opened.                                                                                                                                                                                                                                                  |
+| `autoSelectActiveOption`       | `auto-select-active-option`         | public  | `boolean`                        | `false`  | Whether the active option should be selected as the user is navigating.                                                                                                                                                                                                                                                               |
+| `autoSelectActiveOptionOnBlur` | `auto-select-active-option-on-blur` | public  | `boolean`                        | `false`  | When enabled, the active option is automatically selected on blur. This is an experimental feature. It might be subject to changes.                                                                                                                                                                                                   |
+| `displayWith`                  | -                                   | public  | `((value: T) => string) \| null` | `null`   | Function that maps an option's control value to its display value in the trigger.                                                                                                                                                                                                                                                     |
+| `isOpen`                       | -                                   | public  | `boolean`                        |          | Whether the element is open.                                                                                                                                                                                                                                                                                                          |
+| `negative`                     | `negative`                          | public  | `boolean`                        | `false`  | Negative coloring variant flag.                                                                                                                                                                                                                                                                                                       |
+| `origin`                       | `origin`                            | public  | `HTMLElement \| null`            | `null`   | The element where the autocomplete will attach. If not set, as fallback there are two elements which can act as origin with following priority order: 1\. `sbb-form-field` if it is an ancestor. 2\. trigger element if set. For attribute usage, provide an id reference.                                                            |
+| `originElement`                | -                                   | public  | `HTMLElement \| null`            |          | Returns the element where the autocomplete overlay is attached to.                                                                                                                                                                                                                                                                    |
+| `position`                     | `position`                          | public  | `'auto' \| 'above' \| 'below'`   | `'auto'` | The position of the autocomplete panel relative to the trigger.                                                                                                                                                                                                                                                                       |
+| `preserveIconSpace`            | `preserve-icon-space`               | public  | `boolean`                        | `false`  | Whether the icon space is preserved when no icon is set.                                                                                                                                                                                                                                                                              |
+| `requireSelection`             | `require-selection`                 | public  | `boolean`                        | `false`  | Whether the user is required to make a selection when they're interacting with the autocomplete. If the user moves away from the autocomplete without selecting an option from the list, the value will be reset. If the user opens the panel and closes it without interacting or selecting a value, the initial value will be kept. |
+| `size`                         | `size`                              | public  | `'s' \| 'm' \| null`             | `null`   | Size variant, either s (lean theme default) or m (standard theme default). When placed inside an `<sbb-form-field>`, the size is inherited from the form field.                                                                                                                                                                       |
+| `trigger`                      | `trigger`                           | public  | `HTMLInputElement \| null`       | `null`   | The input element that will trigger the autocomplete opening. By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element. If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor. For attribute usage, provide an id reference.                       |
+| `triggerElement`               | -                                   | public  | `HTMLInputElement \| null`       |          | Returns the trigger element.                                                                                                                                                                                                                                                                                                          |
+
+#### Methods
+
+| Name             | Privacy | Description                                                                 | Parameters | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Closes the autocomplete.                                                    |            | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the autocomplete.                                                     |            | `void` | SbbOpenCloseBaseElement |
+
+#### Events
+
+| Name          | Type         | Description                                                                                                                                                                                                      | Inherited From             |
+| ------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| `beforeclose` | `Event`      | Emits whenever the component begins the closing transition. Can be canceled.                                                                                                                                     | SbbOpenCloseBaseElement    |
+| `beforeopen`  | `Event`      | Emits whenever the component starts the opening transition. Can be canceled.                                                                                                                                     | SbbOpenCloseBaseElement    |
+| `change`      | `Event`      | The change event is fired on the autocomplete's trigger when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbAutocompleteBaseElement |
+| `close`       | `Event`      | Emits whenever the component is closed.                                                                                                                                                                          | SbbOpenCloseBaseElement    |
+| `input`       | `InputEvent` | The input event fires on the autocomplete's trigger when the value has been changed as a direct result of a user action.                                                                                         | SbbAutocompleteBaseElement |
+| `open`        | `Event`      | Emits whenever the component is opened.                                                                                                                                                                          | SbbOpenCloseBaseElement    |
+
 #### CSS Properties
 
 | Name                             | Default                              | Description                                                                                                                                                                                                   |
@@ -237,6 +286,13 @@ align with the type information.
 
 ### class: `SbbAutocompleteGridOptgroupElement`, `sbb-autocomplete-grid-optgroup`
 
+#### Properties
+
+| Name       | Attribute  | Privacy | Type      | Default | Description                        |
+| ---------- | ---------- | ------- | --------- | ------- | ---------------------------------- |
+| `disabled` | `disabled` | public  | `boolean` | `false` | Whether the component is disabled. |
+| `label`    | `label`    | public  | `string`  | `''`    | Option group label.                |
+
 #### Slots
 
 | Name | Description                                                                                                  |
@@ -244,6 +300,21 @@ align with the type information.
 |      | Use the unnamed slot to add `sbb-autocomplete-grid-option` elements to the `sbb-autocomplete-grid-optgroup`. |
 
 ### class: `SbbAutocompleteGridOptionElement`, `sbb-autocomplete-grid-option`
+
+#### Properties
+
+| Name       | Attribute   | Privacy | Type         | Default | Description                                                                                                                      |
+| ---------- | ----------- | ------- | ------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `disabled`  | public  | `boolean`    | `false` | Whether the component is disabled.                                                                                               |
+| `iconName` | `icon-name` | public  | `string`     | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `selected` | `selected`  | public  | `boolean`    |         | Whether the option is selected.                                                                                                  |
+| `value`    | `value`     | public  | `T = string` | `null`  | Value of the option.                                                                                                             |
+
+#### Events
+
+| Name             | Type    | Description                                | Inherited From       |
+| ---------------- | ------- | ------------------------------------------ | -------------------- |
+| `optionselected` | `Event` | Emits when an option was selected by user. | SbbOptionBaseElement |
 
 #### CSS Properties
 

@@ -60,7 +60,9 @@ component. Use it to display a footer with an action group.
 
 ```html
 <sbb-dialog>
-  <sbb-dialog-actions>
+  <sbb-dialog-actions
+    class="sbb-orientation-vertical-full-width sbb-orientation-horizontal-from-small"
+  >
     <sbb-block-link sbb-dialog-close>Link</sbb-block-link>
     <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
     <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
@@ -69,6 +71,8 @@ component. Use it to display a footer with an action group.
 ```
 
 ## Interactions
+
+<!-- #region trigger -->
 
 To display the dialog, a trigger can be connected via the `trigger` property,
 or the `open()` method on the `<sbb-dialog>` component can be called.
@@ -82,6 +86,8 @@ or the `open()` method on the `<sbb-dialog>` component can be called.
   <sbb-dialog-actions><sbb-button sbb-dialog-close>Close</sbb-button></sbb-dialog-actions>
 </sbb-dialog>
 ```
+
+<!-- #endregion -->
 
 ### Closing the dialog
 
@@ -147,8 +153,11 @@ When the dialog closes, it emits two events:
 
 Both events are of type `SbbDialogCloseEvent` and provide access to:
 
-- `result`: The result value passed to `close()`, assigned via `assignDialogResult()`, or the value of the `sbb-dialog-close` attribute
-- `closeTarget`: The element that triggered the close action (e.g., the clicked button), or `null` if closed programmatically or via Escape key
+- `result`: The result value passed to `close()`, assigned via `assignDialogResult()`,
+  or the value of the `sbb-dialog-close` attribute. This is `null` if the dialog
+  was closed via backdrop click or Escape key.
+- `closeTarget`: The element that triggered the close action (e.g., the clicked button),
+  or `null` if closed programmatically or via Escape key
 
 ```js
 dialog.addEventListener('close', (event) => {
@@ -163,6 +172,24 @@ It's possible to display the component in `negative` variant using the self-name
 
 ```html
 <sbb-dialog negative>
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+</sbb-dialog>
+```
+
+The dialog takes the full width and adapts its height to the slotted content;
+starting from small breakpoint, the width adapts to the content too.
+
+To configure the dialog dimension, consumers can set the dimensions on the slotted content,
+e.g. setting the width or height on the `<sbb-dialog-content>` element.
+
+```html
+<style>
+  sbb-dialog-content {
+    height: 480px;
+  }
+</style>
+<sbb-dialog>
   <sbb-dialog-title>Title</sbb-dialog-title>
   <sbb-dialog-content>Dialog content.</sbb-dialog-content>
 </sbb-dialog>
@@ -198,16 +225,6 @@ an alternative element by listening to the `didClose` event.
 
 ### class: `SbbDialogActionsElement`, `sbb-dialog-actions`
 
-#### Properties
-
-| Name             | Attribute         | Privacy | Type                                        | Default             | Description                                                                                                             |
-| ---------------- | ----------------- | ------- | ------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'` | `'start'`           | Set the slotted `<sbb-action-group>` children's alignment.                                                              |
-| `buttonSize`     | `button-size`     | public  | `SbbButtonSize`                             | `'m' / 's' (lean)`  | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.         |
-| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                         | `'large'`           | Overrides the behavior of `orientation` property.                                                                       |
-| `linkSize`       | `link-size`       | public  | `SbbLinkSize`                               | `'s' / 'xs' (lean)` | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
-| `orientation`    | `orientation`     | public  | `SbbOrientation`                            | `'horizontal'`      | Indicates the orientation of the components inside the `<sbb-action-group>`.                                            |
-
 #### Slots
 
 | Name | Description                                                                                        |
@@ -218,21 +235,21 @@ an alternative element by listening to the `didClose` event.
 
 #### Properties
 
-| Name                  | Attribute              | Privacy | Type                      | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| --------------------- | ---------------------- | ------- | ------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled`            | `disabled`             | public  | `boolean`                 | `false`    | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `disabledInteractive` | `disabled-interactive` | public  | `boolean`                 | `false`    | Whether the button should be aria-disabled but stay interactive.                                                                                                                                                                                                                                                                                                                                                                                        |
-| `form`                | `form`                 | public  | `HTMLFormElement \| null` |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `iconName`            | `icon-name`            | public  | `string`                  | `''`       | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                                                                                                                                                                                                                                                                                        |
-| `loading`             | `loading`              | public  | `boolean`                 | `false`    | Whether the button indicates a loading state. The animation kicks in after a delay of 300ms, configurable with --sbb-button-loading-delay CSS variable.                                                                                                                                                                                                                                                                                                 |
-| `name`                | `name`                 | public  | `string`                  |            | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
-| `negative`            | `negative`             | public  | `boolean`                 | `false`    | Negative coloring variant flag.                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `size`                | `size`                 | public  | `SbbButtonSize`           | `'s'`      | Size variant, either l, m or s.                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `type`                | `type`                 | public  | `SbbButtonType`           | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `validationMessage`   | -                      | public  | `string`                  |            | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
-| `validity`            | -                      | public  | `ValidityState`           |            | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `value`               | `value`                | public  | `string`                  | `''`       | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `willValidate`        | -                      | public  | `boolean`                 |            | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+| Name                  | Attribute              | Privacy | Type                              | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| --------------------- | ---------------------- | ------- | --------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`            | `disabled`             | public  | `boolean`                         | `false`    | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `disabledInteractive` | `disabled-interactive` | public  | `boolean`                         | `false`    | Whether the button should be aria-disabled but stay interactive.                                                                                                                                                                                                                                                                                                                                                                                        |
+| `form`                | `form`                 | public  | `HTMLFormElement \| null`         |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `iconName`            | `icon-name`            | public  | `string`                          | `''`       | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                                                                                                                                                                                                                                                                                        |
+| `loading`             | `loading`              | public  | `boolean`                         | `false`    | Whether the button indicates a loading state. The animation kicks in after a delay of 300ms, configurable with --sbb-button-loading-delay CSS variable.                                                                                                                                                                                                                                                                                                 |
+| `name`                | `name`                 | public  | `string`                          |            | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `negative`            | `negative`             | public  | `boolean`                         | `false`    | Negative coloring variant flag.                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `size`                | `size`                 | public  | `'s' \| 'm' \| 'l' \| null`       | `'s'`      | Size variant, either s (lean theme default), m (standard theme default) or l.                                                                                                                                                                                                                                                                                                                                                                           |
+| `type`                | `type`                 | public  | `'button' \| 'reset' \| 'submit'` | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `validationMessage`   | -                      | public  | `string`                          |            | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`            | -                      | public  | `ValidityState`                   |            | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`               | `value`                | public  | `string`                          | `''`       | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `willValidate`        | -                      | public  | `boolean`                         |            | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
 
 #### Methods
 
@@ -241,6 +258,12 @@ an alternative element by listening to the `didClose` event.
 | `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
 
 #### CSS Properties
 
@@ -311,11 +334,11 @@ an alternative element by listening to the `didClose` event.
 
 #### Properties
 
-| Name          | Attribute      | Privacy | Type                    | Default | Description                     |
-| ------------- | -------------- | ------- | ----------------------- | ------- | ------------------------------- |
-| `level`       | `level`        | public  | `SbbTitleLevel`         | `'2'`   | Title level                     |
-| `negative`    | `negative`     | public  | `boolean`               | `false` | Negative coloring variant flag. |
-| `visualLevel` | `visual-level` | public  | `SbbTitleLevel \| null` | `'4'`   | Visual level for the title.     |
+| Name          | Attribute      | Privacy | Type                                             | Default | Description                     |
+| ------------- | -------------- | ------- | ------------------------------------------------ | ------- | ------------------------------- |
+| `level`       | `level`        | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6'`         | `'2'`   | Title level                     |
+| `negative`    | `negative`     | public  | `boolean`                                        | `false` | Negative coloring variant flag. |
+| `visualLevel` | `visual-level` | public  | `'1' \| '2' \| '3' \| '4' \| '5' \| '6' \| null` | `'4'`   | Visual level for the title.     |
 
 #### Slots
 

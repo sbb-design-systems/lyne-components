@@ -1,6 +1,12 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
+import {
+  describeEach,
+  describeViewports,
+  visualDiffDefault,
+  visualDiffFocus,
+} from '../core/testing/private.ts';
+import type { SbbSelectElement } from '../select.ts';
 
 import '../form-field.ts';
 import '../option.ts';
@@ -10,23 +16,24 @@ describe('sbb-select', () => {
   const valueEllipsis: string = 'This label name is so long that it needs ellipsis to fit.';
   const defaultArgs = {
     borderless: false,
-    size: 'm',
+    size: 'm' as SbbSelectElement['size'],
     negative: false,
     disableOption: false,
     withOptionGroup: false,
     disableGroup: false,
     withEllipsis: false,
-    value: undefined as string | string[] | undefined,
+    value: undefined as SbbSelectElement['value'] | undefined,
     multiple: false,
     disabled: false,
     required: false,
     readonly: false,
+    hostClass: '',
   };
 
   const createOptions = (
     disableOption: boolean,
     group: string | boolean,
-    selectValue: string | string[] | undefined = undefined,
+    selectValue: SbbSelectElement['value'] | undefined = undefined,
   ): TemplateResult[] => {
     return new Array(5).fill(null).map((_, i) => {
       const value = group ? `Option ${i + 1} ${' - ' + group}` : `Option ${i + 1}`;
@@ -59,13 +66,19 @@ describe('sbb-select', () => {
     withOptionGroup,
     disableGroup,
     withEllipsis,
+    hostClass,
     ...args
   }: typeof defaultArgs): TemplateResult => {
     if (args.multiple && args.value) {
       args.value = [args.value as string];
     }
     return html`
-      <sbb-form-field ?borderless=${borderless} ?negative=${negative} size=${size}>
+      <sbb-form-field
+        class=${hostClass || nothing}
+        ?borderless=${borderless}
+        ?negative=${negative}
+        size=${size || nothing}
+      >
         <label>Select</label>
         <sbb-select
           value=${args.value || nothing}
@@ -76,12 +89,18 @@ describe('sbb-select', () => {
           placeholder="Select"
           class=${args.required ? 'sbb-invalid' : nothing}
         >
-          ${withEllipsis
-            ? html` <sbb-option value=${valueEllipsis} selected=""> ${valueEllipsis} </sbb-option>`
-            : nothing}
-          ${withOptionGroup
-            ? createOptionsGroup(disableOption, disableGroup)
-            : createOptions(disableOption, false, args.value)}
+          ${
+            withEllipsis
+              ? html` <sbb-option value=${valueEllipsis} selected="">
+                  ${valueEllipsis}
+                </sbb-option>`
+              : nothing
+          }
+          ${
+            withOptionGroup
+              ? createOptionsGroup(disableOption, disableGroup)
+              : createOptions(disableOption, false, args.value)
+          }
         </sbb-select>
         ${args.required ? html`<sbb-error>Error</sbb-error>` : nothing}
       </sbb-form-field>
@@ -311,6 +330,38 @@ describe('sbb-select', () => {
     }
 
     it(
+      'multiple size=null',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          template({
+            ...(({ size: _omit, ...rest }) => rest)({ ...defaultArgs, multiple: true }),
+          } as typeof defaultArgs),
+          { minHeight: '600px' },
+        );
+        setup.withPostSetupAction(() => {
+          const select = setup.snapshotElement.querySelector('sbb-select')!;
+          select.focus();
+          select.open();
+        });
+      }),
+    );
+
+    it(
+      'with long placeholder',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-form-field>
+            <label>Select</label>
+            <sbb-select placeholder="This placeholder is so long that it needs ellipsis to fit.">
+              <sbb-option value="1">Option 1</sbb-option>
+              <sbb-option value="2">Option 2</sbb-option>
+            </sbb-select>
+          </sbb-form-field>`,
+        );
+      }),
+    );
+
+    it(
       `with custom max height`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template(defaultArgs), {
@@ -323,6 +374,62 @@ describe('sbb-select', () => {
           element.open();
         });
       }),
+    );
+
+    it(
+      'inside bold context',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div style="font-weight: bold;">
+            <sbb-select placeholder="Select">
+              <sbb-option value="1">Option 1</sbb-option>
+              <sbb-option value="2">Option 2</sbb-option>
+            </sbb-select>
+          </div>`,
+        );
+        setup.withPostSetupAction(() => {
+          const element = setup.snapshotElement.querySelector('sbb-select')!;
+          element.focus();
+          element.open();
+        });
+      }),
+    );
+
+    describeEach(
+      {
+        negative: [false, true],
+        state: [
+          { disabled: false, readonly: false },
+          { disabled: true, readonly: false },
+          { disabled: false, readonly: true },
+        ],
+        emulateMedia: [
+          { forcedColors: false, darkMode: false },
+          { forcedColors: true, darkMode: false },
+          { forcedColors: false, darkMode: true },
+        ],
+      },
+      ({ negative, state, emulateMedia: { darkMode, forcedColors } }) => {
+        it(
+          'sbb-form-field-required-highlight',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              template({
+                ...defaultArgs,
+                negative,
+                disabled: state.disabled,
+                readonly: state.readonly,
+                hostClass: 'sbb-form-field-required-highlight',
+              }),
+              {
+                backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
+                forcedColors,
+                darkMode,
+              },
+            );
+          }),
+        );
+      },
     );
   });
 });

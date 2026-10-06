@@ -1,19 +1,20 @@
 import { html } from 'lit';
-import { stub, type SinonStub } from 'sinon';
+import { type SinonStub, stub } from 'sinon';
 
-import { defaultDateAdapter } from '../../core/datetime.ts';
 import {
   describeEach,
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
+import { defaultDateAdapter } from '../../core.ts';
+import type { SbbFormFieldElement } from '../../form-field.pure.ts';
+
+import type { SbbDatepickerElement } from './datepicker.component.ts';
 
 import '../../datepicker.ts';
 import '../../date-input.ts';
 import '../../form-field.ts';
-
-import type { SbbDatepickerElement } from './datepicker.component.ts';
 
 describe(`sbb-datepicker`, () => {
   let root: HTMLElement;
@@ -28,7 +29,7 @@ describe(`sbb-datepicker`, () => {
     ],
   };
 
-  const sizes = ['s', 'l'];
+  const sizes = ['s', 'l'] satisfies SbbFormFieldElement['size'][];
 
   before(() => {
     todayStub = stub(defaultDateAdapter, 'today').returns(new Date(2022, 4, 1, 0, 0, 0, 0));
@@ -94,12 +95,37 @@ describe(`sbb-datepicker`, () => {
       );
     });
 
+    it(
+      'wide',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <div style="display: flex; gap: 0.25rem;">
+              <sbb-datepicker-previous-day input="datepicker-input"></sbb-datepicker-previous-day>
+              <sbb-date-input value="12.02.2023" id="datepicker-input"></sbb-date-input>
+              <sbb-datepicker-next-day input="datepicker-input"></sbb-datepicker-next-day>
+              <sbb-datepicker-toggle
+                input="datepicker-input"
+                datepicker="datepicker"
+              ></sbb-datepicker-toggle>
+              <sbb-datepicker id="datepicker" input="datepicker-input" wide></sbb-datepicker>
+            </div>
+          `,
+          { minHeight: '600px' },
+        );
+
+        setup.withPostSetupAction(() => {
+          setup.snapshotElement.querySelector<SbbDatepickerElement>('sbb-datepicker')!.open();
+        });
+      }),
+    );
+
     for (const size of sizes) {
       it(
         `size=${size}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-form-field width="collapse" size=${size as 's' | 'm' | 'l'}>
+            <sbb-form-field width="collapse" size=${size}>
               <label>Label</label>
               <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
               <sbb-date-input value="12.02.2023"></sbb-date-input>

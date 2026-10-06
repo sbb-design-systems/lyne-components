@@ -1,9 +1,9 @@
-import { ɵstateController } from '@sbb-esta/lyne-elements/core/mixins.js';
 import {
   describeViewports,
   visualDiffDefault,
   visualDiffHover,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
+import { ɵstateController } from '@sbb-esta/lyne-elements/core.js';
 import { html, type TemplateResult } from 'lit';
 import { ref } from 'lit/directives/ref.js';
 

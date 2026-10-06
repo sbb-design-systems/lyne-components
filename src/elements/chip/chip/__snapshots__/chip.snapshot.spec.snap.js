@@ -25,9 +25,9 @@ snapshots["sbb-chip renders Shadow DOM"] =
   tabindex="0"
 >
 </sbb-mini-button>
-<sbb-screen-reader-only>
+<span class="sbb-screen-reader-only">
   , Press the Delete button to remove the chip
-</sbb-screen-reader-only>
+</span>
 `;
 /* end snapshot sbb-chip renders Shadow DOM */
 
@@ -56,9 +56,9 @@ snapshots["sbb-chip renders with label Shadow DOM"] =
   tabindex="0"
 >
 </sbb-mini-button>
-<sbb-screen-reader-only>
+<span class="sbb-screen-reader-only">
   , Press the Delete button to remove the chip
-</sbb-screen-reader-only>
+</span>
 `;
 /* end snapshot sbb-chip renders with label Shadow DOM */
 
@@ -86,9 +86,9 @@ snapshots["sbb-chip renders disabled Shadow DOM"] =
   tabindex="0"
 >
 </sbb-mini-button>
-<sbb-screen-reader-only>
+<span class="sbb-screen-reader-only">
   , Press the Delete button to remove the chip
-</sbb-screen-reader-only>
+</span>
 `;
 /* end snapshot sbb-chip renders disabled Shadow DOM */
 
@@ -99,10 +99,9 @@ snapshots["sbb-chip renders A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "option",
-      "name": "Value , Press the Delete button to remove the chip",
-      "focusable": true,
-      "selected": false
+      "role": "generic",
+      "name": "",
+      "focusable": true
     }
   ]
 }
@@ -117,10 +116,9 @@ snapshots["sbb-chip renders with label A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "option",
-      "name": "Value label , Press the Delete button to remove the chip",
-      "focusable": true,
-      "selected": false
+      "role": "generic",
+      "name": "",
+      "focusable": true
     }
   ]
 }
@@ -135,9 +133,50 @@ snapshots["sbb-chip renders disabled A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "option",
-      "name": "Value , Press the Delete button to remove the chip",
-      "selected": false
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "StaticText",
+              "name": "Value"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "StaticText",
+          "name": ", "
+        },
+        {
+          "role": "StaticText",
+          "name": "Press the Delete button to remove the chip"
+        }
+      ]
     }
   ]
 }

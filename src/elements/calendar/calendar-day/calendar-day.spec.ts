@@ -2,9 +2,9 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { SbbCalendarElement } from '../../calendar.ts';
-import { defaultDateAdapter } from '../../core/datetime.ts';
 import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
+import { defaultDateAdapter } from '../../core.ts';
 
 import { SbbCalendarDayElement } from './calendar-day.component.ts';
 import { createSlottedDays } from './calendar-day.helper.private.ts';
@@ -38,12 +38,12 @@ describe('sbb-calendar-day', () => {
   });
 
   it('should react to calendar property changes', async () => {
-    root.selected = new Date(`${year}-${month}-15`);
+    root.value = new Date(`${year}-${month}-15`);
     root.min = new Date(`${year}-${month}-10`);
     root.max = new Date(`${year}-${month}-20`);
     root.dateFilter = (d: Date | null): boolean => !!d && d.getDate() % 2 === 1;
     await waitForLitRender(root);
-    const selectedDaySelector = `sbb-calendar-day[slot="${defaultDateAdapter.toIso8601(root.selected)}"]`;
+    const selectedDaySelector = `sbb-calendar-day[slot="${defaultDateAdapter.toIso8601(root.value)}"]`;
     const selectedElement = root.querySelector<SbbCalendarDayElement>(selectedDaySelector)!;
     expect(selectedElement).to.match(':state(selected)');
     expect(elementInternals.get(selectedElement)!.ariaPressed).to.be.equal('true');

@@ -1,8 +1,8 @@
 import { html, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { defaultDateAdapter } from '../../core/datetime.ts';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import { defaultDateAdapter } from '../../core.ts';
 
 import '../../mini-calendar.ts';
 
@@ -15,10 +15,12 @@ describe('sbb-mini-calendar', () => {
         return html`
           <sbb-mini-calendar-day
             date=${defaultDateAdapter.toIso8601(date)}
-            marker=${defaultDateAdapter.getDayOfWeek(date) === 0 ||
-            defaultDateAdapter.getDayOfWeek(date) === 6
-              ? 'circle'
-              : ''}
+            marker=${
+              defaultDateAdapter.getDayOfWeek(date) === 0 ||
+              defaultDateAdapter.getDayOfWeek(date) === 6
+                ? 'circle'
+                : ''
+            }
           ></sbb-mini-calendar-day>
         `;
       })}

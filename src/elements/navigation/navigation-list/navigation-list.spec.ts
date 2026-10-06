@@ -33,6 +33,6 @@ describe(`sbb-navigation-list`, () => {
 
   it('force size on children elements', () => {
     const action = element.querySelector('sbb-navigation-button');
-    expect(action).to.have.attribute('size', 'm');
+    expect(action).to.match(':state(size-m)');
   });
 });

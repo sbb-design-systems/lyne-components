@@ -3,6 +3,9 @@
 :host {
   display: block;
   text-align: center;
+
+  // Set the line-height for adjacent elements in order to prevent from influence of a consumer-set line-height.
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 ::slotted(sbb-title[slot='title']) {
@@ -19,7 +22,7 @@
 ::slotted([slot='subtitle']) {
   color: var(--sbb-message-subtitle-color);
   font-size: var(--sbb-text-font-size-s);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
   margin: 0;
 }
 

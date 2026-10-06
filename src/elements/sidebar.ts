@@ -1,9 +1,9 @@
 /** @entrypoint */
 import {
-  SbbSidebarElement,
   SbbSidebarCloseButtonElement,
   SbbSidebarContainerElement,
   SbbSidebarContentElement,
+  SbbSidebarElement,
   SbbSidebarTitleElement,
 } from './sidebar.pure.ts';
 

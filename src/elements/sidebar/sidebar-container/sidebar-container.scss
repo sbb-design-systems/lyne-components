@@ -25,7 +25,7 @@
     --sbb-sidebar-container-animation-duration
   );
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-sidebar-container-backdrop-opacity: 0.5;
   }
 }

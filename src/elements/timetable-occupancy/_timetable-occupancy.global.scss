@@ -1,0 +1,10 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-timetable-occupancy-color: var(--sbb-color-2);
+  --sbb-timetable-occupancy-font-size: var(--sbb-text-font-size-s);
+  --sbb-timetable-occupancy-list-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-timetable-occupancy-item-gap: var(--sbb-spacing-fixed-1x);
+}

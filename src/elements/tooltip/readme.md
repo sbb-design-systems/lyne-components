@@ -1,11 +1,15 @@
 The `<sbb-tooltip>` component displays contextual information related to an element.
 
+<!-- #region trigger -->
+
 The standard way to use it is through the `trigger` property, referencing the element which activate the tooltip.
 
 ```html
 <sbb-button id="tooltip-trigger">Button</sbb-button>
 <sbb-tooltip trigger="tooltip-trigger">Tooltip message</sbb-tooltip>
 ```
+
+<!-- #endregion -->
 
 ## Attribute usage
 
@@ -76,9 +80,9 @@ When using the `sbb-tooltip` attribute, you can configure the position by settin
 The value of the attribute is a comma-separated list of positions.
 
 ```html
-<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-position="block-end, block-start, inline-end"
-  >Button</sbb-button
->
+<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-position="block-end, block-start, inline-end">
+  Button
+</sbb-button>
 ```
 
 ## Configuration
@@ -86,7 +90,7 @@ The value of the attribute is a comma-separated list of positions.
 The open and close delays can be configured via global configuration. These values will be used as default, unless explicitly set on the element.
 
 ```ts
-import { mergeConfig } from '@sbb-esta/lyne-elements/core/config.js';
+import { mergeConfig } from '@sbb-esta/lyne-elements/core.js';
 
 mergeConfig({
   tooltip: {

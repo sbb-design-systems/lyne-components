@@ -6,7 +6,7 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 import { SbbNotificationElement } from './notification.component.ts';
 
 import '../title.ts';
-import '../link/link.ts';
+import '../link.ts';
 import '../notification.ts';
 
 describe(`sbb-notification ssr`, () => {
@@ -21,7 +21,7 @@ describe(`sbb-notification ssr`, () => {
           <sbb-link href="/">Link one</sbb-link>
         </sbb-notification>
       `,
-      { modules: ['../title.ts', '../link/link.ts', '../notification.ts'] },
+      { modules: ['../title.ts', '../link.ts', '../notification.ts'] },
     );
   });
 

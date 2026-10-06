@@ -1,17 +1,19 @@
-import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { SbbDarkModeController } from '../core/controllers.ts';
-import { forceType, omitEmptyConverter } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.ts';
-import type { SbbTitleLevel } from '../title.ts';
+import {
+  forceType,
+  omitEmptyConverter,
+  SbbDarkModeController,
+  SbbElement,
+  type SbbHeadingLevel,
+  SbbNamedSlotListMixin,
+  type WithListChildren,
+} from '../core.ts';
+import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.pure.ts';
 
-import style from './skiplink-list.scss?lit&inline';
+import style from './skiplink-list.scss?inline';
 
 /**
  * It displays a list of `sbb-block-link`/`sbb-block-link-button` which are visible only when focused.
@@ -27,7 +29,7 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-skiplink-list';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   protected override readonly listChildLocalNames = ['sbb-block-link', 'sbb-block-link-button'];
 
   /** The title text we want to place before the list. */
@@ -36,7 +38,7 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
   public accessor titleContent: string = '';
 
   /** The semantic level of the title, e.g. 2 = h2. */
-  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '2';
+  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbHeadingLevel = '2';
 
   private _darkModeController = new SbbDarkModeController(this, () => {
     for (const child of this.listChildren) {
@@ -49,7 +51,7 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
 
     if (changedProperties.has('listChildren')) {
       for (const child of this.listChildren) {
-        child.size = isLean() ? 'xs' : 'm';
+        child.size = 'm';
         child.negative = this._isLightMode();
       }
     }
@@ -64,15 +66,13 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
 
     /* eslint-disable lit/binding-positions */
     return html`
-      <div class="sbb-skiplink-list__wrapper">
-        <${unsafeStatic(TITLE_TAG_NAME)}
-          class="sbb-skiplink-list-title"
-          id="sbb-skiplink-list-title-id"
-        >
-          <slot name="title">${this.titleContent}</slot>
-        </${unsafeStatic(TITLE_TAG_NAME)}>
-        ${this.renderList({ ariaLabelledby: 'sbb-skiplink-list-title-id' })}
-      </div>
+      <${unsafeStatic(TITLE_TAG_NAME)}
+        class="sbb-screen-reader-only"
+        id="sbb-skiplink-list-title-id"
+      >
+        <slot name="title">${this.titleContent}</slot>
+      </${unsafeStatic(TITLE_TAG_NAME)}>
+      ${this.renderList({ ariaLabelledby: 'sbb-skiplink-list-title-id' })}
     `;
     /* eslint-enable lit/binding-positions */
   }

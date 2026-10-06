@@ -6,7 +6,6 @@
   justify-content: center;
   background-color: var(--sbb-signet-background-color);
   aspect-ratio: var(--sbb-signet-aspect-ratio);
-  width: 100%;
   height: var(--sbb-signet-height, auto);
 }
 
@@ -27,7 +26,8 @@
 
 .sbb-signet__svg-container {
   display: flex;
-  height: var(--sbb-signet-svg-container-height, auto);
+  height: var(--sbb-signet-svg-container-height, 100%);
+  width: 100%;
 }
 
 svg {

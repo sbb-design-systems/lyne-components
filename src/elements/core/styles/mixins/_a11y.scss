@@ -1,0 +1,21 @@
+// ----------------------------------------------------------------------------------------------------
+// A11y: MediaQueries & Other things
+// ----------------------------------------------------------------------------------------------------
+
+@mixin focus-outline {
+  outline-offset: var(--sbb-focus-outline-offset);
+  outline: var(--sbb-focus-outline-color) var(--sbb-focus-outline-style, solid)
+    var(--sbb-focus-outline-width);
+}
+
+@mixin screen-reader-only {
+  border: 0;
+  clip-path: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

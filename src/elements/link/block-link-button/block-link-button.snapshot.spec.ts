@@ -6,7 +6,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 import type { SbbBlockLinkButtonElement } from './block-link-button.component.ts';
 
 import '../../icon.ts';
-import '../block-link-button.ts';
+import '../../link.ts';
 
 describe(`sbb-block-link-button`, () => {
   let element: SbbBlockLinkButtonElement;
@@ -16,7 +16,6 @@ describe(`sbb-block-link-button`, () => {
       element = await fixture(
         html` <sbb-block-link-button
           icon-placement="end"
-          size="m"
           negative
           name="name"
           type="submit"

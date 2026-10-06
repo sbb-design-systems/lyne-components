@@ -1,13 +1,15 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
-import { html, nothing, type TemplateResult } from 'lit';
+import { html, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import sampleImages from '../core/images.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
+import { sampleImages } from '../core/images.private.ts';
+import { type SbbHeaderButtonElement, type SbbHeaderElement } from '../header.ts';
 
 import readme from './readme.md?raw';
 
+import '../container.ts';
 import '../divider.ts';
 import '../header.ts';
 import '../image.ts';
@@ -29,22 +31,14 @@ const LoremIpsumTemplate = (): TemplateResult => html`
   <br />
 `;
 
-const appName = (): TemplateResult => html`
-  <span class="sbb-header-info">
-    <strong>Name</strong>
-    <span>V. 1.1</span>
-  </span>
-`;
-
 const HeaderBasicTemplate = (
   { attributes, ...args }: Args,
   template: TemplateResult,
 ): TemplateResult => html`
   <sbb-header ${sbbSpread(args)}>
-    <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
+    <sbb-header-button icon-name="hamburger-menu-small" hide-label-below="small">
       Menu
     </sbb-header-button>
-    ${args.size === 's' ? appName() : nothing}
     <div class="sbb-header-spacer"></div>
     <sbb-header-link
       href="https://www.sbb.ch"
@@ -52,6 +46,7 @@ const HeaderBasicTemplate = (
       icon-name="magnifying-glass-small"
       class="sbb-active"
       accessibility-current="page"
+      hide-label-below="large"
     >
       Search
     </sbb-header-link>
@@ -60,7 +55,7 @@ const HeaderBasicTemplate = (
       icon-name="globe-small"
       id="language-menu-trigger"
       class="last-element"
-      expand-from="small"
+      hide-label-below="small"
     >
       English
     </sbb-header-button>
@@ -71,31 +66,24 @@ const HeaderBasicTemplate = (
       <sbb-menu-button icon-name="tick-small">English</sbb-menu-button>
     </sbb-menu>
     <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
-    ${args.size === 's'
-      ? html`
-          <a aria-label="Homepage" href="/" class="sbb-header-logo">
-            <sbb-signet protective-room="panel"></sbb-signet>
-          </a>
-        `
-      : html`
-          <a aria-label="Homepage" href="/" class="sbb-header-logo">
-            <sbb-logo protective-room="none"></sbb-logo>
-          </a>
-        `}
+    <a aria-label="Homepage" href="/" class="sbb-header-logo">
+      <sbb-logo protective-room="none"></sbb-logo>
+    </a>
   </sbb-header>
-  <div
-    class=${args.expanded ? `sbb-page-spacing-expanded` : `sbb-page-spacing`}
-    ${sbbSpread(attributes)}
-  >
+  <sbb-container ?expanded=${args.expanded} ${sbbSpread(attributes)}>
     ${new Array(12).fill(null).map(LoremIpsumTemplate)}
-  </div>
+  </sbb-container>
 `;
 
 const Template = (args: Args): TemplateResult => html`
   ${HeaderBasicTemplate(
     args,
     html`
-      <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
+      <sbb-header-button
+        icon-name="user-small"
+        class="sbb-header-shrinkable"
+        hide-label-below="large"
+      >
         Sign in
       </sbb-header-button>
     `,
@@ -110,6 +98,7 @@ const TemplateWithUserMenu = (args: Args): TemplateResult => html`
         icon-name="user-small"
         id="user-menu-trigger"
         class="sbb-header-shrinkable"
+        hide-label-below="large"
       >
         Christina Müller
       </sbb-header-button>
@@ -148,7 +137,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['s', 'm'] satisfies SbbHeaderElement['size'][],
 };
 
 const argTypes: ArgTypes = {
@@ -162,7 +151,7 @@ const basicArgs: Args = {
   expanded: false,
   'hide-on-scroll': false,
   'scroll-origin': undefined,
-  size: size.options![0],
+  size: undefined,
 };
 
 export const Basic: StoryObj = {
@@ -183,7 +172,37 @@ export const Expanded: StoryObj = {
 export const SizeS: StoryObj = {
   render: Template,
   argTypes,
+  args: { ...basicArgs, size: size.options![0] },
+};
+
+export const SizeM: StoryObj = {
+  render: Template,
+  argTypes,
   args: { ...basicArgs, size: size.options![1] },
+};
+
+const AppNameTemplate = ({ attributes, ...args }: Args): TemplateResult =>
+  html`<sbb-header ${sbbSpread(args)}>
+      <sbb-header-button icon-name="hamburger-menu-small" hide-label-below="small">
+        Menu
+      </sbb-header-button>
+      <span class="sbb-header-info">
+        <strong>Application Name</strong>
+        <span>1.1.1</span>
+      </span>
+      <div class="sbb-header-spacer"></div>
+      <a aria-label="Homepage" href="/" class="sbb-header-logo">
+        <sbb-signet protective-room="panel"></sbb-signet>
+      </a>
+    </sbb-header>
+    <sbb-container ?expanded=${args.expanded} ${sbbSpread(attributes)}>
+      ${new Array(12).fill(null).map(LoremIpsumTemplate)}
+    </sbb-container>`;
+
+export const WithAppName: StoryObj = {
+  render: AppNameTemplate,
+  argTypes,
+  args: basicArgs,
 };
 
 export const WithUserMenu: StoryObj = {
@@ -240,11 +259,11 @@ const text: InputType = {
   },
 };
 
-const expandFrom: InputType = {
+const hideLabelBelow: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['zero', 'small', 'large', 'ultra'],
+  options: ['small', 'large', 'ultra'] satisfies SbbHeaderButtonElement['hideLabelBelow'][],
 };
 
 const iconName: InputType = {
@@ -302,7 +321,7 @@ const ariaLabel: InputType = {
 
 const buttonArgTypes: ArgTypes = {
   text,
-  'expand-from': expandFrom,
+  'hide-label-below': hideLabelBelow,
   'icon-name': iconName,
   active,
   type,
@@ -314,7 +333,7 @@ const buttonArgTypes: ArgTypes = {
 
 const buttonArgs: Args = {
   text: 'Menu',
-  'expand-from': expandFrom.options![0],
+  'hide-label-below': undefined,
   'icon-name': 'hamburger-menu-small',
   active: false,
   type: type.options![0],
@@ -348,14 +367,14 @@ export const ButtonActive: StoryObj = {
   args: { ...buttonArgs, active: true, 'icon-name': 'magnifying-glass-small', text: 'Label' },
 };
 
-export const ButtonExpandFromLarge: StoryObj = {
+export const ButtonHideLabelBelowLarge: StoryObj = {
   render: ButtonTemplateSingle,
   argTypes: buttonArgTypes,
   args: {
     ...buttonArgs,
     'icon-name': 'magnifying-glass-small',
     text: 'Label',
-    'expand-from': 'large',
+    'hide-label-below': 'large',
   },
 };
 
@@ -424,7 +443,7 @@ export const Link: StoryObj = {
   render: LinkTemplate,
   argTypes: {
     text,
-    'expand-from': expandFrom,
+    'hide-label-below': hideLabelBelow,
     'icon-name': iconName,
     active,
     href,
@@ -435,7 +454,7 @@ export const Link: StoryObj = {
   },
   args: {
     text: 'Menu',
-    'expand-from': expandFrom.options![0],
+    'hide-label-below': undefined,
     'icon-name': 'hamburger-menu-small',
     active: false,
     href: href.options![1],
@@ -450,7 +469,7 @@ export const Link: StoryObj = {
 
 const TemplateHeaderEnvironment = (args: Args): TemplateResult => html`
   <sbb-header>
-    <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
+    <sbb-header-button icon-name="hamburger-menu-small" hide-label-below="small">
       Menu
     </sbb-header-button>
     <div class="sbb-header-spacer"></div>
@@ -460,6 +479,7 @@ const TemplateHeaderEnvironment = (args: Args): TemplateResult => html`
       icon-name="magnifying-glass-small"
       class="sbb-active"
       accessibility-current="page"
+      hide-label-below="large"
     >
       Search
     </sbb-header-link>
@@ -467,7 +487,7 @@ const TemplateHeaderEnvironment = (args: Args): TemplateResult => html`
       icon-name="globe-small"
       id="language-menu-trigger"
       class="last-element"
-      expand-from="small"
+      hide-label-below="small"
     >
       English
     </sbb-header-button>
@@ -485,7 +505,7 @@ const TemplateHeaderEnvironment = (args: Args): TemplateResult => html`
       >${args.environment}</sbb-header-environment
     >
   </sbb-header>
-  <div class="sbb-page-spacing">${new Array(12).fill(null).map(LoremIpsumTemplate)}</div>
+  <sbb-container>${new Array(12).fill(null).map(LoremIpsumTemplate)}</sbb-container>
 `;
 
 const environment: InputType = {

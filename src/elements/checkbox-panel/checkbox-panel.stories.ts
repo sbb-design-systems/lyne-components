@@ -3,7 +3,8 @@ import { html, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
+import type { SbbCheckboxPanelElement } from '../checkbox-panel.ts';
 
 import '../button.ts';
 import '../card.ts';
@@ -65,7 +66,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xs', 's', 'm'],
+  options: ['xs', 's', 'm'] satisfies SbbCheckboxPanelElement['size'][],
 };
 
 const ariaLabel: InputType = {
@@ -97,10 +98,11 @@ const defaultArgs: Args = {
   'aria-label': undefined,
   color: color.options![0],
   borderless: false,
-  size: size.options![2],
+  size: undefined,
 };
 
-const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
+const cardBadge = (): TemplateResult =>
+  html`<sbb-card-badge aria-label="Special offer">%</sbb-card-badge>`;
 
 const Template = ({ label, checked, ...args }: Args): TemplateResult =>
   html`<sbb-checkbox-panel .checked=${checked} ?checked=${checked} ${sbbSpread(args)}>

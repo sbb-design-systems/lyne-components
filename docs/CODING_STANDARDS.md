@@ -101,7 +101,7 @@ components that require basic button or link functionality have to extend the co
 and they need to implement the `renderTemplate` method, which should return the component's inner content.
 
 ```ts
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { SbbButtonBaseElement } from '../../core.ts';
 import { html } from 'lit';
 
 class MyCustomButtonElement extends SbbButtonBaseElement {
@@ -134,7 +134,7 @@ As the language can be changed dynamically, you have to use the `SbbLanguageCont
 The `SbbLanguageController` does automatically update the view if needed.
 
 ```ts
-import { SbbLanguageController } from '../core/controllers.js';
+import { SbbLanguageController } from '../core.ts';
 
 export class Component extends SbbElement {
   private _language = new SbbLanguageController(this);
@@ -464,6 +464,35 @@ public constructor() {
 
 ### CSS
 
+#### Applying styles to a component
+
+Component styles are applied via the static `styles` property on the class. Each class or mixin
+declares **only its own styles** — there is no need to reference or spread `super.styles`.
+
+`SbbElement` overrides Lit's `finalizeStyles` to automatically walk the entire prototype chain
+and merge every `styles` declaration in top-down order (base class first, subclass last).
+This fixes a Lit limitation where mixins that use `super.styles` resolve to the wrong class.
+
+```ts
+// ✅ Correct – declare only the styles owned by this class/mixin
+export class SbbFooElement extends SbbElement {
+  public static override styles: CSSResultGroup = unsafeCSS(style);
+}
+
+// ✅ Correct inside a mixin – same rule applies
+export const SbbFooMixin = <T extends AbstractConstructor<SbbElement>>(superClass: T) => {
+  abstract class SbbFooClass extends superClass {
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  }
+  return SbbFooClass as ...;
+};
+
+// ❌ Wrong – do NOT reference super.styles; it is collected automatically
+export class SbbBarElement extends SbbFooElement {
+  public static override styles: CSSResultGroup = [super.styles, unsafeCSS(style)];
+}
+```
+
 #### BEM
 
 We use [BEM](http://getbem.com/) in our project.
@@ -622,7 +651,7 @@ This is a low-effort task that makes a big difference for low-vision users. Exam
 ```scss
 @use '../core/styles' as sbb;
 
-@include sbb.if-forced-colors {
+@media (forced-colors: active) {
   .unicorn-motorcycle {
     border: var(--sbb-border-width-1x) solid #fff !important;
   }

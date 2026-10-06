@@ -7,14 +7,16 @@ import { waitForCondition } from '../../core/testing.ts';
 import type { SbbSidebarElement } from './sidebar.component.ts';
 
 import '../../header.ts';
-import '../../link/block-link.ts';
+import '../../link.ts';
 import '../../link-list.ts';
 import '../../logo.ts';
 import '../../sidebar.ts';
 
 describe('sbb-sidebar', () => {
   const header = html`<sbb-header expanded size="s" scroll-origin="content">
-    <sbb-header-button icon-name="arrows-right-left-small">Toggle sidebar</sbb-header-button>
+    <sbb-header-button icon-name="arrows-right-left-small" hide-label-below="large">
+      Toggle sidebar
+    </sbb-header-button>
     <div style="flex-grow: 1"></div>
     <a aria-label="Homepage" href="/" class="sbb-header-logo">
       <sbb-logo protective-room="none"></sbb-logo>
@@ -64,9 +66,11 @@ describe('sbb-sidebar', () => {
       position=${position || nothing}
       mode=${mode || nothing}
     >
-      ${hideTitle
-        ? nothing
-        : html`<sbb-sidebar-title>${title ? title : 'Title'}</sbb-sidebar-title>`}
+      ${
+        hideTitle
+          ? nothing
+          : html`<sbb-sidebar-title>${title ? title : 'Title'}</sbb-sidebar-title>`
+      }
       ${hideCloseButton ? nothing : html`<sbb-sidebar-close-button></sbb-sidebar-close-button>`}
 
       <sbb-link-list>

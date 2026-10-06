@@ -55,9 +55,11 @@ describe(`sbb-file-selector-dropzone`, () => {
               multiple
               ?disabled=${state.disabled}
             >
-              ${state.error
-                ? html`<sbb-error slot="error">There has been an error.</sbb-error>`
-                : nothing}
+              ${
+                state.error
+                  ? html`<sbb-error slot="error">There has been an error.</sbb-error>`
+                  : nothing
+              }
             </sbb-file-selector-dropzone>
           `,
           { forcedColors: forcedColors, darkMode },
@@ -75,27 +77,30 @@ describe(`sbb-file-selector-dropzone`, () => {
       );
     });
 
-    describeEach({ size: ['s', 'm'] }, ({ size }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(html`
-          <sbb-file-selector-dropzone
-            id="fs"
-            title-content="Title"
-            multiple
-            size=${size}
-          ></sbb-file-selector-dropzone>
-        `);
-      });
+    describeEach(
+      { size: [null, 's', 'm'] satisfies SbbFileSelectorDropzoneElement['size'][] },
+      ({ size }) => {
+        beforeEach(async function () {
+          root = await visualRegressionFixture(html`
+            <sbb-file-selector-dropzone
+              id="fs"
+              title-content="Title"
+              multiple
+              size=${size || nothing}
+            ></sbb-file-selector-dropzone>
+          `);
+        });
 
-      for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
-        it(
-          visualDiffState.name,
-          visualDiffState.with((setup) => {
-            addFilesToComponentInput(root.querySelector('#fs')!);
-            setup.withSnapshotElement(root);
-          }),
-        );
-      }
-    });
+        for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
+          it(
+            visualDiffState.name,
+            visualDiffState.with((setup) => {
+              addFilesToComponentInput(root.querySelector('#fs')!);
+              setup.withSnapshotElement(root);
+            }),
+          );
+        }
+      },
+    );
   });
 });

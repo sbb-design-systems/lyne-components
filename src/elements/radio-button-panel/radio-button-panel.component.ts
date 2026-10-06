@@ -1,15 +1,13 @@
 import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
 import {
-  radioButtonCommonStyle,
-  SbbRadioButtonCommonElementMixin,
-} from '../radio-button/common/radio-button-common.ts';
-
-import '../screen-reader-only.ts';
+  SbbElement,
+  SbbPanelMixin,
+  SbbUpdateSchedulerMixin,
+  screenReaderOnlyStyles,
+} from '../core.ts';
+import { SbbRadioButtonCommonElementMixin } from '../radio-button/common/radio-button-common.ts';
 
 /**
  * It displays a radio button enhanced with the panel design.
@@ -26,11 +24,7 @@ export class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   SbbRadioButtonCommonElementMixin(SbbUpdateSchedulerMixin(SbbElement)),
 ) {
   public static override readonly elementName: string = 'sbb-radio-button-panel';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    radioButtonCommonStyle,
-    panelCommonStyle,
-  ];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static readonly events = {
@@ -96,9 +90,11 @@ export class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
             <slot name="suffix"></slot>
           </span>
           <slot name="subtext"></slot>
-          ${this.expansionState
-            ? html`<sbb-screen-reader-only>${this.expansionState}</sbb-screen-reader-only>`
-            : nothing}
+          ${
+            this.expansionState
+              ? html`<span class="sbb-screen-reader-only">${this.expansionState}</span>`
+              : nothing
+          }
         </span>
       </div>
     `;

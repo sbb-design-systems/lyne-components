@@ -1,9 +1,19 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  buttonResetStyles,
+  forceType,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  screenReaderOnlyStyles,
+} from '@sbb-esta/lyne-elements/core.js';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
@@ -11,20 +21,34 @@ import { getI18nSeatReservation } from '../common/translations.ts';
 import type { CoachItemDetails } from '../common/types.ts';
 import { SbbSeatReservationNavigationServicesElement } from '../seat-reservation-navigation-services/seat-reservation-navigation-services.component.ts';
 
-import style from './seat-reservation-navigation-coach.scss?lit&inline';
+import style from './seat-reservation-navigation-coach.scss?inline';
 
-import '@sbb-esta/lyne-elements/screen-reader-only.js';
+export class SbbSelectCoachEvent extends Event {
+  private readonly _coachIndex: number;
 
-SbbSeatReservationNavigationServicesElement.define();
+  public get coachIndex(): number {
+    return this._coachIndex;
+  }
 
-export type SelectCoachEventDetails = number;
+  public constructor(coachIndex: number) {
+    super('selectcoach', { bubbles: true, composed: true });
+    this._coachIndex = coachIndex;
+  }
+}
 
 /**
  * This component will display the navigation coach item for Seat reservation.
  */
 export class SbbSeatReservationNavigationCoachElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-navigation-coach';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbSeatReservationNavigationServicesElement,
+  ];
+  public static override styles: CSSResultGroup = [
+    buttonResetStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
   public static readonly events = {
     selectcoach: 'selectcoach',
     focuscoach: 'focuscoach',
@@ -119,13 +143,15 @@ export class SbbSeatReservationNavigationCoachElement extends SbbElement {
         })}"
       >
         ${this._getNavigationButton()}
-        ${this.coachItemDetails.propertyIds?.length
-          ? html`<sbb-seat-reservation-navigation-services
-              ?vertical="${this.vertical}"
-              .propertyIds="${this.coachItemDetails.propertyIds}"
-              ?showTitleInfo="${this.showTitleInfo}"
-            ></sbb-seat-reservation-navigation-services>`
-          : nothing}
+        ${
+          this.coachItemDetails.propertyIds?.length
+            ? html`<sbb-seat-reservation-navigation-services
+                ?vertical="${this.vertical}"
+                .propertyIds="${this.coachItemDetails.propertyIds}"
+                ?showTitleInfo="${this.showTitleInfo}"
+              ></sbb-seat-reservation-navigation-services>`
+            : nothing
+        }
       </div>
     `;
   }
@@ -148,10 +174,10 @@ export class SbbSeatReservationNavigationCoachElement extends SbbElement {
       aria-describedby="nav-coach-service-descriptions-${this.index}"
     >
       ${this._getBtnInformation(currServiceClassNumber)}
-      <sbb-screen-reader-only id="nav-coach-service-descriptions-${this.index}">
+      <span class="sbb-screen-reader-only" id="nav-coach-service-descriptions-${this.index}">
         ${!this.showTitleInfo ? html`<div>${titleDescriptionNavCoachButton}</div>` : nothing}
         ${ariaDescriptionCoachServices ? html`<div>${ariaDescriptionCoachServices}</div>` : nothing}
-      </sbb-screen-reader-only>
+      </span>
     </button>`;
   }
 
@@ -161,39 +187,42 @@ export class SbbSeatReservationNavigationCoachElement extends SbbElement {
     }
 
     return html`
-      ${serviceClassNumber === 1
-        ? html`<span class="sbb-sr-navigation--first-class"></span>`
-        : nothing}
-      ${this.coachItemDetails.travelClass?.length > 0 || this.coachItemDetails.id
-        ? html`<div class="sbb-sr-navigation__additional-information">
-            ${this.coachItemDetails.id
-              ? html`<div class="sbb-sr-navigation__item-coach-number" aria-hidden="true">
-                  ${this.coachItemDetails.id}
-                </div>`
-              : nothing}
-            <div
-              ${serviceClassNumber ?? nothing}
-              class="sbb-sr-navigation__item-coach-travelclass"
-              aria-hidden="true"
-            >
-              ${serviceClassNumber}
-            </div>
-          </div>`
-        : nothing}
+      ${
+        serviceClassNumber === 1
+          ? html`<span class="sbb-sr-navigation--first-class"></span>`
+          : nothing
+      }
+      ${
+        this.coachItemDetails.travelClass?.length > 0 || this.coachItemDetails.id
+          ? html`<div class="sbb-sr-navigation__additional-information">
+              ${
+                this.coachItemDetails.id
+                  ? html`<div class="sbb-sr-navigation__item-coach-number" aria-hidden="true">
+                      ${this.coachItemDetails.id}
+                    </div>`
+                  : nothing
+              }
+              <div
+                ${serviceClassNumber ?? nothing}
+                class="sbb-sr-navigation__item-coach-travelclass"
+                aria-hidden="true"
+              >
+                ${serviceClassNumber}
+              </div>
+            </div>`
+          : nothing
+      }
     `;
   }
 
   private _getTitleDescriptionNavCoachButton(serviceClassNumber: number | null): string {
-    if (
-      this.coachItemDetails.isDriverArea &&
-      !this.coachItemDetails.driverAreaElements?.driverAreaNoVerticalWall
-    ) {
+    if (this.coachItemDetails.isDriverArea && !this.coachItemDetails.isLocomotive) {
       return getI18nSeatReservation('NAVIGATE_COACH_BLOCKED', this._language.current, [
         this.coachItemDetails.id,
       ]);
     }
 
-    if (this.coachItemDetails.driverAreaElements?.driverAreaNoVerticalWall) {
+    if (this.coachItemDetails.isLocomotive) {
       return getI18nSeatReservation('COACH_LOCOMOTIVE', this._language.current);
     }
 
@@ -242,21 +271,15 @@ export class SbbSeatReservationNavigationCoachElement extends SbbElement {
 
   /**
    * emits the index of the coach array for the main navigation.
-   * @param coachIndex
+   * @param selectcoach
    * @private
    */
-  private _selectNavCoach(coachIndex: number): void {
+  private _selectNavCoach(selectcoach: number): void {
     /**
-     * @type {CustomEvent<SelectCoachEventDetails>}
+     * @type {SbbSelectCoachEvent}
      * Emits when a coach within the navigation was selected and returns the clicked coach nav index.
      */
-    this.dispatchEvent(
-      new CustomEvent<SelectCoachEventDetails>('selectcoach', {
-        bubbles: true,
-        composed: true,
-        detail: coachIndex,
-      }),
-    );
+    this.dispatchEvent(new SbbSelectCoachEvent(selectcoach));
   }
 
   private _getCoachServiceClassNumber(): number | null {

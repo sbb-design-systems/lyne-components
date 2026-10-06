@@ -1,7 +1,7 @@
 import { html, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { forceType, omitEmptyConverter } from '../core/decorators.ts';
+import { forceType, omitEmptyConverter } from '../core.ts';
 
 import { SbbIconBase } from './icon-base.ts';
 
@@ -35,8 +35,10 @@ export class SbbIconElement extends SbbIconBase {
    */
   @state() private accessor _sbbAngularCompatibility = false;
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
+  public constructor() {
+    super();
+
+    /** @internal **/
     this.internals.ariaHidden = 'true';
   }
 

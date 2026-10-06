@@ -7,8 +7,9 @@ import {
   visualDiffStandardStates,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
+import type { SbbBlockLinkElement } from '../../link.ts';
 
-import '../block-link.ts';
+import '../../link.ts';
 
 describe(`sbb-block-link`, () => {
   const cases = {
@@ -27,12 +28,14 @@ describe(`sbb-block-link`, () => {
   };
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    for (const size of ['xs', 's', 'm']) {
+    for (const size of [null, 'xs', 's', 'm'] satisfies SbbBlockLinkElement['size'][]) {
       it(
         `size=${size} ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-block-link href="#" size=${size}>Travelcards & tickets</sbb-block-link>`,
+            html`<sbb-block-link href="#" size=${size || nothing}
+              >Travelcards & tickets</sbb-block-link
+            >`,
           );
         }),
       );
@@ -80,9 +83,11 @@ describe(`sbb-block-link`, () => {
               icon-name=${slotted ? nothing : 'chevron-small-right-small'}
               icon-placement=${iconPlacement}
             >
-              ${slotted
-                ? html`<sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>`
-                : nothing}
+              ${
+                slotted
+                  ? html`<sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>`
+                  : nothing
+              }
               Travelcards & tickets
             </sbb-block-link>
           `);
@@ -97,6 +102,21 @@ describe(`sbb-block-link`, () => {
           html`<sbb-block-link href="#" icon-name="chevron-small-right-small" style="width: 200px;">
             A lot of link text to show what happens if there is not enough space.
           </sbb-block-link>`,
+        );
+      }),
+    );
+
+    it(
+      `overflow-compatibility`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div style="overflow: auto; width: 150px">
+            <p>content</p>
+            <sbb-block-link href="#" icon-name="chevron-small-right-small">
+              Travelcards
+            </sbb-block-link>
+          </div>`,
+          {},
         );
       }),
     );

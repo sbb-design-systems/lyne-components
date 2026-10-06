@@ -109,9 +109,9 @@ The `<sbb-flip-card>` will switch to the flipped state after the user clicks on 
 
 #### Properties
 
-| Name             | Attribute         | Privacy | Type                        | Default   | Description                             |
-| ---------------- | ----------------- | ------- | --------------------------- | --------- | --------------------------------------- |
-| `imageAlignment` | `image-alignment` | public  | `SbbFlipCardImageAlignment` | `'after'` | The position where to render the image. |
+| Name             | Attribute         | Privacy | Type                 | Default   | Description                             |
+| ---------------- | ----------------- | ------- | -------------------- | --------- | --------------------------------------- |
+| `imageAlignment` | `image-alignment` | public  | `'after' \| 'below'` | `'after'` | The position where to render the image. |
 
 #### Slots
 

@@ -1,11 +1,13 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
+
+import type { SbbRadioButtonElement } from './radio-button.component.ts';
 
 import '../radio-button.ts';
 
 const cases = {
-  size: ['xs', 's', 'm'],
+  size: [null, 'xs', 's', 'm'] satisfies SbbRadioButtonElement['size'][],
   checked: [true, false],
 };
 
@@ -29,7 +31,7 @@ describe(`sbb-radio-button`, () => {
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-radio-button ?checked=${checked} size=${size}> Value </sbb-radio-button>
+            <sbb-radio-button ?checked=${checked} size=${size || nothing}> Value </sbb-radio-button>
           `);
         }),
       );

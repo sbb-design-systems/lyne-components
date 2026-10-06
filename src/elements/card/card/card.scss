@@ -1,4 +1,5 @@
 @use '../../core/styles' as sbb;
+@use '../card.global' as card;
 
 // # Stacking of action
 // To support content with actions that should be accessible, we have to stack the action and content like following:
@@ -6,37 +7,37 @@
 // All focusable elements inside the main slot will receive `pointer-events: all` which makes them pointer accessible.
 
 :host {
-  @include sbb.card;
-  @include sbb.card-variables--spacing-default;
+  @include card.element-rules;
+  @include card.variables--spacing-default;
 }
 
 // :where is needed for lower specificity
 :host(:where([color='white'])) {
-  @include sbb.card-variables--white;
+  @include card.variables--white;
 }
 
 // :where is needed for lower specificity
 :host(:where([color='milk'])) {
-  @include sbb.card-variables--milk;
+  @include card.variables--milk;
 }
 
 // :where is needed for lower specificity
 :host(:where([color='transparent-bordered'])) {
-  @include sbb.card-variables--transparent-bordered;
+  @include card.variables--transparent-bordered;
 }
 
 // :where is needed for lower specificity
 :host(:where([color='transparent-bordered-dashed'])) {
-  @include sbb.card-variables--transparent-bordered-dashed;
+  @include card.variables--transparent-bordered-dashed;
 }
 
 // :where is needed for lower specificity
 :host(:where(:not([color]))) {
-  @include sbb.card-variables--white;
+  @include card.variables--white;
 }
 
 :host(:state(has-active-action)) {
-  @include sbb.card-variables--active;
+  @include card.variables--active;
 }
 
 :host(:state(has-action)) {
@@ -44,45 +45,45 @@
 }
 
 :host(:state(has-action):not(:state(has-active-action)):hover) {
-  @include sbb.card--hover;
+  @include card.state--hover;
 }
 
 // :where is needed for lower specificity
 :host(:where(:state(has-action):state(action-role-button))) {
-  @include sbb.card-variables--button;
+  @include card.variables--button;
 }
 
 // :where is needed for lower specificity
 :host(:where(:state(has-action):state(action-role-link))) {
-  @include sbb.card-variables--link;
+  @include card.variables--link;
 }
 
 :host(.sbb-card-spacing-3x-xxs) {
-  @include sbb.card-variables--spacing-3x-xxs;
+  @include card.variables--spacing-3x-xxs;
 }
 
 :host(.sbb-card-spacing-xxxs-xxs) {
-  @include sbb.card-variables--spacing-xxxs-xxs;
+  @include card.variables--spacing-xxxs-xxs;
 }
 
 :host(.sbb-card-spacing-xxxs-s) {
-  @include sbb.card-variables--spacing-xxxs-s;
+  @include card.variables--spacing-xxxs-s;
 }
 
 :host(.sbb-card-spacing-4x-xxs) {
-  @include sbb.card-variables--spacing-4x-xxs;
+  @include card.variables--spacing-4x-xxs;
 }
 
 :host(.sbb-card-spacing-xxs) {
-  @include sbb.card-variables--spacing-xxs;
+  @include card.variables--spacing-xxs;
 }
 
 :host(.sbb-card-spacing-s) {
-  @include sbb.card-variables--spacing-s;
+  @include card.variables--spacing-s;
 }
 
 :host(.sbb-card-spacing-l) {
-  @include sbb.card-variables--spacing-l;
+  @include card.variables--spacing-l;
 }
 
 // Has to be after spacing definitions
@@ -92,7 +93,7 @@
 }
 
 .sbb-card__wrapper {
-  @include sbb.card--wrapper;
+  @include card.wrapper;
 
   pointer-events: var(--sbb-card-pointer-events, auto);
   translate: 0 var(--sbb-card-hover-shift, 0);

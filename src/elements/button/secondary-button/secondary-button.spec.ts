@@ -5,7 +5,7 @@ import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
 } from '../common/button-test-utils.private.ts';
-import '../secondary-button.ts';
+import '../../button.ts';
 
 describe(`sbb-secondary-button`, () => {
   it('should detect icon in sbb-secondary-button', async () => {

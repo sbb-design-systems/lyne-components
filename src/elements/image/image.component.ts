@@ -8,14 +8,19 @@ import {
   SbbBreakpointZeroMax,
   SbbBreakpointZeroMin,
 } from '@sbb-esta/lyne-design-tokens';
-import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { forceType } from '../core/decorators.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { forceType, SbbElement } from '../core.ts';
 
-import style from './image.scss?lit&inline';
+import style from './image.scss?inline';
 
 export interface InterfaceImageAttributesSizesConfig {
   breakpoints: InterfaceImageAttributesSizesConfigBreakpoint[];
@@ -134,7 +139,7 @@ const breakpointMap: Record<string, string> = {
  */
 export class SbbImageElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-image';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     error: 'error',
     load: 'load',
@@ -525,17 +530,19 @@ export class SbbImageElement extends SbbElement {
      */
     return html`
       <div class="sbb-image__wrapper">
-        ${!this.skipLqip
-          ? html`<img
-              alt=""
-              class="sbb-image__blurred"
-              src=${imageUrlLQIP}
-              width="1000"
-              height="562"
-              loading=${this.loading ?? nothing}
-              decoding=${this.decoding ?? nothing}
-            />`
-          : nothing}
+        ${
+          !this.skipLqip
+            ? html`<img
+                alt=""
+                class="sbb-image__blurred"
+                src=${imageUrlLQIP}
+                width="1000"
+                height="562"
+                loading=${this.loading ?? nothing}
+                decoding=${this.decoding ?? nothing}
+              />`
+            : nothing
+        }
 
         <picture>
           <!-- render picture element sources -->

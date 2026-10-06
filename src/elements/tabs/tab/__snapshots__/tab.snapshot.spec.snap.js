@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-tab renders DOM"] = 
 `<sbb-tab
   class="sbb-scrollbar"
-  id="sbb-tab-0"
   tabindex="0"
 >
   Content

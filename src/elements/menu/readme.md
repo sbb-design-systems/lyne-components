@@ -2,6 +2,8 @@ The `<sbb-menu>` is a component that can be attached to any element to open and 
 which allows to perform actions relevant to the current task by using the `<sbb-menu-button>`
 or to navigate within or outside the application by using the `<sbb-menu-link>` component along with it.
 
+<!-- #region intro-example -->
+
 ```html
 <!-- Trigger element -->
 <sbb-button id="menu-trigger">Menu trigger</sbb-button>
@@ -18,24 +20,12 @@ or to navigate within or outside the application by using the `<sbb-menu-link>` 
 </sbb-menu>
 ```
 
-## Interactions
+<!-- #endregion -->
 
-The element that will trigger the menu dialog must be set using the `trigger` property.
-
-The `<sbb-menu>` appears on trigger left click, and it is displayed as a sheet with a backdrop on mobile,  
-while on desktop it will be shown as a floating menu, and it will calculate the optimal position relative to the trigger element
-by evaluating the available space with the following priority: start/below, start/above, end/below, end/above.
-
-Clicking in the backdrop or pressing the `ESC` key closes the menu.
-
-You can also provide custom content inside the `<sbb-menu>`:
+You can provide custom content inside the `<sbb-menu>`:
 
 ```html
-<!-- Trigger element -->
-<sbb-button id="menu-trigger">Menu trigger</sbb-button>
-
-<!-- Menu component with custom content and menu actions -->
-<sbb-menu trigger="menu-trigger">
+<sbb-menu>
   <div>Christina Müller</div>
   <span>UIS9057</span>
   <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
@@ -50,13 +40,36 @@ You can also provide custom content inside the `<sbb-menu>`:
 </sbb-menu>
 ```
 
+## Interactions
+
+The `<sbb-menu>` appears on trigger left click, and it is displayed as a sheet with a backdrop on mobile,  
+while on desktop it will be shown as a floating menu, and it will calculate the optimal position relative to the trigger element
+by evaluating the available space with the following priority: start/below, start/above, end/below, end/above.
+
+Clicking in the backdrop or pressing the `ESC` key closes the menu.
+
+<!-- #region trigger -->
+
+The element that will trigger the menu dialog must be set using the `trigger` property.
+
+```html
+<!-- Trigger element -->
+<sbb-button id="menu-trigger">Menu trigger</sbb-button>
+
+<!-- Menu component with custom content and menu actions -->
+<sbb-menu trigger="menu-trigger">...</sbb-menu>
+```
+
+<!-- #endregion -->
+
 ## Nesting menus
 
-It is possible to create submenus by connecting a menu to a `<sbb-menu-button>`/`<sbb-menu-link>`
-element via trigger property / attribute of the `<sbb-menu>`.
+It is possible to create submenus by connecting a menu to a `<sbb-menu-button>`/`<sbb-menu-link>` element.
 On smaller screens, submenus will automatically display a back button to navigate back to the parent menu.
 
 Please note that nesting the menus in DOM is not supported. The `<sbb-menu>` elements have to be siblings in order to work.
+
+<!-- #region nesting-example -->
 
 ```html
 <sbb-menu>
@@ -67,6 +80,8 @@ Please note that nesting the menus in DOM is not supported. The `<sbb-menu>` ele
   <sbb-menu-button icon="swisspass-small" sbb-badge="12">Details</sbb-menu-button>
 </sbb-menu>
 ```
+
+<!-- #endregion -->
 
 ## Menu Actions
 
@@ -91,7 +106,7 @@ or via custom content using the `icon` slot.
 A badge can be rendered on the icon as white text in a red circle via the `sbb-badge` attribute.
 It's recommended to hide the badge when the menu action is disabled.
 It's mandatory to provide the badge information for screen readers either with an `aria-label`
-(or `accessibility-label` for `<sbb-menu-link>`) or a hidden text (`<sbb-screen-reader-only>` for example).
+(or `accessibility-label` for `<sbb-menu-link>`) or a hidden text.
 
 ```html
 <sbb-menu-link
@@ -133,7 +148,7 @@ If the attribute is not used, the first focusable element receives focus (recomm
 ```html
 <sbb-menu>
   <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
-  <sbb-menu-link sbb-initial-focus icon="link-small" href="https://www.sbb.ch/en">
+  <sbb-menu-link sbb-focus-initial icon="link-small" href="https://www.sbb.ch/en">
     Receives initial focus
   </sbb-menu-link>
 </sbb-menu>
@@ -168,18 +183,18 @@ guard against such cases in your component.
 
 #### Properties
 
-| Name                  | Attribute              | Privacy | Type                      | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| --------------------- | ---------------------- | ------- | ------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled`            | `disabled`             | public  | `boolean`                 | `false`    | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `disabledInteractive` | `disabled-interactive` | public  | `boolean`                 | `false`    | Whether the button should be aria-disabled but stay interactive.                                                                                                                                                                                                                                                                                                                                                                                        |
-| `form`                | `form`                 | public  | `HTMLFormElement \| null` |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `iconName`            | `icon-name`            | public  | `string`                  | `''`       | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                                                                                                                                                                                                                                                                                        |
-| `name`                | `name`                 | public  | `string`                  |            | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
-| `type`                | `type`                 | public  | `SbbButtonType`           | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `validationMessage`   | -                      | public  | `string`                  |            | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
-| `validity`            | -                      | public  | `ValidityState`           |            | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `value`               | `value`                | public  | `string`                  | `''`       | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `willValidate`        | -                      | public  | `boolean`                 |            | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+| Name                  | Attribute              | Privacy | Type                              | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| --------------------- | ---------------------- | ------- | --------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`            | `disabled`             | public  | `boolean`                         | `false`    | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `disabledInteractive` | `disabled-interactive` | public  | `boolean`                         | `false`    | Whether the button should be aria-disabled but stay interactive.                                                                                                                                                                                                                                                                                                                                                                                        |
+| `form`                | `form`                 | public  | `HTMLFormElement \| null`         |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `iconName`            | `icon-name`            | public  | `string`                          | `''`       | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                                                                                                                                                                                                                                                                                        |
+| `name`                | `name`                 | public  | `string`                          |            | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `type`                | `type`                 | public  | `'button' \| 'reset' \| 'submit'` | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `validationMessage`   | -                      | public  | `string`                          |            | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`            | -                      | public  | `ValidityState`                   |            | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`               | `value`                | public  | `string`                          | `''`       | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `willValidate`        | -                      | public  | `boolean`                         |            | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
 
 #### Methods
 
@@ -188,6 +203,12 @@ guard against such cases in your component.
 | `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
 
 #### CSS Properties
 
@@ -245,17 +266,17 @@ guard against such cases in your component.
 
 #### Properties
 
-| Name                   | Attribute               | Privacy | Type                       | Default | Description                                                                                                                      |
-| ---------------------- | ----------------------- | ------- | -------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityCurrent` | `accessibility-current` | public  | `string`                   | `''`    | This will be forwarded as aria-current to the inner anchor element.                                                              |
-| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                   | `''`    | This will be forwarded as aria-label to the inner anchor element.                                                                |
-| `disabled`             | `disabled`              | public  | `boolean`                  | `false` | Whether the component is disabled.                                                                                               |
-| `disabledInteractive`  | `disabled-interactive`  | public  | `boolean`                  | `false` | Whether the button should be aria-disabled but stay interactive.                                                                 |
-| `download`             | `download`              | public  | `boolean`                  | `false` | Whether the browser will show the download dialog on click.                                                                      |
-| `href`                 | `href`                  | public  | `string`                   | `''`    | The href value you want to link to.                                                                                              |
-| `iconName`             | `icon-name`             | public  | `string`                   | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
-| `rel`                  | `rel`                   | public  | `string`                   | `''`    | The relationship of the linked URL as space-separated link types.                                                                |
-| `target`               | `target`                | public  | `LinkTargetType \| string` | `''`    | Where to display the linked URL.                                                                                                 |
+| Name                   | Attribute               | Privacy | Type                                                   | Default | Description                                                                                                                      |
+| ---------------------- | ----------------------- | ------- | ------------------------------------------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                               | `''`    | This will be forwarded as aria-current to the inner anchor element.                                                              |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                               | `''`    | This will be forwarded as aria-label to the inner anchor element.                                                                |
+| `disabled`             | `disabled`              | public  | `boolean`                                              | `false` | Whether the component is disabled.                                                                                               |
+| `disabledInteractive`  | `disabled-interactive`  | public  | `boolean`                                              | `false` | Whether the button should be aria-disabled but stay interactive.                                                                 |
+| `download`             | `download`              | public  | `boolean`                                              | `false` | Whether the browser will show the download dialog on click.                                                                      |
+| `href`                 | `href`                  | public  | `string`                                               | `''`    | The href value you want to link to.                                                                                              |
+| `iconName`             | `icon-name`             | public  | `string`                                               | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `rel`                  | `rel`                   | public  | `string`                                               | `''`    | The relationship of the linked URL as space-separated link types.                                                                |
+| `target`               | `target`                | public  | `'_blank' \| '_self' \| '_parent' \| '_top' \| string` | `''`    | Where to display the linked URL.                                                                                                 |
 
 #### CSS Properties
 

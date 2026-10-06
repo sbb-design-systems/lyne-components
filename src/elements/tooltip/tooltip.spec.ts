@@ -3,14 +3,14 @@ import { resetMouse, sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import type { SbbButtonElement } from '../button/button.ts';
-import { mergeConfig } from '../core/config.ts';
+import type { SbbButtonElement } from '../button.ts';
 import { fixture, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import { mergeConfig } from '../core.ts';
 
 import { SbbTooltipElement } from './tooltip.component.ts';
 
-import '../button/button.ts';
+import '../button.ts';
 import '../tooltip.ts';
 
 describe('sbb-tooltip', () => {
@@ -77,6 +77,15 @@ describe('sbb-tooltip', () => {
       await beforeOpenSpy.calledOnce();
       await openSpy.calledOnce();
       expect(element).to.match(':state(state-opened)');
+    });
+
+    it('should not open on focus when input modality is not keyboard', async () => {
+      // Programmatic focus without a preceding keyboard event must not open the tooltip.
+      trigger.focus();
+      await aTimeout(50);
+
+      expect(openSpy.count).to.equal(0);
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('should close on blur', async () => {

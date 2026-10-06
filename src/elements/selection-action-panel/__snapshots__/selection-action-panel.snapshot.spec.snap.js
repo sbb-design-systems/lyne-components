@@ -6,7 +6,6 @@ snapshots["sbb-selection-action-panel renders DOM"] =
   <sbb-checkbox-panel
     aria-describedby=""
     color="white"
-    size="m"
     tabindex="0"
   >
     Value one

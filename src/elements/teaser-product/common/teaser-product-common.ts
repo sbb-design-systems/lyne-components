@@ -1,10 +1,9 @@
-import { html, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.ts';
-import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.ts';
+import { type AbstractConstructor, SbbActionBaseElement, SbbNegativeMixin } from '../../core.ts';
 
-export { default as teaserProductCommonStyle } from './teaser-product-common.scss?lit&inline';
+import style from './teaser-product-common.scss?inline';
 
 export declare class SbbTeaserProductCommonElementMixinType extends SbbNegativeMixin(
   SbbActionBaseElement,
@@ -22,6 +21,8 @@ export const SbbTeaserProductCommonElementMixin = <
     extends SbbNegativeMixin(superClass)
     implements SbbTeaserProductCommonElementMixinType
   {
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
+
     /**
      * Whether the fully visible part of the image is aligned 'before' or 'after' the content.
      * Only relevant starting from large breakpoint.

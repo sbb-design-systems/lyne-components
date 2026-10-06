@@ -13,7 +13,7 @@ snapshots["sbb-footer renders DOM"] =
 snapshots["sbb-footer renders Shadow DOM"] = 
 `<footer class="sbb-footer">
   <div class="sbb-footer-wrapper">
-    <h1 class="sbb-footer__title">
+    <h1 class="sbb-screen-reader-only">
       Footer
     </h1>
     <slot>

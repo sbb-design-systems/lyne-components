@@ -1,17 +1,15 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, unsafeCSS } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import type { DirectiveResult } from 'lit/directive.js';
 import type { UnsafeHTMLDirective } from 'lit/directives/unsafe-html.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { forceType } from '../core/decorators.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { forceType, SbbElement } from '../core.ts';
 
 import { getSvgContent } from './icon-request.ts';
-import style from './icon.scss?lit&inline';
+import style from './icon.scss?inline';
 
 const defaultNamespace = 'default';
 
@@ -20,7 +18,7 @@ const defaultNamespace = 'default';
  * @cssprop [--sbb-icon-svg-height=auto] - Can be used to set a custom height.
  */
 export abstract class SbbIconBase extends SbbElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static override readonly role = 'img';
 
   @state() private accessor _svgNamespace = defaultNamespace;
@@ -62,6 +60,7 @@ export abstract class SbbIconBase extends SbbElement {
     }
 
     const svgIcon = this.fetchSvgIcon(this._svgNamespace, name);
+    this.toggleState('empty', true);
     this._svgIcon = svgIcon.then((v) => unsafeHTML(v));
     try {
       this.toggleState('empty', !(await svgIcon));

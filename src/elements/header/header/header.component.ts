@@ -5,16 +5,19 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbFocusVisibleWithinController } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType, idReference } from '../../core/decorators.ts';
-import { isLean, queueDomContentLoaded } from '../../core/dom.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  forceType,
+  idReference,
+  queueDomContentLoaded,
+  SbbElement,
+  SbbFocusVisibleWithinController,
+} from '../../core.ts';
 
-import style from './header.scss?lit&inline';
+import style from './header.scss?inline';
 
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 
@@ -24,10 +27,12 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  * @slot - Use the unnamed slot to add actions, content and logo to the header.
  * @cssprop [--sbb-header-z-index=10] - Can be used to modify the z-index of the header.
  * @cssprop [--sbb-header-height=zero-small:var(--sbb-spacing-fixed-14x);large-ultra:var(--sbb-spacing-fixed-24x)] - Can be used to modify height of the header.
+ * @cssprop [--sbb-header-padding-block-start:env(safe-area-inset-top, 0)] - Defines the header's padding-block-start. It defaults to the device's safe-area inset to prevent the header from being obscured by display cutouts or system UI elements. This variable must be set on the root document element (`<html>`) so that components relying on the header's height can calculate their layout correctly.
+ * @cssprop [--sbb-header-vertical-spacing] - Readonly; sum of var(--sbb-header-height) and var(--sbb-header-padding-block-start) that can be used to manage spacing of absolute positioned elements that shouldn't overlap the header.
  */
 export class SbbHeaderElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-header';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   private static _headerScrollOrigins = new Set<HTMLElement>();
   private static _headerElements = new Set<SbbHeaderElement>();
@@ -63,10 +68,9 @@ export class SbbHeaderElement extends SbbElement {
   public accessor hideOnScroll: boolean = false;
 
   /**
-   * Size of the header, either m or s.
-   * @default 'm' / 's' (lean)
+   * Size of the header, either s (lean theme default) or m (standard theme default).
    */
-  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
+  @property({ reflect: true }) public accessor size: 's' | 'm' | null = null;
 
   @state() private accessor _headerOnTop = true;
 
@@ -115,7 +119,7 @@ export class SbbHeaderElement extends SbbElement {
   }
 
   private static _handleScrollOriginElement(element: HTMLElement): void {
-    if (element.hasAttribute('sbb-header-scroll-origin')) {
+    if (element.isConnected && element.hasAttribute('sbb-header-scroll-origin')) {
       this._headerScrollOrigins.add(element);
     } else {
       this._headerScrollOrigins.delete(element);
@@ -273,8 +277,9 @@ export class SbbHeaderElement extends SbbElement {
       this.querySelectorAll(IS_MENU_OPENED_QUERY) as NodeListOf<HTMLElement>,
     );
     for (const overlayTrigger of overlayTriggers) {
-      const overlayId: string = overlayTrigger.getAttribute('aria-controls')!;
-      const overlay = document.getElementById(overlayId) as HTMLElement & { close: () => void };
+      const overlay = overlayTrigger.ariaControlsElements![0] as HTMLElement & {
+        close: () => void;
+      };
       if (typeof overlay?.close === 'function') {
         overlay.close();
       }

@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-block-link-static renders DOM"] = 
-`<sbb-block-link-static
-  icon-placement="end"
-  size="m"
->
+`<sbb-block-link-static icon-placement="end">
   <sbb-icon
     aria-hidden="true"
     name="chevron-small-right-small"

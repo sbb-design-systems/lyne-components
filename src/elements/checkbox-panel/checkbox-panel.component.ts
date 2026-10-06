@@ -7,16 +7,15 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { SbbCheckboxCommonElementMixin } from '../checkbox/common/checkbox-common.ts';
 import {
-  checkboxCommonStyle,
-  SbbCheckboxCommonElementMixin,
-} from '../checkbox/common/checkbox-common.ts';
-import { SbbElement } from '../core/base-elements.ts';
-import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-
-import '../screen-reader-only.ts';
-import '../visual-checkbox.ts';
+  SbbElement,
+  type SbbElementType,
+  SbbPanelMixin,
+  SbbUpdateSchedulerMixin,
+  screenReaderOnlyStyles,
+} from '../core.ts';
+import { SbbVisualCheckboxElement } from '../visual-checkbox.pure.ts';
 
 /**
  * It displays a checkbox enhanced with selection panel design.
@@ -33,11 +32,8 @@ export class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
   SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(SbbElement)),
 ) {
   public static override readonly elementName: string = 'sbb-checkbox-panel';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    checkboxCommonStyle,
-    panelCommonStyle,
-  ];
+  public static override elementDependencies: SbbElementType[] = [SbbVisualCheckboxElement];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles];
 
   /** Value of the form element. */
   @property()
@@ -70,7 +66,7 @@ export class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
                   ?checked=${this.checked}
                   ?indeterminate=${this.indeterminate}
                   ?disabled=${this.disabled || this.formDisabled}
-                  .size=${this.size}
+                  size=${this.size || nothing}
                 ></sbb-visual-checkbox>
               </span>
               <span class="sbb-checkbox__label">
@@ -79,9 +75,11 @@ export class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
               </span>
             </span>
             <slot name="subtext"></slot>
-            ${this.expansionState
-              ? html`<sbb-screen-reader-only>${this.expansionState}</sbb-screen-reader-only>`
-              : nothing}
+            ${
+              this.expansionState
+                ? html`<span class="sbb-screen-reader-only">${this.expansionState}</span>`
+                : nothing
+            }
           </span>
         </span>
       </span>

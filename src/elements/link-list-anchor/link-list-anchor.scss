@@ -41,8 +41,6 @@
 }
 
 .sbb-link-list-anchor {
-  @include sbb.list-reset;
-
   display: flex;
   flex-flow: column;
 

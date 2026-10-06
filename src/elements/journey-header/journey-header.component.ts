@@ -1,37 +1,33 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyDeclaration,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/controllers.ts';
-import { forceType } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n.ts';
-import { SbbNegativeMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import { SbbTitleBase, type SbbTitleLevel } from '../title.ts';
+import {
+  forceType,
+  i18nConnectionFrom,
+  i18nConnectionRoundtrip,
+  i18nConnectionTo,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbNegativeMixin,
+} from '../core.ts';
+import { SbbIconElement } from '../icon.pure.ts';
+import { SbbTitleBase } from '../title.pure.ts';
 
-import style from './journey-header.scss?lit&inline';
-
-import '../icon.ts';
-import '../screen-reader-only.ts';
-
-export type JourneyHeaderSize = 's' | 'm' | 'l';
-
-const sizeToLevel: Map<JourneyHeaderSize, SbbTitleLevel> = new Map<
-  JourneyHeaderSize,
-  SbbTitleLevel
->([
-  ['s', '6'],
-  ['m', '5'],
-  ['l', '4'],
-]);
+import style from './journey-header.scss?inline';
 
 /**
  * Combined with the `sbb-journey-summary`, it displays the journey's detail.
  */
 export class SbbJourneyHeaderElement extends SbbNegativeMixin(SbbTitleBase) {
   public static override readonly elementName: string = 'sbb-journey-header';
-  public static override styles: CSSResultGroup = [boxSizingStyles, SbbTitleBase.styles, style];
+  public static override elementDependencies: SbbElementType[] = [SbbIconElement];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Origin location for the journey header. */
   @forceType()
@@ -48,40 +44,38 @@ export class SbbJourneyHeaderElement extends SbbNegativeMixin(SbbTitleBase) {
   @property({ attribute: 'round-trip', type: Boolean })
   public accessor roundTrip: boolean = false;
 
-  /**
-   * Journey header size, either s, m or l.
-   * @default 'm' / 's' (lean)
-   */
-  @property({ reflect: true }) public accessor size: JourneyHeaderSize = isLean() ? 's' : 'm';
-
-  private _language = new SbbLanguageController(this);
+  private _language = new SbbLanguageController(this).withHandler(() => this._setAriaLabel());
 
   public constructor() {
     super();
 
     this.level = '3' as this['level'];
-    this.visualLevel = sizeToLevel.get(this.size) ?? null;
+    this.visualLevel = '5' as this['visualLevel'];
   }
 
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
 
-    if (changedProperties.has('size')) {
-      this.visualLevel = sizeToLevel.get(this.size) ?? null;
+    if (name === 'origin' || name === 'destination' || name === 'roundTrip') {
+      this._setAriaLabel();
     }
   }
 
-  protected override render(): TemplateResult {
-    const iconName = this.roundTrip ? 'arrows-long-right-left-small' : 'arrow-long-right-small';
-    const a11yString = `${i18nConnectionFrom[this._language.current]} ${this.origin} ${i18nConnectionTo[this._language.current]} ${this.destination} ${this.roundTrip ? i18nConnectionRoundtrip(this.origin)[this._language.current] : ''}`;
+  private _setAriaLabel(): void {
+    this.internals.ariaLabel = `${i18nConnectionFrom[this._language.current]} ${this.origin} ${i18nConnectionTo[this._language.current]} ${this.destination} ${this.roundTrip ? i18nConnectionRoundtrip(this.origin)[this._language.current] : ''}`;
+  }
 
+  protected override render(): TemplateResult {
     return html`
-      <span class="sbb-journey-header" aria-hidden="true">
-        <span class="sbb-journey-header__origin">${this.origin}</span>
-        <sbb-icon name=${iconName}></sbb-icon>
-        <span class="sbb-journey-header__destination">${this.destination}</span>
-      </span>
-      <sbb-screen-reader-only>${a11yString}</sbb-screen-reader-only>
+      ${this.origin}
+      <sbb-icon
+        name=${this.roundTrip ? 'arrows-long-right-left-small' : 'arrow-long-right-small'}
+      ></sbb-icon>
+      ${this.destination}
     `;
   }
 }

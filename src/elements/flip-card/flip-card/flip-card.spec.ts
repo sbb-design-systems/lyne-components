@@ -9,9 +9,8 @@ import type { SbbFlipCardSummaryElement } from '../flip-card-summary/flip-card-s
 import { SbbFlipCardElement } from './flip-card.component.ts';
 
 import '../../flip-card.ts';
-
 import '../../title.ts';
-import '../../link/link.ts';
+import '../../link.ts';
 
 describe('sbb-flip-card', () => {
   let element: SbbFlipCardElement;
@@ -102,7 +101,7 @@ describe('sbb-flip-card', () => {
   it('should set accessibility-label from summary', async () => {
     await waitForLitRender(element);
 
-    expect(element.shadowRoot!.querySelector('sbb-screen-reader-only')!.textContent).to.be.equal(
+    expect(element.shadowRoot!.querySelector('.sbb-screen-reader-only')!.textContent).to.be.equal(
       'Card Title, Click on this card for details',
     );
   });
@@ -111,7 +110,7 @@ describe('sbb-flip-card', () => {
     element.accessibilityLabel = 'A11Y-Label';
     await waitForLitRender(element);
 
-    expect(element.shadowRoot!.querySelector('sbb-screen-reader-only')!.textContent).to.be.equal(
+    expect(element.shadowRoot!.querySelector('.sbb-screen-reader-only')!.textContent).to.be.equal(
       'A11Y-Label, Click on this card for details',
     );
   });
@@ -120,7 +119,7 @@ describe('sbb-flip-card', () => {
     element.toggle();
     await waitForLitRender(element);
 
-    expect(element.shadowRoot!.querySelector('sbb-screen-reader-only')!.textContent).to.be.equal(
+    expect(element.shadowRoot!.querySelector('.sbb-screen-reader-only')!.textContent).to.be.equal(
       'Click on this card to go back to the summary',
     );
   });

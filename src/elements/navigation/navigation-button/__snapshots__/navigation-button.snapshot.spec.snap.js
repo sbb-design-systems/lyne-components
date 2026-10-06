@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-navigation-button renders DOM"] = 
-`<sbb-navigation-button
-  size="l"
-  tabindex="0"
->
+`<sbb-navigation-button tabindex="0">
   Button
 </sbb-navigation-button>
 `;

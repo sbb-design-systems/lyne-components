@@ -1,0 +1,52 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-calendar-cell-background-color-hover: var(--sbb-background-color-3);
+  --sbb-calendar-cell-background-color-active: var(--sbb-background-color-4);
+  --sbb-calendar-cell-border-width: var(--sbb-border-width-2x);
+  --sbb-calendar-cell-border-color-selected: var(--sbb-border-color-2);
+  --sbb-calendar-cell-disabled-height: #{sbb.px-to-rem-build(1.5)};
+  --sbb-calendar-cell-disabled-width: #{sbb.px-to-rem-build(25.5)};
+  --sbb-calendar-cell-disabled-crossed-out-color: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-smoke)
+  );
+  --sbb-calendar-cell-disabled-color: light-dark(
+    var(--sbb-color-graphite),
+    var(--sbb-color-anthracite)
+  );
+  --sbb-calendar-cell-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-calendar-cell-color: var(--sbb-color-2);
+  --sbb-calendar-cell-cursor: var(--sbb-cursor-pointer);
+  --sbb-calendar-cell-font-size: var(--sbb-text-font-size-s);
+  --sbb-calendar-cell-margin: #{sbb.px-to-rem-build(1)};
+  --sbb-calendar-cell-size: #{sbb.px-to-rem-build(44)};
+
+  // Actual full height is 73, but with margin this comes down to 71
+  --sbb-calendar-cell-year-month-width: #{sbb.px-to-rem-build(71)};
+
+  // Actual full height is 40, but with margin this comes down to 38
+  --sbb-calendar-cell-year-month-height: #{sbb.px-to-rem-build(38)};
+  --sbb-calendar-control-gap: var(--sbb-spacing-fixed-1x);
+  --sbb-calendar-control-view-change-color: var(--sbb-color-3);
+  --sbb-calendar-header-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+  --sbb-calendar-tables-gap: var(--sbb-spacing-fixed-10x);
+
+  // Actual full width is 44, but with margin this comes down to 42
+  --sbb-calendar-day-size: #{sbb.px-to-rem-build(42)};
+  --sbb-calendar-day-width: var(--sbb-calendar-day-size);
+
+  // Actual full height is 48, but with margin this comes down to 46
+  --sbb-calendar-day-height: #{sbb.px-to-rem-build(46)};
+  --sbb-calendar-day-justify-content: start;
+  --sbb-calendar-day-value-height: var(--sbb-spacing-fixed-6x);
+  --sbb-calendar-day-extra-display: block;
+  --sbb-calendar-day-extra-height: #{sbb.px-to-rem-build(18)};
+}
+
+@mixin forced-colors {
+  --sbb-calendar-cell-background-color-hover: transparent;
+  --sbb-calendar-cell-background-color-active: transparent;
+}

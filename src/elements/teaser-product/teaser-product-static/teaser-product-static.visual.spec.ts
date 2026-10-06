@@ -6,12 +6,11 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../../core/testing/private.ts';
-import { waitForImageReady } from '../../core/testing/wait-for-image-ready.ts';
+import { waitForImageReady } from '../../core/testing.ts';
 
 import '../../teaser-product.ts';
 import '../../action-group.ts';
-import '../../button/button.ts';
-import '../../button/secondary-button.ts';
+import '../../button.ts';
 import '../../chip-label.ts';
 import '../../image.ts';
 import '../../title.ts';
@@ -33,8 +32,8 @@ const content = (longContent = false): TemplateResult => html`
       )}
   </p>
   <sbb-action-group class="sbb-teaser-product--spacing">
-    <sbb-button>Label</sbb-button>
-    <sbb-secondary-button>Label</sbb-secondary-button>
+    <sbb-button size="l">Label</sbb-button>
+    <sbb-secondary-button size="l">Label</sbb-secondary-button>
   </sbb-action-group>
 `;
 
@@ -59,9 +58,11 @@ const template = ({
   longContent?: boolean;
 } = {}): TemplateResult => html`
   <sbb-teaser-product-static ?negative=${negative} image-alignment=${imageAlignment || nothing}>
-    ${slottedImg
-      ? html`<img slot="image" src=${imageBase64} alt="" />`
-      : html`<sbb-image slot="image" image-src=${imageUrl} skip-lqip></sbb-image>`}
+    ${
+      slottedImg
+        ? html`<img slot="image" src=${imageBase64} alt="" />`
+        : html`<sbb-image slot="image" image-src=${imageUrl} skip-lqip></sbb-image>`
+    }
     ${content(longContent)} ${showFooter ? footer() : nothing}
   </sbb-teaser-product-static>
 `;
@@ -81,13 +82,17 @@ const withChipTemplate = ({
 } = {}): TemplateResult => html`
   <sbb-teaser-product-static ?negative=${negative} image-alignment=${imageAlignment || nothing}>
     <figure class="sbb-figure" slot="image">
-      ${slottedImg
-        ? html`<img src=${imageBase64} alt="" />`
-        : html`<sbb-image image-src=${imageUrl} skip-lqip></sbb-image>`}
+      ${
+        slottedImg
+          ? html`<img src=${imageBase64} alt="" />`
+          : html`<sbb-image image-src=${imageUrl} skip-lqip></sbb-image>`
+      }
       <sbb-chip-label
-        class=${imageAlignment === 'after'
-          ? 'sbb-figure-overlap-start-end'
-          : 'sbb-figure-overlap-start-start'}
+        class=${
+          imageAlignment === 'after'
+            ? 'sbb-figure-overlap-start-end'
+            : 'sbb-figure-overlap-start-start'
+        }
         >Label</sbb-chip-label
       >
     </figure>

@@ -6,7 +6,7 @@ import {
   loadAssetAsBase64,
   visualDiffDefault,
 } from '../../core/testing/private.ts';
-import { waitForImageReady } from '../../core/testing/wait-for-image-ready.ts';
+import { waitForImageReady } from '../../core/testing.ts';
 
 import '../../flip-card.ts';
 import '../../title.ts';

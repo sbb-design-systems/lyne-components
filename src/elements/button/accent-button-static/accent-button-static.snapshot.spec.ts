@@ -8,7 +8,7 @@ import {
 
 import type { SbbAccentButtonStaticElement } from './accent-button-static.component.ts';
 
-import '../accent-button-static.ts';
+import '../../button.ts';
 
 describe(`sbb-accent-button-static`, () => {
   let element: SbbAccentButtonStaticElement;

@@ -1,25 +1,33 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { SbbLanguageController } from '../core/controllers.ts';
-import { forceType } from '../core/decorators.ts';
-import { forwardEvent } from '../core/eventing.ts';
-import { i18nMapContainerButtonLabel } from '../core/i18n.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { SbbAccentButtonElement } from '../button.pure.ts';
+import {
+  forceType,
+  forwardEvent,
+  i18nMapContainerButtonLabel,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  scrollbarStyles,
+} from '../core.ts';
 
-import style from './map-container.scss?lit&inline';
-
-import '../button/accent-button.ts';
+import style from './map-container.scss?inline';
 
 /**
  * It can be used as a container for maps.
  *
  * @slot - Use the unnamed slot to add content to the sidebar.
  * @slot map - Used for slotting the map.
- * @cssprop [--sbb-map-container-margin-start=var(--sbb-header-height)] - The component
+ * @cssprop [--sbb-map-container-margin-start=var(--sbb-header-vertical-spacing)] - The component
  * comes along with a height calculation that subtracts the height of the header.
  * For specific use cases, this variable can be used to modify the preset height.
  * @cssprop [--sbb-map-container-sidebar-width=zero-large:400px;ultra:480px] - Can be used
@@ -27,11 +35,12 @@ import '../button/accent-button.ts';
  * @cssprop [--sbb-map-container-mobile-sticky-block-start=0] - If e.g. a header with a fixed height
  * is placed before the map-container, the map should be sticky respecting
  * this offset from the document's top. Only applied on mobile views.
- * Most commonly it can be set to `var(--sbb-header-height)`.
+ * Most commonly it can be set to `var(--sbb-header-vertical-spacing)`.
  */
 export class SbbMapContainerElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-map-container';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [SbbAccentButtonElement];
+  public static override styles: CSSResultGroup = [scrollbarStyles, unsafeCSS(style)];
 
   /** Flag to show/hide the scroll up button inside the sidebar on mobile. */
   @forceType()
@@ -94,26 +103,30 @@ export class SbbMapContainerElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-map-container__map">
-        <slot name="map"></slot>
-      </div>
-      <div class="sbb-map-container__sidebar" @scroll=${(e: Event) => forwardEvent(e, document)}>
+      <div
+        class="sbb-map-container__sidebar sbb-scrollbar-thick-track-visible"
+        @scroll=${(e: Event) => forwardEvent(e, document)}
+      >
         <span id="intersector"></span>
 
         <slot></slot>
 
-        ${!this.hideScrollUpButton
-          ? html`<sbb-accent-button
-              class="sbb-map-container__sidebar-button"
-              size="l"
-              icon-name="location-pin-map-small"
-              type="button"
-              @click=${() => this._onScrollButtonClick()}
-              ?inert=${!this._scrollUpButtonVisible}
-            >
-              ${i18nMapContainerButtonLabel[this._language.current]}
-            </sbb-accent-button>`
-          : nothing}
+        ${
+          !this.hideScrollUpButton
+            ? html`<sbb-accent-button
+                class="sbb-map-container__sidebar-button"
+                size="l"
+                icon-name="location-pin-map-small"
+                @click=${() => this._onScrollButtonClick()}
+                ?inert=${!this._scrollUpButtonVisible}
+              >
+                ${i18nMapContainerButtonLabel[this._language.current]}
+              </sbb-accent-button>`
+            : nothing
+        }
+      </div>
+      <div class="sbb-map-container__map">
+        <slot name="map"></slot>
       </div>
     `;
   }

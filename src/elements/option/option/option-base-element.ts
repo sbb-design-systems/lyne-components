@@ -1,5 +1,6 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import {
+  type CSSResultGroup,
   html,
   nothing,
   type PropertyDeclaration,
@@ -8,14 +9,19 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { isAndroid, isBlink, isSafari, setOrRemoveAttribute } from '../../core/dom.ts';
-import { SbbDisabledMixin } from '../../core/mixins.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
-
-import '../../screen-reader-only.ts';
-
-let nextId = 0;
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.pure.ts';
+import {
+  isAndroid,
+  isBlink,
+  isSafari,
+  SbbDisabledMixin,
+  SbbElement,
+  SbbPropertyWatcherController,
+  screenReaderOnlyStyles,
+  setOrRemoveAttribute,
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
+import type { SbbSelectElement } from '../../select.pure.ts';
 
 /**
  * On Safari, the groups labels are not read by VoiceOver.
@@ -37,8 +43,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   public static readonly events = {
     optionselected: 'optionselected',
   } as const;
-
-  protected abstract optionId: string;
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles];
 
   /**
    * Value of the option.
@@ -54,6 +59,9 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     } else {
       this._value = value;
     }
+    // Notify the sbb-select to re-check its value against the option's one.
+    /** @internal */
+    this.dispatchEvent(new Event('ɵoptionvaluechange', { bubbles: true }));
   }
   public get value(): T {
     return (this._value ?? this.getAttribute('value')) as T;
@@ -85,7 +93,9 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
 
   @state() private accessor _inertAriaGroups = false;
 
-  public constructor() {
+  private _previousSize: 's' | 'm' | null = null;
+
+  protected constructor() {
     super();
     this.addEventListener?.('click', (e: MouseEvent) => this.selectByClick(e), {
       passive: true,
@@ -100,6 +110,34 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
           this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
         },
       }),
+    );
+
+    this.addController(
+      new SbbPropertyWatcherController(
+        this,
+        () => this.closest('sbb-autocomplete, sbb-autocomplete-grid') as SbbAutocompleteBaseElement,
+        {
+          negative: (e) => this.toggleState('negative', e.negative),
+        },
+      ),
+    );
+
+    this.addController(
+      new SbbPropertyWatcherController<SbbAutocompleteBaseElement | SbbSelectElement>(
+        this,
+        () => this.closest('sbb-autocomplete, sbb-autocomplete-grid, sbb-select'),
+        {
+          size: (e) => {
+            if (this._previousSize) {
+              this.internals.states.delete(`size-${this._previousSize}`);
+            }
+            this._previousSize = e.size;
+            if (this._previousSize) {
+              this.internals.states.add(`size-${this._previousSize}`);
+            }
+          },
+        },
+      ),
     );
 
     if (inertAriaGroups) {
@@ -136,11 +174,6 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
       /** Emits when an option was selected by user. */
       this.dispatchEvent(new Event('optionselected', { bubbles: true, composed: true }));
     }
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.id ||= `${this.optionId}-${nextId++}`;
   }
 
   public override requestUpdate(
@@ -272,9 +305,11 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
           >
             ${this.renderLabel()}
           </span>
-          ${this._inertAriaGroups && this.groupLabel
-            ? html`<sbb-screen-reader-only> (${this.groupLabel})</sbb-screen-reader-only>`
-            : nothing}
+          ${
+            this._inertAriaGroups && this.groupLabel
+              ? html`<span class="sbb-screen-reader-only"> (${this.groupLabel})</span>`
+              : nothing
+          }
         </span>
         ${this.renderTick()}
       </div>

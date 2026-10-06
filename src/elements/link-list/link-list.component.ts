@@ -1,11 +1,10 @@
-import type { CSSResultGroup } from 'lit';
+import { type CSSResultGroup, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbHorizontalFrom } from '../core.ts';
 
-import { linkListBaseStyle, SbbLinkListBaseElement } from './common/link-list-base.ts';
-import style from './link-list.scss?lit&inline';
+import { SbbLinkListBaseElement } from './common/link-list-base.ts';
+import style from './link-list.scss?inline';
 
 /**
  * It displays a list of `sbb-block-link`.
@@ -15,14 +14,14 @@ import style from './link-list.scss?lit&inline';
  */
 export class SbbLinkListElement extends SbbLinkListBaseElement {
   public static override readonly elementName: string = 'sbb-link-list';
-  public static override styles: CSSResultGroup = [boxSizingStyles, linkListBaseStyle, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Selected breakpoint from which the list is rendered horizontally. */
   @property({ attribute: 'horizontal-from', reflect: true })
   public accessor horizontalFrom: SbbHorizontalFrom | null = null;
 
   /** The orientation in which the list will be shown vertical or horizontal. */
-  @property({ reflect: true }) public accessor orientation: SbbOrientation = 'vertical';
+  @property({ reflect: true }) public accessor orientation: 'horizontal' | 'vertical' = 'vertical';
 }
 
 declare global {

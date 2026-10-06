@@ -1,27 +1,16 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, unsafeCSS } from 'lit';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbElement } from '../../core.ts';
+import { SbbTrainFormationOrientationMixin } from '../train-formation-orientation-mixin.ts';
 
-import style from './train-blocked-passage.scss?lit&inline';
+import style from './train-blocked-passage.scss?inline';
 
 /**
  * It visually displays a blocked passage between train wagons.
  */
-export class SbbTrainBlockedPassageElement extends SbbElement {
+export class SbbTrainBlockedPassageElement extends SbbTrainFormationOrientationMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-train-blocked-passage';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
-
-  protected override render(): TemplateResult {
-    return html`
-      <span class="sbb-train-blocked-passage">
-        <span class="sbb-train-blocked-passage__wrapper">
-          <span class="sbb-train-blocked-passage__icon"></span>
-        </span>
-      </span>
-    `;
-  }
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 }
 
 declare global {

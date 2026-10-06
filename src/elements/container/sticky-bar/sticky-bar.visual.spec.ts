@@ -1,4 +1,4 @@
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import {
   describeEach,
@@ -32,25 +32,24 @@ describe(`sbb-sticky-bar`, () => {
   const containerContent = (color?: string): TemplateResult => html`
     <sbb-title level="4" ?negative=${!!color && isDark(color)}>Example title</sbb-title>
     <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
-    <sbb-secondary-button
-      style="margin-block-end: 0.75rem;"
-      size="m"
-      ?negative=${!!color && isDark(color)}
-    >
+    <sbb-secondary-button style="margin-block-end: 0.75rem;" ?negative=${!!color && isDark(color)}>
       See more
     </sbb-secondary-button>
   `;
 
   const actionGroup = (color?: string): TemplateResult => html`
-    <sbb-action-group align-group="stretch" orientation="vertical" style="width:100%;">
+    <sbb-action-group
+      class="sbb-orientation-horizontal-from-large sbb-orientation-vertical-full-width"
+      style="width:100%; justify-content: space-between;"
+    >
       <sbb-block-link
+        size="s"
         ?negative=${!!color && isDark(color)}
-        align-self="start"
         icon-name="chevron-small-left-small"
       >
         Link
       </sbb-block-link>
-      <sbb-button ?negative=${!!color && isDark(color)}>Confirm</sbb-button>
+      <sbb-button size="l" ?negative=${!!color && isDark(color)}>Confirm</sbb-button>
     </sbb-action-group>
   `;
 
@@ -91,18 +90,20 @@ describe(`sbb-sticky-bar`, () => {
       );
     });
 
-    it(
-      `size=s`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html` <sbb-container style="overflow: auto; height: 400px;">
-            ${containerContent()} ${containerContent()} ${containerContent()}
-            <sbb-sticky-bar color="milk" size="s">${actionGroup()}</sbb-sticky-bar>
-          </sbb-container>`,
-          { padding: '0' },
-        );
-      }),
-    );
+    for (const size of [null, 's', 'm'] satisfies SbbStickyBarElement['size'][]) {
+      it(
+        `size=${size}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html` <sbb-container style="overflow: auto; height: 400px;">
+              ${containerContent()} ${containerContent()} ${containerContent()}
+              <sbb-sticky-bar color="milk" size=${size || nothing}>${actionGroup()}</sbb-sticky-bar>
+            </sbb-container>`,
+            { padding: '0' },
+          );
+        }),
+      );
+    }
 
     it(
       `unstick`,

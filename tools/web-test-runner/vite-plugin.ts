@@ -1,4 +1,5 @@
-import { existsSync } from 'node:fs';
+import { existsSync, globSync } from 'node:fs';
+import { join } from 'node:path';
 
 import type { TestRunnerPlugin } from '@web/test-runner';
 import { createServer, type ViteDevServer } from 'vite';
@@ -17,12 +18,23 @@ export function vitePlugin(): TestRunnerPlugin {
         // @web/dev-server. So it should be ignored by Vite.
         '/__web-dev-server__web-socket.js',
       ];
+      const clientFiles = globSync('src/{elements,elements-experimental}/**/*.ts', {
+        cwd: new URL('../../', import.meta.url),
+        withFileTypes: true,
+      })
+        .filter((d) => d.isFile() && !d.name.endsWith('.stories.ts'))
+        .map((d) => join(d.parentPath, d.name));
 
       viteServer = await createServer({
         clearScreen: false,
         // Disable hmr in favor of the @web/test-runner to take care of restarts.
-        server: { middlewareMode: true, hmr: false },
+        server: { middlewareMode: true, hmr: false, warmup: { clientFiles } },
         appType: 'custom',
+        // Use inline source maps to avoid separate .map file requests.
+        // When source maps are external, Vite appends `.js.map` to the URL including
+        // the `?wtr-session-id=` query parameter, resulting in a malformed session ID
+        // (e.g. `ABC123.js.map`) that WTR cannot resolve, causing an uncaught exception.
+        esbuild: { sourcemap: 'inline' },
         plugins: [
           {
             name: 'file-name',
@@ -38,6 +50,7 @@ export function vitePlugin(): TestRunnerPlugin {
             resolveId: (id) => (externals.includes(id) ? { id, external: true } : undefined),
           },
         ],
+        assetsInclude: ['**/*.md'],
         // This configuration is necessary, as vite will otherwise detect dependencies
         // that can be optimized. This will cause vite to reload, which leads to
         // 'Could not import your test module.' errors, that happen randomly.
@@ -45,6 +58,10 @@ export function vitePlugin(): TestRunnerPlugin {
         // increased test times.
         optimizeDeps: {
           noDiscovery: true,
+        },
+        build: {
+          cssMinify: 'esbuild',
+          minify: true,
         },
       });
       app.use(

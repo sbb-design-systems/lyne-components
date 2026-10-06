@@ -5,22 +5,29 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
-import { readConfig } from '../core/config.ts';
 import {
+  appendAriaElements,
+  idReference,
+  isAndroid,
+  isIOS,
+  isZeroAnimationDuration,
+  popoverResetStyles,
+  queueDomContentLoaded,
+  readConfig,
+  removeAriaElements,
+  SbbDisabledMixin,
   SbbEscapableOverlayController,
+  sbbInputModalityDetector,
+  SbbOpenCloseBaseElement,
+  sbbOverlayOutsidePointerEventListener,
   SbbOverlayPositionController,
-} from '../core/controllers.ts';
-import { idReference } from '../core/decorators.ts';
-import { isAndroid, isIOS, isZeroAnimationDuration, queueDomContentLoaded } from '../core/dom.ts';
-import { appendAriaElements, removeAriaElements, SbbDisabledMixin } from '../core/mixins.ts';
-import { sbbOverlayOutsidePointerEventListener } from '../core/overlay.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+} from '../core.ts';
 
-import style from './tooltip.scss?lit&inline';
+import style from './tooltip.scss?inline';
 
 /**
  * Defines the default position for the tooltip if this element is used as a trigger.
@@ -37,7 +44,6 @@ const LONGPRESS_DELAY = 500;
 
 const isMobile = isAndroid || isIOS;
 const tooltipTriggers = new WeakMap<HTMLElement, SbbTooltipElement>();
-let nextId = 0;
 
 /**
  * It displays text content within a tooltip.
@@ -53,7 +59,7 @@ let nextId = 0;
 export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-tooltip';
   public static override readonly role = 'tooltip';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [popoverResetStyles, unsafeCSS(style)];
 
   private static _tooltipOutlet: Element;
 
@@ -244,7 +250,6 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
   public override connectedCallback(): void {
     super.connectedCallback();
     this.popover = 'manual';
-    this.id ||= `sbb-tooltip-${++nextId}`;
     this.state = 'closed';
     sbbOverlayOutsidePointerEventListener.connect(this);
 
@@ -420,7 +425,18 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
 
       // 'blurs' immediately close the tooltip because it is considered an 'interaction with other elements'
       trigger.addEventListener('blur', () => this.close(), options);
-      trigger.addEventListener('focus', () => this._delayedOpen(), options);
+      trigger.addEventListener(
+        'focus',
+        () => {
+          // If an element with tooltip has focus (even without hovering), and the browser tab
+          // changes away and back to the tab with the tooltip, the focus event triggers an opening.
+          // By checking input modality of keyboard, we avoid opening the tooltip in the described case.
+          if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+            this._delayedOpen();
+          }
+        },
+        options,
+      );
     }
 
     // Long-press event handling (mainly for mobile users)

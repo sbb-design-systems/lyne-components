@@ -1,0 +1,89 @@
+@use '../mixins/functions';
+@use '../mixins/typo';
+
+.sbb-input {
+  display: inline-block;
+  min-width: #{functions.px-to-rem-build(150)};
+  width: min(#{functions.px-to-rem-build(300)}, 100%);
+  min-height: var(--sbb-form-field-min-height);
+  max-height: var(--sbb-form-field-max-height);
+  appearance: none;
+  box-sizing: border-box;
+  margin: 0;
+  outline: none;
+  overflow: var(--sbb-form-field-overflow, hidden);
+  line-height: var(--sbb-typo-line-height-text);
+  background-color: var(--sbb-form-field-background-color);
+  color: var(--sbb-form-field-text-color);
+
+  // Fill color needed for Safari
+  -webkit-text-fill-color: var(--sbb-form-field-text-color);
+  opacity: 1;
+  border: var(--sbb-form-field-border-width) var(--sbb-form-field-border-style)
+    var(--sbb-form-field-border-color);
+  border-radius: var(--sbb-form-field-border-radius);
+  padding-inline: var(--sbb-form-field-padding-inline);
+
+  // Using `!important` keeps the utility consistent with the existing form-field
+  // rules when normalize/reset styles are loaded by the consumer.
+  font-size: var(--sbb-form-field-input-text-size) !important;
+  font-weight: normal;
+  letter-spacing: var(--sbb-letter-spacing-text) !important;
+  font-family: var(--sbb-typo-font-family) !important;
+
+  &::placeholder {
+    @include typo.placeholder;
+  }
+
+  &:read-only,
+  &:disabled {
+    --sbb-form-field-background-color: var(--sbb-background-color-3);
+    --sbb-form-field-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
+
+    @media (forced-colors: active) {
+      --sbb-form-field-border-color: ButtonBorder;
+    }
+  }
+
+  &:disabled {
+    --sbb-form-field-border-style: dashed;
+
+    &::placeholder {
+      color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+      -webkit-text-fill-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+    }
+
+    @media (forced-colors: active) {
+      --sbb-form-field-label-color: GrayText !important;
+      --sbb-form-field-prefix-color: GrayText !important;
+      --sbb-form-field-text-color: GrayText !important;
+      --sbb-form-field-border-color: GrayText !important;
+    }
+  }
+
+  &:focus-visible {
+    outline: var(--sbb-focus-outline-color) var(--sbb-focus-outline-style, solid)
+      var(--sbb-focus-outline-width);
+    outline-offset: var(--sbb-form-field-outline-offset, var(--sbb-focus-outline-offset));
+  }
+
+  &:focus {
+    --sbb-form-field-border-color: var(--sbb-border-color-3);
+    --sbb-form-field-border-width: var(--sbb-border-width-2x);
+
+    @media (forced-colors: active) {
+      --sbb-form-field-border-color: Highlight;
+      --sbb-form-field-prefix-color: Highlight;
+    }
+  }
+
+  &:user-invalid {
+    --sbb-form-field-border-color: var(--sbb-color-error);
+    --sbb-form-field-text-color: var(--sbb-color-error);
+
+    @media (forced-colors: active) {
+      --sbb-form-field-border-color: LinkText !important;
+      --sbb-form-field-text-color: LinkText !important;
+    }
+  }
+}

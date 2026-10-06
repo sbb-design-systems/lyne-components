@@ -1,17 +1,14 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
-import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts';
+import { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-element.ts';
 
 /**
  * It displays a single month cell in the `sbb-calendar` months view.
  */
 export class SbbCalendarMonthElement<T = Date> extends SbbCalendarCellBaseElement<T> {
   public static override readonly elementName: string = 'sbb-calendar-month';
-  public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle];
 
   private static readonly _monthFormatRegex = /^\d{4}-(0[1-9]|1[0-2])$/;
   private _monthShortNames: string[] = this.dateAdapter.getMonthNames('short');
@@ -54,15 +51,17 @@ export class SbbCalendarMonthElement<T = Date> extends SbbCalendarCellBaseElemen
   }
 
   protected override setSelectedState(parent: SbbCalendarElement<T>): void {
-    const selected = parent.multiple
-      ? ((parent.selected as Date[])?.some(
-          (date: Date) =>
-            this._yearValue === this.dateAdapter.getYear(date) &&
-            this._monthValue === this.dateAdapter.getMonth(date),
-        ) ?? false)
-      : !!parent.selected &&
-        this.dateAdapter.getYear(parent.selected) === this._yearValue &&
-        this.dateAdapter.getMonth(parent.selected) === this._monthValue;
+    const selected =
+      !!this.value &&
+      (parent.multiple
+        ? ((parent.value as Date[])?.some(
+            (date: Date) =>
+              this._yearValue === this.dateAdapter.getYear(date) &&
+              this._monthValue === this.dateAdapter.getMonth(date),
+          ) ?? false)
+        : !!parent.value &&
+          this.dateAdapter.getYear(parent.value) === this._yearValue &&
+          this.dateAdapter.getMonth(parent.value) === this._monthValue);
     this.toggleState('selected', selected);
     this.internals.ariaPressed = String(selected);
   }

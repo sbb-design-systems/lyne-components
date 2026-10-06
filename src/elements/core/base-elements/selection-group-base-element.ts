@@ -1,15 +1,13 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { isLean } from '../dom.ts';
-import type { SbbHorizontalFrom, SbbOrientation } from '../interfaces.ts';
-import { SbbDisabledMixin, SbbRequiredMixin } from '../mixins.ts';
-import { boxSizingStyles } from '../styles.ts';
+import type { SbbHorizontalFrom } from '../interfaces/types.ts';
+import { SbbDisabledMixin } from '../mixins/disabled-mixin.ts';
+import { SbbRequiredMixin } from '../mixins/required-mixin.ts';
 
 import { SbbElement } from './element.ts';
-import style from './selection-group-base-element.scss?lit&inline';
+import style from './selection-group-base-element.scss?inline';
 
 /**
  * It can be used as a container for one or more `sbb-checkbox`.
@@ -20,13 +18,12 @@ import style from './selection-group-base-element.scss?lit&inline';
 export abstract class SbbSelectionGroupBaseElement<T extends SbbElement> extends SbbDisabledMixin(
   SbbRequiredMixin(SbbElement),
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /**
-   * Size variant, either xs, s or m.
-   * @default 'm' / 'xs' (lean)
+   * Size variant, either xs (lean theme default), s or m (standard theme default).
    */
-  @property() public accessor size: 'xs' | 's' | 'm' = isLean() ? 'xs' : 'm';
+  @property() public accessor size: 'xs' | 's' | 'm' | null = null;
 
   /** Overrides the behavior of `orientation` property. */
   @property({ attribute: 'horizontal-from', reflect: true })
@@ -34,7 +31,7 @@ export abstract class SbbSelectionGroupBaseElement<T extends SbbElement> extends
 
   /** Indicates the orientation of the checkboxes or panels inside the group. */
   @property({ reflect: true })
-  public accessor orientation: SbbOrientation = 'horizontal';
+  public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   protected abstract readonly selectionElementSelectors: string;
   protected abstract readonly panelElementSelector: string;
@@ -60,21 +57,6 @@ export abstract class SbbSelectionGroupBaseElement<T extends SbbElement> extends
           this.toggleState('has-panel', !!this.querySelector?.(this.panelElementSelector)),
       }),
     );
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    // TODO: Use PropertyWatcherController in selection elements
-    if (changedProperties.has('disabled')) {
-      this.selectionElements.forEach((c) => c.requestUpdate?.('disabled'));
-    }
-    if (changedProperties.has('required')) {
-      this.selectionElements.forEach((c) => c.requestUpdate?.('required'));
-    }
-    if (changedProperties.has('size')) {
-      this.selectionElements.forEach((c) => c.requestUpdate?.('size'));
-    }
   }
 
   protected onSlotChange(): void {}

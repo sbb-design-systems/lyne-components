@@ -1,16 +1,16 @@
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 
+import type { SbbCheckboxElement } from './checkbox.component.ts';
 import readme from './readme.md?raw';
 import '../checkbox.ts';
 import '../card.ts';
-import '../button/button.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -23,7 +23,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xs', 's', 'm'],
+  options: ['xs', 's', 'm'] satisfies SbbCheckboxElement['size'][],
 };
 
 const checked: InputType = {
@@ -102,7 +102,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options![1],
+  size: undefined,
   checked: false,
   indeterminate: false,
   disabled: false,

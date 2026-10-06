@@ -29,9 +29,11 @@ describe(`sbb-icon-sidebar-button`, () => {
               class=${currentPage ? 'sbb-active' : nothing}
               style="width: var(--sbb-size-element-m)"
             >
-              ${slottedIcon
-                ? html`<sbb-icon name="glass-cocktail-small" slot="icon"></sbb-icon>`
-                : nothing}
+              ${
+                slottedIcon
+                  ? html`<sbb-icon name="glass-cocktail-small" slot="icon"></sbb-icon>`
+                  : nothing
+              }
             </sbb-icon-sidebar-button>
           `,
           { forcedColors },

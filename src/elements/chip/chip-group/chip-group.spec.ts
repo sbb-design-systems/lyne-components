@@ -2,12 +2,12 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAutocompleteElement } from '../../autocomplete/autocomplete.component.ts';
+import type { SbbAutocompleteElement } from '../../autocomplete.pure.ts';
 import { fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
 import type { SbbOptionElement } from '../../option.ts';
-import type { SbbChipElement } from '../chip/chip.component.ts';
+import { SbbChipElement } from '../chip/chip.component.ts';
 
 import { SbbChipGroupElement, type SbbChipInputTokenEndEvent } from './chip-group.component.ts';
 
@@ -108,6 +108,7 @@ describe('sbb-chip-group', () => {
       const toDeleteValue = toDelete.value;
       const inputEventSpy = new EventSpy(SbbChipGroupElement.events.input, element);
       const changeEventSpy = new EventSpy(SbbChipGroupElement.events.change, element);
+      const deleteEventSpy = new EventSpy(SbbChipElement.events.delete, toDelete);
 
       // Click the delete button
       (toDelete.shadowRoot!.querySelector('.sbb-chip__delete') as HTMLElement).click();
@@ -120,6 +121,7 @@ describe('sbb-chip-group', () => {
       ).to.be.true;
       expect(inputEventSpy.count).to.be.equal(1);
       expect(changeEventSpy.count).to.be.equal(1);
+      expect(deleteEventSpy.count).to.be.equal(1);
 
       // Except the new last chip to be focused
       expect((document.activeElement as SbbChipElement).value).to.be.equal(chips[1]!.value);
@@ -137,6 +139,42 @@ describe('sbb-chip-group', () => {
 
       expect(element.disabled).to.be.false;
       expect(chips.every((c) => c.disabled)).to.be.false;
+    });
+
+    it('should sync disabled to the input when set on the group', async () => {
+      // Setting disabled on the group must disable the input too so the user
+      // cannot type new chips while the group is disabled.
+      element.disabled = true;
+      await waitForLitRender(formField);
+
+      expect(input.disabled).to.be.true;
+      expect(chips.every((c) => c.disabled)).to.be.true;
+
+      element.disabled = false;
+      await waitForLitRender(formField);
+
+      expect(input.disabled).to.be.false;
+      expect(chips.every((c) => c.disabled)).to.be.false;
+    });
+
+    it('should not reset group disabled state when slotchange fires after group.disabled = true', async () => {
+      // Regression: _setupComponent (triggered by slot changes) used to call
+      // _reactToInputChanges which read input.disabled (still false) and reset
+      // group.disabled back to false.
+      element.disabled = true;
+      await waitForLitRender(formField);
+
+      expect(input.disabled).to.be.true;
+
+      // Simulate a slot change (add a new chip) – triggers _setupComponent internally
+      const newChip = document.createElement('sbb-chip') as (typeof chips)[0];
+      newChip.setAttribute('value', 'chip 4');
+      element.insertBefore(newChip, input);
+      await waitForLitRender(element);
+
+      // The disabled state must still be true after the slot change
+      expect(element.disabled).to.be.true;
+      expect(input.disabled).to.be.true;
     });
 
     it('should react when input is readonly', async () => {
@@ -231,7 +269,9 @@ describe('sbb-chip-group', () => {
     });
 
     it('should inherit size from form-field', async () => {
-      expect(element).to.match(':state(size-m)');
+      expect(element).not.to.match(':state(size-s)');
+      expect(element).not.to.match(':state(size-m)');
+      expect(element).not.to.match(':state(size-l)');
 
       formField.size = 's';
       await waitForLitRender(formField);
@@ -247,9 +287,7 @@ describe('sbb-chip-group', () => {
         element.value = newValue;
         await waitForLitRender(element);
 
-        let slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip')).map(
-          (c) => c.value,
-        );
+        let slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip'), (c) => c.value);
         expect(slottedChipsValue).to.be.eql(newValue);
 
         // Remove a chip ('chip 3')
@@ -257,7 +295,7 @@ describe('sbb-chip-group', () => {
         element.value = newValue;
         await waitForLitRender(element);
 
-        slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip')).map((c) => c.value);
+        slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip'), (c) => c.value);
         expect(slottedChipsValue).to.be.eql(newValue);
 
         // Add and remove chips
@@ -265,7 +303,7 @@ describe('sbb-chip-group', () => {
         element.value = newValue;
         await waitForLitRender(element);
 
-        slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip')).map((c) => c.value);
+        slottedChipsValue = Array.from(element.querySelectorAll('sbb-chip'), (c) => c.value);
         expect(slottedChipsValue).to.be.eql(newValue);
 
         // Empty value
@@ -304,18 +342,22 @@ describe('sbb-chip-group', () => {
       });
 
       it('should remove chip on delete key', async () => {
+        const deleteEventSpies = chips.map((c) => new EventSpy(SbbChipElement.events.delete, c));
+
         input.focus();
         await sendKeys({ type: 'a' });
         await sendKeys({ press: 'Backspace' });
 
         // If the input is not empty, it should not move the focus to the chip
         expect(document.activeElement!.localName).to.be.equal('input');
+        expect(deleteEventSpies.every((spy) => spy.count === 0)).to.be.true;
 
         await sendKeys({ press: 'Backspace' });
 
         // Should focus the last enabled chip
         expect(document.activeElement!.localName).to.be.equal('sbb-chip');
         expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-1)!.value);
+        expect(deleteEventSpies.every((spy) => spy.count === 0)).to.be.true;
 
         input.focus();
         await sendKeys({ press: 'ArrowLeft' });
@@ -324,7 +366,9 @@ describe('sbb-chip-group', () => {
         expect(document.activeElement!.localName).to.be.equal('sbb-chip');
         expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-1)!.value);
 
-        const focusedChipValue = (document.activeElement as SbbChipElement).value;
+        const focusedChip = document.activeElement as SbbChipElement;
+        const focusedChipValue = focusedChip.value;
+        const focusedChipDeleteSpy = deleteEventSpies[chips.indexOf(focusedChip)];
         await sendKeys({ press: 'Backspace' });
         await waitForLitRender(element);
 
@@ -332,6 +376,12 @@ describe('sbb-chip-group', () => {
         expect(element.value).not.to.contain(focusedChipValue);
         expect(document.activeElement!.localName).to.be.equal('sbb-chip');
         expect((document.activeElement as SbbChipElement).value).to.be.equal(chips.at(-2)!.value);
+        expect(focusedChipDeleteSpy.count).to.be.equal(1);
+        expect(
+          deleteEventSpies
+            .filter((spy) => spy !== focusedChipDeleteSpy)
+            .every((spy) => spy.count === 0),
+        ).to.be.true;
 
         // Deletes the two remaining chips
         await sendKeys({ press: 'Backspace' });
@@ -340,6 +390,8 @@ describe('sbb-chip-group', () => {
 
         // Expect the input to be focused
         expect(document.activeElement!.localName).to.be.equal('input');
+        // All chips should have fired their 'delete' event exactly once
+        expect(deleteEventSpies.every((spy) => spy.count === 1)).to.be.true;
       });
 
       it('should prevent delete on readonly chip', async () => {
@@ -527,7 +579,7 @@ describe('sbb-chip-group', () => {
 
       expect(inputAutocompleteEventSpy.count).to.be.equal(1);
       expect(tokenEndEventSpy.count).to.be.equal(1);
-      expect(tokenEndEventSpy.lastEvent!.detail.origin).to.be.equal('autocomplete');
+      expect(tokenEndEventSpy.lastEvent!.origin).to.be.equal('autocomplete');
       expect(element.value).to.contain(options[0].value);
 
       autocomplete.open();
@@ -536,7 +588,7 @@ describe('sbb-chip-group', () => {
 
       expect(inputAutocompleteEventSpy.count).to.be.equal(2);
       expect(tokenEndEventSpy.count).to.be.equal(2);
-      expect(tokenEndEventSpy.lastEvent!.detail.origin).to.be.equal('autocomplete');
+      expect(tokenEndEventSpy.lastEvent!.origin).to.be.equal('autocomplete');
       expect(element.value).to.contain(options[1].value);
     });
 
@@ -576,7 +628,7 @@ describe('sbb-chip-group', () => {
 
       expect(inputAutocompleteEventSpy.count).to.be.equal(0);
       expect(tokenEndEventSpy.count).to.be.equal(1);
-      expect(tokenEndEventSpy.lastEvent!.detail.origin).to.be.equal('input');
+      expect(tokenEndEventSpy.lastEvent!.origin).to.be.equal('input');
       expect(element.value).to.contain('new chip');
     });
 
@@ -651,8 +703,8 @@ describe('sbb-chip-group', () => {
       await waitForLitRender(formField);
 
       expect(tokenEndEventSpy.count).to.be.equal(1);
-      expect(tokenEndEventSpy.lastEvent!.detail.origin).to.be.equal('autocomplete');
-      expect(tokenEndEventSpy.lastEvent!.detail.label).to.be.equal('Option 3');
+      expect(tokenEndEventSpy.lastEvent!.origin).to.be.equal('autocomplete');
+      expect(tokenEndEventSpy.lastEvent!.label).to.be.equal('Option 3');
       expect(element.value).to.contain(options[0].value);
 
       const addedChip = element.querySelectorAll<SbbChipElement<ComplexValue>>('sbb-chip')[2]!;
@@ -666,11 +718,10 @@ describe('sbb-chip-group', () => {
         SbbChipGroupElement.events.chipinputtokenend,
         (e: SbbChipInputTokenEndEvent<ComplexValue>) => {
           // Transform input value into object
-          const detail = e.detail;
-          detail.setValue({ property: detail.value as string, otherProp: 'new' });
+          e.setValue({ property: e.value as string, otherProp: 'new' });
         },
       );
-      const tokenEndEventSpy = new EventSpy<CustomEvent<SbbChipInputTokenEndEvent>>(
+      const tokenEndEventSpy = new EventSpy<SbbChipInputTokenEndEvent>(
         SbbChipGroupElement.events.chipinputtokenend,
         element,
       );
@@ -682,8 +733,8 @@ describe('sbb-chip-group', () => {
       await waitForLitRender(formField);
 
       expect(tokenEndEventSpy.count).to.be.equal(1);
-      expect(tokenEndEventSpy.lastEvent!.detail.origin).to.be.equal('input');
-      expect(tokenEndEventSpy.lastEvent!.detail.value).to.be.deep.equal({
+      expect(tokenEndEventSpy.lastEvent!.origin).to.be.equal('input');
+      expect(tokenEndEventSpy.lastEvent!.value).to.be.deep.equal({
         property: 'new chip',
         otherProp: 'new',
       });
@@ -766,12 +817,12 @@ describe('sbb-chip-group', () => {
       element = root.querySelector('sbb-chip-group')!;
       input = root.querySelector('input')!;
 
-      expect(element).to.match(':state(size-m)');
+      expect(element).not.to.match(':state(size-l)');
 
       formField.append(element);
       await waitForLitRender(root);
 
-      expect(formField).to.have.match(':state(input-type-input)');
+      expect(formField).to.have.match(':state(input-element-input)');
       expect(element).to.match(':state(size-l)');
 
       input.focus();

@@ -19,8 +19,6 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
 }
 
 .sbb-link-list {
-  @include sbb.list-reset;
-
   display: flex;
   gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-8x);
   flex-flow: var(--sbb-link-list-flex-flow);

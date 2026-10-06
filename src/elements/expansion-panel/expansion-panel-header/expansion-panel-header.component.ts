@@ -1,17 +1,17 @@
-import { type CSSResultGroup, html, nothing, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import {
-  SbbMediaQueryHover,
+  SbbButtonBaseElement,
+  SbbDisabledTabIndexActionMixin,
   SbbMediaMatcherController,
+  SbbMediaQueryHover,
   SbbPropertyWatcherController,
-} from '../../core/controllers.ts';
-import { SbbDisabledTabIndexActionMixin, ɵstateController } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+  ɵstateController,
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbExpansionPanelElement } from '../expansion-panel/expansion-panel.component.ts';
 
-import style from './expansion-panel-header.scss?lit&inline';
+import style from './expansion-panel-header.scss?inline';
 
 /**
  * It acts as a native `summary` tag for the `sbb-expansion-panel` component.
@@ -23,7 +23,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
   SbbIconNameMixin(SbbButtonBaseElement),
 ) {
   public static override readonly elementName: string = 'sbb-expansion-panel-header';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     toggleexpanded: 'toggleexpanded',
   } as const;
@@ -33,7 +33,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
   });
 
   private _isHover: boolean = this._mediaMatcher.matches(SbbMediaQueryHover) ?? false;
-  private _previousSize?: string;
+  private _previousSize: SbbExpansionPanelElement['size'] = null;
 
   public constructor() {
     super();
@@ -71,8 +71,10 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
   private _onMouseMovement(toggleDataAttribute: boolean): void {
     const parent: SbbExpansionPanelElement = this.closest('sbb-expansion-panel')!;
     // The `sbb.hover-mq` logic has been removed from scss, but it must be replicated to have the correct behavior on mobile.
+    // TODO: with more support for light DOM styles set from a component (rootnode), we should move this into scss with :has(:hover) selector.
     if (!toggleDataAttribute || (parent && this._isHover)) {
       ɵstateController(parent).toggle('toggle-hover', toggleDataAttribute);
+      this.toggleState('toggle-hover', toggleDataAttribute);
     }
   }
 
@@ -82,26 +84,27 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
    * but after the 'SbbSlotStateController' has run.
    */
   private _setIconState(): void {
-    this.toggleState('icon', !!(this.iconName || this.internals.states.has('icon')));
+    this.toggleState('icon', !!(this.iconName || this.matches?.(':state(icon)')));
   }
 
   protected override renderTemplate(): TemplateResult {
-    // TODO: Still necessary?
     this._setIconState();
     return html`
       <span class="sbb-expansion-panel-header__title">
         <span class="sbb-expansion-panel-header__icon"> ${this.renderIconSlot()} </span>
         <slot></slot>
       </span>
-      ${!this.disabled
-        ? html`<span class="sbb-expansion-panel-header__toggle">
-            <sbb-icon
-              name="chevron-small-down-medium"
-              class="sbb-expansion-panel-header__toggle-icon"
-            >
-            </sbb-icon>
-          </span>`
-        : nothing}
+      ${
+        !this.disabled
+          ? html`<span class="sbb-expansion-panel-header__toggle">
+              <sbb-icon
+                name="chevron-small-down-medium"
+                class="sbb-expansion-panel-header__toggle-icon"
+              >
+              </sbb-icon>
+            </span>`
+          : nothing
+      }
     `;
   }
 }

@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-slider>` is an input component that allows for the selection of a value within a range.
 
 This can be set using the `min` and `max` properties (default values are 0 and 100),
@@ -101,11 +103,12 @@ The `<sbb-slider>` has the following behavior on keypress when focused:
 
 #### Events
 
-| Name        | Type         | Description                                                                                                                                                                        | Inherited From |
-| ----------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `change`    | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
-| `didChange` | `Event`      | Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.                                                                            |                |
-| `input`     | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                |
+| Name        | Type         | Description                                                                                                                                                                        | Inherited From         |
+| ----------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| `change`    | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                        |
+| `didChange` | `Event`      | Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.                                                                            |                        |
+| `input`     | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                        |
+| `validity`  | `Event`      | The validity event is dispatched whenever the validity state of the element changes.                                                                                               | SbbFormAssociatedMixin |
 
 #### Slots
 

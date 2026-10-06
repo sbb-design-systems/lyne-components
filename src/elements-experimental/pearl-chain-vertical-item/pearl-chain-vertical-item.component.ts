@@ -1,12 +1,9 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { forceType, SbbElement } from '@sbb-esta/lyne-elements/core.js';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import style from './pearl-chain-vertical-item.scss?lit&inline';
+import style from './pearl-chain-vertical-item.scss?inline';
 
 export type LineType = 'dotted' | 'standard' | 'thin';
 
@@ -34,7 +31,7 @@ export interface PearlChainVerticalItemAttributes {
  */
 export class SbbPearlChainVerticalItemElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain-vertical-item';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** The pearlChainVerticalItemAttributes Prop for styling the bullets and line.*/
   @property({ attribute: 'pearl-chain-vertical-item-attributes', type: Object })
@@ -65,23 +62,29 @@ export class SbbPearlChainVerticalItemElement extends SbbElement {
         aria-hidden="true"
         class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle"
       >
-        ${!hideLine
-          ? html`<div
-              style=${styleMap({ '--sbb-pearl-chain-vertical-item-leg-status': `${position}%` })}
-              class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--${lineType} sbb-pearl-chain-vertical-item__line--${lineColor}"
-            ></div>`
-          : nothing}
-        ${bulletType
-          ? html`<div
-              class="sbb-pearl-chain-vertical-item__bullet  sbb-pearl-chain-vertical-item__bullet--${bulletSize} ${bulletTypeClass}"
-            ></div>`
-          : nothing}
-        ${position && position > 0
-          ? html`<div
-              style=${styleMap({ '--sbb-pearl-chain-vertical-item-position': `${position}%` })}
-              class="sbb-pearl-chain-vertical-item__bullet--position"
-            ></div>`
-          : nothing}
+        ${
+          !hideLine
+            ? html`<div
+                style=${styleMap({ '--sbb-pearl-chain-vertical-item-leg-status': `${position}%` })}
+                class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--${lineType} sbb-pearl-chain-vertical-item__line--${lineColor}"
+              ></div>`
+            : nothing
+        }
+        ${
+          bulletType
+            ? html`<div
+                class="sbb-pearl-chain-vertical-item__bullet  sbb-pearl-chain-vertical-item__bullet--${bulletSize} ${bulletTypeClass}"
+              ></div>`
+            : nothing
+        }
+        ${
+          position && position > 0
+            ? html`<div
+                style=${styleMap({ '--sbb-pearl-chain-vertical-item-position': `${position}%` })}
+                class="sbb-pearl-chain-vertical-item__bullet--position"
+              ></div>`
+            : nothing
+        }
       </div>
       <slot name="right"></slot>
     `;

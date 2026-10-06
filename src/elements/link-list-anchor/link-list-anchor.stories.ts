@@ -11,12 +11,13 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 
+import type { SbbLinkListAnchorElement } from './link-list-anchor.component.ts';
 import readme from './readme.md?raw';
 
 import '../link-list-anchor.ts';
-import '../link/block-link.ts';
+import '../link.ts';
 
 const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];
 
@@ -56,7 +57,7 @@ const size: InputType = {
   control: {
     type: 'select',
   },
-  options: ['xs', 's', 'm'],
+  options: ['xs', 's', 'm'] satisfies SbbLinkListAnchorElement['size'][],
 };
 
 const titleContent: InputType = {
@@ -87,7 +88,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   negative: false,
-  size: size.options![1],
+  size: undefined,
   'title-level': titleLevel.options![0],
   'title-content': 'Help & Contact',
 };
@@ -104,6 +105,15 @@ export const SizeXS: StoryObj = {
   args: {
     ...defaultArgs,
     size: size.options![0],
+  },
+};
+
+export const SizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    size: size.options![1],
   },
 };
 

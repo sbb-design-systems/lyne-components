@@ -28,8 +28,6 @@ customElements.define(
   },
 );
 
-// TODO Test von Jeri kopieren, test für attribut vs property Zuweisung
-
 describe('idReference', () => {
   it('should automatically resolve ids', async () => {
     const root = await fixture(

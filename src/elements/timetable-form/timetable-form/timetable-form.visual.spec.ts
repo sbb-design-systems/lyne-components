@@ -6,7 +6,8 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.ts';
 
-import '../../button/button.ts';
+import '../../button.ts';
+import '../../date-input.ts';
 import '../../datepicker.ts';
 import '../../divider.ts';
 import '../../form-field.ts';
@@ -22,14 +23,16 @@ const fromToFields = (opt: { hasVia?: boolean } = {}): TemplateResult => html`
     <input type="text" name="from" />
   </sbb-timetable-form-field>
   <sbb-timetable-form-swap-button></sbb-timetable-form-swap-button>
-  ${opt.hasVia
-    ? html`
-        <sbb-timetable-form-field>
-          <label>Via</label>
-          <input type="text" name="via" />
-        </sbb-timetable-form-field>
-      `
-    : nothing}
+  ${
+    opt.hasVia
+      ? html`
+          <sbb-timetable-form-field>
+            <label>Via</label>
+            <input type="text" name="via" />
+          </sbb-timetable-form-field>
+        `
+      : nothing
+  }
   <sbb-timetable-form-field>
     <label>To</label>
     <input type="text" name="to" />
@@ -78,7 +81,7 @@ const timetableDetails = (opt: { expandedDatepicker?: boolean } = {}): TemplateR
       <sbb-toggle-option value="arrival">Arr</sbb-toggle-option>
     </sbb-toggle>
     <div style="flex-grow: 1;"></div>
-    <sbb-button type="submit" size="m">Search</sbb-button>
+    <sbb-button type="submit">Search</sbb-button>
   </sbb-timetable-form-details>
 `;
 

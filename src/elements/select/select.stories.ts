@@ -6,14 +6,13 @@ import type {
   StoryContext,
   StoryObj,
 } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbErrorElement } from '../form-field.ts';
 import { SbbOptionElement } from '../option.ts';
 
@@ -23,6 +22,11 @@ import { SbbSelectElement } from './select.component.ts';
 import '../card.ts';
 import '../form-field.ts';
 import '../select.ts';
+
+const complexValueArray = [
+  { id: 0, name: 'Option 1' },
+  { id: 1, name: 'Option 2' },
+];
 
 const borderless: InputType = {
   control: {
@@ -37,7 +41,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['s', 'm'] satisfies SbbSelectElement['size'][],
   table: {
     category: 'Form field',
   },
@@ -171,7 +175,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   borderless: false,
-  size: size.options![0],
+  size: undefined,
   negative: false,
   floatingLabel: false,
   value: undefined,
@@ -188,7 +192,7 @@ const defaultArgs: Args = {
 
 const changeEventHandler = (event: Event): void => {
   const div = document.createElement('div');
-  div.innerText = `current value is: ${(event.target as SbbSelectElement).value}`;
+  div.innerText = `current value is: ${(event.target as SbbSelectElement).getDisplayValue()}`;
   document.getElementById('container-value')!.append(div);
 };
 
@@ -215,14 +219,16 @@ const valueEllipsis: string = 'This label name is so long that it needs ellipsis
 const textBlock = (text: string | null = null): TemplateResult => {
   return html`
     <sbb-card color="milk" style="margin-block-start: 1rem">
-      ${!text
-        ? html`
-            <span>
-              This text block has a <code style=${styleMap(codeStyle)}>z-index</code> greater than
-              the form field, but it must always be covered by the select overlay.
-            </span>
-          `
-        : text}
+      ${
+        !text
+          ? html`
+              <span>
+                This text block has a <code style=${styleMap(codeStyle)}>z-index</code> greater than
+                the form field, but it must always be covered by the select overlay.
+              </span>
+            `
+          : text
+      }
     </sbb-card>
   `;
 };
@@ -239,9 +245,21 @@ const createOptions = (
       ? selectValue.includes(value)
       : selectValue === value;
     return html`
-      <sbb-option value=${value} ?disabled=${disableOption && i < 2} ?selected=${selected}>
+      <sbb-option .value=${i} ?disabled=${disableOption && i < 2} ?selected=${selected}>
         ${value}
       </sbb-option>
+    `;
+  });
+};
+
+const createComplexValueOptions = (
+  numberOfOptions: number,
+  disableOption: boolean,
+): TemplateResult[] => {
+  return new Array(numberOfOptions).fill(null).map((_, i) => {
+    const value = { id: i, name: `Option ${i + 1}` };
+    return html`
+      <sbb-option .value=${value} ?disabled=${disableOption && i < 2}> ${value.name} </sbb-option>
     `;
   });
 };
@@ -273,15 +291,49 @@ const FormFieldTemplate = ({
   <div>
     <sbb-form-field
       ?borderless=${borderless}
-      size=${size}
+      size=${size || nothing}
       ?negative=${negative}
       ?floating-label=${floatingLabel}
     >
       <label>Select</label>
       <sbb-select ${sbbSpread(args)} @change=${(event: Event) => changeEventHandler(event)}>
-        ${withOptionGroup
-          ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
-          : createOptions(numberOfOptions, disableOption, false, args.value)}
+        ${
+          withOptionGroup
+            ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
+            : createOptions(numberOfOptions, disableOption, false, args.value)
+        }
+      </sbb-select>
+    </sbb-form-field>
+    ${textBlock()}
+  </div>
+  <div id="container-value" style="margin-block-start: 2rem; color: var(--sbb-color-smoke);"></div>
+`;
+
+const CompareWithTemplate = ({
+  borderless,
+  size,
+  negative,
+  floatingLabel,
+  numberOfOptions,
+  disableOption,
+  value,
+  ...args
+}: Args): TemplateResult => html`
+  <div>
+    <sbb-form-field
+      ?borderless=${borderless}
+      size=${size || nothing}
+      ?negative=${negative}
+      ?floating-label=${floatingLabel}
+    >
+      <label>Select</label>
+      <sbb-select
+        ${sbbSpread(args)}
+        .value=${value ? complexValueArray.find((v) => value === v.name) : undefined}
+        @change=${(event: Event) => changeEventHandler(event)}
+        .compareWith=${(v1: any, v2: any) => v1?.id === v2?.id}
+      >
+        ${createComplexValueOptions(numberOfOptions, disableOption)}
       </sbb-select>
     </sbb-form-field>
     ${textBlock()}
@@ -309,7 +361,7 @@ const SelectEllipsisTemplate = ({
     <div>
       <sbb-form-field
         ?borderless=${borderless}
-        size=${size}
+        size=${size || nothing}
         ?negative=${negative}
         ?floating-label=${floatingLabel}
       >
@@ -318,9 +370,11 @@ const SelectEllipsisTemplate = ({
           <sbb-option value=${valueEllipsis} ?selected=${ellipsisSelected}>
             ${valueEllipsis}
           </sbb-option>
-          ${withOptionGroup
-            ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
-            : createOptions(numberOfOptions, disableOption, false, args.value)}
+          ${
+            withOptionGroup
+              ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
+              : createOptions(numberOfOptions, disableOption, false, args.value)
+          }
         </sbb-select>
       </sbb-form-field>
       ${textBlock()}
@@ -353,7 +407,7 @@ const FormFieldTemplateWithError = ({
     <div>
       <sbb-form-field
         ?borderless=${borderless}
-        size=${size}
+        size=${size || nothing}
         ?negative=${negative}
         ?floating-label=${floatingLabel}
         id="sbb-form-field"
@@ -373,9 +427,11 @@ const FormFieldTemplateWithError = ({
             }
           }}
         >
-          ${withOptionGroup
-            ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
-            : createOptions(numberOfOptions, disableOption, false, args.value)}
+          ${
+            withOptionGroup
+              ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
+              : createOptions(numberOfOptions, disableOption, false, args.value)
+          }
         </sbb-select>
         ${error}
       </sbb-form-field>
@@ -393,7 +449,7 @@ const KeyboardInteractionTemplate = ({
 }: Args): TemplateResult => html`
   <sbb-form-field
     ?borderless=${borderless}
-    size=${size}
+    size=${size || nothing}
     ?negative=${negative}
     ?floating-label=${floatingLabel}
   >
@@ -447,22 +503,10 @@ export const SingleSelectSizeS: StoryObj = {
   args: { ...defaultArgs, size: size.options![1] },
 };
 
-export const SingleSelectNegativeSizeS: StoryObj = {
-  render: FormFieldTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true, size: size.options![1] },
-};
-
 export const MultipleSelectSizeS: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, multiple: true, size: size.options![1] },
-};
-
-export const MultipleSelectNegativeSizeS: StoryObj = {
-  render: FormFieldTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, multiple: true, negative: true, size: size.options![1] },
 };
 
 export const SingleSelectWithGrouping: StoryObj = {
@@ -493,6 +537,24 @@ export const MultipleSelectEllipsis: StoryObj = {
     value: { ...value, options: [...value.options!, valueEllipsis] },
   },
   args: { ...defaultArgs, multiple: true, value: valueEllipsis },
+};
+
+export const SingleSelectCompareWith: StoryObj = {
+  render: CompareWithTemplate,
+  argTypes: {
+    ...defaultArgTypes,
+    value: { ...value, options: [...value.options!] },
+  },
+  args: { ...defaultArgs },
+};
+
+export const MultipleSelectCompareWith: StoryObj = {
+  render: CompareWithTemplate,
+  argTypes: {
+    ...defaultArgTypes,
+    value: { ...value, options: [...value.options!] },
+  },
+  args: { ...defaultArgs, multiple: true },
 };
 
 export const Required: StoryObj = {

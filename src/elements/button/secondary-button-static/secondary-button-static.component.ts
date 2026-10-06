@@ -1,9 +1,7 @@
 import type { CSSResultGroup } from 'lit';
 
-import { SbbActionBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { buttonCommonStyle, buttonSecondaryStyle, SbbButtonCommonElementMixin } from '../common.ts';
+import { SbbActionBaseElement, SbbDisabledMixin } from '../../core.ts';
+import { buttonSecondaryStyle, SbbButtonCommonElementMixin } from '../common/button-common.ts';
 
 /**
  * It displays a static button enhanced with the SBB Design in the 'secondary' variant.
@@ -16,11 +14,7 @@ export class SbbSecondaryButtonStaticElement extends SbbButtonCommonElementMixin
   SbbDisabledMixin(SbbActionBaseElement),
 ) {
   public static override readonly elementName: string = 'sbb-secondary-button-static';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    buttonCommonStyle,
-    buttonSecondaryStyle,
-  ];
+  public static override styles: CSSResultGroup = [buttonSecondaryStyle];
 }
 
 declare global {

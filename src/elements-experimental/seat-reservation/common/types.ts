@@ -32,13 +32,10 @@ export interface CoachItemDetails {
   freePlaces: CoachNumberOfFreePlaces;
   // coach is driver area
   isDriverArea: boolean;
+  // coach is locomotive
+  isLocomotive?: boolean;
   // holds information about whether a coach on the left or right side has a driver area
   driverAreaSide?: Record<string, boolean>;
-  // driverAreaElements which can be used throughout the seat-reservation because they won't change
-  driverAreaElements: {
-    driverArea: BaseElement | undefined;
-    driverAreaNoVerticalWall: BaseElement | undefined;
-  };
 }
 
 /** Extends BaseElement with seat-specific data. */
@@ -56,6 +53,7 @@ export interface BaseElement {
   rotation?: number;
   position: ElementPosition;
   dimension: ElementDimension;
+  mounting?: ElementMounting | null;
 }
 
 export interface ElementDimension {
@@ -115,12 +113,9 @@ export interface SeatReservationSelectedPlaces {
 export type PlaceType = 'SEAT' | 'BICYCLE';
 export type CoachDeckLevel = 'SINGLE_DECK' | 'LOWER_DECK' | 'MIDDLE_DECK' | 'UPPER_DECK';
 export type CoachType =
-  | 'RESTAURANT_COACH'
-  | 'BICYCLE_COACH'
-  | 'LUGGAGE_COACH'
-  | 'TRAIN_HEAD'
-  | 'LOCOMOTIVE_COACH';
+  'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD' | 'LOCOMOTIVE_COACH';
 export type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
 export type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
 export type VehicleType = 'TRAIN' | 'BUS';
 export type TravelDirection = 'LEFT' | 'RIGHT' | 'NONE';
+export type ElementMounting = 'free' | 'upper-border' | 'lower-border';

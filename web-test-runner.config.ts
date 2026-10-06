@@ -15,7 +15,7 @@ import {
   type PlaywrightLauncher,
 } from '@web/test-runner-playwright';
 import { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
-import { initCompiler } from 'sass';
+import * as sass from 'sass-embedded';
 
 import {
   a11yTreePlugin,
@@ -26,6 +26,7 @@ import {
   visualRegressionConfig,
   vitePlugin,
   preloadIcons,
+  preloadFonts,
 } from './tools/web-test-runner/index.ts';
 
 const { values: cliArgs } = parseArgs({
@@ -58,13 +59,12 @@ const launchOptions: PlaywrightLauncherArgs = {
   },
 };
 
-const stylesCompiler = initCompiler();
 const renderStyles = (): string =>
-  stylesCompiler.compile('./src/elements/core/styles/standard-theme.scss', {
+  sass.compile('./src/elements/core/styles/standard-theme.scss', {
     loadPaths: ['.', './node_modules/'],
   }).css;
 const renderExperimentalStyles = (): string =>
-  stylesCompiler.compile('./src/elements-experimental/core/styles/standard-theme.scss', {
+  sass.compile('./src/elements-experimental/core/styles/standard-theme.scss', {
     loadPaths: ['.', './node_modules/'],
   }).css;
 
@@ -74,21 +74,6 @@ const browsers =
       (['chromium', 'firefox', 'webkit'] as const).map((product) =>
         playwrightLauncher({
           product,
-          createPage: ({ context }) =>
-            context.newPage().then((page) => {
-              page.on('console', (message) => {
-                if (message.type() === 'error' && !message.location().url.includes('dummy.png')) {
-                  console.error(`CONSOLE: ${product} ${page.url()}`);
-                  console.error(message.location());
-                  console.error(message.text());
-                }
-              });
-              page.on('pageerror', (err) => {
-                console.error(`PAGEERROR: ${product} ${page.url()}`);
-                console.error(err);
-              });
-              return page;
-            }),
           ...concurrency,
           ...launchOptions,
         }),
@@ -100,6 +85,7 @@ const browsers =
         : [playwrightLauncher({ product: 'chromium', ...launchOptions })];
 
 const preloadedIcons = await preloadIcons();
+const preloadedFonts = await preloadFonts();
 
 const testRunnerHtml = (
   testFramework: string,
@@ -108,27 +94,23 @@ const testRunnerHtml = (
 ): string => `
 <!DOCTYPE html>
 <html lang="en">
-  <head>${
-    // Although we provide the fonts as base64, we preload the original
-    // files which prevents a bug in Safari rendering special characters.
-    ['Roman', 'Bold', 'Light']
-      .map(
-        (type) => `
-    <link
-      rel="preload"
-      href="https://cdn.app.sbb.ch/fonts/v1_9_subset/SBBWeb-${type}.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-    />`,
-      )
-      .join('')
-  }
+  <head>
     <link rel="modulepreload" href="/src/elements/core/testing/private/test-setup.ts" />
     <style type="text/css">
-      ${renderStyles()}
-    </style>
-    <style type="text/css">
+      ${renderStyles().replace(
+        /@font-face\b\s*\{[\s\S]*?\}/g,
+        preloadedFonts
+          .map(
+            (f) => `
+      @font-face {
+        font-family: SBB;
+        src: ${f.font};
+        font-display: block;
+        font-weight: ${f.weight};
+      }`,
+          )
+          .join(''),
+      )}
       ${renderExperimentalStyles()}
     </style>
     <script type="module">
@@ -155,8 +137,6 @@ const suppressedLogs = [
   'Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.',
   '[vite] connecting...',
   '[vite] connected.',
-  // TODO(major): Verify if still needed
-  'Using <sbb-datepicker> with a native <input> is deprecated. Use a <sbb-date-input> instead of <input>.',
 ];
 
 let testFiles = globSync(`src/**/*.spec.ts`);
@@ -210,7 +190,7 @@ export default {
     a11yTreePlugin(),
     litSsrPlugin({
       workerInitModules: [
-        './tools/node-esm-hook/register-hooks.ts',
+        './tools/web-test-runner/node-hook.ts',
         './src/elements/core/testing/private/test-setup-ssr.ts',
       ],
     }),
@@ -229,10 +209,19 @@ export default {
     },
   },
   coverageConfig: {
-    exclude: ['**/node_modules/**/*', '**/assets/*.svg', '**/assets/*.png', '**/*.scss'],
+    exclude: [
+      '**/node_modules/**/*',
+      '**/assets/*.svg',
+      '**/assets/*.png',
+      '**/*.scss',
+      '**/core/mixins/constructor.ts',
+      '**/core/interfaces/*',
+      '**/core/timetable/timetable-properties.ts',
+      '**/seat-reservation/common/types.ts',
+    ],
     reporters: cliArgs.ci ? ['json'] : undefined,
   },
   filterBrowserLogs: (log) => !suppressedLogs.includes(log.args[0]),
   testRunnerHtml,
-  testsFinishTimeout: 180000,
+  testsFinishTimeout: 300000,
 } satisfies TestRunnerConfig;

@@ -1,29 +1,23 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import { isZeroAnimationDuration } from '../../core/dom.ts';
-import type { SbbOverlayCloseEventDetails } from '../../core/interfaces/overlay-close-details.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { isZeroAnimationDuration, screenReaderOnlyStyles } from '../../core.ts';
 import {
   overlayRefs,
   SbbOverlayBaseElement,
   SbbOverlayCloseEvent as SbbDialogCloseEvent,
-} from '../../overlay.ts';
+} from '../../overlay.pure.ts';
 import type { SbbDialogContentElement } from '../dialog-content/dialog-content.component.ts';
 
-import style from './dialog.scss?lit&inline';
-
-import '../../screen-reader-only.ts';
+import style from './dialog.scss?inline';
 
 export {
   assignOverlayResult as assignDialogResult,
   SbbOverlayCloseEvent as SbbDialogCloseEvent,
-} from '../../overlay/overlay-base-element.ts';
-
-let nextId = 0;
+} from '../../overlay.pure.ts';
 
 /**
  * It displays an interactive overlay element.
@@ -35,7 +29,7 @@ let nextId = 0;
  */
 export class SbbDialogElement extends SbbOverlayBaseElement {
   public static override readonly elementName: string = 'sbb-dialog';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /** Backdrop click action. */
   @property({ attribute: 'backdrop-action' }) public accessor backdropAction: 'close' | 'none' =
@@ -43,8 +37,7 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
 
   /** Backdrop density. */
   @property({ attribute: 'backdrop', reflect: true }) public accessor backdrop:
-    | 'opaque'
-    | 'translucent' = 'opaque';
+    'opaque' | 'translucent' = 'opaque';
 
   // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.
   // For more details:
@@ -72,15 +65,10 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
     });
   }
 
-  public override connectedCallback(): void {
-    this.id ||= `sbb-dialog-${nextId++}`;
-    super.connectedCallback();
-  }
-
   /** Announce the accessibility label or dialog title for screen readers. */
   public announceTitle(): void {
     this.setAriaLiveRefContent(
-      this.accessibilityLabel || this.querySelector('sbb-dialog-title')?.innerText.trim(),
+      this.accessibilityLabel || this.querySelector('sbb-dialog-title')?.textContent.trim(),
     );
   }
 
@@ -111,10 +99,7 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
       this.scrollHandler.enableScroll();
     }
     this.escapableOverlayController.disconnect();
-    this.dispatchCloseEvent({
-      returnValue: this.returnValue,
-      closeTarget: this.overlayCloseElement,
-    });
+    this.dispatchCloseEvent();
   }
 
   protected handleOpening(): void {
@@ -214,27 +199,25 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
     return this.querySelector('sbb-dialog-content');
   }
 
-  // TODO: remove parameter `detail`
-  protected override dispatchBeforeCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
+  protected override dispatchBeforeCloseEvent(): boolean {
     /** @type {SbbDialogCloseEvent} Emits whenever the component begins the closing transition. Can be canceled. */
     return this.dispatchEvent(
       new SbbDialogCloseEvent('beforeclose', {
         cancelable: true,
         closeAttribute: this.closeAttribute,
-        closeTarget: this.overlayCloseElement,
-        result: this.returnValue,
+        closeTarget: this.lastClosedTarget,
+        result: this.lastResult,
       }),
     );
   }
 
-  // TODO: remove parameter `detail`
-  protected override dispatchCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
+  protected override dispatchCloseEvent(): boolean {
     /** @type {SbbDialogCloseEvent} Emits whenever the component is closed. */
     return this.dispatchEvent(
       new SbbDialogCloseEvent('close', {
         closeAttribute: this.closeAttribute,
-        closeTarget: this.overlayCloseElement,
-        result: this.returnValue,
+        closeTarget: this.lastClosedTarget,
+        result: this.lastResult,
       }),
     );
   }
@@ -255,7 +238,7 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
           </div>
         </div>
       </div>
-      <sbb-screen-reader-only aria-live="polite"></sbb-screen-reader-only>
+      <span class="sbb-screen-reader-only" aria-live="polite"></span>
     `;
   }
 }

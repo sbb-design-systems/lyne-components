@@ -1,9 +1,9 @@
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 import '../map-container.ts';
@@ -68,7 +68,7 @@ const meta: Meta = {
   decorators: [
     (story) => html`
       <sbb-header expanded>
-        <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
+        <sbb-header-button icon-name="hamburger-menu-small" hide-label-below="small">
           Menu
         </sbb-header-button>
         <div class="sbb-header-spacer"></div>

@@ -112,16 +112,16 @@ To not break the accessibility when links are used together with images, please 
 
 #### Events
 
-| Name         | Type                                      | Description                                                  | Inherited From |
-| ------------ | ----------------------------------------- | ------------------------------------------------------------ | -------------- |
-| `beforeshow` | `CustomEvent<SbbCarouselItemEventDetail>` | Event emitted when the item is starting scrolling.           |                |
-| `show`       | `CustomEvent<SbbCarouselItemEventDetail>` | Event emitted when the item is full visible after scrolling. |                |
+| Name         | Type                       | Description                                                  | Inherited From |
+| ------------ | -------------------------- | ------------------------------------------------------------ | -------------- |
+| `beforeshow` | `SbbCarouselItemShowEvent` | Event emitted when the item is starting scrolling.           |                |
+| `show`       | `SbbCarouselItemShowEvent` | Event emitted when the item is full visible after scrolling. |                |
 
 #### Slots
 
-| Name | Description                                                                                |
-| ---- | ------------------------------------------------------------------------------------------ |
-|      | Use the unnamed slot to add images for the carousel, as <img>, <sbb-image>, <picture>, ... |
+| Name | Description                                                                                      |
+| ---- | ------------------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add images for the carousel, as `<img>`, `<sbb-image>`, `<picture>`, ... |
 
 ### class: `SbbCarouselListElement`, `sbb-carousel-list`
 

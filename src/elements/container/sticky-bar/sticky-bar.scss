@@ -44,7 +44,7 @@ $intersector-overlapping: 1px;
   --_sbb-sticky-bar-intersector-background-color: var(--sbb-sticky-bar-sticky-background-color);
   --_sbb-sticky-bar-background-animation-duration: var(--sbb-sticky-bar-fade-in-animation-duration);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --_sbb-sticky-bar-forced-colors-border: var(--sbb-border-width-1x) solid CanvasText;
   }
 }
@@ -98,7 +98,7 @@ $intersector-overlapping: 1px;
   z-index: var(--sbb-sticky-bar-z-index);
 
   animation: {
-    name: var(--sbb-sticky-bar-slide-vertically-animation-name, unset);
+    name: var(--sbb-sticky-bar-slide-vertically-animation-name, none);
     duration: var(--sbb-sticky-bar-slide-vertically-animation-duration);
     timing-function: var(--sbb-sticky-bar-slide-vertically-animation-easing);
     delay: 0s;

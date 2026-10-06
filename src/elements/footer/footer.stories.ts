@@ -2,7 +2,7 @@ import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-v
 import { html, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
@@ -127,7 +127,6 @@ const TemplateClockColumns = ({ ...args }): TemplateResult => html`
       </sbb-link-list>
       <sbb-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        size="m"
       >
         All help topics
       </sbb-button-link>
@@ -180,7 +179,6 @@ const TemplateClockColumns = ({ ...args }): TemplateResult => html`
       </span>
       <sbb-secondary-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        size="m"
       >
         Subscribe
       </sbb-secondary-button-link>

@@ -2,7 +2,8 @@ import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-v
 import { html, nothing, type TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
-import '../button/button.ts';
+import '../button.ts';
+import '../date-input.ts';
 import '../datepicker.ts';
 import '../divider.ts';
 import '../form-field.ts';
@@ -23,12 +24,14 @@ const fromToFields = (_args: Args, opt: { withVia?: boolean } = {}): TemplateRes
     <input type="text" name="from" />
   </sbb-timetable-form-field>
   <sbb-timetable-form-swap-button></sbb-timetable-form-swap-button>
-  ${opt.withVia
-    ? html` <sbb-timetable-form-field>
-        <label>Via</label>
-        <input type="text" name="via" />
-      </sbb-timetable-form-field>`
-    : nothing}
+  ${
+    opt.withVia
+      ? html` <sbb-timetable-form-field>
+          <label>Via</label>
+          <input type="text" name="via" />
+        </sbb-timetable-form-field>`
+      : nothing
+  }
   <sbb-timetable-form-field>
     <label>To</label>
     <input type="text" name="to" />
@@ -80,7 +83,7 @@ const timetableDetails = (
       <sbb-toggle-option value="arrival">Arr</sbb-toggle-option>
     </sbb-toggle>
     <div style="flex-grow: 1;"></div>
-    <sbb-button type="submit" size="m">Search</sbb-button>
+    <sbb-button type="submit">Search</sbb-button>
   </sbb-timetable-form-details>
 `;
 

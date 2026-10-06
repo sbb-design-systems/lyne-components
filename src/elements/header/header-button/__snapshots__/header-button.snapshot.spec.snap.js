@@ -4,7 +4,7 @@ export const snapshots = {};
 snapshots["sbb-header-button renders DOM"] = 
 `<sbb-header-button
   aria-label="a11y label"
-  expand-from="zero"
+  hide-label-below="large"
   icon-name="pie-small"
   name="test"
   tabindex="0"

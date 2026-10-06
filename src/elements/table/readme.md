@@ -22,7 +22,259 @@ The `<sbb-table-wrapper>` is a wrapper for a table. Its goal is to enhance/autom
 
 ## Style
 
-See the [Table](/docs/styles-table--docs) style section.
+The `sbb-table` class is designed to handle the styling of common table use cases, ensuring a consistent and visually appealing presentation of tabular data.
+This guide will walk you through the various customization options and advanced scenarios for styling tables within our design system.
+
+### Basic usage
+
+```html
+<table class="sbb-table">
+  <thead>
+    <th>...</th>
+    ...
+  </thead>
+  <tbody>
+    <tr>
+      <td>...</td>
+      ...
+    </tr>
+    ...
+  </tbody>
+  <caption>
+    ...
+  </caption>
+</table>
+```
+
+### Caption outside the table
+
+When using `<sbb-table-wrapper>`, the native `<caption>` element is placed inside the scrollable area and scrolls with the table content.
+If the caption should appear below the scrollable content (outside `<sbb-table-wrapper>`), place an element with the `sbb-table-caption` class after the wrapper.
+It receives the same typography and spacing as a native caption:
+
+```html
+<sbb-table-wrapper>
+  <table class="sbb-table">
+    ...
+  </table>
+</sbb-table-wrapper>
+<p class="sbb-table-caption">This caption is shown below the scrollable table content.</p>
+```
+
+### Striped table
+
+Add the `sbb-table--striped` class to add alternating row stripes to enhance readability.
+
+```html
+<table class="sbb-table sbb-table--striped">
+  ...
+</table
+```
+
+### Size
+
+The available sizes are `xs`, `s` and `m`. Use the respective `sbb-table-*size*` classes to specify it:
+Without specifying a size, the table will adapt to the default size of the theme (s for lean, m for standard).
+
+```html
+<table class="sbb-table-s"></table>
+<table class="sbb-table-m"></table>
+<table class="sbb-table-xs"></table>
+```
+
+### Negative variant
+
+For a negative color scheme, apply the `sbb-table--negative` class:
+
+```html
+<table class="sbb-table sbb-table--negative">
+  ...
+</table>
+```
+
+### Grouping columns
+
+To visually group two adjacent columns, apply the `sbb-table-group-with-next` class to the `th` or `td` that precedes the next column in the group.
+This removes the border between the two columns, making them appear as one logical unit:
+
+```html
+<table class="sbb-table">
+  <thead>
+    <tr>
+      <th class="sbb-table-group-with-next">First Name</th>
+      <th>Last Name</th>
+      <th>Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="sbb-table-group-with-next">Chris</td>
+      <td>Evans</td>
+      <td>22</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+**Note:** The Angular wrapper also has the groupWithNext property on a cell.
+
+### Header subtitle
+
+To display a subtitle below a column header, add an element with the `sbb-table-header-subtitle`
+class inside a `th` element:
+
+```html
+<table class="sbb-table">
+  <thead>
+    <tr>
+      <th>
+        Person
+        <div class="sbb-table-header-subtitle">Subtitle</div>
+      </th>
+      <th>
+        Most interest in
+        <div class="sbb-table-header-subtitle">Subtitle</div>
+      </th>
+      <th>
+        Age
+        <div class="sbb-table-header-subtitle">Subtitle</div>
+      </th>
+    </tr>
+  </thead>
+  ...
+</table>
+```
+
+<!-- #region table-docs-sorting -->
+
+### Sorting
+
+A sortable column header is composed of a `th` carrying the sort state,
+and a focusable inner control used to lay out the label and the sort arrow icon.
+Consumers must handle click and keypress events on the control.
+
+```html
+<th class="sbb-sort-header" aria-sort="ascending">
+  <div tabindex="0" role="button" class="sbb-sort-header-container sbb-sort-header-sorted">
+    <span class="sbb-sort-header-content">Name</span>
+    <span class="sbb-sort-header-arrow active">
+      <!-- svg arrow icon, e.g. with an `sbb-sort-indicator active-asc` element inside -->
+    </span>
+  </div>
+</th>
+```
+
+Sorting uses the following CSS classes:
+
+| Name                              | Description                                                                           |
+| --------------------------------- | ------------------------------------------------------------------------------------- |
+| `sbb-sort-header`                 | Applied on a sortable `th` element.                                                   |
+| `sbb-sort-header-disabled`        | Removes pointer and hover styling; consumers must also prevent sorting interaction.   |
+| `sbb-sort-header-container`       | Wraps label and arrow, defines the layout.                                            |
+| `sbb-sort-header-position-before` | Renders the arrow before the label instead of after.                                  |
+| `sbb-sort-header-sorted`          | Applied on the container when the column is actively sorted.                          |
+| `sbb-sort-header-content`         | Wraps the header text content.                                                        |
+| `sbb-sort-header-arrow`           | Arrow wrapper; controls visibility and position through state classes.                |
+| `sbb-sort-indicator`              | Applied on the arrow glyph inside the wrapper; controls its direction by flipping it. |
+
+Consumers must update the state classes (including on hover or focus); CSS does not apply `hint` automatically.
+The arrow wrapper controls opacity and movement, while the indicator controls the icon's direction independently:
+
+| State class                        | Applied on                                    | Effect                                                    |
+| ---------------------------------- | --------------------------------------------- | --------------------------------------------------------- |
+| `void`                             | `sbb-sort-header-arrow`                       | Hidden, with no position offset.                          |
+| `asc` / `desc`                     | `sbb-sort-header-arrow`                       | Hidden, offset upwards / downwards.                       |
+| `hint`                             | `sbb-sort-header-arrow`                       | Visible at reduced opacity (54%), in its normal position. |
+| `active`                           | `sbb-sort-header-arrow`                       | Fully visible, in its normal position.                    |
+| `asc-to-active` / `desc-to-active` | `sbb-sort-header-arrow`                       | Moves to the fully visible, normal position.              |
+| `asc-to-hint` / `desc-to-hint`     | `sbb-sort-header-arrow`                       | Moves to the reduced-opacity, normal position.            |
+| `hint-to-asc` / `active-to-asc`    | `sbb-sort-header-arrow`                       | Hides the arrow, moving it upwards.                       |
+| `hint-to-desc` / `active-to-desc`  | `sbb-sort-header-arrow`                       | Hides the arrow, moving it downwards.                     |
+| `asc` / `active-asc`               | `sbb-sort-indicator`                          | Flips the icon vertically (ascending).                    |
+| `desc` / `active-desc`             | `sbb-sort-indicator`                          | Keeps the icon's default orientation (descending).        |
+| `no-transition`                    | `sbb-sort-header-arrow`, `sbb-sort-indicator` | Disables CSS transitions, e.g. on initial render.         |
+
+The `*-to-*` classes above are the supported transitions; those between `hint` and `asc`/`desc` also use keyframe animations.
+Do not combine `active` with `asc` or `desc` on the arrow wrapper: `asc`/`desc` make it hidden.
+Apply the direction class to `sbb-sort-indicator` instead.
+
+<!-- #endregion -->
+
+### Row hover
+
+To highlight a row when the user hovers over it, apply `sbb-table--hover` to the `<table>` element.
+This enables the hover effect for every row in `<tbody>`.
+
+```html
+<table class="sbb-table sbb-table--hover">
+  ...
+</table>
+```
+
+### Row selection
+
+To mark a row as selected, add the `sbb-table--selected` class to the `<tr>` element.
+The class can be set dynamically, e.g. when a user interacts with a checkbox in the row.
+
+```html
+<table class="sbb-table">
+  <tbody>
+    <tr class="sbb-table--selected">
+      <td>Selected row</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+A common pattern is to place a checkbox in the first column and toggle the class on change.
+
+### Text alignment
+
+By default, table cells are left-aligned.
+Use the following classes to change the text alignment of individual cells or columns.
+The classes can be applied on the table or on individual `th` or `td` elements,
+depending on the desired scope of the alignment.
+
+| CSS class                 | Description       |
+| ------------------------- | ----------------- |
+| `sbb-table-align-start`   | Align text start  |
+| `sbb-table-align-center`  | Align text center |
+| `sbb-table-align-end`     | Align text end    |
+| `sbb-table-align-justify` | Justify text      |
+
+### Iron theme
+
+For the iron theme, apply the `sbb-table--theme-iron` class.
+This scheme changes the text color of the cells to `sbb-color-iron`.
+
+```html
+<table class="sbb-table sbb-table--theme-iron">
+  ...
+</table>
+```
+
+### CSS classes
+
+| Name                        | Description                                                             |
+| --------------------------- | ----------------------------------------------------------------------- |
+| `sbb-table`                 | Table styles (corresponds to size s with lean or m with standard theme) |
+| `sbb-table-m`               | Medium size table style                                                 |
+| `sbb-table-s`               | Small size table style                                                  |
+| `sbb-table-xs`              | Smallest size table style                                               |
+| `sbb-table-caption`         | Caption styles for an element placed outside the table or table wrapper |
+| `sbb-table--negative`       | Negative variant style                                                  |
+| `sbb-table--striped`        | Striped table style                                                     |
+| `sbb-table--unstriped`      | Non-striped table style                                                 |
+| `sbb-table--hover`          | Enables highlighting a row on hover                                     |
+| `sbb-table--selected`       | Applied on a `tr`, marks the row as selected                            |
+| `sbb-table-row--striped`    | Force the striped state on a `tr`                                       |
+| `sbb-table-filter`          | `th` element that contains an inline filter                             |
+| `sbb-table-group-with-next` | Removes the border to the next column                                   |
+| `sbb-table-header-subtitle` | Subtitle text displayed below a column header                           |
+| `sbb-table-align-start`     | Aligns cell text to the start                                           |
+| `sbb-table-align-center`    | Aligns cell text to the center                                          |
+| `sbb-table-align-end`       | Aligns cell text to the end                                             |
+| `sbb-table-align-justify`   | Justifies cell text                                                     |
 
 ### Sticky Table
 

@@ -1,7 +1,5 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
-import { isWebkit } from '../../core/dom/platform.ts';
-import { ɵstateController } from '../../core/mixins/element-internals-mixin.ts';
 import {
   describeEach,
   describeViewports,
@@ -9,10 +7,18 @@ import {
   visualDiffDefault,
   visualDiffHover,
   visualDiffStandardStates,
+  type VisualDiffSetupBuilder,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
+import { isWebkit, ɵstateController } from '../../core.ts';
+import {
+  type ButtonCssClassOptions,
+  buttonCssClassTemplate,
+} from '../common/button-test-utils.private.ts';
 
-import '../button.ts';
+import type { SbbButtonElement } from './button.component.ts';
+
+import '../../button.ts';
 
 describe(`sbb-button`, () => {
   let root: HTMLElement;
@@ -28,8 +34,11 @@ describe(`sbb-button`, () => {
     darkMode: [false, true],
   };
 
-  // 'l' as default is covered by other cases.
-  const sizeCases = { size: ['s', 'm'], icon: [undefined, 'arrow-right-small'] };
+  // 'm' as default is covered by other cases.
+  const sizeCases = {
+    size: [null, 's', 'l'] satisfies SbbButtonElement['size'][],
+    icon: [undefined, 'arrow-right-small'],
+  };
 
   const forcedColorCases = {
     disabled: [false, true],
@@ -39,6 +48,29 @@ describe(`sbb-button`, () => {
   const loadingCases = {
     negative: [false, true],
     darkMode: [false, true],
+  };
+
+  // The CSS class equivalents of the cases above. `label: null` renders an icon only
+  // button, which is the `sbb-icon-button` class instead of an empty text content.
+  const cssClassCases = {
+    disabled: [false, true],
+    negative: [false, true],
+    state: [
+      { icon: false, label: 'Button' },
+      { icon: true, label: 'Button' },
+      { icon: true, label: null },
+    ],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
+  };
+
+  // The theme default (no suffix) is covered by the other cases.
+  const cssClassSizeCases = {
+    size: ['s', 'm', 'l'] satisfies ButtonCssClassOptions['size'][],
+    icon: [false, true],
   };
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
@@ -105,7 +137,7 @@ describe(`sbb-button`, () => {
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-button size=${size} .iconName=${icon}>Button</sbb-button>`,
+            html`<sbb-button size=${size || nothing} .iconName=${icon}>Button</sbb-button>`,
           );
         }),
       );
@@ -231,5 +263,86 @@ describe(`sbb-button`, () => {
         await setup.withFixture(html`<sbb-button>Button</sbb-button>Other content`);
       }),
     );
+  });
+
+  describeViewports({ viewports: ['zero'] }, () => {
+    describe('CSS class', () => {
+      // Picks the native element, as otherwise the inner <sbb-icon> would be used.
+      const withNativeStateElement = (setup: VisualDiffSetupBuilder): void =>
+        void setup.withStateElement(setup.snapshotElement.querySelector('button')!);
+
+      describeEach(
+        cssClassCases,
+        ({ disabled, negative, state, emulateMedia: { darkMode, forcedColors } }) => {
+          beforeEach(async function () {
+            root = await visualRegressionFixture(
+              buttonCssClassTemplate('sbb-button', {
+                disabled,
+                negative,
+                icon: state.icon,
+                label: state.label,
+              }),
+              {
+                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                focusOutlineDark: negative,
+                darkMode,
+                forcedColors,
+              },
+            );
+          });
+
+          for (const state of visualDiffStandardStates) {
+            it(
+              state.name,
+              state.with((setup) => {
+                setup.withSnapshotElement(root);
+                withNativeStateElement(setup);
+              }),
+            );
+          }
+        },
+      );
+
+      it(
+        'loading',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(buttonCssClassTemplate('sbb-button', { loading: true }));
+          withNativeStateElement(setup);
+        }),
+      );
+
+      it(
+        'disabled interactive',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            buttonCssClassTemplate('sbb-button', { disabledInteractive: true }),
+          );
+          withNativeStateElement(setup);
+        }),
+      );
+
+      describeEach(cssClassSizeCases, ({ size, icon }) => {
+        it(
+          visualDiffDefault.name,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(buttonCssClassTemplate('sbb-button', { size, icon }));
+          }),
+        );
+      });
+
+      it(
+        'with ellipsis',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            buttonCssClassTemplate('sbb-button', {
+              icon: true,
+              label: 'Button with long text',
+              style: 'width: 150px;',
+              wrapLabel: true,
+            }),
+          );
+        }),
+      );
+    });
   });
 });

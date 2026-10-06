@@ -10,6 +10,9 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
+import type { SbbFormFieldElement } from '../form-field.ts';
+
+import { SbbChipElement } from './chip/chip.component.ts';
 import { SbbChipGroupElement } from './chip-group/chip-group.component.ts';
 import readme from './readme.md?raw';
 
@@ -52,7 +55,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm', 'l'],
+  options: ['s', 'm', 'l'] satisfies SbbFormFieldElement['size'][],
   table: {
     category: 'Form field',
   },
@@ -93,7 +96,7 @@ const defaultArgs: Args = {
   negative: false,
   separatorKeys: undefined,
   addOnBlur: false,
-  size: 'm',
+  size: undefined,
   hiddenLabel: false,
   floatingLabel: false,
 };
@@ -102,7 +105,7 @@ const Template = (args: Args): TemplateResult => html`
   <form>
     <sbb-form-field
       ?negative=${args.negative}
-      size=${args.size}
+      size=${args.size || nothing}
       ?hidden-label=${args.hiddenLabel}
       ?floating-label=${args.floatingLabel}
     >
@@ -124,7 +127,7 @@ const Template = (args: Args): TemplateResult => html`
 const WithAutocompleteTemplate = (args: Args): TemplateResult => html`
   <sbb-form-field
     ?negative=${args.negative}
-    size=${args.size}
+    size=${args.size || nothing}
     ?hidden-label=${args.hiddenLabel}
     ?floating-label=${args.floatingLabel}
   >
@@ -175,13 +178,19 @@ export const Readonly: StoryObj = {
 export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: 's' },
+  args: { ...defaultArgs, size: size.options![0] },
+};
+
+export const SizeM: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const SizeL: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: 'l' },
+  args: { ...defaultArgs, size: size.options![2] },
 };
 
 export const WithAutocomplete: StoryObj = {
@@ -216,6 +225,7 @@ const meta: Meta = {
         SbbChipGroupElement.events.input,
         SbbChipGroupElement.events.change,
         SbbChipGroupElement.events.chipinputtokenend,
+        SbbChipElement.events.delete,
       ],
     },
     backgroundColor: (context: StoryContext) =>

@@ -1,23 +1,21 @@
-import type { CSSResultGroup } from 'lit';
+import { type CSSResultGroup, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbNegativeMixin } from '../core/mixins.ts';
+import { type SbbHeadingLevel, SbbNegativeMixin } from '../core.ts';
 
-import { SbbTitleBase, type SbbTitleLevel } from './title-base.ts';
-import style from './title.scss?lit&inline';
+import { SbbTitleBase } from './title-base.ts';
+import style from './title.scss?inline';
 
 /**
  * @slot - Use the unnamed slot for the content of the title.
- *
- * @cssprop [--sbb-title-margin-block] - Margin block of the title.
  */
 export class SbbTitleElement extends SbbNegativeMixin(SbbTitleBase) {
   public static override readonly elementName: string = 'sbb-title';
-  public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Visual level for the title. Optional, if not set, the value of level will be used. */
   @property({ attribute: 'visual-level', reflect: true })
-  public override accessor visualLevel: SbbTitleLevel | null = null;
+  public override accessor visualLevel: SbbHeadingLevel | null = null;
 }
 
 declare global {

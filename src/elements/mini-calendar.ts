@@ -1,7 +1,7 @@
 /** @entrypoint */
 import {
-  SbbMiniCalendarElement,
   SbbMiniCalendarDayElement,
+  SbbMiniCalendarElement,
   SbbMiniCalendarMonthElement,
 } from './mini-calendar.pure.ts';
 

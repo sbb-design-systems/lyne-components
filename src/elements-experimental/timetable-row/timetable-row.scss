@@ -25,10 +25,6 @@
   --sbb-icon-svg-height: #{sbb.px-to-rem-build(14)};
 }
 
-.sbb-screen-reader-only {
-  @include sbb.screen-reader-only;
-}
-
 .sbb-timetable__row--quay {
   margin-inline-end: var(--sbb-spacing-fixed-1x);
 }
@@ -37,10 +33,7 @@
   float: left;
 }
 
-// resets lists
 ul {
-  @include sbb.list-reset;
-
   display: inline-flex;
 }
 
@@ -56,15 +49,16 @@ li {
 
 .sbb-timetable__row-transportnumber,
 .sbb-timetable__row-time {
-  @include sbb.text-s--bold;
+  @include sbb.text-s;
 
+  font-weight: bold;
   line-height: unset;
   white-space: nowrap;
   align-self: center;
 }
 
 .sbb-timetable__row {
-  @include sbb.text-s--regular;
+  @include sbb.text-s;
 
   display: flex;
   flex-direction: column;
@@ -75,6 +69,10 @@ li {
 .sbb-timetable__row-footer {
   // Due to a bug in Safari which displays skeleton animation even on loaded content, we need to manually disable animation.
   animation: none;
+}
+
+.sbb-timetable__row-card {
+  --sbb-card-padding-block: var(--sbb-card-with-badge-padding-block);
 }
 
 .sbb-timetable__row-header {
@@ -143,7 +141,7 @@ li {
     height: #{sbb.px-to-rem-build(28)};
   }
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     border: var(--sbb-border-width-1x) solid ButtonBorder !important;
   }
 }

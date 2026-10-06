@@ -14,17 +14,26 @@ const template = (env: string): TemplateResult => html`
     ${' @media screen and (width < 1024px) { .sbb-header-spacer { display: none; } .sbb-header-spacer-logo { display: block; } }'}
   </style>
   <sbb-header>
-    <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
+    <sbb-header-button icon-name="hamburger-menu-small" hide-label-below="small">
       Menu
     </sbb-header-button>
     <div class="sbb-header-spacer"></div>
-    <sbb-header-link href="https://www.sbb.ch" target="_blank" icon-name="magnifying-glass-small">
+    <sbb-header-link
+      href="https://www.sbb.ch"
+      target="_blank"
+      icon-name="magnifying-glass-small"
+      hide-label-below="large"
+    >
       Search
     </sbb-header-link>
-    <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
+    <sbb-header-button
+      icon-name="user-small"
+      class="sbb-header-shrinkable"
+      hide-label-below="large"
+    >
       Christina Müller
     </sbb-header-button>
-    <sbb-header-button icon-name="globe-small" class="last-element" expand-from="small">
+    <sbb-header-button icon-name="globe-small" class="last-element" hide-label-below="small">
       English
     </sbb-header-button>
     <div class="sbb-header-spacer sbb-header-spacer-logo"></div>

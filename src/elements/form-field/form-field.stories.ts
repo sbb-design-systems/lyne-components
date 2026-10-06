@@ -1,14 +1,17 @@
-import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import type { SbbErrorElement } from '../form-field.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
+import type { SbbErrorElement, SbbFormFieldElement } from '../form-field.ts';
 
 import readme from './readme.md?raw';
 
-import '../button/mini-button.ts';
+import '../autocomplete.ts';
+import '../option.ts';
+import '../button.ts';
+import '../card.ts';
 import '../form-field.ts';
 import '../link.ts';
 import '../popover.ts';
@@ -26,24 +29,27 @@ const formField = (
     'hidden-label': hiddenLabel,
     'floating-label': floatingLabel,
     slottedLabel,
+    hostClass,
   }: Args,
   template: TemplateResult,
 ): TemplateResult =>
   html`<sbb-form-field
+    class=${hostClass || nothing}
     error-space=${errorSpace}
-    ?optional=${optional}
-    size=${size}
+    size=${size || nothing}
     ?borderless=${borderless}
     width=${width}
     ?hidden-label=${hiddenLabel}
     ?floating-label=${floatingLabel}
     ?negative=${negative}
   >
-    ${label && !slottedLabel
-      ? html`<label>${label}</label>`
-      : label && slottedLabel
-        ? html`<span slot="label">${label}</span>`
-        : nothing}
+    ${
+      label && !slottedLabel
+        ? html`<label>${label}${optional ? ` (optional)` : ''}</label>`
+        : label && slottedLabel
+          ? html`<span slot="label">${label}</span>`
+          : nothing
+    }
     ${template}
   </sbb-form-field>`;
 
@@ -54,6 +60,7 @@ const PopoverTrigger = (): TemplateResult => html`
     id="popover-trigger"
   ></sbb-mini-button>
   <sbb-popover trigger="popover-trigger">
+    <sbb-popover-close-button></sbb-popover-close-button>
     <sbb-title level="2" visual-level="6" style="margin-block-start: 0"
       >Simple info popover.</sbb-title
     >
@@ -72,6 +79,7 @@ const TemplateBasicInput = ({
   disabled,
   readonly,
   value,
+  maxlength,
 }: Args): TemplateResult => html`
   <input
     class=${cssClass}
@@ -79,6 +87,7 @@ const TemplateBasicInput = ({
     ?disabled=${disabled}
     ?readonly=${readonly}
     value=${value}
+    maxlength=${maxlength || nothing}
   />
 `;
 
@@ -96,6 +105,7 @@ const TemplateBasicTextarea = ({
   disabled,
   readonly,
   value,
+  maxlength,
 }: Args): TemplateResult =>
   html` <textarea
     class=${cssClass}
@@ -103,6 +113,7 @@ const TemplateBasicTextarea = ({
     ?disabled=${disabled}
     ?readonly=${readonly}
     .value=${value || nothing}
+    maxlength=${maxlength || nothing}
   ></textarea>`;
 
 const TemplateInput = (args: Args): TemplateResult => formField(args, TemplateBasicInput(args));
@@ -132,6 +143,7 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
               placeholder=${args.placeholder}
               ?disabled=${args.disabled}
               ?readonly=${args.readonly}
+              maxlength=${args.maxlength || nothing}
             />
             ${error}`,
         )}
@@ -152,6 +164,25 @@ const TemplateInputWithIcons = (args: Args): TemplateResult =>
 
 const TemplateInputWithClearButton = (args: Args): TemplateResult =>
   formField(args, html`${TemplateBasicInput(args)} <sbb-form-field-clear></sbb-form-field-clear>`);
+
+const TemplateInputWithTextCounter = (args: Args): TemplateResult =>
+  formField(
+    args,
+    html`${TemplateBasicInput(args)} <sbb-form-field-text-counter></sbb-form-field-text-counter>`,
+  );
+
+const TemplateInputWithHint = (args: Args): TemplateResult =>
+  formField(args, html`${TemplateBasicInput(args)} <sbb-hint>${args.hintText}</sbb-hint>`);
+
+const TemplateTextareaWithHint = (args: Args): TemplateResult =>
+  formField(args, html`${TemplateBasicTextarea(args)} <sbb-hint>${args.hintText}</sbb-hint>`);
+
+const TemplateTextareaWithTextCounter = (args: Args): TemplateResult =>
+  formField(
+    args,
+    html`${TemplateBasicTextarea(args)}
+      <sbb-form-field-text-counter></sbb-form-field-text-counter>`,
+  );
 
 const TemplateSelect = (args: Args): TemplateResult => formField(args, TemplateBasicSelect(args));
 
@@ -208,6 +239,25 @@ const TemplateTextareaWithIcon = (args: Args): TemplateResult =>
       ${TemplateBasicTextarea(args)}`,
   );
 
+const TemplateAutocompleteNoForm = (args: Args): TemplateResult => html`
+  <input
+    id="no-form-field"
+    placeholder="Placeholder"
+    ?disabled=${args.disabled}
+    ?readonly=${args.readonly}
+    class="sbb-input"
+  />
+  <sbb-autocomplete trigger="no-form-field">
+    <sbb-option value="Option 1">Option 1</sbb-option>
+    <sbb-option value="Option 2">Option 2</sbb-option>
+    <sbb-option value="Option 3">Option 3 with a long text which can wrap</sbb-option>
+  </sbb-autocomplete>
+  <sbb-card color="milk" style="margin-block-start: 1rem; z-index: 100">
+    A native input element used without a \`sbb-form-field\` can take on the appearance of a
+    \`sbb-form-field\` by applying the \`sbb-input\` class to it.
+  </sbb-card>
+`;
+
 const placeholder: InputType = {
   control: {
     type: 'text',
@@ -253,12 +303,30 @@ const value: InputType = {
   },
 };
 
+const maxlength: InputType = {
+  control: {
+    type: 'number',
+  },
+  table: {
+    category: 'Input attribute',
+  },
+};
+
 const errorText: InputType = {
   control: {
     type: 'text',
   },
   table: {
     category: 'Error slot',
+  },
+};
+
+const hintText: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Hint slot',
   },
 };
 
@@ -331,7 +399,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm', 'l'],
+  options: ['s', 'm', 'l'] satisfies SbbFormFieldElement['size'][],
   table: {
     category: 'Form-field',
   },
@@ -360,6 +428,7 @@ const basicArgTypes: ArgTypes = {
   disabled,
   readonly,
   value,
+  maxlength,
   errorText,
   width,
 };
@@ -371,11 +440,12 @@ const basicArgs: Args = {
   'floating-label': false,
   optional: false,
   borderless: false,
-  size: size.options![1],
+  size: undefined,
   negative: false,
   cssClass: '',
   placeholder: 'Input placeholder',
   value: 'Input value',
+  maxlength: undefined,
   disabled: false,
   readonly: false,
   errorText: 'This is a required field.',
@@ -394,7 +464,7 @@ export const InputSizeS: StoryObj = {
   args: {
     ...basicArgs,
     value: 'Input text',
-    size: 's',
+    size: size.options![0],
   },
 };
 
@@ -404,7 +474,7 @@ export const InputSizeL: StoryObj = {
   args: {
     ...basicArgs,
     value: 'Input text',
-    size: 'l',
+    size: size.options![2],
   },
 };
 
@@ -432,13 +502,13 @@ export const InputOptionalAndIcons: StoryObj = {
   args: { ...basicArgs, optional: true },
 };
 
-export const InputOptionalAndIconsNegative: StoryObj = {
+export const InputAndIconsNegative: StoryObj = {
   render: TemplateInputWithIcons,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, negative: true },
+  args: { ...basicArgs, negative: true },
 };
 
-export const InputOptionalAndIconsDisabled: StoryObj = {
+export const InputAndIconsDisabled: StoryObj = {
   render: TemplateInputWithIcons,
   argTypes: basicArgTypes,
   args: { ...basicArgs, disabled: true },
@@ -448,6 +518,18 @@ export const InputWithClearButton: StoryObj = {
   render: TemplateInputWithClearButton,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
+};
+
+export const InputWithTextCounter: StoryObj = {
+  render: TemplateInputWithTextCounter,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, maxlength: 25 },
+};
+
+export const InputWithHint: StoryObj = {
+  render: TemplateInputWithHint,
+  argTypes: { ...basicArgTypes, hintText },
+  args: { ...basicArgs, hintText: 'This is a hint.' },
 };
 
 export const InputFloatingLabel: StoryObj = {
@@ -542,6 +624,18 @@ export const TextareaNegative: StoryObj = {
   args: { ...basicArgs, negative: true },
 };
 
+export const TextareaWithTextCounter: StoryObj = {
+  render: TemplateTextareaWithTextCounter,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, maxlength: 200 },
+};
+
+export const TextareaWithHint: StoryObj = {
+  render: TemplateTextareaWithHint,
+  argTypes: { ...basicArgTypes, hintText },
+  args: { ...basicArgs, hintText: 'This is a hint.' },
+};
+
 export const ErrorReservedSpace: StoryObj = {
   render: TemplateInputWithErrorSpace,
   argTypes: basicArgTypes,
@@ -552,6 +646,18 @@ export const ErrorReservedSpace: StoryObj = {
     label: 'This label name is so long that it needs ellipsis to fit.',
     value: 'This input value is so long that it needs ellipsis to fit.',
   },
+};
+
+export const RequiredHighlight: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, hostClass: 'sbb-form-field-required-highlight', value: undefined },
+};
+
+export const InputWithoutFormField: StoryObj = {
+  render: TemplateAutocompleteNoForm,
+  argTypes: { disabled, readonly },
+  args: { disabled: false, readonly: false },
 };
 
 // sbb-error

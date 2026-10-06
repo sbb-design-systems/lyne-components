@@ -48,7 +48,7 @@ to display the components with the correct spacings.
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium felis sit amet felis
     viverra lacinia. Donec et enim mi. Aliquam erat volutpat. Proin ut odio tellus.
   </p>
-  <sbb-button-static class="sbb-teaser-product--spacing">Label</sbb-button-static>
+  <sbb-button-static class="sbb-teaser-product--spacing" size="l">Label</sbb-button-static>
 </sbb-teaser-product>
 ```
 
@@ -84,16 +84,16 @@ It should be used if there is more than one interactive action.
 
 #### Properties
 
-| Name                   | Attribute               | Privacy | Type                       | Default   | Description                                                                                                                           |
-| ---------------------- | ----------------------- | ------- | -------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityCurrent` | `accessibility-current` | public  | `string`                   | `''`      | This will be forwarded as aria-current to the inner anchor element.                                                                   |
-| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                   | `''`      | This will be forwarded as aria-label to the inner anchor element.                                                                     |
-| `download`             | `download`              | public  | `boolean`                  | `false`   | Whether the browser will show the download dialog on click.                                                                           |
-| `href`                 | `href`                  | public  | `string`                   | `''`      | The href value you want to link to.                                                                                                   |
-| `imageAlignment`       | `image-alignment`       | public  | `'after' \| 'before'`      | `'after'` | Whether the fully visible part of the image is aligned 'before' or 'after' the content. Only relevant starting from large breakpoint. |
-| `negative`             | `negative`              | public  | `boolean`                  | `false`   | Negative coloring variant flag.                                                                                                       |
-| `rel`                  | `rel`                   | public  | `string`                   | `''`      | The relationship of the linked URL as space-separated link types.                                                                     |
-| `target`               | `target`                | public  | `LinkTargetType \| string` | `''`      | Where to display the linked URL.                                                                                                      |
+| Name                   | Attribute               | Privacy | Type                                                   | Default   | Description                                                                                                                           |
+| ---------------------- | ----------------------- | ------- | ------------------------------------------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                               | `''`      | This will be forwarded as aria-current to the inner anchor element.                                                                   |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                               | `''`      | This will be forwarded as aria-label to the inner anchor element.                                                                     |
+| `download`             | `download`              | public  | `boolean`                                              | `false`   | Whether the browser will show the download dialog on click.                                                                           |
+| `href`                 | `href`                  | public  | `string`                                               | `''`      | The href value you want to link to.                                                                                                   |
+| `imageAlignment`       | `image-alignment`       | public  | `'after' \| 'before'`                                  | `'after'` | Whether the fully visible part of the image is aligned 'before' or 'after' the content. Only relevant starting from large breakpoint. |
+| `negative`             | `negative`              | public  | `boolean`                                              | `false`   | Negative coloring variant flag.                                                                                                       |
+| `rel`                  | `rel`                   | public  | `string`                                               | `''`      | The relationship of the linked URL as space-separated link types.                                                                     |
+| `target`               | `target`                | public  | `'_blank' \| '_self' \| '_parent' \| '_top' \| string` | `''`      | Where to display the linked URL.                                                                                                      |
 
 #### CSS Properties
 

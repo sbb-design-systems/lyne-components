@@ -1,14 +1,12 @@
 import { html, isServer, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../controllers.ts';
-import { forceType, omitEmptyConverter } from '../decorators.ts';
-import { i18nTargetOpensInNewWindow } from '../i18n.ts';
+import { SbbLanguageController } from '../controllers/language-controller.ts';
+import { forceType } from '../decorators/force-type.ts';
+import { omitEmptyConverter } from '../decorators/omit-empty-converter.ts';
+import { i18nTargetOpensInNewWindow } from '../i18n/i18n.ts';
 
 import { SbbActionBaseElement } from './action-base-element.ts';
-
-/** Enumeration for 'target' attribute in <a> HTML tag. */
-export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
 
 /** Link base class. */
 export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
@@ -20,7 +18,7 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   /** Where to display the linked URL. */
   @forceType()
   @property({ reflect: true, converter: omitEmptyConverter })
-  public accessor target: LinkTargetType | string = '';
+  public accessor target: '_blank' | '_self' | '_parent' | '_top' | string = '';
 
   /** The relationship of the linked URL as space-separated link types. */
   @forceType()
@@ -68,9 +66,17 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
     this.shadowRoot!.querySelector<HTMLAnchorElement>('a')?.click();
   }
 
-  private _evaluateRelAttribute = (): string | typeof nothing => {
-    return this.rel ? this.rel : this.target === '_blank' ? 'external noopener nofollow' : nothing;
+  private _evaluateRelAttribute = (target: string): string | typeof nothing => {
+    return this.rel ? this.rel : target === '_blank' ? 'external noopener nofollow' : nothing;
   };
+
+  /**
+   * Resolves the target which is applied to the inner anchor element.
+   * Subclasses can override this to provide a fallback when no `target` is set.
+   */
+  protected resolveTarget(): string {
+    return this.target;
+  }
 
   /** Default render method for link-like components. Can be overridden if the LinkRenderVariables are not needed. */
   protected override render(): TemplateResult {
@@ -78,14 +84,15 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   }
 
   protected renderLink(renderContent: TemplateResult): TemplateResult {
-    const opensInNewWindow = !!this.href && this.target === '_blank';
+    const target = this.resolveTarget();
+    const opensInNewWindow = !!this.href && target === '_blank';
     return html`
       <a
         class="sbb-action-base ${this.localName}"
         href=${this.href || nothing}
         ?download=${this.download}
-        target=${this.target || nothing}
-        rel=${this._evaluateRelAttribute()}
+        target=${target || nothing}
+        rel=${this._evaluateRelAttribute(target)}
         role=${this.anchorRole || nothing}
         aria-label=${this.accessibilityLabel || nothing}
         aria-current=${this.accessibilityCurrent || nothing}
@@ -95,11 +102,13 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
       >
         ${renderContent}
       </a>
-      ${opensInNewWindow
-        ? html`<span id="sbb-link-new-window" hidden
-            >${i18nTargetOpensInNewWindow[this.language.current]}</span
-          >`
-        : nothing}
+      ${
+        opensInNewWindow
+          ? html`<span id="sbb-link-new-window" hidden
+              >${i18nTargetOpensInNewWindow[this.language.current]}</span
+            >`
+          : nothing
+      }
     `;
   }
 }

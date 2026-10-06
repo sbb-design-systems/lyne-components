@@ -1,16 +1,10 @@
-import { type CSSResultGroup, type TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonStaticElement } from '../../button.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import {
-  fileSelectorCommonStyle,
-  SbbFileSelectorCommonElementMixin,
-} from '../common/file-selector-common.ts';
-
-import '../../button/secondary-button-static.ts';
+import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
+import { SbbElement, type SbbElementType } from '../../core.ts';
+import { SbbFileSelectorCommonElementMixin } from '../common/file-selector-common.ts';
 
 /**
  * It allows to select one or more file from storage devices and display them.
@@ -19,7 +13,7 @@ import '../../button/secondary-button-static.ts';
  */
 export class SbbFileSelectorElement extends SbbFileSelectorCommonElementMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-file-selector';
-  public static override styles: CSSResultGroup = [boxSizingStyles, fileSelectorCommonStyle];
+  public static override elementDependencies: SbbElementType[] = [SbbSecondaryButtonStaticElement];
   public static readonly events = {
     filechanged: 'filechanged',
   } as const;
@@ -28,7 +22,7 @@ export class SbbFileSelectorElement extends SbbFileSelectorCommonElementMixin(Sb
     return html`
       <label>
         <sbb-secondary-button-static
-          size=${this.size}
+          size=${this.size || nothing}
           icon-name="folder-open-small"
           ?disabled=${this.disabled || this.formDisabled}
           ${ref((el?: Element): void => {

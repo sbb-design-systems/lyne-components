@@ -1,8 +1,11 @@
+/// <reference types="node" />
+
 import { globSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import eslint from '@eslint/js';
+import markdown from '@eslint/markdown';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import { flatConfigs } from 'eslint-plugin-import-x';
 import * as eslintPluginLit from 'eslint-plugin-lit';
@@ -12,19 +15,16 @@ import { configs } from 'typescript-eslint';
 
 import * as eslintPluginLyne from './tools/eslint/index.ts';
 
-const ignores = [
-  'dist/**/*',
-  'coverage/**/*',
-  'tools/generate-component/**/*',
-  '**/__snapshots__/**/*',
-];
+const ignores = ['dist/**/*', 'coverage/**/*', 'tools/generate-component/**/*'];
 
-const deprecatedEntrypoints = globSync(
-  join(fileURLToPath(import.meta.url), '../src/**/*.ts'),
-).filter((file) => {
-  const content = readFileSync(file, 'utf-8');
-  return content.includes('@entrypoint') && content.includes('console.warn');
-});
+const sourceFiles = globSync(
+  join(fileURLToPath(import.meta.url), '../src/{elements,elements-experimental}/**/*.ts'),
+).filter((file: string) =>
+  ['spec', 'stories', 'private'].every((suffix) => !file.endsWith(`.${suffix}.ts`)),
+);
+const entrypoints = sourceFiles.filter((file: string) =>
+  readFileSync(file, 'utf-8').includes('@entrypoint'),
+);
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigFile} */
 export default [
@@ -63,7 +63,7 @@ export default [
     },
   },
   {
-    files: ['src/storybook/**/*.ts', 'src/**/core/**/*.ts'],
+    files: ['src/docs/**/*.ts', 'src/**/core/**/*.ts'],
     rules: {
       'lyne/test-describe-title-rule': 'off',
     },
@@ -135,7 +135,16 @@ export default [
       'import-x/no-cycle': 'error',
       'import-x/no-restricted-paths': [
         'error',
-        { zones: [{ target: './src', from: deprecatedEntrypoints }] },
+        {
+          zones: [
+            {
+              target: sourceFiles,
+              from: entrypoints.filter(
+                (file: string) => !file.endsWith('.pure.ts') && !file.endsWith('/core.ts'),
+              ),
+            },
+          ],
+        },
       ],
       'import-x/no-self-import': 'error',
       'import-x/no-unresolved': [
@@ -204,5 +213,38 @@ export default [
       'import-x/no-named-as-default-member': 'off',
     },
   },
+  {
+    files: ['**/__snapshots__/**/*.js'],
+    rules: {
+      'lyne/snapshot-format-rule': 'error',
+      'no-irregular-whitespace': 'off',
+    },
+  },
   eslintConfigPrettier,
+  // curly must come after eslintConfigPrettier, as it disables the rule.
+  {
+    rules: {
+      curly: 'error',
+    },
+  },
+  // Lint readme.md files for unescaped HTML tags.
+  // Code blocks (fenced ```...``` or indented) are automatically exempt because
+  // @eslint/markdown maps them to `code` AST nodes, not `html` nodes.
+  // Add tag names to `allowed` to permit specific elements (e.g. <kbd>).
+  {
+    files: ['**/readme.md', '**/README.md'],
+    language: 'markdown/gfm',
+    plugins: { markdown },
+    rules: {
+      // Uses sourceCode.getAllComments() which is not available in markdown
+      'no-irregular-whitespace': 'off',
+      'markdown/no-html': [
+        'error',
+        {
+          allowed: ['kbd', 'br'],
+          allowedIgnoreCase: true,
+        },
+      ],
+    },
+  },
 ];

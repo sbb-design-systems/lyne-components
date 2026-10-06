@@ -8,8 +8,24 @@
   --sbb-optgroup-divider-display: none;
 }
 
+:host(:state(size-s)) {
+  --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
+}
+
+:host(:state(size-m)) {
+  --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-2x);
+}
+
 :host(:state(negative)) {
   --sbb-optgroup-label-color: var(--sbb-color-5);
+  --sbb-optgroup-divider-color: var(--sbb-divider-color-negative);
+}
+
+:host::before {
+  content: '';
+  display: var(--sbb-optgroup-divider-display, block);
+  margin-block: var(--sbb-options-panel-divider-margin-block);
+  border-block-start: var(--sbb-divider-border-width) solid var(--sbb-optgroup-divider-color);
 }
 
 .sbb-optgroup {
@@ -21,16 +37,11 @@
   display: flex;
   column-gap: var(--sbb-spacing-responsive-xxxs);
   font-size: var(--sbb-optgroup-label-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
   color: var(--sbb-optgroup-label-color);
   -webkit-text-fill-color: var(--sbb-optgroup-label-color);
   padding-inline: var(--sbb-optgroup-label-padding-inline);
   padding-block-end: var(--sbb-optgroup-label-padding-end);
-}
-
-.sbb-optgroup__divider {
-  display: var(--sbb-optgroup-divider-display, block);
-  padding-block: var(--sbb-options-panel-divider-margin-block);
 }
 
 // Align the group label to the option label

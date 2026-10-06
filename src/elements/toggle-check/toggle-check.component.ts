@@ -1,14 +1,16 @@
-import type { CSSResultGroup, PropertyDeclaration, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyDeclaration,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { isLean } from '../core/dom.ts';
-import { SbbFormAssociatedCheckboxMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import { SbbIconNameMixin } from '../icon.ts';
+import { SbbElement, SbbFormAssociatedCheckboxMixin } from '../core.ts';
+import { SbbIconNameMixin } from '../icon.pure.ts';
 
-import style from './toggle-check.scss?lit&inline';
+import style from './toggle-check.scss?inline';
 
 /**
  * It displays a toggle checkbox.
@@ -23,17 +25,16 @@ export class SbbToggleCheckElement<T = string> extends SbbIconNameMixin(
   SbbFormAssociatedCheckboxMixin(SbbElement),
 ) {
   public static override readonly elementName: string = 'sbb-toggle-check';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Value of the form element. */
   @property()
   public accessor value: T | null = null;
 
   /**
-   * Size variant, either m, s or xs.
-   * @default 's' / 'xs' (lean)
+   * Size variant, either xs (lean theme default), s (standard theme default) or m.
    */
-  @property({ reflect: true }) public accessor size: 'xs' | 's' | 'm' = isLean() ? 'xs' : 's';
+  @property({ reflect: true }) public accessor size: 'xs' | 's' | 'm' | null = null;
 
   /** The label position relative to the toggle. Defaults to 'after' */
   @property({ attribute: 'label-position', reflect: true })

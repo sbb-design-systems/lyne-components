@@ -1,0 +1,7 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-action-group-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+}

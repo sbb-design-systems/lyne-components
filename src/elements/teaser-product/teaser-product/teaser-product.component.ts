@@ -1,16 +1,10 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement } from '../../core/base-elements.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import {
-  SbbTeaserProductCommonElementMixin,
-  teaserProductCommonStyle,
-} from '../common/teaser-product-common.ts';
+import { SbbLinkBaseElement, screenReaderOnlyStyles } from '../../core.ts';
+import { SbbTeaserProductCommonElementMixin } from '../common/teaser-product-common.ts';
 
-import style from './teaser-product.scss?lit&inline';
-
-import '../../screen-reader-only.ts';
+import style from './teaser-product.scss?inline';
 
 /**
  * Displays a text and a footnote, combined with an image, to tease a product
@@ -25,19 +19,15 @@ export class SbbTeaserProductElement extends SbbTeaserProductCommonElementMixin(
   SbbLinkBaseElement,
 ) {
   public static override readonly elementName: string = 'sbb-teaser-product';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    teaserProductCommonStyle,
-    style,
-  ];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     // We render the content outside the anchor tag to allow screen readers to navigate through it
     return html`
       <div class="sbb-teaser-product__wrapper">
         ${this.renderLink(
-          // For SEO, we add the accessibility hidden as hidden content of the link
-          html`<sbb-screen-reader-only>${this.accessibilityLabel}</sbb-screen-reader-only>`,
+          // For SEO, we add the accessibility label as hidden content of the link
+          html`<span class="sbb-screen-reader-only">${this.accessibilityLabel}</span>`,
         )}
         ${this.renderTemplate()}
       </div>

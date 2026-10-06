@@ -43,7 +43,6 @@ snapshots["sbb-accent-button-link renders a disabled sbb-accent-button-link with
 `<sbb-accent-button-link
   disabled=""
   href="https://www.sbb.ch"
-  size="l"
 >
   <sbb-icon
     name="chevron-small-left-small"

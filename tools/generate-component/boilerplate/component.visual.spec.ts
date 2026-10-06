@@ -5,7 +5,7 @@ import {
   describeEach,
   visualDiffDefault,
   visualDiffStandardStates,
-} from '../core/testing/private.ts';
+} from '../core.ts';
 
 import './__noPrefixName__.component.ts';
 

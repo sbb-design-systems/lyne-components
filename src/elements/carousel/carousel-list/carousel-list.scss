@@ -1,8 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-carousel-list-border-radius: var(--sbb-border-radius-4x);
-
   display: flex;
   height: var(--sbb-carousel-list-height);
 

@@ -3,12 +3,11 @@ import { html } from 'lit';
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
 import '../footer.ts';
-import '../button/button-link.ts';
-import '../button/secondary-button-link.ts';
+import '../button.ts';
 import '../clock.ts';
 import '../divider.ts';
 import '../link-list.ts';
-import '../link/block-link.ts';
+import '../link.ts';
 
 describe(`sbb-footer`, () => {
   const colorCases = {
@@ -54,7 +53,7 @@ describe(`sbb-footer`, () => {
                     <sbb-block-link>Refunds</sbb-block-link>
                     <sbb-block-link>Lost property office</sbb-block-link>
                   </sbb-link-list>
-                  <sbb-button-link size="m">All help topics</sbb-button-link>
+                  <sbb-button-link>All help topics</sbb-button-link>
                 </div>
                 <sbb-link-list title-level="2" title-content="More SBB.">
                   <sbb-block-link>Jobs & careers</sbb-block-link>
@@ -73,7 +72,7 @@ describe(`sbb-footer`, () => {
                       Our newsletter regularly informs you of attractive offers from SBB via e-mail.
                     </p>
                   </span>
-                  <sbb-secondary-button-link size="m">Subscribe</sbb-secondary-button-link>
+                  <sbb-secondary-button-link>Subscribe</sbb-secondary-button-link>
                 </div>
                 <sbb-clock now="01:59:27"></sbb-clock>
                 <sbb-divider></sbb-divider>
@@ -107,7 +106,7 @@ describe(`sbb-footer`, () => {
                     <sbb-block-link>Refunds</sbb-block-link>
                     <sbb-block-link>Lost property office</sbb-block-link>
                   </sbb-link-list>
-                  <sbb-button-link size="m">All help topics</sbb-button-link>
+                  <sbb-button-link>All help topics</sbb-button-link>
                 </div>
                 <sbb-link-list title-level="2" title-content="More SBB." ?negative=${negative}>
                   <sbb-block-link> Jobs & careers </sbb-block-link>
@@ -127,7 +126,7 @@ describe(`sbb-footer`, () => {
                       Our newsletter regularly informs you of attractive offers from SBB via e-mail.
                     </p>
                   </span>
-                  <sbb-secondary-button-link size="m"> Subscribe </sbb-secondary-button-link>
+                  <sbb-secondary-button-link> Subscribe </sbb-secondary-button-link>
                 </div>
                 <sbb-clock now="01:59:27"></sbb-clock>
                 <sbb-divider ?negative=${negative}></sbb-divider>

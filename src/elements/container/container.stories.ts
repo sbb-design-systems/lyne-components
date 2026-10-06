@@ -3,13 +3,12 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import { SbbStickyBarElement } from '../container.ts';
-import sampleImages from '../core/images.ts';
+import { sampleImages } from '../core/images.private.ts';
 
 import '../action-group.ts';
-import '../button/button.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../card.ts';
 import '../image.ts';
 import '../link.ts';
@@ -21,18 +20,20 @@ const containerContent = (title: string, isDark: boolean, last = false): Templat
   <sbb-title level="4" ?negative=${isDark}>${title}</sbb-title>
   <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
   <p class="sbb-text-s">
-    ${isDark
-      ? html`
-          In <code>"midnight"</code> and <code>"charcoal"</code> variants the slotted text has
-          <code>"white"</code> color; however, you have to manually set the
-          <code>"negative"</code> property on sbb-components when needed.
-        `
-      : html`
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        `}
+    ${
+      isDark
+        ? html`
+            In <code>"midnight"</code> and <code>"charcoal"</code> variants the slotted text has
+            <code>"white"</code> color; however, you have to manually set the
+            <code>"negative"</code> property on sbb-components when needed.
+          `
+        : html`
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          `
+    }
   </p>
   <sbb-secondary-button style=${last ? 'margin-block-end: 3rem;' : nothing}>
     See more
@@ -240,7 +241,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm'],
+  options: ['s', 'm'] satisfies SbbStickyBarElement['size'][],
 };
 
 const stickyBarArgTypes: ArgTypes = {
@@ -256,25 +257,24 @@ const stickyBarArgs: Args = {
   containerColor: containerColor.options![0],
   containerExpanded: false,
   containerBackgroundExpanded: false,
-  size: size.options![1],
+  size: undefined,
 };
 
 const actionGroup = (): TemplateResult => html`
   <sbb-action-group
-    align-group="stretch"
-    orientation="vertical"
-    horizontal-from="large"
+    class="sbb-orientation-vertical-full-width sbb-orientation-horizontal-from-small"
     style="width:100%;"
   >
     <sbb-block-link
-      align-self="start"
+      size="m"
+      style="margin-inline-end: auto;"
       icon-name="chevron-small-left-small"
       href="https://www.sbb.ch/en/"
     >
       Link
     </sbb-block-link>
-    <sbb-secondary-button>Cancel</sbb-secondary-button>
-    <sbb-button>Confirm</sbb-button>
+    <sbb-secondary-button size="l">Cancel</sbb-secondary-button>
+    <sbb-button size="l">Confirm</sbb-button>
   </sbb-action-group>
 `;
 
@@ -311,7 +311,7 @@ const StickyTemplate = ({
     ${containerContentSticky('Another one', isDark(containerColor))}
     ${containerContentSticky('And another one', isDark(containerColor))}
     ${containerContentSticky('And a last one', isDark(containerColor))}
-    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing} size=${size}>
+    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing} size=${size || nothing}>
       ${actionGroup()}
     </sbb-sticky-bar>
   </sbb-container>
@@ -330,7 +330,7 @@ const ShortTemplate = ({
     ?background-expanded=${containerBackgroundExpanded}
   >
     ${containerContentSticky('Example title', isDark(containerColor))}
-    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing} size=${size}>
+    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing} size=${size || nothing}>
       ${actionGroup()}
     </sbb-sticky-bar>
   </sbb-container>
@@ -355,7 +355,7 @@ const WithContentAfterTemplate = ({
 
     <sbb-sticky-bar
       color=${color !== 'unset' ? color : nothing}
-      size=${size}
+      size=${size || nothing}
       style="--sbb-sticky-bar-bottom-overlapping-height: var(--sbb-spacing-responsive-l);"
     >
       ${actionGroup()}
@@ -395,6 +395,12 @@ export const StickyBarSizeS: StoryObj = {
   render: StickyTemplate,
   argTypes: stickyBarArgTypes,
   args: { ...stickyBarArgs, size: size.options![0] },
+};
+
+export const StickyBarSizeM: StoryObj = {
+  render: StickyTemplate,
+  argTypes: stickyBarArgTypes,
+  args: { ...stickyBarArgs, size: size.options![1] },
 };
 
 export const StickyBarWhite: StoryObj = {

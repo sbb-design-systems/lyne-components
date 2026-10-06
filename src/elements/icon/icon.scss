@@ -27,6 +27,7 @@
 }
 
 svg {
+  display: var(--sbb-icon-svg-display);
   width: var(--sbb-icon-svg-width, var(--sbb-icon-default-dimension));
   height: var(--sbb-icon-svg-height, var(--sbb-icon-default-dimension));
   stroke: var(--sbb-icon-svg-stroke-color);

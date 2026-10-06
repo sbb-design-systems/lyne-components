@@ -1,14 +1,16 @@
-import type { PropertyValues } from 'lit';
+import { type CSSResultGroup, type PropertyValues, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbCheckboxGroupElement } from '../../checkbox-group/checkbox-group.component.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { type Constructor, SbbFormAssociatedCheckboxMixin } from '../../core/mixins.ts';
+import {
+  type AbstractConstructor,
+  forceType,
+  SbbElement,
+  SbbFormAssociatedCheckboxMixin,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
 
-export { default as checkboxCommonStyle } from './checkbox-common.scss?lit&inline';
-
-export type SbbCheckboxSize = 'xs' | 's' | 'm';
+import style from './checkbox-common.scss?inline';
 
 export declare abstract class SbbCheckboxCommonElementMixinType extends SbbFormAssociatedCheckboxMixin(
   SbbElement,
@@ -19,13 +21,15 @@ export declare abstract class SbbCheckboxCommonElementMixinType extends SbbFormA
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbCheckboxCommonElementMixin = <T extends Constructor<SbbElement>>(
+export const SbbCheckboxCommonElementMixin = <T extends AbstractConstructor<SbbElement>>(
   superClass: T,
-): Constructor<SbbCheckboxCommonElementMixinType> & T => {
+): AbstractConstructor<SbbCheckboxCommonElementMixinType> & T => {
   abstract class SbbCheckboxCommonElement
     extends SbbFormAssociatedCheckboxMixin(superClass)
     implements Partial<SbbCheckboxCommonElementMixinType>
   {
+    public static styles: CSSResultGroup = [unsafeCSS(style)];
+
     /** Whether the checkbox is indeterminate. */
     @forceType()
     @property({ type: Boolean })
@@ -37,12 +41,24 @@ export const SbbCheckboxCommonElementMixin = <T extends Constructor<SbbElement>>
     }
     private _group: SbbCheckboxGroupElement | null = null;
 
+    protected constructor() {
+      super();
+
+      this.addController(
+        new SbbPropertyWatcherController(
+          this,
+          () => this.closest('sbb-checkbox-group'),
+          ['disabled', 'required', 'size'].reduce(
+            (v, p) => Object.assign(v, { [p]: () => this.requestUpdate(p) }),
+            {},
+          ),
+        ),
+      );
+    }
+
     public override connectedCallback(): void {
       super.connectedCallback();
-      this._group = this.closest('sbb-checkbox-group') as SbbCheckboxGroupElement;
-
-      // We need to call requestUpdate to update the reflected attributes
-      ['disabled', 'required', 'size'].forEach((p) => this.requestUpdate(p));
+      this._group = this.closest('sbb-checkbox-group');
     }
 
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -67,5 +83,6 @@ export const SbbCheckboxCommonElementMixin = <T extends Constructor<SbbElement>>
       }
     }
   }
-  return SbbCheckboxCommonElement as unknown as Constructor<SbbCheckboxCommonElementMixinType> & T;
+  return SbbCheckboxCommonElement as unknown as AbstractConstructor<SbbCheckboxCommonElementMixinType> &
+    T;
 };

@@ -1,9 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { defaultDateAdapter } from '../../core/datetime.ts';
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import { defaultDateAdapter } from '../../core.ts';
 import type { SbbDateInputElement } from '../../date-input.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
 

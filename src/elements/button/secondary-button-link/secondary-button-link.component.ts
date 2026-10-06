@@ -1,12 +1,10 @@
 import type { CSSResultGroup } from 'lit';
 
-import { SbbLinkBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { buttonCommonStyle, buttonSecondaryStyle, SbbButtonCommonElementMixin } from '../common.ts';
+import { SbbDisabledInteractiveMixin, SbbDisabledMixin, SbbLinkBaseElement } from '../../core.ts';
+import { buttonSecondaryStyle, SbbButtonCommonElementMixin } from '../common/button-common.ts';
 
 /**
- * It displays a button enhanced with the SBB Design in the 'primary' variant, which will behave as a link.
+ * It displays a button enhanced with the SBB Design in the 'secondary' variant, which will behave as a link.
  *
  * @slot - Use the unnamed slot to add content to the secondary-button-link.
  * @slot icon - Slot used to display the icon, if one is set.
@@ -16,11 +14,7 @@ export class SbbSecondaryButtonLinkElement extends SbbButtonCommonElementMixin(
   SbbDisabledInteractiveMixin(SbbDisabledMixin(SbbLinkBaseElement)),
 ) {
   public static override readonly elementName: string = 'sbb-secondary-button-link';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    buttonCommonStyle,
-    buttonSecondaryStyle,
-  ];
+  public static override styles: CSSResultGroup = [buttonSecondaryStyle];
 }
 
 declare global {

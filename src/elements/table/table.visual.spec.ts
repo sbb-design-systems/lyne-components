@@ -1,0 +1,453 @@
+import { html, type TemplateResult } from 'lit';
+import { classMap } from 'lit/directives/class-map.js';
+import { repeat } from 'lit/directives/repeat.js';
+import type { ClassInfo } from 'lit-html/directives/class-map.js';
+
+import {
+  describeEach,
+  describeViewports,
+  visualDiffDefault,
+  visualDiffHover,
+} from '../core/testing/private.ts';
+
+describe(`sbb-table`, () => {
+  const cases = {
+    negative: [false, true],
+    striped: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
+  };
+
+  const sizeCases = {
+    size: [null, 'xs', 's', 'm'],
+  };
+
+  const header = (): TemplateResult => html`
+    <thead>
+      <tr>
+        <th>Person</th>
+        <th>Most interest in</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+  `;
+
+  const headerWithFilters = (): TemplateResult => html`
+    <thead>
+      <tr>
+        <th>Person</th>
+        <th>Most interest in</th>
+        <th>Age</th>
+      </tr>
+      <tr>
+        <th class="sbb-table-filter"><input /></th>
+        <th class="sbb-table-filter"><input /></th>
+        <th class="sbb-table-filter"><input /></th>
+      </tr>
+    </thead>
+  `;
+
+  const headerWithSort = (sortingDirection: string): TemplateResult => html`
+    <thead>
+      <tr>
+        <th>Person</th>
+        <th class="sbb-sort-header" aria-sort=${sortingDirection}>
+          <div class="sbb-sort-header-container sbb-sort-header-sorted" tabindex="0" role="button">
+            <div class="sbb-sort-header-content">Most interest in</div>
+            <div class="sbb-sort-header-arrow active">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                preserveAspectRatio="xMidYMid meet"
+                focusable="false"
+              >
+                <path
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  d="M11.5,5.75 L11.5,18.25"
+                ></path>
+                <path
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  d="M7.5,14.25 L11.5,18.25 L15.5,14.25"
+                  class="sbb-sort-indicator ${sortingDirection === 'ascending' ? 'active-asc' : 'active-desc'}"
+                ></path>
+              </svg>
+            </div>
+          </div>
+        </th>
+        <th>Age</th>
+      </tr>
+    </thead>
+  `;
+
+  const body = (): TemplateResult => html`
+    <tbody>
+      <tr>
+        <td>Chris</td>
+        <td>HTML tables</td>
+        <td>22</td>
+      </tr>
+      <tr>
+        <td>Dennis</td>
+        <td>Web accessibility</td>
+        <td>45</td>
+      </tr>
+    </tbody>
+  `;
+
+  const sortedBody: (sortingDirection: string) => TemplateResult = (sortingDirection: string) => {
+    const data = [
+      { name: 'Chris', subject: 'HTML tables', age: 22 },
+      { name: 'Dennis', subject: 'Web accessibility', age: 45 },
+      { name: 'Sarah', subject: 'JavaScript frameworks', age: 29 },
+      { name: 'Karen', subject: 'Web performance', age: 36 },
+    ].sort((a, b) => {
+      const comparison = a.subject.localeCompare(b.subject);
+      return sortingDirection === 'ascending' ? comparison : -comparison;
+    });
+    return html`
+      <tbody>
+        ${repeat(
+          data,
+          (item) => html`
+            <tr>
+              <td>${item.name}</td>
+              <td>${item.subject}</td>
+              <td>${item.age}</td>
+            </tr>
+          `,
+        )}
+      </tbody>
+    `;
+  };
+
+  const caption = (): TemplateResult => html`
+    <caption>
+      Table caption
+    </caption>
+  `;
+
+  const tableTemplate = (classInfo: ClassInfo): TemplateResult => html`
+    <table class=${classMap(classInfo)}>
+      ${header()} ${body()} ${caption()}
+    </table>
+  `;
+
+  const tableWithFiltersTemplate = (classInfo: ClassInfo): TemplateResult => html`
+    <table class=${classMap(classInfo)}>
+      ${headerWithFilters()} ${body()} ${caption()}
+    </table>
+  `;
+
+  describeViewports({ viewports: ['large'] }, () => {
+    describeEach(cases, ({ negative, striped, emulateMedia: { darkMode, forcedColors } }) => {
+      it(
+        visualDiffDefault.name,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            tableTemplate({
+              'sbb-table': true,
+              'sbb-table--negative': negative,
+              'sbb-table--striped': striped,
+            }),
+            {
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+              forcedColors,
+              darkMode,
+            },
+          );
+        }),
+      );
+    });
+
+    // Size cases
+    for (const size of sizeCases.size) {
+      it(
+        `size=${size} ${visualDiffDefault.name}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            tableTemplate({
+              'sbb-table-xs': size === 'xs',
+              'sbb-table-s': size === 's',
+              'sbb-table-m': size === 'm',
+            }),
+          );
+        }),
+      );
+
+      it(
+        `size=${size} inline-filters`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            tableWithFiltersTemplate({
+              'sbb-table-xs': size === 'xs',
+              'sbb-table-s': size === 's',
+              'sbb-table-m': size === 'm',
+            }),
+          );
+        }),
+      );
+    }
+
+    describe('iron-theme', () => {
+      for (const negative of [false, true]) {
+        it(
+          `negative=${negative}`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              tableTemplate({
+                'sbb-table': true,
+                'sbb-table--theme-iron': true,
+                'sbb-table--negative': negative,
+              }),
+              {
+                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+              },
+            );
+          }),
+        );
+      }
+    });
+
+    it(
+      'without header',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <table class="sbb-table">
+            ${body()}
+          </table>
+        `);
+      }),
+    );
+
+    it(
+      'with empty header',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <table class="sbb-table">
+            <thead>
+              <!-- empty header -->
+            </thead>
+            ${body()}
+          </table>
+        `);
+      }),
+    );
+
+    it(
+      'with-subtitle',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <table class="sbb-table">
+            <thead>
+              <tr>
+                <th>
+                  Person
+                  <div class="sbb-table-header-subtitle">Subtitle</div>
+                </th>
+                <th>
+                  Most interest in
+                  <div class="sbb-table-header-subtitle">Subtitle</div>
+                </th>
+                <th>
+                  Age
+                  <div class="sbb-table-header-subtitle">Subtitle</div>
+                </th>
+              </tr>
+            </thead>
+            ${body()}
+          </table>
+        `);
+      }),
+    );
+
+    it(
+      'sbb-table-group-with-next',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <table class="sbb-table">
+            <thead>
+              <tr>
+                <th class="sbb-table-group-with-next">Person</th>
+                <th>Most interest in</th>
+                <th>Age</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="sbb-table-group-with-next">Chris</td>
+                <td>HTML tables</td>
+                <td>22</td>
+              </tr>
+              <tr>
+                <td class="sbb-table-group-with-next">Dennis</td>
+                <td>Web accessibility</td>
+                <td>45</td>
+              </tr>
+            </tbody>
+          </table>
+        `);
+      }),
+    );
+
+    it(
+      'th column in header and body',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <table class="sbb-table">
+            <thead>
+              <tr>
+                <th>Person</th>
+                <th>Most interest in</th>
+                <th>Age</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Chris</th>
+                <td>HTML tables</td>
+                <td>22</td>
+              </tr>
+              <tr>
+                <th>Dennis</th>
+                <td>Web accessibility</td>
+                <td>45</td>
+              </tr>
+            </tbody>
+          </table>
+        `);
+      }),
+    );
+
+    for (const align of ['start', 'center', 'end', 'justify'] as const) {
+      it(
+        `align=${align}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
+            <table class="sbb-table">
+              <thead>
+                <tr>
+                  <th class=${`sbb-table-align-${align}`}>Person</th>
+                  <th class=${`sbb-table-align-${align}`}>Most interest in</th>
+                  <th class=${`sbb-table-align-${align}`}>Age</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class=${`sbb-table-align-${align}`}>Chris</td>
+                  <td class=${`sbb-table-align-${align}`}>HTML tables</td>
+                  <td class=${`sbb-table-align-${align}`}>22</td>
+                </tr>
+                <tr>
+                  <td class=${`sbb-table-align-${align}`}>Dennis</td>
+                  <td class=${`sbb-table-align-${align}`}>Web accessibility</td>
+                  <td class=${`sbb-table-align-${align}`}>45</td>
+                </tr>
+              </tbody>
+            </table>
+          `);
+        }),
+      );
+    }
+
+    describe('hover', () => {
+      const hoverCases = {
+        striped: [false, true],
+        negative: [false, true],
+        darkMode: [false, true],
+      };
+
+      describeEach(hoverCases, ({ striped, negative, darkMode }) => {
+        it(
+          visualDiffHover.name,
+          visualDiffHover.with(async (setup) => {
+            await setup.withFixture(
+              tableTemplate({
+                'sbb-table': true,
+                'sbb-table--hover': true,
+                'sbb-table--striped': striped,
+                'sbb-table--negative': negative,
+              }),
+              {
+                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                darkMode,
+              },
+            );
+            setup.withStateElement(
+              setup.snapshotElement.querySelector('tbody tr:nth-child(1)') as HTMLElement,
+            );
+          }),
+        );
+      });
+    });
+
+    describe('selected', () => {
+      const selectedCases = {
+        negative: [false, true],
+        darkMode: [false, true],
+      };
+
+      describeEach(selectedCases, ({ negative, darkMode }) => {
+        it(
+          visualDiffDefault.name,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`
+                <table
+                  class=${classMap({
+                    'sbb-table': true,
+                    'sbb-table--negative': negative,
+                  })}
+                >
+                  ${header()}
+                  <tbody>
+                    <tr class="sbb-table--selected">
+                      <td>Chris</td>
+                      <td>HTML tables</td>
+                      <td>22</td>
+                    </tr>
+                    <tr>
+                      <td>Dennis</td>
+                      <td>Web accessibility</td>
+                      <td>45</td>
+                    </tr>
+                  </tbody>
+                </table>
+              `,
+              {
+                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                darkMode,
+              },
+            );
+          }),
+        );
+      });
+    });
+
+    for (const sortingDirection of ['ascending', 'descending']) {
+      it(
+        `sorting=${sortingDirection}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
+            <table class="sbb-table">
+              <caption>
+                Sort header visual demo.
+              </caption>
+              ${headerWithSort(sortingDirection)} ${sortedBody(sortingDirection)}
+            </table>
+          `);
+        }),
+      );
+    }
+  });
+});

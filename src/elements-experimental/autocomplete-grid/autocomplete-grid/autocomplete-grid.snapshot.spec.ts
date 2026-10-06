@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
-import { isSafari } from '@sbb-esta/lyne-elements/core/dom.js';
 import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { describeIf } from '@sbb-esta/lyne-elements/core/testing.js';
+import { isSafari } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js';
 import { html } from 'lit/static-html.js';
 

@@ -43,7 +43,6 @@ snapshots["sbb-button-link renders a disabled sbb-button-link with slotted icon 
 `<sbb-button-link
   disabled=""
   href="https://www.sbb.ch"
-  size="l"
 >
   <sbb-icon
     name="chevron-small-left-small"

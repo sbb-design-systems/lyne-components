@@ -1,10 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+import { SbbButtonBaseElement } from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 import { iconSidebarButtonCommonStyle } from '../../sidebar/common/styles.ts';
-import type { SbbTooltipDefaultPositions } from '../../tooltip.ts';
+import type { SbbTooltipDefaultPositions } from '../../tooltip.pure.ts';
 
 /**
  * Button to be placed inside `sbb-icon-sidebar`.
@@ -16,7 +15,7 @@ export class SbbIconSidebarButtonElement
   implements SbbTooltipDefaultPositions
 {
   public static override readonly elementName: string = 'sbb-icon-sidebar-button';
-  public static override styles: CSSResultGroup = [boxSizingStyles, iconSidebarButtonCommonStyle];
+  public static override styles: CSSResultGroup = [iconSidebarButtonCommonStyle];
   /** @internal */
   public readonly tooltipPositions = ['inline-end', 'inline-start'];
 

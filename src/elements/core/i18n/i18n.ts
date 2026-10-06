@@ -1,4 +1,4 @@
-import type { SbbLanguage, SbbOccupancy } from '../interfaces.ts';
+import type { SbbOccupancy } from '../interfaces/types.ts';
 
 export const i18nDirection: Record<string, string> = {
   de: 'Richtung',
@@ -26,6 +26,13 @@ export const i18nSectorShort: Record<string, string> = {
   en: 'Sec.',
   fr: 'Sect.',
   it: 'Set.',
+};
+
+export const i18nAnd: Record<string, string> = {
+  de: 'und',
+  en: 'and',
+  fr: 'et',
+  it: 'e',
 };
 
 export const i18nClass: Record<string, Record<string, string>> = {
@@ -146,6 +153,20 @@ export const i18nDeparture: Record<string, string> = {
   en: 'Departure',
   fr: 'Départ',
   it: 'Partenza',
+};
+
+export const i18nNonAccessible: Record<string, string> = {
+  de: 'nicht barrierefrei',
+  en: 'not accessible',
+  fr: 'non accessible',
+  it: 'non accessibile',
+};
+
+export const i18nDownload: Record<string, string> = {
+  de: 'herunterladen',
+  en: 'download',
+  fr: 'télécharger',
+  it: 'scaricare',
 };
 
 export const i18nDurationMinute: Record<string, Record<string, Record<string, string>>> = {
@@ -292,7 +313,7 @@ export const i18nSupersaver: Record<string, string> = {
   it: 'Biglietti risparmio',
 };
 
-export const i18nOccupancy: Record<SbbOccupancy, Record<SbbLanguage, string>> = {
+export const i18nOccupancy: Record<SbbOccupancy, Record<string, string>> = {
   none: {
     de: 'Keine Belegungsprognose verfügbar',
     en: 'No occupancy forecast available',
@@ -386,13 +407,6 @@ export const i18nMeansOfTransport: Record<string, Record<string, string>> = {
     fr: 'Train',
     it: 'Treno',
   },
-};
-
-export const i18nOptional: Record<string, string> = {
-  de: '(optional)',
-  en: '(optional)',
-  fr: '(facultatif)',
-  it: '(facoltativo)',
 };
 
 export const i18nTargetOpensInNewWindow: Record<string, string> = {
@@ -515,10 +529,10 @@ export const i18nYearMonthSelection: Record<string, string> = {
 };
 
 export const i18nCalendarDateSelection: Record<string, string> = {
-  de: 'Datum auswählen',
-  en: 'Choose date',
-  fr: 'Choisir une date',
-  it: 'Seleziona una data',
+  de: 'Wechsel zur Datumsauswahl',
+  en: 'Change to date selection',
+  fr: 'Passer à la sélection de date',
+  it: 'Passare alla selezione della data',
 };
 
 export const i18nNextYearRange = (yearRange: number): Record<string, string> => ({
@@ -882,4 +896,25 @@ export const i18nSlide: Record<string, string> = {
   en: 'Slide',
   fr: 'Diapositive',
   it: 'Slide',
+};
+
+export const i18nRemainingCharacters: Record<string, string> = {
+  de: 'Zeichen übrig',
+  en: 'characters remaining',
+  fr: 'caractères restants',
+  it: 'caratteri rimanenti',
+};
+
+export const i18nLogo125Anniversary: Record<string, string> = {
+  de: 'Wir verbinden die Schweiz seit 125 Jahren.',
+  en: 'Connecting Switzerland for 125 years.',
+  fr: '125 ans à tisser des liens qui font la Suisse.',
+  it: 'Da 125 anni uniamo la Svizzera.',
+};
+
+export const i18nLogo125AnniversaryYears: Record<string, string> = {
+  de: 'Jahre',
+  en: 'years',
+  fr: 'ans',
+  it: 'anni',
 };

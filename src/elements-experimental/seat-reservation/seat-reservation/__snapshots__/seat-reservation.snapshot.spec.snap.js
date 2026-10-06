@@ -30,7 +30,7 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
       </div>
       <ul
         aria-label="Seat reservation navigation"
-        class="sbb-sr-navigation__list-coaches"
+        class="sbb-scrollbar sbb-sr-navigation__list-coaches"
         id="sbb-sr__navigation-list-coaches"
       >
       </ul>
@@ -54,7 +54,7 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
     <div class="sbb-sr__wrapper-deck-labels">
     </div>
     <div
-      class="sbb-sr__wrapper-scrollarea"
+      class="sbb-scrollbar sbb-sr__wrapper-scrollarea"
       id="sbb-sr__wrapper-scrollarea"
       tabindex="-1"
     >

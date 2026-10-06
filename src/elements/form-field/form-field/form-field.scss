@@ -1,8 +1,8 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-form-field-error-divider-width: var(--sbb-spacing-fixed-1x);
-  --sbb-form-field-error-padding-block-start: var(--sbb-form-field-error-divider-width);
+  --sbb-form-field-hint-divider-width: var(--sbb-spacing-fixed-1x);
+  --sbb-form-field-hint-padding-block-start: var(--sbb-form-field-hint-divider-width);
   --sbb-form-field-select-inline-padding-end: calc(
     var(--sbb-icon-svg-width) + var(--sbb-form-field-gap)
   );
@@ -35,6 +35,10 @@
 
   display: inline-block;
   color: var(--sbb-form-field-color);
+  font-weight: normal;
+
+  // Set the line-height for adjacent elements in order to prevent from influence of a consumer-set line-height.
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 :host(:where(:not([width='collapse']))) {
@@ -53,7 +57,7 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-form-field-arrow-color: var(--sbb-color-3-negative);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-form-field-border-color: ButtonBorder;
   }
 }
@@ -63,6 +67,7 @@
   --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-2x);
   --sbb-form-field-input-text-size: var(--sbb-text-font-size-s);
   --sbb-form-field-label-text-size: var(--sbb-text-font-size-xxs);
+  --_sbb-form-field-input-margin-block-end: #{sbb.px-to-rem-build(-2)};
 
   // Values found by try and error
   --_sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(10)};
@@ -77,11 +82,24 @@
   }
 }
 
+:host([size='s']:where(:state(input-element-textarea))) {
+  --_sbb-form-field-spacer-margin-block-end-textarea: var(--sbb-form-field-textarea-s-spacer);
+}
+
 :host([size='m']) {
   --sbb-form-field-min-height: var(--sbb-size-element-m);
   --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-3x);
+}
+
+:host([size='l']) {
+  --sbb-form-field-min-height: var(--sbb-size-element-l);
+  --sbb-form-field-padding-inline: var(--sbb-spacing-responsive-xxxs);
+}
+
+:host(:is([size='m'], [size='l'])) {
   --sbb-form-field-input-text-size: var(--sbb-text-font-size-m);
   --sbb-form-field-label-text-size: var(--sbb-text-font-size-xs);
+  --_sbb-form-field-input-margin-block-end: 0;
   --_sbb-form-field-label-to-input-overlapping: var(--sbb-spacing-fixed-1x);
   --_sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(8.5)};
   --_sbb-form-field-spacer-margin-block-end: calc(
@@ -93,16 +111,11 @@
   }
 }
 
-:host([size='l']) {
-  --sbb-form-field-min-height: var(--sbb-size-element-l);
-  --sbb-form-field-padding-inline: var(--sbb-spacing-responsive-xxxs);
-}
-
 :host([error-space='reserve']) {
-  --sbb-form-field-error-min-height: calc(
+  --sbb-form-field-hint-min-height: calc(
     var(--sbb-typo-line-height-text) * var(--sbb-text-font-size-xs)
   );
-  --sbb-form-field-error-padding-block-start-override: var(--sbb-form-field-error-divider-width);
+  --sbb-form-field-hint-padding-block-start-override: var(--sbb-form-field-hint-divider-width);
 }
 
 :host(:where(:state(readonly), :state(disabled))) {
@@ -110,7 +123,7 @@
   --sbb-form-field-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
   --sbb-form-field-arrow-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-form-field-border-color: ButtonBorder;
   }
 }
@@ -126,7 +139,7 @@
   --sbb-form-field-prefix-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
   --sbb-form-field-border-style: dashed;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-form-field-label-color: GrayText !important;
     --sbb-form-field-prefix-color: GrayText !important;
     --sbb-form-field-text-color: GrayText !important;
@@ -162,21 +175,21 @@
 
 // We must not use :where here, as it needs the added specificity to properly work
 :host(:state(focus)) {
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-form-field-border-color: Highlight;
     --sbb-form-field-prefix-color: Highlight;
   }
 }
 
 // :where is to align specificity
-:host(:not(:where(:state(has-error)))) {
-  --sbb-form-field-error-padding-block-start: 0;
+:host(:not(:where(:state(has-error), :state(has-hint)))) {
+  --sbb-form-field-hint-padding-block-start: 0;
 }
 
 :host([floating-label]) {
   --sbb-select-placeholder-color: transparent;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-select-placeholder-color: Canvas;
   }
 }
@@ -188,7 +201,7 @@
 
 // Should be after other definitions to override overflow
 // :where is to align specificity
-:host(:where(:state(input-type-sbb-slider))) {
+:host(:where(:state(input-element-sbb-slider))) {
   --sbb-form-field-overflow: visible;
 }
 
@@ -207,6 +220,8 @@
   padding-inline: var(--sbb-form-field-padding-inline);
   border-radius: var(--sbb-form-field-border-radius);
   min-height: var(--sbb-form-field-min-height);
+
+  // @protected --sbb-form-field-max-height
   max-height: var(--sbb-form-field-max-height);
   background-color: var(--sbb-form-field-background-color);
   position: relative;
@@ -232,21 +247,27 @@
 
   // In high contrast, there is no borderless variant
   @media (forced-colors: none) {
-    :host(:is([borderless], :state(input-type-sbb-slider))) & {
+    :host(:is([borderless], :state(input-element-sbb-slider))) & {
       &::before {
         border-color: transparent;
       }
     }
 
+    &::after {
+      position: absolute;
+      border-block-end: var(--sbb-border-width-1x) var(--sbb-form-field-border-style)
+        var(--sbb-form-field-border-color);
+      inset-inline: var(
+        --sbb-form-field-border-block-end-inset-inline,
+        var(--sbb-form-field-padding-inline)
+      );
+      inset-block-end: 0;
+      z-index: var(--sbb-form-field-focus-underline-z-index, initial);
+    }
+
     :host(:where(:state(focus), :state(disabled))[borderless]) & {
       &::after {
         content: '';
-        position: absolute;
-        border-block-end: var(--sbb-border-width-1x) var(--sbb-form-field-border-style)
-          var(--sbb-form-field-border-color);
-        inset-inline: var(--sbb-form-field-padding-inline);
-        inset-block-end: 0;
-        z-index: var(--sbb-form-field-focus-underline-z-index, initial);
       }
     }
   }
@@ -270,13 +291,24 @@
   }
 }
 
+slot[name='hint'] {
+  :host(:state(has-error)) & {
+    display: none;
+  }
+}
+
+::slotted(sbb-form-field-text-counter) {
+  :host(:where(:state(disabled), :state(readonly))) & {
+    display: none;
+  }
+}
+
 // As the calendar should be shown below the form field border, we have to stretch the toggle's height.
-// TODO: Maybe move this to the datepicker-toggle component.
 ::slotted(sbb-datepicker-toggle) {
   padding-block-end: calc((var(--sbb-form-field-min-height) - var(--sbb-size-icon-ui-small)) / 2);
 }
 
-@include sbb.if-forced-colors {
+@media (forced-colors: active) {
   // Align with prefix color
   ::slotted(*[slot='suffix']) {
     color: var(--sbb-form-field-prefix-color);
@@ -286,11 +318,23 @@
 .sbb-form-field__select-input-icon {
   @include sbb.absolute-center-y;
 
+  display: none;
   position: absolute;
   inset-inline-end: 0;
   margin-block-start: calc(-1 * var(--sbb-form-field-margin-block-start) / 2);
   pointer-events: none;
   color: var(--sbb-form-field-arrow-color);
+
+  :host(
+      :is(
+        :state(input-element-select),
+        :state(input-element-sbb-select),
+        :state(explicit-input-element-select)
+      )
+    )
+    & {
+    display: inline-block;
+  }
 }
 
 .sbb-form-field__input-container {
@@ -309,7 +353,10 @@
   height: calc(var(--sbb-form-field-label-text-size) * var(--sbb-typo-line-height-text));
 
   // Moves label down and input up to meet positioning requirements
-  margin-block-end: var(--_sbb-form-field-spacer-margin-block-end);
+  margin-block-end: calc(
+    var(--_sbb-form-field-spacer-margin-block-end) +
+      var(--_sbb-form-field-spacer-margin-block-end-textarea, 0px)
+  );
 }
 
 // To avoid doubled payload, we group the rules.
@@ -331,9 +378,9 @@
   inset-block-start: 0;
   color: var(--sbb-form-field-label-color);
   font-size: var(--sbb-form-field-label-text-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
 
-  :host(:where(:state(input-type-select), :state(input-type-sbb-select))) & {
+  :host(:where(:state(input-element-select), :state(input-element-sbb-select))) & {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 
@@ -357,7 +404,7 @@
   :host(
       [floating-label]:is(
           :not(
-            :where(:state(focus)):not(:where(:state(input-type-sbb-select))),
+            :where(:state(focus)):not(:where(:state(input-element-sbb-select))),
             :where(:state(has-popup-open))
           ),
           :where(:state(readonly))
@@ -369,8 +416,8 @@
   }
 
   // :where is to align specificity
-  :host(:where(:state(input-type-textarea))) & {
-    @include sbb.if-forced-colors {
+  :host(:where(:state(input-element-textarea))) & {
+    @media (forced-colors: active) {
       // The background of the textarea is set to Canvas and therefore hides the label behind.
       // By setting the z-index to 1, we move the label in front of the textarea.
       z-index: 1;
@@ -388,27 +435,29 @@
   align-items: start;
 
   :host(
-      [size='s']:is(
-        :state(input-type-input),
-        :state(input-type-select),
-        :state(input-type-sbb-select),
-        :state(input-type-sbb-date-input),
-        :state(input-type-sbb-time-input)
+      :is(
+        :state(input-element-input),
+        :state(input-element-select),
+        :state(input-element-sbb-select),
+        :state(input-element-sbb-date-input),
+        :state(input-element-sbb-time-input)
       )
     )
     & {
     // In size s, the natural height of the text input is too small.
     // To not reserve too much space, we decrease the height.
-    margin-block-end: #{sbb.px-to-rem-build(-2)};
+    // The variable is set to -2px for size s (explicit or lean-theme default) and 0 otherwise.
+    margin-block-end: var(--_sbb-form-field-input-margin-block-end);
   }
 }
 
-.sbb-form-field__error {
+.sbb-form-field__hint {
   display: flex;
-  min-height: var(--sbb-form-field-error-min-height);
+  min-height: var(--sbb-form-field-hint-min-height);
   flex-direction: column;
+  margin-inline-start: var(--sbb-form-field-padding-inline);
   margin-block-start: var(
-    --sbb-form-field-error-padding-block-start-override,
-    var(--sbb-form-field-error-padding-block-start)
+    --sbb-form-field-hint-padding-block-start-override,
+    var(--sbb-form-field-hint-padding-block-start)
   );
 }

@@ -130,11 +130,7 @@ interface SeatReservationSelectedPlaces {
 type CoachDeckLevel = 'SINGLE_DECK' | 'LOWER_DECK' | 'MIDDLE_DECK' | 'UPPER_DECK';
 type PlaceType = 'SEAT' | 'BICYCLE';
 type CoachType =
-  | 'RESTAURANT_COACH'
-  | 'BICYCLE_COACH'
-  | 'LUGGAGE_COACH'
-  | 'TRAIN_HEAD'
-  | 'LOCOMOTIVE_COACH';
+  'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD' | 'LOCOMOTIVE_COACH';
 type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
 type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
 type VehicleType = 'TRAIN' | 'BUS';
@@ -266,10 +262,10 @@ their current position within the reservation area.
 
 ## Events
 
-| Name             | Type                                         | Description                                                                         | Inherited From             |
-| ---------------- | -------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------- |
-| `selectedcoach`  | `CustomEvent<SeatReservationSelectedCoach>`  | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
-| `selectedplaces` | `CustomEvent<SeatReservationSelectedPlaces>` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |
+| Name             | Type                                    | Description                                                                         | Inherited From             |
+| ---------------- | --------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------- |
+| `selectedcoach`  | `SbbSeatReservationSelectedCoachEvent`  | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
+| `selectedplaces` | `SbbSeatReservationSelectedPlacesEvent` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |
 
 ## Seat Reservation Area
 
@@ -303,26 +299,26 @@ The component `<sbb-seat-reservation-area>` represents a grey or white backgroun
 
 #### Properties
 
-| Name                     | Attribute                  | Privacy | Type                | Default  | Description                                                                                                                          |
-| ------------------------ | -------------------------- | ------- | ------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `alignVertical`          | `align-vertical`           | public  | `boolean`           | `false`  | The seat reservation area is aligned vertically                                                                                      |
-| `baseGridSize`           | `base-grid-size`           | public  | `number`            | `16`     | The seat reservation area's base grid size                                                                                           |
-| `hasNavigation`          | `has-navigation`           | public  | `boolean`           | `true`   | The seat reservation navigation can be toggled by this property                                                                      |
-| `height`                 | `height`                   | public  | `number`            | `null!`  | The seat reservation area's width                                                                                                    |
-| `maxBicycleReservations` | `max-bicycle-reservations` | public  | `number`            | `-1`     | Maximal number of possible clickable bicycle places                                                                                  |
-| `maxSeatReservations`    | `max-seat-reservations`    | public  | `number`            | `-1`     | Maximal number of possible clickable seats                                                                                           |
-| `preselectCoachIndex`    | `preselect-coach-index`    | public  | `number`            | `-1`     |                                                                                                                                      |
-| `preventPlaceClick`      | `prevent-place-click`      | public  | `boolean`           | `false`  | Any click functionality is prevented                                                                                                 |
-| `seatReservations`       | `seat-reservations`        | public  | `SeatReservation[]` | `null!`  | The seat reservations array contains all coaches and places                                                                          |
-| `showTitleInfo`          | `show-title-info`          | public  | `boolean`           | `false`  | The seat reservation title information at place-controls, navigation-coaches and navigation-services can be toggled by this property |
-| `travelDirection`        | `travel-direction`         | public  | `TravelDirection`   | `'NONE'` | Displays an arrow showing what direction does train drive                                                                            |
+| Name                     | Attribute                  | Privacy | Type                          | Default  | Description                                                                                                                          |
+| ------------------------ | -------------------------- | ------- | ----------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `alignVertical`          | `align-vertical`           | public  | `boolean`                     | `false`  | The seat reservation area is aligned vertically                                                                                      |
+| `baseGridSize`           | `base-grid-size`           | public  | `number`                      | `16`     | The seat reservation area's base grid size                                                                                           |
+| `hasNavigation`          | `has-navigation`           | public  | `boolean`                     | `true`   | The seat reservation navigation can be toggled by this property                                                                      |
+| `height`                 | `height`                   | public  | `number`                      | `null!`  | The seat reservation area's width                                                                                                    |
+| `maxBicycleReservations` | `max-bicycle-reservations` | public  | `number`                      | `-1`     | Maximal number of possible clickable bicycle places                                                                                  |
+| `maxSeatReservations`    | `max-seat-reservations`    | public  | `number`                      | `-1`     | Maximal number of possible clickable seats                                                                                           |
+| `preselectCoachIndex`    | `preselect-coach-index`    | public  | `number`                      | `-1`     |                                                                                                                                      |
+| `preventPlaceClick`      | `prevent-place-click`      | public  | `boolean`                     | `false`  | Any click functionality is prevented                                                                                                 |
+| `seatReservations`       | `seat-reservations`        | public  | `SeatReservation[]`           | `null!`  | The seat reservations array contains all coaches and places                                                                          |
+| `showTitleInfo`          | `show-title-info`          | public  | `boolean`                     | `false`  | The seat reservation title information at place-controls, navigation-coaches and navigation-services can be toggled by this property |
+| `travelDirection`        | `travel-direction`         | public  | `'LEFT' \| 'RIGHT' \| 'NONE'` | `'NONE'` | Displays an arrow showing what direction does train drive                                                                            |
 
 #### Events
 
-| Name             | Type                                         | Description                                                                         | Inherited From             |
-| ---------------- | -------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------- |
-| `selectedcoach`  | `CustomEvent<SeatReservationSelectedCoach>`  | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
-| `selectedplaces` | `CustomEvent<SeatReservationSelectedPlaces>` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |
+| Name             | Type                                    | Description                                                                         | Inherited From             |
+| ---------------- | --------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------- |
+| `selectedcoach`  | `SbbSeatReservationSelectedCoachEvent`  | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
+| `selectedplaces` | `SbbSeatReservationSelectedPlacesEvent` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |
 
 ### class: `SbbSeatReservationGraphicElement`, `sbb-seat-reservation-graphic`
 
@@ -351,10 +347,10 @@ The component `<sbb-seat-reservation-area>` represents a grey or white backgroun
 
 #### Events
 
-| Name          | Type                                   | Description                                                                                    | Inherited From |
-| ------------- | -------------------------------------- | ---------------------------------------------------------------------------------------------- | -------------- |
-| `focuscoach`  | `Event`                                | Emits when a nav coach has the focus                                                           |                |
-| `selectcoach` | `CustomEvent<SelectCoachEventDetails>` | Emits when a coach within the navigation was selected and returns the clicked coach nav index. |                |
+| Name          | Type                  | Description                                                                                    | Inherited From |
+| ------------- | --------------------- | ---------------------------------------------------------------------------------------------- | -------------- |
+| `focuscoach`  | `Event`               | Emits when a nav coach has the focus                                                           |                |
+| `selectcoach` | `SbbSelectCoachEvent` | Emits when a coach within the navigation was selected and returns the clicked coach nav index. |                |
 
 ### class: `SbbSeatReservationNavigationServicesElement`, `sbb-seat-reservation-navigation-services`
 
@@ -370,23 +366,39 @@ The component `<sbb-seat-reservation-area>` represents a grey or white backgroun
 
 #### Properties
 
-| Name              | Attribute          | Privacy | Type              | Default     | Description                                                           |
-| ----------------- | ------------------ | ------- | ----------------- | ----------- | --------------------------------------------------------------------- |
-| `coachIndex`      | `coach-index`      | public  | `number`          | `null!`     | Coach Index Prop to identifier the right place to coach               |
-| `deckIndex`       | `deck-index`       | public  | `number`          | `null!`     | Deck Index Prop to identifier the right place to deck                 |
-| `keyfocus`        | `keyfocus`         | public  | `string`          | `'unfocus'` | Set the place focus outline style                                     |
-| `placeType`       | `type`             | public  | `PlaceType`       | `'SEAT'`    | placeType of the place, e.g. 'SEAT', 'BICYCLE'                        |
-| `preventClick`    | `prevent-click`    | public  | `boolean`         | `false`     | Prevent click prop prevent any place action                           |
-| `propertyIds`     | `propertyIds`      | public  | `string[]`        | `[]`        | property ids of the place, to display more info about the place       |
-| `showTitleInfo`   | `showTitleInfo`    | public  | `boolean`         | `false`     | Disable the mouse over title information                              |
-| `state`           | `state`            | public  | `PlaceState`      | `'FREE'`    | state of the place, e.g. 'FREE', 'SELECTED', 'BLOCKED'                |
-| `text`            | `text`             | public  | `string`          | `''`        | label of the place, e.g. '1A', '2B'                                   |
-| `travelDirection` | `travel-direction` | public  | `TravelDirection` | `'NONE'`    | direction of a whole train, used to compute an orientation of a place |
+| Name                | Attribute          | Privacy | Type                                                  | Default     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ------------------ | ------- | ----------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `coachIndex`        | `coach-index`      | public  | `number`                                              | `null!`     | Coach Index Prop to identifier the right place to coach                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `deckIndex`         | `deck-index`       | public  | `number`                                              | `null!`     | Deck Index Prop to identifier the right place to deck                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `form`              | `form`             | public  | `HTMLFormElement \| null`                             |             | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `keyfocus`          | `keyfocus`         | public  | `string`                                              | `'unfocus'` | Set the place focus outline style                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `name`              | `name`             | public  | `string`                                              |             | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `placeType`         | `type`             | public  | `'SEAT' \| 'BICYCLE'`                                 | `'SEAT'`    | placeType of the place, e.g. 'SEAT', 'BICYCLE'                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `preventClick`      | `prevent-click`    | public  | `boolean`                                             | `false`     | Prevent click prop prevent any place action                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `propertyIds`       | `propertyIds`      | public  | `string[]`                                            | `[]`        | property ids of the place, to display more info about the place                                                                                                                                                                                                                                                                                                                                                                                         |
+| `showTitleInfo`     | `showTitleInfo`    | public  | `boolean`                                             | `false`     | Disable the mouse over title information                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `state`             | `state`            | public  | `'FREE' \| 'ALLOCATED' \| 'RESTRICTED' \| 'SELECTED'` | `'FREE'`    | state of the place, e.g. 'FREE', 'SELECTED', 'BLOCKED'                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `text`              | `text`             | public  | `string`                                              | `''`        | label of the place, e.g. '1A', '2B'                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `travelDirection`   | `travel-direction` | public  | `'LEFT' \| 'RIGHT' \| 'NONE'`                         | `'NONE'`    | direction of a whole train, used to compute an orientation of a place                                                                                                                                                                                                                                                                                                                                                                                   |
+| `type`              | -                  | public  | `'button' \| 'reset' \| 'submit'`                     | `'button'`  | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `validationMessage` | -                  | public  | `string`                                              |             | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -                  | public  | `ValidityState`                                       |             | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | `value`            | public  | `string`                                              | `''`        | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `willValidate`      | -                  | public  | `boolean`                                             |             | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+#### Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
 #### Events
 
-| Name          | Type                          | Description                                                                                                                | Inherited From |
-| ------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `selectplace` | `CustomEvent<PlaceSelection>` | Emits when a place was selected via user interaction and returns a PlaceSelection object with necessary place information. |                |
+| Name          | Type                     | Description                                                                                                                | Inherited From         |
+| ------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| `selectplace` | `SbbPlaceSelectionEvent` | Emits when a place was selected via user interaction and returns a PlaceSelection object with necessary place information. |                        |
+| `validity`    | `Event`                  | The validity event is dispatched whenever the validity state of the element changes.                                       | SbbFormAssociatedMixin |
 
 ### class: `SbbSeatReservationScopedElement`, `sbb-seat-reservation-scoped`

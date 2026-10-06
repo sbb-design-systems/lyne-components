@@ -1,4 +1,4 @@
-import { assert, expect, nextFrame } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { spy } from 'sinon';
@@ -97,7 +97,6 @@ describe(`sbb-form-field`, () => {
       const formError = document.createElement('sbb-error');
       element.append(formError);
       await waitForLitRender(element);
-      await nextFrame();
 
       // Then input should be linked and sbb-error configured
       expect(input.ariaDescribedByElements).to.have.same.members([formError]);
@@ -120,7 +119,6 @@ describe(`sbb-form-field`, () => {
       const formError = document.createElement('sbb-error');
       element.append(formError);
       await waitForLitRender(element);
-      await nextFrame();
 
       expect(input.ariaDescribedByElements).to.have.same.members([description, formError]);
 
@@ -224,7 +222,6 @@ describe(`sbb-form-field`, () => {
       const formError = document.createElement('sbb-error');
       element.append(formError);
       await waitForLitRender(element);
-      await nextFrame();
 
       // Then input should be linked and sbb-error configured
       expect(textarea.ariaDescribedByElements).to.have.same.members([formError]);
@@ -236,6 +233,68 @@ describe(`sbb-form-field`, () => {
 
       // Then ariaDescribedByElements should be removed
       expect(textarea.ariaDescribedByElements).to.be.null;
+    });
+
+    it('should reference sbb-hint', async () => {
+      // When adding a sbb-hint
+      const hint = document.createElement('sbb-hint');
+      element.append(hint);
+      await waitForLitRender(element);
+
+      // Then textarea should be linked
+      expect(textarea.ariaDescribedByElements).to.have.same.members([hint]);
+
+      // When removing sbb-hint
+      hint.remove();
+      await waitForLitRender(element);
+
+      // Then ariaDescribedByElements should be removed
+      expect(textarea.ariaDescribedByElements).to.be.null;
+    });
+
+    it('should reference sbb-form-field-text-counter', async () => {
+      // When adding a sbb-hint
+      const textCounter = document.createElement('sbb-form-field-text-counter');
+      element.append(textCounter);
+      await waitForLitRender(element);
+
+      // Then textarea should be linked
+      expect(textarea.ariaDescribedByElements).to.have.same.members([textCounter]);
+
+      // When removing sbb-form-field-text-counter
+      textCounter.remove();
+      await waitForLitRender(element);
+
+      // Then ariaDescribedByElements should be removed
+      expect(textarea.ariaDescribedByElements).to.be.null;
+    });
+
+    it('should not reference sbb-hint when sbb-error is present', async () => {
+      // When adding both a sbb-hint and a sbb-error
+      const hint = document.createElement('sbb-hint');
+      const formError = document.createElement('sbb-error');
+      element.append(hint, formError);
+      await waitForLitRender(element);
+
+      // Then only the error should be linked, not the hint
+      expect(textarea.ariaDescribedByElements).to.have.same.members([formError]);
+      expect(element).to.have.match(':state(has-error)');
+    });
+
+    it('should re-reference sbb-hint after sbb-error is removed', async () => {
+      // When adding both a sbb-hint and a sbb-error
+      const hint = document.createElement('sbb-hint');
+      const formError = document.createElement('sbb-error');
+      element.append(hint, formError);
+      await waitForLitRender(element);
+
+      // When removing the error
+      formError.remove();
+      await waitForLitRender(element);
+
+      // Then the hint should be linked again
+      expect(textarea.ariaDescribedByElements).to.have.same.members([hint]);
+      expect(element).not.to.have.match(':state(has-error)');
     });
   });
 
@@ -491,7 +550,7 @@ describe(`sbb-form-field`, () => {
       input.id = 'custom-control-id';
       input.tabIndex = 0;
       control = {
-        id: input.id,
+        element: input,
         disabled: false,
         empty: false,
         readOnly: false,
@@ -500,8 +559,19 @@ describe(`sbb-form-field`, () => {
       element.dispatchEvent(new SbbFormFieldControlEvent(control));
     });
 
+    it('should resolve the input element correctly', async () => {
+      expect(element.inputElement).to.equal(input);
+    });
+
+    it('should resolve the input element correctly via id', async () => {
+      delete control.element;
+      control.id = input.id;
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+      expect(element.inputElement).to.equal(input);
+    });
+
     it('should reflect correct initial state', async () => {
-      expect(element).to.match(':state(input-type-sbb-custom-control)');
+      expect(element).to.match(':state(input-element-sbb-custom-control)');
       expect(element).not.to.match(':state(empty)');
       expect(element).not.to.match(':state(disabled)');
       expect(element).not.to.match(':state(readonly)');
@@ -536,6 +606,42 @@ describe(`sbb-form-field`, () => {
       element.querySelector('label')!.click();
       expect(containerClickSpy).to.have.been.calledOnce;
       expect(input).to.have.focus;
+    });
+
+    it('should update type state from control', async () => {
+      expect(element).not.to.match(':state(input-type-select)');
+      control.type = 'select';
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+      expect(element).to.match(':state(input-element-sbb-custom-control)');
+      expect(element).to.match(':state(input-type-select)');
+    });
+
+    it('should update type state from input element', async () => {
+      expect(element).not.to.match(':state(input-type-select)');
+      (input as { type?: string }).type = 'select';
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+      expect(element).to.match(':state(input-element-sbb-custom-control)');
+      expect(element).to.match(':state(input-type-select)');
+    });
+
+    it('should update interacted state from control', async () => {
+      expect(element).not.to.match(':state(interacted)');
+      control.interacted = true;
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+      expect(element).to.match(':state(interacted)');
+      control.interacted = false;
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+      expect(element).not.to.match(':state(interacted)');
+    });
+
+    it('should update invalid state from control', async () => {
+      expect(element).not.to.match(':state(invalid)');
+      control.invalid = true;
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+      expect(element).to.match(':state(invalid)');
+      control.invalid = false;
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+      expect(element).not.to.match(':state(invalid)');
     });
   });
 

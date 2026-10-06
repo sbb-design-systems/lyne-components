@@ -5,7 +5,6 @@ snapshots["sbb-navigation-link renders DOM"] =
 `<sbb-navigation-link
   accessibility-label="a11y label"
   href="https://www.sbb.ch"
-  size="l"
   target="_blank"
 >
   This is a link

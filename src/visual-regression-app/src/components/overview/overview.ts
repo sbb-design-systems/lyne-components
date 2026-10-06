@@ -1,21 +1,28 @@
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { customElement } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved
 import { meta } from 'virtual:meta';
 
 import { screenshots } from '../../screenshots.ts';
+import { sharedStyles } from '../../shared-styles.ts';
 
-import style from './overview.scss?lit&inline';
+import style from './overview.scss?inline';
 
 import '@sbb-esta/lyne-elements/accordion.js';
 import '@sbb-esta/lyne-elements/action-group.js';
-import '@sbb-esta/lyne-elements/button/button-link.js';
+import '@sbb-esta/lyne-elements/button.js';
 import '@sbb-esta/lyne-elements/card.js';
 import '@sbb-esta/lyne-elements/container.js';
 import '@sbb-esta/lyne-elements/expansion-panel.js';
 import '@sbb-esta/lyne-elements/link-list.js';
-import '@sbb-esta/lyne-elements/link/block-link.js';
+import '@sbb-esta/lyne-elements/link.js';
 import '@sbb-esta/lyne-elements/title.js';
 
 /**
@@ -24,7 +31,7 @@ import '@sbb-esta/lyne-elements/title.js';
 export
 @customElement('app-overview')
 class Overview extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [sharedStyles, unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`
@@ -36,35 +43,41 @@ class Overview extends LitElement {
           ${screenshots.stats}
           <sbb-card color="milk">
             <sbb-action-group
-              align-group="stretch"
-              orientation="vertical"
-              horizontal-from="large"
-              button-size="s"
-              link-size="s"
+              style="justify-content: space-between"
+              class="sbb-action-group-horizontal-from-small"
             >
-              ${meta.baselineGitSha && !screenshots.baselineOnly
-                ? html`<sbb-block-link
-                    icon-name="document-check-small"
-                    href=${meta.baselineCommitUrl || nothing}
-                    ?disabled=${meta.baselineGitSha === 'N/A'}
-                    >Baseline Commit
-                    ${meta.baselineGitSha === 'N/A'
-                      ? meta.baselineGitSha
-                      : `#${meta.baselineGitSha.substring(0, 7)}`}</sbb-block-link
-                  >`
-                : nothing}
-              ${meta.gitSha
-                ? html`<sbb-block-link
-                    icon-name="arrow-change-horizontal-small"
-                    href=${meta.commitUrl || nothing}
-                    ?disabled=${meta.gitSha === 'local'}
-                    >Commit
-                    ${meta.gitSha === 'local'
-                      ? meta.gitSha
-                      : `#${meta.gitSha.substring(0, 7)}`}</sbb-block-link
-                  >`
-                : nothing}
+              ${
+                meta.baselineGitSha && !screenshots.baselineOnly
+                  ? html`<sbb-block-link
+                      icon-name="document-check-small"
+                      href=${meta.baselineCommitUrl || nothing}
+                      size="s"
+                      ?disabled=${meta.baselineGitSha === 'N/A'}
+                      >Baseline Commit
+                      ${
+                        meta.baselineGitSha === 'N/A'
+                          ? meta.baselineGitSha
+                          : `#${meta.baselineGitSha.substring(0, 7)}`
+                      }</sbb-block-link
+                    >`
+                  : nothing
+              }
+              ${
+                meta.gitSha
+                  ? html`<sbb-block-link
+                      icon-name="arrow-change-horizontal-small"
+                      href=${meta.commitUrl || nothing}
+                      size="s"
+                      ?disabled=${meta.gitSha === 'local'}
+                      >Commit
+                      ${
+                        meta.gitSha === 'local' ? meta.gitSha : `#${meta.gitSha.substring(0, 7)}`
+                      }</sbb-block-link
+                    >`
+                  : nothing
+              }
               <sbb-button-link
+                size="s"
                 class="app-compare-link"
                 href="/compare/${screenshots.flatTestCases[0]?.path}"
               >

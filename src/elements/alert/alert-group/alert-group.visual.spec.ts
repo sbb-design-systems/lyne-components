@@ -1,7 +1,7 @@
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTransparentButtonElement } from '../../button/transparent-button.ts';
+import type { SbbTransparentButtonElement } from '../../button.ts';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition } from '../../core/testing.ts';
 import { SbbAlertElement } from '../alert/alert.component.ts';

@@ -8,7 +8,7 @@ import type { SbbMessageElement } from './message.component.ts';
 
 import '../message.ts';
 import '../image.ts';
-import '../button/button.ts';
+import '../button.ts';
 import '../title.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');

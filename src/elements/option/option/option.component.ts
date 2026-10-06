@@ -1,17 +1,15 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 
-import type { SbbAutocompleteElement } from '../../autocomplete.ts';
-import { SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbSelectElement } from '../../select.ts';
+import type { SbbAutocompleteElement } from '../../autocomplete.pure.ts';
+import type { SbbElementType } from '../../core.ts';
+import { SbbPropertyWatcherController } from '../../core.ts';
+import type { SbbSelectElement } from '../../select.pure.ts';
+import { SbbVisualCheckboxElement } from '../../visual-checkbox.pure.ts';
 
 import { SbbOptionBaseElement } from './option-base-element.ts';
-import style from './option.scss?lit&inline';
+import style from './option.scss?inline';
 
-import '../../visual-checkbox.ts';
-
-export type SbbOptionVariant = 'autocomplete' | 'select' | null;
+type SbbOptionVariant = 'autocomplete' | 'select' | null;
 
 /**
  * It displays on option item which can be used in `sbb-select` or `sbb-autocomplete`.
@@ -24,14 +22,13 @@ export type SbbOptionVariant = 'autocomplete' | 'select' | null;
  */
 export class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override readonly elementName: string = 'sbb-option';
+  public static override elementDependencies: SbbElementType[] = [SbbVisualCheckboxElement];
   public static override readonly role = 'option';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static override readonly events = {
     optionselectionchange: 'optionselectionchange',
     optionselected: 'optionselected',
   } as const;
-
-  protected optionId = `sbb-option`;
 
   private set _variant(variant: SbbOptionVariant) {
     if (this._variantInternal) {
@@ -57,12 +54,6 @@ export class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
     );
 
     this.addController(
-      new SbbPropertyWatcherController(this, () => this.closest('sbb-autocomplete'), {
-        negative: (e) => this._handleNegativeChange(e),
-      }),
-    );
-
-    this.addController(
       new SbbPropertyWatcherController(this, () => this.closest('sbb-select'), {
         multiple: (ancestor) => {
           this.toggleState('multiple', ancestor.multiple);
@@ -76,7 +67,7 @@ export class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   }
 
   private _isMultiple(): boolean {
-    return !this.hydrationRequired && this.internals.states.has('multiple');
+    return !this.hydrationRequired && this.matches?.(':state(multiple)');
   }
 
   private _handleNegativeChange(ancestor: SbbAutocompleteElement | SbbSelectElement): void {
@@ -144,20 +135,24 @@ export class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   protected override renderIcon(): TemplateResult {
     return html`
       <!-- Icon -->
-      ${!this._isMultiple()
-        ? html` <span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`
-        : nothing}
+      ${
+        !this._isMultiple()
+          ? html` <span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`
+          : nothing
+      }
 
       <!-- Checkbox -->
-      ${this._isMultiple()
-        ? html`
-            <sbb-visual-checkbox
-              ?checked=${this.selected}
-              ?disabled=${this.disabled || this.disabledFromGroup}
-              ?negative=${this.matches?.(':state(negative)')}
-            ></sbb-visual-checkbox>
-          `
-        : nothing}
+      ${
+        this._isMultiple()
+          ? html`
+              <sbb-visual-checkbox
+                ?checked=${this.selected}
+                ?disabled=${this.disabled || this.disabledFromGroup}
+                ?negative=${this.matches?.(':state(negative)')}
+              ></sbb-visual-checkbox>
+            `
+          : nothing
+      }
     `;
   }
 

@@ -1,23 +1,18 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { i18nPage, i18nPaginatorOf } from '../../core/i18n.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { i18nPage, i18nPaginatorOf, SbbElement, type SbbElementType } from '../../core.ts';
+import { SbbDividerElement } from '../../divider.pure.ts';
 import { SbbPaginatorCommonElementMixin } from '../common/paginator-common.ts';
 
-import style from './compact-paginator.scss?lit&inline';
-
-import '../../divider.ts';
-import '../../screen-reader-only.ts';
+import style from './compact-paginator.scss?inline';
 
 /**
  * It displays a paginator component in compact mode.
  */
 export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-compact-paginator';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [SbbDividerElement];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events: Record<string, string> = {
     page: 'page',
   } as const;
@@ -28,24 +23,23 @@ export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(S
         >${this.pageIndex + 1}<sbb-divider
           orientation="vertical"
           class="sbb-compact-paginator__divider"
-          style=${styleMap({ '--sbb-divider-color': 'currentcolor' })}
           ?negative=${this.negative}
         ></sbb-divider
         >${this.numberOfPages()}</span
       >
-      <sbb-screen-reader-only>
+      <span class="sbb-screen-reader-only">
         ${`${this.accessibilityPageLabel ? this.accessibilityPageLabel : i18nPage[this.language.current]} ${this.pageIndex + 1} ${i18nPaginatorOf[this.language.current]} ${this.numberOfPages()}`}
-      </sbb-screen-reader-only>
+      </span>
     `;
   }
 
   protected override renderPaginator(): TemplateResult {
     return html`
-      <div class="sbb-compact-paginator">
-        ${this.pagerPosition === 'start'
+      ${
+        this.pagerPosition === 'start'
           ? html`${this.renderPrevNextButtons()} ${this._renderPageNumbers()}`
-          : html`${this._renderPageNumbers()} ${this.renderPrevNextButtons()}`}
-      </div>
+          : html`${this._renderPageNumbers()} ${this.renderPrevNextButtons()}`
+      }
     `;
   }
 }

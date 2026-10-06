@@ -1,19 +1,17 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  forceType,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  screenReaderOnlyStyles,
+} from '@sbb-esta/lyne-elements/core.js';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { getI18nSeatReservation } from '../common/translations.ts';
 import { SbbSeatReservationGraphicElement } from '../seat-reservation-graphic/seat-reservation-graphic.component.ts';
 
-import style from './seat-reservation-navigation-services.scss?lit&inline';
-
-import '@sbb-esta/lyne-elements/screen-reader-only.js';
-
-SbbSeatReservationGraphicElement.define();
+import style from './seat-reservation-navigation-services.scss?inline';
 
 /**
  * Component displays the available service icons of one coach.
@@ -21,7 +19,8 @@ SbbSeatReservationGraphicElement.define();
  */
 export class SbbSeatReservationNavigationServicesElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-navigation-services';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [SbbSeatReservationGraphicElement];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /** Coach service property ids, which are used to display the services in the navigation */
   @property({ attribute: 'property-ids', type: Array })
@@ -44,17 +43,21 @@ export class SbbSeatReservationNavigationServicesElement extends SbbElement {
       ? this._getServiceLabelDescription()
       : null;
     return html` <div class="sbb-sr-navigation__signs">
-      <sbb-screen-reader-only ${serviceLabelDescription ? serviceLabelDescription : nothing}
-        >${serviceLabelDescription}</sbb-screen-reader-only
+      <span
+        class="sbb-screen-reader-only"
+        ${serviceLabelDescription ? serviceLabelDescription : nothing}
+        >${serviceLabelDescription}</span
       >
       ${this.propertyIds?.map((signIcon: string) => {
         return html`
           <sbb-seat-reservation-graphic
             class="auto-width"
             name=${signIcon ?? nothing}
-            title=${this.showTitleInfo
-              ? getI18nSeatReservation(signIcon, this._language.current)
-              : nothing}
+            title=${
+              this.showTitleInfo
+                ? getI18nSeatReservation(signIcon, this._language.current)
+                : nothing
+            }
             aria-hidden="true"
           ></sbb-seat-reservation-graphic>
         `;

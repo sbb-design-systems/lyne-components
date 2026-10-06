@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-time-input>` is an input component that displays the typed value as a formatted time (HH:mm).
 
 ```html
@@ -51,6 +53,9 @@ Similar to the native `<input>` element, the `<sbb-time-input>` component
 dispatches the usual `input`, `change`, `blur`, `invalid` and keyboard
 and focus related events.
 
+<!-- #region forms -->
+<!-- #endregion -->
+
 <!-- Auto Generated Below -->
 
 ## API Documentation
@@ -86,7 +91,8 @@ and focus related events.
 
 #### Events
 
-| Name     | Type         | Description                                                                                                                                                                        | Inherited From              |
-| -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| `change` | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFormAssociatedInputMixin |
-| `input`  | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFormAssociatedInputMixin |
+| Name       | Type         | Description                                                                                                                                                                        | Inherited From              |
+| ---------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `change`   | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFormAssociatedInputMixin |
+| `input`    | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFormAssociatedInputMixin |
+| `validity` | `Event`      | The validity event is dispatched whenever the validity state of the element changes.                                                                                               | SbbFormAssociatedMixin      |

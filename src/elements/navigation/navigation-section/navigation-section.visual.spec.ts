@@ -25,7 +25,7 @@ describe(`sbb-navigation-section`, () => {
 
   const template = html`
     <sbb-navigation>
-      <sbb-navigation-marker id="nav-marker">${navigationActions()}</sbb-navigation-marker>
+      <sbb-navigation-marker>${navigationActions()}</sbb-navigation-marker>
       <sbb-navigation-section trigger="nav-2" title-content="Title two">
         ${navigationList(true)} ${navigationList(true)} ${navigationList()} ${navigationList()}
         ${navigationList()} ${navigationList()}

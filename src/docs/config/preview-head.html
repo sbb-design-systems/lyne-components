@@ -1,0 +1,138 @@
+<!--
+  Storybook will inject this into the html-head at build time
+-->
+<meta name="components-version" content="%VERSION%" />
+
+<link
+  rel="preload"
+  href="https://cdn.app.sbb.ch/fonts/v1_9_subset/SBBWeb-Roman.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
+<link
+  rel="preload"
+  href="https://cdn.app.sbb.ch/fonts/v1_9_subset/SBBWeb-Bold.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
+<link
+  rel="preload"
+  href="https://cdn.app.sbb.ch/fonts/v1_9_subset/SBBWeb-Light.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
+
+<style>
+  /* Classes used for the custom sbb-header story. */
+  .last-element,
+  .sbb-header-spacer-logo {
+    display: none;
+  }
+
+  @media screen and (width >= 600px) {
+    .last-element {
+      display: block;
+    }
+  }
+
+  @media screen and (width < 1024px) {
+    .sbb-header-spacer {
+      display: none;
+    }
+
+    .sbb-header-spacer-logo {
+      display: block;
+    }
+  }
+
+  .sbdocs-content {
+    max-width: var(--sbb-breakpoint-large-max) !important;
+  }
+
+  .sbdocs-content summary {
+    /* the doc viewer in storybook does not have a dark mode. We force the font color to black. */
+    color: var(--sbb-color-charcoal);
+  }
+
+  .docs-story {
+    background-color: var(--sbb-background-color-1);
+  }
+
+  .sb-show-main.sb-main-padded {
+    padding: 2rem;
+  }
+
+  .sbb-inline-story {
+    border: var(--sbb-border-width-1x) solid
+      light-dark(var(--sbb-color-aluminium), var(--sbb-color-anthracite));
+    padding: var(--sbb-spacing-fixed-6x);
+    border-radius: var(--sbb-border-radius-2x);
+    margin-block: var(--sbb-spacing-fixed-6x);
+  }
+</style>
+
+<script>
+  const windowRef = typeof window !== 'undefined' && window;
+  if (!inIframe() && !isDev()) {
+    setTimeout(() => {
+      const div = document.createElement('div');
+      div.textContent = 'EXAMPLE / BEISPIEL / EXEMPLE / ESEMPIO ';
+      div.style.cssText = `
+        position: fixed;
+        z-index: 100000;
+        display: flex;
+        gap: 0.5rem;
+        border: 1px solid var(--sbb-color-primary);
+        border-radius: 0.25rem;
+        color: var(--sbb-color-black);
+        background-color: var(--sbb-color-warning);
+        padding: 0.5rem;
+        inset: 0.5rem 0 auto;
+        margin: 0 auto;
+        max-width: fit-content;
+      `;
+      const a = document.createElement('a');
+      a.href = 'https://lyne-elements.app.sbb.ch/';
+      a.textContent = '(Create your own)';
+
+      const button = document.createElement('button');
+      button.textContent = 'Close';
+      button.addEventListener('click', () => div.remove());
+
+      div.append(a);
+      div.append(button);
+      document.body.append(div);
+    });
+  } else if (inIframe() && !isDev()) {
+    window.onload = () => {
+      const resizeObserver = new ResizeObserver((entries) => {
+        const rect = entries[0].contentRect;
+        window.parent.postMessage(
+          {
+            key: 'iframeheight',
+            height: rect.height + rect.x + rect.y,
+            url: window.location.href,
+            id: new URLSearchParams(window.location.search).get('id'),
+          },
+          '*',
+        );
+      });
+      resizeObserver.observe(document.body);
+    };
+  }
+
+  function inIframe() {
+    try {
+      return windowRef.self !== windowRef.top;
+    } catch (e) {
+      return true;
+    }
+  }
+
+  function isDev() {
+    return window.location.hostname === 'localhost';
+  }
+</script>

@@ -19,7 +19,6 @@ $open-anim-opacity-to: 1;
   --sbb-expansion-panel-start-start-radius: var(--sbb-expansion-panel-border-radius);
   --sbb-expansion-panel-end-end-radius: var(--sbb-expansion-panel-border-radius);
   --sbb-expansion-panel-end-start-radius: var(--sbb-expansion-panel-border-radius);
-  --_sbb-expansion-panel-display: grid;
 
   display: block;
   background-color: var(--sbb-expansion-panel-background-color);
@@ -45,14 +44,14 @@ $open-anim-opacity-to: 1;
 }
 
 :host([disabled]) {
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-expansion-panel-border-color: GrayText;
     --sbb-expansion-panel-border-block-start-color: GrayText;
   }
 }
 
 :host([expanded]) {
-  --_sbb-expansion-panel-display-expanded: var(--_sbb-expansion-panel-display);
+  --_sbb-expansion-panel-display-expanded: grid;
 }
 
 :host(:state(accordion):state(accordion-first)) {
@@ -79,12 +78,10 @@ $open-anim-opacity-to: 1;
 
 :host([color='white']) {
   --sbb-expansion-panel-background-color: var(--sbb-background-color-1);
-  --sbb-expansion-panel-background-color-hover: var(--sbb-background-color-3);
 }
 
 :host([color='milk']) {
   --sbb-expansion-panel-background-color: var(--sbb-background-color-3);
-  --sbb-expansion-panel-background-color-hover: var(--sbb-background-color-1);
 }
 
 :host([borderless]) {
@@ -93,7 +90,7 @@ $open-anim-opacity-to: 1;
   --sbb-expansion-panel-border-block-start-width: 0;
   --sbb-expansion-panel-border-block-start-color: transparent;
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-expansion-panel-border-width: var(--sbb-border-width-1x);
     --sbb-expansion-panel-border-block-start-width: var(--sbb-expansion-panel-border-width);
   }
@@ -102,15 +99,13 @@ $open-anim-opacity-to: 1;
 :host([borderless]:state(accordion):not(:state(accordion-first))) {
   --sbb-expansion-panel-border-block-start-width: var(--sbb-spacing-fixed-1x);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-expansion-panel-border-block-start-width: 0;
   }
 }
 
 :host(:not([disabled]):state(toggle-hover)) {
-  background-color: var(--sbb-expansion-panel-background-color-hover);
-
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     --sbb-expansion-panel-border-color: Highlight;
     --sbb-expansion-panel-border-block-start-color: Highlight;
   }
@@ -139,7 +134,7 @@ $open-anim-opacity-to: 1;
   }
 
   :host(:state(state-closing)) & {
-    display: var(--_sbb-expansion-panel-display);
+    display: grid;
     visibility: hidden;
     animation-name: close;
     animation-duration: var(--sbb-expansion-panel-animation-duration);
@@ -148,7 +143,9 @@ $open-anim-opacity-to: 1;
 }
 
 .sbb-expansion-panel__content {
+  // Enables overflow for content
   min-height: 0;
+  min-width: 0;
 }
 
 @keyframes open {

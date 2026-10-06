@@ -1,6 +1,7 @@
-/// <reference types="temporal-polyfill/global" />
+/// <reference lib="esnext.intl" />
+/// <reference lib="esnext.temporal" />
 
-import { SbbLanguageController } from '../controllers.ts';
+import { SbbLanguageController } from '../controllers/language-controller.ts';
 
 import { DateAdapter } from './date-adapter.ts';
 
@@ -191,6 +192,6 @@ export class TemporalDateAdapter extends DateAdapter<Temporal.PlainDate> {
    * @param valueFunction The function of array's index used to fill the array.
    */
   private _range<T>(length: number, valueFunction: (index: number) => T): T[] {
-    return Array.from({ length }).map((_, i) => valueFunction(i));
+    return Array.from({ length }, (_, i) => valueFunction(i));
   }
 }

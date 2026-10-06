@@ -1,6 +1,5 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import type { SbbCheckboxSize } from '../checkbox/common/checkbox-common.ts';
 import {
   describeEach,
   describeViewports,
@@ -8,6 +7,7 @@ import {
   visualDiffFocus,
   visualRegressionFixture,
 } from '../core/testing/private.ts';
+import type { SbbPanelMixinType } from '../core.ts';
 
 import '../selection-expansion-panel.ts';
 import '../card.ts';
@@ -15,7 +15,7 @@ import '../checkbox-panel.ts';
 import '../checkbox-group.ts';
 import '../form-field.ts';
 import '../icon.ts';
-import '../link/block-link-button.ts';
+import '../link.ts';
 import '../radio-button-panel.ts';
 import '../radio-button-group.ts';
 
@@ -29,7 +29,7 @@ describe(`sbb-selection-expansion-panel`, () => {
     disabled: [false, true],
   };
 
-  const inputPanelContent = (size: SbbCheckboxSize): TemplateResult => html`
+  const inputPanelContent = (size: SbbPanelMixinType['size']): TemplateResult => html`
     Value one
     <span slot="subtext">Subtext</span>
     <span slot="suffix" style="margin-inline-start: auto; display: flex; align-items: center">
@@ -51,7 +51,7 @@ describe(`sbb-selection-expansion-panel`, () => {
   type ParamsType = { [K in keyof typeof cases]: (typeof cases)[K][number] } & {
     forceOpen?: boolean;
     value?: string;
-    size: SbbCheckboxSize;
+    size: SbbPanelMixinType['size'];
   };
   const withCheckboxPanel = (params: Partial<ParamsType>): TemplateResult => html`
     <sbb-selection-expansion-panel ?force-open=${params.forceOpen}>
@@ -108,9 +108,11 @@ describe(`sbb-selection-expansion-panel`, () => {
             `force-open ${state.name}`,
             state.with(async (setup) => {
               await setup.withFixture(html`
-                ${input === 'checkbox'
-                  ? withCheckboxPanel({ forceOpen: true })
-                  : withRadioPanel({ forceOpen: true })}
+                ${
+                  input === 'checkbox'
+                    ? withCheckboxPanel({ forceOpen: true })
+                    : withRadioPanel({ forceOpen: true })
+                }
               `);
             }),
           );
@@ -120,9 +122,11 @@ describe(`sbb-selection-expansion-panel`, () => {
           `size=xs`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
-              ${input === 'checkbox'
-                ? withCheckboxPanel({ size: 'xs' })
-                : withRadioPanel({ size: 'xs' })}
+              ${
+                input === 'checkbox'
+                  ? withCheckboxPanel({ size: 'xs' })
+                  : withRadioPanel({ size: 'xs' })
+              }
             `);
           }),
         );
@@ -131,9 +135,11 @@ describe(`sbb-selection-expansion-panel`, () => {
           `size=s`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
-              ${input === 'checkbox'
-                ? withCheckboxPanel({ size: 's' })
-                : withRadioPanel({ size: 's' })}
+              ${
+                input === 'checkbox'
+                  ? withCheckboxPanel({ size: 's' })
+                  : withRadioPanel({ size: 's' })
+              }
             `);
           }),
         );

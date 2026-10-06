@@ -1,31 +1,6 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Summary",
-      "level": 4
-    },
-    {
-      "role": "button",
-      "name": "Click on this card to show more details"
-    },
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot A11y tree Chrome */
-
 snapshots["sbb-flip-card DOM"] = 
 `<sbb-flip-card>
   <sbb-flip-card-summary
@@ -49,7 +24,6 @@ snapshots["sbb-flip-card DOM"] =
       class="sbb-action"
       href="https://www.sbb.ch"
       negative=""
-      size="s"
     >
       Link
     </sbb-link>
@@ -65,9 +39,9 @@ snapshots["sbb-flip-card Shadow DOM"] =
     class="sbb-flip-card-button"
     type="button"
   >
-    <sbb-screen-reader-only>
+    <span class="sbb-screen-reader-only">
       Summary, Click on this card for details
-    </sbb-screen-reader-only>
+    </span>
   </button>
   <slot name="summary">
   </slot>

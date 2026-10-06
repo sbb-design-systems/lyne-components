@@ -1,7 +1,7 @@
 /** @entrypoint */
 import {
-  SbbSeatReservationElement,
   SbbSeatReservationAreaElement,
+  SbbSeatReservationElement,
   SbbSeatReservationGraphicElement,
   SbbSeatReservationNavigationCoachElement,
   SbbSeatReservationNavigationServicesElement,

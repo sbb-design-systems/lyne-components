@@ -1,12 +1,10 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
-import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts';
+import { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-element.ts';
 
-import style from './calendar-day.scss?lit&inline';
+import style from './calendar-day.scss?inline';
 
 /**
  * It displays a single day cell in the `sbb-calendar` component.
@@ -15,7 +13,7 @@ import style from './calendar-day.scss?lit&inline';
  */
 export class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<T> {
   public static override readonly elementName: string = 'sbb-calendar-day';
-  public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   @property()
   public override set slot(value: string) {
@@ -64,15 +62,17 @@ export class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<
     );
   }
 
-  protected setSelectedState(parent: SbbCalendarElement<T>): void {
-    const selected = parent.multiple
-      ? (parent.selected as Date[]).some((selDay) => this.dateAdapter.sameDate(this.value, selDay))
-      : !!parent.selected && this.dateAdapter.compareDate(this.value, parent.selected) === 0;
+  protected override setSelectedState(parent: SbbCalendarElement<T>): void {
+    const selected =
+      this.dateAdapter.isValid(this.value) &&
+      (parent.multiple
+        ? (parent.value as Date[]).some((selDay) => this.dateAdapter.sameDate(this.value, selDay))
+        : !!parent.value && this.dateAdapter.compareDate(this.value, parent.value) === 0);
     this.toggleState('selected', selected);
     this.internals.ariaPressed = String(selected);
   }
 
-  protected setDisabledFilteredState(parent: SbbCalendarElement<T>): void {
+  protected override setDisabledFilteredState(parent: SbbCalendarElement<T>): void {
     const isFilteredOut = !this._isActiveDate(parent.dateFilter);
     const isOutOfRange = !this._isDayInRange(parent.min, parent.max);
     this.disabled = isFilteredOut || isOutOfRange;
@@ -80,12 +80,12 @@ export class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<
     this.toggleState('crossed-out', isFilteredOut && !isOutOfRange);
   }
 
-  private _isActiveDate(dateFilter: ((date: T | null) => boolean) | null): boolean {
-    return dateFilter?.(this.value) ?? true;
+  private _isActiveDate(dateFilter: ((date: T) => boolean) | null): boolean {
+    return dateFilter && this.dateAdapter.isValid(this.value) ? dateFilter(this.value!) : true;
   }
 
   private _isDayInRange(min: T | null, max: T | null): boolean {
-    if (!min && !max) {
+    if (!this.dateAdapter.isValid(this.value) || (!min && !max)) {
       return true;
     }
     return this.dateAdapter.sameDate(this.value, this.dateAdapter.clampDate(this.value, min, max));
@@ -97,7 +97,7 @@ export class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<
 
   protected override renderTemplate(): TemplateResult {
     return html` <span class="sbb-calendar-day__value" aria-hidden="true">
-        ${this.dateAdapter.getDate(this.value)}
+        ${this.value ? this.dateAdapter.getDate(this.value) : ''}
       </span>
       <span class="sbb-calendar-day__extra">
         <slot @slotchange=${(event: Event) => this._handleSlotchange(event)}></slot>

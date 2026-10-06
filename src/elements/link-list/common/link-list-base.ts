@@ -1,26 +1,31 @@
-import type { PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
 import {
+  forceType,
+  omitEmptyConverter,
+  SbbElement,
+  type SbbElementType,
+  type SbbHeadingLevel,
   SbbNamedSlotListMixin,
   SbbNegativeMixin,
   type WithListChildren,
-} from '../../core/mixins.ts';
+} from '../../core.ts';
 import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,
   SbbBlockLinkStaticElement,
-  SbbLinkSize,
-} from '../../link.ts';
-import type { SbbTitleLevel } from '../../title.ts';
+} from '../../link.pure.ts';
+import { SbbTitleElement } from '../../title.pure.ts';
 
-import '../../title.ts';
-
-export { default as linkListBaseStyle } from './link-list-base.scss?lit&inline';
+import style from './link-list-base.scss?inline';
 
 /**
  * It displays a list of `sbb-block-link`.
@@ -34,6 +39,8 @@ export class SbbLinkListBaseElement extends SbbNegativeMixin(
     typeof SbbElement
   >(SbbElement),
 ) {
+  public static override elementDependencies: SbbElementType[] = [SbbTitleElement];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   protected override readonly listChildLocalNames = [
     'sbb-block-link',
     'sbb-block-link-button',
@@ -46,14 +53,13 @@ export class SbbLinkListBaseElement extends SbbNegativeMixin(
   public accessor titleContent: string = '';
 
   /** The semantic level of the title, e.g. 2 = h2. */
-  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbTitleLevel = '2';
+  @property({ attribute: 'title-level' }) public accessor titleLevel: SbbHeadingLevel = '2';
 
   /**
-   * Text size of the nested sbb-block-link instances.
+   * Text size of the nested sbb-block-link instances, either xs (lean theme default), s (standard theme default) or m
    * This will overwrite the size attribute of nested sbb-block-link instances.
-   * @default 's' / 'xs' (lean)
    */
-  @property({ reflect: true }) public accessor size: SbbLinkSize = isLean() ? 'xs' : 's';
+  @property({ reflect: true }) public accessor size: SbbBlockLinkElement['size'] = null;
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);

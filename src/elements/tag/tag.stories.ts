@@ -5,7 +5,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbTagElement, SbbTagGroupElement } from '../tag.ts';
 
 import readme from './readme.md?raw';
@@ -80,7 +80,7 @@ const value: InputType = {
   },
 };
 
-const listAccessibilityLabel: InputType = {
+const accessibilityLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -102,7 +102,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm'],
+  options: ['s', 'm'] satisfies SbbTagElement['size'][],
 };
 
 const tagDefaultArgTypes: ArgTypes = {
@@ -126,14 +126,14 @@ const tagDefaultArgs: Args = {
   'icon-name': undefined,
   amount: undefined,
   'aria-label': undefined,
-  size: size.options![1],
+  size: undefined,
 };
 
 const defaultArgTypes: ArgTypes = {
   multiple,
   disabled,
   value,
-  'list-accessibility-label': listAccessibilityLabel,
+  'accessibility-label': accessibilityLabel,
   'aria-label': ariaLabel,
   numberOfTagsInGroup,
   size,
@@ -143,10 +143,10 @@ const defaultArgs: Args = {
   multiple: true,
   disabled: false,
   value: undefined,
-  'list-accessibility-label': 'Select your desired filter',
+  'accessibility-label': 'Select your desired filter',
   'aria-label': undefined,
   numberOfTagsInGroup: 8,
-  size: size.options![1],
+  size: undefined,
 };
 
 const TagTemplate = ({ label, ...args }: Args): TemplateResult =>
@@ -245,6 +245,12 @@ export const TagGroupSizeS: StoryObj = {
   render: TagGroupTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![0] },
+};
+
+export const TagGroupSizeM: StoryObj = {
+  render: TagGroupTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![1] },
 };
 
 export const Exclusive: StoryObj = {

@@ -7,6 +7,8 @@ import {
   visualDiffStandardStates,
 } from '../../core/testing/private.ts';
 
+import type { SbbTagElement } from './tag.component.ts';
+
 import '../../tag.ts';
 
 describe(`sbb-tag`, () => {
@@ -21,7 +23,7 @@ describe(`sbb-tag`, () => {
   };
 
   const visualCases = {
-    size: ['s', 'm'],
+    size: [null, 's', 'm'] satisfies SbbTagElement['size'][],
     icon: [undefined, 'face-smiling-small'],
     amount: [undefined, 123],
   };
@@ -85,7 +87,7 @@ describe(`sbb-tag`, () => {
             <sbb-tag
               icon-name=${icon ? icon : nothing}
               amount=${amount ? amount : nothing}
-              size=${size}
+              size=${size || nothing}
             >
               Tag label
             </sbb-tag>

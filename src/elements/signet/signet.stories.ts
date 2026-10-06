@@ -1,11 +1,12 @@
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 
 import readme from './readme.md?raw';
+import type { SbbSignetElement } from './signet.component.ts';
 import '../signet.ts';
 
 const Template = (args: Args): TemplateResult => html`<sbb-signet ${sbbSpread(args)}></sbb-signet>`;
@@ -14,7 +15,7 @@ const protectiveRoom: InputType = {
   control: {
     type: 'select',
   },
-  options: ['none', 'minimal', 'ideal', 'panel'],
+  options: ['none', 'minimal', 'ideal', 'panel'] satisfies SbbSignetElement['protectiveRoom'][],
 };
 
 const accessibilityLabel: InputType = {

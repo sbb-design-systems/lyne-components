@@ -3,9 +3,9 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { isWebkit } from '../../core/dom.ts';
 import { fixture, tabKey } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
+import { isWebkit } from '../../core.ts';
 import type { SbbSidebarElement } from '../sidebar/sidebar.component.ts';
 
 import { SbbSidebarContainerElement } from './sidebar-container.component.ts';

@@ -1,10 +1,9 @@
 import type { PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbSelectionGroupBaseElement } from '../core/base-elements.ts';
-import { forceType } from '../core/decorators.ts';
+import { forceType, SbbSelectionGroupBaseElement } from '../core.ts';
 import type { SbbRadioButtonElement } from '../radio-button/radio-button.component.ts';
-import type { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
+import type { SbbRadioButtonPanelElement } from '../radio-button-panel.pure.ts';
 
 let nextId = 0;
 
@@ -35,6 +34,10 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
   @property({ attribute: 'allow-empty-selection', type: Boolean })
   public accessor allowEmptySelection: boolean = false;
 
+  /** Function used to compare values. */
+  @property({ attribute: false })
+  public accessor compareWith: (v1: T | null, v2: T | null) => boolean = (v1, v2) => v1 === v2;
+
   /**
    * The value of the radio group.
    */
@@ -44,14 +47,11 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
     if (!this.hasUpdated) {
       return;
     }
-    if (val == null) {
-      this.selectionElements.forEach((r) => (r.checked = false));
-      return;
-    }
-    const toCheck = this.selectionElements.find((r) => r.value === val);
-    if (toCheck) {
-      toCheck.checked = true;
-    }
+    const toCheck =
+      val == null ? null : this.selectionElements.find((r) => this.compareWith(r.value, val));
+
+    // Keep radio checked state in sync with the provided value.
+    this.selectionElements.forEach((r) => (r.checked = r === toCheck));
   }
   public get value(): T | null {
     return (
@@ -77,6 +77,7 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
   public constructor() {
     super();
     this.addEventListener?.('change', (e: Event) => this._onRadioChange(e));
+    this.addEventListener?.('ɵradiobuttonvaluechange', () => this._updateRadioState());
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

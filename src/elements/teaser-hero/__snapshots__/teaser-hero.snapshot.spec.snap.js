@@ -34,11 +34,11 @@ snapshots["sbb-teaser-hero renders Shadow DOM"] =
   class="sbb-action-base sbb-teaser-hero"
   href="https://www.sbb.ch"
 >
-  <span class="sbb-teaser-hero__panel">
-    <p class="sbb-teaser-hero__panel-text">
-      <slot>
-      </slot>
-    </p>
+  <slot name="image">
+  </slot>
+  <sbb-teaser-panel>
+    <slot>
+    </slot>
     <sbb-block-link-static
       class="sbb-teaser-hero__panel-link"
       icon-name="chevron-small-right-small"
@@ -49,9 +49,7 @@ snapshots["sbb-teaser-hero renders Shadow DOM"] =
       <slot name="link-content">
       </slot>
     </sbb-block-link-static>
-  </span>
-  <slot name="image">
-  </slot>
+  </sbb-teaser-panel>
 </a>
 `;
 /* end snapshot sbb-teaser-hero renders Shadow DOM */
@@ -107,11 +105,11 @@ snapshots["sbb-teaser-hero renders with img Shadow DOM"] =
   rel="external"
   target="_blank"
 >
-  <span class="sbb-teaser-hero__panel">
-    <p class="sbb-teaser-hero__panel-text">
-      <slot>
-      </slot>
-    </p>
+  <slot name="image">
+  </slot>
+  <sbb-teaser-panel>
+    <slot>
+    </slot>
     <sbb-block-link-static
       class="sbb-teaser-hero__panel-link"
       icon-name="chevron-small-right-small"
@@ -123,9 +121,7 @@ snapshots["sbb-teaser-hero renders with img Shadow DOM"] =
         Find out more
       </slot>
     </sbb-block-link-static>
-  </span>
-  <slot name="image">
-  </slot>
+  </sbb-teaser-panel>
 </a>
 <span
   hidden=""

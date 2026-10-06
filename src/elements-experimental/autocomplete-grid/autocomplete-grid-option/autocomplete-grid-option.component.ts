@@ -1,16 +1,15 @@
-import { SbbPropertyWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { ɵstateController } from '@sbb-esta/lyne-elements/core/mixins.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option.js';
-import type { CSSResultGroup, PropertyValues } from 'lit';
+import { SbbPropertyWatcherController, ɵstateController } from '@sbb-esta/lyne-elements/core.js';
+import { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option.pure.js';
+import { type CSSResultGroup, type PropertyValues, unsafeCSS } from 'lit';
 
-import style from './autocomplete-grid-option.scss?lit&inline';
+import style from './autocomplete-grid-option.scss?inline';
 
 export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
 
 /**
  * It displays an option item which can be used in `sbb-autocomplete-grid`.
  *
+ * @deprecated Use `sbb-autocomplete` with `sbb-autocomplete-row` and `sbb-autocomplete-button` instead. Will be removed with the next major release.
  * @slot - Use the unnamed slot to add content to the option label.
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
  * @cssprop [--sbb-option-icon-container-display=none] - Can be used to reserve space even
@@ -20,9 +19,7 @@ export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
 export class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override readonly elementName: string = 'sbb-autocomplete-grid-option';
   public static override readonly role = 'gridcell';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
-
-  protected optionId = autocompleteGridOptionId;
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   public constructor() {
     super();
@@ -37,12 +34,6 @@ export class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseE
           this.updateAriaDisabled();
         },
         label: (p) => (this.groupLabel = p.label),
-      }),
-    );
-
-    this.addController(
-      new SbbPropertyWatcherController(this, () => this.closest('sbb-autocomplete-grid'), {
-        negative: (e) => this.toggleState('negative', e.negative),
       }),
     );
   }

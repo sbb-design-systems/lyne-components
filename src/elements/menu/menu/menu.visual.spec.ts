@@ -3,10 +3,10 @@ import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import type { SbbButtonElement } from '../../button/button.ts';
+import type { SbbButtonElement } from '../../button.ts';
 import { describeViewports, tabKey, visualDiffDefault } from '../../core/testing/private.ts';
 
-import '../../button/button.ts';
+import '../../button.ts';
 import '../../divider.ts';
 import '../../link.ts';
 import '../../menu.ts';
@@ -31,7 +31,7 @@ describe(`sbb-menu`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`
-            <sbb-button id="menu-trigger-1" size="m">Menu trigger</sbb-button>
+            <sbb-button id="menu-trigger-1">Menu trigger</sbb-button>
             <sbb-menu trigger="menu-trigger-1">
               <sbb-menu-link icon-name="link-small" href="https://www.sbb.ch/en">
                 View
@@ -61,7 +61,7 @@ describe(`sbb-menu`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`
-            <sbb-button id="menu-trigger-2" size="m">Menu trigger</sbb-button>
+            <sbb-button id="menu-trigger-2">Menu trigger</sbb-button>
             <sbb-menu trigger="menu-trigger-2">
               ${repeat(
                 new Array(10),
@@ -83,7 +83,7 @@ describe(`sbb-menu`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`
-            <sbb-button id="menu-trigger-3" size="m">Menu trigger</sbb-button>
+            <sbb-button id="menu-trigger-3">Menu trigger</sbb-button>
             <sbb-menu trigger="menu-trigger-3">
               <div style=${styleMap(userNameStyle)}>Christina Müller</div>
               <span style=${styleMap(userInfoStyle)}>UIS9057</span>
@@ -115,7 +115,7 @@ describe(`sbb-menu`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`
-            <sbb-button id="menu-trigger-1" size="m">Menu trigger</sbb-button>
+            <sbb-button id="menu-trigger-1">Menu trigger</sbb-button>
             <sbb-menu trigger="menu-trigger-1">
               <sbb-menu-button icon-name="link-small">First level menu</sbb-menu-button>
               <sbb-menu-button icon-name="pen-small">First level menu</sbb-menu-button>
@@ -154,7 +154,7 @@ describe(`sbb-menu`, () => {
         await setup.withFixture(
           html`
             <div style="display: flex;">
-              <sbb-button id="menu-trigger-1" size="m" style="margin-inline-start: auto;"
+              <sbb-button id="menu-trigger-1" style="margin-inline-start: auto;"
                 >Menu trigger</sbb-button
               >
               <sbb-menu trigger="menu-trigger-1">
@@ -193,7 +193,7 @@ describe(`sbb-menu`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`
-            <sbb-button id="menu-trigger-1" size="m">Menu trigger</sbb-button>
+            <sbb-button id="menu-trigger-1">Menu trigger</sbb-button>
             <sbb-menu trigger="menu-trigger-1">
               <sbb-menu-link icon-name="link-small" href="https://www.sbb.ch/en">
                 View
@@ -225,7 +225,7 @@ describe(`sbb-menu`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`
-            <sbb-button id="menu-trigger-1" size="m">Menu trigger</sbb-button>
+            <sbb-button id="menu-trigger-1">Menu trigger</sbb-button>
             <sbb-menu trigger="menu-trigger-1">
               <sbb-menu-button icon-name="link-small">First level menu</sbb-menu-button>
               <sbb-menu-button icon-name="pen-small">First level menu</sbb-menu-button>

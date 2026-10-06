@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-datepicker renders DOM"] = 
 `<sbb-form-field
   error-space="none"
-  size="m"
   width="default"
 >
   <sbb-datepicker-previous-day
@@ -21,7 +20,7 @@ snapshots["sbb-datepicker renders DOM"] =
     Mo, 20.12.2021
   </sbb-date-input>
   <sbb-datepicker-toggle
-    aria-controls="sbb-datepicker-1"
+    aria-controls=""
     aria-expanded="false"
     aria-haspopup="dialog"
     slot="suffix"
@@ -33,10 +32,7 @@ snapshots["sbb-datepicker renders DOM"] =
     tabindex="0"
   >
   </sbb-datepicker-next-day>
-  <sbb-datepicker
-    id="sbb-datepicker-1"
-    popover="manual"
-  >
+  <sbb-datepicker popover="manual">
   </sbb-datepicker>
 </sbb-form-field>
 `;
@@ -66,11 +62,18 @@ snapshots["sbb-datepicker renders Shadow DOM"] =
         <slot>
         </slot>
       </div>
+      <sbb-icon
+        class="sbb-form-field__select-input-icon"
+        name="chevron-small-down-small"
+      >
+      </sbb-icon>
     </div>
     <slot name="suffix">
     </slot>
   </div>
-  <div class="sbb-form-field__error">
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
     <slot name="error">
     </slot>
   </div>

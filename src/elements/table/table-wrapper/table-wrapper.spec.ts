@@ -2,7 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
-import { waitForLitRender, waitForCondition } from '../../core/testing.ts';
+import { waitForCondition, waitForLitRender } from '../../core/testing.ts';
 
 import { SbbTableWrapperElement } from './table-wrapper.component.ts';
 

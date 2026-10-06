@@ -20,7 +20,7 @@ snapshots["sbb-datepicker-toggle renders Shadow DOM"] =
 
 snapshots["sbb-datepicker-toggle in form-field renders DOM"] = 
 `<sbb-datepicker-toggle
-  aria-controls="sbb-datepicker-1"
+  aria-controls=""
   aria-expanded="false"
   aria-haspopup="dialog"
   slot="suffix"
@@ -40,7 +40,7 @@ snapshots["sbb-datepicker-toggle in form-field renders Shadow DOM"] =
 
 snapshots["sbb-datepicker-toggle in form-field renders disabled DOM"] = 
 `<sbb-datepicker-toggle
-  aria-controls="sbb-datepicker-3"
+  aria-controls=""
   aria-expanded="false"
   aria-haspopup="dialog"
   disabled=""
@@ -60,7 +60,7 @@ snapshots["sbb-datepicker-toggle in form-field renders disabled Shadow DOM"] =
 
 snapshots["sbb-datepicker-toggle in form-field with calendar parameters DOM"] = 
 `<sbb-datepicker-toggle
-  aria-controls="sbb-datepicker-5"
+  aria-controls=""
   aria-expanded="false"
   aria-haspopup="dialog"
   slot="suffix"

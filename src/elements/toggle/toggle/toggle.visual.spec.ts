@@ -8,6 +8,8 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
+import type { SbbToggleElement } from './toggle.component.ts';
+
 import '../../toggle.ts';
 
 describe(`sbb-toggle`, () => {
@@ -21,7 +23,7 @@ describe(`sbb-toggle`, () => {
         ${label ? `Zürich` : nothing}
       </sbb-toggle-option>`;
 
-  const sizeCases = { size: ['s', 'm'] };
+  const sizeCases = { size: [null, 's', 'm'] satisfies SbbToggleElement['size'][] };
 
   const cases = {
     ...sizeCases,
@@ -37,7 +39,7 @@ describe(`sbb-toggle`, () => {
     describeEach(cases, ({ size, even }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(html`
-          <sbb-toggle ?even=${even} size=${size}> ${options(true)} </sbb-toggle>
+          <sbb-toggle ?even=${even} size=${size || nothing}> ${options(true)} </sbb-toggle>
         `);
       });
 
@@ -51,12 +53,12 @@ describe(`sbb-toggle`, () => {
       }
     });
 
-    for (const size of ['s', 'm']) {
+    for (const size of [null, 's', 'm'] satisfies SbbToggleElement['size'][]) {
       it(
         `disabled size ${size}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-toggle disabled size=${size}> ${options(true)} </sbb-toggle>
+            <sbb-toggle disabled size=${size || nothing}> ${options(true)} </sbb-toggle>
           `);
         }),
       );
@@ -67,7 +69,7 @@ describe(`sbb-toggle`, () => {
         `icon ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-toggle size=${size}> ${options(label, 'app-icon-small')} </sbb-toggle>
+            <sbb-toggle size=${size || nothing}> ${options(label, 'app-icon-small')} </sbb-toggle>
           `);
         }),
       );

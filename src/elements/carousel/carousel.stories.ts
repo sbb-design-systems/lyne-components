@@ -13,8 +13,8 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import images from '../core/images.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
+import { sampleImages } from '../core/images.private.ts';
 
 import readme from './readme.md?raw';
 
@@ -61,7 +61,7 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
   <sbb-carousel ${sbbSpread(args)}>
     <sbb-carousel-list>
       ${repeat(
-        images.slice(0, 3),
+        sampleImages.slice(0, 3),
         (images) => images,
         (img, index) => html`
           <sbb-carousel-item>
@@ -108,7 +108,7 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
                   <a
                     href="https://github.com/sbb-design-systems/lyne-components"
                     target="_blank"
-                    tabindex="-1"
+                    aria-label="Navigate to lyne-angular repo"
                   >
                     <sbb-image
                       image-src=${img}
@@ -125,12 +125,14 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
     </sbb-carousel-list>
     <sbb-compact-paginator></sbb-compact-paginator>
   </sbb-carousel>
-  ${imgType === 'native-mobile'
-    ? html` <sbb-card color=${args.shadow ? 'white' : 'milk'}>
-        In mobile, scrolling the carousel can de-sync the paginator if the image is bigger than the
-        viewport. Be sure to set the right dimensions for the slotted image.
-      </sbb-card>`
-    : nothing}
+  ${
+    imgType === 'native-mobile'
+      ? html` <sbb-card color=${args.shadow ? 'white' : 'milk'}>
+          In mobile, scrolling the carousel can de-sync the paginator if the image is bigger than
+          the viewport. Be sure to set the right dimensions for the slotted image.
+        </sbb-card>`
+      : nothing
+  }
 `;
 
 const buttonTemplate = ({ shadow }: Args): TemplateResult => html`
@@ -174,7 +176,7 @@ const teaserTemplate = ({ shadow }: Args): TemplateResult => html`
             </div>
           </div>
           <sbb-image
-            image-src=${images[9]}
+            image-src=${sampleImages[9]}
             alt="Helpteaser-Background-Landscape"
             class="sbb-image-border-radius-none"
             style="position: absolute; inset: 0;"
@@ -193,7 +195,7 @@ const teaserTemplate = ({ shadow }: Args): TemplateResult => html`
             </div>
           </div>
           <sbb-image
-            image-src=${images[9]}
+            image-src=${sampleImages[9]}
             alt="Helpteaser-Background-Landscape"
             class="sbb-image-border-radius-none"
             style="position: absolute; inset: 0;"

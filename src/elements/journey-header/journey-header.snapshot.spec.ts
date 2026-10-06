@@ -25,14 +25,14 @@ describe(`sbb-journey-header`, () => {
     });
   });
 
-  describe('renders H1 L-sized round-trip negative', () => {
+  describe('renders visual-level 4 round-trip negative', () => {
     let element: SbbJourneyHeaderElement;
 
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-journey-header
           level="1"
-          size="l"
+          visual-level="4"
           round-trip
           origin="B"
           destination="C"

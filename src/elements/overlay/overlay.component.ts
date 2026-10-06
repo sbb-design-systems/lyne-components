@@ -1,28 +1,25 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import { forceType } from '../core/decorators.ts';
-import { isZeroAnimationDuration } from '../core/dom.ts';
-import { forwardEvent } from '../core/eventing.ts';
-import { i18nCloseDialog } from '../core/i18n.ts';
-import type { SbbOverlayCloseEventDetails } from '../core/interfaces.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { SbbSecondaryButtonElement } from '../button.pure.ts';
+import { SbbContainerElement } from '../container.pure.ts';
+import {
+  forceType,
+  forwardEvent,
+  i18nCloseDialog,
+  isZeroAnimationDuration,
+  type SbbElementType,
+  scrollbarStyles,
+} from '../core.ts';
 
 import {
   overlayRefs,
   SbbOverlayBaseElement,
   SbbOverlayCloseEvent,
 } from './overlay-base-element.ts';
-import style from './overlay.scss?lit&inline';
-
-import '../button/secondary-button.ts';
-import '../button/transparent-button.ts';
-import '../container.ts';
-import '../screen-reader-only.ts';
-
-let nextId = 0;
+import style from './overlay.scss?inline';
 
 /**
  * It displays an interactive overlay element.
@@ -34,7 +31,11 @@ let nextId = 0;
  */
 export class SbbOverlayElement extends SbbOverlayBaseElement {
   public static override readonly elementName: string = 'sbb-overlay';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbSecondaryButtonElement,
+    SbbContainerElement,
+  ];
+  public static override styles: CSSResultGroup = [scrollbarStyles, unsafeCSS(style)];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
@@ -59,12 +60,6 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
 
   protected closeAttribute: string = 'sbb-overlay-close';
   private _overlayContentElement: HTMLElement | null = null;
-
-  public override connectedCallback(): void {
-    this.id ||= `sbb-overlay-${nextId++}`;
-
-    super.connectedCallback();
-  }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
@@ -106,33 +101,28 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
       this.scrollHandler.enableScroll();
     }
     this.escapableOverlayController.disconnect();
-    this.dispatchCloseEvent({
-      returnValue: this.returnValue,
-      closeTarget: this.overlayCloseElement,
-    });
+    this.dispatchCloseEvent();
   }
 
-  // TODO: remove parameter `detail`
-  protected override dispatchBeforeCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
+  protected override dispatchBeforeCloseEvent(): boolean {
     /** @type {SbbOverlayCloseEvent} Emits whenever the component begins the closing transition. Can be canceled. */
     return this.dispatchEvent(
       new SbbOverlayCloseEvent('beforeclose', {
         cancelable: true,
         closeAttribute: this.closeAttribute,
-        closeTarget: this.overlayCloseElement,
-        result: this.returnValue,
+        closeTarget: this.lastClosedTarget,
+        result: this.lastResult,
       }),
     );
   }
 
-  // TODO: remove parameter `detail`
-  protected override dispatchCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
+  protected override dispatchCloseEvent(): boolean {
     /** @type {SbbOverlayCloseEvent} Emits whenever the component is closed. */
     return this.dispatchEvent(
       new SbbOverlayCloseEvent('close', {
         closeAttribute: this.closeAttribute,
-        closeTarget: this.overlayCloseElement,
-        result: this.returnValue,
+        closeTarget: this.lastClosedTarget,
+        result: this.lastResult,
       }),
     );
   }
@@ -148,17 +138,19 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
             <div class="sbb-overlay__header">
               <sbb-secondary-button
                 class="sbb-overlay__close"
-                aria-label="${this.accessibilityCloseLabel ||
-                i18nCloseDialog[this.language.current]}"
+                aria-label="${
+                  this.accessibilityCloseLabel || i18nCloseDialog[this.language.current]
+                }"
                 ?negative=${this.negative}
                 size="m"
-                type="button"
                 icon-name="cross-small"
                 sbb-overlay-close
               ></sbb-secondary-button>
             </div>
             <div
-              class="sbb-overlay__content"
+              class="sbb-overlay__content ${
+                this.negative ? 'sbb-scrollbar-negative' : 'sbb-scrollbar'
+              }"
               ${ref((el?: Element) => (this._overlayContentElement = el as HTMLDivElement))}
               @scroll=${(e: Event) => forwardEvent(e, document)}
             >
@@ -173,7 +165,7 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
           </div>
         </div>
       </div>
-      <sbb-screen-reader-only aria-live="polite"></sbb-screen-reader-only>
+      <span class="sbb-screen-reader-only" aria-live="polite"></span>
     `;
   }
 }

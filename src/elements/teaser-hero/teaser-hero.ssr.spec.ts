@@ -9,7 +9,7 @@ import '../chip-label.ts';
 import '../image.ts';
 import '../teaser-hero.ts';
 
-const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
+const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
 describe(`sbb-teaser-hero ssr`, () => {
   let root: SbbTeaserHeroElement;

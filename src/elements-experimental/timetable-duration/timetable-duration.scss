@@ -5,12 +5,8 @@
 }
 
 .duration {
-  @include sbb.text-s--regular;
+  @include sbb.text-s;
 
   margin: 0;
   white-space: nowrap;
-}
-
-.duration__text--visually-hidden {
-  @include sbb.screen-reader-only;
 }

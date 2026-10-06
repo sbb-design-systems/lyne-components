@@ -1,0 +1,6 @@
+@use '../mixins/reset';
+
+ul,
+ol {
+  @include reset.list-reset;
+}

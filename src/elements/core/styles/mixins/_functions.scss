@@ -1,0 +1,18 @@
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:string';
+@use 'sass:list';
+
+@function px-to-rem-build($size) {
+  // size: value in px (no unit)
+  @return ((math.div($size, 16)) * 1rem);
+}
+
+@function theme-pattern-select($theme-values, $theme) {
+  @each $sub-theme, $value in $theme-values {
+    @if string.index($theme, $sub-theme) {
+      @return $value;
+    }
+  }
+  @return list.nth(map.values($theme-values), 1);
+}

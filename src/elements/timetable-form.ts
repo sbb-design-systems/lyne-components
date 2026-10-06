@@ -1,7 +1,7 @@
 /** @entrypoint */
 import {
-  SbbTimetableFormElement,
   SbbTimetableFormDetailsElement,
+  SbbTimetableFormElement,
   SbbTimetableFormFieldElement,
   SbbTimetableFormSwapButtonElement,
 } from './timetable-form.pure.ts';

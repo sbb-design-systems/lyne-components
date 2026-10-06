@@ -2,19 +2,17 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import type { SbbSecondaryButtonElement } from '@sbb-esta/lyne-elements/button/secondary-button/secondary-button.component.js';
 import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
-import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover.component.js';
+import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover/popover.component.js';
 import { html } from 'lit/static-html.js';
 
 import { mapRawDataToSeatReservation } from '../common/mapper/mapper.ts';
-import type {
-  CoachNumberOfFreePlaces,
-  Place,
-  PlaceSelection,
-  SeatReservation,
-} from '../common/types.ts';
+import type { CoachNumberOfFreePlaces, Place, SeatReservation } from '../common/types.ts';
 import type { SbbSeatReservationAreaElement } from '../seat-reservation-area/seat-reservation-area.component.ts';
 import type { SbbSeatReservationNavigationCoachElement } from '../seat-reservation-navigation-coach/seat-reservation-navigation-coach.component.ts';
-import { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
+import {
+  type SbbPlaceSelectionEvent,
+  SbbSeatReservationPlaceControlElement,
+} from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.ts';
 import { SbbSeatReservationElement } from './seat-reservation.component.ts';
@@ -237,7 +235,7 @@ describe(`sbb-seat-reservation`, () => {
 
       const selectedScreenreaderElement: HTMLElement | null =
         element.shadowRoot!.querySelector<HTMLElement>(
-          `#sbb-sr-coach-caption-${element.preselectCoachIndex} sbb-screen-reader-only`,
+          `#sbb-sr-coach-caption-${element.preselectCoachIndex} .sbb-screen-reader-only`,
         );
 
       expect(selectedScreenreaderElement?.textContent).to.include(' selected.');
@@ -280,7 +278,7 @@ describe(`sbb-seat-reservation`, () => {
         ) as SbbSeatReservationPlaceControlElement;
 
       // Select the place in the second coach
-      const selectPlaceSpy = new EventSpy<CustomEvent<PlaceSelection>>('selectplace', element);
+      const selectPlaceSpy = new EventSpy<SbbPlaceSelectionEvent>('selectplace', element);
       placeControlSecondCoach!.click();
       await waitForLitRender(element);
       await aTimeout(TIMEOUT_NAVIGATION); // wait for navigation to update
@@ -528,7 +526,7 @@ describe(`sbb-seat-reservation`, () => {
     // this test is maybe not necessary because it's a duplicate
     // @see also seat-reservation-place-control.spec.ts test "'should emit full placeSelection detail on click'"
     it('emit details of selected place ', async () => {
-      const selectSpy = new EventSpy<CustomEvent<PlaceSelection>>('selectplace', element);
+      const selectSpy = new EventSpy<SbbPlaceSelectionEvent>('selectplace', element);
       const placeControls: NodeListOf<SbbSeatReservationPlaceControlElement> =
         element.shadowRoot!.querySelectorAll<SbbSeatReservationPlaceControlElement>(
           'sbb-seat-reservation-place-control',

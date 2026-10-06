@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbTimetableFormElement } from './timetable-form.component.ts';
 
-import '../../button/button.ts';
+import '../../button.ts';
 import '../../divider.ts';
 import '../../form-field.ts';
 import '../../icon.ts';

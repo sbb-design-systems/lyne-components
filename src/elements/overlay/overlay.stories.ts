@@ -4,8 +4,8 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import sampleImages from '../core/images.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
+import { sampleImages } from '../core/images.private.ts';
 
 import { SbbOverlayElement } from './overlay.component.ts';
 import readme from './readme.md?raw';
@@ -63,7 +63,7 @@ const basicArgs: Args = {
 };
 
 const triggerButton = (triggerId: string): TemplateResult => html`
-  <sbb-button size="m" id=${triggerId}>Open overlay</sbb-button>
+  <sbb-button id=${triggerId}>Open overlay</sbb-button>
 `;
 
 const textBlock = (): TemplateResult => html`
@@ -78,7 +78,7 @@ const textBlock = (): TemplateResult => html`
 const DefaultTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('overlay-trigger')}
   <sbb-overlay ${sbbSpread(args)} trigger="overlay-trigger">
-    <div class="overlay-content">
+    <div>
       <sbb-title visual-level="2" ?negative=${args.negative} style="margin-block-start: 0">
         Many Meetings
       </sbb-title>
@@ -101,14 +101,12 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
   </sbb-overlay>
 `;
 
-const NestedTemplate = (args: Args): TemplateResult => html`
+const NestedTemplate = ({ negative, ...args }: Args): TemplateResult => html`
   ${triggerButton('overlay-trigger')}
-  <sbb-overlay ${sbbSpread(args)} trigger="overlay-trigger">
-    <div class="overlay-content">
-      Click the button to open a nested overlay. ${triggerButton('overlay-trigger-2')}
-    </div>
-    <sbb-overlay ${sbbSpread(args)} trigger="overlay-trigger-2">
-      <p class="overlay-content">
+  <sbb-overlay ${sbbSpread(args)} ?negative="${negative}" trigger="overlay-trigger">
+    <div>Click the button to open a nested overlay. ${triggerButton('overlay-trigger-2')}</div>
+    <sbb-overlay ${sbbSpread(args)} ?negative="${!negative}" trigger="overlay-trigger-2">
+      <p>
         Nested overlay content. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
         nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute

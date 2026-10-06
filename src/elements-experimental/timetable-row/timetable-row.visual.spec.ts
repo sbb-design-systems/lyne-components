@@ -6,12 +6,13 @@ import {
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html, type TemplateResult } from 'lit';
 
-import type { ITripItem } from '../core/timetable/timetable-properties.ts';
+import type { ITripItem } from '../core.ts';
 
 import type { Boarding, Price } from './timetable-row.component.ts';
 import {
   a11yFootpathTrip,
   busTrip,
+  cancelledExpectedTrip,
   cancelledTrip,
   type DeepPartial,
   defaultTrip,
@@ -49,6 +50,7 @@ describe(`sbb-timetable-row`, () => {
   const cases = [
     { name: 'position', trip: progressTrip },
     { name: 'cancelled', trip: cancelledTrip },
+    { name: 'cancelledExpected', trip: cancelledExpectedTrip },
     { name: 'partially cancelled', trip: partiallyCancelled },
     { name: 'past', trip: pastTrip, now: new Date('2023-12-01T12:11:00') },
     { name: 'disturbance', trip: disturbanceTrip, now: new Date('2022-12-05T12:11:00') },

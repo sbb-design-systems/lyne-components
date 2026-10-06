@@ -6,6 +6,7 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../core/testing/private.ts';
+import type { SbbFormFieldElement } from '../form-field.pure.ts';
 
 import '../time-input.ts';
 import '../form-field.ts';
@@ -19,7 +20,7 @@ describe(`sbb-time-input`, () => {
   };
 
   const sizeCases = {
-    size: ['s', 'm', 'l'],
+    size: ['s', 'm', 'l'] satisfies SbbFormFieldElement['size'][],
     noIcons: [false, true],
   };
 
@@ -45,9 +46,11 @@ describe(`sbb-time-input`, () => {
         ?disabled=${args.disabled}
         ?readonly="${args.readonly}"
       ></sbb-time-input>
-      ${!args.noIcons
-        ? html`<sbb-icon slot="suffix" name="circle-information-small"></sbb-icon>`
-        : nothing}
+      ${
+        !args.noIcons
+          ? html`<sbb-icon slot="suffix" name="circle-information-small"></sbb-icon>`
+          : nothing
+      }
       ${args.withError ? html`<sbb-error>Error message</sbb-error>` : nothing}
     </sbb-form-field>
   `;
@@ -99,5 +102,16 @@ describe(`sbb-time-input`, () => {
         }),
       );
     }
+
+    it(
+      'inside bold context',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div style="font-weight: bold;">
+            <sbb-time-input value="12:00"></sbb-time-input>
+          </div>`,
+        );
+      }),
+    );
   });
 });

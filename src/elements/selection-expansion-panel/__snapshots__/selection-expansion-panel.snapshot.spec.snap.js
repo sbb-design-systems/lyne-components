@@ -5,7 +5,6 @@ snapshots["sbb-selection-expansion-panel renders DOM"] =
 `<sbb-selection-expansion-panel>
   <sbb-checkbox-panel
     color="white"
-    size="m"
     tabindex="0"
   >
     Value one

@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-overlay renders DOM"] = 
-`<sbb-overlay
-  id="sbb-overlay-0"
-  popover="manual"
->
+`<sbb-overlay popover="manual">
 </sbb-overlay>
 `;
 /* end snapshot sbb-overlay renders DOM */
@@ -22,11 +19,10 @@ snapshots["sbb-overlay renders Shadow DOM"] =
           sbb-overlay-close=""
           size="m"
           tabindex="0"
-          type="button"
         >
         </sbb-secondary-button>
       </div>
-      <div class="sbb-overlay__content">
+      <div class="sbb-overlay__content sbb-scrollbar">
         <sbb-container
           class="sbb-overlay__content-container"
           color="transparent"
@@ -38,8 +34,11 @@ snapshots["sbb-overlay renders Shadow DOM"] =
     </div>
   </div>
 </div>
-<sbb-screen-reader-only aria-live="polite">
-</sbb-screen-reader-only>
+<span
+  aria-live="polite"
+  class="sbb-screen-reader-only"
+>
+</span>
 `;
 /* end snapshot sbb-overlay renders Shadow DOM */
 

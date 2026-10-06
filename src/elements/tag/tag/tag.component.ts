@@ -1,22 +1,26 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyDeclaration,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbButtonLikeBaseElement } from '../../core/base-elements.ts';
-import { forceType, getOverride, omitEmptyConverter } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
 import {
+  forceType,
   type FormRestoreReason,
   type FormRestoreState,
+  omitEmptyConverter,
+  SbbButtonLikeBaseElement,
   SbbDisabledTabIndexActionMixin,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+  SbbPropertyWatcherController,
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbTagGroupElement } from '../tag-group/tag-group.component.ts';
 
-import style from './tag.scss?lit&inline';
-
-export type SbbTagSize = 's' | 'm';
+import style from './tag.scss?inline';
 
 /**
  * It displays a selectable element which can be used as a filter.
@@ -30,7 +34,7 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonLikeBaseElement),
 ) {
   public static override readonly elementName: string = 'sbb-tag';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
     input: 'input',
     didChange: 'didChange',
@@ -52,28 +56,54 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
   public accessor checked: boolean = false;
 
   /**
-   * Tag size, either s or m.
-   * @default 'm' / 's' (lean)
+   * Tag size, either s (lean theme default) or m (standard theme default).
+   * The value is inherited from the closest `<sbb-tag-group>`.
    */
   @property({ reflect: true })
-  @getOverride((i, v) => i._group?.size ?? v)
-  public accessor size: SbbTagSize = isLean() ? 's' : 'm';
+  public accessor size: 's' | 'm' | null = null;
 
-  /** Reference to the connected tag group. */
-  private _group: SbbTagGroupElement | null = null;
+  // Tracks whether the most recent `checked` change was initiated by the user
+  // (via _setCheckedFromUser / click).
+  private _checkedChangedByUser = false;
 
   public constructor() {
     super();
     this.addEventListener?.('click', () => this._handleClick());
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this._tagGroup(), {
+        multiple: (g) => this._updateAriaRole(g),
+        size: (g) => {
+          this.size = g.size;
+        },
+      }),
+    );
+    this._updateCheckedState();
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this._group = this.closest('sbb-tag-group') as SbbTagGroupElement;
+  private _updateCheckedState(): void {
+    this.toggleState('checked', this.checked);
+    this.updateFormValue();
+    this._updateAriaRole();
+  }
+
+  private _tagGroup(): SbbTagGroupElement | null {
+    return this.closest?.('sbb-tag-group') ?? null;
+  }
+
+  private _updateAriaRole(tagGroup = this._tagGroup()): void {
+    if (tagGroup && !tagGroup.multiple) {
+      this.internals.role = 'radio';
+      this.internals.ariaChecked = `${this.checked}`;
+      this.internals.ariaPressed = null;
+    } else {
+      this.internals.role = 'button';
+      this.internals.ariaChecked = null;
+      this.internals.ariaPressed = `${this.checked}`;
+    }
   }
 
   protected override isDisabledExternally(): boolean {
-    return this._group?.disabled ?? false;
+    return this._tagGroup()?.disabled ?? false;
   }
 
   /** Method triggered on button click. Inverts the checked value and emits events. */
@@ -83,20 +113,28 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
     }
 
     // Prevent deactivating on exclusive / radio mode
-    const tagGroup = this.closest('sbb-tag-group');
+    const tagGroup = this._tagGroup();
     if (tagGroup && !tagGroup.multiple && this.checked) {
       return;
     }
-    this.checked = !this.checked;
-
-    /** The input event fires when the value has been changed as a direct result of a user action. */
+    this._setCheckedFromUser(!this.checked);
     this.dispatchEvent(
       new InputEvent('input', {
         bubbles: true,
         composed: true,
       }),
     );
+  }
 
+  private _setCheckedFromUser(checked: boolean): void {
+    if (this.checked === checked) {
+      return;
+    }
+    this._checkedChangedByUser = true;
+    this.checked = checked;
+  }
+
+  private _dispatchChangeEvents(): void {
     /**
      * The change event is fired when the user modifies the element's value.
      * Unlike the input event, the change event is not necessarily fired
@@ -111,18 +149,51 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
     this.dispatchEvent(new Event('didChange', { bubbles: true }));
   }
 
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+
+    if (name === 'checked') {
+      this._updateCheckedState();
+    }
+  }
+
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
+    const checkedChangedByUser = this._checkedChangedByUser;
 
     if (changedProperties.has('checked')) {
-      this.internals.ariaPressed = `${this.checked}`;
-      this.toggleState('checked', this.checked);
-      this.updateFormValue();
+      const tagGroup = this._tagGroup();
+      if (tagGroup && !tagGroup.multiple) {
+        if (this.checked) {
+          tagGroup.tags.forEach((t) => {
+            t.tabIndex = t === this ? 0 : -1;
+            if (t !== this) {
+              if (checkedChangedByUser) {
+                t._setCheckedFromUser(false);
+              } else {
+                t.checked = false;
+              }
+            }
+          });
+        } else if (!tagGroup.tags.some((t) => t.checked)) {
+          tagGroup['updateExclusiveTabIndex']();
+        }
+      }
     }
+  }
 
-    const tagGroup = this.closest?.('sbb-tag-group');
-    if (tagGroup && !tagGroup.multiple && changedProperties.has('checked') && this.checked) {
-      tagGroup?.tags.filter((t) => t !== this).forEach((t) => (t.checked = false));
+  protected override updated(changedProperties: PropertyValues<this>): void {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('checked')) {
+      if (this._checkedChangedByUser) {
+        this._dispatchChangeEvents();
+        this._checkedChangedByUser = false;
+      }
     }
   }
 

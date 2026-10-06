@@ -10,11 +10,11 @@ snapshots["sbb-clock renders DOM"] =
 snapshots["sbb-clock renders Shadow DOM"] = 
 `<span class="sbb-clock__face">
 </span>
-<span class="sbb-clock__hand-hours">
+<span class="sbb-clock__hand-hours sbb-clock__hand-hours--initial-hour">
 </span>
 <span class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition">
 </span>
-<span class="sbb-clock__hand-seconds">
+<span class="sbb-clock__hand-seconds sbb-clock__hand-seconds--initial-minute">
 </span>
 `;
 /* end snapshot sbb-clock renders Shadow DOM */

@@ -158,14 +158,15 @@ export function a11yTreePlugin(): TestRunnerPlugin<A11yTreePayload> {
 
         // you might not be able to support all browser launchers
         throw new Error(
-          `Acessibility tree is not supported for browser type ${session.browser.type}.`,
+          `Accessibility tree is not supported for browser type ${session.browser.type}.`,
         );
       }
     },
   };
 }
 
-export interface A11yNode {
+// Keep in sync with src/elements/core/testing/private/a11y-tree-snapshot.ts
+interface A11yNode {
   /**
    * Whether this node is ignored for accessibility
    */

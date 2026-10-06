@@ -1,9 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
 import { fixture } from '../../core/testing/private.ts';
-import { waitForLitRender } from '../../core/testing/wait-for-render.ts';
+import { waitForLitRender } from '../../core/testing.ts';
+import { defaultDateAdapter } from '../../core.ts';
 import { SbbCalendarElement } from '../calendar/calendar.component.ts';
 
 import { SbbCalendarMonthElement } from './calendar-month.component.ts';
@@ -38,7 +38,7 @@ describe('sbb-calendar-month', () => {
   });
 
   it('should react to calendar property changes', async () => {
-    root.selected = new Date(`${year}-06-15`);
+    root.value = new Date(`${year}-06-15`);
     root.min = new Date(`${year}-03-15`);
     root.max = new Date(`${year}-09-15`);
     root.dateFilter = (d: Date | null): boolean => !!d && d.getMonth() % 2 === 1;

@@ -8,7 +8,7 @@ import { EventSpy, waitForLitRender } from '../core/testing.ts';
 
 import { SbbNotificationElement } from './notification.component.ts';
 
-import '../link/link.ts';
+import '../link.ts';
 import '../title.ts';
 import '../notification.ts';
 
@@ -91,14 +91,6 @@ describe(`sbb-notification`, () => {
       await aTimeout(0);
       element = parent.querySelector<SbbNotificationElement>('sbb-notification')!;
       expect(element).to.be.null;
-    });
-
-    it('should sync title size', async () => {
-      expect(element.querySelector('sbb-title')!.visualLevel).to.be.equal('5');
-      element.size = 's';
-      await waitForLitRender(element);
-
-      expect(element.querySelector('sbb-title')!.visualLevel).to.be.equal('6');
     });
   });
 

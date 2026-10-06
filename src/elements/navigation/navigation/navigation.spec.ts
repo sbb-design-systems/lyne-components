@@ -3,9 +3,9 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.ts';
-import { pageScrollDisabled } from '../../core/dom.ts';
 import { fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { pageScrollDisabled } from '../../core.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationSectionElement } from '../navigation-section/navigation-section.component.ts';
 

@@ -1,22 +1,17 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbCheckboxSize } from '../checkbox.pure.ts';
-import { SbbElement } from '../core/base-elements.ts';
-import { forceType } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import { SbbDisabledMixin, SbbNegativeMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbCheckboxElement } from '../checkbox.pure.ts';
+import { forceType, SbbDisabledMixin, SbbElement, SbbNegativeMixin } from '../core.ts';
 
-import style from './visual-checkbox.scss?lit&inline';
+import style from './visual-checkbox.scss?inline';
 
 /**
  * It visually displays a non-interactive checkbox.
  */
 export class SbbVisualCheckboxElement extends SbbDisabledMixin(SbbNegativeMixin(SbbElement)) {
   public static override readonly elementName: string = 'sbb-visual-checkbox';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Checked state. */
   @forceType()
@@ -29,29 +24,30 @@ export class SbbVisualCheckboxElement extends SbbDisabledMixin(SbbNegativeMixin(
   public accessor indeterminate: boolean = false;
 
   /**
-   * Size of the checkbox, either xs, s or m.
-   * @default 'm' / 'xs' (lean)
+   * Size of the checkbox, either xs (lean theme default), s or m (standard theme default).
    */
-  @property({ reflect: true }) public accessor size: SbbCheckboxSize = isLean() ? 'xs' : 'm';
+  @property({ reflect: true }) public accessor size: SbbCheckboxElement['size'] = null;
 
   protected override render(): TemplateResult {
     return html`
-      ${this.checked || this.indeterminate
-        ? html`<svg
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-            width="100%"
-            height="100%"
-          >
-            <path
-              fill="none"
-              d=${this.indeterminate ? 'M9 12H15' : 'M8 12.3304L10.4615 15L16 9'}
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>`
-        : nothing}
+      ${
+        this.checked || this.indeterminate
+          ? html`<svg
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              width="100%"
+              height="100%"
+            >
+              <path
+                fill="none"
+                d=${this.indeterminate ? 'M9 12H15' : 'M8 12.3304L10.4615 15L16 9'}
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>`
+          : nothing
+      }
     `;
   }
 }

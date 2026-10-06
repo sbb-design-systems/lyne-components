@@ -28,7 +28,7 @@ describe('sbb-carousel-list', () => {
 
         setup.withPostSetupAction(async () => {
           await Promise.all(
-            Array.from(setup.snapshotElement.querySelectorAll<HTMLImageElement>('img')).map((el) =>
+            Array.from(setup.snapshotElement.querySelectorAll<HTMLImageElement>('img'), (el) =>
               waitForImageReady(el),
             ),
           );

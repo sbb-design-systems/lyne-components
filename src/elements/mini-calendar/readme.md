@@ -1,10 +1,10 @@
-The `<sbb-mini-calendar>` is a component used to display a minimal calendar.
+The `<sbb-mini-calendar>`, together with `<sbb-mini-calendar-month>` and `<sbb-mini-calendar-day>`,
+are components used to display a minimal calendar.
 
-It must be used in combination with one or more `<sbb-mini-calendar-month>`,
-each one slotting the required `<sbb-mini-calendar-day>`.
+<!-- #region intro-start -->
+<!-- #endregion -->
 
 The `<sbb-mini-calendar-month>` requires usage of the `date` property/attribute in ISO string format (YYYY-MM).
-
 The `<sbb-mini-calendar-day>` requires usage of the `date` property/attribute in ISO string format (YYYY-MM-DD).
 
 ```html
@@ -28,16 +28,11 @@ It's also possible to display a tooltip on hover using the `sbb-tooltip` attribu
 For better usability, it's suggested to set the `sbb-tooltip-open-delay` attribute too.
 
 ```html
-<sbb-mini-calendar>
-  <sbb-mini-calendar-month date="2025-01">
-    <sbb-mini-calendar-day
-      date="2025-01-01"
-      sbb-tooltip="01.01.2025"
-      sbb-tooltip-open-delay="200"
-    ></sbb-mini-calendar-day>
-    ...
-  </sbb-mini-calendar-month>
-</sbb-mini-calendar>
+<sbb-mini-calendar-day
+  date="2025-01-01"
+  sbb-tooltip="01.01.2025"
+  sbb-tooltip-open-delay="200"
+></sbb-mini-calendar-day>
 ```
 
 ## Style
@@ -57,16 +52,17 @@ The `<sbb-mini-calendar-day>` component has a `color` property, which is used to
 Default colors are provided for `charcoal`, `cloud`, `orange`, `red` and `sky` values;
 moreover, consumers can write their own CSS rules for custom values.
 
+```css
+sbb-mini-calendar-day[color='my-custom-color'] {
+  color: lightskyblue;
+}
+```
+
 ```html
 <!-- default style -->
 <sbb-mini-calendar-day date="2025-01-01" color="orange"></sbb-mini-calendar-day>
 
 <!-- custom value -->
-<style>
-  sbb-mini-calendar-day[color='my-custom-color'] {
-    color: lightskyblue;
-  }
-</style>
 <sbb-mini-calendar-day date="2025-01-01" color="my-custom-color"></sbb-mini-calendar-day>
 ```
 
@@ -127,7 +123,7 @@ the usage of a grid implementation for the `<sbb-mini-calendar-month>`
 | `form`              | `form`    | public  | `HTMLFormElement \| null`                                       |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `marker`            | `marker`  | public  | `'target' \| 'circle' \| 'slash' \| 'cross' \| string`          | `''`       | The type of the marker.                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `name`              | `name`    | public  | `string`                                                        |            | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
-| `type`              | `type`    | public  | `SbbButtonType`                                                 | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `type`              | `type`    | public  | `'button' \| 'reset' \| 'submit'`                               | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
 | `validationMessage` | -         | public  | `string`                                                        |            | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
 | `validity`          | -         | public  | `ValidityState`                                                 |            | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `value`             | `value`   | public  | `string`                                                        | `''`       | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
@@ -141,13 +137,19 @@ the usage of a grid implementation for the `<sbb-mini-calendar-month>`
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
+
 ### class: `SbbMiniCalendarElement`, `sbb-mini-calendar`
 
 #### Properties
 
-| Name          | Attribute     | Privacy | Type             | Default        | Description                              |
-| ------------- | ------------- | ------- | ---------------- | -------------- | ---------------------------------------- |
-| `orientation` | `orientation` | public  | `SbbOrientation` | `'horizontal'` | The orientation of days in the calendar. |
+| Name          | Attribute     | Privacy | Type                         | Default        | Description                              |
+| ------------- | ------------- | ------- | ---------------------------- | -------------- | ---------------------------------------- |
+| `orientation` | `orientation` | public  | `'horizontal' \| 'vertical'` | `'horizontal'` | The orientation of days in the calendar. |
 
 #### Slots
 

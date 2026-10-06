@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-date-input>` is an input component for a date. It is comparable to the
 `<input type="date">` element, however without a datepicker attached (See
 `<sbb-datepicker>` to provide a datepicker dropdown with the
@@ -29,6 +31,9 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation
 
 The validation state can be checked via the `validityState` property.
 
+<!-- #region validation-end -->
+<!-- #endregion -->
+
 ### min/max
 
 It is possible to set a min and/or max date. Dates outside this range will
@@ -46,11 +51,15 @@ An attached `<sbb-datepicker>` will also respect these limits.
 You can pass a function to the `dateFilter` property, which will
 be used to validate the given date.
 
+<!-- #region date-filter-example -->
+
 ```ts
 const input = document.querySelector('sbb-date-input');
 // Exclude Saturday and Sunday
 input.dateFilter = (d: Date): boolean => d.getDay() !== 6 && d.getDay() !== 0;
 ```
+
+<!-- #endregion -->
 
 An attached `<sbb-datepicker>` will also use this function to
 calculate selectable dates.
@@ -119,7 +128,7 @@ and focus related events.
 
 | Name                | Attribute       | Privacy | Type                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------- | --------------- | ------- | --------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `dateFilter`        | -               | public  | `(date: T \| null) => boolean`    |           | A function used to filter out dates. It is strongly recommended to use min and max dates alongside this filter.                                                                                                                                                                                                                                                                                                                                         |
+| `dateFilter`        | -               | public  | `(date: T) => boolean`            |           | A function used to filter out dates. It is strongly recommended to use min and max dates alongside this filter.                                                                                                                                                                                                                                                                                                                                         |
 | `datepicker`        | -               | public  | `SbbDatepickerElement<T> \| null` |           | Gets the associated datepicker, if any. The sbb-date-input and the sbb-datepicker are assumed to be in the same parent container.                                                                                                                                                                                                                                                                                                                       |
 | `disabled`          | `disabled`      | public  | `boolean`                         | `false`   | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `form`              | -               | public  | `HTMLFormElement \| null`         |           | Returns the form owner of this element.                                                                                                                                                                                                                                                                                                                                                                                                                 |
@@ -149,7 +158,8 @@ and focus related events.
 
 #### Events
 
-| Name     | Type         | Description                                                                                                                                                                        | Inherited From              |
-| -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| `change` | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFormAssociatedInputMixin |
-| `input`  | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFormAssociatedInputMixin |
+| Name       | Type         | Description                                                                                                                                                                        | Inherited From              |
+| ---------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `change`   | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFormAssociatedInputMixin |
+| `input`    | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFormAssociatedInputMixin |
+| `validity` | `Event`      | The validity event is dispatched whenever the validity state of the element changes.                                                                                               | SbbFormAssociatedMixin      |

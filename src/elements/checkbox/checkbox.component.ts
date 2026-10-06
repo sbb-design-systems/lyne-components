@@ -1,21 +1,12 @@
-import { html, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { getOverride } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import type { SbbIconPlacement } from '../core/interfaces.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import { SbbIconNameMixin } from '../icon.ts';
+import { getOverride, SbbElement, type SbbElementType } from '../core.ts';
+import { SbbIconNameMixin } from '../icon.pure.ts';
+import { SbbVisualCheckboxElement } from '../visual-checkbox.pure.ts';
 
-import checkboxStyle from './checkbox.scss?lit&inline';
-import {
-  SbbCheckboxCommonElementMixin,
-  checkboxCommonStyle,
-  type SbbCheckboxSize,
-} from './common/checkbox-common.ts';
-
-import '../visual-checkbox.ts';
+import style from './checkbox.scss?inline';
+import { SbbCheckboxCommonElementMixin } from './common/checkbox-common.ts';
 
 /**
  * It displays a checkbox enhanced with the SBB Design.
@@ -30,27 +21,23 @@ export class SbbCheckboxElement<T = string> extends SbbIconNameMixin(
   SbbCheckboxCommonElementMixin(SbbElement),
 ) {
   public static override readonly elementName: string = 'sbb-checkbox';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    checkboxCommonStyle,
-    checkboxStyle,
-  ];
+  public static override elementDependencies: SbbElementType[] = [SbbVisualCheckboxElement];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Value of the form element. */
   @property()
   public accessor value: T | null = null;
 
   /**
-   * Size variant, either xs, s or m.
-   * @default 'm' / 'xs' (lean)
+   * Size variant, either xs (lean theme default), s or m (standard theme default).
    */
   @property({ reflect: true })
   @getOverride((i, v) => i.group?.size ?? v)
-  public accessor size: SbbCheckboxSize = isLean() ? 'xs' : 'm';
+  public accessor size: 'xs' | 's' | 'm' | null = null;
 
   /** The label position relative to the labelIcon. Defaults to end */
   @property({ attribute: 'icon-placement', reflect: true })
-  public accessor iconPlacement: SbbIconPlacement = 'end';
+  public accessor iconPlacement: 'start' | 'end' = 'end';
 
   protected override render(): TemplateResult {
     return html`
@@ -62,7 +49,7 @@ export class SbbCheckboxElement<T = string> extends SbbIconNameMixin(
                 ?checked=${this.checked}
                 ?indeterminate=${this.indeterminate}
                 ?disabled=${this.disabled || this.formDisabled}
-                .size=${this.size}
+                size=${this.size || nothing}
               ></sbb-visual-checkbox>
             </span>
             <span class="sbb-checkbox__label">

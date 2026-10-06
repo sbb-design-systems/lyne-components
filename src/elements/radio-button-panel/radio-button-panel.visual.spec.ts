@@ -1,18 +1,24 @@
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
-import type { SbbRadioButtonSize } from '../radio-button/common/radio-button-common.ts';
+
+import type { SbbRadioButtonPanelElement } from './radio-button-panel.component.ts';
 
 import '../icon.ts';
+import '../radio-button-group.ts';
 import '../radio-button-panel.ts';
 
-const cases: { checked: boolean[]; disabled: boolean[]; size: SbbRadioButtonSize[] } = {
+const cases: {
+  checked: boolean[];
+  disabled: boolean[];
+  size: SbbRadioButtonPanelElement['size'][];
+} = {
   checked: [true, false],
   disabled: [false, true],
-  size: ['xs', 's', 'm'],
+  size: ['xs', 's', 'm'] satisfies SbbRadioButtonPanelElement['size'][],
 };
 
-const suffixAndSubtext = (size: SbbRadioButtonSize = 'm'): TemplateResult =>
+const suffixAndSubtext = (size: SbbRadioButtonPanelElement['size'] = 'm'): TemplateResult =>
   html`<span slot="subtext">Subtext</span>
     <span slot="suffix" style="margin-inline-start: auto; display:flex; align-items:center;">
       <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
@@ -26,7 +32,11 @@ describe(`sbb-radio-button-panel`, () => {
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-radio-button-panel ?checked=${checked} ?disabled=${disabled} size=${size}>
+            <sbb-radio-button-panel
+              ?checked=${checked}
+              ?disabled=${disabled}
+              size=${size || nothing}
+            >
               Value ${suffixAndSubtext(size)}
             </sbb-radio-button-panel>
           `);
@@ -80,6 +90,24 @@ describe(`sbb-radio-button-panel`, () => {
           html`<sbb-radio-button-panel>Value ${suffixAndSubtext()}</sbb-radio-button-panel>`,
           { forcedColors: true },
         );
+      }),
+    );
+
+    it(
+      `horizontal group with align-items=stretch renders panels at equal height`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-radio-button-group
+            orientation="horizontal"
+            value="Value one"
+            style="align-items: stretch;"
+          >
+            <sbb-radio-button-panel value="Value one"> Short label </sbb-radio-button-panel>
+            <sbb-radio-button-panel value="Value two">
+              Label with subtext ${suffixAndSubtext()}
+            </sbb-radio-button-panel>
+          </sbb-radio-button-group>
+        `);
       }),
     );
 

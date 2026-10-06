@@ -1,11 +1,13 @@
-import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 
 import readme from './readme.md?raw';
+import type { SbbVisualCheckboxElement } from './visual-checkbox.component.ts';
+
 import '../visual-checkbox.ts';
 
 const checked: InputType = {
@@ -36,7 +38,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's', 'xs'],
+  options: ['m', 's', 'xs'] satisfies SbbVisualCheckboxElement['size'][],
 };
 
 const defaultArgTypes: ArgTypes = {

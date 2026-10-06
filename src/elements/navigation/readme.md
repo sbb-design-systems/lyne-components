@@ -18,6 +18,8 @@ It is possible to use it either with or without `<sbb-navigation-section>` insta
 
 ## Interactions
 
+<!-- #region trigger -->
+
 To display the `<sbb-navigation>` component you can either provide a trigger element using the `trigger` property,
 or call the `open()` method on the `<sbb-navigation>` component.
 
@@ -54,6 +56,8 @@ or call the `open()` method on the `<sbb-navigation>` component.
 </sbb-navigation>
 ```
 
+<!-- #endregion -->
+
 ## Navigation Actions
 
 There are two types of navigation actions: links and buttons, represented by the `<sbb-navigation-link>`
@@ -75,11 +79,8 @@ The navigation actions can have an initial active state which can be set by usin
 
 ### Style
 
-The action components have three different sizes, which can be changed using the `size` property (`l`, which is the default, `m` and `s`).
-
-```html
-<sbb-navigation-link href="#info" size="m">Link</sbb-navigation-link>
-```
+The `size` value of the parent `sbb-navigation-marker`, if present, determines the size of the components.
+If the navigation actions are wrapped with a `sbb-navigation-list`, the size it automatically set to `m`.
 
 ## Navigation Marker
 
@@ -123,10 +124,13 @@ Optionally, a label can be provided via the `label` attribute/property or the `l
 The `<sbb-navigation-section>` is a container for both `<sbb-navigation-list>` and `<sbb-button>`.
 Its intended use is inside a `<sbb-navigation>` component, in which it can be seen as a 'second-level' panel.
 
-## Trigger
+Optionally, a label can be provided via slot or via the `titleContent` property.
 
-To display the `<sbb-navigation-section>` component you must provide a trigger element using the `trigger` property,
-Optionally a label can be provided via slot or via the `titleContent` property.
+### Trigger
+
+<!-- #region trigger-section -->
+
+To display the `<sbb-navigation-section>` component you must provide a trigger element using the `trigger` property.
 
 ```html
 <sbb-navigation-section trigger="nav1" titleContent="Title 1">
@@ -139,7 +143,9 @@ Optionally a label can be provided via slot or via the `titleContent` property.
 </sbb-navigation-section>
 ```
 
-## Accessibility
+<!-- #endregion -->
+
+### Accessibility
 
 On opening, the focus will be automatically set on the first focusable element (unless manually specified, see below).
 If there is a trigger for a navigation section with the CSS class `sbb-active`,
@@ -150,13 +156,13 @@ should be set on that action.
 Similarly, if a navigation action is marked to indicate a selected option (e.g. the selected language),
 `aria-pressed` should be set on that action.
 
-### Controlling initial focus
+#### Controlling initial focus
 
 The first element with the attribute `sbb-focus-initial` will receive focus on opening.
 If the attribute is not used, the first focusable element receives focus (recommended).
 
 ```html
-<sbb-navigation >
+<sbb-navigation>
   <sbb-navigation-marker>
     <sbb-navigation-button>Label 1</sbb-navigation-button>
     <sbb-navigation-button sbb-focus-initial>Label 2</sbb-navigation-button>
@@ -182,19 +188,19 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 #### Properties
 
-| Name                | Attribute | Privacy | Type                                       | Default            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| ------------------- | --------- | ------- | ------------------------------------------ | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `connectedSection`  | -         | public  | `SbbNavigationSectionElement \| undefined` |                    | The section that is being controlled by the action, if any.                                                                                                                                                                                                                                                                                                                                                                                             |
-| `form`              | `form`    | public  | `HTMLFormElement \| null`                  |                    | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `marker`            | -         | public  | `SbbNavigationMarkerElement \| null`       |                    | The navigation marker in which the action is nested.                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `name`              | `name`    | public  | `string`                                   |                    | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
-| `section`           | -         | public  | `SbbNavigationSectionElement \| null`      |                    | The section in which the action is nested.                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `size`              | `size`    | public  | `SbbNavigationActionSize`                  | `'l' / 's' (lean)` | Action size variant, either s, m or l.                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `type`              | `type`    | public  | `SbbButtonType`                            | `'button'`         | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `validationMessage` | -         | public  | `string`                                   |                    | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
-| `validity`          | -         | public  | `ValidityState`                            |                    | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `value`             | `value`   | public  | `string`                                   | `''`               | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `willValidate`      | -         | public  | `boolean`                                  |                    | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+| Name                | Attribute  | Privacy | Type                                       | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ---------- | ------- | ------------------------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `connectedSection`  | -          | public  | `SbbNavigationSectionElement \| undefined` |            | The section that is being controlled by the action, if any.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `disabled`          | `disabled` | public  | `boolean`                                  | `false`    | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `form`              | `form`     | public  | `HTMLFormElement \| null`                  |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `marker`            | -          | public  | `SbbNavigationMarkerElement \| null`       |            | The navigation marker in which the action is nested.                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `name`              | `name`     | public  | `string`                                   |            | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `section`           | -          | public  | `SbbNavigationSectionElement \| null`      |            | The section in which the action is nested.                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `type`              | `type`     | public  | `'button' \| 'reset' \| 'submit'`          | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `validationMessage` | -          | public  | `string`                                   |            | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -          | public  | `ValidityState`                            |            | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | `value`    | public  | `string`                                   | `''`       | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `willValidate`      | -          | public  | `boolean`                                  |            | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
 
 #### Methods
 
@@ -203,6 +209,12 @@ If the attribute is not used, the first focusable element receives focus (recomm
 | `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
 
 #### Slots
 
@@ -256,18 +268,18 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 #### Properties
 
-| Name                   | Attribute               | Privacy | Type                                       | Default            | Description                                                         |
-| ---------------------- | ----------------------- | ------- | ------------------------------------------ | ------------------ | ------------------------------------------------------------------- |
-| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                   | `''`               | This will be forwarded as aria-current to the inner anchor element. |
-| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                   | `''`               | This will be forwarded as aria-label to the inner anchor element.   |
-| `connectedSection`     | -                       | public  | `SbbNavigationSectionElement \| undefined` |                    | The section that is being controlled by the action, if any.         |
-| `download`             | `download`              | public  | `boolean`                                  | `false`            | Whether the browser will show the download dialog on click.         |
-| `href`                 | `href`                  | public  | `string`                                   | `''`               | The href value you want to link to.                                 |
-| `marker`               | -                       | public  | `SbbNavigationMarkerElement \| null`       |                    | The navigation marker in which the action is nested.                |
-| `rel`                  | `rel`                   | public  | `string`                                   | `''`               | The relationship of the linked URL as space-separated link types.   |
-| `section`              | -                       | public  | `SbbNavigationSectionElement \| null`      |                    | The section in which the action is nested.                          |
-| `size`                 | `size`                  | public  | `SbbNavigationActionSize`                  | `'l' / 's' (lean)` | Action size variant, either s, m or l.                              |
-| `target`               | `target`                | public  | `LinkTargetType \| string`                 | `''`               | Where to display the linked URL.                                    |
+| Name                   | Attribute               | Privacy | Type                                                   | Default | Description                                                         |
+| ---------------------- | ----------------------- | ------- | ------------------------------------------------------ | ------- | ------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                               | `''`    | This will be forwarded as aria-current to the inner anchor element. |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                               | `''`    | This will be forwarded as aria-label to the inner anchor element.   |
+| `connectedSection`     | -                       | public  | `SbbNavigationSectionElement \| undefined`             |         | The section that is being controlled by the action, if any.         |
+| `disabled`             | `disabled`              | public  | `boolean`                                              | `false` | Whether the component is disabled.                                  |
+| `download`             | `download`              | public  | `boolean`                                              | `false` | Whether the browser will show the download dialog on click.         |
+| `href`                 | `href`                  | public  | `string`                                               | `''`    | The href value you want to link to.                                 |
+| `marker`               | -                       | public  | `SbbNavigationMarkerElement \| null`                   |         | The navigation marker in which the action is nested.                |
+| `rel`                  | `rel`                   | public  | `string`                                               | `''`    | The relationship of the linked URL as space-separated link types.   |
+| `section`              | -                       | public  | `SbbNavigationSectionElement \| null`                  |         | The section in which the action is nested.                          |
+| `target`               | `target`                | public  | `'_blank' \| '_self' \| '_parent' \| '_top' \| string` | `''`    | Where to display the linked URL.                                    |
 
 #### Slots
 
@@ -294,9 +306,9 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 #### Properties
 
-| Name   | Attribute | Privacy | Type         | Default            | Description                         |
-| ------ | --------- | ------- | ------------ | ------------------ | ----------------------------------- |
-| `size` | `size`    | public  | `'l' \| 's'` | `'l' / 's' (lean)` | Marker size variant, either s or l. |
+| Name   | Attribute | Privacy | Type         | Default | Description                         |
+| ------ | --------- | ------- | ------------ | ------- | ----------------------------------- |
+| `size` | `size`    | public  | `'s' \| 'l'` | `'l'`   | Marker size variant, either s or l. |
 
 #### Methods
 

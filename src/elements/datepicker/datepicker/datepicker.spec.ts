@@ -5,10 +5,11 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 import { type SinonStub, stub } from 'sinon';
 
-import type { SbbCalendarDayElement, SbbCalendarYearElement } from '../../calendar.ts';
-import { SbbCalendarElement } from '../../calendar.ts';
-import { defaultDateAdapter } from '../../core/datetime.ts';
-import { i18nDateChangedTo } from '../../core/i18n.ts';
+import {
+  type SbbCalendarDayElement,
+  type SbbCalendarYearElement,
+  type SbbCalendarElement,
+} from '../../calendar.ts';
 import {
   fixture,
   sbbBreakpointLargeMinPx,
@@ -16,6 +17,7 @@ import {
   typeInElement,
 } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { defaultDateAdapter, i18nDateChangedTo } from '../../core.ts';
 import type { SbbDateInputElement } from '../../date-input.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker-toggle.component.ts';
@@ -170,15 +172,12 @@ describe(`sbb-datepicker`, () => {
     expect(datepicker).to.match(':state(state-opened)');
 
     const calendar = datepicker.shadowRoot!.querySelector('sbb-calendar')!;
-    calendar.dispatchEvent(
-      new CustomEvent(SbbCalendarElement.events.dateselected, {
-        detail: new Date('2022-01-01'),
-      }),
-    );
+    calendar.value = new Date(2022, 0, 1, 0, 0, 0, 0);
+    calendar.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
     await waitForLitRender(datepicker);
 
     expect(input.value).to.be.equal('Sa, 01.01.2022');
-    expect(defaultDateAdapter.toIso8601((calendar.selected as Date)!)).to.be.equal('2022-01-01');
+    expect(defaultDateAdapter.toIso8601((calendar.value as Date)!)).to.be.equal('2022-01-01');
     expect(changeSpy.count).to.be.equal(1);
     expect(blurSpy.count).to.be.equal(1);
 
@@ -189,7 +188,7 @@ describe(`sbb-datepicker`, () => {
     await waitForLitRender(toggle);
 
     expect(input.value).to.be.equal('');
-    expect(calendar.selected).to.be.null;
+    expect(calendar.value).to.be.null;
   });
 
   it('handles view property', async function (this: Context) {
@@ -218,7 +217,7 @@ describe(`sbb-datepicker`, () => {
 
     // Year view should be active
     const calendar = datepicker.shadowRoot!.querySelector('sbb-calendar')!;
-    expect(calendar.shadowRoot!.querySelector('.sbb-calendar__table-year-view')!).not.to.be.null;
+    expect(calendar.shadowRoot!.querySelector('.sbb-calendar__year-view')!).not.to.be.null;
 
     // Select year
     calendar.shadowRoot!.querySelectorAll('sbb-calendar-year')[4].click();
@@ -236,17 +235,20 @@ describe(`sbb-datepicker`, () => {
     await waitForCondition(() => !calendar.matches(':state(transition)'));
 
     // Expect selected date and closed calendar
-    expect(defaultDateAdapter.toIso8601((calendar.selected as Date)!)).to.be.equal('2020-05-05');
+    expect(defaultDateAdapter.toIso8601((calendar.value as Date)!)).to.be.equal('2020-05-05');
     await closeSpy.calledOnce();
 
     // Open again
     datepicker.open();
+    await waitForLitRender(root);
     await openSpy.calledTimes(2);
 
     // Should open with year view again
-    expect(calendar.shadowRoot!.querySelector('.sbb-calendar__table-year-view')!).not.to.be.null;
+    expect(calendar.shadowRoot!.querySelector('.sbb-calendar__year-view')!).not.to.be.null;
     expect(
-      calendar.shadowRoot!.querySelector<SbbCalendarYearElement>(':state(selected)')!.value,
+      calendar.shadowRoot!.querySelector<SbbCalendarYearElement>(
+        '.sbb-calendar__year-view :state(selected)',
+      )!.value,
     ).to.be.equal('2020');
 
     // Close again
@@ -262,10 +264,10 @@ describe(`sbb-datepicker`, () => {
     await openSpy.calledTimes(3);
 
     // Month view should be active and correct year preselected
-    expect(calendar.shadowRoot!.querySelector('.sbb-calendar__table-month-view')!).not.to.be.null;
+    expect(calendar.shadowRoot!.querySelector('.sbb-calendar__month-view')!).not.to.be.null;
     expect(
       calendar
-        .shadowRoot!.querySelector('.sbb-calendar__controls-change-date')!
+        .shadowRoot!.querySelector('.sbb-calendar__month-view .sbb-calendar__table-header span')!
         .textContent!.trim(),
     ).to.be.equal('2020');
   });
@@ -291,16 +293,16 @@ describe(`sbb-datepicker`, () => {
     await aTimeout(0);
 
     const calendar = datepicker.shadowRoot!.querySelector<SbbCalendarElement>('sbb-calendar')!;
-    expect(calendar.wide, 'calendar.wide').to.be.false;
+    expect(calendar.amount, 'calendar.amount').to.be.equal(1);
     expect(
-      calendar.shadowRoot!.querySelectorAll('.sbb-calendar__controls-change-date')!.length,
+      calendar.shadowRoot!.querySelectorAll('.sbb-calendar__table-wrapper')!.length,
     ).to.be.equal(1);
 
     datepicker.wide = true;
     await waitForLitRender(element);
-    expect(calendar.wide, 'calendar.wide').to.be.true;
+    expect(calendar.amount, 'calendar.amount').to.be.equal(2);
     expect(
-      calendar.shadowRoot!.querySelectorAll('.sbb-calendar__controls-change-date')!.length,
+      calendar.shadowRoot!.querySelectorAll('.sbb-calendar__table-wrapper')!.length,
     ).to.be.equal(2);
 
     datepicker.input!.dateFilter = (d) => d?.getFullYear() !== 2022;
@@ -452,7 +454,7 @@ describe(`sbb-datepicker`, () => {
     });
 
     it('updates trigger connected by id', async () => {
-      input.id = '';
+      input.removeAttribute('id');
       await waitForLitRender(root);
       expect(element.input).to.be.equal(null);
 
@@ -462,10 +464,11 @@ describe(`sbb-datepicker`, () => {
     });
 
     it('accepts trigger as HTML Element', async () => {
-      input.id = '';
+      input.removeAttribute('id');
       await waitForLitRender(element);
       expect(element.input).to.be.equal(null);
 
+      element.removeAttribute('input');
       element.input = input;
       await waitForLitRender(element);
       expect(element.input).to.be.equal(input);

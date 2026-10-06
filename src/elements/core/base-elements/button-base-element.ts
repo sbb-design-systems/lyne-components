@@ -1,25 +1,20 @@
 import { isServer } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType, hostAttributes } from '../decorators.ts';
-import { isEventPrevented } from '../eventing.ts';
+import { forceType } from '../decorators/force-type.ts';
+import { isEventPrevented } from '../eventing/is-event-prevented.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbFormAssociatedMixin,
-} from '../mixins.ts';
+} from '../mixins/form-associated-mixin.ts';
 
 import { SbbActionBaseElement } from './action-base-element.ts';
 
-/** Enumeration for type attribute in <button> HTML tag. */
-export type SbbButtonType = 'button' | 'reset' | 'submit';
-
 /** Button base class. */
-export
-@hostAttributes({
-  tabindex: '0',
-})
-abstract class SbbButtonLikeBaseElement extends SbbFormAssociatedMixin(SbbActionBaseElement) {
+export abstract class SbbButtonLikeBaseElement extends SbbFormAssociatedMixin(
+  SbbActionBaseElement,
+) {
   public static override readonly role: ElementInternals['role'] = 'button';
 
   public constructor() {
@@ -43,6 +38,11 @@ abstract class SbbButtonLikeBaseElement extends SbbFormAssociatedMixin(SbbAction
         passiveOptions,
       );
     }
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.tabIndex = 0;
   }
 
   /**
@@ -120,11 +120,11 @@ export abstract class SbbButtonBaseElement extends SbbButtonLikeBaseElement {
    * @default 'button'
    */
   @property()
-  public override set type(name: SbbButtonType) {
+  public override set type(name: 'button' | 'reset' | 'submit') {
     this.setAttribute('type', `${name}`);
   }
-  public override get type(): SbbButtonType {
-    return (this.getAttribute('type') as SbbButtonType) ?? 'button';
+  public override get type(): 'button' | 'reset' | 'submit' {
+    return (this.getAttribute('type') as SbbButtonBaseElement['type']) ?? 'button';
   }
 
   /** The `<form>` element to associate the button with. */

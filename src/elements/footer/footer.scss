@@ -15,12 +15,13 @@
 .sbb-footer {
   // Include text style and color as fallback for paragraph texts inside the footer.
   font-size: var(--sbb-footer-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
   color: var(--sbb-footer-color);
   padding-block: var(--sbb-footer-padding-block);
   background-color: var(--sbb-footer-background-color);
 
-  @include sbb.if-forced-colors {
+  @media (forced-colors: active) {
     border-block-start: var(--sbb-border-width-1x) solid CanvasText;
   }
 }
@@ -33,10 +34,6 @@
   :host([expanded]) & {
     @include sbb.page-spacing-expanded;
   }
-}
-
-.sbb-footer__title {
-  @include sbb.screen-reader-only;
 }
 
 ::slotted(.sbb-link-list-button-group) {
@@ -59,7 +56,6 @@
     }
 
     @include sbb.mq($from: ultra) {
-      max-width: var(--sbb-footer-content-max-width);
       margin-inline: auto;
       grid-template-columns: repeat(4, 1fr);
     }

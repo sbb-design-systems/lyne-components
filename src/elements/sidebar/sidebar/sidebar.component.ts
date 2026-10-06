@@ -1,27 +1,37 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
-import { SbbFocusTrapController } from '../../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
-import { SbbEscapableOverlayController } from '../../core/controllers.ts';
-import { forceType, handleDistinctChange } from '../../core/decorators.ts';
-import { isZeroAnimationDuration } from '../../core/dom.ts';
-import { SbbAnimationCompleteMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  forceType,
+  handleDistinctChange,
+  isZeroAnimationDuration,
+  SbbAnimationCompleteMixin,
+  SbbEscapableOverlayController,
+  SbbFocusTrapController,
+  SbbOpenCloseBaseElement,
+  scrollbarStyles,
+} from '../../core.ts';
 import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 
-import style from './sidebar.scss?lit&inline';
+import style from './sidebar.scss?inline';
 
 /**
  * This component corresponds to a sidebar that can be opened on the sidebar container.
  *
  * @slot - Use the unnamed slot to slot any content into the sidebar.
- * @slot title - Use the title slot to add an <sbb-title>.
+ * @slot title-section - Use the title-section slot to add an `<sbb-title>`.
  */
 export class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-sidebar';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [scrollbarStyles, unsafeCSS(style)];
 
   /** Background color of the sidebar. Either `white` or `milk`. */
   @property({ reflect: true })
@@ -91,13 +101,35 @@ export class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBas
     if (this.isOpen && this._isModeOver()) {
       this._takeFocus();
     }
+
+    if (!isServer) {
+      if (window.navigation) {
+        window.navigation.addEventListener('navigate', this._closeOnNavigation);
+      } else {
+        window.addEventListener('popstate', this._closeOnNavigation);
+      }
+    }
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.container?.style.removeProperty(this._buildCssWidthVar());
     this._container = null;
+
+    if (!isServer) {
+      if (window.navigation) {
+        window.navigation.removeEventListener('navigate', this._closeOnNavigation);
+      } else {
+        window.removeEventListener('popstate', this._closeOnNavigation);
+      }
+    }
   }
+
+  private _closeOnNavigation = (): void => {
+    if (this._isModeOver() && this.isOpen) {
+      this.close();
+    }
+  };
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -279,7 +311,7 @@ export class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBas
   }
 
   private _buildCssWidthVar(position = this.position): string {
-    return `--sbb-sidebar-container__${position}-width`;
+    return `--_sbb-sidebar-container-${position}-width`;
   }
 
   private _isModeOver(): boolean {
@@ -311,7 +343,10 @@ export class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBas
   protected override render(): TemplateResult {
     return html`<div class="sbb-sidebar" @transitionend=${this._onTransitionEnd}>
       <div class="sbb-sidebar-title-section"><slot name="title-section"></slot></div>
-      <div class="sbb-sidebar-content-section" @scroll=${() => this._detectScrolledState()}>
+      <div
+        class="sbb-sidebar-content-section sbb-scrollbar"
+        @scroll=${() => this._detectScrolledState()}
+      >
         <slot></slot>
       </div>
     </div>`;

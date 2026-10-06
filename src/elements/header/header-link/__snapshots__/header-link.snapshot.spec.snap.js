@@ -4,7 +4,7 @@ export const snapshots = {};
 snapshots["sbb-header-link renders DOM"] = 
 `<sbb-header-link
   accessibility-label="a11y label"
-  expand-from="small"
+  hide-label-below="small"
   href="https://github.com/sbb-design-systems/lyne-components"
   icon-name="pie-small"
   target="_blank"

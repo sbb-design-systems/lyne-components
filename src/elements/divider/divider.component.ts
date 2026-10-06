@@ -1,12 +1,15 @@
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import type { SbbOrientation } from '../core/interfaces.ts';
-import { SbbNegativeMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { SbbElement, SbbNegativeMixin } from '../core.ts';
 
-import style from './divider.scss?lit&inline';
+import style from './divider.scss?inline';
 
 /**
  * Displays a divider between sections.
@@ -14,10 +17,11 @@ import style from './divider.scss?lit&inline';
 export class SbbDividerElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-divider';
   public static override readonly role = 'separator';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   /** Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal. */
-  @property({ reflect: true }) public accessor orientation: SbbOrientation = 'horizontal';
+  @property({ reflect: true }) public accessor orientation: 'horizontal' | 'vertical' =
+    'horizontal';
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

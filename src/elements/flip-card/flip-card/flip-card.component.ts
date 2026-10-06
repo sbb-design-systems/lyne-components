@@ -1,22 +1,26 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, isServer, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, isServer, type TemplateResult, unsafeCSS } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 
-import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController, SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { forceType } from '../../core/decorators.ts';
-import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.ts';
-import { ɵstateController } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
+import {
+  buttonResetStyles,
+  forceType,
+  i18nFlipCard,
+  i18nReverseCard,
+  IS_FOCUSABLE_QUERY,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbPropertyWatcherController,
+  screenReaderOnlyStyles,
+  ɵstateController,
+} from '../../core.ts';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details/flip-card-details.component.ts';
 import type { SbbFlipCardSummaryElement } from '../flip-card-summary/flip-card-summary.component.ts';
 
-import style from './flip-card.scss?lit&inline';
-
-import '../../button/secondary-button-static.ts';
-import '../../screen-reader-only.ts';
+import style from './flip-card.scss?inline';
 
 /**
  * Displays an informative card that reveals more information upon being clicked.
@@ -26,7 +30,12 @@ import '../../screen-reader-only.ts';
  */
 export class SbbFlipCardElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-flip-card';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [SbbSecondaryButtonStaticElement];
+  public static override styles: CSSResultGroup = [
+    buttonResetStyles,
+    screenReaderOnlyStyles,
+    unsafeCSS(style),
+  ];
   public static readonly events = {
     flip: 'flip',
   } as const;
@@ -51,7 +60,7 @@ export class SbbFlipCardElement extends SbbElement {
 
   /** Returns the card details content element wrapper. */
   private get _detailsContentElement(): HTMLElement | null {
-    return this.details!.shadowRoot!.firstElementChild as HTMLElement;
+    return this.details?.shadowRoot?.querySelector('.sbb-flip-card-details') ?? null;
   }
 
   /** Whether the flip card is flipped. */
@@ -95,11 +104,12 @@ export class SbbFlipCardElement extends SbbElement {
   /** Toggles the state of the sbb-flip-card. */
   public toggle(): void {
     this._flipped = !this._flipped;
-    if (this._flipped) {
+    const detailsContentElement = this._detailsContentElement;
+    if (this._flipped && detailsContentElement) {
       this._setCardDetailsHeight();
-      this._cardDetailsResizeObserver.observe(this._detailsContentElement!);
-    } else {
-      this._cardDetailsResizeObserver.unobserve(this._detailsContentElement!);
+      this._cardDetailsResizeObserver.observe(detailsContentElement);
+    } else if (detailsContentElement) {
+      this._cardDetailsResizeObserver.unobserve(detailsContentElement);
     }
     this.toggleState('flipped', this._flipped);
     ɵstateController(this.details)?.toggle('flipped', this._flipped);
@@ -133,7 +143,7 @@ export class SbbFlipCardElement extends SbbElement {
           aria-expanded=${this._flipped.toString()}
           type="button"
         >
-          <sbb-screen-reader-only>${until(this._accessibilityLabel(), '')}</sbb-screen-reader-only>
+          <span class="sbb-screen-reader-only">${until(this._accessibilityLabel(), '')}</span>
         </button>
         <slot name="summary" @slotchange=${() => (this.summary!.inert = this._flipped)}></slot>
         <slot name="details" @slotchange=${() => (this.details!.inert = !this._flipped)}></slot>

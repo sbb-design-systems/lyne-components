@@ -1,17 +1,18 @@
 import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
-import { nothing } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 import { type SinonStub, stub } from 'sinon';
 
-import type { SbbSecondaryButtonElement } from '../../button/secondary-button.ts';
-import { defaultDateAdapter } from '../../core/datetime.ts';
+import type { SbbSecondaryButtonElement } from '../../button.ts';
 import {
   elementInternalsSpy,
   fixture,
   sbbBreakpointLargeMinPx,
+  tabKey,
 } from '../../core/testing/private.ts';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import { defaultDateAdapter } from '../../core.ts';
 import { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 import {
   createPrice,
@@ -22,12 +23,18 @@ import type { SbbCalendarMonthElement } from '../calendar-month/calendar-month.c
 import type { SbbCalendarWeekdayElement } from '../calendar-weekday/calendar-weekday.component.ts';
 import type { SbbCalendarWeeknumberElement } from '../calendar-weeknumber/calendar-weeknumber.component.ts';
 import type { SbbCalendarYearElement } from '../calendar-year/calendar-year.component.ts';
-import type { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-element.ts';
 
-import type { SbbMonthChangeEvent } from './calendar.component.ts';
+import type { SbbDateSelectedEvent, SbbMonthChangeEvent } from './calendar.component.ts';
 import { SbbCalendarElement } from './calendar.component.ts';
 import '../../button.ts';
 import '../../calendar.ts';
+
+const toIso8601 = (date: Date): string => defaultDateAdapter.toIso8601(date);
+const yearButtonSelector = '.sbb-calendar__day-view [icon-name="chevron-small-up-small"]';
+const returnFromMonthViewSelector =
+  '.sbb-calendar__month-view [icon-name="chevron-small-down-small"]';
+const returnFromYearViewSelector =
+  '.sbb-calendar__year-view [icon-name="chevron-small-down-small"]';
 
 describe(`sbb-calendar`, () => {
   const elementInternals = elementInternalsSpy();
@@ -46,42 +53,13 @@ describe(`sbb-calendar`, () => {
 
   const getDayActiveElementValue: () => string | null = () => {
     if (document.activeElement instanceof SbbCalendarDayElement) {
-      return defaultDateAdapter.toIso8601(document.activeElement.value);
+      return toIso8601(document.activeElement.value);
     } else if (document.activeElement instanceof SbbCalendarElement) {
-      return defaultDateAdapter.toIso8601(
+      return toIso8601(
         (document.activeElement!.shadowRoot!.activeElement as SbbCalendarDayElement).value!,
       );
     }
     return null;
-  };
-
-  const getWaitFromTransitionQuery = (
-    element: SbbCalendarElement,
-  ): SbbCalendarCellBaseElement[] => {
-    return element['_calendarView'] === 'day'
-      ? getDayCells(element)
-      : element['_calendarView'] === 'year'
-        ? Array.from(element.shadowRoot!.querySelectorAll('sbb-calendar-year'))
-        : Array.from(element.shadowRoot!.querySelectorAll('sbb-calendar-month'));
-  };
-
-  const waitForTransition = async (element: SbbCalendarElement): Promise<void> => {
-    // Wait for the transition to be over
-    await waitForCondition(() => !element.matches(':state(transition)'));
-
-    await waitForLitRender(element);
-
-    // Wait for the new table to be rendered completely
-    await waitForCondition(() => getWaitFromTransitionQuery(element).length > 0);
-  };
-
-  const goToNextView = async (element: SbbCalendarElement): Promise<void> => {
-    const nextButton = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
-      'sbb-secondary-button#sbb-calendar__controls-next',
-    )!;
-
-    nextButton.click();
-    await waitForTransition(element);
   };
 
   before(() => {
@@ -112,23 +90,22 @@ describe(`sbb-calendar`, () => {
           switch (variant) {
             case 'enhanced': {
               template = html` <sbb-calendar
-                selected="2023-01-15"
-                @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e)}
+                value="2023-01-15"
+                @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e, true)}
               >
-                ${createSlottedDays(2023, 1, true)}
               </sbb-calendar>`;
               break;
             }
             case 'mixed': {
-              template = html` <sbb-calendar selected="2023-01-15">
-                <sbb-calendar-day slot=${defaultDateAdapter.toIso8601(new Date('2023-01-05'))}>
+              template = html` <sbb-calendar value="2023-01-15">
+                <sbb-calendar-day slot=${toIso8601(new Date('2023-01-05'))}>
                   ${createPrice(true)}
                 </sbb-calendar-day>
               </sbb-calendar>`;
               break;
             }
             default: {
-              template = html`<sbb-calendar selected="2023-01-15"></sbb-calendar>`;
+              template = html`<sbb-calendar value="2023-01-15"></sbb-calendar>`;
               break;
             }
           }
@@ -152,7 +129,7 @@ describe(`sbb-calendar`, () => {
           expect(await day.getAttribute('slot')).to.be.equal('2023-01-01');
 
           const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
-            '#sbb-calendar__controls-next',
+            'sbb-secondary-button[icon-name="chevron-small-right-small"]',
           )!;
           nextMonthButton.click();
           await waitForLitRender(element);
@@ -167,7 +144,7 @@ describe(`sbb-calendar`, () => {
           expect(await day.getAttribute('slot')).to.be.equal('2023-01-01');
 
           const prevMonthButton: HTMLElement = element.shadowRoot!.querySelector(
-            '#sbb-calendar__controls-previous',
+            'sbb-secondary-button[icon-name="chevron-small-left-small"]',
           )!;
           prevMonthButton.click();
           await waitForLitRender(element);
@@ -185,7 +162,7 @@ describe(`sbb-calendar`, () => {
           expect(await day.getAttribute('slot')).to.be.equal('2023-01-01');
 
           const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
-            '#sbb-calendar__controls-next',
+            'sbb-secondary-button[icon-name="chevron-small-right-small"]',
           )!;
           expect(nextMonthButton).to.have.attribute('disabled');
           nextMonthButton.click();
@@ -204,7 +181,7 @@ describe(`sbb-calendar`, () => {
           expect(await day.getAttribute('slot')).to.be.equal('2023-01-01');
 
           const nextMonthButton = element.shadowRoot!.querySelector(
-            '#sbb-calendar__controls-previous',
+            'sbb-secondary-button[icon-name="chevron-small-left-small"]',
           ) as HTMLElement;
           expect(nextMonthButton).to.have.attribute('disabled');
           nextMonthButton.click();
@@ -286,23 +263,20 @@ describe(`sbb-calendar`, () => {
         });
 
         it('changes to year and month selection views', async () => {
-          const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(
-            '.sbb-calendar__date-selection',
-          )!;
+          const yearSelectionButton: HTMLElement =
+            element.shadowRoot!.querySelector(yearButtonSelector)!;
 
           expect(yearSelectionButton).not.to.be.null;
           yearSelectionButton.click();
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           const yearSelection: HTMLElement = element.shadowRoot!.querySelector(
-            '#sbb-calendar__year-selection',
+            returnFromYearViewSelector,
           )!;
           expect(yearSelection).not.to.be.null;
           expect(yearSelection).dom.to.be.equal(`
-            <button aria-label="Choose date 2016 - 2039" class="sbb-calendar__controls-change-date" id="sbb-calendar__year-selection" type="button">
-              2016 - 2039
-              <sbb-icon name="chevron-small-up-small"></sbb-icon>
-            </button>
+            <sbb-secondary-button aria-label="Change to date selection" class="sbb-calendar__control" icon-name="chevron-small-down-small" size="s" tabindex="0">
+            </sbb-secondary-button>
           `);
 
           const yearCells: SbbCalendarYearElement[] = Array.from(
@@ -312,21 +286,20 @@ describe(`sbb-calendar`, () => {
           expect(yearCells[0].value).to.be.equal('2016');
           expect(yearCells[yearCells.length - 1].value).to.be.equal('2039');
 
-          const yearButton =
-            element.shadowRoot!.querySelector<SbbCalendarYearElement>(':state(selected)')!;
+          const yearButton = element.shadowRoot!.querySelector<SbbCalendarYearElement>(
+            '.sbb-calendar__year-view :state(selected)',
+          )!;
           expect(yearButton.value).to.be.equal('2023');
           yearButton.click();
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
-            '#sbb-calendar__month-selection',
+            returnFromMonthViewSelector,
           )!;
           expect(monthSelection).not.to.be.null;
           expect(monthSelection).dom.to.be.equal(`
-            <button aria-label="Choose date 2023" class="sbb-calendar__controls-change-date" id="sbb-calendar__month-selection" type="button">
-              2023
-              <sbb-icon name="chevron-small-up-small"></sbb-icon>
-            </button>
+            <sbb-secondary-button aria-label="Change to date selection" class="sbb-calendar__control" icon-name="chevron-small-down-small" size="s" tabindex="0">
+            </sbb-secondary-button>
           `);
 
           const monthCells: SbbCalendarMonthElement[] = Array.from(
@@ -338,23 +311,20 @@ describe(`sbb-calendar`, () => {
           monthCells[0].click();
           await waitForLitRender(element);
 
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           const dayCells: SbbCalendarDayElement[] = getDayCells(element);
           expect(dayCells.length).to.be.equal(31);
-          expect(defaultDateAdapter.toIso8601(new Date(dayCells[0].value!))).to.be.equal(
-            '2023-01-01',
-          );
+          expect(toIso8601(new Date(dayCells[0].value!))).to.be.equal('2023-01-01');
         });
 
         it('reset view if day is not selected when year/month are changed', async () => {
           // We move from Dec 2023 to Sep 2030
-          const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(
-            '.sbb-calendar__date-selection',
-          )!;
+          const yearSelectionButton: HTMLElement =
+            element.shadowRoot!.querySelector(yearButtonSelector)!;
           expect(yearSelectionButton).not.to.be.null;
           yearSelectionButton.click();
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           const yearButtonArray: SbbCalendarYearElement[] = Array.from(
             element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
@@ -362,7 +332,7 @@ describe(`sbb-calendar`, () => {
           const yearButton = yearButtonArray.find((e) => e.value === '2030')!;
           expect(yearButton).not.to.be.null;
           yearButton.click();
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           const monthCells: SbbCalendarMonthElement[] = Array.from(
             element.shadowRoot!.querySelectorAll('sbb-calendar-month'),
@@ -370,29 +340,129 @@ describe(`sbb-calendar`, () => {
           expect(monthCells.length).to.be.equal(12);
           monthCells[8].click();
           await waitForLitRender(element);
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           const dayCells = getDayCells(element);
           expect(dayCells.length).to.be.equal(30);
-          expect(defaultDateAdapter.toIso8601(new Date(dayCells[0].value!))).to.be.equal(
-            '2030-09-01',
-          );
+          expect(toIso8601(new Date(dayCells[0].value!))).to.be.equal('2030-09-01');
 
           // Without selecting a day, change to the year view
           yearSelectionButton.click();
-          await waitForTransition(element);
+          await waitForLitRender(element);
           // Go back to day view again by clicking once more
           const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
-            '#sbb-calendar__year-selection',
+            returnFromYearViewSelector,
           )!;
           monthSelection.click();
-          await waitForTransition(element);
+          await waitForLitRender(element);
           // We expect to be in the month of the selected day (Dec 2023)
           const dayCells2 = getDayCells(element);
           expect(dayCells2.length).to.be.equal(31);
-          expect(defaultDateAdapter.toIso8601(new Date(dayCells2[0].value!))).to.be.equal(
-            '2023-01-01',
+          expect(toIso8601(new Date(dayCells2[0].value!))).to.be.equal('2023-01-01');
+        });
+
+        it('clamps day when selecting a month shorter than the current active day (e.g. March 31 → February)', async () => {
+          // Set up calendar with March 31, 2023 as the selected value
+          element = await fixture(html`<sbb-calendar value="2023-03-31"></sbb-calendar>`);
+
+          // Go to year selection
+          const yearSelectionButton: HTMLElement =
+            element.shadowRoot!.querySelector(yearButtonSelector)!;
+          expect(yearSelectionButton).not.to.be.null;
+          yearSelectionButton.click();
+          await waitForLitRender(element);
+
+          // Select year 2022
+          const yearButtonArray: SbbCalendarYearElement[] = Array.from(
+            element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
           );
+          const year2022Button = yearButtonArray.find((e) => e.value === '2022')!;
+          expect(year2022Button).not.to.be.null;
+          year2022Button.click();
+          await waitForLitRender(element);
+
+          // Select February (index 1, February 2022 has only 28 days)
+          // This must NOT throw "Invalid day '31' for month '2'"
+          const monthCells: SbbCalendarMonthElement[] = Array.from(
+            element.shadowRoot!.querySelectorAll('sbb-calendar-month'),
+          );
+          expect(monthCells.length).to.be.equal(12);
+          expect(monthCells[1].value).to.be.equal('2022-02');
+          monthCells[1].click();
+          await waitForLitRender(element);
+
+          // Calendar should show February 2022 (28 days), no exception thrown
+          const dayCells = getDayCells(element);
+          expect(dayCells.length).to.be.equal(28);
+          expect(toIso8601(new Date(dayCells[0].value!))).to.be.equal('2022-02-01');
+        });
+
+        it('clamps day when selecting a year where the current month/day is invalid (e.g. Feb 29 leap year → non-leap year)', async () => {
+          // Set up calendar with February 29, 2024 (leap year)
+          element = await fixture(html`<sbb-calendar value="2024-02-29"></sbb-calendar>`);
+
+          // Go to year selection
+          const yearSelectionButton: HTMLElement =
+            element.shadowRoot!.querySelector(yearButtonSelector)!;
+          expect(yearSelectionButton).not.to.be.null;
+          yearSelectionButton.click();
+          await waitForLitRender(element);
+
+          // Select year 2023 (non-leap year) — must NOT throw when transitioning to month view
+          const yearButtonArray: SbbCalendarYearElement[] = Array.from(
+            element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
+          );
+          const year2023Button = yearButtonArray.find((e) => e.value === '2023')!;
+          expect(year2023Button).not.to.be.null;
+          year2023Button.click();
+          await waitForLitRender(element);
+
+          // Month view should be visible; now select February
+          const monthCells: SbbCalendarMonthElement[] = Array.from(
+            element.shadowRoot!.querySelectorAll('sbb-calendar-month'),
+          );
+          expect(monthCells.length).to.be.equal(12);
+          expect(monthCells[1].value).to.be.equal('2023-02');
+          monthCells[1].click();
+          await waitForLitRender(element);
+
+          // Calendar should show February 2023 (28 days), day clamped from 29 → 28
+          const dayCells = getDayCells(element);
+          expect(dayCells.length).to.be.equal(28);
+          expect(toIso8601(new Date(dayCells[0].value!))).to.be.equal('2023-02-01');
+        });
+
+        it('clamps day when navigating to a previous year in month view with a day that would be invalid (e.g. Feb 29 leap year → non-leap year)', async () => {
+          // Calendar starts directly in month view with Feb 29, 2024 (leap year).
+          // _activeDate is set to the value, so _activeDate.day = 29.
+          element = await fixture(
+            html`<sbb-calendar value="2024-02-29" view="month"></sbb-calendar>`,
+          );
+
+          // The month view is already shown for year 2024.
+          // Click the left arrow (previous year) → _goToDifferentYear(-1)
+          const prevYearButton: HTMLElement = element.shadowRoot!.querySelector(
+            '.sbb-calendar__month-view [icon-name="chevron-small-left-small"]',
+          )!;
+          expect(prevYearButton).not.to.be.null;
+          prevYearButton.click();
+          await waitForLitRender(element);
+
+          // Month view should now show 2023; no exception must have been thrown.
+          // Select February (index 1).
+          const monthCells: SbbCalendarMonthElement[] = Array.from(
+            element.shadowRoot!.querySelectorAll('sbb-calendar-month'),
+          );
+          expect(monthCells.length).to.be.equal(12);
+          expect(monthCells[1].value).to.be.equal('2023-02');
+          monthCells[1].click();
+          await waitForLitRender(element);
+          await waitForLitRender(element);
+
+          // Calendar should show February 2023 (28 days), no exception thrown.
+          const dayCells = getDayCells(element);
+          expect(dayCells.length).to.be.equal(28);
+          expect(toIso8601(new Date(dayCells[0].value!))).to.be.equal('2023-02-01');
         });
 
         describe('focusing', () => {
@@ -407,26 +477,25 @@ describe(`sbb-calendar`, () => {
           it('focuses current day', async () => {
             element = await fixture(html`
               <sbb-calendar>
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? createSlottedDays(2023, 10, true)
-                    : html`
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2023-10-15'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? createSlottedDays(2023, 10, true)
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2023-10-15'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
 
             // Open year selection
-            const yearSelectionButton = element.shadowRoot!.querySelector<HTMLElement>(
-              '.sbb-calendar__date-selection',
-            )!;
+            const yearSelectionButton =
+              element.shadowRoot!.querySelector<HTMLElement>(yearButtonSelector)!;
             yearSelectionButton.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             // Select same year
             const yearButtonArray: SbbCalendarYearElement[] = Array.from(
@@ -434,10 +503,10 @@ describe(`sbb-calendar`, () => {
             );
             const year2023Button = yearButtonArray.find((e) => e.value === '2023')!;
             year2023Button.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
-              '#sbb-calendar__month-selection',
+              returnFromMonthViewSelector,
             )!;
             expect(monthSelection).not.to.be.null;
 
@@ -450,7 +519,7 @@ describe(`sbb-calendar`, () => {
             );
 
             october2023Button.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             const selectedDayButton = getDayCells(element).find((e) =>
               e.matches('sbb-calendar-day[slot="2023-10-15"]'),
@@ -467,15 +536,14 @@ describe(`sbb-calendar`, () => {
             // Flaky on Firefox
             this.retries(3);
 
-            element.selected = new Date('2023-10-15');
+            element.value = new Date('2023-10-15');
             await waitForLitRender(element);
 
             // Open year selection
-            const yearSelectionButton = element.shadowRoot!.querySelector<HTMLElement>(
-              '.sbb-calendar__date-selection',
-            )!;
+            const yearSelectionButton =
+              element.shadowRoot!.querySelector<HTMLElement>(yearButtonSelector)!;
             yearSelectionButton.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             // Select same year
             const yearButtonArray: SbbCalendarYearElement[] = Array.from(
@@ -485,11 +553,11 @@ describe(`sbb-calendar`, () => {
             expect(document.activeElement!.shadowRoot!.activeElement).to.be.equal(year2023Button);
 
             year2023Button.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             // Check that we're in month selection view
             const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
-              '#sbb-calendar__month-selection',
+              returnFromMonthViewSelector,
             )!;
             expect(monthSelection).not.to.be.null;
 
@@ -502,7 +570,7 @@ describe(`sbb-calendar`, () => {
             );
 
             october2023Button.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             const selectedDayButton = getDayCells(element).find((e) =>
               e.matches('sbb-calendar-day[slot="2023-10-15"]'),
@@ -519,15 +587,14 @@ describe(`sbb-calendar`, () => {
             // Flaky on Firefox
             this.retries(3);
 
-            element.selected = new Date('2023-10-15');
+            element.value = new Date('2023-10-15');
             await waitForLitRender(element);
 
             // Open year selection
-            const yearSelectionButton = element.shadowRoot!.querySelector<HTMLElement>(
-              '.sbb-calendar__date-selection',
-            )!;
+            const yearSelectionButton =
+              element.shadowRoot!.querySelector<HTMLElement>(yearButtonSelector)!;
             yearSelectionButton.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             // Select a different year (2024, not the current year 2023)
             const yearButtonArray: SbbCalendarYearElement[] = Array.from(
@@ -535,11 +602,11 @@ describe(`sbb-calendar`, () => {
             );
             const yearButton = yearButtonArray.find((e) => e.value === '2024')!;
             yearButton.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             // Check that we're in month selection view
             const monthSelection = element.shadowRoot!.querySelector<HTMLElement>(
-              '#sbb-calendar__month-selection',
+              returnFromMonthViewSelector,
             )!;
             expect(monthSelection).not.to.be.null;
 
@@ -552,7 +619,7 @@ describe(`sbb-calendar`, () => {
               january2024Button,
             );
             january2024Button.click();
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             const selectedDayButton = getDayCells(element).find((e) =>
               e.matches('sbb-calendar-day[slot="2024-01-01"]'),
@@ -571,8 +638,8 @@ describe(`sbb-calendar`, () => {
           expect(document.activeElement).to.be.equal(document.body);
 
           // Trigger an update which triggers updated().
-          element.wide = true;
-          await waitForTransition(element);
+          element.amount = 2;
+          await waitForLitRender(element);
 
           expect(document.activeElement).to.be.equal(document.body);
         });
@@ -586,10 +653,40 @@ describe(`sbb-calendar`, () => {
           expect(document.activeElement).to.be.equal(activeElement);
 
           // Trigger an update which triggers updated().
-          element.wide = true;
-          await waitForTransition(element);
+          element.amount = 2;
+          await waitForLitRender(element);
 
           expect(document.activeElement).to.be.equal(activeElement);
+        });
+
+        it('restores focus into year view after focusing out and back in', async () => {
+          const outsideButton = document.createElement('button');
+          element.parentElement!.append(outsideButton);
+
+          // Navigate to year view
+          const yearSelectionButton =
+            element.shadowRoot!.querySelector<HTMLElement>(yearButtonSelector)!;
+          yearSelectionButton.focus();
+          await sendKeys({ press: 'Enter' });
+          await waitForLitRender(element);
+
+          expect(element.shadowRoot!.querySelector('.sbb-calendar__year-view')).not.to.be.null;
+
+          // Focus out of calendar
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(element);
+          expect(document.activeElement).to.be.equal(outsideButton);
+          expect(element).not.to.have.attribute('tabindex');
+
+          // Focus back into the calendar
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(element);
+
+          // The focused element should now be a year cell inside the calendar
+          const focusedYear = element.shadowRoot!.querySelector<SbbCalendarYearElement>(
+            'sbb-calendar-year[tabindex="0"]',
+          );
+          expect(document.activeElement!.shadowRoot!.activeElement).to.be.equal(focusedYear);
         });
 
         it('does not create horizontal scrollbar when calendar is 100% width in overflow container', async () => {
@@ -615,45 +712,99 @@ describe(`sbb-calendar`, () => {
           element.view = 'year';
           await waitForLitRender(element);
 
-          expect(element.shadowRoot!.querySelector('.sbb-calendar__table-year-view')).not.to.be
-            .null;
+          expect(element.shadowRoot!.querySelector('.sbb-calendar__year-view')).not.to.be.null;
         });
 
         it('opens month view', async () => {
           element.view = 'month';
           await waitForLitRender(element);
 
-          expect(element.shadowRoot!.querySelector('.sbb-calendar__table-month-view')).not.to.be
-            .null;
+          expect(element.shadowRoot!.querySelector('.sbb-calendar__month-view')).not.to.be.null;
           expect(
             element
-              .shadowRoot!.querySelector('#sbb-calendar__month-selection')!
+              .shadowRoot!.querySelector(
+                '.sbb-calendar__month-view .sbb-calendar__table-header span',
+              )!
               .textContent!.trim(),
           ).to.be.equal('2023');
         });
 
         it('opens month view with selected date', async () => {
-          element.selected = new Date('2017-01-22');
+          element.value = new Date('2017-01-22');
           element.view = 'month';
           await waitForLitRender(element);
 
           expect(
             element
-              .shadowRoot!.querySelector('#sbb-calendar__month-selection')!
+              .shadowRoot!.querySelector(
+                '.sbb-calendar__month-view .sbb-calendar__table-header span',
+              )!
               .textContent!.trim(),
           ).to.be.equal('2017');
         });
 
         it('opens month view with current date', async () => {
-          element.selected = null;
+          element.value = null;
           element.view = 'month';
           await waitForLitRender(element);
 
           expect(
             element
-              .shadowRoot!.querySelector('#sbb-calendar__month-selection')!
+              .shadowRoot!.querySelector(
+                '.sbb-calendar__month-view .sbb-calendar__table-header span',
+              )!
               .textContent!.trim(),
           ).to.be.equal('2023');
+        });
+
+        describe('shift click', () => {
+          it('should select multiple dates with shift click', async () => {
+            element.multiple = true;
+            element.value = [];
+
+            const days = getDayCells(element);
+            const initialDayButton = days.find((e) => e.slot === '2023-01-10');
+
+            initialDayButton!.click();
+            expect(element.value.length).to.be.equal(1);
+            expect(toIso8601(element.value[0])).to.be.equal('2023-01-10');
+
+            const lastDayButton = days.find((e) => e.slot === '2023-01-20');
+            const shiftClickEvent = new MouseEvent('click', {
+              shiftKey: true,
+              bubbles: true,
+              composed: true,
+            });
+            lastDayButton!.dispatchEvent(shiftClickEvent);
+
+            expect(element.value.length).to.be.equal(11);
+            expect(toIso8601(element.value[0])).to.be.equal('2023-01-10');
+            expect(toIso8601(element.value[element.value.length - 1])).to.be.equal('2023-01-20');
+          });
+
+          it('should select multiple dates with shift click in the past', async () => {
+            element.multiple = true;
+            element.value = [];
+
+            const days = getDayCells(element);
+            const initialDayButton = days.find((e) => e.slot === '2023-01-20');
+
+            initialDayButton!.click();
+            expect(element.value.length).to.be.equal(1);
+            expect(toIso8601(element.value[0])).to.be.equal('2023-01-20');
+
+            const lastDayButton = days.find((e) => e.slot === '2023-01-10');
+            const shiftClickEvent = new MouseEvent('click', {
+              shiftKey: true,
+              bubbles: true,
+              composed: true,
+            });
+            lastDayButton!.dispatchEvent(shiftClickEvent);
+
+            expect(element.value.length).to.be.equal(11);
+            expect(toIso8601(element.value[0])).to.be.equal('2023-01-10');
+            expect(toIso8601(element.value[element.value.length - 1])).to.be.equal('2023-01-20');
+          });
         });
 
         describe('keyboard navigation', () => {
@@ -664,7 +815,7 @@ describe(`sbb-calendar`, () => {
 
           it('it should focus on the first of the month if selected date is not in the view', async () => {
             const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
-              '#sbb-calendar__controls-next',
+              'sbb-secondary-button[icon-name="chevron-small-right-small"]',
             )!;
             nextMonthButton.click();
             await waitForLitRender(element);
@@ -789,6 +940,26 @@ describe(`sbb-calendar`, () => {
             expect(getDayActiveElementValue()).to.be.equal('2023-01-29');
           });
         });
+
+        it('returns the visible days and updates them after navigation', async () => {
+          const expectedJanuaryDays = Array.from(
+            { length: 31 },
+            (_, index) => `2023-01-${String(index + 1).padStart(2, '0')}`,
+          );
+          expect(element.visibleDays().map((day) => day.value)).to.deep.equal(expectedJanuaryDays);
+
+          const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
+            'sbb-secondary-button[icon-name="chevron-small-right-small"]',
+          )!;
+          nextMonthButton.click();
+          await waitForLitRender(element);
+
+          const expectedFebruaryDays = Array.from(
+            { length: 28 },
+            (_, index) => `2023-02-${String(index + 1).padStart(2, '0')}`,
+          );
+          expect(element.visibleDays().map((day) => day.value)).to.deep.equal(expectedFebruaryDays);
+        });
       });
 
       describe('vertical', () => {
@@ -797,17 +968,16 @@ describe(`sbb-calendar`, () => {
           switch (variant) {
             case 'enhanced': {
               template = html` <sbb-calendar
-                selected="2023-01-15"
+                value="2023-01-15"
                 orientation="vertical"
-                @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e)}
+                @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e, true)}
               >
-                ${createSlottedDays(2023, 1, true)}
               </sbb-calendar>`;
               break;
             }
             case 'mixed': {
-              template = html` <sbb-calendar selected="2023-01-15" orientation="vertical">
-                <sbb-calendar-day slot=${defaultDateAdapter.toIso8601(new Date('2023-01-05'))}>
+              template = html` <sbb-calendar value="2023-01-15" orientation="vertical">
+                <sbb-calendar-day slot=${toIso8601(new Date('2023-01-05'))}>
                   ${createPrice(true)}
                 </sbb-calendar-day>
               </sbb-calendar>`;
@@ -815,7 +985,7 @@ describe(`sbb-calendar`, () => {
             }
             default: {
               template = html`<sbb-calendar
-                selected="2023-01-15"
+                value="2023-01-15"
                 orientation="vertical"
               ></sbb-calendar>`;
               break;
@@ -837,7 +1007,7 @@ describe(`sbb-calendar`, () => {
 
           it('it should focus on the first of the month if selected date is not in the view', async () => {
             const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
-              '#sbb-calendar__controls-next',
+              'sbb-secondary-button[icon-name="chevron-small-right-small"]',
             )!;
             nextMonthButton.click();
             await waitForLitRender(element);
@@ -915,25 +1085,27 @@ describe(`sbb-calendar`, () => {
 
       it('renders with min and max', async () => {
         element = await fixture(html`
-          <sbb-calendar selected="2023-01-20" min="2023-01-09" max="2023-01-29">
-            ${variant === 'default'
-              ? nothing
-              : variant === 'enhanced'
-                ? createSlottedDays(2023, 1, true)
-                : html`
-                    <sbb-calendar-day slot=${defaultDateAdapter.toIso8601(new Date('2023-01-22'))}>
-                      ${createPrice(true)}
-                    </sbb-calendar-day>
-                  `}
+          <sbb-calendar value="2023-01-20" min="2023-01-09" max="2023-01-29">
+            ${
+              variant === 'default'
+                ? nothing
+                : variant === 'enhanced'
+                  ? createSlottedDays(2023, 1, true)
+                  : html`
+                      <sbb-calendar-day slot=${toIso8601(new Date('2023-01-22'))}>
+                        ${createPrice(true)}
+                      </sbb-calendar-day>
+                    `
+            }
           </sbb-calendar>
         `);
 
         const buttonPrevDay = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
-          'sbb-secondary-button#sbb-calendar__controls-previous',
+          'sbb-secondary-button[icon-name="chevron-small-left-small"]',
         );
         expect(buttonPrevDay).to.have.attribute('disabled');
         const buttonNextDay = element.shadowRoot!.querySelector(
-          'sbb-secondary-button#sbb-calendar__controls-next',
+          'sbb-secondary-button[icon-name="chevron-small-right-small"]',
         );
         expect(buttonNextDay).to.have.attribute('disabled');
 
@@ -973,31 +1145,30 @@ describe(`sbb-calendar`, () => {
             // Flaky on WebKit
             this.retries(3);
 
-            let template;
+            let template: TemplateResult;
             switch (variant) {
               case 'enhanced': {
                 template = html`<sbb-calendar
-                  selected="2023-01-15"
-                  wide
-                  @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e)}
+                  value="2023-01-15"
+                  amount="2"
+                  @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e, true)}
                 >
-                  ${createSlottedDays(2023, 1, true)} ${createSlottedDays(2023, 2, true)}
                 </sbb-calendar>`;
                 break;
               }
               case 'mixed': {
-                template = html`<sbb-calendar selected="2023-01-15" wide>
-                  <sbb-calendar-day slot=${defaultDateAdapter.toIso8601(new Date('2023-01-22'))}>
+                template = html`<sbb-calendar value="2023-01-15" amount="2">
+                  <sbb-calendar-day slot=${toIso8601(new Date('2023-01-22'))}>
                     ${createPrice(true)}
                   </sbb-calendar-day>
-                  <sbb-calendar-day slot=${defaultDateAdapter.toIso8601(new Date('2023-02-18'))}>
+                  <sbb-calendar-day slot=${toIso8601(new Date('2023-02-18'))}>
                     ${createPrice(true)}
                   </sbb-calendar-day>
                 </sbb-calendar>`;
                 break;
               }
               default: {
-                template = html`<sbb-calendar selected="2023-01-15" wide></sbb-calendar>`;
+                template = html`<sbb-calendar value="2023-01-15" amount="2"></sbb-calendar>`;
                 break;
               }
             }
@@ -1006,66 +1177,67 @@ describe(`sbb-calendar`, () => {
 
             // Open year selection
             element
-              .shadowRoot!.querySelector<HTMLButtonElement>('button.sbb-calendar__date-selection')!
+              .shadowRoot!.querySelector<HTMLButtonElement>(
+                '.sbb-calendar__control[icon-name="chevron-small-up-small"]',
+              )!
               .click();
 
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             // Open month selection
             const yearButtonArray: SbbCalendarYearElement[] = Array.from(
               element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
             );
-            const year2063Button = yearButtonArray.find((e) => e.value === '2063')!;
-            year2063Button!.click();
+            const year2039Button = yearButtonArray.find((e) => e.value === '2039')!;
+            year2039Button!.click();
 
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             const monthButtonArray: SbbCalendarMonthElement[] = Array.from(
               element.shadowRoot!.querySelectorAll('sbb-calendar-month'),
             );
-            const december2063Button = monthButtonArray.find((e) => e.value === '2063-12')!;
-            december2063Button!.click();
+            const december2039Button = monthButtonArray.find((e) => e.value === '2039-12')!;
+            december2039Button!.click();
 
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
-            // Day view should be opened with December 2062
+            // Day view should be opened with December 2039
             expect(
               element
-                .shadowRoot!.querySelector<HTMLButtonElement>(
-                  'button.sbb-calendar__date-selection',
-                )!
-                .innerText.trim(),
-            ).to.be.equal('December 2063');
+                .shadowRoot!.querySelector<HTMLButtonElement>('.sbb-calendar__table-header span')!
+                .textContent.trim(),
+            ).to.be.equal('December 2039');
           });
 
           it('renders with min and max', async () => {
             element = await fixture(html`
-              <sbb-calendar selected="2024-11-20" min="2023-11-04" max="2026-12-31" wide>
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? html`${createSlottedDays(2024, 11, true)} ${createSlottedDays(2024, 12, true)}`
-                    : html`
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2024-11-22'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2024-12-18'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+              <sbb-calendar value="2024-11-20" min="2023-11-04" max="2026-12-31" amount="2">
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? html`${createSlottedDays(2024, 11, true)}
+                        ${createSlottedDays(2024, 12, true)}`
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2024-11-22'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                          <sbb-calendar-day slot=${toIso8601(new Date('2024-12-18'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
 
             // Open year selection
             element
-              .shadowRoot!.querySelector<HTMLButtonElement>('button.sbb-calendar__date-selection')!
+              .shadowRoot!.querySelector<HTMLButtonElement>(
+                '.sbb-calendar__control[icon-name="chevron-small-up-small"]',
+              )!
               .click();
 
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             // Open month selection
             const yearButtonArray: SbbCalendarYearElement[] = Array.from(
@@ -1074,54 +1246,55 @@ describe(`sbb-calendar`, () => {
             const year2023Button = yearButtonArray.find((e) => e.value === '2023')!;
             year2023Button!.click();
 
-            await waitForTransition(element);
+            await waitForLitRender(element);
 
             const monthButtonArray: SbbCalendarMonthElement[] = Array.from(
               element.shadowRoot!.querySelectorAll('sbb-calendar-month'),
             );
-
-            // Check if January 2024 is clickable (first possible)
-            const january2024Button = monthButtonArray.find((e) => e.value === '2024-01')!;
-            expect(january2024Button).not.to.have.attribute('disabled');
 
             // Check if November 2023 is clickable
             const november2023Button = monthButtonArray.find((e) => e.value === '2023-11')!;
             expect(november2023Button).not.to.have.attribute('disabled');
 
             // Navigate to max page
-            await goToNextView(element);
-            await goToNextView(element);
+            for (let i = 0; i < 2; i++) {
+              const nextButton = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
+                '.sbb-calendar__month-view sbb-secondary-button[icon-name="chevron-small-right-small"]',
+              )!;
+
+              nextButton.click();
+              await waitForLitRender(element);
+            }
 
             const nextButton = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
-              'sbb-secondary-button#sbb-calendar__controls-next',
+              '.sbb-calendar__month-view sbb-secondary-button[icon-name="chevron-small-right-small"]',
             )!;
             expect(nextButton).to.have.attribute('disabled');
 
-            // Check if December 2026 is clickable (last possible)
-            const december2026Button = monthButtonArray.find((e) => e.value === '2026-12')!;
-            expect(december2026Button).not.to.have.attribute('disabled');
+            // Check if December 2025 is clickable (last possible)
+            const december2025Button = monthButtonArray.find((e) => e.value === '2025-12')!;
+            expect(december2025Button).not.to.have.attribute('disabled');
           });
 
           describe('keyboard navigation', () => {
             beforeEach(async () => {
               element = await fixture(html`
-                <sbb-calendar selected="2025-01-31" wide>
-                  ${variant === 'default'
-                    ? nothing
-                    : variant === 'enhanced'
-                      ? html`${createSlottedDays(2025, 1, true)} ${createSlottedDays(2025, 2, true)}`
-                      : html`
-                          <sbb-calendar-day
-                            slot=${defaultDateAdapter.toIso8601(new Date('2025-01-01'))}
-                          >
-                            ${createPrice(true)}
-                          </sbb-calendar-day>
-                          <sbb-calendar-day
-                            slot=${defaultDateAdapter.toIso8601(new Date('2025-02-13'))}
-                          >
-                            ${createPrice(true)}
-                          </sbb-calendar-day>
-                        `}
+                <sbb-calendar value="2025-01-31" amount="2">
+                  ${
+                    variant === 'default'
+                      ? nothing
+                      : variant === 'enhanced'
+                        ? html`${createSlottedDays(2025, 1, true)}
+                          ${createSlottedDays(2025, 2, true)}`
+                        : html`
+                            <sbb-calendar-day slot=${toIso8601(new Date('2025-01-01'))}>
+                              ${createPrice(true)}
+                            </sbb-calendar-day>
+                            <sbb-calendar-day slot=${toIso8601(new Date('2025-02-13'))}>
+                              ${createPrice(true)}
+                            </sbb-calendar-day>
+                          `
+                  }
                 </sbb-calendar>
               `);
             });
@@ -1195,23 +1368,21 @@ describe(`sbb-calendar`, () => {
         describe('vertical', () => {
           beforeEach(async () => {
             element = await fixture(html`
-              <sbb-calendar selected="2025-01-29" orientation="vertical" wide>
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? html`${createSlottedDays(2025, 1, true)} ${createSlottedDays(2025, 2, true)}`
-                    : html`
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2025-01-01'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2025-02-13'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+              <sbb-calendar value="2025-01-29" orientation="vertical" amount="2">
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? html`${createSlottedDays(2025, 1, true)} ${createSlottedDays(2025, 2, true)}`
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-01-01'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-02-13'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
           });
@@ -1287,18 +1458,17 @@ describe(`sbb-calendar`, () => {
       describe('keyboard navigation for year view', () => {
         beforeEach(async () => {
           element = await fixture(
-            html`<sbb-calendar selected="2023-01-15"
+            html`<sbb-calendar value="2023-01-15"
               >${variant === 'enhanced' ? createSlottedDays(2023, 1, true) : nothing}</sbb-calendar
             >`,
           );
 
-          const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(
-            '.sbb-calendar__date-selection',
-          )!;
+          const yearSelectionButton: HTMLElement =
+            element.shadowRoot!.querySelector(yearButtonSelector)!;
 
           expect(yearSelectionButton).not.to.be.null;
           yearSelectionButton.click();
-          await waitForTransition(element);
+          await waitForLitRender(element);
 
           const years: SbbCalendarYearElement[] = Array.from(
             element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
@@ -1317,7 +1487,7 @@ describe(`sbb-calendar`, () => {
 
         it('it should focus on the first year if selected year is not in the view', async () => {
           const nextYearButton: HTMLElement = element.shadowRoot!.querySelector(
-            '#sbb-calendar__controls-next',
+            '.sbb-calendar__year-view sbb-secondary-button[icon-name="chevron-small-right-small"]',
           )!;
           nextYearButton.click();
           await waitForLitRender(element);
@@ -1410,18 +1580,18 @@ describe(`sbb-calendar`, () => {
         // selected date is 2025-01-22, Wednesday
         beforeEach(async () => {
           element = await fixture(html`
-            <sbb-calendar selected="2025-01-22">
-              ${variant === 'default'
-                ? nothing
-                : variant === 'enhanced'
-                  ? createSlottedDays(2025, 1, true)
-                  : html`
-                      <sbb-calendar-day
-                        slot=${defaultDateAdapter.toIso8601(new Date('2025-01-30'))}
-                      >
-                        ${createPrice(true)}
-                      </sbb-calendar-day>
-                    `}
+            <sbb-calendar value="2025-01-22">
+              ${
+                variant === 'default'
+                  ? nothing
+                  : variant === 'enhanced'
+                    ? createSlottedDays(2025, 1, true)
+                    : html`
+                        <sbb-calendar-day slot=${toIso8601(new Date('2025-01-30'))}>
+                          ${createPrice(true)}
+                        </sbb-calendar-day>
+                      `
+              }
             </sbb-calendar>
           `);
         });
@@ -1447,23 +1617,21 @@ describe(`sbb-calendar`, () => {
           beforeEach(async () => {
             await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
             element = await fixture(html`
-              <sbb-calendar selected="2025-01-22" wide orientation="horizontal">
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? html`${createSlottedDays(2025, 1, true)} ${createSlottedDays(2025, 2, true)}`
-                    : html`
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2025-01-30'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2025-02-10'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+              <sbb-calendar value="2025-01-22" amount="2" orientation="horizontal">
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? html`${createSlottedDays(2025, 1, true)} ${createSlottedDays(2025, 2, true)}`
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-01-30'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-02-10'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             element.dateFilter = (d: Date | null): boolean =>
@@ -1541,23 +1709,21 @@ describe(`sbb-calendar`, () => {
           beforeEach(async () => {
             await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
             element = await fixture(html`
-              <sbb-calendar selected="2025-01-22" wide orientation="vertical">
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? html`${createSlottedDays(2025, 1, true)} ${createSlottedDays(2025, 2, true)}`
-                    : html`
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2025-01-30'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2025-02-10'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+              <sbb-calendar value="2025-01-22" amount="2" orientation="vertical">
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? html`${createSlottedDays(2025, 1, true)} ${createSlottedDays(2025, 2, true)}`
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-01-30'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-02-10'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             element.dateFilter = (d: Date | null): boolean =>
@@ -1638,50 +1804,56 @@ describe(`sbb-calendar`, () => {
         describe('horizontal', () => {
           it('renders', async () => {
             const calendar: SbbCalendarElement = await fixture(html`
-              <sbb-calendar selected="2025-04-08T00:00:00" week-numbers>
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? createSlottedDays(2025, 4, true)
-                    : html`
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2025-04-25'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+              <sbb-calendar value="2025-04-08T00:00:00" week-numbers>
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? createSlottedDays(2025, 4, true)
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             // In horizontal variant, the first cell of each row is the one with the week number
             const rows = calendar.shadowRoot!.querySelectorAll('tbody tr');
-            const cells = Array.from(rows).map((e) => e.querySelector('td')!);
+            const cells = Array.from(rows, (e) => e.querySelector('td')!);
             expect(cells.length).to.be.equal(5);
-            expect(cells[0].querySelector('span')!.textContent!.trim()).to.be.equal('14');
-            expect(cells[1].querySelector('span')!.textContent!.trim()).to.be.equal('15');
-            expect(cells[4].querySelector('span')!.textContent!.trim()).to.be.equal('18');
+            expect(
+              cells[0].querySelector('span:not(.sbb-screen-reader-only)')!.textContent!.trim(),
+            ).to.be.equal('14');
+            expect(
+              cells[1].querySelector('span:not(.sbb-screen-reader-only)')!.textContent!.trim(),
+            ).to.be.equal('15');
+            expect(
+              cells[4].querySelector('span:not(.sbb-screen-reader-only)')!.textContent!.trim(),
+            ).to.be.equal('18');
           });
 
           it('renders multiple', async () => {
             const calendar: SbbCalendarElement = await fixture(html`
-              <sbb-calendar selected="2025-04-08T00:00:00" week-numbers multiple>
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? createSlottedDays(2025, 4, true)
-                    : html`
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2025-04-25'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+              <sbb-calendar value="2025-04-08T00:00:00" week-numbers multiple>
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? createSlottedDays(2025, 4, true)
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
 
             // In horizontal variant, the first cell of each row is the one with the week number
             const rows = calendar.shadowRoot!.querySelectorAll('tbody tr');
-            const cells = Array.from(rows).map((e) => e.querySelector('td')!);
+            const cells = Array.from(rows, (e) => e.querySelector('td')!);
             expect(cells.length).to.be.equal(5);
             // Due to the multiple property, cells have buttons instead than span.
             expect(cells[0].querySelector('span')).to.be.null;
@@ -1693,18 +1865,20 @@ describe(`sbb-calendar`, () => {
             // Adding / removing days is done without the use of ctrl/cmd
             firstButton.click();
             await selectedSpy.calledOnce();
-            let selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+            let selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
             expect(selectedDates.length).to.be.equal(7);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 01 2025');
-            expect(selectedDates[2].toDateString()).to.be.equal('Wed Apr 02 2025');
-            expect(selectedDates[6].toDateString()).to.be.equal('Sun Apr 06 2025');
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-01');
+            expect(toIso8601(selectedDates[1])).to.be.equal('2025-04-02');
+            expect(toIso8601(selectedDates[5])).to.be.equal('2025-04-06');
+            expect(toIso8601(selectedDates[6])).to.be.equal('2025-04-08');
             // If the same button is clicked twice, days are removed
             firstButton.click();
             expect(selectedSpy.calledTimes(2));
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
             expect(selectedDates.length).to.be.equal(1);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-08');
 
             // With the first row selected, add the second one
             const secondButton =
@@ -1712,177 +1886,172 @@ describe(`sbb-calendar`, () => {
             firstButton.click();
             secondButton.click();
             await selectedSpy.calledTimes(4);
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
             expect(selectedDates.length).to.be.equal(13);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 01 2025');
-            expect(selectedDates[7].toDateString()).to.be.equal('Mon Apr 07 2025');
-            expect(selectedDates[12].toDateString()).to.be.equal('Sun Apr 13 2025');
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-01');
+            expect(toIso8601(selectedDates[6])).to.be.equal('2025-04-07');
+            expect(toIso8601(selectedDates[7])).to.be.equal('2025-04-08');
+            expect(toIso8601(selectedDates[12])).to.be.equal('2025-04-13');
 
             // Click on Wed button: all missing Wednesdays are added
             const header = calendar.shadowRoot!.querySelectorAll('thead th')!;
-            const headerButtons = Array.from(header).map(
-              (e) => e.querySelector<SbbCalendarWeekdayElement>('sbb-calendar-weekday')!,
+            const headerButtons = Array.from(header, (e) =>
+              e.querySelector<SbbCalendarWeekdayElement>('sbb-calendar-weekday')!,
             );
             expect(headerButtons.length).to.be.equal(8);
             headerButtons[3].click();
             await selectedSpy.calledTimes(5);
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
             expect(selectedDates.length).to.be.equal(16);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 01 2025');
-            expect(selectedDates[7].toDateString()).to.be.equal('Mon Apr 07 2025');
-            expect(selectedDates[12].toDateString()).to.be.equal('Sun Apr 13 2025');
-            expect(selectedDates[13].toDateString()).to.be.equal('Wed Apr 16 2025');
-            expect(selectedDates[14].toDateString()).to.be.equal('Wed Apr 23 2025');
-            expect(selectedDates[15].toDateString()).to.be.equal('Wed Apr 30 2025');
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-01');
+            expect(toIso8601(selectedDates[6])).to.be.equal('2025-04-07');
+            expect(toIso8601(selectedDates[7])).to.be.equal('2025-04-08');
+            expect(toIso8601(selectedDates[12])).to.be.equal('2025-04-13');
+            expect(toIso8601(selectedDates[13])).to.be.equal('2025-04-16');
+            expect(toIso8601(selectedDates[14])).to.be.equal('2025-04-23');
+            expect(toIso8601(selectedDates[15])).to.be.equal('2025-04-30');
 
             // Click again on Wed button: all Wednesdays are removed
             headerButtons[3].click();
             await selectedSpy.calledTimes(6);
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
             expect(selectedDates.length).to.be.equal(11);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 01 2025');
-            expect(selectedDates[10].toDateString()).to.be.equal('Sun Apr 13 2025');
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-01');
+            expect(toIso8601(selectedDates[6])).to.be.equal('2025-04-08');
+            expect(toIso8601(selectedDates[10])).to.be.equal('2025-04-13');
 
             // Click on a single day to add it
             getDayCells(calendar)
               .find((e) => e.matches('sbb-calendar-day[slot="2025-04-19"]'))!
               .click();
             await selectedSpy.calledTimes(7);
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
             expect(selectedDates.length).to.be.equal(12);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[11].toDateString()).to.be.equal('Sat Apr 19 2025');
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-01');
+            expect(toIso8601(selectedDates[6])).to.be.equal('2025-04-08');
+            expect(toIso8601(selectedDates[11])).to.be.equal('2025-04-19');
 
             // Click on a single day to remove it
             getDayCells(calendar)
               .find((e) => e.matches('sbb-calendar-day[slot="2025-04-08"]'))!
               .click();
             await selectedSpy.calledTimes(8);
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
             expect(selectedDates.length).to.be.equal(11);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-01');
           });
 
           it('renders multiple wide', async () => {
             await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
             const calendar: SbbCalendarElement = await fixture(html`
-              <sbb-calendar selected="2025-04-08T00:00:00" wide week-numbers multiple>
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? html`${createSlottedDays(2025, 4, true)} ${createSlottedDays(2025, 5, true)}`
-                    : html`
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2025-04-25'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2025-05-05'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+              <sbb-calendar value="2025-04-08T00:00:00" amount="2" week-numbers multiple>
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? html`${createSlottedDays(2025, 4, true)} ${createSlottedDays(2025, 5, true)}`
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-05-05'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
 
             // In horizontal variant, the first cell of each row is the one with the week number
             const rows = calendar.shadowRoot!.querySelectorAll('tbody tr');
-            const cells = Array.from(rows).map((e) => e.querySelector('td')!);
+            const cells = Array.from(rows, (e) => e.querySelector('td')!);
             // In wide mode, we have two months displayed, so we have to consider the number of weeks in April and May
             expect(cells.length).to.be.equal(10);
-            expect(
-              cells[0].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
-                .value,
-            ).to.be.equal('14');
-            expect(
-              cells[1].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
-                .value,
-            ).to.be.equal('15');
-            expect(
-              cells[4].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
-                .value,
-            ).to.be.equal('18');
-            expect(
-              cells[5].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
-                .value,
-            ).to.be.equal('18');
-            expect(
-              cells[9].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
-                .value,
-            ).to.be.equal('22');
+            const readValue = (cell: HTMLElement): string | null =>
+              cell.querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!.value;
 
-            // Clicking on the last week button must select all the days of the week, including the ones in the next month
+            expect(readValue(cells[0])).to.be.equal('14');
+            expect(readValue(cells[1])).to.be.equal('15');
+            expect(readValue(cells[4])).to.be.equal('18');
+            expect(readValue(cells[5])).to.be.equal('18');
+            expect(readValue(cells[9])).to.be.equal('22');
+
+            // Clicking on the last week button must select all the days of the week in the current month
             const lastButtonFirstMonth =
               cells[4].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             lastButtonFirstMonth.click();
             await selectedSpy.calledOnce();
-            let selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
-            expect(selectedDates.length).to.be.equal(8);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[1].toDateString()).to.be.equal('Mon Apr 28 2025');
-            expect(selectedDates[2].toDateString()).to.be.equal('Tue Apr 29 2025');
-            expect(selectedDates[6].toDateString()).to.be.equal('Sat May 03 2025');
-            expect(selectedDates[7].toDateString()).to.be.equal('Sun May 04 2025');
+            let selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
+            expect(selectedDates.length).to.be.equal(4);
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-08');
+            expect(toIso8601(selectedDates[1])).to.be.equal('2025-04-28');
+            expect(toIso8601(selectedDates[2])).to.be.equal('2025-04-29');
+            expect(toIso8601(selectedDates[3])).to.be.equal('2025-04-30');
 
-            /**
-             * Clicking on the first week button in the next month should not change the selection,  since the dates are the same as before.
-             */
+            // Clicking on the first week button in the next month should append the remaining dates in the week.
             const firstButtonSecondMonth =
               cells[5].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             firstButtonSecondMonth.click();
             expect(selectedSpy.calledTimes(2));
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
-            expect(selectedDates.length).to.be.equal(1);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
+            expect(selectedDates.length).to.be.equal(8);
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-08');
+            expect(toIso8601(selectedDates[4])).to.be.equal('2025-05-01');
+            expect(toIso8601(selectedDates[5])).to.be.equal('2025-05-02');
+            expect(toIso8601(selectedDates[6])).to.be.equal('2025-05-03');
+            expect(toIso8601(selectedDates[7])).to.be.equal('2025-05-04');
 
             // Clicks on the first button of the first month does not select dates in the previous (not rendered) one
             const firstButton =
               cells[0].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             firstButton.click();
             await selectedSpy.calledTimes(3);
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
-            expect(selectedDates.length).to.be.equal(7);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 01 2025');
-            expect(selectedDates[2].toDateString()).to.be.equal('Wed Apr 02 2025');
-            expect(selectedDates[6].toDateString()).to.be.equal('Sun Apr 06 2025');
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
+            expect(selectedDates.length).to.be.equal(14);
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-01');
+            expect(toIso8601(selectedDates[1])).to.be.equal('2025-04-02');
+            expect(toIso8601(selectedDates[5])).to.be.equal('2025-04-06');
+            expect(toIso8601(selectedDates[6])).to.be.equal('2025-04-08');
 
-            // Clicking again on the first button of the second month will select dates in the last week of the previous month
+            // Clicking again on the first button of the second month will deselect dates in the first week of the second month
             firstButtonSecondMonth.click();
             await selectedSpy.calledTimes(4);
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
-            expect(selectedDates.length).to.be.equal(14);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 01 2025');
-            expect(selectedDates[2].toDateString()).to.be.equal('Wed Apr 02 2025');
-            expect(selectedDates[6].toDateString()).to.be.equal('Sun Apr 06 2025');
-            expect(selectedDates[7].toDateString()).to.be.equal('Mon Apr 28 2025');
-            expect(selectedDates[9].toDateString()).to.be.equal('Wed Apr 30 2025');
-            expect(selectedDates[10].toDateString()).to.be.equal('Thu May 01 2025');
-            expect(selectedDates[13].toDateString()).to.be.equal('Sun May 04 2025');
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
+            expect(selectedDates.length).to.be.equal(10);
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-01');
+            expect(toIso8601(selectedDates[1])).to.be.equal('2025-04-02');
+            expect(toIso8601(selectedDates[5])).to.be.equal('2025-04-06');
+            expect(toIso8601(selectedDates[6])).to.be.equal('2025-04-08');
+            expect(toIso8601(selectedDates[7])).to.be.equal('2025-04-28');
+            expect(toIso8601(selectedDates[9])).to.be.equal('2025-04-30');
           });
         });
 
         describe('vertical', () => {
           it('renders', async () => {
             const calendar: SbbCalendarElement = await fixture(html`
-              <sbb-calendar selected="2025-04-08" orientation="vertical" week-numbers>
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? createSlottedDays(2025, 4, true)
-                    : html`
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2025-04-25'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+              <sbb-calendar value="2025-04-08" orientation="vertical" week-numbers>
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? createSlottedDays(2025, 4, true)
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             // In vertical variant, there's a table header with the week numbers as cells
@@ -1893,31 +2062,37 @@ describe(`sbb-calendar`, () => {
             expect(cells.length).to.be.equal(6);
             // The first cell is empty
             expect(cells[0].className).to.be.equal('sbb-calendar__table-data');
-            expect(cells[0].querySelector('span')).to.be.null;
-            expect(cells[1].querySelector('span')!.textContent!.trim()).to.be.equal('14');
-            expect(cells[2].querySelector('span')!.textContent!.trim()).to.be.equal('15');
-            expect(cells[5].querySelector('span')!.textContent!.trim()).to.be.equal('18');
+            expect(cells[0].querySelector('span:not(.sbb-screen-reader-only)')).to.be.null;
+            expect(
+              cells[1].querySelector('span:not(.sbb-screen-reader-only)')!.textContent!.trim(),
+            ).to.be.equal('14');
+            expect(
+              cells[2].querySelector('span:not(.sbb-screen-reader-only)')!.textContent!.trim(),
+            ).to.be.equal('15');
+            expect(
+              cells[5].querySelector('span:not(.sbb-screen-reader-only)')!.textContent!.trim(),
+            ).to.be.equal('18');
           });
 
           it('renders multiple', async () => {
             const calendar: SbbCalendarElement = await fixture(html`
               <sbb-calendar
-                selected="2025-04-08T00:00:00"
+                value="2025-04-08T00:00:00"
                 orientation="vertical"
                 week-numbers
                 multiple
               >
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? createSlottedDays(2025, 4, true)
-                    : html`
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2025-04-25'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? createSlottedDays(2025, 4, true)
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
@@ -1936,18 +2111,23 @@ describe(`sbb-calendar`, () => {
             expect(firstButton.value).to.be.equal('14');
             firstButton.click();
             await selectedSpy.calledOnce();
-            let selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+            let selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
             expect(selectedDates.length).to.be.equal(7);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 01 2025');
-            expect(selectedDates[2].toDateString()).to.be.equal('Wed Apr 02 2025');
-            expect(selectedDates[6].toDateString()).to.be.equal('Sun Apr 06 2025');
+            for (let i = 0; i <= 5; i++) {
+              expect(toIso8601(selectedDates[i])).to.be.equal(
+                `2025-04-${String(i + 1).padStart(2, '0')}`,
+              );
+            }
+
+            expect(toIso8601(selectedDates[6])).to.be.equal('2025-04-08');
             // if the same button is clicked twice, dates are removed
             firstButton.click();
             expect(selectedSpy.calledTimes(2));
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
             expect(selectedDates.length).to.be.equal(1);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-08');
 
             // With the first row selected, add the second one
             const secondButton =
@@ -1955,178 +2135,537 @@ describe(`sbb-calendar`, () => {
             firstButton.click();
             secondButton.click();
             await selectedSpy.calledTimes(4);
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
             expect(selectedDates.length).to.be.equal(13);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 01 2025');
-            expect(selectedDates[2].toDateString()).to.be.equal('Wed Apr 02 2025');
-            expect(selectedDates[7].toDateString()).to.be.equal('Mon Apr 07 2025');
-            expect(selectedDates[12].toDateString()).to.be.equal('Sun Apr 13 2025');
+            for (let i = 0; i <= 12; i++) {
+              expect(toIso8601(selectedDates[i])).to.be.equal(
+                `2025-04-${String(i + 1).padStart(2, '0')}`,
+              );
+            }
 
             // Click on Wed button: all missing Wednesdays are added
             const rows = calendar.shadowRoot!.querySelectorAll('tbody tr');
-            const weekDayCells: SbbCalendarWeekdayElement[] = Array.from(rows).map(
-              (e) => e.querySelector('sbb-calendar-weekday')!,
+            const weekDayCells: SbbCalendarWeekdayElement[] = Array.from(rows, (e) =>
+              e.querySelector('sbb-calendar-weekday')!,
             );
             expect(weekDayCells.length).to.be.equal(7);
             weekDayCells[2].click();
             await selectedSpy.calledTimes(5);
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
             expect(selectedDates.length).to.be.equal(16);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[12].toDateString()).to.be.equal('Sun Apr 13 2025');
-            expect(selectedDates[13].toDateString()).to.be.equal('Wed Apr 16 2025');
-            expect(selectedDates[14].toDateString()).to.be.equal('Wed Apr 23 2025');
-            expect(selectedDates[15].toDateString()).to.be.equal('Wed Apr 30 2025');
+            for (let i = 0; i <= 12; i++) {
+              expect(toIso8601(selectedDates[i])).to.be.equal(
+                `2025-04-${String(i + 1).padStart(2, '0')}`,
+              );
+            }
+
+            expect(toIso8601(selectedDates[13])).to.be.equal('2025-04-16');
+            expect(toIso8601(selectedDates[14])).to.be.equal('2025-04-23');
+            expect(toIso8601(selectedDates[15])).to.be.equal('2025-04-30');
 
             // Click again on Wed button: all Wednesdays are removed
             weekDayCells[2].click();
             await selectedSpy.calledTimes(6);
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
             expect(selectedDates.length).to.be.equal(11);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 01 2025');
-            expect(selectedDates[2].toDateString()).to.be.equal('Thu Apr 03 2025');
-            expect(selectedDates[6].toDateString()).to.be.equal('Mon Apr 07 2025');
-            expect(selectedDates[7].toDateString()).to.be.equal('Thu Apr 10 2025');
-            expect(selectedDates[10].toDateString()).to.be.equal('Sun Apr 13 2025');
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-01');
+            for (let i = 1; i <= 6; i++) {
+              expect(toIso8601(selectedDates[i])).to.be.equal(
+                `2025-04-${String(i + 2).padStart(2, '0')}`,
+              );
+            }
+
+            for (let i = 7; i <= 10; i++) {
+              expect(toIso8601(selectedDates[i])).to.be.equal(
+                `2025-04-${String(i + 3).padStart(2, '0')}`,
+              );
+            }
 
             // Click on a single day to add it
             getDayCells(calendar)
               .find((e) => e.matches('sbb-calendar-day[slot="2025-04-30"]'))!
               .click();
             await selectedSpy.calledTimes(7);
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
             expect(selectedDates.length).to.be.equal(12);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 01 2025');
-            expect(selectedDates[11].toDateString()).to.be.equal('Wed Apr 30 2025');
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-01');
+            expect(toIso8601(selectedDates[1])).to.be.equal('2025-04-03');
+            expect(toIso8601(selectedDates[11])).to.be.equal('2025-04-30');
 
             // Click on a single day to remove it
             getDayCells(calendar)
               .find((e) => e.matches('sbb-calendar-day[slot="2025-04-08"]'))!
               .click();
             await selectedSpy.calledTimes(8);
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
             expect(selectedDates.length).to.be.equal(11);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 01 2025');
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-01');
+            expect(toIso8601(selectedDates[6])).to.be.equal('2025-04-10');
           });
 
           it('renders multiple wide', async () => {
             await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
             const calendar: SbbCalendarElement = await fixture(html`
               <sbb-calendar
-                selected="2025-04-08T00:00:00"
+                value="2025-04-08T00:00:00"
                 orientation="vertical"
                 week-numbers
                 multiple
-                wide
+                amount="2"
               >
-                ${variant === 'default'
-                  ? nothing
-                  : variant === 'enhanced'
-                    ? html`${createSlottedDays(2025, 4, true)} ${createSlottedDays(2025, 5, true)}`
-                    : html`
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2025-04-25'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                        <sbb-calendar-day
-                          slot=${defaultDateAdapter.toIso8601(new Date('2025-05-13'))}
-                        >
-                          ${createPrice(true)}
-                        </sbb-calendar-day>
-                      `}
+                ${
+                  variant === 'default'
+                    ? nothing
+                    : variant === 'enhanced'
+                      ? html`${createSlottedDays(2025, 4, true)} ${createSlottedDays(2025, 5, true)}`
+                      : html`
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                          <sbb-calendar-day slot=${toIso8601(new Date('2025-05-13'))}>
+                            ${createPrice(true)}
+                          </sbb-calendar-day>
+                        `
+                }
               </sbb-calendar>
             `);
             const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
 
             // In vertical variant, there's a table header with the week numbers as cells
             const thead = calendar.shadowRoot!.querySelectorAll('thead');
-            // In wide variant we have two tables with two separate headers
             expect(thead.length).to.be.equal(2);
-            // The first header has a cell more than the second above the weekdays
             const cellsPrev = thead[0].querySelectorAll('th');
             expect(cellsPrev.length).to.be.equal(6);
             const cellsNext = thead[1].querySelectorAll('th');
-            expect(cellsNext.length).to.be.equal(5);
-            expect(
-              cellsPrev[1].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
-                .value,
-            ).to.be.equal('14');
-            expect(
-              cellsPrev[2].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
-                .value,
-            ).to.be.equal('15');
-            expect(
-              cellsPrev[5].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
-                .value,
-            ).to.be.equal('18');
-            expect(
-              cellsNext[0].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
-                .value,
-            ).to.be.equal('18');
-            expect(
-              cellsNext[1].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
-                .value,
-            ).to.be.equal('19');
-            expect(
-              cellsNext[4].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
-                .value,
-            ).to.be.equal('22');
+            expect(cellsNext.length).to.be.equal(6);
+            const readValue = (cell: HTMLElement): string | null =>
+              cell.querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!.value;
+            expect(readValue(cellsPrev[1])).to.be.equal('14');
+            expect(readValue(cellsPrev[2])).to.be.equal('15');
+            expect(readValue(cellsPrev[5])).to.be.equal('18');
+            expect(readValue(cellsNext[1])).to.be.equal('18');
+            expect(readValue(cellsNext[2])).to.be.equal('19');
+            expect(readValue(cellsNext[5])).to.be.equal('22');
 
-            // Clicking on the last week button must select all the days of the week, including the ones in the next month
+            // Clicking on the last week button must select all the days of the week in the current month
             const lastButtonFirstMonth =
               cellsPrev[5].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             lastButtonFirstMonth.click();
             await selectedSpy.calledOnce();
-            let selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
-            expect(selectedDates.length).to.be.equal(8);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[1].toDateString()).to.be.equal('Mon Apr 28 2025');
-            expect(selectedDates[2].toDateString()).to.be.equal('Tue Apr 29 2025');
-            expect(selectedDates[6].toDateString()).to.be.equal('Sat May 03 2025');
-            expect(selectedDates[7].toDateString()).to.be.equal('Sun May 04 2025');
+            let selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
+            expect(selectedDates.length).to.be.equal(4);
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-08');
+            expect(toIso8601(selectedDates[1])).to.be.equal('2025-04-28');
+            expect(toIso8601(selectedDates[2])).to.be.equal('2025-04-29');
+            expect(toIso8601(selectedDates[3])).to.be.equal('2025-04-30');
 
-            // Clicking on the first week button in the next month should not change the selection,
-            // since the dates are the same as before
+            // Clicking on the first week button in the next month additionally
+            // select all the days of the week in the next month
             const firstButtonSecondMonth =
-              cellsNext[0].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
+              cellsNext[1].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             firstButtonSecondMonth.click();
             expect(selectedSpy.calledTimes(2));
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
-            expect(selectedDates.length).to.be.equal(1);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
+            expect(selectedDates.length).to.be.equal(8);
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-08');
+            expect(toIso8601(selectedDates[1])).to.be.equal('2025-04-28');
+            expect(toIso8601(selectedDates[4])).to.be.equal('2025-05-01');
+            expect(toIso8601(selectedDates[5])).to.be.equal('2025-05-02');
+            expect(toIso8601(selectedDates[6])).to.be.equal('2025-05-03');
+            expect(toIso8601(selectedDates[7])).to.be.equal('2025-05-04');
 
             // Clicks on the first button of the first month does not select dates in the previous (not rendered) one
             const firstButton =
               cellsPrev[1].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             firstButton.click();
             await selectedSpy.calledTimes(3);
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
-            expect(selectedDates.length).to.be.equal(7);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 01 2025');
-            expect(selectedDates[2].toDateString()).to.be.equal('Wed Apr 02 2025');
-            expect(selectedDates[6].toDateString()).to.be.equal('Sun Apr 06 2025');
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
+            expect(selectedDates.length).to.be.equal(14);
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-01');
+            expect(toIso8601(selectedDates[1])).to.be.equal('2025-04-02');
+            expect(toIso8601(selectedDates[5])).to.be.equal('2025-04-06');
+            expect(toIso8601(selectedDates[6])).to.be.equal('2025-04-08');
 
-            // Clicking again on the first button of the second month will select dates in the last week of the previous month
+            // Clicking again on the first button of the second month will select the dates in the first week of the second month
             firstButtonSecondMonth.click();
             await selectedSpy.calledTimes(4);
-            selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
-            expect(selectedDates.length).to.be.equal(14);
-            expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
-            expect(selectedDates[1].toDateString()).to.be.equal('Tue Apr 01 2025');
-            expect(selectedDates[2].toDateString()).to.be.equal('Wed Apr 02 2025');
-            expect(selectedDates[6].toDateString()).to.be.equal('Sun Apr 06 2025');
-            expect(selectedDates[7].toDateString()).to.be.equal('Mon Apr 28 2025');
-            expect(selectedDates[8].toDateString()).to.be.equal('Tue Apr 29 2025');
-            expect(selectedDates[12].toDateString()).to.be.equal('Sat May 03 2025');
-            expect(selectedDates[13].toDateString()).to.be.equal('Sun May 04 2025');
+            selectedDates = (selectedSpy.lastEvent as SbbDateSelectedEvent<Date>)
+              .dateSelected as Date[];
+            expect(selectedDates.length).to.be.equal(10);
+            expect(toIso8601(selectedDates[0])).to.be.equal('2025-04-01');
+            expect(toIso8601(selectedDates[1])).to.be.equal('2025-04-02');
+            expect(toIso8601(selectedDates[2])).to.be.equal('2025-04-03');
+            expect(toIso8601(selectedDates[6])).to.be.equal('2025-04-08');
+            expect(toIso8601(selectedDates[7])).to.be.equal('2025-04-28');
+            expect(toIso8601(selectedDates[8])).to.be.equal('2025-04-29');
+            expect(toIso8601(selectedDates[9])).to.be.equal('2025-04-30');
           });
         });
       });
+
+      describe('tab group keyboard navigation', () => {
+        it('lets Tab and Shift+Tab leave the calendar normally when not multiple', async () => {
+          const calendar: SbbCalendarElement = await fixture(html`
+            <sbb-calendar value="2023-01-15">
+              ${
+                variant === 'default'
+                  ? nothing
+                  : variant === 'enhanced'
+                    ? createSlottedDays(2023, 1, true)
+                    : html`
+                        <sbb-calendar-day slot=${toIso8601(new Date('2023-01-05'))}>
+                          ${createPrice(true)}
+                        </sbb-calendar-day>
+                      `
+              }
+            </sbb-calendar>
+          `);
+          const outsideButton = document.createElement('button');
+          calendar.parentElement!.append(outsideButton);
+
+          calendar.focus();
+          expect(getDayActiveElementValue()).to.be.equal('2023-01-15');
+
+          // No weekday/weeknumber cells are rendered (not `multiple`), so Tab must leave
+          // the calendar instead of being trapped by the tab-group navigation.
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(calendar);
+          expect(document.activeElement).to.be.equal(outsideButton);
+
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(calendar);
+          expect(getDayActiveElementValue()).to.be.equal('2023-01-15');
+        });
+
+        it('cycles Tab/Shift+Tab through weekdays, week-numbers and days when multiple', async () => {
+          const calendar: SbbCalendarElement = await fixture(html`
+            <sbb-calendar value="2025-04-08T00:00:00" week-numbers multiple>
+              ${
+                variant === 'default'
+                  ? nothing
+                  : variant === 'enhanced'
+                    ? createSlottedDays(2025, 4, true)
+                    : html`
+                        <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                          ${createPrice(true)}
+                        </sbb-calendar-day>
+                      `
+              }
+            </sbb-calendar>
+          `);
+          const outsideButton = document.createElement('button');
+          calendar.parentElement!.append(outsideButton);
+
+          const firstWeekday =
+            calendar.shadowRoot!.querySelector<SbbCalendarWeekdayElement>('sbb-calendar-weekday')!;
+          const firstWeekNumber =
+            calendar.shadowRoot!.querySelector<SbbCalendarWeeknumberElement>(
+              'sbb-calendar-weeknumber',
+            )!;
+
+          firstWeekday.focus();
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekday);
+
+          // weekdays -> weekNumbers
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(calendar);
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekNumber);
+
+          // weekNumbers -> days
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(calendar);
+          expect(getDayActiveElementValue()).to.be.equal('2025-04-08');
+
+          // days -> outside the calendar (last group)
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(calendar);
+          expect(document.activeElement).to.be.equal(outsideButton);
+
+          // Shift+Tab travels the groups backwards: outside -> days -> weekNumbers -> weekdays
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(calendar);
+          expect(getDayActiveElementValue()).to.be.equal('2025-04-08');
+
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(calendar);
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekNumber);
+
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(calendar);
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekday);
+        });
+
+        it('cycles Tab/Shift+Tab through week-numbers, weekdays and days in vertical orientation', async () => {
+          const calendar: SbbCalendarElement = await fixture(html`
+            <sbb-calendar value="2025-04-08T00:00:00" orientation="vertical" week-numbers multiple>
+              ${
+                variant === 'default'
+                  ? nothing
+                  : variant === 'enhanced'
+                    ? createSlottedDays(2025, 4, true)
+                    : html`
+                        <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                          ${createPrice(true)}
+                        </sbb-calendar-day>
+                      `
+              }
+            </sbb-calendar>
+          `);
+          const outsideButton = document.createElement('button');
+          calendar.parentElement!.append(outsideButton);
+
+          const firstWeekday =
+            calendar.shadowRoot!.querySelector<SbbCalendarWeekdayElement>('sbb-calendar-weekday')!;
+          const firstWeekNumber =
+            calendar.shadowRoot!.querySelector<SbbCalendarWeeknumberElement>(
+              'sbb-calendar-weeknumber',
+            )!;
+
+          firstWeekNumber.focus();
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekNumber);
+
+          // In vertical orientation, weekNumbers come before weekdays (order is swapped
+          // compared to horizontal, matching the header-row/first-column table layout).
+          // weekNumbers -> weekdays
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(calendar);
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekday);
+
+          // weekdays -> days
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(calendar);
+          expect(getDayActiveElementValue()).to.be.equal('2025-04-08');
+
+          // days -> outside the calendar (last group)
+          await sendKeys({ press: tabKey });
+          await waitForLitRender(calendar);
+          expect(document.activeElement).to.be.equal(outsideButton);
+
+          // Shift+Tab travels the groups backwards: outside -> days -> weekdays -> weekNumbers
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(calendar);
+          expect(getDayActiveElementValue()).to.be.equal('2025-04-08');
+
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(calendar);
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekday);
+
+          await sendKeys({ press: `Shift+${tabKey}` });
+          await waitForLitRender(calendar);
+          expect(calendar.shadowRoot!.activeElement).to.be.equal(firstWeekNumber);
+        });
+      });
+
+      describe('arrow key navigation within weekday and weeknumber groups', () => {
+        (
+          [
+            { selector: 'sbb-calendar-weekday', label: 'weekday' },
+            { selector: 'sbb-calendar-weeknumber', label: 'weeknumber' },
+          ] as const
+        ).forEach(({ selector, label }) => {
+          describe(`${label} group`, () => {
+            let calendar: SbbCalendarElement;
+            let cells: (SbbCalendarWeekdayElement | SbbCalendarWeeknumberElement)[];
+
+            beforeEach(async () => {
+              calendar = await fixture(html`
+                <sbb-calendar value="2025-04-08T00:00:00" week-numbers multiple>
+                  ${
+                    variant === 'default'
+                      ? nothing
+                      : variant === 'enhanced'
+                        ? createSlottedDays(2025, 4, true)
+                        : html`
+                            <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                              ${createPrice(true)}
+                            </sbb-calendar-day>
+                          `
+                  }
+                </sbb-calendar>
+              `);
+              cells = Array.from(calendar.shadowRoot!.querySelectorAll(selector));
+            });
+
+            it('navigates to the next cell with ArrowRight/ArrowDown and wraps at the end', async () => {
+              cells[0].focus();
+              expect(calendar.shadowRoot!.activeElement).to.be.equal(cells[0]);
+
+              await sendKeys({ press: 'ArrowRight' });
+              await waitForLitRender(calendar);
+              expect(calendar.shadowRoot!.activeElement).to.be.equal(cells[1]);
+              expect(cells[1].tabIndex).to.be.equal(0);
+              expect(cells[0].tabIndex).to.be.equal(-1);
+
+              // Wraps around from the last cell back to the first with ArrowDown.
+              cells[cells.length - 1].focus();
+              await sendKeys({ press: 'ArrowDown' });
+              await waitForLitRender(calendar);
+              expect(calendar.shadowRoot!.activeElement).to.be.equal(cells[0]);
+            });
+
+            it('navigates to the previous cell with ArrowLeft/ArrowUp and wraps at the start', async () => {
+              cells[0].focus();
+
+              // Wraps around from the first cell to the last with ArrowLeft.
+              await sendKeys({ press: 'ArrowLeft' });
+              await waitForLitRender(calendar);
+              expect(calendar.shadowRoot!.activeElement).to.be.equal(cells[cells.length - 1]);
+
+              await sendKeys({ press: 'ArrowUp' });
+              await waitForLitRender(calendar);
+              expect(calendar.shadowRoot!.activeElement).to.be.equal(cells[cells.length - 2]);
+            });
+
+            it('jumps to the first cell with Home and PageUp', async () => {
+              cells[cells.length - 1].focus();
+              expect(calendar.shadowRoot!.activeElement).to.be.equal(cells[cells.length - 1]);
+
+              await sendKeys({ press: 'Home' });
+              await waitForLitRender(calendar);
+              expect(calendar.shadowRoot!.activeElement).to.be.equal(cells[0]);
+              expect(cells[0].tabIndex).to.be.equal(0);
+              expect(cells[cells.length - 1].tabIndex).to.be.equal(-1);
+
+              cells[cells.length - 1].focus();
+              await sendKeys({ press: 'PageUp' });
+              await waitForLitRender(calendar);
+              expect(calendar.shadowRoot!.activeElement).to.be.equal(cells[0]);
+            });
+
+            it('jumps to the last cell with End and PageDown', async () => {
+              cells[0].focus();
+
+              await sendKeys({ press: 'End' });
+              await waitForLitRender(calendar);
+              expect(calendar.shadowRoot!.activeElement).to.be.equal(cells[cells.length - 1]);
+              expect(cells[cells.length - 1].tabIndex).to.be.equal(0);
+              expect(cells[0].tabIndex).to.be.equal(-1);
+
+              cells[0].focus();
+              await sendKeys({ press: 'PageDown' });
+              await waitForLitRender(calendar);
+              expect(calendar.shadowRoot!.activeElement).to.be.equal(cells[cells.length - 1]);
+            });
+
+            it('keeps focus in place when Home/End/PageUp/PageDown is pressed on the boundary cell', async () => {
+              // Home/PageUp on the already-first cell is a no-op: focus stays put.
+              cells[0].focus();
+              await sendKeys({ press: 'Home' });
+              await waitForLitRender(calendar);
+              expect(calendar.shadowRoot!.activeElement).to.be.equal(cells[0]);
+
+              await sendKeys({ press: 'PageUp' });
+              await waitForLitRender(calendar);
+              expect(calendar.shadowRoot!.activeElement).to.be.equal(cells[0]);
+
+              // End/PageDown on the already-last cell is a no-op: focus stays put.
+              cells[cells.length - 1].focus();
+              await sendKeys({ press: 'End' });
+              await waitForLitRender(calendar);
+              expect(calendar.shadowRoot!.activeElement).to.be.equal(cells[cells.length - 1]);
+
+              await sendKeys({ press: 'PageDown' });
+              await waitForLitRender(calendar);
+              expect(calendar.shadowRoot!.activeElement).to.be.equal(cells[cells.length - 1]);
+            });
+          });
+        });
+      });
+
+      describe('fixed-month', () => {
+        beforeEach(async () => {
+          element = await fixture(
+            html` <sbb-calendar fixed-month="2023-10">
+              ${
+                variant === 'default'
+                  ? nothing
+                  : variant === 'enhanced'
+                    ? createSlottedDays(2023, 10, true)
+                    : html`
+                        <sbb-calendar-day slot=${toIso8601(new Date('2023-10-15'))}>
+                          ${createPrice(true)}
+                        </sbb-calendar-day>
+                      `
+              }
+            </sbb-calendar>`,
+          );
+        });
+
+        it('should not render control buttons', () => {
+          expect(element.shadowRoot!.querySelector('.sbb-calendar__control')).to.be.null;
+        });
+
+        it('should render the given month', () => {
+          const day = element.shadowRoot!.querySelector('sbb-calendar-day');
+          expect(defaultDateAdapter.sameDate(day?.value ?? null, new Date(2023, 9, 1))).to.be.true;
+        });
+
+        it('should change the month on fixed-month attribute change', async () => {
+          element.fixedMonth = '2024-02';
+          await waitForLitRender(element);
+          const day = element.shadowRoot!.querySelector('sbb-calendar-day');
+          expect(defaultDateAdapter.sameDate(day?.value ?? null, new Date(2024, 1, 1))).to.be.true;
+        });
+      });
+
+      describe('active-month', () => {
+        beforeEach(async () => {
+          element = await fixture(
+            html` <sbb-calendar active-month="2023-10">
+              ${
+                variant === 'default'
+                  ? nothing
+                  : variant === 'enhanced'
+                    ? createSlottedDays(2023, 10, true)
+                    : html`
+                        <sbb-calendar-day slot=${toIso8601(new Date('2023-10-15'))}>
+                          ${createPrice(true)}
+                        </sbb-calendar-day>
+                      `
+              }
+            </sbb-calendar>`,
+          );
+        });
+
+        it('should render the given month', () => {
+          const day = element.shadowRoot!.querySelector('sbb-calendar-day');
+          expect(defaultDateAdapter.sameDate(day?.value ?? null, new Date(2023, 9, 1))).to.be.true;
+        });
+
+        it('should change the month on active-month attribute change', async () => {
+          element.activeMonth = '2024-02';
+          await waitForLitRender(element);
+          const day = element.shadowRoot!.querySelector('sbb-calendar-day');
+          expect(defaultDateAdapter.sameDate(day?.value ?? null, new Date(2024, 1, 1))).to.be.true;
+        });
+      });
+    });
+  });
+
+  describe('misconfiguration', () => {
+    it('handles days with no slot', async () => {
+      const elem = await fixture(html`
+        <sbb-calendar min="2026-01-10" max="2026-01-20">
+          <sbb-calendar-day></sbb-calendar-day>
+        </sbb-calendar>
+      `);
+
+      const day = elem.querySelector<SbbCalendarDayElement>('sbb-calendar-day')!;
+      // also, expect not to raise errors
+      expect(day.disabled).to.be.false;
+
+      day.slot = '2026-01-25';
+      await waitForLitRender(elem);
+
+      expect(day.disabled).to.be.true;
     });
   });
 });

@@ -1,20 +1,8 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.ts';
-import { SbbElement } from '../core/base-elements.ts';
-import { isLean } from '../core/dom.ts';
-import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type {
-  SbbBlockLinkButtonElement,
-  SbbBlockLinkElement,
-  SbbBlockLinkStaticElement,
-  SbbLinkSize,
-} from '../link.ts';
+import { SbbElement } from '../core.ts';
 
-import style from './action-group.scss?lit&inline';
+import style from './action-group.scss?inline';
 
 /**
  * It can be used as a container for one or more action element, like `sbb-button` or `sbb-block-link`.
@@ -23,70 +11,10 @@ import style from './action-group.scss?lit&inline';
  */
 export class SbbActionGroupElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-action-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
-
-  /**
-   * Set the slotted `<sbb-action-group>` children's alignment.
-   */
-  @property({ attribute: 'align-group', reflect: true })
-  public accessor alignGroup: 'start' | 'center' | 'stretch' | 'end' = 'start';
-
-  /**
-   * Overrides the behavior of `orientation` property.
-   */
-  // TODO: Needs a breaking change to work with the 'no-default-reflect' behavior
-  @property({ attribute: 'horizontal-from', reflect: true })
-  public accessor horizontalFrom: SbbHorizontalFrom = 'large';
-
-  /**
-   * Indicates the orientation of the components inside the `<sbb-action-group>`.
-   */
-  @property({ reflect: true })
-  public accessor orientation: SbbOrientation = 'horizontal';
-
-  /**
-   * Size of the nested sbb-button instances.
-   * This will overwrite the size attribute of nested sbb-button instances.
-   * @default 'l' / 's' (lean)
-   */
-  @property({ attribute: 'button-size', reflect: true })
-  public accessor buttonSize: SbbButtonSize = isLean() ? 's' : 'l';
-
-  /**
-   * Size of the nested sbb-block-link instances.
-   * This will overwrite the size attribute of nested sbb-block-link instances.
-   * @default 'm' / 'xs' (lean)
-   */
-  @property({ attribute: 'link-size', reflect: true })
-  public accessor linkSize: SbbLinkSize = isLean() ? 'xs' : 'm';
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('buttonSize')) {
-      this._syncButtons();
-    }
-    if (changedProperties.has('linkSize')) {
-      this._syncLinks();
-    }
-  }
-
-  private _syncButtons(): void {
-    this.querySelectorAll?.<SbbButtonCommonElementMixinType>(':state(sbb-button)').forEach(
-      (b) => (b.size = this.buttonSize),
-    );
-  }
-
-  private _syncLinks(): void {
-    this.querySelectorAll?.<
-      SbbBlockLinkElement | SbbBlockLinkButtonElement | SbbBlockLinkStaticElement
-    >('sbb-block-link, sbb-block-link-button, sbb-block-link-static').forEach((link) => {
-      link.size = this.linkSize;
-    });
-  }
+  public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   protected override render(): TemplateResult {
-    return html` <slot></slot> `;
+    return html`<slot></slot>`;
   }
 }
 

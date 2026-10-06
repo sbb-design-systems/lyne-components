@@ -1,13 +1,7 @@
 import type { CSSResultGroup } from 'lit';
 
-import { SbbLinkBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import {
-  buttonCommonStyle,
-  buttonTransparentStyle,
-  SbbButtonCommonElementMixin,
-} from '../common.ts';
+import { SbbDisabledInteractiveMixin, SbbDisabledMixin, SbbLinkBaseElement } from '../../core.ts';
+import { buttonTransparentStyle, SbbButtonCommonElementMixin } from '../common/button-common.ts';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'transparent' variant, which will behave as a link.
@@ -20,11 +14,7 @@ export class SbbTransparentButtonLinkElement extends SbbButtonCommonElementMixin
   SbbDisabledInteractiveMixin(SbbDisabledMixin(SbbLinkBaseElement)),
 ) {
   public static override readonly elementName: string = 'sbb-transparent-button-link';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    buttonCommonStyle,
-    buttonTransparentStyle,
-  ];
+  public static override styles: CSSResultGroup = [buttonTransparentStyle];
 }
 
 declare global {

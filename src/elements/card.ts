@@ -1,8 +1,8 @@
 /** @entrypoint */
 import {
-  SbbCardElement,
   SbbCardBadgeElement,
   SbbCardButtonElement,
+  SbbCardElement,
   SbbCardLinkElement,
 } from './card.pure.ts';
 

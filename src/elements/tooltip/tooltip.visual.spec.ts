@@ -4,7 +4,7 @@ import { describeViewports, visualDiffDefault } from '../core/testing/private.ts
 import { waitForLitRender } from '../core/testing.ts';
 
 import '../tooltip.ts';
-import '../button/button.ts';
+import '../button.ts';
 
 const physicalSupportedPositions = [
   'top',
@@ -51,7 +51,7 @@ describe('sbb-tooltip', () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
             <div style="padding-block: 5rem; padding-inline: 10rem">
-              <sbb-button icon-name="pen-small" id="trigger">Button</sbb-button>
+              <sbb-button icon-name="pen-small" id="trigger" size="l">Button</sbb-button>
               <sbb-tooltip trigger="trigger" style="--sbb-overlay-position-area: ${position}">
                 I am a tooltip with a message
               </sbb-tooltip>
@@ -72,7 +72,7 @@ describe('sbb-tooltip', () => {
           document.documentElement.dir = 'rtl';
           await setup.withFixture(html`
             <div style="padding-block: 5rem; padding-inline: 10rem">
-              <sbb-button icon-name="pen-small" id="trigger">Button</sbb-button>
+              <sbb-button icon-name="pen-small" id="trigger" size="l">Button</sbb-button>
               <sbb-tooltip trigger="trigger" style="--sbb-overlay-position-area: ${position}">
                 I am a tooltip with a message
               </sbb-tooltip>
@@ -91,7 +91,7 @@ describe('sbb-tooltip', () => {
         await setup.withFixture(
           html`
             <div style="padding-block: 5rem; padding-inline: 10rem">
-              <sbb-button icon-name="pen-small" id="trigger">Button</sbb-button>
+              <sbb-button icon-name="pen-small" id="trigger" size="l">Button</sbb-button>
               <sbb-tooltip trigger="trigger">I am a tooltip with a message</sbb-tooltip>
             </div>
           `,
