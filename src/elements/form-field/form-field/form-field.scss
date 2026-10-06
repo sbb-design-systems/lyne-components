@@ -141,7 +141,7 @@
 }
 
 // :where is to align specificity
-:host(:where(:state(readonly)):not([negative])) {
+:host(:where(:state(readonly))) {
   --sbb-form-field-label-color: var(--sbb-form-field-label-color-readonly);
   --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-readonly);
   --sbb-form-field-border-color: var(--sbb-form-field-border-color-readonly);

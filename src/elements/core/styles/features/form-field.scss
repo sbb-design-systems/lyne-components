@@ -39,17 +39,21 @@
   &:read-only,
   &:disabled {
     background-color: var(--sbb-form-field-background-color-disabled);
-    border-color: var(--sbb-form-field-border-color-disabled);
   }
 
   &:disabled {
     border-style: var(--sbb-form-field-border-style-disabled);
     color: var(--sbb-form-field-text-color-disabled);
+    border-color: var(--sbb-form-field-border-color-disabled);
 
     &::placeholder {
       color: var(--sbb-form-field-placeholder-color-disabled);
       -webkit-text-fill-color: var(--sbb-form-field-placeholder-color-disabled);
     }
+  }
+
+  &:read-only {
+    border-color: var(--sbb-form-field-border-color-readonly);
   }
 
   &:focus-visible {
