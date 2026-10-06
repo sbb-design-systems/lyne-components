@@ -43,14 +43,11 @@
 
   &:disabled {
     border-style: var(--sbb-form-field-border-style-disabled);
+    color: var(--sbb-form-field-text-color-disabled);
 
     &::placeholder {
       color: var(--sbb-form-field-placeholder-color-disabled);
       -webkit-text-fill-color: var(--sbb-form-field-placeholder-color-disabled);
-    }
-
-    @media (forced-colors: active) {
-      --sbb-form-field-text-color: GrayText !important;
     }
   }
 
@@ -68,11 +65,6 @@
 
   &:user-invalid {
     border-color: var(--sbb-form-field-border-color-error);
-
-    --sbb-form-field-text-color: var(--sbb-color-error);
-
-    @media (forced-colors: active) {
-      --sbb-form-field-text-color: LinkText !important;
-    }
+    color: var(--sbb-form-field-text-color-error);
   }
 }

@@ -52,6 +52,11 @@ $theme: 'standard' !default;
   --sbb-form-field-border-width: var(--sbb-border-width-1x);
   --sbb-form-field-color: var(--sbb-color-3);
   --sbb-form-field-text-color: var(--sbb-color-3);
+  --sbb-form-field-text-color-disabled: var(--sbb-color-3);
+  --sbb-form-field-text-color-negative: var(--sbb-color-3-negative);
+  --sbb-form-field-text-color-disabled-negative: var(--sbb-color-5);
+  --sbb-form-field-text-color-error: var(--sbb-color-error);
+  --sbb-form-field-text-color-error-negative: var(--sbb-color-red85);
   --sbb-form-field-arrow-color: var(--sbb-color-3);
   --sbb-form-field-placeholder-color-disabled: light-dark(
     var(--sbb-color-granite),
@@ -136,6 +141,12 @@ $theme: 'standard' !default;
   --sbb-form-field-prefix-color-disabled-negative: GrayText;
   --sbb-form-field-prefix-color-focus: Highlight;
   --sbb-form-field-prefix-color-focus-negative: Highlight;
+  --sbb-form-field-text-color: GrayText;
+  --sbb-form-field-text-color-disabled: GrayText;
+  --sbb-form-field-text-color-negative: GrayText;
+  --sbb-form-field-text-color-disabled-negative: GrayText;
+  --sbb-form-field-text-color-error: LinkText;
+  --sbb-form-field-text-color-error-negative: LinkText;
 }
 
 @mixin breakpoint-large {
@@ -286,15 +297,11 @@ $theme: 'standard' !default;
     :is(.ng-submitted, .sbb-show-errors) &:has(:is(:invalid, .ng-invalid)),
     &:state(interacted):state(invalid) {
       --sbb-form-field-border-color: var(--sbb-form-field-border-color-error);
-      --sbb-form-field-text-color: var(--sbb-color-error);
+      --sbb-form-field-text-color: var(--sbb-form-field-text-color-error);
 
       &[negative] {
         --sbb-form-field-border-color: var(--sbb-form-field-border-color-error-negative);
-        --sbb-form-field-text-color: var(--sbb-color-red85);
-      }
-
-      @media (forced-colors: active) {
-        --sbb-form-field-text-color: LinkText !important;
+        --sbb-form-field-text-color: var(--sbb-form-field-text-color-error-negative);
       }
     }
   }

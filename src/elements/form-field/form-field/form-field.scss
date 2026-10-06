@@ -53,7 +53,7 @@
   --sbb-form-field-border-color: var(--sbb-form-field-border-color-negative);
   --sbb-form-field-label-color: var(--sbb-form-field-label-color-negative);
   --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-negative);
-  --sbb-form-field-text-color: var(--sbb-color-3-negative);
+  --sbb-form-field-text-color: var(--sbb-form-field-text-color-negative);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-form-field-arrow-color: var(--sbb-color-3-negative);
 }
@@ -129,16 +129,13 @@
 :host(:where(:state(disabled))) {
   --sbb-form-field-label-color: var(--sbb-form-field-label-color-disabled);
   --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-disabled);
+  --sbb-form-field-text-color: var(--sbb-form-field-text-color-disabled);
   --sbb-form-field-border-style: var(--sbb-form-field-border-style-disabled);
-
-  @media (forced-colors: active) {
-    --sbb-form-field-text-color: GrayText !important;
-  }
 }
 
 // :where is to align specificity
 :host(:where(:state(disabled))[negative]) {
-  --sbb-form-field-text-color: var(--sbb-color-5);
+  --sbb-form-field-text-color: var(--sbb-form-field-text-color-disabled-negative);
   --sbb-form-field-label-color: var(--sbb-form-field-label-color-disabled-negative);
   --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-disabled-negative);
 }
