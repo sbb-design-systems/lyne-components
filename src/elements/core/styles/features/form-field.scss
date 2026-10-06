@@ -2,6 +2,8 @@
 @use '../mixins/typo';
 
 .sbb-input {
+  --_sbb-input-border-width: var(--sbb-form-field-border-width);
+
   display: inline-block;
   min-width: #{functions.px-to-rem-build(150)};
   width: min(#{functions.px-to-rem-build(300)}, 100%);
@@ -19,10 +21,10 @@
   // Fill color needed for Safari
   -webkit-text-fill-color: var(--sbb-form-field-text-color);
   opacity: 1;
-  border: var(--sbb-form-field-border-width) var(--sbb-form-field-border-style)
+  border: var(--_sbb-input-border-width) var(--sbb-form-field-border-style)
     var(--sbb-form-field-border-color);
   border-radius: var(--sbb-form-field-border-radius);
-  padding-inline: calc(var(--sbb-form-field-padding-inline) - var(--sbb-form-field-border-width));
+  padding-inline: calc(var(--sbb-form-field-padding-inline) - var(--_sbb-input-border-width));
 
   // Using `!important` keeps the utility consistent with the existing form-field
   // rules when normalize/reset styles are loaded by the consumer.
@@ -58,9 +60,9 @@
   }
 
   &:focus {
-    border-color: var(--sbb-form-field-border-color-focus);
+    --_sbb-input-border-width: var(--sbb-form-field-border-width-focus);
 
-    --sbb-form-field-border-width: var(--sbb-border-width-2x);
+    border-color: var(--sbb-form-field-border-color-focus);
   }
 
   &:user-invalid {

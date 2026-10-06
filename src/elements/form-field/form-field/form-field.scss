@@ -150,7 +150,7 @@
 :host(:where(:state(focus))) {
   --sbb-form-field-border-color: var(--sbb-form-field-border-color-focus);
   --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-focus);
-  --sbb-form-field-border-width: var(--sbb-border-width-2x);
+  --sbb-form-field-border-width: var(--sbb-form-field-border-width-focus);
 }
 
 // :where is to align specificity
