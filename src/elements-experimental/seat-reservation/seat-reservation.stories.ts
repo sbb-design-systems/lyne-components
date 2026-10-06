@@ -8,6 +8,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../docs/helpers/spread.ts';
 
+import { MOCK_DB_WALLS_TRAIN } from './common/mapper/sample-data/seat-reservation-sample-data-db-walls.private.ts';
 import { MOCK_GIRUNO_TRAIN } from './common/mapper/sample-data/seat-reservation-sample-data-giruno.private.ts';
 import { MOCK_TRAIN_LOCOMOTIVE_LAYOUT } from './common/mapper/sample-data/seat-reservation-sample-data-others.private.ts';
 import { mapIconToSvg, mapRawDataToSeatReservation } from './common/mapper.ts';
@@ -191,6 +192,23 @@ export const TrainGiruno: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: trainGirunoArgs,
+};
+
+const trainDbWallsArgs: Args = {
+  seatReservations: [MOCK_DB_WALLS_TRAIN],
+  'has-navigation': true,
+  'max-reservations': 4,
+  'align-vertical': false,
+  height: 200,
+  'prevent-place-click': false,
+  'show-title-info': false,
+};
+
+export const TrainDbWalls: StoryObj = {
+  name: 'Train DB Walls',
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: trainDbWallsArgs,
 };
 
 const mappedSeatReservationBus = mapRawDataToSeatReservation('BUS');
@@ -698,6 +716,82 @@ const chassisTable = html`
   </sbb-table-wrapper>
 `;
 
+const partitionTable = html`
+  <sbb-table-wrapper>
+    <table class="sbb-table">
+      <thead>
+        <tr>
+          <th scope="col">SVG</th>
+          <th scope="col">Figma</th>
+          <th scope="col">OSDM Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_LEFT_1')}</td>
+          <td>Wall Partition 1 Seat Left</td>
+          <td>WALL_LEFT_1</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_LEFT_2')}</td>
+          <td>Wall Partition 2 Seats Left</td>
+          <td>WALL_LEFT_2</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_LEFT_3')}</td>
+          <td>Wall Partition 3 Seats Left</td>
+          <td>WALL_LEFT_3</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_RIGHT_1')}</td>
+          <td>Wall Partition 1 Seat Right</td>
+          <td>WALL_RIGHT_1</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_RIGHT_2')}</td>
+          <td>Wall Partition 2 Seats Right</td>
+          <td>WALL_RIGHT_2</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_RIGHT_3')}</td>
+          <td>Wall Partition 3 Seats Right</td>
+          <td>WALL_RIGHT_3</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_COMPARTMENTS_1')}</td>
+          <td>Wall Partition 1 Seat Compartment</td>
+          <td>WALL_COMPARTMENTS_1</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_COMPARTMENTS_2')}</td>
+          <td>Wall Partition 2 Seats Compartment</td>
+          <td>WALL_COMPARTMENTS_2</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WALL_COMPARTMENTS_3')}</td>
+          <td>Wall Partition 3 Seats Compartment</td>
+          <td>WALL_COMPARTMENTS_3</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('T_WALL_COMPARTMENTS_1')}</td>
+          <td>Wall Partition 1 Seat T-Shaped Compartment</td>
+          <td>T_WALL_COMPARTMENTS_1</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('T_WALL_COMPARTMENTS_2')}</td>
+          <td>Wall Partition 2 Seats T-Shaped Compartment</td>
+          <td>T_WALL_COMPARTMENTS_2</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('T_WALL_COMPARTMENTS_3')}</td>
+          <td>Wall Partition 3 Seats T-Shaped Compartment</td>
+          <td>T_WALL_COMPARTMENTS_3</td>
+        </tr>
+      </tbody>
+    </table>
+  </sbb-table-wrapper>
+`;
+
 export const GraphicAvailableAssets: StoryObj = {
   render: () => html`
     <style>
@@ -715,6 +809,8 @@ export const GraphicAvailableAssets: StoryObj = {
     ${serviceIconTable}
     <h2>Chassis</h2>
     ${chassisTable}
+    <h2>Partitions</h2>
+    ${partitionTable}
   `,
 };
 
