@@ -33,7 +33,7 @@ import {
   SbbMediaQueryBreakpointSmallAndBelow,
   type SbbNegativeMixinType,
   SbbOpenCloseBaseElement,
-  SbbScrollHandler,
+  SbbScrollController,
   scrollbarStyles,
   setAriaOverlayTriggerProperties,
   ɵstateController,
@@ -96,7 +96,7 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
   private _windowEventsController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusTrapController = new SbbFocusTrapController(this);
-  private _scrollHandler = new SbbScrollHandler(this);
+  private _scrollHandler = new SbbScrollController(this);
   private _inertController = new SbbInertController(this);
   private _mobileBreakpoint = SbbMediaQueryBreakpointSmallAndBelow;
   private _mediaMatcher = new SbbMediaMatcherController(this, {

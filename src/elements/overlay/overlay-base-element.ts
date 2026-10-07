@@ -13,7 +13,7 @@ import {
   SbbLanguageController,
   SbbNegativeMixin,
   SbbOpenCloseBaseElement,
-  SbbScrollHandler,
+  SbbScrollController,
   screenReaderOnlyStyles,
   setAriaOverlayTriggerProperties,
 } from '../core.ts';
@@ -95,7 +95,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   protected lastClosedTarget?: HTMLElement;
   protected openOverlayController?: AbortController;
   protected focusTrapController = new SbbFocusTrapController(this);
-  protected scrollHandler = new SbbScrollHandler(this);
+  protected scrollHandler = new SbbScrollController(this);
   protected lastResult: any;
   protected language = new SbbLanguageController(this);
   protected inertController = new SbbInertController(this);

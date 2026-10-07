@@ -26,7 +26,7 @@ import {
   SbbInertController,
   SbbLanguageController,
   SbbOpenCloseBaseElement,
-  SbbScrollHandler,
+  SbbScrollController,
   SbbUpdateSchedulerMixin,
   scrollbarStyles,
   setAriaOverlayTriggerProperties,
@@ -96,7 +96,7 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   private _inertController = new SbbInertController(this);
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusTrapController = new SbbFocusTrapController(this);
-  private _scrollHandler = new SbbScrollHandler(this);
+  private _scrollHandler = new SbbScrollController(this);
   private _isPointerDownEventOnNavigation: boolean = false;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
   private _navigationResizeObserver = new ResizeController(this, {
