@@ -47,7 +47,7 @@ export function findScrollableAncestor(path: EventTarget[]): Element | null {
  * Only the transition 'empty => non-empty' actually disables scroll, and only 'non-empty => empty' restores it,
  * so that closing one overlay never re-enables scroll while another one is still open.
  */
-const lockers = new Set<object>();
+const lockers = new Set<SbbOpenCloseBaseElement>();
 
 /**
  * Handle the page scroll, allowing to disable/enable the window scroll avoiding a potential
