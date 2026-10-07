@@ -364,7 +364,7 @@ $theme: 'standard' !default;
     }
 
     &:not(.sbb-sort-header-disabled) {
-      cursor: pointer;
+      cursor: var(--sbb-cursor-pointer);
     }
 
     &:not(.sbb-sort-header-disabled):hover .sbb-sort-header-container {
@@ -387,7 +387,7 @@ $theme: 'standard' !default;
     outline: 0;
 
     .sbb-sort-header-disabled & {
-      cursor: default;
+      cursor: var(--sbb-cursor-default);
     }
 
     .sbb-table-align-center & {
