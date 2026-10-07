@@ -7,71 +7,170 @@ $theme: 'standard' !default;
   --sbb-error-icon-size: #{sbb.px-to-rem-build(17)};
   --sbb-error-font-size: var(--sbb-text-font-size-xs);
   --sbb-form-field-background-color: var(--sbb-background-color-1);
+  --sbb-form-field-background-color-disabled: var(--sbb-background-color-3);
+  --sbb-form-field-background-color-negative: var(--sbb-background-color-1-negative);
+  --sbb-form-field-background-color-disabled-negative: var(--sbb-background-color-3-negative);
+  --sbb-form-field-background-color-required-highlight: light-dark(
+    color-mix(in srgb, var(--sbb-color-peach) 5%, var(--sbb-background-color-1)),
+    color-mix(in srgb, var(--sbb-color-peach) 10%, var(--sbb-background-color-1))
+  );
+  --sbb-form-field-background-color-required-highlight-negative: color-mix(
+    in srgb,
+    var(--sbb-color-peach) 10%,
+    var(--sbb-background-color-1-negative)
+  );
   --sbb-form-field-border-color: var(--sbb-border-color-5);
+  --sbb-form-field-border-color-disabled: light-dark(
+    var(--sbb-color-graphite),
+    var(--sbb-color-smoke)
+  );
+  --sbb-form-field-border-color-negative: var(--sbb-border-color-5);
+  --sbb-form-field-border-color-disabled-negative: var(--sbb-border-color-5);
+  --sbb-form-field-border-color-focus: var(--sbb-border-color-3);
+  --sbb-form-field-border-color-focus-negative: var(--sbb-border-color-3-negative);
+  --sbb-form-field-border-color-error: var(--sbb-color-error);
+  --sbb-form-field-border-color-error-negative: var(--sbb-color-red85);
+  --sbb-form-field-border-color-readonly: light-dark(
+    var(--sbb-color-graphite),
+    var(--sbb-color-smoke)
+  );
+  --sbb-form-field-border-color-readonly-negative: var(--sbb-border-color-5);
+  --sbb-form-field-label-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-form-field-label-color-disabled: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-smoke)
+  );
+  --sbb-form-field-label-color-negative: var(--sbb-color-5);
+  --sbb-form-field-label-color-disabled-negative: var(--sbb-color-5);
+  --sbb-form-field-label-color-readonly: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-smoke)
+  );
+  --sbb-form-field-label-color-readonly-negative: var(--sbb-color-5);
+  --sbb-form-field-prefix-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-form-field-prefix-color-disabled: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-storm)
+  );
+  --sbb-form-field-prefix-color-negative: var(--sbb-color-5);
+  --sbb-form-field-prefix-color-disabled-negative: var(--sbb-color-5);
+  --sbb-form-field-prefix-color-focus: var(--sbb-color-3);
+  --sbb-form-field-prefix-color-focus-negative: var(--sbb-color-3-negative);
+  --sbb-form-field-prefix-color-readonly: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-storm)
+  );
+  --sbb-form-field-prefix-color-readonly-negative: var(--sbb-color-5);
   --sbb-form-field-border-style: solid;
+  --sbb-form-field-border-style-disabled: dashed;
   --sbb-form-field-border-radius: var(--sbb-border-radius-4x);
   --sbb-form-field-border-width: var(--sbb-border-width-1x);
+  --sbb-form-field-border-width-focus: var(--sbb-border-width-2x);
   --sbb-form-field-color: var(--sbb-color-3);
-  --sbb-form-field-label-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
-  --sbb-form-field-prefix-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-form-field-color-negative: var(--sbb-color-3-negative);
+  --sbb-form-field-min-width: #{sbb.px-to-rem-build(150)};
+  --sbb-form-field-max-width: #{sbb.px-to-rem-build(300)};
   --sbb-form-field-text-color: var(--sbb-color-3);
+  --sbb-form-field-text-color-disabled: var(--sbb-color-3);
+  --sbb-form-field-text-color-negative: var(--sbb-color-3-negative);
+  --sbb-form-field-text-color-disabled-negative: var(--sbb-color-5);
+  --sbb-form-field-text-color-error: var(--sbb-color-error);
+  --sbb-form-field-text-color-error-negative: var(--sbb-color-red85);
   --sbb-form-field-arrow-color: var(--sbb-color-3);
+  --sbb-form-field-arrow-color-disabled: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-storm)
+  );
+  --sbb-form-field-arrow-color-negative: var(--sbb-color-3-negative);
+  --sbb-form-field-arrow-color-disabled-negative: var(--sbb-border-color-5);
+  --sbb-form-field-placeholder-color-disabled: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-smoke)
+  );
   --sbb-form-field-gap: var(--sbb-spacing-fixed-2x);
   --sbb-form-field-icon-size: var(--sbb-size-icon-ui-small);
   --sbb-form-field-textarea-s-spacer: var(--sbb-spacing-fixed-1x);
+  --sbb-form-field-min-height-s: var(--sbb-size-element-xs);
+  --sbb-form-field-min-height-m: var(--sbb-size-element-m);
+  --sbb-form-field-min-height-l: var(--sbb-size-element-l);
   --sbb-form-field-min-height: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-size-element-m),
-        'lean': var(--sbb-size-element-xs),
+        'standard': var(--sbb-form-field-min-height-m),
+        'lean': var(--sbb-form-field-min-height-s),
       ),
       $theme
     )};
+  --sbb-form-field-padding-inline-s: var(--sbb-spacing-fixed-2x);
+  --sbb-form-field-padding-inline-m: var(--sbb-spacing-fixed-3x);
+  --sbb-form-field-padding-inline-l: var(--sbb-spacing-responsive-xxxs);
   --sbb-form-field-padding-inline: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-fixed-3x),
-        'lean': var(--sbb-spacing-fixed-2x),
+        'standard': var(--sbb-form-field-padding-inline-m),
+        'lean': var(--sbb-form-field-padding-inline-s),
       ),
       $theme
     )};
+  --sbb-form-field-input-text-size-s: var(--sbb-text-font-size-s);
+  --sbb-form-field-input-text-size-m: var(--sbb-text-font-size-m);
+  --sbb-form-field-input-text-size-l: var(--sbb-text-font-size-m);
   --sbb-form-field-input-text-size: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-text-font-size-m),
-        'lean': var(--sbb-text-font-size-s),
+        'standard': var(--sbb-form-field-input-text-size-m),
+        'lean': var(--sbb-form-field-input-text-size-s),
       ),
       $theme
     )};
+  --sbb-form-field-label-text-size-s: var(--sbb-text-font-size-xxs);
+  --sbb-form-field-label-text-size-m: var(--sbb-text-font-size-xs);
+  --sbb-form-field-label-text-size-l: var(--sbb-text-font-size-xs);
   --sbb-form-field-label-text-size: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-text-font-size-xs),
-        'lean': var(--sbb-text-font-size-xxs),
+        'standard': var(--sbb-form-field-label-text-size-m),
+        'lean': var(--sbb-form-field-label-text-size-s),
       ),
       $theme
     )};
+  --_sbb-form-field-label-to-input-overlapping-s: #{sbb.px-to-rem-build(10)};
+  --_sbb-form-field-label-to-input-overlapping-m: var(--sbb-spacing-fixed-1x);
+  --_sbb-form-field-label-to-input-overlapping-l: var(--sbb-spacing-fixed-1x);
   --_sbb-form-field-label-to-input-overlapping: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-fixed-1x),
-        'lean': #{sbb.px-to-rem-build(10)},
+        'standard': var(--_sbb-form-field-label-to-input-overlapping-m),
+        'lean': var(--_sbb-form-field-label-to-input-overlapping-s),
       ),
       $theme
     )};
+  --_sbb-form-field-floating-label-transform-s: #{sbb.px-to-rem-build(5.5)};
+  --_sbb-form-field-floating-label-transform-m: #{sbb.px-to-rem-build(8.5)};
+  --_sbb-form-field-floating-label-transform-l: #{sbb.px-to-rem-build(8.5)};
   --_sbb-form-field-floating-label-transform: #{sbb.theme-pattern-select(
       (
-        'standard': #{sbb.px-to-rem-build(8.5)},
-        'lean': #{sbb.px-to-rem-build(5.5)},
+        'standard': var(--_sbb-form-field-floating-label-transform-m),
+        'lean': var(--_sbb-form-field-floating-label-transform-s),
       ),
       $theme
     )};
+  --_sbb-form-field-spacer-margin-block-end-s: #{sbb.px-to-rem-build(-8.5)};
+  --_sbb-form-field-spacer-margin-block-end-m: calc(
+    -1 * var(--_sbb-form-field-label-to-input-overlapping-m)
+  );
+  --_sbb-form-field-spacer-margin-block-end-l: calc(
+    -1 * var(--_sbb-form-field-label-to-input-overlapping-l)
+  );
   --_sbb-form-field-spacer-margin-block-end: #{sbb.theme-pattern-select(
       (
-        'standard': calc(-1 * var(--_sbb-form-field-label-to-input-overlapping)),
-        'lean': #{sbb.px-to-rem-build(-8.5)},
+        'standard': var(--_sbb-form-field-spacer-margin-block-end-m),
+        'lean': var(--_sbb-form-field-spacer-margin-block-end-s),
       ),
       $theme
     )};
+  --_sbb-form-field-input-margin-block-end-s: #{sbb.px-to-rem-build(-2)};
+  --_sbb-form-field-input-margin-block-end-m: 0;
+  --_sbb-form-field-input-margin-block-end-l: 0;
   --_sbb-form-field-input-margin-block-end: #{sbb.theme-pattern-select(
       (
-        'standard': 0,
-        'lean': #{sbb.px-to-rem-build(-2)},
+        'standard': var(--_sbb-form-field-input-margin-block-end-m),
+        'lean': var(--_sbb-form-field-input-margin-block-end-s),
       ),
       $theme
     )};
@@ -79,27 +178,57 @@ $theme: 'standard' !default;
 
 @mixin forced-colors {
   --sbb-form-field-border-color: ButtonBorder;
+  --sbb-form-field-border-color-disabled: GrayText;
+  --sbb-form-field-border-color-disabled-negative: GrayText;
+  --sbb-form-field-border-color-negative: ButtonBorder;
+  --sbb-form-field-border-color-focus: Highlight;
+  --sbb-form-field-border-color-focus-negative: Highlight;
+  --sbb-form-field-border-color-error: LinkText;
+  --sbb-form-field-border-color-error-negative: LinkText;
+  --sbb-form-field-label-color-disabled: GrayText;
+  --sbb-form-field-label-color-disabled-negative: GrayText;
+  --sbb-form-field-prefix-color-disabled: GrayText;
+  --sbb-form-field-prefix-color-disabled-negative: GrayText;
+  --sbb-form-field-prefix-color-focus: Highlight;
+  --sbb-form-field-prefix-color-focus-negative: Highlight;
+  --sbb-form-field-text-color-disabled: GrayText;
+  --sbb-form-field-text-color-disabled-negative: GrayText;
+  --sbb-form-field-text-color-error: LinkText;
+  --sbb-form-field-text-color-error-negative: LinkText;
 }
 
 @mixin breakpoint-large {
+  --_sbb-form-field-label-to-input-overlapping-s: #{sbb.px-to-rem-build(11)};
+  --_sbb-form-field-label-to-input-overlapping-m: var(--sbb-spacing-fixed-1x);
+  --_sbb-form-field-label-to-input-overlapping-l: var(--sbb-spacing-fixed-1x);
   --_sbb-form-field-label-to-input-overlapping: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-fixed-1x),
-        'lean': #{sbb.px-to-rem-build(11)},
+        'standard': var(--_sbb-form-field-label-to-input-overlapping-m),
+        'lean': var(--_sbb-form-field-label-to-input-overlapping-s),
       ),
       $theme
     )};
+  --_sbb-form-field-floating-label-transform-s: #{sbb.px-to-rem-build(5)};
+  --_sbb-form-field-floating-label-transform-m: #{sbb.px-to-rem-build(10.5)};
+  --_sbb-form-field-floating-label-transform-l: #{sbb.px-to-rem-build(10.5)};
   --_sbb-form-field-floating-label-transform: #{sbb.theme-pattern-select(
       (
-        'standard': #{sbb.px-to-rem-build(10.5)},
-        'lean': #{sbb.px-to-rem-build(5)},
+        'standard': var(--_sbb-form-field-floating-label-transform-m),
+        'lean': var(--_sbb-form-field-floating-label-transform-s),
       ),
       $theme
     )};
+  --_sbb-form-field-spacer-margin-block-end-s: #{sbb.px-to-rem-build(-8)};
+  --_sbb-form-field-spacer-margin-block-end-m: calc(
+    -1 * var(--_sbb-form-field-label-to-input-overlapping-m)
+  );
+  --_sbb-form-field-spacer-margin-block-end-l: calc(
+    -1 * var(--_sbb-form-field-label-to-input-overlapping-l)
+  );
   --_sbb-form-field-spacer-margin-block-end: #{sbb.theme-pattern-select(
       (
-        'standard': calc(-1 * var(--_sbb-form-field-label-to-input-overlapping)),
-        'lean': #{sbb.px-to-rem-build(-8)},
+        'standard': var(--_sbb-form-field-spacer-margin-block-end-m),
+        'lean': var(--_sbb-form-field-spacer-margin-block-end-s),
       ),
       $theme
     )};
@@ -157,8 +286,8 @@ $theme: 'standard' !default;
 
     // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
     &:not([floating-label]) :where(input, select, textarea, sbb-select):disabled::placeholder {
-      color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
-      -webkit-text-fill-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+      color: var(--sbb-form-field-placeholder-color-disabled);
+      -webkit-text-fill-color: var(--sbb-form-field-placeholder-color-disabled);
     }
 
     // Fix positioning issue for select which occurs in Safari
@@ -228,17 +357,12 @@ $theme: 'standard' !default;
     ),
     :is(.ng-submitted, .sbb-show-errors) &:has(:is(:invalid, .ng-invalid)),
     &:state(interacted):state(invalid) {
-      --sbb-form-field-border-color: var(--sbb-color-error);
-      --sbb-form-field-text-color: var(--sbb-color-error);
+      --sbb-form-field-border-color: var(--sbb-form-field-border-color-error);
+      --sbb-form-field-text-color: var(--sbb-form-field-text-color-error);
 
       &[negative] {
-        --sbb-form-field-border-color: var(--sbb-color-red85);
-        --sbb-form-field-text-color: var(--sbb-color-red85);
-      }
-
-      @media (forced-colors: active) {
-        --sbb-form-field-border-color: LinkText !important;
-        --sbb-form-field-text-color: LinkText !important;
+        --sbb-form-field-border-color: var(--sbb-form-field-border-color-error-negative);
+        --sbb-form-field-text-color: var(--sbb-form-field-text-color-error-negative);
       }
     }
   }
@@ -250,16 +374,11 @@ $theme: 'standard' !default;
     :root.sbb-form-field-required-highlight
       &:has(:where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input)[required]),
     &.sbb-form-field-required-highlight {
-      --sbb-form-field-background-color: light-dark(
-        color-mix(in srgb, var(--sbb-color-peach) 5%, var(--sbb-background-color-1)),
-        color-mix(in srgb, var(--sbb-color-peach) 10%, var(--sbb-background-color-1))
-      );
+      --sbb-form-field-background-color: var(--sbb-form-field-background-color-required-highlight);
 
       &[negative] {
-        --sbb-form-field-background-color: color-mix(
-          in srgb,
-          var(--sbb-color-peach) 10%,
-          var(--sbb-background-color-1-negative)
+        --sbb-form-field-background-color: var(
+          --sbb-form-field-background-color-required-highlight-negative
         );
       }
     }
