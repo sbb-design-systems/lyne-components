@@ -78,12 +78,10 @@ $open-anim-opacity-to: 1;
 
 :host([color='white']) {
   --sbb-expansion-panel-background-color: var(--sbb-background-color-1);
-  --sbb-expansion-panel-background-color-hover: var(--sbb-background-color-3);
 }
 
 :host([color='milk']) {
   --sbb-expansion-panel-background-color: var(--sbb-background-color-3);
-  --sbb-expansion-panel-background-color-hover: var(--sbb-background-color-1);
 }
 
 :host([borderless]) {
@@ -107,8 +105,6 @@ $open-anim-opacity-to: 1;
 }
 
 :host(:not([disabled]):state(toggle-hover)) {
-  background-color: var(--sbb-expansion-panel-background-color-hover);
-
   @media (forced-colors: active) {
     --sbb-expansion-panel-border-color: Highlight;
     --sbb-expansion-panel-border-block-start-color: Highlight;
