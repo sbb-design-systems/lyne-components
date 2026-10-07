@@ -49,7 +49,6 @@
 }
 
 :host(:not([disabled], [aria-expanded='true']):state(toggle-hover)) {
-  box-shadow: var(--sbb-expansion-panel-header-box-shadow-hover);
   translate: 0 var(--sbb-expansion-panel-header-translate-y-hover, 0);
 }
 

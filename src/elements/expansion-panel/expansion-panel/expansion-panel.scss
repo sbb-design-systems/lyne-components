@@ -111,6 +111,10 @@ $open-anim-opacity-to: 1;
   }
 }
 
+:host(:not([disabled], [expanded]):state(toggle-hover)) {
+  box-shadow: var(--sbb-expansion-panel-box-shadow-hover);
+}
+
 .sbb-expansion-panel__header {
   margin: 0;
 }
