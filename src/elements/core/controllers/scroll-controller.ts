@@ -11,37 +11,6 @@ interface ScrollSavedProperties {
   touchStartY: number;
 }
 
-export function pageScrollDisabled(): boolean {
-  return document.body.hasAttribute('data-sbb-scroll-disabled');
-}
-
-/**
- * Checks whether the given element can be scrolled vertically
- * (i.e. it has an overflow of `auto`/`scroll` and its content overflows its box).
- */
-export function isVerticallyScrollable(element: Element): boolean {
-  const overflowY = getComputedStyle(element).overflowY;
-  return (
-    (overflowY === 'auto' || overflowY === 'scroll') && element.scrollHeight > element.clientHeight
-  );
-}
-
-/**
- * Walks the event's composed path (to properly support shadow DOM) and returns the
- * closest scrollable ancestor, if any, stopping at `document.body`/`document.documentElement`.
- */
-export function findScrollableAncestor(path: EventTarget[]): Element | null {
-  for (const target of path) {
-    if (target === document.body || target === document.documentElement) {
-      break;
-    }
-    if (target instanceof Element && isVerticallyScrollable(target)) {
-      return target;
-    }
-  }
-  return null;
-}
-
 /**
  * Overlays currently holding a scroll lock, shared across all `SbbScrollController` instances.
  * Only the transition 'empty => non-empty' actually disables scroll, and only 'non-empty => empty' restores it,
@@ -71,8 +40,39 @@ export class SbbScrollController implements ReactiveController {
   private _locked = false;
   private _scrollProperties: ScrollSavedProperties = { scrollPosition: 0, touchStartY: 0 };
 
-  public constructor(private _host: ReactiveControllerHost & SbbOpenCloseBaseElement) {
+  public constructor(
+    private _host: ReactiveControllerHost & SbbOpenCloseBaseElement,
+    private _lockers: Set<SbbOpenCloseBaseElement> = lockers,
+  ) {
     this._host.addController?.(this);
+  }
+
+  /**
+   * Checks whether the given element can be scrolled vertically
+   * (i.e. it has an overflow of `auto`/`scroll` and its content overflows its box).
+   */
+  private _isVerticallyScrollable(element: Element): boolean {
+    const overflowY = getComputedStyle(element).overflowY;
+    return (
+      (overflowY === 'auto' || overflowY === 'scroll') &&
+      element.scrollHeight > element.clientHeight
+    );
+  }
+
+  /**
+   * Walks the event's composed path (to properly support shadow DOM) and returns the
+   * closest scrollable ancestor, if any, stopping at `document.body`/`document.documentElement`.
+   */
+  private _findScrollableAncestor(path: EventTarget[]): Element | null {
+    for (const target of path) {
+      if (target === document.body || target === document.documentElement) {
+        break;
+      }
+      if (target instanceof Element && this._isVerticallyScrollable(target)) {
+        return target;
+      }
+    }
+    return null;
   }
 
   public hostDisconnected(): void {
@@ -85,8 +85,8 @@ export class SbbScrollController implements ReactiveController {
       return;
     }
     this._locked = true;
-    const wasEmpty = lockers.size === 0;
-    lockers.add(this._host);
+    const wasEmpty = this._lockers.size === 0;
+    this._lockers.add(this._host);
 
     // Another owner already holds the lock: scroll is already disabled, nothing to do.
     if (!wasEmpty) {
@@ -127,10 +127,10 @@ export class SbbScrollController implements ReactiveController {
       return;
     }
     this._locked = false;
-    lockers.delete(this._host);
+    this._lockers.delete(this._host);
 
     // Another owner still holds the lock: keep scroll disabled.
-    if (lockers.size > 0) {
+    if (this._lockers.size > 0) {
       return;
     }
 
@@ -160,7 +160,7 @@ export class SbbScrollController implements ReactiveController {
       return;
     }
 
-    const scrollable = findScrollableAncestor(event.composedPath());
+    const scrollable = this._findScrollableAncestor(event.composedPath());
     if (!scrollable) {
       // The touch did not originate from within a scrollable element: prevent any scroll/bounce
       // of the page behind (e.g. touching a backdrop or non-scrollable overlay content).
