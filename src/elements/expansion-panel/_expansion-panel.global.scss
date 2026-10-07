@@ -5,6 +5,8 @@ $theme: 'standard' !default;
 @mixin base {
   --sbb-expansion-panel-background-color: var(--sbb-background-color-1);
   --sbb-expansion-panel-border-radius: var(--sbb-border-radius-4x);
+  --sbb-expansion-panel-box-shadow-hover: var(--sbb-box-shadow-level-11-soft);
+  --sbb-expansion-panel-transition-easing-function: var(--sbb-animation-easing);
 
   // Vars which will be used by child components
   --sbb-expansion-panel-icon-size: var(--sbb-size-icon-ui-medium);
@@ -58,9 +60,7 @@ $theme: 'standard' !default;
       ),
       $theme
     )};
-  --sbb-expansion-panel-header-box-shadow-hover: var(--sbb-box-shadow-level-11-soft);
   --sbb-expansion-panel-header-translate-y-hover: #{sbb.px-to-rem-build(-2)};
-  --sbb-expansion-panel-header-transition-easing-function: var(--sbb-animation-easing);
 }
 
 @mixin forced-colors {
