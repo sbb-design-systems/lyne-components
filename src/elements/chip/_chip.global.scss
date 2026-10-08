@@ -12,7 +12,7 @@ $theme: 'standard' !default;
   --sbb-chip-color-hover: var(--sbb-color-2);
   --sbb-chip-font-size: var(--sbb-text-font-size-xxs);
   --sbb-chip-height: #{sbb.px-to-rem-build(24)};
-  --sbb-chip-label-padding-inline: var(--sbb-spacing-fixed-2x);
+  --sbb-chip-padding-inline: var(--sbb-spacing-fixed-2x);
   --sbb-chip-group-gap: var(--sbb-spacing-fixed-1x);
   --sbb-chip-group-input-min-width: #{sbb.px-to-rem-build(150)};
   --_sbb-chip-group-margin-block-start-default: #{sbb.px-to-rem-build(2)};
