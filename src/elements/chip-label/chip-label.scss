@@ -41,6 +41,7 @@
 
 :host([size='xxxs']) {
   --sbb-chip-label-fixed-height: #{sbb.px-to-rem-build(16)};
+  --sbb-chip-label-padding-inline: var(--sbb-spacing-fixed-1x);
 }
 
 :host([size='xs']) {
