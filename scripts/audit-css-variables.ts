@@ -93,10 +93,47 @@ const globalScssDefinitions = new Map<string, Set<string>>();
 /**
  * Extracts the content of a specific SCSS mixin from the file content.
  * For example, extracts everything between `@mixin base {` and the corresponding closing `}`.
+ * Also considers included mixins.
  */
-function extractMixinContent(content: string, mixinName: string): string {
-  return content.match(new RegExp(`@mixin\\s+${mixinName}\\s*\\{([\\s\\S]*?)\\}`))?.[1] ?? '';
+function extractMixinContent(
+  content: string,
+  mixinName: string,
+  visited = new Set<string>(),
+): string {
+  // Guards against circular includes.
+  if (visited.has(mixinName)) {
+    return '';
+  }
+  visited.add(mixinName);
+
+  const start = new RegExp(`@mixin\\s+${mixinName}\\s*(?:\\([^)]*\\))?\\s*\\{`).exec(content);
+  if (!start) {
+    return '';
+  }
+
+  // Walk to the matching closing brace, so nested blocks and `#{...}` interpolations are covered.
+  const bodyStart = start.index + start[0].length;
+  let depth = 1;
+  let end = bodyStart;
+  while (end < content.length && depth > 0) {
+    if (content[end] === '{') {
+      depth++;
+    } else if (content[end] === '}') {
+      depth--;
+    }
+    end++;
+  }
+  const body = content.slice(bodyStart, end - 1);
+
+  // Resolve includes of mixins of the same file, e.g. `@include variables--white;`.
+  // Namespaced includes like `@include sbb.hover-mq(...)` are not defined locally and resolve to ''.
+  const included = [...body.matchAll(/@include\s+([\w-]+)\s*(?:\([^)]*\))?\s*[;{]/g)].map((m) =>
+    extractMixinContent(content, m[1], visited),
+  );
+
+  return [body, ...included].join('\n');
 }
+
 /**
  * Collects the definitions of a file. A variable counts as defined when it is
  * followed by a colon (declaration, `styleMap` key, inline style string, ...),
