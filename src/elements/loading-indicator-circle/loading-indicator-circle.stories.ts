@@ -14,6 +14,23 @@ import '../button.ts';
 import '../title.ts';
 import '../card.ts';
 
+const getLoader = (event: Event): SbbLoadingIndicatorCircleElement =>
+  (event.currentTarget as HTMLElement).parentElement!.querySelector(
+    'sbb-loading-indicator-circle',
+  )!;
+
+const getLoadingResult = (event: Event): HTMLParagraphElement =>
+  (event.currentTarget as HTMLElement).parentElement!.querySelector('.loading-result')!;
+
+const loadingRequestIdAttribute = 'data-request-id';
+
+const beginLoadingRequest = (loader: SbbLoadingIndicatorCircleElement): string => {
+  const requestId = `${Number(loader.getAttribute(loadingRequestIdAttribute) ?? '0') + 1}`;
+  loader.setAttribute(loadingRequestIdAttribute, requestId);
+
+  return requestId;
+};
+
 const createLoadingIndicator = (event: Event): void => {
   const loader: SbbLoadingIndicatorCircleElement = document.createElement(
     'sbb-loading-indicator-circle',
@@ -31,8 +48,13 @@ const createLoadingIndicator = (event: Event): void => {
   }, 5000);
 };
 
-const showLoadingIndicator = (): void => {
-  document.querySelector('sbb-loading-indicator-circle')!.style.display = 'inline-block';
+const showLoadingIndicatorWithMinimumDisplayTime = (event: Event): void => {
+  const loader = getLoader(event);
+  const result = getLoadingResult(event);
+  const requestId = beginLoadingRequest(loader);
+
+  loader.style.display = 'inline-block';
+  result.hidden = true;
 
   // Minimum display time in milliseconds
   const minimumDisplayTime = 500;
@@ -45,8 +67,50 @@ const showLoadingIndicator = (): void => {
   const mockApiCall = new Promise((resolve) => setTimeout(resolve, mockApiCallDuration));
 
   Promise.all([mockApiCall, minimumDisplayTimePromise]).then(() => {
-    document.querySelector('sbb-loading-indicator-circle')!.style.display = 'none';
+    if (loader.getAttribute(loadingRequestIdAttribute) === requestId) {
+      loader.style.display = 'none';
+      result.hidden = false;
+    }
   });
+};
+
+const showLoadingIndicatorAfterDelay = (event: Event): void => {
+  const loader = getLoader(event);
+  const result = getLoadingResult(event);
+  const requestId = beginLoadingRequest(loader);
+
+  loader.style.display = 'none';
+  result.hidden = true;
+
+  setTimeout(() => {
+    if (loader.getAttribute(loadingRequestIdAttribute) === requestId) {
+      loader.style.display = 'inline-block';
+    }
+  }, 1000);
+
+  setTimeout(() => {
+    if (loader.getAttribute(loadingRequestIdAttribute) === requestId) {
+      loader.style.display = 'none';
+      result.hidden = false;
+    }
+  }, 3500);
+};
+
+const showLoadingIndicatorImmediately = (event: Event): void => {
+  const loader = getLoader(event);
+  const result = getLoadingResult(event);
+  const requestId = beginLoadingRequest(loader);
+
+  loader.style.display = 'inline-block';
+  result.hidden = true;
+
+  // Mock an API call with a known long duration.
+  setTimeout(() => {
+    if (loader.getAttribute(loadingRequestIdAttribute) === requestId) {
+      loader.style.display = 'none';
+      result.hidden = false;
+    }
+  }, 4000);
 };
 
 const TemplateAccessibility = (): TemplateResult => html`
@@ -54,7 +118,7 @@ const TemplateAccessibility = (): TemplateResult => html`
     Turn on your screen-reader and click the button to make the loading indicator appear.
   </sbb-card>
   <br />
-  <sbb-button @click=${(event: Event) => createLoadingIndicator(event)}> Show loader </sbb-button>
+  <sbb-button @click=${(event: Event) => createLoadingIndicator(event)}> Start loading </sbb-button>
   <div
     class="loader-container"
     aria-live="polite"
@@ -79,12 +143,14 @@ const codeStyle: Readonly<StyleInfo> = {
   backgroundColor: 'var(--sbb-background-color-4)',
   fontSize: 'small',
 };
+
 const MinimumDisplayTimeTemplate = (args: Args): TemplateResult => html`
-  <sbb-button @click=${showLoadingIndicator}> Show loader </sbb-button>
+  <sbb-button @click=${showLoadingIndicatorWithMinimumDisplayTime}>Start loading</sbb-button>
   <sbb-loading-indicator-circle
     ${sbbSpread(args)}
     style="display: none;"
   ></sbb-loading-indicator-circle>
+  <p class="loading-result" hidden>Loading complete. Here's your data: ...</p>
 
   <p>
     Here's an example of how to implement a minimum display time for the loading indicator. <br />
@@ -92,10 +158,10 @@ const MinimumDisplayTimeTemplate = (args: Args): TemplateResult => html`
     that.
   </p>
   <pre style=${styleMap(codeStyle)}>
-function showLoadingIndicator() {
+function showLoadingIndicatorWithMinimumDisplayTime(event) {
   document.querySelector('sbb-loading-indicator-circle')!.style.display = 'inline-block';
 
-  // Minimum display time in milliseconds
+  // Minimum display time in milliseconds.
   const minimumDisplayTime = 500;
   const minimumDisplayTimePromise = new Promise((resolve) => setTimeout(resolve, minimumDisplayTime));
 
@@ -107,6 +173,37 @@ function showLoadingIndicator() {
     document.querySelector('sbb-loading-indicator-circle')!.style.display = 'none';
   });
 } </pre>
+`;
+
+const ExpectedShortLoadingTimeTemplate = (args: Args): TemplateResult => html`
+  <sbb-button @click=${showLoadingIndicatorAfterDelay}> Start loading </sbb-button>
+  <sbb-loading-indicator-circle
+    ${sbbSpread(args)}
+    style="display: none;"
+  ></sbb-loading-indicator-circle>
+  <p class="loading-result" hidden>Loading complete. Here's your data: ...</p>
+
+  <p>
+    Here's an example of how to delay the loading indicator until one second has elapsed since the
+    action started. <br />
+    This avoids showing the indicator immediately for short loading states.
+  </p>
+`;
+
+const ExpectedLongLoadingTimeTemplate = (args: Args): TemplateResult => html`
+  <sbb-button @click=${showLoadingIndicatorImmediately}>Start loading</sbb-button>
+  <sbb-loading-indicator-circle
+    ${sbbSpread(args)}
+    style="display: none;"
+  ></sbb-loading-indicator-circle>
+  <p class="loading-result" hidden>Loading complete. Here's your data: ...</p>
+
+  <p>
+    Here's an example of how to show the loading indicator immediately when a long loading time is
+    expected. <br />
+    This is useful when it is known in advance that the back-end service will take at least one
+    second to respond.
+  </p>
 `;
 
 const color: InputType = {
@@ -126,6 +223,18 @@ const defaultArgs: Args = {
 
 export const Default: StoryObj = {
   render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const ExpectedShortLoadingTime: StoryObj = {
+  render: ExpectedShortLoadingTimeTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const ExpectedLongLoadingTime: StoryObj = {
+  render: ExpectedLongLoadingTimeTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
