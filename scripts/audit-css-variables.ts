@@ -16,6 +16,7 @@ import { globSync, readFileSync } from 'node:fs';
  * 1. Obsolete CSS variables: Defined in `src`, but never referenced anywhere.
  * 2. Undefined CSS variables (without fallback): Used via `var()` without a fallback and missing a definition (potential bugs/typos).
  * 3. Undefined CSS variables (with fallback only): Used via `var()` exclusively with fallbacks (intended for consumer configuration).
+ * 4. Duplicate definitions in *.global.scss: CSS variables defined at root level in multiple *.global.scss files.
  */
 
 /** Files of this repository that can define and/or reference CSS variables. */
@@ -86,6 +87,16 @@ const varReferences = new Map<string, Set<string>>();
 /** Variables referenced through `var()` at least once without a fallback value. */
 const referencedWithoutFallback = new Set<string>();
 
+/** CSS variables defined in *.global.scss files, mapped to the file where they are defined. */
+const globalScssDefinitions = new Map<string, Set<string>>();
+
+/**
+ * Extracts the content of a specific SCSS mixin from the file content.
+ * For example, extracts everything between `@mixin base {` and the corresponding closing `}`.
+ */
+function extractMixinContent(content: string, mixinName: string): string {
+  return content.match(new RegExp(`@mixin\\s+${mixinName}\\s*\\{([\\s\\S]*?)\\}`))?.[1] ?? '';
+}
 /**
  * Collects the definitions of a file. A variable counts as defined when it is
  * followed by a colon (declaration, `styleMap` key, inline style string, ...),
@@ -152,11 +163,48 @@ for (const file of externalDefinitionGlobs.flatMap((glob) => globSync(glob))) {
   collectDefinitions(readFileSync(file, 'utf8'), false);
 }
 
+function collectGlobalVariables(file: string, content: string): void {
+  const fileDefinitions = new Set<string>();
+
+  // Only consider variables defined inside the specific mixins
+  for (const mixinName of [
+    'base',
+    'forced-colors',
+    'breakpoint-small',
+    'breakpoint-large',
+    'breakpoint-ultra',
+  ]) {
+    const mixinContent = extractMixinContent(content, mixinName);
+
+    for (const match of mixinContent.matchAll(variableToken)) {
+      if (isDefinitionSuffix(mixinContent.slice(match.index + match[0].length))) {
+        fileDefinitions.add(match[0]);
+      }
+    }
+  }
+
+  for (const varName of fileDefinitions) {
+    if (!globalScssDefinitions.has(varName)) {
+      globalScssDefinitions.set(varName, new Set());
+    }
+    globalScssDefinitions.get(varName)!.add(file);
+  }
+}
+
 for (const file of globSync(sourceGlob)) {
   const content = readFileSync(file, 'utf8');
   collectDefinitions(content, true);
   collectReferences(content, file);
+
+  if (file.includes('.global.')) {
+    collectGlobalVariables(file, content);
+  }
 }
+
+// Find CSS variables defined in multiple *.global.scss files.
+const duplicateGlobalDefinitions = new Map(
+  [...globalScssDefinitions].filter(([, files]) => files.size > 1),
+);
 
 /* -------------------------------------------------------------------------- *
  * Reporting
@@ -188,7 +236,8 @@ const undefinedWithFallbackOnly = undefinedVariables.filter(
 const hasIssues =
   obsolete.length > 0 ||
   undefinedWithoutFallback.length > 0 ||
-  undefinedWithFallbackOnly.length > 0;
+  undefinedWithFallbackOnly.length > 0 ||
+  duplicateGlobalDefinitions.size > 0;
 
 if (!hasIssues) {
   console.log('✔ CSS variable audit passed! No issues found.');
@@ -220,5 +269,13 @@ if (!hasIssues) {
     'Used via var() with a fallback but never defined. Usually intentional, as these\n' +
       'are meant to be set by the consumer. Still worth checking for typos.',
     undefinedWithFallbackOnly,
+  );
+
+  print(
+    'Duplicate definitions in *.global.scss files',
+    'Each variable must be defined in exactly one global SCSS file',
+    [...duplicateGlobalDefinitions.entries()]
+      .sort()
+      .map(([name, files]) => `${name}: ${[...files].sort().join(', ')}`),
   );
 }
