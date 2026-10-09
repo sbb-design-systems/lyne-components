@@ -4,7 +4,10 @@ import {
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html, nothing } from 'lit';
 
-import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.private.ts';
+import {
+  extendedLeg,
+  progressLeg,
+} from '../pearl-chain-legacy/pearl-chain-legacy.sample-data.private.ts';
 
 import '../pearl-chain-time.ts';
 

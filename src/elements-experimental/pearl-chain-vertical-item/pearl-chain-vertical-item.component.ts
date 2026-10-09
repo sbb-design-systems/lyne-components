@@ -28,6 +28,7 @@ export interface PearlChainVerticalItemAttributes {
  *
  * @slot left - Content of the left side of the item
  * @slot right - Content of the right side of the item
+ * @deprecated Use `sbb-pearl-chain` instead.
  */
 export class SbbPearlChainVerticalItemElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain-vertical-item';

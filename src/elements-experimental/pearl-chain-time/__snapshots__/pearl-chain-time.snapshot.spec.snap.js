@@ -21,8 +21,8 @@ snapshots["sbb-pearl-chain-time renders with time Shadow DOM"] =
     </span>
     12:00
   </time>
-  <sbb-pearl-chain class="sbb-pearl-chain__time-chain">
-  </sbb-pearl-chain>
+  <sbb-pearl-chain-legacy class="sbb-pearl-chain__time-chain">
+  </sbb-pearl-chain-legacy>
   <time
     class="sbb-pearl-chain__time-time"
     datetime="2022-08-16T15:00:00"
@@ -73,8 +73,8 @@ snapshots["sbb-pearl-chain-time renders with departure walk Shadow DOM"] =
     </span>
     12:00
   </time>
-  <sbb-pearl-chain class="sbb-pearl-chain__time-chain">
-  </sbb-pearl-chain>
+  <sbb-pearl-chain-legacy class="sbb-pearl-chain__time-chain">
+  </sbb-pearl-chain-legacy>
   <time
     class="sbb-pearl-chain__time-time"
     datetime="2022-08-16T15:00:00"
@@ -109,8 +109,8 @@ snapshots["sbb-pearl-chain-time renders with arrival walk Shadow DOM"] =
     </span>
     12:00
   </time>
-  <sbb-pearl-chain class="sbb-pearl-chain__time-chain">
-  </sbb-pearl-chain>
+  <sbb-pearl-chain-legacy class="sbb-pearl-chain__time-chain">
+  </sbb-pearl-chain-legacy>
   <time
     class="sbb-pearl-chain__time-time"
     datetime="2022-08-16T15:00:00"
@@ -178,8 +178,8 @@ snapshots["sbb-pearl-chain-time renders with departure and arrival walk Shadow D
     </span>
     12:00
   </time>
-  <sbb-pearl-chain class="sbb-pearl-chain__time-chain">
-  </sbb-pearl-chain>
+  <sbb-pearl-chain-legacy class="sbb-pearl-chain__time-chain">
+  </sbb-pearl-chain-legacy>
   <time
     class="sbb-pearl-chain__time-time"
     datetime="2022-08-16T15:00:00"

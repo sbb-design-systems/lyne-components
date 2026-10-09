@@ -1,4 +1,4 @@
-The `<sbb-pearl-chain>` component displays all parts of a journey, including changes of trains or other kinds of transports.
+The `<sbb-pearl-chain-legacy>` component displays all parts of a journey, including changes of trains or other kinds of transports.
 Also, it is possible to render the current position.
 
 The `legs` property is mandatory.
@@ -43,7 +43,7 @@ The `legs` property is mandatory.
 ```
 
 ```html
-<sbb-pearl-chain legs="{legs}"></sbb-pearl-chain>
+<sbb-pearl-chain-legacy legs="{legs}"></sbb-pearl-chain-legacy>
 ```
 
 To simulate the current datetime, you can use the `now` property,
@@ -54,7 +54,7 @@ This is helpful if you need a specific state of the component.
 
 ## API Documentation
 
-### class: `SbbPearlChainElement`, `sbb-pearl-chain`
+### class: `SbbPearlChainLegacyElement`, `sbb-pearl-chain-legacy`
 
 #### Properties
 

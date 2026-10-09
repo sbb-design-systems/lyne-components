@@ -13,10 +13,10 @@ import {
   progressLeg,
   redirectedOnArrivalLeg,
   redirectedOnDepartureLeg,
-} from './pearl-chain.sample-data.private.ts';
+} from './pearl-chain-legacy.sample-data.private.ts';
 import readme from './readme.md?raw';
 
-import '../pearl-chain.ts';
+import '../pearl-chain-legacy.ts';
 
 const disableAnimation: InputType = {
   control: {
@@ -41,11 +41,11 @@ const defaultArgs: Args = {
 };
 
 const Template = ({ legs, now, ...args }: Args): TemplateResult => {
-  return html`<sbb-pearl-chain
+  return html`<sbb-pearl-chain-legacy
     .legs=${legs}
     ${sbbSpread(args)}
     .now=${now ? new Date(now) : null}
-  ></sbb-pearl-chain>`;
+  ></sbb-pearl-chain-legacy>`;
 };
 
 export const NoStops: StoryObj = {

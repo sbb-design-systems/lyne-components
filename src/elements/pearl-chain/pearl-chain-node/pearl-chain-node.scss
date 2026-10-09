@@ -1,0 +1,83 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: flex;
+  position: relative;
+  width: var(--sbb-pearl-chain-node-size);
+  height: var(--sbb-pearl-chain-node-size);
+  align-items: center;
+  justify-content: center;
+}
+
+.bullet {
+  width: var(--sbb-pearl-chain-bullet-size);
+  height: var(--sbb-pearl-chain-bullet-size);
+  color: var(--sbb-pearl-chain-bullet-color);
+  background-color: var(--sbb-pearl-chain-bullet-background-color);
+  rotate: var(--sbb-pearl-chain-bullet-rotation, 0deg);
+
+  circle {
+    cx: 50%;
+    cy: 50%;
+  }
+}
+
+.bullet--past {
+  --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-past-color);
+}
+
+.bullet--disruption {
+  --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-disruption-color);
+}
+
+.bullet--irrelevant {
+  --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-irrelevant-color);
+  --sbb-pearl-chain-bullet-stop-stroke-width: var(--sbb-pearl-chain-irrelevant-stroke-width);
+}
+
+.bullet--stop {
+  width: var(--sbb-pearl-chain-bullet-stop-size);
+  height: var(--sbb-pearl-chain-bullet-stop-size);
+
+  circle {
+    fill: var(--sbb-pearl-chain-bullet-fill-color);
+    r: calc(50% - var(--sbb-pearl-chain-bullet-stop-stroke-width) / 2);
+    stroke-width: var(--sbb-pearl-chain-bullet-stop-stroke-width);
+  }
+}
+
+.bullet--skip .dash {
+  fill: var(--sbb-color-red);
+}
+
+.bullet--exceptional-skip {
+  width: var(--sbb-pearl-chain-bullet-exceptional-skip-size);
+  height: var(--sbb-pearl-chain-bullet-exceptional-skip-size);
+
+  .dash {
+    fill: var(--sbb-color-red);
+  }
+}
+
+.bullet--stop-duty {
+  .outer-circle {
+    fill: transparent;
+    r: calc(50% - var(--sbb-pearl-chain-bullet-stroke-width) / 2);
+    stroke-width: var(--sbb-pearl-chain-bullet-stroke-width);
+    stroke-dasharray: 2.1 1;
+  }
+}
+
+.bullet--boarding,
+.bullet--alighting,
+.bullet--exceptional-boarding,
+.bullet--exceptional-alighting,
+.bullet--stop-on-demand,
+.bullet--boarding-on-demand,
+.bullet--alighting-on-demand {
+  .outer-circle {
+    fill: transparent;
+    r: calc(50% - var(--sbb-pearl-chain-bullet-stroke-width) / 2);
+    stroke-width: var(--sbb-pearl-chain-bullet-stroke-width);
+  }
+}

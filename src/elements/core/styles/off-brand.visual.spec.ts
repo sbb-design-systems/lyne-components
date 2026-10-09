@@ -6,7 +6,7 @@ import {
   longFutureLeg,
   pastLeg,
   progressLeg,
-} from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.private.ts';
+} from '../../../elements-experimental/pearl-chain-legacy/pearl-chain-legacy.sample-data.private.ts';
 import {
   describeViewports,
   overrideStandardThemeWith,
@@ -24,7 +24,7 @@ import '../../loading-indicator-circle.ts';
 import '../../radio-button.ts';
 import '../../slider.ts';
 import '../../toggle-check.ts';
-import '../../../elements-experimental/pearl-chain.ts';
+import '../../../elements-experimental/pearl-chain-legacy.ts';
 
 describe(`sbb-off-brand`, () => {
   before(async () => {
@@ -98,14 +98,14 @@ describe(`sbb-off-brand`, () => {
         );
 
         it(
-          `pearl-chain`,
+          `pearl-chain-legacy`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
-              html`<sbb-pearl-chain
+              html`<sbb-pearl-chain-legacy
                 .legs=${[pastLeg, progressLeg, longFutureLeg, cancelledLeg, futureLeg]}
                 .now=${new Date('2022-12-05T12:11:00')}
                 disable-animation
-              ></sbb-pearl-chain> `,
+              ></sbb-pearl-chain-legacy> `,
               {
                 darkMode,
               },
