@@ -42,44 +42,31 @@
 }
 
 :host(:where(:not([width='collapse']))) {
-  min-width: #{sbb.px-to-rem-build(150)};
-  width: min(#{sbb.px-to-rem-build(300)}, 100%);
+  min-width: var(--sbb-form-field-min-width);
+  width: min(var(--sbb-form-field-max-width), 100%);
 }
 
 :host([negative]) {
-  color: var(--sbb-color-3-negative);
+  color: var(--sbb-form-field-color-negative);
 
-  --sbb-form-field-background-color: var(--sbb-background-color-1-negative);
-  --sbb-form-field-border-color: var(--sbb-border-color-5);
-  --sbb-form-field-label-color: var(--sbb-color-5);
-  --sbb-form-field-prefix-color: var(--sbb-color-5);
-  --sbb-form-field-text-color: var(--sbb-color-3-negative);
+  --sbb-form-field-background-color: var(--sbb-form-field-background-color-negative);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-negative);
+  --sbb-form-field-label-color: var(--sbb-form-field-label-color-negative);
+  --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-negative);
+  --sbb-form-field-text-color: var(--sbb-form-field-text-color-negative);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-form-field-arrow-color: var(--sbb-color-3-negative);
-
-  @media (forced-colors: active) {
-    --sbb-form-field-border-color: ButtonBorder;
-  }
+  --sbb-form-field-arrow-color: var(--sbb-form-field-arrow-color-negative);
 }
 
 :host([size='s']) {
-  --sbb-form-field-min-height: var(--sbb-size-element-xs);
-  --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-2x);
-  --sbb-form-field-input-text-size: var(--sbb-text-font-size-s);
-  --sbb-form-field-label-text-size: var(--sbb-text-font-size-xxs);
-  --_sbb-form-field-input-margin-block-end: #{sbb.px-to-rem-build(-2)};
-
-  // Values found by try and error
-  --_sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(10)};
-  --_sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5.5)};
-  --_sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8.5)};
-
-  @include sbb.mq($from: large) {
-    // Values found by try and error
-    --_sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(11)};
-    --_sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5)};
-    --_sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8)};
-  }
+  --sbb-form-field-min-height: var(--sbb-form-field-min-height-s);
+  --sbb-form-field-padding-inline: var(--sbb-form-field-padding-inline-s);
+  --sbb-form-field-input-text-size: var(--sbb-form-field-input-text-size-s);
+  --sbb-form-field-label-text-size: var(--sbb-form-field-label-text-size-s);
+  --_sbb-form-field-input-margin-block-end: var(--_sbb-form-field-input-margin-block-end-s);
+  --_sbb-form-field-label-to-input-overlapping: var(--_sbb-form-field-label-to-input-overlapping-s);
+  --_sbb-form-field-floating-label-transform: var(--_sbb-form-field-floating-label-transform-s);
+  --_sbb-form-field-spacer-margin-block-end: var(--_sbb-form-field-spacer-margin-block-end-s);
 }
 
 :host([size='s']:where(:state(input-element-textarea))) {
@@ -87,28 +74,25 @@
 }
 
 :host([size='m']) {
-  --sbb-form-field-min-height: var(--sbb-size-element-m);
-  --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-3x);
+  --sbb-form-field-min-height: var(--sbb-form-field-min-height-m);
+  --sbb-form-field-padding-inline: var(--sbb-form-field-padding-inline-m);
+  --sbb-form-field-input-text-size: var(--sbb-form-field-input-text-size-m);
+  --sbb-form-field-label-text-size: var(--sbb-form-field-label-text-size-m);
+  --_sbb-form-field-input-margin-block-end: var(--_sbb-form-field-input-margin-block-end-m);
+  --_sbb-form-field-label-to-input-overlapping: var(--_sbb-form-field-label-to-input-overlapping-m);
+  --_sbb-form-field-floating-label-transform: var(--_sbb-form-field-floating-label-transform-m);
+  --_sbb-form-field-spacer-margin-block-end: var(--_sbb-form-field-spacer-margin-block-end-m);
 }
 
 :host([size='l']) {
-  --sbb-form-field-min-height: var(--sbb-size-element-l);
-  --sbb-form-field-padding-inline: var(--sbb-spacing-responsive-xxxs);
-}
-
-:host(:is([size='m'], [size='l'])) {
-  --sbb-form-field-input-text-size: var(--sbb-text-font-size-m);
-  --sbb-form-field-label-text-size: var(--sbb-text-font-size-xs);
-  --_sbb-form-field-input-margin-block-end: 0;
-  --_sbb-form-field-label-to-input-overlapping: var(--sbb-spacing-fixed-1x);
-  --_sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(8.5)};
-  --_sbb-form-field-spacer-margin-block-end: calc(
-    -1 * var(--_sbb-form-field-label-to-input-overlapping)
-  );
-
-  @include sbb.mq($from: large) {
-    --_sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(10.5)};
-  }
+  --sbb-form-field-min-height: var(--sbb-form-field-min-height-l);
+  --sbb-form-field-padding-inline: var(--sbb-form-field-padding-inline-l);
+  --sbb-form-field-input-text-size: var(--sbb-form-field-input-text-size-l);
+  --sbb-form-field-label-text-size: var(--sbb-form-field-label-text-size-l);
+  --_sbb-form-field-input-margin-block-end: var(--_sbb-form-field-input-margin-block-end-l);
+  --_sbb-form-field-label-to-input-overlapping: var(--_sbb-form-field-label-to-input-overlapping-l);
+  --_sbb-form-field-floating-label-transform: var(--_sbb-form-field-floating-label-transform-l);
+  --_sbb-form-field-spacer-margin-block-end: var(--_sbb-form-field-spacer-margin-block-end-l);
 }
 
 :host([error-space='reserve']) {
@@ -119,66 +103,56 @@
 }
 
 :host(:where(:state(readonly), :state(disabled))) {
-  --sbb-form-field-background-color: var(--sbb-background-color-3);
-  --sbb-form-field-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
-  --sbb-form-field-arrow-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
-
-  @media (forced-colors: active) {
-    --sbb-form-field-border-color: ButtonBorder;
-  }
+  --sbb-form-field-background-color: var(--sbb-form-field-background-color-disabled);
+  --sbb-form-field-arrow-color: var(--sbb-form-field-arrow-color-disabled);
 }
 
 :host(:where(:state(readonly), :state(disabled))[negative]) {
-  --sbb-form-field-background-color: var(--sbb-background-color-3-negative);
-  --sbb-form-field-border-color: var(--sbb-border-color-5);
-  --sbb-form-field-arrow-color: var(--sbb-border-color-5);
+  --sbb-form-field-background-color: var(--sbb-form-field-background-color-disabled-negative);
+  --sbb-form-field-arrow-color: var(--sbb-form-field-arrow-color-disabled-negative);
 }
 
 :host(:where(:state(disabled))) {
-  --sbb-form-field-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
-  --sbb-form-field-prefix-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
-  --sbb-form-field-border-style: dashed;
-
-  @media (forced-colors: active) {
-    --sbb-form-field-label-color: GrayText !important;
-    --sbb-form-field-prefix-color: GrayText !important;
-    --sbb-form-field-text-color: GrayText !important;
-    --sbb-form-field-border-color: GrayText !important;
-  }
+  --sbb-form-field-label-color: var(--sbb-form-field-label-color-disabled);
+  --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-disabled);
+  --sbb-form-field-text-color: var(--sbb-form-field-text-color-disabled);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-disabled);
+  --sbb-form-field-border-style: var(--sbb-form-field-border-style-disabled);
 }
 
 // :where is to align specificity
 :host(:where(:state(disabled))[negative]) {
-  --sbb-form-field-text-color: var(--sbb-color-5);
-  --sbb-form-field-label-color: var(--sbb-color-5);
-  --sbb-form-field-prefix-color: var(--sbb-color-5);
+  --sbb-form-field-label-color: var(--sbb-form-field-label-color-disabled-negative);
+  --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-disabled-negative);
+  --sbb-form-field-text-color: var(--sbb-form-field-text-color-disabled-negative);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-disabled-negative);
 }
 
 // :where is to align specificity
-:host(:where(:state(readonly)):not([negative])) {
-  --sbb-form-field-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
-  --sbb-form-field-prefix-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
+:host(:where(:state(readonly))) {
+  --sbb-form-field-label-color: var(--sbb-form-field-label-color-readonly);
+  --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-readonly);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-readonly);
+}
+
+// :where is to align specificity
+:host(:where(:state(readonly))[negative]) {
+  --sbb-form-field-label-color: var(--sbb-form-field-label-color-readonly-negative);
+  --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-readonly-negative);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-readonly-negative);
 }
 
 // :where is to align specificity
 :host(:where(:state(focus))) {
-  --sbb-form-field-border-color: var(--sbb-border-color-3);
-  --sbb-form-field-prefix-color: var(--sbb-color-3);
-  --sbb-form-field-border-width: var(--sbb-border-width-2x);
+  --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-focus);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-focus);
+  --sbb-form-field-border-width: var(--sbb-form-field-border-width-focus);
 }
 
 // :where is to align specificity
 :host(:where(:state(focus))[negative]) {
-  --sbb-form-field-border-color: var(--sbb-border-color-3-negative);
-  --sbb-form-field-prefix-color: var(--sbb-color-3-negative);
-}
-
-// We must not use :where here, as it needs the added specificity to properly work
-:host(:state(focus)) {
-  @media (forced-colors: active) {
-    --sbb-form-field-border-color: Highlight;
-    --sbb-form-field-prefix-color: Highlight;
-  }
+  --sbb-form-field-prefix-color: var(--sbb-form-field-prefix-color-focus-negative);
+  --sbb-form-field-border-color: var(--sbb-form-field-border-color-focus-negative);
 }
 
 // :where is to align specificity

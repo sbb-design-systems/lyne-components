@@ -51,7 +51,7 @@
 
 :host(:disabled) {
   --sbb-calendar-cell-color: var(--sbb-calendar-cell-disabled-color);
-  --sbb-calendar-cell-cursor: default;
+  --sbb-calendar-cell-cursor: var(--sbb-cursor-default);
 }
 
 :host(:disabled:state(crossed-out)) {

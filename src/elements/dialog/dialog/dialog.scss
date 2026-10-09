@@ -30,9 +30,11 @@
   --sbb-dialog-backdrop-pointer-events: all;
 }
 
+// Support nested dialogs
 :host(:not([negative])) {
   --_sbb-dialog-color: var(--sbb-dialog-color);
   --_sbb-dialog-block-shadow: var(--sbb-dialog-block-shadow);
+  --sbb-dialog-actions-border-color: var(--sbb-background-color-4);
   --sbb-dialog-background-color: var(--sbb-background-color-1);
 }
 

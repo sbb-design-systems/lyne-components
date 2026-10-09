@@ -1,3 +1,6 @@
+/**
+ * TODO: with next major release, move this function to scroll-controller.ts
+ */
 export function pageScrollDisabled(): boolean {
   return document.body.hasAttribute('data-sbb-scroll-disabled');
 }
@@ -5,6 +8,8 @@ export function pageScrollDisabled(): boolean {
 /**
  * Checks whether the given element can be scrolled vertically
  * (i.e. it has an overflow of `auto`/`scroll` and its content overflows its box).
+ *
+ * TODO: with next major release, remove this function together with SbbScrollHandler.
  */
 function isVerticallyScrollable(element: Element): boolean {
   const overflowY = getComputedStyle(element).overflowY;
@@ -16,6 +21,8 @@ function isVerticallyScrollable(element: Element): boolean {
 /**
  * Walks the event's composed path (to properly support shadow DOM) and returns the
  * closest scrollable ancestor, if any, stopping at `document.body`/`document.documentElement`.
+ *
+ * TODO: with next major release, remove this function together with SbbScrollHandler.
  */
 function findScrollableAncestor(path: EventTarget[]): Element | null {
   for (const target of path) {
@@ -30,6 +37,8 @@ function findScrollableAncestor(path: EventTarget[]): Element | null {
 }
 
 /**
+ * @deprecated Use SbbScrollController instead.
+ *
  * Handle the page scroll, allowing to disable/enable the window scroll avoiding a potential
  * content shift caused by the disappearance/appearance of the scrollbar.
  *

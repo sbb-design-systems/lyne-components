@@ -7,7 +7,8 @@ import type { SbbAutocompleteElement } from '../../autocomplete.pure.ts';
 import type { SbbButtonElement } from '../../button.ts';
 import { sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
-import { i18nDialog } from '../../core.ts';
+import { i18nDialog, pageScrollDisabled } from '../../core.ts';
+import { SbbMenuElement } from '../../menu.ts';
 import { SbbStepElement } from '../../stepper/step/step.component.ts';
 
 import { assignDialogResult, SbbDialogCloseEvent, SbbDialogElement } from './dialog.component.ts';
@@ -884,6 +885,58 @@ describe('sbb-dialog', () => {
       await closeSpy.calledOnce();
       expect(nestedDialog, 'nested dialog').to.match(':state(state-closed)');
       expect(dialog, 'outer dialog').to.match(':state(state-closed)');
+    });
+  });
+
+  describe('with menu', () => {
+    it('keeps scroll disabled after opening a dialog from a menu', async () => {
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
+      const root: HTMLElement = await fixture(html`
+        <div>
+          <sbb-button id="menu-trigger">Menu trigger</sbb-button>
+          <sbb-menu id="menu" trigger="menu-trigger">
+            <sbb-menu-button id="dialog-trigger">Open dialog</sbb-menu-button>
+          </sbb-menu>
+          <sbb-dialog id="dialog" trigger="dialog-trigger">
+            <sbb-dialog-content>Dialog content</sbb-dialog-content>
+          </sbb-dialog>
+        </div>
+      `);
+
+      const menuTrigger = root.querySelector<SbbButtonElement>('#menu-trigger')!;
+      const menu = root.querySelector<SbbMenuElement>('#menu')!;
+      const menuOpenSpy = new EventSpy(SbbMenuElement.events.open, menu);
+      const menuCloseSpy = new EventSpy(SbbMenuElement.events.close, menu);
+
+      const dialogTrigger = root.querySelector<HTMLElement>('#dialog-trigger')!;
+      const dialog = root.querySelector<SbbDialogElement>('#dialog')!;
+      const dialogOpenSpy = new EventSpy(SbbDialogElement.events.open, dialog);
+
+      // Menu opens
+      menuTrigger.click();
+      await waitForLitRender(root);
+      await menuOpenSpy.calledOnce();
+      expect(menu).to.match(':state(state-opened)');
+      // In large and above, scroll is enabled
+      expect(pageScrollDisabled()).to.be.false;
+
+      // Dialog opens, scroll should be disabled
+      dialogTrigger.click();
+      await waitForLitRender(root);
+      await dialogOpenSpy.calledOnce();
+      expect(dialog).to.match(':state(state-opened)');
+      expect(pageScrollDisabled()).to.be.true;
+
+      // Menu closes, it does not interfere with scroll
+      await menuCloseSpy.calledOnce();
+      expect(menu).to.match(':state(state-closed)');
+      expect(pageScrollDisabled()).to.be.true;
+
+      // Dialog closes, scroll is enabled again
+      dialog.close();
+      await waitForLitRender(root);
+      await waitForCondition(() => !pageScrollDisabled());
+      expect(pageScrollDisabled()).to.be.false;
     });
   });
 
