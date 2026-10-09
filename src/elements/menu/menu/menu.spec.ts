@@ -433,6 +433,16 @@ describe(`sbb-menu`, () => {
 
       expect(link.negative).to.be.true;
     });
+
+    it('it removes icon space if hide-icon-space is set to true', async () => {
+      const button = element.querySelector('sbb-menu-button')!;
+      const buttonIconSlot = button.shadowRoot!.querySelector('.sbb-menu-action__icon')!;
+      expect(getComputedStyle(buttonIconSlot).getPropertyValue('display')).to.be.equal('flex');
+
+      element.hideIconSpace = true;
+      await waitForLitRender(element);
+      expect(getComputedStyle(buttonIconSlot).getPropertyValue('display')).to.be.equal('none');
+    });
   });
 
   describe(`nested`, () => {
