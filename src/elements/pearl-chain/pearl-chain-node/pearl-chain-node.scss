@@ -47,7 +47,7 @@
 }
 
 .bullet--skip .dash {
-  fill: var(--sbb-color-red);
+  fill: var(--sbb-color-error);
 }
 
 .bullet--exceptional-skip {
@@ -55,7 +55,7 @@
   height: var(--sbb-pearl-chain-bullet-exceptional-skip-size);
 
   .dash {
-    fill: var(--sbb-color-red);
+    fill: var(--sbb-color-error);
   }
 }
 

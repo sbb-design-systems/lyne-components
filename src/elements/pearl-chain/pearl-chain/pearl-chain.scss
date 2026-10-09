@@ -4,7 +4,7 @@
   position: relative;
   display: block;
 
-  --sbb-pearl-chain-bullet-now-animation-duration: var(--sbb-disable-animation-duration, 1.92s);
+  --sbb-pearl-chain-bullet-now-animation-duration: var(--sbb-disable-animation-duration, 2s);
 }
 
 :host(:state(horizontal)) {

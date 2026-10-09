@@ -103,6 +103,7 @@ export class SbbPearlChainNodeElement extends SbbElement {
   }
   private _now: Date = new Date();
 
+  /** The bullet svg; read by the parent chain to measure the exact bullet position. */
   protected svgElem: Element | undefined;
 
   private _chain: SbbPearlChainElement | null = null;

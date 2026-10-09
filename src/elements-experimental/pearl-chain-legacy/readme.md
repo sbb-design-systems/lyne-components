@@ -1,3 +1,5 @@
+> **Deprecated:** `<sbb-pearl-chain-legacy>` is deprecated. Use `<sbb-pearl-chain>` and `<sbb-pearl-chain-node>` from `@sbb-esta/lyne-elements` instead.
+
 The `<sbb-pearl-chain-legacy>` component displays all parts of a journey, including changes of trains or other kinds of transports.
 Also, it is possible to render the current position.
 

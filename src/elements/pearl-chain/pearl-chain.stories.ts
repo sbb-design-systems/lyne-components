@@ -3,6 +3,7 @@ import { html, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../docs/helpers/spread.ts';
+import type { SbbPearlChainNodeElement } from '../pearl-chain.ts';
 
 import readme from './readme.md?raw';
 
@@ -39,22 +40,22 @@ const type: InputType = {
 
 const disrupted: InputType = {
   control: { type: 'inline-radio' },
-  options: [null, true, 'arrival', 'departure'],
+  options: [null, true, 'arrival', 'departure'] satisfies SbbPearlChainNodeElement['disrupted'][],
 };
 
 const irrelevant: InputType = {
   control: { type: 'inline-radio' },
-  options: [null, true, 'arrival', 'departure'],
+  options: [null, true, 'arrival', 'departure'] satisfies SbbPearlChainNodeElement['irrelevant'][],
 };
 
 const walk: InputType = {
   control: { type: 'inline-radio' },
-  options: [null, true, 'arrival', 'departure'],
+  options: [null, true, 'arrival', 'departure'] satisfies SbbPearlChainNodeElement['walk'][],
 };
 
 const unsure: InputType = {
   control: { type: 'inline-radio' },
-  options: [null, true, 'arrival', 'departure'],
+  options: [null, true, 'arrival', 'departure'] satisfies SbbPearlChainNodeElement['unsure'][],
 };
 
 const now: InputType = {
