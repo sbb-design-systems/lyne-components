@@ -3264,130 +3264,70 @@
   resolved "https://registry.yarnpkg.com/@xn-sakina/rml-win32-x64-msvc/-/rml-win32-x64-msvc-2.9.0.tgz#d774f5d0fef4480e8160dfc0f3bb4e77038f77e6"
   integrity sha512-FkbgYRj3+5l8D4ufTDAQ1eP8cCZjmt0XK41eNJvGguvokFCpH0y0HscVhDPjrH4EuLP9/8pZ4bEFFcSEZeFoZQ==
 
-"@yuku-codegen/binding-android-arm64@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-codegen/binding-android-arm64/-/binding-android-arm64-0.10.2.tgz#25bb687245e5fe6d06afe43d7bfc9212553a8a8b"
-  integrity sha512-Oc2KInVkPfUjEB4PeV6X0NvIoyYTzDe/WmqFrTwBqKs6YKnz4A7XwWQvJTb7M0rLz9a6WgpUUiiS5QKaCi4O/g==
+"@yuku-core/binding-android-arm64@0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@yuku-core/binding-android-arm64/-/binding-android-arm64-0.18.1.tgz#3d4e1f6edfb3fc6adab1522a1bba562a1adc0a0e"
+  integrity sha512-1XTUWTmnpwXNyPwRLSQDjvHu7WPgykzCniYtTk+5ppnriznVONWd9TRPcFxCR8dlZ7HFGtv8v1wzbQmtmVlHNQ==
 
-"@yuku-codegen/binding-darwin-arm64@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-codegen/binding-darwin-arm64/-/binding-darwin-arm64-0.10.2.tgz#3fe2bd066519ec93a5edfb831a07bc4976950665"
-  integrity sha512-3H7eNPIHJndUJXZ4QUGBPq1zC6RGcUZfm7bymJes+/N7wTVWUn1bxZ9JcozYHpkWQNm9f23G8YWbaHD9aYH72A==
+"@yuku-core/binding-darwin-arm64@0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@yuku-core/binding-darwin-arm64/-/binding-darwin-arm64-0.18.1.tgz#bbd0c9f229d0d4413bd88fb2d841f0062713e3ae"
+  integrity sha512-7A7IPB/kEzIlm9Lwj6qVQ3ZORUH96mpqDWgGxkjmaAWGAfV4roTZWN+o7bW22BzcW55xbUKcZRslSZ8WRyqdQw==
 
-"@yuku-codegen/binding-darwin-x64@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-codegen/binding-darwin-x64/-/binding-darwin-x64-0.10.2.tgz#c22b3fdc06809b778dc5fd7d7c053aecdd20eab5"
-  integrity sha512-AJOUpR2s3LF9AWiiub/Uyc/UoXNTWcq8hK3cVI6fUSXtwh34dG21J6hRuNlO6JVJFTo4o3ScVvZOrh/YFfUEAA==
+"@yuku-core/binding-darwin-x64@0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@yuku-core/binding-darwin-x64/-/binding-darwin-x64-0.18.1.tgz#56ef81f352010243e1ba80dc840c689420387497"
+  integrity sha512-aBZgmsAf1u/ps042xE9pgH9zOY57Rn0K8BXOWjQ2dAIg4W5nyQ/Oo3U3+VAcaEeBt6Q/XCwnCUpshFpWQaOCrw==
 
-"@yuku-codegen/binding-freebsd-x64@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-codegen/binding-freebsd-x64/-/binding-freebsd-x64-0.10.2.tgz#82371fa3efa5e037a773f8ce2c6b715408c9016d"
-  integrity sha512-ms7DcZu87u5CiK/wMwvpKAvAmtaqKjCQIXNweMLypG6qbuiaOMQf1jpbB5+j46xBcgCovo8TQMcv0bCQLKIL9w==
+"@yuku-core/binding-freebsd-x64@0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@yuku-core/binding-freebsd-x64/-/binding-freebsd-x64-0.18.1.tgz#3a7d211eac16789c9b7dd0e3c1fe57d631a790c7"
+  integrity sha512-yOEEjmEW2XQWpoa+4J3+eVMhXd/4kMTXoLJ9WkhXMMeRpKGBtFGjX2uxV6qKuoti3talOnmMdi2/kvqkX+O4wQ==
 
-"@yuku-codegen/binding-linux-arm-gnu@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-codegen/binding-linux-arm-gnu/-/binding-linux-arm-gnu-0.10.2.tgz#f8a0a318af387d7772b5e5c636c36f4ec6d2a7f4"
-  integrity sha512-xJDpYAsKV5+eaiBhTYl05fvT6sst4PsCeuIFMRu9b0/WCSrNQPfCDtAQ5/MS6xNpsdujdZEPR+gmfWk3ZG5i3A==
+"@yuku-core/binding-linux-arm-gnu@0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@yuku-core/binding-linux-arm-gnu/-/binding-linux-arm-gnu-0.18.1.tgz#ae80ade94abaafe8d215ea20a3a7d90e8fe78007"
+  integrity sha512-klpvuNubx19bsox50+ioEYfvwUj/+O6ML9YBDjzsz9PULffyOYxkR+i63BYvg//jAcEE9oHIQphm2Wz3vmk1TA==
 
-"@yuku-codegen/binding-linux-arm-musl@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-codegen/binding-linux-arm-musl/-/binding-linux-arm-musl-0.10.2.tgz#42cdc273d406c1e46e81bff70a2012c3931ed980"
-  integrity sha512-qfTkgd7AEx61l4K9VtXWCGTxc/fmXJ4ZheDz3i+/AAJUtg4sa0bPrc0VBxPggB/rayR8Z3+JfrBItuyanBJJ9Q==
+"@yuku-core/binding-linux-arm-musl@0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@yuku-core/binding-linux-arm-musl/-/binding-linux-arm-musl-0.18.1.tgz#3d13496128c6ac0cc75689f5a23712ee9bb8a833"
+  integrity sha512-eUG20Eh3Ycrm2D5WvRIn7BJp1+iPiFL0zLDdavVM5B6ymYEEmgrs6mime/h2y4Is1GA9uGyBBJQHaqKTcRiEng==
 
-"@yuku-codegen/binding-linux-arm64-gnu@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-codegen/binding-linux-arm64-gnu/-/binding-linux-arm64-gnu-0.10.2.tgz#28dc27178c882ea6549eb9050908e605ee3a0316"
-  integrity sha512-4e6Mifm/4UdjtU3D8mATIrvgP+xEiH8xtQOjd0zpd72XKWT7ug3sdyhq2utkkZFP6BvYp7SgZrI+aR4VeIOHdw==
+"@yuku-core/binding-linux-arm64-gnu@0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@yuku-core/binding-linux-arm64-gnu/-/binding-linux-arm64-gnu-0.18.1.tgz#b1c76bd6a75a6d17d09dc2fbd63abf9640e34a76"
+  integrity sha512-og2/svnJ2Awjz4INj2lQh0KQMwy4FrVCtD5SgfoZNxdv5knG6XdIyIvZycRCeyk15AkHdhwJqCsHJFcB3tjTxg==
 
-"@yuku-codegen/binding-linux-arm64-musl@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-codegen/binding-linux-arm64-musl/-/binding-linux-arm64-musl-0.10.2.tgz#3a382b717fa9ddfec1a3247790634d7e90b5a263"
-  integrity sha512-RdsJrUfDYFVV3JOmWFUWwSu31fa1APn12xDeIKxgl/YWxrabwtxsDBNjF2561c7tmcbiewdCUvngqRs8AyGVLA==
+"@yuku-core/binding-linux-arm64-musl@0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@yuku-core/binding-linux-arm64-musl/-/binding-linux-arm64-musl-0.18.1.tgz#6b7e50baf4716bae8ea1f12553aeeebb1ed08d1e"
+  integrity sha512-dmkidtxAY3iSUOFAOwnp7w8nVx1s9QdSdyiJPVw0TkBlLhQySuQer3Pir3tmhIhHC+Oc2Bn0f0QQpFNAMvzTPQ==
 
-"@yuku-codegen/binding-linux-x64-gnu@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-codegen/binding-linux-x64-gnu/-/binding-linux-x64-gnu-0.10.2.tgz#93f100f76b67da71f969dcf31e68aecdf0e8481a"
-  integrity sha512-mVzWimEPPreaPyXIUvxsHoJzvO7ckZ5j0LgQFHz04zQIRwt9A9T2hA7K5/jYjJKkMxWG/U2VjhGNwVhtyU+uqg==
+"@yuku-core/binding-linux-x64-gnu@0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@yuku-core/binding-linux-x64-gnu/-/binding-linux-x64-gnu-0.18.1.tgz#75a4a25090f53d08fbb22f2307ff5c831e2b158f"
+  integrity sha512-eXAZacTOzJbzv6sT/4h03MBE4DNGObfuTg3L6+FGADFt8Sam7peyhaFAekQIwvLETX3WYXhMwTehKPB69sdmcA==
 
-"@yuku-codegen/binding-linux-x64-musl@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-codegen/binding-linux-x64-musl/-/binding-linux-x64-musl-0.10.2.tgz#a4f34786ee1c6623c3cf694f0e45c891633f2b6a"
-  integrity sha512-Y77fyISurmr2mvO1yeq3u+x/WJbACgPR4w+lzEVx30ViCxZzIGrZPRN1yEdZ9xUNPNsIO5thBHIdRNG+UGUG+Q==
+"@yuku-core/binding-linux-x64-musl@0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@yuku-core/binding-linux-x64-musl/-/binding-linux-x64-musl-0.18.1.tgz#d8c92cba4151f5707ec593a974771b5caabccf98"
+  integrity sha512-mdeItxbo5No5ht5XdHh0mCHDBne/STUuzphzGQQxVX+XSsBPbUHsZkmUAahycR6RoEP2UF/YBhg1M5f0phBO9A==
 
-"@yuku-codegen/binding-win32-arm64@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-codegen/binding-win32-arm64/-/binding-win32-arm64-0.10.2.tgz#9f331c9b3dc9703706b1a49374ac074d16e17e2f"
-  integrity sha512-1+tGLyG0u5YYy0lev4ck7/0sd8xJ9SZde0dLut7qLDPZV5WVTV8x6OxNXUne/PGuHZyO1vK+txPQzzHOyXHGSw==
+"@yuku-core/binding-win32-arm64@0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@yuku-core/binding-win32-arm64/-/binding-win32-arm64-0.18.1.tgz#105dddfac4b3c6351f1ee4f7977dbd6cf787941a"
+  integrity sha512-0CyeB03Lr/QV9XHGyuChJ3V99X9M/6Q+3JB3ZRJWjqs13G1qIeIiHwsaCfqIJsqei9wxBtaKWZ1vBU7ApQfMEA==
 
-"@yuku-codegen/binding-win32-x64@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-codegen/binding-win32-x64/-/binding-win32-x64-0.10.2.tgz#8796882167c55ddc1823cd28bd61fe1403212d40"
-  integrity sha512-8a2SExRohRbwC0MY4VpOF0/RSckrJ2ASZqAor5/RYSJJaeadR93n10gZzcKT6pY9ukiSOIZCRKVRD2tH73T0qA==
+"@yuku-core/binding-win32-x64@0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@yuku-core/binding-win32-x64/-/binding-win32-x64-0.18.1.tgz#d381bab7945ea063251a306b71cee6399e5ffbd2"
+  integrity sha512-p0zG4bkR4++W011YbcP7Thg0UunaX9Lfg6U3nHEEwLrvTNy4P0+I5GO762tdjLozZpZwWLV/HmYNeecyOS2y5g==
 
-"@yuku-parser/binding-android-arm64@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-parser/binding-android-arm64/-/binding-android-arm64-0.10.2.tgz#1f34195e6a22d1eb9756687d04d50e9e5c4ea449"
-  integrity sha512-2VPBU9fRGRAQ2xPAvghnec3oou5Nrxm2Bezhf+13UMspAxQSkF/32r+ySKXSwIPA5/RivumDJDxAxc301Sgicw==
-
-"@yuku-parser/binding-darwin-arm64@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-parser/binding-darwin-arm64/-/binding-darwin-arm64-0.10.2.tgz#ce9063e0f44416c742bd2f8fa767682b3e6193b7"
-  integrity sha512-LD+PMZE51tCYTOss5HBkm3/AE39MvcMDBfWJx7A4yDcjfNbAQDnHZKtzSOuqrswx+TQHY0ws5xn6+fWOwtmfBA==
-
-"@yuku-parser/binding-darwin-x64@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-parser/binding-darwin-x64/-/binding-darwin-x64-0.10.2.tgz#8dd54b2147fa0a3f675d127761f0b45bc0f59ed5"
-  integrity sha512-mmZ8cND+AoIIMRERyMinlg5ApHxP23B9jH2B5wT7T+dliPa9rubLxneB/SUjFwyUjGaFnB5G7t4YvpfbO5zbkQ==
-
-"@yuku-parser/binding-freebsd-x64@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-parser/binding-freebsd-x64/-/binding-freebsd-x64-0.10.2.tgz#23304bf91976a0f8be71f185f3f9abd0ccd2029d"
-  integrity sha512-gVIjaaIddbRfAhHlC8N809wQWml7mxfSVnzaLtzGXObTeFTPAg/YVnQXt1UOhPM1ah5eG/8Y0RUlNpB4GVe7eQ==
-
-"@yuku-parser/binding-linux-arm-gnu@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-parser/binding-linux-arm-gnu/-/binding-linux-arm-gnu-0.10.2.tgz#f6e11c4d7b9c2012bff0c6dde87d1b72992f143a"
-  integrity sha512-q/XPPQQAPdlw05aPj30ygBhekmQryGOwxVraBgApjKK8yY1kNQgqq6XCYLF1WHSee+lhxclrTO7W0/bt7dR1GA==
-
-"@yuku-parser/binding-linux-arm-musl@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-parser/binding-linux-arm-musl/-/binding-linux-arm-musl-0.10.2.tgz#211986a9f7c4b7257db0edb4011adb3c740b0241"
-  integrity sha512-A+Cb0I1hFF4wilTQpWs79k1aNnj4B2tkrHx3zsuUNF9BtVY2zPZ4yeQEM/zjXrS/qJlNMZVK9NrWJjwdpnTrfg==
-
-"@yuku-parser/binding-linux-arm64-gnu@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-parser/binding-linux-arm64-gnu/-/binding-linux-arm64-gnu-0.10.2.tgz#f8d9ab19f45ff1a5d11447b3818a39b35fc37e75"
-  integrity sha512-aGNSzqIqqphFwAdIFwVvKIyXD1Iy3CxrEJVIZAT87Ecyi4vCmmDD2v2l9h+Gd3/wSy3JZlOI792LJbKAjyy9rQ==
-
-"@yuku-parser/binding-linux-arm64-musl@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-parser/binding-linux-arm64-musl/-/binding-linux-arm64-musl-0.10.2.tgz#e7f41f317e18d68c76e883fc57e14f7e2236bb89"
-  integrity sha512-Ddl1sF0rtuCXyHGSOV6dcmdx+ETv1iD+IVFqQuOjzkJZWclxJxdBWX6ZJMRtTiGqGUTbqLEKiTXxpR/Bvqk+2A==
-
-"@yuku-parser/binding-linux-x64-gnu@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-parser/binding-linux-x64-gnu/-/binding-linux-x64-gnu-0.10.2.tgz#9fb9afb9d3567651d60ad0e0989692639a2d230d"
-  integrity sha512-/nlcpR6IF5U+0m5L9wvAIXeQa2DT+BXuvqKDsTcOTlcc0B4dHNyqE5hTXsS4hAyimpy2ZK8A1zMNF5hTrjg2cg==
-
-"@yuku-parser/binding-linux-x64-musl@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-parser/binding-linux-x64-musl/-/binding-linux-x64-musl-0.10.2.tgz#495d1e421ace9b4784f23e8823136e4f8e4c0c70"
-  integrity sha512-GX80dxTQD/M/OryyuxJcFzFENzry3cDFPvCFTyWogNWQH3fSHfMrNfpwpl1YzMos1eV9NygK5GSDG7VArQlb4w==
-
-"@yuku-parser/binding-win32-arm64@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-parser/binding-win32-arm64/-/binding-win32-arm64-0.10.2.tgz#d4178019333b923a6b2d1a1823e18ff015f02e9a"
-  integrity sha512-agePQBV4VHewiGU0ACSjscZ/hJd283f9JfAF19Gf1rI5+wy5tTgx4GS36i0b3xim15AQ4RCpDRosEvhLZ4zAOw==
-
-"@yuku-parser/binding-win32-x64@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-parser/binding-win32-x64/-/binding-win32-x64-0.10.2.tgz#2d5b1668238bc79a47fd677b2fff81564d4ce93a"
-  integrity sha512-s8//CMpgL5+y1lvDCdyh1rwGI5+ytDJywFJRe1vnhI7n0j+caxshNucurikYLLVeQ2SYFex6aPrzgQxkabBQRA==
-
-"@yuku-toolchain/types@^0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@yuku-toolchain/types/-/types-0.10.2.tgz#7d54abc445a05ca897b43b4775f14c2d5191307b"
-  integrity sha512-sSeo4SSSToiS+sSD+bwn/s94EEcaLJ7tG5LCp8gFYC1G5VzxzX7fqB6m9RU1yMD8KTpu6zdU/I1NlQf8hVBJ9Q==
+"@yuku-toolchain/types@^0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@yuku-toolchain/types/-/types-0.18.1.tgz#a03bb0658ca2a5baf41a8af8fe8ee4c9e263f816"
+  integrity sha512-rWtqVdjA8O34nV/4mBFIdUm5Zj+FIzZDR7P2PEpqXXp53VEHabTROu7j2RjzzJbLMVYjW6gDKwOgPgiKRA+x4w==
 
 accepts@^1.3.5:
   version "1.3.8"
@@ -3784,10 +3724,10 @@ bytes@~3.1.2:
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.2.tgz#8b0beeb98605adf1b128fa4386403c009e0221a5"
   integrity sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==
 
-cac@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/cac/-/cac-7.0.0.tgz#7dda83da2268f75f840ab89ac3bcc36c120a78da"
-  integrity sha512-tixWYgm5ZoOD+3g6UTea91eow5z6AAHaho3g0V9CNSNb45gM8SmflpAc+GRd1InC4AqN/07Unrgp56Y94N9hJQ==
+cac@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/cac/-/cac-7.0.1.tgz#5383131e21cd91ee875a47045dfaa95be4cf75f2"
+  integrity sha512-86diuUyeeWM8CrqhpGCaDafrzjS1s++7sWy2AbAPoFNz/xKv7ID57CR4pZsMuGCh60PtsnEx4z68b+Vgt07VPw==
 
 cache-content-type@^1.0.0:
   version "1.0.1"
@@ -4716,7 +4656,7 @@ emoji-regex@^8.0.0:
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
   integrity sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==
 
-empathic@^2.0.1:
+empathic@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/empathic/-/empathic-2.1.0.tgz#01c69da7b93f603d9a7e1c1d5f86ad8354273a17"
   integrity sha512-AnfC1ATldl49/cvZdLPDjBfrRNwbDO05aibiOtzQu3qtlbJtomNLhF30HEtn/7iBz50dlMECqATo3fG0LrdEgw==
@@ -5749,7 +5689,7 @@ hasown@^2.0.2, hasown@^2.0.4:
   dependencies:
     function-bind "^1.1.2"
 
-hookable@^6.1.1:
+hookable@^6.1.2:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/hookable/-/hookable-6.1.2.tgz#9d0c83e2888bac07b6982e3a3068d5861e2ee5a2"
   integrity sha512-+abwxtiEA52GCVIsQqut3S/uKTbUwYIp4Pe/vv+6py5XiXBCqMZHg6pA6Y5qhgLSEys0/cYuPbO0z1QFj5ZCmg==
@@ -5864,7 +5804,7 @@ import-meta-resolve@^4.2.0:
   resolved "https://registry.yarnpkg.com/import-meta-resolve/-/import-meta-resolve-4.2.0.tgz#08cb85b5bd37ecc8eb1e0f670dc2767002d43734"
   integrity sha512-Iqv2fzaTQN28s/FwZAoFq0ZSs/7hMAHJVX+w8PZl3cY19Pxk6jFFalxQoIfW2826i/fDLXv8IiEZRIT0lDuWcg==
 
-import-without-cache@^0.4.0:
+import-without-cache@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/import-without-cache/-/import-without-cache-0.4.1.tgz#8d0f656f2810be80753cc00f13af39e1cf2eff3e"
   integrity sha512-vXoV9PjKHEednCUu01e98TkImxy67e3BJXbTIOmIq4Hyzw3IAwYRcuPkfeTzJzwyyts4kjuA73x+pWJLc4f86A==
@@ -8119,11 +8059,6 @@ object.values@^1.1.6, object.values@^1.2.1:
     define-properties "^1.2.1"
     es-object-atoms "^1.0.0"
 
-obug@^2.1.4:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/obug/-/obug-2.2.1.tgz#9c453efeeda822050eb9774242e969c784d64d78"
-  integrity sha512-XrsrhT5sybtKI6wakr2SPOlGZWWYbUXZ7a0jT8/QOeAPau+1X/bSegNe5YR75oJmEZQbKningirmGOEJCIk61Q==
-
 obug@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/obug/-/obug-3.0.0.tgz#2ddfc17d1c1dd8c825eebd127099da307c919299"
@@ -9035,19 +8970,19 @@ rimraf@^6.1.3:
     glob "^13.0.3"
     package-json-from-dist "^1.0.1"
 
-rolldown-plugin-dts@^0.28.5:
-  version "0.28.6"
-  resolved "https://registry.yarnpkg.com/rolldown-plugin-dts/-/rolldown-plugin-dts-0.28.6.tgz#ab6d7a196582b8ad4ba2840b00ef005924550177"
-  integrity sha512-qKrFtBfRfR2hP233m7Ic9zf3wv6MSYdZghWKMdEO6dRYZGlNfINJAa1P5ZVvyHh3mrcd7IJQvIY8L9vnm+v5rQ==
+rolldown-plugin-dts@^0.28.7:
+  version "0.28.7"
+  resolved "https://registry.yarnpkg.com/rolldown-plugin-dts/-/rolldown-plugin-dts-0.28.7.tgz#46427a40fa7778c8027837f73d87b82b31df570e"
+  integrity sha512-o0lA6/NPzBAhMFgnIVJgW4eMBbMBQ8sXEbq4GqEHloerWMLqLNatpFy5AlWpEKskFShWKNghMMI8naul9Lgo5Q==
   dependencies:
     dts-resolver "^3.0.0"
     get-tsconfig "5.0.0-beta.6"
     obug "^3.0.0"
-    yuku-ast "^0.10.1"
-    yuku-codegen "^0.10.1"
-    yuku-parser "^0.10.1"
+    yuku-ast "^0.18.1"
+    yuku-codegen "^0.18.1"
+    yuku-parser "^0.18.1"
 
-rolldown@~1.2.12:
+rolldown@~1.2.12, rolldown@~1.2.13:
   version "1.2.13"
   resolved "https://registry.yarnpkg.com/rolldown/-/rolldown-1.2.13.tgz#5cd39d0051a821bffd27d8def0b20d11a1b8b5a7"
   integrity sha512-/5apOkwWxtACcQtZ5WlrAsKS4JwXVThQPJZ3RqIruRY9UG9M8e0VlXN068xum/JRKA4aIUoJ13ghe/kGCvidiQ==
@@ -10065,25 +10000,25 @@ tsconfig-paths@^4.2.0:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tsdown@0.23.0:
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/tsdown/-/tsdown-0.23.0.tgz#62310aee342daa88ec8367f0f8ac0cab8605f44e"
-  integrity sha512-BaT+ep1xnj5hdyICLd5r5SYYE+TXnI1ATePLykv9vcKpHpFTWUWRH+x1AF/E2qcu3YB6+vI8IdyxIIIffEqw5Q==
+tsdown@0.23.1:
+  version "0.23.1"
+  resolved "https://registry.yarnpkg.com/tsdown/-/tsdown-0.23.1.tgz#68a1e8dec337ebe819a0a3ce3b9c0e2ab848d2cf"
+  integrity sha512-MSC2WSOts3in95J334/VIS7KPfor3eCSvndJ6KdoVj9Aak9Kh1aNfz9ws5owhdukuTNSXRdfkPEzA/ihpDD6SA==
   dependencies:
-    cac "^7.0.0"
+    cac "^7.0.1"
     defu "^6.1.7"
-    empathic "^2.0.1"
-    hookable "^6.1.1"
-    import-without-cache "^0.4.0"
-    obug "^2.1.4"
+    empathic "^2.1.0"
+    hookable "^6.1.2"
+    import-without-cache "^0.4.1"
+    obug "^3.0.0"
     picomatch "^4.0.7"
-    rolldown "~1.2.7"
-    rolldown-plugin-dts "^0.28.5"
+    rolldown "~1.2.13"
+    rolldown-plugin-dts "^0.28.7"
     tinyexec "^1.3.1"
     tinyglobby "^0.2.17"
     tree-kill "^1.2.2"
     unconfig-core "^7.5.0"
-    verkit "^0.4.0"
+    verkit "^0.5.0"
 
 tslib@2.8.1, tslib@^2.0.1, tslib@^2.1.0, tslib@^2.4.0:
   version "2.8.1"
@@ -10503,10 +10438,10 @@ vary@^1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
 
-verkit@^0.4.0:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/verkit/-/verkit-0.4.1.tgz#f8c00a63516c5ed3fe7dbbc82355c50579c42c61"
-  integrity sha512-mMVzj0TXExtVdlDEq+Mzp0eyOuyznNpFobNM3uAqe3HVm/Ps2c+u17BligMkZjZCA6EiXpoon8iRTer3iu40SQ==
+verkit@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/verkit/-/verkit-0.5.0.tgz#8b7617dda9ad2edb7851c6a4ff5f3ca428482401"
+  integrity sha512-u4J1hr6Y+C/hit34GwL3eIcUf3wngT8TlYUjK7tk0jxydKLAq3sYvifjdTDA6U3KCKRcQCQDGf/srjxfZF3l7g==
 
 vfile-message@^2.0.0:
   version "2.0.4"
@@ -10905,53 +10840,47 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-yuku-ast@^0.10.1, yuku-ast@^0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/yuku-ast/-/yuku-ast-0.10.2.tgz#5a6a167737cba1b460898a3e04cc425ee2716554"
-  integrity sha512-UnG9mA6giglCvSErft2/40TVFX750Sj1xgwddPLpG7J7rlr/P1wPADg9G2RK+d/1tNLtRVoLdMMOMVBB9561TQ==
+yuku-ast@^0.18.1:
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/yuku-ast/-/yuku-ast-0.18.1.tgz#04ed8072b9b025c8615f1dd60356a8841e04f54c"
+  integrity sha512-Y9YgmYeExF+13IOm4r9pTgmQiCVJtrhq014st78eAckWlCkbjzNd2AVrQHng5uiLz9j31O4sGYhuP3znSKJv9w==
   dependencies:
-    "@yuku-toolchain/types" "^0.10.2"
+    "@yuku-toolchain/types" "^0.18.1"
 
-yuku-codegen@^0.10.1:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/yuku-codegen/-/yuku-codegen-0.10.2.tgz#647997bca6f4a6209a49c75751d0f421151065c3"
-  integrity sha512-hentl2dtrF6cPjiAirtkfxfFZBA6Hdm61UqRJ7cA0qrlDNMk9PZGOjw5w1mx3E0hu/6pHcJF4dJW+D0SXHPZOA==
+yuku-codegen@^0.18.1:
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/yuku-codegen/-/yuku-codegen-0.18.1.tgz#6aa49d113270462208daa30c05f892ce29898e4d"
+  integrity sha512-0tNgBfNHW6+tEBGEf1N20C6tDsFR9Vj344Ey01wgAMeP+j0zR5WBF8dyzOu5oA/n6Yz6YqV1ZcASdi0cin+q8A==
   dependencies:
-    "@yuku-toolchain/types" "^0.10.2"
-  optionalDependencies:
-    "@yuku-codegen/binding-android-arm64" "0.10.2"
-    "@yuku-codegen/binding-darwin-arm64" "0.10.2"
-    "@yuku-codegen/binding-darwin-x64" "0.10.2"
-    "@yuku-codegen/binding-freebsd-x64" "0.10.2"
-    "@yuku-codegen/binding-linux-arm-gnu" "0.10.2"
-    "@yuku-codegen/binding-linux-arm-musl" "0.10.2"
-    "@yuku-codegen/binding-linux-arm64-gnu" "0.10.2"
-    "@yuku-codegen/binding-linux-arm64-musl" "0.10.2"
-    "@yuku-codegen/binding-linux-x64-gnu" "0.10.2"
-    "@yuku-codegen/binding-linux-x64-musl" "0.10.2"
-    "@yuku-codegen/binding-win32-arm64" "0.10.2"
-    "@yuku-codegen/binding-win32-x64" "0.10.2"
+    "@yuku-toolchain/types" "^0.18.1"
 
-yuku-parser@^0.10.1:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/yuku-parser/-/yuku-parser-0.10.2.tgz#b37b9d7317af27d367deae2b00ef3c6c0ec911fb"
-  integrity sha512-CgaU0/PPjCAIEZ3WQroosOxTY3eeKldAN3h+vk8pMNz4+jl1CZzBR4pW+K/rRPF112VooCL5FdjJoiMNjDrL2A==
+yuku-core@0.18.1:
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/yuku-core/-/yuku-core-0.18.1.tgz#a959c5db4bd26b2b56947e591cbc033bdd72df0a"
+  integrity sha512-8PEOCKEi7r3nPY5cF0ZtJJSQj0ftwd0GC4En8fDQIP3nxw5ysSDwM0RcEuyHBblowRb82ad9AsExpqnKXAtC1Q==
   dependencies:
-    "@yuku-toolchain/types" "^0.10.2"
-    yuku-ast "^0.10.2"
+    "@yuku-toolchain/types" "^0.18.1"
   optionalDependencies:
-    "@yuku-parser/binding-android-arm64" "0.10.2"
-    "@yuku-parser/binding-darwin-arm64" "0.10.2"
-    "@yuku-parser/binding-darwin-x64" "0.10.2"
-    "@yuku-parser/binding-freebsd-x64" "0.10.2"
-    "@yuku-parser/binding-linux-arm-gnu" "0.10.2"
-    "@yuku-parser/binding-linux-arm-musl" "0.10.2"
-    "@yuku-parser/binding-linux-arm64-gnu" "0.10.2"
-    "@yuku-parser/binding-linux-arm64-musl" "0.10.2"
-    "@yuku-parser/binding-linux-x64-gnu" "0.10.2"
-    "@yuku-parser/binding-linux-x64-musl" "0.10.2"
-    "@yuku-parser/binding-win32-arm64" "0.10.2"
-    "@yuku-parser/binding-win32-x64" "0.10.2"
+    "@yuku-core/binding-android-arm64" "0.18.1"
+    "@yuku-core/binding-darwin-arm64" "0.18.1"
+    "@yuku-core/binding-darwin-x64" "0.18.1"
+    "@yuku-core/binding-freebsd-x64" "0.18.1"
+    "@yuku-core/binding-linux-arm-gnu" "0.18.1"
+    "@yuku-core/binding-linux-arm-musl" "0.18.1"
+    "@yuku-core/binding-linux-arm64-gnu" "0.18.1"
+    "@yuku-core/binding-linux-arm64-musl" "0.18.1"
+    "@yuku-core/binding-linux-x64-gnu" "0.18.1"
+    "@yuku-core/binding-linux-x64-musl" "0.18.1"
+    "@yuku-core/binding-win32-arm64" "0.18.1"
+    "@yuku-core/binding-win32-x64" "0.18.1"
+
+yuku-parser@^0.18.1:
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/yuku-parser/-/yuku-parser-0.18.1.tgz#480c82d5c3e7496244806e4b53fc53e2617a14bb"
+  integrity sha512-t5pANCF6k9rgJre7jk8DMAU4lEoI1oWWZgXk0fcvmCYQquFVWv0rf6Awwt56nnPiHb0E24dhtrpfgf9ChTCbrQ==
+  dependencies:
+    "@yuku-toolchain/types" "^0.18.1"
+    yuku-core "0.18.1"
 
 zod@^3.24.1:
   version "3.25.76"
