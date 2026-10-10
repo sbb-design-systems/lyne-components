@@ -2163,14 +2163,14 @@
     "@ts-graphviz/ast" "^2.0.7"
     "@ts-graphviz/common" "^2.1.5"
 
-"@tsdown/css@0.23.0":
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/@tsdown/css/-/css-0.23.0.tgz#c3c9e5f4aa646a9b11cc2bb0c634d71d1db10a67"
-  integrity sha512-EfSQCVAz24CRz92WdJj/Yb+gJMV3m2C/iDsFO4XJkd12Ez9WnW0KtpLohAFtc4gDzflFlh9I0UHTZc6BQmxSHw==
+"@tsdown/css@0.23.1":
+  version "0.23.1"
+  resolved "https://registry.yarnpkg.com/@tsdown/css/-/css-0.23.1.tgz#51a249ee8d39cbe7a0eedaf35042c4a6369f83a0"
+  integrity sha512-FLdllF5r22So3zwAuCRCLaxOCJqiN1SzihAncdoxHfe59Zj8nHDfaCBQBGYVDUJaHbr6fshSAcUXrgkJIr9dcA==
   dependencies:
     lightningcss "^1.33.0"
     postcss-load-config "^6.0.1"
-    rolldown "~1.2.7"
+    rolldown "~1.2.13"
 
 "@tybys/wasm-util@^0.10.3":
   version "0.10.4"
@@ -9047,7 +9047,7 @@ rolldown-plugin-dts@^0.28.5:
     yuku-codegen "^0.10.1"
     yuku-parser "^0.10.1"
 
-rolldown@~1.2.12:
+rolldown@~1.2.12, rolldown@~1.2.13:
   version "1.2.13"
   resolved "https://registry.yarnpkg.com/rolldown/-/rolldown-1.2.13.tgz#5cd39d0051a821bffd27d8def0b20d11a1b8b5a7"
   integrity sha512-/5apOkwWxtACcQtZ5WlrAsKS4JwXVThQPJZ3RqIruRY9UG9M8e0VlXN068xum/JRKA4aIUoJ13ghe/kGCvidiQ==
