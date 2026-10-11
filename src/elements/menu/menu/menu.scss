@@ -44,9 +44,9 @@
 }
 
 :host([hide-icon-space]) {
-  --sbb-menu-item-icon-visibility: hidden;
-  --sbb-menu-item-icon-display: none;
-  --sbb-menu-action-content-padding-inline: var(--sbb-spacing-fixed-3x);
+  --sbb-menu-item-hide-icon-visibility: hidden;
+  --sbb-menu-item-hide-icon-display: none;
+  --sbb-menu-hide-icon-padding-inline: var(--sbb-spacing-fixed-3x);
 }
 
 @include sbb.mq($to: large) {

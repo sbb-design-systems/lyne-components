@@ -231,6 +231,22 @@ const EllipsisTemplate = (args: Args): TemplateResult => html`
   </sbb-menu>
 `;
 
+const NoIconsTemplate = (args: Args): TemplateResult => html`
+  ${triggerButton('menu-trigger-1')}
+  <sbb-menu trigger="menu-trigger-1" ?hide-icon-space=${args['hide-icon-space']}>
+    <sbb-menu-link href="https://www.sbb.ch/en"> View </sbb-menu-link>
+    <sbb-menu-button
+      aria-label=${!args.disabled ? 'Edit' : nothing}
+      ?disabled-interactive=${args.disabled}
+    >
+      Edit
+    </sbb-menu-button>
+    <sbb-menu-button aria-label="Details"> Details </sbb-menu-button>
+    <sbb-divider></sbb-divider>
+    <sbb-menu-button>Cancel</sbb-menu-button>
+  </sbb-menu>
+`;
+
 export const Default: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
@@ -262,7 +278,7 @@ export const Ellipsis: StoryObj = {
 };
 
 export const NoIcons: StoryObj = {
-  render: DefaultTemplate,
+  render: NoIconsTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'hide-icon-space': true },
 };
