@@ -437,6 +437,10 @@ describe(`sbb-menu`, () => {
     it('it removes icon space if hide-icon-space is set to true', async () => {
       const button = element.querySelector('sbb-menu-button')!;
       const buttonIconSlot = button.shadowRoot!.querySelector('.sbb-menu-action__icon')!;
+
+      button.iconName = '';
+      await waitForLitRender(element);
+
       expect(getComputedStyle(buttonIconSlot).getPropertyValue('display')).to.be.equal('flex');
 
       element.hideIconSpace = true;
