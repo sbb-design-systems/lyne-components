@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.11.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.10.0...v5.11.0) (2026-10-11)
+
+
+### Features
+
+* **expansion-panel:** improve hover state ([#5281](https://github.com/sbb-design-systems/lyne-components/issues/5281)) ([f3ca14b](https://github.com/sbb-design-systems/lyne-components/commit/f3ca14b510f761769b401f03cc61b7249c6018d0))
+* **seat-reservation:** add support for DB partition walls ([#5293](https://github.com/sbb-design-systems/lyne-components/issues/5293)) ([fd40ceb](https://github.com/sbb-design-systems/lyne-components/commit/fd40ceb3a1323177e610c807079e4ae532db23d5))
+* **timetable-row:** new attributes to control badge content and coloring for group travel searches ([#5285](https://github.com/sbb-design-systems/lyne-components/issues/5285)) ([09be34d](https://github.com/sbb-design-systems/lyne-components/commit/09be34ddb50ad3b8c7c06ec64903fcf80bf02d9b))
+
+
+### Bug Fixes
+
+* **chip-label:** fix inline padding for size `xxxs` ([#5303](https://github.com/sbb-design-systems/lyne-components/issues/5303)) ([4141678](https://github.com/sbb-design-systems/lyne-components/commit/414167826553ad84bf87c554d09cb5706ff5a366)), closes [#5301](https://github.com/sbb-design-systems/lyne-components/issues/5301)
+* **dialog:** adapt divider color when nested with different negative attribute ([#5294](https://github.com/sbb-design-systems/lyne-components/issues/5294)) ([e8d69de](https://github.com/sbb-design-systems/lyne-components/commit/e8d69de61b87862ada6b36d769502d7d785ee38f))
+* **expansion-panel:** hover state ([#5300](https://github.com/sbb-design-systems/lyne-components/issues/5300)) ([90c9977](https://github.com/sbb-design-systems/lyne-components/commit/90c9977c411f7213c5d8a8a930be4ea828f607f1))
+* **form-field:** avoid shifted padding on focus with `sbb-input` class ([#5296](https://github.com/sbb-design-systems/lyne-components/issues/5296)) ([a15a819](https://github.com/sbb-design-systems/lyne-components/commit/a15a819a6cfdcaec0f808abd24d471b90dc19f7f))
+* **scroll:** improve scroll handlers for nested overlays ([#5288](https://github.com/sbb-design-systems/lyne-components/issues/5288)) ([0efbee3](https://github.com/sbb-design-systems/lyne-components/commit/0efbee34a36794a367dc2f27a17091e295920243))
+* **table:** add new region in readme ([#5290](https://github.com/sbb-design-systems/lyne-components/issues/5290)) ([1e4a74f](https://github.com/sbb-design-systems/lyne-components/commit/1e4a74fa790619ad104169bc6a8f576b6a6dfa1e))
+* **table:** add new region in readme ([#5291](https://github.com/sbb-design-systems/lyne-components/issues/5291)) ([6866bca](https://github.com/sbb-design-systems/lyne-components/commit/6866bca8411845de316124fd061fc2e77c7f1a79))
+
+
+### Performance Improvements
+
+* **core:** improve DOM traversal in inert controller ([#5282](https://github.com/sbb-design-systems/lyne-components/issues/5282)) ([f7f73f7](https://github.com/sbb-design-systems/lyne-components/commit/f7f73f7e5d69625abce8257a9b007f0b5b737fa5)), closes [#5273](https://github.com/sbb-design-systems/lyne-components/issues/5273)
+
+
+### Documentation
+
+* **loading-indicator:** clarify timings ([#5302](https://github.com/sbb-design-systems/lyne-components/issues/5302)) ([2232230](https://github.com/sbb-design-systems/lyne-components/commit/22322304912f85f92d2447b6456134d2fcd5b1c7))
+
+
+### Styles
+
+* **table:** move sorting CSS classes from lyne-angular ([#5276](https://github.com/sbb-design-systems/lyne-components/issues/5276)) ([69385ac](https://github.com/sbb-design-systems/lyne-components/commit/69385ac61e43bc8b9b6e8daaf02d0a7db2feaf8f))
+* use cursor tokens ([#5297](https://github.com/sbb-design-systems/lyne-components/issues/5297)) ([b0f3532](https://github.com/sbb-design-systems/lyne-components/commit/b0f3532b4cf484be325d707eda56ebad16da126a))
+
 ## [5.10.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.9.0...v5.10.0) (2026-09-24)
 
 
