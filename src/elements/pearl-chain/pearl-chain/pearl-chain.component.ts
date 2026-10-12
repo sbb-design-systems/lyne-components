@@ -201,7 +201,7 @@ export class SbbPearlChainElement extends SbbElement {
         // The line immediately before the pulsing dot.
         case 'before': {
           const ratio = this._progressRatio(this._nodes[index], this._nodes[index + 1])!;
-          const nowCords = lerp(nodesCords[index], nodesCords[index + 1], ratio);
+          const nowCords = lerp(start, end, ratio);
           this._setLineCords(el, start, nowCords);
           break;
         }
