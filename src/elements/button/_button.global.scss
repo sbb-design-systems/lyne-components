@@ -62,7 +62,6 @@ $loading: '[loading], .sbb-loading';
     --sbb-button-color-disabled-background: Canvas !important;
     --sbb-button-color-disabled-text: GrayText !important;
     --sbb-button-color-loading-border: Highlight !important;
-    --_sbb-button-loading-hidden-border-color: Canvas !important;
 
     // For static cases, button and link roles will override it.
     --sbb-button-color-default-text: CanvasText !important;
@@ -98,6 +97,7 @@ $loading: '[loading], .sbb-loading';
   border: var(--_border-action);
   transition-duration: var(--sbb-button-transition-duration);
   transition-timing-function: var(--sbb-button-transition-easing-function);
+  forced-color-adjust: var(--_forced-colors-adjust, auto);
 
   // When using padding-block as transition-property, it doesn't work in Safari
   transition-property: color, background-color, padding-top, padding-bottom;
@@ -257,8 +257,7 @@ $loading: '[loading], .sbb-loading';
     var(--sbb-focus-outline-offset) + var(--sbb-button-loading-border-width)
   );
   --_border: none;
-  --_border-action: var(--sbb-button-loading-border-width) dotted
-    var(--_sbb-button-loading-hidden-border-color, transparent);
+  --_border-action: var(--sbb-button-loading-border-width) dotted transparent;
   --_padding-block: calc(
     var(--sbb-button-padding-block-min) - var(--sbb-button-loading-border-width)
   );
@@ -266,6 +265,7 @@ $loading: '[loading], .sbb-loading';
     var(--sbb-button-padding-inline) - var(--sbb-button-loading-border-width)
   );
   --_animation: var(--_animation-loading-rotate), var(--_animation-loading-move);
+  --_forced-colors-adjust: none;
 }
 
 @mixin variables--primary {
