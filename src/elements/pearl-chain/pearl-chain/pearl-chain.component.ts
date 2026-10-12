@@ -66,6 +66,11 @@ export class SbbPearlChainElement extends SbbElement {
   private _userNow: Date | null = null;
   private _systemNow = new Date();
 
+  /** Returns the registered `sbb-pearl-chain-node` elements, in DOM order. */
+  public get nodes(): readonly SbbPearlChainNodeElement[] {
+    return this._nodes.slice();
+  }
+
   private _svgElem: Element | undefined;
   private _nodes: SbbPearlChainNodeElement[] = [];
   private _orientation: 'horizontal' | 'vertical' = 'vertical';

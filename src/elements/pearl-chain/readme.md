@@ -127,9 +127,10 @@ are purely decorative and not exposed to assistive technology. If the informatio
 
 #### Properties
 
-| Name  | Attribute | Privacy | Type   | Default | Description                                                                                                               |
-| ----- | --------- | ------- | ------ | ------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `now` | `now`     | public  | `Date` |         | A configured date which acts as the current date instead of the real current date. Only recommended for testing purposes. |
+| Name    | Attribute | Privacy | Type                                  | Default | Description                                                                                                               |
+| ------- | --------- | ------- | ------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `nodes` | -         | public  | `readonly SbbPearlChainNodeElement[]` | `[]`    | Returns the registered `sbb-pearl-chain-node` elements, in DOM order.                                                     |
+| `now`   | `now`     | public  | `Date`                                |         | A configured date which acts as the current date instead of the real current date. Only recommended for testing purposes. |
 
 #### Methods
 
