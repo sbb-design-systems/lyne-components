@@ -11,6 +11,7 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
+  forceType,
   forwardEvent,
   getElementPosition,
   getElementPositionHorizontal,
@@ -88,6 +89,14 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
   @idReference()
   @property()
   public accessor trigger: HTMLElement | null = null;
+
+  /**
+   * Whether the space reserved for the icon should be hidden.
+   */
+  //TODO: rename to preserveIconSpace and invert logic.
+  @forceType()
+  @property({ attribute: 'hide-icon-space', type: Boolean, reflect: true })
+  public accessor hideIconSpace: boolean = false;
 
   private _menu!: HTMLDivElement;
   private _triggerElement: HTMLElement | null = null;

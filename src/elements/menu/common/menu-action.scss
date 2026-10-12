@@ -96,6 +96,11 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   letter-spacing: var(--sbb-letter-spacing-text);
   font-size: var(--sbb-text-font-size-xs);
 
+  :host(:not([sbb-badge], :state(has-icon-name), :state(slotted-icon))) & {
+    padding: var(--sbb-menu-action-content-padding-block)
+      var(--sbb-menu-item-hide-icon-padding-inline, var(--sbb-menu-action-content-padding-inline));
+  }
+
   // Handle focus on the host (button variant)
   :host(:focus-visible) &,
   // Handle focus on the action (link variant)
@@ -110,9 +115,18 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 
 .sbb-menu-action__icon,
 .sbb-menu-submenu__icon {
-  display: flex;
   min-width: var(--sbb-size-icon-ui-small);
   min-height: var(--sbb-size-icon-ui-small);
+}
+
+.sbb-menu-action__icon {
+  display: flex;
+  visibility: visible;
+
+  :host(:not([sbb-badge], :state(has-icon-name), :state(slotted-icon))) & {
+    display: var(--sbb-menu-item-hide-icon-display, flex);
+    visibility: var(--sbb-menu-item-hide-icon-visibility, visible);
+  }
 }
 
 .sbb-menu-submenu__icon {
