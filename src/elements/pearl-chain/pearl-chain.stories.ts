@@ -276,6 +276,18 @@ export const Progress: StoryObj = {
   args: { ...defaultArgs, now: at(11, 0) },
 };
 
+export const Disrupted: StoryObj = {
+  render: HorizontalTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disrupted: 'departure' },
+};
+
+export const Walk: StoryObj = {
+  render: HorizontalTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, walk: 'departure' },
+};
+
 export const VerticalFullExample: StoryObj = {
   render: VerticalFullExampleTemplate,
   argTypes: { now: defaultArgTypes.now },

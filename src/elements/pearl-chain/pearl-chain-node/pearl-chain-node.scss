@@ -13,7 +13,6 @@
   width: var(--sbb-pearl-chain-bullet-size);
   height: var(--sbb-pearl-chain-bullet-size);
   color: var(--sbb-pearl-chain-bullet-color);
-  background-color: var(--sbb-pearl-chain-bullet-background-color);
   rotate: var(--sbb-pearl-chain-bullet-rotation, 0deg);
 
   circle {
@@ -40,7 +39,7 @@
   height: var(--sbb-pearl-chain-bullet-stop-size);
 
   circle {
-    fill: var(--sbb-pearl-chain-bullet-fill-color);
+    fill: transparent;
     r: calc(50% - var(--sbb-pearl-chain-bullet-stop-stroke-width) / 2);
     stroke-width: var(--sbb-pearl-chain-bullet-stop-stroke-width);
   }

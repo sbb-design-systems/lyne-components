@@ -98,5 +98,66 @@ describe(`sbb-pearl-chain`, () => {
         );
       },
     );
+
+    for (const t of cases.type) {
+      it(
+        `type=${t} background=milk`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`
+              <sbb-pearl-chain now="2026-09-14T10:00:00" style="flex: 1">
+                <div style="display: flex; align-items: center; width: 100%; height: 100%;">
+                  <sbb-pearl-chain-node
+                    type="start"
+                    departure="2026-09-14T09:00:00"
+                  ></sbb-pearl-chain-node>
+                  <span style="flex: 1;"></span>
+                  <sbb-pearl-chain-node
+                    type=${t}
+                    arrival="2026-09-14T11:00:00"
+                    departure="2026-09-14T11:10:00"
+                  ></sbb-pearl-chain-node>
+                  <span style="flex: 1;"></span>
+                  <sbb-pearl-chain-node
+                    type="end"
+                    arrival="2026-09-14T14:00:00"
+                  ></sbb-pearl-chain-node>
+                </div>
+              </sbb-pearl-chain>
+            `,
+            {
+              backgroundColor: 'var(--sbb-background-color-3)',
+            },
+          );
+        }),
+      );
+
+      it(
+        `type=${t} font-size=double`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
+            <sbb-pearl-chain now="2026-09-14T10:00:00" style="flex: 1; font-size: 2rem;">
+              <div style="display: flex; align-items: center; width: 100%; height: 100%;">
+                <sbb-pearl-chain-node
+                  type="start"
+                  departure="2026-09-14T09:00:00"
+                ></sbb-pearl-chain-node>
+                <span style="flex: 1;"></span>
+                <sbb-pearl-chain-node
+                  type=${t}
+                  arrival="2026-09-14T11:00:00"
+                  departure="2026-09-14T11:10:00"
+                ></sbb-pearl-chain-node>
+                <span style="flex: 1;"></span>
+                <sbb-pearl-chain-node
+                  type="end"
+                  arrival="2026-09-14T14:00:00"
+                ></sbb-pearl-chain-node>
+              </div>
+            </sbb-pearl-chain>
+          `);
+        }),
+      );
+    }
   });
 });

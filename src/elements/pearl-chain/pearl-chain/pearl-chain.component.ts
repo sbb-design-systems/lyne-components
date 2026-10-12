@@ -171,10 +171,12 @@ export class SbbPearlChainElement extends SbbElement {
 
     for (const el of elements) {
       const index = Number(el.dataset.segment);
-      const start = nodesCords[index];
+
+      // Calculate the start and end coordinates of the line segment, starting from the edge of the node bullets (not their center)
+      const start = pullBack(nodesCords[index + 1], nodesCords[index], nodesCords[index].size / 2);
       const end = this._needsGap(this._nodes[index + 1])
         ? pullBack(start, nodesCords[index + 1], NODE_GAP + nodesCords[index + 1].size / 2)
-        : nodesCords[index + 1];
+        : pullBack(start, nodesCords[index + 1], nodesCords[index + 1].size / 2);
 
       switch (el.dataset.role) {
         // The "now" pulsing dot
@@ -338,6 +340,7 @@ export class SbbPearlChainElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
+      <slot></slot>
       <svg class="sbb-pearl-chain__svg" aria-hidden="true">
         ${
           this._nodes.length > 1
@@ -347,7 +350,6 @@ export class SbbPearlChainElement extends SbbElement {
             : nothing
         }
       </svg>
-      <slot></slot>
     `;
   }
 }
