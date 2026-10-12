@@ -7,7 +7,7 @@ addons.setConfig({
 });
 
 const version = process.env.VERSION;
-const injectedVersions = document
+const legacyVersions = document
   .querySelector('meta[name="legacy-versions"]')
   ?.getAttribute('content')
   ?.trim()
@@ -31,17 +31,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const switcherWrapper = document.createElement('div');
     switcherWrapper.className = 'sbb-version-switcher-wrapper';
 
-    if (injectedVersions?.length) {
+    if (legacyVersions?.length) {
       // Prod deployment with injected legacy versions
 
-      let optionsHtml = `<option value="latest">v${version} (latest)</option>`;
-      injectedVersions.forEach((v) => {
-        optionsHtml += `<option value="${v}">v${v}</option>`;
-      });
+      const firstOption = document.createElement('option');
+      firstOption.value = 'latest';
+      firstOption.textContent = `v${version} (latest)`;
+
+      const versionOptions = [firstOption].concat(
+        legacyVersions.map((v) => {
+          const option = document.createElement('option');
+          option.value = v;
+          option.textContent = `v${v}`;
+          return option;
+        }),
+      );
 
       const select = document.createElement('select');
       select.ariaLabel = 'Switch to version';
-      select.innerHTML = optionsHtml;
+      select.append(...versionOptions);
       switcherWrapper.appendChild(select);
 
       select.addEventListener('change', (e) => {
@@ -49,9 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // In that case, when browsing back to the current deployment, it doesn't show an selection of a legacy version.
         e.preventDefault();
         const target = e.target;
-        const version = target.value;
+        const version = Number(target.value);
 
-        if (version !== 'latest') {
+        if (version !== 'latest' && typeof version === 'number') {
           window.location.href = `https://lyne-elements-v${version}.app.sbb.ch/`;
         }
       });
@@ -59,17 +67,18 @@ document.addEventListener('DOMContentLoaded', () => {
       // Dev environment or previews
 
       const span = document.createElement('span');
+      span.textContent = version;
 
       // Shas are cut, so adding a title gives an easy way to see the version
       span.title = version;
-      span.textContent = version;
       switcherWrapper.appendChild(span);
     } else {
       // Local environment
       return;
     }
 
-    // Border around the box
+    // Border around the box. Has to be an independent element in order to better visually ident
+    // the native arrow.
     const border = document.createElement('span');
     border.setAttribute('class', 'switch-border');
     switcherWrapper.appendChild(border);
