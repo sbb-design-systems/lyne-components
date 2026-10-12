@@ -338,7 +338,7 @@ export class SbbPearlChainElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <svg class="sbb-pearl-chain__svg">
+      <svg class="sbb-pearl-chain__svg" aria-hidden="true">
         ${
           this._nodes.length > 1
             ? Array.from({ length: this._nodes.length - 1 }, (_, index) =>

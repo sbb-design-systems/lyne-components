@@ -27,21 +27,33 @@ however they prefer (e.g. table, flexbox, css-grid). The `<sbb-pearl-chain>` wil
 <sbb-pearl-chain>
   <table>
     <tr>
-      <td>10:00</td>
+      <td>
+        <time datetime="2026-04-10T10:00:00">
+          <span class="sbb-screen-reader-only">Departure:&nbsp;</span>10:00
+        </time>
+      </td>
       <td>
         <sbb-pearl-chain-node type="start" ...></sbb-pearl-chain-node>
       </td>
       <td>Bern</td>
     </tr>
     <tr>
-      <td>12:00</td>
+      <td>
+        <time datetime="2026-04-10T12:00:00">
+          <span class="sbb-screen-reader-only">Departure:&nbsp;</span>12:00
+        </time>
+      </td>
       <td>
         <sbb-pearl-chain-node type="stop" ...></sbb-pearl-chain-node>
       </td>
       <td>Olten</td>
     </tr>
     <tr>
-      <td>15:00</td>
+      <td>
+        <time datetime="2026-04-10T15:00:00">
+          <span class="sbb-screen-reader-only">Arrival:&nbsp;</span>15:00
+        </time>
+      </td>
       <td>
         <sbb-pearl-chain-node type="end" ...></sbb-pearl-chain-node>
       </td>
@@ -59,13 +71,13 @@ For testing or demo purposes, the current time can be overridden using the `now`
 
 ```html
 <sbb-pearl-chain>
-  <sbb-pearl-chain-node type="start" departure="26-04-10T10:30:00"></sbb-pearl-chain-node>
+  <sbb-pearl-chain-node type="start" departure="2026-04-10T10:30:00"></sbb-pearl-chain-node>
   <sbb-pearl-chain-node
     type="stop"
-    arrival="26-04-10T10:50:00"
-    departure="26-04-10T10:55:00"
+    arrival="2026-04-10T10:50:00"
+    departure="2026-04-10T10:55:00"
   ></sbb-pearl-chain-node>
-  <sbb-pearl-chain-node type="end" arrival="26-04-10T11:30:00"></sbb-pearl-chain-node>
+  <sbb-pearl-chain-node type="end" arrival="2026-04-10T11:30:00"></sbb-pearl-chain-node>
 </sbb-pearl-chain>
 ```
 

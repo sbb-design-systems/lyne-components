@@ -232,6 +232,7 @@ export class SbbPearlChainNodeElement extends SbbElement {
           'bullet--disruption': !!this.disrupted,
           'bullet--past': this._isPast(),
         })}"
+        aria-hidden="true"
         ${ref((el?: Element): void => {
           this.svgElem = el;
         })}

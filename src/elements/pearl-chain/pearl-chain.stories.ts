@@ -1,5 +1,5 @@
 import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../docs/helpers/spread.ts';
@@ -14,6 +14,14 @@ const at = (h: number, m: number): Date => {
   const date = new Date();
   date.setHours(h, m, 0, 0);
   return date;
+};
+
+const timeTemplate = (date: Date, label?: 'Departure' | 'Arrival'): TemplateResult => {
+  const timeLabel = date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+  const a11yPrefix = label
+    ? html`<span class="sbb-screen-reader-only">${label}:&nbsp;</span>`
+    : nothing;
+  return html`<time datetime=${date.toISOString()}>${a11yPrefix}${timeLabel}</time>`;
 };
 
 const type: InputType = {
@@ -84,10 +92,10 @@ const defaultArgs: Args = {
 
 const HorizontalTemplate = ({ now, ...args }: Args): TemplateResult => html`
   <sbb-pearl-chain .now=${new Date(now)}>
-    <div style="display: flex; align-items: center; width: 400px;">
+    <div style="display: flex; align-items: center; width: 400px; max-width: 100%;">
       <div>
         <sbb-pearl-chain-node type="start" .departure=${at(10, 0)}></sbb-pearl-chain-node>
-        <div>10:00</div>
+        <div>${timeTemplate(at(10, 0), 'Departure')}</div>
       </div>
       <span style="flex: 1;"></span>
       <div>
@@ -96,12 +104,12 @@ const HorizontalTemplate = ({ now, ...args }: Args): TemplateResult => html`
           .arrival=${at(12, 0)}
           .departure=${at(12, 0)}
         ></sbb-pearl-chain-node>
-        <div>12:00</div>
+        <div>${timeTemplate(at(12, 0), 'Departure')}</div>
       </div>
       <span style="flex: 1;"></span>
       <div>
         <sbb-pearl-chain-node type="end" .arrival=${at(15, 0)}></sbb-pearl-chain-node>
-        <div>15:00</div>
+        <div>${timeTemplate(at(15, 0), 'Arrival')}</div>
       </div>
     </div>
   </sbb-pearl-chain>
@@ -111,14 +119,14 @@ const VerticalTemplate = ({ now, ...args }: Args): TemplateResult => html`
   <sbb-pearl-chain .now=${new Date(now)}>
     <table>
       <tr style="height: 5rem;">
-        <td>10:00</td>
+        <td>${timeTemplate(at(10, 0), 'Departure')}</td>
         <td>
           <sbb-pearl-chain-node type="start" .departure=${at(10, 0)}></sbb-pearl-chain-node>
         </td>
         <td>Bern</td>
       </tr>
       <tr style="height: 5rem;">
-        <td>12:00</td>
+        <td>${timeTemplate(at(12, 0), 'Departure')}</td>
         <td>
           <sbb-pearl-chain-node
             ${sbbSpread(args)}
@@ -129,7 +137,7 @@ const VerticalTemplate = ({ now, ...args }: Args): TemplateResult => html`
         <td>Olten</td>
       </tr>
       <tr style="height: 5rem;">
-        <td>15:00</td>
+        <td>${timeTemplate(at(15, 0), 'Arrival')}</td>
         <td>
           <sbb-pearl-chain-node type="end" .arrival=${at(15, 0)}></sbb-pearl-chain-node>
         </td>
@@ -144,26 +152,26 @@ const VerticalFullExampleTemplate = ({ now }: Args): TemplateResult => html`
     <div
       style="display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-3x); width: 450px;"
     >
-      <span style="font-weight: bold;">08:00</span>
+      <span style="font-weight: bold;">${timeTemplate(at(8, 0), 'Departure')}</span>
       <sbb-pearl-chain-node type="start" .departure=${at(8, 0)}></sbb-pearl-chain-node>
       <span>Bern</span>
       <span>Gl. 3</span>
 
       <span style="grid-column: 1; color: var(--sbb-color-granite); margin-block-start: 1rem;"
-        >08:08</span
+        >${timeTemplate(at(8, 8))}</span
       >
 
-      <span style="grid-column: 1; font-weight: bold;">08:12</span>
+      <span style="grid-column: 1; font-weight: bold;">${timeTemplate(at(8, 12), 'Arrival')}</span>
       <sbb-pearl-chain-node type="stop" .arrival=${at(8, 12)} .departure=${at(8, 13)}>
       </sbb-pearl-chain-node>
       <span>Münsingen</span>
       <span>Gl. 1</span>
 
       <span style="grid-column: 1; color: var(--sbb-color-granite); margin-block-start: 1rem;"
-        >08:18</span
+        >${timeTemplate(at(8, 18))}</span
       >
 
-      <span style="grid-column: 1; font-weight: bold;">08:22</span>
+      <span style="grid-column: 1; font-weight: bold;">${timeTemplate(at(8, 22), 'Arrival')}</span>
       <sbb-pearl-chain-node type="stop" .arrival=${at(8, 22)} .departure=${at(8, 24)}>
       </sbb-pearl-chain-node>
       <span style="font-weight: bold;">Thun</span>
@@ -175,10 +183,10 @@ const VerticalFullExampleTemplate = ({ now }: Args): TemplateResult => html`
       ></sbb-timetable-occupancy>
 
       <span style="grid-column: 1; color: var(--sbb-color-granite); margin-block-start: 1rem;"
-        >08:29</span
+        >${timeTemplate(at(8, 29))}</span
       >
 
-      <span style="grid-column: 1; font-weight: bold;">08:34</span>
+      <span style="grid-column: 1; font-weight: bold;">${timeTemplate(at(8, 34), 'Arrival')}</span>
       <sbb-pearl-chain-node type="stop" .arrival=${at(8, 34)} .departure=${at(8, 35)}>
       </sbb-pearl-chain-node>
       <span>Spiez</span>
@@ -190,10 +198,10 @@ const VerticalFullExampleTemplate = ({ now }: Args): TemplateResult => html`
       ></sbb-timetable-occupancy>
 
       <span style="grid-column: 1; color: var(--sbb-color-granite); margin-block-start: 1rem;"
-        >08:43</span
+        >${timeTemplate(at(8, 43))}</span
       >
 
-      <span style="grid-column: 1; font-weight: bold;">08:50</span>
+      <span style="grid-column: 1; font-weight: bold;">${timeTemplate(at(8, 50), 'Arrival')}</span>
       <sbb-pearl-chain-node type="end" .arrival=${at(8, 50)}></sbb-pearl-chain-node>
       <span style="font-weight: bold;">Interlaken Ost</span>
       <span style="font-weight: bold;">Gl. 1</span>
@@ -237,11 +245,15 @@ const HorizontalFullExampleTemplate = ({ now }: Args): TemplateResult => html`
         style="justify-self: end;"
       ></sbb-pearl-chain-node>
 
-      <span style="font-weight: bold;">08:00</span>
-      <span style="color: var(--sbb-color-granite); justify-self: end;">08:22</span>
-      <span style="font-weight: bold;">08:24</span>
+      <span style="font-weight: bold;">${timeTemplate(at(8, 0), 'Departure')}</span>
+      <span style="color: var(--sbb-color-granite); justify-self: end;"
+        >${timeTemplate(at(8, 22), 'Arrival')}</span
+      >
+      <span style="font-weight: bold;">${timeTemplate(at(8, 24), 'Departure')}</span>
       <span></span>
-      <span style="font-weight: bold; justify-self: end;">08:50</span>
+      <span style="font-weight: bold; justify-self: end;"
+        >${timeTemplate(at(8, 50), 'Arrival')}</span
+      >
     </div>
   </sbb-pearl-chain>
 `;
