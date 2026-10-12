@@ -20,7 +20,7 @@ describe(`sbb-pearl-chain`, () => {
         <sbb-pearl-chain-node
           type="stop"
           arrival="2026-09-14T11:00:00"
-          departure="2026-09-14T11:10:00"
+          departure="2026-09-14T11:30:00"
         ></sbb-pearl-chain-node>
         <sbb-pearl-chain-node type="end" arrival="2026-09-14T14:00:00"></sbb-pearl-chain-node>
       </sbb-pearl-chain>
@@ -36,6 +36,13 @@ describe(`sbb-pearl-chain`, () => {
     expect(element.shadowRoot!.querySelectorAll('line[data-segment]')).to.have.length(
       nodes.length - 1,
     );
+  });
+
+  it('returns node weights proportional to departure (or arrival) time', () => {
+    const [first, mid, last] = element.getNodeWeights();
+    expect(first).to.equal(0);
+    expect(mid).to.be.closeTo(0.5, 1e-9);
+    expect(last).to.equal(1);
   });
 
   it('removes a line when a node is removed', async () => {

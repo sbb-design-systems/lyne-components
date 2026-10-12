@@ -85,12 +85,39 @@ For testing or demo purposes, the current time can be overridden using the `now`
 
 `<sbb-pearl-chain>` adapts its bullets depending on whether the nodes are laid out horizontally or vertically, so it looks correct in both horizontal and vertical layouts without any explicit configuration.
 
+## Rendering
+
+`<sbb-pearl-chain>` re-renders automatically when:
+
+- a `<sbb-pearl-chain-node>` is added or removed;
+- the pearl-chain element is resized (e.g. on window resize);
+- the `IntersectionObserver` triggers, e.g. when the pearl-chain becomes visible.
+
+Changes that are not detected automatically (e.g. a layout change caused by a CSS property) require a manual update.
+In this case, call the `requestUpdate()` method on the `<sbb-pearl-chain>` element.
+
+```js
+document.querySelector('sbb-pearl-chain').requestUpdate();
+```
+
+## Utility
+
+### Node weights
+
+The `<sbb-pearl-chain>` does not position the nodes: distributing them proportionally to the journey's duration is up to the consumer.
+The `getNodeWeights()` method helps with that: it returns, for each node in DOM order, a value between `0` (first node) and `1` (last node),
+proportional to its `departure` time (or `arrival`, if there is no `departure`).
+
+```js
+const chain = document.querySelector('sbb-pearl-chain');
+const weights = chain.getNodeWeights(); // e.g. [0, 0.43, 1]
+```
+
 ## Accessibility
 
 `<sbb-pearl-chain>` and `<sbb-pearl-chain-node>` have **no built-in accessibility**: the rendered lines and bullets
 are purely decorative and not exposed to assistive technology. If the information conveyed by the pearl chain
-(e.g. progress, disruptions) needs to be accessible, it must be provided separately, e.g. via `aria-label` or
-`aria-describedby` on the `<sbb-pearl-chain>` element, or through accessible surrounding markup.
+(e.g. progress, disruptions) needs to be accessible, it must be provided separately, through accessible markup e.g. via hidden text.
 
 <!-- Auto Generated Below -->
 
@@ -103,6 +130,12 @@ are purely decorative and not exposed to assistive technology. If the informatio
 | Name  | Attribute | Privacy | Type   | Default | Description                                                                                                               |
 | ----- | --------- | ------- | ------ | ------- | ------------------------------------------------------------------------------------------------------------------------- |
 | `now` | `now`     | public  | `Date` |         | A configured date which acts as the current date instead of the real current date. Only recommended for testing purposes. |
+
+#### Methods
+
+| Name             | Privacy | Description                                                                                                                                                                          | Parameters | Return     | Inherited From |
+| ---------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | ---------- | -------------- |
+| `getNodeWeights` | public  | Returns the relative position (0 for the first node, 1 for the last one) of each node, in DOM order, proportional to its `departure` time (or `arrival` if there is no `departure`). |            | `number[]` |                |
 
 ### class: `SbbPearlChainNodeElement`, `sbb-pearl-chain-node`
 
