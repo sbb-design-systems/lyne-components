@@ -61,7 +61,8 @@ $loading: '[loading], .sbb-loading';
     --sbb-button-color-active-background: Canvas !important;
     --sbb-button-color-disabled-background: Canvas !important;
     --sbb-button-color-disabled-text: GrayText !important;
-    --sbb-button-color-loading-border: Highlight !important;
+    --sbb-button-color-loading-border: CanvasText !important;
+    --sbb-button-color-loading-snake-color: Canvas;
 
     // For static cases, button and link roles will override it.
     --sbb-button-color-default-text: CanvasText !important;
@@ -247,7 +248,7 @@ $loading: '[loading], .sbb-loading';
           50%,
         var(--sbb-button-color-loading-border) 0deg,
         var(--sbb-button-color-loading-border) 300deg,
-        var(--sbb-button-color-active-text) 360deg
+        var(--sbb-button-color-loading-snake-color, var(--sbb-button-color-active-text)) 360deg
       ),
     var(--_background-color);
 }
