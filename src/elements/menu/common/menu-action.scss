@@ -98,7 +98,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 
   :host(:not([sbb-badge], :state(has-icon-name), :state(slotted-icon))) & {
     padding: var(--sbb-menu-action-content-padding-block)
-      var(--sbb-menu-hide-icon-padding-inline, var(--sbb-menu-action-content-padding-inline));
+      var(--sbb-menu-item-hide-icon-padding-inline, var(--sbb-menu-action-content-padding-inline));
   }
 
   // Handle focus on the host (button variant)

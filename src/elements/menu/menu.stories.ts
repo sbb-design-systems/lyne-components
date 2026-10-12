@@ -44,7 +44,7 @@ const hideIconSpace: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Menu action',
+    category: 'Menu',
   },
 };
 
