@@ -801,13 +801,13 @@ describe(`sbb-select`, () => {
       // Check initial state
       expect(element.value).to.be.equal('2');
       expect(secondOption.selected).to.be.true;
-      expect(root.querySelector<SbbSelectElement>('.sbb-select-trigger')!).to.exist;
+      expect(root.querySelector<SbbSelectElement>('sbb-select-trigger')!).to.exist;
 
       // Remove from DOM
       element.remove();
       await waitForLitRender(root);
 
-      expect(root.querySelector<SbbSelectElement>('.sbb-select-trigger')!).not.to.exist;
+      expect(root.querySelector<SbbSelectElement>('sbb-select-trigger')!).not.to.exist;
 
       // Re-add to DOM
       root.insertBefore(element, root.firstElementChild);
@@ -817,7 +817,7 @@ describe(`sbb-select`, () => {
       const reAddedElement = root.querySelector<SbbSelectElement>('sbb-select')!;
       expect(reAddedElement).to.exist;
       expect(reAddedElement).to.equal(element);
-      expect(root.querySelector<SbbSelectElement>('.sbb-select-trigger')!).to.exist;
+      expect(root.querySelector<SbbSelectElement>('sbb-select-trigger')!).to.exist;
 
       // Check that value is preserved
       expect(reAddedElement.value).to.be.equal('2');

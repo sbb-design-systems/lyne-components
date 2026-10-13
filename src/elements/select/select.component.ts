@@ -1,4 +1,3 @@
-import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
@@ -28,6 +27,7 @@ import {
   isZeroAnimationDuration,
   popoverResetStyles,
   SbbDisabledMixin,
+  type SbbElementType,
   SbbEscapableOverlayController,
   SbbFormAssociatedMixin,
   SbbLanguageController,
@@ -49,6 +49,7 @@ import {
   type SbbOptionHintElement,
 } from '../option.pure.ts';
 
+import { SbbSelectTriggerElement } from './select-trigger.component.ts';
 import style from './select.scss?inline';
 
 /**
@@ -56,8 +57,6 @@ import style from './select.scss?inline';
  * On the other hand, JAWS and NVDA need the role to be an "immediate parent" to the options, or else optgroups won't work.
  */
 const ariaRoleOnHost = isSafari;
-
-let nextId = 0;
 
 /**
  * It displays a panel with selectable options.
@@ -90,6 +89,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     optionPanelStyles,
     unsafeCSS(style),
   ];
+  public static override elementDependencies: SbbElementType[] = [SbbSelectTriggerElement];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
@@ -101,6 +101,10 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     beforeclose: 'beforeclose',
     close: 'close',
   } as const;
+
+  public static override get observedAttributes(): string[] {
+    return super.observedAttributes.concat('aria-label', 'aria-labelledby', 'aria-describedby');
+  }
 
   /** The placeholder used if no value has been selected. */
   @forceType()
@@ -174,12 +178,11 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     })(),
   });
 
-  private _overlay!: HTMLElement;
+  private _overlay?: HTMLElement;
   private _originElement: HTMLElement | null = null;
-  private _triggerElement: HTMLElement | null = null;
+  private _triggerElement?: SbbSelectTriggerElement<T>;
   private _openPanelEventsController?: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
-  private _overlayId = `sbb-select-${++nextId}`;
   private _activeItemIndex = -1;
   private _searchTimeout?: ReturnType<typeof setTimeout>;
   private _searchString = '';
@@ -192,7 +195,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
    * The 'combobox' input element
    * @internal
    */
-  public get inputElement(): HTMLElement | null {
+  public get inputElement(): SbbSelectTriggerElement<T> | null {
     return this._triggerElement ?? null;
   }
 
@@ -229,13 +232,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     });
 
     this.addController(
-      new MutationController(this, {
-        config: { attributeFilter: ['aria-labelledby', 'aria-label', 'aria-describedby'] },
-        callback: () => this._syncAriaLabels(),
-      }),
-    );
-
-    this.addController(
       new SbbPropertyWatcherController(this, () => this.closest('sbb-form-field'), {
         negative: (e) => {
           this.negative = e.negative;
@@ -243,6 +239,18 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         },
       }),
     );
+  }
+
+  public override attributeChangedCallback(
+    name: string,
+    _old: string | null,
+    value: string | null,
+  ): void {
+    if (name === 'aria-label' || name === 'aria-labelledby' || name === 'aria-describedby') {
+      this._syncAriaLabels();
+    } else {
+      super.attributeChangedCallback(name, _old, value);
+    }
   }
 
   private _syncAriaLabels(): void {
@@ -404,6 +412,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
     this._updateValueOptionState();
+    if (this._triggerElement) {
+      this._triggerElement.select = this;
+    }
 
     // Wait for ssr hydration
     if (!isNextjs()) {
@@ -446,10 +457,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    if (ariaRoleOnHost) {
-      this.id ||= this._overlayId;
-    }
-
     this._syncNegative();
     this._syncAriaLabels();
 
@@ -478,6 +485,14 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     }
     if (changedProperties.has('readOnly')) {
       this._closeOnDisabledReadonlyChanged(this.readOnly);
+    }
+    if (changedProperties.has('multiple')) {
+      if (ariaRoleOnHost && this.multiple) {
+        this.internals.ariaMultiSelectable = `true`;
+      } else {
+        this.internals.ariaMultiSelectable = null;
+      }
+      console.log(ariaRoleOnHost, this.multiple, this.internals.ariaMultiSelectable);
     }
   }
 
@@ -584,13 +599,13 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
    */
   private _setupTrigger(): void {
     // Move the trigger before the sbb-select
-    if (this.parentElement && this._triggerElement) {
+    if (this.parentElement && this._triggerElement && this._overlay) {
       this.parentElement.insertBefore?.(this._triggerElement, this);
     }
   }
 
   private _setOverlayPosition(): void {
-    if (!this._originElement) {
+    if (!this._originElement || !this._overlay) {
       return;
     }
     setOverlayPosition(
@@ -614,7 +629,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this._triggerElement?.setAttribute('aria-expanded', 'true');
     if (this._originElement) {
       this._resizeObserver.observe(this._originElement);
     }
@@ -624,9 +638,10 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _handleClosing(): void {
     this.state = 'closed';
     this.shadowRoot?.querySelector<HTMLDivElement>('[popover]')?.hidePopover?.();
-    this._triggerElement?.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
-    this._overlay.scrollTop = 0;
+    if (this._overlay) {
+      this._overlay.scrollTop = 0;
+    }
     this._escapableOverlayController.disconnect();
     this.dispatchCloseEvent();
   }
@@ -1011,21 +1026,15 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     return html`
       <!-- This element is visually hidden and will be appended to the light DOM to allow screen
       readers to work properly -->
-      <div
-        class="sbb-screen-reader-only sbb-select-trigger"
+      <sbb-select-trigger
+        class="sbb-screen-reader-only"
         tabindex=${this.disabled || this.formDisabled ? nothing : '0'}
-        role="combobox"
-        aria-haspopup="listbox"
-        aria-expanded="false"
-        aria-required=${this.required.toString()}
-        aria-controls=${this._overlayId}
-        aria-owns=${this._overlayId}
         @keydown=${this._onKeyDown}
         @click=${this._toggleOpening}
-        ${ref((ref) => (this._triggerElement = ref as HTMLElement))}
+        ${ref((ref) => (this._triggerElement = ref as SbbSelectTriggerElement<T>))}
       >
         ${until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`))}
-      </div>
+      </sbb-select-trigger>
 
       <!-- Visually display the value -->
       <div class="sbb-select__trigger" aria-hidden="true">
@@ -1037,9 +1046,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
           class="sbb-option-panel__overlay ${
             this.negative ? 'sbb-scrollbar-negative' : 'sbb-scrollbar'
           }"
-          id=${!ariaRoleOnHost ? this._overlayId : nothing}
           role=${!ariaRoleOnHost ? 'listbox' : nothing}
-          ?aria-multiselectable=${this.multiple}
+          aria-multiselectable=${!ariaRoleOnHost && this.multiple ? 'true' : nothing}
           tabindex="-1"
           @animationend=${this._onAnimationEnd}
           ${ref((dialogRef) => (this._overlay = dialogRef as HTMLElement))}
