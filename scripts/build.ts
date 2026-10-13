@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
-import { createHash } from 'node:crypto';
 import {
   cpSync,
   existsSync,
@@ -32,7 +31,7 @@ import * as ts from 'typescript';
 import { build as buildWithVite, type PluginOption } from 'vite';
 
 import { lightDarkPlugin, statePlugin } from '../tools/postcss/index.ts';
-import { typescriptTransform, parseCompilerOptions } from '../tools/typescript/index.ts';
+import { parseCompilerOptions, typescriptTransform } from '../tools/typescript/index.ts';
 
 if (typeof Temporal !== 'object') {
   await import('temporal-polyfill/global');
@@ -229,9 +228,8 @@ const buildMap: Record<string, () => Builder> = {
       buildPackageJson,
       verifyEntryPoints,
     ]),
-  [docs]: () => new PackageBuilder(docs, [buildDocs, buildNginxConfig, buildSizeStats]),
+  [docs]: () => new PackageBuilder(docs, [buildDocs, buildSizeStats]),
   [visualRegressionApp]: () => new PackageBuilder(visualRegressionApp, [buildApp]),
-  ['nginx-conf']: () => new PackageBuilder(docs, [buildNginxConfig]),
   [webshopFrontendCopy]: () => asBuilder(copyIntoWebshopFrontend),
 };
 
@@ -820,32 +818,6 @@ export const ${declaration.name.replace(/Element$/, '')} = createComponent({
 });
 `;
   return reactTemplate;
-}
-
-function buildNginxConfig(pkg: PackageBuilder): void {
-  const htmlFiles = readdirSync(pkg.outDir, { withFileTypes: true, recursive: true })
-    .filter((d) => d.isFile() && d.name.endsWith('.html'))
-    .map((d) => readFileSync(join(d.parentPath, d.name), 'utf8'))
-    .join('\n');
-
-  const shaVersion = 'sha256' as const;
-  const toPlainArray = (matches: RegExpStringIterator<RegExpMatchArray>): string[] =>
-    Array.from(matches, (match) => match[1]);
-  const scriptHash = toPlainArray(htmlFiles.matchAll(/<script[\s\S]*?>([\s\S]*?)<\/script>/gi))
-    .map((script) => `'${shaVersion}-${createHash(shaVersion).update(script).digest('base64')}'`)
-    .join(' ');
-
-  const configTemplate = readFileSync(join(projectRoot, '.github/default.conf'), 'utf8');
-  // This is intentionally not the same directory as the docs output
-  const configTarget = join(`${pkg.outDir}-nginx`, 'default.conf');
-  mkdirSync(dirname(configTarget), { recursive: true });
-  writeFileSync(
-    configTarget,
-    configTemplate.replace(`script-src 'self';`, `script-src 'self' ${scriptHash};`),
-    'utf8',
-  );
-
-  console.log(`=> Built nginx config in ${relative(projectRoot, pkg.outDir)}`);
 }
 
 async function buildSizeStats(pkg: PackageBuilder): Promise<void> {
