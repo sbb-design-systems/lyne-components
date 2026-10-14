@@ -13,11 +13,11 @@ import {
   progressLeg,
   redirectedOnArrivalLeg,
   redirectedOnDepartureLeg,
-} from './pearl-chain.sample-data.private.ts';
+} from './pearl-chain-legacy.sample-data.private.ts';
 
-import '../pearl-chain.ts';
+import '../pearl-chain-legacy.ts';
 
-describe(`sbb-pearl-chain`, () => {
+describe(`sbb-pearl-chain-legacy`, () => {
   const cases = [
     { name: 'no stops', legs: [futureLeg] },
     { name: 'many stops', legs: [futureLeg, longFutureLeg, futureLeg, futureLeg] },
@@ -59,11 +59,11 @@ describe(`sbb-pearl-chain`, () => {
         c.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-pearl-chain
+            <sbb-pearl-chain-legacy
               .legs=${c.legs}
               .now=${c.now ?? new Date('2022-12-01T12:11:00')}
               disable-animation
-            ></sbb-pearl-chain>
+            ></sbb-pearl-chain-legacy>
           `);
         }),
       );

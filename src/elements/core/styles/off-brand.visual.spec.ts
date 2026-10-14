@@ -1,13 +1,6 @@
 import { html } from 'lit';
 
 import {
-  cancelledLeg,
-  futureLeg,
-  longFutureLeg,
-  pastLeg,
-  progressLeg,
-} from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.private.ts';
-import {
   describeViewports,
   overrideStandardThemeWith,
   visualDiffActive,
@@ -21,10 +14,10 @@ import '../../teaser-hero.ts';
 import '../../link.ts';
 import '../../loading-indicator.ts';
 import '../../loading-indicator-circle.ts';
+import '../../pearl-chain.ts';
 import '../../radio-button.ts';
 import '../../slider.ts';
 import '../../toggle-check.ts';
-import '../../../elements-experimental/pearl-chain.ts';
 
 describe(`sbb-off-brand`, () => {
   before(async () => {
@@ -100,12 +93,44 @@ describe(`sbb-off-brand`, () => {
         it(
           `pearl-chain`,
           visualDiffDefault.with(async (setup) => {
+            const at = (h: number, m: number): Date => {
+              const date = new Date();
+              date.setHours(h, m, 0, 0);
+              return date;
+            };
+
             await setup.withFixture(
-              html`<sbb-pearl-chain
-                .legs=${[pastLeg, progressLeg, longFutureLeg, cancelledLeg, futureLeg]}
-                .now=${new Date('2022-12-05T12:11:00')}
-                disable-animation
-              ></sbb-pearl-chain> `,
+              html`
+                <sbb-pearl-chain .now=${at(10, 30)}>
+                  <div style="display: flex;">
+                    <sbb-pearl-chain-node
+                      type="start"
+                      .departure=${at(9, 0)}
+                    ></sbb-pearl-chain-node>
+                    <span style="flex: 1"></span>
+                    <sbb-pearl-chain-node
+                      type="stop"
+                      .arrival=${at(10, 0)}
+                      .departure=${at(10, 0)}
+                    ></sbb-pearl-chain-node>
+                    <span style="flex: 1"></span>
+                    <sbb-pearl-chain-node
+                      type="stop"
+                      disrupted="departure"
+                      .arrival=${at(11, 0)}
+                      .departure=${at(11, 0)}
+                    ></sbb-pearl-chain-node>
+                    <span style="flex: 1"></span>
+                    <sbb-pearl-chain-node
+                      type="stop"
+                      .arrival=${at(12, 0)}
+                      .departure=${at(12, 0)}
+                    ></sbb-pearl-chain-node>
+                    <span style="flex: 1"></span>
+                    <sbb-pearl-chain-node type="end" .arrival=${at(13, 0)}></sbb-pearl-chain-node>
+                  </div>
+                </sbb-pearl-chain>
+              `,
               {
                 darkMode,
               },
