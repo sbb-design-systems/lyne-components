@@ -55,12 +55,15 @@ function spa(r) {
       `default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'nonce-${nonce}'; font-src 'self' https://cdn.app.sbb.ch/; connect-src 'self' https://icons.app.sbb.ch/; frame-ancestors 'self' https://digital.sbb.ch; img-src 'self' data: https://cdn.img.sbb.ch;`;
 
     // Inject legacy versions if present
-    content = content
-      .replace(
+    const legacyVersions = process.env.LEGACY_VERSIONS;
+    if (legacyVersions) {
+      content = content.replace(
         '</head>',
-        `<meta name="legacy-versions" content="${process.env.LEGACY_VERSIONS}" /></head>`,
-      )
-      .replaceAll('<script', `<script nonce="${nonce}"`);
+        `<meta name="legacy-versions" content="${legacyVersions}" /></head>`,
+      );
+    }
+
+    content = content.replaceAll('<script', `<script nonce="${nonce}"`);
   }
 
   r.return(200, content);
