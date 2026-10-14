@@ -12,7 +12,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import type { Leg, PtRideLeg } from '../core.ts';
 import { isRideLeg, removeTimezoneFromISOTimeString } from '../core.ts';
 
-import style from './pearl-chain.scss?inline';
+import style from './pearl-chain-legacy.scss?inline';
 
 type Status = 'progress' | 'future' | 'past';
 interface Time {
@@ -22,9 +22,10 @@ interface Time {
 
 /**
  * It visually displays journey information.
+ * @deprecated Use `sbb-pearl-chain` instead.
  */
-export class SbbPearlChainElement extends SbbElement {
-  public static override readonly elementName: string = 'sbb-pearl-chain';
+export class SbbPearlChainLegacyElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-pearl-chain-legacy';
   public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
   /**
@@ -307,6 +308,6 @@ export class SbbPearlChainElement extends SbbElement {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-pearl-chain': SbbPearlChainElement;
+    'sbb-pearl-chain-legacy': SbbPearlChainLegacyElement;
   }
 }
