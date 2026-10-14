@@ -39,7 +39,7 @@ describe(`sbb-pearl-chain`, () => {
   });
 
   it('returns node weights proportional to departure (or arrival) time', () => {
-    const [first, mid, last] = element.getNodeWeights();
+    const [first, mid, last] = element.calculateNodeWeights();
     expect(first).to.equal(0);
     expect(mid).to.be.closeTo(0.5, 1e-9);
     expect(last).to.equal(1);

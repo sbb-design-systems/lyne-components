@@ -91,7 +91,7 @@ export class SbbPearlChainElement extends SbbElement {
    * Returns the relative position (0 for the first node, 1 for the last one) of each node,
    * in DOM order, proportional to its `departure` time (or `arrival` if there is no `departure`).
    */
-  public getNodeWeights(): number[] {
+  public calculateNodeWeights(): number[] {
     const times = this._nodes.map((n) => (n.departure ?? n.arrival)!.getTime());
     const first = times[0];
     const range = times[times.length - 1]! - first!;

@@ -134,9 +134,9 @@ are purely decorative and not exposed to assistive technology. If the informatio
 
 #### Methods
 
-| Name             | Privacy | Description                                                                                                                                                                          | Parameters | Return     | Inherited From |
-| ---------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | ---------- | -------------- |
-| `getNodeWeights` | public  | Returns the relative position (0 for the first node, 1 for the last one) of each node, in DOM order, proportional to its `departure` time (or `arrival` if there is no `departure`). |            | `number[]` |                |
+| Name                   | Privacy | Description                                                                                                                                                                          | Parameters | Return     | Inherited From |
+| ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | ---------- | -------------- |
+| `calculateNodeWeights` | public  | Returns the relative position (0 for the first node, 1 for the last one) of each node, in DOM order, proportional to its `departure` time (or `arrival` if there is no `departure`). |            | `number[]` |                |
 
 ### class: `SbbPearlChainNodeElement`, `sbb-pearl-chain-node`
 
