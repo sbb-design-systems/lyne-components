@@ -4,7 +4,6 @@ import fs from 'fs';
  * @param {import("njs-types").NginxHTTPRequest} r
  */
 function spa(r) {
-  r.warn(r.headersIn.Host);
   const corsString =
     r.headersIn.Host === 'digital.sbb.ch' || r.headersIn.Host === 'localhost:8080'
       ? r.headersIn.Host
