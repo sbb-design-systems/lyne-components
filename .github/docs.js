@@ -5,8 +5,9 @@ import fs from 'fs';
  */
 function spa(r) {
   const corsString =
-    r.headersIn.Host === 'digital.sbb.ch' || r.headersIn.Host === 'localhost:8080'
-      ? r.headersIn.Host
+    r.headersIn.Origin === 'https://digital.sbb.ch' ||
+    r.headersIn.Origin === 'http://localhost:8080'
+      ? r.headersIn.Origin
       : '';
 
   if (corsString) {
