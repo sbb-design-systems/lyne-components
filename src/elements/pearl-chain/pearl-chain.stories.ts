@@ -158,21 +158,25 @@ const VerticalFullExampleTemplate = ({ now }: Args): TemplateResult => html`
       <span>Gl. 3</span>
 
       <span style="grid-column: 1; color: var(--sbb-color-granite); margin-block-start: 1rem;"
-        >${timeTemplate(at(8, 8))}</span
+        >${timeTemplate(at(8, 8), 'Arrival')}</span
       >
 
-      <span style="grid-column: 1; font-weight: bold;">${timeTemplate(at(8, 12), 'Arrival')}</span>
-      <sbb-pearl-chain-node type="stop" .arrival=${at(8, 12)} .departure=${at(8, 13)}>
+      <span style="grid-column: 1; font-weight: bold;"
+        >${timeTemplate(at(8, 12), 'Departure')}</span
+      >
+      <sbb-pearl-chain-node type="stop" .arrival=${at(8, 8)} .departure=${at(8, 12)}>
       </sbb-pearl-chain-node>
       <span>Münsingen</span>
       <span>Gl. 1</span>
 
       <span style="grid-column: 1; color: var(--sbb-color-granite); margin-block-start: 1rem;"
-        >${timeTemplate(at(8, 18))}</span
+        >${timeTemplate(at(8, 18), 'Arrival')}</span
       >
 
-      <span style="grid-column: 1; font-weight: bold;">${timeTemplate(at(8, 22), 'Arrival')}</span>
-      <sbb-pearl-chain-node type="stop" .arrival=${at(8, 22)} .departure=${at(8, 24)}>
+      <span style="grid-column: 1; font-weight: bold;"
+        >${timeTemplate(at(8, 22), 'Departure')}</span
+      >
+      <sbb-pearl-chain-node type="stop" .arrival=${at(8, 18)} .departure=${at(8, 22)}>
       </sbb-pearl-chain-node>
       <span style="font-weight: bold;">Thun</span>
       <span style="font-weight: bold;">Gl. 2</span>
@@ -183,11 +187,13 @@ const VerticalFullExampleTemplate = ({ now }: Args): TemplateResult => html`
       ></sbb-timetable-occupancy>
 
       <span style="grid-column: 1; color: var(--sbb-color-granite); margin-block-start: 1rem;"
-        >${timeTemplate(at(8, 29))}</span
+        >${timeTemplate(at(8, 29), 'Arrival')}</span
       >
 
-      <span style="grid-column: 1; font-weight: bold;">${timeTemplate(at(8, 34), 'Arrival')}</span>
-      <sbb-pearl-chain-node type="stop" .arrival=${at(8, 34)} .departure=${at(8, 35)}>
+      <span style="grid-column: 1; font-weight: bold;"
+        >${timeTemplate(at(8, 34), 'Departure')}</span
+      >
+      <sbb-pearl-chain-node type="stop" .arrival=${at(8, 29)} .departure=${at(8, 34)}>
       </sbb-pearl-chain-node>
       <span>Spiez</span>
       <span>Gl. 4</span>
@@ -197,9 +203,7 @@ const VerticalFullExampleTemplate = ({ now }: Args): TemplateResult => html`
         second-class-occupancy="medium"
       ></sbb-timetable-occupancy>
 
-      <span style="grid-column: 1; color: var(--sbb-color-granite); margin-block-start: 1rem;"
-        >${timeTemplate(at(8, 43))}</span
-      >
+      <span style="grid-column: 1; margin-block-start: 1rem;"></span>
 
       <span style="grid-column: 1; font-weight: bold;">${timeTemplate(at(8, 50), 'Arrival')}</span>
       <sbb-pearl-chain-node type="end" .arrival=${at(8, 50)}></sbb-pearl-chain-node>
