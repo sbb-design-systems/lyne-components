@@ -5,8 +5,7 @@ import fs from 'fs';
  */
 function spa(r) {
   const corsString =
-    r.headersIn.Host.startsWith('https://digital.sbb.ch') ||
-    r.headersIn.Host.startsWith('http://localhost:8080')
+    r.headersIn.Host === 'https://digital.sbb.ch' || r.headersIn.Host === 'http://localhost:8080'
       ? r.headersIn.Host
       : '';
 
@@ -18,7 +17,7 @@ function spa(r) {
   if (r.method === 'OPTIONS') {
     // OPTIONS requests will be cached for a month.
     r.headersOut['Access-Control-Max-Age'] = '2628000';
-    r.headersOut['Content-Type'] = 'text/plain charset=UTF-8';
+    r.headersOut['Content-Type'] = 'text/plain';
     r.headersOut['Content-Length'] = '0';
     r.return(204);
 
