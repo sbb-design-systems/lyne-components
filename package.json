@@ -65,7 +65,7 @@
   },
   "optionalDependencies": {
     "@lit/react": "1.0.8",
-    "react": "19.3.0",
+    "react": "19.3.1",
     "tslib": "2.8.1"
   },
   "devDependencies": {
