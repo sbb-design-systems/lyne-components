@@ -65,7 +65,7 @@
   },
   "optionalDependencies": {
     "@lit/react": "1.0.8",
-    "react": "19.3.0",
+    "react": "19.3.1",
     "tslib": "2.8.1"
   },
   "devDependencies": {
@@ -85,7 +85,7 @@
     "@storybook/addon-a11y": "10.6.2",
     "@storybook/addon-docs": "10.6.2",
     "@storybook/addon-links": "10.6.2",
-    "@storybook/icons": "2.1.0",
+    "@storybook/icons": "2.2.0",
     "@storybook/web-components-vite": "10.6.2",
     "@tsdown/css": "0.23.1",
     "@types/chai": "5.2.3",
@@ -116,10 +116,11 @@
     "lint-staged": "17.6.0",
     "lit-analyzer": "2.0.3",
     "madge": "8.0.0",
+    "njs-types": "1.0.0",
     "npm-run-all2": "9.0.3",
     "nyc": "18.0.0",
     "octokit": "5.0.5",
-    "playwright": "1.64.0",
+    "playwright": "1.64.1",
     "postcss": "8.5.30",
     "postcss-value-parser": "4.2.0",
     "prettier": "3.9.10",
@@ -145,7 +146,7 @@
     "@webcomponents/template-shadowroot": "0.2.1",
     "@web/dev-server-core": "1.0.1",
     "lit": "3.3.3",
-    "playwright": "1.64.0",
+    "playwright": "1.64.1",
     "postcss": "8.5.30"
   },
   "prettier": {

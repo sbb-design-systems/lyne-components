@@ -15,7 +15,7 @@ import {
   progressLeg,
   redirectedOnArrivalLeg,
   redirectedOnDepartureLeg,
-} from '../pearl-chain/pearl-chain.sample-data.private.ts';
+} from '../pearl-chain-legacy/pearl-chain-legacy.sample-data.private.ts';
 
 export type DeepPartial<T> = T extends object
   ? {
