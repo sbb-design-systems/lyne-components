@@ -3,7 +3,7 @@ import fs from 'fs';
 /**
  * @param {import("njs-types").NginxHTTPRequest} r
  */
-function spa(r) {
+function header(r) {
   const corsString =
     r.headersIn.Origin === 'https://digital.sbb.ch' ||
     r.headersIn.Origin === 'http://localhost:8080'
@@ -18,10 +18,6 @@ function spa(r) {
   if (r.method === 'OPTIONS') {
     // OPTIONS requests will be cached for a month.
     r.headersOut['Access-Control-Max-Age'] = '2628000';
-    r.headersOut['Content-Type'] = 'text/plain';
-    r.headersOut['Content-Length'] = '0';
-    r.return(204);
-
     return;
   }
 
@@ -30,6 +26,18 @@ function spa(r) {
   // Prevents MIME type sniffing from browsers (Recommended by Cyber@SBB)
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Content-Type-Options
   r.headersOut['X-Content-Type-Options'] = 'nosniff';
+}
+
+/**
+ * @param {import("njs-types").NginxHTTPRequest} r
+ */
+function spa(r) {
+  header(r);
+
+  if (r.method === 'OPTIONS') {
+    r.return(204);
+    return;
+  }
 
   const normalizedPath = r.variables.document_root + r.uri;
   const indexPath = `${r.variables.document_root}/index.html`;
@@ -58,4 +66,4 @@ function spa(r) {
   r.return(200, content);
 }
 
-export default { spa };
+export default { spa, header };
