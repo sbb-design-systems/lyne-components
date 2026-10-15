@@ -17,7 +17,7 @@ import { registerHooks } from 'node:module';
 import { basename, dirname, extname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs, promisify, styleText } from 'node:util';
-import { brotliCompress, gzip } from 'node:zlib';
+import { brotliCompress, gzip, gzipSync } from 'node:zlib';
 
 import { cli as customElementManifestCli } from '@custom-elements-manifest/analyzer/cli.js';
 import checkbox, { Separator } from '@inquirer/checkbox';
@@ -362,6 +362,16 @@ async function buildDocs(pkg: PackageBuilder): Promise<void> {
     quiet: true,
     statsJson: true,
   });
+
+  const compressibleFileType = ['.js', '.css', '.svg', '.json', '.md'];
+  for (const entry of readdirSync(pkg.outDir, { recursive: true, withFileTypes: true })) {
+    if (compressibleFileType.includes(extname(entry.name))) {
+      const filePath = join(entry.parentPath, entry.name);
+      const gzipPath = `${filePath}.gz`;
+      const gzipContent = gzipSync(readFileSync(filePath));
+      writeFileSync(gzipPath, gzipContent);
+    }
+  }
 }
 
 function stateTransform(): PluginOption {

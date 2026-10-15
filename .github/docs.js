@@ -53,7 +53,7 @@ function spa(r) {
   r.headersOut['Content-Type'] = 'text/html';
   r.headersOut['Strict-Transport-Security'] = 'max-age=63072000; includeSubDomains; preload';
   r.headersOut['Content-Security-Policy'] =
-    `default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'nonce-${nonce}'; font-src 'self' https://cdn.app.sbb.ch/; connect-src 'self' https://icons.app.sbb.ch/; frame-ancestors 'self' https://digital.sbb.ch; img-src 'self' data: https://cdn.img.sbb.ch;`;
+    `default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'nonce-${nonce}'; font-src 'self' https://cdn.app.sbb.ch/; connect-src 'self' https://icons.app.sbb.ch/; frame-ancestors 'self' https://digital.sbb.ch; img-src 'self' data: https://cdn.img.sbb.ch https://icons.app.sbb.ch/;`;
   let content = fs.readFileSync(filePath, 'utf-8');
   const legacyVersions = process.env.LEGACY_VERSIONS;
   if (legacyVersions) {
