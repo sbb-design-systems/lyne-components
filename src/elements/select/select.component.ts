@@ -411,6 +411,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
+
+    // As the triggerElement is created in the firstRender, we need to sync the aria labels here.
+    this._syncAriaLabels();
     this._updateValueOptionState();
     if (this._triggerElement) {
       this._triggerElement.select = this;

@@ -4,7 +4,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { fixture, tabKey } from '../core/testing/private.ts';
+import { elementInternalsSpy, fixture, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 import type { SbbFormFieldElement } from '../form-field.ts';
 import { SbbOptionElement } from '../option.ts';
@@ -16,6 +16,7 @@ import '../select.ts';
 
 describe(`sbb-select`, () => {
   let element: SbbSelectElement, root: HTMLDivElement;
+  const elementInternals = elementInternalsSpy();
 
   const displayValue = (): string => {
     const displayValueElement = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
@@ -42,7 +43,7 @@ describe(`sbb-select`, () => {
       `);
       element = root.querySelector<SbbSelectElement>('sbb-select')!;
 
-      comboBoxElement = root.querySelector('[role="combobox"]')!;
+      comboBoxElement = root.querySelector('sbb-select-trigger')!;
       focusableElement = comboBoxElement;
       firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
       secondOption = element.querySelector<SbbOptionElement>('#option-2')!;
@@ -72,7 +73,7 @@ describe(`sbb-select`, () => {
       expect(openSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
       expect(element).to.match(':state(expanded)');
       expect(overlayContainerElement).to.match(':popover-open');
 
@@ -85,7 +86,7 @@ describe(`sbb-select`, () => {
       expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
       expect(element).not.to.match(':state(expanded)');
       expect(overlayContainerElement).not.to.match(':popover-open');
     });
@@ -104,13 +105,13 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await open.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
 
       element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       await closeSpy.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
     });
 
     it('closes the select by option click', async function (this: Context) {
@@ -123,13 +124,13 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await open.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
 
       firstOption.click();
       await waitForLitRender(element);
       await closeSpy.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
       expect(element.value).to.be.equal('1');
     });
 
@@ -145,13 +146,13 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await open.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
 
       firstOption.click();
       await waitForLitRender(element);
       await closeSpy.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
       expect(element.value).to.be.equal('1');
     });
 
@@ -242,7 +243,7 @@ describe(`sbb-select`, () => {
         </div>
       `);
       element = root.querySelector<SbbSelectElement>('sbb-select')!;
-      comboBoxElement = root.querySelector('[role="combobox"]')!;
+      comboBoxElement = root.querySelector('sbb-select-trigger')!;
       focusableElement = comboBoxElement;
 
       expect(element.getDisplayValue()).to.be.equal('First');
@@ -285,7 +286,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(element.value).to.be.equal('2');
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
     });
 
     it('displays initially selected option', async () => {
@@ -347,7 +348,7 @@ describe(`sbb-select`, () => {
       expect(element.value).to.be.eql([]);
       expect(displayValue()).to.be.equal('Placeholder');
       // Panel is still open
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
     });
 
     it('update multiple attribute', async () => {
@@ -489,7 +490,7 @@ describe(`sbb-select`, () => {
       expect(firstOption).to.have.attribute('selected');
       expect(element.value).to.be.equal('1');
       expect(element.getDisplayValue()).to.be.equal('First');
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
 
       await sendKeys({ press: 'T' });
       await waitForLitRender(element);
@@ -525,7 +526,7 @@ describe(`sbb-select`, () => {
       await closeSpy.calledOnce();
 
       expect(element).to.match(':state(state-closed)');
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
       expect(element.value).to.be.equal('2');
     });
 
@@ -581,17 +582,22 @@ describe(`sbb-select`, () => {
       expect(openSpy.count).to.be.equal(2);
       expect(secondOption).not.to.match(':state(active)');
       expect(secondOption).to.have.attribute('selected');
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
     });
 
     it('correctly forward focus and blur', async () => {
       element.focus();
       await waitForLitRender(element);
-      expect(document.activeElement).to.have.attribute('role', 'combobox');
+
+      expect(elementInternals.get(document.activeElement as HTMLElement)?.role).to.equal(
+        'combobox',
+      );
 
       element.blur();
       await waitForLitRender(element);
-      expect(document.activeElement).not.to.have.attribute('role', 'combobox');
+      expect(elementInternals.get(document.activeElement as HTMLElement)?.role).not.to.equal(
+        'combobox',
+      );
     });
 
     it('does not open if prevented', async () => {
@@ -863,7 +869,7 @@ describe(`sbb-select`, () => {
         </form>
       `);
       element = form.querySelector('sbb-select')!;
-      comboBoxElement = form.querySelector('[role="combobox"]')!;
+      comboBoxElement = form.querySelector('sbb-select-trigger')!;
       nativeSelect = form.querySelector('select')!;
       fieldSet = form.querySelector('fieldset')!;
 
@@ -1109,7 +1115,7 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
 
       expect(comboBoxElement).to.have.attribute('aria-label', 'Test');
     });
@@ -1120,7 +1126,7 @@ describe(`sbb-select`, () => {
           <sbb-option id="option-1" value="1">First</sbb-option>
         </sbb-select>
       `);
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
       expect(comboBoxElement).not.to.have.attribute('aria-label');
 
       element.setAttribute('aria-label', 'Test');
@@ -1137,7 +1143,7 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
 
       expect(comboBoxElement).to.have.attribute('aria-label', 'Test');
     });
@@ -1149,7 +1155,7 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
 
       expect(comboBoxElement).to.have.attribute('aria-labelledby', 'Test');
     });
@@ -1160,7 +1166,7 @@ describe(`sbb-select`, () => {
           <sbb-option id="option-1" value="1">First</sbb-option>
         </sbb-select>
       `);
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
       expect(comboBoxElement).not.to.have.attribute('aria-labelledby');
 
       element.setAttribute('aria-labelledby', 'Test');
@@ -1177,7 +1183,7 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
 
       expect(comboBoxElement).to.have.attribute('aria-labelledby', 'Test');
     });
@@ -1190,7 +1196,7 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
 
       expect(comboBoxElement).to.have.attribute('aria-describedby', 'Test');
       expect(comboBoxElement).to.have.attribute('aria-label', 'Label');
@@ -1205,7 +1211,7 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
 
       expect(comboBoxElement).to.have.attribute('aria-label', 'Label, Label 2');
     });
@@ -1221,7 +1227,7 @@ describe(`sbb-select`, () => {
       );
 
       const element = root.querySelector('sbb-select')!;
-      const comboBoxElement = root.querySelector('[role="combobox"]')!;
+      const comboBoxElement = root.querySelector('sbb-select-trigger')!;
       expect(comboBoxElement).to.have.attribute('aria-label', 'Label');
 
       root.querySelector('label')!.remove();
@@ -1249,7 +1255,7 @@ describe(`sbb-select`, () => {
       `);
       element = formField.querySelector<SbbSelectElement>('sbb-select')!;
 
-      comboBoxElement = formField.querySelector('[role="combobox"]')!;
+      comboBoxElement = formField.querySelector('sbb-select-trigger')!;
       firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
     });
 
@@ -1271,14 +1277,14 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await openSpy.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
 
       firstOption.click();
       await waitForLitRender(element);
       await closeSpy.calledOnce();
 
       expect(openSpy.count).to.be.equal(1);
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
       expect(element.value).to.be.equal('1');
     });
 
@@ -1294,13 +1300,13 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await openSpy.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
 
       firstOption.click();
       await waitForLitRender(element);
       await closeSpy.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
       expect(element.value).to.be.equal('1');
     });
 
@@ -1321,7 +1327,7 @@ describe(`sbb-select`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
       await waitForLitRender(element);
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
       expect(element).to.match(':state(expanded)');
       expect(overlayContainerElement).to.match(':popover-open');
 
