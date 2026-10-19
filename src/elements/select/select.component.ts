@@ -239,6 +239,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         },
       }),
     );
+
+    // When to focus is on an option we need to listen to the bubbled keyboard event
+    this.addEventListener('keydown', (e) => this._onKeyDown(e));
   }
 
   public override attributeChangedCallback(
@@ -877,6 +880,11 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     lastActiveOption: SbbOptionElement<T> | null = null,
     setActiveDescendant = true,
   ): void {
+    this.options
+      .filter((o) => o.hasAttribute('tabindex'))
+      .forEach((o) => o.removeAttribute('tabindex'));
+    nextActiveOption.tabIndex = 0;
+    nextActiveOption.focus();
     nextActiveOption.setActive(true);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
