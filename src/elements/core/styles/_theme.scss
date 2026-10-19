@@ -126,6 +126,9 @@ $font-face: 'SBB' !default;
 @use '../mixins/panel-common.global' as panel-common with (
   $theme: $theme
 );
+@use '../../pearl-chain/pearl-chain.global' as pearl-chain with (
+  $theme: $theme
+);
 @use '../../popover/popover.global' as popover with (
   $theme: $theme
 );
@@ -267,6 +270,7 @@ $font-face: 'SBB' !default;
   @include overlay.base;
   @include paginator.base;
   @include panel-common.base;
+  @include pearl-chain.base;
   @include popover.base;
   @include radio-button.base;
   @include select.base;

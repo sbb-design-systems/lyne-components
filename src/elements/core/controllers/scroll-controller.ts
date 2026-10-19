@@ -8,6 +8,7 @@ interface ScrollSavedProperties {
   savedTop?: string;
   savedInsetInline?: string;
   savedOverflow?: string;
+  savedMinHeight?: string;
   touchStartY: number;
 }
 
@@ -101,6 +102,7 @@ export class SbbScrollController implements ReactiveController {
     this._scrollProperties.savedTop = document.body.style.top;
     this._scrollProperties.savedInsetInline = document.body.style.insetInline;
     this._scrollProperties.savedOverflow = document.body.style.overflow;
+    this._scrollProperties.savedMinHeight = document.body.style.minHeight;
 
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
@@ -109,6 +111,10 @@ export class SbbScrollController implements ReactiveController {
     document.body.style.insetInline = `0 ${scrollbarWidth}px`;
     document.body.style.overflow = 'hidden';
     document.body.style.setProperty('--sbb-scrollbar-reserved-space', `${scrollbarWidth}px`);
+
+    // Applying a min height helps when there is no intrinsic body size,
+    // e.g. when the absolute positioned sidebar is used.
+    document.body.style.minHeight = '100dvh';
 
     // iOS Safari can still allow touch scrolling/rubber-banding in some edge cases even with the
     // styles above, so we additionally intercept touch events as a safety net.
@@ -140,6 +146,7 @@ export class SbbScrollController implements ReactiveController {
     document.body.style.insetInline = this._scrollProperties.savedInsetInline || '';
     document.body.style.overflow = this._scrollProperties.savedOverflow || '';
     document.body.style.removeProperty('--sbb-scrollbar-reserved-space');
+    document.body.style.minHeight = this._scrollProperties.savedMinHeight || '';
 
     document.removeEventListener('touchstart', this._touchStart);
     document.removeEventListener('touchmove', this._touchMove);
