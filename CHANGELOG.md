@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.12.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.11.0...v5.12.0) (2026-10-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pearl-chain:** renamed `lyne-elements-experimental/sbb-pearl-chain` into `lyne-elements-experimental/sbb-pearl-chain-legacy`
+
+### Features
+
+* **pearl-chain:** implement component ([#5268](https://github.com/sbb-design-systems/lyne-components/issues/5268)) ([f43e51a](https://github.com/sbb-design-systems/lyne-components/commit/f43e51a17350593a8ef598cfbbf1d4459189d4e4))
+
+
+### Bug Fixes
+
+* add min-height on body scroll lock ([#5315](https://github.com/sbb-design-systems/lyne-components/issues/5315)) ([6883306](https://github.com/sbb-design-systems/lyne-components/commit/6883306792b6bae735ab025e980c8ed9aa1dd047)), closes [#5314](https://github.com/sbb-design-systems/lyne-components/issues/5314)
+* **image:** check on first update if image is done loading ([#5316](https://github.com/sbb-design-systems/lyne-components/issues/5316)) ([6caf61c](https://github.com/sbb-design-systems/lyne-components/commit/6caf61c9b57b5200ed7e403073133b45cdea708c))
+
+
+### Build System
+
+* assign release version ([eb8757b](https://github.com/sbb-design-systems/lyne-components/commit/eb8757bedc0949b15d83de02b152853b42c80442))
+
 ## [5.11.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.10.0...v5.11.0) (2026-10-12)
 
 
