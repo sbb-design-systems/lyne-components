@@ -498,7 +498,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       } else {
         this.internals.ariaMultiSelectable = null;
       }
-      console.log(ariaRoleOnHost, this.multiple, this.internals.ariaMultiSelectable);
     }
   }
 
