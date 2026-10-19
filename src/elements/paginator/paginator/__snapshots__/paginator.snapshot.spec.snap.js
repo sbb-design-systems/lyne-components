@@ -515,19 +515,13 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
       error-space="none"
       width="collapse"
     >
-      <div
-        aria-controls="sbb-select-2"
-        aria-expanded="false"
-        aria-haspopup="listbox"
+      <sbb-select-trigger
         aria-label="Items per slide"
-        aria-owns="sbb-select-2"
-        aria-required="false"
-        class="sbb-screen-reader-only sbb-select-trigger"
-        role="combobox"
+        class="sbb-screen-reader-only"
         tabindex="0"
       >
         10
-      </div>
+      </sbb-select-trigger>
       <sbb-select value="10">
         <sbb-option
           selected=""
@@ -664,19 +658,13 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
       error-space="none"
       width="collapse"
     >
-      <div
-        aria-controls="sbb-select-2"
-        aria-expanded="false"
-        aria-haspopup="listbox"
+      <sbb-select-trigger
         aria-label="Items per slide"
-        aria-owns="sbb-select-2"
-        aria-required="false"
-        class="sbb-screen-reader-only sbb-select-trigger"
-        role="combobox"
+        class="sbb-screen-reader-only"
         tabindex="0"
       >
         10
-      </div>
+      </sbb-select-trigger>
       <sbb-select
         id="select"
         value="10"
