@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const target = e.target;
         const version = Number(target.value);
 
-        if (version !== 'latest' && typeof version === 'number') {
+        if (!isNan(version)) {
           window.location.href = `https://lyne-elements-v${version}.app.sbb.ch/`;
         }
       });
