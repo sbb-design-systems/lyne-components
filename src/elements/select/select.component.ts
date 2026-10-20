@@ -82,7 +82,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   ),
 ) {
   public static override readonly elementName: string = 'sbb-select';
-  public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
+
+  // We set role combobox to the host which avoids reading "group" for the options when using with VoiceOver.
+  public static override readonly role = 'combobox';
   public static override styles: CSSResultGroup = [
     popoverResetStyles,
     scrollbarStyles,
@@ -877,23 +879,20 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _setActiveElement(
     nextActiveOption: SbbOptionElement<T>,
     lastActiveOption: SbbOptionElement<T> | null = null,
-    setActiveDescendant = true,
   ): void {
-    this.options
-      .filter((o) => o.hasAttribute('tabindex'))
-      .forEach((o) => o.removeAttribute('tabindex'));
     nextActiveOption.tabIndex = 0;
-    nextActiveOption.focus();
+    nextActiveOption.focus({ preventScroll: true });
     nextActiveOption.setActive(true);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
-    if (setActiveDescendant) {
-      this._triggerElement!.ariaActiveDescendantElement = nextActiveOption;
+    if (this._triggerElement) {
+      this._triggerElement.ariaActiveDescendantElement = nextActiveOption;
     }
 
     // Reset the previous
     if (lastActiveOption && !this.compareWith(lastActiveOption.value, nextActiveOption.value)) {
       lastActiveOption.setActive(false);
+      lastActiveOption.removeAttribute('tabindex');
     }
   }
 
@@ -913,11 +912,13 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     if (activeElement) {
       activeElement.setActive(false);
+      activeElement.removeAttribute('tabindex');
     }
     this._activeItemIndex = -1;
 
     if (this._triggerElement) {
       this._triggerElement.ariaActiveDescendantElement = null;
+      this._triggerElement.focus();
     }
   }
 
