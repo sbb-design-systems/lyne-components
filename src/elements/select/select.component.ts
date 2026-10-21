@@ -871,7 +871,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     if (this._triggerElement) {
-      this._triggerElement.ariaActiveDescendantElement = nextActiveOption;
+      this._triggerElement['internals'].ariaActiveDescendantElement = nextActiveOption;
     }
 
     // Reset the previous
@@ -902,7 +902,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._activeItemIndex = -1;
 
     if (this._triggerElement) {
-      this._triggerElement.ariaActiveDescendantElement = null;
+      this._triggerElement['internals'].ariaActiveDescendantElement = null;
     }
   }
 
