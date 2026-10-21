@@ -530,6 +530,98 @@ describe(`sbb-select`, () => {
       expect(element.value).to.be.equal('2');
     });
 
+    it('moves focus and tabindex to the active option on keyboard navigation', async () => {
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      focusableElement.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await openSpy.calledOnce();
+
+      // No option should be focusable before navigating
+      for (const option of [firstOption, secondOption, thirdOption]) {
+        expect(option).not.to.have.attribute('tabindex');
+      }
+
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+      expect(document.activeElement).to.be.equal(firstOption);
+      expect(firstOption).to.have.attribute('tabindex', '0');
+      expect(firstOption).to.match(':state(active)');
+      expect(comboBoxElement.ariaActiveDescendantElement).to.be.equal(firstOption);
+      expect(secondOption).not.to.have.attribute('tabindex');
+      expect(thirdOption).not.to.have.attribute('tabindex');
+
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+      expect(document.activeElement).to.be.equal(secondOption);
+      expect(secondOption).to.have.attribute('tabindex', '0');
+      expect(secondOption).to.match(':state(active)');
+      expect(comboBoxElement.ariaActiveDescendantElement).to.be.equal(secondOption);
+      // Previous active option must be reset
+      expect(firstOption).not.to.have.attribute('tabindex');
+      expect(firstOption).not.to.match(':state(active)');
+
+      await sendKeys({ press: 'End' });
+      await waitForLitRender(element);
+      expect(document.activeElement).to.be.equal(thirdOption);
+      expect(thirdOption).to.have.attribute('tabindex', '0');
+      expect(secondOption).not.to.have.attribute('tabindex');
+      expect(comboBoxElement.ariaActiveDescendantElement).to.be.equal(thirdOption);
+    });
+
+    it('moves focus and tabindex to the active option on keyboard navigation in multiple', async () => {
+      element.multiple = true;
+      await waitForLitRender(element);
+
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      focusableElement.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await openSpy.calledOnce();
+
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+
+      expect(document.activeElement).to.be.equal(secondOption);
+      expect(secondOption).to.have.attribute('tabindex', '0');
+      expect(firstOption).not.to.have.attribute('tabindex');
+      expect(firstOption).not.to.match(':state(active)');
+      expect(comboBoxElement.ariaActiveDescendantElement).to.be.equal(secondOption);
+    });
+
+    it('resets active option and restores focus to trigger on close', async () => {
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+      focusableElement.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await openSpy.calledOnce();
+
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+      expect(document.activeElement).to.be.equal(secondOption);
+
+      await sendKeys({ press: 'Escape' });
+      await closeSpy.calledOnce();
+      await waitForLitRender(element);
+
+      expect(document.activeElement).to.be.equal(comboBoxElement);
+      expect(comboBoxElement.ariaActiveDescendantElement).to.be.null;
+      for (const option of [firstOption, secondOption, thirdOption]) {
+        expect(option).not.to.have.attribute('tabindex');
+        expect(option).not.to.match(':state(active)');
+      }
+      expect(element.value).to.be.equal('2');
+
+      // Re-opening and navigating starts again from the selected option
+      await sendKeys({ press: 'ArrowDown' });
+      await openSpy.calledTimes(2);
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+      expect(document.activeElement).not.to.be.equal(comboBoxElement);
+      expect(document.activeElement).to.be.instanceOf(SbbOptionElement);
+      expect(document.activeElement).to.have.attribute('tabindex', '0');
+    });
+
     it('handles keyboard selection in multiple', async () => {
       element.toggleAttribute('multiple', true);
       await waitForLitRender(element);
