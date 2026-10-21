@@ -23,7 +23,6 @@ import {
   i18nSelectionRequired,
   isEventOnElement,
   isNextjs,
-  isSafari,
   isZeroAnimationDuration,
   popoverResetStyles,
   SbbDisabledMixin,
@@ -51,12 +50,6 @@ import {
 
 import { SbbSelectTriggerElement } from './select-trigger.component.ts';
 import style from './select.scss?inline';
-
-/**
- * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
- * On the other hand, JAWS and NVDA need the role to be an "immediate parent" to the options, or else optgroups won't work.
- */
-const ariaRoleOnHost = isSafari;
 
 /**
  * It displays a panel with selectable options.
@@ -491,13 +484,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     }
     if (changedProperties.has('readOnly')) {
       this._closeOnDisabledReadonlyChanged(this.readOnly);
-    }
-    if (changedProperties.has('multiple')) {
-      if (ariaRoleOnHost && this.multiple) {
-        this.internals.ariaMultiSelectable = `true`;
-      } else {
-        this.internals.ariaMultiSelectable = null;
-      }
     }
   }
 
@@ -1055,8 +1041,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
           class="sbb-option-panel__overlay ${
             this.negative ? 'sbb-scrollbar-negative' : 'sbb-scrollbar'
           }"
-          role=${!ariaRoleOnHost ? 'listbox' : nothing}
-          aria-multiselectable=${!ariaRoleOnHost && this.multiple ? 'true' : nothing}
+          role="listbox"
+          aria-multiselectable=${this.multiple ? 'true' : nothing}
           tabindex="-1"
           @animationend=${this._onAnimationEnd}
           ${ref((dialogRef) => (this._overlay = dialogRef as HTMLElement))}
