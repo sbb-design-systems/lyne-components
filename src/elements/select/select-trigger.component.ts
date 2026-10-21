@@ -6,7 +6,11 @@ import style from './select-trigger.scss?inline';
 import type { SbbSelectElement } from './select.component.ts';
 
 /**
- * Internal component for the select trigger
+ * @internal
+ * Internal component used as the select trigger.
+ *
+ * A dedicated component is required to leverage ElementInternals to associate
+ * elements across Shadow DOM boundaries.
  *
  * @slot - Use the unnamed slot to add content
  */

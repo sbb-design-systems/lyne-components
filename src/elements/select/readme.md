@@ -223,18 +223,3 @@ For types other than string, the `value` must be set via property.
 | Name | Description                          |
 | ---- | ------------------------------------ |
 |      | Use the unnamed slot to add options. |
-
-### class: `SbbSelectTriggerElement`, `sbb-select-trigger`
-
-#### Properties
-
-| Name           | Attribute | Privacy | Type                          | Default   | Description |
-| -------------- | --------- | ------- | ----------------------------- | --------- | ----------- |
-| `ariaExpanded` | -         |         | `string`                      | `'false'` |             |
-| `select`       | -         | public  | `SbbSelectElement<T> \| null` | `null`    |             |
-
-#### Slots
-
-| Name | Description                         |
-| ---- | ----------------------------------- |
-|      | Use the unnamed slot to add content |
