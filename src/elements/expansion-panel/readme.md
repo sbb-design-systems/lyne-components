@@ -71,7 +71,7 @@ Using the `titleLevel` variable, it's possible to wrap the `<sbb-expansion-panel
 if it's unset, a `<div>` is used as a wrapper.
 
 ```html
-<sbb-expansion-panel level="4">
+<sbb-expansion-panel title-level="4">
   <sbb-expansion-panel-header
     >This is the header, and it will be wrapped in a h4 tag.</sbb-expansion-panel-header
   >
