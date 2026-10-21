@@ -1,5 +1,6 @@
 export const FORMAT_DATE =
   /(0?[1-9]|[12][0-9]|3[01])[.,\\/\-\s](0?[1-9]|1[0-2])[.,\\/\-\s]([0-9]{1,4}$)?/;
+export const SEPARATORLESS_FORMAT_DATE = /([0-9]{2})([0-9]{2})([0-9]{4})/;
 export const ISO8601_FORMAT_DATE = /^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-3][0-9])$/;
 export const MONDAY = 1;
 export const TUESDAY = 2;
@@ -163,12 +164,14 @@ export abstract class DateAdapter<T = any> {
     } catch {
       /* empty */
     }
+
     if (this.isValid(date)) {
       return date;
     }
 
     const strippedValue = value.replace(/\D/g, ' ').trim();
-    const match: RegExpMatchArray | null | undefined = strippedValue?.match(FORMAT_DATE);
+    const match: RegExpMatchArray | null | undefined =
+      strippedValue?.match(FORMAT_DATE) ?? value.match(SEPARATORLESS_FORMAT_DATE);
     try {
       date = match ? this.createDate(+match[3], +match[2], +match[1]) : null;
     } catch {
