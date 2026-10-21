@@ -36,7 +36,7 @@ The `allowEmptySelection` property allows user to deselect the component.
 
 <sbb-radio-button value="Three" required>Option three</sbb-radio-button>
 
-<sbb-radio-button value="Four" allowEmptySelection>Option four</sbb-radio-button>
+<sbb-radio-button value="Four" allow-empty-selection>Option four</sbb-radio-button>
 ```
 
 ## Style
