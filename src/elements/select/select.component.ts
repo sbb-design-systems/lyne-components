@@ -232,7 +232,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       }),
     );
 
-    // When to focus is on an option we need to listen to the bubbled keyboard event
+    // If the focus is on an option we need to listen to the bubbled keyboard event
     this.addEventListener('keydown', (e) => this._onKeyDown(e));
   }
 
@@ -407,10 +407,11 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    // As the triggerElement is created in the firstRender, we need to sync the aria labels here.
-    this._syncAriaLabels();
     this._updateValueOptionState();
     if (this._triggerElement) {
+      // As the triggerElement is created in the firstRender,
+      // we need to sync the aria labels and configure the trigger here.
+      this._syncAriaLabels();
       this._triggerElement.select = this;
     }
 
@@ -589,7 +590,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
    */
   private _setupTrigger(): void {
     // Move the trigger before the sbb-select
-    if (this.parentElement && this._triggerElement && this._overlay) {
+    if (this.parentElement && this._triggerElement) {
       this.parentElement.insertBefore?.(this._triggerElement, this);
     }
   }
@@ -629,6 +630,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this.state = 'closed';
     this.shadowRoot?.querySelector<HTMLDivElement>('[popover]')?.hidePopover?.();
     this._resetActiveElement();
+    if (this._triggerElement) {
+      this._triggerElement.focus();
+    }
     if (this._overlay) {
       this._overlay.scrollTop = 0;
     }
@@ -901,7 +905,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     if (this._triggerElement) {
       this._triggerElement.ariaActiveDescendantElement = null;
-      this._triggerElement.focus();
     }
   }
 

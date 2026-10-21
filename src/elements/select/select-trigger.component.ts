@@ -1,6 +1,6 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { isSafari, SbbElement, SbbPropertyWatcherController } from '../core.ts';
+import { SbbElement, SbbPropertyWatcherController } from '../core.ts';
 
 import style from './select-trigger.scss?inline';
 import type { SbbSelectElement } from './select.component.ts';
@@ -43,7 +43,7 @@ export class SbbSelectTriggerElement<T = string> extends SbbElement {
 
     // As the trigger is only used and controlled by the sbb-select, we can guarantee that the shadowRoot is ready.
     const overlay = this._select.shadowRoot!.querySelector('.sbb-option-panel__overlay')!;
-    this.internals.ariaControlsElements = [isSafari ? this._select : overlay];
+    this.internals.ariaControlsElements = [overlay];
   }
 
   public get select(): SbbSelectElement<T> | null {
