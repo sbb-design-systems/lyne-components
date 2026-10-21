@@ -83,8 +83,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 ) {
   public static override readonly elementName: string = 'sbb-select';
 
-  // We set role combobox to the host which avoids reading "group" for the options when using with VoiceOver.
-  public static override readonly role = 'combobox';
   public static override styles: CSSResultGroup = [
     popoverResetStyles,
     scrollbarStyles,
