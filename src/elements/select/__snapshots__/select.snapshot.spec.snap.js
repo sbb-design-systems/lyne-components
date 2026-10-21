@@ -3,13 +3,22 @@ export const snapshots = {};
 
 snapshots["sbb-select renders Safari DOM"] = 
 `<sbb-select>
-  <sbb-option value="1">
+  <sbb-option
+    tabindex="-1"
+    value="1"
+  >
     Option 1
   </sbb-option>
-  <sbb-option value="2">
+  <sbb-option
+    tabindex="-1"
+    value="2"
+  >
     Option 2
   </sbb-option>
-  <sbb-option value="3">
+  <sbb-option
+    tabindex="-1"
+    value="3"
+  >
     Option 3
   </sbb-option>
 </sbb-select>
@@ -28,6 +37,7 @@ snapshots["sbb-select renders Safari Shadow DOM"] =
 >
   <div
     class="sbb-option-panel__overlay sbb-scrollbar"
+    role="listbox"
     tabindex="-1"
   >
     <slot>
@@ -39,13 +49,22 @@ snapshots["sbb-select renders Safari Shadow DOM"] =
 
 snapshots["sbb-select renders multiple Safari DOM"] = 
 `<sbb-select multiple="">
-  <sbb-option value="1">
+  <sbb-option
+    tabindex="-1"
+    value="1"
+  >
     Option 1
   </sbb-option>
-  <sbb-option value="2">
+  <sbb-option
+    tabindex="-1"
+    value="2"
+  >
     Option 2
   </sbb-option>
-  <sbb-option value="3">
+  <sbb-option
+    tabindex="-1"
+    value="3"
+  >
     Option 3
   </sbb-option>
 </sbb-select>
@@ -63,7 +82,9 @@ snapshots["sbb-select renders multiple Safari Shadow DOM"] =
   popover="manual"
 >
   <div
+    aria-multiselectable="true"
     class="sbb-option-panel__overlay sbb-scrollbar"
+    role="listbox"
     tabindex="-1"
   >
     <slot>
@@ -75,13 +96,22 @@ snapshots["sbb-select renders multiple Safari Shadow DOM"] =
 
 snapshots["sbb-select renders Chrome-Firefox DOM"] = 
 `<sbb-select>
-  <sbb-option value="1">
+  <sbb-option
+    tabindex="-1"
+    value="1"
+  >
     Option 1
   </sbb-option>
-  <sbb-option value="2">
+  <sbb-option
+    tabindex="-1"
+    value="2"
+  >
     Option 2
   </sbb-option>
-  <sbb-option value="3">
+  <sbb-option
+    tabindex="-1"
+    value="3"
+  >
     Option 3
   </sbb-option>
 </sbb-select>
@@ -137,13 +167,22 @@ snapshots["sbb-select renders A11y tree Chrome"] =
 
 snapshots["sbb-select renders multiple Chrome-Firefox DOM"] = 
 `<sbb-select multiple="">
-  <sbb-option value="1">
+  <sbb-option
+    tabindex="-1"
+    value="1"
+  >
     Option 1
   </sbb-option>
-  <sbb-option value="2">
+  <sbb-option
+    tabindex="-1"
+    value="2"
+  >
     Option 2
   </sbb-option>
-  <sbb-option value="3">
+  <sbb-option
+    tabindex="-1"
+    value="3"
+  >
     Option 3
   </sbb-option>
 </sbb-select>

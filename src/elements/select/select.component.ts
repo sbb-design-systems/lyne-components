@@ -217,7 +217,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         // Option click
         if (!this.multiple && !target.disabled) {
           this.close();
-          this.focus();
         }
       } else {
         this._toggleOpening();
@@ -876,7 +875,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     // Reset the previous
     if (lastActiveOption && !this.compareWith(lastActiveOption.value, nextActiveOption.value)) {
       lastActiveOption.setActive(false);
-      lastActiveOption.removeAttribute('tabindex');
+      lastActiveOption.tabIndex = -1;
     }
   }
 
@@ -896,7 +895,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     if (activeElement) {
       activeElement.setActive(false);
-      activeElement.removeAttribute('tabindex');
+      activeElement.tabIndex = -1;
     }
     this._activeItemIndex = -1;
 
@@ -962,6 +961,12 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._updateDisplayValue();
   }
 
+  private _handleSlotchange(): void {
+    const active = this._selectableOptions()[this._activeItemIndex];
+    this._selectableOptions().forEach((o) => (o.tabIndex = o === active ? 0 : -1));
+    this._updateValueOptionState();
+  }
+
   private _updateValueOptionState(): void {
     if (this._isValueManuallyAssigned) {
       this._updateOptionsFromValue();
@@ -982,7 +987,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     if (this.disabled || this.formDisabled || this.readOnly) {
       return;
     }
-    this._triggerElement?.focus();
 
     switch (this.state) {
       case 'opening':
@@ -1047,7 +1051,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
           @animationend=${this._onAnimationEnd}
           ${ref((dialogRef) => (this._overlay = dialogRef as HTMLElement))}
         >
-          <slot @slotchange=${this._updateValueOptionState}></slot>
+          <slot @slotchange=${this._handleSlotchange}></slot>
         </div>
       </div>
     `;

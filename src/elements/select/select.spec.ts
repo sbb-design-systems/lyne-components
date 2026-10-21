@@ -538,7 +538,7 @@ describe(`sbb-select`, () => {
 
       // No option should be focusable before navigating
       for (const option of [firstOption, secondOption, thirdOption]) {
-        expect(option).not.to.have.attribute('tabindex');
+        expect(option.tabIndex).to.equal(-1);
       }
 
       await sendKeys({ press: 'ArrowDown' });
@@ -547,8 +547,8 @@ describe(`sbb-select`, () => {
       expect(firstOption).to.have.attribute('tabindex', '0');
       expect(firstOption).to.match(':state(active)');
       expect(comboBoxElement.ariaActiveDescendantElement).to.be.equal(firstOption);
-      expect(secondOption).not.to.have.attribute('tabindex');
-      expect(thirdOption).not.to.have.attribute('tabindex');
+      expect(secondOption.tabIndex).to.equal(-1);
+      expect(thirdOption.tabIndex).to.equal(-1);
 
       await sendKeys({ press: 'ArrowDown' });
       await waitForLitRender(element);
@@ -557,14 +557,14 @@ describe(`sbb-select`, () => {
       expect(secondOption).to.match(':state(active)');
       expect(comboBoxElement.ariaActiveDescendantElement).to.be.equal(secondOption);
       // Previous active option must be reset
-      expect(firstOption).not.to.have.attribute('tabindex');
+      expect(firstOption.tabIndex).to.equal(-1);
       expect(firstOption).not.to.match(':state(active)');
 
       await sendKeys({ press: 'End' });
       await waitForLitRender(element);
       expect(document.activeElement).to.be.equal(thirdOption);
       expect(thirdOption).to.have.attribute('tabindex', '0');
-      expect(secondOption).not.to.have.attribute('tabindex');
+      expect(secondOption.tabIndex).to.equal(-1);
       expect(comboBoxElement.ariaActiveDescendantElement).to.be.equal(thirdOption);
     });
 
@@ -583,7 +583,7 @@ describe(`sbb-select`, () => {
 
       expect(document.activeElement).to.be.equal(secondOption);
       expect(secondOption).to.have.attribute('tabindex', '0');
-      expect(firstOption).not.to.have.attribute('tabindex');
+      expect(firstOption.tabIndex).to.equal(-1);
       expect(firstOption).not.to.match(':state(active)');
       expect(comboBoxElement.ariaActiveDescendantElement).to.be.equal(secondOption);
     });
@@ -607,7 +607,7 @@ describe(`sbb-select`, () => {
       expect(document.activeElement).to.be.equal(comboBoxElement);
       expect(comboBoxElement.ariaActiveDescendantElement).to.be.null;
       for (const option of [firstOption, secondOption, thirdOption]) {
-        expect(option).not.to.have.attribute('tabindex');
+        expect(option.tabIndex).to.equal(-1);
         expect(option).not.to.match(':state(active)');
       }
       expect(element.value).to.be.equal('2');

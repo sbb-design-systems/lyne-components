@@ -20,8 +20,8 @@ export class SbbSelectTriggerElement<T = string> extends SbbElement {
       return;
     }
     if (this._select) {
-      this._select.removeEventListener('open', this._openListener);
-      this._select.removeEventListener('close', this._closeListener);
+      this._select.removeEventListener('beforeopen', this._openListener);
+      this._select.removeEventListener('beforeclose', this._closeListener);
     }
     if (this._selectPropertyWatcher) {
       this.removeController(this._selectPropertyWatcher);
@@ -38,8 +38,8 @@ export class SbbSelectTriggerElement<T = string> extends SbbElement {
       required: (s) => (this.internals.ariaRequired = s.required ? `${s.required}` : null),
     });
 
-    this._select.addEventListener('open', this._openListener);
-    this._select.addEventListener('close', this._closeListener);
+    this._select.addEventListener('beforeopen', this._openListener);
+    this._select.addEventListener('beforeclose', this._closeListener);
 
     // As the trigger is only used and controlled by the sbb-select, we can guarantee that the shadowRoot is ready.
     const overlay = this._select.shadowRoot!.querySelector('.sbb-option-panel__overlay')!;
