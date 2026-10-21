@@ -295,6 +295,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     this.shadowRoot?.querySelector<HTMLDivElement>('[popover]')?.showPopover?.();
     this.state = 'opening';
+    if (this._triggerElement) {
+      this._triggerElement['internals'].ariaExpanded = 'true';
+    }
     this.internals.states.add('expanded');
     this._setOverlayPosition();
     this._escapableOverlayController.connect();
@@ -629,6 +632,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _handleClosing(): void {
     this.state = 'closed';
     this.shadowRoot?.querySelector<HTMLDivElement>('[popover]')?.hidePopover?.();
+    if (this._triggerElement) {
+      this._triggerElement['internals'].ariaExpanded = 'false';
+    }
     this._resetActiveElement();
     this.focus();
     if (this._overlay) {

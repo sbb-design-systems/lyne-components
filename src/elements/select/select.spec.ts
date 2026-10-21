@@ -546,7 +546,9 @@ describe(`sbb-select`, () => {
       expect(document.activeElement).to.be.equal(firstOption);
       expect(firstOption).to.have.attribute('tabindex', '0');
       expect(firstOption).to.match(':state(active)');
-      expect(comboBoxElement.ariaActiveDescendantElement).to.be.equal(firstOption);
+      expect(elementInternals.get(comboBoxElement)!.ariaActiveDescendantElement).to.be.equal(
+        firstOption,
+      );
       expect(secondOption.tabIndex).to.equal(-1);
       expect(thirdOption.tabIndex).to.equal(-1);
 
@@ -555,7 +557,9 @@ describe(`sbb-select`, () => {
       expect(document.activeElement).to.be.equal(secondOption);
       expect(secondOption).to.have.attribute('tabindex', '0');
       expect(secondOption).to.match(':state(active)');
-      expect(comboBoxElement.ariaActiveDescendantElement).to.be.equal(secondOption);
+      expect(elementInternals.get(comboBoxElement)!.ariaActiveDescendantElement).to.be.equal(
+        secondOption,
+      );
       // Previous active option must be reset
       expect(firstOption.tabIndex).to.equal(-1);
       expect(firstOption).not.to.match(':state(active)');
@@ -565,7 +569,9 @@ describe(`sbb-select`, () => {
       expect(document.activeElement).to.be.equal(thirdOption);
       expect(thirdOption).to.have.attribute('tabindex', '0');
       expect(secondOption.tabIndex).to.equal(-1);
-      expect(comboBoxElement.ariaActiveDescendantElement).to.be.equal(thirdOption);
+      expect(elementInternals.get(comboBoxElement)!.ariaActiveDescendantElement).to.be.equal(
+        thirdOption,
+      );
     });
 
     it('moves focus and tabindex to the active option on keyboard navigation in multiple', async () => {
@@ -585,7 +591,9 @@ describe(`sbb-select`, () => {
       expect(secondOption).to.have.attribute('tabindex', '0');
       expect(firstOption.tabIndex).to.equal(-1);
       expect(firstOption).not.to.match(':state(active)');
-      expect(comboBoxElement.ariaActiveDescendantElement).to.be.equal(secondOption);
+      expect(elementInternals.get(comboBoxElement)!.ariaActiveDescendantElement).to.be.equal(
+        secondOption,
+      );
     });
 
     it('resets active option and restores focus to trigger on close', async () => {
@@ -605,7 +613,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(document.activeElement).to.be.equal(comboBoxElement);
-      expect(comboBoxElement.ariaActiveDescendantElement).to.be.null;
+      expect(elementInternals.get(comboBoxElement)!.ariaActiveDescendantElement).to.be.null;
       for (const option of [firstOption, secondOption, thirdOption]) {
         expect(option.tabIndex).to.equal(-1);
         expect(option).not.to.match(':state(active)');

@@ -23,10 +23,6 @@ export class SbbSelectTriggerElement<T = string> extends SbbElement {
     if (select === this._select) {
       return;
     }
-    if (this._select) {
-      this._select.removeEventListener('beforeopen', this._openListener);
-      this._select.removeEventListener('beforeclose', this._closeListener);
-    }
     if (this._selectPropertyWatcher) {
       this.removeController(this._selectPropertyWatcher);
     }
@@ -41,9 +37,6 @@ export class SbbSelectTriggerElement<T = string> extends SbbElement {
     this._selectPropertyWatcher = new SbbPropertyWatcherController(this, () => this._select, {
       required: (s) => (this.internals.ariaRequired = s.required ? `${s.required}` : null),
     });
-
-    this._select.addEventListener('beforeopen', this._openListener);
-    this._select.addEventListener('beforeclose', this._closeListener);
 
     // As the trigger is only used and controlled by the sbb-select, we can guarantee that the shadowRoot is ready.
     const overlay = this._select.shadowRoot!.querySelector('.sbb-option-panel__overlay')!;
@@ -60,6 +53,7 @@ export class SbbSelectTriggerElement<T = string> extends SbbElement {
   public constructor() {
     super();
 
+    // State change is controlled by select
     this.internals.ariaExpanded = 'false';
   }
 
@@ -68,9 +62,6 @@ export class SbbSelectTriggerElement<T = string> extends SbbElement {
 
     this.toggleState('in-form-field', !!this.closest('sbb-form-field'));
   }
-
-  private _closeListener: () => void = () => (this.internals.ariaExpanded = 'false');
-  private _openListener: () => void = () => (this.internals.ariaExpanded = 'true');
 
   protected override render(): TemplateResult {
     return html`<slot></slot>`;
