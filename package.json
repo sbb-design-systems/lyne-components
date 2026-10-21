@@ -117,7 +117,7 @@
     "lit-analyzer": "2.0.3",
     "madge": "8.0.0",
     "njs-types": "1.0.0",
-    "npm-run-all2": "9.0.3",
+    "npm-run-all2": "9.0.4",
     "nyc": "18.0.0",
     "octokit": "5.0.5",
     "playwright": "1.64.1",
