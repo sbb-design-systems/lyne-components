@@ -9,16 +9,16 @@ enhanced with SBB Design, accepting its associated properties (`href`, `target`,
 For every variant there is also a button version, equivalent to a native `button` element.
 
 ```html
-<sbb-link-button href="http://www.sbb.ch">Link text</sbb-link-button>
-<sbb-block-link-button href="http://www.sbb.ch">Link text</sbb-block-link-button>
+<sbb-link-button>Link text</sbb-link-button>
+<sbb-block-link-button>Link text</sbb-block-link-button>
 ```
 
 Additionally, for every variant there is a static version that can be used inside another
 interactive element (e.g. an `anchor (a)`).
 
 ```html
-<sbb-link-static href="http://www.sbb.ch">Link text</sbb-link-static>
-<sbb-block-link-static href="http://www.sbb.ch">Link text</sbb-block-link-static>
+<sbb-link-static>Link text</sbb-link-static>
+<sbb-block-link-static>Link text</sbb-block-link-static>
 ```
 
 Block links can optionally display an icon, which can be provided via the `iconName` property

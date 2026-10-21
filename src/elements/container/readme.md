@@ -58,9 +58,9 @@ In `midnight` and `charcoal` variants, the slotted content text color and the fo
 but it's up to the consumer to correctly set the `negative` property on slotted Lyne components, if needed.
 
 ```html
-<sbb-container expanded variant="milk"> ... </sbb-container>
+<sbb-container expanded color="milk"> ... </sbb-container>
 
-<sbb-container variant="midnight">
+<sbb-container color="midnight">
   <sbb-title negative>Title</sbb-title>
   <p>Text</p>
 </sbb-container>

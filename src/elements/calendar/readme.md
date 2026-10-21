@@ -189,7 +189,7 @@ in the `year` view, or a list of months in the `month` view.
 When setting the `amount` to a value greater than 1, it will display the given amount of months.
 
 ```html
-<sbb-calendar wide="true" value="1699920000"></sbb-calendar>
+<sbb-calendar amount="2" value="1699920000"></sbb-calendar>
 ```
 
 It's also possible to change the orientation of dates by setting the `orientation` property to
