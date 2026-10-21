@@ -630,9 +630,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this.state = 'closed';
     this.shadowRoot?.querySelector<HTMLDivElement>('[popover]')?.hidePopover?.();
     this._resetActiveElement();
-    if (this._triggerElement) {
-      this._triggerElement.focus();
-    }
+    this.focus();
     if (this._overlay) {
       this._overlay.scrollTop = 0;
     }
