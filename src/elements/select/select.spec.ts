@@ -4,6 +4,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
+import { isSafari } from '../core/dom/platform.ts';
 import { elementInternalsSpy, fixture, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 import type { SbbFormFieldElement } from '../form-field.ts';
@@ -546,9 +547,6 @@ describe(`sbb-select`, () => {
       expect(document.activeElement).to.be.equal(firstOption);
       expect(firstOption).to.have.attribute('tabindex', '0');
       expect(firstOption).to.match(':state(active)');
-      expect(elementInternals.get(comboBoxElement)!.ariaActiveDescendantElement).to.be.equal(
-        firstOption,
-      );
       expect(secondOption.tabIndex).to.equal(-1);
       expect(thirdOption.tabIndex).to.equal(-1);
 
@@ -557,9 +555,6 @@ describe(`sbb-select`, () => {
       expect(document.activeElement).to.be.equal(secondOption);
       expect(secondOption).to.have.attribute('tabindex', '0');
       expect(secondOption).to.match(':state(active)');
-      expect(elementInternals.get(comboBoxElement)!.ariaActiveDescendantElement).to.be.equal(
-        secondOption,
-      );
       // Previous active option must be reset
       expect(firstOption.tabIndex).to.equal(-1);
       expect(firstOption).not.to.match(':state(active)');
@@ -569,9 +564,6 @@ describe(`sbb-select`, () => {
       expect(document.activeElement).to.be.equal(thirdOption);
       expect(thirdOption).to.have.attribute('tabindex', '0');
       expect(secondOption.tabIndex).to.equal(-1);
-      expect(elementInternals.get(comboBoxElement)!.ariaActiveDescendantElement).to.be.equal(
-        thirdOption,
-      );
     });
 
     it('moves focus and tabindex to the active option on keyboard navigation in multiple', async () => {
@@ -591,9 +583,6 @@ describe(`sbb-select`, () => {
       expect(secondOption).to.have.attribute('tabindex', '0');
       expect(firstOption.tabIndex).to.equal(-1);
       expect(firstOption).not.to.match(':state(active)');
-      expect(elementInternals.get(comboBoxElement)!.ariaActiveDescendantElement).to.be.equal(
-        secondOption,
-      );
     });
 
     it('resets active option and restores focus to trigger on close', async () => {
@@ -613,7 +602,6 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(document.activeElement).to.be.equal(comboBoxElement);
-      expect(elementInternals.get(comboBoxElement)!.ariaActiveDescendantElement).to.be.null;
       for (const option of [firstOption, secondOption, thirdOption]) {
         expect(option.tabIndex).to.equal(-1);
         expect(option).not.to.match(':state(active)');
@@ -728,6 +716,84 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(element).to.match(':state(state-opened)');
+    });
+
+    describe('aria-expanded timing', () => {
+      it('has aria-expanded=false when the trigger receives focus on close via keyboard', async () => {
+        const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+        const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+        focusableElement.focus();
+        await sendKeys({ press: 'ArrowDown' });
+        await openSpy.calledOnce();
+        await sendKeys({ press: 'ArrowDown' });
+        expect(document.activeElement).to.be.equal(firstOption);
+
+        let expandedOnFocus: string | undefined | null;
+        comboBoxElement.addEventListener(
+          'focus',
+          () => (expandedOnFocus = elementInternals.get(comboBoxElement)?.ariaExpanded),
+        );
+
+        await sendKeys({ press: 'Escape' });
+        await closeSpy.calledOnce();
+
+        expect(document.activeElement).to.be.equal(comboBoxElement);
+        expect(expandedOnFocus).to.deep.equal('false');
+      });
+
+      it('has aria-expanded=false when the trigger receives focus on close via option click', async () => {
+        const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+        const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+        element.open();
+        await openSpy.calledOnce();
+
+        let expandedOnFocus: string | undefined | null;
+        comboBoxElement.addEventListener(
+          'focus',
+          () => (expandedOnFocus = elementInternals.get(comboBoxElement)?.ariaExpanded),
+        );
+
+        secondOption.click();
+        await closeSpy.calledOnce();
+
+        expect(element.value).to.be.equal('2');
+        expect(document.activeElement).to.be.equal(comboBoxElement);
+        expect(expandedOnFocus).to.deep.equal('false');
+      });
+    });
+
+    it('wires the trigger to the select', async () => {
+      const overlay = element.shadowRoot!.querySelector('.sbb-option-panel__overlay')!;
+      const triggerInternals = elementInternals.get(comboBoxElement)!;
+
+      // Trigger is moved into the light DOM right before the select
+      expect(comboBoxElement.nextElementSibling).to.be.equal(element);
+      expect(element.inputElement).to.be.equal(comboBoxElement);
+      expect(triggerInternals.role).to.equal('combobox');
+      expect(triggerInternals.ariaExpanded).to.equal('false');
+      if (!isSafari) {
+        // Currently a bug in Safari which doesn't allow elements linked across shadow DOM boundaries.
+        // TODO: re-check, probably obsolete when we are going to move the trigger to the shadow DOM.
+        expect(triggerInternals.ariaControlsElements).to.deep.equal([overlay]);
+      }
+
+      // Host must not have a role, the trigger represents the combobox
+      expect(elementInternals.get(element)?.role ?? null).to.be.null;
+    });
+
+    it('syncs required to the trigger', async () => {
+      const triggerInternals = elementInternals.get(comboBoxElement)!;
+      expect(triggerInternals.ariaRequired).to.be.null;
+
+      element.required = true;
+      await waitForLitRender(element);
+      expect(triggerInternals.ariaRequired).to.equal('true');
+
+      element.required = false;
+      await waitForLitRender(element);
+      expect(triggerInternals.ariaRequired).to.be.null;
     });
 
     it('updates displayed value on option value change', async () => {

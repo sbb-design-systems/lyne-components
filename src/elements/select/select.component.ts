@@ -876,10 +876,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     nextActiveOption.setActive(true);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
-    if (this._triggerElement) {
-      this._triggerElement['internals'].ariaActiveDescendantElement = nextActiveOption;
-    }
-
     // Reset the previous
     if (lastActiveOption && !this.compareWith(lastActiveOption.value, nextActiveOption.value)) {
       lastActiveOption.setActive(false);
@@ -906,10 +902,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       activeElement.tabIndex = -1;
     }
     this._activeItemIndex = -1;
-
-    if (this._triggerElement) {
-      this._triggerElement['internals'].ariaActiveDescendantElement = null;
-    }
   }
 
   // Check if the pointerdown event target is triggered on the menu.
