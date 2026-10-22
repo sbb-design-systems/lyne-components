@@ -183,6 +183,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _isPointerDownEventOnMenu: boolean = false;
   private _languageController = new SbbLanguageController(this);
   private _isValueManuallyAssigned = false;
+  private _restoreFocusOnClose = false;
 
   /**
    * The 'combobox' input element
@@ -219,7 +220,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       if (target.localName === 'sbb-option') {
         // Option click
         if (!this.multiple && !target.disabled) {
-          this.close();
+          // A selection always returns the focus to the trigger, even if the option was activated
+          // without receiving focus (e.g. by assistive technologies).
+          this._close(true);
         }
       } else {
         this._toggleOpening();
@@ -315,10 +318,20 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   /** Closes the selection panel. */
   public close(): void {
+    this._close();
+  }
+
+  /**
+   * @param restoreFocus Whether the focus should be returned to the trigger, even if it's not within the select
+   * (e.g. when an option was selected by assistive technologies without receiving focus).
+   */
+  private _close(restoreFocus = false): void {
     if (this.state === 'closing' || this.state === 'closed' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
+    // Only set once the closing actually starts, so a prevented closing doesn't leave a stale flag.
+    this._restoreFocusOnClose = restoreFocus;
     this.state = 'closing';
     this.internals.states.delete('expanded');
     this._openPanelEventsController?.abort();
@@ -633,18 +646,37 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _handleClosing(): void {
+    // Must be evaluated before hiding the popover, as hiding a focused option moves the focus.
+    const restoreFocus = this._restoreFocusOnClose || this._isFocusWithin();
+    this._restoreFocusOnClose = false;
     this.state = 'closed';
     this.shadowRoot?.querySelector<HTMLDivElement>('[popover]')?.hidePopover?.();
     if (this._triggerElement) {
       this._triggerElement['internals'].ariaExpanded = 'false';
     }
     this._resetActiveElement();
-    this.focus();
+    if (restoreFocus) {
+      this.focus();
+    }
     if (this._overlay) {
       this._overlay.scrollTop = 0;
     }
     this._escapableOverlayController.disconnect();
     this.dispatchCloseEvent();
+  }
+
+  /**
+   * Whether the focus is still within the select (trigger, panel or an option).
+   * In this case (e.g. closing by selection or Escape), the focus should be restored to the trigger.
+   * If the focus is somewhere else (e.g. moved away by Tab, by clicking another control or an empty area,
+   * or the select was closed programmatically), the focus must not be moved.
+   */
+  private _isFocusWithin(): boolean {
+    // Use the root node, so that it also works if the select is placed inside a shadow root.
+    const activeElement = (this.getRootNode() as Document | ShadowRoot).activeElement;
+    return (
+      !!activeElement && (activeElement === this._triggerElement || this.contains(activeElement))
+    );
   }
 
   /** When an option is selected, updates the displayValue; it also closes the select if not `multiple`. */

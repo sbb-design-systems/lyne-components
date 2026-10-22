@@ -1954,6 +1954,162 @@ describe(`sbb-select`, () => {
     });
   });
 
+  describe('focus handling on close', () => {
+    let inputBefore: HTMLInputElement,
+      inputAfter: HTMLInputElement,
+      trigger: HTMLElement,
+      secondOption: SbbOptionElement;
+
+    beforeEach(async () => {
+      const root = await fixture(html`
+        <div>
+          <input id="before" />
+          <!-- The parent element is the origin of the select, therefore we need a separate container -->
+          <div>
+            <sbb-select placeholder="Placeholder">
+              <sbb-option value="1">First</sbb-option>
+              <sbb-option value="2">Second</sbb-option>
+              <sbb-option value="3">Third</sbb-option>
+            </sbb-select>
+          </div>
+          <input id="after" />
+        </div>
+      `);
+      element = root.querySelector<SbbSelectElement>('sbb-select')!;
+      inputBefore = root.querySelector<HTMLInputElement>('#before')!;
+      inputAfter = root.querySelector<HTMLInputElement>('#after')!;
+      trigger = root.querySelector<HTMLElement>('sbb-select-trigger')!;
+      secondOption = element.options[1];
+    });
+
+    for (const animated of [false, true]) {
+      describe(`animated=${animated}`, () => {
+        beforeEach(() => {
+          if (animated) {
+            (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+            element.style.setProperty('--sbb-options-panel-animation-duration', '50ms');
+          }
+        });
+
+        const openAndNavigate = async (): Promise<void> => {
+          const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+          trigger.focus();
+          await sendKeys({ press: 'ArrowDown' });
+          await openSpy.calledOnce();
+          await sendKeys({ press: 'ArrowDown' });
+          expect(document.activeElement).to.be.equal(element.options[0]);
+        };
+
+        it('restores focus to the trigger when closing with Escape', async () => {
+          const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+          await openAndNavigate();
+
+          await sendKeys({ press: 'Escape' });
+          await closeSpy.calledOnce();
+
+          expect(document.activeElement).to.be.equal(trigger);
+        });
+
+        it('restores focus to the trigger when closing by selecting an option', async () => {
+          const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+          const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+          element.open();
+          await openSpy.calledOnce();
+
+          const rect = secondOption.getBoundingClientRect();
+          await sendMouse({
+            type: 'click',
+            position: [Math.round(rect.x + rect.width / 2), Math.round(rect.y + rect.height / 2)],
+          });
+          await closeSpy.calledOnce();
+
+          expect(element.value).to.be.equal('2');
+          expect(document.activeElement).to.be.equal(trigger);
+        });
+
+        it('preserves the destination focus when closing with Tab', async () => {
+          const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+          await openAndNavigate();
+
+          await sendKeys({ press: tabKey });
+          await closeSpy.calledOnce();
+
+          expect(document.activeElement).to.be.equal(inputAfter);
+        });
+
+        it('preserves the destination focus when closing by clicking another control', async () => {
+          const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+          await openAndNavigate();
+
+          const rect = inputBefore.getBoundingClientRect();
+          await sendMouse({
+            type: 'click',
+            position: [Math.round(rect.x + rect.width / 2), Math.round(rect.y + rect.height / 2)],
+          });
+          await closeSpy.calledOnce();
+
+          expect(document.activeElement).to.be.equal(inputBefore);
+        });
+
+        it('does not move the focus when clicking an empty area', async () => {
+          const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+          await openAndNavigate();
+
+          // Right of the input, on the non-focusable wrapper (outside the origin and the panel)
+          const rect = inputBefore.getBoundingClientRect();
+          await sendMouse({
+            type: 'click',
+            position: [window.innerWidth - 5, Math.round(rect.y + rect.height / 2)],
+          });
+          await closeSpy.calledOnce();
+
+          expect(document.activeElement).to.be.equal(document.body);
+        });
+
+        it('does not keep a stale focus restoration after a prevented selection close', async () => {
+          const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+          const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+          element.open();
+          await openSpy.calledOnce();
+
+          // Selecting an option, but the closing is prevented
+          const preventClose = (ev: Event): void => ev.preventDefault();
+          element.addEventListener(SbbSelectElement.events.beforeclose, preventClose);
+          secondOption.click();
+          await waitForLitRender(element);
+          expect(element.isOpen).to.be.true;
+          element.removeEventListener(SbbSelectElement.events.beforeclose, preventClose);
+
+          // A later programmatic close with focus elsewhere must not move the focus
+          inputBefore.focus();
+          element.close();
+          await closeSpy.calledOnce();
+          expect(document.activeElement).to.be.equal(inputBefore);
+        });
+
+        it('does not move the focus when closed programmatically while the focus is elsewhere', async () => {
+          const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+          const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+          inputBefore.focus();
+          element.open();
+          await openSpy.calledOnce();
+          element.close();
+          await closeSpy.calledOnce();
+          expect(document.activeElement).to.be.equal(inputBefore);
+
+          // Also no focus at all must not lead to focusing the select
+          inputBefore.blur();
+          element.open();
+          await openSpy.calledTimes(2);
+          element.close();
+          await closeSpy.calledTimes(2);
+          expect(document.activeElement).to.be.equal(document.body);
+        });
+      });
+    }
+  });
+
   it('should handle focus when options are in a scroll area', async () => {
     const formField = await fixture(html`
       <sbb-form-field>
