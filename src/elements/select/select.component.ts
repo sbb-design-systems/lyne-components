@@ -211,6 +211,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this.addEventListener?.('ɵoptgroupslotchange', () => this._handleSlotchange(), {
       capture: true,
     });
+    // Options can receive focus by pointer interaction (or programmatically).
+    // We need to sync the active option, so that keyboard interaction continues from the focused option.
+    this.addEventListener?.('focusin', (e: FocusEvent) => this._onFocusIn(e));
     this.addEventListener?.('click', (e: MouseEvent) => {
       const target = e.target as SbbSelectElement<T> | SbbOptionElement<T>;
       if (target.localName === 'sbb-option') {
@@ -857,6 +860,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     const nextOption = filteredOptions[nextIndex];
     const activeOption = filteredOptions[this._activeItemIndex];
 
+    // Update the index before moving the focus, so that the focusin handler doesn't process it again.
+    this._activeItemIndex = nextIndex;
     this._setActiveElement(nextOption, activeOption);
 
     if (!this.multiple) {
@@ -864,7 +869,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     } else if (event?.shiftKey) {
       nextOption['selectViaUserInteraction'](!nextOption.selected);
     }
-    this._activeItemIndex = nextIndex;
   }
 
   private _setActiveElement(
@@ -873,14 +877,45 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   ): void {
     nextActiveOption.tabIndex = 0;
     nextActiveOption.focus({ preventScroll: true });
-    nextActiveOption.setActive(true);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
+    nextActiveOption.setActive(true);
 
     // Reset the previous
-    if (lastActiveOption && !this.compareWith(lastActiveOption.value, nextActiveOption.value)) {
+    if (lastActiveOption && lastActiveOption !== nextActiveOption) {
       lastActiveOption.setActive(false);
       lastActiveOption.tabIndex = -1;
     }
+  }
+
+  /**
+   * Synchronizes the active index and the roving tabindex when an option receives focus (e.g. by pointer).
+   * Moving the focus must never change the selection.
+   */
+  private _onFocusIn(event: FocusEvent): void {
+    const target = event.target as HTMLElement | null;
+    if (target?.localName !== 'sbb-option') {
+      return;
+    }
+
+    const selectableOptions = this._selectableOptions();
+    const focusedOption = target as SbbOptionElement<T>;
+    const index = selectableOptions.indexOf(focusedOption);
+    if (index === -1) {
+      return;
+    }
+
+    this._activeItemIndex = index;
+    // The _activeItemIndex can be updated by value changes without updating the active state,
+    // therefore we sync all options instead of only the one at the previous index.
+    this._syncRovingTabindex(focusedOption);
+    // The active state renders a visual focus indicator, which must only be shown for keyboard navigation.
+    // On keyboard navigation, _setActiveElement() sets the active state after moving the focus.
+    selectableOptions.forEach((option) => option.setActive(false));
+  }
+
+  /** Only the given option is reachable by keyboard (tabindex=0), all others get tabindex=-1. */
+  private _syncRovingTabindex(activeOption?: SbbOptionElement<T>): void {
+    this._selectableOptions().forEach((o) => (o.tabIndex = o === activeOption ? 0 : -1));
   }
 
   private _setSelectedElement(
@@ -961,8 +996,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _handleSlotchange(): void {
-    const active = this._selectableOptions()[this._activeItemIndex];
-    this._selectableOptions().forEach((o) => (o.tabIndex = o === active ? 0 : -1));
+    this._syncRovingTabindex(this._selectableOptions()[this._activeItemIndex]);
     this._updateValueOptionState();
   }
 
