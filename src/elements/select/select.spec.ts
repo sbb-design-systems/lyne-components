@@ -4,7 +4,6 @@ import { repeat } from 'lit/directives/repeat.js';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { isSafari } from '../core/dom/platform.ts';
 import { elementInternalsSpy, fixture, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 import type { SbbFormFieldElement } from '../form-field.ts';
@@ -44,7 +43,7 @@ describe(`sbb-select`, () => {
       `);
       element = root.querySelector<SbbSelectElement>('sbb-select')!;
 
-      comboBoxElement = root.querySelector('sbb-select-trigger')!;
+      comboBoxElement = root.querySelector('sbb-select')!;
       focusableElement = comboBoxElement;
       firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
       secondOption = element.querySelector<SbbOptionElement>('#option-2')!;
@@ -244,7 +243,7 @@ describe(`sbb-select`, () => {
         </div>
       `);
       element = root.querySelector<SbbSelectElement>('sbb-select')!;
-      comboBoxElement = root.querySelector('sbb-select-trigger')!;
+      comboBoxElement = root.querySelector('sbb-select')!;
       focusableElement = comboBoxElement;
 
       expect(element.getDisplayValue()).to.be.equal('First');
@@ -764,36 +763,16 @@ describe(`sbb-select`, () => {
       });
     });
 
-    it('wires the trigger to the select', async () => {
-      const overlay = element.shadowRoot!.querySelector('.sbb-option-panel__overlay')!;
-      const triggerInternals = elementInternals.get(comboBoxElement)!;
-
-      // Trigger is moved into the light DOM right before the select
-      expect(comboBoxElement.nextElementSibling).to.be.equal(element);
-      expect(element.inputElement).to.be.equal(comboBoxElement);
-      expect(triggerInternals.role).to.equal('combobox');
-      expect(triggerInternals.ariaExpanded).to.equal('false');
-      if (!isSafari) {
-        // Currently a bug in Safari which doesn't allow elements linked across shadow DOM boundaries.
-        // TODO: re-check, probably obsolete when we are going to move the trigger to the shadow DOM.
-        expect(triggerInternals.ariaControlsElements).to.deep.equal([overlay]);
-      }
-
-      // Host must not have a role, the trigger represents the combobox
-      expect(elementInternals.get(element)?.role ?? null).to.be.null;
-    });
-
     it('syncs required to the trigger', async () => {
-      const triggerInternals = elementInternals.get(comboBoxElement)!;
-      expect(triggerInternals.ariaRequired).to.be.null;
+      expect(comboBoxElement.ariaRequired).to.be.null;
 
       element.required = true;
       await waitForLitRender(element);
-      expect(triggerInternals.ariaRequired).to.equal('true');
+      expect(comboBoxElement.ariaRequired).to.equal('true');
 
       element.required = false;
       await waitForLitRender(element);
-      expect(triggerInternals.ariaRequired).to.be.null;
+      expect(comboBoxElement.ariaRequired).to.be.null;
     });
 
     it('updates displayed value on option value change', async () => {
@@ -973,13 +952,13 @@ describe(`sbb-select`, () => {
       // Check initial state
       expect(element.value).to.be.equal('2');
       expect(secondOption.selected).to.be.true;
-      expect(root.querySelector<SbbSelectElement>('sbb-select-trigger')!).to.exist;
+      expect(root.querySelector<SbbSelectElement>('sbb-select')!).to.exist;
 
       // Remove from DOM
       element.remove();
       await waitForLitRender(root);
 
-      expect(root.querySelector<SbbSelectElement>('sbb-select-trigger')!).not.to.exist;
+      expect(root.querySelector<SbbSelectElement>('sbb-select')!).not.to.exist;
 
       // Re-add to DOM
       root.insertBefore(element, root.firstElementChild);
@@ -989,7 +968,7 @@ describe(`sbb-select`, () => {
       const reAddedElement = root.querySelector<SbbSelectElement>('sbb-select')!;
       expect(reAddedElement).to.exist;
       expect(reAddedElement).to.equal(element);
-      expect(root.querySelector<SbbSelectElement>('sbb-select-trigger')!).to.exist;
+      expect(root.querySelector<SbbSelectElement>('sbb-select')!).to.exist;
 
       // Check that value is preserved
       expect(reAddedElement.value).to.be.equal('2');
@@ -1035,7 +1014,7 @@ describe(`sbb-select`, () => {
         </form>
       `);
       element = form.querySelector('sbb-select')!;
-      comboBoxElement = form.querySelector('sbb-select-trigger')!;
+      comboBoxElement = form.querySelector('sbb-select')!;
       nativeSelect = form.querySelector('select')!;
       fieldSet = form.querySelector('fieldset')!;
 
@@ -1281,7 +1260,7 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select')!;
 
       expect(comboBoxElement).to.have.attribute('aria-label', 'Test');
     });
@@ -1292,7 +1271,7 @@ describe(`sbb-select`, () => {
           <sbb-option id="option-1" value="1">First</sbb-option>
         </sbb-select>
       `);
-      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select')!;
       expect(comboBoxElement).not.to.have.attribute('aria-label');
 
       element.setAttribute('aria-label', 'Test');
@@ -1309,7 +1288,7 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select')!;
 
       expect(comboBoxElement).to.have.attribute('aria-label', 'Test');
     });
@@ -1321,7 +1300,7 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select')!;
 
       expect(comboBoxElement).to.have.attribute('aria-labelledby', 'Test');
     });
@@ -1332,7 +1311,7 @@ describe(`sbb-select`, () => {
           <sbb-option id="option-1" value="1">First</sbb-option>
         </sbb-select>
       `);
-      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select')!;
       expect(comboBoxElement).not.to.have.attribute('aria-labelledby');
 
       element.setAttribute('aria-labelledby', 'Test');
@@ -1349,59 +1328,9 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select')!;
 
       expect(comboBoxElement).to.have.attribute('aria-labelledby', 'Test');
-    });
-
-    it('should combine aria-describedby with label element', async () => {
-      const element = await fixture(html`
-        <label for="select">Label</label>
-        <sbb-select aria-describedby="Test" id="select">
-          <sbb-option id="option-1" value="1">First</sbb-option>
-        </sbb-select>
-      `);
-
-      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
-
-      expect(comboBoxElement).to.have.attribute('aria-describedby', 'Test');
-      expect(comboBoxElement).to.have.attribute('aria-label', 'Label');
-    });
-
-    it('should take label elements as aria-label', async () => {
-      const element = await fixture(html`
-        <label for="select">Label</label>
-        <label for="select">Label 2</label>
-        <sbb-select id="select">
-          <sbb-option id="option-1" value="1">First</sbb-option>
-        </sbb-select>
-      `);
-
-      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
-
-      expect(comboBoxElement).to.have.attribute('aria-label', 'Label, Label 2');
-    });
-
-    it('should remove label when disappearing', async () => {
-      const root = await fixture(
-        html`<div>
-          <label for="select">Label</label>
-          <sbb-select id="select">
-            <sbb-option id="option-1" value="1">First</sbb-option>
-          </sbb-select>
-        </div> `,
-      );
-
-      const element = root.querySelector('sbb-select')!;
-      const comboBoxElement = root.querySelector('sbb-select-trigger')!;
-      expect(comboBoxElement).to.have.attribute('aria-label', 'Label');
-
-      root.querySelector('label')!.remove();
-
-      // Trigger sync by triggering connectedCallback()
-      element.connectedCallback();
-
-      expect(comboBoxElement).not.to.have.attribute('aria-label');
     });
   });
 
@@ -1421,7 +1350,7 @@ describe(`sbb-select`, () => {
       `);
       element = formField.querySelector<SbbSelectElement>('sbb-select')!;
 
-      comboBoxElement = formField.querySelector('sbb-select-trigger')!;
+      comboBoxElement = formField.querySelector('sbb-select')!;
       firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
     });
 

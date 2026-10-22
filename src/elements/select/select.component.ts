@@ -2,9 +2,7 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
-  isServer,
   nothing,
-  type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
   unsafeCSS,
@@ -22,11 +20,9 @@ import {
   handleDistinctChange,
   i18nSelectionRequired,
   isEventOnElement,
-  isNextjs,
   isZeroAnimationDuration,
   popoverResetStyles,
   SbbDisabledMixin,
-  type SbbElementType,
   SbbEscapableOverlayController,
   SbbFormAssociatedMixin,
   SbbLanguageController,
@@ -37,7 +33,6 @@ import {
   SbbRequiredMixin,
   SbbUpdateSchedulerMixin,
   scrollbarStyles,
-  setOrRemoveAttribute,
   setOverlayPosition,
 } from '../core.ts';
 import type { SbbDividerElement } from '../divider.pure.ts';
@@ -48,7 +43,6 @@ import {
   type SbbOptionHintElement,
 } from '../option.pure.ts';
 
-import { SbbSelectTriggerElement } from './select-trigger.component.ts';
 import style from './select.scss?inline';
 
 /**
@@ -82,7 +76,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     optionPanelStyles,
     unsafeCSS(style),
   ];
-  public static override elementDependencies: SbbElementType[] = [SbbSelectTriggerElement];
+  public static override role = 'combobox';
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
@@ -173,13 +167,11 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   private _overlay?: HTMLElement;
   private _originElement: HTMLElement | null = null;
-  private _triggerElement?: SbbSelectTriggerElement<T>;
   private _openPanelEventsController?: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _activeItemIndex = -1;
   private _searchTimeout?: ReturnType<typeof setTimeout>;
   private _searchString = '';
-  private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
   private _languageController = new SbbLanguageController(this);
   private _isValueManuallyAssigned = false;
@@ -188,8 +180,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
    * The 'combobox' input element
    * @internal
    */
-  public get inputElement(): SbbSelectTriggerElement<T> | null {
-    return this._triggerElement ?? null;
+  public get inputElement(): HTMLElement | null {
+    return this;
   }
 
   /** Returns all SbbOptionElements from this sbb-select instance. */
@@ -204,6 +196,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   public constructor() {
     super();
+    this.internals.ariaExpanded = 'false';
+
     this.addEventListener?.('optionselectionchange', (e: Event) => this._onOptionChanged(e));
     this.addEventListener?.('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e));
     /** Forces the sbb-select to update his value. */
@@ -236,49 +230,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this.addEventListener('keydown', (e) => this._onKeyDown(e));
   }
 
-  public override attributeChangedCallback(
-    name: string,
-    _old: string | null,
-    value: string | null,
-  ): void {
-    if (name === 'aria-label' || name === 'aria-labelledby' || name === 'aria-describedby') {
-      this._syncAriaLabels();
-    } else {
-      super.attributeChangedCallback(name, _old, value);
-    }
-  }
-
-  private _syncAriaLabels(): void {
-    if (!this._triggerElement || isServer) {
-      return;
-    }
-
-    setOrRemoveAttribute(
-      this._triggerElement,
-      'aria-labelledby',
-      this.getAttribute('aria-labelledby'),
-    );
-    setOrRemoveAttribute(this._triggerElement, 'aria-label', this.getAttribute('aria-label'));
-    setOrRemoveAttribute(
-      this._triggerElement,
-      'aria-describedby',
-      this.getAttribute('aria-describedby'),
-    );
-
-    // Using the associated labels is only a fallback.
-    // The drawback is, that it doesn't get updated automatically when the list of label changes.
-    if (
-      !this.getAttribute('aria-label') &&
-      !this.getAttribute('aria-labelledby') &&
-      this.internals.labels.length
-    ) {
-      this._triggerElement?.setAttribute(
-        'aria-label',
-        Array.from(this.internals.labels, (label) => label.textContent).join(', '),
-      );
-    }
-  }
-
   /** Opens the selection panel. */
   public open(): void {
     if (
@@ -295,9 +246,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     this.shadowRoot?.querySelector<HTMLDivElement>('[popover]')?.showPopover?.();
     this.state = 'opening';
-    if (this._triggerElement) {
-      this._triggerElement['internals'].ariaExpanded = 'true';
-    }
+    this.internals.ariaExpanded = 'true';
     this.internals.states.add('expanded');
     this._setOverlayPosition();
     this._escapableOverlayController.connect();
@@ -410,72 +359,21 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
+    const overlay = this.shadowRoot!.querySelector('.sbb-option-panel__overlay')!;
+    this.internals.ariaControlsElements = [overlay];
     this._updateValueOptionState();
-    if (this._triggerElement) {
-      // As the triggerElement is created in the firstRender,
-      // we need to sync the aria labels and configure the trigger here.
-      this._syncAriaLabels();
-      this._triggerElement.select = this;
-    }
-
-    // Wait for ssr hydration
-    if (!isNextjs()) {
-      this.startUpdate();
-      this._setupSelect();
-    }
-  }
-
-  /** @internal */
-  public override focus(): void {
-    // Forward focus to the trigger element.
-    this._triggerElement?.focus();
-  }
-
-  /** @internal */
-  public override blur(): void {
-    // Forward blur to the trigger element.
-    this._triggerElement?.blur();
-  }
-
-  /**
-   * Removes element's first attribute whose qualified name is qualifiedName.
-   *
-   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/removeAttribute)
-   * @internal We need to override this due to a hydration issue with Next.js.
-   */
-  public override removeAttribute(qualifiedName: string): void {
-    // In Next.js the hydration needs to finish before we can manipulate the light DOM.
-    // @lit/react calls removeAttribute('defer-hydration') in a useLayoutEffect,
-    // which is done after hydration is finished. Due to this we intercept this call
-    // in overriding removeAttribute to finish initialization of the sbb-select.
-    // https://github.com/lit/lit/blob/main/packages/react/src/create-component.ts#L293-L296
-    // We also need to wait for update complete in order to be sure that the shadow DOM has been rendered.
-    if (isNextjs() && qualifiedName === 'defer-hydration' && !this._didLoad) {
-      this.updateComplete.then(() => this._setupSelect());
-    }
-    super.removeAttribute(qualifiedName);
+    this._setupOrigin();
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
 
+    this.tabIndex = 0;
+
     this._syncNegative();
-    this._syncAriaLabels();
 
-    if (this._didLoad) {
+    if (this.hasUpdated) {
       this._setupOrigin();
-      this._setupTrigger();
-    }
-  }
-
-  public override requestUpdate(
-    name?: PropertyKey,
-    oldValue?: unknown,
-    options?: PropertyDeclaration,
-  ): void {
-    super.requestUpdate(name, oldValue, options);
-    if (!name && this.hasUpdated) {
-      setTimeout(() => this._syncAriaLabels());
     }
   }
 
@@ -491,11 +389,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   public override disconnectedCallback(): void {
-    // Take back the trigger element previously moved to the light DOM.
-    // Due to timing issues, this needs to be done before calling super.disconnectedCallback().
-    if (this._triggerElement) {
-      this.prepend(this._triggerElement);
-    }
     super.disconnectedCallback();
     this._openPanelEventsController?.abort();
   }
@@ -563,13 +456,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     }
   }
 
-  private _setupSelect(): void {
-    this._setupOrigin();
-    this._setupTrigger();
-    this._didLoad = true;
-    this.completeUpdate();
-  }
-
   /** Sets the originElement; if the component is used in a sbb-form-field uses it, otherwise uses the parentElement. */
   private _setupOrigin(): void {
     const formField = this.closest?.<SbbFormFieldElement>('sbb-form-field');
@@ -584,17 +470,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       if (this.isOpen) {
         this._resizeObserver.observe(this._originElement);
       }
-    }
-  }
-
-  /**
-   * To assess screen-readers problems caused by the interaction between aria patterns and shadow DOM,
-   * we are forced to move the 'combobox' trigger element to the light DOM
-   */
-  private _setupTrigger(): void {
-    // Move the trigger before the sbb-select
-    if (this.parentElement && this._triggerElement) {
-      this.parentElement.insertBefore?.(this._triggerElement, this);
     }
   }
 
@@ -632,9 +507,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _handleClosing(): void {
     this.state = 'closed';
     this.shadowRoot?.querySelector<HTMLDivElement>('[popover]')?.hidePopover?.();
-    if (this._triggerElement) {
-      this._triggerElement['internals'].ariaExpanded = 'false';
-    }
+    this.internals.ariaExpanded = 'false';
     this._resetActiveElement();
     this.focus();
     if (this._overlay) {
@@ -1022,20 +895,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     // As elements inside the panel should never get focus, we have to avoid that by setting tabindex=-1.
 
     return html`
-      <!-- This element is visually hidden and will be appended to the light DOM to allow screen
-      readers to work properly -->
-      <sbb-select-trigger
-        class="sbb-screen-reader-only"
-        tabindex=${this.disabled || this.formDisabled ? nothing : '0'}
-        @keydown=${this._onKeyDown}
-        @click=${this._toggleOpening}
-        ${ref((ref) => (this._triggerElement = ref as SbbSelectTriggerElement<T>))}
-      >
-        ${until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`))}
-      </sbb-select-trigger>
-
-      <!-- Visually display the value -->
-      <div class="sbb-select__trigger" aria-hidden="true">
+      <div class="sbb-select__trigger">
         ${until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`))}
       </div>
 
