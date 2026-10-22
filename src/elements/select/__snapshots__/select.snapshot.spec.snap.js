@@ -1,98 +1,31 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-select renders Safari DOM"] = 
-`<sbb-select id="sbb-select-1">
-  <sbb-option value="1">
-    Option 1
-  </sbb-option>
-  <sbb-option value="2">
-    Option 2
-  </sbb-option>
-  <sbb-option value="3">
-    Option 3
-  </sbb-option>
-</sbb-select>
-`;
-/* end snapshot sbb-select renders Safari DOM */
-
-snapshots["sbb-select renders Safari Shadow DOM"] = 
-`<div
-  aria-hidden="true"
-  class="sbb-select__trigger"
->
-</div>
-<div
-  class="sbb-option-panel__overlay-container sbb-popover-reset"
-  popover="manual"
->
-  <div
-    class="sbb-option-panel__overlay sbb-scrollbar"
-    tabindex="-1"
-  >
-    <slot>
-    </slot>
-  </div>
-</div>
-`;
-/* end snapshot sbb-select renders Safari Shadow DOM */
-
-snapshots["sbb-select renders multiple Safari DOM"] = 
-`<sbb-select
-  id="sbb-select-3"
-  multiple=""
->
-  <sbb-option value="1">
-    Option 1
-  </sbb-option>
-  <sbb-option value="2">
-    Option 2
-  </sbb-option>
-  <sbb-option value="3">
-    Option 3
-  </sbb-option>
-</sbb-select>
-`;
-/* end snapshot sbb-select renders multiple Safari DOM */
-
-snapshots["sbb-select renders multiple Safari Shadow DOM"] = 
-`<div
-  aria-hidden="true"
-  class="sbb-select__trigger"
->
-</div>
-<div
-  class="sbb-option-panel__overlay-container sbb-popover-reset"
-  popover="manual"
->
-  <div
-    aria-multiselectable=""
-    class="sbb-option-panel__overlay sbb-scrollbar"
-    tabindex="-1"
-  >
-    <slot>
-    </slot>
-  </div>
-</div>
-`;
-/* end snapshot sbb-select renders multiple Safari Shadow DOM */
-
-snapshots["sbb-select renders Chrome-Firefox DOM"] = 
+snapshots["sbb-select renders DOM"] = 
 `<sbb-select>
-  <sbb-option value="1">
+  <sbb-option
+    tabindex="-1"
+    value="1"
+  >
     Option 1
   </sbb-option>
-  <sbb-option value="2">
+  <sbb-option
+    tabindex="-1"
+    value="2"
+  >
     Option 2
   </sbb-option>
-  <sbb-option value="3">
+  <sbb-option
+    tabindex="-1"
+    value="3"
+  >
     Option 3
   </sbb-option>
 </sbb-select>
 `;
-/* end snapshot sbb-select renders Chrome-Firefox DOM */
+/* end snapshot sbb-select renders DOM */
 
-snapshots["sbb-select renders Chrome-Firefox Shadow DOM"] = 
+snapshots["sbb-select renders Shadow DOM"] = 
 `<div
   aria-hidden="true"
   class="sbb-select__trigger"
@@ -104,7 +37,6 @@ snapshots["sbb-select renders Chrome-Firefox Shadow DOM"] =
 >
   <div
     class="sbb-option-panel__overlay sbb-scrollbar"
-    id="sbb-select-2"
     role="listbox"
     tabindex="-1"
   >
@@ -113,7 +45,7 @@ snapshots["sbb-select renders Chrome-Firefox Shadow DOM"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-select renders Chrome-Firefox Shadow DOM */
+/* end snapshot sbb-select renders Shadow DOM */
 
 snapshots["sbb-select renders A11y tree Chrome"] = 
 `<p>
@@ -140,22 +72,31 @@ snapshots["sbb-select renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-select renders A11y tree Chrome */
 
-snapshots["sbb-select renders multiple Chrome-Firefox DOM"] = 
+snapshots["sbb-select renders multiple DOM"] = 
 `<sbb-select multiple="">
-  <sbb-option value="1">
+  <sbb-option
+    tabindex="-1"
+    value="1"
+  >
     Option 1
   </sbb-option>
-  <sbb-option value="2">
+  <sbb-option
+    tabindex="-1"
+    value="2"
+  >
     Option 2
   </sbb-option>
-  <sbb-option value="3">
+  <sbb-option
+    tabindex="-1"
+    value="3"
+  >
     Option 3
   </sbb-option>
 </sbb-select>
 `;
-/* end snapshot sbb-select renders multiple Chrome-Firefox DOM */
+/* end snapshot sbb-select renders multiple DOM */
 
-snapshots["sbb-select renders multiple Chrome-Firefox Shadow DOM"] = 
+snapshots["sbb-select renders multiple Shadow DOM"] = 
 `<div
   aria-hidden="true"
   class="sbb-select__trigger"
@@ -166,7 +107,7 @@ snapshots["sbb-select renders multiple Chrome-Firefox Shadow DOM"] =
   popover="manual"
 >
   <div
-    aria-multiselectable=""
+    aria-multiselectable="true"
     class="sbb-option-panel__overlay sbb-scrollbar"
     role="listbox"
     tabindex="-1"
@@ -176,7 +117,7 @@ snapshots["sbb-select renders multiple Chrome-Firefox Shadow DOM"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-select renders multiple Chrome-Firefox Shadow DOM */
+/* end snapshot sbb-select renders multiple Shadow DOM */
 
 snapshots["sbb-select renders multiple A11y tree Chrome"] = 
 `<p>

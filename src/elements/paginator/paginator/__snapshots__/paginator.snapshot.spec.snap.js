@@ -407,7 +407,7 @@ snapshots["sbb-paginator renders ellipsis on both side Shadow DOM"] =
 `;
 /* end snapshot sbb-paginator renders ellipsis on both side Shadow DOM */
 
-snapshots["sbb-paginator renders with options and accessibility labels Chrome-Firefox DOM"] = 
+snapshots["sbb-paginator renders with options and accessibility labels DOM"] = 
 `<sbb-paginator
   accessibility-items-per-page-label="Items per slide"
   accessibility-next-page-label="Next slide"
@@ -420,156 +420,9 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
 >
 </sbb-paginator>
 `;
-/* end snapshot sbb-paginator renders with options and accessibility labels Chrome-Firefox DOM */
+/* end snapshot sbb-paginator renders with options and accessibility labels DOM */
 
-snapshots["sbb-paginator renders with options and accessibility labels Chrome-Firefox Shadow DOM"] = 
-`<div class="sbb-paginator">
-  <span class="sbb-paginator__wrapping-group">
-    <sbb-mini-button-group>
-      <sbb-mini-button
-        aria-label="Previous slide"
-        icon-name="chevron-small-left-small"
-        slot="li-0"
-        tabindex="0"
-      >
-      </sbb-mini-button>
-      <sbb-divider
-        orientation="vertical"
-        slot="li-1"
-      >
-      </sbb-divider>
-      <sbb-mini-button
-        aria-label="Next slide"
-        icon-name="chevron-small-right-small"
-        slot="li-2"
-        tabindex="0"
-      >
-      </sbb-mini-button>
-    </sbb-mini-button-group>
-    <ul class="sbb-paginator__pages">
-      <li class="sbb-paginator__page--number">
-        <button
-          aria-label="Slide 1"
-          class="sbb-paginator__page--number-item"
-          data-index="0"
-        >
-          <span class="sbb-paginator__page--number-item-label">
-            1
-          </span>
-        </button>
-      </li>
-      <li class="sbb-paginator__page--number">
-        <button
-          aria-label="Slide 2"
-          class="sbb-paginator__page--number-item"
-          data-index="1"
-        >
-          <span class="sbb-paginator__page--number-item-label">
-            2
-          </span>
-        </button>
-      </li>
-      <li class="sbb-paginator__page--number">
-        <button
-          aria-current="true"
-          aria-label="Slide 3"
-          class="sbb-paginator__page--number-item"
-          data-index="2"
-          data-selected=""
-        >
-          <span class="sbb-paginator__page--number-item-label">
-            3
-          </span>
-        </button>
-      </li>
-      <li class="sbb-paginator__page--number">
-        <button
-          aria-label="Slide 4"
-          class="sbb-paginator__page--number-item"
-          data-index="3"
-        >
-          <span class="sbb-paginator__page--number-item-label">
-            4
-          </span>
-        </button>
-      </li>
-      <li class="sbb-paginator__page--number">
-        <button
-          aria-label="Slide 5"
-          class="sbb-paginator__page--number-item"
-          data-index="4"
-        >
-          <span class="sbb-paginator__page--number-item-label">
-            5
-          </span>
-        </button>
-      </li>
-    </ul>
-  </span>
-  <div class="sbb-paginator__page-size-options">
-    <label for="select">
-      Items per slide
-    </label>
-    <sbb-form-field
-      borderless=""
-      error-space="none"
-      width="collapse"
-    >
-      <div
-        aria-controls="sbb-select-2"
-        aria-expanded="false"
-        aria-haspopup="listbox"
-        aria-label="Items per slide"
-        aria-owns="sbb-select-2"
-        aria-required="false"
-        class="sbb-screen-reader-only sbb-select-trigger"
-        role="combobox"
-        tabindex="0"
-      >
-        10
-      </div>
-      <sbb-select value="10">
-        <sbb-option
-          selected=""
-          value="10"
-        >
-          10
-        </sbb-option>
-        <sbb-option value="25">
-          25
-        </sbb-option>
-        <sbb-option value="50">
-          50
-        </sbb-option>
-      </sbb-select>
-    </sbb-form-field>
-  </div>
-</div>
-<span
-  class="sbb-screen-reader-only"
-  role="status"
->
-  Slide 3 selected.
-</span>
-`;
-/* end snapshot sbb-paginator renders with options and accessibility labels Chrome-Firefox Shadow DOM */
-
-snapshots["sbb-paginator renders with options and accessibility labels Safari DOM"] = 
-`<sbb-paginator
-  accessibility-items-per-page-label="Items per slide"
-  accessibility-next-page-label="Next slide"
-  accessibility-page-label="Slide"
-  accessibility-previous-page-label="Previous slide"
-  length="50"
-  page-index="2"
-  page-size="10"
-  pager-position="start"
->
-</sbb-paginator>
-`;
-/* end snapshot sbb-paginator renders with options and accessibility labels Safari DOM */
-
-snapshots["sbb-paginator renders with options and accessibility labels Safari Shadow DOM"] = 
+snapshots["sbb-paginator renders with options and accessibility labels Shadow DOM"] = 
 `<div class="sbb-paginator">
   <span class="sbb-paginator__wrapping-group">
     <sbb-mini-button-group>
@@ -664,33 +517,34 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
       error-space="none"
       width="collapse"
     >
-      <div
-        aria-controls="sbb-select-2"
-        aria-expanded="false"
-        aria-haspopup="listbox"
+      <sbb-select-trigger
         aria-label="Items per slide"
-        aria-owns="sbb-select-2"
-        aria-required="false"
-        class="sbb-screen-reader-only sbb-select-trigger"
-        role="combobox"
+        class="sbb-screen-reader-only"
         tabindex="0"
       >
         10
-      </div>
+      </sbb-select-trigger>
       <sbb-select
         id="select"
         value="10"
       >
         <sbb-option
           selected=""
+          tabindex="0"
           value="10"
         >
           10
         </sbb-option>
-        <sbb-option value="25">
+        <sbb-option
+          tabindex="-1"
+          value="25"
+        >
           25
         </sbb-option>
-        <sbb-option value="50">
+        <sbb-option
+          tabindex="-1"
+          value="50"
+        >
           50
         </sbb-option>
       </sbb-select>
@@ -705,7 +559,7 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
   Slide 3 selected.
 </span>
 `;
-/* end snapshot sbb-paginator renders with options and accessibility labels Safari Shadow DOM */
+/* end snapshot sbb-paginator renders with options and accessibility labels Shadow DOM */
 
 snapshots["sbb-paginator renders with options and accessibility labels A11y tree Chrome"] = 
 `<p>

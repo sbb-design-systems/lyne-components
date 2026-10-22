@@ -331,7 +331,7 @@ describe('sbb-paginator', () => {
       html`<sbb-paginator length="50" page-size="5" .pageSizeOptions=${[5, 10]}></sbb-paginator>`,
     );
 
-    const comboBoxElement = element.shadowRoot!.querySelector('[role="combobox"]')!;
+    const comboBoxElement = element.shadowRoot!.querySelector('sbb-select-trigger')!;
 
     expect(comboBoxElement).to.have.attribute('aria-label', 'Items per page');
 

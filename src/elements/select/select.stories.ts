@@ -245,7 +245,11 @@ const createOptions = (
       ? selectValue.includes(value)
       : selectValue === value;
     return html`
-      <sbb-option .value=${i} ?disabled=${disableOption && i < 2} ?selected=${selected}>
+      <sbb-option
+        .value=${group ? `${group}-${i}` : i}
+        ?disabled=${disableOption && i < 2}
+        ?selected=${selected}
+      >
         ${value}
       </sbb-option>
     `;
