@@ -897,7 +897,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._setActiveElement(nextOption, activeOption);
 
     if (!this.multiple) {
-      this._setSelectedElement(nextOption, activeOption);
+      nextOption['selectViaUserInteraction'](true);
     } else if (event?.shiftKey) {
       nextOption['selectViaUserInteraction'](!nextOption.selected);
     }
@@ -948,17 +948,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   /** Only the given option is reachable by keyboard (tabindex=0), all others get tabindex=-1. */
   private _syncRovingTabindex(activeOption?: SbbOptionElement<T>): void {
     this._selectableOptions().forEach((o) => (o.tabIndex = o === activeOption ? 0 : -1));
-  }
-
-  private _setSelectedElement(
-    nextActiveOption: SbbOptionElement<T>,
-    lastActiveOption: SbbOptionElement<T>,
-  ): void {
-    nextActiveOption['selectViaUserInteraction'](true);
-
-    if (lastActiveOption && !this.compareWith(lastActiveOption.value, nextActiveOption.value)) {
-      lastActiveOption['selectViaUserInteraction'](false);
-    }
   }
 
   private _resetActiveElement(): void {
