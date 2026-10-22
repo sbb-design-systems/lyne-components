@@ -1982,6 +1982,31 @@ describe(`sbb-select`, () => {
       secondOption = element.options[1];
     });
 
+    it('focuses the trigger when opening a standalone select by pointer', async () => {
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+      // Click on the visible (non-focusable) part of the select
+      const rect = element.getBoundingClientRect();
+      await sendMouse({
+        type: 'click',
+        position: [Math.round(rect.x + rect.width / 2), Math.round(rect.y + rect.height / 2)],
+      });
+      await openSpy.calledOnce();
+      expect(document.activeElement).to.be.equal(trigger);
+
+      // Keyboard interaction must work after opening by pointer
+      await sendKeys({ press: 'ArrowDown' });
+      expect(document.activeElement).to.be.equal(element.options[0]);
+      await sendKeys({ press: 'ArrowDown' });
+      expect(document.activeElement).to.be.equal(secondOption);
+
+      await sendKeys({ press: 'Enter' });
+      await closeSpy.calledOnce();
+      expect(element.value).to.be.equal('2');
+      expect(document.activeElement).to.be.equal(trigger);
+    });
+
     for (const animated of [false, true]) {
       describe(`animated=${animated}`, () => {
         beforeEach(() => {

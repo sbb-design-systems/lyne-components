@@ -1050,6 +1050,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       }
       case 'closing':
       case 'closed': {
+        // The visible part of the select is not focusable. To enable keyboard interaction
+        // after opening by pointer (e.g. for a standalone select), focus the trigger.
+        this.focus();
         this.open();
         break;
       }
