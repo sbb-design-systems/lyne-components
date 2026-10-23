@@ -15,7 +15,6 @@ import { FEATURES } from '@custom-elements-manifest/analyzer/src/features/index.
 import { resolveModuleOrPackageSpecifier } from '@custom-elements-manifest/analyzer/src/utils/index.js';
 import {
   getAllDeclarationsOfKind,
-  getInheritanceTree,
   getModuleForClassLike,
   getModuleFromManifests,
 } from '@custom-elements-manifest/analyzer/src/utils/manifest-helpers.js';
@@ -50,6 +49,56 @@ interface TSTypeInternal extends TsType {
 
 interface ManifestContext {
   thirdPartyCEMs?: Package[];
+}
+
+/**
+ * Replacement for the upstream `getInheritanceTree`, which only follows the last mixin
+ * if a mixin applies multiple mixins (e.g. `SbbLinkCommonElementMixin(SbbIconNameMixin(superClass))`).
+ * Mixins nested in the other branches (e.g. `SbbNegativeMixin`) were therefore lost.
+ * This version resolves mixins recursively and otherwise keeps the upstream order.
+ */
+function getInheritanceTree(
+  manifests: Package[],
+  className: string,
+): (ClassDeclaration | MixinDeclaration)[] {
+  const classes = manifests.flatMap((cem) =>
+    getAllDeclarationsOfKind<ClassDeclaration>(cem, 'class'),
+  );
+  const mixins = manifests.flatMap((cem) =>
+    getAllDeclarationsOfKind<MixinDeclaration>(cem, 'mixin'),
+  );
+  const allClassLikes = new Map<string, ClassDeclaration | MixinDeclaration>(
+    [...mixins, ...classes].map((klass) => [klass.name, klass]),
+  );
+  const tree: (ClassDeclaration | MixinDeclaration)[] = [];
+
+  const pushMixins = (references: Reference[] | undefined): void => {
+    references?.forEach((reference) => {
+      const mixin = mixins.find((m) => m.name === reference.name);
+      if (mixin) {
+        tree.push(mixin);
+        pushMixins(mixin.mixins);
+      }
+    });
+  };
+
+  let klass = allClassLikes.get(className);
+  if (!klass) {
+    return [];
+  }
+
+  tree.push(klass);
+  pushMixins(klass.mixins);
+
+  while (klass.superclass?.name && allClassLikes.has(klass.superclass.name)) {
+    const superClass: ClassDeclaration | MixinDeclaration = allClassLikes.get(
+      klass.superclass.name,
+    )!;
+    pushMixins([...(klass.mixins ?? []), ...(superClass.mixins ?? [])]);
+    tree.push(superClass);
+    klass = superClass;
+  }
+  return tree;
 }
 
 /**
