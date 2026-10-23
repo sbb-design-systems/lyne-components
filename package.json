@@ -87,7 +87,7 @@
     "@storybook/addon-links": "10.6.3",
     "@storybook/icons": "2.2.0",
     "@storybook/web-components-vite": "10.6.3",
-    "@tsdown/css": "0.23.1",
+    "@tsdown/css": "0.23.2",
     "@types/chai": "5.2.3",
     "@types/mocha": "10.0.10",
     "@types/node": "24.19.2",
