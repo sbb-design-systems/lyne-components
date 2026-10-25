@@ -131,7 +131,7 @@
     "stylelint": "17.16.0",
     "stylelint-config-prettier-scss": "1.0.0",
     "stylelint-config-standard-scss": "17.0.0",
-    "stylelint-scss": "7.3.0",
+    "stylelint-scss": "7.4.0",
     "temporal-polyfill": "1.0.6",
     "ts-lit-plugin": "2.0.2",
     "tsdown": "0.23.2",
