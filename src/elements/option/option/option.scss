@@ -7,6 +7,10 @@
   background-color: var(--sbb-option-background-color);
   font-size: var(--sbb-option-font-size);
   letter-spacing: var(--sbb-letter-spacing-text);
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize CSS of several frameworks.
+  outline: none !important;
 }
 
 :host(:state(negative)) {
