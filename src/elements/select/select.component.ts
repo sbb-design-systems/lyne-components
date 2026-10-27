@@ -84,7 +84,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   ];
   public static override elementDependencies: SbbElementType[] = [SbbSelectTriggerElement];
 
-  // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
     change: 'change',
     input: 'input',
