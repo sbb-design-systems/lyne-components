@@ -1,4 +1,3 @@
-import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
@@ -21,13 +20,14 @@ import {
   getNextElementIndex,
   getOverride,
   handleDistinctChange,
+  i18nMultipleSelectionPossible,
   i18nSelectionRequired,
   isEventOnElement,
   isNextjs,
-  isSafari,
   isZeroAnimationDuration,
   popoverResetStyles,
   SbbDisabledMixin,
+  type SbbElementType,
   SbbEscapableOverlayController,
   SbbFormAssociatedMixin,
   SbbLanguageController,
@@ -49,15 +49,8 @@ import {
   type SbbOptionHintElement,
 } from '../option.pure.ts';
 
+import { SbbSelectTriggerElement } from './select-trigger.component.ts';
 import style from './select.scss?inline';
-
-/**
- * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
- * On the other hand, JAWS and NVDA need the role to be an "immediate parent" to the options, or else optgroups won't work.
- */
-const ariaRoleOnHost = isSafari;
-
-let nextId = 0;
 
 /**
  * It displays a panel with selectable options.
@@ -83,15 +76,15 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   ),
 ) {
   public static override readonly elementName: string = 'sbb-select';
-  public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
+
   public static override styles: CSSResultGroup = [
     popoverResetStyles,
     scrollbarStyles,
     optionPanelStyles,
     unsafeCSS(style),
   ];
+  public static override elementDependencies: SbbElementType[] = [SbbSelectTriggerElement];
 
-  // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
     change: 'change',
     input: 'input',
@@ -101,6 +94,10 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     beforeclose: 'beforeclose',
     close: 'close',
   } as const;
+
+  public static override get observedAttributes(): string[] {
+    return super.observedAttributes.concat('aria-label', 'aria-labelledby', 'aria-describedby');
+  }
 
   /** The placeholder used if no value has been selected. */
   @forceType()
@@ -174,12 +171,11 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     })(),
   });
 
-  private _overlay!: HTMLElement;
+  private _overlay?: HTMLElement;
   private _originElement: HTMLElement | null = null;
-  private _triggerElement: HTMLElement | null = null;
+  private _triggerElement?: SbbSelectTriggerElement<T>;
   private _openPanelEventsController?: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
-  private _overlayId = `sbb-select-${++nextId}`;
   private _activeItemIndex = -1;
   private _searchTimeout?: ReturnType<typeof setTimeout>;
   private _searchString = '';
@@ -187,12 +183,13 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _isPointerDownEventOnMenu: boolean = false;
   private _languageController = new SbbLanguageController(this);
   private _isValueManuallyAssigned = false;
+  private _restoreFocusOnClose = false;
 
   /**
    * The 'combobox' input element
    * @internal
    */
-  public get inputElement(): HTMLElement | null {
+  public get inputElement(): SbbSelectTriggerElement<T> | null {
     return this._triggerElement ?? null;
   }
 
@@ -212,28 +209,25 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this.addEventListener?.('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e));
     /** Forces the sbb-select to update his value. */
     this.addEventListener?.('ɵoptionvaluechange', () => this._updateValueOptionState());
-    this.addEventListener?.('ɵoptgroupslotchange', () => this._updateValueOptionState(), {
+    this.addEventListener?.('ɵoptgroupslotchange', () => this._handleSlotchange(), {
       capture: true,
     });
+    // Options can receive focus by pointer interaction (or programmatically).
+    // We need to sync the active option, so that keyboard interaction continues from the focused option.
+    this.addEventListener?.('focusin', (e: FocusEvent) => this._onFocusIn(e));
     this.addEventListener?.('click', (e: MouseEvent) => {
       const target = e.target as SbbSelectElement<T> | SbbOptionElement<T>;
       if (target.localName === 'sbb-option') {
         // Option click
         if (!this.multiple && !target.disabled) {
-          this.close();
-          this.focus();
+          // A selection always returns the focus to the trigger, even if the option was activated
+          // without receiving focus (e.g. by assistive technologies).
+          this._close(true);
         }
       } else {
         this._toggleOpening();
       }
     });
-
-    this.addController(
-      new MutationController(this, {
-        config: { attributeFilter: ['aria-labelledby', 'aria-label', 'aria-describedby'] },
-        callback: () => this._syncAriaLabels(),
-      }),
-    );
 
     this.addController(
       new SbbPropertyWatcherController(this, () => this.closest('sbb-form-field'), {
@@ -243,6 +237,21 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         },
       }),
     );
+
+    // If the focus is on an option we need to listen to the bubbled keyboard event
+    this.addEventListener('keydown', (e) => this._onKeyDown(e));
+  }
+
+  public override attributeChangedCallback(
+    name: string,
+    _old: string | null,
+    value: string | null,
+  ): void {
+    if (name === 'aria-label' || name === 'aria-labelledby' || name === 'aria-describedby') {
+      this._syncAriaLabels();
+    } else {
+      super.attributeChangedCallback(name, _old, value);
+    }
   }
 
   private _syncAriaLabels(): void {
@@ -292,6 +301,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     this.shadowRoot?.querySelector<HTMLDivElement>('[popover]')?.showPopover?.();
     this.state = 'opening';
+    if (this._triggerElement) {
+      this._triggerElement['internals'].ariaExpanded = 'true';
+    }
     this.internals.states.add('expanded');
     this._setOverlayPosition();
     this._escapableOverlayController.connect();
@@ -306,10 +318,20 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   /** Closes the selection panel. */
   public close(): void {
+    this._close();
+  }
+
+  /**
+   * @param restoreFocus Whether the focus should be returned to the trigger, even if it's not within the select
+   * (e.g. when an option was selected by assistive technologies without receiving focus).
+   */
+  private _close(restoreFocus = false): void {
     if (this.state === 'closing' || this.state === 'closed' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
+    // Only set once the closing actually starts, so a prevented closing doesn't leave a stale flag.
+    this._restoreFocusOnClose = restoreFocus;
     this.state = 'closing';
     this.internals.states.delete('expanded');
     this._openPanelEventsController?.abort();
@@ -403,7 +425,14 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
+
     this._updateValueOptionState();
+    if (this._triggerElement) {
+      // As the triggerElement is created in the firstRender,
+      // we need to sync the aria labels and configure the trigger here.
+      this._syncAriaLabels();
+      this._triggerElement.select = this;
+    }
 
     // Wait for ssr hydration
     if (!isNextjs()) {
@@ -445,10 +474,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
-
-    if (ariaRoleOnHost) {
-      this.id ||= this._overlayId;
-    }
 
     this._syncNegative();
     this._syncAriaLabels();
@@ -590,7 +615,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _setOverlayPosition(): void {
-    if (!this._originElement) {
+    if (!this._originElement || !this._overlay) {
       return;
     }
     setOverlayPosition(
@@ -614,7 +639,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this._triggerElement?.setAttribute('aria-expanded', 'true');
     if (this._originElement) {
       this._resizeObserver.observe(this._originElement);
     }
@@ -622,13 +646,37 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _handleClosing(): void {
+    // Must be evaluated before hiding the popover, as hiding a focused option moves the focus.
+    const restoreFocus = this._restoreFocusOnClose || this._isFocusWithin();
+    this._restoreFocusOnClose = false;
     this.state = 'closed';
     this.shadowRoot?.querySelector<HTMLDivElement>('[popover]')?.hidePopover?.();
-    this._triggerElement?.setAttribute('aria-expanded', 'false');
+    if (this._triggerElement) {
+      this._triggerElement['internals'].ariaExpanded = 'false';
+    }
     this._resetActiveElement();
-    this._overlay.scrollTop = 0;
+    if (restoreFocus) {
+      this.focus();
+    }
+    if (this._overlay) {
+      this._overlay.scrollTop = 0;
+    }
     this._escapableOverlayController.disconnect();
     this.dispatchCloseEvent();
+  }
+
+  /**
+   * Whether the focus is still within the select (trigger, panel or an option).
+   * In this case (e.g. closing by selection or Escape), the focus should be restored to the trigger.
+   * If the focus is somewhere else (e.g. moved away by Tab, by clicking another control or an empty area,
+   * or the select was closed programmatically), the focus must not be moved.
+   */
+  private _isFocusWithin(): boolean {
+    // Use the root node, so that it also works if the select is placed inside a shadow root.
+    const activeElement = (this.getRootNode() as Document | ShadowRoot).activeElement;
+    return (
+      !!activeElement && (activeElement === this._triggerElement || this.contains(activeElement))
+    );
   }
 
   /** When an option is selected, updates the displayValue; it also closes the select if not `multiple`. */
@@ -827,6 +875,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     if (this.multiple) {
       activeOption?.['selectViaUserInteraction'](!activeOption.selected);
     } else {
+      if (activeOption && !activeOption.selected) {
+        activeOption['selectViaUserInteraction'](true);
+      }
       this.close();
     }
   }
@@ -844,43 +895,52 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     const nextOption = filteredOptions[nextIndex];
     const activeOption = filteredOptions[this._activeItemIndex];
 
+    // Update the index before moving the focus, so that the focusin handler doesn't process it again.
+    this._activeItemIndex = nextIndex;
     this._setActiveElement(nextOption, activeOption);
 
     if (!this.multiple) {
-      this._setSelectedElement(nextOption, activeOption);
+      nextOption['selectViaUserInteraction'](true);
     } else if (event?.shiftKey) {
       nextOption['selectViaUserInteraction'](!nextOption.selected);
     }
-    this._activeItemIndex = nextIndex;
   }
 
   private _setActiveElement(
     nextActiveOption: SbbOptionElement<T>,
     lastActiveOption: SbbOptionElement<T> | null = null,
-    setActiveDescendant = true,
   ): void {
-    nextActiveOption.setActive(true);
+    nextActiveOption.focus({ preventScroll: true });
     nextActiveOption.scrollIntoView({ block: 'nearest' });
-
-    if (setActiveDescendant) {
-      this._triggerElement!.ariaActiveDescendantElement = nextActiveOption;
-    }
+    nextActiveOption.setActive(true);
 
     // Reset the previous
-    if (lastActiveOption && !this.compareWith(lastActiveOption.value, nextActiveOption.value)) {
+    if (lastActiveOption && lastActiveOption !== nextActiveOption) {
       lastActiveOption.setActive(false);
     }
   }
 
-  private _setSelectedElement(
-    nextActiveOption: SbbOptionElement<T>,
-    lastActiveOption: SbbOptionElement<T>,
-  ): void {
-    nextActiveOption['selectViaUserInteraction'](true);
-
-    if (lastActiveOption && !this.compareWith(lastActiveOption.value, nextActiveOption.value)) {
-      lastActiveOption['selectViaUserInteraction'](false);
+  /**
+   * Synchronizes the active index when an option receives focus (e.g. by pointer).
+   * Moving the focus must never change the selection.
+   */
+  private _onFocusIn(event: FocusEvent): void {
+    const target = event.target as HTMLElement | null;
+    if (target?.localName !== 'sbb-option') {
+      return;
     }
+
+    const selectableOptions = this._selectableOptions();
+    const focusedOption = target as SbbOptionElement<T>;
+    const index = selectableOptions.indexOf(focusedOption);
+    if (index === -1) {
+      return;
+    }
+
+    this._activeItemIndex = index;
+    // The active state renders a visual focus indicator, which must only be shown for keyboard navigation.
+    // On keyboard navigation, _setActiveElement() sets the active state after moving the focus.
+    selectableOptions.forEach((option) => option.setActive(false));
   }
 
   private _resetActiveElement(): void {
@@ -890,10 +950,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       activeElement.setActive(false);
     }
     this._activeItemIndex = -1;
-
-    if (this._triggerElement) {
-      this._triggerElement.ariaActiveDescendantElement = null;
-    }
   }
 
   // Check if the pointerdown event target is triggered on the menu.
@@ -952,6 +1008,12 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._updateDisplayValue();
   }
 
+  private _handleSlotchange(): void {
+    // Options are never part of the tab sequence, but must be focusable by script and pointer.
+    this.options.forEach((o) => (o.tabIndex = -1));
+    this._updateValueOptionState();
+  }
+
   private _updateValueOptionState(): void {
     if (this._isValueManuallyAssigned) {
       this._updateOptionsFromValue();
@@ -972,7 +1034,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     if (this.disabled || this.formDisabled || this.readOnly) {
       return;
     }
-    this._triggerElement?.focus();
 
     switch (this.state) {
       case 'opening':
@@ -982,6 +1043,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       }
       case 'closing':
       case 'closed': {
+        // The visible part of the select is not focusable. To enable keyboard interaction
+        // after opening by pointer (e.g. for a standalone select), focus the trigger.
+        this.focus();
         this.open();
         break;
       }
@@ -1008,43 +1072,41 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     // If there are a lot of options and when pressing tab key, the scroll area on sbb-select__options gets focus.
     // As elements inside the panel should never get focus, we have to avoid that by setting tabindex=-1.
 
+    const displayValue = until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`));
+
     return html`
       <!-- This element is visually hidden and will be appended to the light DOM to allow screen
       readers to work properly -->
-      <div
-        class="sbb-screen-reader-only sbb-select-trigger"
+      <sbb-select-trigger
+        class="sbb-screen-reader-only"
         tabindex=${this.disabled || this.formDisabled ? nothing : '0'}
-        role="combobox"
-        aria-haspopup="listbox"
-        aria-expanded="false"
-        aria-required=${this.required.toString()}
-        aria-controls=${this._overlayId}
-        aria-owns=${this._overlayId}
         @keydown=${this._onKeyDown}
         @click=${this._toggleOpening}
-        ${ref((ref) => (this._triggerElement = ref as HTMLElement))}
+        ${ref((ref) => (this._triggerElement = ref as SbbSelectTriggerElement<T>))}
       >
-        ${until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`))}
-      </div>
+        ${displayValue}${
+          this.multiple && !this.disabled && !this.readOnly
+            ? // Use a paragraph to let screen reader make a pause after reading the options.
+              html`<p>${i18nMultipleSelectionPossible[this._languageController.current]}</p>`
+            : nothing
+        }
+      </sbb-select-trigger>
 
       <!-- Visually display the value -->
-      <div class="sbb-select__trigger" aria-hidden="true">
-        ${until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`))}
-      </div>
+      <div class="sbb-select__trigger" aria-hidden="true">${displayValue}</div>
 
       <div class="sbb-option-panel__overlay-container sbb-popover-reset" popover="manual">
         <div
           class="sbb-option-panel__overlay ${
             this.negative ? 'sbb-scrollbar-negative' : 'sbb-scrollbar'
           }"
-          id=${!ariaRoleOnHost ? this._overlayId : nothing}
-          role=${!ariaRoleOnHost ? 'listbox' : nothing}
-          ?aria-multiselectable=${this.multiple}
+          role="listbox"
+          aria-multiselectable=${this.multiple ? 'true' : nothing}
           tabindex="-1"
           @animationend=${this._onAnimationEnd}
           ${ref((dialogRef) => (this._overlay = dialogRef as HTMLElement))}
         >
-          <slot @slotchange=${this._updateValueOptionState}></slot>
+          <slot @slotchange=${this._handleSlotchange}></slot>
         </div>
       </div>
     `;

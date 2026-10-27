@@ -4,8 +4,10 @@ import { repeat } from 'lit/directives/repeat.js';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { fixture, tabKey } from '../core/testing/private.ts';
+import { isSafari } from '../core/dom/platform.ts';
+import { elementInternalsSpy, fixture, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
+import { i18nMultipleSelectionPossible } from '../core.ts';
 import type { SbbFormFieldElement } from '../form-field.ts';
 import { SbbOptionElement } from '../option.ts';
 
@@ -16,6 +18,7 @@ import '../select.ts';
 
 describe(`sbb-select`, () => {
   let element: SbbSelectElement, root: HTMLDivElement;
+  const elementInternals = elementInternalsSpy();
 
   const displayValue = (): string => {
     const displayValueElement = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
@@ -42,7 +45,7 @@ describe(`sbb-select`, () => {
       `);
       element = root.querySelector<SbbSelectElement>('sbb-select')!;
 
-      comboBoxElement = root.querySelector('[role="combobox"]')!;
+      comboBoxElement = root.querySelector('sbb-select-trigger')!;
       focusableElement = comboBoxElement;
       firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
       secondOption = element.querySelector<SbbOptionElement>('#option-2')!;
@@ -52,6 +55,51 @@ describe(`sbb-select`, () => {
     it('renders', async () => {
       assert.instanceOf(element, SbbSelectElement);
       assert.instanceOf(firstOption, SbbOptionElement);
+    });
+
+    it('localizes the multiple selection hint on the trigger text', async () => {
+      const originalLang = document.documentElement.lang;
+      element.multiple = true;
+      await waitForLitRender(element);
+
+      document.documentElement.lang = 'de';
+      await waitForCondition(
+        () => comboBoxElement.textContent?.includes(i18nMultipleSelectionPossible['de']) ?? false,
+      );
+      expect(comboBoxElement.textContent).to.contain(i18nMultipleSelectionPossible['de']);
+
+      document.documentElement.lang = 'en';
+      await waitForCondition(
+        () => comboBoxElement.textContent?.includes(i18nMultipleSelectionPossible['en']) ?? false,
+      );
+      expect(comboBoxElement.textContent).to.contain(i18nMultipleSelectionPossible['en']);
+
+      document.documentElement.lang = originalLang;
+    });
+
+    it('shows multiple selection hint', async () => {
+      const multipleHint = i18nMultipleSelectionPossible[document.documentElement.lang];
+      expect(comboBoxElement.textContent).not.contains(multipleHint);
+
+      element.multiple = true;
+      await waitForLitRender(element);
+      expect(comboBoxElement.textContent).contains(multipleHint);
+
+      element.disabled = true;
+      await waitForLitRender(element);
+      expect(comboBoxElement.textContent).not.contains(multipleHint);
+
+      element.disabled = false;
+      await waitForLitRender(element);
+      expect(comboBoxElement.textContent).contains(multipleHint);
+
+      element.readOnly = true;
+      await waitForLitRender(element);
+      expect(comboBoxElement.textContent).not.contains(multipleHint);
+
+      element.readOnly = false;
+      await waitForLitRender(element);
+      expect(comboBoxElement.textContent).contains(multipleHint);
     });
 
     it('opens and closes the select', async () => {
@@ -72,7 +120,7 @@ describe(`sbb-select`, () => {
       expect(openSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
       expect(element).to.match(':state(expanded)');
       expect(overlayContainerElement).to.match(':popover-open');
 
@@ -85,7 +133,7 @@ describe(`sbb-select`, () => {
       expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
       expect(element).not.to.match(':state(expanded)');
       expect(overlayContainerElement).not.to.match(':popover-open');
     });
@@ -104,13 +152,13 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await open.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
 
       element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
       await closeSpy.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
     });
 
     it('closes the select by option click', async function (this: Context) {
@@ -123,13 +171,13 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await open.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
 
       firstOption.click();
       await waitForLitRender(element);
       await closeSpy.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
       expect(element.value).to.be.equal('1');
     });
 
@@ -145,13 +193,13 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await open.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
 
       firstOption.click();
       await waitForLitRender(element);
       await closeSpy.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
       expect(element.value).to.be.equal('1');
     });
 
@@ -242,7 +290,7 @@ describe(`sbb-select`, () => {
         </div>
       `);
       element = root.querySelector<SbbSelectElement>('sbb-select')!;
-      comboBoxElement = root.querySelector('[role="combobox"]')!;
+      comboBoxElement = root.querySelector('sbb-select-trigger')!;
       focusableElement = comboBoxElement;
 
       expect(element.getDisplayValue()).to.be.equal('First');
@@ -285,7 +333,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(element.value).to.be.equal('2');
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
     });
 
     it('displays initially selected option', async () => {
@@ -347,7 +395,7 @@ describe(`sbb-select`, () => {
       expect(element.value).to.be.eql([]);
       expect(displayValue()).to.be.equal('Placeholder');
       // Panel is still open
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
     });
 
     it('update multiple attribute', async () => {
@@ -489,7 +537,7 @@ describe(`sbb-select`, () => {
       expect(firstOption).to.have.attribute('selected');
       expect(element.value).to.be.equal('1');
       expect(element.getDisplayValue()).to.be.equal('First');
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
 
       await sendKeys({ press: 'T' });
       await waitForLitRender(element);
@@ -525,8 +573,238 @@ describe(`sbb-select`, () => {
       await closeSpy.calledOnce();
 
       expect(element).to.match(':state(state-closed)');
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
       expect(element.value).to.be.equal('2');
+    });
+
+    it('moves focus to the active option on keyboard navigation', async () => {
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      focusableElement.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await openSpy.calledOnce();
+
+      // No option should be focusable before navigating
+      for (const option of [firstOption, secondOption, thirdOption]) {
+        expect(option.tabIndex).to.equal(-1);
+      }
+
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+      expect(document.activeElement).to.be.equal(firstOption);
+      expect(firstOption).to.match(':state(active)');
+      expect(secondOption.tabIndex).to.equal(-1);
+      expect(thirdOption.tabIndex).to.equal(-1);
+
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+      expect(document.activeElement).to.be.equal(secondOption);
+      expect(secondOption).to.match(':state(active)');
+      // Previous active option must be reset
+      expect(firstOption.tabIndex).to.equal(-1);
+      expect(firstOption).not.to.match(':state(active)');
+
+      await sendKeys({ press: 'End' });
+      await waitForLitRender(element);
+      expect(document.activeElement).to.be.equal(thirdOption);
+      expect(secondOption.tabIndex).to.equal(-1);
+    });
+
+    it('moves focus to the active option on keyboard navigation in multiple', async () => {
+      element.multiple = true;
+      await waitForLitRender(element);
+
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      focusableElement.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await openSpy.calledOnce();
+
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+
+      expect(document.activeElement).to.be.equal(secondOption);
+      expect(firstOption.tabIndex).to.equal(-1);
+      expect(firstOption).not.to.match(':state(active)');
+    });
+
+    describe('focus synchronization', () => {
+      const clickOption = async (option: SbbOptionElement): Promise<void> => {
+        const rect = option.getBoundingClientRect();
+        await sendMouse({
+          type: 'click',
+          position: [Math.round(rect.x + rect.width / 2), Math.round(rect.y + rect.height / 2)],
+        });
+        await waitForLitRender(element);
+      };
+
+      it('toggles the pointer-focused option with Space after keyboard navigation in multiple', async () => {
+        element.multiple = true;
+        await waitForLitRender(element);
+        const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+
+        focusableElement.focus();
+        await sendKeys({ press: 'ArrowDown' });
+        await openSpy.calledOnce();
+
+        // Navigate to the first option
+        await sendKeys({ press: 'ArrowDown' });
+        expect(document.activeElement).to.be.equal(firstOption);
+
+        // Click on the second option
+        await clickOption(secondOption);
+        expect(document.activeElement).to.be.equal(secondOption);
+        expect(element.value).to.be.eql(['2']);
+        // The visual active state (focus indicator) is only shown for keyboard navigation
+        expect(secondOption).not.to.match(':state(active)');
+        expect(secondOption.tabIndex).to.equal(-1);
+        expect(firstOption).not.to.match(':state(active)');
+        expect(firstOption.tabIndex).to.equal(-1);
+
+        // Space must toggle the focused (second) option, not the first one
+        await sendKeys({ press: ' ' });
+        await waitForLitRender(element);
+        expect(element.value).to.be.eql([]);
+        expect(firstOption).not.to.have.attribute('selected');
+        expect(secondOption).not.to.have.attribute('selected');
+
+        await sendKeys({ press: ' ' });
+        await waitForLitRender(element);
+        expect(element.value).to.be.eql(['2']);
+
+        // Keyboard navigation continues from the focused option
+        await sendKeys({ press: 'ArrowDown' });
+        expect(document.activeElement).to.be.equal(thirdOption);
+        expect(thirdOption).to.match(':state(active)');
+        expect(secondOption).not.to.match(':state(active)');
+        expect(secondOption.tabIndex).to.equal(-1);
+      });
+
+      it('toggles the pointer-focused option with Space without prior navigation in multiple', async () => {
+        element.multiple = true;
+        await waitForLitRender(element);
+        const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+
+        element.open();
+        await openSpy.calledOnce();
+
+        await clickOption(secondOption);
+        expect(document.activeElement).to.be.equal(secondOption);
+        expect(element.value).to.be.eql(['2']);
+
+        await sendKeys({ press: ' ' });
+        await waitForLitRender(element);
+        expect(element.value).to.be.eql([]);
+        expect(element.isOpen).to.be.true;
+      });
+
+      it('does not change the selection when an option receives focus', async () => {
+        const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+        const changeSpy = new EventSpy('change', element);
+        element.value = '1';
+        await waitForLitRender(element);
+
+        element.open();
+        await openSpy.calledOnce();
+
+        secondOption.focus();
+        await waitForLitRender(element);
+
+        expect(element.value).to.be.equal('1');
+        expect(firstOption).to.have.attribute('selected');
+        expect(secondOption).not.to.have.attribute('selected');
+        expect(changeSpy.count).to.be.equal(0);
+
+        expect(secondOption.tabIndex).to.equal(-1);
+        for (const option of [firstOption, thirdOption]) {
+          expect(option).not.to.match(':state(active)');
+          expect(option.tabIndex).to.equal(-1);
+        }
+        // The visual active state (focus indicator) is only shown for keyboard navigation
+        for (const option of [firstOption, secondOption, thirdOption]) {
+          expect(option).not.to.match(':state(active)');
+        }
+
+        // Keyboard navigation continues from the focused option
+        await sendKeys({ press: 'ArrowDown' });
+        expect(document.activeElement).to.be.equal(thirdOption);
+        expect(thirdOption).to.match(':state(active)');
+        expect(element.value).to.be.equal('3');
+      });
+    });
+
+    it('selects the focused option on Enter in single mode', async () => {
+      element.value = '1';
+      await waitForLitRender(element);
+
+      const open = new EventSpy(SbbSelectElement.events.open, element);
+      const close = new EventSpy(SbbSelectElement.events.close, element);
+      element.open();
+      await open.calledOnce();
+
+      secondOption.focus();
+      await waitForLitRender(element);
+      expect(element.value).to.be.equal('1');
+
+      const changeSpy = new EventSpy('change', element);
+      await sendKeys({ press: 'Enter' });
+      await close.calledOnce();
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.equal('2');
+      expect(secondOption.selected).to.be.true;
+      expect(changeSpy.count).to.be.equal(1);
+    });
+
+    it('does not emit change on Enter if the focused option is already selected', async () => {
+      element.value = '1';
+      await waitForLitRender(element);
+
+      const open = new EventSpy(SbbSelectElement.events.open, element);
+      const close = new EventSpy(SbbSelectElement.events.close, element);
+      element.open();
+      await open.calledOnce();
+
+      firstOption.focus();
+      await waitForLitRender(element);
+
+      const changeSpy = new EventSpy('change', element);
+      await sendKeys({ press: 'Space' });
+      await close.calledOnce();
+
+      expect(element.value).to.be.equal('1');
+      expect(changeSpy.count).to.be.equal(0);
+    });
+
+    it('resets active option and restores focus to trigger on close', async () => {
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+      focusableElement.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await openSpy.calledOnce();
+
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+      expect(document.activeElement).to.be.equal(secondOption);
+
+      await sendKeys({ press: 'Escape' });
+      await closeSpy.calledOnce();
+      await waitForLitRender(element);
+
+      expect(document.activeElement).to.be.equal(comboBoxElement);
+      for (const option of [firstOption, secondOption, thirdOption]) {
+        expect(option.tabIndex).to.equal(-1);
+        expect(option).not.to.match(':state(active)');
+      }
+      expect(element.value).to.be.equal('2');
+
+      // Re-opening and navigating starts again from the selected option
+      await sendKeys({ press: 'ArrowDown' });
+      await openSpy.calledTimes(2);
+      await sendKeys({ press: 'ArrowDown' });
+      await waitForLitRender(element);
+      expect(document.activeElement).not.to.be.equal(comboBoxElement);
+      expect(document.activeElement).to.be.instanceOf(SbbOptionElement);
     });
 
     it('handles keyboard selection in multiple', async () => {
@@ -581,17 +859,22 @@ describe(`sbb-select`, () => {
       expect(openSpy.count).to.be.equal(2);
       expect(secondOption).not.to.match(':state(active)');
       expect(secondOption).to.have.attribute('selected');
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
     });
 
     it('correctly forward focus and blur', async () => {
       element.focus();
       await waitForLitRender(element);
-      expect(document.activeElement).to.have.attribute('role', 'combobox');
+
+      expect(elementInternals.get(document.activeElement as HTMLElement)?.role).to.equal(
+        'combobox',
+      );
 
       element.blur();
       await waitForLitRender(element);
-      expect(document.activeElement).not.to.have.attribute('role', 'combobox');
+      expect(elementInternals.get(document.activeElement as HTMLElement)?.role).not.to.equal(
+        'combobox',
+      );
     });
 
     it('does not open if prevented', async () => {
@@ -622,6 +905,84 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(element).to.match(':state(state-opened)');
+    });
+
+    describe('aria-expanded timing', () => {
+      it('has aria-expanded=false when the trigger receives focus on close via keyboard', async () => {
+        const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+        const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+        focusableElement.focus();
+        await sendKeys({ press: 'ArrowDown' });
+        await openSpy.calledOnce();
+        await sendKeys({ press: 'ArrowDown' });
+        expect(document.activeElement).to.be.equal(firstOption);
+
+        let expandedOnFocus: string | undefined | null;
+        comboBoxElement.addEventListener(
+          'focus',
+          () => (expandedOnFocus = elementInternals.get(comboBoxElement)?.ariaExpanded),
+        );
+
+        await sendKeys({ press: 'Escape' });
+        await closeSpy.calledOnce();
+
+        expect(document.activeElement).to.be.equal(comboBoxElement);
+        expect(expandedOnFocus).to.deep.equal('false');
+      });
+
+      it('has aria-expanded=false when the trigger receives focus on close via option click', async () => {
+        const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+        const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+        element.open();
+        await openSpy.calledOnce();
+
+        let expandedOnFocus: string | undefined | null;
+        comboBoxElement.addEventListener(
+          'focus',
+          () => (expandedOnFocus = elementInternals.get(comboBoxElement)?.ariaExpanded),
+        );
+
+        secondOption.click();
+        await closeSpy.calledOnce();
+
+        expect(element.value).to.be.equal('2');
+        expect(document.activeElement).to.be.equal(comboBoxElement);
+        expect(expandedOnFocus).to.deep.equal('false');
+      });
+    });
+
+    it('wires the trigger to the select', async () => {
+      const overlay = element.shadowRoot!.querySelector('.sbb-option-panel__overlay')!;
+      const triggerInternals = elementInternals.get(comboBoxElement)!;
+
+      // Trigger is moved into the light DOM right before the select
+      expect(comboBoxElement.nextElementSibling).to.be.equal(element);
+      expect(element.inputElement).to.be.equal(comboBoxElement);
+      expect(triggerInternals.role).to.equal('combobox');
+      expect(triggerInternals.ariaExpanded).to.equal('false');
+      if (!isSafari) {
+        // Currently a bug in Safari which doesn't allow elements linked across shadow DOM boundaries.
+        // TODO: re-check, probably obsolete when we are going to move the trigger to the shadow DOM.
+        expect(triggerInternals.ariaControlsElements).to.deep.equal([overlay]);
+      }
+
+      // Host must not have a role, the trigger represents the combobox
+      expect(elementInternals.get(element)?.role ?? null).to.be.null;
+    });
+
+    it('syncs required to the trigger', async () => {
+      const triggerInternals = elementInternals.get(comboBoxElement)!;
+      expect(triggerInternals.ariaRequired).to.be.null;
+
+      element.required = true;
+      await waitForLitRender(element);
+      expect(triggerInternals.ariaRequired).to.equal('true');
+
+      element.required = false;
+      await waitForLitRender(element);
+      expect(triggerInternals.ariaRequired).to.be.null;
     });
 
     it('updates displayed value on option value change', async () => {
@@ -801,13 +1162,13 @@ describe(`sbb-select`, () => {
       // Check initial state
       expect(element.value).to.be.equal('2');
       expect(secondOption.selected).to.be.true;
-      expect(root.querySelector<SbbSelectElement>('.sbb-select-trigger')!).to.exist;
+      expect(root.querySelector<SbbSelectElement>('sbb-select-trigger')!).to.exist;
 
       // Remove from DOM
       element.remove();
       await waitForLitRender(root);
 
-      expect(root.querySelector<SbbSelectElement>('.sbb-select-trigger')!).not.to.exist;
+      expect(root.querySelector<SbbSelectElement>('sbb-select-trigger')!).not.to.exist;
 
       // Re-add to DOM
       root.insertBefore(element, root.firstElementChild);
@@ -817,7 +1178,7 @@ describe(`sbb-select`, () => {
       const reAddedElement = root.querySelector<SbbSelectElement>('sbb-select')!;
       expect(reAddedElement).to.exist;
       expect(reAddedElement).to.equal(element);
-      expect(root.querySelector<SbbSelectElement>('.sbb-select-trigger')!).to.exist;
+      expect(root.querySelector<SbbSelectElement>('sbb-select-trigger')!).to.exist;
 
       // Check that value is preserved
       expect(reAddedElement.value).to.be.equal('2');
@@ -863,7 +1224,7 @@ describe(`sbb-select`, () => {
         </form>
       `);
       element = form.querySelector('sbb-select')!;
-      comboBoxElement = form.querySelector('[role="combobox"]')!;
+      comboBoxElement = form.querySelector('sbb-select-trigger')!;
       nativeSelect = form.querySelector('select')!;
       fieldSet = form.querySelector('fieldset')!;
 
@@ -1109,7 +1470,7 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
 
       expect(comboBoxElement).to.have.attribute('aria-label', 'Test');
     });
@@ -1120,7 +1481,7 @@ describe(`sbb-select`, () => {
           <sbb-option id="option-1" value="1">First</sbb-option>
         </sbb-select>
       `);
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
       expect(comboBoxElement).not.to.have.attribute('aria-label');
 
       element.setAttribute('aria-label', 'Test');
@@ -1137,7 +1498,7 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
 
       expect(comboBoxElement).to.have.attribute('aria-label', 'Test');
     });
@@ -1149,7 +1510,7 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
 
       expect(comboBoxElement).to.have.attribute('aria-labelledby', 'Test');
     });
@@ -1160,7 +1521,7 @@ describe(`sbb-select`, () => {
           <sbb-option id="option-1" value="1">First</sbb-option>
         </sbb-select>
       `);
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
       expect(comboBoxElement).not.to.have.attribute('aria-labelledby');
 
       element.setAttribute('aria-labelledby', 'Test');
@@ -1177,7 +1538,7 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
 
       expect(comboBoxElement).to.have.attribute('aria-labelledby', 'Test');
     });
@@ -1190,7 +1551,7 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
 
       expect(comboBoxElement).to.have.attribute('aria-describedby', 'Test');
       expect(comboBoxElement).to.have.attribute('aria-label', 'Label');
@@ -1205,7 +1566,7 @@ describe(`sbb-select`, () => {
         </sbb-select>
       `);
 
-      const comboBoxElement = element.parentElement!.querySelector('[role="combobox"]')!;
+      const comboBoxElement = element.parentElement!.querySelector('sbb-select-trigger')!;
 
       expect(comboBoxElement).to.have.attribute('aria-label', 'Label, Label 2');
     });
@@ -1221,7 +1582,7 @@ describe(`sbb-select`, () => {
       );
 
       const element = root.querySelector('sbb-select')!;
-      const comboBoxElement = root.querySelector('[role="combobox"]')!;
+      const comboBoxElement = root.querySelector('sbb-select-trigger')!;
       expect(comboBoxElement).to.have.attribute('aria-label', 'Label');
 
       root.querySelector('label')!.remove();
@@ -1249,7 +1610,7 @@ describe(`sbb-select`, () => {
       `);
       element = formField.querySelector<SbbSelectElement>('sbb-select')!;
 
-      comboBoxElement = formField.querySelector('[role="combobox"]')!;
+      comboBoxElement = formField.querySelector('sbb-select-trigger')!;
       firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
     });
 
@@ -1271,14 +1632,14 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await openSpy.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
 
       firstOption.click();
       await waitForLitRender(element);
       await closeSpy.calledOnce();
 
       expect(openSpy.count).to.be.equal(1);
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
       expect(element.value).to.be.equal('1');
     });
 
@@ -1294,13 +1655,13 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await openSpy.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
 
       firstOption.click();
       await waitForLitRender(element);
       await closeSpy.calledOnce();
 
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
       expect(element.value).to.be.equal('1');
     });
 
@@ -1321,7 +1682,7 @@ describe(`sbb-select`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
       await waitForLitRender(element);
-      expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
+      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
       expect(element).to.match(':state(expanded)');
       expect(overlayContainerElement).to.match(':popover-open');
 
@@ -1602,6 +1963,27 @@ describe(`sbb-select`, () => {
       expect(element.getDisplayValue()).to.be.equal('Fourth');
     });
 
+    it('should make options added later to an optgroup focusable', async () => {
+      const optGroup = element.querySelector('sbb-optgroup')!;
+      const newOption = document.createElement('sbb-option');
+      newOption.value = '5';
+      newOption.textContent = 'Fifth';
+      optGroup.appendChild(newOption);
+      await waitForCondition(() => newOption.hasAttribute('tabindex'));
+      expect(newOption.tabIndex).to.equal(-1);
+
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      element.open();
+      await openSpy.calledOnce();
+
+      newOption.focus();
+      await waitForLitRender(element);
+      expect(document.activeElement).to.be.equal(newOption);
+      expect(newOption).not.to.match(':state(active)');
+      expect(newOption.tabIndex).to.equal(-1);
+      expect(element.value).to.be.equal('4');
+    });
+
     it('should open and select options within the optgroup', async () => {
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
@@ -1654,6 +2036,187 @@ describe(`sbb-select`, () => {
       expect(element.value).to.be.equal('2');
       expect(element.getDisplayValue()).to.be.equal('Second');
     });
+  });
+
+  describe('focus handling on close', () => {
+    let inputBefore: HTMLInputElement,
+      inputAfter: HTMLInputElement,
+      trigger: HTMLElement,
+      secondOption: SbbOptionElement;
+
+    beforeEach(async () => {
+      const root = await fixture(html`
+        <div>
+          <input id="before" />
+          <!-- The parent element is the origin of the select, therefore we need a separate container -->
+          <div>
+            <sbb-select placeholder="Placeholder">
+              <sbb-option value="1">First</sbb-option>
+              <sbb-option value="2">Second</sbb-option>
+              <sbb-option value="3">Third</sbb-option>
+            </sbb-select>
+          </div>
+          <input id="after" />
+        </div>
+      `);
+      element = root.querySelector<SbbSelectElement>('sbb-select')!;
+      inputBefore = root.querySelector<HTMLInputElement>('#before')!;
+      inputAfter = root.querySelector<HTMLInputElement>('#after')!;
+      trigger = root.querySelector<HTMLElement>('sbb-select-trigger')!;
+      secondOption = element.options[1];
+    });
+
+    it('focuses the trigger when opening a standalone select by pointer', async () => {
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+      // Click on the visible (non-focusable) part of the select
+      const rect = element.getBoundingClientRect();
+      await sendMouse({
+        type: 'click',
+        position: [Math.round(rect.x + rect.width / 2), Math.round(rect.y + rect.height / 2)],
+      });
+      await openSpy.calledOnce();
+      expect(document.activeElement).to.be.equal(trigger);
+
+      // Keyboard interaction must work after opening by pointer
+      await sendKeys({ press: 'ArrowDown' });
+      expect(document.activeElement).to.be.equal(element.options[0]);
+      await sendKeys({ press: 'ArrowDown' });
+      expect(document.activeElement).to.be.equal(secondOption);
+
+      await sendKeys({ press: 'Enter' });
+      await closeSpy.calledOnce();
+      expect(element.value).to.be.equal('2');
+      expect(document.activeElement).to.be.equal(trigger);
+    });
+
+    for (const animated of [false, true]) {
+      describe(`animated=${animated}`, () => {
+        beforeEach(() => {
+          if (animated) {
+            (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+            element.style.setProperty('--sbb-options-panel-animation-duration', '50ms');
+          }
+        });
+
+        const openAndNavigate = async (): Promise<void> => {
+          const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+          trigger.focus();
+          await sendKeys({ press: 'ArrowDown' });
+          await openSpy.calledOnce();
+          await sendKeys({ press: 'ArrowDown' });
+          expect(document.activeElement).to.be.equal(element.options[0]);
+        };
+
+        it('restores focus to the trigger when closing with Escape', async () => {
+          const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+          await openAndNavigate();
+
+          await sendKeys({ press: 'Escape' });
+          await closeSpy.calledOnce();
+
+          expect(document.activeElement).to.be.equal(trigger);
+        });
+
+        it('restores focus to the trigger when closing by selecting an option', async () => {
+          const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+          const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+          element.open();
+          await openSpy.calledOnce();
+
+          const rect = secondOption.getBoundingClientRect();
+          await sendMouse({
+            type: 'click',
+            position: [Math.round(rect.x + rect.width / 2), Math.round(rect.y + rect.height / 2)],
+          });
+          await closeSpy.calledOnce();
+
+          expect(element.value).to.be.equal('2');
+          expect(document.activeElement).to.be.equal(trigger);
+        });
+
+        it('preserves the destination focus when closing with Tab', async () => {
+          const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+          await openAndNavigate();
+
+          await sendKeys({ press: tabKey });
+          await closeSpy.calledOnce();
+
+          expect(document.activeElement).to.be.equal(inputAfter);
+        });
+
+        it('preserves the destination focus when closing by clicking another control', async () => {
+          const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+          await openAndNavigate();
+
+          const rect = inputBefore.getBoundingClientRect();
+          await sendMouse({
+            type: 'click',
+            position: [Math.round(rect.x + rect.width / 2), Math.round(rect.y + rect.height / 2)],
+          });
+          await closeSpy.calledOnce();
+
+          expect(document.activeElement).to.be.equal(inputBefore);
+        });
+
+        it('does not move the focus when clicking an empty area', async () => {
+          const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+          await openAndNavigate();
+
+          // Right of the input, on the non-focusable wrapper (outside the origin and the panel)
+          const rect = inputBefore.getBoundingClientRect();
+          await sendMouse({
+            type: 'click',
+            position: [window.innerWidth - 5, Math.round(rect.y + rect.height / 2)],
+          });
+          await closeSpy.calledOnce();
+
+          expect(document.activeElement).to.be.equal(document.body);
+        });
+
+        it('does not keep a stale focus restoration after a prevented selection close', async () => {
+          const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+          const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+          element.open();
+          await openSpy.calledOnce();
+
+          // Selecting an option, but the closing is prevented
+          const preventClose = (ev: Event): void => ev.preventDefault();
+          element.addEventListener(SbbSelectElement.events.beforeclose, preventClose);
+          secondOption.click();
+          await waitForLitRender(element);
+          expect(element.isOpen).to.be.true;
+          element.removeEventListener(SbbSelectElement.events.beforeclose, preventClose);
+
+          // A later programmatic close with focus elsewhere must not move the focus
+          inputBefore.focus();
+          element.close();
+          await closeSpy.calledOnce();
+          expect(document.activeElement).to.be.equal(inputBefore);
+        });
+
+        it('does not move the focus when closed programmatically while the focus is elsewhere', async () => {
+          const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+          const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+          inputBefore.focus();
+          element.open();
+          await openSpy.calledOnce();
+          element.close();
+          await closeSpy.calledOnce();
+          expect(document.activeElement).to.be.equal(inputBefore);
+
+          // Also no focus at all must not lead to focusing the select
+          inputBefore.blur();
+          element.open();
+          await openSpy.calledTimes(2);
+          element.close();
+          await closeSpy.calledTimes(2);
+          expect(document.activeElement).to.be.equal(document.body);
+        });
+      });
+    }
   });
 
   it('should handle focus when options are in a scroll area', async () => {

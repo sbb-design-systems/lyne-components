@@ -776,6 +776,13 @@ export const i18nSelectionRequired: Record<string, string> = {
   it: 'Selezione necessaria.',
 };
 
+export const i18nMultipleSelectionPossible: Record<string, string> = {
+  de: 'Mehrfachauswahl möglich',
+  en: 'Multiple selection possible',
+  fr: 'Sélection multiple possible',
+  it: 'Selezione multipla possibile',
+};
+
 export const i18nInputRequired: Record<string, string> = {
   de: 'Eingabe erforderlich.',
   en: 'Input required.',
