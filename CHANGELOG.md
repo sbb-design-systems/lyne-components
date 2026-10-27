@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.13.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.12.0...v5.13.0) (2026-10-27)
+
+
+### Features
+
+* **date-input:** also accept 8 numbers as date ([#5334](https://github.com/sbb-design-systems/lyne-components/issues/5334)) ([9ef6a43](https://github.com/sbb-design-systems/lyne-components/commit/9ef6a43efddbf14988d72b125f30e45c623c6d5b))
+
+
+### Bug Fixes
+
+* **select:** announce selected state with all screen readers ([#5325](https://github.com/sbb-design-systems/lyne-components/issues/5325)) ([5f4d2c0](https://github.com/sbb-design-systems/lyne-components/commit/5f4d2c088b9409dee75899578069176ca20a21b6))
+
+
+### Documentation
+
+* avoid selection of invalid legacy storybook version ([#5327](https://github.com/sbb-design-systems/lyne-components/issues/5327)) ([3b42361](https://github.com/sbb-design-systems/lyne-components/commit/3b423610e9ee304f77a61907b67c272d660aadcc))
+* use valid attribute names in readme examples ([#5330](https://github.com/sbb-design-systems/lyne-components/issues/5330)) ([84013a1](https://github.com/sbb-design-systems/lyne-components/commit/84013a18d2d956e945bc5eeb3511906a498c4212))
+
 ## [5.12.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.11.0...v5.12.0) (2026-10-19)
 
 
