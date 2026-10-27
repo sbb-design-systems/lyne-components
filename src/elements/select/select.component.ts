@@ -20,6 +20,7 @@ import {
   getNextElementIndex,
   getOverride,
   handleDistinctChange,
+  i18nMultipleSelectionPossible,
   i18nSelectionRequired,
   isEventOnElement,
   isNextjs,
@@ -1071,6 +1072,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     // If there are a lot of options and when pressing tab key, the scroll area on sbb-select__options gets focus.
     // As elements inside the panel should never get focus, we have to avoid that by setting tabindex=-1.
 
+    const displayValue = until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`));
+
     return html`
       <!-- This element is visually hidden and will be appended to the light DOM to allow screen
       readers to work properly -->
@@ -1081,13 +1084,16 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         @click=${this._toggleOpening}
         ${ref((ref) => (this._triggerElement = ref as SbbSelectTriggerElement<T>))}
       >
-        ${until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`))}
+        ${displayValue}${
+          this.multiple && !this.disabled && !this.readOnly
+            ? // Use a paragraph to let screen reader make a pause after reading the options.
+              html`<p>${i18nMultipleSelectionPossible[this._languageController.current]}</p>`
+            : nothing
+        }
       </sbb-select-trigger>
 
       <!-- Visually display the value -->
-      <div class="sbb-select__trigger" aria-hidden="true">
-        ${until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`))}
-      </div>
+      <div class="sbb-select__trigger" aria-hidden="true">${displayValue}</div>
 
       <div class="sbb-option-panel__overlay-container sbb-popover-reset" popover="manual">
         <div

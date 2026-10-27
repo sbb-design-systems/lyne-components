@@ -7,6 +7,7 @@ import type { Context } from 'mocha';
 import { isSafari } from '../core/dom/platform.ts';
 import { elementInternalsSpy, fixture, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
+import { i18nMultipleSelectionPossible } from '../core.ts';
 import type { SbbFormFieldElement } from '../form-field.ts';
 import { SbbOptionElement } from '../option.ts';
 
@@ -54,6 +55,51 @@ describe(`sbb-select`, () => {
     it('renders', async () => {
       assert.instanceOf(element, SbbSelectElement);
       assert.instanceOf(firstOption, SbbOptionElement);
+    });
+
+    it('localizes the multiple selection hint on the trigger text', async () => {
+      const originalLang = document.documentElement.lang;
+      element.multiple = true;
+      await waitForLitRender(element);
+
+      document.documentElement.lang = 'de';
+      await waitForCondition(
+        () => comboBoxElement.textContent?.includes(i18nMultipleSelectionPossible['de']) ?? false,
+      );
+      expect(comboBoxElement.textContent).to.contain(i18nMultipleSelectionPossible['de']);
+
+      document.documentElement.lang = 'en';
+      await waitForCondition(
+        () => comboBoxElement.textContent?.includes(i18nMultipleSelectionPossible['en']) ?? false,
+      );
+      expect(comboBoxElement.textContent).to.contain(i18nMultipleSelectionPossible['en']);
+
+      document.documentElement.lang = originalLang;
+    });
+
+    it('shows multiple selection hint', async () => {
+      const multipleHint = i18nMultipleSelectionPossible[document.documentElement.lang];
+      expect(comboBoxElement.textContent).not.contains(multipleHint);
+
+      element.multiple = true;
+      await waitForLitRender(element);
+      expect(comboBoxElement.textContent).contains(multipleHint);
+
+      element.disabled = true;
+      await waitForLitRender(element);
+      expect(comboBoxElement.textContent).not.contains(multipleHint);
+
+      element.disabled = false;
+      await waitForLitRender(element);
+      expect(comboBoxElement.textContent).contains(multipleHint);
+
+      element.readOnly = true;
+      await waitForLitRender(element);
+      expect(comboBoxElement.textContent).not.contains(multipleHint);
+
+      element.readOnly = false;
+      await waitForLitRender(element);
+      expect(comboBoxElement.textContent).contains(multipleHint);
     });
 
     it('opens and closes the select', async () => {

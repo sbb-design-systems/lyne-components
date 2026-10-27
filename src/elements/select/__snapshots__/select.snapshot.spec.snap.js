@@ -128,6 +128,7 @@ snapshots["sbb-select renders multiple A11y tree Chrome"] =
     {
       "role": "combobox",
       "name": "",
+      "value": "Multiple selection possible",
       "focusable": true,
       "hasPopup": "listbox",
       "required": false,
