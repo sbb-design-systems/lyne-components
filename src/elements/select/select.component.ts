@@ -875,6 +875,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     if (this.multiple) {
       activeOption?.['selectViaUserInteraction'](!activeOption.selected);
     } else {
+      if (activeOption && !activeOption.selected) {
+        activeOption['selectViaUserInteraction'](true);
+      }
       this.close();
     }
   }

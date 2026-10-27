@@ -690,6 +690,49 @@ describe(`sbb-select`, () => {
       });
     });
 
+    it('selects the focused option on Enter in single mode', async () => {
+      element.value = '1';
+      await waitForLitRender(element);
+
+      const open = new EventSpy(SbbSelectElement.events.open, element);
+      const close = new EventSpy(SbbSelectElement.events.close, element);
+      element.open();
+      await open.calledOnce();
+
+      secondOption.focus();
+      await waitForLitRender(element);
+      expect(element.value).to.be.equal('1');
+
+      const changeSpy = new EventSpy('change', element);
+      await sendKeys({ press: 'Enter' });
+      await close.calledOnce();
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.equal('2');
+      expect(secondOption.selected).to.be.true;
+      expect(changeSpy.count).to.be.equal(1);
+    });
+
+    it('does not emit change on Enter if the focused option is already selected', async () => {
+      element.value = '1';
+      await waitForLitRender(element);
+
+      const open = new EventSpy(SbbSelectElement.events.open, element);
+      const close = new EventSpy(SbbSelectElement.events.close, element);
+      element.open();
+      await open.calledOnce();
+
+      firstOption.focus();
+      await waitForLitRender(element);
+
+      const changeSpy = new EventSpy('change', element);
+      await sendKeys({ press: 'Space' });
+      await close.calledOnce();
+
+      expect(element.value).to.be.equal('1');
+      expect(changeSpy.count).to.be.equal(0);
+    });
+
     it('resets active option and restores focus to trigger on close', async () => {
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
