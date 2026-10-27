@@ -184,11 +184,14 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     super.requestUpdate(name, oldValue, options);
     if (name === 'disabled' || name === 'disabledFromGroup') {
       this.toggleState('disabled', this.disabled || this.disabledFromGroup);
-      setOrRemoveAttribute(
-        this,
-        'tabindex',
-        isAndroid && !this.disabled && !this.disabledFromGroup ? 0 : null,
-      );
+      if (!this.closest('sbb-select')) {
+        setOrRemoveAttribute(
+          this,
+          'tabindex',
+          isAndroid && !this.disabled && !this.disabledFromGroup ? 0 : null,
+        );
+      }
+
       this.updateAriaDisabled();
     }
   }
