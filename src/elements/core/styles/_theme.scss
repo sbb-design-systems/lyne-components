@@ -2,7 +2,7 @@ $theme: 'standard' !default;
 $font-face: 'SBB' !default;
 
 @use 'sass:meta';
-@use './_index' as sbb;
+@use './index' as sbb;
 
 // start-auto-generated-scss-module-imports
 @use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables-as-css.scss' as sbb-css-tokens with (
