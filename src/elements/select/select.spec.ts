@@ -531,7 +531,7 @@ describe(`sbb-select`, () => {
       expect(element.value).to.be.equal('2');
     });
 
-    it('moves focus and tabindex to the active option on keyboard navigation', async () => {
+    it('moves focus to the active option on keyboard navigation', async () => {
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       focusableElement.focus();
       await sendKeys({ press: 'ArrowDown' });
@@ -545,7 +545,6 @@ describe(`sbb-select`, () => {
       await sendKeys({ press: 'ArrowDown' });
       await waitForLitRender(element);
       expect(document.activeElement).to.be.equal(firstOption);
-      expect(firstOption).to.have.attribute('tabindex', '0');
       expect(firstOption).to.match(':state(active)');
       expect(secondOption.tabIndex).to.equal(-1);
       expect(thirdOption.tabIndex).to.equal(-1);
@@ -553,7 +552,6 @@ describe(`sbb-select`, () => {
       await sendKeys({ press: 'ArrowDown' });
       await waitForLitRender(element);
       expect(document.activeElement).to.be.equal(secondOption);
-      expect(secondOption).to.have.attribute('tabindex', '0');
       expect(secondOption).to.match(':state(active)');
       // Previous active option must be reset
       expect(firstOption.tabIndex).to.equal(-1);
@@ -562,11 +560,10 @@ describe(`sbb-select`, () => {
       await sendKeys({ press: 'End' });
       await waitForLitRender(element);
       expect(document.activeElement).to.be.equal(thirdOption);
-      expect(thirdOption).to.have.attribute('tabindex', '0');
       expect(secondOption.tabIndex).to.equal(-1);
     });
 
-    it('moves focus and tabindex to the active option on keyboard navigation in multiple', async () => {
+    it('moves focus to the active option on keyboard navigation in multiple', async () => {
       element.multiple = true;
       await waitForLitRender(element);
 
@@ -580,7 +577,6 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(document.activeElement).to.be.equal(secondOption);
-      expect(secondOption).to.have.attribute('tabindex', '0');
       expect(firstOption.tabIndex).to.equal(-1);
       expect(firstOption).not.to.match(':state(active)');
     });
@@ -614,7 +610,7 @@ describe(`sbb-select`, () => {
         expect(element.value).to.be.eql(['2']);
         // The visual active state (focus indicator) is only shown for keyboard navigation
         expect(secondOption).not.to.match(':state(active)');
-        expect(secondOption.tabIndex).to.equal(0);
+        expect(secondOption.tabIndex).to.equal(-1);
         expect(firstOption).not.to.match(':state(active)');
         expect(firstOption.tabIndex).to.equal(-1);
 
@@ -672,7 +668,7 @@ describe(`sbb-select`, () => {
         expect(secondOption).not.to.have.attribute('selected');
         expect(changeSpy.count).to.be.equal(0);
 
-        expect(secondOption.tabIndex).to.equal(0);
+        expect(secondOption.tabIndex).to.equal(-1);
         for (const option of [firstOption, thirdOption]) {
           expect(option).not.to.match(':state(active)');
           expect(option.tabIndex).to.equal(-1);
@@ -763,7 +759,6 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       expect(document.activeElement).not.to.be.equal(comboBoxElement);
       expect(document.activeElement).to.be.instanceOf(SbbOptionElement);
-      expect(document.activeElement).to.have.attribute('tabindex', '0');
     });
 
     it('handles keyboard selection in multiple', async () => {
@@ -1922,7 +1917,7 @@ describe(`sbb-select`, () => {
       expect(element.getDisplayValue()).to.be.equal('Fourth');
     });
 
-    it('should make options added later to an optgroup focusable and sync the tabindex on focus', async () => {
+    it('should make options added later to an optgroup focusable', async () => {
       const optGroup = element.querySelector('sbb-optgroup')!;
       const newOption = document.createElement('sbb-option');
       newOption.value = '5';
@@ -1939,7 +1934,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       expect(document.activeElement).to.be.equal(newOption);
       expect(newOption).not.to.match(':state(active)');
-      expect(newOption.tabIndex).to.equal(0);
+      expect(newOption.tabIndex).to.equal(-1);
       expect(element.value).to.be.equal('4');
     });
 

@@ -530,7 +530,7 @@ snapshots["sbb-paginator renders with options and accessibility labels Shadow DO
       >
         <sbb-option
           selected=""
-          tabindex="0"
+          tabindex="-1"
           value="10"
         >
           10

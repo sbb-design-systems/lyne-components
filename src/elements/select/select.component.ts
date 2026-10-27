@@ -909,7 +909,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     nextActiveOption: SbbOptionElement<T>,
     lastActiveOption: SbbOptionElement<T> | null = null,
   ): void {
-    nextActiveOption.tabIndex = 0;
     nextActiveOption.focus({ preventScroll: true });
     nextActiveOption.scrollIntoView({ block: 'nearest' });
     nextActiveOption.setActive(true);
@@ -917,12 +916,11 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     // Reset the previous
     if (lastActiveOption && lastActiveOption !== nextActiveOption) {
       lastActiveOption.setActive(false);
-      lastActiveOption.tabIndex = -1;
     }
   }
 
   /**
-   * Synchronizes the active index and the roving tabindex when an option receives focus (e.g. by pointer).
+   * Synchronizes the active index when an option receives focus (e.g. by pointer).
    * Moving the focus must never change the selection.
    */
   private _onFocusIn(event: FocusEvent): void {
@@ -939,17 +937,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     }
 
     this._activeItemIndex = index;
-    // The _activeItemIndex can be updated by value changes without updating the active state,
-    // therefore we sync all options instead of only the one at the previous index.
-    this._syncRovingTabindex(focusedOption);
     // The active state renders a visual focus indicator, which must only be shown for keyboard navigation.
     // On keyboard navigation, _setActiveElement() sets the active state after moving the focus.
     selectableOptions.forEach((option) => option.setActive(false));
-  }
-
-  /** Only the given option is reachable by keyboard (tabindex=0), all others get tabindex=-1. */
-  private _syncRovingTabindex(activeOption?: SbbOptionElement<T>): void {
-    this._selectableOptions().forEach((o) => (o.tabIndex = o === activeOption ? 0 : -1));
   }
 
   private _resetActiveElement(): void {
@@ -957,7 +947,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     if (activeElement) {
       activeElement.setActive(false);
-      activeElement.tabIndex = -1;
     }
     this._activeItemIndex = -1;
   }
@@ -1019,7 +1008,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _handleSlotchange(): void {
-    this._syncRovingTabindex(this._selectableOptions()[this._activeItemIndex]);
+    // Options are never part of the tab sequence, but must be focusable by script and pointer.
+    this.options.forEach((o) => (o.tabIndex = -1));
     this._updateValueOptionState();
   }
 
