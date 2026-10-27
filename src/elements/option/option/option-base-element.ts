@@ -184,7 +184,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     super.requestUpdate(name, oldValue, options);
     if (name === 'disabled' || name === 'disabledFromGroup') {
       this.toggleState('disabled', this.disabled || this.disabledFromGroup);
-      if (!this.closest('sbb-select')) {
+      if (!this.closest?.('sbb-select')) {
         setOrRemoveAttribute(
           this,
           'tabindex',
