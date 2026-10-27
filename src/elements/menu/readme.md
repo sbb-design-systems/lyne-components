@@ -10,13 +10,17 @@ or to navigate within or outside the application by using the `<sbb-menu-link>` 
 
 <!-- Menu component with menu actions -->
 <sbb-menu trigger="menu-trigger">
-  <sbb-menu-link icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
-  <sbb-menu-button icon="pen-small">Edit</sbb-menu-button>
-  <sbb-menu-button icon="swisspass-small" sbb-badge="12" aria-label="Details, containing 12 items">
+  <sbb-menu-link icon-name="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
+  <sbb-menu-button icon-name="pen-small">Edit</sbb-menu-button>
+  <sbb-menu-button
+    icon-name="swisspass-small"
+    sbb-badge="12"
+    aria-label="Details, containing 12 items"
+  >
     Details
   </sbb-menu-button>
   <sbb-divider></sbb-divider>
-  <sbb-menu-button icon="cross-small">Cancel</sbb-menu-button>
+  <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
 </sbb-menu>
 ```
 
@@ -30,13 +34,17 @@ You can provide custom content inside the `<sbb-menu>`:
   <span>UIS9057</span>
   <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
   <sbb-divider></sbb-divider>
-  <sbb-menu-link icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
-  <sbb-menu-button icon="pen-small">Edit</sbb-menu-button>
-  <sbb-menu-button icon="swisspass-small" sbb-badge="12" aria-label="Details, containing 12 items">
+  <sbb-menu-link icon-name="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
+  <sbb-menu-button icon-name="pen-small">Edit</sbb-menu-button>
+  <sbb-menu-button
+    icon-name="swisspass-small"
+    sbb-badge="12"
+    aria-label="Details, containing 12 items"
+  >
     Details
   </sbb-menu-button>
   <sbb-divider></sbb-divider>
-  <sbb-menu-button icon="cross-small">Cancel</sbb-menu-button>
+  <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
 </sbb-menu>
 ```
 
@@ -73,11 +81,11 @@ Please note that nesting the menus in DOM is not supported. The `<sbb-menu>` ele
 
 ```html
 <sbb-menu>
-  <sbb-menu-button icon="pen-small" id="submenu-trigger">Submenu trigger</sbb-menu-button>
+  <sbb-menu-button icon-name="pen-small" id="submenu-trigger">Submenu trigger</sbb-menu-button>
 </sbb-menu>
 <sbb-menu trigger="submenu-trigger">
-  <sbb-menu-link icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
-  <sbb-menu-button icon="swisspass-small" sbb-badge="12">Details</sbb-menu-button>
+  <sbb-menu-link icon-name="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
+  <sbb-menu-button icon-name="swisspass-small" sbb-badge="12">Details</sbb-menu-button>
 </sbb-menu>
 ```
 
@@ -148,7 +156,7 @@ If the attribute is not used, the first focusable element receives focus (recomm
 ```html
 <sbb-menu>
   <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
-  <sbb-menu-link sbb-focus-initial icon="link-small" href="https://www.sbb.ch/en">
+  <sbb-menu-link sbb-focus-initial icon-name="link-small" href="https://www.sbb.ch/en">
     Receives initial focus
   </sbb-menu-link>
 </sbb-menu>
