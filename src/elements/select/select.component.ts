@@ -9,9 +9,8 @@ import {
   type TemplateResult,
   unsafeCSS,
 } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
-import { until } from 'lit/directives/until.js';
 
 import {
   forceType,
@@ -151,7 +150,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   /** The value displayed by the component. */
-  @state() private accessor _displayValue: string | null = null;
+  private _displayValue: string | null = null;
 
   private _resizeObserver = new ResizeController(this, {
     target: null,
@@ -207,7 +206,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     super();
     this.addEventListener?.('optionselectionchange', (e: Event) => this._onOptionChanged(e));
     this.addEventListener?.('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e));
-    /** Forces the sbb-select to update his value. */
+    /** Forces the sbb-select to update its value. */
     this.addEventListener?.('ɵoptionvaluechange', () => this._updateValueOptionState());
     this.addEventListener?.('ɵoptgroupslotchange', () => this._handleSlotchange(), {
       capture: true,
@@ -384,7 +383,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._updateDisplayValue();
   }
 
-  private _updateDisplayValue(): void {
+  private async _updateDisplayValue(): Promise<void> {
     const selected = this._getSelected();
     if (Array.isArray(selected)) {
       this._displayValue = selected.map((o) => o.textContent?.trim()).join(', ') || null;
@@ -398,6 +397,25 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     /** @internal */
     this.dispatchEvent(new Event('displayvaluechange', { bubbles: true, composed: true }));
+
+    if (this.hydrationRequired) {
+      await this.hydrationComplete;
+    }
+
+    const displayValueElements = [
+      // Trigger for assistive technologies
+      this._triggerElement?.querySelector?.('span'),
+
+      // Visual trigger
+      this.shadowRoot?.querySelector?.('.sbb-select__trigger'),
+    ];
+
+    for (const displayValueElement of displayValueElements) {
+      if (!displayValueElement) {
+        continue;
+      }
+      displayValueElement.textContent = this._displayValue ?? this.placeholder;
+    }
   }
 
   /**
@@ -1054,25 +1072,10 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     }
   }
 
-  private _spreadDeferredDisplayValue(
-    placeholder: TemplateResult,
-  ): (TemplateResult | Promise<TemplateResult>)[] {
-    return [this._deferredDisplayValue(placeholder), placeholder];
-  }
-
-  private async _deferredDisplayValue(placeholder: TemplateResult): Promise<TemplateResult> {
-    if (this.hydrationRequired) {
-      await this.hydrationComplete;
-    }
-    return this._displayValue ? html`${this._displayValue}` : placeholder;
-  }
-
   protected override render(): TemplateResult {
     // Scroll areas without containing an interactive element will receive focus when tabbing through the document.
     // If there are a lot of options and when pressing tab key, the scroll area on sbb-select__options gets focus.
     // As elements inside the panel should never get focus, we have to avoid that by setting tabindex=-1.
-
-    const displayValue = until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`));
 
     return html`
       <!-- This element is visually hidden and will be appended to the light DOM to allow screen
@@ -1084,7 +1087,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         @click=${this._toggleOpening}
         ${ref((ref) => (this._triggerElement = ref as SbbSelectTriggerElement<T>))}
       >
-        ${displayValue}${
+        <span></span>${
           this.multiple && !this.disabled && !this.readOnly
             ? // Use a paragraph to let screen reader make a pause after reading the options.
               html`<p>${i18nMultipleSelectionPossible[this._languageController.current]}</p>`
@@ -1092,8 +1095,13 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         }
       </sbb-select-trigger>
 
-      <!-- Visually display the value -->
-      <div class="sbb-select__trigger" aria-hidden="true">${displayValue}</div>
+      <!--
+        Visually display the value.
+        The span is replaced after the first render. It is only here to avoid a Lit warning
+        about changing Lit-controlled content, because we update it directly.
+        The placeholder must be rendered here so it is transferred from server-side rendering.
+      -->
+      <div class="sbb-select__trigger" aria-hidden="true"><span>${this.placeholder}</span></div>
 
       <div class="sbb-option-panel__overlay-container sbb-popover-reset" popover="manual">
         <div
