@@ -5,7 +5,6 @@ snapshots["sbb-card-link renders DOM"] =
 `<sbb-card color="white">
   <sbb-card-link
     href="https://github.com/sbb-design-systems/lyne-components"
-    slot="action"
     target="_blank"
   >
     Follow me

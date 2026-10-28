@@ -11,13 +11,11 @@ describe(`sbb-card`, () => {
   let element: SbbCardElement;
 
   beforeEach(async () => {
-    // Note: for easier testing, we add the slot="badge"
-    // to <sbb-card-badge> which would not be needed in real.
     element = await fixture(html`
       <sbb-card>
         <h2>Title</h2>
         Content text
-        <sbb-card-badge slot="badge">
+        <sbb-card-badge>
           <span>%</span>
           <span>from CHF</span>
           <span>19.99</span>

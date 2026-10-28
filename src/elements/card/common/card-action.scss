@@ -8,6 +8,7 @@
   outline: none !important;
   position: absolute;
   inset: 0;
+  z-index: 1;
 }
 
 :is(.sbb-card-button, .sbb-card-link) {

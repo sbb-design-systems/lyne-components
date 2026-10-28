@@ -156,6 +156,9 @@ $theme: 'standard' !default;
 
   display: block;
   position: relative;
+
+  // Avoid interfering with other page content
+  isolation: isolate;
   padding-inline: var(--sbb-card-padding-inline);
   padding-block: var(--sbb-card-padding-block);
   border-radius: var(--sbb-card-border-radius);
@@ -193,6 +196,7 @@ $theme: 'standard' !default;
   }
 }
 
+// @deprecated
 @mixin wrapper {
   display: block;
   height: 100%;
@@ -218,6 +222,7 @@ $theme: 'standard' !default;
   --sbb-card-badge-inline-border-display: none;
 }
 
+// @deprecated
 @mixin rules {
   // Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
   // This style enables accessing focusable elements inside an sbb-card.

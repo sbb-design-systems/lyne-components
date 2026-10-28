@@ -21,7 +21,7 @@ export class SbbCardBadgeElement extends SbbElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.slot ||= 'badge';
+    this.slot ||= this.closest('sbb-card') ? '' : 'badge';
   }
 
   protected override render(): TemplateResult {

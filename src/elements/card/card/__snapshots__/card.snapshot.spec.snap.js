@@ -9,7 +9,7 @@ snapshots["sbb-card should render with sbb-card-badge - DOM"] =
   Content text
   <sbb-card-badge
     color="charcoal"
-    slot="badge"
+    slot=""
   >
     <span>
       %
@@ -26,16 +26,8 @@ snapshots["sbb-card should render with sbb-card-badge - DOM"] =
 /* end snapshot sbb-card should render with sbb-card-badge - DOM */
 
 snapshots["sbb-card should render with sbb-card-badge - Shadow DOM"] = 
-`<slot name="action">
+`<slot>
 </slot>
-<span class="sbb-card__wrapper">
-  <slot>
-  </slot>
-</span>
-<span class="sbb-card__badge-wrapper">
-  <slot name="badge">
-  </slot>
-</span>
 `;
 /* end snapshot sbb-card should render with sbb-card-badge - Shadow DOM */
 
