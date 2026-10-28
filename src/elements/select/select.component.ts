@@ -355,10 +355,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     return this._displayValue ?? '';
   }
 
-  private _selectableOptions(): SbbOptionElement<T>[] {
-    return this.options.filter((opt) => !opt.matches(':state(disabled)'));
-  }
-
   /** Listens to option changes. */
   private _onOptionChanged(event: Event): void {
     const target = event.target as SbbOptionElement<T>;
@@ -810,7 +806,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       case 'End':
       case 'PageDown':
         event.preventDefault();
-        this._setNextActiveOption(event, this._selectableOptions().length - 1);
+        this._setNextActiveOption(event, this.options.length - 1);
         break;
     }
   }
@@ -837,10 +833,10 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     // Reorder the _filteredOption array to have the last selected element at the bottom.
     const indexForSlice: number = this._activeItemIndex + 1;
-    const selectableOptions = this._selectableOptions();
+    const options = this.options;
     const filteredOptionsSorted = [
-      ...selectableOptions.slice(indexForSlice),
-      ...selectableOptions.slice(0, indexForSlice),
+      ...options.slice(indexForSlice),
+      ...options.slice(0, indexForSlice),
     ];
 
     const match = filteredOptionsSorted.find(
@@ -848,7 +844,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     );
     if (match) {
       // If an exact match has been found, go to that option.
-      this._setNextActiveOption(event, selectableOptions.indexOf(match));
+      this._setNextActiveOption(event, options.indexOf(match));
     } else if (
       this._searchString.length > 1 &&
       new RegExp(`^${this._searchString.charAt(0)}*$`).test(this._searchString)
@@ -860,7 +856,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
           option.textContent?.toLowerCase().indexOf(this._searchString[0].toLowerCase()) === 0,
       );
       if (firstMatch) {
-        this._setNextActiveOption(event, selectableOptions.indexOf(firstMatch));
+        this._setNextActiveOption(event, options.indexOf(firstMatch));
       }
     } else {
       // No match found, clear the timeout and the search term.
@@ -870,42 +866,44 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _selectByKeyboard(): void {
-    const activeOption = this._selectableOptions()[this._activeItemIndex];
+    const activeOption = this.options[this._activeItemIndex];
 
-    if (this.multiple) {
-      activeOption?.['selectViaUserInteraction'](!activeOption.selected);
-    } else {
-      if (activeOption && !activeOption.selected) {
-        activeOption['selectViaUserInteraction'](true);
-      }
-      this.close();
-    }
-  }
-
-  private _setNextActiveOption(event: KeyboardEvent, index?: number): void {
-    const filteredOptions = this._selectableOptions();
-
-    // Prevent keyboard navigation if all options are disabled
-    if (filteredOptions.length === 0) {
+    if (!activeOption || activeOption.disabled) {
       return;
     }
 
-    const nextIndex =
-      index ?? getNextElementIndex(event, this._activeItemIndex, filteredOptions.length);
-    const nextOption = filteredOptions[nextIndex];
-    const activeOption = filteredOptions[this._activeItemIndex];
+    if (this.multiple) {
+      activeOption['selectViaUserInteraction'](!activeOption.selected);
+      return;
+    }
+
+    if (!activeOption.selected) {
+      activeOption['selectViaUserInteraction'](true);
+    }
+
+    this.close();
+  }
+
+  private _setNextActiveOption(event: KeyboardEvent, index?: number): void {
+    const options = this.options;
+    const nextIndex = index ?? getNextElementIndex(event, this._activeItemIndex, options.length);
+    const activeOption = options[this._activeItemIndex];
+    const nextOption = options[nextIndex];
 
     // Update the index before moving the focus, so that the focusin handler doesn't process it again.
     this._activeItemIndex = nextIndex;
     this._setActiveElement(nextOption, activeOption);
 
+    if (nextOption.disabled) {
+      return;
+    }
+
     if (!this.multiple) {
       nextOption['selectViaUserInteraction'](true);
-    } else if (event?.shiftKey) {
+    } else if (event.shiftKey) {
       nextOption['selectViaUserInteraction'](!nextOption.selected);
     }
   }
-
   private _setActiveElement(
     nextActiveOption: SbbOptionElement<T>,
     lastActiveOption: SbbOptionElement<T> | null = null,
@@ -930,9 +928,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       return;
     }
 
-    const selectableOptions = this._selectableOptions();
+    const options = this.options;
     const focusedOption = target as SbbOptionElement<T>;
-    const index = selectableOptions.indexOf(focusedOption);
+    const index = options.indexOf(focusedOption);
     if (index === -1) {
       return;
     }
@@ -940,11 +938,11 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._activeItemIndex = index;
     // The active state renders a visual focus indicator, which must only be shown for keyboard navigation.
     // On keyboard navigation, _setActiveElement() sets the active state after moving the focus.
-    selectableOptions.forEach((option) => option.setActive(false));
+    options.forEach((option) => option.setActive(false));
   }
 
   private _resetActiveElement(): void {
-    const activeElement = this._selectableOptions()[this._activeItemIndex];
+    const activeElement = this.options[this._activeItemIndex];
 
     if (activeElement) {
       activeElement.setActive(false);
@@ -983,7 +981,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     if (!Array.isArray(this.value)) {
       const value: T | null = this.value;
-      this._activeItemIndex = this._selectableOptions().findIndex((option) =>
+      this._activeItemIndex = this.options.findIndex((option) =>
         this.compareWith(option.value, value),
       );
     }
@@ -1001,7 +999,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         this._value = value;
       }
     } else if (selected) {
-      this._activeItemIndex = this._selectableOptions().findIndex((option) => option === selected);
+      this._activeItemIndex = this.options.findIndex((option) => option === selected);
       this._value = selected.value;
     }
 
