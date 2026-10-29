@@ -82,6 +82,12 @@
   --sbb-card-padding-block: var(--sbb-card-with-badge-padding-block);
 }
 
+slot {
+  display: block;
+  margin-block: var(--sbb-card-hover-shift, 0) calc(-1 * var(--sbb-card-hover-shift, 0px));
+  transition: margin var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
+}
+
 // We remove upper margin from all titles
 // as we do not expect multiple titles to be used inside a card.
 ::slotted(sbb-title) {
@@ -93,5 +99,5 @@
   inset: 0;
   inset-block-end: unset;
   border-start-end-radius: var(--sbb-card-border-radius);
-  clip-path: margin-box;
+  overflow: hidden;
 }
