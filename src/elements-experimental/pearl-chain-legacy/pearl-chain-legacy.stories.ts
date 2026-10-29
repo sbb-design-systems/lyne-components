@@ -161,7 +161,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'experimental/Pearl Chain',
+  title: 'experimental/Pearl Chain Legacy',
 };
 
 export default meta;
