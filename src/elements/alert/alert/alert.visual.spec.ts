@@ -18,7 +18,7 @@ describe(`sbb-alert`, () => {
     size: 'm' as SbbAlertElement['size'],
     readonly: false,
     icon: 'info',
-    title: 'Interruption between Berne and Olten',
+    title: 'Interruption between Berne and Olten' as string | undefined,
     href: 'https://www.sbb.ch' as string | undefined,
   };
 
@@ -34,7 +34,7 @@ describe(`sbb-alert`, () => {
     href,
   }: typeof defaultArgs): TemplateResult => html`
     <sbb-alert size=${size || nothing} ?readonly=${readonly} icon-name=${icon}>
-      <sbb-title>${title}</sbb-title>
+      ${title ? html`<sbb-title>${title}</sbb-title>` : nothing}
       ${contentSlotText}${href ? html` <sbb-link href=${href}>Find out more</sbb-link>` : nothing}
     </sbb-alert>
   `;
@@ -89,5 +89,43 @@ describe(`sbb-alert`, () => {
         await setup.withFixture(alertTemplate({ ...defaultArgs }), { forcedColors: true });
       }),
     );
+
+    describe('without title', () => {
+      for (const size of ['s', 'm', 'l'] satisfies SbbAlertElement['size'][]) {
+        describe(`size=${size}`, () => {
+          it(
+            `with close button`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(alertTemplate({ ...defaultArgs, size, title: undefined }));
+            }),
+          );
+
+          it(
+            'without close button',
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                alertTemplate({ ...defaultArgs, readonly: true, size, title: undefined }),
+              );
+            }),
+          );
+
+          it(
+            'little text',
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(html`<sbb-alert size=${size}>One liner.</sbb-alert>`);
+            }),
+          );
+
+          it(
+            'little text without close button',
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                html`<sbb-alert size=${size} readonly>One liner.</sbb-alert>`,
+              );
+            }),
+          );
+        });
+      }
+    });
   });
 });
