@@ -12,10 +12,7 @@ snapshots["sbb-timetable-row renders defaultTrip Shadow DOM"] =
   class="sbb-card-spacing-4x-xxs sbb-timetable__row-card"
   color="white"
 >
-  <sbb-card-button
-    slot="action"
-    tabindex="0"
-  >
+  <sbb-card-button tabindex="0">
     Departure: 11:08, Train, IR 37, Direction Basel SBB, Arrival: 12:13, Travel time 1 Hour 15 Minutes,
   </sbb-card-button>
   <div
@@ -79,10 +76,7 @@ snapshots["sbb-timetable-row renders platform Shadow DOM"] =
   class="sbb-card-spacing-4x-xxs sbb-timetable__row-card"
   color="white"
 >
-  <sbb-card-button
-    slot="action"
-    tabindex="0"
-  >
+  <sbb-card-button tabindex="0">
     Departure: 16:30, on Pl. 4, Train, IR 35, Direction Chur, Arrival: 17:06, Travel time 41 Minutes, 2 changes, First Class Low to average occupancy expected. Second Class High occupancy expected.
   </sbb-card-button>
   <div
@@ -165,10 +159,7 @@ snapshots["sbb-timetable-row renders bus strip Shadow DOM"] =
   class="sbb-card-spacing-4x-xxs sbb-timetable__row-card"
   color="white"
 >
-  <sbb-card-button
-    slot="action"
-    tabindex="0"
-  >
+  <sbb-card-button tabindex="0">
     Departure: 16:30, on Stand 4, Bus, B 19, Direction Spiegel, Blinzern, Arrival: 17:06, Travel time 41 Minutes, 2 changes, First Class Low to average occupancy expected. Second Class High occupancy expected.
   </sbb-card-button>
   <div
@@ -296,10 +287,7 @@ snapshots["sbb-timetable-row renders trip with access leg Shadow DOM"] =
   class="sbb-card-spacing-4x-xxs sbb-timetable__row-card"
   color="white"
 >
-  <sbb-card-button
-    slot="action"
-    tabindex="0"
-  >
+  <sbb-card-button tabindex="0">
     Departure: 16:30, on platform 4, Bus, B 19, Direction Spiegel, Blinzern, Arrival: 17:06, Travel time 41 Minutes, 1 change, First Class Low to average occupancy expected. Second Class High occupancy expected.
   </sbb-card-button>
   <div
