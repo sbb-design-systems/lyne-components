@@ -83,15 +83,10 @@
 }
 
 slot {
-  display: block;
+  @include card.wrapper;
+
   margin-block: var(--sbb-card-hover-shift, 0) calc(-1 * var(--sbb-card-hover-shift, 0px));
   transition: margin var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
-}
-
-// We remove upper margin from all titles
-// as we do not expect multiple titles to be used inside a card.
-::slotted(sbb-title) {
-  margin-block-start: 0;
 }
 
 ::slotted(sbb-card-badge) {
@@ -100,4 +95,10 @@ slot {
   inset-block-end: unset;
   border-start-end-radius: var(--sbb-card-border-radius);
   overflow: hidden;
+}
+
+// We remove upper margin from all titles
+// as we do not expect multiple titles to be used inside a card.
+::slotted(sbb-title) {
+  margin-block-start: 0;
 }

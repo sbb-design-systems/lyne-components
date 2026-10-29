@@ -7,10 +7,7 @@ snapshots["sbb-card should render with sbb-card-badge - DOM"] =
     Title
   </h2>
   Content text
-  <sbb-card-badge
-    color="charcoal"
-    slot=""
-  >
+  <sbb-card-badge color="charcoal">
     <span>
       %
     </span>
