@@ -13,31 +13,38 @@
 
 :host([type='error']) {
   --sbb-status-color: var(--sbb-color-error);
+  --sbb-status-icon-background-color: color-mix(in srgb, var(--sbb-color-error) 10%, transparent);
 }
 
 :host([type='success']) {
   --sbb-status-color: var(--sbb-color-success);
+  --sbb-status-icon-background-color: color-mix(in srgb, var(--sbb-color-success) 10%, transparent);
 }
 
 :host([type='warning']) {
   --sbb-status-color: var(--sbb-color-2);
+  --sbb-status-icon-background-color: color-mix(in srgb, var(--sbb-color-peach) 30%, transparent);
 }
 
 :host([type='pending']) {
   --sbb-status-color: var(--sbb-color-sky);
+  --sbb-status-icon-background-color: color-mix(in srgb, var(--sbb-color-sky) 10%, transparent);
 }
 
 :host([type='incomplete']) {
   --sbb-status-color: var(--sbb-color-error);
+  --sbb-status-icon-background-color: color-mix(in srgb, var(--sbb-color-error) 10%, transparent);
 }
 
 :host([type='not-started']) {
   --sbb-status-color: var(--sbb-color-5);
   --sbb-status-text-color: var(--sbb-color-2);
+  --sbb-status-icon-background-color: var(--sbb-background-color-3);
 }
 
 :host([type='in-progress']) {
-  --sbb-status-color: var(--sbb-color-pink);
+  --sbb-status-color: var(--sbb-color-sky);
+  --sbb-status-icon-background-color: color-mix(in srgb, var(--sbb-color-sky) 10%, transparent);
 }
 
 :host(:state(slotted-title)) {
@@ -72,4 +79,18 @@
 
 ::slotted(sbb-title) {
   margin-block: 0;
+}
+
+sbb-icon {
+  --sbb-icon-svg-width: var(--sbb-status-icon-dimension);
+  --sbb-icon-svg-height: var(--sbb-status-icon-dimension);
+
+  height: fit-content;
+
+  // Draw a circled background with a gap from the border
+  background: radial-gradient(
+    circle,
+    var(--sbb-status-icon-background-color) calc(100% - #{sbb.px-to-rem-build(7)}),
+    transparent calc(100% - #{sbb.px-to-rem-build(7)})
+  );
 }

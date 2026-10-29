@@ -7,4 +7,6 @@ $theme: 'standard' !default;
   --sbb-status-gap: var(--sbb-spacing-fixed-1x);
   --sbb-status-font-size: var(--sbb-text-font-size-s);
   --sbb-status-title-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+  --sbb-status-icon-dimension: var(--sbb-size-icon-ui-small);
+  --sbb-status-icon-background-color: var(--sbb-background-color-3);
 }
