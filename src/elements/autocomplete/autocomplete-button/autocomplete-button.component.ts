@@ -2,6 +2,7 @@ import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult
 
 import { miniButtonStyle } from '../../button.pure.ts';
 import {
+  isAndroid,
   SbbActionBaseElement,
   SbbDisabledMixin,
   SbbNegativeMixin,
@@ -64,6 +65,15 @@ export class SbbAutocompleteButtonElement extends SbbDisabledMixin(
     super.willUpdate(changedProperties);
     if (changedProperties.has('disabled')) {
       this._updateInternals();
+    }
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    if (isAndroid) {
+      // With talkback, only focusable elements can be browsed.
+      this.tabIndex = -1;
     }
   }
 

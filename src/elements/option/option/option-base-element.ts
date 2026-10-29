@@ -188,7 +188,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
         setOrRemoveAttribute(
           this,
           'tabindex',
-          isAndroid && !this.disabled && !this.disabledFromGroup ? 0 : null,
+          isAndroid && !this.disabled && !this.disabledFromGroup ? -1 : null,
         );
       }
 
