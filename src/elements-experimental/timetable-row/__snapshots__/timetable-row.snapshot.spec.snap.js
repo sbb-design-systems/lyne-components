@@ -243,10 +243,7 @@ snapshots["sbb-timetable-row renders loading state Shadow DOM"] =
   class="sbb-card-spacing-4x-xxs sbb-loading sbb-timetable__row-card"
   color="white"
 >
-  <div
-    class="sbb-loading__badge"
-    slot="badge"
-  >
+  <div class="sbb-loading__badge">
   </div>
   <div class="sbb-loading__wrapper">
     <div class="sbb-loading__row">
