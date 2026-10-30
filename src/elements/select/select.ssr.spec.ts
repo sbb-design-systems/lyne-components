@@ -23,6 +23,9 @@ describe(`sbb-select ssr`, () => {
     );
 
     assert.instanceOf(root, SbbSelectElement);
+    expect(root.shadowRoot!.querySelector('.sbb-select__trigger')!.textContent!.trim()).to.be.equal(
+      'Placeholder',
+    );
   });
 
   it('renders with value attribute', async () => {
