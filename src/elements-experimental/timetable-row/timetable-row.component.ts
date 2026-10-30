@@ -348,7 +348,7 @@ export class SbbTimetableRowElement extends SbbElement {
   private _renderSkeleton(): TemplateResult {
     return html`
       <sbb-card class="sbb-loading sbb-card-spacing-4x-xxs sbb-timetable__row-card">
-        ${this.loadingPrice ? html`<div class="sbb-loading__badge" slot="badge"></div>` : nothing}
+        ${this.loadingPrice ? html`<div class="sbb-loading__badge"></div>` : nothing}
         <div class="sbb-loading__wrapper">
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
@@ -599,7 +599,7 @@ export class SbbTimetableRowElement extends SbbElement {
         >
           ${this.cardActionLabel ? this.cardActionLabel : this._getAccessibilityText(this.trip)}
         </sbb-card-button>
-        ${this.loadingPrice ? html`<div class="sbb-loading__badge" slot="badge"></div>` : nothing}
+        ${this.loadingPrice ? html`<div class="sbb-loading__badge"></div>` : nothing}
         ${
           (this.price || this.badgeLabel) && !this.loadingPrice
             ? html`<sbb-card-badge

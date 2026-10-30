@@ -58,69 +58,6 @@ describe(`sbb-card-button`, () => {
     expect(element).not.to.match(':state(action-role-button)');
   });
 
-  it('should detect added button in slotted content to update focusable elements', async () => {
-    element = await fixture(
-      html` <sbb-card>
-        <sbb-card-button>Click me</sbb-card-button>
-        <span id="content">
-          <button>Content</button>
-        </span>
-      </sbb-card>`,
-    );
-    expect(element.querySelector('button')).to.match('.sbb-action');
-
-    // Add a second button in content
-    element
-      .querySelector('#content')!
-      .insertBefore(document.createElement('button'), element.querySelector('button'));
-
-    // Both buttons should be marked as focusable
-    await waitForLitRender(element);
-    const buttons = element.querySelectorAll('button');
-    expect(buttons.length).to.be.equal(2);
-    expect(Array.from(buttons).every((el) => el.classList.contains('sbb-action'))).to.be.equal(
-      true,
-    );
-
-    // Remove all buttons
-    buttons.forEach((el) => el.remove());
-    await waitForLitRender(element);
-
-    // Card should not have marker anymore
-    expect(element.querySelectorAll('button').length).to.be.equal(0);
-  });
-
-  it('should detect added second element of slot to update focusable elements', async () => {
-    element = await fixture(
-      html` <sbb-card>
-        <sbb-card-button>Click me</sbb-card-button>
-        <span id="content"></span>
-      </sbb-card>`,
-    );
-
-    // Add a button to slot
-    element.insertBefore(document.createElement('button'), element.querySelector('#content'));
-    await waitForLitRender(element);
-
-    // Button should be marked as focusable
-    expect(element.querySelector('button')).to.match('.sbb-action');
-  });
-
-  it('should detect focusable elements when action was added at later point', async () => {
-    element = await fixture(
-      html` <sbb-card>
-        <span id="content"><button></button></span>
-      </sbb-card>`,
-    );
-
-    // Add a sbb-card-button
-    element.appendChild(document.createElement('sbb-card-button'));
-    await waitForLitRender(element);
-
-    // Button should be marked as focusable
-    expect(element.querySelector('button')).to.match('.sbb-action');
-  });
-
   describe('events', () => {
     let action: SbbCardButtonElement;
 

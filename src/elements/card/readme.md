@@ -79,8 +79,12 @@ The component has four different values to choose from for the `color` property;
 
 ## Accessibility
 
+The DOM order is relevant for screen readers because it defines the reading order.
+Keep semantic content in the same order in which it should be announced.
+
 Normally, a `<sbb-card>` should be a single action, however, it's possible to place other interactive elements
-in the card content. Interactive content will automatically be detected and made accessible to click / focus.
+in the card content. Interactive content will need a sufficient z-index to be on top of the card-action
+in order to make it accessible to click / focus.
 In cases where there should be only a visual button or link inside the card content without a different action, the
 static component should be used (e.g. `<sbb-button-static></sbb-button-static>`).
 
@@ -171,11 +175,9 @@ To improve coloring, it's needed to manually define styles for Window high contr
 
 #### Slots
 
-| Name     | Description                                                                 |
-| -------- | --------------------------------------------------------------------------- |
-|          | Use the unnamed slot to add content to the card.                            |
-| `action` | Use this slot to render a `sbb-card-button` or a `sbb-card-link` component. |
-| `badge`  | Use this slot to render a `sbb-card-badge` component.                       |
+| Name | Description                                                                                                                                                    |
+| ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add content to the card. For specific use cases, `<sbb-card-button>`, `<sbb-card-link>` or `<sbb-card-badge>` elements can be slotted. |
 
 ### class: `SbbCardLinkElement`, `sbb-card-link`
 

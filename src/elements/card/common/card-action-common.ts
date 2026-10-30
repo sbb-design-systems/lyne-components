@@ -1,11 +1,9 @@
-import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import {
   type AbstractConstructor,
-  IS_FOCUSABLE_QUERY,
   type SbbActionBaseElement,
   screenReaderOnlyStyles,
   ɵstateController,
@@ -45,16 +43,6 @@ export const SbbCardActionCommonElementMixin = <
     protected abstract actionRole: 'link' | 'button';
 
     private _card: SbbCardElement | null = null;
-    private _cardMutationObserver = new MutationController(this, {
-      target: null,
-      config: {
-        childList: true,
-        subtree: true,
-        attributes: true,
-        attributeFilter: ['href', 'tabindex', 'disabled', 'inert'],
-      },
-      callback: () => this._checkForSlottedActions(),
-    });
 
     private _onActiveChange(): void {
       if (this._card) {
@@ -62,31 +50,15 @@ export const SbbCardActionCommonElementMixin = <
       }
     }
 
-    private _checkForSlottedActions(): void {
-      // We intentionally use toggle here, as add causes a MutationObserver loop.
-      Array.from(this._card?.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? [])
-        .filter(
-          (el) =>
-            el.localName !== 'sbb-card-link' &&
-            el.localName !== 'sbb-card-button' &&
-            !el.classList.contains('sbb-action'),
-        )
-        .forEach((el: Element) => el.classList.toggle('sbb-action', true));
-    }
-
     public override connectedCallback(): void {
       super.connectedCallback();
       this._card = this.closest?.('sbb-card');
       if (this._card) {
-        this.slot ||= 'action';
         const controller = ɵstateController(this._card);
         controller.add('has-action');
         controller.toggle('has-active-action', this.active);
         controller.add(`action-role-${this.actionRole}`);
         controller.delete(`action-role-${this.actionRole === 'button' ? 'link' : 'button'}`);
-
-        this._checkForSlottedActions();
-        this._cardMutationObserver.observe(this._card);
       }
     }
 
@@ -98,15 +70,11 @@ export const SbbCardActionCommonElementMixin = <
         controller.delete('has-active-action');
         controller.delete('action-role-button');
         controller.delete('action-role-link');
-        this._card
-          .querySelectorAll(`.sbb-action`)
-          .forEach((el) => el.classList.remove('sbb-action'));
         this._card = null;
       }
     }
 
     protected override renderTemplate(): TemplateResult {
-      // Due to problems detecting the click event in NVDA screen reader, we can't use the sbb-screen-reader-only component here
       return html`<span class="sbb-screen-reader-only"><slot></slot></span>`;
     }
   }

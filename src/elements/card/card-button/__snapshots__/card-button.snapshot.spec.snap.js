@@ -5,7 +5,6 @@ snapshots["sbb-card-button renders DOM"] =
 `<sbb-card color="white">
   <sbb-card-button
     active=""
-    slot="action"
     tabindex="0"
   >
     Click me

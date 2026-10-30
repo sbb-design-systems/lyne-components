@@ -156,6 +156,9 @@ $theme: 'standard' !default;
 
   display: block;
   position: relative;
+
+  // Avoid interfering with other page content
+  isolation: isolate;
   padding-inline: var(--sbb-card-padding-inline);
   padding-block: var(--sbb-card-padding-block);
   border-radius: var(--sbb-card-border-radius);
@@ -205,7 +208,7 @@ $theme: 'standard' !default;
   --sbb-card-badge-color: var(--sbb-color-2-inverted);
   --sbb-card-badge-background-color: var(--sbb-background-color-3-inverted);
   --sbb-card-badge-border-color: transparent;
-  --sbb-card-badge-padding-inline: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-3x);
+  --sbb-card-badge-padding-inline: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-3x);
   --sbb-card-badge-border-width: var(--sbb-border-width-1x);
   --sbb-card-badge-border-radius: var(--sbb-border-radius-4x);
   --sbb-card-badge-skew: skew(16deg, 0deg);
@@ -218,10 +221,7 @@ $theme: 'standard' !default;
   --sbb-card-badge-inline-border-display: none;
 }
 
+// @deprecated
 @mixin rules {
-  // Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
-  // This style enables accessing focusable elements inside an sbb-card.
-  sbb-card .sbb-action {
-    pointer-events: all;
-  }
+  // no-op
 }
