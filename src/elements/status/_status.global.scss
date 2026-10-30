@@ -5,6 +5,48 @@ $theme: 'standard' !default;
 @mixin base {
   --sbb-status-color: var(--sbb-color-4);
   --sbb-status-gap: var(--sbb-spacing-fixed-1x);
+  --sbb-status-gap-with-title: var(--sbb-spacing-responsive-xxxs);
   --sbb-status-font-size: var(--sbb-text-font-size-s);
   --sbb-status-title-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+  --sbb-status-icon-dimension: var(--sbb-size-icon-ui-small);
+  --sbb-status-icon-background-color: var(--sbb-background-color-3);
+  --sbb-status-color-error: var(--sbb-color-error);
+  --sbb-status-icon-background-color-error: color-mix(
+    in srgb,
+    var(--sbb-color-error) 10%,
+    transparent
+  );
+  --sbb-status-color-success: var(--sbb-color-success);
+  --sbb-status-icon-background-color-success: color-mix(
+    in srgb,
+    var(--sbb-color-success) 10%,
+    transparent
+  );
+  --sbb-status-color-warning: var(--sbb-color-2);
+  --sbb-status-icon-background-color-warning: color-mix(
+    in srgb,
+    var(--sbb-color-peach) 30%,
+    transparent
+  );
+  --sbb-status-color-pending: var(--sbb-color-sky);
+  --sbb-status-icon-background-color-pending: color-mix(
+    in srgb,
+    var(--sbb-color-sky) 10%,
+    transparent
+  );
+  --sbb-status-color-incomplete: var(--sbb-color-error);
+  --sbb-status-icon-background-color-incomplete: color-mix(
+    in srgb,
+    var(--sbb-color-error) 10%,
+    transparent
+  );
+  --sbb-status-color-not-started: var(--sbb-color-5);
+  --sbb-status-text-color-not-started: var(--sbb-color-2);
+  --sbb-status-icon-background-color-not-started: var(--sbb-background-color-3);
+  --sbb-status-color-in-progress: var(--sbb-color-sky);
+  --sbb-status-icon-background-color-in-progress: color-mix(
+    in srgb,
+    var(--sbb-color-sky) 10%,
+    transparent
+  );
 }
