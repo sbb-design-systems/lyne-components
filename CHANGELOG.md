@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.13.1](https://github.com/sbb-design-systems/lyne-components/compare/v5.13.0...v5.13.1) (2026-10-31)
+
+
+### Documentation
+
+* add deprecation notices to readmes of pearl chain elements ([#5351](https://github.com/sbb-design-systems/lyne-components/issues/5351)) ([f89b466](https://github.com/sbb-design-systems/lyne-components/commit/f89b4661440a6d4c4afaee20d7134b85ccd43de8))
+
 ## [5.13.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.12.0...v5.13.0) (2026-10-27)
 
 
