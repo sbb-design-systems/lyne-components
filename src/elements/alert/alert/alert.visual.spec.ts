@@ -39,7 +39,7 @@ describe(`sbb-alert`, () => {
     </sbb-alert>
   `;
 
-  describeViewports({ viewports: ['small', 'large'] }, () => {
+  describeViewports({ viewports: ['zero', 'small', 'large'] }, () => {
     for (const size of [null, 's', 'm', 'l'] satisfies SbbAlertElement['size'][]) {
       it(
         `size=${size}`,

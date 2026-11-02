@@ -14,10 +14,12 @@ $theme: 'standard' !default;
   --sbb-alert-icon-size-l: var(--sbb-size-icon-ui-small);
   --sbb-alert-title-margin-block: 0;
   --sbb-alert-font-size: var(--sbb-text-font-size-s);
+  --sbb-alert-gap-s: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-responsive-xxs);
+  --sbb-alert-gap-m: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs);
   --sbb-alert-gap: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs),
-        'lean': var(--sbb-spacing-fixed-1x) var(--sbb-spacing-responsive-xxs),
+        'standard': var(--sbb-alert-gap-m),
+        'lean': var(--sbb-alert-gap-s),
       ),
       $theme
     )};

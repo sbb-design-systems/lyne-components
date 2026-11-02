@@ -29,12 +29,12 @@ $open-anim-opacity-to: 1;
 }
 
 :host([size='s']) {
-  --sbb-alert-gap: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-responsive-xxs);
+  --sbb-alert-gap: var(--sbb-alert-gap-s);
   --sbb-alert-close-icon-margin: var(--sbb-spacing-responsive-xxxs);
 }
 
 :host([size='m']) {
-  --sbb-alert-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs);
+  --sbb-alert-gap: var(--sbb-alert-gap-m);
   --sbb-alert-close-icon-margin: var(--sbb-spacing-responsive-xxs);
 }
 
