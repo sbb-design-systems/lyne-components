@@ -522,7 +522,9 @@ snapshots["sbb-paginator renders with options and accessibility labels Shadow DO
         class="sbb-screen-reader-only"
         tabindex="0"
       >
-        10
+        <span>
+          10
+        </span>
       </sbb-select-trigger>
       <sbb-select
         id="select"
