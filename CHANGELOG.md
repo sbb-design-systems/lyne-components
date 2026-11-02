@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.13.1](https://github.com/sbb-design-systems/lyne-components/compare/v5.13.0...v5.13.1) (2026-11-02)
+
+
+### Bug Fixes
+
+* **autocomplete:** improve usage with Android Talkback ([#5353](https://github.com/sbb-design-systems/lyne-components/issues/5353)) ([ac4cd44](https://github.com/sbb-design-systems/lyne-components/commit/ac4cd44bf6a0d408fe986cf8006f8c37e37a754a))
+* **paginator:** adapt height for size `m` ([#5357](https://github.com/sbb-design-systems/lyne-components/issues/5357)) ([4ff1e73](https://github.com/sbb-design-systems/lyne-components/commit/4ff1e730c7baf3ce3c2a2e4d712535f6d69a7624)), closes [#5356](https://github.com/sbb-design-systems/lyne-components/issues/5356)
+* **select:** target disabled options by keyboard ([#5344](https://github.com/sbb-design-systems/lyne-components/issues/5344)) ([f410517](https://github.com/sbb-design-systems/lyne-components/commit/f41051760a0885369cde0367effd04a7d410583b)), closes [#5299](https://github.com/sbb-design-systems/lyne-components/issues/5299)
+* **train-formation:** avoid setting inline styles ([#5360](https://github.com/sbb-design-systems/lyne-components/issues/5360)) ([b121bc0](https://github.com/sbb-design-systems/lyne-components/commit/b121bc0877bbe394e57200193278f2569ec4958b))
+
+
+### Documentation
+
+* add deprecation notices to readmes of pearl chain elements ([#5351](https://github.com/sbb-design-systems/lyne-components/issues/5351)) ([f89b466](https://github.com/sbb-design-systems/lyne-components/commit/f89b4661440a6d4c4afaee20d7134b85ccd43de8))
+
+
+### Code Refactoring
+
+* **card:** removes slots to enable control of DOM order ([#5348](https://github.com/sbb-design-systems/lyne-components/issues/5348)) ([bdd2966](https://github.com/sbb-design-systems/lyne-components/commit/bdd296604869c12c0caa5184bea352ef9af8d770)), closes [#5335](https://github.com/sbb-design-systems/lyne-components/issues/5335)
+* **select:** update display value synchronized ([#5346](https://github.com/sbb-design-systems/lyne-components/issues/5346)) ([e81d72a](https://github.com/sbb-design-systems/lyne-components/commit/e81d72a3738b7d1d1cbbab2ac81619b903f0b739)), closes [#5343](https://github.com/sbb-design-systems/lyne-components/issues/5343)
+
+
+### Styles
+
+* **alert:** improve layout if no title was slotted ([#5355](https://github.com/sbb-design-systems/lyne-components/issues/5355)) ([b48040b](https://github.com/sbb-design-systems/lyne-components/commit/b48040bb5308b445c67e9227023db8f28ffc1b9d))
+* **status:** add colored background to icons ([#5354](https://github.com/sbb-design-systems/lyne-components/issues/5354)) ([faf8177](https://github.com/sbb-design-systems/lyne-components/commit/faf81772232ccd117dacc3794d761a652f992d88))
+
 ## [5.13.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.12.0...v5.13.0) (2026-10-27)
 
 
