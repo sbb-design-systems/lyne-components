@@ -20,6 +20,10 @@ import '../../../elements/radio-button-group.ts';
 import '../../../elements/signet.ts';
 import '../../../elements/table.ts';
 
+import { leanCardsTemplate } from './lean-cards.ts';
+import { leanDashboardTemplate } from './lean-dashboard.ts';
+import { leanTableTemplate } from './lean-table.ts';
+
 import './lean.scss';
 
 const leanExampleTemplate = (): TemplateResult => html`
@@ -163,11 +167,26 @@ export const leanExample: StoryObj = {
   render: leanExampleTemplate,
 };
 
+export const leanDashboard: StoryObj = {
+  render: leanDashboardTemplate,
+};
+
+export const leanCards: StoryObj = {
+  render: leanCardsTemplate,
+};
+
+export const leanTable: StoryObj = {
+  render: leanTableTemplate,
+};
+
 const meta: Meta = {
   globals: {
     theme: 'lean',
   },
   parameters: {
+    docs: {
+      story: { inline: false, iframeHeight: '700px' },
+    },
     layout: 'fullscreen',
   },
   title: 'pages/lean',
