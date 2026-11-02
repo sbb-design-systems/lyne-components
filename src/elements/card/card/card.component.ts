@@ -9,8 +9,7 @@ import style from './card.scss?inline';
  * It displays content related to a single subject.
  *
  * @slot - Use the unnamed slot to add content to the card.
- * @slot badge - Use this slot to render a `sbb-card-badge` component.
- * @slot action - Use this slot to render a `sbb-card-button` or a `sbb-card-link` component.
+ * For specific use cases, `<sbb-card-button>`, `<sbb-card-link>` or `<sbb-card-badge>` elements can be slotted.
  */
 export class SbbCardElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-card';
@@ -20,16 +19,17 @@ export class SbbCardElement extends SbbElement {
   @property({ reflect: true }) public accessor color:
     'white' | 'milk' | 'transparent-bordered' | 'transparent-bordered-dashed' = 'white';
 
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this._toggleBadgePresence();
+  }
+
+  private _toggleBadgePresence(): void {
+    this.toggleState('has-badge', !!this.querySelector?.('sbb-card-badge'));
+  }
+
   protected override render(): TemplateResult {
-    return html`
-      <slot name="action"></slot>
-      <span class="sbb-card__wrapper">
-        <slot></slot>
-      </span>
-      <span class="sbb-card__badge-wrapper">
-        <slot name="badge"></slot>
-      </span>
-    `;
+    return html`<slot @slotchange=${() => this._toggleBadgePresence()}></slot>`;
   }
 }
 
