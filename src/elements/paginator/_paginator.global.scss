@@ -4,10 +4,13 @@ $theme: 'standard' !default;
 
 @mixin base {
   --sbb-paginator-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-paginator-color-negative: var(--sbb-color-5);
+  --sbb-paginator-height-s: var(--sbb-size-element-xs);
+  --sbb-paginator-height-m: var(--sbb-size-element-m);
   --sbb-paginator-height: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-size-element-m),
-        'lean': var(--sbb-size-element-xs),
+        'standard': var(--sbb-paginator-height-m),
+        'lean': var(--sbb-paginator-height-s),
       ),
       $theme
     )};
