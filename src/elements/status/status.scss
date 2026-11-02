@@ -12,36 +12,43 @@
 }
 
 :host([type='error']) {
-  --sbb-status-color: var(--sbb-color-error);
+  --sbb-status-color: var(--sbb-status-color-error);
+  --sbb-status-icon-background-color: var(--sbb-status-icon-background-color-error);
 }
 
 :host([type='success']) {
-  --sbb-status-color: var(--sbb-color-success);
+  --sbb-status-color: var(--sbb-status-color-success);
+  --sbb-status-icon-background-color: var(--sbb-status-icon-background-color-success);
 }
 
 :host([type='warning']) {
-  --sbb-status-color: var(--sbb-color-2);
+  --sbb-status-color: var(--sbb-status-color-warning);
+  --sbb-status-icon-background-color: var(--sbb-status-icon-background-color-warning);
 }
 
 :host([type='pending']) {
-  --sbb-status-color: var(--sbb-color-sky);
+  --sbb-status-color: var(--sbb-status-color-pending);
+  --sbb-status-icon-background-color: var(--sbb-status-icon-background-color-pending);
 }
 
 :host([type='incomplete']) {
-  --sbb-status-color: var(--sbb-color-error);
+  --sbb-status-color: var(--sbb-status-color-incomplete);
+  --sbb-status-icon-background-color: var(--sbb-status-icon-background-color-incomplete);
 }
 
 :host([type='not-started']) {
-  --sbb-status-color: var(--sbb-color-5);
-  --sbb-status-text-color: var(--sbb-color-2);
+  --sbb-status-color: var(--sbb-status-color-not-started);
+  --sbb-status-text-color: var(--sbb-status-text-color-not-started);
+  --sbb-status-icon-background-color: var(--sbb-status-icon-background-color-not-started);
 }
 
 :host([type='in-progress']) {
-  --sbb-status-color: var(--sbb-color-pink);
+  --sbb-status-color: var(--sbb-status-color-in-progress);
+  --sbb-status-icon-background-color: var(--sbb-status-icon-background-color-in-progress);
 }
 
 :host(:state(slotted-title)) {
-  --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
+  --sbb-status-gap: var(--sbb-status-gap-with-title);
   --_sbb-status-title-font-size: var(--sbb-heading-font-size-5);
   --_sbb-status-title-line-height: var(--sbb-typo-line-height-heading);
 
@@ -72,4 +79,18 @@
 
 ::slotted(sbb-title) {
   margin-block: 0;
+}
+
+sbb-icon {
+  --sbb-icon-svg-width: var(--sbb-status-icon-dimension);
+  --sbb-icon-svg-height: var(--sbb-status-icon-dimension);
+
+  height: fit-content;
+
+  // Draw a circled background with a gap from the border
+  background: radial-gradient(
+    circle,
+    var(--sbb-status-icon-background-color) calc(100% - #{sbb.px-to-rem-build(7)}),
+    transparent calc(100% - #{sbb.px-to-rem-build(7)})
+  );
 }
