@@ -57,7 +57,9 @@ $theme: 'standard' !default;
 @mixin breakpoint-small {
   --sbb-alert-close-button-divider-display: block;
   --sbb-alert-grid-template-columns: auto 1fr auto;
-  --sbb-alert-icon-padding-block: 0;
+  --sbb-alert-icon-padding-block-s: 0;
+  --sbb-alert-icon-padding-block-m: 0;
+  --sbb-alert-icon-padding-block-l: 0;
 }
 
 @mixin breakpoint-large {
