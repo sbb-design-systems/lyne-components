@@ -16,6 +16,7 @@ $theme: 'standard' !default;
   --sbb-alert-font-size: var(--sbb-text-font-size-s);
   --sbb-alert-gap-s: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-responsive-xxs);
   --sbb-alert-gap-m: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs);
+  --sbb-alert-gap-l: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs);
   --sbb-alert-gap: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-alert-gap-m),
@@ -25,6 +26,7 @@ $theme: 'standard' !default;
     )};
   --sbb-alert-close-icon-margin-s: var(--sbb-spacing-responsive-xxxs);
   --sbb-alert-close-icon-margin-m: var(--sbb-spacing-responsive-xxs);
+  --sbb-alert-close-icon-margin-l: var(--sbb-spacing-responsive-xxs);
   --sbb-alert-close-icon-margin: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-alert-close-icon-margin-m),

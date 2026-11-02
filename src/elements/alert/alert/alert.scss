@@ -41,9 +41,11 @@ $open-anim-opacity-to: 1;
 }
 
 :host([size='l']) {
+  --sbb-alert-gap: var(--sbb-alert-gap-l);
+  --sbb-alert-close-icon-margin: var(--sbb-alert-close-icon-margin-l);
+  --sbb-alert-icon-padding-block: var(--sbb-alert-icon-padding-block-l);
   --sbb-alert-icon-size: var(--sbb-alert-icon-size-l);
   --sbb-alert-title-margin-block: 0 var(--sbb-spacing-fixed-1x);
-  --sbb-alert-icon-padding-block: var(--sbb-alert-icon-padding-block-l);
 }
 
 :host(:not(:state(dark))) {
