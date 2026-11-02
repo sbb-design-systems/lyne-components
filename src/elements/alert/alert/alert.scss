@@ -29,16 +29,21 @@ $open-anim-opacity-to: 1;
 }
 
 :host([size='s']) {
-  --sbb-alert-gap: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-responsive-xxs);
-  --sbb-alert-close-icon-margin: var(--sbb-spacing-responsive-xxxs);
+  --sbb-alert-gap: var(--sbb-alert-gap-s);
+  --sbb-alert-close-icon-margin: var(--sbb-alert-close-icon-margin-s);
+  --sbb-alert-icon-padding-block: var(--sbb-alert-icon-padding-block-s);
 }
 
 :host([size='m']) {
-  --sbb-alert-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs);
-  --sbb-alert-close-icon-margin: var(--sbb-spacing-responsive-xxs);
+  --sbb-alert-gap: var(--sbb-alert-gap-m);
+  --sbb-alert-close-icon-margin: var(--sbb-alert-close-icon-margin-m);
+  --sbb-alert-icon-padding-block: var(--sbb-alert-icon-padding-block-m);
 }
 
 :host([size='l']) {
+  --sbb-alert-gap: var(--sbb-alert-gap-l);
+  --sbb-alert-close-icon-margin: var(--sbb-alert-close-icon-margin-l);
+  --sbb-alert-icon-padding-block: var(--sbb-alert-icon-padding-block-l);
   --sbb-alert-icon-size: var(--sbb-alert-icon-size-l);
   --sbb-alert-title-margin-block: 0 var(--sbb-spacing-fixed-1x);
 }
@@ -76,7 +81,7 @@ $open-anim-opacity-to: 1;
 
 .sbb-alert {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: var(--sbb-alert-grid-template-columns);
   align-items: center;
   gap: var(--sbb-alert-gap);
   min-width: fit-content;
@@ -88,21 +93,26 @@ $open-anim-opacity-to: 1;
   font-size: var(--sbb-alert-font-size);
   letter-spacing: var(--sbb-letter-spacing-text);
   line-height: var(--sbb-typo-line-height-text);
-
-  @include sbb.mq($from: small) {
-    grid-template-columns: auto 1fr auto;
-    align-items: flex-start;
-  }
 }
 
 .sbb-alert__icon {
   display: flex;
-  align-items: start;
-  padding-block: var(--sbb-spacing-fixed-1x);
+  align-self: start;
+  align-items: center;
   min-width: var(--sbb-alert-icon-size);
+  padding-block: var(--sbb-alert-icon-padding-block);
+
+  // If text is one line, stretch to that height.
+  min-height: 1lh;
 
   --sbb-icon-svg-width: var(--sbb-alert-icon-size);
   --sbb-icon-svg-height: var(--sbb-alert-icon-size);
+
+  @include sbb.mq($from: small) {
+    :host(:state(slotted-title)) & {
+      padding-block: var(--sbb-spacing-fixed-1x);
+    }
+  }
 }
 
 .sbb-alert__content {
@@ -135,6 +145,9 @@ $open-anim-opacity-to: 1;
 }
 
 .sbb-alert__close-button {
+  // Avoid taking vertical space for cases without title and little text amount
+  margin-block: calc(-1 * var(--sbb-spacing-fixed-8x));
+
   @include sbb.mq($from: small) {
     margin-inline-start: var(--sbb-alert-close-icon-margin);
   }
