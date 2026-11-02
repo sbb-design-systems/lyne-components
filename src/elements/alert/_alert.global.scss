@@ -23,10 +23,23 @@ $theme: 'standard' !default;
       ),
       $theme
     )};
+  --sbb-alert-close-icon-margin-s: var(--sbb-spacing-responsive-xxxs);
+  --sbb-alert-close-icon-margin-m: var(--sbb-spacing-responsive-xxs);
   --sbb-alert-close-icon-margin: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-responsive-xxs),
-        'lean': var(--sbb-spacing-responsive-xxxs),
+        'standard': var(--sbb-alert-close-icon-margin-m),
+        'lean': var(--sbb-alert-close-icon-margin-s),
+      ),
+      $theme
+    )};
+  --sbb-alert-grid-template-columns: 1fr auto;
+  --sbb-alert-icon-padding-block-s: var(--sbb-spacing-fixed-2x);
+  --sbb-alert-icon-padding-block-m: var(--sbb-spacing-fixed-3x);
+  --sbb-alert-icon-padding-block-l: #{sbb.px-to-rem-build(10)};
+  --sbb-alert-icon-padding-block: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-alert-icon-padding-block-m),
+        'lean': var(--sbb-alert-icon-padding-block-s),
       ),
       $theme
     )};
@@ -41,6 +54,8 @@ $theme: 'standard' !default;
 
 @mixin breakpoint-small {
   --sbb-alert-close-button-divider-display: block;
+  --sbb-alert-grid-template-columns: auto 1fr auto;
+  --sbb-alert-icon-padding-block: 0;
 }
 
 @mixin breakpoint-large {

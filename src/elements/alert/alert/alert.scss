@@ -30,17 +30,20 @@ $open-anim-opacity-to: 1;
 
 :host([size='s']) {
   --sbb-alert-gap: var(--sbb-alert-gap-s);
-  --sbb-alert-close-icon-margin: var(--sbb-spacing-responsive-xxxs);
+  --sbb-alert-close-icon-margin: var(--sbb-alert-close-icon-margin-s);
+  --sbb-alert-icon-padding-block: var(--sbb-alert-icon-padding-block-s);
 }
 
 :host([size='m']) {
   --sbb-alert-gap: var(--sbb-alert-gap-m);
-  --sbb-alert-close-icon-margin: var(--sbb-spacing-responsive-xxs);
+  --sbb-alert-close-icon-margin: var(--sbb-alert-close-icon-margin-m);
+  --sbb-alert-icon-padding-block: var(--sbb-alert-icon-padding-block-m);
 }
 
 :host([size='l']) {
   --sbb-alert-icon-size: var(--sbb-alert-icon-size-l);
   --sbb-alert-title-margin-block: 0 var(--sbb-spacing-fixed-1x);
+  --sbb-alert-icon-padding-block: var(--sbb-alert-icon-padding-block-l);
 }
 
 :host(:not(:state(dark))) {
@@ -76,7 +79,7 @@ $open-anim-opacity-to: 1;
 
 .sbb-alert {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: var(--sbb-alert-grid-template-columns);
   align-items: center;
   gap: var(--sbb-alert-gap);
   min-width: fit-content;
@@ -88,10 +91,6 @@ $open-anim-opacity-to: 1;
   font-size: var(--sbb-alert-font-size);
   letter-spacing: var(--sbb-letter-spacing-text);
   line-height: var(--sbb-typo-line-height-text);
-
-  @include sbb.mq($from: small) {
-    grid-template-columns: auto 1fr auto;
-  }
 }
 
 .sbb-alert__icon {
@@ -99,6 +98,7 @@ $open-anim-opacity-to: 1;
   align-self: start;
   align-items: center;
   min-width: var(--sbb-alert-icon-size);
+  padding-block: var(--sbb-alert-icon-padding-block);
 
   // If text is one line, stretch to that height.
   min-height: 1lh;
@@ -106,8 +106,10 @@ $open-anim-opacity-to: 1;
   --sbb-icon-svg-width: var(--sbb-alert-icon-size);
   --sbb-icon-svg-height: var(--sbb-alert-icon-size);
 
-  :host(:state(slotted-title)) & {
-    padding-block: var(--sbb-spacing-fixed-1x);
+  @include sbb.mq($from: small) {
+    :host(:state(slotted-title)) & {
+      padding-block: var(--sbb-spacing-fixed-1x);
+    }
   }
 }
 
