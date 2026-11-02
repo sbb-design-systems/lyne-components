@@ -8,6 +8,9 @@
   outline: none !important;
   position: absolute;
   inset: 0;
+
+  // On the card itself we defined an isolated stacking context, so this should not interfere with remaining page content.
+  z-index: 1;
 }
 
 :is(.sbb-card-button, .sbb-card-link) {

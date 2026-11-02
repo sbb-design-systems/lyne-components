@@ -1,11 +1,6 @@
 @use '../../core/styles' as sbb;
 @use '../card.global' as card;
 
-// # Stacking of action
-// To support content with actions that should be accessible, we have to stack the action and content like following:
-// The content is basically on top of the action, but is made pointer transparent with `pointer-events: none`.
-// All focusable elements inside the main slot will receive `pointer-events: all` which makes them pointer accessible.
-
 :host {
   @include card.element-rules;
   @include card.variables--spacing-default;
@@ -38,10 +33,6 @@
 
 :host(:state(has-active-action)) {
   @include card.variables--active;
-}
-
-:host(:state(has-action)) {
-  --sbb-card-pointer-events: none;
 }
 
 :host(:state(has-action):not(:state(has-active-action)):hover) {
@@ -87,28 +78,23 @@
 }
 
 // Has to be after spacing definitions
-:host(:state(slotted-badge)) {
+:host(:state(has-badge)) {
   --sbb-card-padding-block: var(--sbb-card-with-badge-padding-block);
-  --sbb-card-badge-display: block;
 }
 
-.sbb-card__wrapper {
+slot {
   @include card.wrapper;
 
-  pointer-events: var(--sbb-card-pointer-events, auto);
-  translate: 0 var(--sbb-card-hover-shift, 0);
-  transition: translate var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
+  margin-block: var(--sbb-card-hover-shift, 0) calc(-1 * var(--sbb-card-hover-shift, 0px));
+  transition: margin var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
 }
 
-.sbb-card__badge-wrapper {
-  display: var(--sbb-card-badge-display, none);
-  overflow: hidden;
+::slotted(sbb-card-badge) {
   position: absolute;
   inset: 0;
   inset-block-end: unset;
-  border-start-start-radius: var(--sbb-card-border-radius);
   border-start-end-radius: var(--sbb-card-border-radius);
-  pointer-events: var(--sbb-card-pointer-events, auto);
+  overflow: hidden;
 }
 
 // We remove upper margin from all titles

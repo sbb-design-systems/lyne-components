@@ -28,28 +28,17 @@ describe(`sbb-card`, () => {
       </sbb-card>
     `);
 
-    expect(element).to.match(':state(slotted-badge)');
-
-    expect(
-      getComputedStyle(
-        element.shadowRoot!.querySelector<HTMLSpanElement>('.sbb-card__badge-wrapper')!,
-      ).getPropertyValue('display'),
-    ).not.to.be.equal('none');
+    expect(element).to.match(':state(has-badge)');
   });
 
   it('should render without sbb-card-badge', async () => {
     element = await fixture(
-      html` <sbb-card>
+      html`<sbb-card>
         <h2>Title</h2>
         Content text
       </sbb-card>`,
     );
 
-    expect(
-      getComputedStyle(
-        element.shadowRoot!.querySelector<HTMLSpanElement>('.sbb-card__badge-wrapper')!,
-      ).getPropertyValue('display'),
-    ).to.be.equal('none');
-    expect(element).not.to.match(':state(slotted-badge)');
+    expect(element).not.to.match(':state(has-badge)');
   });
 });
