@@ -407,10 +407,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     ];
 
     for (const displayValueElement of displayValueElements) {
-      if (!displayValueElement) {
-        continue;
+      if (displayValueElement) {
+        displayValueElement.textContent = this._displayValue ?? this.placeholder;
       }
-      displayValueElement.textContent = this._displayValue ?? this.placeholder;
     }
   }
 
