@@ -627,6 +627,64 @@ describe(`sbb-select`, () => {
       expect(firstOption).not.to.match(':state(active)');
     });
 
+    it('navigates to a disabled option with keyboard but does not select it', async () => {
+      secondOption.disabled = true;
+      await waitForLitRender(element);
+
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+      const changeSpy = new EventSpy('change', element);
+
+      focusableElement.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await openSpy.calledOnce();
+
+      await sendKeys({ press: 'ArrowDown' });
+      expect(document.activeElement).to.be.equal(firstOption);
+      expect(element.value).to.be.equal('1');
+
+      await sendKeys({ press: 'ArrowDown' });
+      expect(document.activeElement).to.be.equal(secondOption);
+
+      await sendKeys({ press: 'Enter' });
+      expect(secondOption).not.to.have.attribute('selected');
+      expect(element.value).to.be.equal('1');
+      expect(changeSpy.count).to.be.equal(1);
+      expect(closeSpy.count).to.be.equal(0);
+    });
+
+    it('does not select a disabled option on click', async () => {
+      secondOption.disabled = true;
+      await waitForLitRender(element);
+
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+      element.open();
+      await openSpy.calledOnce();
+
+      secondOption.click();
+      await waitForLitRender(element);
+
+      expect(secondOption).not.to.have.attribute('selected');
+      expect(element.value).to.be.null;
+      expect(closeSpy.count).to.be.equal(0);
+    });
+
+    it('does not toggle a disabled option in multiple mode', async () => {
+      element.multiple = true;
+      secondOption.disabled = true;
+      await waitForLitRender(element);
+
+      firstOption.click();
+      secondOption.click();
+      await waitForLitRender(element);
+
+      expect(firstOption).to.have.attribute('selected');
+      expect(secondOption).not.to.have.attribute('selected');
+      expect(element.value).to.be.eql(['1']);
+    });
+
     describe('focus synchronization', () => {
       const clickOption = async (option: SbbOptionElement): Promise<void> => {
         const rect = option.getBoundingClientRect();
@@ -807,7 +865,7 @@ describe(`sbb-select`, () => {
       expect(document.activeElement).to.be.instanceOf(SbbOptionElement);
     });
 
-    it('handles keyboard selection in multiple', async () => {
+    it('handles space bar with multiple', async () => {
       element.toggleAttribute('multiple', true);
       await waitForLitRender(element);
 
@@ -1663,35 +1721,6 @@ describe(`sbb-select`, () => {
 
       expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('false');
       expect(element.value).to.be.equal('1');
-    });
-
-    it('prevent keyboard navigation if all the options are disabled', async () => {
-      element.querySelectorAll<SbbOptionElement>('sbb-option')!.forEach((e) => (e.disabled = true));
-      await waitForLitRender(element);
-
-      const beforeOpenSpy = new EventSpy(SbbSelectElement.events.beforeopen, element);
-      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
-      const overlayContainerElement = element.shadowRoot!.querySelector(
-        '.sbb-option-panel__overlay-container',
-      )!;
-
-      element.dispatchEvent(new PointerEvent('click'));
-      await waitForLitRender(element);
-      await beforeOpenSpy.calledOnce();
-      expect(beforeOpenSpy.count).to.be.equal(1);
-      await openSpy.calledOnce();
-      expect(openSpy.count).to.be.equal(1);
-      await waitForLitRender(element);
-      expect(elementInternals.get(comboBoxElement)?.ariaExpanded).to.equal('true');
-      expect(element).to.match(':state(expanded)');
-      expect(overlayContainerElement).to.match(':popover-open');
-
-      await sendKeys({ press: 'ArrowDown' });
-      element.querySelectorAll<SbbOptionElement>('sbb-option')!.forEach((e: SbbOptionElement) => {
-        expect(e).not.to.match(':state(active)');
-        expect(e).not.to.have.attribute('selected');
-      });
-      expect(element.value).to.be.null;
     });
 
     it('should sync form-field size change', async () => {
