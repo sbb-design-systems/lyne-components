@@ -38,7 +38,8 @@ export class SbbAutocompleteButtonElement extends SbbDisabledMixin(
   public constructor() {
     super();
     this.internals.states.add('button');
-    this.internals.ariaRoleDescription = 'button';
+    this.internals.ariaRoleDescription = '';
+    this.internals.ariaDescription = 'button';
     if (!isServer) {
       this.setupBaseEventHandlers();
       this.addController(

@@ -440,7 +440,10 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     }
 
     this._optionsCount = this.options.length;
+    this.handleOptionChange();
   }
+
+  protected handleOptionChange(): void {}
 
   private _setNextActiveOptionIfAutoActiveFirstOption(): void {
     if (this.autoActiveFirstOption) {

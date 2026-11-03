@@ -109,6 +109,22 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
     }
   }
 
+  protected override handleOptionChange(): void {
+    const options = this.options;
+    const optionsCount = `${options.length}`;
+    let position = 1;
+    for (const option of options) {
+      const buttons = Array.from(
+        option.closest('sbb-autocomplete-row')?.querySelectorAll('sbb-autocomplete-button') ?? [],
+      );
+      for (const element of [option, ...buttons]) {
+        element['internals'].ariaSetSize = optionsCount;
+        element['internals'].ariaPosInSet = `${position}`;
+      }
+      position++;
+    }
+  }
+
   /**
    * Moves the active element horizontally within the active option's `sbb-autocomplete-row`,
    * between the option itself and its `sbb-autocomplete-button`s.
