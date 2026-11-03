@@ -3,7 +3,6 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  nothing,
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
@@ -16,7 +15,6 @@ import {
   forceType,
   idReference,
   isEventOnElement,
-  isSafari,
   isZeroAnimationDuration,
   popoverResetStyles,
   removeAriaComboBoxAttributes,
@@ -33,12 +31,6 @@ import { optionPanelStyles, type SbbOptionBaseElement } from '../../option.pure.
 import style from './autocomplete-base-element.scss?inline';
 
 // TODO(breaking-change): The base class will no longer be needed once the autocomplete-grid is deleted in the next major release. Merge this in the main class.
-
-/**
- * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
- * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
- */
-const ariaRoleOnHost = isSafari;
 
 export class SbbInputAutocompleteEvent<T> extends Event {
   private readonly _option: SbbOptionBaseElement<T>;
@@ -163,7 +155,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   }
 
   protected abstract generatedId: string;
-  protected abstract panelRole: string;
   protected activeOption: SbbOptionBaseElement<T> | null = null;
   protected pendingAutoSelectedOption: SbbOptionBaseElement<T> | null = null;
   private _resizeObserver = new ResizeController(this, {
@@ -304,6 +295,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.popover = 'manual';
     super.connectedCallback();
     this.id ||= this.generatedId;
+    this.tabIndex = -1;
 
     if (this.hasUpdated) {
       this._componentSetup();
@@ -741,9 +733,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
           class="sbb-option-panel__overlay ${
             this.negative ? 'sbb-scrollbar-negative' : 'sbb-scrollbar'
           }"
-          role=${!ariaRoleOnHost ? this.panelRole : nothing}
-          id=${!ariaRoleOnHost ? this.overlayId : nothing}
-          tabindex="-1"
           @animationend=${this._onAnimationEnd}
           ${ref((overlayRef?: Element) => (this._overlay = overlayRef as HTMLElement))}
         >
