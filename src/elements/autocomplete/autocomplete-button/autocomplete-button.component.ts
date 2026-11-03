@@ -5,6 +5,7 @@ import {
   isAndroid,
   SbbActionBaseElement,
   SbbDisabledMixin,
+  sbbLiveAnnouncer,
   SbbNegativeMixin,
   SbbPropertyWatcherController,
 } from '../../core.ts';
@@ -20,7 +21,7 @@ export class SbbAutocompleteButtonElement extends SbbDisabledMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbActionBaseElement)),
 ) {
   public static override readonly elementName: string = 'sbb-autocomplete-button';
-  public static override readonly role = 'button';
+  public static override readonly role = 'presentation';
   public static override styles: CSSResultGroup = [miniButtonStyle];
 
   /** Gets the SbbOptionElement on the same row of the button. */
@@ -59,6 +60,28 @@ export class SbbAutocompleteButtonElement extends SbbDisabledMixin(
    */
   public setActive(value: boolean): void {
     this.toggleState('focus-visible', value);
+    if (value) {
+      let activeAnnouncement: Promise<void> = Promise.resolve();
+      if (this.ariaLabel) {
+        activeAnnouncement = sbbLiveAnnouncer.announce(this.ariaLabel);
+      } else if (this.ariaLabelledByElements?.length) {
+        activeAnnouncement = sbbLiveAnnouncer.announce(
+          this._concatenateTextContent(this.ariaLabelledByElements),
+        );
+      }
+
+      if (this.ariaDescription) {
+        activeAnnouncement.then(() => sbbLiveAnnouncer.announce(this.ariaDescription ?? ''));
+      } else if (this.ariaDescribedByElements?.length) {
+        activeAnnouncement.then(() =>
+          sbbLiveAnnouncer.announce(this._concatenateTextContent(this.ariaDescribedByElements)),
+        );
+      }
+    }
+  }
+
+  private _concatenateTextContent(elements: readonly Element[] | null | undefined): string {
+    return elements?.map((el) => el.textContent.trim().replace(/\.$/, '') + '.').join(' ') ?? '';
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
