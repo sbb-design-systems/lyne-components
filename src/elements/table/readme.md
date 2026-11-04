@@ -296,6 +296,16 @@ Note: Due to technical limitations, consumer has to use set the `negative` prope
 </sbb-table-wrapper>
 ```
 
+### Row heights
+
+If a table is combined with a paginator and the page changes, the rows can be empty for a short moment (depending on Framework).
+This leads to an automated scroll to the top of the table, which is not desired. To avoid this, the
+table pre-sets its row minimal heights, so the layout keeps a more stable vertical footprint during view changes.
+
+However, if a consumer places multiple lines of content in a cell, it can still lead to jumps on the page.
+In this case, the consumer can configure a `min-height` on the table or a bigger `height`
+on rows to ensure a stable layout depending on the content.
+
 ## Accessibility
 
 Always provide an accessible label for your tables via `aria-label` or `aria-labelledby` on the table element.
