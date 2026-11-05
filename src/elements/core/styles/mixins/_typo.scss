@@ -16,10 +16,6 @@
   line-height: var(--sbb-typo-line-height-heading);
   font-size: var(--sbb-heading-font-size);
   color: var(--sbb-heading-color);
-
-  &[id] {
-    scroll-margin-block-start: var(--sbb-spacing-fixed-10x);
-  }
 }
 
 @mixin heading--level-1 {

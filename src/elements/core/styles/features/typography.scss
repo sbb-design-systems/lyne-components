@@ -66,6 +66,10 @@ sup {
   .sbb-heading-6
 ) {
   @include typo.heading-rules-new;
+
+  &[id] {
+    scroll-margin-block-start: var(--sbb-spacing-fixed-10x);
+  }
 }
 
 .sbb-heading-1 {
