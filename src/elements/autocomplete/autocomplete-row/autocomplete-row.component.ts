@@ -11,6 +11,7 @@ import style from './autocomplete-row.scss?inline';
  */
 export class SbbAutocompleteRowElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-autocomplete-row';
+  public static override readonly role: string = 'group';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
 
   public constructor() {

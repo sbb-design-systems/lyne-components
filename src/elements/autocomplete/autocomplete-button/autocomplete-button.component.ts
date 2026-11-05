@@ -3,6 +3,7 @@ import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult
 import { miniButtonStyle } from '../../button.pure.ts';
 import {
   isAndroid,
+  isSafari,
   SbbActionBaseElement,
   SbbDisabledMixin,
   SbbNegativeMixin,
@@ -20,7 +21,7 @@ export class SbbAutocompleteButtonElement extends SbbDisabledMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbActionBaseElement)),
 ) {
   public static override readonly elementName: string = 'sbb-autocomplete-button';
-  public static override readonly role = 'option';
+  public static override readonly role = isSafari ? 'button' : 'option';
   public static override styles: CSSResultGroup = [miniButtonStyle];
 
   /** Gets the SbbOptionElement on the same row of the button. */
@@ -38,8 +39,11 @@ export class SbbAutocompleteButtonElement extends SbbDisabledMixin(
   public constructor() {
     super();
     this.internals.states.add('button');
-    this.internals.ariaRoleDescription = '';
-    this.internals.ariaDescription = 'button';
+    if (!isSafari) {
+      this.internals.ariaRoleDescription = '';
+      this.internals.ariaDescription = 'button';
+    }
+
     if (!isServer) {
       this.setupBaseEventHandlers();
       this.addController(
