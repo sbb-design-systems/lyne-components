@@ -1,10 +1,11 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] = 
+snapshots["sbb-autocomplete renders standalone DOM"] = 
 `<sbb-autocomplete
   origin="origin"
   popover="manual"
+  tabindex="-1"
   trigger="trigger"
 >
   <sbb-option value="1">
@@ -15,222 +16,34 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] =
   </sbb-option>
 </sbb-autocomplete>
 `;
-/* end snapshot sbb-autocomplete renders standalone Chrome-Firefox DOM */
+/* end snapshot sbb-autocomplete renders standalone DOM */
 
-snapshots["sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM"] = 
+snapshots["sbb-autocomplete renders standalone Shadow DOM"] = 
 `<div class="sbb-option-panel__overlay-container">
-  <div
-    class="sbb-option-panel__overlay sbb-scrollbar"
-    id="standalone-overlay"
-    role="listbox"
-    tabindex="-1"
-  >
+  <div class="sbb-option-panel__overlay sbb-scrollbar">
     <slot>
     </slot>
   </div>
 </div>
 `;
-/* end snapshot sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM */
+/* end snapshot sbb-autocomplete renders standalone Shadow DOM */
 
-snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] = 
+snapshots["sbb-autocomplete renders in form field DOM"] = 
 `<sbb-form-field
   error-space="none"
   width="default"
 >
   <input
     aria-autocomplete="list"
-    aria-controls="in-form-field-overlay"
+    aria-controls=""
     aria-expanded="false"
     aria-haspopup="listbox"
-    aria-owns="in-form-field-overlay"
-    autocomplete="off"
-    role="combobox"
-  >
-  <sbb-autocomplete popover="manual">
-    <sbb-option value="1">
-      1
-    </sbb-option>
-    <sbb-option value="2">
-      2
-    </sbb-option>
-  </sbb-autocomplete>
-</sbb-form-field>
-`;
-/* end snapshot sbb-autocomplete renders in form field Chrome-Firefox DOM */
-
-snapshots["sbb-autocomplete renders in form field Chrome-Firefox Shadow DOM"] = 
-`<div class="sbb-form-field__space-wrapper">
-  <div
-    class="sbb-form-field__wrapper"
-    id="overlay-anchor"
-  >
-    <slot name="prefix">
-    </slot>
-    <div class="sbb-form-field__input-container">
-      <span
-        aria-hidden="true"
-        class="sbb-form-field__label-spacer"
-      >
-      </span>
-      <span class="sbb-form-field__label">
-        <span class="sbb-form-field__label-ellipsis">
-          <slot name="label">
-          </slot>
-        </span>
-      </span>
-      <div class="sbb-form-field__input">
-        <slot>
-        </slot>
-      </div>
-      <sbb-icon
-        class="sbb-form-field__select-input-icon"
-        name="chevron-small-down-small"
-      >
-      </sbb-icon>
-    </div>
-    <slot name="suffix">
-    </slot>
-  </div>
-  <div class="sbb-form-field__hint">
-    <slot name="hint">
-    </slot>
-    <slot name="error">
-    </slot>
-  </div>
-</div>
-`;
-/* end snapshot sbb-autocomplete renders in form field Chrome-Firefox Shadow DOM */
-
-snapshots["sbb-autocomplete with actions Chrome-Firefox DOM"] = 
-`<sbb-form-field
-  error-space="none"
-  width="default"
->
-  <input
-    aria-autocomplete="list"
-    aria-controls="with-actions-overlay"
-    aria-expanded="false"
-    aria-haspopup="listbox"
-    aria-owns="with-actions-overlay"
-    autocomplete="off"
-    role="combobox"
-  >
-  <sbb-autocomplete popover="manual">
-    <sbb-autocomplete-row>
-      <sbb-option value="1">
-        Option 1
-      </sbb-option>
-      <sbb-autocomplete-button icon-name="pen-small">
-      </sbb-autocomplete-button>
-    </sbb-autocomplete-row>
-    <sbb-autocomplete-row>
-      <sbb-option
-        disabled=""
-        value="1"
-      >
-        Option 2
-      </sbb-option>
-      <sbb-autocomplete-button
-        disabled=""
-        icon-name="pen-small"
-      >
-      </sbb-autocomplete-button>
-    </sbb-autocomplete-row>
-  </sbb-autocomplete>
-</sbb-form-field>
-`;
-/* end snapshot sbb-autocomplete with actions Chrome-Firefox DOM */
-
-snapshots["sbb-autocomplete renders standalone Safari DOM"] = 
-`<sbb-autocomplete
-  id="standalone"
-  origin="origin"
-  popover="manual"
-  trigger="trigger"
->
-  <sbb-option value="1">
-    1
-  </sbb-option>
-  <sbb-option value="2">
-    2
-  </sbb-option>
-</sbb-autocomplete>
-`;
-/* end snapshot sbb-autocomplete renders standalone Safari DOM */
-
-snapshots["sbb-autocomplete with actions Chrome-Firefox Shadow DOM"] = 
-`<div class="sbb-form-field__space-wrapper">
-  <div
-    class="sbb-form-field__wrapper"
-    id="overlay-anchor"
-  >
-    <slot name="prefix">
-    </slot>
-    <div class="sbb-form-field__input-container">
-      <span
-        aria-hidden="true"
-        class="sbb-form-field__label-spacer"
-      >
-      </span>
-      <span class="sbb-form-field__label">
-        <span class="sbb-form-field__label-ellipsis">
-          <slot name="label">
-          </slot>
-        </span>
-      </span>
-      <div class="sbb-form-field__input">
-        <slot>
-        </slot>
-      </div>
-      <sbb-icon
-        class="sbb-form-field__select-input-icon"
-        name="chevron-small-down-small"
-      >
-      </sbb-icon>
-    </div>
-    <slot name="suffix">
-    </slot>
-  </div>
-  <div class="sbb-form-field__hint">
-    <slot name="hint">
-    </slot>
-    <slot name="error">
-    </slot>
-  </div>
-</div>
-`;
-/* end snapshot sbb-autocomplete with actions Chrome-Firefox Shadow DOM */
-
-snapshots["sbb-autocomplete renders standalone Safari Shadow DOM"] = 
-`<div class="sbb-option-panel__overlay-container">
-  <div
-    class="sbb-option-panel__overlay sbb-scrollbar"
-    tabindex="-1"
-  >
-    <slot>
-    </slot>
-  </div>
-</div>
-`;
-/* end snapshot sbb-autocomplete renders standalone Safari Shadow DOM */
-
-snapshots["sbb-autocomplete renders in form field Safari DOM"] = 
-`<sbb-form-field
-  error-space="none"
-  width="default"
->
-  <input
-    aria-autocomplete="list"
-    aria-controls="in-form-field"
-    aria-expanded="false"
-    aria-haspopup="listbox"
-    aria-owns="in-form-field"
     autocomplete="off"
     role="combobox"
   >
   <sbb-autocomplete
-    id="in-form-field"
     popover="manual"
+    tabindex="-1"
   >
     <sbb-option value="1">
       1
@@ -241,9 +54,9 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
   </sbb-autocomplete>
 </sbb-form-field>
 `;
-/* end snapshot sbb-autocomplete renders in form field Safari DOM */
+/* end snapshot sbb-autocomplete renders in form field DOM */
 
-snapshots["sbb-autocomplete renders in form field Safari Shadow DOM"] = 
+snapshots["sbb-autocomplete renders in form field Shadow DOM"] = 
 `<div class="sbb-form-field__space-wrapper">
   <div
     class="sbb-form-field__wrapper"
@@ -284,93 +97,7 @@ snapshots["sbb-autocomplete renders in form field Safari Shadow DOM"] =
   </div>
 </div>
 `;
-/* end snapshot sbb-autocomplete renders in form field Safari Shadow DOM */
-
-snapshots["sbb-autocomplete with actions Safari DOM"] = 
-`<sbb-form-field
-  error-space="none"
-  width="default"
->
-  <input
-    aria-autocomplete="list"
-    aria-controls="with-actions"
-    aria-expanded="false"
-    aria-haspopup="listbox"
-    aria-owns="with-actions"
-    autocomplete="off"
-    role="combobox"
-  >
-  <sbb-autocomplete
-    id="with-actions"
-    popover="manual"
-  >
-    <sbb-autocomplete-row>
-      <sbb-option value="1">
-        Option 1
-      </sbb-option>
-      <sbb-autocomplete-button icon-name="pen-small">
-      </sbb-autocomplete-button>
-    </sbb-autocomplete-row>
-    <sbb-autocomplete-row>
-      <sbb-option
-        disabled=""
-        value="1"
-      >
-        Option 2
-      </sbb-option>
-      <sbb-autocomplete-button
-        disabled=""
-        icon-name="pen-small"
-      >
-      </sbb-autocomplete-button>
-    </sbb-autocomplete-row>
-  </sbb-autocomplete>
-</sbb-form-field>
-`;
-/* end snapshot sbb-autocomplete with actions Safari DOM */
-
-snapshots["sbb-autocomplete with actions Safari Shadow DOM"] = 
-`<div class="sbb-form-field__space-wrapper">
-  <div
-    class="sbb-form-field__wrapper"
-    id="overlay-anchor"
-  >
-    <slot name="prefix">
-    </slot>
-    <div class="sbb-form-field__input-container">
-      <span
-        aria-hidden="true"
-        class="sbb-form-field__label-spacer"
-      >
-      </span>
-      <span class="sbb-form-field__label">
-        <span class="sbb-form-field__label-ellipsis">
-          <slot name="label">
-          </slot>
-        </span>
-      </span>
-      <div class="sbb-form-field__input">
-        <slot>
-        </slot>
-      </div>
-      <sbb-icon
-        class="sbb-form-field__select-input-icon"
-        name="chevron-small-down-small"
-      >
-      </sbb-icon>
-    </div>
-    <slot name="suffix">
-    </slot>
-  </div>
-  <div class="sbb-form-field__hint">
-    <slot name="hint">
-    </slot>
-    <slot name="error">
-    </slot>
-  </div>
-</div>
-`;
-/* end snapshot sbb-autocomplete with actions Safari Shadow DOM */
+/* end snapshot sbb-autocomplete renders in form field Shadow DOM */
 
 snapshots["sbb-autocomplete renders in form field A11y tree Chrome"] = 
 `<p>
@@ -401,6 +128,95 @@ snapshots["sbb-autocomplete renders in form field A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-autocomplete renders in form field A11y tree Chrome */
+
+snapshots["sbb-autocomplete with actions DOM"] = 
+`<sbb-form-field
+  error-space="none"
+  width="default"
+>
+  <input
+    aria-autocomplete="list"
+    aria-controls=""
+    aria-expanded="false"
+    aria-haspopup="listbox"
+    autocomplete="off"
+    role="combobox"
+  >
+  <sbb-autocomplete
+    popover="manual"
+    tabindex="-1"
+  >
+    <sbb-autocomplete-row>
+      <sbb-option
+        aria-description="Press arrow left or right for available actions"
+        value="1"
+      >
+        Option 1
+      </sbb-option>
+      <sbb-autocomplete-button icon-name="pen-small">
+      </sbb-autocomplete-button>
+    </sbb-autocomplete-row>
+    <sbb-autocomplete-row>
+      <sbb-option
+        aria-description="Press arrow left or right for available actions"
+        disabled=""
+        value="1"
+      >
+        Option 2
+      </sbb-option>
+      <sbb-autocomplete-button
+        disabled=""
+        icon-name="pen-small"
+      >
+      </sbb-autocomplete-button>
+    </sbb-autocomplete-row>
+  </sbb-autocomplete>
+</sbb-form-field>
+`;
+/* end snapshot sbb-autocomplete with actions DOM */
+
+snapshots["sbb-autocomplete with actions Shadow DOM"] = 
+`<div class="sbb-form-field__space-wrapper">
+  <div
+    class="sbb-form-field__wrapper"
+    id="overlay-anchor"
+  >
+    <slot name="prefix">
+    </slot>
+    <div class="sbb-form-field__input-container">
+      <span
+        aria-hidden="true"
+        class="sbb-form-field__label-spacer"
+      >
+      </span>
+      <span class="sbb-form-field__label">
+        <span class="sbb-form-field__label-ellipsis">
+          <slot name="label">
+          </slot>
+        </span>
+      </span>
+      <div class="sbb-form-field__input">
+        <slot>
+        </slot>
+      </div>
+      <sbb-icon
+        class="sbb-form-field__select-input-icon"
+        name="chevron-small-down-small"
+      >
+      </sbb-icon>
+    </div>
+    <slot name="suffix">
+    </slot>
+  </div>
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
+    <slot name="error">
+    </slot>
+  </div>
+</div>
+`;
+/* end snapshot sbb-autocomplete with actions Shadow DOM */
 
 snapshots["sbb-autocomplete with actions A11y tree Chrome"] = 
 `<p>

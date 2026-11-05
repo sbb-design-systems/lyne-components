@@ -53,6 +53,9 @@ export class SbbAutocompleteRowElement extends SbbElement {
     if (!option) {
       return;
     }
+    if (!option['internals']) {
+      customElements.upgrade(option);
+    }
 
     if (hasButton) {
       option['internals'].ariaDescription =

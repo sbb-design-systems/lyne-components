@@ -6,6 +6,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 import type { SbbAutocompleteRowElement } from './autocomplete-row.component.ts';
 
 import '../../autocomplete.ts';
+import '../../option.ts';
 
 describe('sbb-autocomplete-row', () => {
   describe('renders', () => {

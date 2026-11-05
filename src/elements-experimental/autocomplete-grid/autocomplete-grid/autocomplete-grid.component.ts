@@ -29,7 +29,6 @@ let nextId = 0;
 export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<T> {
   public static override readonly elementName: string = 'sbb-autocomplete-grid';
   public static override readonly role = 'grid';
-  protected generatedId = `sbb-autocomplete-grid-${++nextId}`;
   private _activeColumnIndex = 0;
 
   protected get options(): SbbAutocompleteGridOptionElement<T>[] {
@@ -38,6 +37,11 @@ export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseE
         'sbb-autocomplete-grid-option',
       ) ?? [],
     );
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.id ||= `sbb-autocomplete-grid-${++nextId}`;
   }
 
   protected syncNegative(): void {

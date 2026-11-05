@@ -1,3 +1,5 @@
+import { appendAriaElements } from '../base-elements/element.ts';
+
 /**
  * Set meaningful aria properties to trigger elements that are connected to
  * overlay elements such as menus and dialogs.
@@ -13,7 +15,7 @@ export function setAriaOverlayTriggerProperties(
   }
 
   trigger.ariaHasPopup = popupType;
-  trigger.ariaControlsElements = [overlay];
+  trigger.ariaControlsElements = appendAriaElements(trigger.ariaControlsElements, overlay);
   trigger.ariaExpanded = `${state === 'opening' || state === 'opened'}`;
 }
 
@@ -32,6 +34,7 @@ export function removeAriaOverlayTriggerProperties(trigger: HTMLElement | null |
 
 /**
  * Add meaningful aria attributes to trigger element of role='combobox'
+ * @deprecated
  */
 export function setAriaComboBoxAttributes(
   trigger: HTMLElement,
@@ -53,6 +56,7 @@ export function setAriaComboBoxAttributes(
 
 /**
  * Remove aria attributes from trigger elements.
+ * @deprecated
  */
 export function removeAriaComboBoxAttributes(trigger?: HTMLElement | null): void {
   if (!trigger) {

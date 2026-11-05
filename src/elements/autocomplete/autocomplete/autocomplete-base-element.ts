@@ -50,6 +50,7 @@ export class SbbInputAutocompleteEvent<T> extends Event {
  *
  * @event {Event} change - The change event is fired on the autocomplete's trigger when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
  * @event {InputEvent} input - The input event fires  on the autocomplete's trigger when the value has been changed as a direct result of a user action.
+ * @deprecated Will be inlined into autocompelte with next major release.
  */
 export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
   SbbOpenCloseBaseElement,
@@ -150,11 +151,13 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   }
   private _triggerElement?: HTMLInputElement | null;
 
+  /** @deprecated **/
   protected get overlayId(): string {
-    return `${this.id}-overlay`;
+    return this.id;
   }
 
-  protected abstract generatedId: string;
+  /** @deprecated **/
+  protected generatedId: string = '';
   protected activeOption: SbbOptionBaseElement<T> | null = null;
   protected pendingAutoSelectedOption: SbbOptionBaseElement<T> | null = null;
   private _resizeObserver = new ResizeController(this, {
@@ -294,7 +297,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   public override connectedCallback(): void {
     this.popover = 'manual';
     super.connectedCallback();
-    this.id ||= this.generatedId;
     this.tabIndex = -1;
 
     if (this.hasUpdated) {

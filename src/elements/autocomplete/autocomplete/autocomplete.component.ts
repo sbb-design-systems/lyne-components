@@ -1,11 +1,9 @@
-import { getNextElementIndex, setAriaComboBoxAttributes } from '../../core.ts';
+import { appendAriaElements, getNextElementIndex } from '../../core.ts';
 import type { SbbDividerElement } from '../../divider/divider.component.ts';
 import type { SbbOptionElement, SbbOptionHintElement } from '../../option.pure.ts';
 import type { SbbAutocompleteButtonElement } from '../autocomplete-button/autocomplete-button.component.ts';
 
 import { SbbAutocompleteBaseElement } from './autocomplete-base-element.ts';
-
-let nextId = 0;
 
 /**
  * Combined with a native input, it displays a panel with a list of available options.
@@ -21,7 +19,6 @@ let nextId = 0;
 export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
   public static override readonly elementName: string = 'sbb-autocomplete';
   public static override readonly role = 'listbox';
-  protected generatedId = `sbb-autocomplete-${++nextId}`;
 
   /** Index of the active element within the active option's row (0 = option, >0 = a button). */
   private _activeColumnIndex = 0;
@@ -192,8 +189,16 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
   }
 
   protected setTriggerAttributes(element: HTMLInputElement): void {
-    // autocomplete cannot use aria properties because they do not pierce shadow DOM
-    setAriaComboBoxAttributes(element, this.id, false);
+    if (!element) {
+      return;
+    }
+
+    element.autocomplete = 'off';
+    element.role = 'combobox';
+    element.ariaAutoComplete = 'list';
+    element.ariaHasPopup = 'listbox';
+    element.ariaControlsElements = appendAriaElements(element.ariaControlsElements, this);
+    element.ariaExpanded = 'false';
   }
 }
 
