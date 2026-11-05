@@ -925,3 +925,10 @@ export const i18nLogo125AnniversaryYears: Record<string, string> = {
   fr: 'ans',
   it: 'anni',
 };
+
+export const i18nButton: Record<string, string> = {
+  de: 'Schaltfläche',
+  en: 'Button',
+  fr: 'Bouton',
+  it: 'Pulsante',
+};

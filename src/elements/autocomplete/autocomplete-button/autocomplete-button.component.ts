@@ -2,10 +2,12 @@ import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult
 
 import { miniButtonStyle } from '../../button.pure.ts';
 import {
+  i18nButton,
   isAndroid,
   isSafari,
   SbbActionBaseElement,
   SbbDisabledMixin,
+  SbbLanguageController,
   SbbNegativeMixin,
   SbbPropertyWatcherController,
 } from '../../core.ts';
@@ -36,12 +38,17 @@ export class SbbAutocompleteButtonElement extends SbbDisabledMixin(
     return this.closest('sbb-optgroup');
   }
 
+  private _languageController = new SbbLanguageController(this);
+
   public constructor() {
     super();
     this.internals.states.add('button');
     if (!isSafari) {
       this.internals.ariaRoleDescription = '';
-      this.internals.ariaDescription = 'button';
+      const updateDescription = (): unknown =>
+        (this.internals.ariaDescription = i18nButton[this._languageController.current]);
+      updateDescription();
+      this._languageController.withHandler(updateDescription);
     }
 
     if (!isServer) {
