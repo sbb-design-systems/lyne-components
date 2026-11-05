@@ -53,8 +53,6 @@ export class SbbAutocompleteButtonElement extends SbbDisabledMixin(
       this._languageController.withHandler(updateDescription);
     }
 
-    this.ariaDescription = 'test description';
-
     if (!isServer) {
       this.setupBaseEventHandlers();
       this.addController(
