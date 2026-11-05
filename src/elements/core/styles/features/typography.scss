@@ -56,3 +56,48 @@ sup {
 .sbb-legend {
   @include typo.legend;
 }
+
+:is(
+  .sbb-heading-1,
+  .sbb-heading-2,
+  .sbb-heading-3,
+  .sbb-heading-4,
+  .sbb-heading-5,
+  .sbb-heading-6
+) {
+  @include typo.heading-rules-new;
+}
+
+.sbb-heading-1 {
+  --sbb-heading-font-size: var(--sbb-heading-font-size-1);
+  @include typo.heading--level-1-spacing;
+}
+
+.sbb-heading-2 {
+  --sbb-heading-font-size: var(--sbb-heading-font-size-2);
+  @include typo.heading--level-2-spacing;
+}
+
+.sbb-heading-3 {
+  --sbb-heading-font-size: var(--sbb-heading-font-size-3);
+  @include typo.heading--level-3-spacing;
+}
+
+.sbb-heading-4 {
+  --sbb-heading-font-size: var(--sbb-heading-font-size-4);
+  @include typo.heading--level-4-spacing;
+}
+
+.sbb-heading-5 {
+  --sbb-heading-font-size: var(--sbb-heading-font-size-5);
+  @include typo.heading--level-5-spacing;
+}
+
+.sbb-heading-6 {
+  --sbb-heading-font-size: var(--sbb-heading-font-size-6);
+  @include typo.heading--level-6-spacing;
+}
+
+.sbb-heading--negative {
+  --sbb-heading-color: var(--sbb-heading-color-negative);
+}
