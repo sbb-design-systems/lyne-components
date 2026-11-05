@@ -21,38 +21,53 @@ $theme: 'standard' !default;
   --sbb-table-sticky-shadow-width: 3rem;
   --sbb-table-sticky-shadow-transition-easing: var(--sbb-animation-easing);
   --sbb-table-header-cell-font-size: var(--sbb-text-font-size-xs);
+  --sbb-table-data-cell-font-size-xs: var(--sbb-text-font-size-xs);
+  --sbb-table-data-cell-font-size-s: var(--sbb-text-font-size-xs);
+  --sbb-table-data-cell-font-size-m: var(--sbb-text-font-size-s);
   --sbb-table-data-cell-font-size: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-text-font-size-s),
-        'lean': var(--sbb-text-font-size-xs),
+        'standard': var(--sbb-table-data-cell-font-size-m),
+        'lean': var(--sbb-table-data-cell-font-size-s),
       ),
       $theme
     )};
+  --sbb-table-header-padding-block-xs: 0;
+  --sbb-table-header-padding-block-s: var(--sbb-spacing-fixed-1x);
+  --sbb-table-header-padding-block-m: var(--sbb-spacing-fixed-3x);
   --sbb-table-header-padding-block: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-fixed-3x),
-        'lean': var(--sbb-spacing-fixed-1x),
+        'standard': var(--sbb-table-header-padding-block-m),
+        'lean': var(--sbb-table-header-padding-block-s),
       ),
       $theme
     )};
+  --sbb-table-header-padding-inline-xs: var(--sbb-spacing-fixed-1x);
+  --sbb-table-header-padding-inline-s: var(--sbb-spacing-fixed-2x);
+  --sbb-table-header-padding-inline-m: var(--sbb-spacing-fixed-4x);
   --sbb-table-header-padding-inline: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-fixed-4x),
-        'lean': var(--sbb-spacing-fixed-2x),
+        'standard': var(--sbb-table-header-padding-inline-m),
+        'lean': var(--sbb-table-header-padding-inline-s),
       ),
       $theme
     )};
+  --sbb-table-cell-padding-block-xs: 0;
+  --sbb-table-cell-padding-block-s: var(--sbb-spacing-fixed-1x);
+  --sbb-table-cell-padding-block-m: var(--sbb-spacing-responsive-xxxs);
   --sbb-table-cell-padding-block: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-responsive-xxxs),
-        'lean': var(--sbb-spacing-fixed-1x),
+        'standard': var(--sbb-table-cell-padding-block-m),
+        'lean': var(--sbb-table-cell-padding-block-s),
       ),
       $theme
     )};
+  --sbb-table-cell-padding-inline-xs: var(--sbb-spacing-fixed-1x);
+  --sbb-table-cell-padding-inline-s: var(--sbb-spacing-fixed-2x);
+  --sbb-table-cell-padding-inline-m: var(--sbb-spacing-fixed-4x);
   --sbb-table-cell-padding-inline: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-fixed-4x),
-        'lean': var(--sbb-spacing-fixed-2x),
+        'standard': var(--sbb-table-cell-padding-inline-m),
+        'lean': var(--sbb-table-cell-padding-inline-s),
       ),
       $theme
     )};
@@ -62,6 +77,26 @@ $theme: 'standard' !default;
     var(--sbb-color-primary125),
     var(--sbb-color-primary85)
   );
+  --sbb-table-body-row-height-xs: #{sbb.px-to-rem-build(22)};
+  --sbb-table-body-row-height-s: #{sbb.px-to-rem-build(30)};
+  --sbb-table-body-row-height-m: #{sbb.px-to-rem-build(49.5)};
+  --sbb-table-body-row-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-table-body-row-height-m),
+        'lean': var(--sbb-table-body-row-height-s),
+      ),
+      $theme
+    )};
+  --sbb-table-header-row-height-xs: #{sbb.px-to-rem-build(22)};
+  --sbb-table-header-row-height-s: #{sbb.px-to-rem-build(30)};
+  --sbb-table-header-row-height-m: #{sbb.px-to-rem-build(46)};
+  --sbb-table-header-row-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-table-header-row-height-m),
+        'lean': var(--sbb-table-header-row-height-s),
+      ),
+      $theme
+    )};
 }
 
 @mixin rules {
@@ -84,6 +119,14 @@ $theme: 'standard' !default;
     color: var(--sbb-table-color);
     table-layout: auto;
     text-align: left;
+
+    thead tr {
+      height: var(--sbb-table-header-row-height);
+    }
+
+    tbody tr {
+      height: var(--sbb-table-body-row-height);
+    }
 
     th {
       font-size: var(--sbb-table-header-cell-font-size);
@@ -149,27 +192,33 @@ $theme: 'standard' !default;
   }
 
   .sbb-table-xs {
-    --sbb-table-data-cell-font-size: var(--sbb-text-font-size-xs);
-    --sbb-table-header-padding-block: 0;
-    --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-1x);
-    --sbb-table-cell-padding-block: 0;
-    --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-1x);
+    --sbb-table-data-cell-font-size: var(--sbb-table-data-cell-font-size-xs);
+    --sbb-table-header-padding-block: var(--sbb-table-header-padding-block-xs);
+    --sbb-table-header-padding-inline: var(--sbb-table-header-padding-inline-xs);
+    --sbb-table-cell-padding-block: var(--sbb-table-cell-padding-block-xs);
+    --sbb-table-cell-padding-inline: var(--sbb-table-cell-padding-inline-xs);
+    --sbb-table-header-row-height: var(--sbb-table-header-row-height-xs);
+    --sbb-table-body-row-height: var(--sbb-table-body-row-height-xs);
   }
 
   .sbb-table-s {
-    --sbb-table-data-cell-font-size: var(--sbb-text-font-size-xs);
-    --sbb-table-header-padding-block: var(--sbb-spacing-fixed-1x);
-    --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-2x);
-    --sbb-table-cell-padding-block: var(--sbb-spacing-fixed-1x);
-    --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-2x);
+    --sbb-table-data-cell-font-size: var(--sbb-table-data-cell-font-size-s);
+    --sbb-table-header-padding-block: var(--sbb-table-header-padding-block-s);
+    --sbb-table-header-padding-inline: var(--sbb-table-header-padding-inline-s);
+    --sbb-table-cell-padding-block: var(--sbb-table-cell-padding-block-s);
+    --sbb-table-cell-padding-inline: var(--sbb-table-cell-padding-inline-s);
+    --sbb-table-header-row-height: var(--sbb-table-header-row-height-s);
+    --sbb-table-body-row-height: var(--sbb-table-body-row-height-s);
   }
 
   .sbb-table-m {
-    --sbb-table-data-cell-font-size: var(--sbb-text-font-size-s);
-    --sbb-table-header-padding-block: var(--sbb-spacing-fixed-3x);
-    --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-4x);
-    --sbb-table-cell-padding-block: var(--sbb-spacing-responsive-xxxs);
-    --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-4x);
+    --sbb-table-data-cell-font-size: var(--sbb-table-data-cell-font-size-m);
+    --sbb-table-header-padding-block: var(--sbb-table-header-padding-block-m);
+    --sbb-table-header-padding-inline: var(--sbb-table-header-padding-inline-m);
+    --sbb-table-cell-padding-block: var(--sbb-table-cell-padding-block-m);
+    --sbb-table-cell-padding-inline: var(--sbb-table-cell-padding-inline-m);
+    --sbb-table-header-row-height: var(--sbb-table-header-row-height-m);
+    --sbb-table-body-row-height: var(--sbb-table-body-row-height-m);
   }
 
   sbb-table-wrapper[negative] .sbb-table,
