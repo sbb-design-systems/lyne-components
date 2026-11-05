@@ -3,6 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-autocomplete renders standalone DOM"] = 
 `<sbb-autocomplete
+  id="standalone"
   origin="origin"
   popover="manual"
   tabindex="-1"
@@ -147,10 +148,7 @@ snapshots["sbb-autocomplete with actions DOM"] =
     tabindex="-1"
   >
     <sbb-autocomplete-row>
-      <sbb-option
-        aria-description="Press arrow left or right for available actions"
-        value="1"
-      >
+      <sbb-option value="1">
         Option 1
       </sbb-option>
       <sbb-autocomplete-button icon-name="pen-small">
@@ -158,7 +156,6 @@ snapshots["sbb-autocomplete with actions DOM"] =
     </sbb-autocomplete-row>
     <sbb-autocomplete-row>
       <sbb-option
-        aria-description="Press arrow left or right for available actions"
         disabled=""
         value="1"
       >

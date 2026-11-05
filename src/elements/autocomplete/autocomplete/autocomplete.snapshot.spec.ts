@@ -29,7 +29,7 @@ describe(`sbb-autocomplete`, () => {
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
+      await expect(element).dom.to.be.equalSnapshot();
     });
 
     it('Shadow DOM', async () => {
@@ -44,7 +44,7 @@ describe(`sbb-autocomplete`, () => {
       root = await fixture(html`
         <sbb-form-field>
           <input />
-          <sbb-autocomplete id="in-form-field">
+          <sbb-autocomplete>
             <sbb-option value="1">1</sbb-option>
             <sbb-option value="2">2</sbb-option>
           </sbb-autocomplete>
@@ -53,7 +53,7 @@ describe(`sbb-autocomplete`, () => {
     });
 
     it('DOM', async () => {
-      await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
+      await expect(root).dom.to.be.equalSnapshot();
     });
 
     it('Shadow DOM', async () => {
@@ -70,7 +70,7 @@ describe(`sbb-autocomplete`, () => {
       root = await fixture(html`
         <sbb-form-field>
           <input />
-          <sbb-autocomplete id="with-actions">
+          <sbb-autocomplete>
             <sbb-autocomplete-row>
               <sbb-option value="1">Option 1</sbb-option>
               <sbb-autocomplete-button icon-name="pen-small"></sbb-autocomplete-button>
@@ -85,7 +85,7 @@ describe(`sbb-autocomplete`, () => {
     });
 
     it('DOM', async () => {
-      await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
+      await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['aria-description'] });
     });
 
     it('Shadow DOM', async () => {

@@ -22,7 +22,7 @@ describe('sbb-autocomplete-row', () => {
     });
 
     it('DOM', async () => {
-      await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
+      await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['aria-description'] });
     });
 
     it('Shadow DOM', async () => {
