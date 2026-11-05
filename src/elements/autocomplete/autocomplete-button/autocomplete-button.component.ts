@@ -4,9 +4,11 @@ import { miniButtonStyle } from '../../button.pure.ts';
 import {
   i18nButton,
   isAndroid,
+  isMacOS,
   isSafari,
   SbbActionBaseElement,
   SbbDisabledMixin,
+  sbbLiveAnnouncer,
   SbbLanguageController,
   SbbNegativeMixin,
   SbbPropertyWatcherController,
@@ -51,6 +53,8 @@ export class SbbAutocompleteButtonElement extends SbbDisabledMixin(
       this._languageController.withHandler(updateDescription);
     }
 
+    this.ariaDescription = 'test description';
+
     if (!isServer) {
       this.setupBaseEventHandlers();
       this.addController(
@@ -72,6 +76,31 @@ export class SbbAutocompleteButtonElement extends SbbDisabledMixin(
    */
   public setActive(value: boolean): void {
     this.toggleState('focus-visible', value);
+
+    // In Safari on macOS, VoiceOver is not announcing anything.
+    // We fix this by manually announcing the button's label and description when it is focused.
+    if (value && isSafari && isMacOS) {
+      const output: string[] = [];
+      if (this.ariaLabel) {
+        output.push(this.ariaLabel);
+      } else if (this.ariaLabelledByElements?.length) {
+        output.push(this._textContent(this.ariaLabelledByElements));
+      }
+
+      if (this.ariaDescription) {
+        output.push(this.ariaDescription);
+      } else if (this.ariaDescribedByElements?.length) {
+        output.push(this._textContent(this.ariaDescribedByElements));
+      }
+
+      output.push(i18nButton[this._languageController.current]);
+
+      sbbLiveAnnouncer.announce(output.join(', '), 'assertive');
+    }
+  }
+
+  private _textContent(elements: readonly Element[] | null | undefined): string {
+    return elements?.map((el) => el.textContent.trim().replace(/\.$/, '')).join('. ') ?? '';
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
