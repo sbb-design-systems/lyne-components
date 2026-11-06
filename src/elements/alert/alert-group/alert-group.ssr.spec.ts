@@ -6,7 +6,6 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 import { SbbAlertGroupElement } from './alert-group.component.ts';
 
 import '../../alert.ts';
-import '../../title.ts';
 
 describe(`sbb-alert-group ssr`, () => {
   let root: SbbAlertGroupElement;
@@ -16,16 +15,16 @@ describe(`sbb-alert-group ssr`, () => {
       html`
         <sbb-alert-group accessibility-title="Disruptions" accessibility-title-level="3">
           <sbb-alert>
-            <sbb-title level="4">Interruption</sbb-title>
+            <h4>Interruption</h4>
             First
           </sbb-alert>
           <sbb-alert>
-            <sbb-title level="4">Interruption</sbb-title>
+            <h4>Interruption</h4>
             Second
           </sbb-alert>
         </sbb-alert-group>
       `,
-      { modules: ['../../alert.ts', '../../title.ts'] },
+      { modules: ['../../alert.ts'] },
     );
   });
 

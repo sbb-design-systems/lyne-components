@@ -7,7 +7,6 @@ import type { SbbAlertElement } from './alert.component.ts';
 
 import '../../alert.ts';
 import '../../link.ts';
-import '../../title.ts';
 
 describe(`sbb-alert`, () => {
   let element: SbbAlertElement;
@@ -16,7 +15,7 @@ describe(`sbb-alert`, () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-alert>
-          <sbb-title level="3">Interruption</sbb-title>
+          <h3>Interruption</h3>
           Alert content
         </sbb-alert>`,
       );
@@ -35,7 +34,7 @@ describe(`sbb-alert`, () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-alert size="l" icon-name="disruption">
-          <sbb-title level="2">Interruption</sbb-title>
+          <h2>Interruption</h2>
           Alert content Alert content <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
         </sbb-alert>`,
       );

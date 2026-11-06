@@ -9,6 +9,15 @@
   line-height: var(--sbb-typo-line-height-heading);
 }
 
+@mixin heading-rules-new {
+  font-family: var(--sbb-typo-font-family);
+  font-weight: bold;
+  letter-spacing: var(--sbb-letter-spacing-heading);
+  line-height: var(--sbb-typo-line-height-heading);
+  font-size: var(--sbb-heading-font-size);
+  color: var(--sbb-heading-color);
+}
+
 @mixin heading--level-1 {
   font-size: var(--sbb-heading-font-size-1);
 }

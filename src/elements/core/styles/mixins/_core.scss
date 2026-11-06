@@ -12,6 +12,8 @@
 
   // Infinity border radius, can be used to achieve rounded border on start and end
   --sbb-border-radius-infinity: calc(infinity * 1px);
+  --sbb-heading-color: var(--sbb-color-3);
+  --sbb-heading-color-negative: var(--sbb-color-3-negative);
 
   @include typo.text;
 

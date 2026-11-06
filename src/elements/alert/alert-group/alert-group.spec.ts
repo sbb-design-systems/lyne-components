@@ -11,7 +11,6 @@ import { SbbAlertElement } from '../alert/alert.component.ts';
 import { SbbAlertGroupElement } from './alert-group.component.ts';
 
 import '../../alert.ts';
-import '../../title.ts';
 
 describe(`sbb-alert-group`, () => {
   let element: SbbAlertGroupElement;
@@ -36,11 +35,11 @@ describe(`sbb-alert-group`, () => {
         accessibility-title-level="${accessibilityTitleLevel}"
       >
         <sbb-alert id="alert1">
-          <sbb-title level="3">Interruption</sbb-title>
+          <h3>Interruption</h3>
           First
         </sbb-alert>
         <sbb-alert id="alert2">
-          <sbb-title level="3">Interruption</sbb-title>
+          <h3>Interruption</h3>
           Second
         </sbb-alert>
       </sbb-alert-group>
