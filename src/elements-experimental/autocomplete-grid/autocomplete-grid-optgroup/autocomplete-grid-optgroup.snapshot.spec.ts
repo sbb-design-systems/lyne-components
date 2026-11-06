@@ -1,7 +1,5 @@
 import { expect } from '@open-wc/testing';
 import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/testing/private.js';
-import { describeIf } from '@sbb-esta/lyne-elements/core/testing.js';
-import { isSafari } from '@sbb-esta/lyne-elements/core.js';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
@@ -32,24 +30,12 @@ describe('sbb-autocomplete-grid-optgroup', () => {
       ).querySelector('sbb-autocomplete-grid-optgroup')!;
     });
 
-    describeIf(!isSafari, 'Chrome-Firefox', async () => {
-      it('DOM', async () => {
-        await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
-      });
-
-      it('Shadow DOM', async () => {
-        await expect(root).shadowDom.to.be.equalSnapshot();
-      });
+    it('DOM', async () => {
+      await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
     });
 
-    describeIf(isSafari, 'Safari', async () => {
-      it('DOM', async () => {
-        await expect(root).dom.to.be.equalSnapshot();
-      });
-
-      it('Shadow DOM', async () => {
-        await expect(root).shadowDom.to.be.equalSnapshot();
-      });
+    it('Shadow DOM', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
     });
   });
 

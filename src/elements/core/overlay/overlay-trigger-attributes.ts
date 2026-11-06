@@ -1,3 +1,5 @@
+import { appendAriaElements } from '../base-elements/element.ts';
+
 /**
  * Set meaningful aria properties to trigger elements that are connected to
  * overlay elements such as menus and dialogs.
@@ -13,7 +15,7 @@ export function setAriaOverlayTriggerProperties(
   }
 
   trigger.ariaHasPopup = popupType;
-  trigger.ariaControlsElements = [overlay];
+  trigger.ariaControlsElements = appendAriaElements(trigger.ariaControlsElements, overlay);
   trigger.ariaExpanded = `${state === 'opening' || state === 'opened'}`;
 }
 
@@ -32,6 +34,7 @@ export function removeAriaOverlayTriggerProperties(trigger: HTMLElement | null |
 
 /**
  * Add meaningful aria attributes to trigger element of role='combobox'
+ * @deprecated
  */
 export function setAriaComboBoxAttributes(
   trigger: HTMLElement,
@@ -48,12 +51,12 @@ export function setAriaComboBoxAttributes(
   trigger.setAttribute('aria-autocomplete', 'list');
   trigger.setAttribute('aria-haspopup', hasPopup);
   trigger.setAttribute('aria-controls', overlayId);
-  trigger.setAttribute('aria-owns', overlayId); // From Aria 1.2 this should not be necessary, but safari still needs it
   trigger.setAttribute('aria-expanded', `${expanded}`);
 }
 
 /**
  * Remove aria attributes from trigger elements.
+ * @deprecated
  */
 export function removeAriaComboBoxAttributes(trigger?: HTMLElement | null): void {
   if (!trigger) {
@@ -65,6 +68,5 @@ export function removeAriaComboBoxAttributes(trigger?: HTMLElement | null): void
   trigger.removeAttribute('aria-autocomplete');
   trigger.removeAttribute('aria-haspopup');
   trigger.removeAttribute('aria-controls');
-  trigger.removeAttribute('aria-owns');
   trigger.removeAttribute('aria-expanded');
 }

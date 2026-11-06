@@ -1,17 +1,9 @@
-import { getNextElementIndex, isSafari, setAriaComboBoxAttributes } from '../../core.ts';
+import { appendAriaElements, getNextElementIndex } from '../../core.ts';
 import type { SbbDividerElement } from '../../divider/divider.component.ts';
 import type { SbbOptionElement, SbbOptionHintElement } from '../../option.pure.ts';
 import type { SbbAutocompleteButtonElement } from '../autocomplete-button/autocomplete-button.component.ts';
 
 import { SbbAutocompleteBaseElement } from './autocomplete-base-element.ts';
-
-let nextId = 0;
-
-/**
- * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
- * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
- */
-const ariaRoleOnHost = isSafari;
 
 /**
  * Combined with a native input, it displays a panel with a list of available options.
@@ -26,9 +18,7 @@ const ariaRoleOnHost = isSafari;
  */
 export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
   public static override readonly elementName: string = 'sbb-autocomplete';
-  public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
-  protected generatedId = `sbb-autocomplete-${++nextId}`;
-  protected panelRole = 'listbox';
+  public static override readonly role = 'listbox';
 
   /** Index of the active element within the active option's row (0 = option, >0 = a button). */
   private _activeColumnIndex = 0;
@@ -116,6 +106,22 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
     }
   }
 
+  protected override handleOptionChange(): void {
+    const options = this.options;
+    const optionsCount = `${options.length}`;
+    let position = 1;
+    for (const option of options) {
+      const buttons = Array.from(
+        option.closest('sbb-autocomplete-row')?.querySelectorAll('sbb-autocomplete-button') ?? [],
+      );
+      for (const element of [option, ...buttons]) {
+        element['internals'].ariaSetSize = optionsCount;
+        element['internals'].ariaPosInSet = `${position}`;
+      }
+      position++;
+    }
+  }
+
   /**
    * Moves the active element horizontally within the active option's `sbb-autocomplete-row`,
    * between the option itself and its `sbb-autocomplete-button`s.
@@ -183,8 +189,16 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
   }
 
   protected setTriggerAttributes(element: HTMLInputElement): void {
-    // autocomplete cannot use aria properties because they do not pierce shadow DOM
-    setAriaComboBoxAttributes(element, ariaRoleOnHost ? this.id : this.overlayId, false);
+    if (!element) {
+      return;
+    }
+
+    element.autocomplete = 'off';
+    element.role = 'combobox';
+    element.ariaAutoComplete = 'list';
+    element.ariaHasPopup = 'listbox';
+    element.ariaControlsElements = appendAriaElements(element.ariaControlsElements, this);
+    element.ariaExpanded = 'false';
   }
 }
 
