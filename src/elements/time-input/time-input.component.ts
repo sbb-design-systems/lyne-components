@@ -249,8 +249,7 @@ export class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement)
   }
 
   private _hasSelection(): boolean {
-    const range = window.getSelection()?.getRangeAt(0);
-    return !!range && range.startOffset !== range.endOffset;
+    return window.getSelection()?.getRangeAt(0)?.collapsed === false;
   }
 }
 
