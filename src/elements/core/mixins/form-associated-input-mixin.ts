@@ -156,6 +156,21 @@ export const SbbFormAssociatedInputMixin = <
           if (this._requiresEmptyPatch()) {
             this._assignValue('');
           }
+
+          // When triple clicking with the mouse to select everything, the
+          // selection range is broken for usage and needs to be corrected
+          // manually.
+          const selection = window.getSelection();
+          const range = selection?.getRangeAt(0);
+          if (
+            range &&
+            !range.collapsed &&
+            range.startContainer === this &&
+            range.endContainer === this.lastChild
+          ) {
+            range.selectNodeContents(this.lastChild);
+          }
+
           // We prevent recursive events by checking the original event for isTrusted
           // which is false for manually dispatched events (which we dispatch below).
           if ((event.key === 'Enter' || event.key === '\n') && event.isTrusted) {
@@ -178,12 +193,12 @@ export const SbbFormAssociatedInputMixin = <
               return;
             }
 
-            const selectedRange = window.getSelection()?.getRangeAt(0);
+            const selectedRange = selection?.getRangeAt(0);
             if (!selectedRange) {
               return;
             }
 
-            if (selectedRange.startOffset !== selectedRange.endOffset) {
+            if (!selectedRange.collapsed) {
               // If a text range is selected, then delete this range
               selectedRange.deleteContents();
               this._dispatchInputEvent();
