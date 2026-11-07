@@ -2189,14 +2189,14 @@
     "@ts-graphviz/ast" "^2.0.7"
     "@ts-graphviz/common" "^2.1.5"
 
-"@tsdown/css@0.23.5":
-  version "0.23.5"
-  resolved "https://registry.yarnpkg.com/@tsdown/css/-/css-0.23.5.tgz#7720f03419b83cf9f7228e472cbaf2865e5dac5a"
-  integrity sha512-Zcobb3e4RTXcB3WijguGEXEfLJbhDxXq8Vce2PT1MR7E1JwMwwOevSXXAHFWTam5lJRBLyxrImcSQTqeZ2KCvA==
+"@tsdown/css@0.23.7":
+  version "0.23.7"
+  resolved "https://registry.yarnpkg.com/@tsdown/css/-/css-0.23.7.tgz#027ad75685201aaa726e6dede1e81526af272307"
+  integrity sha512-Y47O40X1/jpR0D6R92NFE5KC+huaZHorIb8huy9h0X7SsZ0C9Nq83/+gtRsoB/wzfu4mNtXS/ylFDxV0I+aYlQ==
   dependencies:
     lightningcss "^1.33.0"
     postcss-load-config "^6.0.1"
-    rolldown "~1.2.16"
+    rolldown "~1.3.0"
 
 "@tybys/wasm-util@^0.10.3":
   version "0.10.4"
