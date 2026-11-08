@@ -2910,10 +2910,10 @@
   resolved "https://registry.yarnpkg.com/@web/config-loader/-/config-loader-1.0.0.tgz#1b47b2070f1a607ce1c56cea6ead3b00c04da465"
   integrity sha512-qRz0XX0skqymolAJGP7PwefKDkgxZXufb+G+Gj0xioOS6TseMgGvJ6JmB5+4ZWaQFVk5Oie1zerpG7GKMtdxpw==
 
-"@web/dev-server-core@1.0.1", "@web/dev-server-core@^0.4.1", "@web/dev-server-core@^0.7.3", "@web/dev-server-core@^1.0.0":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@web/dev-server-core/-/dev-server-core-1.0.1.tgz#f21e573fa0ff46208d568b129c082368739ea183"
-  integrity sha512-hwps4+UoNDoAP5oM2wLuwWi7AB9drW6k1ybRx0eLSly966zqj3gRSHCJmtGtC0u77HdnlED4PDFSdJfrq2Oo3A==
+"@web/dev-server-core@1.0.2", "@web/dev-server-core@^0.4.1", "@web/dev-server-core@^0.7.3", "@web/dev-server-core@^1.0.0":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@web/dev-server-core/-/dev-server-core-1.0.2.tgz#116fffef19e9335606a801f04bfb6ed1141cc628"
+  integrity sha512-LYuHmB8FalYfXbgNXOQJenjsP2ozHTmDZ9S1UHC9kbkkMlNa/WxKadkgO8T4gRruumJfApK1twAUjEFhEWtDlw==
   dependencies:
     "@types/koa" "^2.11.6"
     "@types/ws" "^7.4.0"
@@ -2932,6 +2932,7 @@
     mime-types "^2.1.27"
     parse5 "^6.0.1"
     picomatch "^2.3.2"
+    portfinder "^1.0.32"
     ws "^7.5.10"
 
 "@web/dev-server-rollup@^1.0.0":
