@@ -17,6 +17,7 @@ let autocompleteButtonNextId = 0;
 /**
  * It displays an icon-only button that can be used in `sbb-autocomplete-grid`.
  *
+ * @deprecated Use `sbb-autocomplete` with `sbb-autocomplete-row` and `sbb-autocomplete-button` instead. Will be removed with the next major release.
  * @slot icon - Slot used to display the icon, if one is set
  */
 export class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(

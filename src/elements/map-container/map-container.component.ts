@@ -103,9 +103,6 @@ export class SbbMapContainerElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-map-container__map">
-        <slot name="map"></slot>
-      </div>
       <div
         class="sbb-map-container__sidebar sbb-scrollbar-thick-track-visible"
         @scroll=${(e: Event) => forwardEvent(e, document)}
@@ -127,6 +124,9 @@ export class SbbMapContainerElement extends SbbElement {
               </sbb-accent-button>`
             : nothing
         }
+      </div>
+      <div class="sbb-map-container__map">
+        <slot name="map"></slot>
       </div>
     `;
   }

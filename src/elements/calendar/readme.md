@@ -102,7 +102,7 @@ It's recommended to set the time to 00:00:00.
 <sbb-calendar min="1599955200" max="1699920000" value="1649980800"></sbb-calendar>
 ```
 
-By default, the component takes, in order of priority,
+By default, the component takes, in order of priority, the `activeMonth` property,
 the `value` property or the current date to calculate which month it has to show.
 It's possible to move to the previous/next month using the two buttons at the top of the component.
 
@@ -159,6 +159,17 @@ all the days in the week.
 <sbb-calendar multiple week-numbers></sbb-calendar>
 ```
 
+### Active month
+
+Use the `activeMonth` property to define the currently displayed month.
+This can be done initially or dynamically after creation.
+It is recommended not to change this during user interaction, as this
+can be disorienting.
+
+```html
+<sbb-calendar active-month="2025-01"></sbb-calendar>
+```
+
 ### Fixed month
 
 In the case where a fixed month (or months with `amount`) should be displayed,
@@ -178,7 +189,7 @@ in the `year` view, or a list of months in the `month` view.
 When setting the `amount` to a value greater than 1, it will display the given amount of months.
 
 ```html
-<sbb-calendar wide="true" value="1699920000"></sbb-calendar>
+<sbb-calendar amount="2" value="1699920000"></sbb-calendar>
 ```
 
 It's also possible to change the orientation of dates by setting the `orientation` property to
@@ -240,6 +251,11 @@ pressing the `<kbd>Home</kbd>` when the first day of the month is disabled will 
 | <kbd>Page Up</kbd>     | Go to the first day of the week (eg. from any day to Monday of the same week). |
 | <kbd>Page Down</kbd>   | Go to the last day of the week (eg. from any day to Sunday of the same week).  |
 
+If `multiple` is set, it is possible to navigate among weekdays using arrows and special keys;
+similarly, if `weekNumbers` is set, it is possible to navigate the week numbers group.
+Using the `Tab` button, the first row is reached first (weekday in `horizontal` orientation, week numbers in `vertical`),
+then the opposite group (week numbers in `horizontal` orientation, weekday in `vertical`), then the calendar days.
+
 ## Accessibility
 
 For accessibility purposes, the component is rendered as a native table element and each day is a button.
@@ -289,9 +305,10 @@ For accessibility purposes, the component is rendered as a native table element 
 
 | Name                | Attribute      | Privacy | Type                             | Default        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------- | -------------- | ------- | -------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `activeMonth`       | `active-month` | public  | `string`                         | `null`         | Set this with the format `YYYY-MM` to have the calendar show this month. This will not update when a user changes the month, and will not prevent navigation to other months. Changing this property will reset the calendar view to the given month.                                                                                                                                                                                                   |
 | `amount`            | `amount`       | public  | `number`                         | `1`            | The amount of months to display in this calendar.                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `dateFilter`        | `date-filter`  | public  | `((date: T) => boolean) \| null` | `null`         | A function used to filter out dates.                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `fixedMonth`        | `fixed-month`  | public  | `string`                         | `null`         | Set this with the format `YYYY-MM` to limit the calendar to a specific month, and prevent navigation to other months.                                                                                                                                                                                                                                                                                                                                   |
+| `fixedMonth`        | `fixed-month`  | public  | `string`                         | `null`         | Set this with the format `YYYY-MM` to limit the calendar to a specific month, and prevent navigation to other months. This will override any other month selection.                                                                                                                                                                                                                                                                                     |
 | `form`              | -              | public  | `HTMLFormElement \| null`        |                | Returns the form owner of this element.                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `max`               | `max`          | public  | `T \| null`                      | `null`         | The maximum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.                                                                                                                                                                                                                                                                                                                              |
 | `min`               | `min`          | public  | `T \| null`                      | `null`         | The minimum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.                                                                                                                                                                                                                                                                                                                              |

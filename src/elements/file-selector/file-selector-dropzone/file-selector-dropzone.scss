@@ -39,7 +39,7 @@ sbb-icon[name='folder-open-small'] {
 .sbb-file-selector__dropzone-area--title {
   font-weight: bold;
   font-size: var(--sbb-heading-font-size-6);
-  letter-spacing: var(--sbb-typo-letter-spacing-heading);
+  letter-spacing: var(--sbb-letter-spacing-heading);
   text-align: center;
   color: var(--sbb-file-selector-color);
 }
@@ -49,6 +49,6 @@ sbb-icon[name='folder-open-small'] {
   color: var(--sbb-file-selector-subtitle-color);
   margin-block-end: var(--sbb-spacing-fixed-4x);
   line-height: var(--sbb-typo-line-height-text);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
   font-size: var(--sbb-text-font-size-xs);
 }

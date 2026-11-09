@@ -281,6 +281,8 @@ snapshots["inert ignored elements nested inside a wrapper should carve a path do
   </div>
   <div id="wrapper">
     <div class="sbb-overlay-outlet">
+      <div id="outlet-content">
+      </div>
     </div>
     <div
       aria-hidden="true"
@@ -301,6 +303,8 @@ snapshots["inert ignored elements nested inside a wrapper should fully remove th
   </div>
   <div id="wrapper">
     <div class="sbb-overlay-outlet">
+      <div id="outlet-content">
+      </div>
     </div>
     <div id="sibling">
     </div>

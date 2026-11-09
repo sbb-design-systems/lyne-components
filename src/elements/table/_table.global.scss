@@ -21,38 +21,79 @@ $theme: 'standard' !default;
   --sbb-table-sticky-shadow-width: 3rem;
   --sbb-table-sticky-shadow-transition-easing: var(--sbb-animation-easing);
   --sbb-table-header-cell-font-size: var(--sbb-text-font-size-xs);
+  --sbb-table-data-cell-font-size-xs: var(--sbb-text-font-size-xs);
+  --sbb-table-data-cell-font-size-s: var(--sbb-text-font-size-xs);
+  --sbb-table-data-cell-font-size-m: var(--sbb-text-font-size-s);
   --sbb-table-data-cell-font-size: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-text-font-size-s),
-        'lean': var(--sbb-text-font-size-xs),
+        'standard': var(--sbb-table-data-cell-font-size-m),
+        'lean': var(--sbb-table-data-cell-font-size-s),
       ),
       $theme
     )};
+  --sbb-table-header-padding-block-xs: 0;
+  --sbb-table-header-padding-block-s: var(--sbb-spacing-fixed-1x);
+  --sbb-table-header-padding-block-m: var(--sbb-spacing-fixed-3x);
   --sbb-table-header-padding-block: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-fixed-3x),
-        'lean': var(--sbb-spacing-fixed-1x),
+        'standard': var(--sbb-table-header-padding-block-m),
+        'lean': var(--sbb-table-header-padding-block-s),
       ),
       $theme
     )};
+  --sbb-table-header-padding-inline-xs: var(--sbb-spacing-fixed-1x);
+  --sbb-table-header-padding-inline-s: var(--sbb-spacing-fixed-2x);
+  --sbb-table-header-padding-inline-m: var(--sbb-spacing-fixed-4x);
   --sbb-table-header-padding-inline: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-fixed-4x),
-        'lean': var(--sbb-spacing-fixed-2x),
+        'standard': var(--sbb-table-header-padding-inline-m),
+        'lean': var(--sbb-table-header-padding-inline-s),
       ),
       $theme
     )};
+  --sbb-table-cell-padding-block-xs: 0;
+  --sbb-table-cell-padding-block-s: var(--sbb-spacing-fixed-1x);
+  --sbb-table-cell-padding-block-m: var(--sbb-spacing-responsive-xxxs);
   --sbb-table-cell-padding-block: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-responsive-xxxs),
-        'lean': var(--sbb-spacing-fixed-1x),
+        'standard': var(--sbb-table-cell-padding-block-m),
+        'lean': var(--sbb-table-cell-padding-block-s),
       ),
       $theme
     )};
+  --sbb-table-cell-padding-inline-xs: var(--sbb-spacing-fixed-1x);
+  --sbb-table-cell-padding-inline-s: var(--sbb-spacing-fixed-2x);
+  --sbb-table-cell-padding-inline-m: var(--sbb-spacing-fixed-4x);
   --sbb-table-cell-padding-inline: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-fixed-4x),
-        'lean': var(--sbb-spacing-fixed-2x),
+        'standard': var(--sbb-table-cell-padding-inline-m),
+        'lean': var(--sbb-table-cell-padding-inline-s),
+      ),
+      $theme
+    )};
+  --sbb-table-sort-header-animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --sbb-table-sort-header-color: var(--sbb-color-2);
+  --sbb-table-sort-header-hover-color: light-dark(
+    var(--sbb-color-primary125),
+    var(--sbb-color-primary85)
+  );
+  --sbb-table-body-row-height-xs: #{sbb.px-to-rem-build(22)};
+  --sbb-table-body-row-height-s: #{sbb.px-to-rem-build(30)};
+  --sbb-table-body-row-height-m: #{sbb.px-to-rem-build(49.5)};
+  --sbb-table-body-row-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-table-body-row-height-m),
+        'lean': var(--sbb-table-body-row-height-s),
+      ),
+      $theme
+    )};
+  --sbb-table-header-row-height-xs: #{sbb.px-to-rem-build(22)};
+  --sbb-table-header-row-height-s: #{sbb.px-to-rem-build(30)};
+  --sbb-table-header-row-height-m: #{sbb.px-to-rem-build(46)};
+  --sbb-table-header-row-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-table-header-row-height-m),
+        'lean': var(--sbb-table-header-row-height-s),
       ),
       $theme
     )};
@@ -68,6 +109,10 @@ $theme: 'standard' !default;
       --sbb-disable-animation-duration,
       var(--sbb-animation-duration-6x)
     );
+    --sbb-table-sort-header-animation-duration: var(
+      --sbb-disable-animation-duration,
+      var(--sbb-animation-duration-6x)
+    );
 
     border-spacing: 0;
     caption-side: bottom;
@@ -75,9 +120,17 @@ $theme: 'standard' !default;
     table-layout: auto;
     text-align: left;
 
+    thead tr {
+      height: var(--sbb-table-header-row-height);
+    }
+
+    tbody tr {
+      height: var(--sbb-table-body-row-height);
+    }
+
     th {
       font-size: var(--sbb-table-header-cell-font-size);
-      letter-spacing: var(--sbb-typo-letter-spacing-text);
+      letter-spacing: var(--sbb-letter-spacing-text);
       font-weight: bold;
       background-color: var(--sbb-table-background-color);
       border-block-end: var(--sbb-table-border);
@@ -88,7 +141,7 @@ $theme: 'standard' !default;
 
     td {
       font-size: var(--sbb-table-data-cell-font-size);
-      letter-spacing: var(--sbb-typo-letter-spacing-text);
+      letter-spacing: var(--sbb-letter-spacing-text);
       background-color: var(--sbb-table-background-color);
       border-block-end: var(--sbb-table-border);
       border-inline-end: var(--sbb-table-border);
@@ -130,7 +183,7 @@ $theme: 'standard' !default;
     );
 
     font-size: var(--sbb-text-font-size-xs);
-    letter-spacing: var(--sbb-typo-letter-spacing-text);
+    letter-spacing: var(--sbb-letter-spacing-text);
 
     // Defaults are needed for cases where the caption is used outside a table
     color: var(--sbb-table-caption-color, var(--sbb-table-caption-color-fallback));
@@ -139,27 +192,33 @@ $theme: 'standard' !default;
   }
 
   .sbb-table-xs {
-    --sbb-table-data-cell-font-size: var(--sbb-text-font-size-xs);
-    --sbb-table-header-padding-block: 0;
-    --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-1x);
-    --sbb-table-cell-padding-block: 0;
-    --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-1x);
+    --sbb-table-data-cell-font-size: var(--sbb-table-data-cell-font-size-xs);
+    --sbb-table-header-padding-block: var(--sbb-table-header-padding-block-xs);
+    --sbb-table-header-padding-inline: var(--sbb-table-header-padding-inline-xs);
+    --sbb-table-cell-padding-block: var(--sbb-table-cell-padding-block-xs);
+    --sbb-table-cell-padding-inline: var(--sbb-table-cell-padding-inline-xs);
+    --sbb-table-header-row-height: var(--sbb-table-header-row-height-xs);
+    --sbb-table-body-row-height: var(--sbb-table-body-row-height-xs);
   }
 
   .sbb-table-s {
-    --sbb-table-data-cell-font-size: var(--sbb-text-font-size-xs);
-    --sbb-table-header-padding-block: var(--sbb-spacing-fixed-1x);
-    --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-2x);
-    --sbb-table-cell-padding-block: var(--sbb-spacing-fixed-1x);
-    --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-2x);
+    --sbb-table-data-cell-font-size: var(--sbb-table-data-cell-font-size-s);
+    --sbb-table-header-padding-block: var(--sbb-table-header-padding-block-s);
+    --sbb-table-header-padding-inline: var(--sbb-table-header-padding-inline-s);
+    --sbb-table-cell-padding-block: var(--sbb-table-cell-padding-block-s);
+    --sbb-table-cell-padding-inline: var(--sbb-table-cell-padding-inline-s);
+    --sbb-table-header-row-height: var(--sbb-table-header-row-height-s);
+    --sbb-table-body-row-height: var(--sbb-table-body-row-height-s);
   }
 
   .sbb-table-m {
-    --sbb-table-data-cell-font-size: var(--sbb-text-font-size-s);
-    --sbb-table-header-padding-block: var(--sbb-spacing-fixed-3x);
-    --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-4x);
-    --sbb-table-cell-padding-block: var(--sbb-spacing-responsive-xxxs);
-    --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-4x);
+    --sbb-table-data-cell-font-size: var(--sbb-table-data-cell-font-size-m);
+    --sbb-table-header-padding-block: var(--sbb-table-header-padding-block-m);
+    --sbb-table-header-padding-inline: var(--sbb-table-header-padding-inline-m);
+    --sbb-table-cell-padding-block: var(--sbb-table-cell-padding-block-m);
+    --sbb-table-cell-padding-inline: var(--sbb-table-cell-padding-inline-m);
+    --sbb-table-header-row-height: var(--sbb-table-header-row-height-m);
+    --sbb-table-body-row-height: var(--sbb-table-body-row-height-m);
   }
 
   sbb-table-wrapper[negative] .sbb-table,
@@ -172,6 +231,8 @@ $theme: 'standard' !default;
     --sbb-table-color: var(--sbb-color-1-negative);
     --sbb-table-row-striped-color: var(--sbb-background-color-3-negative);
     --sbb-table-caption-color: var(--sbb-color-cement);
+    --sbb-table-sort-header-color: var(--sbb-color-2-negative);
+    --sbb-table-sort-header-hover-color: var(--sbb-color-primary85);
   }
 
   .sbb-table--striped {
@@ -252,7 +313,7 @@ $theme: 'standard' !default;
     );
 
     font-size: var(--sbb-text-font-size-xs);
-    letter-spacing: var(--sbb-typo-letter-spacing-text);
+    letter-spacing: var(--sbb-letter-spacing-text);
 
     // Defaults are needed for cases where the caption is used outside a table
     color: var(--sbb-table-caption-color, var(--sbb-table-caption-color-fallback));
@@ -336,5 +397,222 @@ $theme: 'standard' !default;
   // Backwards compatibility for sbb-angular
   .sbb-table-align-right {
     text-align: right;
+  }
+
+  // Sort header classes
+  .sbb-sort-header {
+    position: relative;
+
+    // Usually we could rely on the arrow showing up to be focus indication, but if a header is
+    // active, the arrow will always be shown so the user has no way of telling the difference.
+    &:is(:focus-visible, .cdk-keyboard-focused, .cdk-program-focused),
+    &:has(.sbb-sort-header-container:focus-visible) {
+      --sbb-focus-outline-offset: calc(-1 * var(--sbb-focus-outline-width));
+
+      @include sbb.focus-outline;
+    }
+
+    &:not(.sbb-sort-header-disabled) {
+      cursor: var(--sbb-cursor-pointer);
+    }
+
+    &:not(.sbb-sort-header-disabled):hover .sbb-sort-header-container {
+      color: var(--sbb-table-sort-header-hover-color);
+    }
+  }
+
+  .sbb-sort-header-sorted {
+    color: var(--sbb-table-sort-header-color);
+  }
+
+  .sbb-sort-header-container {
+    display: flex;
+    letter-spacing: normal;
+    text-align: left;
+    height: 100%;
+
+    // Needs to be reset since we don't want an outline around the inner
+    // div which is focusable. We have our own alternate focus styling.
+    outline: 0;
+
+    .sbb-sort-header-disabled & {
+      cursor: var(--sbb-cursor-default);
+    }
+
+    .sbb-table-align-center & {
+      text-align: center;
+    }
+  }
+
+  .sbb-sort-header-content {
+    flex-shrink: 1;
+    flex-grow: 1;
+  }
+
+  .sbb-sort-header-position-before {
+    flex-direction: row-reverse;
+  }
+
+  .sbb-sort-header-arrow {
+    height: var(--sbb-size-icon-ui-small);
+    width: var(--sbb-size-icon-ui-small);
+    min-width: var(--sbb-size-icon-ui-small);
+    position: relative;
+
+    // Start off at 0 since the arrow may become visible while parent are animating.
+    // This will be overwritten when the arrow animations kick in. See #11819.
+    opacity: 0;
+    animation: var(--sbb-sort-header-animation-name) var(--sbb-table-sort-header-animation-duration)
+      var(--sbb-table-sort-header-animation-easing);
+    transition: {
+      property: opacity, translate;
+      duration: var(--sbb-table-sort-header-animation-duration);
+      timing-function: var(--sbb-table-sort-header-animation-easing);
+    }
+
+    margin: #{sbb.px-to-rem-build(-1)} #{sbb.px-to-rem-build(-8)} #{sbb.px-to-rem-build(-1)}
+      #{sbb.px-to-rem-build(-4)};
+
+    .sbb-sort-header-position-before & {
+      margin: #{sbb.px-to-rem-build(-1)} #{sbb.px-to-rem-build(-4)} #{sbb.px-to-rem-build(-1)}
+        #{sbb.px-to-rem-build(-1)};
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+
+      :where(path:nth-child(2)) {
+        transform-origin: center;
+      }
+    }
+
+    &.no-transition {
+      transition:
+        opacity 0ms,
+        translate 0ms !important;
+    }
+
+    &.active,
+    &.desc-to-active,
+    &.asc-to-active {
+      opacity: 1;
+    }
+
+    &.hint,
+    &.desc-to-hint,
+    &.asc-to-hint {
+      opacity: 0.54;
+    }
+
+    &.desc,
+    &.asc,
+    &.void,
+    &.hint-to-desc,
+    &.active-to-desc,
+    &.hint-to-asc,
+    &.active-to-asc {
+      opacity: 0;
+    }
+
+    &.hint,
+    &.active,
+    &.desc-to-active,
+    &.asc-to-active {
+      translate: 0;
+    }
+
+    &.desc,
+    &.active-to-desc {
+      translate: 0 25%;
+    }
+
+    &.asc,
+    &.active-to-asc {
+      translate: 0 -25%;
+    }
+
+    &.desc-to-hint {
+      --sbb-sort-header-animation-name: move-desc-to-hint;
+
+      translate: 0;
+    }
+
+    &.hint-to-desc {
+      --sbb-sort-header-animation-name: move-hint-to-desc;
+
+      translate: 0 25%;
+    }
+
+    &.asc-to-hint {
+      --sbb-sort-header-animation-name: move-asc-to-hint;
+
+      translate: 0;
+    }
+
+    &.hint-to-asc {
+      --sbb-sort-header-animation-name: move-hint-to-asc;
+
+      translate: 0 -25%;
+    }
+  }
+
+  .sbb-sort-indicator {
+    transition: scale var(--sbb-table-sort-header-animation-duration)
+      var(--sbb-table-sort-header-animation-easing);
+
+    &.asc,
+    &.active-asc {
+      scale: 1 -1;
+    }
+
+    &.desc,
+    &.active-desc {
+      scale: 1 1;
+    }
+
+    &.no-transition {
+      transition: none !important;
+    }
+  }
+
+  @keyframes move-desc-to-hint {
+    from {
+      translate: 0 25%;
+    }
+
+    to {
+      translate: 0 0;
+    }
+  }
+
+  @keyframes move-hint-to-desc {
+    from {
+      translate: 0 0;
+    }
+
+    to {
+      translate: 0 25%;
+    }
+  }
+
+  @keyframes move-asc-to-hint {
+    from {
+      translate: 0 -25%;
+    }
+
+    to {
+      translate: 0 0;
+    }
+  }
+
+  @keyframes move-hint-to-asc {
+    from {
+      translate: 0 0;
+    }
+
+    to {
+      translate: 0 -25%;
+    }
   }
 }

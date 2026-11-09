@@ -256,6 +256,15 @@ For this purpose, the `sbb-form-information` CSS class can be applied to a wrapp
 </span>
 ```
 
+### Input without form-field
+
+A native input element used without a `sbb-form-field` can take on the appearance of a `sbb-form-field`
+by applying the `sbb-input` class to it.
+
+```html
+<input class="sbb-input" placeholder="Enter text.." />
+```
+
 ## Custom form control
 
 The form field looks for native form controls (i.e. `<input>`, `<select>`

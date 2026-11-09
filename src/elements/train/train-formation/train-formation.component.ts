@@ -7,7 +7,7 @@ import {
   unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map.js';
+import { ref } from 'lit/directives/ref.js';
 
 import {
   hostScrollbarStyles,
@@ -135,6 +135,18 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
     );
   }
 
+  private _applySectorStyle(element: HTMLElement | undefined, sector: AggregatedSector): void {
+    if (!element) {
+      return;
+    }
+
+    element.style.setProperty('--sbb-train-formation-wagon-count', `${sector.wagonCount}`);
+    element.style.setProperty(
+      '--sbb-train-formation-wagon-blocked-passage-count',
+      `${sector.blockedPassageCount}`,
+    );
+  }
+
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
 
@@ -153,11 +165,7 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
                 (aggregatedSector) =>
                   html`<span
                     class="sbb-train-formation__sector"
-                    style=${styleMap({
-                      '--sbb-train-formation-wagon-count': aggregatedSector.wagonCount,
-                      '--sbb-train-formation-wagon-blocked-passage-count':
-                        aggregatedSector.blockedPassageCount,
-                    })}
+                    ${ref((element) => this._applySectorStyle(element as HTMLElement | undefined, aggregatedSector))}
                   >
                     <span class="sbb-train-formation__sector-sticky-wrapper">
                       ${`${

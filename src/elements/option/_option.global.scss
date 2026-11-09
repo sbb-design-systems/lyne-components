@@ -21,6 +21,8 @@ $theme: 'standard' !default;
   --sbb-option-background-color-active: var(--sbb-background-color-4);
   --sbb-option-disabled-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
   --sbb-option-disabled-background-color: var(--sbb-background-color-3);
+  --sbb-option-disabled-inset: #{sbb.px-to-rem-build(6)};
+  --sbb-option-disabled-border-radius: var(--sbb-border-radius-2x);
   --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-option-min-height: #{sbb.theme-pattern-select(
       (
@@ -41,7 +43,6 @@ $theme: 'standard' !default;
       ),
       $theme
     )};
-  --sbb-option-focus-outline-color: transparent;
   --sbb-option-focus-outline-inset: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-spacing-fixed-1x),
@@ -66,8 +67,10 @@ $theme: 'standard' !default;
   --sbb-options-panel-background-color: var(--sbb-background-color-2);
   --sbb-options-panel-divider-margin-block: var(--sbb-spacing-fixed-3x);
   --sbb-options-panel-box-shadow: var(--sbb-box-shadow-level-9-hard);
-  --sbb-options-panel-margin-block-start: var(--sbb-spacing-fixed-2x);
   --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-1x);
+
+  // Public documented variable on sbb-select and sbb-autocomplete.
+  --sbb-options-panel-offset: var(--sbb-spacing-fixed-2x);
 }
 
 @mixin rules {

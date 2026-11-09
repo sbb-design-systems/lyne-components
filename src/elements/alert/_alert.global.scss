@@ -14,17 +14,34 @@ $theme: 'standard' !default;
   --sbb-alert-icon-size-l: var(--sbb-size-icon-ui-small);
   --sbb-alert-title-margin-block: 0;
   --sbb-alert-font-size: var(--sbb-text-font-size-s);
+  --sbb-alert-gap-s: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-responsive-xxs);
+  --sbb-alert-gap-m: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs);
+  --sbb-alert-gap-l: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs);
   --sbb-alert-gap: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs),
-        'lean': var(--sbb-spacing-fixed-1x) var(--sbb-spacing-responsive-xxs),
+        'standard': var(--sbb-alert-gap-m),
+        'lean': var(--sbb-alert-gap-s),
       ),
       $theme
     )};
+  --sbb-alert-close-icon-margin-s: var(--sbb-spacing-responsive-xxxs);
+  --sbb-alert-close-icon-margin-m: var(--sbb-spacing-responsive-xxs);
+  --sbb-alert-close-icon-margin-l: var(--sbb-spacing-responsive-xxs);
   --sbb-alert-close-icon-margin: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-responsive-xxs),
-        'lean': var(--sbb-spacing-responsive-xxxs),
+        'standard': var(--sbb-alert-close-icon-margin-m),
+        'lean': var(--sbb-alert-close-icon-margin-s),
+      ),
+      $theme
+    )};
+  --sbb-alert-grid-template-columns: 1fr auto;
+  --sbb-alert-icon-padding-block-s: var(--sbb-spacing-fixed-2x);
+  --sbb-alert-icon-padding-block-m: var(--sbb-spacing-fixed-3x);
+  --sbb-alert-icon-padding-block-l: #{sbb.px-to-rem-build(10)};
+  --sbb-alert-icon-padding-block: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-alert-icon-padding-block-m),
+        'lean': var(--sbb-alert-icon-padding-block-s),
       ),
       $theme
     )};
@@ -39,6 +56,10 @@ $theme: 'standard' !default;
 
 @mixin breakpoint-small {
   --sbb-alert-close-button-divider-display: block;
+  --sbb-alert-grid-template-columns: auto 1fr auto;
+  --sbb-alert-icon-padding-block-s: 0;
+  --sbb-alert-icon-padding-block-m: 0;
+  --sbb-alert-icon-padding-block-l: 0;
 }
 
 @mixin breakpoint-large {

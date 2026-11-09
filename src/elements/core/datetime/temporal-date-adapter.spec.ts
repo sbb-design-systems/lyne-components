@@ -3,6 +3,7 @@ import { expect } from '@open-wc/testing';
 import { TemporalDateAdapter } from './temporal-date-adapter.ts';
 
 describe('TemporalDateAdapter', () => {
+  const toString = (date: Temporal.PlainDate): string => `${date.day}.${date.month}.${date.year}`;
   let dateAdapter: TemporalDateAdapter;
 
   beforeEach(() => {
@@ -106,10 +107,10 @@ describe('TemporalDateAdapter', () => {
     expect(() => dateAdapter.createDate(2023, 3, 99)).to.throw();
     const firstDate: Temporal.PlainDate = dateAdapter.createDate(2023, 1, 1)!;
     expect(firstDate instanceof Temporal.PlainDate).to.be.equal(true);
-    expect(`${firstDate.day}.${firstDate.month}.${firstDate.year}`).to.be.equal('1.1.2023');
+    expect(toString(firstDate)).to.be.equal('1.1.2023');
     const secondDate: Temporal.PlainDate = dateAdapter.createDate(18, 1, 1)!;
     expect(secondDate instanceof Temporal.PlainDate).to.be.equal(true);
-    expect(`${secondDate.day}.${secondDate.month}.${secondDate.year}`).to.be.equal('1.1.18');
+    expect(toString(secondDate)).to.be.equal('1.1.18');
   });
 
   it('isDateInstance and isValid should return the correct value', () => {
@@ -131,21 +132,21 @@ describe('TemporalDateAdapter', () => {
       6,
     );
     expect(firstDate instanceof Temporal.PlainDate).to.be.equal(true);
-    expect(`${firstDate.day}.${firstDate.month}.${firstDate.year}`).to.be.equal('15.7.2023');
+    expect(toString(firstDate)).to.be.equal('15.7.2023');
 
     const secondDate = dateAdapter.addCalendarMonths(
       Temporal.PlainDate.from({ year: 2023, month: 1, day: 31 }),
       1,
     );
     expect(secondDate instanceof Temporal.PlainDate).to.be.equal(true);
-    expect(`${secondDate.day}.${secondDate.month}.${secondDate.year}`).to.be.equal('28.2.2023');
+    expect(toString(secondDate)).to.be.equal('28.2.2023');
 
     const thirdDate = dateAdapter.addCalendarMonths(
       Temporal.PlainDate.from({ year: 2023, month: 3, day: 31 }),
       6,
     );
     expect(thirdDate instanceof Temporal.PlainDate).to.be.equal(true);
-    expect(`${thirdDate.day}.${thirdDate.month}.${thirdDate.year}`).to.be.equal('30.9.2023');
+    expect(toString(thirdDate)).to.be.equal('30.9.2023');
   });
 
   it('addCalendarDays should return the correct value', () => {
@@ -153,15 +154,15 @@ describe('TemporalDateAdapter', () => {
 
     const plusFifteen = dateAdapter.addCalendarDays(date, 15);
     expect(plusFifteen instanceof Temporal.PlainDate).to.be.equal(true);
-    expect(`${plusFifteen.day}.${plusFifteen.month}.${plusFifteen.year}`).to.be.equal('30.1.2023');
+    expect(toString(plusFifteen)).to.be.equal('30.1.2023');
 
     const plusThirty = dateAdapter.addCalendarDays(date, 30);
     expect(plusThirty instanceof Temporal.PlainDate).to.be.equal(true);
-    expect(`${plusThirty.day}.${plusThirty.month}.${plusThirty.year}`).to.be.equal('14.2.2023');
+    expect(toString(plusThirty)).to.be.equal('14.2.2023');
 
     const plusOneYear = dateAdapter.addCalendarDays(date, 365);
     expect(plusOneYear instanceof Temporal.PlainDate).to.be.equal(true);
-    expect(`${plusOneYear.day}.${plusOneYear.month}.${plusOneYear.year}`).to.be.equal('15.1.2024');
+    expect(toString(plusOneYear)).to.be.equal('15.1.2024');
   });
 
   it('compareDate should return the correct value', () => {
@@ -184,13 +185,13 @@ describe('TemporalDateAdapter', () => {
     expect(date instanceof Temporal.PlainDate, 'Instance should be unix timestamp 0').to.be.equal(
       true,
     );
-    expect(`${date.day}.${date.month}.${date.year}`).to.be.equal('1.1.1970');
+    expect(toString(date)).to.be.equal('1.1.1970');
 
     const dateString = dateAdapter.deserialize('2024-01-01')!;
     expect(dateString instanceof Temporal.PlainDate, 'Instance should be 2024-01-01').to.be.equal(
       true,
     );
-    expect(`${dateString.day}.${dateString.month}.${dateString.year}`).to.be.equal('1.1.2024');
+    expect(toString(dateString)).to.be.equal('1.1.2024');
 
     const fakeDate = dateAdapter.deserialize({} as string)!;
     expect(fakeDate, 'Instance should be invalid date').to.be.equal(dateAdapter.invalid());
@@ -204,7 +205,8 @@ describe('TemporalDateAdapter', () => {
     expect(dateAdapter.parse('2000.0.1')).to.be.null;
     expect(dateAdapter.parse('12.0.2000')).to.be.null;
     expect(dateAdapter.parse('0.12.2000')).to.be.null;
-    for (const dateString of ['1/1/2000', '1.1.2000', '2000-01-01']) {
+    expect(dateAdapter.parse('0122000')).to.be.null;
+    for (const dateString of ['1/1/2000', '1.1.2000', '2000-01-01', '01012000']) {
       const date = dateAdapter.parse(dateString)!;
       expect(date.year).to.be.equal(2000);
       expect(date.month).to.be.equal(1);

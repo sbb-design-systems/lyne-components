@@ -1,0 +1,75 @@
+@use '../mixins/typo';
+
+.sbb-input {
+  --_sbb-input-border-width: var(--sbb-form-field-border-width);
+
+  display: inline-block;
+  min-width: var(--sbb-form-field-min-width);
+  width: min(var(--sbb-form-field-max-width), 100%);
+  min-height: var(--sbb-form-field-min-height);
+  max-height: var(--sbb-form-field-max-height);
+  appearance: none;
+  box-sizing: border-box;
+  margin: 0;
+  outline: none;
+  overflow: var(--sbb-form-field-overflow, hidden);
+  line-height: var(--sbb-typo-line-height-text);
+  background-color: var(--sbb-form-field-background-color);
+  color: var(--sbb-form-field-text-color);
+
+  // Fill color needed for Safari
+  -webkit-text-fill-color: var(--sbb-form-field-text-color);
+  opacity: 1;
+  border: var(--_sbb-input-border-width) var(--sbb-form-field-border-style)
+    var(--sbb-form-field-border-color);
+  border-radius: var(--sbb-form-field-border-radius);
+  padding-inline: calc(var(--sbb-form-field-padding-inline) - var(--_sbb-input-border-width));
+
+  // Using `!important` keeps the utility consistent with the existing form-field
+  // rules when normalize/reset styles are loaded by the consumer.
+  font-size: var(--sbb-form-field-input-text-size) !important;
+  font-weight: normal;
+  letter-spacing: var(--sbb-letter-spacing-text) !important;
+  font-family: var(--sbb-typo-font-family) !important;
+
+  &::placeholder {
+    @include typo.placeholder;
+  }
+
+  &:read-only,
+  &:disabled {
+    background-color: var(--sbb-form-field-background-color-disabled);
+  }
+
+  &:disabled {
+    border-style: var(--sbb-form-field-border-style-disabled);
+    color: var(--sbb-form-field-text-color-disabled);
+    border-color: var(--sbb-form-field-border-color-disabled);
+
+    &::placeholder {
+      color: var(--sbb-form-field-placeholder-color-disabled);
+      -webkit-text-fill-color: var(--sbb-form-field-placeholder-color-disabled);
+    }
+  }
+
+  &:read-only {
+    border-color: var(--sbb-form-field-border-color-readonly);
+  }
+
+  &:focus-visible {
+    outline: var(--sbb-focus-outline-color) var(--sbb-focus-outline-style, solid)
+      var(--sbb-focus-outline-width);
+    outline-offset: var(--sbb-form-field-outline-offset, var(--sbb-focus-outline-offset));
+  }
+
+  &:focus {
+    --_sbb-input-border-width: var(--sbb-form-field-border-width-focus);
+
+    border-color: var(--sbb-form-field-border-color-focus);
+  }
+
+  &:user-invalid {
+    border-color: var(--sbb-form-field-border-color-error);
+    color: var(--sbb-form-field-text-color-error);
+  }
+}

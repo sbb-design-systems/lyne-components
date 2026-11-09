@@ -3,11 +3,6 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import {
-  futureLeg,
-  pastLeg,
-} from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.private.ts';
-
-import {
   bikeProduct,
   dailyTicketProduct,
   footer,
@@ -19,8 +14,14 @@ import {
 } from './home.common.ts';
 import '../../../elements/dialog.ts';
 import '../../../elements/journey-header.ts';
-import '../../../elements-experimental/pearl-chain.ts';
+import '../../../elements/pearl-chain.ts';
 import './home.scss';
+
+const at = (h: number, m: number): Date => {
+  const date = new Date();
+  date.setHours(h, m, 0, 0);
+  return date;
+};
 
 export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
   <div>
@@ -109,20 +110,35 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
                   <span class="content">
                     <span class="sbb-text-s card-description">Saver ticket</span>
                     <sbb-title level="2" visual-level="1"> GA </sbb-title>
-                    <sbb-journey-header
-                      origin="La Chaux de Fonds"
-                      destination="Loèche-les-Bains"
-                      round-trip
-                      level="2"
-                    ></sbb-journey-header>
-                    <sbb-title level="3" visual-level="6"> Generalabonnement </sbb-title>
-                    <span class="sbb-text-s card-description">
-                      2nd class, valid until 30.11.2022
-                    </span>
-                    <sbb-pearl-chain
-                      .legs=${[pastLeg, futureLeg]}
-                      now="2021-12-08T12:11:00+01:00"
-                    ></sbb-pearl-chain>
+                    <sbb-pearl-chain .now=${at(9, 0)}>
+                      <sbb-journey-header
+                        origin="La Chaux de Fonds"
+                        destination="Loèche-les-Bains"
+                        round-trip
+                        level="2"
+                      ></sbb-journey-header>
+                      <sbb-title level="3" visual-level="6"> Generalabonnement </sbb-title>
+                      <span class="sbb-text-s card-description">
+                        2nd class, valid until 30.11.2022
+                      </span>
+                      <span class="pearl-chain-wrapper">
+                        <sbb-pearl-chain-node
+                          type="start"
+                          .departure=${at(10, 0)}
+                        ></sbb-pearl-chain-node>
+                        <span style="flex: 1"></span>
+                        <sbb-pearl-chain-node
+                          type="stop"
+                          .arrival=${at(12, 0)}
+                          .departure=${at(12, 0)}
+                        ></sbb-pearl-chain-node>
+                        <span style="flex: 1"></span>
+                        <sbb-pearl-chain-node
+                          type="end"
+                          .arrival=${at(15, 0)}
+                        ></sbb-pearl-chain-node>
+                      </span>
+                    </sbb-pearl-chain>
                   </span>
                   <sbb-secondary-button-static icon-name="qrcode-small" size="l">
                     Ticket
@@ -157,19 +173,34 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
 
                 <span class="card-product">
                   <span class="content">
-                    <sbb-journey-header
-                      origin="La Chaux de Fonds"
-                      destination="Loèche-les-Bains"
-                      round-trip=""
-                      level="2"
-                    ></sbb-journey-header>
-                    <span class="sbb-text-s card-description">
-                      Saturday, 21.02.2021, 1 h 26 min
-                    </span>
-                    <sbb-pearl-chain
-                      .legs=${[pastLeg, futureLeg]}
-                      now="2021-12-08T12:11:00+01:00"
-                    ></sbb-pearl-chain>
+                    <sbb-pearl-chain .now=${at(9, 0)}>
+                      <sbb-journey-header
+                        origin="La Chaux de Fonds"
+                        destination="Loèche-les-Bains"
+                        round-trip=""
+                        level="2"
+                      ></sbb-journey-header>
+                      <span class="sbb-text-s card-description">
+                        Saturday, 21.02.2021, 1 h 26 min
+                      </span>
+                      <span class="pearl-chain-wrapper">
+                        <sbb-pearl-chain-node
+                          type="start"
+                          .departure=${at(10, 0)}
+                        ></sbb-pearl-chain-node>
+                        <span style="flex: 1"></span>
+                        <sbb-pearl-chain-node
+                          type="stop"
+                          .arrival=${at(12, 0)}
+                          .departure=${at(12, 0)}
+                        ></sbb-pearl-chain-node>
+                        <span style="flex: 1"></span>
+                        <sbb-pearl-chain-node
+                          type="end"
+                          .arrival=${at(15, 0)}
+                        ></sbb-pearl-chain-node>
+                      </span>
+                    </sbb-pearl-chain>
                   </span>
                   <sbb-secondary-button-static size="l"> Details </sbb-secondary-button-static>
                 </span>

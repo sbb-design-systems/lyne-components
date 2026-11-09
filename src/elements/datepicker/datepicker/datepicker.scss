@@ -1,0 +1,19 @@
+@use '../../core/styles' as sbb;
+
+// Gradually reduce the horizontal padding when the viewport becomes too narrow.
+// The padding decreases linearly from the default value at 348px viewport width
+// to 0px at 320px. This allows the calendar to use the available space while
+// keeping the default padding whenever the viewport is wide enough.
+.sbb-popover__content {
+  $zero-padding-viewport: 320;
+  $normal-padding-viewport: 348;
+
+  padding-inline: clamp(
+    0px,
+    calc(
+      (100vw - #{sbb.px-to-rem-build($zero-padding-viewport)}) * var(--sbb-popover-padding) /
+        #{sbb.px-to-rem-build($normal-padding-viewport - $zero-padding-viewport)}
+    ),
+    var(--sbb-popover-padding)
+  );
+}

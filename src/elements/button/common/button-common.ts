@@ -1,10 +1,4 @@
-import {
-  type CSSResultGroup,
-  nothing,
-  type PropertyValues,
-  type TemplateResult,
-  unsafeCSS,
-} from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
@@ -73,12 +67,8 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
         if (this.loading) {
           this.internals.ariaBusy = 'true';
           this.internals.ariaDisabled = 'true';
-          // For performance reasons, we only set the width if the button is loading and don't track width changes during active loading state.
-          const offsetWidth = this.offsetWidth;
-          this.style?.setProperty('--sbb-button-width', `${offsetWidth || 136}px`);
         } else {
           this.internals.ariaBusy = null;
-          this.style?.removeProperty('--sbb-button-width');
           if (!this.maybeDisabledInteractive) {
             this.internals.ariaDisabled = null;
           }
@@ -92,11 +82,6 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
         <span class="sbb-button__label">
           <slot></slot>
         </span>
-        ${
-          this.loading && !this.maybeDisabled
-            ? html`<div class="sbb-button-loading-border"></div>`
-            : nothing
-        }
       `;
     }
   }

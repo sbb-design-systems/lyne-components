@@ -36,7 +36,7 @@
 
 .sbb-card-badge-content {
   font-size: var(--sbb-text-font-size-xxs);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
   line-height: var(--sbb-typo-line-height-text);
   font-weight: bold;
   position: relative;
@@ -54,7 +54,7 @@
   border-end-start-radius: var(--sbb-card-badge-border-radius);
 
   // Increase size to avoid looking cut.
-  margin-inline-end: calc(var(--sbb-spacing-fixed-3x) * -1);
+  margin-inline: var(--sbb-spacing-fixed-1x) calc(var(--sbb-spacing-fixed-3x) * -1);
   transform: var(--sbb-card-badge-skew);
 
   // Set border inline to the badge

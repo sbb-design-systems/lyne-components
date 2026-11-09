@@ -69,6 +69,9 @@
   margin-block-start: calc(var(--sbb-map-container-border-radius) * -1);
   background-color: var(--sbb-map-container-sidebar-background-color);
 
+  // Ensure that in mobile the map container is on top of the map
+  z-index: 1;
+
   @include sbb.mq($from: large) {
     grid-column: 1 / 2;
     grid-row: 1 / 3;

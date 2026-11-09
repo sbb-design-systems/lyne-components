@@ -1,6 +1,5 @@
 The `<sbb-download>` is a component that displays a downloadable document, styled as a
-[sbb-card](/docs/elements-card--docs). The whole area is rendered as a link with the download
-behavior always enabled, so activating it triggers the browser download dialog.
+[sbb-card](/docs/elements-card--docs). The whole area is rendered as a link.
 
 ```html
 <sbb-download href="annual-report.pdf">
@@ -11,11 +10,35 @@ behavior always enabled, so activating it triggers the browser download dialog.
 The `label` shown as the title defaults to the file name extracted from the `href`,
 but can be set explicitly.
 
-It's possible to set the link related properties `href`, `rel` and `target`.
-
 ```html
 <sbb-download href="files/2026/annual-report.pdf" label="Annual report"></sbb-download>
 ```
+
+## Download vs. inline
+
+Whether the referenced document is downloaded or shown inline in the browser is up to the consumer:
+
+- With the `download` attribute, activating the component triggers the browser download.
+- Without it, the document is opened inline. In this case the link opens in a new browser tab
+  (`target="_blank"`) by default and an "opens in new window" hint is provided to assistive
+  technology. An explicitly set `target` takes precedence; an empty `target` attribute
+  opts out of the new tab behavior without specifying a target.
+
+```html
+<!-- Triggers the browser download -->
+<sbb-download href="annual-report.pdf" download></sbb-download>
+
+<!-- Opens the document inline in a new tab -->
+<sbb-download href="annual-report.pdf"></sbb-download>
+
+<!-- Opens the document inline in the same tab -->
+<sbb-download href="annual-report.pdf" target="_self"></sbb-download>
+
+<!-- Opens the document inline without a target -->
+<sbb-download href="annual-report.pdf" target=""></sbb-download>
+```
+
+It's possible to set the other link related properties `rel` and `target` as well.
 
 ## Icon
 
@@ -88,19 +111,19 @@ skipping any value that has not been provided.
 
 #### Properties
 
-| Name                   | Attribute               | Privacy | Type                                                   | Default   | Description                                                                                                                                          |
-| ---------------------- | ----------------------- | ------- | ------------------------------------------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                               | `''`      | This will be forwarded as aria-current to the inner anchor element.                                                                                  |
-| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                               | `''`      | This will be forwarded as aria-label to the inner anchor element.                                                                                    |
-| `color`                | `color`                 | public  | `'white' \| 'milk'`                                    | `'white'` | Option to set the component's background color.                                                                                                      |
-| `download`             | `download`              | public  | `boolean`                                              | `true`    | The download behavior is always enabled and handled internally, therefore this property cannot be disabled and is not reflected to the host element. |
-| `fileExtension`        | -                       | public  | `string`                                               |           | The lower-cased file extension extracted from the `href` (e.g. `pdf`), if any.                                                                       |
-| `fileName`             | -                       | public  | `string`                                               |           | The file name extracted from the `href` (e.g. `report.pdf`).                                                                                         |
-| `href`                 | `href`                  | public  | `string`                                               | `''`      | The href value you want to link to.                                                                                                                  |
-| `iconName`             | `icon-name`             | public  | `string`                                               | `''`      | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                     |
-| `label`                | `label`                 | public  | `string`                                               | `''`      | The label of the download. Defaults to the file name of the `href`.                                                                                  |
-| `rel`                  | `rel`                   | public  | `string`                                               | `''`      | The relationship of the linked URL as space-separated link types.                                                                                    |
-| `target`               | `target`                | public  | `'_blank' \| '_self' \| '_parent' \| '_top' \| string` | `''`      | Where to display the linked URL.                                                                                                                     |
+| Name                   | Attribute               | Privacy | Type                                                   | Default   | Description                                                                                                                      |
+| ---------------------- | ----------------------- | ------- | ------------------------------------------------------ | --------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                               | `''`      | This will be forwarded as aria-current to the inner anchor element.                                                              |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                               | `''`      | This will be forwarded as aria-label to the inner anchor element.                                                                |
+| `color`                | `color`                 | public  | `'white' \| 'milk'`                                    | `'white'` | Option to set the component's background color.                                                                                  |
+| `download`             | `download`              | public  | `boolean`                                              | `false`   | Whether the browser will show the download dialog on click.                                                                      |
+| `fileExtension`        | -                       | public  | `string`                                               |           | The lower-cased file extension extracted from the `href` (e.g. `pdf`), if any.                                                   |
+| `fileName`             | -                       | public  | `string`                                               |           | The file name extracted from the `href` (e.g. `report.pdf`).                                                                     |
+| `href`                 | `href`                  | public  | `string`                                               | `''`      | The href value you want to link to.                                                                                              |
+| `iconName`             | `icon-name`             | public  | `string`                                               | `''`      | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `label`                | `label`                 | public  | `string`                                               | `''`      | The label of the download. Defaults to the file name of the `href`.                                                              |
+| `rel`                  | `rel`                   | public  | `string`                                               | `''`      | The relationship of the linked URL as space-separated link types.                                                                |
+| `target`               | `target`                | public  | `'_blank' \| '_self' \| '_parent' \| '_top' \| string` | `''`      | Where to display the linked URL.                                                                                                 |
 
 #### Slots
 

@@ -1,6 +1,21 @@
 The `<sbb-loading-indicator>` is a component which can be used to indicate progress status
 or an ongoing activity which require some time to complete.
 
+### Usage
+
+We recommend using the loading indicator only for actions that are expected to take at least one second.
+For shorter processes, the indicator may appear as a distracting flash.
+
+The loading indicator should generally be displayed after one second has elapsed since an action has started.
+If it is known in advance that the back-end service will take at least one second to respond,
+the loading indicator may be displayed immediately.
+
+A minimum display duration of about 500ms can help prevent the indicator from disappearing too quickly,
+but is not required and depends on what happens next.
+
+For longer waiting times, especially those of around 10 seconds or more,
+consider providing a progress indicator to give users an indication of the remaining time.
+
 ### Style
 
 It's possible to define the `size` of the component, choosing between `s` (default), `l`, `xl`, `xxl`, and `xxxl`.

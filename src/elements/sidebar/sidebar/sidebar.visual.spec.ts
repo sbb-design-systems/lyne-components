@@ -11,6 +11,8 @@ import '../../link.ts';
 import '../../link-list.ts';
 import '../../logo.ts';
 import '../../sidebar.ts';
+import '../../button.ts';
+import '../../dialog.ts';
 
 describe('sbb-sidebar', () => {
   const header = html`<sbb-header expanded size="s" scroll-origin="content">
@@ -331,5 +333,34 @@ describe('sbb-sidebar', () => {
         });
       });
     }
+
+    it(
+      'body scroll fix',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`${header}
+            <sbb-sidebar-container>
+              ${sidebar({ color: 'milk' })}
+              <sbb-sidebar-content id="content">
+                ${content}
+                <sbb-button id="dialog-trigger">Open dialog</sbb-button>
+                <sbb-dialog trigger="dialog-trigger" backdrop="translucent">
+                  <sbb-dialog-title>Dialog title</sbb-dialog-title>
+                  <sbb-dialog-content>Dialog content</sbb-dialog-content>
+                </sbb-dialog>
+              </sbb-sidebar-content>
+            </sbb-sidebar-container> `,
+          { padding: '0px' },
+        );
+
+        // Taking a screenshot of the sbb-dialog covers also the background
+        setup.withSnapshotElement(document.querySelector('sbb-dialog')!);
+
+        setup.withPostSetupAction(() => {
+          const dialogTrigger = document.querySelector<HTMLElement>('#dialog-trigger')!;
+          dialogTrigger.click();
+        });
+      }),
+    );
   });
 });

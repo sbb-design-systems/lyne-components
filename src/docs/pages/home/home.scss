@@ -65,7 +65,8 @@ section sbb-title {
     flex-grow: 1;
   }
 
-  sbb-pearl-chain {
+  .pearl-chain-wrapper {
+    display: flex;
     margin-block-start: var(--sbb-spacing-fixed-2x);
   }
 

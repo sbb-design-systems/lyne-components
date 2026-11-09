@@ -14,6 +14,21 @@ It can be slotted in other components (e.g. `<sbb-button>`) in the icon slot.
 </sbb-button>
 ```
 
+### Usage
+
+We recommend using the loading indicator only for actions that are expected to take at least one second.
+For shorter processes, the indicator may appear as a distracting flash.
+
+The loading indicator should generally be displayed after one second has elapsed since an action has started.
+If it is known in advance that the back-end service will take at least one second to respond,
+the loading indicator may be displayed immediately.
+
+A minimum display duration of about 500ms can help prevent the indicator from disappearing too quickly,
+but is not required and depends on what happens next.
+
+For longer waiting times, especially those of around 10 seconds or more,
+consider providing a progress indicator to give users an indication of the remaining time.
+
 ## Accessibility
 
 If the `<sbb-loading-indicator-circle>` should be announced by screen-readers, use an element with the correct aria attributes

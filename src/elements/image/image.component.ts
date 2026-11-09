@@ -361,6 +361,15 @@ export class SbbImageElement extends SbbElement {
     this._addFocusAbilityToLinksInCaption();
   }
 
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
+    // Check if image finished loading before element hydration
+    if (this.complete && !this.internals.states.has('loaded')) {
+      this._imageLoaded();
+    }
+  }
+
   private _logPerformanceMarks(): void {
     if (this.performanceMark) {
       performance.clearMarks(this.performanceMark);

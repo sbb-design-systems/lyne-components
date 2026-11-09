@@ -21,6 +21,7 @@ export * from './core/controllers/inert-controller.ts';
 export * from './core/controllers/language-controller.ts';
 export * from './core/controllers/media-matchers-controller.ts';
 export * from './core/controllers/overlay-position-controller.ts';
+export * from './core/controllers/scroll-controller.ts';
 export * from './core/datetime/date-adapter.ts';
 export * from './core/datetime/native-date-adapter.ts';
 export * from './core/datetime/temporal-date-adapter.ts';

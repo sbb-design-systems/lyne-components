@@ -1,13 +1,13 @@
 @use '../../core/styles' as sbb;
 
 :host([size='s']) {
-  --sbb-paginator-height: var(--sbb-size-element-xs);
+  --sbb-paginator-height: var(--sbb-paginator-height-s);
 }
 
 :host([size='m']) {
-  --sbb-paginator-height: var(--sbb-size-element-m);
+  --sbb-paginator-height: var(--sbb-paginator-height-m);
 }
 
 :host([negative]) {
-  --sbb-paginator-color: var(--sbb-color-5);
+  --sbb-paginator-color: var(--sbb-paginator-color-negative);
 }

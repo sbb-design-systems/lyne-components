@@ -6,6 +6,7 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -28,6 +29,8 @@ import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-inp
 import { SbbPopoverBaseElement } from '../../popover.pure.ts';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker-toggle.component.ts';
 
+import style from './datepicker.scss?inline';
+
 /**
  * A datepicker component that allows users to select a date from a calendar view.
  *
@@ -41,7 +44,7 @@ export class SbbDatepickerElement<T = Date>
 {
   public static override readonly elementName: string = 'sbb-datepicker';
   public static override elementDependencies: SbbElementType[] = [SbbCalendarElement];
-  public static override styles: CSSResultGroup = [screenReaderOnlyStyles];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
   public static readonly sbbDateInputAssociated = true;
 
   /** If set to true, two months are displayed. */

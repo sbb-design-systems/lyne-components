@@ -1,7 +1,8 @@
 $theme: 'standard' !default;
+$font-face: 'SBB' !default;
 
 @use 'sass:meta';
-@use './_index' as sbb;
+@use './index' as sbb;
 
 // start-auto-generated-scss-module-imports
 @use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables-as-css.scss' as sbb-css-tokens with (
@@ -11,6 +12,9 @@ $theme: 'standard' !default;
   $theme: $theme
 );
 @use '../../alert/alert.global' as alert with (
+  $theme: $theme
+);
+@use '../../autocomplete/autocomplete.global' as autocomplete with (
   $theme: $theme
 );
 @use '../../badge/badge.global' as badge with (
@@ -122,6 +126,9 @@ $theme: 'standard' !default;
 @use '../mixins/panel-common.global' as panel-common with (
   $theme: $theme
 );
+@use '../../pearl-chain/pearl-chain.global' as pearl-chain with (
+  $theme: $theme
+);
 @use '../../popover/popover.global' as popover with (
   $theme: $theme
 );
@@ -213,16 +220,24 @@ $theme: 'standard' !default;
 
 // end-auto-generated-scss-module-imports
 
-@include meta.load-css('./features/font-face');
+@if $font-face == 'SBB' {
+  @include meta.load-css('./features/font-face');
+}
 @include meta.load-css('./features/normalize');
 
 :root {
   @include sbb.core-base;
 
+  @if $font-face == 'SBB' {
+    --sbb-letter-spacing-heading: var(--sbb-typo-letter-spacing-heading);
+    --sbb-letter-spacing-text: var(--sbb-typo-letter-spacing-text);
+  }
+
   // start-auto-generated-scss-module-root
   @include sbb-css-tokens.base;
   @include action-group.base;
   @include alert.base;
+  @include autocomplete.base;
   @include breadcrumb.base;
   @include button.base;
   @include calendar.base;
@@ -258,6 +273,7 @@ $theme: 'standard' !default;
   @include overlay.base;
   @include paginator.base;
   @include panel-common.base;
+  @include pearl-chain.base;
   @include popover.base;
   @include radio-button.base;
   @include select.base;
@@ -315,7 +331,6 @@ $theme: 'standard' !default;
     @include alert.breakpoint-small;
     @include dialog.breakpoint-small;
     @include footer.breakpoint-small;
-    @include notification.breakpoint-small;
   }
   @include sbb.mq($from: large) {
     @include sbb-css-tokens.breakpoint-large;
@@ -348,6 +363,7 @@ $theme: 'standard' !default;
 // start-auto-generated-scss-module-rules
 @include badge.rules;
 @include breadcrumb.rules;
+@include button.rules;
 @include card.rules;
 @include carousel.rules;
 @include container.rules;
@@ -359,7 +375,6 @@ $theme: 'standard' !default;
 @include lead-container.rules;
 @include message.rules;
 @include option.rules;
-@include select.rules;
 @include sidebar.rules;
 @include table.rules;
 @include tabs.rules;
@@ -375,6 +390,7 @@ $theme: 'standard' !default;
 @include meta.load-css('./features/a11y');
 @include meta.load-css('./features/animation');
 @include meta.load-css('./features/color-scheme');
+@include meta.load-css('./features/form-field');
 @include meta.load-css('./features/image');
 @include meta.load-css('./features/layout');
 @include meta.load-css('./features/lists');

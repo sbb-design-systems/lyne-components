@@ -244,10 +244,10 @@ const meta: Meta = {
           flex-direction: column;
           gap: var(--sbb-spacing-fixed-4x);
           ${
-            context.args.negative
-              ? 'color: var(--sbb-color-4-negative);'
-              : 'color: var(--sbb-color-4);'
-          };
+          context.args.negative
+            ? 'color: var(--sbb-color-4-negative);'
+            : 'color: var(--sbb-color-4);'
+        };
 
            sbb-notification {
              max-width: 800px;

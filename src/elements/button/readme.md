@@ -109,6 +109,93 @@ sbb-button {
 }
 ```
 
+## CSS classes
+
+As an alternative to the custom elements, the button design can be applied to a native
+`<button>` or `<a>` element by using CSS classes. This can be useful whenever the
+markup has to stay a native element.
+
+The classes are part of the global styles, so they are available as soon as the theme
+is imported.
+
+```html
+<button class="sbb-button">Button text</button>
+<a class="sbb-secondary-button" href="https://www.sbb.ch">Link text</a>
+```
+
+### Variants and sizes
+
+Every variant is available as a base class, which uses the size defined by the theme
+(`m` in the standard theme, `s` in the lean theme), and with an explicit size suffix.
+
+| Variant     | Theme default            | Size `s`                   | Size `m`                   | Size `l`                   |
+| ----------- | ------------------------ | -------------------------- | -------------------------- | -------------------------- |
+| Primary     | `sbb-button`             | `sbb-button-s`             | `sbb-button-m`             | `sbb-button-l`             |
+| Secondary   | `sbb-secondary-button`   | `sbb-secondary-button-s`   | `sbb-secondary-button-m`   | `sbb-secondary-button-l`   |
+| Accent      | `sbb-accent-button`      | `sbb-accent-button-s`      | `sbb-accent-button-m`      | `sbb-accent-button-l`      |
+| Transparent | `sbb-transparent-button` | `sbb-transparent-button-s` | `sbb-transparent-button-m` | `sbb-transparent-button-l` |
+
+### Modifiers
+
+| Class                      | Equivalent property   | Description                                                                   |
+| -------------------------- | --------------------- | ----------------------------------------------------------------------------- |
+| `sbb-negative`             | `negative`            | Negative variant.                                                             |
+| `sbb-icon-button`          | icon-only usage       | Renders the button as a square, icon only button.                             |
+| `sbb-loading`              | `loading`             | Loading state, see below.                                                     |
+| `sbb-disabled-interactive` | `disabledInteractive` | Disabled appearance, while the element stays focusable and dispatches events. |
+| `sbb-button-label`         | –                     | Inner element which truncates overflowing text, see limitations below.        |
+| `sbb-hover`                | –                     | Forces the hover appearance, e.g. for documentation or testing purposes.      |
+
+The disabled state is read from the native `disabled` attribute, so no extra class is needed.
+As an alternative to the classes, the `loading` and `disabled-interactive` attributes can be
+used as well.
+
+```html
+<button class="sbb-button-l sbb-negative">Button text</button>
+
+<button class="sbb-button" disabled>Button text</button>
+
+<button class="sbb-transparent-button sbb-icon-button" aria-label="Click for more information.">
+  <sbb-icon name="info"></sbb-icon>
+</button>
+```
+
+Unlike the components, the icon is not resolved from a property. Place an `<sbb-icon>` (or any
+other content) directly inside the element; the spacing between icon and text is applied
+automatically.
+
+### Loading state
+
+The loading state is enabled with the `sbb-loading` class (or the `loading` attribute).
+As with the components, the animation kicks in after a delay of 300ms, configurable with the
+`--sbb-button-loading-delay` CSS variable.
+
+Because there is no component logic involved, the accessibility state has to be provided
+manually, and the consumer is responsible for preventing further interaction while loading.
+
+```html
+<button class="sbb-button sbb-loading" aria-busy="true" aria-disabled="true">Button text</button>
+```
+
+### Limitations
+
+Compared to the components, the CSS classes only provide the styling. Keep the following
+differences in mind:
+
+- **Text truncation requires an additional element.** The components truncate an overflowing
+  label automatically. With the CSS classes, the label has to be wrapped in a direct child
+  carrying the `sbb-button-label` class, otherwise long text is not truncated:
+
+  ```html
+  <button class="sbb-button">
+    <span class="sbb-button-label">A very long button text that should be truncated</span>
+  </button>
+  ```
+
+- **Accessibility attributes are not managed.** `aria-busy` and `aria-disabled` have to be set
+  manually for the loading and the disabled interactive state.
+- **No icon property.** Icons have to be placed as child elements.
+
 ## Accessibility
 
 Use the accessibility properties in case of an icon-only button to describe the purpose of the `<sbb-button>` for screen-reader users.
