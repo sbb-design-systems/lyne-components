@@ -11,6 +11,7 @@ $open-anim-opacity-to: 1;
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
+  --sbb-heading-font-size: var(--sbb-heading-font-size-5);
 
   display: grid;
   grid-template-rows: #{$open-anim-rows-from};
@@ -46,9 +47,11 @@ $open-anim-opacity-to: 1;
   --sbb-alert-icon-padding-block: var(--sbb-alert-icon-padding-block-l);
   --sbb-alert-icon-size: var(--sbb-alert-icon-size-l);
   --sbb-alert-title-margin-block: 0 var(--sbb-spacing-fixed-1x);
+  --sbb-heading-font-size: var(--sbb-heading-font-size-3);
 }
 
 :host(:not(:state(dark))) {
+  --sbb-heading-color: var(--sbb-heading-color-negative);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
@@ -200,5 +203,11 @@ $open-anim-opacity-to: 1;
 
 ::slotted(sbb-title) {
   // Overwrite sbb-title default margin
+  margin-block: var(--sbb-alert-title-margin-block);
+}
+
+::slotted(:is(h1, h2, h3, h4, h5, h6)) {
+  @include sbb.heading-rules-new;
+
   margin-block: var(--sbb-alert-title-margin-block);
 }

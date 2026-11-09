@@ -6,7 +6,6 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 import { SbbAlertElement } from './alert.component.ts';
 
 import '../../alert.ts';
-import '../../title.ts';
 
 describe(`sbb-alert ssr`, () => {
   let root: SbbAlertElement;
@@ -14,11 +13,11 @@ describe(`sbb-alert ssr`, () => {
   beforeEach(async () => {
     root = await ssrHydratedFixture(
       html`<sbb-alert>
-        <sbb-title level="3">Disruption</sbb-title>
+        <h3>Disruption</h3>
         Content
       </sbb-alert>`,
       {
-        modules: ['../../alert.ts', '../../title.ts'],
+        modules: ['../../alert.ts'],
       },
     );
   });
