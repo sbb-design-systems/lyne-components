@@ -87,7 +87,7 @@
     "@storybook/addon-links": "10.6.6",
     "@storybook/icons": "2.2.0",
     "@storybook/web-components-vite": "10.6.6",
-    "@tsdown/css": "0.23.5",
+    "@tsdown/css": "0.23.7",
     "@types/chai": "5.2.3",
     "@types/mocha": "10.0.10",
     "@types/node": "24.19.2",
@@ -120,7 +120,7 @@
     "npm-run-all2": "9.0.4",
     "nyc": "18.0.0",
     "octokit": "5.0.5",
-    "playwright": "1.64.1",
+    "playwright": "1.65.0",
     "postcss": "8.5.32",
     "postcss-value-parser": "4.2.0",
     "prettier": "3.9.10",
@@ -146,7 +146,7 @@
     "@webcomponents/template-shadowroot": "0.2.1",
     "@web/dev-server-core": "1.0.2",
     "lit": "3.3.3",
-    "playwright": "1.64.1",
+    "playwright": "1.65.0",
     "postcss": "8.5.32"
   },
   "prettier": {
