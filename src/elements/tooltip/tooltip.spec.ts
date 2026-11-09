@@ -130,6 +130,7 @@ describe('sbb-tooltip', () => {
     });
 
     it('should open on simulated long press', async () => {
+      const outsidePointerSpy = new EventSpy('overlayOutsidePointer', element);
       element.longPressCloseDelay = 200;
       await waitForLitRender(element);
 
@@ -142,6 +143,8 @@ describe('sbb-tooltip', () => {
       trigger.dispatchEvent(new Event('touchend'));
       await closeSpy.calledOnce(); // Should close automatically after 'longPressCloseDelay'
       expect(closeSpy.count).to.equal(1);
+      document.body.click();
+      expect(outsidePointerSpy.count).to.equal(0);
     });
 
     it('should immediately close the tooltip on user interaction outside of it', async () => {
@@ -159,6 +162,125 @@ describe('sbb-tooltip', () => {
 
       await closeSpy.calledOnce(); // Should close automatically after 'longPressCloseDelay'
       expect(closeSpy.count).to.equal(1);
+    });
+
+    it('should dispatch outside pointer events only while active', async () => {
+      const outsidePointerSpy = new EventSpy('overlayOutsidePointer', element);
+
+      document.body.click();
+      expect(outsidePointerSpy.count).to.equal(0);
+
+      element.open();
+      await openSpy.calledOnce();
+      document.body.click();
+      await closeSpy.calledOnce();
+      expect(outsidePointerSpy.count).to.equal(1);
+
+      document.body.click();
+      expect(outsidePointerSpy.count).to.equal(1);
+    });
+
+    it('should forget a previous pointerdown after closing and reopening', async () => {
+      const outsidePointerSpy = new EventSpy('overlayOutsidePointer', element);
+
+      element.open();
+      await openSpy.calledOnce();
+      element.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, composed: true }));
+      element.close();
+      await closeSpy.calledOnce();
+
+      // Während kein Tooltip aktiv ist, empfängt die Registry diesen Klick nicht.
+      document.body.click();
+      expect(outsidePointerSpy.count).to.equal(0);
+
+      element.open();
+      await openSpy.calledTimes(2);
+      document.body.click();
+
+      expect(outsidePointerSpy.count).to.equal(1);
+      await closeSpy.calledTimes(2);
+      expect(element).to.match(':state(state-closed)');
+    });
+
+    it('should cancel a pending hover opening on an outside click', async () => {
+      element.openDelay = 100;
+      await waitForLitRender(element);
+      const outsidePointerSpy = new EventSpy('overlayOutsidePointer', element);
+
+      trigger.dispatchEvent(new MouseEvent('mouseenter'));
+      document.body.click();
+      expect(outsidePointerSpy.count).to.equal(1);
+
+      await aTimeout(150);
+      expect(openSpy.count).to.equal(0);
+      expect(element).to.match(':state(state-closed)');
+      document.body.click();
+      expect(outsidePointerSpy.count).to.equal(1);
+    });
+
+    it('should cancel a pending long press on an outside click', async () => {
+      const outsidePointerSpy = new EventSpy('overlayOutsidePointer', element);
+
+      trigger.dispatchEvent(new Event('touchstart'));
+      document.body.click();
+      expect(outsidePointerSpy.count).to.equal(1);
+
+      await aTimeout(600);
+      expect(openSpy.count).to.equal(0);
+      expect(element).to.match(':state(state-closed)');
+      document.body.click();
+      expect(outsidePointerSpy.count).to.equal(1);
+    });
+
+    it('should stop listening for outside clicks after cancelling a touch', async () => {
+      const outsidePointerSpy = new EventSpy('overlayOutsidePointer', element);
+
+      trigger.dispatchEvent(new Event('touchstart'));
+      trigger.dispatchEvent(new Event('touchcancel'));
+      document.body.click();
+
+      await aTimeout(600);
+      expect(openSpy.count).to.equal(0);
+      expect(outsidePointerSpy.count).to.equal(0);
+    });
+
+    it('should stop listening for outside clicks when opening is prevented', async () => {
+      const outsidePointerSpy = new EventSpy('overlayOutsidePointer', element);
+      const beforeOpenSpy = new EventSpy(SbbTooltipElement.events.beforeopen, element);
+      element.addEventListener(SbbTooltipElement.events.beforeopen, (event) =>
+        event.preventDefault(),
+      );
+
+      trigger.dispatchEvent(new MouseEvent('mouseenter'));
+      await beforeOpenSpy.calledOnce();
+      document.body.click();
+
+      expect(openSpy.count).to.equal(0);
+      expect(outsidePointerSpy.count).to.equal(0);
+    });
+
+    it('should cancel a pending opening on detach and work after reconnecting', async () => {
+      element.openDelay = 100;
+      await waitForLitRender(element);
+      const outsidePointerSpy = new EventSpy('overlayOutsidePointer', element);
+      const parent = element.parentElement!;
+
+      trigger.dispatchEvent(new MouseEvent('mouseenter'));
+      element.remove();
+      document.body.click();
+      parent.appendChild(element);
+      await waitForLitRender(element);
+      await aTimeout(150);
+      document.body.click();
+
+      expect(openSpy.count).to.equal(0);
+      expect(outsidePointerSpy.count).to.equal(0);
+
+      element.open();
+      await openSpy.calledOnce();
+      document.body.click();
+      await closeSpy.calledOnce();
+      expect(outsidePointerSpy.count).to.equal(1);
     });
 
     it('should inherit the delays from global configuration', async () => {
@@ -211,6 +333,7 @@ describe('sbb-tooltip', () => {
       });
 
       it('should keep tooltip close when the mouse leaves before the openDelay', async function (this: Context) {
+        const outsidePointerSpy = new EventSpy('overlayOutsidePointer', element);
         this.retries(3); // This test involves delays, it can be flaky on ci
         const position = trigger.getBoundingClientRect();
         await sendMouse({ type: 'move', position: [position.x + 10, position.y + 10] }); // Mouse enters
@@ -219,6 +342,8 @@ describe('sbb-tooltip', () => {
 
         await aTimeout(300); // Wait some time to confirm it doesn't trigger
         expect(openSpy.count).to.equal(0);
+        document.body.click();
+        expect(outsidePointerSpy.count).to.equal(0);
       });
 
       it('should keep tooltip open when the mouse re-enter before the closeDelay', async function (this: Context) {
