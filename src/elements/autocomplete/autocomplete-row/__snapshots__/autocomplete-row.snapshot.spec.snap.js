@@ -25,24 +25,8 @@ snapshots["sbb-autocomplete-row renders A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "ignored": true,
-      "role": "none",
-      "children": [
-        {
-          "ignored": true,
-          "role": "none",
-          "children": [
-            {
-              "role": "generic",
-              "name": ""
-            },
-            {
-              "role": "button",
-              "name": ""
-            }
-          ]
-        }
-      ]
+      "role": "group",
+      "name": ""
     }
   ]
 }

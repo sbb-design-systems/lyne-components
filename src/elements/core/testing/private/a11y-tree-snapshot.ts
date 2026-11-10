@@ -98,6 +98,7 @@ export interface A11yNode {
   autocomplete?: string;
   busy?: boolean | string;
   checked?: boolean | string;
+  controls?: string;
   describedby?: string;
   disabled?: boolean;
   editable?: boolean | string;

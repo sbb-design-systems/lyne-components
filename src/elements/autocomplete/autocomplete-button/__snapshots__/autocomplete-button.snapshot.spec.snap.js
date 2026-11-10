@@ -24,8 +24,9 @@ snapshots["sbb-autocomplete-button renders A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": ""
+      "role": "generic",
+      "name": "",
+      "description": "Button"
     }
   ]
 }

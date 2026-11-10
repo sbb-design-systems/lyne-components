@@ -925,3 +925,17 @@ export const i18nLogo125AnniversaryYears: Record<string, string> = {
   fr: 'ans',
   it: 'anni',
 };
+
+export const i18nButton: Record<string, string> = {
+  de: 'Schaltfläche',
+  en: 'Button',
+  fr: 'Bouton',
+  it: 'Pulsante',
+};
+
+export const i18nAutocompleteActionsHint: Record<string, string> = {
+  de: 'Drücken Sie Pfeil links oder rechts für verfügbare Aktionen',
+  en: 'Press arrow left or right for available actions',
+  fr: 'Appuyez sur les flèches gauche ou droite pour les actions disponibles',
+  it: 'Usare i tasti freccia destra o sinistra per le azioni disponibili',
+};

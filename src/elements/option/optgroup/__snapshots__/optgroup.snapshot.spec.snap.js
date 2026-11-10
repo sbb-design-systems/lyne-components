@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-optgroup autocomplete renders Safari DOM"] = 
+snapshots["sbb-optgroup autocomplete renders DOM"] = 
 `<sbb-optgroup label="Label">
   <sbb-option value="1">
     1
@@ -11,9 +11,9 @@ snapshots["sbb-optgroup autocomplete renders Safari DOM"] =
   </sbb-option>
 </sbb-optgroup>
 `;
-/* end snapshot sbb-optgroup autocomplete renders Safari DOM */
+/* end snapshot sbb-optgroup autocomplete renders DOM */
 
-snapshots["sbb-optgroup autocomplete renders Safari Shadow DOM"] = 
+snapshots["sbb-optgroup autocomplete renders Shadow DOM"] = 
 `<div
   aria-hidden="true"
   class="sbb-optgroup__label"
@@ -27,66 +27,7 @@ snapshots["sbb-optgroup autocomplete renders Safari Shadow DOM"] =
 <slot>
 </slot>
 `;
-/* end snapshot sbb-optgroup autocomplete renders Safari Shadow DOM */
-
-snapshots["sbb-optgroup autocomplete renders disabled Safari DOM"] = 
-`<sbb-optgroup
-  disabled=""
-  label="Label"
->
-  <sbb-option value="1">
-    1
-  </sbb-option>
-  <sbb-option value="2">
-    2
-  </sbb-option>
-</sbb-optgroup>
-`;
-/* end snapshot sbb-optgroup autocomplete renders disabled Safari DOM */
-
-snapshots["sbb-optgroup autocomplete renders disabled Safari Shadow DOM"] = 
-`<div
-  aria-hidden="true"
-  class="sbb-optgroup__label"
->
-  <div class="sbb-optgroup__icon-space">
-  </div>
-  <span>
-    Label
-  </span>
-</div>
-<slot>
-</slot>
-`;
-/* end snapshot sbb-optgroup autocomplete renders disabled Safari Shadow DOM */
-
-snapshots["sbb-optgroup autocomplete renders Chrome-Firefox DOM"] = 
-`<sbb-optgroup label="Label">
-  <sbb-option value="1">
-    1
-  </sbb-option>
-  <sbb-option value="2">
-    2
-  </sbb-option>
-</sbb-optgroup>
-`;
-/* end snapshot sbb-optgroup autocomplete renders Chrome-Firefox DOM */
-
-snapshots["sbb-optgroup autocomplete renders Chrome-Firefox Shadow DOM"] = 
-`<div
-  aria-hidden="true"
-  class="sbb-optgroup__label"
->
-  <div class="sbb-optgroup__icon-space">
-  </div>
-  <span>
-    Label
-  </span>
-</div>
-<slot>
-</slot>
-`;
-/* end snapshot sbb-optgroup autocomplete renders Chrome-Firefox Shadow DOM */
+/* end snapshot sbb-optgroup autocomplete renders Shadow DOM */
 
 snapshots["sbb-optgroup autocomplete renders A11y tree Chrome"] = 
 `<p>
@@ -109,11 +50,16 @@ snapshots["sbb-optgroup autocomplete renders A11y tree Chrome"] =
           "autocomplete": "list",
           "hasPopup": "listbox",
           "required": false,
-          "expanded": true
+          "expanded": true,
+          "controls": ""
         },
         {
-          "role": "group",
-          "name": ""
+          "role": "listbox",
+          "name": "",
+          "focusable": true,
+          "multiselectable": false,
+          "orientation": "vertical",
+          "required": false
         },
         {
           "role": "generic",
@@ -127,7 +73,7 @@ snapshots["sbb-optgroup autocomplete renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-optgroup autocomplete renders A11y tree Chrome */
 
-snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] = 
+snapshots["sbb-optgroup autocomplete renders disabled DOM"] = 
 `<sbb-optgroup
   disabled=""
   label="Label"
@@ -140,9 +86,9 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] =
   </sbb-option>
 </sbb-optgroup>
 `;
-/* end snapshot sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM */
+/* end snapshot sbb-optgroup autocomplete renders disabled DOM */
 
-snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox Shadow DOM"] = 
+snapshots["sbb-optgroup autocomplete renders disabled Shadow DOM"] = 
 `<div
   aria-hidden="true"
   class="sbb-optgroup__label"
@@ -156,5 +102,5 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox Shadow DOM"
 <slot>
 </slot>
 `;
-/* end snapshot sbb-optgroup autocomplete renders disabled Chrome-Firefox Shadow DOM */
+/* end snapshot sbb-optgroup autocomplete renders disabled Shadow DOM */
 
