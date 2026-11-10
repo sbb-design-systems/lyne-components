@@ -44,16 +44,11 @@ describe(`sbb-autocomplete`, () => {
 
       expect(element).not.to.have.attribute('autocomplete-origin-borderless');
 
-      const id = !isSafari
-        ? element.shadowRoot!.querySelector('.sbb-option-panel__overlay')!.id
-        : element.id;
-
       expect(input).to.have.attribute('autocomplete', 'off');
       expect(input).to.have.attribute('role', 'combobox');
       expect(input).to.have.attribute('aria-autocomplete', 'list');
       expect(input).to.have.attribute('aria-haspopup', 'listbox');
-      expect(input).to.have.attribute('aria-controls', id);
-      expect(input).to.have.attribute('aria-owns', id);
+      expect(input.ariaControlsElements).to.include(element);
       expect(input).to.have.attribute('aria-expanded', 'false');
     });
 
@@ -78,7 +73,6 @@ describe(`sbb-autocomplete`, () => {
       expect(input).not.to.have.attribute('aria-autocomplete');
       expect(input).not.to.have.attribute('aria-haspopup');
       expect(input).not.to.have.attribute('aria-controls');
-      expect(input).not.to.have.attribute('aria-owns');
       expect(input).not.to.have.attribute('aria-expanded');
       expect(input).not.to.have.attribute('data-expanded');
     });

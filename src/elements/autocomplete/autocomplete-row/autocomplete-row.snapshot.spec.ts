@@ -6,6 +6,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 import type { SbbAutocompleteRowElement } from './autocomplete-row.component.ts';
 
 import '../../autocomplete.ts';
+import '../../option.ts';
 
 describe('sbb-autocomplete-row', () => {
   describe('renders', () => {
@@ -21,7 +22,7 @@ describe('sbb-autocomplete-row', () => {
     });
 
     it('DOM', async () => {
-      await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
+      await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['aria-description'] });
     });
 
     it('Shadow DOM', async () => {

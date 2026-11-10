@@ -73,6 +73,8 @@ export function a11yTreePlugin(): TestRunnerPlugin<A11yTreePayload> {
                       result.busy = toMaybeBoolean(property.value.value);
                     } else if (property.name === 'checked') {
                       result.checked = toMaybeBoolean(property.value.value);
+                    } else if (property.name === 'controls') {
+                      result.controls = property.value.value;
                     } else if (property.name === 'describedby') {
                       result.describedby = property.value.value;
                     } else if (property.name === 'disabled') {
@@ -192,6 +194,7 @@ interface A11yNode {
   autocomplete?: string;
   busy?: boolean | string;
   checked?: boolean | string;
+  controls?: string;
   describedby?: string;
   disabled?: boolean;
   editable?: boolean | string;

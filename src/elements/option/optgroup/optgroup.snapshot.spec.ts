@@ -2,8 +2,6 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
-import { describeIf } from '../../core/testing.ts';
-import { isSafari } from '../../core.ts';
 
 import type { SbbOptGroupElement } from './optgroup.component.ts';
 
@@ -34,24 +32,12 @@ describe(`sbb-optgroup`, () => {
         testFixture.querySelector<HTMLInputElement>('input')!.focus();
       });
 
-      describeIf(!isSafari, 'Chrome-Firefox', async () => {
-        it('DOM', async () => {
-          await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
-        });
-
-        it('Shadow DOM', async () => {
-          await expect(element).shadowDom.to.be.equalSnapshot();
-        });
+      it('DOM', async () => {
+        await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
 
-      describeIf(isSafari, 'Safari', async () => {
-        it('DOM', async () => {
-          await expect(element).dom.to.be.equalSnapshot();
-        });
-
-        it('Shadow DOM', async () => {
-          await expect(element).shadowDom.to.be.equalSnapshot();
-        });
+      it('Shadow DOM', async () => {
+        await expect(element).shadowDom.to.be.equalSnapshot();
       });
 
       testA11yTreeSnapshot();
@@ -75,24 +61,12 @@ describe(`sbb-optgroup`, () => {
         elem = testFixture.querySelector('sbb-optgroup')!;
       });
 
-      describeIf(!isSafari, 'Chrome-Firefox', async () => {
-        it('DOM', async () => {
-          await expect(elem).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
-        });
-
-        it('Shadow DOM', async () => {
-          await expect(elem).shadowDom.to.be.equalSnapshot();
-        });
+      it('DOM', async () => {
+        await expect(elem).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
 
-      describeIf(isSafari, 'Safari', async () => {
-        it('DOM', async () => {
-          await expect(elem).dom.to.be.equalSnapshot();
-        });
-
-        it('Shadow DOM', async () => {
-          await expect(elem).shadowDom.to.be.equalSnapshot();
-        });
+      it('Shadow DOM', async () => {
+        await expect(elem).shadowDom.to.be.equalSnapshot();
       });
     });
   });
