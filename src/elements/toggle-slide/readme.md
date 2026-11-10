@@ -1,7 +1,7 @@
 <!-- keywords: form -->
 
 The `<sbb-toggle-slide>` provides functionality similar to a native `<input type="checkbox" />`,
-but requires the user to actively slide or press and hold the button in order to change its state.
+but requires the user to actively slide the button in order to change its state.
 This deliberate interaction helps to prevent the state from being changed by accident,
 which makes the component especially suitable for safety-relevant or hard-to-reverse actions
 (e.g. confirming a check-in). Before activation or deactivation is finally confirmed,
@@ -55,26 +55,6 @@ The `<sbb-error>` is typically toggled based on the component's validity (e.g. u
 `validationMessage` property, see [setCustomValidity()](#setcustomvalidity) below).
 
 For assistive technologies, the component's `aria-describedby` attribute should point to the ID of the hint or error message.
-**Attention** Due to very limited possibilities and due to the fact that the `aria-describedby` attribute overrides the internal
-instructions for screen readers, the instructions also have to be mimicked by the consumers.
-
-```ts
-import {
-  i18nToggleSlidePressAndHoldActivate,
-  i18nToggleSlidePressAndHoldDeactivate,
-  isMacOS,
-} from '@sbb-esta/lyne-elements/core.js';
-
-// On macOS, VoiceOver users can activate the component using the same
-// press-and-hold interaction as keyboard users, so explain the interaction.
-if (isMacOS) {
-  const lang = document.documentElement.lang;
-  const component = document.querySelector('sbb-toggle-slide')!;
-  const additionalAriaDescribedByAction = component.checked
-    ? i18nToggleSlidePressAndHoldDeactivate[lang]
-    : i18nToggleSlidePressAndHoldActivate[lang];
-}
-```
 
 ```html
 <span class="sbb-form-information">
@@ -133,15 +113,13 @@ The state of the component can only be changed with a deliberate interaction:
 - **Slide**: the button can be dragged along the track; releasing it near the end of the track
   completes the state change, while releasing it before that point animates the button back to its
   original position. Note that only the button itself (not the surrounding track or labels) can be grabbed.
-- **Press and hold**: pressing and holding the button (or the <kbd>Space</kbd> key, see below)
-  triggers a slow sliding animation from the current state to the opposite one.
-  Releasing before the animation completes aborts the action and the button animates back.
+- **Press space**: pressing the <kbd>Space</kbd> key triggers the state change.
 
 Unlike a native checkbox, a plain click or tap on the component does **not** change its state;
 the state can only be changed via one of the deliberate interactions described above
 (or their assistive technology equivalents described in [Screen reader usage](#screen-reader-usage) below).
 
-Once a slide or press-and-hold interaction is completed, the component dispatches a cancelable
+Once a slide interaction is completed, the component dispatches a cancelable
 `validate` event before actually changing the `checked` state (see [Events](#events) below).
 This allows consumers to prevent or asynchronously confirm the state change,
 e.g. to request a confirmation from a backend service.
@@ -152,7 +130,7 @@ Consumers can listen to the native `change` event on the `<sbb-toggle-slide>` co
 the current state can be read from `event.target.checked` and the value from `event.target.value`.
 
 The `validate` event is dispatched right before the `checked` state actually changes, once the user
-has completed a slide or press-and-hold interaction.
+has completed a slide interaction.
 The event is cancelable, so consumers can call `preventDefault()` to synchronously reject the state change.
 For asynchronous validation (e.g. waiting for a backend call), consumers can call
 `preventDefaultConditionally()` with a `Promise<boolean>`;
@@ -189,15 +167,8 @@ while the action is in progress aborts it.
 
 For NVDA and JAWS on Windows, activating the component (e.g. via a single <kbd>Space</kbd> or
 <kbd>Enter</kbd> key press) synthesizes a click event, which is handled the same way as the
-double-tap gesture above: it starts the full sliding animation automatically, and triggering the
-same activation again while it is in progress aborts it.
-
-For VoiceOver on macOS, no such synthetic click is generated, so the user is required to physically
-press and hold the <kbd>Space</kbd> key, the same as sighted keyboard users (see
-[Keyboard interaction](#keyboard-interaction) above). Since this differs from the single-press
-behavior on other screen readers, the component provides an additional `aria-description` explaining
-this interaction; this description is lost if you set your own `aria-describedby` on the component
-(see [Hint and error messages](#hint-and-error-messages) above).
+double-tap gesture above: it starts the state change automatically and triggers the
+state change.
 
 All state changes are announced by the screen reader.
 

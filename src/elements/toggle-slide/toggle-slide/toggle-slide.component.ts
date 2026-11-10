@@ -10,17 +10,10 @@ import { property, state } from 'lit/decorators.js';
 import { SbbButtonStaticElement } from '../../button.pure.ts';
 import {
   i18nToggleSlideActivated,
-  i18nToggleSlideActivating,
-  i18nToggleSlideActivationAborted,
   i18nToggleSlideDeactivated,
-  i18nToggleSlideDeactivating,
-  i18nToggleSlideDeactivationAborted,
-  i18nToggleSlidePressAndHoldActivate,
-  i18nToggleSlidePressAndHoldDeactivate,
   i18nToggleSlideValidating,
   i18nToggleSlideValidationFailed,
   isIOS,
-  isMacOS,
   preventScrollOnSpacebarPress,
   SbbDynamicStylesheetMixin,
   SbbElement,
@@ -34,15 +27,6 @@ import {
 import { SbbIconElement } from '../../icon.pure.ts';
 
 import style from './toggle-slide.scss?inline';
-
-// The duration in milliseconds for the activation press animation.
-const activationPressDuration = 1500;
-
-// The delay in milliseconds before a long press is recognized.
-const longPressDelay = 500;
-
-// The minimum distance in pixels that the pointer must move to trigger sliding instead of a long press.
-const minMovePxToTriggerSliding = 8;
 
 // The fraction of the track that needs to be covered to trigger a state change.
 // For example, a value of 0.95 means that the user needs to slide the button to at least 95% of
@@ -81,36 +65,28 @@ export class SbbToggleSlideValidateEvent extends Event {
 /**
  * Possible states:
  *
- *                                 ┌─────────────────┐
- *                                 │                 │
- *                                 │      IDLE       │
- *                                 │                 │
- *                                 └────────┬────────┘
- *                                          │
- *              ┌───────────────────────────┼───────────────────────────┐
- *              │                           │                           │
- *         pointerdown                Space keydown                 disabled
- *              │                           │
- *              ▼                           │
- *       ┌──────────────┐                   │
- *       │              │                   │
- *       │    PENDING   │                   │
- *       │              │                   │
- *       └──────┬───────┘                   │
- *              │                           │
- *        ┌─────┴─────┐                     │
- *        │           │                     │
- *     > 8 px      500 ms                   │
- *        │           │                     │
- *        ▼           ▼                     ▼
- *  ┌───────────┐ ┌─────────────────────────────┐
- *  │           │ │                             │
- *  │  SLIDING  │ │     ACTIVATION-SLIDING      │
- *  │           │ │                             │
- *  └─────┬─────┘ └────────┬────────────────────┘
+ *                  ┌─────────────────┐
+ *                  │                 │
+ *                  │      IDLE       │
+ *                  │                 │
+ *                  └────────┬────────┘
+ *                           │
+ *        ┌──────────────────┼────────────────────┐
+ *        │                  │                    │
+ *        │                  │                    │
+ *   pointerdown       Space keydown          disabled
+ *        │                  │
+ *        │             Space keyup
+ *        │                  │
+ *        ▼                  ▼
+ *  ┌───────────┐ ┌───────────────────────┐
+ *  │           │ │                       │
+ *  │  SLIDING  │ │  KEYBOARD-ACTIVATION  │
+ *  │           │ │                       │
+ *  └─────┬─────┘ └────────┬──────────────┘
  *        │                │
  *        │                │
- *    pointerup  Space keyup / pointerup
+ *    pointerup            │
  *        │                │
  *        └───────┬────────┘
  *                ▼
@@ -178,20 +154,12 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | null = null;
 
   @state() private accessor _state:
-    'idle' | 'pointer-pending' | 'pointer-sliding' | 'activation-sliding' | 'validating' = 'idle';
+    'idle' | 'pointer-sliding' | 'keyboard-activation' | 'validating' = 'idle';
 
   private _slideFraction = 0;
   private _animationFrame: number = -1;
-  private _language = new SbbLanguageController(this).withHandler(() =>
-    this._updateAriaDescription(),
-  );
-
-  private _pointerInteraction: {
-    longPressTimer: number;
-    downX: number;
-    downY: number;
-    buttonPointerOffsetLeft: number;
-  } | null = null;
+  private _buttonPointerOffsetLeft?: number;
+  private _language = new SbbLanguageController(this);
 
   public constructor() {
     super();
@@ -200,7 +168,6 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     this.addEventListener?.('keyup', (e) => this._handleKeyUp(e));
     this.addEventListener?.('blur', () => this._handleBlur());
     this.addEventListener?.('click', (e) => this._handleClick(e));
-    this._updateAriaDescription();
   }
 
   public override connectedCallback(): void {
@@ -227,7 +194,6 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
 
       // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a checked state.
       this.toggleState('checked', this.checked);
-      this._updateAriaDescription();
 
       if (this._slideFraction !== (this.checked ? 1 : 0)) {
         this._updateFraction(this.checked ? 1 : 0);
@@ -245,57 +211,22 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
 
   /** Handles the pointer down event on the slide button. */
   private _handlePointerDown(event: PointerEvent): void {
-    if (this._isDisabled() || this._state !== 'idle') {
-      return;
+    if (!this._isDisabled() && this._state === 'idle') {
+      this._startPointerSliding(event);
     }
-    this._cancelAnimation();
-    this._resetPointerInteraction();
-    this._state = 'pointer-pending';
-    const button = event.currentTarget as HTMLElement;
-    button.setPointerCapture(event.pointerId);
-
-    // Global listener needed although we have pointer capture. Seems more stable than just pointer capture.
-    window.addEventListener('pointerup', () => this._handlePointerUp(), { once: true });
-
-    this._pointerInteraction = {
-      longPressTimer: window.setTimeout(() => {
-        if (this._state === 'pointer-pending') {
-          this._startLongPressActivation();
-        }
-      }, longPressDelay),
-      downX: event.clientX,
-      downY: event.clientY,
-
-      // We need to store the offset of the pointer relative to the button's left edge.
-      // With this information we can prevent a jump of the button when starting to slide.
-      buttonPointerOffsetLeft: event.clientX - button.getBoundingClientRect().left,
-    };
   }
 
   /** Called during sliding to update the position of the button based on the pointer's position. */
   private _handlePointerMove(event: PointerEvent): void {
-    if (this._state === 'pointer-pending') {
-      const dx = event.clientX - (this._pointerInteraction?.downX ?? 0);
-      const dy = event.clientY - (this._pointerInteraction?.downY ?? 0);
-
-      // We only want to start the longPress if the cursor / finger is not moving more than between a small range.
-      // If the user moves more than a certain threshold, we start the pointer sliding instead of longPress.
-      if (Math.hypot(dx, dy) > minMovePxToTriggerSliding) {
-        this._startPointerSliding();
-      }
-    } else if (this._state === 'pointer-sliding') {
+    if (this._state === 'pointer-sliding') {
       this._updatePosition(event);
     }
   }
 
   /** Called when intentionally stopped the sliding. */
   private _handlePointerUp(): void {
-    if (this._state === 'pointer-pending') {
-      this._state = 'idle';
-    } else if (this._state === 'pointer-sliding') {
+    if (this._state === 'pointer-sliding') {
       this._finishPointerSliding();
-    } else if (this._state === 'activation-sliding') {
-      this._finishActivation();
     }
 
     this._resetPointerInteraction();
@@ -303,11 +234,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
 
   /** Called when unintentionally stopped the sliding. */
   private _handlePointerCancel(): void {
-    if (
-      this._state !== 'pointer-pending' &&
-      this._state !== 'pointer-sliding' &&
-      this._state !== 'activation-sliding'
-    ) {
+    if (this._state !== 'pointer-sliding' && this._state !== 'keyboard-activation') {
       return;
     }
 
@@ -320,29 +247,26 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   private _handleKeyDown(event: KeyboardEvent): void {
     preventScrollOnSpacebarPress(event);
 
-    // Only handle the initial Space keydown, not repeated keydown events.
-    if (this._isDisabled() || this._state !== 'idle' || event.key !== ' ' || event.repeat) {
+    // Pass active state to inner button.
+    if (!this._isDisabled() && this._state === 'idle' && event.key === ' ' && !event.repeat) {
+      this._toggleButtonActiveState(true);
+    }
+  }
+
+  /** Handles the key up event on the toggle slide element. */
+  private _handleKeyUp(event: KeyboardEvent): void {
+    if (this._isDisabled() || event.key !== ' ') {
       return;
     }
     this._startActivation();
   }
 
-  /** Handles the key up event on the toggle slide element. */
-  private _handleKeyUp(event: KeyboardEvent): void {
-    if (this._state !== 'activation-sliding' || event.key !== ' ') {
-      return;
-    }
-    this._toggleButtonActiveState(false);
-    this._finishActivation();
-  }
-
   /**
    * Handles the blur event on the toggle slide element.
-   * Ensures aborting activation when focus was lost.
    */
   private _handleBlur(): void {
-    if (this._state === 'activation-sliding') {
-      this._finishActivation();
+    if (this._state !== 'keyboard-activation') {
+      this._toggleButtonActiveState(false);
     }
   }
 
@@ -352,30 +276,30 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
    * During activation, another double-tap will abort the activation.
    */
   private _handleClick(event: PointerEvent): void {
-    if (this._isDisabled()) {
-      return;
-    }
-
-    // We only want to continue if the click was triggered by a screen reader, otherwise we would trigger activation on every click.
-    if (!sbbInputModalityDetector.isScreenReader(event)) {
-      return;
-    }
-
-    // In this case, keyboard means that it was triggered by a screen reader, as the click event is triggered by a double-tap on mobile screen readers.
-    if (this._state === 'idle') {
+    if (
+      !this._isDisabled() &&
+      this._state === 'idle' &&
+      sbbInputModalityDetector.isScreenReader(event)
+    ) {
+      // We only want to activate if the click was triggered by a screen reader, otherwise we would trigger activation on every click.
       this._startActivation();
-    } else if (this._state === 'activation-sliding') {
-      // This if is triggered if another double tap or click event during activation / deactivation occurs,
-      // which should abort the activation / deactivation.
-      this._finishActivation();
     }
   }
 
-  private _startPointerSliding(): void {
-    this._cancelLongPress();
+  private _startPointerSliding(event: PointerEvent): void {
+    this._resetPointerInteraction();
     this._cancelAnimation();
-
     this._state = 'pointer-sliding';
+
+    const button = event.currentTarget as HTMLElement;
+    button.setPointerCapture(event.pointerId);
+
+    // Global listener needed although we have pointer capture. Seems more stable than just pointer capture.
+    window.addEventListener('pointerup', () => this._handlePointerUp(), { once: true });
+
+    // We need to store the offset of the pointer relative to the button's left edge.
+    // With this information we can prevent a jump of the button when starting to slide.
+    this._buttonPointerOffsetLeft = event.clientX - button.getBoundingClientRect().left;
   }
 
   private _finishPointerSliding(): void {
@@ -393,48 +317,26 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     }
   }
 
-  private _startLongPressActivation(): void {
-    this._pointerInteraction!.longPressTimer = -1;
-    this._cancelLongPress();
-    this._startActivation();
-  }
-
   private _startActivation(): void {
-    this._state = 'activation-sliding';
+    this._state = 'keyboard-activation';
     this._toggleButtonActiveState(true);
-    this._announce(
-      this.checked
-        ? i18nToggleSlideDeactivating[this._language.current]
-        : i18nToggleSlideActivating[this._language.current],
-    );
     this._animateToCheckedState({
       target: this.checked ? 0 : 1,
-      withEase: false,
-      durationInMs: activationPressDuration,
       onComplete: () => this._finishActivation(),
     });
   }
 
   private _finishActivation(): void {
-    this._toggleButtonActiveState(false);
-
-    if (this._slideFraction === (this.checked ? 0 : 1)) {
+    if (this._state === 'keyboard-activation') {
+      this._toggleButtonActiveState(false);
       this._validate();
-    } else {
-      this._state = 'idle';
-      this._announce(
-        this.checked
-          ? i18nToggleSlideDeactivationAborted[this._language.current]
-          : i18nToggleSlideActivationAborted[this._language.current],
-      );
-      this._animateToCheckedState();
     }
   }
 
   private async _validate(): Promise<void> {
     if (
       this._state !== 'pointer-sliding' &&
-      this._state !== 'activation-sliding' &&
+      this._state !== 'keyboard-activation' &&
       this._state !== 'idle'
     ) {
       return;
@@ -492,10 +394,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
 
     const position = Math.max(
       0,
-      Math.min(
-        event.clientX - trackRect.left - (this._pointerInteraction?.buttonPointerOffsetLeft ?? 0),
-        trackLength,
-      ),
+      Math.min(event.clientX - trackRect.left - (this._buttonPointerOffsetLeft ?? 0), trackLength),
     );
 
     this._updateFraction(position / trackLength);
@@ -570,21 +469,13 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   }
 
   private _resetPointerInteraction(): void {
-    this._cancelLongPress();
-    this._pointerInteraction = null;
+    this._buttonPointerOffsetLeft = undefined;
   }
 
   private _cancelAnimation(): void {
     if (this._animationFrame !== -1) {
       cancelAnimationFrame(this._animationFrame);
       this._animationFrame = -1;
-    }
-  }
-
-  private _cancelLongPress(): void {
-    if (this._pointerInteraction) {
-      clearTimeout(this._pointerInteraction.longPressTimer);
-      this._pointerInteraction.longPressTimer = -1;
     }
   }
 
@@ -604,16 +495,6 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
 
   private _handleIconTransitionEnd(): void {
     this.toggleState('icon-transition', false);
-  }
-
-  private _updateAriaDescription(): void {
-    // On macOS, VoiceOver users can activate the component using the same
-    // press-and-hold interaction as keyboard users, so explain the interaction.
-    if (isMacOS) {
-      this.internals.ariaDescription = this.checked
-        ? i18nToggleSlidePressAndHoldDeactivate[this._language.current]
-        : i18nToggleSlidePressAndHoldActivate[this._language.current];
-    }
   }
 
   protected override render(): TemplateResult {

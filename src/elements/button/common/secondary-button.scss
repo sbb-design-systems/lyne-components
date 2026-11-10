@@ -11,3 +11,7 @@
 :host(:not([disabled], :disabled, [disabled-interactive], :active, :state(active))) {
   @include button.variables--secondary-box-shadow;
 }
+
+:host(:not([disabled], :disabled, [disabled-interactive])[loading]) {
+  @include button.variables--secondary-loading;
+}

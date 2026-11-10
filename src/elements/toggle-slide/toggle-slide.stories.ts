@@ -1,14 +1,9 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
-import { html, nothing, type TemplateResult } from 'lit';
+import { html, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../docs/helpers/spread.ts';
-import { isMacOS } from '../core/dom/platform.ts';
-import {
-  i18nToggleSlidePressAndHoldActivate,
-  i18nToggleSlidePressAndHoldDeactivate,
-} from '../core/i18n/i18n.ts';
 import { SbbToggleSlideElement, type SbbToggleSlideValidateEvent } from '../toggle-slide.ts';
 
 import readme from './readme.md?raw';
@@ -106,33 +101,9 @@ const TemplateWithAsynchronousValidation = ({ checked, ...args }: Args): Templat
 const TemplateWithHint = ({ checked, ...args }: Args): TemplateResult => html`
   ${title}
   <span class="sbb-form-information">
-    <sbb-toggle-slide
-      ${sbbSpread(args)}
-      .checked=${checked}
-      aria-describedby="instruction journey-hint"
-      @change=${(e: Event) => {
-        const target = e.target as SbbToggleSlideElement;
-        const instructionElement = target.parentElement!.querySelector('#instruction');
-        if (instructionElement) {
-          instructionElement.innerHTML = isMacOS
-            ? target.checked
-              ? i18nToggleSlidePressAndHoldDeactivate[document.documentElement.lang]
-              : i18nToggleSlidePressAndHoldActivate[document.documentElement.lang]
-            : '';
-        }
-      }}
-    >
+    <sbb-toggle-slide ${sbbSpread(args)} .checked=${checked} aria-describedby="journey-hint">
       ${labels}
     </sbb-toggle-slide>
-    <span id="instruction" class="sbb-screen-reader-only">
-      ${
-        isMacOS
-          ? checked
-            ? i18nToggleSlidePressAndHoldDeactivate[document.documentElement.lang]
-            : i18nToggleSlidePressAndHoldActivate[document.documentElement.lang]
-          : nothing
-      }
-    </span>
     <sbb-hint id="journey-hint">After the journey started, you can stop it at any time.</sbb-hint>
   </span>
 `;
@@ -143,7 +114,7 @@ const TemplateWithError = ({ checked, ...args }: Args): TemplateResult => html`
     <sbb-toggle-slide
       ${sbbSpread(args)}
       .checked=${checked}
-      aria-describedby="instruction journey-error"
+      aria-describedby="journey-error"
       @validate=${(e: SbbToggleSlideValidateEvent) => {
         e.preventDefaultConditionally(
           // Simulate a backend call with a timeout and a negative answer.
@@ -168,29 +139,9 @@ const TemplateWithError = ({ checked, ...args }: Args): TemplateResult => html`
           }),
         );
       }}
-      @change=${(e: Event) => {
-        const target = e.target as SbbToggleSlideElement;
-        const instructionElement = target.parentElement!.querySelector('#instruction');
-        if (instructionElement) {
-          instructionElement.innerHTML = isMacOS
-            ? target.checked
-              ? i18nToggleSlidePressAndHoldDeactivate[document.documentElement.lang]
-              : i18nToggleSlidePressAndHoldActivate[document.documentElement.lang]
-            : '';
-        }
-      }}
     >
       ${labels}
     </sbb-toggle-slide>
-    <span id="instruction" class="sbb-screen-reader-only">
-      ${
-        isMacOS
-          ? checked
-            ? i18nToggleSlidePressAndHoldDeactivate[document.documentElement.lang]
-            : i18nToggleSlidePressAndHoldActivate[document.documentElement.lang]
-          : nothing
-      }
-    </span>
   </span>
   <p>Try to check in and see the asynchronous validation failing.</p>
 `;

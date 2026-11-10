@@ -78,13 +78,36 @@ export const Overview: StoryObj = {
       negative,
       html`<tr>
           <td>Default</td>
-          <td><sbb-button size=${size} ?negative=${negative}>Label</sbb-button></td>
           <td>
-            <sbb-secondary-button size=${size} ?negative=${negative}>Label</sbb-secondary-button>
+            <sbb-button
+              size=${size}
+              ?negative=${negative}
+              @click="${(e) => e.currentTarget.toggleAttribute('loading')}"
+              >Label</sbb-button
+            >
           </td>
-          <td><sbb-accent-button size=${size} ?negative=${negative}>Label</sbb-accent-button></td>
           <td>
-            <sbb-transparent-button size=${size} ?negative=${negative}>
+            <sbb-secondary-button
+              size=${size}
+              ?negative=${negative}
+              @click="${(e) => e.currentTarget.toggleAttribute('loading')}"
+              >Label</sbb-secondary-button
+            >
+          </td>
+          <td>
+            <sbb-accent-button
+              size=${size}
+              ?negative=${negative}
+              @click="${(e) => e.currentTarget.toggleAttribute('loading')}"
+              >Label</sbb-accent-button
+            >
+          </td>
+          <td>
+            <sbb-transparent-button
+              size=${size}
+              ?negative=${negative}
+              @click="${(e) => e.currentTarget.toggleAttribute('loading')}"
+            >
               Label
             </sbb-transparent-button>
           </td>
@@ -189,13 +212,33 @@ export const Overview: StoryObj = {
       html` <tr>
           <td>Default</td>
           <td>
-            <button class="sbb-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''}">
+            <button
+              class="sbb-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''}"
+              @click=${(e) => {
+                const target = e.currentTarget as HTMLButtonElement;
+
+                if (target.classList.contains('sbb-loading')) {
+                  target.classList.remove('sbb-loading');
+                } else {
+                  target.classList.add('sbb-loading');
+                }
+              }}
+            >
               Label
             </button>
           </td>
           <td>
             <button
               class="sbb-secondary-button${size ? `-${size}` : ''} ${negative ? 'sbb-negative' : ''}"
+              @click=${(e) => {
+                const target = e.currentTarget as HTMLButtonElement;
+
+                if (target.classList.contains('sbb-loading')) {
+                  target.classList.remove('sbb-loading');
+                } else {
+                  target.classList.add('sbb-loading');
+                }
+              }}
             >
               Label
             </button>

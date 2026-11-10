@@ -926,20 +926,6 @@ export const i18nLogo125AnniversaryYears: Record<string, string> = {
   it: 'anni',
 };
 
-export const i18nToggleSlideActivating: Record<string, string> = {
-  de: 'Aktiviere',
-  en: 'Activating',
-  fr: 'Activation en cours',
-  it: 'Attivazione in corso',
-};
-
-export const i18nToggleSlideDeactivating: Record<string, string> = {
-  de: 'Deaktiviere',
-  en: 'Deactivating',
-  fr: 'Désactivation en cours',
-  it: 'Disattivazione in corso',
-};
-
 export const i18nToggleSlideActivationAborted: Record<string, string> = {
   de: 'Aktivierung abgebrochen',
   en: 'Activation aborted',
