@@ -1,6 +1,14 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbElement, SbbPropertyWatcherController } from '../../core.ts';
+import {
+  i18nAutocompleteActionsHint,
+  isAndroid,
+  isIOS,
+  isSafari,
+  SbbElement,
+  SbbLanguageController,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
 
 import style from './autocomplete-row.scss?inline';
 
@@ -11,7 +19,13 @@ import style from './autocomplete-row.scss?inline';
  */
 export class SbbAutocompleteRowElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-autocomplete-row';
+  public static override readonly role: string = 'group';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
+
+  private _assignedDescription?: string;
+  private _languageController = new SbbLanguageController(this).withHandler(() =>
+    this._updateAriaDescription(),
+  );
 
   public constructor() {
     super();
@@ -29,8 +43,53 @@ export class SbbAutocompleteRowElement extends SbbElement {
     );
   }
 
+  private _updateAriaDescription(): void {
+    if (isIOS || isAndroid) {
+      // On mobile devices, the user will arrive at all options and actions anyway.
+      return;
+    }
+    const hasButton = !!this.querySelector('sbb-autocomplete-button');
+    const option = this.querySelector('sbb-option');
+    if (!option) {
+      return;
+    }
+    if (!option['internals']) {
+      customElements.upgrade(option);
+    }
+
+    if (hasButton) {
+      option['internals'].ariaDescription =
+        i18nAutocompleteActionsHint[this._languageController.current];
+    } else if (!hasButton && option['internals'].ariaDescription) {
+      option['internals'].ariaDescription = null;
+    }
+
+    // VoiceOver doesn't read ariaDescription of elementInternals.
+    // We need to set the ariaDescription on the option itself for VoiceOver to read it.
+    if (isSafari) {
+      if (
+        hasButton &&
+        (!option.ariaDescription ||
+          (this._assignedDescription &&
+            option.ariaDescription === this._assignedDescription &&
+            option.ariaDescription !==
+              i18nAutocompleteActionsHint[this._languageController.current]))
+      ) {
+        option.ariaDescription = i18nAutocompleteActionsHint[this._languageController.current];
+        this._assignedDescription = option.ariaDescription;
+      } else if (
+        !hasButton &&
+        this._assignedDescription &&
+        option.ariaDescription === this._assignedDescription
+      ) {
+        option.ariaDescription = null;
+        this._assignedDescription = undefined;
+      }
+    }
+  }
+
   protected override render(): TemplateResult {
-    return html`<slot></slot>`;
+    return html`<slot @slotchange=${this._updateAriaDescription}></slot>`;
   }
 }
 

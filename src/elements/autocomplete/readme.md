@@ -111,10 +111,15 @@ Options without an associated action can be used as usual, without wrapping them
 
 ### Accessibility
 
-If needed, add an `aria-description`/ `aria-described-by` to the `<sbb-option>` to announce the existence of the action buttons.
-This will be read by screen readers when the option is focused.
+When using action buttons, the `<sbb-option>` element will automatically receive an internal `aria-description`
+to hint at the available buttons and how to navigate to them (via arrow left and right).
+If you need to overwrite `aria-description` or use `aria-describedby`, you need to also hint at the actions
+and how to navigate to them.
 
-> There is a known issue with NVDA screen reader about keyboard navigation into actions.
+Due to limited support for button roles in a listbox, the `<sbb-autocomplete-button>` either has role `button`
+or `option`. In case where role `option` is used, `aria-setsize` and `aria-posinset` are set to the correct
+value.
+While this is not perfect, it works, with caveats, in all supported scenarios.
 
 ## Events
 

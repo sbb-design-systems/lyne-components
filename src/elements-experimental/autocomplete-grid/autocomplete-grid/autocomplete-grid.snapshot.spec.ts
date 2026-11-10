@@ -1,7 +1,5 @@
 import { expect } from '@open-wc/testing';
 import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/testing/private.js';
-import { describeIf } from '@sbb-esta/lyne-elements/core/testing.js';
-import { isSafari } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js';
 import { html } from 'lit/static-html.js';
 
@@ -37,27 +35,13 @@ describe('sbb-autocomplete-grid', () => {
     element = root.querySelector('sbb-autocomplete-grid')!;
   });
 
-  describeIf(!isSafari, 'Chrome-Firefox', async () => {
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-
-    testA11yTreeSnapshot();
+  it('DOM', async () => {
+    await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
   });
 
-  describeIf(isSafari, 'Safari', async () => {
-    it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
-    });
-
-    it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
-    });
-
-    testA11yTreeSnapshot();
+  it('Shadow DOM', async () => {
+    await expect(element).shadowDom.to.be.equalSnapshot();
   });
+
+  testA11yTreeSnapshot();
 });

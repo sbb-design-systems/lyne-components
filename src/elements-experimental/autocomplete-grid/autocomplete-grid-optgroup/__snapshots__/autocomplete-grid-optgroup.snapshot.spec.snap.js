@@ -1,23 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-autocomplete-grid-optgroup renders Safari DOM"] = 
-`<sbb-autocomplete-grid-optgroup label="Group">
-  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
-    <sbb-autocomplete-grid-option value="1">
-      Option 1
-    </sbb-autocomplete-grid-option>
-  </sbb-autocomplete-grid-row>
-  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-2">
-    <sbb-autocomplete-grid-option value="2">
-      Option 2
-    </sbb-autocomplete-grid-option>
-  </sbb-autocomplete-grid-row>
-</sbb-autocomplete-grid-optgroup>
-`;
-/* end snapshot sbb-autocomplete-grid-optgroup renders Safari DOM */
-
-snapshots["sbb-autocomplete-grid-optgroup renders Chrome-Firefox DOM"] = 
+snapshots["sbb-autocomplete-grid-optgroup renders DOM"] = 
 `<sbb-autocomplete-grid-optgroup label="Group">
   <sbb-autocomplete-grid-row>
     <sbb-autocomplete-grid-option value="1">
@@ -31,9 +15,9 @@ snapshots["sbb-autocomplete-grid-optgroup renders Chrome-Firefox DOM"] =
   </sbb-autocomplete-grid-row>
 </sbb-autocomplete-grid-optgroup>
 `;
-/* end snapshot sbb-autocomplete-grid-optgroup renders Chrome-Firefox DOM */
+/* end snapshot sbb-autocomplete-grid-optgroup renders DOM */
 
-snapshots["sbb-autocomplete-grid-optgroup renders Safari Shadow DOM"] = 
+snapshots["sbb-autocomplete-grid-optgroup renders Shadow DOM"] = 
 `<div
   aria-hidden="true"
   class="sbb-optgroup__label"
@@ -47,23 +31,7 @@ snapshots["sbb-autocomplete-grid-optgroup renders Safari Shadow DOM"] =
 <slot>
 </slot>
 `;
-/* end snapshot sbb-autocomplete-grid-optgroup renders Safari Shadow DOM */
-
-snapshots["sbb-autocomplete-grid-optgroup renders Chrome-Firefox Shadow DOM"] = 
-`<div
-  aria-hidden="true"
-  class="sbb-optgroup__label"
->
-  <div class="sbb-optgroup__icon-space">
-  </div>
-  <span>
-    Group
-  </span>
-</div>
-<slot>
-</slot>
-`;
-/* end snapshot sbb-autocomplete-grid-optgroup renders Chrome-Firefox Shadow DOM */
+/* end snapshot sbb-autocomplete-grid-optgroup renders Shadow DOM */
 
 snapshots["sbb-autocomplete-grid-optgroup A11y tree Chrome"] = 
 `<p>

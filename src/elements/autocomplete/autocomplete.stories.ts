@@ -444,7 +444,6 @@ const WithActionsTemplate = (args: Args): TemplateResult => html`
                 value=${`1-${i + 1}`}
                 icon-name=${args.iconName || nothing}
                 ?disabled=${args.disableOption && i === 1}
-                aria-describedby="option-description"
                 >${`Option 1-${i + 1}`}${
                   i === 2 ? ` with a long text which can wrap` : ``
                 }</sbb-option
@@ -458,12 +457,7 @@ const WithActionsTemplate = (args: Args): TemplateResult => html`
           `,
         )}
         <sbb-autocomplete-row>
-          <sbb-option
-            value=${`1-5`}
-            icon-name=${args.iconName || nothing}
-            aria-describedby="option-description"
-            >Option 1-5</sbb-option
-          >
+          <sbb-option value=${`1-5`} icon-name=${args.iconName || nothing}>Option 1-5</sbb-option>
           <sbb-autocomplete-button
             icon-name="pen-small"
             aria-label="edit option 1-5"
@@ -476,10 +470,6 @@ const WithActionsTemplate = (args: Args): TemplateResult => html`
       </sbb-autocomplete>
     </sbb-form-field>
     ${textBlock()}
-
-    <span class="sbb-screen-reader-only" id="option-description"
-      >press arrow left/right for available actions</span
-    >
   </div>
 `;
 

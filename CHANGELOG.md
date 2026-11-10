@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.13.2](https://github.com/sbb-design-systems/lyne-components/compare/v5.13.1...v5.13.2) (2026-11-10)
+
+
+### Bug Fixes
+
+* **autocomplete:** fix accessibility for autocomplete buttons ([#5361](https://github.com/sbb-design-systems/lyne-components/issues/5361)) ([2335ce2](https://github.com/sbb-design-systems/lyne-components/commit/2335ce21069bd1cfde67ac62fa9e2a02a149625b))
+* **table:** pre-define height to avoid page jumps ([#5364](https://github.com/sbb-design-systems/lyne-components/issues/5364)) ([e96ccdc](https://github.com/sbb-design-systems/lyne-components/commit/e96ccdc3765c1e25c679e879366ca6778bf2a990))
+* **time-input:** allow edit on triple click text selection ([#5375](https://github.com/sbb-design-systems/lyne-components/issues/5375)) ([5753f02](https://github.com/sbb-design-systems/lyne-components/commit/5753f0252f7a293fa960ae35a9df5a910525cbc9)), closes [#5372](https://github.com/sbb-design-systems/lyne-components/issues/5372)
+
+
+### Styles
+
+* **button:** fix flicker from and to loading state ([#5379](https://github.com/sbb-design-systems/lyne-components/issues/5379)) ([a960515](https://github.com/sbb-design-systems/lyne-components/commit/a960515b6164e71bdb1a3fb4ad25f69038fe7925))
+
 ## [5.13.1](https://github.com/sbb-design-systems/lyne-components/compare/v5.13.0...v5.13.1) (2026-11-02)
 
 

@@ -1,7 +1,6 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { fixture, tabKey } from '@sbb-esta/lyne-elements/core/testing/private.js';
-import { describeIf, EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
-import { isSafari } from '@sbb-esta/lyne-elements/core.js';
+import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { repeat } from 'lit/directives/repeat.js';
@@ -61,40 +60,18 @@ describe(`sbb-autocomplete-grid`, () => {
       element = formField.querySelector<SbbAutocompleteGridElement>('sbb-autocomplete-grid')!;
     });
 
-    describeIf(isSafari, 'Safari', async () => {
-      it('renders and sets the correct attributes', () => {
-        assert.instanceOf(formField, SbbFormFieldElement);
-        assert.instanceOf(element, SbbAutocompleteGridElement);
+    it('renders and sets the correct attributes', () => {
+      assert.instanceOf(formField, SbbFormFieldElement);
+      assert.instanceOf(element, SbbAutocompleteGridElement);
 
-        expect(element).not.to.have.attribute('autocomplete-origin-borderless');
+      expect(element).not.to.have.attribute('autocomplete-origin-borderless');
 
-        expect(input).to.have.attribute('autocomplete', 'off');
-        expect(input).to.have.attribute('role', 'combobox');
-        expect(input).to.have.attribute('aria-autocomplete', 'list');
-        expect(input).to.have.attribute('aria-haspopup', 'grid');
-        expect(input).to.have.attribute('aria-controls', element.id);
-        expect(input).to.have.attribute('aria-owns', element.id);
-        expect(input).to.have.attribute('aria-expanded', 'false');
-      });
-    });
-
-    describeIf(!isSafari, 'Chrome-Firefox', async () => {
-      it('renders and sets the correct attributes', () => {
-        assert.instanceOf(formField, SbbFormFieldElement);
-        assert.instanceOf(element, SbbAutocompleteGridElement);
-
-        expect(element).not.to.have.attribute('autocomplete-origin-borderless');
-
-        const id = element.shadowRoot!.querySelector('.sbb-option-panel__overlay')!.id;
-
-        expect(input).to.have.attribute('autocomplete', 'off');
-        expect(input).to.have.attribute('role', 'combobox');
-        expect(input).to.have.attribute('aria-autocomplete', 'list');
-        expect(input).to.have.attribute('aria-haspopup', 'grid');
-        expect(input).to.have.attribute('aria-controls', id);
-        expect(input).to.have.attribute('aria-owns', id);
-        expect(input).to.have.attribute('aria-expanded', 'false');
-      });
+      expect(input).to.have.attribute('autocomplete', 'off');
+      expect(input).to.have.attribute('role', 'combobox');
+      expect(input).to.have.attribute('aria-autocomplete', 'list');
+      expect(input).to.have.attribute('aria-haspopup', 'grid');
+      expect(input).to.have.attribute('aria-controls', element.id);
+      expect(input).to.have.attribute('aria-expanded', 'false');
     });
 
     it('removes attributes on trigger disconnection', async () => {
@@ -118,7 +95,6 @@ describe(`sbb-autocomplete-grid`, () => {
       expect(input).not.to.have.attribute('aria-autocomplete');
       expect(input).not.to.have.attribute('aria-haspopup');
       expect(input).not.to.have.attribute('aria-controls');
-      expect(input).not.to.have.attribute('aria-owns');
       expect(input).not.to.have.attribute('aria-expanded');
       expect(input).not.to.have.attribute('data-expanded');
     });
