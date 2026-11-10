@@ -283,6 +283,27 @@ describe('sbb-tooltip', () => {
       expect(outsidePointerSpy.count).to.equal(1);
     });
 
+    it('should stop listening for outside clicks when reparenting an open tooltip', async () => {
+      const outsidePointerSpy = new EventSpy('overlayOutsidePointer', element);
+      const newParent = document.createElement('div');
+      element.parentElement!.appendChild(newParent);
+
+      element.open();
+      await openSpy.calledOnce();
+
+      newParent.appendChild(element);
+      await waitForLitRender(element);
+      expect(element).to.match(':state(state-closed)');
+      document.body.click();
+      expect(outsidePointerSpy.count).to.equal(0);
+
+      element.open();
+      await openSpy.calledTimes(2);
+      document.body.click();
+      await closeSpy.calledOnce();
+      expect(outsidePointerSpy.count).to.equal(1);
+    });
+
     it('should inherit the delays from global configuration', async () => {
       mergeConfig({
         tooltip: {

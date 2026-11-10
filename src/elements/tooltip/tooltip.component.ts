@@ -261,6 +261,10 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._detach();
+    if (this._isOutsidePointerListenerConnected) {
+      sbbOverlayOutsidePointerEventListener.disconnect(this);
+      this._isOutsidePointerListenerConnected = false;
+    }
   }
 
   public override requestUpdate(
