@@ -396,7 +396,7 @@ $loading: '[loading], .sbb-loading';
   // we need to override it.
   // Transparent color is needed because it's the transition starting color when
   // transitioning from loading to non loading.
-  --sbb-button-border-override: 2px none transparent;
+  --sbb-button-border-override: none transparent;
 }
 
 @mixin variables--secondary-negative {
