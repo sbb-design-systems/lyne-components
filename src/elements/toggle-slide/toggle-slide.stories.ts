@@ -11,6 +11,7 @@ import readme from './readme.md?raw';
 import '../toggle-slide.ts';
 import '../button.ts';
 import '../card.ts';
+import '../dialog.ts';
 import '../form-field.ts';
 import '../title.ts';
 
@@ -51,22 +52,30 @@ const name: InputType = {
   },
 };
 
-const defaultArgTypes: ArgTypes = {
+const defaultArgTypesWithoutChecked: ArgTypes = {
   size,
   'aria-label': ariaLabel,
-  checked,
   disabled,
   value,
   name,
 };
 
-const defaultArgs: Args = {
+const defaultArgTypes: ArgTypes = {
+  ...defaultArgTypesWithoutChecked,
+  checked,
+};
+
+const defaultArgsWithoutChecked: Args = {
   size: undefined,
   'aria-label': 'Journey check-in state',
-  checked: false,
   disabled: false,
   value: 'Value',
   name: 'name',
+};
+
+const defaultArgs: Args = {
+  ...defaultArgsWithoutChecked,
+  checked: false,
 };
 
 const title = html`<sbb-title level="6" style="margin-block-start: 0;">
@@ -174,6 +183,39 @@ const TemplateWithForm = (args: Args): TemplateResult => html`
   </form>
 `;
 
+const TemplateWithConfirmDialog = (args: Args): TemplateResult => html`
+  <sbb-toggle-slide
+    ${sbbSpread(args)}
+    confirmation-dialog="confirmation-dialog"
+    @validate=${(e: SbbToggleSlideValidateEvent) => {
+      e.preventDefaultConditionally(
+        // Simulate a backend call with a timeout.
+        new Promise((resolve) => setTimeout(() => resolve(true), 1500)),
+      );
+    }}
+  >
+    <sbb-toggle-slide-activation-label>
+      Pull right to set signal to green
+    </sbb-toggle-slide-activation-label>
+    <sbb-toggle-slide-deactivation-label>Signal is green!</sbb-toggle-slide-deactivation-label>
+  </sbb-toggle-slide>
+  <sbb-dialog id="confirmation-dialog">
+    <sbb-dialog-content id="confirmation">
+      Are you sure you want to set the signal to green?
+    </sbb-dialog-content>
+    <sbb-dialog-actions>
+      <sbb-secondary-button
+        sbb-dialog-close="false"
+        sbb-focus-initial
+        aria-describedby="confirmation"
+      >
+        Cancel
+      </sbb-secondary-button>
+      <sbb-button sbb-dialog-close="true" aria-describedby="confirmation">Confirm</sbb-button>
+    </sbb-dialog-actions>
+  </sbb-dialog>
+`;
+
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -247,6 +289,12 @@ export const WithForm: StoryObj = {
   render: TemplateWithForm,
   argTypes: defaultArgTypes,
   args: defaultArgs,
+};
+
+export const WithConfirmDialog: StoryObj = {
+  render: TemplateWithConfirmDialog,
+  argTypes: defaultArgTypesWithoutChecked,
+  args: { ...defaultArgsWithoutChecked, 'aria-label': 'Should the signal become green?' },
 };
 
 const meta: Meta = {

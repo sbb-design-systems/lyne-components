@@ -1,7 +1,9 @@
 import {
   type CSSResultGroup,
   html,
+  isServer,
   type PropertyDeclaration,
+  type PropertyValues,
   type TemplateResult,
   unsafeCSS,
 } from 'lit';
@@ -13,6 +15,7 @@ import {
   i18nToggleSlideDeactivated,
   i18nToggleSlideValidating,
   i18nToggleSlideValidationFailed,
+  idReference,
   isIOS,
   preventScrollOnSpacebarPress,
   SbbDynamicStylesheetMixin,
@@ -24,6 +27,7 @@ import {
   sbbLiveAnnouncer,
   screenReaderOnlyStyles,
 } from '../../core.ts';
+import type { SbbDialogCloseEvent, SbbDialogElement } from '../../dialog.pure.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 
 import style from './toggle-slide.scss?inline';
@@ -83,12 +87,16 @@ export class SbbToggleSlideValidateEvent extends Event {
  *  │           │ │                       │
  *  │  SLIDING  │ │  KEYBOARD-ACTIVATION  │
  *  │           │ │                       │
- *  └─────┬─────┘ └────────┬──────────────┘
- *        │                │
- *        │                │
- *    pointerup            │
- *        │                │
- *        └───────┬────────┘
+ *  └─────┬─────┘ └──────────┬────────────┘
+ *        │                  │
+ *        │                  │
+ *        │        ┌─────────────────────┐
+ *        │        │ Confirmation Dialog │
+ *        │        └────┬───────────┬────┘
+ *        │             │           │
+ *    pointerup        true       false
+ *        │             │
+ *        └───────┬─────┘
  *                ▼
  *        ┌────────────────┐
  *        │                │
@@ -153,6 +161,19 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
    */
   @property({ reflect: true }) public accessor size: 's' | 'm' | 'l' | null = null;
 
+  /**
+   * Optional dialog that is opened when the user tries to change the checked state by keyboard or screen reader.
+   * In order to activate the state, the dialog should contain a confirmation button that closes
+   * the dialog with a positive result (true boolean or 'true' string).
+   *
+   * The dialog is strongly recommended for important scenarios, e.g. safety relevant.
+   *
+   * For attribute usage, provide an id reference.
+   */
+  @idReference()
+  @property({ attribute: 'confirmation-dialog' })
+  public accessor confirmationDialog: SbbDialogElement | null = null;
+
   @state() private accessor _state:
     'idle' | 'pointer-sliding' | 'keyboard-activation' | 'validating' = 'idle';
 
@@ -160,6 +181,9 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   private _animationFrame: number = -1;
   private _buttonPointerOffsetLeft?: number;
   private _language = new SbbLanguageController(this);
+  private _confirmationDialogElement: SbbDialogElement | null = null;
+  private _confirmationDialogAbortController: AbortController = new AbortController();
+  private _focusedElementOnDialogClose: Element | null = null;
 
   public constructor() {
     super();
@@ -174,6 +198,10 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     super.connectedCallback();
 
     this._updateFraction(this.checked ? 1 : 0);
+
+    if (this.hasUpdated) {
+      this._configureConfirmationDialog();
+    }
   }
 
   public override disconnectedCallback(): void {
@@ -202,7 +230,15 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
       this._cancelAnimation();
       this._resetPointerInteraction();
       this._animateToCheckedState();
+    } else if (!isServer && (!name || name === 'trigger') && this.hasUpdated) {
+      this._configureConfirmationDialog();
     }
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
+    this._configureConfirmationDialog();
   }
 
   private _isDisabled(): boolean {
@@ -320,10 +356,15 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   private _startActivation(): void {
     this._state = 'keyboard-activation';
     this._toggleButtonActiveState(true);
-    this._animateToCheckedState({
-      target: this.checked ? 0 : 1,
-      onComplete: () => this._finishActivation(),
-    });
+
+    if (this._confirmationDialogElement) {
+      this._confirmationDialogElement.open();
+    } else {
+      this._animateToCheckedState({
+        target: this.checked ? 0 : 1,
+        onComplete: () => this._finishActivation(),
+      });
+    }
   }
 
   private _finishActivation(): void {
@@ -364,6 +405,19 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     } else {
       this._animateToCheckedState();
       this._announce(i18nToggleSlideValidationFailed[this._language.current]);
+    }
+
+    if (
+      this._confirmationDialogElement &&
+      this._focusedElementOnDialogClose === document.activeElement
+    ) {
+      // In the dialog scenario we loose focus to the dialog when it's opened.
+      // Basically, the dialog restores the focus to the last focused element which would be the toggle-slide.
+      // However, the focus restoration happens too early and the screen reader reads the wrong state.
+      // So we need to restore the focus after the validation is done.
+      // As long as the validation is in progress, the focus could be changed by the user.
+      // In this case we don't want to restore the focus to the toggle-slide.
+      this.focus();
     }
 
     this.internals.ariaBusy = null;
@@ -495,6 +549,59 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
 
   private _handleIconTransitionEnd(): void {
     this.toggleState('icon-transition', false);
+  }
+
+  private _configureConfirmationDialog(): void {
+    if (this.confirmationDialog === this._confirmationDialogElement) {
+      return;
+    }
+
+    this._confirmationDialogAbortController.abort();
+    this._confirmationDialogElement = this.confirmationDialog;
+
+    if (!this._confirmationDialogElement) {
+      return;
+    }
+
+    this._confirmationDialogElement.skipFocusRestoration = true;
+    this._confirmationDialogAbortController = new AbortController();
+    this._confirmationDialogElement.addEventListener(
+      'close',
+      (e: Event): void => {
+        const result = (e as SbbDialogCloseEvent<boolean | 'true' | 'false'>).result;
+        if (
+          this._state === 'keyboard-activation' &&
+          result !== null &&
+          (result === true || result === 'true')
+        ) {
+          // Continue the activation if the dialog was closed with a positive result.
+          this._animateToCheckedState({
+            target: this.checked ? 0 : 1,
+            onComplete: () => this._finishActivation(),
+          });
+        } else {
+          this._toggleButtonActiveState(false);
+          this._state = 'idle';
+          this.focus();
+        }
+      },
+      {
+        signal: this._confirmationDialogAbortController.signal,
+      },
+    );
+
+    this._confirmationDialogElement.addEventListener(
+      'focusout',
+      (): void => {
+        // We store the element that receives focus when the dialog is closed
+        if (this._confirmationDialogElement?.['state'] === 'closed') {
+          this._focusedElementOnDialogClose = document.activeElement;
+        }
+      },
+      {
+        signal: this._confirmationDialogAbortController.signal,
+      },
+    );
   }
 
   protected override render(): TemplateResult {
