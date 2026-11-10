@@ -40,16 +40,12 @@ export const leanTableTemplate = (): TemplateResult => html`
 
     @media (min-width: calc(64rem)) and (max-width: calc(89.9375rem)) {
       .page__title {
-        margin-block-start: calc(
-          var(--sbb-spacing-responsive-m-large) - var(--sbb-spacing-fixed-5x)
-        );
+        margin-block-start: calc(var(--sbb-spacing-responsive-m-large) - var(--sbb-spacing-fixed-5x));
       }
     }
     @media (min-width: calc(90rem)) {
       .page__title {
-        margin-block-start: calc(
-          var(--sbb-spacing-responsive-m-ultra) - var(--sbb-spacing-fixed-7x)
-        );
+        margin-block-start: calc(var(--sbb-spacing-responsive-m-ultra) - var(--sbb-spacing-fixed-7x));
       }
     }
     .add-button {
@@ -153,6 +149,10 @@ export const leanTableTemplate = (): TemplateResult => html`
       margin-block-start: var(--sbb-spacing-fixed-6x);
     }
 
+    sbb-icon-sidebar-content:has(.table-view) {
+      scrollbar-gutter: stable;
+    }
+
     .table-header__content {
       display: flex;
       align-items: center;
@@ -166,23 +166,12 @@ export const leanTableTemplate = (): TemplateResult => html`
     }
 
     .table-header__button {
-      opacity: 0;
-    }
-
-    th:hover .table-header__button,
-    th:focus-within .table-header__button,
-    .table-header__button[data-active],
-    .table-header__button[aria-expanded='true'] {
       opacity: 1;
     }
 
-    @media (hover: none) {
-      .table-header__button {
-        opacity: 1;
-      }
-    }
     .col-actions {
-      width: 1%;
+      box-sizing: content-box;
+      width: calc(4 * var(--sbb-spacing-fixed-6x) + 3 * var(--sbb-spacing-fixed-1x));
       white-space: nowrap;
       position: relative;
     }
@@ -193,6 +182,24 @@ export const leanTableTemplate = (): TemplateResult => html`
 
     .table-view table {
       --sbb-table-data-cell-font-size: var(--sbb-text-font-size-s);
+      table-layout: fixed;
+      min-width: calc(24 * var(--sbb-spacing-fixed-12x));
+    }
+
+    .table-view th[data-sort-key=category] {
+      width: 16%;
+    }
+
+    .table-view th[data-sort-key=person] {
+      width: 18%;
+    }
+
+    .table-view th[data-sort-key=date] {
+      width: 14%;
+    }
+
+    .table-view th[data-sort-key=status] {
+      width: 12%;
     }
 
     .status-filter {
@@ -209,12 +216,11 @@ export const leanTableTemplate = (): TemplateResult => html`
       gap: var(--sbb-spacing-fixed-1x);
     }
   </style>
-
+</head>
+<body>
   <sbb-header expanded>
-    <sbb-header-button id="menu-trigger" icon-name="hamburger-menu-small" hide-label-below="small"
-      >Menu</sbb-header-button
-    >
-    <span class="header-info">
+    <sbb-header-button id="menu-trigger" icon-name="hamburger-menu-small" hide-label-below="small">Menu</sbb-header-button>
+    <span class="sbb-header-info header-info">
       <strong>Example application</strong>
       <span>V. 1.0</span>
     </span>
@@ -241,22 +247,9 @@ export const leanTableTemplate = (): TemplateResult => html`
     <sbb-sidebar-content>
       <sbb-icon-sidebar-container>
         <sbb-icon-sidebar>
-          <sbb-icon-sidebar-button
-            id="sidebar-home-link"
-            icon-name="house-small"
-            aria-label="Dashboard"
-            sbb-badge="4"
-          ></sbb-icon-sidebar-button>
-          <sbb-icon-sidebar-button
-            icon-name="list-small"
-            aria-label="Card list"
-          ></sbb-icon-sidebar-button>
-          <sbb-icon-sidebar-button
-            class="sbb-active"
-            aria-current="page"
-            icon-name="four-squares-small"
-            aria-label="Table view"
-          ></sbb-icon-sidebar-button>
+          <sbb-icon-sidebar-button id="sidebar-home-link" icon-name="house-small" aria-label="Dashboard" sbb-badge="4"></sbb-icon-sidebar-button>
+          <sbb-icon-sidebar-button icon-name="list-small" aria-label="Card list"></sbb-icon-sidebar-button>
+          <sbb-icon-sidebar-button class="sbb-active" aria-current="page" icon-name="four-squares-small" aria-label="Table view"></sbb-icon-sidebar-button>
         </sbb-icon-sidebar>
 
         <sbb-icon-sidebar-content sbb-header-scroll-origin>
@@ -264,13 +257,7 @@ export const leanTableTemplate = (): TemplateResult => html`
             <sbb-title level="2" class="page__title">Title</sbb-title>
 
             <div class="status-filter">
-              <sbb-tag-group
-                id="status-filter"
-                class="filter-bar__status"
-                multiple
-                size="s"
-                accessibility-label="Filter by status"
-              >
+              <sbb-tag-group id="status-filter" class="filter-bar__status" multiple size="s" accessibility-label="Filter by status">
                 <sbb-tag value="all" checked>All</sbb-tag>
                 <sbb-tag value="not-started">Planned</sbb-tag>
                 <sbb-tag value="pending">In progress</sbb-tag>
@@ -279,106 +266,42 @@ export const leanTableTemplate = (): TemplateResult => html`
             </div>
 
             <sbb-table-wrapper>
-              <table
-                class="sbb-table-s sbb-table--striped sbb-table--hover"
-                style="width: 100%;"
-                aria-label="Entries"
-              >
+              <table class="sbb-table-s sbb-table--striped sbb-table--hover" style="width: 100%;" aria-label="Entries">
                 <thead>
                   <tr>
                     <th data-sort-key="title" aria-sort="none">
-                      <div class="table-header__content">
-                        <span>Name</span>
+                      <div class="table-header__content"><span>Name</span>
                         <span class="table-header__actions">
-                          <sbb-mini-button
-                            id="search-trigger"
-                            class="table-header__button table-header__filter"
-                            icon-name="filter-small"
-                            aria-label="Filter by name"
-                          ></sbb-mini-button>
-                          <sbb-mini-button
-                            id="sort-trigger-title"
-                            class="table-header__button table-header__sort"
-                            data-sort="title"
-                            icon-name="arrows-up-down-small"
-                            aria-label="Sort by name"
-                          ></sbb-mini-button>
-                        </span>
-                      </div>
+                          <sbb-mini-button id="search-trigger" class="table-header__button table-header__filter" icon-name="filter-small" aria-label="Filter by name"></sbb-mini-button>
+                          <sbb-mini-button id="sort-trigger-title" class="table-header__button table-header__sort" data-sort="title" icon-name="arrows-up-down-small" aria-label="Sort by name"></sbb-mini-button>
+                        </span></div>
                     </th>
                     <th data-sort-key="category" aria-sort="none">
-                      <div class="table-header__content">
-                        <span>Category</span>
+                      <div class="table-header__content"><span>Category</span>
                         <span class="table-header__actions">
-                          <sbb-mini-button
-                            id="category-trigger"
-                            class="table-header__button table-header__filter"
-                            icon-name="filter-small"
-                            aria-label="Filter by category"
-                          ></sbb-mini-button>
-                          <sbb-mini-button
-                            id="sort-trigger-category"
-                            class="table-header__button table-header__sort"
-                            data-sort="category"
-                            icon-name="arrows-up-down-small"
-                            aria-label="Sort by category"
-                          ></sbb-mini-button>
-                        </span>
-                      </div>
+                          <sbb-mini-button id="category-trigger" class="table-header__button table-header__filter" icon-name="filter-small" aria-label="Filter by category"></sbb-mini-button>
+                          <sbb-mini-button id="sort-trigger-category" class="table-header__button table-header__sort" data-sort="category" icon-name="arrows-up-down-small" aria-label="Sort by category"></sbb-mini-button>
+                        </span></div>
                     </th>
                     <th data-sort-key="person" aria-sort="none">
-                      <div class="table-header__content">
-                        <span>User</span>
+                      <div class="table-header__content"><span>User</span>
                         <span class="table-header__actions">
-                          <sbb-mini-button
-                            id="person-trigger"
-                            class="table-header__button table-header__filter"
-                            icon-name="filter-small"
-                            aria-label="Filter by user"
-                          ></sbb-mini-button>
-                          <sbb-mini-button
-                            id="sort-trigger-person"
-                            class="table-header__button table-header__sort"
-                            data-sort="person"
-                            icon-name="arrows-up-down-small"
-                            aria-label="Sort by user"
-                          ></sbb-mini-button>
-                        </span>
-                      </div>
+                          <sbb-mini-button id="person-trigger" class="table-header__button table-header__filter" icon-name="filter-small" aria-label="Filter by user"></sbb-mini-button>
+                          <sbb-mini-button id="sort-trigger-person" class="table-header__button table-header__sort" data-sort="person" icon-name="arrows-up-down-small" aria-label="Sort by user"></sbb-mini-button>
+                        </span></div>
                     </th>
                     <th data-sort-key="date" aria-sort="none">
-                      <div class="table-header__content">
-                        <span>Date</span>
+                      <div class="table-header__content"><span>Date</span>
                         <span class="table-header__actions">
-                          <sbb-mini-button
-                            id="date-trigger"
-                            class="table-header__button table-header__filter"
-                            icon-name="filter-small"
-                            aria-label="Filter by date"
-                          ></sbb-mini-button>
-                          <sbb-mini-button
-                            id="sort-trigger-date"
-                            class="table-header__button table-header__sort"
-                            data-sort="date"
-                            icon-name="arrows-up-down-small"
-                            aria-label="Sort by date"
-                          ></sbb-mini-button>
-                        </span>
-                      </div>
+                          <sbb-mini-button id="date-trigger" class="table-header__button table-header__filter" icon-name="filter-small" aria-label="Filter by date"></sbb-mini-button>
+                          <sbb-mini-button id="sort-trigger-date" class="table-header__button table-header__sort" data-sort="date" icon-name="arrows-up-down-small" aria-label="Sort by date"></sbb-mini-button>
+                        </span></div>
                     </th>
                     <th data-sort-key="status" aria-sort="none">
-                      <div class="table-header__content">
-                        <span>Status</span>
+                      <div class="table-header__content"><span>Status</span>
                         <span class="table-header__actions">
-                          <sbb-mini-button
-                            id="sort-trigger-status"
-                            class="table-header__button table-header__sort"
-                            data-sort="status"
-                            icon-name="arrows-up-down-small"
-                            aria-label="Sort by status"
-                          ></sbb-mini-button>
-                        </span>
-                      </div>
+                          <sbb-mini-button id="sort-trigger-status" class="table-header__button table-header__sort" data-sort="status" icon-name="arrows-up-down-small" aria-label="Sort by status"></sbb-mini-button>
+                        </span></div>
                     </th>
                     <th class="col-actions"><span class="sbb-screen-reader-only">Actions</span></th>
                   </tr>
@@ -392,33 +315,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="success">Completed</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-1"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-1" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-1">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-1"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-1" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-1">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-1"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-1" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-1">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-1"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-1" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-1">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -431,33 +334,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="not-started">Planned</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-2"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-2" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-2">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-2"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-2" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-2">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-2"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-2" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-2">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-2"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-2" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-2">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -470,33 +353,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="pending">In progress</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-3"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-3" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-3">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-3"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-3" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-3">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-3"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-3" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-3">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-3"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-3" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-3">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -509,33 +372,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="not-started">Planned</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-4"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-4" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-4">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-4"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-4" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-4">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-4"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-4" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-4">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-4"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-4" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-4">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -548,33 +391,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="success">Completed</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-5"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-5" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-5">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-5"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-5" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-5">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-5"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-5" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-5">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-5"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-5" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-5">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -587,33 +410,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="pending">In progress</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-6"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-6" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-6">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-6"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-6" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-6">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-6"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-6" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-6">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-6"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-6" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-6">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -626,33 +429,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="success">Completed</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-7"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-7" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-7">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-7"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-7" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-7">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-7"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-7" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-7">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-7"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-7" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-7">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -665,33 +448,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="not-started">Planned</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-8"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-8" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-8">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-8"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-8" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-8">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-8"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-8" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-8">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-8"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-8" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-8">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -704,33 +467,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="success">Completed</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-9"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-9" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-9">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-9"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-9" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-9">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-9"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-9" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-9">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-9"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-9" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-9">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -743,33 +486,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="not-started">Planned</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-10"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-10" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-10">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-10"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-10" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-10">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-10"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-10" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-10">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-10"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-10" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-10">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -782,33 +505,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="pending">In progress</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-11"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-11" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-11">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-11"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-11" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-11">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-11"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-11" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-11">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-11"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-11" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-11">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -821,33 +524,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="success">Completed</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-12"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-12" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-12">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-12"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-12" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-12">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-12"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-12" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-12">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-12"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-12" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-12">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -860,33 +543,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="not-started">Planned</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-13"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-13" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-13">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-13"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-13" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-13">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-13"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-13" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-13">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-13"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-13" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-13">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -899,33 +562,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="pending">In progress</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-14"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-14" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-14">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-14"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-14" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-14">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-14"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-14" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-14">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-14"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-14" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-14">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -938,33 +581,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="success">Completed</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-15"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-15" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-15">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-15"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-15" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-15">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-15"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-15" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-15">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-15"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-15" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-15">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -977,33 +600,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="success">Completed</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-16"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-16" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-16">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-16"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-16" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-16">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-16"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-16" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-16">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-16"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-16" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-16">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -1016,33 +619,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="not-started">Planned</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-17"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-17" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-17">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-17"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-17" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-17">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-17"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-17" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-17">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-17"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-17" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-17">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -1055,33 +638,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="pending">In progress</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-18"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-18" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-18">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-18"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-18" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-18">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-18"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-18" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-18">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-18"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-18" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-18">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -1094,33 +657,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="success">Completed</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-19"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-19" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-19">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-19"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-19" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-19">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-19"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-19" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-19">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-19"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-19" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-19">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -1133,33 +676,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="not-started">Planned</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-20"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-20" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-20">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-20"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-20" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-20">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-20"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-20" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-20">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-20"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-20" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-20">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -1172,33 +695,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="pending">In progress</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-21"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-21" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-21">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-21"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-21" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-21">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-21"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-21" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-21">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-21"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-21" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-21">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -1211,33 +714,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="success">Completed</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-22"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-22" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-22">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-22"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-22" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-22">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-22"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-22" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-22">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-22"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-22" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-22">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -1250,33 +733,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="success">Completed</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-23"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-23" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-23">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-23"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-23" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-23">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-23"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-23" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-23">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-23"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-23" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-23">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -1289,33 +752,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="not-started">Planned</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-24"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-24" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-24">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-24"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-24" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-24">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-24"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-24" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-24">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-24"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-24" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-24">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -1328,33 +771,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="pending">In progress</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-25"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-25" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-25">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-25"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-25" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-25">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-25"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-25" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-25">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-25"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-25" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-25">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -1367,33 +790,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="success">Completed</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-26"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-26" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-26">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-26"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-26" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-26">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-26"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-26" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-26">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-26"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-26" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-26">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -1406,33 +809,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="not-started">Planned</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-27"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-27" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-27">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-27"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-27" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-27">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-27"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-27" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-27">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-27"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-27" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-27">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -1445,33 +828,13 @@ export const leanTableTemplate = (): TemplateResult => html`
                     <td><sbb-status type="pending">In progress</sbb-status></td>
                     <td class="col-actions">
                       <div class="row-actions">
-                        <sbb-mini-button
-                          id="row-edit-28"
-                          data-action="edit"
-                          icon-name="pen-small"
-                          aria-label="Edit"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-edit-28" data-action="edit" icon-name="pen-small" aria-label="Edit"></sbb-mini-button>
                         <sbb-tooltip trigger="row-edit-28">Edit</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-view-28"
-                          data-action="view"
-                          icon-name="eye-small"
-                          aria-label="View"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-view-28" data-action="view" icon-name="eye-small" aria-label="View"></sbb-mini-button>
                         <sbb-tooltip trigger="row-view-28">View</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-copy-28"
-                          data-action="copy"
-                          icon-name="copy-small"
-                          aria-label="Duplicate"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-copy-28" data-action="copy" icon-name="copy-small" aria-label="Duplicate"></sbb-mini-button>
                         <sbb-tooltip trigger="row-copy-28">Duplicate</sbb-tooltip>
-                        <sbb-mini-button
-                          id="row-delete-28"
-                          data-action="delete"
-                          icon-name="trash-small"
-                          aria-label="Delete"
-                        ></sbb-mini-button>
+                        <sbb-mini-button id="row-delete-28" data-action="delete" icon-name="trash-small" aria-label="Delete"></sbb-mini-button>
                         <sbb-tooltip trigger="row-delete-28">Delete</sbb-tooltip>
                       </div>
                     </td>
@@ -1480,26 +843,16 @@ export const leanTableTemplate = (): TemplateResult => html`
               </table>
             </sbb-table-wrapper>
 
-            <sbb-paginator
-              length="72"
-              page-size="28"
-              page-index="0"
-              size="s"
-              pager-position="end"
-            ></sbb-paginator>
+            <sbb-paginator length="72" page-size="28" page-index="0" size="s" pager-position="end"></sbb-paginator>
             <sbb-sticky-bar size="m">
-              <sbb-button id="add-button" class="add-button" icon-name="plus-small" size="s"
-                >Add</sbb-button
-              >
+              <sbb-button id="add-button" class="add-button" icon-name="plus-small" size="s">Add</sbb-button>
             </sbb-sticky-bar>
           </sbb-container>
         </sbb-icon-sidebar-content>
       </sbb-icon-sidebar-container>
     </sbb-sidebar-content>
     <sbb-sidebar id="edit-sidebar" class="edit-sidebar" position="end" mode="over" focus-on-open>
-      <sbb-sidebar-title slot="title-section" id="edit-sidebar-title" level="2"
-        >Add entry</sbb-sidebar-title
-      >
+      <sbb-sidebar-title slot="title-section" id="edit-sidebar-title" level="2">Add entry</sbb-sidebar-title>
       <sbb-sidebar-close-button></sbb-sidebar-close-button>
       <form id="edit-form" class="edit-form">
         <sbb-form-field floating-label size="m">
@@ -1535,12 +888,7 @@ export const leanTableTemplate = (): TemplateResult => html`
         </sbb-form-field>
         <fieldset class="edit-form__group">
           <legend class="sbb-text-xs">Status</legend>
-          <sbb-radio-button-group
-            id="field-status"
-            orientation="vertical"
-            size="m"
-            value="not-started"
-          >
+          <sbb-radio-button-group id="field-status" orientation="vertical" size="m" value="not-started">
             <sbb-radio-button value="not-started">Planned</sbb-radio-button>
             <sbb-radio-button value="pending">In progress</sbb-radio-button>
             <sbb-radio-button value="success">Completed</sbb-radio-button>
@@ -1567,48 +915,12 @@ export const leanTableTemplate = (): TemplateResult => html`
   </sbb-menu>
 
   <sbb-menu id="category-menu" trigger="category-trigger">
-    <sbb-menu-button
-      class="filter-option"
-      data-value="Environment"
-      icon-name="tick-small"
-      aria-pressed="true"
-      >Environment</sbb-menu-button
-    >
-    <sbb-menu-button
-      class="filter-option"
-      data-value="Technology"
-      icon-name="tick-small"
-      aria-pressed="true"
-      >Technology</sbb-menu-button
-    >
-    <sbb-menu-button
-      class="filter-option"
-      data-value="Social"
-      icon-name="tick-small"
-      aria-pressed="true"
-      >Social</sbb-menu-button
-    >
-    <sbb-menu-button
-      class="filter-option"
-      data-value="Management"
-      icon-name="tick-small"
-      aria-pressed="true"
-      >Management</sbb-menu-button
-    >
-    <sbb-menu-button
-      class="filter-option"
-      data-value="Research"
-      icon-name="tick-small"
-      aria-pressed="true"
-      >Research</sbb-menu-button
-    >
-    <sbb-menu-button
-      class="filter-option"
-      data-value="Marketing"
-      icon-name="tick-small"
-      aria-pressed="true"
-      >Marketing</sbb-menu-button
-    >
+    <sbb-menu-button class="filter-option" data-value="Environment" icon-name="tick-small" aria-pressed="true">Environment</sbb-menu-button>
+    <sbb-menu-button class="filter-option" data-value="Technology" icon-name="tick-small" aria-pressed="true">Technology</sbb-menu-button>
+    <sbb-menu-button class="filter-option" data-value="Social" icon-name="tick-small" aria-pressed="true">Social</sbb-menu-button>
+    <sbb-menu-button class="filter-option" data-value="Management" icon-name="tick-small" aria-pressed="true">Management</sbb-menu-button>
+    <sbb-menu-button class="filter-option" data-value="Research" icon-name="tick-small" aria-pressed="true">Research</sbb-menu-button>
+    <sbb-menu-button class="filter-option" data-value="Marketing" icon-name="tick-small" aria-pressed="true">Marketing</sbb-menu-button>
     <sbb-divider negative></sbb-divider>
     <sbb-menu-button id="category-reset" icon-name="filter-x-small">Reset filter</sbb-menu-button>
   </sbb-menu>
@@ -1620,41 +932,11 @@ export const leanTableTemplate = (): TemplateResult => html`
   </sbb-menu>
 
   <sbb-menu id="person-menu" trigger="person-trigger">
-    <sbb-menu-button
-      class="filter-option"
-      data-value="Christine Müller"
-      icon-name="tick-small"
-      aria-pressed="true"
-      >Christine Müller</sbb-menu-button
-    >
-    <sbb-menu-button
-      class="filter-option"
-      data-value="Thomas Weber"
-      icon-name="tick-small"
-      aria-pressed="true"
-      >Thomas Weber</sbb-menu-button
-    >
-    <sbb-menu-button
-      class="filter-option"
-      data-value="Anna Keller"
-      icon-name="tick-small"
-      aria-pressed="true"
-      >Anna Keller</sbb-menu-button
-    >
-    <sbb-menu-button
-      class="filter-option"
-      data-value="Markus Brunner"
-      icon-name="tick-small"
-      aria-pressed="true"
-      >Markus Brunner</sbb-menu-button
-    >
-    <sbb-menu-button
-      class="filter-option"
-      data-value="Laura Steiner"
-      icon-name="tick-small"
-      aria-pressed="true"
-      >Laura Steiner</sbb-menu-button
-    >
+    <sbb-menu-button class="filter-option" data-value="Christine Müller" icon-name="tick-small" aria-pressed="true">Christine Müller</sbb-menu-button>
+    <sbb-menu-button class="filter-option" data-value="Thomas Weber" icon-name="tick-small" aria-pressed="true">Thomas Weber</sbb-menu-button>
+    <sbb-menu-button class="filter-option" data-value="Anna Keller" icon-name="tick-small" aria-pressed="true">Anna Keller</sbb-menu-button>
+    <sbb-menu-button class="filter-option" data-value="Markus Brunner" icon-name="tick-small" aria-pressed="true">Markus Brunner</sbb-menu-button>
+    <sbb-menu-button class="filter-option" data-value="Laura Steiner" icon-name="tick-small" aria-pressed="true">Laura Steiner</sbb-menu-button>
     <sbb-divider negative></sbb-divider>
     <sbb-menu-button id="person-reset" icon-name="filter-x-small">Reset filter</sbb-menu-button>
   </sbb-menu>
@@ -1682,40 +964,30 @@ export const leanTableTemplate = (): TemplateResult => html`
     <sbb-menu-button data-dir="asc" icon-name="arrow-down-small">A–Z (ascending)</sbb-menu-button>
     <sbb-menu-button data-dir="desc" icon-name="arrow-up-small">Z–A (descending)</sbb-menu-button>
     <sbb-divider></sbb-divider>
-    <sbb-menu-button data-dir="none" icon-name="arrows-up-down-small"
-      >Reset sorting</sbb-menu-button
-    >
+    <sbb-menu-button data-dir="none" icon-name="arrows-up-down-small">Reset sorting</sbb-menu-button>
   </sbb-menu>
   <sbb-menu class="sort-menu" data-sort="category" trigger="sort-trigger-category">
     <sbb-menu-button data-dir="asc" icon-name="arrow-down-small">A–Z (ascending)</sbb-menu-button>
     <sbb-menu-button data-dir="desc" icon-name="arrow-up-small">Z–A (descending)</sbb-menu-button>
     <sbb-divider></sbb-divider>
-    <sbb-menu-button data-dir="none" icon-name="arrows-up-down-small"
-      >Reset sorting</sbb-menu-button
-    >
+    <sbb-menu-button data-dir="none" icon-name="arrows-up-down-small">Reset sorting</sbb-menu-button>
   </sbb-menu>
   <sbb-menu class="sort-menu" data-sort="person" trigger="sort-trigger-person">
     <sbb-menu-button data-dir="asc" icon-name="arrow-down-small">A–Z (ascending)</sbb-menu-button>
     <sbb-menu-button data-dir="desc" icon-name="arrow-up-small">Z–A (descending)</sbb-menu-button>
     <sbb-divider></sbb-divider>
-    <sbb-menu-button data-dir="none" icon-name="arrows-up-down-small"
-      >Reset sorting</sbb-menu-button
-    >
+    <sbb-menu-button data-dir="none" icon-name="arrows-up-down-small">Reset sorting</sbb-menu-button>
   </sbb-menu>
   <sbb-menu class="sort-menu" data-sort="date" trigger="sort-trigger-date">
     <sbb-menu-button data-dir="asc" icon-name="arrow-down-small">Oldest first</sbb-menu-button>
     <sbb-menu-button data-dir="desc" icon-name="arrow-up-small">Newest first</sbb-menu-button>
     <sbb-divider></sbb-divider>
-    <sbb-menu-button data-dir="none" icon-name="arrows-up-down-small"
-      >Reset sorting</sbb-menu-button
-    >
+    <sbb-menu-button data-dir="none" icon-name="arrows-up-down-small">Reset sorting</sbb-menu-button>
   </sbb-menu>
   <sbb-menu class="sort-menu" data-sort="status" trigger="sort-trigger-status">
     <sbb-menu-button data-dir="asc" icon-name="arrow-down-small">A–Z (ascending)</sbb-menu-button>
     <sbb-menu-button data-dir="desc" icon-name="arrow-up-small">Z–A (descending)</sbb-menu-button>
     <sbb-divider></sbb-divider>
-    <sbb-menu-button data-dir="none" icon-name="arrows-up-down-small"
-      >Reset sorting</sbb-menu-button
-    >
+    <sbb-menu-button data-dir="none" icon-name="arrows-up-down-small">Reset sorting</sbb-menu-button>
   </sbb-menu>
 `;

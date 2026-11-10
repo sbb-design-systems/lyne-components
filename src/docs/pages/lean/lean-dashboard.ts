@@ -34,16 +34,12 @@ export const leanDashboardTemplate = (): TemplateResult => html`
 
     @media (min-width: calc(64rem)) and (max-width: calc(89.9375rem)) {
       .page__title {
-        margin-block-start: calc(
-          var(--sbb-spacing-responsive-m-large) - var(--sbb-spacing-fixed-5x)
-        );
+        margin-block-start: calc(var(--sbb-spacing-responsive-m-large) - var(--sbb-spacing-fixed-5x));
       }
     }
     @media (min-width: calc(90rem)) {
       .page__title {
-        margin-block-start: calc(
-          var(--sbb-spacing-responsive-m-ultra) - var(--sbb-spacing-fixed-7x)
-        );
+        margin-block-start: calc(var(--sbb-spacing-responsive-m-ultra) - var(--sbb-spacing-fixed-7x));
       }
     }
     .add-button {
@@ -168,7 +164,7 @@ export const leanDashboardTemplate = (): TemplateResult => html`
     }
 
     .card-row__menu-trigger {
-      grid-area: 1/2 / span 2;
+      grid-area: 1/2/span 2;
       align-self: start;
     }
 
@@ -294,9 +290,7 @@ export const leanDashboardTemplate = (): TemplateResult => html`
       }
     }
     .dashboard-tabs {
-      margin-block-end: calc(
-        2 * var(--sbb-spacing-responsive-xxxs) + var(--sbb-spacing-responsive-s)
-      );
+      margin-block-end: calc(2 * var(--sbb-spacing-responsive-xxxs) + var(--sbb-spacing-responsive-s));
     }
 
     sbb-tab-label[sbb-badge] {
@@ -401,12 +395,11 @@ export const leanDashboardTemplate = (): TemplateResult => html`
       height: calc(var(--sbb-spacing-fixed-1x) * 44);
     }
   </style>
-
+</head>
+<body>
   <sbb-header expanded>
-    <sbb-header-button id="menu-trigger" icon-name="hamburger-menu-small" hide-label-below="small"
-      >Menu</sbb-header-button
-    >
-    <span class="header-info">
+    <sbb-header-button id="menu-trigger" icon-name="hamburger-menu-small" hide-label-below="small">Menu</sbb-header-button>
+    <span class="sbb-header-info header-info">
       <strong>Example application</strong>
       <span>V. 1.0</span>
     </span>
@@ -431,22 +424,9 @@ export const leanDashboardTemplate = (): TemplateResult => html`
 
   <sbb-icon-sidebar-container>
     <sbb-icon-sidebar>
-      <sbb-icon-sidebar-button
-        class="sbb-active"
-        aria-current="page"
-        id="sidebar-home-link"
-        icon-name="house-small"
-        aria-label="Dashboard"
-        sbb-badge="4"
-      ></sbb-icon-sidebar-button>
-      <sbb-icon-sidebar-button
-        icon-name="list-small"
-        aria-label="Card list"
-      ></sbb-icon-sidebar-button>
-      <sbb-icon-sidebar-button
-        icon-name="four-squares-small"
-        aria-label="Table view"
-      ></sbb-icon-sidebar-button>
+      <sbb-icon-sidebar-button class="sbb-active" aria-current="page" id="sidebar-home-link" icon-name="house-small" aria-label="Dashboard" sbb-badge="4"></sbb-icon-sidebar-button>
+      <sbb-icon-sidebar-button icon-name="list-small" aria-label="Card list"></sbb-icon-sidebar-button>
+      <sbb-icon-sidebar-button icon-name="four-squares-small" aria-label="Table view"></sbb-icon-sidebar-button>
     </sbb-icon-sidebar>
 
     <sbb-icon-sidebar-content sbb-header-scroll-origin>
@@ -458,12 +438,7 @@ export const leanDashboardTemplate = (): TemplateResult => html`
           <sbb-tab>
             <div class="key-figures">
               <div class="key-figures__head">
-                <sbb-tag-group
-                  size="s"
-                  value="kw23"
-                  accessibility-label="Period"
-                  class="key-figures__periods"
-                >
+                <sbb-tag-group size="s" value="kw23" accessibility-label="Period" class="key-figures__periods">
                   <sbb-tag value="kw23" size="s">Week 23</sbb-tag>
                   <sbb-tag value="kw22" size="s">Week 22</sbb-tag>
                   <sbb-tag value="kw21" size="s">Week 21</sbb-tag>
@@ -473,106 +448,70 @@ export const leanDashboardTemplate = (): TemplateResult => html`
                 </sbb-tag-group>
               </div>
               <div class="key-figures__grid">
-                <sbb-card class="sbb-card-spacing-xxs" color="transparent-bordered">
-                  <div class="key-figure">
-                    <div class="key-figure__head">
-                      <span class="sbb-text-xxs key-figure__muted key-figure__label"
-                        >Ticket sales</span
-                      >
-                      <sbb-chip-label size="xxs" color="milk">+14 %</sbb-chip-label>
-                    </div>
-                    <div class="key-figure__value">
-                      <sbb-title level="4" class="key-figure__title">CHF 955,250</sbb-title>
-                      <span class="sbb-text-xxs key-figure__muted">Rising for 6 weeks.</span>
-                    </div>
-                    <div
-                      class="key-figure__chart"
-                      data-chart="line"
-                      role="img"
-                      aria-label="Placeholder: line chart"
-                    ></div>
-                  </div>
-                </sbb-card>
-                <sbb-card
-                  class="sbb-card-spacing-xxs key-figures__card--stat"
-                  color="transparent-bordered"
-                >
-                  <div class="key-figure">
-                    <div class="key-figure__head">
-                      <span class="sbb-text-xxs key-figure__muted key-figure__label"
-                        >Digital sales</span
-                      >
-                      <sbb-chip-label size="xxs" color="milk">+0.1 %</sbb-chip-label>
-                    </div>
-                    <div class="key-figure__value">
-                      <span class="sbb-text-xxs key-figure__muted">Rising for 6 weeks.</span>
-                      <span class="key-figure__stat">75.1%</span>
-                    </div>
-                  </div>
-                </sbb-card>
-                <sbb-card class="sbb-card-spacing-xxs" color="transparent-bordered">
-                  <div class="key-figure">
-                    <div class="key-figure__head">
-                      <span class="sbb-text-xxs key-figure__muted key-figure__label"
-                        >Visits sbb.ch</span
-                      >
-                      <sbb-chip-label size="xxs" color="charcoal">-8 %</sbb-chip-label>
-                    </div>
-                    <div class="key-figure__value">
-                      <sbb-title level="4" class="key-figure__title">CHF 955,250</sbb-title>
-                      <span class="sbb-text-xxs key-figure__muted">Falling for 8 days.</span>
-                    </div>
-                    <div
-                      class="key-figure__chart"
-                      data-chart="line"
-                      role="img"
-                      aria-label="Placeholder: line chart"
-                    ></div>
-                  </div>
-                </sbb-card>
-                <sbb-card class="sbb-card-spacing-xxs" color="transparent-bordered">
-                  <div class="key-figure">
-                    <div class="key-figure__head">
-                      <span class="sbb-text-xxs key-figure__muted key-figure__label"
-                        >Visits SBB Mobile</span
-                      >
-                      <sbb-chip-label size="xxs" color="milk">+14 %</sbb-chip-label>
-                    </div>
-                    <div class="key-figure__value">
-                      <sbb-title level="4" class="key-figure__title">CHF 955,250</sbb-title>
-                      <span class="sbb-text-xxs key-figure__muted">Rising for 6 weeks.</span>
-                    </div>
-                    <div
-                      class="key-figure__chart"
-                      data-chart="bar"
-                      role="img"
-                      aria-label="Placeholder: bar chart"
-                    ></div>
-                  </div>
-                </sbb-card>
-                <sbb-card
-                  class="sbb-card-spacing-xxs key-figures__card--wide"
-                  color="transparent-bordered"
-                >
-                  <div class="key-figure">
-                    <div class="key-figure__head">
-                      <span class="sbb-text-xxs key-figure__muted key-figure__label"
-                        >Digital sales</span
-                      >
-                      <sbb-chip-label size="xxs" color="milk">+0.1 %</sbb-chip-label>
-                    </div>
-                    <div class="key-figure__value">
-                      <span class="sbb-text-xxs key-figure__muted">Rising for 6 weeks.</span>
-                      <sbb-title level="4" class="key-figure__title">75.1%</sbb-title>
-                    </div>
-                    <div
-                      class="key-figure__chart"
-                      data-chart="area"
-                      role="img"
-                      aria-label="Placeholder: area chart"
-                    ></div>
-                  </div>
-                </sbb-card>
+            <sbb-card class="sbb-card-spacing-xxs" color="transparent-bordered">
+              <div class="key-figure">
+                <div class="key-figure__head">
+                  <span class="sbb-text-xxs key-figure__muted key-figure__label">Ticket sales</span>
+                  <sbb-chip-label size="xxs" color="milk">+14 %</sbb-chip-label>
+                </div>
+                <div class="key-figure__value">
+                  <sbb-title level="4" class="key-figure__title">CHF 955,250</sbb-title>
+                  <span class="sbb-text-xxs key-figure__muted">Rising for 6 weeks.</span>
+                </div>
+                <div class="key-figure__chart" data-chart="line" role="img" aria-label="Placeholder: line chart"></div>
+              </div>
+            </sbb-card>
+            <sbb-card class="sbb-card-spacing-xxs key-figures__card--stat" color="transparent-bordered">
+              <div class="key-figure">
+                <div class="key-figure__head">
+                  <span class="sbb-text-xxs key-figure__muted key-figure__label">Digital sales</span>
+                  <sbb-chip-label size="xxs" color="milk">+0.1 %</sbb-chip-label>
+                </div>
+                <div class="key-figure__value">
+                  <span class="sbb-text-xxs key-figure__muted">Rising for 6 weeks.</span>
+                  <span class="key-figure__stat">75.1%</span>
+                </div>
+              </div>
+            </sbb-card>
+            <sbb-card class="sbb-card-spacing-xxs" color="transparent-bordered">
+              <div class="key-figure">
+                <div class="key-figure__head">
+                  <span class="sbb-text-xxs key-figure__muted key-figure__label">Visits sbb.ch</span>
+                  <sbb-chip-label size="xxs" color="charcoal">-8 %</sbb-chip-label>
+                </div>
+                <div class="key-figure__value">
+                  <sbb-title level="4" class="key-figure__title">CHF 955,250</sbb-title>
+                  <span class="sbb-text-xxs key-figure__muted">Falling for 8 days.</span>
+                </div>
+                <div class="key-figure__chart" data-chart="line" role="img" aria-label="Placeholder: line chart"></div>
+              </div>
+            </sbb-card>
+            <sbb-card class="sbb-card-spacing-xxs" color="transparent-bordered">
+              <div class="key-figure">
+                <div class="key-figure__head">
+                  <span class="sbb-text-xxs key-figure__muted key-figure__label">Visits SBB Mobile</span>
+                  <sbb-chip-label size="xxs" color="milk">+14 %</sbb-chip-label>
+                </div>
+                <div class="key-figure__value">
+                  <sbb-title level="4" class="key-figure__title">CHF 955,250</sbb-title>
+                  <span class="sbb-text-xxs key-figure__muted">Rising for 6 weeks.</span>
+                </div>
+                <div class="key-figure__chart" data-chart="bar" role="img" aria-label="Placeholder: bar chart"></div>
+              </div>
+            </sbb-card>
+            <sbb-card class="sbb-card-spacing-xxs key-figures__card--wide" color="transparent-bordered">
+              <div class="key-figure">
+                <div class="key-figure__head">
+                  <span class="sbb-text-xxs key-figure__muted key-figure__label">Digital sales</span>
+                  <sbb-chip-label size="xxs" color="milk">+0.1 %</sbb-chip-label>
+                </div>
+                <div class="key-figure__value">
+                  <span class="sbb-text-xxs key-figure__muted">Rising for 6 weeks.</span>
+                  <sbb-title level="4" class="key-figure__title">75.1%</sbb-title>
+                </div>
+                <div class="key-figure__chart" data-chart="area" role="img" aria-label="Placeholder: area chart"></div>
+              </div>
+            </sbb-card>
               </div>
             </div>
           </sbb-tab>
@@ -628,12 +567,7 @@ export const leanDashboardTemplate = (): TemplateResult => html`
           <sbb-tab>
             <div class="dashboard-section">
               <div class="dashboard-section__heading">
-                <sbb-tag-group
-                  id="task-status-filter"
-                  multiple
-                  size="s"
-                  accessibility-label="Filter by status"
-                >
+                <sbb-tag-group id="task-status-filter" multiple size="s" accessibility-label="Filter by status">
                   <sbb-tag value="all" checked>All</sbb-tag>
                   <sbb-tag value="not-started">Planned</sbb-tag>
                   <sbb-tag value="pending">In progress</sbb-tag>
@@ -643,182 +577,88 @@ export const leanDashboardTemplate = (): TemplateResult => html`
               <div class="dashboard-tasks">
                 <sbb-card color="milk" class="sbb-card-spacing-xxs">
                   <div class="card-row">
-                    <sbb-title level="5" class="card-row__title"
-                      >Innovative strategies for sustainability</sbb-title
-                    >
-                    <sbb-secondary-button
-                      id="dashboard-task-menu-trigger-1"
-                      class="card-row__menu-trigger"
-                      icon-name="context-menu-small"
-                      size="m"
-                      aria-label="Actions"
-                    ></sbb-secondary-button>
+                    <sbb-title level="5" class="card-row__title">Innovative strategies for sustainability</sbb-title>
+                    <sbb-secondary-button id="dashboard-task-menu-trigger-1" class="card-row__menu-trigger" icon-name="context-menu-small" size="m" aria-label="Actions"></sbb-secondary-button>
                     <sbb-menu trigger="dashboard-task-menu-trigger-1">
                       <sbb-menu-button icon-name="pen-small">Edit</sbb-menu-button>
-                      <sbb-menu-button class="dashboard-task-view" data-id="1" icon-name="eye-small"
-                        >View entry</sbb-menu-button
-                      >
+                      <sbb-menu-button class="dashboard-task-view" data-id="1" icon-name="eye-small">View entry</sbb-menu-button>
                       <sbb-menu-button icon-name="copy-small">Duplicate</sbb-menu-button>
                       <sbb-menu-button icon-name="trash-small">Delete</sbb-menu-button>
                     </sbb-menu>
                     <div class="card-row__meta sbb-orientation-horizontal-from-large">
                       <div class="card-row__details">
-                        <div
-                          id="dashboard-task-avatar-1"
-                          class="card-row__avatar sbb-text-xxs sbb-text--bold"
-                          role="img"
-                          aria-label="Christine Müller"
-                        >
-                          CM
-                        </div>
-                        <sbb-tooltip trigger="dashboard-task-avatar-1"
-                          >Christine Müller</sbb-tooltip
-                        >
+                        <div id="dashboard-task-avatar-1" class="card-row__avatar sbb-text-xxs sbb-text--bold" role="img" aria-label="Christine Müller">CM</div>
+                        <sbb-tooltip trigger="dashboard-task-avatar-1">Christine Müller</sbb-tooltip>
                         <span class="sbb-text-s card-row__date">15.10.2026</span>
-                        <sbb-status
-                          id="dashboard-task-status-1"
-                          type="success"
-                          aria-label="Completed"
-                        ></sbb-status>
+                        <sbb-status id="dashboard-task-status-1" type="success" aria-label="Completed"></sbb-status>
                         <sbb-tooltip trigger="dashboard-task-status-1">Completed</sbb-tooltip>
-                        <sbb-chip-label size="xxs" color="white" class="card-row__category"
-                          >Environment</sbb-chip-label
-                        >
+                        <sbb-chip-label size="xxs" color="white" class="card-row__category">Environment</sbb-chip-label>
                       </div>
                     </div>
                   </div>
                 </sbb-card>
                 <sbb-card color="milk" class="sbb-card-spacing-xxs">
                   <div class="card-row">
-                    <sbb-title level="5" class="card-row__title"
-                      >Digital transformation in healthcare</sbb-title
-                    >
-                    <sbb-secondary-button
-                      id="dashboard-task-menu-trigger-2"
-                      class="card-row__menu-trigger"
-                      icon-name="context-menu-small"
-                      size="m"
-                      aria-label="Actions"
-                    ></sbb-secondary-button>
+                    <sbb-title level="5" class="card-row__title">Digital transformation in healthcare</sbb-title>
+                    <sbb-secondary-button id="dashboard-task-menu-trigger-2" class="card-row__menu-trigger" icon-name="context-menu-small" size="m" aria-label="Actions"></sbb-secondary-button>
                     <sbb-menu trigger="dashboard-task-menu-trigger-2">
                       <sbb-menu-button icon-name="pen-small">Edit</sbb-menu-button>
-                      <sbb-menu-button class="dashboard-task-view" data-id="2" icon-name="eye-small"
-                        >View entry</sbb-menu-button
-                      >
+                      <sbb-menu-button class="dashboard-task-view" data-id="2" icon-name="eye-small">View entry</sbb-menu-button>
                       <sbb-menu-button icon-name="copy-small">Duplicate</sbb-menu-button>
                       <sbb-menu-button icon-name="trash-small">Delete</sbb-menu-button>
                     </sbb-menu>
                     <div class="card-row__meta sbb-orientation-horizontal-from-large">
                       <div class="card-row__details">
-                        <div
-                          id="dashboard-task-avatar-2"
-                          class="card-row__avatar sbb-text-xxs sbb-text--bold"
-                          role="img"
-                          aria-label="Thomas Weber"
-                        >
-                          TW
-                        </div>
+                        <div id="dashboard-task-avatar-2" class="card-row__avatar sbb-text-xxs sbb-text--bold" role="img" aria-label="Thomas Weber">TW</div>
                         <sbb-tooltip trigger="dashboard-task-avatar-2">Thomas Weber</sbb-tooltip>
                         <span class="sbb-text-s card-row__date">20.11.2026</span>
-                        <sbb-status
-                          id="dashboard-task-status-2"
-                          type="not-started"
-                          aria-label="Planned"
-                        ></sbb-status>
+                        <sbb-status id="dashboard-task-status-2" type="not-started" aria-label="Planned"></sbb-status>
                         <sbb-tooltip trigger="dashboard-task-status-2">Planned</sbb-tooltip>
-                        <sbb-chip-label size="xxs" color="white" class="card-row__category"
-                          >Technology</sbb-chip-label
-                        >
+                        <sbb-chip-label size="xxs" color="white" class="card-row__category">Technology</sbb-chip-label>
                       </div>
                     </div>
                   </div>
                 </sbb-card>
                 <sbb-card color="milk" class="sbb-card-spacing-xxs">
                   <div class="card-row">
-                    <sbb-title level="5" class="card-row__title"
-                      >Promoting cultural diversity and integration</sbb-title
-                    >
-                    <sbb-secondary-button
-                      id="dashboard-task-menu-trigger-3"
-                      class="card-row__menu-trigger"
-                      icon-name="context-menu-small"
-                      size="m"
-                      aria-label="Actions"
-                    ></sbb-secondary-button>
+                    <sbb-title level="5" class="card-row__title">Promoting cultural diversity and integration</sbb-title>
+                    <sbb-secondary-button id="dashboard-task-menu-trigger-3" class="card-row__menu-trigger" icon-name="context-menu-small" size="m" aria-label="Actions"></sbb-secondary-button>
                     <sbb-menu trigger="dashboard-task-menu-trigger-3">
                       <sbb-menu-button icon-name="pen-small">Edit</sbb-menu-button>
-                      <sbb-menu-button class="dashboard-task-view" data-id="3" icon-name="eye-small"
-                        >View entry</sbb-menu-button
-                      >
+                      <sbb-menu-button class="dashboard-task-view" data-id="3" icon-name="eye-small">View entry</sbb-menu-button>
                       <sbb-menu-button icon-name="copy-small">Duplicate</sbb-menu-button>
                       <sbb-menu-button icon-name="trash-small">Delete</sbb-menu-button>
                     </sbb-menu>
                     <div class="card-row__meta sbb-orientation-horizontal-from-large">
                       <div class="card-row__details">
-                        <div
-                          id="dashboard-task-avatar-3"
-                          class="card-row__avatar sbb-text-xxs sbb-text--bold"
-                          role="img"
-                          aria-label="Anna Keller"
-                        >
-                          AK
-                        </div>
+                        <div id="dashboard-task-avatar-3" class="card-row__avatar sbb-text-xxs sbb-text--bold" role="img" aria-label="Anna Keller">AK</div>
                         <sbb-tooltip trigger="dashboard-task-avatar-3">Anna Keller</sbb-tooltip>
                         <span class="sbb-text-s card-row__date">05.12.2026</span>
-                        <sbb-status
-                          id="dashboard-task-status-3"
-                          type="pending"
-                          aria-label="In progress"
-                        ></sbb-status>
+                        <sbb-status id="dashboard-task-status-3" type="pending" aria-label="In progress"></sbb-status>
                         <sbb-tooltip trigger="dashboard-task-status-3">In progress</sbb-tooltip>
-                        <sbb-chip-label size="xxs" color="white" class="card-row__category"
-                          >Social</sbb-chip-label
-                        >
+                        <sbb-chip-label size="xxs" color="white" class="card-row__category">Social</sbb-chip-label>
                       </div>
                     </div>
                   </div>
                 </sbb-card>
                 <sbb-card color="milk" class="sbb-card-spacing-xxs">
                   <div class="card-row">
-                    <sbb-title level="5" class="card-row__title"
-                      >Effective project management in agile teams</sbb-title
-                    >
-                    <sbb-secondary-button
-                      id="dashboard-task-menu-trigger-4"
-                      class="card-row__menu-trigger"
-                      icon-name="context-menu-small"
-                      size="m"
-                      aria-label="Actions"
-                    ></sbb-secondary-button>
+                    <sbb-title level="5" class="card-row__title">Effective project management in agile teams</sbb-title>
+                    <sbb-secondary-button id="dashboard-task-menu-trigger-4" class="card-row__menu-trigger" icon-name="context-menu-small" size="m" aria-label="Actions"></sbb-secondary-button>
                     <sbb-menu trigger="dashboard-task-menu-trigger-4">
                       <sbb-menu-button icon-name="pen-small">Edit</sbb-menu-button>
-                      <sbb-menu-button class="dashboard-task-view" data-id="4" icon-name="eye-small"
-                        >View entry</sbb-menu-button
-                      >
+                      <sbb-menu-button class="dashboard-task-view" data-id="4" icon-name="eye-small">View entry</sbb-menu-button>
                       <sbb-menu-button icon-name="copy-small">Duplicate</sbb-menu-button>
                       <sbb-menu-button icon-name="trash-small">Delete</sbb-menu-button>
                     </sbb-menu>
                     <div class="card-row__meta sbb-orientation-horizontal-from-large">
                       <div class="card-row__details">
-                        <div
-                          id="dashboard-task-avatar-4"
-                          class="card-row__avatar sbb-text-xxs sbb-text--bold"
-                          role="img"
-                          aria-label="Markus Brunner"
-                        >
-                          MB
-                        </div>
+                        <div id="dashboard-task-avatar-4" class="card-row__avatar sbb-text-xxs sbb-text--bold" role="img" aria-label="Markus Brunner">MB</div>
                         <sbb-tooltip trigger="dashboard-task-avatar-4">Markus Brunner</sbb-tooltip>
                         <span class="sbb-text-s card-row__date">12.01.2027</span>
-                        <sbb-status
-                          id="dashboard-task-status-4"
-                          type="not-started"
-                          aria-label="Planned"
-                        ></sbb-status>
+                        <sbb-status id="dashboard-task-status-4" type="not-started" aria-label="Planned"></sbb-status>
                         <sbb-tooltip trigger="dashboard-task-status-4">Planned</sbb-tooltip>
-                        <sbb-chip-label size="xxs" color="white" class="card-row__category"
-                          >Management</sbb-chip-label
-                        >
+                        <sbb-chip-label size="xxs" color="white" class="card-row__category">Management</sbb-chip-label>
                       </div>
                     </div>
                   </div>
