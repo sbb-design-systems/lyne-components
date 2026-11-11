@@ -1,8 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-radio-button-inner-circle-color: var(--sbb-radio-button-background-color);
-
   // The border in unchecked state should fill the circle.
   --sbb-radio-button-background-fake-border-width: calc(var(--sbb-radio-button-dimension) / 2);
 
@@ -14,50 +12,42 @@
 }
 
 :host(:state(checked)) {
-  --sbb-radio-button-inner-circle-color: var(--sbb-color-primary);
+  --sbb-radio-button-inner-circle-color: var(--sbb-radio-button-inner-circle-color-checked);
+  --sbb-radio-button-border-color: var(--sbb-radio-button-border-color-checked);
   --sbb-radio-button-background-fake-border-width: calc(
     (var(--sbb-radio-button-dimension) - var(--sbb-radio-button-inner-circle-dimension)) / 2
   );
-
-  @media (forced-colors: active) {
-    --sbb-radio-button-inner-circle-color: Highlight;
-    --sbb-radio-button-border-color: Highlight;
-  }
 }
 
 // Disabled definitions have to be after checked definitions
 :host(:disabled) {
-  --sbb-radio-button-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
-  --sbb-radio-button-background-color: var(--sbb-background-color-3);
-  --sbb-radio-button-border-style: dashed;
-  --sbb-radio-button-inner-circle-color: var(--sbb-radio-button-background-color);
+  --sbb-radio-button-label-color: var(--sbb-radio-button-label-color-disabled);
+  --sbb-radio-button-background-color: var(--sbb-radio-button-background-color-disabled);
+  --sbb-radio-button-border-style: var(--sbb-radio-button-border-style-disabled);
+  --sbb-radio-button-border-color: var(--sbb-radio-button-border-color-disabled);
+  --sbb-radio-button-inner-circle-color: var(--sbb-radio-button-inner-circle-color-disabled);
   --sbb-radio-button-cursor: var(--sbb-cursor-default);
-
-  @media (forced-colors: active) {
-    --sbb-radio-button-background-color: Canvas;
-    --sbb-radio-button-inner-circle-color: GrayText;
-    --sbb-radio-button-border-color: GrayText;
-    --sbb-radio-button-border-style: solid;
-  }
 }
 
 // Disabled definitions have to be after checked definitions
 :host(:disabled:state(checked)) {
-  --sbb-radio-button-inner-circle-color: var(--sbb-background-color-2-inverted);
+  --sbb-radio-button-inner-circle-color: var(
+    --sbb-radio-button-inner-circle-color-checked-disabled
+  );
 }
 
 :host([size='xs']) {
-  --sbb-radio-button-font-size: var(--sbb-text-font-size-xs);
+  --sbb-radio-button-font-size: var(--sbb-radio-button-font-size-xs);
   --sbb-radio-button-dimension: var(--sbb-radio-button-dimension-xs);
 }
 
 :host([size='s']) {
-  --sbb-radio-button-font-size: var(--sbb-text-font-size-s);
+  --sbb-radio-button-font-size: var(--sbb-radio-button-font-size-s);
   --sbb-radio-button-dimension: var(--sbb-radio-button-dimension-s);
 }
 
 :host([size='m']) {
-  --sbb-radio-button-font-size: var(--sbb-text-font-size-m);
+  --sbb-radio-button-font-size: var(--sbb-radio-button-font-size-m);
   --sbb-radio-button-dimension: var(--sbb-radio-button-dimension-m);
 }
 

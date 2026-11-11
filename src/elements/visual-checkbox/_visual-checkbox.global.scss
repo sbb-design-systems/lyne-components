@@ -10,8 +10,11 @@ $theme: 'standard' !default;
       ),
       $theme
     )};
-  --sbb-visual-checkbox-selection-color: var(--sbb-color-primary);
-  --sbb-visual-checkbox-selection-color-negative: var(--sbb-color-primary85);
+  --sbb-visual-checkbox-selection-color: light-dark(
+    var(--sbb-color-primary),
+    var(--sbb-color-white)
+  );
+  --sbb-visual-checkbox-selection-color-negative: var(--sbb-color-white);
   --sbb-visual-checkbox-selection-color-disabled: var(--sbb-color-2);
   --sbb-visual-checkbox-selection-color-disabled-negative: var(--sbb-color-2-negative);
   --sbb-visual-checkbox-background-color: var(--sbb-background-color-1);
