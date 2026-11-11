@@ -36,6 +36,7 @@ $scrollbar-height: 16px;
 :host([align-vertical]) {
   $coach-navigation-padding: 5;
   $coach-scrollbar-width: 24;
+  $coach-travel-direction-height: 36;
   $coach-grid-width: calc(var(--sbb-seat-reservation-height) + $coach-scrollbar-width);
 
   .sbb-sr__component {
@@ -46,6 +47,12 @@ $scrollbar-height: 16px;
 
     @include sbb.mq($from: small) {
       gap: sbb-sr-functions.sr-px-to-rem(54);
+    }
+
+    // SBBCH-23994: If the component is displayed in vertical mode with the travel direction, an offset must be added to the sbb-sr__ component to prevent overlapping with the travel-direction content, because the travel-direction is absolutely positioned.
+    // We need this handling because the travel-direction container is created outside of the sbb-sr__component and the exact height of the seat-reservation component is determined by the sbb-sr__component.
+    &--has-travel-direction {
+      padding-block-start: sbb-sr-functions.sr-px-to-rem($coach-travel-direction-height);
     }
 
     nav.sbb-sr-navigation,
@@ -117,6 +124,9 @@ $scrollbar-height: 16px;
   .sbb-sr-travel-direction-wrapper {
     width: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-height));
     margin-block-start: sbb-sr-functions.sr-px-to-rem(4);
+
+    // SBBCH-23994: The travel-direction-wrapper is positioned absolutely so that the area has no effect on the height of the sbb-sr__component.
+    position: absolute;
   }
 }
 

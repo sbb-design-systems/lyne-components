@@ -193,6 +193,12 @@ If important content needs to be announced when a step is changed, use the `aria
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
+
 #### Slots
 
 | Name   | Description                                      |
@@ -218,8 +224,8 @@ If important content needs to be announced when a step is changed, use the `aria
 
 | Name       | Privacy | Description                                                                        | Parameters | Return | Inherited From |
 | ---------- | ------- | ---------------------------------------------------------------------------------- | ---------- | ------ | -------------- |
-| `next`     | public  | Selects the next step.                                                             |            | `void` |                |
-| `previous` | public  | Selects the previous step.                                                         |            | `void` |                |
+| `next`     | public  | Selects the next enabled step. If no available step is found, it simply exits.     |            | `void` |                |
+| `previous` | public  | Selects the previous enabled step. If no available step is found, it simply exits. |            | `void` |                |
 | `reset`    | public  | Resets the form in which the stepper is nested or every form of each step, if any. |            | `void` |                |
 
 #### Events

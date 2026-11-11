@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbInputAutocompleteEvent } from '../../autocomplete/autocomplete-base-element.ts';
+import type { SbbInputAutocompleteEvent } from '../../autocomplete.pure.ts';
 import {
   forceType,
   type FormRestoreReason,
@@ -19,6 +19,7 @@ import {
   isArrowKeyPressed,
   SbbDisabledMixin,
   SbbElement,
+  type SbbElementType,
   SbbFormAssociatedMixin,
   SbbLanguageController,
   SbbNegativeMixin,
@@ -75,6 +76,7 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   SbbDisabledMixin(SbbNegativeMixin(SbbFormAssociatedMixin(SbbElement))),
 ) {
   public static override readonly elementName: string = 'sbb-chip-group';
+  public static override elementDependencies: SbbElementType[] = [SbbChipElement];
   public static override readonly role = 'listbox';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
   public static readonly events = {
@@ -179,6 +181,17 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
     ) {
       this._proxyStateToChips();
     }
+
+    // When the group's disabled state changes programmatically, sync it to the input element so
+    // users cannot type new chips into an "enabled" input while the group is disabled.
+    // The guard prevents a feedback loop with the MutationObserver:
+    //   group.disabled = X  →  input.disabled = X  →  MutationObserver  →  _reactToInputChanges
+    //   _reactToInputChanges compares before writing  →  no further update
+    if (changedProperties.has('disabled') && this._inputElement) {
+      if (this._inputElement.disabled !== this.disabled) {
+        this._inputElement.disabled = this.disabled;
+      }
+    }
   }
 
   /** @internal */
@@ -277,7 +290,7 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
 
   /**
    * Listen for keyboard events on the chip elements
-   **/
+   */
   private _onChipKeyDown(event: KeyboardEvent): void {
     const eventTarget = event.target as SbbChipElement<T>;
     if (eventTarget.localName !== 'sbb-chip') {
@@ -360,6 +373,7 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
 
   private _deleteChip(chip: SbbChipElement<T>): void {
     const chips = this._enabledChipElements();
+    chip['dispatchDeleteEvent']();
     chip.remove();
     this._emitInputEvents();
     this._focusChip(chips.indexOf(chip)); // Focus the next chip
@@ -422,7 +436,12 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   }
 
   private _reactToInputChanges(): void {
-    this.disabled = this._inputElement?.disabled ?? false;
+    const inputDisabled = this._inputElement?.disabled ?? false;
+    // Guard: only update if the value actually changed to avoid a feedback loop
+    // with willUpdate syncing disabled back to the input via the MutationObserver.
+    if (this.disabled !== inputDisabled) {
+      this.disabled = inputDisabled;
+    }
     this._proxyStateToChips();
   }
 

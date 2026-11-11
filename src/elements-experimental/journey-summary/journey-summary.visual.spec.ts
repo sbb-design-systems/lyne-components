@@ -9,7 +9,7 @@ import {
   longFutureLeg,
   pastLeg,
   progressLeg,
-} from '../pearl-chain/pearl-chain.sample-data.private.ts';
+} from '../pearl-chain-legacy/pearl-chain-legacy.sample-data.private.ts';
 
 import '../journey-summary.ts';
 import '@sbb-esta/lyne-elements/button.js';
@@ -37,17 +37,22 @@ describe(`sbb-journey-summary`, () => {
       .now=${now}
       disable-animation
     >
-      ${hasSlot
-        ? html`
-            <div
-              style="display: flex; padding-top: 24px; justify-content: space-between;"
-              slot="content"
-            >
-              <sbb-secondary-button size="l" icon-name="context-menu-small"></sbb-secondary-button>
-              <sbb-button size="l">Button label</sbb-button>
-            </div>
-          `
-        : nothing}
+      ${
+        hasSlot
+          ? html`
+              <div
+                style="display: flex; padding-top: 24px; justify-content: space-between;"
+                slot="content"
+              >
+                <sbb-secondary-button
+                  size="l"
+                  icon-name="context-menu-small"
+                ></sbb-secondary-button>
+                <sbb-button size="l">Button label</sbb-button>
+              </div>
+            `
+          : nothing
+      }
     </sbb-journey-summary>
   `;
 

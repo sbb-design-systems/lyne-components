@@ -2,11 +2,14 @@ The `<sbb-datepicker>` is a component which can be used together with
 an `<sbb-date-input>` and an `<sbb-datepicker-toggle>` element to attach
 a dropdown to select a date from a calendar.
 
-It's also possible to display a two-months view using the `wide` property.
+It is also possible to display a two-months view using the `wide` property.
 
-The component and the `<sbb-date-input>` can be connected using the
-`input` property, which accepts the id of the native input, or directly
-its reference.
+It is recommended to use the datepicker inside an `<sbb-form-field>`, which will
+automatically take care of connecting the corresponding components.
+
+To manually connect the components, see the example below:
+
+<!-- #region trigger -->
 
 ```html
 <sbb-date-input id="datepicker-input"></sbb-date-input>
@@ -14,8 +17,7 @@ its reference.
 <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
 ```
 
-It is however recommend to use it in an `<sbb-form-field>`, which will
-automatically take care of connecting the corresponding components.
+<!-- #endregion -->
 
 ## In `<sbb-form-field>`
 
@@ -149,10 +151,11 @@ todayStub.restore();
 
 #### Events
 
-| Name     | Type         | Description                                                                                                                                                                                                  | Inherited From          |
-| -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- |
-| `change` | `Event`      | The change event is fired on the datepicker's input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbDatepickerButtonBase |
-| `input`  | `InputEvent` | The input event fires on the datepicker's input when the value has been changed as a direct result of a user action.                                                                                         | SbbDatepickerButtonBase |
+| Name       | Type         | Description                                                                                                                                                                                                  | Inherited From          |
+| ---------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- |
+| `change`   | `Event`      | The change event is fired on the datepicker's input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbDatepickerButtonBase |
+| `input`    | `InputEvent` | The input event fires on the datepicker's input when the value has been changed as a direct result of a user action.                                                                                         | SbbDatepickerButtonBase |
+| `validity` | `Event`      | The validity event is dispatched whenever the validity state of the element changes.                                                                                                                         | SbbFormAssociatedMixin  |
 
 ### class: `SbbDatepickerPreviousDayElement`, `sbb-datepicker-previous-day`
 
@@ -181,10 +184,11 @@ todayStub.restore();
 
 #### Events
 
-| Name     | Type         | Description                                                                                                                                                                                                  | Inherited From          |
-| -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- |
-| `change` | `Event`      | The change event is fired on the datepicker's input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbDatepickerButtonBase |
-| `input`  | `InputEvent` | The input event fires on the datepicker's input when the value has been changed as a direct result of a user action.                                                                                         | SbbDatepickerButtonBase |
+| Name       | Type         | Description                                                                                                                                                                                                  | Inherited From          |
+| ---------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- |
+| `change`   | `Event`      | The change event is fired on the datepicker's input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbDatepickerButtonBase |
+| `input`    | `InputEvent` | The input event fires on the datepicker's input when the value has been changed as a direct result of a user action.                                                                                         | SbbDatepickerButtonBase |
+| `validity` | `Event`      | The validity event is dispatched whenever the validity state of the element changes.                                                                                                                         | SbbFormAssociatedMixin  |
 
 ### class: `SbbDatepickerToggleElement`, `sbb-datepicker-toggle`
 
@@ -214,7 +218,8 @@ todayStub.restore();
 
 #### Events
 
-| Name     | Type         | Description                                                                                                                                                                                                  | Inherited From          |
-| -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- |
-| `change` | `Event`      | The change event is fired on the datepicker's input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbDatepickerButtonBase |
-| `input`  | `InputEvent` | The input event fires on the datepicker's input when the value has been changed as a direct result of a user action.                                                                                         | SbbDatepickerButtonBase |
+| Name       | Type         | Description                                                                                                                                                                                                  | Inherited From          |
+| ---------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- |
+| `change`   | `Event`      | The change event is fired on the datepicker's input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbDatepickerButtonBase |
+| `input`    | `InputEvent` | The input event fires on the datepicker's input when the value has been changed as a direct result of a user action.                                                                                         | SbbDatepickerButtonBase |
+| `validity` | `Event`      | The validity event is dispatched whenever the validity state of the element changes.                                                                                                                         | SbbFormAssociatedMixin  |

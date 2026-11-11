@@ -52,11 +52,13 @@ describe(`sbb-form-field`, () => {
       ?floating-label=${floatingLabel}
       ?negative=${negative}
     >
-      ${label && !slottedLabel
-        ? html`<label>${label}</label>`
-        : label && slottedLabel
-          ? html`<span slot="label">${label}</span>`
-          : nothing}
+      ${
+        label && !slottedLabel
+          ? html`<label>${label}</label>`
+          : label && slottedLabel
+            ? html`<span slot="label">${label}</span>`
+            : nothing
+      }
       ${template} ${errorText ? html`<sbb-error>This is a required field.</sbb-error>` : nothing}
     </sbb-form-field>`;
 

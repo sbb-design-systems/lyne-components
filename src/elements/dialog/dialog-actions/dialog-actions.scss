@@ -10,6 +10,9 @@
   box-shadow: var(--sbb-dialog-block-end-box-shadow, none);
   position: relative;
 
+  // Clip shadow that overflows the bottom of the actions.
+  clip-path: inset(-200% -200% 0 -200%);
+
   // Horizontal line has to be absolute positioned because otherwise
   // it interferes with scroll detection of above container.
   &::before {

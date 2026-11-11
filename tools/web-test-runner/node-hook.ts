@@ -15,7 +15,7 @@ import { EOL } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { initCompiler } from 'sass';
+import * as sass from 'sass-embedded';
 import ts from 'typescript';
 
 const projectRoot = fileURLToPath(new URL('../../', import.meta.url));
@@ -52,9 +52,8 @@ const aliases = Object.entries(config.options.paths || {})
   .map(([alias, paths]) => ({ alias, path: resolve(projectRoot, paths[0]) }));
 
 // Sass
-const sassCompiler = initCompiler();
 const compileSass = (fileUrl: string): string =>
-  sassCompiler
+  sass
     .compile(fileURLToPath(fileUrl), {
       loadPaths: ['.', './node_modules/'],
       importers: [
@@ -97,6 +96,21 @@ registerHooks({
     } else if (url.includes('?raw')) {
       const content = readFileSync(new URL(url), 'utf8');
       const source = `export default \`${content.replace(/`/g, '\\`')}\`;`;
+      return { format: 'module', shortCircuit: true, source };
+    } else if (url.includes('?inline')) {
+      const filePath = fileURLToPath(new URL(url.split('?')[0]));
+      const ext = filePath.split('.').pop()?.toLowerCase() ?? '';
+      const mimeTypes: Record<string, string> = {
+        png: 'image/png',
+        jpg: 'image/jpeg',
+        jpeg: 'image/jpeg',
+        gif: 'image/gif',
+        svg: 'image/svg+xml',
+        webp: 'image/webp',
+      };
+      const mimeType = mimeTypes[ext] ?? 'application/octet-stream';
+      const content = readFileSync(filePath).toString('base64');
+      const source = `export default "data:${mimeType};base64,${content}";`;
       return { format: 'module', shortCircuit: true, source };
     } else if (url.includes('.scss?')) {
       const source = `import { css } from 'lit';\nexport default css\`${compileSass(url)}\`;`;

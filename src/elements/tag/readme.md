@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 Tags categorize large amounts of information and filter content through user selection.
 
 The `<sbb-tag-group>` is a container for one or more `<sbb-tag>` components.
@@ -187,11 +189,12 @@ labeled list.
 
 #### Events
 
-| Name        | Type         | Description                                                                                                                                                                        | Inherited From |
-| ----------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `change`    | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
-| `didChange` | `Event`      | Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.                                                                            |                |
-| `input`     | `InputEvent` |                                                                                                                                                                                    |                |
+| Name        | Type         | Description                                                                                                                                                                        | Inherited From         |
+| ----------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| `change`    | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                        |
+| `didChange` | `Event`      | Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.                                                                            |                        |
+| `input`     | `InputEvent` |                                                                                                                                                                                    |                        |
+| `validity`  | `Event`      | The validity event is dispatched whenever the validity state of the element changes.                                                                                               | SbbFormAssociatedMixin |
 
 #### Slots
 

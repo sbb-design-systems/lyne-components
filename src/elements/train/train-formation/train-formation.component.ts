@@ -7,7 +7,7 @@ import {
   unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map.js';
+import { ref } from 'lit/directives/ref.js';
 
 import {
   hostScrollbarStyles,
@@ -135,6 +135,18 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
     );
   }
 
+  private _applySectorStyle(element: HTMLElement | undefined, sector: AggregatedSector): void {
+    if (!element) {
+      return;
+    }
+
+    element.style.setProperty('--sbb-train-formation-wagon-count', `${sector.wagonCount}`);
+    element.style.setProperty(
+      '--sbb-train-formation-wagon-blocked-passage-count',
+      `${sector.blockedPassageCount}`,
+    );
+  }
+
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
     super.willUpdate(changedProperties);
 
@@ -146,29 +158,27 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
 
   protected override render(): TemplateResult {
     return html`
-      ${this._sectors.length && this._sectors[0].label !== undefined
-        ? html`<div class="sbb-train-formation__sectors" aria-hidden="true">
-            ${this._sectors.map(
-              (aggregatedSector) =>
-                html`<span
-                  class="sbb-train-formation__sector"
-                  style=${styleMap({
-                    '--sbb-train-formation-wagon-count': aggregatedSector.wagonCount,
-                    '--sbb-train-formation-wagon-blocked-passage-count':
-                      aggregatedSector.blockedPassageCount,
-                  })}
-                >
-                  <span class="sbb-train-formation__sector-sticky-wrapper">
-                    ${`${
-                      aggregatedSector.wagonCount === 1 && aggregatedSector.label
-                        ? i18nSectorShort[this._language.current]
-                        : i18nSector[this._language.current]
-                    } ${aggregatedSector.label ? aggregatedSector.label : ''}`}
-                  </span>
-                </span>`,
-            )}
-          </div>`
-        : nothing}
+      ${
+        this._sectors.length && this._sectors[0].label !== undefined
+          ? html`<div class="sbb-train-formation__sectors" aria-hidden="true">
+              ${this._sectors.map(
+                (aggregatedSector) =>
+                  html`<span
+                    class="sbb-train-formation__sector"
+                    ${ref((element) => this._applySectorStyle(element as HTMLElement | undefined, aggregatedSector))}
+                  >
+                    <span class="sbb-train-formation__sector-sticky-wrapper">
+                      ${`${
+                        aggregatedSector.wagonCount === 1 && aggregatedSector.label
+                          ? i18nSectorShort[this._language.current]
+                          : i18nSector[this._language.current]
+                      } ${aggregatedSector.label ? aggregatedSector.label : ''}`}
+                    </span>
+                  </span>`,
+              )}
+            </div>`
+          : nothing
+      }
 
       <div class="sbb-train-formation__trains">
         ${this.renderList({

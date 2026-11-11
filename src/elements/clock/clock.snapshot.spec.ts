@@ -15,11 +15,11 @@ describe(`sbb-clock`, () => {
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
     });
 
     it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
+      await expect(element).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
     });
 
     testA11yTreeSnapshot();

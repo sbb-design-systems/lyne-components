@@ -48,6 +48,10 @@
     {
       "groupName": "stylelint",
       "matchPackageNames": ["postcss", "stylelint**"]
+    },
+    {
+      "groupName": "webtestrunner",
+      "matchPackageNames": ["@web/**"]
     }
   ]
 }

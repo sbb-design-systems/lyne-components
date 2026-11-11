@@ -11,7 +11,7 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 
 import { __nameUpperCase__ } from './__noPrefixName__.component.ts';
 import readme from './readme.md?raw';

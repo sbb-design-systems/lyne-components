@@ -1,8 +1,14 @@
 import { html, type TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { repeat } from 'lit/directives/repeat.js';
 import type { ClassInfo } from 'lit-html/directives/class-map.js';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
+import {
+  describeEach,
+  describeViewports,
+  visualDiffDefault,
+  visualDiffHover,
+} from '../core/testing/private.ts';
 
 describe(`sbb-table`, () => {
   const cases = {
@@ -44,6 +50,46 @@ describe(`sbb-table`, () => {
     </thead>
   `;
 
+  const headerWithSort = (sortingDirection: string): TemplateResult => html`
+    <thead>
+      <tr>
+        <th>Person</th>
+        <th class="sbb-sort-header" aria-sort=${sortingDirection}>
+          <div class="sbb-sort-header-container sbb-sort-header-sorted" tabindex="0" role="button">
+            <div class="sbb-sort-header-content">Most interest in</div>
+            <div class="sbb-sort-header-arrow active">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                preserveAspectRatio="xMidYMid meet"
+                focusable="false"
+              >
+                <path
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  d="M11.5,5.75 L11.5,18.25"
+                ></path>
+                <path
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  d="M7.5,14.25 L11.5,18.25 L15.5,14.25"
+                  class="sbb-sort-indicator ${sortingDirection === 'ascending' ? 'active-asc' : 'active-desc'}"
+                ></path>
+              </svg>
+            </div>
+          </div>
+        </th>
+        <th>Age</th>
+      </tr>
+    </thead>
+  `;
+
   const body = (): TemplateResult => html`
     <tbody>
       <tr>
@@ -58,6 +104,32 @@ describe(`sbb-table`, () => {
       </tr>
     </tbody>
   `;
+
+  const sortedBody: (sortingDirection: string) => TemplateResult = (sortingDirection: string) => {
+    const data = [
+      { name: 'Chris', subject: 'HTML tables', age: 22 },
+      { name: 'Dennis', subject: 'Web accessibility', age: 45 },
+      { name: 'Sarah', subject: 'JavaScript frameworks', age: 29 },
+      { name: 'Karen', subject: 'Web performance', age: 36 },
+    ].sort((a, b) => {
+      const comparison = a.subject.localeCompare(b.subject);
+      return sortingDirection === 'ascending' ? comparison : -comparison;
+    });
+    return html`
+      <tbody>
+        ${repeat(
+          data,
+          (item) => html`
+            <tr>
+              <td>${item.name}</td>
+              <td>${item.subject}</td>
+              <td>${item.age}</td>
+            </tr>
+          `,
+        )}
+      </tbody>
+    `;
+  };
 
   const caption = (): TemplateResult => html`
     <caption>
@@ -282,6 +354,96 @@ describe(`sbb-table`, () => {
                   <td class=${`sbb-table-align-${align}`}>45</td>
                 </tr>
               </tbody>
+            </table>
+          `);
+        }),
+      );
+    }
+
+    describe('hover', () => {
+      const hoverCases = {
+        striped: [false, true],
+        negative: [false, true],
+        darkMode: [false, true],
+      };
+
+      describeEach(hoverCases, ({ striped, negative, darkMode }) => {
+        it(
+          visualDiffHover.name,
+          visualDiffHover.with(async (setup) => {
+            await setup.withFixture(
+              tableTemplate({
+                'sbb-table': true,
+                'sbb-table--hover': true,
+                'sbb-table--striped': striped,
+                'sbb-table--negative': negative,
+              }),
+              {
+                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                darkMode,
+              },
+            );
+            setup.withStateElement(
+              setup.snapshotElement.querySelector('tbody tr:nth-child(1)') as HTMLElement,
+            );
+          }),
+        );
+      });
+    });
+
+    describe('selected', () => {
+      const selectedCases = {
+        negative: [false, true],
+        darkMode: [false, true],
+      };
+
+      describeEach(selectedCases, ({ negative, darkMode }) => {
+        it(
+          visualDiffDefault.name,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`
+                <table
+                  class=${classMap({
+                    'sbb-table': true,
+                    'sbb-table--negative': negative,
+                  })}
+                >
+                  ${header()}
+                  <tbody>
+                    <tr class="sbb-table--selected">
+                      <td>Chris</td>
+                      <td>HTML tables</td>
+                      <td>22</td>
+                    </tr>
+                    <tr>
+                      <td>Dennis</td>
+                      <td>Web accessibility</td>
+                      <td>45</td>
+                    </tr>
+                  </tbody>
+                </table>
+              `,
+              {
+                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                darkMode,
+              },
+            );
+          }),
+        );
+      });
+    });
+
+    for (const sortingDirection of ['ascending', 'descending']) {
+      it(
+        `sorting=${sortingDirection}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
+            <table class="sbb-table">
+              <caption>
+                Sort header visual demo.
+              </caption>
+              ${headerWithSort(sortingDirection)} ${sortedBody(sortingDirection)}
             </table>
           `);
         }),

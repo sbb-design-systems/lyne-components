@@ -1,6 +1,10 @@
 @use '../core/styles' as sbb;
 
 :host {
+  --sbb-overlay-display: none;
+  --sbb-overlay-inset: 0 auto auto 0;
+  --sbb-overlay-pointer-events: none;
+  --sbb-overlay-container-display: none;
   --_sbb-overlay-padding-block: calc(
     var(--sbb-spacing-fixed-14x) + var(--sbb-spacing-responsive-l)
   );
@@ -24,10 +28,15 @@
   --sbb-overlay-pointer-events: all;
 }
 
+:host(:not([negative])) {
+  --sbb-overlay-color: var(--sbb-color-1);
+  --sbb-overlay-background-color: var(--sbb-background-color-3);
+}
+
 :host([negative]) {
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-overlay-color: var(--sbb-color-1-negative);
   --sbb-overlay-background-color: var(--sbb-background-color-3-negative);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
 :host(:not(:state(state-closed))) {

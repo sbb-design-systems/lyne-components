@@ -138,8 +138,9 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
             <div class="sbb-overlay__header">
               <sbb-secondary-button
                 class="sbb-overlay__close"
-                aria-label="${this.accessibilityCloseLabel ||
-                i18nCloseDialog[this.language.current]}"
+                aria-label="${
+                  this.accessibilityCloseLabel || i18nCloseDialog[this.language.current]
+                }"
                 ?negative=${this.negative}
                 size="m"
                 icon-name="cross-small"
@@ -147,9 +148,9 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
               ></sbb-secondary-button>
             </div>
             <div
-              class="sbb-overlay__content ${this.negative
-                ? 'sbb-scrollbar-negative'
-                : 'sbb-scrollbar'}"
+              class="sbb-overlay__content ${
+                this.negative ? 'sbb-scrollbar-negative' : 'sbb-scrollbar'
+              }"
               ${ref((el?: Element) => (this._overlayContentElement = el as HTMLDivElement))}
               @scroll=${(e: Event) => forwardEvent(e, document)}
             >

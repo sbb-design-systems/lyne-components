@@ -8,7 +8,12 @@ import type { SbbHeaderElement } from '../../header.ts';
 import type { SbbNotificationElement } from '../../notification.ts';
 import type { SbbSelectElement } from '../../select.ts';
 import type { SbbTitleElement } from '../../title.ts';
-import { describeEach, describeViewports, visualDiffDefault } from '../testing/private.ts';
+import {
+  describeEach,
+  describeViewports,
+  overrideStandardThemeWith,
+  visualDiffDefault,
+} from '../testing/private.ts';
 
 import '../../autocomplete.ts';
 import '../../chip.ts';
@@ -22,9 +27,11 @@ import '../../select.ts';
 import '../../sidebar.ts';
 import '../../title.ts';
 
-import './lean-theme.scss';
-
 describe(`lean`, () => {
+  before(async () => {
+    await overrideStandardThemeWith('lean');
+  });
+
   describeViewports({ viewports: ['small'] }, () => {
     describe('title', () => {
       for (const level of ['1', '2', '3', '4', '5', '6'] satisfies SbbTitleElement['level'][]) {

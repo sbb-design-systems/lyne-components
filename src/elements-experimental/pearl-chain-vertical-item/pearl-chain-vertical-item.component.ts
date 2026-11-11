@@ -28,6 +28,7 @@ export interface PearlChainVerticalItemAttributes {
  *
  * @slot left - Content of the left side of the item
  * @slot right - Content of the right side of the item
+ * @deprecated Use `sbb-pearl-chain` instead.
  */
 export class SbbPearlChainVerticalItemElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain-vertical-item';
@@ -62,23 +63,29 @@ export class SbbPearlChainVerticalItemElement extends SbbElement {
         aria-hidden="true"
         class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle"
       >
-        ${!hideLine
-          ? html`<div
-              style=${styleMap({ '--sbb-pearl-chain-vertical-item-leg-status': `${position}%` })}
-              class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--${lineType} sbb-pearl-chain-vertical-item__line--${lineColor}"
-            ></div>`
-          : nothing}
-        ${bulletType
-          ? html`<div
-              class="sbb-pearl-chain-vertical-item__bullet  sbb-pearl-chain-vertical-item__bullet--${bulletSize} ${bulletTypeClass}"
-            ></div>`
-          : nothing}
-        ${position && position > 0
-          ? html`<div
-              style=${styleMap({ '--sbb-pearl-chain-vertical-item-position': `${position}%` })}
-              class="sbb-pearl-chain-vertical-item__bullet--position"
-            ></div>`
-          : nothing}
+        ${
+          !hideLine
+            ? html`<div
+                style=${styleMap({ '--sbb-pearl-chain-vertical-item-leg-status': `${position}%` })}
+                class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--${lineType} sbb-pearl-chain-vertical-item__line--${lineColor}"
+              ></div>`
+            : nothing
+        }
+        ${
+          bulletType
+            ? html`<div
+                class="sbb-pearl-chain-vertical-item__bullet  sbb-pearl-chain-vertical-item__bullet--${bulletSize} ${bulletTypeClass}"
+              ></div>`
+            : nothing
+        }
+        ${
+          position && position > 0
+            ? html`<div
+                style=${styleMap({ '--sbb-pearl-chain-vertical-item-position': `${position}%` })}
+                class="sbb-pearl-chain-vertical-item__bullet--position"
+              ></div>`
+            : nothing
+        }
       </div>
       <slot name="right"></slot>
     `;

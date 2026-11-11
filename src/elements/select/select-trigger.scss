@@ -1,0 +1,15 @@
+@use '../core/styles' as sbb;
+
+:host {
+  display: block;
+
+  // We set some dimension to the selects trigger element in order that the screen reader's outline box looks more accurate.
+  width: 100% !important;
+
+  // We set the smallest possible height (zero breakpoint, size s)
+  height: var(--sbb-size-element-xs) !important;
+}
+
+:host(:state(in-form-field)) {
+  top: 0;
+}

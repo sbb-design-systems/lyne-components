@@ -34,6 +34,10 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
   @property({ attribute: 'allow-empty-selection', type: Boolean })
   public accessor allowEmptySelection: boolean = false;
 
+  /** Function used to compare values. */
+  @property({ attribute: false })
+  public accessor compareWith: (v1: T | null, v2: T | null) => boolean = (v1, v2) => v1 === v2;
+
   /**
    * The value of the radio group.
    */
@@ -43,10 +47,10 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
     if (!this.hasUpdated) {
       return;
     }
-    const toCheck = this.selectionElements.find((r) => r.value === val);
-    if (toCheck) {
-      toCheck.checked = true;
-    }
+    const toCheck = this.selectionElements.find((r) => this.compareWith(r.value, val));
+
+    // Keep radio checked state in sync with the provided value.
+    this.selectionElements.forEach((r) => (r.checked = r === toCheck));
   }
   public get value(): T | null {
     const checked = this.selectionElements.find((r) => r.checked && !r.disabled);

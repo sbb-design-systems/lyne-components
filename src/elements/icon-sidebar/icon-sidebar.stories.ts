@@ -2,7 +2,7 @@ import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-v
 import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbSidebarElement } from '../sidebar.ts';
 
 import readme from './readme.md?raw';
@@ -43,23 +43,25 @@ const defaultArgs: Args = {
 
 const header = (toggleButton = false): TemplateResult =>
   html`<sbb-header expanded scroll-origin="content" size="s">
-    ${toggleButton
-      ? html` <sbb-header-button
-          id="toggle-button"
-          icon-name="arrows-right-left-small"
-          @click=${(event: PointerEvent) =>
-            (event.currentTarget as HTMLElement)?.parentElement?.parentElement
-              ?.querySelector<SbbSidebarElement>('sbb-sidebar')
-              ?.toggle()}
-          aria-controls="sidebar"
-          aria-expanded="true"
-          hide-label-below="large"
-        >
-          Toggle sidebar
-        </sbb-header-button>`
-      : html`<sbb-header-button icon-name="hamburger-menu-small" hide-label-below="large">
-          Menu
-        </sbb-header-button>`}
+    ${
+      toggleButton
+        ? html` <sbb-header-button
+            id="toggle-button"
+            icon-name="arrows-right-left-small"
+            @click=${(event: PointerEvent) =>
+              (event.currentTarget as HTMLElement)?.parentElement?.parentElement
+                ?.querySelector<SbbSidebarElement>('sbb-sidebar')
+                ?.toggle()}
+            aria-controls="sidebar"
+            aria-expanded="true"
+            hide-label-below="large"
+          >
+            Toggle sidebar
+          </sbb-header-button>`
+        : html`<sbb-header-button icon-name="hamburger-menu-small" hide-label-below="large">
+            Menu
+          </sbb-header-button>`
+    }
 
     <div style="flex-grow: 1"></div>
     <a aria-label="Homepage" href="/" class="sbb-header-logo">

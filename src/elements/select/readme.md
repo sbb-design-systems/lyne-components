@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-select>` is a component which provides a list of selectable options in an overlay panel,
 emulating the behavior of a native `<select>`.
 
@@ -206,12 +208,14 @@ For types other than string, the `value` must be set via property.
 | `close`       | `Event`      | Emits whenever the component is closed.                                                                                                                                            | SbbOpenCloseBaseElement |
 | `input`       | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                         |
 | `open`        | `Event`      | Emits whenever the component is opened.                                                                                                                                            | SbbOpenCloseBaseElement |
+| `validity`    | `Event`      | The validity event is dispatched whenever the validity state of the element changes.                                                                                               | SbbFormAssociatedMixin  |
 
 #### CSS Properties
 
 | Name                             | Default                              | Description                                                                                                                                                                                                   |
 | -------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--sbb-options-panel-max-height` |                                      | Maximum height of the options panel. If the calculated remaining space is smaller, the value gets ignored.                                                                                                    |
+| `--sbb-options-panel-offset`     | `var(--sbb-spacing-fixed-2x)`        | Gap between select and panel.                                                                                                                                                                                 |
 | `--sbb-select-z-index`           | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 
 #### Slots

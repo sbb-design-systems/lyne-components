@@ -5,7 +5,3 @@
   scroll-snap-align: start;
   flex-shrink: 0;
 }
-
-::slotted(sbb-image) {
-  border-radius: unset;
-}

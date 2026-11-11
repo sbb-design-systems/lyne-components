@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-checkbox>` component provides the same functionality as a native `<input type="checkbox"/>` enhanced with the SBB Design.
 
 ## Slots
@@ -122,10 +124,11 @@ The type can be specified using the generic type parameter `T` of `SbbCheckbox<T
 
 #### Events
 
-| Name     | Type         | Description                                                                                                                                                                        | Inherited From |
-| -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `change` | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
-| `input`  | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                |
+| Name       | Type         | Description                                                                                                                                                                        | Inherited From         |
+| ---------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| `change`   | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                        |
+| `input`    | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                        |
+| `validity` | `Event`      | The validity event is dispatched whenever the validity state of the element changes.                                                                                               | SbbFormAssociatedMixin |
 
 #### Slots
 

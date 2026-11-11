@@ -46,30 +46,36 @@ class Overview extends LitElement {
               style="justify-content: space-between"
               class="sbb-action-group-horizontal-from-small"
             >
-              ${meta.baselineGitSha && !screenshots.baselineOnly
-                ? html`<sbb-block-link
-                    icon-name="document-check-small"
-                    href=${meta.baselineCommitUrl || nothing}
-                    size="s"
-                    ?disabled=${meta.baselineGitSha === 'N/A'}
-                    >Baseline Commit
-                    ${meta.baselineGitSha === 'N/A'
-                      ? meta.baselineGitSha
-                      : `#${meta.baselineGitSha.substring(0, 7)}`}</sbb-block-link
-                  >`
-                : nothing}
-              ${meta.gitSha
-                ? html`<sbb-block-link
-                    icon-name="arrow-change-horizontal-small"
-                    href=${meta.commitUrl || nothing}
-                    size="s"
-                    ?disabled=${meta.gitSha === 'local'}
-                    >Commit
-                    ${meta.gitSha === 'local'
-                      ? meta.gitSha
-                      : `#${meta.gitSha.substring(0, 7)}`}</sbb-block-link
-                  >`
-                : nothing}
+              ${
+                meta.baselineGitSha && !screenshots.baselineOnly
+                  ? html`<sbb-block-link
+                      icon-name="document-check-small"
+                      href=${meta.baselineCommitUrl || nothing}
+                      size="s"
+                      ?disabled=${meta.baselineGitSha === 'N/A'}
+                      >Baseline Commit
+                      ${
+                        meta.baselineGitSha === 'N/A'
+                          ? meta.baselineGitSha
+                          : `#${meta.baselineGitSha.substring(0, 7)}`
+                      }</sbb-block-link
+                    >`
+                  : nothing
+              }
+              ${
+                meta.gitSha
+                  ? html`<sbb-block-link
+                      icon-name="arrow-change-horizontal-small"
+                      href=${meta.commitUrl || nothing}
+                      size="s"
+                      ?disabled=${meta.gitSha === 'local'}
+                      >Commit
+                      ${
+                        meta.gitSha === 'local' ? meta.gitSha : `#${meta.gitSha.substring(0, 7)}`
+                      }</sbb-block-link
+                    >`
+                  : nothing
+              }
               <sbb-button-link
                 size="s"
                 class="app-compare-link"

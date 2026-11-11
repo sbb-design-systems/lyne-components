@@ -4,7 +4,7 @@ import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbButtonElement } from '../button.ts';
 
 import readme from './readme.md?raw';
@@ -86,22 +86,28 @@ const toastTemplate = (
     Show toast
   </sbb-button>
   <sbb-toast timeout=${timeout} ${sbbSpread(args)}>
-    ${contentLength === 's'
-      ? 'Lorem ipsum dolor'
-      : 'Lorem ipsum dolor sit amet, ipsum consectetur adipiscing elit.'}
-    ${action === 'button'
-      ? html`<sbb-transparent-button
-          slot="action"
-          icon-name="clock-small"
-          aria-label="Remind me later"
-          sbb-toast-close
-        ></sbb-transparent-button>`
-      : nothing}
-    ${action === 'link'
-      ? html`<sbb-link slot="action" sbb-toast-close href="https://www.sbb.ch" target="_blank">
-          Link action
-        </sbb-link>`
-      : nothing}
+    ${
+      contentLength === 's'
+        ? 'Lorem ipsum dolor'
+        : 'Lorem ipsum dolor sit amet, ipsum consectetur adipiscing elit.'
+    }
+    ${
+      action === 'button'
+        ? html`<sbb-transparent-button
+            slot="action"
+            icon-name="clock-small"
+            aria-label="Remind me later"
+            sbb-toast-close
+          ></sbb-transparent-button>`
+        : nothing
+    }
+    ${
+      action === 'link'
+        ? html`<sbb-link slot="action" sbb-toast-close href="https://www.sbb.ch" target="_blank">
+            Link action
+          </sbb-link>`
+        : nothing
+    }
   </sbb-toast>
 `;
 

@@ -5,7 +5,7 @@ import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbCheckboxElement } from '../checkbox.ts';
 
 import type { SbbCheckboxGroupElement } from './checkbox-group.component.ts';
@@ -29,7 +29,8 @@ const suffixStyle: Readonly<StyleInfo> = {
   alignItems: 'center',
 };
 
-const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
+const cardBadge = (): TemplateResult =>
+  html`<sbb-card-badge aria-label="Special offer">%</sbb-card-badge>`;
 
 const suffixAndSubtext = (): TemplateResult => html`
   <span slot="subtext">Subtext</span>

@@ -35,10 +35,12 @@ describe(`sbb-notification`, () => {
       icon-name=${iconName || nothing}
     >
       ${showTitle ? html`<sbb-title>Title</sbb-title>` : nothing}
-      ${hasText
-        ? html` The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
-          dog.`
-        : nothing}
+      ${
+        hasText
+          ? html` The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the
+            lazy dog.`
+          : nothing
+      }
       <sbb-link href="/">Link one</sbb-link>
       <sbb-link href="/">Link two</sbb-link>
       <sbb-link href="/">Link three</sbb-link>
@@ -56,6 +58,7 @@ describe(`sbb-notification`, () => {
     readonly: [false, true],
     showTitle: [false, true],
     hasText: [false, true],
+    size: [null, 's', 'm'] satisfies SbbNotificationElement['size'][],
   };
 
   const types = [
@@ -70,11 +73,10 @@ describe(`sbb-notification`, () => {
       ...types.map((type) => ({ type, multiple: false })),
       { multiple: true, type: 'all' },
     ] satisfies { multiple: boolean; type: SbbNotificationElement['type'] | 'all' }[],
-    size: [null, 's', 'm'] satisfies SbbNotificationElement['size'][],
   };
 
   describeViewports({ viewports: ['zero', 'small', 'large'] }, () => {
-    describeEach(states, ({ readonly, showTitle, hasText }) => {
+    describeEach(states, ({ readonly, showTitle, hasText, size }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
@@ -83,13 +85,14 @@ describe(`sbb-notification`, () => {
             readonly,
             showTitle,
             hasText,
+            size,
           } satisfies typeof defaultArgs;
           await setup.withFixture(html`${notificationTemplate(args)} ${textTemplate}`);
         }),
       );
     });
 
-    describeEach(visualStates, ({ state, size }) => {
+    describeEach(visualStates, ({ state }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
@@ -97,7 +100,7 @@ describe(`sbb-notification`, () => {
             ${repeat(
               state.multiple ? types : [state.type],
               (type: SbbNotificationElement['type']) =>
-                notificationTemplate({ ...defaultArgs, type, size }),
+                notificationTemplate({ ...defaultArgs, type }),
             )}
             ${textTemplate}
           `);

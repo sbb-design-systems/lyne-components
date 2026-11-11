@@ -1,8 +1,11 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] = 
-`<sbb-autocomplete-grid popover="manual">
+snapshots["sbb-autocomplete-grid DOM"] = 
+`<sbb-autocomplete-grid
+  popover="manual"
+  tabindex="-1"
+>
   <sbb-autocomplete-grid-row>
     <sbb-autocomplete-grid-option>
       Option 1
@@ -23,61 +26,19 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
   </sbb-autocomplete-grid-row>
 </sbb-autocomplete-grid>
 `;
-/* end snapshot sbb-autocomplete-grid Chrome-Firefox DOM */
+/* end snapshot sbb-autocomplete-grid DOM */
 
-snapshots["sbb-autocomplete-grid Chrome-Firefox Shadow DOM"] = 
+snapshots["sbb-autocomplete-grid Shadow DOM"] = 
 `<div class="sbb-option-panel__overlay-container">
-  <div
-    class="sbb-option-panel__overlay sbb-scrollbar"
-    id="sbb-autocomplete-grid-2"
-    role="grid"
-    tabindex="-1"
-  >
+  <div class="sbb-option-panel__overlay sbb-scrollbar">
     <slot>
     </slot>
   </div>
 </div>
 `;
-/* end snapshot sbb-autocomplete-grid Chrome-Firefox Shadow DOM */
+/* end snapshot sbb-autocomplete-grid Shadow DOM */
 
-snapshots["sbb-autocomplete-grid Safari DOM"] = 
-`<sbb-autocomplete-grid popover="manual">
-  <sbb-autocomplete-grid-row>
-    <sbb-autocomplete-grid-option>
-      Option 1
-    </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-cell>
-      <sbb-autocomplete-grid-button icon-name="dog-small">
-      </sbb-autocomplete-grid-button>
-    </sbb-autocomplete-grid-cell>
-  </sbb-autocomplete-grid-row>
-  <sbb-autocomplete-grid-row>
-    <sbb-autocomplete-grid-option>
-      Option 2
-    </sbb-autocomplete-grid-option>
-    <sbb-autocomplete-grid-cell>
-      <sbb-autocomplete-grid-button icon-name="dog-small">
-      </sbb-autocomplete-grid-button>
-    </sbb-autocomplete-grid-cell>
-  </sbb-autocomplete-grid-row>
-</sbb-autocomplete-grid>
-`;
-/* end snapshot sbb-autocomplete-grid Safari DOM */
-
-snapshots["sbb-autocomplete-grid Safari Shadow DOM"] = 
-`<div class="sbb-option-panel__overlay-container">
-  <div
-    class="sbb-option-panel__overlay sbb-scrollbar"
-    tabindex="-1"
-  >
-    <slot>
-    </slot>
-  </div>
-</div>
-`;
-/* end snapshot sbb-autocomplete-grid Safari Shadow DOM */
-
-snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome"] = 
+snapshots["sbb-autocomplete-grid A11y tree Chrome"] = 
 `<p>
   {
   "role": "generic",
@@ -105,5 +66,5 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome */
+/* end snapshot sbb-autocomplete-grid A11y tree Chrome */
 

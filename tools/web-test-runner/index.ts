@@ -4,5 +4,6 @@ export * from './container-playwright-browser-plugin.ts';
 export * from './minimal-reporter.ts';
 export * from './patched-summary-reporter.ts';
 export * from './preload-icons.ts';
+export * from './preload-fonts.ts';
 export * from './visual-regression-plugin-config.ts';
 export * from './vite-plugin.ts';

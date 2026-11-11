@@ -1,0 +1,97 @@
+import { expect } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
+import type { SbbFormFieldElement } from '../../form-field.ts';
+
+import type { SbbAutocompleteElement } from './autocomplete.component.ts';
+
+import '../../form-field.ts';
+import '../../option.ts';
+import '../../autocomplete.ts';
+
+describe(`sbb-autocomplete`, () => {
+  describe('renders standalone', async () => {
+    let element: SbbAutocompleteElement;
+
+    beforeEach(async () => {
+      const testFixture = await fixture(
+        html`<div>
+          <div id="origin"></div>
+          <input id="trigger" />
+          <sbb-autocomplete origin="origin" trigger="trigger" id="standalone">
+            <sbb-option value="1">1</sbb-option>
+            <sbb-option value="2">2</sbb-option>
+          </sbb-autocomplete>
+        </div> `,
+      );
+      element = testFixture.querySelector('sbb-autocomplete')!;
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+  });
+
+  describe('renders in form field', async () => {
+    let root: SbbFormFieldElement;
+
+    beforeEach(async () => {
+      root = await fixture(html`
+        <sbb-form-field>
+          <input />
+          <sbb-autocomplete>
+            <sbb-option value="1">1</sbb-option>
+            <sbb-option value="2">2</sbb-option>
+          </sbb-autocomplete>
+        </sbb-form-field>
+      `);
+    });
+
+    it('DOM', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
+  });
+
+  describe('with actions', () => {
+    let root: SbbAutocompleteElement;
+
+    beforeEach(async () => {
+      root = await fixture(html`
+        <sbb-form-field>
+          <input />
+          <sbb-autocomplete>
+            <sbb-autocomplete-row>
+              <sbb-option value="1">Option 1</sbb-option>
+              <sbb-autocomplete-button icon-name="pen-small"></sbb-autocomplete-button>
+            </sbb-autocomplete-row>
+            <sbb-autocomplete-row>
+              <sbb-option disabled value="1">Option 2</sbb-option>
+              <sbb-autocomplete-button disabled icon-name="pen-small"></sbb-autocomplete-button>
+            </sbb-autocomplete-row>
+          </sbb-autocomplete>
+        </sbb-form-field>
+      `);
+    });
+
+    it('DOM', async () => {
+      await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['aria-description'] });
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(root).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
+  });
+});

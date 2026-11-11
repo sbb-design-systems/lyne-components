@@ -97,11 +97,11 @@ $theme: 'standard' !default;
     align-items: baseline;
     color: var(--sbb-color-1);
     font-size: var(--sbb-text-font-size-xs);
-    letter-spacing: var(--sbb-typo-letter-spacing-text);
+    letter-spacing: var(--sbb-letter-spacing-text);
 
     strong + * {
       font-size: var(--sbb-text-font-size-xxs);
-      letter-spacing: var(--sbb-typo-letter-spacing-text);
+      letter-spacing: var(--sbb-letter-spacing-text);
       color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
     }
   }

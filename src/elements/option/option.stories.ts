@@ -5,7 +5,7 @@ import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbFormFieldElement } from '../form-field.pure.ts';
 import { SbbOptionElement } from '../option.ts';
 

@@ -3,7 +3,7 @@ import { html, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbCheckboxPanelElement } from '../checkbox-panel.ts';
 
 import '../button.ts';
@@ -101,7 +101,8 @@ const defaultArgs: Args = {
   size: undefined,
 };
 
-const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
+const cardBadge = (): TemplateResult =>
+  html`<sbb-card-badge aria-label="Special offer">%</sbb-card-badge>`;
 
 const Template = ({ label, checked, ...args }: Args): TemplateResult =>
   html`<sbb-checkbox-panel .checked=${checked} ?checked=${checked} ${sbbSpread(args)}>

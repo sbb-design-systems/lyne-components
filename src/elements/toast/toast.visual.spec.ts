@@ -36,20 +36,26 @@ describe(`sbb-toast`, () => {
           await setup.withFixture(
             html`
               <sbb-toast icon-name=${icon ? 'circle-tick-small' : nothing} ?readonly=${readonly}>
-                ${content === 'short'
-                  ? html`Lorem ipsum dolor`
-                  : html`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-                    tempor incididunt.`}
-                ${action === 'button'
-                  ? html`<sbb-transparent-button
-                      slot="action"
-                      icon-name="clock-small"
-                      sbb-toast-close
-                    ></sbb-transparent-button>`
-                  : nothing}
-                ${action === 'link'
-                  ? html`<sbb-link slot="action" sbb-toast-close href="#">Link action</sbb-link>`
-                  : nothing}
+                ${
+                  content === 'short'
+                    ? html`Lorem ipsum dolor`
+                    : html`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+                      tempor incididunt.`
+                }
+                ${
+                  action === 'button'
+                    ? html`<sbb-transparent-button
+                        slot="action"
+                        icon-name="clock-small"
+                        sbb-toast-close
+                      ></sbb-transparent-button>`
+                    : nothing
+                }
+                ${
+                  action === 'link'
+                    ? html`<sbb-link slot="action" sbb-toast-close href="#">Link action</sbb-link>`
+                    : nothing
+                }
               </sbb-toast>
             `,
             { minHeight: '300px', padding: '0' },

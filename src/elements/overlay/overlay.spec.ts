@@ -1,8 +1,9 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, aTimeout, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
+import type { SbbButtonElement } from '../button.ts';
 import { sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 import { i18nDialog } from '../core.ts';
@@ -385,6 +386,114 @@ describe('sbb-overlay', () => {
       await sendKeys({ press: 'Escape' });
       expect(element.isOpen).to.be.false;
       expect(document.activeElement).not.to.be.equal(trigger);
+    });
+  });
+
+  describe('nested overlays', () => {
+    let root: HTMLElement;
+    let openButton: SbbButtonElement;
+    let nestedOpenButton: SbbButtonElement;
+    let closeButton: HTMLElement;
+    let nestedCloseButton: HTMLElement;
+    let overlay: SbbOverlayElement;
+    let nestedOverlay: SbbOverlayElement;
+    let openSpy: EventSpy<Event>;
+    let closeSpy: EventSpy<Event>;
+    let nestedOpenSpy: EventSpy<Event>;
+    let nestedCloseSpy: EventSpy<Event>;
+
+    beforeEach(async () => {
+      root = await fixture(html`
+        <div>
+          <sbb-button id="button-1">Open overlay</sbb-button>
+          <sbb-overlay trigger="button-1">
+            <sbb-button id="button-2">Open nested overlay</sbb-button>
+            <sbb-overlay trigger="button-2">Nested overlay content</sbb-overlay>
+          </sbb-overlay>
+        </div>
+      `);
+
+      openButton = root.querySelector<SbbButtonElement>('#button-1')!;
+      nestedOpenButton = root.querySelector<SbbButtonElement>('#button-2')!;
+      overlay = root.querySelector<SbbOverlayElement>('sbb-overlay')!;
+      nestedOverlay = overlay.querySelector<SbbOverlayElement>('sbb-overlay')!;
+      closeButton = overlay.shadowRoot!.querySelector('[sbb-overlay-close]') as HTMLElement;
+      nestedCloseButton = nestedOverlay.shadowRoot!.querySelector(
+        '[sbb-overlay-close]',
+      ) as HTMLElement;
+      openSpy = new EventSpy(SbbOverlayElement.events.open, overlay);
+      closeSpy = new EventSpy(SbbOverlayElement.events.close, overlay);
+      nestedOpenSpy = new EventSpy(SbbOverlayElement.events.open, nestedOverlay);
+      nestedCloseSpy = new EventSpy(SbbOverlayElement.events.close, nestedOverlay);
+    });
+
+    it('should only close most upper overlay when pressing close button', async () => {
+      openButton.click();
+      await openSpy.calledOnce();
+
+      expect(overlay).to.match(':state(state-opened)');
+      expect(getComputedStyle(overlay).display).to.be.equal('block');
+      expect(nestedOverlay).not.to.match(':state(state-opened)');
+      expect(getComputedStyle(nestedOverlay).display).to.be.equal('none');
+
+      nestedOpenButton.click();
+      await nestedOpenSpy.calledOnce();
+
+      expect(overlay).to.match(':state(state-opened)');
+      expect(getComputedStyle(overlay).display).to.be.equal('block');
+      expect(nestedOverlay).to.match(':state(state-opened)');
+      expect(getComputedStyle(nestedOverlay).display).to.be.equal('block');
+
+      nestedCloseButton.click();
+      await nestedCloseSpy.calledOnce();
+
+      expect(overlay).to.match(':state(state-opened)');
+      expect(nestedOverlay).to.match(':state(state-closed)');
+
+      // Should not throw when overlay was removed from DOM before closing
+      nestedOverlay.remove();
+
+      closeButton.click();
+      await closeSpy.calledOnce();
+      expect(overlay).to.match(':state(state-closed)');
+      expect(nestedOverlay).to.match(':state(state-closed)');
+    });
+
+    it('should only close most upper overlay when pressing Escape', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
+
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
+      nestedOverlay.style.setProperty('--sbb-overlay-animation-duration', '100ms');
+
+      await aTimeout(0);
+
+      openButton.click();
+      await openSpy.calledOnce();
+
+      nestedOpenButton.click();
+      await waitForLitRender(overlay);
+      expect(nestedOverlay).to.match(':state(state-opening)');
+      await sendKeys({ press: 'Escape' });
+      await waitForLitRender(overlay);
+      expect(nestedOverlay).to.match(':state(state-closing)');
+      await nestedCloseSpy.calledOnce();
+
+      expect(overlay).to.match(':state(state-opened)');
+      expect(nestedOverlay).to.match(':state(state-closed)');
+    });
+
+    it('should prevent opening a nested overlay if outer is closed or closing', async () => {
+      openButton.click();
+      await openSpy.calledOnce();
+
+      await sendKeys({ press: 'Escape' });
+      nestedOpenButton.click();
+      expect(nestedOverlay, 'nested overlay should stay close').to.match(':state(state-closed)');
+      await closeSpy.calledOnce();
+      expect(nestedOverlay, 'nested overlay').to.match(':state(state-closed)');
+      expect(overlay, 'outer overlay').to.match(':state(state-closed)');
     });
   });
 

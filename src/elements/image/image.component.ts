@@ -361,6 +361,15 @@ export class SbbImageElement extends SbbElement {
     this._addFocusAbilityToLinksInCaption();
   }
 
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
+    // Check if image finished loading before element hydration
+    if (this.complete && !this.internals.states.has('loaded')) {
+      this._imageLoaded();
+    }
+  }
+
   private _logPerformanceMarks(): void {
     if (this.performanceMark) {
       performance.clearMarks(this.performanceMark);
@@ -530,17 +539,19 @@ export class SbbImageElement extends SbbElement {
      */
     return html`
       <div class="sbb-image__wrapper">
-        ${!this.skipLqip
-          ? html`<img
-              alt=""
-              class="sbb-image__blurred"
-              src=${imageUrlLQIP}
-              width="1000"
-              height="562"
-              loading=${this.loading ?? nothing}
-              decoding=${this.decoding ?? nothing}
-            />`
-          : nothing}
+        ${
+          !this.skipLqip
+            ? html`<img
+                alt=""
+                class="sbb-image__blurred"
+                src=${imageUrlLQIP}
+                width="1000"
+                height="562"
+                loading=${this.loading ?? nothing}
+                decoding=${this.decoding ?? nothing}
+              />`
+            : nothing
+        }
 
         <picture>
           <!-- render picture element sources -->

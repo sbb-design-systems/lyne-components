@@ -9,13 +9,10 @@ snapshots["sbb-timetable-row renders defaultTrip DOM"] =
 
 snapshots["sbb-timetable-row renders defaultTrip Shadow DOM"] = 
 `<sbb-card
-  class="sbb-card-spacing-4x-xxs"
+  class="sbb-card-spacing-4x-xxs sbb-timetable__row-card"
   color="white"
 >
-  <sbb-card-button
-    slot="action"
-    tabindex="0"
-  >
+  <sbb-card-button tabindex="0">
     Departure: 11:08, Train, IR 37, Direction Basel SBB, Arrival: 12:13, Travel time 1 Hour 15 Minutes,
   </sbb-card-button>
   <div
@@ -76,13 +73,10 @@ snapshots["sbb-timetable-row renders platform DOM"] =
 
 snapshots["sbb-timetable-row renders platform Shadow DOM"] = 
 `<sbb-card
-  class="sbb-card-spacing-4x-xxs"
+  class="sbb-card-spacing-4x-xxs sbb-timetable__row-card"
   color="white"
 >
-  <sbb-card-button
-    slot="action"
-    tabindex="0"
-  >
+  <sbb-card-button tabindex="0">
     Departure: 16:30, on Pl. 4, Train, IR 35, Direction Chur, Arrival: 17:06, Travel time 41 Minutes, 2 changes, First Class Low to average occupancy expected. Second Class High occupancy expected.
   </sbb-card-button>
   <div
@@ -162,13 +156,10 @@ snapshots["sbb-timetable-row renders bus strip DOM"] =
 
 snapshots["sbb-timetable-row renders bus strip Shadow DOM"] = 
 `<sbb-card
-  class="sbb-card-spacing-4x-xxs"
+  class="sbb-card-spacing-4x-xxs sbb-timetable__row-card"
   color="white"
 >
-  <sbb-card-button
-    slot="action"
-    tabindex="0"
-  >
+  <sbb-card-button tabindex="0">
     Departure: 16:30, on Stand 4, Bus, B 19, Direction Spiegel, Blinzern, Arrival: 17:06, Travel time 41 Minutes, 2 changes, First Class Low to average occupancy expected. Second Class High occupancy expected.
   </sbb-card-button>
   <div
@@ -249,13 +240,10 @@ snapshots["sbb-timetable-row renders loading state DOM"] =
 
 snapshots["sbb-timetable-row renders loading state Shadow DOM"] = 
 `<sbb-card
-  class="sbb-card-spacing-4x-xxs sbb-loading"
+  class="sbb-card-spacing-4x-xxs sbb-loading sbb-timetable__row-card"
   color="white"
 >
-  <div
-    class="sbb-loading__badge"
-    slot="badge"
-  >
+  <div class="sbb-loading__badge">
   </div>
   <div class="sbb-loading__wrapper">
     <div class="sbb-loading__row">
@@ -293,13 +281,10 @@ snapshots["sbb-timetable-row renders trip with access leg DOM"] =
 
 snapshots["sbb-timetable-row renders trip with access leg Shadow DOM"] = 
 `<sbb-card
-  class="sbb-card-spacing-4x-xxs"
+  class="sbb-card-spacing-4x-xxs sbb-timetable__row-card"
   color="white"
 >
-  <sbb-card-button
-    slot="action"
-    tabindex="0"
-  >
+  <sbb-card-button tabindex="0">
     Departure: 16:30, on platform 4, Bus, B 19, Direction Spiegel, Blinzern, Arrival: 17:06, Travel time 41 Minutes, 1 change, First Class Low to average occupancy expected. Second Class High occupancy expected.
   </sbb-card-button>
   <div

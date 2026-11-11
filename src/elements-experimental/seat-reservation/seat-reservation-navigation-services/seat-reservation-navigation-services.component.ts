@@ -53,9 +53,11 @@ export class SbbSeatReservationNavigationServicesElement extends SbbElement {
           <sbb-seat-reservation-graphic
             class="auto-width"
             name=${signIcon ?? nothing}
-            title=${this.showTitleInfo
-              ? getI18nSeatReservation(signIcon, this._language.current)
-              : nothing}
+            title=${
+              this.showTitleInfo
+                ? getI18nSeatReservation(signIcon, this._language.current)
+                : nothing
+            }
             aria-hidden="true"
           ></sbb-seat-reservation-graphic>
         `;

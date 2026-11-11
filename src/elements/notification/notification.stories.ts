@@ -3,7 +3,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import type { SbbSecondaryButtonElement } from '../button.ts';
 
 import { SbbNotificationElement } from './notification.component.ts';
@@ -215,6 +215,12 @@ export const MultipleNotifications: StoryObj = {
   render: MultipleNotificationsTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
+};
+
+export const WithoutTitle: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, hasTitle: false },
 };
 
 const meta: Meta = {

@@ -240,6 +240,15 @@ The styling is then applied to all `<sbb-form-field>` elements that contain an i
 Please note that with forced colors and `sbb-form-field-required-highlight` CSS class,
 there is an Asterix (\*) added to the label of required fields.
 
+### Input without form-field
+
+A native input element used without a `sbb-form-field` can take on the appearance of a `sbb-form-field`
+by applying the `sbb-input` class to it.
+
+```html
+<input class="sbb-input" placeholder="Enter text.." />
+```
+
 ## Custom form control
 
 The form field looks for native form controls (i.e. `<input>`, `<select>`
@@ -365,10 +374,11 @@ as the error takes precedence.
 
 #### Events
 
-| Name     | Type         | Description                                                                                                                                                                                                            | Inherited From |
-| -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `change` | `Event`      | The change event is fired on the component's associated input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
-| `input`  | `InputEvent` | The input event fires on the component's associated input when the value has been changed as a direct result of a user action.                                                                                         |                |
+| Name       | Type         | Description                                                                                                                                                                                                            | Inherited From         |
+| ---------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| `change`   | `Event`      | The change event is fired on the component's associated input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                        |
+| `input`    | `InputEvent` | The input event fires on the component's associated input when the value has been changed as a direct result of a user action.                                                                                         |                        |
+| `validity` | `Event`      | The validity event is dispatched whenever the validity state of the element changes.                                                                                                                                   | SbbFormAssociatedMixin |
 
 ### class: `SbbFormFieldElement`, `sbb-form-field`
 

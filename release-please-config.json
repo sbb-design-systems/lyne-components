@@ -33,8 +33,7 @@
     },
     {
       "type": "style",
-      "section": "Styles",
-      "hidden": true
+      "section": "Styles"
     },
     {
       "type": "chore",

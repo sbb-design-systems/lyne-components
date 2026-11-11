@@ -2,25 +2,53 @@ The `<sbb-menu>` is a component that can be attached to any element to open and 
 which allows to perform actions relevant to the current task by using the `<sbb-menu-button>`
 or to navigate within or outside the application by using the `<sbb-menu-link>` component along with it.
 
+<!-- #region intro-example -->
+
 ```html
 <!-- Trigger element -->
 <sbb-button id="menu-trigger">Menu trigger</sbb-button>
 
 <!-- Menu component with menu actions -->
 <sbb-menu trigger="menu-trigger">
-  <sbb-menu-link icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
-  <sbb-menu-button icon="pen-small">Edit</sbb-menu-button>
-  <sbb-menu-button icon="swisspass-small" sbb-badge="12" aria-label="Details, containing 12 items">
+  <sbb-menu-link icon-name="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
+  <sbb-menu-button icon-name="pen-small">Edit</sbb-menu-button>
+  <sbb-menu-button
+    icon-name="swisspass-small"
+    sbb-badge="12"
+    aria-label="Details, containing 12 items"
+  >
     Details
   </sbb-menu-button>
   <sbb-divider></sbb-divider>
-  <sbb-menu-button icon="cross-small">Cancel</sbb-menu-button>
+  <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
+</sbb-menu>
+```
+
+<!-- #endregion -->
+
+You can provide custom content inside the `<sbb-menu>`:
+
+```html
+<sbb-menu>
+  <div>Christina Müller</div>
+  <span>UIS9057</span>
+  <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
+  <sbb-divider></sbb-divider>
+  <sbb-menu-link icon-name="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
+  <sbb-menu-button icon-name="pen-small">Edit</sbb-menu-button>
+  <sbb-menu-button
+    icon-name="swisspass-small"
+    sbb-badge="12"
+    aria-label="Details, containing 12 items"
+  >
+    Details
+  </sbb-menu-button>
+  <sbb-divider></sbb-divider>
+  <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
 </sbb-menu>
 ```
 
 ## Interactions
-
-The element that will trigger the menu dialog must be set using the `trigger` property.
 
 The `<sbb-menu>` appears on trigger left click, and it is displayed as a sheet with a backdrop on mobile,  
 while on desktop it will be shown as a floating menu, and it will calculate the optimal position relative to the trigger element
@@ -28,45 +56,40 @@ by evaluating the available space with the following priority: start/below, star
 
 Clicking in the backdrop or pressing the `ESC` key closes the menu.
 
-You can also provide custom content inside the `<sbb-menu>`:
+<!-- #region trigger -->
+
+The element that will trigger the menu dialog must be set using the `trigger` property.
 
 ```html
 <!-- Trigger element -->
 <sbb-button id="menu-trigger">Menu trigger</sbb-button>
 
 <!-- Menu component with custom content and menu actions -->
-<sbb-menu trigger="menu-trigger">
-  <div>Christina Müller</div>
-  <span>UIS9057</span>
-  <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
-  <sbb-divider></sbb-divider>
-  <sbb-menu-link icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
-  <sbb-menu-button icon="pen-small">Edit</sbb-menu-button>
-  <sbb-menu-button icon="swisspass-small" sbb-badge="12" aria-label="Details, containing 12 items">
-    Details
-  </sbb-menu-button>
-  <sbb-divider></sbb-divider>
-  <sbb-menu-button icon="cross-small">Cancel</sbb-menu-button>
-</sbb-menu>
+<sbb-menu trigger="menu-trigger">...</sbb-menu>
 ```
+
+<!-- #endregion -->
 
 ## Nesting menus
 
-It is possible to create submenus by connecting a menu to a `<sbb-menu-button>`/`<sbb-menu-link>`
-element via trigger property / attribute of the `<sbb-menu>`.
+It is possible to create submenus by connecting a menu to a `<sbb-menu-button>`/`<sbb-menu-link>` element.
 On smaller screens, submenus will automatically display a back button to navigate back to the parent menu.
 
 Please note that nesting the menus in DOM is not supported. The `<sbb-menu>` elements have to be siblings in order to work.
 
+<!-- #region nesting-example -->
+
 ```html
 <sbb-menu>
-  <sbb-menu-button icon="pen-small" id="submenu-trigger">Submenu trigger</sbb-menu-button>
+  <sbb-menu-button icon-name="pen-small" id="submenu-trigger">Submenu trigger</sbb-menu-button>
 </sbb-menu>
 <sbb-menu trigger="submenu-trigger">
-  <sbb-menu-link icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
-  <sbb-menu-button icon="swisspass-small" sbb-badge="12">Details</sbb-menu-button>
+  <sbb-menu-link icon-name="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
+  <sbb-menu-button icon-name="swisspass-small" sbb-badge="12">Details</sbb-menu-button>
 </sbb-menu>
 ```
+
+<!-- #endregion -->
 
 ## Menu Actions
 
@@ -133,7 +156,7 @@ If the attribute is not used, the first focusable element receives focus (recomm
 ```html
 <sbb-menu>
   <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
-  <sbb-menu-link sbb-initial-focus icon="link-small" href="https://www.sbb.ch/en">
+  <sbb-menu-link sbb-focus-initial icon-name="link-small" href="https://www.sbb.ch/en">
     Receives initial focus
   </sbb-menu-link>
 </sbb-menu>
@@ -189,6 +212,12 @@ guard against such cases in your component.
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
+
 #### CSS Properties
 
 | Name                                         | Default                       | Description                               |
@@ -206,10 +235,11 @@ guard against such cases in your component.
 
 #### Properties
 
-| Name      | Attribute | Privacy | Type                  | Default | Description                                                                                   |
-| --------- | --------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------- |
-| `isOpen`  | -         | public  | `boolean`             |         | Whether the element is open.                                                                  |
-| `trigger` | `trigger` | public  | `HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. For attribute usage, provide an id reference. |
+| Name            | Attribute         | Privacy | Type                  | Default | Description                                                                                   |
+| --------------- | ----------------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------- |
+| `hideIconSpace` | `hide-icon-space` | public  | `boolean`             | `false` | Whether the space reserved for the icon should be hidden.                                     |
+| `isOpen`        | -                 | public  | `boolean`             |         | Whether the element is open.                                                                  |
+| `trigger`       | `trigger`         | public  | `HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. For attribute usage, provide an id reference. |
 
 #### Methods
 

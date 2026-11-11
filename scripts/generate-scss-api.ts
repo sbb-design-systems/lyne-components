@@ -88,7 +88,7 @@ async function generateTheme(
             hasBreakpointLarge: true,
             hasBreakpointUltra: true,
             hasRules: false,
-          },
+          } satisfies GlobalScssFile,
         ]
       : []),
     ...globalFiles,

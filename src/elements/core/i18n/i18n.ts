@@ -155,6 +155,20 @@ export const i18nDeparture: Record<string, string> = {
   it: 'Partenza',
 };
 
+export const i18nNonAccessible: Record<string, string> = {
+  de: 'nicht barrierefrei',
+  en: 'not accessible',
+  fr: 'non accessible',
+  it: 'non accessibile',
+};
+
+export const i18nDownload: Record<string, string> = {
+  de: 'herunterladen',
+  en: 'download',
+  fr: 'télécharger',
+  it: 'scaricare',
+};
+
 export const i18nDurationMinute: Record<string, Record<string, Record<string, string>>> = {
   single: {
     long: {
@@ -762,6 +776,13 @@ export const i18nSelectionRequired: Record<string, string> = {
   it: 'Selezione necessaria.',
 };
 
+export const i18nMultipleSelectionPossible: Record<string, string> = {
+  de: 'Mehrfachauswahl möglich',
+  en: 'Multiple selection possible',
+  fr: 'Sélection multiple possible',
+  it: 'Selezione multipla possibile',
+};
+
 export const i18nInputRequired: Record<string, string> = {
   de: 'Eingabe erforderlich.',
   en: 'Input required.',
@@ -889,4 +910,32 @@ export const i18nRemainingCharacters: Record<string, string> = {
   en: 'characters remaining',
   fr: 'caractères restants',
   it: 'caratteri rimanenti',
+};
+
+export const i18nLogo125Anniversary: Record<string, string> = {
+  de: 'Wir verbinden die Schweiz seit 125 Jahren.',
+  en: 'Connecting Switzerland for 125 years.',
+  fr: '125 ans à tisser des liens qui font la Suisse.',
+  it: 'Da 125 anni uniamo la Svizzera.',
+};
+
+export const i18nLogo125AnniversaryYears: Record<string, string> = {
+  de: 'Jahre',
+  en: 'years',
+  fr: 'ans',
+  it: 'anni',
+};
+
+export const i18nButton: Record<string, string> = {
+  de: 'Schaltfläche',
+  en: 'Button',
+  fr: 'Bouton',
+  it: 'Pulsante',
+};
+
+export const i18nAutocompleteActionsHint: Record<string, string> = {
+  de: 'Drücken Sie Pfeil links oder rechts für verfügbare Aktionen',
+  en: 'Press arrow left or right for available actions',
+  fr: 'Appuyez sur les flèches gauche ou droite pour les actions disponibles',
+  it: 'Usare i tasti freccia destra o sinistra per le azioni disponibili',
 };

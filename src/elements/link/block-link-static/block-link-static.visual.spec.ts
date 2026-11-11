@@ -82,9 +82,11 @@ describe(`sbb-block-link-static`, () => {
               icon-name=${slotted ? nothing : 'chevron-small-right-small'}
               icon-placement=${iconPlacement}
             >
-              ${slotted
-                ? html`<sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>`
-                : nothing}
+              ${
+                slotted
+                  ? html`<sbb-icon slot="icon" name="chevron-small-left-small"></sbb-icon>`
+                  : nothing
+              }
               Travelcards & tickets
             </sbb-block-link-static>
           `);

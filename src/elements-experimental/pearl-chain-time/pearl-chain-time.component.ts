@@ -20,18 +20,19 @@ import {
   isRideLeg,
   removeTimezoneFromISOTimeString,
 } from '../core.ts';
-import { SbbPearlChainElement } from '../pearl-chain.pure.ts';
+import { SbbPearlChainLegacyElement } from '../pearl-chain-legacy.pure.ts';
 
 import style from './pearl-chain-time.scss?inline';
 
 /**
- * Combined with `sbb-pearl-chain`, it displays walk time information.
+ * Combined with `sbb-pearl-chain-legacy`, it displays walk time information.
+ * @deprecated Use `sbb-pearl-chain` instead.
  */
 export class SbbPearlChainTimeElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain-time';
   public static override elementDependencies: SbbElementType[] = [
     SbbIconElement,
-    SbbPearlChainElement,
+    SbbPearlChainLegacyElement,
   ];
   public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
 
@@ -114,33 +115,39 @@ export class SbbPearlChainTimeElement extends SbbElement {
     return html`
       <div class="sbb-pearl-chain__time">
         ${renderDepartureTimeAttribute()}
-        ${departure
-          ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.departureTime!}>
-              <span class="sbb-screen-reader-only"
-                >${i18nDeparture[this._language.current]}:&nbsp;</span
-              >
-              ${format(departure, 'HH:mm')}
-            </time>`
-          : nothing}
-        ${rideLegs?.length > 1
-          ? html`<span class="sbb-screen-reader-only" role="paragraph">
-              ${rideLegs?.length - 1} ${i18nTransferProcedures[this._language.current]}
-            </span>`
-          : nothing}
-        <sbb-pearl-chain
+        ${
+          departure
+            ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.departureTime!}>
+                <span class="sbb-screen-reader-only"
+                  >${i18nDeparture[this._language.current]}:&nbsp;</span
+                >
+                ${format(departure, 'HH:mm')}
+              </time>`
+            : nothing
+        }
+        ${
+          rideLegs?.length > 1
+            ? html`<span class="sbb-screen-reader-only" role="paragraph">
+                ${rideLegs?.length - 1} ${i18nTransferProcedures[this._language.current]}
+              </span>`
+            : nothing
+        }
+        <sbb-pearl-chain-legacy
           class="sbb-pearl-chain__time-chain"
           .legs=${this.legs}
           .disableAnimation=${this.disableAnimation}
           .now=${this.now}
-        ></sbb-pearl-chain>
-        ${arrival
-          ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.arrivalTime!}>
-              <span class="sbb-screen-reader-only"
-                >${i18nArrival[this._language.current]}:&nbsp;</span
-              >
-              ${format(arrival, 'HH:mm')}
-            </time>`
-          : nothing}
+        ></sbb-pearl-chain-legacy>
+        ${
+          arrival
+            ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.arrivalTime!}>
+                <span class="sbb-screen-reader-only"
+                  >${i18nArrival[this._language.current]}:&nbsp;</span
+                >
+                ${format(arrival, 'HH:mm')}
+              </time>`
+            : nothing
+        }
         ${renderArrivalTimeAttribute()}
       </div>
     `;

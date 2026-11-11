@@ -9,3 +9,9 @@ $theme: 'standard' !default;
   --sbb-carousel-paginator-padding: var(--sbb-spacing-responsive-xs);
   --sbb-carousel-list-border-radius: var(--sbb-border-radius-4x);
 }
+
+@mixin rules {
+  sbb-carousel-item sbb-image {
+    border-radius: unset;
+  }
+}

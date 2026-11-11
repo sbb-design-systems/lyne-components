@@ -60,7 +60,7 @@ export class SbbFlipCardElement extends SbbElement {
 
   /** Returns the card details content element wrapper. */
   private get _detailsContentElement(): HTMLElement | null {
-    return this.details!.shadowRoot!.firstElementChild as HTMLElement;
+    return this.details?.shadowRoot?.querySelector('.sbb-flip-card-details') ?? null;
   }
 
   /** Whether the flip card is flipped. */
@@ -104,11 +104,12 @@ export class SbbFlipCardElement extends SbbElement {
   /** Toggles the state of the sbb-flip-card. */
   public toggle(): void {
     this._flipped = !this._flipped;
-    if (this._flipped) {
+    const detailsContentElement = this._detailsContentElement;
+    if (this._flipped && detailsContentElement) {
       this._setCardDetailsHeight();
-      this._cardDetailsResizeObserver.observe(this._detailsContentElement!);
-    } else {
-      this._cardDetailsResizeObserver.unobserve(this._detailsContentElement!);
+      this._cardDetailsResizeObserver.observe(detailsContentElement);
+    } else if (detailsContentElement) {
+      this._cardDetailsResizeObserver.unobserve(detailsContentElement);
     }
     this.toggleState('flipped', this._flipped);
     ɵstateController(this.details)?.toggle('flipped', this._flipped);

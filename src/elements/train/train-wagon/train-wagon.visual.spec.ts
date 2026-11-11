@@ -52,19 +52,21 @@ describe(`sbb-train-wagon`, () => {
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(
                 trainFormationWrapper(
-                  html` ${wagonType === 'sleeping' ||
-                  wagonType === 'couchette' ||
-                  wagonType === 'restaurant'
-                    ? html`<sbb-train-wagon
-                        wagon-type=${wagonType}
-                        class=${active ? 'sbb-active' : nothing}
-                      ></sbb-train-wagon>`
-                    : html`<sbb-train-wagon
-                        wagon-type=${wagonType}
-                        occupancy="medium"
-                        wagon-class="1"
-                        class=${active ? 'sbb-active' : nothing}
-                      ></sbb-train-wagon>`}`,
+                  html` ${
+                    wagonType === 'sleeping' ||
+                    wagonType === 'couchette' ||
+                    wagonType === 'restaurant'
+                      ? html`<sbb-train-wagon
+                          wagon-type=${wagonType}
+                          class=${active ? 'sbb-active' : nothing}
+                        ></sbb-train-wagon>`
+                      : html`<sbb-train-wagon
+                          wagon-type=${wagonType}
+                          occupancy="medium"
+                          wagon-class="1"
+                          class=${active ? 'sbb-active' : nothing}
+                        ></sbb-train-wagon>`
+                  }`,
                   orientation,
                   view,
                 ),

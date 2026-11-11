@@ -1,6 +1,7 @@
 import type { ITripItem } from '../core.ts';
 import {
   accessLeg,
+  cancelledExpectedLeg,
   cancelledLeg,
   connectionLeg,
   defaultBusLeg,
@@ -14,7 +15,7 @@ import {
   progressLeg,
   redirectedOnArrivalLeg,
   redirectedOnDepartureLeg,
-} from '../pearl-chain/pearl-chain.sample-data.private.ts';
+} from '../pearl-chain-legacy/pearl-chain-legacy.sample-data.private.ts';
 
 export type DeepPartial<T> = T extends object
   ? {
@@ -70,6 +71,35 @@ export const cancelledTrip: DeepPartial<ITripItem> = {
     },
     tripStatus: {
       cancelled: true,
+      partiallyCancelled: false,
+      delayedUnknown: false,
+      delayed: false,
+      quayChanged: false,
+    },
+  },
+};
+
+export const cancelledExpectedTrip: DeepPartial<ITripItem> = {
+  legs: [cancelledExpectedLeg],
+  situations: [],
+  summary: {
+    arrival: {
+      time: '2022-11-30T12:13:00+01:00',
+    },
+    departure: {
+      time: '2022-11-30T11:08:00+01:00',
+      quayFormatted: '14',
+    },
+    direction: 'Basel SBB',
+    product: {
+      line: '37',
+      vehicleMode: 'TRAIN',
+      vehicleSubModeShortName: 'IR',
+      corporateIdentityIcon: 'ir-37',
+      corporateIdentityPictogram: 'train-right',
+    },
+    tripStatus: {
+      cancelled: false,
       partiallyCancelled: false,
       delayedUnknown: false,
       delayed: false,

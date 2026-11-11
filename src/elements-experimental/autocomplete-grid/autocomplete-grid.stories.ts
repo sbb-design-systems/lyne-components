@@ -280,9 +280,9 @@ const createRows1 = (
           value=${`1-${i + 1}`}
           icon-name=${optionIconName || nothing}
           ?disabled=${disableOption && i === 1}
-          >${`Option 1-${i + 1}`}${i === 2
-            ? ` with a long text which can wrap`
-            : ``}</sbb-autocomplete-grid-option
+          >${`Option 1-${i + 1}`}${
+            i === 2 ? ` with a long text which can wrap` : ``
+          }</sbb-autocomplete-grid-option
         >
         <sbb-autocomplete-grid-cell>
           <sbb-autocomplete-grid-button

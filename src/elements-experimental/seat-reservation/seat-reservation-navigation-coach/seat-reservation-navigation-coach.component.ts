@@ -143,13 +143,15 @@ export class SbbSeatReservationNavigationCoachElement extends SbbElement {
         })}"
       >
         ${this._getNavigationButton()}
-        ${this.coachItemDetails.propertyIds?.length
-          ? html`<sbb-seat-reservation-navigation-services
-              ?vertical="${this.vertical}"
-              .propertyIds="${this.coachItemDetails.propertyIds}"
-              ?showTitleInfo="${this.showTitleInfo}"
-            ></sbb-seat-reservation-navigation-services>`
-          : nothing}
+        ${
+          this.coachItemDetails.propertyIds?.length
+            ? html`<sbb-seat-reservation-navigation-services
+                ?vertical="${this.vertical}"
+                .propertyIds="${this.coachItemDetails.propertyIds}"
+                ?showTitleInfo="${this.showTitleInfo}"
+              ></sbb-seat-reservation-navigation-services>`
+            : nothing
+        }
       </div>
     `;
   }
@@ -185,25 +187,31 @@ export class SbbSeatReservationNavigationCoachElement extends SbbElement {
     }
 
     return html`
-      ${serviceClassNumber === 1
-        ? html`<span class="sbb-sr-navigation--first-class"></span>`
-        : nothing}
-      ${this.coachItemDetails.travelClass?.length > 0 || this.coachItemDetails.id
-        ? html`<div class="sbb-sr-navigation__additional-information">
-            ${this.coachItemDetails.id
-              ? html`<div class="sbb-sr-navigation__item-coach-number" aria-hidden="true">
-                  ${this.coachItemDetails.id}
-                </div>`
-              : nothing}
-            <div
-              ${serviceClassNumber ?? nothing}
-              class="sbb-sr-navigation__item-coach-travelclass"
-              aria-hidden="true"
-            >
-              ${serviceClassNumber}
-            </div>
-          </div>`
-        : nothing}
+      ${
+        serviceClassNumber === 1
+          ? html`<span class="sbb-sr-navigation--first-class"></span>`
+          : nothing
+      }
+      ${
+        this.coachItemDetails.travelClass?.length > 0 || this.coachItemDetails.id
+          ? html`<div class="sbb-sr-navigation__additional-information">
+              ${
+                this.coachItemDetails.id
+                  ? html`<div class="sbb-sr-navigation__item-coach-number" aria-hidden="true">
+                      ${this.coachItemDetails.id}
+                    </div>`
+                  : nothing
+              }
+              <div
+                ${serviceClassNumber ?? nothing}
+                class="sbb-sr-navigation__item-coach-travelclass"
+                aria-hidden="true"
+              >
+                ${serviceClassNumber}
+              </div>
+            </div>`
+          : nothing
+      }
     `;
   }
 

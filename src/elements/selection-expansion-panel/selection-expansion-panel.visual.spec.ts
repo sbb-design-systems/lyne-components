@@ -108,9 +108,11 @@ describe(`sbb-selection-expansion-panel`, () => {
             `force-open ${state.name}`,
             state.with(async (setup) => {
               await setup.withFixture(html`
-                ${input === 'checkbox'
-                  ? withCheckboxPanel({ forceOpen: true })
-                  : withRadioPanel({ forceOpen: true })}
+                ${
+                  input === 'checkbox'
+                    ? withCheckboxPanel({ forceOpen: true })
+                    : withRadioPanel({ forceOpen: true })
+                }
               `);
             }),
           );
@@ -120,9 +122,11 @@ describe(`sbb-selection-expansion-panel`, () => {
           `size=xs`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
-              ${input === 'checkbox'
-                ? withCheckboxPanel({ size: 'xs' })
-                : withRadioPanel({ size: 'xs' })}
+              ${
+                input === 'checkbox'
+                  ? withCheckboxPanel({ size: 'xs' })
+                  : withRadioPanel({ size: 'xs' })
+              }
             `);
           }),
         );
@@ -131,9 +135,11 @@ describe(`sbb-selection-expansion-panel`, () => {
           `size=s`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
-              ${input === 'checkbox'
-                ? withCheckboxPanel({ size: 's' })
-                : withRadioPanel({ size: 's' })}
+              ${
+                input === 'checkbox'
+                  ? withCheckboxPanel({ size: 's' })
+                  : withRadioPanel({ size: 's' })
+              }
             `);
           }),
         );

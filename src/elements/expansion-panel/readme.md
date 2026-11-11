@@ -71,7 +71,7 @@ Using the `titleLevel` variable, it's possible to wrap the `<sbb-expansion-panel
 if it's unset, a `<div>` is used as a wrapper.
 
 ```html
-<sbb-expansion-panel level="4">
+<sbb-expansion-panel title-level="4">
   <sbb-expansion-panel-header
     >This is the header, and it will be wrapped in a h4 tag.</sbb-expansion-panel-header
   >
@@ -154,9 +154,10 @@ and the `aria-hidden` attribute on the content.
 
 #### Events
 
-| Name             | Type    | Description                                                        | Inherited From |
-| ---------------- | ------- | ------------------------------------------------------------------ | -------------- |
-| `toggleexpanded` | `Event` | Notifies that the `sbb-expansion-panel` is about to expand/shrink. |                |
+| Name             | Type    | Description                                                                          | Inherited From         |
+| ---------------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `toggleexpanded` | `Event` | Notifies that the `sbb-expansion-panel` is about to expand/shrink.                   |                        |
+| `validity`       | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
 
 #### Slots
 

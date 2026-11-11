@@ -4,30 +4,15 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 import { SbbCalendarElement, type SbbMonthChangeEvent } from '../calendar.ts';
 import { defaultDateAdapter } from '../core.ts';
 
-import {
-  createPrice,
-  createSlottedDays,
-  monthChangeHandler,
-} from './calendar-day/calendar-day.helper.private.ts';
+import { createPrice, monthChangeHandler } from './calendar-day/calendar-day.helper.private.ts';
 import readme from './readme.md?raw';
 
 const today = new Date();
 today.setDate(today.getDate() >= 15 ? 8 : 18);
-
-const createDays = (amount: number, withPrice: boolean): TemplateResult => {
-  return html`${Array.from({ length: amount }, (_, i) => {
-    const date = defaultDateAdapter.addCalendarMonths(today, i);
-    return createSlottedDays(
-      defaultDateAdapter.getYear(date),
-      defaultDateAdapter.getMonth(date),
-      withPrice,
-    );
-  })}`;
-};
 
 const getCalendarAttr = (min: number | string, max: number | string): Record<string, string> => {
   const attr: Record<string, string> = {};
@@ -103,8 +88,8 @@ const EnhancedTemplate = ({
       ${sbbSpread(getCalendarAttr(min, max))}
       ${sbbSpread(args)}
       @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e, withPrice)}
-      >${createDays(amount, withPrice)}</sbb-calendar
     >
+    </sbb-calendar>
   `;
 };
 
@@ -437,6 +422,22 @@ export const CalendarEnhancedWideWeekNumbersMultiple: StoryObj = {
     multiple: true,
     value: [today],
   },
+};
+
+export const CalendarActiveMonth: StoryObj = {
+  render: () =>
+    html`<sbb-calendar
+        active-month="2023-08"
+        value="2023-09-15"
+        multiple
+        week-numbers
+      ></sbb-calendar>
+
+      <p>
+        Setting the active month will control which month is initially displayed, even if the
+        selected date is in a different month (i.e., September 15, 2023 is the selected value but
+        August is initially displayed).
+      </p> `,
 };
 
 export const CalendarFixedMonth: StoryObj = {

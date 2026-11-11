@@ -51,17 +51,23 @@ class FullscreenDiff extends LitElement {
           (this.selectedFile = (event.currentTarget as SbbRadioButtonGroupElement)
             .value as DiffFileType)}
       >
-        ${!this.screenshotFiles.isNew
-          ? html`<sbb-radio-button value="baselineFile">Baseline</sbb-radio-button>`
-          : nothing}
-        ${this.screenshotFiles.failedFile
-          ? html`<sbb-radio-button value="failedFile">
-              ${this.screenshotFiles.isNew ? 'New' : 'Failed'}
-            </sbb-radio-button>`
-          : nothing}
-        ${this.screenshotFiles.diffFile
-          ? html`<sbb-radio-button value="diffFile">Diff</sbb-radio-button>`
-          : nothing}
+        ${
+          !this.screenshotFiles.isNew
+            ? html`<sbb-radio-button value="baselineFile">Baseline</sbb-radio-button>`
+            : nothing
+        }
+        ${
+          this.screenshotFiles.failedFile
+            ? html`<sbb-radio-button value="failedFile">
+                ${this.screenshotFiles.isNew ? 'New' : 'Failed'}
+              </sbb-radio-button>`
+            : nothing
+        }
+        ${
+          this.screenshotFiles.diffFile
+            ? html`<sbb-radio-button value="diffFile">Diff</sbb-radio-button>`
+            : nothing
+        }
       </sbb-radio-button-group>
       <div class="app-scroll-container sbb-scrollbar">
         <img

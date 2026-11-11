@@ -55,9 +55,11 @@ describe(`sbb-file-selector-dropzone`, () => {
               multiple
               ?disabled=${state.disabled}
             >
-              ${state.error
-                ? html`<sbb-error slot="error">There has been an error.</sbb-error>`
-                : nothing}
+              ${
+                state.error
+                  ? html`<sbb-error slot="error">There has been an error.</sbb-error>`
+                  : nothing
+              }
             </sbb-file-selector-dropzone>
           `,
           { forcedColors: forcedColors, darkMode },

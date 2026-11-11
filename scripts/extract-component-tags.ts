@@ -20,7 +20,9 @@ interface ComponentFile {
 
 function extractTagName(filePath: string): string | null {
   const content = readFileSync(filePath, 'utf-8');
-  const match = content.match(/@customElement\(['"]([^'"]+)['"]\)/);
+  const match = content.match(
+    /public static override readonly elementName: string = ['"]([^'"]+)['"]/,
+  );
   return match?.[1] || null;
 }
 

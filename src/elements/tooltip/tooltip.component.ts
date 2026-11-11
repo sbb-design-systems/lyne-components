@@ -21,6 +21,7 @@ import {
   removeAriaElements,
   SbbDisabledMixin,
   SbbEscapableOverlayController,
+  sbbInputModalityDetector,
   SbbOpenCloseBaseElement,
   sbbOverlayOutsidePointerEventListener,
   SbbOverlayPositionController,
@@ -424,7 +425,18 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
 
       // 'blurs' immediately close the tooltip because it is considered an 'interaction with other elements'
       trigger.addEventListener('blur', () => this.close(), options);
-      trigger.addEventListener('focus', () => this._delayedOpen(), options);
+      trigger.addEventListener(
+        'focus',
+        () => {
+          // If an element with tooltip has focus (even without hovering), and the browser tab
+          // changes away and back to the tab with the tooltip, the focus event triggers an opening.
+          // By checking input modality of keyboard, we avoid opening the tooltip in the described case.
+          if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+            this._delayedOpen();
+          }
+        },
+        options,
+      );
     }
 
     // Long-press event handling (mainly for mobile users)

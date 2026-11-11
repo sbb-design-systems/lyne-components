@@ -72,6 +72,8 @@ component. Use it to display a footer with an action group.
 
 ## Interactions
 
+<!-- #region trigger -->
+
 To display the dialog, a trigger can be connected via the `trigger` property,
 or the `open()` method on the `<sbb-dialog>` component can be called.
 
@@ -84,6 +86,8 @@ or the `open()` method on the `<sbb-dialog>` component can be called.
   <sbb-dialog-actions><sbb-button sbb-dialog-close>Close</sbb-button></sbb-dialog-actions>
 </sbb-dialog>
 ```
+
+<!-- #endregion -->
 
 ### Closing the dialog
 
@@ -254,6 +258,12 @@ an alternative element by listening to the `didClose` event.
 | `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
 
 #### CSS Properties
 

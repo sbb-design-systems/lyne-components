@@ -15,10 +15,12 @@ describe('sbb-mini-calendar', () => {
         return html`
           <sbb-mini-calendar-day
             date=${defaultDateAdapter.toIso8601(date)}
-            marker=${defaultDateAdapter.getDayOfWeek(date) === 0 ||
-            defaultDateAdapter.getDayOfWeek(date) === 6
-              ? 'circle'
-              : ''}
+            marker=${
+              defaultDateAdapter.getDayOfWeek(date) === 0 ||
+              defaultDateAdapter.getDayOfWeek(date) === 6
+                ? 'circle'
+                : ''
+            }
           ></sbb-mini-calendar-day>
         `;
       })}

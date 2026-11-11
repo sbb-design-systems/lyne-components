@@ -86,7 +86,7 @@
   }
   #{$selector} {
     line-height: var(--sbb-typo-line-height-text);
-    letter-spacing: var(--sbb-typo-letter-spacing-text);
+    letter-spacing: var(--sbb-letter-spacing-text);
     font-size: var(--sbb-text-font-size-s);
     margin: 0;
     padding: 0;
@@ -236,7 +236,7 @@
         light-dark(var(--sbb-color-cement), var(--sbb-color-smoke));
       border-radius: 50%;
       line-height: var(--sbb-typo-line-height-text);
-      letter-spacing: var(--sbb-typo-letter-spacing-text);
+      letter-spacing: var(--sbb-letter-spacing-text);
       font-size: var(--sbb-text-font-size-xxs);
       font-weight: bold;
     }

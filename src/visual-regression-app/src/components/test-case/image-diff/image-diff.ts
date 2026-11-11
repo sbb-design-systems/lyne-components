@@ -88,73 +88,83 @@ class ImageDiff extends LitElement {
             >${this.screenshotFiles.browserName}</sbb-chip-label
           >
           <sbb-chip-label size="xxs" color="white">${this.screenshotFiles.viewport}</sbb-chip-label>
-          ${this._baselineDimension
-            ? html`<sbb-chip-label size="xxs" color="white">
-                Baseline: ${this._baselineDimension}
-              </sbb-chip-label>`
-            : nothing}
-          ${this._failedDimension
-            ? html`<sbb-chip-label size="xxs" color="white">
-                ${this.screenshotFiles.isNew ? 'New' : 'Failed'}: ${this._failedDimension}
-              </sbb-chip-label>`
-            : nothing}
+          ${
+            this._baselineDimension
+              ? html`<sbb-chip-label size="xxs" color="white">
+                  Baseline: ${this._baselineDimension}
+                </sbb-chip-label>`
+              : nothing
+          }
+          ${
+            this._failedDimension
+              ? html`<sbb-chip-label size="xxs" color="white">
+                  ${this.screenshotFiles.isNew ? 'New' : 'Failed'}: ${this._failedDimension}
+                </sbb-chip-label>`
+              : nothing
+          }
         </div>
-        ${!this.screenshotFiles.isNew && this.screenshotFiles.diffFile
-          ? html`<sbb-toggle-check
-              .checked=${this.showDiff}
-              size="s"
-              class="app-diff-toggle"
-              @change=${this._toggleDiff}
-            >
-              Show Diff
-            </sbb-toggle-check>`
-          : nothing}
+        ${
+          !this.screenshotFiles.isNew && this.screenshotFiles.diffFile
+            ? html`<sbb-toggle-check
+                .checked=${this.showDiff}
+                size="s"
+                class="app-diff-toggle"
+                @change=${this._toggleDiff}
+              >
+                Show Diff
+              </sbb-toggle-check>`
+            : nothing
+        }
       </div>
       <div class="app-image-container">
         <div class="app-image-baseline">
-          ${!this.screenshotFiles.isNew
-            ? html`<button
-                @click=${() => this._showFullscreen('baselineFile')}
-                class="app-image-button"
-              >
-                <img
-                  class="app-image"
-                  .src=${`./${this.screenshotFiles?.baselineFile}?commit=${meta.baselineGitSha}`}
-                  alt=""
-                  @load=${this._setBaselineImageDimension}
-                />
-              </button>`
-            : html`<sbb-status type="info" class="app-new-test-case-info">
-                New test case
-              </sbb-status>`}
+          ${
+            !this.screenshotFiles.isNew
+              ? html`<button
+                  @click=${() => this._showFullscreen('baselineFile')}
+                  class="app-image-button"
+                >
+                  <img
+                    class="app-image"
+                    .src=${`./${this.screenshotFiles?.baselineFile}?commit=${meta.baselineGitSha}`}
+                    alt=""
+                    @load=${this._setBaselineImageDimension}
+                  />
+                </button>`
+              : html`<sbb-status type="info" class="app-new-test-case-info">
+                  New test case
+                </sbb-status>`
+          }
         </div>
-        ${this.screenshotFiles.failedFile
-          ? html`<div class="app-image-failed">
-              <button
-                @click=${() => this._showFullscreen('diffFile')}
-                class="app-image-button"
-                ?hidden=${!this.showDiff || this.screenshotFiles.isNew}
-              >
-                <img
-                  class="app-image"
-                  .src=${`./${this.screenshotFiles?.diffFile}?commit=${meta.gitSha}`}
-                  alt=""
-                />
-              </button>
-              <button
-                @click=${() => this._showFullscreen('failedFile')}
-                class="app-image-button"
-                ?hidden=${this.showDiff && !this.screenshotFiles.isNew}
-              >
-                <img
-                  class="app-image"
-                  .src=${`./${this.screenshotFiles?.failedFile}?commit=${meta.gitSha}`}
-                  alt=""
-                  @load=${this._setFailedImageDimension}
-                />
-              </button>
-            </div>`
-          : nothing}
+        ${
+          this.screenshotFiles.failedFile
+            ? html`<div class="app-image-failed">
+                <button
+                  @click=${() => this._showFullscreen('diffFile')}
+                  class="app-image-button"
+                  ?hidden=${!this.showDiff || this.screenshotFiles.isNew}
+                >
+                  <img
+                    class="app-image"
+                    .src=${`./${this.screenshotFiles?.diffFile}?commit=${meta.gitSha}`}
+                    alt=""
+                  />
+                </button>
+                <button
+                  @click=${() => this._showFullscreen('failedFile')}
+                  class="app-image-button"
+                  ?hidden=${this.showDiff && !this.screenshotFiles.isNew}
+                >
+                  <img
+                    class="app-image"
+                    .src=${`./${this.screenshotFiles?.failedFile}?commit=${meta.gitSha}`}
+                    alt=""
+                    @load=${this._setFailedImageDimension}
+                  />
+                </button>
+              </div>`
+            : nothing
+        }
       </div>
     </div>`;
   }

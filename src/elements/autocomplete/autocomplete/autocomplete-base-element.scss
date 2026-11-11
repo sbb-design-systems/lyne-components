@@ -1,0 +1,9 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: none;
+}
+
+:host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
+  display: block;
+}

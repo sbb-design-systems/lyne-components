@@ -31,6 +31,8 @@ import type {
 } from '../common/types.ts';
 import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
 
+type GraphicalElementType = 'SERVICE' | 'AREA' | 'OTHER';
+
 enum ScrollDirection {
   right = 'right',
   left = 'left',
@@ -169,6 +171,8 @@ export class SeatReservationBaseElement extends SbbElement {
   protected coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
   // Describes the gap between the coaches decks by multiple deck visualization
   protected gapBetweenCoachDecks = 48;
+  // Describes the gap between wall compartment elements and the places
+  protected gapWallCompartmentToPlace = 2;
   // Describes the fix width of coach navigation button
   protected coachNavButtonDim: number = 0;
   // Describes the calculated dimension for the area icons, which is used to set the max width and height of the area icons
@@ -227,6 +231,18 @@ export class SeatReservationBaseElement extends SbbElement {
     'COMPARTMENT_PASSAGE_MIDDLE',
     'COMPARTMENT_PASSAGE_LOW',
     'COMPARTMENT_WALL',
+    'WALL_LEFT_1',
+    'WALL_LEFT_2',
+    'WALL_LEFT_3',
+    'WALL_COMPARTMENTS_1',
+    'WALL_COMPARTMENTS_2',
+    'WALL_COMPARTMENTS_3',
+    'WALL_RIGHT_1',
+    'WALL_RIGHT_2',
+    'WALL_RIGHT_3',
+    'T_WALL_COMPARTMENTS_1',
+    'T_WALL_COMPARTMENTS_2',
+    'T_WALL_COMPARTMENTS_3',
   ];
 
   // Graphics that should not be rendered with an area
@@ -782,6 +798,13 @@ export class SeatReservationBaseElement extends SbbElement {
       return accumulator;
     }, accumulator);
     return freePlaces ? freePlaces : accumulator;
+  }
+
+  /**
+   * Returns the status whether the seat component with the direction of travel is currently displayed
+   */
+  protected hasTravelDirection(): boolean {
+    return this.travelDirection && this.travelDirection !== 'NONE';
   }
 
   /**
@@ -1709,23 +1732,25 @@ export class SeatReservationBaseElement extends SbbElement {
             coachItem.dimension.w,
             allElemenets,
           );
+
           const areaElements = coachItem.graphicElements
             ?.filter(
               (graphicalElement: BaseElement) =>
                 !this.notAreaElements.includes(graphicalElement.icon!),
             )
             .map((ele) =>
-              this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, true),
+              this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, 'AREA'),
             );
+
           const otherElements = coachItem.graphicElements
             ?.filter((graphicalElement: BaseElement) =>
               this.notAreaElements.includes(graphicalElement.icon!),
             )
             .map((ele) =>
-              this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, false),
+              this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, 'OTHER'),
             );
           const serviceElements = coachItem.serviceElements?.map((ele) =>
-            this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, true),
+            this._getCalculatedDimensionPositionElement(ele, coachItem.dimension, 'SERVICE'),
           );
           const borderMiddleElement = this._getCalculatedMiddleBorderElement(coachItem);
           const calcCoachDimension = this.getCalculatedDimension({ ...coachItem.dimension });
@@ -1840,10 +1865,11 @@ export class SeatReservationBaseElement extends SbbElement {
   private _getCalculatedDimensionPositionElement(
     element: BaseElement,
     coachDimension: ElementDimension,
-    isCalcAreaElement: boolean,
+    elementType: GraphicalElementType,
   ): BaseElement {
     const dim = { ...element.dimension };
     const pos = { ...element.position };
+
     const rotation = element.rotation || 0;
     const isNotFixedRotationGraphicalElement =
       this.notAreaElements.concat(this.notFixedRotatableAreaIcons).indexOf(element.icon!) === -1;
@@ -1851,17 +1877,17 @@ export class SeatReservationBaseElement extends SbbElement {
       this.alignVertical && isNotFixedRotationGraphicalElement ? rotation - 90 : rotation;
     let areaMounting: ElementMounting | null = null;
 
-    // Calculate position and dimension for AreaElements
-    if (isCalcAreaElement) {
+    // Calculate position and dimension for Area elements that positioned at the border of coach
+    if (elementType === 'AREA') {
       const isNotTableGraphic = element.icon?.indexOf('TABLE') === -1;
       const areaProperty = element.icon && isNotTableGraphic ? element.icon : null;
       const stretchHeight =
         this.isElementDirectlyOnBorder(element, coachDimension) && areaProperty !== 'ENTRY_EXIT';
 
-      if (element.position.y === 0) {
+      if (this._isElementAtTopBorder(element)) {
         areaMounting = 'upper-border';
         pos.y -= this.coachBorderOffset - this.coachBorderOffset / 3;
-      } else if (element.position.y + element.dimension.h === coachDimension.h) {
+      } else if (this._isElementAtBottomBorder(element, coachDimension)) {
         areaMounting = 'lower-border';
         if (!stretchHeight) {
           pos.y += this.coachBorderOffset - this.coachBorderOffset / 3;
@@ -1872,14 +1898,43 @@ export class SeatReservationBaseElement extends SbbElement {
         dim.h += this.coachBorderOffset - this.coachBorderOffset / 3;
       }
     }
-    // Calculate position and dimension for all other graphical elements
-    else {
-      if (element.position.y === 0) {
-        pos.y -= this.coachBorderOffset;
-      }
+    // Calculate position and dimension for other graphical coach elements that positioned at the border of coach
+    else if (elementType === 'OTHER') {
+      const isElementCompartmentWall =
+        element.icon?.startsWith('WALL') || element.icon?.startsWith('T_WALL');
 
-      if (coachDimension.h === element.position.y + element.dimension.h) {
-        dim.h += this.coachBorderOffset * 2;
+      // COACH WALL ELEMENTS
+      if (!isElementCompartmentWall) {
+        if (this._isElementAtTopBorder(element)) {
+          pos.y -= this.coachBorderOffset;
+        }
+
+        if (this._isElementAtBottomBorder(element, coachDimension)) {
+          dim.h += this.coachBorderOffset * 2;
+        }
+      }
+      // COMPARTMENT WALL
+      else {
+        // WALL + T_WALL Compartments position and height handling for place gap
+        const calcGapWallPlace = this.gapWallCompartmentToPlace / this.baseGridSize;
+        if (this._isElementAtTopBorder(element)) {
+          pos.y -= this.coachBorderOffset;
+          dim.h += this.coachBorderOffset + calcGapWallPlace;
+        }
+
+        if (this._isElementAtBottomBorder(element, coachDimension)) {
+          pos.y -= calcGapWallPlace;
+          dim.h += this.coachBorderOffset + calcGapWallPlace;
+        }
+
+        // Optimized the position x from the compartment wall, because the default x pos of the vertical svg wall graphic lies directly behind the place.
+        // To get better look of the comaprtment wall, we move the x pos by 1px to prevent hidden from place.
+        const optimizedWallPos = 1 / this.baseGridSize;
+        if (element.icon?.indexOf('RIGHT') !== -1) {
+          pos.x -= element.rotation === 0 ? optimizedWallPos : -optimizedWallPos;
+        } else if (element.icon?.indexOf('LEFT') !== -1) {
+          pos.x += element.rotation === 0 ? optimizedWallPos : -optimizedWallPos;
+        }
       }
     }
 
@@ -1901,6 +1956,17 @@ export class SeatReservationBaseElement extends SbbElement {
       position: pos,
       mounting: areaMounting,
     };
+  }
+
+  private _isElementAtTopBorder(element: BaseElement): boolean {
+    return element.position.y === 0;
+  }
+
+  private _isElementAtBottomBorder(
+    element: BaseElement,
+    coachDimension: ElementDimension,
+  ): boolean {
+    return coachDimension.h === element.position.y + element.dimension.h;
   }
 
   /**

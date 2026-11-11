@@ -81,7 +81,10 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
 
   /** The child instances of sbb-tag as an array. */
   public get tags(): SbbTagElement<T>[] {
-    return Array.from(this.querySelectorAll?.<SbbTagElement<T>>('sbb-tag') ?? []);
+    return Array.from(this.querySelectorAll?.<SbbTagElement<T>>('sbb-tag') ?? [], (t) => {
+      customElements.upgrade(t);
+      return t;
+    });
   }
 
   public constructor() {

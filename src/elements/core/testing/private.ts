@@ -8,5 +8,6 @@ export * from './private/event-objects.ts';
 export * from './private/fixture.ts';
 export * from './private/keys.ts';
 export * from './private/load-asset-as-base64.ts';
+export * from './private/theme-picker.ts';
 export * from './private/type-in-element.ts';
 export * from './private/visual-regression-snapshot.ts';

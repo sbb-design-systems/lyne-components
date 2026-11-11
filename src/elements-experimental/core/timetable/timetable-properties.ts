@@ -25,6 +25,8 @@ export interface ServiceAlteration {
    *
    */
   delayText: string;
+  /** Cancelled Expected Flag */
+  cancelledExpected?: boolean;
 
   /** Journey is partially cancelled at beginning or end */
   partiallyCancelled: boolean;

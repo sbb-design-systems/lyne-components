@@ -113,11 +113,7 @@ export interface SeatReservationSelectedPlaces {
 export type PlaceType = 'SEAT' | 'BICYCLE';
 export type CoachDeckLevel = 'SINGLE_DECK' | 'LOWER_DECK' | 'MIDDLE_DECK' | 'UPPER_DECK';
 export type CoachType =
-  | 'RESTAURANT_COACH'
-  | 'BICYCLE_COACH'
-  | 'LUGGAGE_COACH'
-  | 'TRAIN_HEAD'
-  | 'LOCOMOTIVE_COACH';
+  'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD' | 'LOCOMOTIVE_COACH';
 export type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
 export type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
 export type VehicleType = 'TRAIN' | 'BUS';

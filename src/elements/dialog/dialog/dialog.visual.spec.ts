@@ -2,8 +2,12 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import type { SbbButtonElement } from '../../button.ts';
 import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
+import type { SbbDialogElement } from '../../dialog.ts';
+import type { SbbMenuButtonElement } from '../../menu.ts';
 
 import '../../dialog.ts';
+import '../../menu.ts';
 
 import '../../link.ts';
 import '../../button.ts';
@@ -22,19 +26,21 @@ describe(`sbb-dialog`, () => {
         author that wrote it was a terrific friend of yours and you could call him up on the phone
         whenever you felt like it.
       </p>
-      ${longContent
-        ? html`
-            <p>
-              “What really knocks me out is a book that, when you're all done reading it, you wish
-              the author that wrote it was a terrific friend of yours and you could call him up on
-              the phone whenever you felt like it. That doesn't happen much, though. What really
-              knocks me out is a book that, when you're all done reading it, you wish the author
-              that wrote it was a terrific friend of yours and you could call him up on the phone
-              whenever you felt like it. That doesn't happen much, though.” ― J.D. Salinger, The
-              Catcher in the Rye
-            </p>
-          `
-        : nothing}
+      ${
+        longContent
+          ? html`
+              <p>
+                “What really knocks me out is a book that, when you're all done reading it, you wish
+                the author that wrote it was a terrific friend of yours and you could call him up on
+                the phone whenever you felt like it. That doesn't happen much, though. What really
+                knocks me out is a book that, when you're all done reading it, you wish the author
+                that wrote it was a terrific friend of yours and you could call him up on the phone
+                whenever you felt like it. That doesn't happen much, though.” ― J.D. Salinger, The
+                Catcher in the Rye
+              </p>
+            `
+          : nothing
+      }
     </sbb-dialog-content>
   `;
 
@@ -52,6 +58,24 @@ describe(`sbb-dialog`, () => {
       <sbb-secondary-button sbb-dialog-close ?negative=${negative}>Cancel</sbb-secondary-button>
       <sbb-button sbb-dialog-close sbb-focus-initial ?negative=${negative}>Confirm</sbb-button>
     </sbb-dialog-actions>
+  `;
+
+  const nestedDialog = (outerNegative: boolean, innerNegative: boolean): TemplateResult => html`
+    <sbb-button id="trigger">Trigger</sbb-button>
+    <sbb-dialog id="outer-dialog" trigger="trigger" ?negative=${outerNegative}>
+      ${dialogTitle()}
+      <sbb-dialog-close-button></sbb-dialog-close-button>
+      <sbb-dialog-content>
+        <p style="margin: 0 0 1rem">Outer dialog content</p>
+        <sbb-button id="nested-trigger" ?negative=${outerNegative}>Open nested dialog</sbb-button>
+        <sbb-dialog id="inner-dialog" trigger="nested-trigger" ?negative=${innerNegative}>
+          ${dialogTitle()}
+          <sbb-dialog-close-button></sbb-dialog-close-button>
+          ${dialogContent()} ${dialogFooter(innerNegative)}
+        </sbb-dialog>
+      </sbb-dialog-content>
+      ${dialogFooter(outerNegative)}
+    </sbb-dialog>
   `;
 
   describeViewports({ viewports: ['zero', 'large'], viewportHeight: 600 }, () => {
@@ -221,6 +245,61 @@ describe(`sbb-dialog`, () => {
       }),
     );
 
+    it(
+      'set dimensions',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-button id="trigger">Trigger</sbb-button>
+            <sbb-dialog id="dialog" trigger="trigger">
+              ${dialogTitle()} ${dialogContent()}
+            </sbb-dialog>
+          `,
+          { minHeight: '600px' },
+        );
+        setup.withPostSetupAction(() => {
+          const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('#dialog')!;
+          dialog.style.setProperty('--sbb-dialog-width', '50%');
+          dialog.style.setProperty('--sbb-dialog-height', '400px');
+          const button = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
+          button.click();
+        });
+      }),
+    );
+
+    describeEach(
+      {
+        state: [
+          {
+            outerNegative: true,
+            innerNegative: false,
+          },
+          {
+            outerNegative: false,
+            innerNegative: true,
+          },
+        ],
+      },
+      ({ state: { outerNegative, innerNegative } }) => {
+        it(
+          'nested',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(nestedDialog(outerNegative, innerNegative), {
+              minHeight: '600px',
+            });
+            setup.withPostSetupAction(async () => {
+              const trigger = setup.snapshotElement.querySelector<SbbButtonElement>('#trigger')!;
+              const nestedTrigger =
+                setup.snapshotElement.querySelector<SbbButtonElement>('#nested-trigger')!;
+              trigger.click();
+              await waitForLitRender(setup.snapshotElement);
+              nestedTrigger.click();
+            });
+          }),
+        );
+      },
+    );
+
     describeEach(
       {
         state: [
@@ -239,9 +318,11 @@ describe(`sbb-dialog`, () => {
                 <sbb-dialog trigger="trigger" negative>
                   <div>
                     ${title ? dialogTitle() : nothing}
-                    ${closeButton
-                      ? html`<sbb-dialog-close-button></sbb-dialog-close-button>`
-                      : nothing}
+                    ${
+                      closeButton
+                        ? html`<sbb-dialog-close-button></sbb-dialog-close-button>`
+                        : nothing
+                    }
                     ${dialogContent(true)} ${dialogFooter()}
                   </div>
                 </sbb-dialog>
@@ -257,6 +338,38 @@ describe(`sbb-dialog`, () => {
           }),
         );
       },
+    );
+    it(
+      'scroll from menu',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <div id="scroll-container" style="overflow: auto; height: 400px;">
+              <p style="height: 800px;">Scrollable content - must be hidden in snapshots</p>
+              <sbb-button id="menu-trigger">Menu trigger</sbb-button>
+              <sbb-menu id="menu" trigger="menu-trigger">
+                <sbb-menu-button id="dialog-trigger">Open dialog</sbb-menu-button>
+              </sbb-menu>
+              <sbb-dialog id="dialog" trigger="dialog-trigger" backdrop="translucent">
+                ${dialogTitle()} ${dialogContent()} ${dialogFooter()}
+              </sbb-dialog>
+            </div>
+          `,
+          { minHeight: '600px' },
+        );
+        setup.withPostSetupAction(() => {
+          const scrollContainer =
+            setup.snapshotElement.querySelector<HTMLElement>('#scroll-container')!;
+          // Scroll down to show the trigger button
+          scrollContainer.scrollTop = scrollContainer.scrollHeight;
+
+          const menuTrigger = scrollContainer.querySelector<SbbButtonElement>('#menu-trigger')!;
+          const dialogTrigger =
+            scrollContainer.querySelector<SbbMenuButtonElement>('#dialog-trigger')!;
+          menuTrigger.click();
+          dialogTrigger.click();
+        });
+      }),
     );
   });
 });

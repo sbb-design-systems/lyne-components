@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-calendar>` component displays a calendar that allows the user to select a date.
 
 ```html
@@ -23,8 +25,7 @@ The `amount` property can be used to display more than one month; in this case, 
 `<sbb-calendar-day>` must be rendered for each month (they must not be grouped, just
 sequentially rendered as direct children of the `<sbb-calendar>` element).
 
-Each time the month changes due to user interaction with the previous/next month buttons,
-or via selecting a different year and then a month, a `monthchange` event is emitted, typed as
+Each time the month changes, a `monthchange` event is emitted, typed as
 `SbbMonthChangeEvent`. The event has a `range: Day[]` property, which can be accessed to have
 information about the days to render. Consumers can listen to this event to dynamically create
 and slot the `<sbb-calendar-day>`s of the chosen month.
@@ -101,7 +102,7 @@ It's recommended to set the time to 00:00:00.
 <sbb-calendar min="1599955200" max="1699920000" value="1649980800"></sbb-calendar>
 ```
 
-By default, the component takes, in order of priority,
+By default, the component takes, in order of priority, the `activeMonth` property,
 the `value` property or the current date to calculate which month it has to show.
 It's possible to move to the previous/next month using the two buttons at the top of the component.
 
@@ -158,6 +159,17 @@ all the days in the week.
 <sbb-calendar multiple week-numbers></sbb-calendar>
 ```
 
+### Active month
+
+Use the `activeMonth` property to define the currently displayed month.
+This can be done initially or dynamically after creation.
+It is recommended not to change this during user interaction, as this
+can be disorienting.
+
+```html
+<sbb-calendar active-month="2025-01"></sbb-calendar>
+```
+
 ### Fixed month
 
 In the case where a fixed month (or months with `amount`) should be displayed,
@@ -177,7 +189,7 @@ in the `year` view, or a list of months in the `month` view.
 When setting the `amount` to a value greater than 1, it will display the given amount of months.
 
 ```html
-<sbb-calendar wide="true" value="1699920000"></sbb-calendar>
+<sbb-calendar amount="2" value="1699920000"></sbb-calendar>
 ```
 
 It's also possible to change the orientation of dates by setting the `orientation` property to
@@ -239,6 +251,11 @@ pressing the `<kbd>Home</kbd>` when the first day of the month is disabled will 
 | <kbd>Page Up</kbd>     | Go to the first day of the week (eg. from any day to Monday of the same week). |
 | <kbd>Page Down</kbd>   | Go to the last day of the week (eg. from any day to Sunday of the same week).  |
 
+If `multiple` is set, it is possible to navigate among weekdays using arrows and special keys;
+similarly, if `weekNumbers` is set, it is possible to navigate the week numbers group.
+Using the `Tab` button, the first row is reached first (weekday in `horizontal` orientation, week numbers in `vertical`),
+then the opposite group (week numbers in `horizontal` orientation, weekday in `vertical`), then the calendar days.
+
 ## Accessibility
 
 For accessibility purposes, the component is rendered as a native table element and each day is a button.
@@ -270,6 +287,12 @@ For accessibility purposes, the component is rendered as a native table element 
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
+
 #### Slots
 
 | Name | Description                                                 |
@@ -282,9 +305,10 @@ For accessibility purposes, the component is rendered as a native table element 
 
 | Name                | Attribute      | Privacy | Type                             | Default        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------- | -------------- | ------- | -------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `activeMonth`       | `active-month` | public  | `string`                         | `null`         | Set this with the format `YYYY-MM` to have the calendar show this month. This will not update when a user changes the month, and will not prevent navigation to other months. Changing this property will reset the calendar view to the given month.                                                                                                                                                                                                   |
 | `amount`            | `amount`       | public  | `number`                         | `1`            | The amount of months to display in this calendar.                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `dateFilter`        | `date-filter`  | public  | `((date: T) => boolean) \| null` | `null`         | A function used to filter out dates.                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `fixedMonth`        | `fixed-month`  | public  | `string`                         | `null`         | Set this with the format `YYYY-MM` to limit the calendar to a specific month, and prevent navigation to other months.                                                                                                                                                                                                                                                                                                                                   |
+| `fixedMonth`        | `fixed-month`  | public  | `string`                         | `null`         | Set this with the format `YYYY-MM` to limit the calendar to a specific month, and prevent navigation to other months. This will override any other month selection.                                                                                                                                                                                                                                                                                     |
 | `form`              | -              | public  | `HTMLFormElement \| null`        |                | Returns the form owner of this element.                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `max`               | `max`          | public  | `T \| null`                      | `null`         | The maximum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.                                                                                                                                                                                                                                                                                                                              |
 | `min`               | `min`          | public  | `T \| null`                      | `null`         | The minimum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.                                                                                                                                                                                                                                                                                                                              |
@@ -300,21 +324,23 @@ For accessibility purposes, the component is rendered as a native table element 
 
 #### Methods
 
-| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
-| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
-| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
-| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
-| `resetPosition`     | public  | Resets the active month according to the new state of the calendar.                                                                                                                        |                   | `void`    |                        |
-| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return     | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | ---------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean`  | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean`  | SbbFormAssociatedMixin |
+| `resetPosition`     | public  | Resets the active month according to the new state of the calendar.                                                                                                                        |                   | `void`     |                        |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`     | SbbFormAssociatedMixin |
+| `visibleDays`       | public  | Returns the list of days that are visible in the calendar.                                                                                                                                 |                   | `Day<T>[]` |                        |
 
 #### Events
 
-| Name           | Type                      | Description                                                                                     | Inherited From |
-| -------------- | ------------------------- | ----------------------------------------------------------------------------------------------- | -------------- |
-| `change`       | `Event`                   | Event emitted on user selection.                                                                |                |
-| `dateselected` | `SbbDateSelectedEvent<T>` | Event emitted on date selection.                                                                |                |
-| `input`        | `InputEvent`              | Event emitted on user selection.                                                                |                |
-| `monthchange`  | `SbbMonthChangeEvent`     | Emits when the month changes. The `range` property contains the days array of the chosen month. |                |
+| Name           | Type                      | Description                                                                                     | Inherited From         |
+| -------------- | ------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------- |
+| `change`       | `Event`                   | Event emitted on user selection.                                                                |                        |
+| `dateselected` | `SbbDateSelectedEvent<T>` | Event emitted on date selection.                                                                |                        |
+| `input`        | `InputEvent`              | Event emitted on user selection.                                                                |                        |
+| `monthchange`  | `SbbMonthChangeEvent`     | Emits when the month changes. The `range` property contains the days array of the chosen month. |                        |
+| `validity`     | `Event`                   | The validity event is dispatched whenever the validity state of the element changes.            | SbbFormAssociatedMixin |
 
 #### Slots
 
@@ -344,6 +370,12 @@ For accessibility purposes, the component is rendered as a native table element 
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
+
 ### class: `SbbCalendarWeekdayElement`, `sbb-calendar-weekday`
 
 #### Properties
@@ -365,6 +397,12 @@ For accessibility purposes, the component is rendered as a native table element 
 | `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
 
 ### class: `SbbCalendarWeeknumberElement`, `sbb-calendar-weeknumber`
 
@@ -388,6 +426,12 @@ For accessibility purposes, the component is rendered as a native table element 
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
+
 ### class: `SbbCalendarYearElement`, `sbb-calendar-year`
 
 #### Properties
@@ -409,3 +453,9 @@ For accessibility purposes, the component is rendered as a native table element 
 | `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |

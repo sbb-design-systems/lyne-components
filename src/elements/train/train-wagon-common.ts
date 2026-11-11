@@ -129,11 +129,7 @@ export const SbbTrainWagonMixin = <T extends AbstractConstructor<SbbElement>>(
 
     /** Class label */
     @property({ attribute: 'wagon-class' }) public accessor wagonClass:
-      | '1'
-      | '2'
-      | '1-2'
-      | '2-1'
-      | null = null;
+      '1' | '2' | '1-2' | '2-1' | null = null;
 
     /** Wagon number */
     @forceType()
@@ -278,58 +274,78 @@ export const SbbTrainWagonMixin = <T extends AbstractConstructor<SbbElement>>(
             listEntriesCount > 1,
             () =>
               html`<ul aria-label=${this._wagonTypeLabel()} class="sbb-train-wagon__compartment">
-                ${this.sector
-                  ? html`<li class="sbb-screen-reader-only">${sectorString}</li>`
-                  : nothing}
-                ${this.label
-                  ? html`<li class="sbb-screen-reader-only">${labelString}</li>`
-                  : nothing}
-                ${this.wagonClass && this.wagonType !== 'closed'
-                  ? html`<li class="sbb-train-wagon__class">${wagonClassContent}</li>`
-                  : nothing}
-                ${this.occupancy && this.wagonType !== 'closed'
-                  ? html`<sbb-timetable-occupancy-icon
-                      class="sbb-train-wagon__occupancy"
-                      role="listitem"
-                      occupancy=${this.occupancy}
-                    ></sbb-timetable-occupancy-icon>`
-                  : nothing}
-                ${hasBlockedPassageEntry
-                  ? html`<li class="sbb-screen-reader-only">
-                      ${i18nBlockedPassage[blockedPassage][this._language.current]}
-                    </li>`
-                  : nothing}
+                ${
+                  this.sector
+                    ? html`<li class="sbb-screen-reader-only">${sectorString}</li>`
+                    : nothing
+                }
+                ${
+                  this.label
+                    ? html`<li class="sbb-screen-reader-only">${labelString}</li>`
+                    : nothing
+                }
+                ${
+                  this.wagonClass && this.wagonType !== 'closed'
+                    ? html`<li class="sbb-train-wagon__class">${wagonClassContent}</li>`
+                    : nothing
+                }
+                ${
+                  this.occupancy && this.wagonType !== 'closed'
+                    ? html`<sbb-timetable-occupancy-icon
+                        class="sbb-train-wagon__occupancy"
+                        role="listitem"
+                        occupancy=${this.occupancy}
+                      ></sbb-timetable-occupancy-icon>`
+                    : nothing
+                }
+                ${
+                  hasBlockedPassageEntry
+                    ? html`<li class="sbb-screen-reader-only">
+                        ${i18nBlockedPassage[blockedPassage][this._language.current]}
+                      </li>`
+                    : nothing
+                }
               </ul>`,
             () =>
               html`<div class="sbb-train-wagon__compartment">
                 <span class="sbb-screen-reader-only">
                   ${`${this._wagonTypeLabel()}${this.sector ? `, ${sectorString}` : ''}`}
                 </span>
-                ${this.label
-                  ? html`<span class="sbb-screen-reader-only">${labelString}</span>`
-                  : nothing}
-                ${this.wagonClass && this.wagonType !== 'closed'
-                  ? html`<span class="sbb-train-wagon__class">${wagonClassContent}</span>`
-                  : nothing}
-                ${this.occupancy && this.wagonType !== 'closed'
-                  ? html`<sbb-timetable-occupancy-icon
-                      class="sbb-train-wagon__occupancy"
-                      occupancy=${this.occupancy}
-                    ></sbb-timetable-occupancy-icon>`
-                  : nothing}
-                ${hasBlockedPassageEntry
-                  ? html`<span class="sbb-screen-reader-only">
-                      ${i18nBlockedPassage[blockedPassage][this._language.current]}
-                    </span>`
-                  : nothing}
+                ${
+                  this.label
+                    ? html`<span class="sbb-screen-reader-only">${labelString}</span>`
+                    : nothing
+                }
+                ${
+                  this.wagonClass && this.wagonType !== 'closed'
+                    ? html`<span class="sbb-train-wagon__class">${wagonClassContent}</span>`
+                    : nothing
+                }
+                ${
+                  this.occupancy && this.wagonType !== 'closed'
+                    ? html`<sbb-timetable-occupancy-icon
+                        class="sbb-train-wagon__occupancy"
+                        occupancy=${this.occupancy}
+                      ></sbb-timetable-occupancy-icon>`
+                    : nothing
+                }
+                ${
+                  hasBlockedPassageEntry
+                    ? html`<span class="sbb-screen-reader-only">
+                        ${i18nBlockedPassage[blockedPassage][this._language.current]}
+                      </span>`
+                    : nothing
+                }
               </div> `,
           )}
-          ${wagonTypeToIconMap[this.wagonType]
-            ? html`<sbb-icon
-                name=${wagonTypeToIconMap[this.wagonType]!}
-                class="sbb-train-wagon__main-icon"
-              ></sbb-icon>`
-            : nothing}
+          ${
+            wagonTypeToIconMap[this.wagonType]
+              ? html`<sbb-icon
+                  name=${wagonTypeToIconMap[this.wagonType]!}
+                  class="sbb-train-wagon__main-icon"
+                ></sbb-icon>`
+              : nothing
+          }
           <svg class="sbb-train-wagon__shape" viewBox="0 0 84 36" aria-hidden="true">
             <path d=${path}></path>
             <path
@@ -341,25 +357,31 @@ export const SbbTrainWagonMixin = <T extends AbstractConstructor<SbbElement>>(
               d=${this._view === 'top' ? 'M81 34L3 3' : 'M81 32L4 4'}
             ></path>
           </svg>
-          ${this.additionalAccessibilityText
-            ? html`<span class="sbb-screen-reader-only"
-                >, ${this.additionalAccessibilityText}</span
-              >`
-            : nothing}
+          ${
+            this.additionalAccessibilityText
+              ? html`<span class="sbb-screen-reader-only"
+                  >, ${this.additionalAccessibilityText}</span
+                >`
+              : nothing
+          }
           <span
             class="sbb-train-wagon__information-wrapper"
             ?hidden=${!this.listChildren.length && !this.label}
           >
-            ${this.label
-              ? html`<span aria-hidden="true" class="sbb-train-wagon__label">${this.label}</span>`
-              : nothing}
-            ${this.label && this.listChildren.length
-              ? html`<sbb-divider
-                  orientation=${this.orientation === 'vertical' ? 'horizontal' : 'vertical'}
-                  aria-hidden="true"
-                  class="sbb-train-wagon__label-divider"
-                ></sbb-divider>`
-              : nothing}
+            ${
+              this.label
+                ? html`<span aria-hidden="true" class="sbb-train-wagon__label">${this.label}</span>`
+                : nothing
+            }
+            ${
+              this.label && this.listChildren.length
+                ? html`<sbb-divider
+                    orientation=${this.orientation === 'vertical' ? 'horizontal' : 'vertical'}
+                    aria-hidden="true"
+                    class="sbb-train-wagon__label-divider"
+                  ></sbb-divider>`
+                : nothing
+            }
             ${this.renderList({
               class: 'sbb-train-wagon__attribute-icon-list',
               ariaLabel: i18nAdditionalWagonInformationHeading[this._language.current],

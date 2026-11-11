@@ -550,13 +550,24 @@ describe(`sbb-form-field`, () => {
       input.id = 'custom-control-id';
       input.tabIndex = 0;
       control = {
-        id: input.id,
+        element: input,
         disabled: false,
         empty: false,
         readOnly: false,
         onContainerClick: (): void => input.focus(),
       };
       element.dispatchEvent(new SbbFormFieldControlEvent(control));
+    });
+
+    it('should resolve the input element correctly', async () => {
+      expect(element.inputElement).to.equal(input);
+    });
+
+    it('should resolve the input element correctly via id', async () => {
+      delete control.element;
+      control.id = input.id;
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+      expect(element.inputElement).to.equal(input);
     });
 
     it('should reflect correct initial state', async () => {
@@ -611,6 +622,26 @@ describe(`sbb-form-field`, () => {
       element.dispatchEvent(new SbbFormFieldControlEvent(control));
       expect(element).to.match(':state(input-element-sbb-custom-control)');
       expect(element).to.match(':state(input-type-select)');
+    });
+
+    it('should update interacted state from control', async () => {
+      expect(element).not.to.match(':state(interacted)');
+      control.interacted = true;
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+      expect(element).to.match(':state(interacted)');
+      control.interacted = false;
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+      expect(element).not.to.match(':state(interacted)');
+    });
+
+    it('should update invalid state from control', async () => {
+      expect(element).not.to.match(':state(invalid)');
+      control.invalid = true;
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+      expect(element).to.match(':state(invalid)');
+      control.invalid = false;
+      element.dispatchEvent(new SbbFormFieldControlEvent(control));
+      expect(element).not.to.match(':state(invalid)');
     });
   });
 

@@ -60,6 +60,7 @@ export abstract class SbbIconBase extends SbbElement {
     }
 
     const svgIcon = this.fetchSvgIcon(this._svgNamespace, name);
+    this.toggleState('empty', true);
     this._svgIcon = svgIcon.then((v) => unsafeHTML(v));
     try {
       this.toggleState('empty', !(await svgIcon));

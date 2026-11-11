@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: start;
   gap: var(--sbb-action-group-gap);
+  flex-wrap: wrap;
 }
 
 // A part of the rules are defined in layout.scss

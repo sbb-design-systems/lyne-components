@@ -31,5 +31,15 @@ describe(`sbb-signet`, () => {
         }),
       );
     });
+
+    it(
+      'custom width',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-signet protective-room="none" style="width: 300px;"></sbb-signet>`,
+          { padding: '0px' },
+        );
+      }),
+    );
   });
 });

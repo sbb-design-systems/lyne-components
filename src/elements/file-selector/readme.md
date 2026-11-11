@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-file-selector>` and `<sbb-file-selector-dropzone>` are components which allows user to select
 one or more files from storage devices.
 These are two variants with the same functionality.
@@ -149,6 +151,7 @@ It's suggested to have a different value for each variant, e.g.:
 | `change`      | `Event`              | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFileSelectorCommonElementMixin |
 | `filechanged` | `SbbFileChangeEvent` | An event which is emitted each time the file list changes.                                                                                                                         | SbbFileSelectorCommonElementMixin |
 | `input`       | `InputEvent`         | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFileSelectorCommonElementMixin |
+| `validity`    | `Event`              | The validity event is dispatched whenever the validity state of the element changes.                                                                                               | SbbFormAssociatedMixin            |
 
 #### Slots
 
@@ -194,6 +197,7 @@ It's suggested to have a different value for each variant, e.g.:
 | `change`      | `Event`              | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFileSelectorCommonElementMixin |
 | `filechanged` | `SbbFileChangeEvent` | An event which is emitted each time the file list changes.                                                                                                                         | SbbFileSelectorCommonElementMixin |
 | `input`       | `InputEvent`         | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFileSelectorCommonElementMixin |
+| `validity`    | `Event`              | The validity event is dispatched whenever the validity state of the element changes.                                                                                               | SbbFormAssociatedMixin            |
 
 #### Slots
 

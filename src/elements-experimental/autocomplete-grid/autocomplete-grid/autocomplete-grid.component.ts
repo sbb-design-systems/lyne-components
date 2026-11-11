@@ -1,7 +1,6 @@
 import { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.pure.js';
 import {
   getNextElementIndex,
-  isSafari,
   setAriaComboBoxAttributes,
   ɵstateController,
 } from '@sbb-esta/lyne-elements/core.js';
@@ -17,14 +16,9 @@ import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/au
 let nextId = 0;
 
 /**
- * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
- * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
- */
-const ariaRoleOnHost = isSafari;
-
-/**
  * Combined with a native input, it displays a panel with a list of available options with connected buttons.
  *
+ * @deprecated Use `sbb-autocomplete` with `sbb-autocomplete-row` and `sbb-autocomplete-button` instead. Will be removed with the next major release.
  * @slot - Use the unnamed slot to add `sbb-autocomplete-grid-row` or `sbb-autocomplete-grid-optgroup` elements to the `sbb-autocomplete-grid`.
  * @cssprop [--sbb-autocomplete-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
@@ -34,9 +28,7 @@ const ariaRoleOnHost = isSafari;
  */
 export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<T> {
   public static override readonly elementName: string = 'sbb-autocomplete-grid';
-  public static override readonly role = ariaRoleOnHost ? 'grid' : null;
-  protected overlayId = `sbb-autocomplete-grid-${++nextId}`;
-  protected panelRole = 'grid';
+  public static override readonly role = 'grid';
   private _activeColumnIndex = 0;
 
   protected get options(): SbbAutocompleteGridOptionElement<T>[] {
@@ -45,6 +37,11 @@ export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseE
         'sbb-autocomplete-grid-option',
       ) ?? [],
     );
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.id ||= `sbb-autocomplete-grid-${++nextId}`;
   }
 
   protected syncNegative(): void {
@@ -152,9 +149,9 @@ export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseE
     const elementsInRow = Array.from(
       this.activeOption
         ?.closest('sbb-autocomplete-grid-row')
-        ?.querySelectorAll<
-          SbbAutocompleteGridOptionElement<T> | SbbAutocompleteGridButtonElement
-        >('sbb-autocomplete-grid-option, sbb-autocomplete-grid-button') ?? [],
+        ?.querySelectorAll<SbbAutocompleteGridOptionElement<T> | SbbAutocompleteGridButtonElement>(
+          'sbb-autocomplete-grid-option, sbb-autocomplete-grid-button',
+        ) ?? [],
     )?.filter((el) => !el.matches(':state(disabled)'));
 
     if (!elementsInRow.length) {
@@ -198,7 +195,7 @@ export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseE
   }
 
   protected setTriggerAttributes(element: HTMLInputElement): void {
-    setAriaComboBoxAttributes(element, ariaRoleOnHost ? this.id : this.overlayId, false, 'grid');
+    setAriaComboBoxAttributes(element, this.id, false, 'grid');
   }
 }
 

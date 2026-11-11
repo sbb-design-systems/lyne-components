@@ -11,6 +11,7 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
+  forceType,
   forwardEvent,
   getElementPosition,
   getElementPositionHorizontal,
@@ -33,7 +34,7 @@ import {
   SbbMediaQueryBreakpointSmallAndBelow,
   type SbbNegativeMixinType,
   SbbOpenCloseBaseElement,
-  SbbScrollHandler,
+  SbbScrollController,
   scrollbarStyles,
   setAriaOverlayTriggerProperties,
   ɵstateController,
@@ -89,6 +90,14 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
   @property()
   public accessor trigger: HTMLElement | null = null;
 
+  /**
+   * Whether the space reserved for the icon should be hidden.
+   */
+  //TODO: rename to preserveIconSpace and invert logic.
+  @forceType()
+  @property({ attribute: 'hide-icon-space', type: Boolean, reflect: true })
+  public accessor hideIconSpace: boolean = false;
+
   private _menu!: HTMLDivElement;
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController!: AbortController;
@@ -96,7 +105,7 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
   private _windowEventsController!: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusTrapController = new SbbFocusTrapController(this);
-  private _scrollHandler = new SbbScrollHandler();
+  private _scrollHandler = new SbbScrollController(this);
   private _inertController = new SbbInertController(this);
   private _mobileBreakpoint = SbbMediaQueryBreakpointSmallAndBelow;
   private _mediaMatcher = new SbbMediaMatcherController(this, {

@@ -71,9 +71,10 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
   private _onMouseMovement(toggleDataAttribute: boolean): void {
     const parent: SbbExpansionPanelElement = this.closest('sbb-expansion-panel')!;
     // The `sbb.hover-mq` logic has been removed from scss, but it must be replicated to have the correct behavior on mobile.
-    // TODO: with more support for light DOM styles set from a compoent (rootnode), we should move this into scss with :has(:hover) selector.
+    // TODO: with more support for light DOM styles set from a component (rootnode), we should move this into scss with :has(:hover) selector.
     if (!toggleDataAttribute || (parent && this._isHover)) {
       ɵstateController(parent).toggle('toggle-hover', toggleDataAttribute);
+      this.toggleState('toggle-hover', toggleDataAttribute);
     }
   }
 
@@ -93,15 +94,17 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
         <span class="sbb-expansion-panel-header__icon"> ${this.renderIconSlot()} </span>
         <slot></slot>
       </span>
-      ${!this.disabled
-        ? html`<span class="sbb-expansion-panel-header__toggle">
-            <sbb-icon
-              name="chevron-small-down-medium"
-              class="sbb-expansion-panel-header__toggle-icon"
-            >
-            </sbb-icon>
-          </span>`
-        : nothing}
+      ${
+        !this.disabled
+          ? html`<span class="sbb-expansion-panel-header__toggle">
+              <sbb-icon
+                name="chevron-small-down-medium"
+                class="sbb-expansion-panel-header__toggle-icon"
+              >
+              </sbb-icon>
+            </span>`
+          : nothing
+      }
     `;
   }
 }

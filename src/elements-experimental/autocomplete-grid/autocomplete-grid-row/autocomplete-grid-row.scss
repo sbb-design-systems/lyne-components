@@ -57,7 +57,7 @@
       content: '';
       display: block;
       position: absolute;
-      inset: #{sbb.px-to-rem-build(6)};
+      inset: var(--sbb-option-disabled-inset);
       border: var(--sbb-border-width-1x) dashed
         var(--sbb-autocomplete-grid-row-disabled-border-color);
       border-radius: var(--sbb-border-radius-2x);

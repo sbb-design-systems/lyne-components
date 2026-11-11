@@ -145,6 +145,89 @@ class inside a `th` element:
 </table>
 ```
 
+<!-- #region table-docs-sorting -->
+
+### Sorting
+
+A sortable column header is composed of a `th` carrying the sort state,
+and a focusable inner control used to lay out the label and the sort arrow icon.
+Consumers must handle click and keypress events on the control.
+
+```html
+<th class="sbb-sort-header" aria-sort="ascending">
+  <div tabindex="0" role="button" class="sbb-sort-header-container sbb-sort-header-sorted">
+    <span class="sbb-sort-header-content">Name</span>
+    <span class="sbb-sort-header-arrow active">
+      <!-- svg arrow icon, e.g. with an `sbb-sort-indicator active-asc` element inside -->
+    </span>
+  </div>
+</th>
+```
+
+Sorting uses the following CSS classes:
+
+| Name                              | Description                                                                           |
+| --------------------------------- | ------------------------------------------------------------------------------------- |
+| `sbb-sort-header`                 | Applied on a sortable `th` element.                                                   |
+| `sbb-sort-header-disabled`        | Removes pointer and hover styling; consumers must also prevent sorting interaction.   |
+| `sbb-sort-header-container`       | Wraps label and arrow, defines the layout.                                            |
+| `sbb-sort-header-position-before` | Renders the arrow before the label instead of after.                                  |
+| `sbb-sort-header-sorted`          | Applied on the container when the column is actively sorted.                          |
+| `sbb-sort-header-content`         | Wraps the header text content.                                                        |
+| `sbb-sort-header-arrow`           | Arrow wrapper; controls visibility and position through state classes.                |
+| `sbb-sort-indicator`              | Applied on the arrow glyph inside the wrapper; controls its direction by flipping it. |
+
+Consumers must update the state classes (including on hover or focus); CSS does not apply `hint` automatically.
+The arrow wrapper controls opacity and movement, while the indicator controls the icon's direction independently:
+
+| State class                        | Applied on                                    | Effect                                                    |
+| ---------------------------------- | --------------------------------------------- | --------------------------------------------------------- |
+| `void`                             | `sbb-sort-header-arrow`                       | Hidden, with no position offset.                          |
+| `asc` / `desc`                     | `sbb-sort-header-arrow`                       | Hidden, offset upwards / downwards.                       |
+| `hint`                             | `sbb-sort-header-arrow`                       | Visible at reduced opacity (54%), in its normal position. |
+| `active`                           | `sbb-sort-header-arrow`                       | Fully visible, in its normal position.                    |
+| `asc-to-active` / `desc-to-active` | `sbb-sort-header-arrow`                       | Moves to the fully visible, normal position.              |
+| `asc-to-hint` / `desc-to-hint`     | `sbb-sort-header-arrow`                       | Moves to the reduced-opacity, normal position.            |
+| `hint-to-asc` / `active-to-asc`    | `sbb-sort-header-arrow`                       | Hides the arrow, moving it upwards.                       |
+| `hint-to-desc` / `active-to-desc`  | `sbb-sort-header-arrow`                       | Hides the arrow, moving it downwards.                     |
+| `asc` / `active-asc`               | `sbb-sort-indicator`                          | Flips the icon vertically (ascending).                    |
+| `desc` / `active-desc`             | `sbb-sort-indicator`                          | Keeps the icon's default orientation (descending).        |
+| `no-transition`                    | `sbb-sort-header-arrow`, `sbb-sort-indicator` | Disables CSS transitions, e.g. on initial render.         |
+
+The `*-to-*` classes above are the supported transitions; those between `hint` and `asc`/`desc` also use keyframe animations.
+Do not combine `active` with `asc` or `desc` on the arrow wrapper: `asc`/`desc` make it hidden.
+Apply the direction class to `sbb-sort-indicator` instead.
+
+<!-- #endregion -->
+
+### Row hover
+
+To highlight a row when the user hovers over it, apply `sbb-table--hover` to the `<table>` element.
+This enables the hover effect for every row in `<tbody>`.
+
+```html
+<table class="sbb-table sbb-table--hover">
+  ...
+</table>
+```
+
+### Row selection
+
+To mark a row as selected, add the `sbb-table--selected` class to the `<tr>` element.
+The class can be set dynamically, e.g. when a user interacts with a checkbox in the row.
+
+```html
+<table class="sbb-table">
+  <tbody>
+    <tr class="sbb-table--selected">
+      <td>Selected row</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+A common pattern is to place a checkbox in the first column and toggle the class on change.
+
 ### Text alignment
 
 By default, table cells are left-aligned.
@@ -182,6 +265,8 @@ This scheme changes the text color of the cells to `sbb-color-iron`.
 | `sbb-table--negative`       | Negative variant style                                                  |
 | `sbb-table--striped`        | Striped table style                                                     |
 | `sbb-table--unstriped`      | Non-striped table style                                                 |
+| `sbb-table--hover`          | Enables highlighting a row on hover                                     |
+| `sbb-table--selected`       | Applied on a `tr`, marks the row as selected                            |
 | `sbb-table-row--striped`    | Force the striped state on a `tr`                                       |
 | `sbb-table-filter`          | `th` element that contains an inline filter                             |
 | `sbb-table-group-with-next` | Removes the border to the next column                                   |
@@ -210,6 +295,16 @@ Note: Due to technical limitations, consumer has to use set the `negative` prope
   </table>
 </sbb-table-wrapper>
 ```
+
+### Row heights
+
+If a table is combined with a paginator and the page changes, the rows can be empty for a short moment (depending on Framework).
+This leads to an automated scroll to the top of the table, which is not desired. To avoid this, the
+table pre-sets its row minimal heights, so the layout keeps a more stable vertical footprint during view changes.
+
+However, if a consumer places multiple lines of content in a cell, it can still lead to jumps on the page.
+In this case, the consumer can configure a `min-height` on the table or a bigger `height`
+on rows to ensure a stable layout depending on the content.
 
 ## Accessibility
 

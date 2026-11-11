@@ -6,7 +6,6 @@ $theme: 'standard' !default;
   --sbb-notification-base-border-radius: var(--sbb-border-radius-4x);
   --sbb-notification-border-width: var(--sbb-border-width-1x);
   --sbb-notification-color: var(--sbb-color-2-negative-inverted);
-  --sbb-notification-icon-align-self: center;
   --sbb-notification-margin: 0;
   --sbb-notification-timing-function: ease-in;
   --sbb-notification-font-size: #{sbb.theme-pattern-select(
@@ -26,11 +25,10 @@ $theme: 'standard' !default;
   --sbb-notification-padding-inline: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-spacing-responsive-xs),
-        'lean': var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xxxs),
+        'lean': var(--sbb-spacing-responsive-xxs),
       ),
       $theme
     )};
-  --sbb-notification-content-margin-block-start: var(--sbb-spacing-fixed-2x);
   --sbb-notification-content-padding-inline: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-spacing-responsive-xxxs) var(--sbb-spacing-responsive-xs),
@@ -39,14 +37,10 @@ $theme: 'standard' !default;
       $theme
     )};
   --sbb-notification-close-wrapper-gap: var(--sbb-spacing-responsive-xxs);
-}
-
-@mixin breakpoint-small {
-  --sbb-notification-icon-align-self: flex-start;
-  --sbb-notification-padding-inline: #{sbb.theme-pattern-select(
+  --sbb-notification-close-button-size: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-responsive-xs),
-        'lean': var(--sbb-spacing-responsive-xxs),
+        'standard': var(--sbb-button-min-height-size-m),
+        'lean': var(--sbb-button-min-height-size-s),
       ),
       $theme
     )};

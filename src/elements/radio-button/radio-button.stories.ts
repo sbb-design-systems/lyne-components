@@ -5,7 +5,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { sbbSpread } from '../../docs/helpers/spread.ts';
 
 import type { SbbRadioButtonElement } from './radio-button.component.ts';
 import readme from './readme.md?raw';
@@ -99,9 +99,11 @@ const StandaloneTemplate = ({ value, labelBoldClass, ...args }: Args): TemplateR
         new Array(3),
         (_, i) => html`
           <sbb-radio-button ${sbbSpread(args)} value="value-${i + 1}" name="group-1">
-            ${labelBoldClass
-              ? html`<span class="sbb-text--bold">Value ${i + 1}</span>`
-              : `Value ${i + 1}`}
+            ${
+              labelBoldClass
+                ? html`<span class="sbb-text--bold">Value ${i + 1}</span>`
+                : `Value ${i + 1}`
+            }
           </sbb-radio-button>
         `,
       )}
@@ -113,9 +115,11 @@ const StandaloneTemplate = ({ value, labelBoldClass, ...args }: Args): TemplateR
         new Array(4),
         (_, i) => html`
           <sbb-radio-button ${sbbSpread(args)} value="value-${i + 1}" name="group-2">
-            ${labelBoldClass
-              ? html`<span class="sbb-text--bold">Value ${i + 1}</span>`
-              : `Value ${i + 1}`}
+            ${
+              labelBoldClass
+                ? html`<span class="sbb-text--bold">Value ${i + 1}</span>`
+                : `Value ${i + 1}`
+            }
           </sbb-radio-button>
         `,
       )}

@@ -113,14 +113,16 @@ export class SbbJourneySummaryElement extends SbbElement {
       return html`
         <time datetime=${format(departureTime!, 'd') + ' ' + format(departureTime!, 'M')}>
           ${dateAdapter.format(departureTime).replace(',', '.')}</time
-        >${duration && duration > 0
-          ? html`,<time>
-                <span class="sbb-screen-reader-only">
-                  ${i18nTripDuration[this._language.current]} ${durationObj!.long}
-                </span>
-                <span aria-hidden="true">${durationObj!.short}</span>
-              </time>`
-          : nothing}
+        >${
+          duration && duration > 0
+            ? html`,<time>
+                  <span class="sbb-screen-reader-only">
+                    ${i18nTripDuration[this._language.current]} ${durationObj!.long}
+                  </span>
+                  <span aria-hidden="true">${durationObj!.short}</span>
+                </time>`
+            : nothing
+        }
       `;
     }
     return;
@@ -135,9 +137,9 @@ export class SbbJourneySummaryElement extends SbbElement {
           ${slicedVias.map(
             (via, index) =>
               html`<li class="sbb-journey-summary__via">
-                ${via}${index !== slicedVias.length - 1 && index < 4
-                  ? html`<span>,</span>`
-                  : nothing}
+                ${via}${
+                  index !== slicedVias.length - 1 && index < 4 ? html`<span>,</span>` : nothing
+                }
               </li>`,
           )}
         </ul>
@@ -172,27 +174,33 @@ export class SbbJourneySummaryElement extends SbbElement {
     const { origin, destination } = this.trip || {};
     return html`
       <div class="sbb-journey-summary">
-        ${origin
-          ? html`<sbb-journey-header
-              visual-level="4"
-              .level=${this.headerLevel || nothing}
-              .origin=${origin}
-              .destination=${destination}
-              .roundTrip=${this.roundTrip ?? nothing}
-            ></sbb-journey-header>`
-          : nothing}
+        ${
+          origin
+            ? html`<sbb-journey-header
+                visual-level="4"
+                .level=${this.headerLevel || nothing}
+                .origin=${origin}
+                .destination=${destination}
+                .roundTrip=${this.roundTrip ?? nothing}
+              ></sbb-journey-header>`
+            : nothing
+        }
         ${this._renderJourneyInformation(this.trip)}
-        ${this.tripBack
-          ? html`<div>
-              <sbb-divider class="sbb-journey-summary__divider"></sbb-divider>
-              ${this._renderJourneyInformation(this.tripBack)}
-            </div>`
-          : nothing}
-        ${this._hasContentSlot
-          ? html` <div class="sbb-journey-summary__slot">
-              <slot name="content"></slot>
-            </div>`
-          : nothing}
+        ${
+          this.tripBack
+            ? html`<div>
+                <sbb-divider class="sbb-journey-summary__divider"></sbb-divider>
+                ${this._renderJourneyInformation(this.tripBack)}
+              </div>`
+            : nothing
+        }
+        ${
+          this._hasContentSlot
+            ? html` <div class="sbb-journey-summary__slot">
+                <slot name="content"></slot>
+              </div>`
+            : nothing
+        }
       </div>
     `;
   }

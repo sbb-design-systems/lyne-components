@@ -18,6 +18,7 @@ import {
   forceType,
   type FormRestoreReason,
   type FormRestoreState,
+  getNextElementIndex,
   handleDistinctChange,
   i18nCalendarDateSelection,
   i18nCalendarWeekNumber,
@@ -57,14 +58,14 @@ const YEARS_PER_ROW: number = 4;
 const MONTHS_PER_PAGE: number = 12;
 const YEARS_PER_PAGE: number = 24;
 
-export class SbbMonthChangeEvent extends Event {
-  private readonly _range: readonly Day[];
+export class SbbMonthChangeEvent<T = Date> extends Event {
+  private readonly _range: readonly Day<T>[];
 
-  public get range(): readonly Day[] {
+  public get range(): readonly Day<T>[] {
     return this._range;
   }
 
-  public constructor(range: readonly Day[]) {
+  public constructor(range: readonly Day<T>[]) {
     super('monthchange', { bubbles: true, composed: true });
     this._range = Object.freeze(range || []);
   }
@@ -121,6 +122,12 @@ export interface MonthCell {
 export interface Weekday {
   long: string;
   narrow: string;
+}
+
+/** Minimal configuration for tab-group keyboard navigation between cells. */
+interface SbbCalendarTabbableCell {
+  tabIndex: number;
+  focus(): void;
 }
 
 /**
@@ -226,21 +233,31 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   /**
    * Set this with the format `YYYY-MM` to limit the calendar to a specific month,
    * and prevent navigation to other months.
+   * This will override any other month selection.
    */
-  @forceType()
   @property({ attribute: 'fixed-month' })
-  public set fixedMonth(value: string) {
-    const match = value ? value.match(/^(\d{4})-(\d{2})$/) : null;
-    this._fixedMonth = match
-      ? this._dateAdapter.createDate(Number(match[1]), Number(match[2]), 1)
-      : null;
+  public set fixedMonth(value: string | T | null) {
+    this._fixedMonth = this._parseMonth(value);
   }
   public get fixedMonth(): string {
-    return this._fixedMonth
-      ? this._dateAdapter.toIso8601(this._fixedMonth).split('-').slice(0, 2).join('-')
-      : '';
+    return this._fixedMonth ? this._toMonthIsoString(this._fixedMonth) : '';
   }
   private _fixedMonth: T | null = null;
+
+  /**
+   * Set this with the format `YYYY-MM` to have the calendar show this month.
+   * This will not update when a user changes the month, and will not prevent navigation to other months.
+   * Changing this property will reset the calendar view to the given month.
+   */
+  @property({ attribute: 'active-month' })
+  public set activeMonth(value: string | T | null) {
+    this._activeMonth = this._parseMonth(value);
+    this._resetCalendarView();
+  }
+  public get activeMonth(): string {
+    return this._activeMonth ? this._toMonthIsoString(this._activeMonth) : '';
+  }
+  private _activeMonth: T | null = null;
 
   /** The orientation of days in the calendar. */
   @property({ reflect: true }) public accessor orientation: 'horizontal' | 'vertical' =
@@ -297,6 +314,21 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     );
   }
 
+  /** A list of calendar's weekday cells. */
+  private get _weekdayCells(): SbbCalendarWeekdayElement[] {
+    return Array.from<SbbCalendarWeekdayElement>(
+      this.shadowRoot?.querySelectorAll<SbbCalendarWeekdayElement>(`sbb-calendar-weekday`) ?? [],
+    );
+  }
+
+  /** A list of calendar's weeknumber cells. */
+  private get _weekNumberCells(): SbbCalendarWeeknumberElement[] {
+    return Array.from<SbbCalendarWeeknumberElement>(
+      this.shadowRoot?.querySelectorAll<SbbCalendarWeeknumberElement>(`sbb-calendar-weeknumber`) ??
+        [],
+    );
+  }
+
   /** The chosen year in the year selection view. */
   private _chosenYear?: number;
 
@@ -319,6 +351,15 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     this._createMonthRows();
   });
 
+  private get _tabbableGroups(): { key: string; value: () => SbbCalendarTabbableCell[] }[] {
+    const weekdays = { key: 'weekdays', value: () => this._weekdayCells };
+    const weekNumbers = { key: 'weekNumbers', value: () => this._weekNumberCells };
+    const days = { key: 'days', value: () => this._cells };
+    return this.orientation === 'vertical'
+      ? [weekNumbers, weekdays, days]
+      : [weekdays, weekNumbers, days];
+  }
+
   public constructor() {
     super();
     this._createMonthRows();
@@ -337,6 +378,24 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
           (e): e is SbbCalendarDayElement<T> => (e as HTMLElement).localName === 'sbb-calendar-day',
         ) ??
       null;
+    const resolveWeekday = (
+      event: PointerEvent | KeyboardEvent,
+    ): SbbCalendarWeekdayElement | null =>
+      event
+        .composedPath()
+        .find(
+          (e): e is SbbCalendarWeekdayElement =>
+            (e as HTMLElement).localName === 'sbb-calendar-weekday',
+        ) ?? null;
+    const resolveWeekNumber = (
+      event: PointerEvent | KeyboardEvent,
+    ): SbbCalendarWeeknumberElement | null =>
+      event
+        .composedPath()
+        .find(
+          (e): e is SbbCalendarWeeknumberElement =>
+            (e as HTMLElement).localName === 'sbb-calendar-weeknumber',
+        ) ?? null;
     this.addEventListener('click', (event) => {
       const day = resolveDay(event);
       if (day) {
@@ -345,8 +404,44 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     });
     this.addEventListener('keydown', (event) => {
       const day = resolveDay(event);
-      if (day) {
-        this._handleKeyboardEvent(event, day);
+      const weekday = resolveWeekday(event);
+      const weekNumber = resolveWeekNumber(event);
+      if (!(day || weekday || weekNumber)) {
+        return;
+      }
+
+      if (event.key === 'Tab') {
+        const currentKey = weekday ? 'weekdays' : weekNumber ? 'weekNumbers' : 'days';
+        const availableGroups = this._tabbableGroups.filter((tg) => tg.value().length > 0);
+        const groupId = availableGroups.findIndex((tg) => tg.key === currentKey);
+        const nextIdx = event.shiftKey ? groupId - 1 : groupId + 1;
+        if (groupId === -1 || nextIdx < 0 || nextIdx >= availableGroups.length) {
+          return;
+        }
+        const next = availableGroups[nextIdx].value().find((e) => e.tabIndex === 0);
+        if (!next) {
+          return;
+        }
+        event.preventDefault();
+        next.focus();
+      }
+
+      if (isArrowKeyOrPageKeysPressed(event)) {
+        if (day) {
+          this._handleKeyboardEvent(event, day);
+        } else if (weekday) {
+          this._handleKeyboardEventWeek<SbbCalendarWeekdayElement>(
+            event,
+            weekday,
+            this._weekdayCells,
+          );
+        } else if (weekNumber) {
+          this._handleKeyboardEventWeek<SbbCalendarWeeknumberElement>(
+            event,
+            weekNumber,
+            this._weekNumberCells,
+          );
+        }
       }
     });
     this.addEventListener('blur', () => (this._lastSelection = null));
@@ -358,10 +453,25 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     return this.dateFilter?.(date) ?? true;
   }
 
+  private _parseMonth(value: unknown): T | null {
+    if (typeof value === 'string') {
+      const match = value ? value.match(/^(\d{4})-(\d{2})$/) : null;
+      return match ? this._dateAdapter.createDate(Number(match[1]), Number(match[2]), 1) : null;
+    } else if (value instanceof Date) {
+      return this._dateAdapter.createDate(value.getFullYear(), value.getMonth() + 1, 1);
+    } else if (this._dateAdapter.isDateInstance(value) && this._dateAdapter.isValid(value as T)) {
+      return this._dateAdapter.clone(value as T);
+    }
+    return null;
+  }
+
+  private _toMonthIsoString(value: T): string {
+    return this._dateAdapter.toIso8601(value).split('-').slice(0, 2).join('-');
+  }
+
   /** Resets the active month according to the new state of the calendar. */
   public resetPosition(): void {
     this._resetCalendarView();
-    this._init();
   }
 
   public override connectedCallback(): void {
@@ -373,6 +483,13 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.shadowRoot?.removeEventListener('slotchange', this._onSlotChange, { capture: true });
+  }
+
+  /**
+   * Returns the list of days that are visible in the calendar.
+   */
+  public visibleDays(): Day<T>[] {
+    return this._weeks.flat(2).sort((a, b) => a.value.localeCompare(b.value));
   }
 
   /** @internal */
@@ -458,6 +575,8 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       if (this._containingFocus) {
         this._resetFocus = true;
       }
+    } else if (name === 'amount') {
+      this.toggleState('single-month', this.amount === 1);
     }
   }
 
@@ -470,6 +589,11 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     // When changing view to year/month, the tabindex is changed, but the focused element is getting lost.
     // We need to call `_focusCell()` method explicitly to correctly set the focus.
     this._focusCell();
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+    this._emitMonthChange();
   }
 
   private _onSlotChange = (): void => {
@@ -495,12 +619,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   }
 
   /** Initializes the component. */
-  private _init(activeDate?: T): void {
+  private _createCalendarState(activeDate?: T): void {
     // Due to its complexity, the calendar is only initialized on client side
     if (isServer) {
       return;
     } else if (this.hydrationRequired) {
-      this.hydrationComplete.then(() => this._init());
+      this.hydrationComplete.then(() => this._createCalendarState());
       return;
     }
 
@@ -510,6 +634,13 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
     const startDate = this._fixedMonth ?? this._activeDate;
     const amount = this.amount < 1 ? 1 : this.amount;
+    if (
+      this._weeks.length === amount &&
+      this._isSameMonth(this._weeks[0][0][0].dateValue, startDate)
+    ) {
+      return;
+    }
+
     this._weeks = Array.from({ length: amount }, (_, i) =>
       this._createWeekRows(this._dateAdapter.addCalendarMonths(startDate, i)),
     );
@@ -539,6 +670,13 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         .filter((v, i, a) => a.indexOf(v) === i),
     );
     this._initialized = true;
+  }
+
+  private _isSameMonth(a: T, b: T): boolean {
+    return (
+      this._dateAdapter.getYear(a) === this._dateAdapter.getYear(b) &&
+      this._dateAdapter.getMonth(a) === this._dateAdapter.getMonth(b)
+    );
   }
 
   /** Focuses on a day cell prioritizing the selected day, the current day, and lastly, the first selectable day. */
@@ -672,12 +810,10 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
   /** Creates the rows for the month selection view. */
   private _createMonthRows(): void {
-    const months: MonthCell[] = new Array(12).fill(null).map(
-      (_, i: number): MonthCell => ({
-        value: String(i + 1).padStart(2, '0'),
-        monthValue: i + 1,
-      }),
-    );
+    const months: MonthCell[] = new Array(12).fill(null).map((_, i: number): MonthCell => ({
+      value: String(i + 1).padStart(2, '0'),
+      monthValue: i + 1,
+    }));
     const rows: number = 12 / MONTHS_PER_ROW;
     const monthArray: MonthCell[][] = [];
     for (let i: number = 0; i < rows; i++) {
@@ -832,7 +968,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     // FIXME: the name of this variable appears as event name in the readme
     //  due to a bug in the custom-elements-manifest library.
     //  https://github.com/open-wc/custom-elements-manifest/issues/149
-    const monthchange = this._weeks.flat(2).sort((a, b) => a.value.localeCompare(b.value)) as Day[];
+    const monthchange = this.visibleDays();
     /**
      * @type {SbbMonthChangeEvent}
      * Emits when the month changes.
@@ -861,7 +997,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
   /** Goes to the month identified by the shift. */
   private _goToDifferentMonth(months: number): void {
-    this._init(this._dateAdapter.addCalendarMonths(this._activeDate, months));
+    this._createCalendarState(this._dateAdapter.addCalendarMonths(this._activeDate, months));
     this._emitMonthChange();
   }
 
@@ -871,13 +1007,13 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     this._activeDate = this._dateAdapter.createDate(
       this._chosenYear!,
       this._dateAdapter.getMonth(this._activeDate),
-      this._dateAdapter.getDate(this._activeDate),
+      1,
     );
-    this._init();
+    this._createCalendarState();
   }
 
   private _goToDifferentYearRange(years: number): void {
-    this._init(this._dateAdapter.addCalendarYears(this._activeDate, years));
+    this._createCalendarState(this._dateAdapter.addCalendarYears(this._activeDate, years));
   }
 
   private _prevDisabled(prevDate: T): boolean {
@@ -951,7 +1087,11 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   }
 
   private _handleTableBlur(eventTarget: HTMLElement): void {
-    if (eventTarget?.localName !== 'sbb-calendar-day') {
+    if (
+      eventTarget?.localName !== 'sbb-calendar-day' &&
+      eventTarget?.localName !== 'sbb-calendar-weeknumber' &&
+      eventTarget?.localName !== 'sbb-calendar-weekday'
+    ) {
       this._setTabIndex();
     }
   }
@@ -960,10 +1100,16 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     Array.from(this._cells.filter((e) => e.tabIndex === 0) ?? []).forEach(
       (day) => (day.tabIndex = -1),
     );
+    this._setWeekFocus();
     const firstFocusable = this._getFirstFocusable();
     if (firstFocusable) {
       firstFocusable.tabIndex = 0;
     }
+  }
+
+  private _setWeekFocus(): void {
+    this._weekdayCells.forEach((e, i) => (e.tabIndex = i === 0 ? 0 : -1));
+    this._weekNumberCells.forEach((e, i) => (e.tabIndex = i === 0 ? 0 : -1));
   }
 
   /** Get the element in the calendar to assign focus. */
@@ -1008,6 +1154,46 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         .map((e): string => this._dateAdapter.toIso8601(e.value! as T))
         .sort()[0];
       return cells.find((e) => e.matches(`[slot="${firstElement}"]`))! ?? null;
+    }
+  }
+
+  private _handleKeyboardEventWeek<TCell extends SbbCalendarCellBaseElement>(
+    event: KeyboardEvent,
+    cell: TCell,
+    cellArray: TCell[],
+  ): void {
+    event.preventDefault();
+
+    let nextEl: TCell;
+    switch (event.key) {
+      case 'ArrowUp':
+      case 'ArrowDown':
+      case 'ArrowLeft':
+      case 'ArrowRight': {
+        const next = getNextElementIndex(event, cellArray.indexOf(cell), cellArray.length);
+        nextEl = cellArray[next];
+        break;
+      }
+      case 'PageUp':
+      case 'Home': {
+        nextEl = cellArray[0];
+        break;
+      }
+      case 'PageDown':
+      case 'End': {
+        nextEl = cellArray[cellArray.length - 1];
+        break;
+      }
+      default: {
+        nextEl = cell;
+        break;
+      }
+    }
+
+    if (nextEl !== cell) {
+      nextEl.tabIndex = 0;
+      nextEl.focus();
+      cell.tabIndex = -1;
     }
   }
 
@@ -1327,11 +1513,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       this._resetFocus = true;
     }
     this._activeDate =
+      this._activeMonth ??
       (this.multiple ? (this._value as T[]).at(-1) : (this._value as T)) ??
       this._dateAdapter.today();
     this._setChosenYear();
     this._chosenMonth = undefined;
-    this._init();
+    this._createCalendarState();
     this._calendarView = this.view;
   }
 
@@ -1359,29 +1546,31 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         >
           <thead>
             <tr>
-              ${this.weekNumbers
-                ? html`<th class="sbb-calendar__table-header-cell"></th>`
-                : nothing}
+              ${
+                this.weekNumbers ? html`<th class="sbb-calendar__table-header-cell"></th>` : nothing
+              }
               ${this._weekdays.map(
                 (weekDay: Weekday, index: number) => html`
                   <th class="sbb-calendar__table-header-cell">
-                    ${this.multiple
-                      ? html`
-                          <sbb-calendar-weekday
-                            .value=${weekDay}
-                            @click=${() => {
-                              // NOTE: Sundays have index 7, while their weekDayValue is 0
-                              const days: Day<T>[] = weeksForSelectMultipleWeekDays.filter(
-                                (day: Day<T>) => day.weekDayValue === (index + 1) % 7,
-                              )!;
-                              this._selectMultipleDates(days);
-                            }}
-                          ></sbb-calendar-weekday>
-                        `
-                      : html`
-                          <span class="sbb-screen-reader-only">${weekDay.long}</span>
-                          <span aria-hidden="true">${weekDay.narrow}</span>
-                        `}
+                    ${
+                      this.multiple
+                        ? html`
+                            <sbb-calendar-weekday
+                              .value=${weekDay}
+                              @click=${() => {
+                                // NOTE: Sundays have index 7, while their weekDayValue is 0
+                                const days: Day<T>[] = weeksForSelectMultipleWeekDays.filter(
+                                  (day: Day<T>) => day.weekDayValue === (index + 1) % 7,
+                                )!;
+                                this._selectMultipleDates(days);
+                              }}
+                            ></sbb-calendar-weekday>
+                          `
+                        : html`
+                            <span class="sbb-screen-reader-only">${weekDay.long}</span>
+                            <span aria-hidden="true">${weekDay.narrow}</span>
+                          `
+                    }
                   </th>
                 `,
               )}
@@ -1393,31 +1582,35 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
               if (rowIndex === 0 && firstRowOffset) {
                 return html`
                   <tr>
-                    ${this.weekNumbers
-                      ? html`
-                          <td class="sbb-calendar__table-header-cell-vertical">
-                            ${this.multiple
-                              ? html`
-                                  <sbb-calendar-weeknumber
-                                    .value=${weekNumbers[0]}
-                                    @click=${() => {
-                                      const days: Day<T>[] =
-                                        weeksForSelectMultipleWeekNumbers.filter(
-                                          (day: Day<T>) => day.weekValue === weekNumbers[0],
-                                        )!;
-                                      this._selectMultipleDates(days);
-                                    }}
-                                  ></sbb-calendar-weeknumber>
-                                `
-                              : html`
-                                  <span class="sbb-screen-reader-only"
-                                    >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[0]}`}</span
-                                  >
-                                  <span aria-hidden="true">${weekNumbers[0]}</span>
-                                `}
-                          </td>
-                        `
-                      : nothing}
+                    ${
+                      this.weekNumbers
+                        ? html`
+                            <td class="sbb-calendar__table-header-cell-vertical">
+                              ${
+                                this.multiple
+                                  ? html`
+                                      <sbb-calendar-weeknumber
+                                        .value=${weekNumbers[0]}
+                                        @click=${() => {
+                                          const days: Day<T>[] =
+                                            weeksForSelectMultipleWeekNumbers.filter(
+                                              (day: Day<T>) => day.weekValue === weekNumbers[0],
+                                            )!;
+                                          this._selectMultipleDates(days);
+                                        }}
+                                      ></sbb-calendar-weeknumber>
+                                    `
+                                  : html`
+                                      <span class="sbb-screen-reader-only"
+                                        >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[0]}`}</span
+                                      >
+                                      <span aria-hidden="true">${weekNumbers[0]}</span>
+                                    `
+                              }
+                            </td>
+                          `
+                        : nothing
+                    }
                     ${[...Array(firstRowOffset).keys()].map(
                       () => html`<td class="sbb-calendar__table-data"></td>`,
                     )}
@@ -1427,30 +1620,36 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
               }
               return html`
                 <tr>
-                  ${this.weekNumbers
-                    ? html`
-                        <td class="sbb-calendar__table-header-cell-vertical">
-                          ${this.multiple
-                            ? html`
-                                <sbb-calendar-weeknumber
-                                  .value=${weekNumbers[rowIndex]}
-                                  @click=${() => {
-                                    const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
-                                      (day: Day<T>) => day.weekValue === weekNumbers[rowIndex],
-                                    )!;
-                                    this._selectMultipleDates(days);
-                                  }}
-                                ></sbb-calendar-weeknumber>
-                              `
-                            : html`
-                                <span class="sbb-screen-reader-only"
-                                  >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[rowIndex]}`}</span
-                                >
-                                <span aria-hidden="true">${weekNumbers[rowIndex]}</span>
-                              `}
-                        </td>
-                      `
-                    : nothing}
+                  ${
+                    this.weekNumbers
+                      ? html`
+                          <td class="sbb-calendar__table-header-cell-vertical">
+                            ${
+                              this.multiple
+                                ? html`
+                                    <sbb-calendar-weeknumber
+                                      .value=${weekNumbers[rowIndex]}
+                                      @click=${() => {
+                                        const days: Day<T>[] =
+                                          weeksForSelectMultipleWeekNumbers.filter(
+                                            (day: Day<T>) =>
+                                              day.weekValue === weekNumbers[rowIndex],
+                                          )!;
+                                        this._selectMultipleDates(days);
+                                      }}
+                                    ></sbb-calendar-weeknumber>
+                                  `
+                                : html`
+                                    <span class="sbb-screen-reader-only"
+                                      >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[rowIndex]}`}</span
+                                    >
+                                    <span aria-hidden="true">${weekNumbers[rowIndex]}</span>
+                                  `
+                            }
+                          </td>
+                        `
+                      : nothing
+                  }
                   ${this._createDayCells(week)}
                 </tr>
               `;
@@ -1484,62 +1683,71 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
           @focusout=${(event: FocusEvent) =>
             this._handleTableBlur(event.relatedTarget as HTMLElement)}
         >
-          ${this.weekNumbers
-            ? html`
-                <thead>
-                  <tr>
-                    <th class="sbb-calendar__table-data"></th>
-                    ${weekNumbers.map(
-                      (weekNumber: number) => html`
-                        <th class="sbb-calendar__table-header-cell">
-                          ${this.multiple
-                            ? html`
-                                <sbb-calendar-weeknumber
-                                  .value=${weekNumber}
-                                  @click=${() => {
-                                    const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
-                                      (day: Day<T>) => day.weekValue === weekNumber,
-                                    )!;
-                                    this._selectMultipleDates(days);
-                                  }}
-                                ></sbb-calendar-weeknumber>
-                              `
-                            : html`
-                                <span class="sbb-screen-reader-only"
-                                  >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumber}`}</span
-                                >
-                                <span aria-hidden="true">${weekNumber}</span>
-                              `}
-                        </th>
-                      `,
-                    )}
-                  </tr>
-                </thead>
-              `
-            : nothing}
+          ${
+            this.weekNumbers
+              ? html`
+                  <thead>
+                    <tr>
+                      <th class="sbb-calendar__table-data"></th>
+                      ${weekNumbers.map(
+                        (weekNumber: number) => html`
+                          <th class="sbb-calendar__table-header-cell">
+                            ${
+                              this.multiple
+                                ? html`
+                                    <sbb-calendar-weeknumber
+                                      .value=${weekNumber}
+                                      @click=${() => {
+                                        const days: Day<T>[] =
+                                          weeksForSelectMultipleWeekNumbers.filter(
+                                            (day: Day<T>) => day.weekValue === weekNumber,
+                                          )!;
+                                        this._selectMultipleDates(days);
+                                      }}
+                                    ></sbb-calendar-weeknumber>
+                                  `
+                                : html`
+                                    <span class="sbb-screen-reader-only"
+                                      >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumber}`}</span
+                                    >
+                                    <span aria-hidden="true">${weekNumber}</span>
+                                  `
+                            }
+                          </th>
+                        `,
+                      )}
+                    </tr>
+                  </thead>
+                `
+              : nothing
+          }
           <tbody>
             ${weeks.map((week: Day<T>[], rowIndex: number) => {
               const weekday = this._weekdays[rowIndex];
               return html`
                 <tr>
                   <td class="sbb-calendar__table-header-cell-vertical">
-                    ${this.multiple
-                      ? html`
-                          <sbb-calendar-weekday
-                            .value=${weekday}
-                            @click=${() => this._selectMultipleDates(week)}
-                          >
-                            ${weekday.narrow}
-                          </sbb-calendar-weekday>
-                        `
-                      : html`
-                          <span class="sbb-screen-reader-only">${weekday.long}</span>
-                          <span aria-hidden="true">${weekday.narrow}</span>
-                        `}
+                    ${
+                      this.multiple
+                        ? html`
+                            <sbb-calendar-weekday
+                              .value=${weekday}
+                              @click=${() => this._selectMultipleDates(week)}
+                            >
+                              ${weekday.narrow}
+                            </sbb-calendar-weekday>
+                          `
+                        : html`
+                            <span class="sbb-screen-reader-only">${weekday.long}</span>
+                            <span aria-hidden="true">${weekday.narrow}</span>
+                          `
+                    }
                   </td>
-                  ${rowIndex < weekOffset
-                    ? html`<td class="sbb-calendar__table-data"></td>`
-                    : nothing}
+                  ${
+                    rowIndex < weekOffset
+                      ? html`<td class="sbb-calendar__table-data"></td>`
+                      : nothing
+                  }
                   ${this._createDayCells(week)}
                 </tr>
               `;
@@ -1596,27 +1804,29 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       <div class="sbb-calendar__table-wrapper sbb-calendar__month-view">
         <div class="sbb-calendar__table-header">
           <span>${this._chosenYear}</span>
-          ${this._fixedMonth
-            ? []
-            : [
-                this._getArrow(
-                  'left',
-                  () => this._goToDifferentYear(-1),
-                  i18nPreviousYear[this._language.current],
-                  this._previousYearDisabled(),
-                ),
-                this._getArrow(
-                  'right',
-                  () => this._goToDifferentYear(1),
-                  i18nNextYear[this._language.current],
-                  this._nextYearDisabled(),
-                ),
-                this._getArrow(
-                  'down',
-                  () => this._resetCalendarViewAndEmitMonthChange(),
-                  i18nCalendarDateSelection[this._language.current],
-                ),
-              ]}
+          ${
+            this._fixedMonth
+              ? []
+              : [
+                  this._getArrow(
+                    'left',
+                    () => this._goToDifferentYear(-1),
+                    i18nPreviousYear[this._language.current],
+                    this._previousYearDisabled(),
+                  ),
+                  this._getArrow(
+                    'right',
+                    () => this._goToDifferentYear(1),
+                    i18nNextYear[this._language.current],
+                    this._nextYearDisabled(),
+                  ),
+                  this._getArrow(
+                    'down',
+                    () => this._resetCalendarViewAndEmitMonthChange(),
+                    i18nCalendarDateSelection[this._language.current],
+                  ),
+                ]
+          }
           <span class="sbb-screen-reader-only" role="status">${this._chosenYear}</span>
         </div>
         <table class="sbb-calendar__table">
@@ -1650,13 +1860,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   private _onMonthSelection(month: number, year: number): void {
     this._chosenMonth = month;
     this._calendarView = 'day';
-    this._init(
-      this._dateAdapter.createDate(
-        year,
-        this._chosenMonth,
-        this._dateAdapter.getDate(this._activeDate),
-      ),
-    );
+    this._createCalendarState(this._dateAdapter.createDate(year, this._chosenMonth, 1));
     this._emitMonthChange();
   }
 
@@ -1670,27 +1874,29 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       <div class="sbb-calendar__table-wrapper sbb-calendar__year-view">
         <div class="sbb-calendar__table-header">
           <span>${yearLabel}</span>
-          ${this._fixedMonth
-            ? []
-            : [
-                this._getArrow(
-                  'left',
-                  () => this._goToDifferentYearRange(-YEARS_PER_PAGE),
-                  i18nPreviousYearRange(YEARS_PER_PAGE)[this._language.current],
-                  this._previousYearRangeDisabled(),
-                ),
-                this._getArrow(
-                  'right',
-                  () => this._goToDifferentYearRange(YEARS_PER_PAGE),
-                  i18nNextYearRange(YEARS_PER_PAGE)[this._language.current],
-                  this._nextYearRangeDisabled(),
-                ),
-                this._getArrow(
-                  'down',
-                  () => this._resetCalendarViewAndEmitMonthChange(),
-                  i18nCalendarDateSelection[this._language.current],
-                ),
-              ]}
+          ${
+            this._fixedMonth
+              ? []
+              : [
+                  this._getArrow(
+                    'left',
+                    () => this._goToDifferentYearRange(-YEARS_PER_PAGE),
+                    i18nPreviousYearRange(YEARS_PER_PAGE)[this._language.current],
+                    this._previousYearRangeDisabled(),
+                  ),
+                  this._getArrow(
+                    'right',
+                    () => this._goToDifferentYearRange(YEARS_PER_PAGE),
+                    i18nNextYearRange(YEARS_PER_PAGE)[this._language.current],
+                    this._nextYearRangeDisabled(),
+                  ),
+                  this._getArrow(
+                    'down',
+                    () => this._resetCalendarViewAndEmitMonthChange(),
+                    i18nCalendarDateSelection[this._language.current],
+                  ),
+                ]
+          }
           <span class="sbb-screen-reader-only" role="status">${yearLabel}</span>
         </div>
         <table class="sbb-calendar__table">
@@ -1723,11 +1929,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     this._chosenYear = year;
     this._calendarView = 'month';
     this._assignActiveDate(
-      this._dateAdapter.createDate(
-        this._chosenYear,
-        this._dateAdapter.getMonth(this._activeDate),
-        this._dateAdapter.getDate(this._activeDate),
-      ),
+      this._dateAdapter.createDate(year, this._dateAdapter.getMonth(this._activeDate), 1),
     );
   }
 
@@ -1767,11 +1969,15 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     }
 
     return html`<div class="sbb-calendar__wrapper">
-      ${this.orientation === 'horizontal'
-        ? this._weeks.map((weeks, i) => this._createDayTable(weeks, this._weekNumbers[i], i === 0))
-        : this._weeks.map((weeks, i) =>
-            this._createDayTableVertical(weeks, this._weekNumbers[i], i === 0),
-          )}
+      ${
+        this.orientation === 'horizontal'
+          ? this._weeks.map((weeks, i) =>
+              this._createDayTable(weeks, this._weekNumbers[i], i === 0),
+            )
+          : this._weeks.map((weeks, i) =>
+              this._createDayTableVertical(weeks, this._weekNumbers[i], i === 0),
+            )
+      }
       ${this._getView()}
     </div>`;
   }

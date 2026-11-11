@@ -89,12 +89,18 @@ describe('sbb-select', () => {
           placeholder="Select"
           class=${args.required ? 'sbb-invalid' : nothing}
         >
-          ${withEllipsis
-            ? html` <sbb-option value=${valueEllipsis} selected=""> ${valueEllipsis} </sbb-option>`
-            : nothing}
-          ${withOptionGroup
-            ? createOptionsGroup(disableOption, disableGroup)
-            : createOptions(disableOption, false, args.value)}
+          ${
+            withEllipsis
+              ? html` <sbb-option value=${valueEllipsis} selected="">
+                  ${valueEllipsis}
+                </sbb-option>`
+              : nothing
+          }
+          ${
+            withOptionGroup
+              ? createOptionsGroup(disableOption, disableGroup)
+              : createOptions(disableOption, false, args.value)
+          }
         </sbb-select>
         ${args.required ? html`<sbb-error>Error</sbb-error>` : nothing}
       </sbb-form-field>

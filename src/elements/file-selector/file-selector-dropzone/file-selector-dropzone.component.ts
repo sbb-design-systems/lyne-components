@@ -47,9 +47,11 @@ export class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElement
           </span>
           <span class="sbb-file-selector__dropzone-area--title">${this.titleContent}</span>
           <span class="sbb-file-selector__dropzone-area--subtitle">
-            ${this.multiple
-              ? i18nFileSelectorSubtitleLabelMultiple[this.language.current]
-              : i18nFileSelectorSubtitleLabel[this.language.current]}
+            ${
+              this.multiple
+                ? i18nFileSelectorSubtitleLabelMultiple[this.language.current]
+                : i18nFileSelectorSubtitleLabel[this.language.current]
+            }
           </span>
           <span class="sbb-file-selector__dropzone-area--button">
             <sbb-secondary-button-static

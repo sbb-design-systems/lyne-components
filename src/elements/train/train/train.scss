@@ -8,7 +8,7 @@
 
   display: flex;
   font-size: var(--sbb-text-font-size-xs);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  letter-spacing: var(--sbb-letter-spacing-text);
   flex-direction: var(--_sbb-train-formation-flex-direction-inverted);
   gap: var(--sbb-train-formation-gap);
   position: relative;
@@ -65,7 +65,7 @@
 
 .sbb-train__direction-arrow {
   :host([direction='right']) & {
-    transform: scale(-1, 1);
+    scale: -1 1;
     order: 2;
   }
 

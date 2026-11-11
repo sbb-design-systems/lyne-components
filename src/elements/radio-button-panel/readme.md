@@ -1,3 +1,5 @@
+<!-- keywords: form -->
+
 The `<sbb-radio-button-panel>` component provides the same functionality as a native `<input type="radio"/>` enhanced with the selection panel design and functionalities.
 
 Radio-buttons should typically be placed inside a [sbb-radio-button-group](/docs/elements-radio-button--docs) component
@@ -22,7 +24,7 @@ In cases where that's not possible, you can define a group of radios using the s
 It is possible to provide a label via an unnamed slot;
 additionally the slots named `subtext` can be used to provide a subtext and
 the slot named `suffix` can be used to provide suffix items.
-If you use a <sbb-card-badge>, the slot `badge` is automatically assigned.
+If you use a `<sbb-card-badge>`, the slot `badge` is automatically assigned.
 
 ```html
 <sbb-radio-button-panel>
@@ -41,7 +43,7 @@ The `allowEmptySelection` property allows user to deselect the component.
 ```html
 <sbb-radio-button-panel value="One" checked>Option one</sbb-radio-button-panel>
 <sbb-radio-button-panel value="Two" disabled>Option two</sbb-radio-button-panel>
-<sbb-radio-button-panel value="Three" allowEmptySelection>Option three</sbb-radio-button-panel>
+<sbb-radio-button-panel value="Three" allow-empty-selection>Option three</sbb-radio-button-panel>
 ```
 
 ## Style
@@ -107,10 +109,11 @@ The type can be specified using the generic type parameter `T` of `SbbRadioButto
 
 #### Events
 
-| Name     | Type         | Description                                                                                                                                                                        | Inherited From                    |
-| -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| `change` | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFormAssociatedRadioButtonMixin |
-| `input`  | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFormAssociatedRadioButtonMixin |
+| Name       | Type         | Description                                                                                                                                                                        | Inherited From                    |
+| ---------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `change`   | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFormAssociatedRadioButtonMixin |
+| `input`    | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFormAssociatedRadioButtonMixin |
+| `validity` | `Event`      | The validity event is dispatched whenever the validity state of the element changes.                                                                                               | SbbFormAssociatedMixin            |
 
 #### Slots
 

@@ -7,19 +7,22 @@ The component could be used:
 - when an element needs more context or explanation;
 - when defining a term or inline item.
 
+<!-- #region trigger -->
+
 The component must be connected with the trigger element using the `trigger` property,
 which accepts the id of the element, or directly its reference;
-the [sbb-menu-button](/docs/elements-button--docs) is meant to be used as trigger.
 
 ```html
 <sbb-mini-button icon-name="circle-information-small" id="popover-trigger"></sbb-mini-button>
 
-<sbb-popover id="popover" trigger="popover-trigger">
+<sbb-popover trigger="popover-trigger">
   <sbb-popover-close-button></sbb-popover-close-button>
   <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Popover Title.</sbb-title>
-  <p id="popover-content">Popover content.</p>
+  <p>Popover content.</p>
 </sbb-popover>
 ```
+
+<!-- #endregion -->
 
 ## Configuration
 
@@ -48,14 +51,10 @@ For accessibility reasons, the close button should be the first focusable elemen
 so it is recommended to place it at the beginning of the content.
 
 ```html
-<sbb-mini-button id="popover-trigger"></sbb-mini-button>
-
-<sbb-popover id="popover" trigger="popover-trigger">
+<sbb-popover>
   <sbb-popover-close-button></sbb-popover-close-button>
   <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Popover Title.</sbb-title>
-  <p id="popover-content">
-    Popover content. <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
-  </p>
+  <p>Popover content. <sbb-link sbb-popover-close>Link</sbb-link></p>
 </sbb-popover>
 ```
 
@@ -69,15 +68,7 @@ The `<sbb-popover>` will automatically disappear after the hiding delay
 if neither the trigger element nor the popover are on hover or if another action is performed on the page.
 
 ```html
-<sbb-mini-button id="popover-trigger"></sbb-mini-button>
-
-<sbb-popover
-  id="popover"
-  trigger="popover-trigger"
-  hover-trigger
-  open-delay="500"
-  close-delay="750"
->
+<sbb-popover hover-trigger open-delay="500" close-delay="750">
   <sbb-title level="2" visual-level="6" style="margin-block-start: 0">Popover Title.</sbb-title>
   <p id="popover-content">Popover content. <sbb-link id="popover-link">Link</sbb-link></p>
 </sbb-popover>
@@ -86,6 +77,10 @@ if neither the trigger element nor the popover are on hover or if another action
 ## Style
 
 The `<sbb-popover>` automatically calculates where it should place itself, based on available space. Default is below and center.
+
+The component has a negative variant which can be set using the `negative` property.
+The `<sbb-popover-close-button>` component, if present, is automatically rendered in the `negative` variant,
+while consumers need to set it manually on other components, or adjust styling accordingly.
 
 ## Accessibility
 
@@ -138,6 +133,12 @@ If the attribute is not used, the first focusable element receives focus (recomm
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
+
 #### CSS Properties
 
 | Name                         | Default | Description                                                                                |
@@ -160,6 +161,7 @@ If the attribute is not used, the first focusable element receives focus (recomm
 | `closeDelay`   | `close-delay`   | public  | `number`              | `0`     | Close the popover after a given delay in milliseconds. Global configuration is used as default, if not set. |
 | `hoverTrigger` | `hover-trigger` | public  | `boolean`             | `false` | Whether the popover should be triggered on hover.                                                           |
 | `isOpen`       | -               | public  | `boolean`             |         | Whether the element is open.                                                                                |
+| `negative`     | `negative`      | public  | `boolean`             | `false` | Negative coloring variant flag.                                                                             |
 | `openDelay`    | `open-delay`    | public  | `number`              | `0`     | Open the popover after a given delay in milliseconds. Global configuration is used as default, if not set.  |
 | `trigger`      | `trigger`       | public  | `HTMLElement \| null` | `null`  | The element that will trigger the popover overlay. For attribute usage, provide an id reference.            |
 

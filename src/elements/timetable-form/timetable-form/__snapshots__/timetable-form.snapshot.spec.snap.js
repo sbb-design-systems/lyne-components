@@ -105,7 +105,7 @@ snapshots["sbb-timetable-form renders A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "generic",
+      "role": "form",
       "name": ""
     }
   ]

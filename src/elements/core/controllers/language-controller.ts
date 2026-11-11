@@ -58,7 +58,10 @@ export class SbbLanguageController implements ReactiveController {
     this._host.addController(this);
   }
 
-  /** Add a language change handler. */
+  /**
+   * Add a language change handler.
+   * TODO: Refactor to EventTarget.
+   */
   public withHandler(handler: () => void): this {
     // We use unshift here, to prepend additional handlers.
     // This ensures that requestUpdate is called after the other handlers.

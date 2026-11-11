@@ -24,7 +24,7 @@ describe(`sbb-action-group`, () => {
     it(
       'default',
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html` <sbb-action-group>${items}</sbb-action-group> `);
+        await setup.withFixture(html`<sbb-action-group>${items}</sbb-action-group>`);
       }),
     );
 
@@ -64,5 +64,19 @@ describe(`sbb-action-group`, () => {
         }),
       );
     }
+
+    it(
+      'flex-wrapping',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-action-group style="width: 200px;">
+            <sbb-button>Button</sbb-button>
+            <sbb-button>Button</sbb-button>
+            <sbb-button>Button</sbb-button>
+            <sbb-button>Button</sbb-button>
+          </sbb-action-group>`,
+        );
+      }),
+    );
   });
 });

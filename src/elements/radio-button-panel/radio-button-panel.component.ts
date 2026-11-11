@@ -90,9 +90,11 @@ export class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
             <slot name="suffix"></slot>
           </span>
           <slot name="subtext"></slot>
-          ${this.expansionState
-            ? html`<span class="sbb-screen-reader-only">${this.expansionState}</span>`
-            : nothing}
+          ${
+            this.expansionState
+              ? html`<span class="sbb-screen-reader-only">${this.expansionState}</span>`
+              : nothing
+          }
         </span>
       </div>
     `;

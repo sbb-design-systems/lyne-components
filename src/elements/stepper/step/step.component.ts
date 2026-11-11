@@ -171,19 +171,11 @@ export class SbbStepElement extends SbbElement {
     const composedPathElements = event
       .composedPath()
       .filter((el) => el instanceof window.HTMLElement);
-    if (composedPathElements.some((el) => this._isGoNextElement(el as HTMLElement))) {
+    if (composedPathElements.some((el) => el.hasAttribute('sbb-stepper-next'))) {
       this.stepper?.next();
-    } else if (composedPathElements.some((el) => this._isGoPreviousElement(el as HTMLElement))) {
+    } else if (composedPathElements.some((el) => el.hasAttribute('sbb-stepper-previous'))) {
       this.stepper?.previous();
     }
-  }
-
-  private _isGoNextElement(element: HTMLElement): boolean {
-    return element.hasAttribute('sbb-stepper-next') && !element.hasAttribute('disabled');
-  }
-
-  private _isGoPreviousElement(element: HTMLElement): boolean {
-    return element.hasAttribute('sbb-stepper-previous') && !element.hasAttribute('disabled');
   }
 
   private _onStepElementResize(): void {

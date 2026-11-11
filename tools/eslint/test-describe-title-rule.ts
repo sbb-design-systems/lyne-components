@@ -16,8 +16,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
         }
 
         const titleArgument = expressionArguments[0] as
-          | TSESTree.TemplateLiteral
-          | TSESTree.StringLiteral;
+          TSESTree.TemplateLiteral | TSESTree.StringLiteral;
 
         /**
          * Read full TemplateLiteral raw string

@@ -122,10 +122,10 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
    * this filter.
    */
   @property({ attribute: false })
-  public set dateFilter(value: (date: T | null) => boolean) {
+  public set dateFilter(value: (date: T) => boolean) {
     this._dateFilter = value;
   }
-  public get dateFilter(): (date: T | null) => boolean {
+  public get dateFilter(): (date: T) => boolean {
     return this._dateFilter;
   }
 
@@ -174,7 +174,7 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
     }
   }
 
-  private _dateFilter: (date: T | null) => boolean = () => true;
+  private _dateFilter: (date: T) => boolean = () => true;
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -252,14 +252,17 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
 
   protected override validate(): void {
     super.validate();
+
     if (!this.value) {
       this._removeValidityErrors();
     } else if (!this._dateAdapter.isValid(this.valueAsDate)) {
+      this._removeValidityErrors('badInput');
       this.setValidityFlag('badInput', i18nDateInvalid[this.language.current]);
     } else if (
       this._dateAdapter.isValid(this.min) &&
       this._dateAdapter.compareDate(this.min, this.valueAsDate) > 0
     ) {
+      this._removeValidityErrors('rangeUnderflow');
       this.setValidityFlag(
         'rangeUnderflow',
         i18nDateMin(this._dateAdapter.format(this.min, { weekdayStyle: 'none' }))[
@@ -270,6 +273,7 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
       this._dateAdapter.isValid(this.max) &&
       this._dateAdapter.compareDate(this.valueAsDate, this.max) > 0
     ) {
+      this._removeValidityErrors('rangeOverflow');
       this.setValidityFlag(
         'rangeOverflow',
         i18nDateMax(this._dateAdapter.format(this.max, { weekdayStyle: 'none' }))[
@@ -277,16 +281,17 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
         ],
       );
     } else if (this.dateFilter && !this.dateFilter(this.valueAsDate)) {
+      this._removeValidityErrors('sbbDateFilter');
       this.setValidityFlag('sbbDateFilter', i18nDateInvalid[this.language.current]);
     } else {
       this._removeValidityErrors();
     }
   }
 
-  private _removeValidityErrors(): void {
-    (['badInput', 'rangeUnderflow', 'rangeOverflow', 'sbbDateFilter'] as const).forEach((f) =>
-      this.removeValidityFlag(f),
-    );
+  private _removeValidityErrors(except?: keyof ValidityStateFlags): void {
+    (['badInput', 'rangeUnderflow', 'rangeOverflow', 'sbbDateFilter'] as const)
+      .filter((v) => v !== except)
+      .forEach((f) => this.removeValidityFlag(f));
   }
 }
 
