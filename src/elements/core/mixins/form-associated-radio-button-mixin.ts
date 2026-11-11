@@ -1,4 +1,4 @@
-import { isServer, type PropertyValues } from 'lit';
+import { isServer, type ReactiveController } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../a11y/arrow-navigation.ts';
@@ -27,6 +27,48 @@ export const radioButtonRegistry = new WeakMap<
   Node,
   Map<string, Set<SbbFormAssociatedRadioButtonMixinType>>
 >();
+
+/**
+ * The native radio button places focus on the currently selected
+ * or on the first visible radio button.
+ * As we cannot deterministically detect when an element becomes
+ * visible, we re-check visibility state of radio buttons
+ * on Tab key press.
+ */
+export class SbbFormAssociatedRadioButtonTabindexController implements ReactiveController {
+  private static _state = {
+    elements: new Set<SbbFormAssociatedRadioButtonMixinType>(),
+    handleEvent(event: KeyboardEvent): void {
+      if (event.key === 'Tab') {
+        Array.from(this.elements, (e) => e['associatedRadioButtons'])
+          .filter((v, i, a) => !!v && a.indexOf(v) === i)
+          .forEach((s) => s?.values().next().value?.['updateFocusableRadios']());
+      }
+    },
+  };
+  private _host: SbbFormAssociatedRadioButtonMixinType;
+  private _state = (this.constructor as typeof SbbFormAssociatedRadioButtonTabindexController)
+    ._state;
+
+  public constructor(host: SbbFormAssociatedRadioButtonMixinType) {
+    this._host = host;
+    host.addController(this);
+  }
+
+  public hostConnected(): void {
+    if (!this._state.elements.size) {
+      window.addEventListener('keydown', this._state);
+    }
+    this._state.elements.add(this._host);
+  }
+
+  public hostDisconnected(): void {
+    this._state.elements.delete(this._host);
+    if (!this._state.elements.size) {
+      window.removeEventListener('keydown', this._state);
+    }
+  }
+}
 
 export declare abstract class SbbFormAssociatedRadioButtonMixinType extends SbbDisabledMixin(
   SbbRequiredMixin(SbbFormAssociatedMixin(SbbElement)),
@@ -108,13 +150,29 @@ export const SbbFormAssociatedRadioButtonMixin = <
 
     protected constructor() {
       super();
+      if (!isServer) {
+        this.addController(
+          new SbbFormAssociatedRadioButtonTabindexController(
+            this as unknown as SbbFormAssociatedRadioButtonMixinType,
+          ),
+        );
+      }
       this.addEventListener?.('keydown', (e) => this._handleArrowKeyDown(e));
+    }
+
+    public override focus(options?: FocusOptions): void {
+      if (!this.hasAttribute('tabindex')) {
+        this.tabIndex = -1;
+        this.addEventListener('blur', () => this.removeAttribute('tabindex'), { once: true });
+      }
+      super.focus(options);
     }
 
     public override connectedCallback(): void {
       super.connectedCallback();
       this._connectToRegistry();
       this._synchronizeGroupState();
+      this.updateFocusableRadios();
     }
 
     public override disconnectedCallback(): void {
@@ -152,19 +210,6 @@ export const SbbFormAssociatedRadioButtonMixin = <
     private async _readFormData(formData: FormData): Promise<unknown> {
       const data = formData.get(this.name);
       return data instanceof Blob ? JSON.parse(await data.text()) : data;
-    }
-
-    protected override willUpdate(changedProperties: PropertyValues<this>): void {
-      super.willUpdate(changedProperties);
-
-      if (changedProperties.has('disabled')) {
-        this.updateFocusableRadios();
-      }
-    }
-
-    protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-      super.firstUpdated(changedProperties);
-      this.updateFocusableRadios();
     }
 
     /**
@@ -218,9 +263,6 @@ export const SbbFormAssociatedRadioButtonMixin = <
      * - the first non-disabled radio in DOM order;
      */
     protected updateFocusableRadios(): void {
-      if (!this.hasUpdated) {
-        return;
-      }
       const radios = this._interactableGroupedRadios();
       const checkedIndex = radios.findIndex((r) => r.checked && !r.disabled && !r.formDisabled);
       const focusableIndex =
@@ -257,7 +299,6 @@ export const SbbFormAssociatedRadioButtonMixin = <
       if (this.checked) {
         this._deselectGroupedRadios();
       }
-      this.updateFocusableRadios();
     }
 
     /**

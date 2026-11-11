@@ -63,7 +63,7 @@ export class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
     const radios = Array.from(this.associatedRadioButtons ?? []) as SbbRadioButtonPanelElement[];
 
     radios
-      .filter((r) => !r.disabled && r._hasSelectionPanelElement)
+      .filter((r) => !r.disabled && !r.formDisabled && r._hasSelectionPanelElement)
       .forEach((r) => (r.tabIndex = 0));
   }
 
