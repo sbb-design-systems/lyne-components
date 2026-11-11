@@ -134,6 +134,7 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
   private _closeTimeout?: ReturnType<typeof setTimeout>;
   private _longPressOpenTimeout?: ReturnType<typeof setTimeout>;
   private _longPressCloseTimeout?: ReturnType<typeof setTimeout>;
+  private _isOutsidePointerListenerConnected = false;
 
   public constructor() {
     super();
@@ -251,7 +252,6 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
     super.connectedCallback();
     this.popover = 'manual';
     this.state = 'closed';
-    sbbOverlayOutsidePointerEventListener.connect(this);
 
     if (this.hasUpdated && this.trigger) {
       this._attach(this.trigger);
@@ -260,8 +260,11 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    sbbOverlayOutsidePointerEventListener.disconnect(this);
     this._detach();
+    if (this._isOutsidePointerListenerConnected) {
+      sbbOverlayOutsidePointerEventListener.disconnect(this);
+      this._isOutsidePointerListenerConnected = false;
+    }
   }
 
   public override requestUpdate(
@@ -297,6 +300,7 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
 
     this.showPopover?.();
     this.state = 'opening';
+    this._updateOutsidePointerListener();
     this._overlayController.connect(this.trigger);
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -325,6 +329,7 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
   private _delayedOpen(): void {
     this._resetOpenCloseTimeout();
     this._openTimeout = setTimeout(() => this.open(), this.openDelay);
+    this._updateOutsidePointerListener();
   }
 
   private _handleOpening(): void {
@@ -340,6 +345,7 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
 
   private _handleClosing(): void {
     this.state = 'closed';
+    this._updateOutsidePointerListener();
     this.hidePopover?.();
     this._overlayController.disconnect();
 
@@ -379,7 +385,6 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
 
     // clear timeouts
     this._resetOpenCloseTimeout();
-    clearTimeout(this._longPressOpenTimeout);
     clearTimeout(this._longPressCloseTimeout);
 
     if (!this._triggerElement) {
@@ -446,6 +451,7 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
         clearTimeout(this._longPressOpenTimeout);
         clearTimeout(this._longPressCloseTimeout);
         this._longPressOpenTimeout = setTimeout(() => this.open(), LONGPRESS_DELAY);
+        this._updateOutsidePointerListener();
       },
       options,
     );
@@ -453,7 +459,9 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
       'touchend',
       () => {
         clearTimeout(this._longPressOpenTimeout);
+        this._longPressOpenTimeout = undefined;
         this._longPressCloseTimeout = setTimeout(() => this.close(), this.longPressCloseDelay);
+        this._updateOutsidePointerListener();
       },
       options,
     );
@@ -461,6 +469,8 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
       'touchcancel',
       () => {
         clearTimeout(this._longPressOpenTimeout);
+        this._longPressOpenTimeout = undefined;
+        this._updateOutsidePointerListener();
       },
       options,
     );
@@ -473,6 +483,32 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
   private _resetOpenCloseTimeout(): void {
     clearTimeout(this._openTimeout);
     clearTimeout(this._closeTimeout);
+    // Outside interactions must also cancel pending long-press openings.
+    clearTimeout(this._longPressOpenTimeout);
+    this._openTimeout = undefined;
+    this._closeTimeout = undefined;
+    this._longPressOpenTimeout = undefined;
+    this._updateOutsidePointerListener();
+  }
+
+  private _updateOutsidePointerListener(): void {
+    // Pending hover and long-press openings must also be cancellable by outside interactions.
+    // Keep listening through the closing animation, but not while the tooltip is inactive.
+    const shouldConnect =
+      this.isConnected &&
+      (this.state !== 'closed' ||
+        this._openTimeout !== undefined ||
+        this._longPressOpenTimeout !== undefined);
+    if (shouldConnect === this._isOutsidePointerListenerConnected) {
+      return;
+    }
+
+    this._isOutsidePointerListenerConnected = shouldConnect;
+    if (shouldConnect) {
+      sbbOverlayOutsidePointerEventListener.connect(this);
+    } else {
+      sbbOverlayOutsidePointerEventListener.disconnect(this);
+    }
   }
 
   protected override render(): TemplateResult {
