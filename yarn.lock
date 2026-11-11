@@ -2891,13 +2891,6 @@
   dependencies:
     errorstacks "^2.2.0"
 
-"@web/browser-logs@^0.4.0":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@web/browser-logs/-/browser-logs-0.4.1.tgz#1be4464c9b3dca537b459d49cb1873a6deef0609"
-  integrity sha512-ypmMG+72ERm+LvP+loj9A64MTXvWMXHUOu773cPO4L1SV/VWg6xA9Pv7vkvkXQX+ItJtCJt+KQ+U6ui2HhSFUw==
-  dependencies:
-    errorstacks "^2.4.1"
-
 "@web/browser-logs@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@web/browser-logs/-/browser-logs-1.0.0.tgz#57e3a4dc4ede3f7eac84b412d7c6e33d64f6c8b3"
@@ -2924,7 +2917,7 @@
   resolved "https://registry.yarnpkg.com/@web/config-loader/-/config-loader-1.0.1.tgz#3b16f07b16f1f814cf948ccacf8590c9832a4090"
   integrity sha512-G8Ws3YKHERDw8iYQ3z6kqguvAv6wRJnqyJDwL+9RPMtBmtnUDRbNiue3Whu9SFpCUkcEt3bTKRXpjXPUj+DbQQ==
 
-"@web/dev-server-core@1.0.3", "@web/dev-server-core@^0.4.1", "@web/dev-server-core@^0.7.3", "@web/dev-server-core@^1.0.0", "@web/dev-server-core@^1.0.3":
+"@web/dev-server-core@1.0.3", "@web/dev-server-core@^0.4.1", "@web/dev-server-core@^1.0.0", "@web/dev-server-core@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@web/dev-server-core/-/dev-server-core-1.0.3.tgz#a9d284eaa0d01059d921044e22329b044af4e070"
   integrity sha512-Bw7qYa0gwGeYxycJsni4/o/jpQXlDX2D7V+milPGH1Lras2jMQdF+Dc5rgF8rtbCWqU87zZ3yRexnXHO/pg1+w==
@@ -3015,14 +3008,6 @@
     "@web/test-runner-core" "^0.10.29"
     mkdirp "^1.0.4"
 
-"@web/test-runner-commands@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-commands/-/test-runner-commands-0.9.0.tgz#ed15a021249948204bb27559eb437ff6ceeee067"
-  integrity sha512-zeLI6QdH0jzzJMDV5O42Pd8WLJtYqovgdt0JdytgHc0d1EpzXDsc7NTCJSImboc2NcayIsWAvvGGeRF69SMMYg==
-  dependencies:
-    "@web/test-runner-core" "^0.13.0"
-    mkdirp "^1.0.4"
-
 "@web/test-runner-commands@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@web/test-runner-commands/-/test-runner-commands-1.0.1.tgz#d50bb821be7c69c5b5b629b9306118dd8c87f050"
@@ -3055,38 +3040,6 @@
     ip "^1.1.5"
     istanbul-lib-coverage "^3.0.0"
     istanbul-lib-report "^3.0.0"
-    istanbul-reports "^3.0.2"
-    log-update "^4.0.0"
-    nanocolors "^0.2.1"
-    nanoid "^3.1.25"
-    open "^8.0.2"
-    picomatch "^2.2.2"
-    source-map "^0.7.3"
-
-"@web/test-runner-core@^0.13.0":
-  version "0.13.4"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-core/-/test-runner-core-0.13.4.tgz#df6a76b3e970adbbd3ba39e870f4bf657d6dc43f"
-  integrity sha512-84E1025aUSjvZU1j17eCTwV7m5Zg3cZHErV3+CaJM9JPCesZwLraIa0ONIQ9w4KLgcDgJFw9UnJ0LbFf42h6tg==
-  dependencies:
-    "@babel/code-frame" "^7.12.11"
-    "@types/babel__code-frame" "^7.0.2"
-    "@types/co-body" "^6.1.0"
-    "@types/convert-source-map" "^2.0.0"
-    "@types/debounce" "^1.2.0"
-    "@types/istanbul-lib-coverage" "^2.0.3"
-    "@types/istanbul-reports" "^3.0.0"
-    "@web/browser-logs" "^0.4.0"
-    "@web/dev-server-core" "^0.7.3"
-    chokidar "^4.0.1"
-    cli-cursor "^3.1.0"
-    co-body "^6.1.0"
-    convert-source-map "^2.0.0"
-    debounce "^1.2.0"
-    dependency-graph "^0.11.0"
-    globby "^11.0.1"
-    internal-ip "^6.2.0"
-    istanbul-lib-coverage "^3.0.0"
-    istanbul-lib-report "^3.0.1"
     istanbul-reports "^3.0.2"
     log-update "^4.0.0"
     nanocolors "^0.2.1"
@@ -3186,16 +3139,16 @@
     "@web/test-runner-coverage-v8" "^1.0.1"
     playwright "^1.53.0"
 
-"@web/test-runner-visual-regression@0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-visual-regression/-/test-runner-visual-regression-0.9.0.tgz#9875a4871a24f8bf520c97b80ce548e81bce51e6"
-  integrity sha512-06M1WffLy+BJo08s57RumKYUULD/UB8u7DgZ8/MJZYCt+7r4Vt54w34CwSGHCpeDLY8Z/YkxecafvzDjuLnEJQ==
+"@web/test-runner-visual-regression@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-visual-regression/-/test-runner-visual-regression-1.0.2.tgz#1daf6af424c99e0d2c499d978f819d54c3516618"
+  integrity sha512-RBtbvuSsoy9H94RGByheB2zoXruTqgh617NFENRtJW2MremuFinrqno/bKmo2aCtZHKAcnSbAuSSejjVB0qMzg==
   dependencies:
     "@types/mkdirp" "^1.0.1"
     "@types/pixelmatch" "^5.2.2"
     "@types/pngjs" "^6.0.0"
-    "@web/test-runner-commands" "^0.9.0"
-    "@web/test-runner-core" "^0.13.0"
+    "@web/test-runner-commands" "^1.0.2"
+    "@web/test-runner-core" "^1.0.1"
     mkdirp "^1.0.4"
     pixelmatch "^5.2.1"
     pngjs "^7.0.0"
