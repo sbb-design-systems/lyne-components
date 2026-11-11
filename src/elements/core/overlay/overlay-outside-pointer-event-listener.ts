@@ -34,6 +34,7 @@ export class SbbOverlayOutsidePointerEventListener {
     if (!this._overlays.size) {
       this._abortController?.abort();
       this._abortController = undefined;
+      this._pointerDownEventTarget = undefined;
       if (isIOS) {
         document.body.style.cursor = this._cursorOriginalValue!;
       }
