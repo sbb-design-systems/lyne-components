@@ -1,4 +1,4 @@
-import { isServer } from 'lit';
+import { isServer, type PropertyDeclaration } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../a11y/arrow-navigation.ts';
@@ -41,6 +41,7 @@ export declare abstract class SbbFormAssociatedRadioButtonMixinType extends SbbD
   protected updateFormValue(): void;
   protected updateFocusableRadios(): void;
   protected emitChangeEvents(): void;
+  // TODO(breaking-change): Make synchronous
   protected navigateByKeyboard(radio: SbbFormAssociatedRadioButtonMixinType): Promise<void>;
 }
 
@@ -189,6 +190,17 @@ export const SbbFormAssociatedRadioButtonMixin = <
       }
     }
 
+    public override requestUpdate(
+      name?: PropertyKey,
+      oldValue?: unknown,
+      options?: PropertyDeclaration,
+    ): void {
+      super.requestUpdate(name, oldValue, options);
+      if (name === 'disabled' || name === 'formDisabled' || name === 'checked' || name === 'name') {
+        this.updateFocusableRadios();
+      }
+    }
+
     private async _readFormData(formData: FormData): Promise<unknown> {
       const data = formData.get(this.name);
       return data instanceof Blob ? JSON.parse(await data.text()) : data;
@@ -261,11 +273,10 @@ export const SbbFormAssociatedRadioButtonMixin = <
       radios.forEach((r) => r.removeAttribute('tabindex'));
     }
 
+    // TODO(breaking-change): Make synchronous
     protected async navigateByKeyboard(next: SbbFormAssociatedRadioButtonElement): Promise<void> {
       next.checked = true;
       this.emitChangeEvents();
-
-      await next.updateComplete;
       next.focus();
     }
 

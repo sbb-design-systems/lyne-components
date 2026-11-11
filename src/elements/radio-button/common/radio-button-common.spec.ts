@@ -2,7 +2,7 @@ import { aTimeout, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { a11yTreeSnapshot, fixture } from '../../core/testing/private.ts';
+import { a11yTreeSnapshot, fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
 import { isChromium, isWebkit, radioButtonRegistry } from '../../core.ts';
 import type { SbbRadioButtonPanelElement } from '../../radio-button-panel/radio-button-panel.component.ts';
@@ -652,6 +652,50 @@ describe(`sbb-radio-button-common`, () => {
               expect(elements[2].checked).to.be.false;
               expect(elements[0].checked).to.be.true;
               expect(document.activeElement === elements[0]).to.be.true;
+            });
+
+            it('should skip visibility hidden elements on tab', async () => {
+              const button = document.createElement('button');
+              form.prepend(button);
+              button.focus();
+
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement === elements[0]).to.be.true;
+
+              button.focus();
+              elements[0].style.visibility = 'hidden';
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement === elements[1]).to.be.true;
+
+              button.focus();
+              elements[0].removeAttribute('style');
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement === elements[0]).to.be.true;
+            });
+
+            it('should skip display none elements on tab', async () => {
+              const button = document.createElement('button');
+              form.prepend(button);
+              button.focus();
+
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement === elements[0]).to.be.true;
+
+              button.focus();
+              elements[0].style.display = 'none';
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement === elements[1]).to.be.true;
+
+              button.focus();
+              elements[0].removeAttribute('style');
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement === elements[0]).to.be.true;
+            });
+
+            it('should allow focusing non-tabbable elements', async () => {
+              expect(elements[1].hasAttribute('tabindex')).to.be.false;
+              elements[1].focus();
+              expect(document.activeElement === elements[1]).to.be.true;
             });
           });
 
