@@ -1,7 +1,6 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { ref } from 'lit/directives/ref.js';
 import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
@@ -188,24 +187,6 @@ const ErrorMessageTemplate = (args: Args): TemplateResult => {
   `;
 };
 
-const DelayedVisibilityTemplate = (args: Args): TemplateResult => {
-  let timeout: ReturnType<typeof setTimeout> | undefined;
-
-  // Toggles the visibility of the wrapper after 2 seconds.
-  const scheduleToggle = (element?: Element): void => {
-    clearTimeout(timeout);
-    if (element) {
-      timeout = setTimeout(() => ((element as HTMLElement).hidden = false), 2000);
-    }
-  };
-
-  return html`
-    <div hidden ${ref(scheduleToggle)}>
-      <sbb-radio-button-group ${sbbSpread(args)}>${radioButtons()}</sbb-radio-button-group>
-    </div>
-  `;
-};
-
 export const Horizontal: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
@@ -307,12 +288,6 @@ export const VerticalToHorizontalPanels: StoryObj = {
     orientation: orientation.options![1],
     'horizontal-from': horizontalFrom.options![4],
   },
-};
-
-export const DelayedVisibility: StoryObj = {
-  render: DelayedVisibilityTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
 };
 
 const meta: Meta = {

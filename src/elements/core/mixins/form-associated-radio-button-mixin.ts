@@ -5,6 +5,7 @@ import { getNextElementIndex, isArrowKeyPressed } from '../a11y/arrow-navigation
 import { interactivityChecker } from '../a11y/interactivity-checker.ts';
 import type { SbbElement, SbbElementConstructor } from '../base-elements/element.ts';
 import { SbbLanguageController } from '../controllers/language-controller.ts';
+import { SbbTemporaryFocusController } from '../controllers/temporary-focus-controller.ts';
 import { i18nSelectionRequired } from '../i18n/i18n.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
@@ -148,8 +149,7 @@ export const SbbFormAssociatedRadioButtonMixin = <
      */
     public override focus(options?: FocusOptions): void {
       if (!this.hasAttribute('tabindex')) {
-        this.tabIndex = -1;
-        this.addEventListener('blur', () => this.removeAttribute('tabindex'), { once: true });
+        this.addController(new SbbTemporaryFocusController(this));
       }
       super.focus(options);
     }
