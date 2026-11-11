@@ -16,8 +16,8 @@ $mq-breakpoints: (
   // 1440
   ultra: sbb-tokens.$sbb-breakpoint-ultra-min,
   ultra--max-content: (
-    sbb-tokens.$sbb-breakpoint-ultra-min + (2 * sbb-tokens.$sbb-spacing-fixed-18x)
-  )
+    sbb-tokens.$sbb-breakpoint-ultra-min + (2 * sbb-tokens.$sbb-spacing-fixed-18x),
+  ),
 ) !default;
 $mq-media-type: all !default;
 
