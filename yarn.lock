@@ -2951,17 +2951,17 @@
   dependencies:
     errorstacks "^2.2.0"
 
-"@web/browser-logs@^0.4.0":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@web/browser-logs/-/browser-logs-0.4.1.tgz#1be4464c9b3dca537b459d49cb1873a6deef0609"
-  integrity sha512-ypmMG+72ERm+LvP+loj9A64MTXvWMXHUOu773cPO4L1SV/VWg6xA9Pv7vkvkXQX+ItJtCJt+KQ+U6ui2HhSFUw==
-  dependencies:
-    errorstacks "^2.4.1"
-
 "@web/browser-logs@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@web/browser-logs/-/browser-logs-1.0.0.tgz#57e3a4dc4ede3f7eac84b412d7c6e33d64f6c8b3"
   integrity sha512-hK/pDqdw8SV29QDtFaI/tjU5xBPUCZ2lfi2AnG8NoWZadRJziC5fMDZDR23yWtvqVHyrxJaogBvfOKgzMubSLg==
+  dependencies:
+    errorstacks "^2.4.1"
+
+"@web/browser-logs@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@web/browser-logs/-/browser-logs-1.0.1.tgz#7b27e9e1f65ae8404ce822dce7af69cbd3be962e"
+  integrity sha512-9Dv5P993QBVhu41FvuWM1Sx6l+tQ2tfH03jz1ohtiHxVkhKzXSWH6IQ3QhrvqriG4M5AE9HtxULhBB/uNCQUqg==
   dependencies:
     errorstacks "^2.4.1"
 
@@ -2977,7 +2977,7 @@
   resolved "https://registry.yarnpkg.com/@web/config-loader/-/config-loader-1.0.0.tgz#1b47b2070f1a607ce1c56cea6ead3b00c04da465"
   integrity sha512-qRz0XX0skqymolAJGP7PwefKDkgxZXufb+G+Gj0xioOS6TseMgGvJ6JmB5+4ZWaQFVk5Oie1zerpG7GKMtdxpw==
 
-"@web/dev-server-core@1.0.2", "@web/dev-server-core@^0.4.1", "@web/dev-server-core@^0.7.3", "@web/dev-server-core@^1.0.0":
+"@web/dev-server-core@1.0.2", "@web/dev-server-core@^0.4.1", "@web/dev-server-core@^1.0.0", "@web/dev-server-core@^1.0.3":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@web/dev-server-core/-/dev-server-core-1.0.2.tgz#116fffef19e9335606a801f04bfb6ed1141cc628"
   integrity sha512-LYuHmB8FalYfXbgNXOQJenjsP2ozHTmDZ9S1UHC9kbkkMlNa/WxKadkgO8T4gRruumJfApK1twAUjEFhEWtDlw==
@@ -3068,12 +3068,12 @@
     "@web/test-runner-core" "^0.10.29"
     mkdirp "^1.0.4"
 
-"@web/test-runner-commands@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-commands/-/test-runner-commands-0.9.0.tgz#ed15a021249948204bb27559eb437ff6ceeee067"
-  integrity sha512-zeLI6QdH0jzzJMDV5O42Pd8WLJtYqovgdt0JdytgHc0d1EpzXDsc7NTCJSImboc2NcayIsWAvvGGeRF69SMMYg==
+"@web/test-runner-commands@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-commands/-/test-runner-commands-1.0.2.tgz#036ad43a57305185d9db6d71d6c6338d2eb19647"
+  integrity sha512-ZRjnBAWSJfbCzSMj0iEpWjZ4QlzytIaJoUtHsdwhHoafyVZSNWPsgaTiWueOzlx78G0qm8xxadYViOgko9xhIA==
   dependencies:
-    "@web/test-runner-core" "^0.13.0"
+    "@web/test-runner-core" "^1.0.1"
     mkdirp "^1.0.4"
 
 "@web/test-runner-core@^0.10.29":
@@ -3108,10 +3108,10 @@
     picomatch "^2.2.2"
     source-map "^0.7.3"
 
-"@web/test-runner-core@^0.13.0":
-  version "0.13.4"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-core/-/test-runner-core-0.13.4.tgz#df6a76b3e970adbbd3ba39e870f4bf657d6dc43f"
-  integrity sha512-84E1025aUSjvZU1j17eCTwV7m5Zg3cZHErV3+CaJM9JPCesZwLraIa0ONIQ9w4KLgcDgJFw9UnJ0LbFf42h6tg==
+"@web/test-runner-core@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-core/-/test-runner-core-1.0.0.tgz#24d4a5daa81c1041bfc78720cc90bdc8e7cc64b9"
+  integrity sha512-rn+yYVQGrnr0dW7e/6CjwiefjXAGbQV+ddKJ1PLQ6WOvDAzqPBs7rBYFasy3nkJdgyDRhZStvWtunYGmiR53DA==
   dependencies:
     "@babel/code-frame" "^7.12.11"
     "@types/babel__code-frame" "^7.0.2"
@@ -3120,8 +3120,8 @@
     "@types/debounce" "^1.2.0"
     "@types/istanbul-lib-coverage" "^2.0.3"
     "@types/istanbul-reports" "^3.0.0"
-    "@web/browser-logs" "^0.4.0"
-    "@web/dev-server-core" "^0.7.3"
+    "@web/browser-logs" "^1.0.0"
+    "@web/dev-server-core" "^1.0.0"
     chokidar "^4.0.1"
     cli-cursor "^3.1.0"
     co-body "^6.1.0"
@@ -3137,13 +3137,13 @@
     nanocolors "^0.2.1"
     nanoid "^3.1.25"
     open "^8.0.2"
-    picomatch "^2.2.2"
+    picomatch "^2.3.2"
     source-map "^0.7.3"
 
-"@web/test-runner-core@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-core/-/test-runner-core-1.0.0.tgz#24d4a5daa81c1041bfc78720cc90bdc8e7cc64b9"
-  integrity sha512-rn+yYVQGrnr0dW7e/6CjwiefjXAGbQV+ddKJ1PLQ6WOvDAzqPBs7rBYFasy3nkJdgyDRhZStvWtunYGmiR53DA==
+"@web/test-runner-core@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-core/-/test-runner-core-1.0.1.tgz#a5a5759a61fca2cffd324ef956b98e2c092d0bb0"
+  integrity sha512-CkhMH6ieWwrFjv598jsrfGdnUbDsYjoJqgoSk9VhhOuU1F0/se3wwUdlxZQzsALY6gHT7zpREPiP2wxxjU8rqg==
   dependencies:
     "@babel/code-frame" "^7.12.11"
     "@types/babel__code-frame" "^7.0.2"
@@ -3152,8 +3152,8 @@
     "@types/debounce" "^1.2.0"
     "@types/istanbul-lib-coverage" "^2.0.3"
     "@types/istanbul-reports" "^3.0.0"
-    "@web/browser-logs" "^1.0.0"
-    "@web/dev-server-core" "^1.0.0"
+    "@web/browser-logs" "^1.0.1"
+    "@web/dev-server-core" "^1.0.3"
     chokidar "^4.0.1"
     cli-cursor "^3.1.0"
     co-body "^6.1.0"
@@ -3199,16 +3199,16 @@
     "@web/test-runner-coverage-v8" "^1.0.0"
     playwright "^1.53.0"
 
-"@web/test-runner-visual-regression@0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@web/test-runner-visual-regression/-/test-runner-visual-regression-0.9.0.tgz#9875a4871a24f8bf520c97b80ce548e81bce51e6"
-  integrity sha512-06M1WffLy+BJo08s57RumKYUULD/UB8u7DgZ8/MJZYCt+7r4Vt54w34CwSGHCpeDLY8Z/YkxecafvzDjuLnEJQ==
+"@web/test-runner-visual-regression@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@web/test-runner-visual-regression/-/test-runner-visual-regression-1.0.2.tgz#1daf6af424c99e0d2c499d978f819d54c3516618"
+  integrity sha512-RBtbvuSsoy9H94RGByheB2zoXruTqgh617NFENRtJW2MremuFinrqno/bKmo2aCtZHKAcnSbAuSSejjVB0qMzg==
   dependencies:
     "@types/mkdirp" "^1.0.1"
     "@types/pixelmatch" "^5.2.2"
     "@types/pngjs" "^6.0.0"
-    "@web/test-runner-commands" "^0.9.0"
-    "@web/test-runner-core" "^0.13.0"
+    "@web/test-runner-commands" "^1.0.2"
+    "@web/test-runner-core" "^1.0.1"
     mkdirp "^1.0.4"
     pixelmatch "^5.2.1"
     pngjs "^7.0.0"
