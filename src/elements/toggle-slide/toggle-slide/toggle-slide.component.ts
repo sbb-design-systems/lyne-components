@@ -579,23 +579,22 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
             target: this.checked ? 0 : 1,
             onComplete: () => this._finishActivation(),
           });
+
+          this._confirmationDialogElement?.addEventListener(
+            'focusout',
+            (): void => {
+              // We store the element that receives focus when the dialog is closed
+              this._focusedElementOnDialogClose = document.activeElement;
+            },
+            {
+              once: true,
+              signal: this._confirmationDialogAbortController.signal,
+            },
+          );
         } else {
           this._toggleButtonActiveState(false);
           this._state = 'idle';
           this.focus();
-        }
-      },
-      {
-        signal: this._confirmationDialogAbortController.signal,
-      },
-    );
-
-    this._confirmationDialogElement.addEventListener(
-      'focusout',
-      (): void => {
-        // We store the element that receives focus when the dialog is closed
-        if (this._confirmationDialogElement?.['state'] === 'closed') {
-          this._focusedElementOnDialogClose = document.activeElement;
         }
       },
       {
