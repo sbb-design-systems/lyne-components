@@ -53,17 +53,14 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
     this.selectionElements.forEach((r) => (r.checked = r === toCheck));
   }
   public get value(): T | null {
-    const checked = this.selectionElements.find((r) => r.checked && !r.disabled);
-    if (checked) {
-      return checked.value;
-    }
-    return this._fallbackValue !== undefined ? this._fallbackValue : null;
+    return (
+      this.selectionElements.find((r) => r.checked && !r.disabled)?.value ?? this._fallbackValue
+    );
   }
   /**
    * Used to preserve the `value` in case the radios are not yet 'loaded'.
-   * `undefined` means "not set"; `null` is a valid value (selects a radio with null value).
    */
-  private _fallbackValue: T | null | undefined = undefined;
+  private _fallbackValue: T | null = null;
 
   /** Name for the group. Will be propagated to the child radio buttons. Must be unique if multiple groups are used on the same page. */
   @forceType()
@@ -107,7 +104,7 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
       return;
     }
 
-    this._fallbackValue = undefined; // Since the user interacted, the fallbackValue logic does not apply anymore
+    this._fallbackValue = null; // Since the user interacted, the fallbackValue logic does not apply anymore
 
     /**
      * Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.
@@ -128,7 +125,7 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
    * Mainly used to cover cases where the setter is called before the radios are loaded
    */
   private _updateRadioState(): void {
-    if (this._fallbackValue !== undefined) {
+    if (this._fallbackValue != null) {
       // eslint-disable-next-line no-self-assign
       this.value = this.value;
     }
