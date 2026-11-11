@@ -189,7 +189,7 @@ describe('sbb-tooltip', () => {
       element.close();
       await closeSpy.calledOnce();
 
-      // Während kein Tooltip aktiv ist, empfängt die Registry diesen Klick nicht.
+      // The registry does not receive this click while no tooltip is active.
       document.body.click();
       expect(outsidePointerSpy.count).to.equal(0);
 

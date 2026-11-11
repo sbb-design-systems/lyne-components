@@ -483,6 +483,7 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
   private _resetOpenCloseTimeout(): void {
     clearTimeout(this._openTimeout);
     clearTimeout(this._closeTimeout);
+    // Outside interactions must also cancel pending long-press openings.
     clearTimeout(this._longPressOpenTimeout);
     this._openTimeout = undefined;
     this._closeTimeout = undefined;
@@ -491,8 +492,8 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
   }
 
   private _updateOutsidePointerListener(): void {
-    // Vorgemerkte Öffnungen müssen durch Außenklicks abbrechbar bleiben.
-    // Inaktive Tooltips dürfen dagegen nicht jeden Seitenklick mitverarbeiten.
+    // Pending hover and long-press openings must also be cancellable by outside interactions.
+    // Keep listening through the closing animation, but not while the tooltip is inactive.
     const shouldConnect =
       this.isConnected &&
       (this.state !== 'closed' ||
