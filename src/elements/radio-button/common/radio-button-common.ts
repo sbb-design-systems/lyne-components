@@ -111,15 +111,9 @@ export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<S
       return this.group?.required ?? false;
     }
 
-    private async _handleClick(event: Event): Promise<void> {
+    private _handleClick(event: Event): void {
       event.preventDefault();
       this.select();
-
-      /**
-       * Since only a single radio of a group is focusable at any time, it is possible that the one clicked does not have 'tabindex=0'.
-       * To cover that, we await the next render (which will make the 'checked' radio focusable) and focus the clicked radio
-       */
-      await this.updateComplete; // Wait for 'tabindex' to be updated
       this.focus();
     }
 
