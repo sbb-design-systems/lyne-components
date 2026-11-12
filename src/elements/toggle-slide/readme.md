@@ -27,9 +27,32 @@ Therefore, an accessible name must always be provided separately via `aria-label
 
 ## States
 
-The component can be displayed in `checked` or `disabled` states using the self-named properties.
+The component can be displayed in `checked`, `disabled` or `readonly` states using the self-named properties.
 Any programmatic change of the `checked` property immediately updates the visual position of the button,
 even while the user is currently interacting with the component.
+
+While the component is `readonly`, the user can no longer change its state.
+A lock icon replaces the arrow or tick icon inside the button.
+This is useful if a state change cannot be reverted.
+
+```html
+<sbb-toggle-slide readonly checked aria-label="Signal state">
+  <sbb-toggle-slide-activation-label
+    >To set signal to green pull right</sbb-toggle-slide-activation-label
+  >
+  <sbb-toggle-slide-deactivation-label>The signal is green!</sbb-toggle-slide-deactivation-label>
+</sbb-toggle-slide>
+```
+
+A `readonly` state can also be set programmatically once a state change has been confirmed:
+
+```ts
+toggleSlide.addEventListener('change', () => {
+  if (toggleSlide.checked) {
+    toggleSlide.readOnly = true;
+  }
+});
+```
 
 Like a native checkbox, the component can be marked as `required`; while `required` and unchecked,
 the component is `invalid` (see [Hint and error messages](#hint-and-error-messages) below).
@@ -123,6 +146,45 @@ Once a slide interaction is completed, the component dispatches a cancelable
 `validate` event before actually changing the `checked` state (see [Events](#events) below).
 This allows consumers to prevent or asynchronously confirm the state change,
 e.g. to request a confirmation from a backend service.
+
+### Confirmation dialog
+
+For important scenarios (e.g. safety-relevant actions), a `<sbb-dialog>` can be linked via the
+`confirmation-dialog` attribute (an id reference) or the `confirmationDialog` property.
+When the user triggers the state change by keyboard or screen reader, the dialog is opened first
+instead of changing the state directly. Sliding with a pointer is not affected, as it is already a deliberate interaction.
+
+The dialog must contain a confirmation button that closes the dialog with a positive result
+(`true` boolean or `'true'` string, e.g. `sbb-dialog-close="true"`). In this case, the state change is continued
+and the `validate` event is dispatched as usual. Any other result (or dismissing the dialog) aborts the state change
+and moves the focus back to the component.
+
+```html
+<sbb-toggle-slide
+  confirmation-dialog="confirmation-dialog"
+  aria-label="Should the signal become green?"
+>
+  <sbb-toggle-slide-activation-label
+    >Pull right to set the signal to green</sbb-toggle-slide-activation-label
+  >
+  <sbb-toggle-slide-deactivation-label>The signal is green!</sbb-toggle-slide-deactivation-label>
+</sbb-toggle-slide>
+<sbb-dialog id="confirmation-dialog">
+  <sbb-dialog-content id="confirmation"
+    >Are you sure you want to set the signal to green?</sbb-dialog-content
+  >
+  <sbb-dialog-actions>
+    <sbb-secondary-button
+      sbb-dialog-close="false"
+      sbb-focus-initial
+      aria-describedby="confirmation"
+    >
+      Cancel
+    </sbb-secondary-button>
+    <sbb-button sbb-dialog-close="true" aria-describedby="confirmation">Confirm</sbb-button>
+  </sbb-dialog-actions>
+</sbb-dialog>
+```
 
 ## Events
 
