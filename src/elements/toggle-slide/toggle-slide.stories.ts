@@ -193,28 +193,44 @@ const TemplateWithForm = (args: Args): TemplateResult => html`
 `;
 
 const TemplateWithConfirmationDialog = (args: Args): TemplateResult => html`
-  <sbb-title level="6" style="margin-block-start: 0;">Signal state</sbb-title>
-  <sbb-toggle-slide
-    ${sbbSpread(args)}
-    confirmation-dialog="confirmation-dialog"
-    @change=${(e: Event) => {
-      const toggleSlideElement = e.target as SbbToggleSlideElement;
-      if (toggleSlideElement.checked) {
-        toggleSlideElement.readOnly = true;
-      }
-    }}
-    @validate=${(e: SbbToggleSlideValidateEvent) => {
-      e.preventDefaultConditionally(
-        // Simulate a backend call with a timeout.
-        new Promise((resolve) => setTimeout(() => resolve(true), 1500)),
-      );
-    }}
-  >
-    <sbb-toggle-slide-activation-label>
-      Pull right to set the signal to green
-    </sbb-toggle-slide-activation-label>
-    <sbb-toggle-slide-deactivation-label>The signal is green!</sbb-toggle-slide-deactivation-label>
-  </sbb-toggle-slide>
+  <div>
+    <sbb-title level="6" style="margin-block-start: 0;">Signal state</sbb-title>
+    <sbb-toggle-slide
+      ${sbbSpread(args)}
+      confirmation-dialog="confirmation-dialog"
+      @change=${(e: Event) => {
+        const toggleSlideElement = e.target as SbbToggleSlideElement;
+        if (toggleSlideElement.checked) {
+          toggleSlideElement.readOnly = true;
+        }
+      }}
+      @validate=${(e: SbbToggleSlideValidateEvent) => {
+        e.preventDefaultConditionally(
+          // Simulate a backend call with a timeout.
+          new Promise((resolve) => setTimeout(() => resolve(true), 1500)),
+        );
+      }}
+    >
+      <sbb-toggle-slide-activation-label>
+        Pull right to set the signal to green
+      </sbb-toggle-slide-activation-label>
+      <sbb-toggle-slide-deactivation-label>
+        The signal is green!
+      </sbb-toggle-slide-deactivation-label>
+    </sbb-toggle-slide>
+    <sbb-secondary-button
+      style="margin-block: var(--sbb-spacing-responsive-s); display: flex; width: fit-content;"
+      @click=${(e: Event) => {
+        const toggleSlideElement = (e.currentTarget as HTMLElement).parentElement!.querySelector(
+          'sbb-toggle-slide',
+        )!;
+        toggleSlideElement.checked = false;
+        toggleSlideElement.readOnly = false;
+      }}
+    >
+      Reset
+    </sbb-secondary-button>
+  </div>
   <sbb-dialog id="confirmation-dialog">
     <sbb-dialog-content id="confirmation">
       Are you sure you want to set the signal to green?
@@ -235,9 +251,9 @@ const TemplateWithConfirmationDialog = (args: Args): TemplateResult => html`
 const TemplateReadOnly = ({ checked, ...args }: Args): TemplateResult => html`
   <sbb-title level="6" style="margin-block-start: 0;">Contract</sbb-title>
   <sbb-toggle-slide ${sbbSpread(args)} .checked=${checked}>
-    <sbb-toggle-slide-activation-label
-      >Pull right to sign the contract</sbb-toggle-slide-activation-label
-    >
+    <sbb-toggle-slide-activation-label>
+      Pull right to sign the contract
+    </sbb-toggle-slide-activation-label>
     <sbb-toggle-slide-deactivation-label>
       Contract successfully signed
     </sbb-toggle-slide-deactivation-label>
