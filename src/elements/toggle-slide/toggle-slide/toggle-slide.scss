@@ -18,6 +18,7 @@
   // We transfer the checked state in to a variable with 0 for unchecked and 1 for checked.
   // We then can use this for opacity calculation.
   --_sbb-toggle-slide-checked: 0;
+  --_sbb-toggle-slide-readonly: 0;
 
   // As we want to hide the text "behind" the slided area, starting from the button, we need to calculate a mask.
   // We calculate the start of the gradient based on the toggle slide fraction.
@@ -88,6 +89,10 @@
   --_sbb-toggle-slide-mask-start-current: var(--_sbb-toggle-slide-mask-start-reverse);
 }
 
+:host([readonly]) {
+  --_sbb-toggle-slide-readonly: 1;
+}
+
 .sbb-toggle-slide__track {
   display: flex;
   align-items: center;
@@ -114,6 +119,11 @@
 
   &:not([disabled], [loading]) {
     --sbb-button-cursor: grab;
+  }
+
+  :host([readOnly]) & {
+    // We exclude the static button from any interaction
+    pointer-events: none;
   }
 
   &:active {
@@ -193,12 +203,17 @@ sbb-icon {
   }
 }
 
+sbb-icon[name='lock-closed-small'] {
+  opacity: var(--_sbb-toggle-slide-readonly);
+}
+
+// The checked and unchecked icons should only be displayed if readOnly is not active
 sbb-icon[name='arrow-right-small'] {
-  opacity: calc(1 - var(--_sbb-toggle-slide-checked));
+  opacity: calc((1 - var(--_sbb-toggle-slide-checked)) * (1 - var(--_sbb-toggle-slide-readonly)));
 }
 
 sbb-icon[name='tick-small'] {
-  opacity: var(--_sbb-toggle-slide-checked);
+  opacity: calc(var(--_sbb-toggle-slide-checked) * (1 - var(--_sbb-toggle-slide-readonly)));
 }
 
 @keyframes label-fade-in {

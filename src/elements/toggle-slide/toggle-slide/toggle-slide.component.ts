@@ -25,6 +25,7 @@ import {
   sbbInputModalityDetector,
   SbbLanguageController,
   sbbLiveAnnouncer,
+  SbbReadonlyMixin,
   screenReaderOnlyStyles,
 } from '../../core.ts';
 import type { SbbDialogCloseEvent, SbbDialogElement } from '../../dialog.pure.ts';
@@ -137,7 +138,7 @@ export class SbbToggleSlideValidateEvent extends Event {
  * @overrideType value - (T = string) | null
  */
 export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin(
-  SbbFormAssociatedCheckboxMixin(SbbElement),
+  SbbFormAssociatedCheckboxMixin(SbbReadonlyMixin(SbbElement)),
 ) {
   public static override readonly elementName: string = 'sbb-toggle-slide';
   public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
@@ -226,7 +227,11 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
       if (this._slideFraction !== (this.checked ? 1 : 0)) {
         this._updateFraction(this.checked ? 1 : 0);
       }
-    } else if (name === 'disabled' || name === 'formDisabled') {
+    } else if (name === 'disabled' || name === 'formDisabled' || name === 'readOnly') {
+      if (name === 'readOnly') {
+        // As the ariaReadOnly property is not supported for the switch role, we use ariaDisabled instead.
+        this.internals.ariaDisabled = `${this.readOnly}`;
+      }
       this._cancelAnimation();
       this._resetPointerInteraction();
       this._animateToCheckedState();
@@ -241,13 +246,13 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     this._configureConfirmationDialog();
   }
 
-  private _isDisabled(): boolean {
-    return this.disabled || this.formDisabled;
+  private _immutable(): boolean {
+    return this.disabled || this.formDisabled || this.readOnly;
   }
 
   /** Handles the pointer down event on the slide button. */
   private _handlePointerDown(event: PointerEvent): void {
-    if (!this._isDisabled() && this._state === 'idle') {
+    if (!this._immutable() && this._state === 'idle') {
       this._startPointerSliding(event);
     }
   }
@@ -284,14 +289,14 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     preventScrollOnSpacebarPress(event);
 
     // Pass active state to inner button.
-    if (!this._isDisabled() && this._state === 'idle' && event.key === ' ' && !event.repeat) {
+    if (!this._immutable() && this._state === 'idle' && event.key === ' ' && !event.repeat) {
       this._toggleButtonActiveState(true);
     }
   }
 
   /** Handles the key up event on the toggle slide element. */
   private _handleKeyUp(event: KeyboardEvent): void {
-    if (this._isDisabled() || event.key !== ' ') {
+    if (this._immutable() || event.key !== ' ') {
       return;
     }
     this._startActivation();
@@ -313,7 +318,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
    */
   private _handleClick(event: PointerEvent): void {
     if (
-      !this._isDisabled() &&
+      !this._immutable() &&
       this._state === 'idle' &&
       sbbInputModalityDetector.isScreenReader(event)
     ) {
@@ -342,7 +347,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     if (
       this.checked
         ? this._slideFraction <= 1 - snapThreshold
-        : this._slideFraction >= snapThreshold && !this._isDisabled()
+        : this._slideFraction >= snapThreshold && !this._immutable()
     ) {
       // Animate from snapThreshold to 100% or to 0%
       this._animateToCheckedState({ target: this.checked ? 0 : 1 });
@@ -612,7 +617,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
         <sbb-button-static
           class="sbb-toggle-slide__button"
           ?loading=${this._state === 'validating'}
-          ?disabled=${this._isDisabled()}
+          ?disabled=${this.disabled || this.formDisabled}
           @pointerdown=${this._handlePointerDown}
           @pointermove=${this._handlePointerMove}
           @pointercancel=${this._handlePointerCancel}
@@ -622,6 +627,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
             class="sbb-toggle-slide__icon-wrapper"
             @transitionend=${this._handleIconTransitionEnd}
           >
+            <sbb-icon name="lock-closed-small"></sbb-icon>
             <sbb-icon name="arrow-right-small"></sbb-icon>
             <sbb-icon name="tick-small"></sbb-icon>
           </span>

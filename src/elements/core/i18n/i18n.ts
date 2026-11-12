@@ -940,20 +940,6 @@ export const i18nAutocompleteActionsHint: Record<string, string> = {
   it: 'Usare i tasti freccia destra o sinistra per le azioni disponibili',
 };
 
-export const i18nToggleSlideActivationAborted: Record<string, string> = {
-  de: 'Aktivierung abgebrochen',
-  en: 'Activation aborted',
-  fr: 'Activation annulée',
-  it: 'Attivazione annullata',
-};
-
-export const i18nToggleSlideDeactivationAborted: Record<string, string> = {
-  de: 'Deaktivierung abgebrochen',
-  en: 'Deactivation aborted',
-  fr: 'Désactivation annulée',
-  it: 'Disattivazione annullata',
-};
-
 export const i18nToggleSlideActivated: Record<string, string> = {
   de: 'Aktiviert',
   en: 'Activated',
@@ -980,18 +966,4 @@ export const i18nToggleSlideValidationFailed: Record<string, string> = {
   en: 'Validation failed. Falling back to initial state.',
   fr: 'Échec de la validation. Retour à l’état initial.',
   it: 'Convalida non riuscita. Ritorno allo stato iniziale.',
-};
-
-export const i18nToggleSlidePressAndHoldActivate: Record<string, string> = {
-  de: 'Leertaste gedrückt halten zum Aktivieren.',
-  en: 'Press and hold space bar to activate.',
-  fr: 'Maintenez la barre d’espace enfoncée pour activer.',
-  it: 'Tenere premuta la barra spaziatrice per attivare.',
-};
-
-export const i18nToggleSlidePressAndHoldDeactivate: Record<string, string> = {
-  de: 'Leertaste gedrückt halten zum Deaktivieren.',
-  en: 'Press and hold space bar to deactivate.',
-  fr: 'Maintenez la barre d’espace enfoncée pour désactiver.',
-  it: 'Tenere premuta la barra spaziatrice per disattivare.',
 };

@@ -183,10 +183,16 @@ const TemplateWithForm = (args: Args): TemplateResult => html`
   </form>
 `;
 
-const TemplateWithConfirmDialog = (args: Args): TemplateResult => html`
+const TemplateWithConfirmationDialog = (args: Args): TemplateResult => html`
   <sbb-toggle-slide
     ${sbbSpread(args)}
     confirmation-dialog="confirmation-dialog"
+    @change=${(e: Event) => {
+      const toggleSlideElement = e.target as SbbToggleSlideElement;
+      if (toggleSlideElement.checked) {
+        toggleSlideElement.readOnly = true;
+      }
+    }}
     @validate=${(e: SbbToggleSlideValidateEvent) => {
       e.preventDefaultConditionally(
         // Simulate a backend call with a timeout.
@@ -195,15 +201,15 @@ const TemplateWithConfirmDialog = (args: Args): TemplateResult => html`
     }}
   >
     <sbb-toggle-slide-activation-label>
-      Pull right to set signal to green
+      Pull right to set the signal to green
     </sbb-toggle-slide-activation-label>
-    <sbb-toggle-slide-deactivation-label>Signal is green!</sbb-toggle-slide-deactivation-label>
+    <sbb-toggle-slide-deactivation-label>The signal is green!</sbb-toggle-slide-deactivation-label>
   </sbb-toggle-slide>
   <sbb-dialog id="confirmation-dialog">
     <sbb-dialog-content id="confirmation">
       Are you sure you want to set the signal to green?
     </sbb-dialog-content>
-    <sbb-dialog-actions>
+    <sbb-dialog-actions style="justify-content: space-between">
       <sbb-secondary-button
         sbb-dialog-close="false"
         sbb-focus-initial
@@ -291,8 +297,8 @@ export const WithForm: StoryObj = {
   args: defaultArgs,
 };
 
-export const WithConfirmDialog: StoryObj = {
-  render: TemplateWithConfirmDialog,
+export const WithConfirmationDialog: StoryObj = {
+  render: TemplateWithConfirmationDialog,
   argTypes: defaultArgTypesWithoutChecked,
   args: { ...defaultArgsWithoutChecked, 'aria-label': 'Should the signal become green?' },
 };
