@@ -242,12 +242,12 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     } else if (name === 'disabled' || name === 'formDisabled' || name === 'readOnly') {
       if (name === 'readOnly') {
         // As the ariaReadOnly property is not supported for the switch role, we use ariaDisabled instead.
-        this.internals.ariaDisabled = `${this.readOnly}`;
+        this.internals.ariaDisabled = this.readOnly ? 'true' : null;
       }
       this._cancelAnimation();
       this._resetPointerInteraction();
       this._animateToCheckedState();
-    } else if (!isServer && (!name || name === 'trigger') && this.hasUpdated) {
+    } else if (!isServer && (!name || name === 'confirmationDialog') && this.hasUpdated) {
       this._configureConfirmationDialog();
     }
   }
