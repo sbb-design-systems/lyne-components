@@ -296,7 +296,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
 
   /** Handles the key up event on the toggle slide element. */
   private _handleKeyUp(event: KeyboardEvent): void {
-    if (this._immutable() || event.key !== ' ') {
+    if (this._immutable() || this._state !== 'idle' || event.key !== ' ') {
       return;
     }
     this._startActivation();
