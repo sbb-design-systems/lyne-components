@@ -1,12 +1,12 @@
 /** @entrypoint */
 import {
-  SbbToggleSlideActivationLabelElement,
-  SbbToggleSlideDeactivationLabelElement,
+  SbbToggleSlideUncheckedLabelElement,
+  SbbToggleSlideCheckedLabelElement,
   SbbToggleSlideElement,
 } from './toggle-slide.pure.ts';
 
 export * from './toggle-slide.pure.ts';
 
 SbbToggleSlideElement.define();
-SbbToggleSlideActivationLabelElement.define();
-SbbToggleSlideDeactivationLabelElement.define();
+SbbToggleSlideUncheckedLabelElement.define();
+SbbToggleSlideCheckedLabelElement.define();

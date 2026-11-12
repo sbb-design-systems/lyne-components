@@ -91,8 +91,8 @@ const title = html`<sbb-title level="6" style="margin-block-start: 0;">
 </sbb-title>`;
 
 const labels = html`
-  <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
-  <sbb-toggle-slide-deactivation-label>To stop pull left</sbb-toggle-slide-deactivation-label>
+  <sbb-toggle-slide-unchecked-label>To start pull right</sbb-toggle-slide-unchecked-label>
+  <sbb-toggle-slide-checked-label>To stop pull left</sbb-toggle-slide-checked-label>
 `;
 
 const Template = ({ checked, ...args }: Args): TemplateResult => html`
@@ -211,12 +211,10 @@ const TemplateWithConfirmationDialog = (args: Args): TemplateResult => html`
         );
       }}
     >
-      <sbb-toggle-slide-activation-label>
+      <sbb-toggle-slide-unchecked-label>
         Pull right to set the signal to green
-      </sbb-toggle-slide-activation-label>
-      <sbb-toggle-slide-deactivation-label>
-        The signal is green!
-      </sbb-toggle-slide-deactivation-label>
+      </sbb-toggle-slide-unchecked-label>
+      <sbb-toggle-slide-checked-label> The signal is green! </sbb-toggle-slide-checked-label>
     </sbb-toggle-slide>
     <sbb-secondary-button
       style="margin-block: var(--sbb-spacing-responsive-s); display: flex; width: fit-content;"
@@ -251,12 +249,10 @@ const TemplateWithConfirmationDialog = (args: Args): TemplateResult => html`
 const TemplateReadOnly = ({ checked, ...args }: Args): TemplateResult => html`
   <sbb-title level="6" style="margin-block-start: 0;">Contract</sbb-title>
   <sbb-toggle-slide ${sbbSpread(args)} .checked=${checked}>
-    <sbb-toggle-slide-activation-label>
+    <sbb-toggle-slide-unchecked-label>
       Pull right to sign the contract
-    </sbb-toggle-slide-activation-label>
-    <sbb-toggle-slide-deactivation-label>
-      Contract successfully signed
-    </sbb-toggle-slide-deactivation-label>
+    </sbb-toggle-slide-unchecked-label>
+    <sbb-toggle-slide-checked-label> Contract successfully signed </sbb-toggle-slide-checked-label>
   </sbb-toggle-slide>
 `;
 

@@ -10,14 +10,14 @@ or asynchronously confirm the state change.
 
 ```html
 <sbb-toggle-slide aria-label="Journey check-in" name="check-in" value="checked-in">
-  <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
-  <sbb-toggle-slide-deactivation-label>To stop pull left</sbb-toggle-slide-deactivation-label>
+  <sbb-toggle-slide-unchecked-label>To start pull right</sbb-toggle-slide-unchecked-label>
+  <sbb-toggle-slide-checked-label>To stop pull left</sbb-toggle-slide-checked-label>
 </sbb-toggle-slide>
 ```
 
 ## Slots
 
-The two dedicated `<sbb-toggle-slide-activation-label>` and `<sbb-toggle-slide-deactivation-label>`
+The two dedicated `<sbb-toggle-slide-unchecked-label>` and `<sbb-toggle-slide-checked-label>`
 elements can be slotted into the unnamed slot to provide context-specific labels: the activation label
 is displayed while the component is unchecked, and the deactivation label is displayed while the component is checked.
 
@@ -37,10 +37,10 @@ This is useful if a state change cannot be reverted.
 
 ```html
 <sbb-toggle-slide readonly checked aria-label="Signal state">
-  <sbb-toggle-slide-activation-label
-    >To set signal to green pull right</sbb-toggle-slide-activation-label
+  <sbb-toggle-slide-unchecked-label
+    >To set signal to green pull right</sbb-toggle-slide-unchecked-label
   >
-  <sbb-toggle-slide-deactivation-label>The signal is green!</sbb-toggle-slide-deactivation-label>
+  <sbb-toggle-slide-checked-label>The signal is green!</sbb-toggle-slide-checked-label>
 </sbb-toggle-slide>
 ```
 
@@ -64,7 +64,7 @@ If not set, the size defaults to `s` in the lean theme and to `m` in the standar
 
 ```html
 <sbb-toggle-slide size="l" aria-label="Confirm payment">
-  <sbb-toggle-slide-activation-label>To confirm pull right</sbb-toggle-slide-activation-label>
+  <sbb-toggle-slide-unchecked-label>To confirm pull right</sbb-toggle-slide-unchecked-label>
 </sbb-toggle-slide>
 ```
 
@@ -87,8 +87,8 @@ For assistive technologies, the component's `aria-describedby` attribute should 
     value="checked-in"
     aria-describedby="error"
   >
-    <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
-    <sbb-toggle-slide-deactivation-label>To stop pull left</sbb-toggle-slide-deactivation-label>
+    <sbb-toggle-slide-unchecked-label>To start pull right</sbb-toggle-slide-unchecked-label>
+    <sbb-toggle-slide-checked-label>To stop pull left</sbb-toggle-slide-checked-label>
   </sbb-toggle-slide>
   <sbb-error id="error">Backend check-in failed. Please try again.</sbb-error>
 </span>
@@ -102,8 +102,8 @@ For assistive technologies, the component's `aria-describedby` attribute should 
     value="checked-in"
     aria-describedby="hint"
   >
-    <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
-    <sbb-toggle-slide-deactivation-label>To stop pull left</sbb-toggle-slide-deactivation-label>
+    <sbb-toggle-slide-unchecked-label>To start pull right</sbb-toggle-slide-unchecked-label>
+    <sbb-toggle-slide-checked-label>To stop pull left</sbb-toggle-slide-checked-label>
   </sbb-toggle-slide>
   <sbb-hint id="hint">Activate to start your journey.</sbb-hint>
 </span>
@@ -162,10 +162,10 @@ and moves the focus back to the component.
   confirmation-dialog="confirmation-dialog"
   aria-label="Should the signal become green?"
 >
-  <sbb-toggle-slide-activation-label
-    >Pull right to set the signal to green</sbb-toggle-slide-activation-label
+  <sbb-toggle-slide-unchecked-label
+    >Pull right to set the signal to green</sbb-toggle-slide-unchecked-label
   >
-  <sbb-toggle-slide-deactivation-label>The signal is green!</sbb-toggle-slide-deactivation-label>
+  <sbb-toggle-slide-checked-label>The signal is green!</sbb-toggle-slide-checked-label>
 </sbb-toggle-slide>
 <sbb-dialog id="confirmation-dialog">
   <sbb-dialog-content id="confirmation"
@@ -245,8 +245,8 @@ The type can be specified using the generic type parameter `T` of `SbbToggleSlid
 
 ```html
 <sbb-toggle-slide .value=${{value: 'value', name: 'name'}} name="name" aria-label="Complex value">
-  <sbb-toggle-slide-activation-label>To activate pull right</sbb-toggle-slide-activation-label>
-  <sbb-toggle-slide-deactivation-label>To deactivate pull left</sbb-toggle-slide-deactivation-label>
+  <sbb-toggle-slide-unchecked-label>To activate pull right</sbb-toggle-slide-unchecked-label>
+  <sbb-toggle-slide-checked-label>To deactivate pull left</sbb-toggle-slide-checked-label>
 </sbb-toggle-slide>
 ```
 
@@ -254,21 +254,21 @@ The type can be specified using the generic type parameter `T` of `SbbToggleSlid
 
 ## API Documentation
 
-### class: `SbbToggleSlideActivationLabelElement`, `sbb-toggle-slide-activation-label`
+### class: `SbbToggleSlideUncheckedLabelElement`, `sbb-toggle-slide-unchecked-label`
 
 #### Slots
 
-| Name | Description                                                                          |
-| ---- | ------------------------------------------------------------------------------------ |
-|      | Use the unnamed slot to add text content to the `sbb-toggle-slide-activation-label`. |
+| Name | Description                                                                         |
+| ---- | ----------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add text content to the `sbb-toggle-slide-unchecked-label`. |
 
-### class: `SbbToggleSlideDeactivationLabelElement`, `sbb-toggle-slide-deactivation-label`
+### class: `SbbToggleSlideCheckedLabelElement`, `sbb-toggle-slide-checked-label`
 
 #### Slots
 
-| Name | Description                                                                            |
-| ---- | -------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add text content to the `sbb-toggle-slide-deactivation-label`. |
+| Name | Description                                                                       |
+| ---- | --------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add text content to the `sbb-toggle-slide-checked-label`. |
 
 ### class: `SbbToggleSlideElement`, `sbb-toggle-slide`
 
@@ -309,6 +309,6 @@ The type can be specified using the generic type parameter `T` of `SbbToggleSlid
 
 #### Slots
 
-| Name | Description                                                                                                           |
-| ---- | --------------------------------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to place `sbb-toggle-slide-activation-label` and `sbb-toggle-slide-deactivation-label` elements. |
+| Name | Description                                                                                                     |
+| ---- | --------------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to place `sbb-toggle-slide-unchecked-label` and `sbb-toggle-slide-checked-label` elements. |
