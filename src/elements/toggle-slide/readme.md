@@ -254,14 +254,6 @@ The type can be specified using the generic type parameter `T` of `SbbToggleSlid
 
 ## API Documentation
 
-### class: `SbbToggleSlideUncheckedLabelElement`, `sbb-toggle-slide-unchecked-label`
-
-#### Slots
-
-| Name | Description                                                                         |
-| ---- | ----------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add text content to the `sbb-toggle-slide-unchecked-label`. |
-
 ### class: `SbbToggleSlideCheckedLabelElement`, `sbb-toggle-slide-checked-label`
 
 #### Slots
@@ -312,3 +304,11 @@ The type can be specified using the generic type parameter `T` of `SbbToggleSlid
 | Name | Description                                                                                                     |
 | ---- | --------------------------------------------------------------------------------------------------------------- |
 |      | Use the unnamed slot to place `sbb-toggle-slide-unchecked-label` and `sbb-toggle-slide-checked-label` elements. |
+
+### class: `SbbToggleSlideUncheckedLabelElement`, `sbb-toggle-slide-unchecked-label`
+
+#### Slots
+
+| Name | Description                                                                         |
+| ---- | ----------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add text content to the `sbb-toggle-slide-unchecked-label`. |
