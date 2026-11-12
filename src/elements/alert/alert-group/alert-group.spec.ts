@@ -74,7 +74,7 @@ describe(`sbb-alert-group`, () => {
     // focus should be on sbb-alert-group and accessibility title should still be rendered.
     await waitForCondition(() => element.querySelectorAll('sbb-alert').length === 1);
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(1);
-    expect(element.tabIndex).to.be.equal(0);
+    expect(element.tabIndex).to.be.equal(-1);
     expect(document.activeElement!.id).to.be.equal(alertGroupId);
     expect(
       element.shadowRoot!.querySelector('.sbb-screen-reader-only')!.textContent!.trim(),
@@ -94,7 +94,7 @@ describe(`sbb-alert-group`, () => {
     // focus should be on sbb-alert-group, accessibility title should be removed and empty event should be fired.
     await emptySpy.calledOnce();
     expect(element.querySelectorAll('sbb-alert').length).to.be.equal(0);
-    expect(element.tabIndex).to.be.equal(0);
+    expect(element.tabIndex).to.be.equal(-1);
     expect(document.activeElement!.id).to.be.equal(alertGroupId);
     expect(element.shadowRoot!.querySelector('.sbb-screen-reader-only')).to.be.null;
 
@@ -104,7 +104,7 @@ describe(`sbb-alert-group`, () => {
 
     // Then the active element id should be unset and tabindex should be removed
     expect(document.activeElement!.id).to.be.equal('');
-    expect(element.tabIndex).to.be.equal(-1);
+    expect(element.hasAttribute('tabindex')).to.be.false;
   });
 
   it('should not trigger empty event after initializing with empty sbb-alert-group', async () => {

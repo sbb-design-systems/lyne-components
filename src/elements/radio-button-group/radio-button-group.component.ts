@@ -5,6 +5,8 @@ import { forceType, SbbSelectionGroupBaseElement } from '../core.ts';
 import type { SbbRadioButtonElement } from '../radio-button/radio-button.component.ts';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.pure.ts';
 
+const emptyValue: unique symbol = Symbol('emptyValue');
+
 let nextId = 0;
 
 /**
@@ -47,21 +49,21 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
     if (!this.hasUpdated) {
       return;
     }
-    const toCheck =
-      val == null ? null : this.selectionElements.find((r) => this.compareWith(r.value, val));
+    const toCheck = this.selectionElements.find((r) => this.compareWith(r.value, val));
 
     // Keep radio checked state in sync with the provided value.
     this.selectionElements.forEach((r) => (r.checked = r === toCheck));
   }
   public get value(): T | null {
     return (
-      this.selectionElements.find((r) => r.checked && !r.disabled)?.value ?? this._fallbackValue
+      this.selectionElements.find((r) => r.checked && !r.disabled)?.value ??
+      (this._fallbackValue === emptyValue ? null : this._fallbackValue)
     );
   }
   /**
-   * Used to preserve the `value` in case the radios are not yet 'loaded'
+   * Used to preserve the `value` in case the radios are not yet 'loaded'.
    */
-  private _fallbackValue: T | null = null;
+  private _fallbackValue: T | null | typeof emptyValue = emptyValue;
 
   /** Name for the group. Will be propagated to the child radio buttons. Must be unique if multiple groups are used on the same page. */
   @forceType()
@@ -105,7 +107,7 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
       return;
     }
 
-    this._fallbackValue = null; // Since the user interacted, the fallbackValue logic does not apply anymore
+    this._fallbackValue = emptyValue; // Since the user interacted, the fallbackValue logic does not apply anymore
 
     /**
      * Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.
@@ -126,7 +128,7 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
    * Mainly used to cover cases where the setter is called before the radios are loaded
    */
   private _updateRadioState(): void {
-    if (this._fallbackValue != null) {
+    if (this._fallbackValue !== emptyValue) {
       // eslint-disable-next-line no-self-assign
       this.value = this.value;
     }

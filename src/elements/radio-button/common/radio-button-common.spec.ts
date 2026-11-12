@@ -2,7 +2,7 @@ import { aTimeout, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { a11yTreeSnapshot, fixture } from '../../core/testing/private.ts';
+import { a11yTreeSnapshot, fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
 import { isChromium, isWebkit, radioButtonRegistry } from '../../core.ts';
 import type { SbbRadioButtonPanelElement } from '../../radio-button-panel/radio-button-panel.component.ts';
@@ -228,6 +228,63 @@ describe(`sbb-radio-button-common`, () => {
         await waitForLitRender(element);
 
         expect(element.checked).to.be.false;
+      });
+
+      describe('with null value', () => {
+        let nullElement: SbbRadioButtonElement | SbbRadioButtonPanelElement;
+
+        beforeEach(async () => {
+          /* eslint-disable lit/binding-positions */
+          nullElement = await fixture(
+            html`<${tagSingle} name="null-value-test" .value=${null as string | null}></${tagSingle}>`,
+          );
+          await waitForLitRender(nullElement);
+        });
+
+        it('should be checkable when value is null', async () => {
+          nullElement.click();
+          await waitForLitRender(nullElement);
+
+          expect(nullElement.checked).to.be.true;
+        });
+
+        it('should match null state in formStateRestoreCallback when value is null', async () => {
+          // null state should match a radio with null value
+          nullElement.formStateRestoreCallback(null, 'restore');
+          await waitForLitRender(nullElement);
+
+          expect(nullElement.checked).to.be.true;
+        });
+
+        it('should not check when state is a string and value is null', async () => {
+          // non-null state should not match a radio with null value
+          nullElement.formStateRestoreCallback('some-value', 'restore');
+          await waitForLitRender(nullElement);
+
+          expect(nullElement.checked).to.be.false;
+        });
+
+        it('should not submit form value when null-value radio is unchecked', async () => {
+          const wrappedElement = await fixture(html`
+            <form>
+              <${tagSingle} name="group" .value=${null as string | null}>Null</${tagSingle}>
+              <${tagSingle} name="group" value="a">A</${tagSingle}>
+            </form>
+          `);
+          const radios = Array.from(
+            wrappedElement.querySelectorAll<SbbRadioButtonElement | SbbRadioButtonPanelElement>(
+              selector,
+            ),
+          );
+          await waitForLitRender(wrappedElement);
+
+          // click the null-value radio
+          radios[0].click();
+          await waitForLitRender(wrappedElement);
+
+          expect(radios[0].checked).to.be.true;
+          expect(radios[1].checked).to.be.false;
+        });
       });
 
       it('should ignore interaction when disabled', async () => {
@@ -652,6 +709,50 @@ describe(`sbb-radio-button-common`, () => {
               expect(elements[2].checked).to.be.false;
               expect(elements[0].checked).to.be.true;
               expect(document.activeElement === elements[0]).to.be.true;
+            });
+
+            it('should skip visibility hidden elements on tab', async () => {
+              const button = document.createElement('button');
+              form.prepend(button);
+              button.focus();
+
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement === elements[0]).to.be.true;
+
+              button.focus();
+              elements[0].style.visibility = 'hidden';
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement === elements[1]).to.be.true;
+
+              button.focus();
+              elements[0].removeAttribute('style');
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement === elements[0]).to.be.true;
+            });
+
+            it('should skip display none elements on tab', async () => {
+              const button = document.createElement('button');
+              form.prepend(button);
+              button.focus();
+
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement === elements[0]).to.be.true;
+
+              button.focus();
+              elements[0].style.display = 'none';
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement === elements[1]).to.be.true;
+
+              button.focus();
+              elements[0].removeAttribute('style');
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement === elements[0]).to.be.true;
+            });
+
+            it('should allow focusing non-tabbable elements', async () => {
+              expect(elements[1].hasAttribute('tabindex')).to.be.false;
+              elements[1].focus();
+              expect(document.activeElement === elements[1]).to.be.true;
             });
           });
 
