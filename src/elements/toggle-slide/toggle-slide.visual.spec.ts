@@ -45,7 +45,11 @@ describe(`sbb-toggle-slide`, () => {
   describeViewports({ viewports: ['zero'] }, () => {
     describeEach(
       {
-        disabled: [false, true],
+        states: [
+          { disabled: false, readonly: false },
+          { disabled: true, readonly: false },
+          { disabled: false, readonly: true },
+        ],
         checked: [false, true],
         emulateMedia: [
           { forcedColors: false, darkMode: false },
@@ -53,14 +57,14 @@ describe(`sbb-toggle-slide`, () => {
           { forcedColors: false, darkMode: true },
         ],
       },
-      ({ disabled, checked, emulateMedia: { forcedColors, darkMode } }) => {
+      ({ states: { disabled, readonly }, checked, emulateMedia: { forcedColors, darkMode } }) => {
         for (const state of [visualDiffDefault, visualDiffFocus]) {
           it(
             state.name,
             state.with(async (setup) => {
               await setup.withFixture(
                 html`
-                  <sbb-toggle-slide ?disabled=${disabled} ?checked=${checked}>
+                  <sbb-toggle-slide ?disabled=${disabled} ?checked=${checked} ?readonly=${readonly}>
                     Label
                   </sbb-toggle-slide>
                 `,
