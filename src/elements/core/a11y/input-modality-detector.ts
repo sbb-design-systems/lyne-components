@@ -117,7 +117,7 @@ class SbbInputModalityDetector {
 
   public reset(): void {
     this._updateState('mouse', null);
-    this._setScreenReader(false);
+    this._isScreenReader = false;
     this._lastTouchMs = 0;
   }
 
@@ -136,7 +136,7 @@ class SbbInputModalityDetector {
    * @returns Whether a screen reader is currently assumed to be active.
    */
   public isScreenReader(event?: PointerEvent): boolean {
-    // Escape patch for iOS VoiceOver where instead of the keyboard modality, touch modality is reported.
+    // Escape hatch for iOS VoiceOver where instead of the keyboard modality, touch modality is reported.
     const isScreenReaderClick =
       event &&
       (event.detail === 0 ||
@@ -175,7 +175,7 @@ class SbbInputModalityDetector {
     // Fake mousedown events are fired by some screen readers when controls are activated by the
     // screen reader. Attribute them to keyboard input modality.
     const isFakeMousedown = isFakeMousedownFromScreenReader(event);
-    this._setScreenReader(isFakeMousedown);
+    this._isScreenReader = isFakeMousedown;
     this._updateState(isFakeMousedown ? 'keyboard' : 'mouse', event);
   };
 
@@ -187,12 +187,12 @@ class SbbInputModalityDetector {
     // Same scenario as mentioned in _onMousedown, but on touch screen devices, fake touchstart
     // events are fired. Again, attribute to keyboard input modality.
     if (isFakeTouchstartFromScreenReader(event)) {
-      this._setScreenReader(true);
+      this._isScreenReader = true;
       this._updateState('keyboard', event);
       return;
     }
 
-    this._setScreenReader(false);
+    this._isScreenReader = false;
 
     // Store the timestamp of this touch event, as it's used to distinguish between mouse events
     // triggered via mouse vs touch.
@@ -208,13 +208,6 @@ class SbbInputModalityDetector {
     this._mostRecentModality = modality;
     this._mostRecentTarget = event ? getEventTarget(event) : null;
     document.documentElement.classList.add(`sbb-focus-modality-${this._mostRecentModality}`);
-  }
-
-  private _setScreenReader(isScreenReader: boolean): void {
-    if (this._isScreenReader === isScreenReader) {
-      return;
-    }
-    this._isScreenReader = isScreenReader;
   }
 }
 

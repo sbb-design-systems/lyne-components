@@ -447,7 +447,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
 
       // Set operation to null to allow user interaction again, as the state change is now confirmed.
       this._operation = null;
-      this.toggleByUserInteraction();
+      this.toggleViaUserInteraction();
 
       // On iOS, the screen reader doesn't announce the state change automatically, so we need to announce it manually.
       // Override potential validating announcement with ''.
@@ -621,42 +621,40 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
 
     this._confirmationDialogElement.skipFocusRestoration = true;
     this._confirmationDialogAbortController = new AbortController();
-    this._confirmationDialogElement.addEventListener(
-      'close',
-      (e: Event): void => {
-        const result = (e as SbbDialogCloseEvent<boolean | 'true' | 'false'>).result;
-        if (
-          this._state === 'keyboard-activation' &&
-          result !== null &&
-          (result === true || result === 'true')
-        ) {
-          // Continue the activation if the dialog was closed with a positive result.
-          this._animateToCheckedState({
-            target: this.checked ? 0 : 1,
-            onComplete: () => this._finishActivation(),
-          });
+    this._confirmationDialogElement.addEventListener('close', (e) => this._dialogCloseHandler(e), {
+      signal: this._confirmationDialogAbortController.signal,
+    });
+  }
 
-          this._confirmationDialogElement?.addEventListener(
-            'focusout',
-            (): void => {
-              // We store the element that receives focus when the dialog is closed
-              this._focusedElementOnDialogClose = document.activeElement;
-            },
-            {
-              once: true,
-              signal: this._confirmationDialogAbortController.signal,
-            },
-          );
-        } else {
-          this._toggleButtonActiveState(false);
-          this._endOperation();
-          this.focus();
-        }
-      },
-      {
-        signal: this._confirmationDialogAbortController.signal,
-      },
-    );
+  private _dialogCloseHandler(e: Event): void {
+    const result = (e as SbbDialogCloseEvent<boolean | 'true' | 'false'>).result;
+    if (
+      this._state === 'keyboard-activation' &&
+      result !== null &&
+      (result === true || result === 'true')
+    ) {
+      // Continue the activation if the dialog was closed with a positive result.
+      this._animateToCheckedState({
+        target: this.checked ? 0 : 1,
+        onComplete: () => this._finishActivation(),
+      });
+
+      this._confirmationDialogElement?.addEventListener(
+        'focusout',
+        (): void => {
+          // We store the element that receives focus when the dialog is closed
+          this._focusedElementOnDialogClose = document.activeElement;
+        },
+        {
+          once: true,
+          signal: this._confirmationDialogAbortController.signal,
+        },
+      );
+    } else {
+      this._toggleButtonActiveState(false);
+      this._endOperation();
+      this.focus();
+    }
   }
 
   protected override render(): TemplateResult {

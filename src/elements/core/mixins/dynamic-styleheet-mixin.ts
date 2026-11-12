@@ -4,7 +4,6 @@ import type { AbstractConstructor } from './constructor.ts';
 
 export declare class SbbDynamicStylesheetMixinType {
   protected get dynamicStyleSheet(): CSSStyleSheet | null;
-  protected createHostRules(): CSSStyleRule | null;
 }
 
 /**
@@ -36,14 +35,6 @@ export const SbbDynamicStylesheetMixin = <T extends AbstractConstructor<LitEleme
       }
 
       return renderRoot;
-    }
-
-    protected createHostRules(): CSSStyleRule | null {
-      if (!this._dynamicStyleSheet) {
-        return null;
-      }
-      const index = this._dynamicStyleSheet.insertRule(':host {}');
-      return this._dynamicStyleSheet.cssRules[index] as CSSStyleRule;
     }
   }
 

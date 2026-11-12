@@ -30,7 +30,7 @@ export declare abstract class SbbFormAssociatedCheckboxMixinType extends SbbDisa
 
   protected setupEventListeners: () => void;
   protected isRequiredExternally(): boolean;
-  protected toggleByUserInteraction(): void;
+  protected toggleViaUserInteraction(): void;
   protected withUserInteraction?(): void;
   protected updateFormValue(): void;
 }
@@ -141,7 +141,7 @@ export const SbbFormAssociatedCheckboxMixin = <
 
     /** Binds pointer and keyboard events */
     protected setupEventListeners(): void {
-      this.addEventListener?.('click', this.toggleByUserInteraction);
+      this.addEventListener?.('click', this.toggleViaUserInteraction);
       this.addEventListener?.('keydown', preventScrollOnSpacebarPress);
       this.addEventListener?.('keyup', this._handleKeyboardInteraction);
     }
@@ -183,12 +183,12 @@ export const SbbFormAssociatedCheckboxMixin = <
     /** Method triggered on keyboard user interaction with checkbox. */
     private _handleKeyboardInteraction = (event: KeyboardEvent): void => {
       if (event.key === ' ') {
-        this.toggleByUserInteraction();
+        this.toggleViaUserInteraction();
       }
     };
 
     /** Method triggered on user interaction with checkbox. */
-    protected toggleByUserInteraction = (): void => {
+    protected toggleViaUserInteraction = (): void => {
       if (this.disabled) {
         return;
       }
