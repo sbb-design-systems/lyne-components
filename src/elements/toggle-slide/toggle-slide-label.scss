@@ -1,0 +1,7 @@
+@use '../core/styles' as sbb;
+
+:host {
+  display: block;
+
+  @include sbb.ellipsis;
+}

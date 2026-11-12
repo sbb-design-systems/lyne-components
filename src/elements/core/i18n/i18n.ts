@@ -939,3 +939,31 @@ export const i18nAutocompleteActionsHint: Record<string, string> = {
   fr: 'Appuyez sur les flèches gauche ou droite pour les actions disponibles',
   it: 'Usare i tasti freccia destra o sinistra per le azioni disponibili',
 };
+
+export const i18nToggleSlideActivated: Record<string, string> = {
+  de: 'Aktiviert',
+  en: 'Activated',
+  fr: 'Activé',
+  it: 'Attivato',
+};
+
+export const i18nToggleSlideDeactivated: Record<string, string> = {
+  de: 'Deaktiviert',
+  en: 'Deactivated',
+  fr: 'Désactivé',
+  it: 'Disattivato',
+};
+
+export const i18nToggleSlideValidating: Record<string, string> = {
+  de: 'Validierung',
+  en: 'Validating',
+  fr: 'Validation en cours',
+  it: 'Convalida in corso',
+};
+
+export const i18nToggleSlideValidationFailed: Record<string, string> = {
+  de: 'Validierung fehlgeschlagen. Ausgangszustand wiederhergestellt.',
+  en: 'Validation failed. Falling back to initial state.',
+  fr: 'Échec de la validation. Retour à l’état initial.',
+  it: 'Convalida non riuscita. Ritorno allo stato iniziale.',
+};

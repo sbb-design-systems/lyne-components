@@ -40,6 +40,12 @@ export class SbbToggleCheckElement<T = string> extends SbbIconNameMixin(
   @property({ attribute: 'label-position', reflect: true })
   public accessor labelPosition: 'before' | 'after' = 'after';
 
+  public constructor() {
+    super();
+
+    this.setupEventListeners();
+  }
+
   public override requestUpdate(
     name?: PropertyKey,
     oldValue?: unknown,
