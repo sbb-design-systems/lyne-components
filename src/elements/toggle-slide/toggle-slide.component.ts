@@ -215,8 +215,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   }
 
   public override disconnectedCallback(): void {
-    this._cancelAnimation();
-    this._resetPointerInteraction();
+    this._abortOperation();
 
     super.disconnectedCallback();
   }
@@ -231,7 +230,9 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
       this.internals.ariaChecked = `${this.checked}`;
 
       // A programmatic change always wins and aborts any ongoing user interaction or validation.
-      this._abortOperation();
+      if (!isServer) {
+        this._abortOperation();
+      }
 
       // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a checked state.
       this.toggleState('checked', this.checked);
@@ -239,15 +240,14 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
       if (this._slideFraction !== (this.checked ? 1 : 0)) {
         this._updateFraction(this.checked ? 1 : 0);
       }
-    } else if (name === 'disabled' || name === 'formDisabled' || name === 'readOnly') {
-      if (name === 'readOnly') {
-        // As the ariaReadOnly property is not supported for the switch role, we use ariaDisabled instead.
-        this.internals.ariaDisabled = this.readOnly ? 'true' : null;
-      }
-      if (name !== 'readOnly' || this._state !== 'validating') {
-        this._cancelAnimation();
-        this._resetPointerInteraction();
-        this._animateToCheckedState();
+    } else if (!isServer && (name === 'disabled' || name === 'formDisabled')) {
+      this._abortOperation();
+    } else if (name === 'readOnly') {
+      // As the ariaReadOnly property is not supported for the switch role, we use ariaDisabled instead.
+      this.internals.ariaDisabled = this.readOnly ? 'true' : null;
+
+      if (!isServer && this._state !== 'validating') {
+        this._abortOperation();
       }
     } else if (!isServer && (!name || name === 'confirmationDialog') && this.hasUpdated) {
       this._configureConfirmationDialog();
@@ -271,13 +271,14 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   }
 
   private _abortOperation(): void {
+    this._cancelAnimation();
+
     if (!this._operation) {
       return;
     }
 
     this._operation.abort();
     this._endOperation();
-    this._cancelAnimation();
     this._resetPointerInteraction();
     this._toggleButtonActiveState(false);
     this.internals.ariaBusy = null;
@@ -320,9 +321,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
       return;
     }
 
-    this._resetPointerInteraction();
-    this._endOperation();
-    this._animateToCheckedState();
+    this._abortOperation();
   }
 
   /** Handles the key down event on the toggle slide element. */
@@ -489,7 +488,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     }
 
     this._announce(i18nToggleSlideValidating[this._language.current]);
-    return await validateEvent.condition.catch(() => false);
+    return (await validateEvent.condition.catch(() => false)) && validateResult;
   }
 
   private _updatePosition(event: PointerEvent): void {
@@ -612,6 +611,9 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
       return;
     }
 
+    if (this._confirmationDialogElement?.isOpen) {
+      this._confirmationDialogElement.close();
+    }
     this._confirmationDialogAbortController.abort();
     this._confirmationDialogElement = this.confirmationDialog;
 
