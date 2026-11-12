@@ -7,6 +7,7 @@ import {
   isEventPrevented,
   SbbElement,
   type SbbHeadingLevel,
+  SbbTemporaryFocusController,
   screenReaderOnlyStyles,
 } from '../../core.ts';
 import type { SbbAlertElement } from '../alert/alert.component.ts';
@@ -69,14 +70,12 @@ export class SbbAlertGroupElement extends SbbElement {
 
     // Restore focus
     if (hasFocusInsideAlertGroup) {
-      // Set tabindex to 0 the make it focusable and afterward focus it.
-      // This is done to not completely lose focus after removal of an alert.
-      // Once the sbb-alert-group was blurred, make the alert group not focusable again.
-      this.tabIndex = 0;
+      // Avoid completely losing focus after removal of an alert
+      // by temporarily making the alert group focusable.
+      if (!this.hasAttribute('tabindex')) {
+        this.addController(new SbbTemporaryFocusController(this));
+      }
       this.focus();
-      this.addEventListener('blur', () => this.removeAttribute('tabindex'), {
-        once: true,
-      });
     }
   }
 

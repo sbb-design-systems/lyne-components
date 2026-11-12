@@ -1,10 +1,11 @@
-import { isServer, type PropertyValues } from 'lit';
+import { isServer, type PropertyDeclaration } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../a11y/arrow-navigation.ts';
 import { interactivityChecker } from '../a11y/interactivity-checker.ts';
 import type { SbbElement, SbbElementConstructor } from '../base-elements/element.ts';
 import { SbbLanguageController } from '../controllers/language-controller.ts';
+import { SbbTemporaryFocusController } from '../controllers/temporary-focus-controller.ts';
 import { i18nSelectionRequired } from '../i18n/i18n.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
@@ -41,6 +42,7 @@ export declare abstract class SbbFormAssociatedRadioButtonMixinType extends SbbD
   protected updateFormValue(): void;
   protected updateFocusableRadios(): void;
   protected emitChangeEvents(): void;
+  // TODO(breaking-change): Make synchronous
   protected navigateByKeyboard(radio: SbbFormAssociatedRadioButtonMixinType): Promise<void>;
 }
 
@@ -58,6 +60,36 @@ export const SbbFormAssociatedRadioButtonMixin = <
     implements Partial<SbbFormAssociatedRadioButtonMixinType>
   {
     public static override readonly role = 'radio';
+
+    /**
+     * The native radio button places focus on the currently selected
+     * or, with no selected option, on the first visible radio button.
+     * As we cannot deterministically detect when an element becomes
+     * visible, we re-check visibility state of radio buttons
+     * on Tab key press.
+     */
+    private static readonly _tabindexState = {
+      elements: new Set<SbbFormAssociatedRadioButtonElement>(),
+      handleEvent(event: KeyboardEvent): void {
+        if (event.key === 'Tab') {
+          Array.from(this.elements, (e) => e.associatedRadioButtons)
+            .filter((v, i, a) => !!v && a.indexOf(v) === i)
+            .forEach((s) => s?.values().next().value?.updateFocusableRadios());
+        }
+      },
+      add(element: SbbFormAssociatedRadioButtonElement) {
+        if (!this.elements.size) {
+          window.addEventListener('keydown', this, { passive: true });
+        }
+        this.elements.add(element);
+      },
+      delete(element: SbbFormAssociatedRadioButtonElement) {
+        this.elements.delete(element);
+        if (!this.elements.size) {
+          window.removeEventListener('keydown', this);
+        }
+      },
+    };
 
     /**
      * Whether the radio button is checked.
@@ -105,16 +137,28 @@ export const SbbFormAssociatedRadioButtonMixin = <
     protected associatedRadioButtons?: Set<SbbFormAssociatedRadioButtonElement>;
     private _radioButtonGroupsMap?: Map<string, Set<SbbFormAssociatedRadioButtonMixinType>>;
     private _languageController = new SbbLanguageController(this);
+    private _tabindexState = SbbFormAssociatedRadioButtonElement._tabindexState;
 
     protected constructor() {
       super();
       this.addEventListener?.('keydown', (e) => this._handleArrowKeyDown(e));
     }
 
+    /**
+     * @internal
+     */
+    public override focus(options?: FocusOptions): void {
+      if (!this.hasAttribute('tabindex')) {
+        this.addController(new SbbTemporaryFocusController(this));
+      }
+      super.focus(options);
+    }
+
     public override connectedCallback(): void {
       super.connectedCallback();
       this._connectToRegistry();
       this._synchronizeGroupState();
+      this.updateFocusableRadios();
     }
 
     public override disconnectedCallback(): void {
@@ -149,22 +193,20 @@ export const SbbFormAssociatedRadioButtonMixin = <
       }
     }
 
-    private async _readFormData(formData: FormData): Promise<unknown> {
-      const data = formData.get(this.name);
-      return data instanceof Blob ? JSON.parse(await data.text()) : data;
-    }
-
-    protected override willUpdate(changedProperties: PropertyValues<this>): void {
-      super.willUpdate(changedProperties);
-
-      if (changedProperties.has('disabled')) {
+    public override requestUpdate(
+      name?: PropertyKey,
+      oldValue?: unknown,
+      options?: PropertyDeclaration,
+    ): void {
+      super.requestUpdate(name, oldValue, options);
+      if (name === 'disabled' || name === 'formDisabled' || name === 'checked' || name === 'name') {
         this.updateFocusableRadios();
       }
     }
 
-    protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-      super.firstUpdated(changedProperties);
-      this.updateFocusableRadios();
+    private async _readFormData(formData: FormData): Promise<unknown> {
+      const data = formData.get(this.name);
+      return data instanceof Blob ? JSON.parse(await data.text()) : data;
     }
 
     /**
@@ -218,9 +260,6 @@ export const SbbFormAssociatedRadioButtonMixin = <
      * - the first non-disabled radio in DOM order;
      */
     protected updateFocusableRadios(): void {
-      if (!this.hasUpdated) {
-        return;
-      }
       const radios = this._interactableGroupedRadios();
       const checkedIndex = radios.findIndex((r) => r.checked && !r.disabled && !r.formDisabled);
       const focusableIndex =
@@ -237,11 +276,10 @@ export const SbbFormAssociatedRadioButtonMixin = <
       radios.forEach((r) => r.removeAttribute('tabindex'));
     }
 
+    // TODO(breaking-change): Make synchronous
     protected async navigateByKeyboard(next: SbbFormAssociatedRadioButtonElement): Promise<void> {
       next.checked = true;
       this.emitChangeEvents();
-
-      await next.updateComplete;
       next.focus();
     }
 
@@ -257,7 +295,6 @@ export const SbbFormAssociatedRadioButtonMixin = <
       if (this.checked) {
         this._deselectGroupedRadios();
       }
-      this.updateFocusableRadios();
     }
 
     /**
@@ -306,6 +343,7 @@ export const SbbFormAssociatedRadioButtonMixin = <
 
       // Repopulate the Set
       entries.forEach((r) => this.associatedRadioButtons!.add(r));
+      this._tabindexState.add(this);
 
       this.validate();
     }
@@ -314,6 +352,7 @@ export const SbbFormAssociatedRadioButtonMixin = <
      * Remove `this` from the radioButton registry and, if the group is empty, delete the entry from the groups Map
      */
     private _disconnectFromRegistry(previousName: string): void {
+      this._tabindexState.delete(this);
       this.associatedRadioButtons?.delete(this);
 
       if (this.associatedRadioButtons?.size === 0) {
