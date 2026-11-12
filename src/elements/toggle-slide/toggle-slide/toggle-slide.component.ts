@@ -186,6 +186,9 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   private _confirmationDialogAbortController: AbortController = new AbortController();
   private _focusedElementOnDialogClose: Element | null = null;
 
+  /** Exists as long as a user interaction or validation is in progress. */
+  private _operation: AbortController | null = null;
+
   public constructor() {
     super();
 
@@ -221,6 +224,9 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     if (name === 'checked') {
       this.internals.ariaChecked = `${this.checked}`;
 
+      // A programmatic change always wins and aborts any ongoing user interaction or validation.
+      this._abortOperation();
+
       // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a checked state.
       this.toggleState('checked', this.checked);
 
@@ -244,6 +250,33 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     super.firstUpdated(changedProperties);
 
     this._configureConfirmationDialog();
+  }
+
+  private _beginOperation(): AbortController {
+    this._operation = new AbortController();
+    return this._operation;
+  }
+
+  private _endOperation(): void {
+    this._operation = null;
+    this._state = 'idle';
+  }
+
+  private _abortOperation(): void {
+    if (!this._operation) {
+      return;
+    }
+
+    this._operation.abort();
+    this._endOperation();
+    this._cancelAnimation();
+    this._resetPointerInteraction();
+    this._toggleButtonActiveState(false);
+    this.internals.ariaBusy = null;
+    if (this._confirmationDialogElement?.isOpen) {
+      this._confirmationDialogElement.close();
+    }
+    this._animateToCheckedState();
   }
 
   private _immutable(): boolean {
@@ -280,7 +313,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     }
 
     this._resetPointerInteraction();
-    this._state = 'idle';
+    this._endOperation();
     this._animateToCheckedState();
   }
 
@@ -330,6 +363,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   private _startPointerSliding(event: PointerEvent): void {
     this._resetPointerInteraction();
     this._cancelAnimation();
+    this._beginOperation();
     this._state = 'pointer-sliding';
 
     const button = event.currentTarget as HTMLElement;
@@ -353,12 +387,13 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
       this._animateToCheckedState({ target: this.checked ? 0 : 1 });
       this._validate();
     } else {
-      this._state = 'idle';
+      this._endOperation();
       this._animateToCheckedState();
     }
   }
 
   private _startActivation(): void {
+    this._beginOperation();
     this._state = 'keyboard-activation';
     this._toggleButtonActiveState(true);
 
@@ -391,11 +426,20 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     this._state = 'validating';
     this.internals.ariaBusy = 'true';
 
+    const operation = this._operation ?? this._beginOperation();
     const success = await this._dispatchValidateEvent();
+    if (operation.signal.aborted) {
+      // Aborted by a programmatic change in the meantime.
+      return;
+    }
+
     if (success) {
       // The label fade-in and icon animation should only occur on user interaction, so we need to set the state here.
       this.toggleState('label-fade', true);
       this.toggleState('icon-transition', true);
+
+      // Set operation to null to allow user interaction again, as the state change is now confirmed.
+      this._operation = null;
       this.toggleByUserInteraction();
 
       // On iOS, the screen reader doesn't announce the state change automatically, so we need to announce it manually.
@@ -426,7 +470,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     }
 
     this.internals.ariaBusy = null;
-    this._state = 'idle';
+    this._endOperation();
   }
 
   private async _dispatchValidateEvent(): Promise<boolean> {
@@ -598,7 +642,7 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
           );
         } else {
           this._toggleButtonActiveState(false);
-          this._state = 'idle';
+          this._endOperation();
           this.focus();
         }
       },
