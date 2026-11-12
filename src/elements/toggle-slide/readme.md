@@ -198,6 +198,10 @@ while the promise is pending, the component displays a loading state,
 and if the promise resolves to `false` or rejects, the state change is reverted.
 Without any handling of the `validate` event, the state change is always immediately applied.
 
+A programmatic change of `checked` (e.g. by a form reset) always takes precedence:
+any ongoing slide, keyboard activation, open confirmation dialog or pending validation is aborted
+and its result is ignored.
+
 ```ts
 toggleSlide.addEventListener('validate', (event: SbbToggleSlideValidateEvent) => {
   event.preventDefaultConditionally(fetch('/api/confirm-check-in').then((response) => response.ok));
