@@ -85,13 +85,12 @@ For assistive technologies, the component's `aria-describedby` attribute should 
     aria-label="Journey check-in"
     name="check-in"
     value="checked-in"
-    aria-describedby="error instruction"
+    aria-describedby="error"
   >
     <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
     <sbb-toggle-slide-deactivation-label>To stop pull left</sbb-toggle-slide-deactivation-label>
   </sbb-toggle-slide>
   <sbb-error id="error">Backend check-in failed. Please try again.</sbb-error>
-  <span id="instruction" class="sbb-screen-reader-only">${additionalAriaDescribedByAction}</span>
 </span>
 ```
 
@@ -101,13 +100,12 @@ For assistive technologies, the component's `aria-describedby` attribute should 
     aria-label="Journey check-in"
     name="check-in"
     value="checked-in"
-    aria-describedby="hint instruction"
+    aria-describedby="hint"
   >
     <sbb-toggle-slide-activation-label>To start pull right</sbb-toggle-slide-activation-label>
     <sbb-toggle-slide-deactivation-label>To stop pull left</sbb-toggle-slide-deactivation-label>
   </sbb-toggle-slide>
   <sbb-hint id="hint">Activate to start your journey.</sbb-hint>
-  <span id="instruction" class="sbb-screen-reader-only">${additionalAriaDescribedByAction}</span>
 </span>
 ```
 
@@ -224,15 +222,17 @@ It's mandatory to provide an accessible name for the component, either via `aria
 since the slotted labels are not exposed to assistive technology (see [Slots](#slots) above).
 
 When using a screen reader on a touch device (e.g. VoiceOver on iOS or TalkBack), the state can be
-changed with a double-tap gesture instead of sliding, like for a native switch; a second double-tap
-while the action is in progress aborts it.
+changed with a double-tap gesture instead of sliding, like for a native switch.
 
-For NVDA and JAWS on Windows, activating the component (e.g. via a single <kbd>Space</kbd> or
-<kbd>Enter</kbd> key press) synthesizes a click event, which is handled the same way as the
-double-tap gesture above: it starts the state change automatically and triggers the
-state change.
+For NVDA and JAWS on Windows, activating the component (e.g. via <kbd>Space</kbd> or
+<kbd>Enter</kbd>) synthesizes a click event, which is handled the same way as the
+double-tap gesture above and initiates the state change.
 
-All state changes are announced by the screen reader.
+If a [confirmation dialog](#confirmation-dialog) is linked, it is opened before the state is changed.
+
+The state is exposed via `aria-checked`. While the `validate` event is pending, the component
+is marked as busy via `aria-busy`. A pending asynchronous validation and a failed validation are
+announced by a live region.
 
 ## Complex Values
 
@@ -240,7 +240,10 @@ This component supports any types of values, including complex objects.
 The type can be specified using the generic type parameter `T` of `SbbToggleSlide<T>`.
 
 ```html
-<sbb-toggle-slide .value=${{value: 'value', name: 'name'}} name="name">Toggle Slide</sbb-toggle-slide>
+<sbb-toggle-slide .value=${{value: 'value', name: 'name'}} name="name" aria-label="Complex value">
+  <sbb-toggle-slide-activation-label>To activate pull right</sbb-toggle-slide-activation-label>
+  <sbb-toggle-slide-deactivation-label>To deactivate pull left</sbb-toggle-slide-deactivation-label>
+</sbb-toggle-slide>
 ```
 
 <!-- Auto Generated Below -->
