@@ -274,6 +274,10 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
     this._cancelAnimation();
 
     if (!this._operation) {
+      // Disabling the control or setting readOnly during a rollback can leave the handle permanently between its endpoint.
+      // To prevent this, we need to reset the fraction to the checked state.
+      // In this rare case we want to skip the animation.
+      this._updateFraction(this.checked ? 1 : 0);
       return;
     }
 
