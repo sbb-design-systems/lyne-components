@@ -119,12 +119,18 @@ export class SbbToggleSlideValidateEvent extends Event {
  *       └────────────────┘
  *
  *
- *   Any active pointer state
+ *  SLIDING / KEYBOARD-ACTIVATION
  *           │
- *           │ pointercancel / blur
+ *           │ pointercancel / disabled / readonly / disconnected / blur (interrupt)
  *           ▼
  *          IDLE
  *        + animate back
+ *
+ *   Any state except IDLE
+ *           │
+ *           │ programmatic checked change (abort)
+ *           ▼
+ *          IDLE
  */
 
 /**
@@ -347,7 +353,6 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
   /**
    * Handles click events triggered by accessibility tools like VoiceOver on iOS or TalkBack double-tap.
    * On mobile screen readers we can only activate by double-tap.
-   * During activation, another double-tap will abort the activation.
    */
   private _handleClick(event: PointerEvent): void {
     if (
