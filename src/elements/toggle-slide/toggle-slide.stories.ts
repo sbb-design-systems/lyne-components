@@ -40,6 +40,12 @@ const disabled: InputType = {
   },
 };
 
+const readonly: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const value: InputType = {
   control: {
     type: 'text',
@@ -52,30 +58,32 @@ const name: InputType = {
   },
 };
 
-const defaultArgTypesWithoutChecked: ArgTypes = {
+const defaultArgTypesWithoutStates: ArgTypes = {
   size,
   'aria-label': ariaLabel,
-  disabled,
   value,
   name,
 };
 
 const defaultArgTypes: ArgTypes = {
-  ...defaultArgTypesWithoutChecked,
+  ...defaultArgTypesWithoutStates,
   checked,
+  disabled,
+  readonly,
 };
 
-const defaultArgsWithoutChecked: Args = {
+const defaultArgsWithoutStates: Args = {
   size: undefined,
   'aria-label': 'Journey check-in state',
-  disabled: false,
   value: 'Value',
   name: 'name',
 };
 
 const defaultArgs: Args = {
-  ...defaultArgsWithoutChecked,
+  ...defaultArgsWithoutStates,
   checked: false,
+  readonly: false,
+  disabled: false,
 };
 
 const title = html`<sbb-title level="6" style="margin-block-start: 0;">
@@ -93,6 +101,7 @@ const Template = ({ checked, ...args }: Args): TemplateResult => html`
 `;
 
 const TemplateWithAsynchronousValidation = ({ checked, ...args }: Args): TemplateResult => html`
+  ${title}
   <sbb-toggle-slide
     ${sbbSpread(args)}
     .checked=${checked}
@@ -184,6 +193,7 @@ const TemplateWithForm = (args: Args): TemplateResult => html`
 `;
 
 const TemplateWithConfirmationDialog = (args: Args): TemplateResult => html`
+  <sbb-title level="6" style="margin-block-start: 0;">Signal state</sbb-title>
   <sbb-toggle-slide
     ${sbbSpread(args)}
     confirmation-dialog="confirmation-dialog"
@@ -220,6 +230,18 @@ const TemplateWithConfirmationDialog = (args: Args): TemplateResult => html`
       <sbb-button sbb-dialog-close="true" aria-describedby="confirmation">Confirm</sbb-button>
     </sbb-dialog-actions>
   </sbb-dialog>
+`;
+
+const TemplateReadOnly = ({ checked, ...args }: Args): TemplateResult => html`
+  <sbb-title level="6" style="margin-block-start: 0;">Contract</sbb-title>
+  <sbb-toggle-slide ${sbbSpread(args)} .checked=${checked}>
+    <sbb-toggle-slide-activation-label
+      >Pull right to sign the contract</sbb-toggle-slide-activation-label
+    >
+    <sbb-toggle-slide-deactivation-label>
+      Contract successfully signed
+    </sbb-toggle-slide-deactivation-label>
+  </sbb-toggle-slide>
 `;
 
 export const Default: StoryObj = {
@@ -264,12 +286,14 @@ export const Checked: StoryObj = {
   },
 };
 
-export const Disabled: StoryObj = {
-  render: Template,
+export const ReadonlyChecked: StoryObj = {
+  render: TemplateReadOnly,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    disabled: true,
+    'aria-label': 'Sign contract',
+    readonly: true,
+    checked: true,
   },
 };
 
@@ -299,8 +323,8 @@ export const WithForm: StoryObj = {
 
 export const WithConfirmationDialog: StoryObj = {
   render: TemplateWithConfirmationDialog,
-  argTypes: defaultArgTypesWithoutChecked,
-  args: { ...defaultArgsWithoutChecked, 'aria-label': 'Should the signal become green?' },
+  argTypes: defaultArgTypesWithoutStates,
+  args: { ...defaultArgsWithoutStates, 'aria-label': 'Should the signal become green?' },
 };
 
 const meta: Meta = {
