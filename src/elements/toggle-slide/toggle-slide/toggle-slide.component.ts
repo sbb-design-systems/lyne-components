@@ -244,9 +244,11 @@ export class SbbToggleSlideElement<T = string> extends SbbDynamicStylesheetMixin
         // As the ariaReadOnly property is not supported for the switch role, we use ariaDisabled instead.
         this.internals.ariaDisabled = this.readOnly ? 'true' : null;
       }
-      this._cancelAnimation();
-      this._resetPointerInteraction();
-      this._animateToCheckedState();
+      if (name !== 'readOnly' || this._state !== 'validating') {
+        this._cancelAnimation();
+        this._resetPointerInteraction();
+        this._animateToCheckedState();
+      }
     } else if (!isServer && (!name || name === 'confirmationDialog') && this.hasUpdated) {
       this._configureConfirmationDialog();
     }
