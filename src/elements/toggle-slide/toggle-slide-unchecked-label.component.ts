@@ -1,7 +1,8 @@
 import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 
-import { SbbElement } from '../../core.ts';
-import { toggleSlideLabelStyles } from '../toggle-slide-label-styles.ts';
+import { SbbElement } from '../core.ts';
+
+import { toggleSlideLabelStyles } from './toggle-slide-label-styles.ts';
 
 /**
  * It displays the label shown while activating a `sbb-toggle-slide` (i.e. while sliding it towards the checked state).

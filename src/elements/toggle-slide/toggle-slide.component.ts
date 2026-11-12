@@ -9,7 +9,7 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbButtonStaticElement } from '../../button.pure.ts';
+import { SbbButtonStaticElement } from '../button.pure.ts';
 import {
   i18nToggleSlideActivated,
   i18nToggleSlideDeactivated,
@@ -27,9 +27,9 @@ import {
   sbbLiveAnnouncer,
   SbbReadonlyMixin,
   screenReaderOnlyStyles,
-} from '../../core.ts';
-import type { SbbDialogCloseEvent, SbbDialogElement } from '../../dialog.pure.ts';
-import { SbbIconElement } from '../../icon.pure.ts';
+} from '../core.ts';
+import type { SbbDialogCloseEvent, SbbDialogElement } from '../dialog.pure.ts';
+import { SbbIconElement } from '../icon.pure.ts';
 
 import style from './toggle-slide.scss?inline';
 
