@@ -121,7 +121,9 @@
     --sbb-button-cursor: grab;
   }
 
-  :host([readOnly]) & {
+  :host([readonly]) & {
+    --sbb-button-box-shadow: none;
+
     // We exclude the static button from any interaction
     pointer-events: none;
   }
