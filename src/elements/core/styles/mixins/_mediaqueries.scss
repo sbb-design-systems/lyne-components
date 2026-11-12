@@ -6,6 +6,7 @@
 @use 'sass:string';
 @use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss' as sbb-tokens;
 
+$ultra-max-content: sbb-tokens.$sbb-breakpoint-ultra-min + (2 * sbb-tokens.$sbb-spacing-fixed-18x);
 $mq-breakpoints: (
   // 0
   zero: sbb-tokens.$sbb-breakpoint-zero-min,
@@ -15,9 +16,7 @@ $mq-breakpoints: (
   large: sbb-tokens.$sbb-breakpoint-large-min,
   // 1440
   ultra: sbb-tokens.$sbb-breakpoint-ultra-min,
-  ultra--max-content: (
-    sbb-tokens.$sbb-breakpoint-ultra-min + (2 * sbb-tokens.$sbb-spacing-fixed-18x)
-  )
+  ultra--max-content: $ultra-max-content,
 ) !default;
 $mq-media-type: all !default;
 
