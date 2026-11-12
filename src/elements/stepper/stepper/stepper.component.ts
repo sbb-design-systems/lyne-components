@@ -276,9 +276,10 @@ export class SbbStepperElement extends SbbElement {
 
     this._setMarkerSize();
     this._setStepperHeight(step);
+    // Disabling the previously selected label can cause the browser to drop focus.
+    const focusInsideStepper = document.activeElement?.closest('sbb-stepper') === this;
     this._configureLinearMode();
-    // In case the focus is currently inside the stepper, we focus the selected step label.
-    if (document.activeElement?.closest('sbb-stepper') === this) {
+    if (focusInsideStepper) {
       this.selected?.label?.focus();
     }
   }
