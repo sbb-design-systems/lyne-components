@@ -95,8 +95,8 @@
     "@typescript-eslint/eslint-plugin": "8.72.2",
     "@typescript-eslint/parser": "8.72.2",
     "@web/test-runner": "1.0.1",
-    "@web/test-runner-commands": "1.0.2",
-    "@web/test-runner-playwright": "1.0.1",
+    "@web/test-runner-commands": "1.0.3",
+    "@web/test-runner-playwright": "1.0.2",
     "@web/test-runner-visual-regression": "1.0.2",
     "cross-env": "10.1.0",
     "custom-elements-manifest": "2.1.0",
@@ -144,7 +144,7 @@
   "resolutions": {
     "@types/node": "24.19.2",
     "@webcomponents/template-shadowroot": "0.2.1",
-    "@web/dev-server-core": "1.0.3",
+    "@web/dev-server-core": "1.0.4",
     "lit": "3.3.3",
     "playwright": "1.65.0",
     "postcss": "8.5.32"
