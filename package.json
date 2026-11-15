@@ -95,7 +95,7 @@
     "@typescript-eslint/eslint-plugin": "8.72.2",
     "@typescript-eslint/parser": "8.72.2",
     "@web/test-runner": "1.0.1",
-    "@web/test-runner-commands": "1.0.3",
+    "@web/test-runner-commands": "1.1.0",
     "@web/test-runner-playwright": "1.0.2",
     "@web/test-runner-visual-regression": "1.0.2",
     "cross-env": "10.1.0",
