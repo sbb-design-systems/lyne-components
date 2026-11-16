@@ -151,12 +151,12 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   }
   private _triggerElement?: HTMLInputElement | null;
 
-  /** @deprecated **/
+  /** @deprecated */
   protected get overlayId(): string {
     return this.id;
   }
 
-  /** @deprecated **/
+  /** @deprecated */
   protected generatedId: string = '';
   protected activeOption: SbbOptionBaseElement<T> | null = null;
   protected pendingAutoSelectedOption: SbbOptionBaseElement<T> | null = null;
