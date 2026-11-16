@@ -1,4 +1,4 @@
-import { assert } from '@open-wc/testing';
+import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { ssrHydratedFixture } from '../../core/testing/private.ts';
@@ -18,7 +18,7 @@ describe(`sbb-flip-card ssr`, () => {
   beforeEach(async () => {
     root = await ssrHydratedFixture(
       html`
-        <sbb-flip-card>
+        <sbb-flip-card accessibility-label="Accessibility Label">
           <sbb-flip-card-summary>
             <sbb-title level="4">Summary</sbb-title>
             <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
@@ -39,5 +39,9 @@ describe(`sbb-flip-card ssr`, () => {
 
   it('renders', () => {
     assert.instanceOf(root, SbbFlipCardElement);
+  });
+
+  it('renders the accessibility-label', () => {
+    expect(root.shadowRoot!.querySelector('button')!.textContent).to.contain('Accessibility Label');
   });
 });
