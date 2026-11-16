@@ -78,6 +78,7 @@
     timing-function: var(--sbb-header-transition-timing);
   }
 
+  // stylelint-disable-next-line selector-no-deprecated -- shadow is a custom state, not an HTML element.
   :host(:is(:state(shadow), :state(has-visible-focus-within):state(fixed))) & {
     box-shadow: var(--sbb-header-box-shadow);
   }
