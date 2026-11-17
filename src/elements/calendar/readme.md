@@ -145,7 +145,7 @@ this behavior can be changed by setting the `multiple` attribute to true.
 In this case the `value` property, if set, must be an array; moreover,
 the days of the week become clickable, allowing to select an entire column
 (e.g. all the Mondays, all the Tuesdays and so on).
-Additionally it is possible to select a range of dates, by clicking on a
+Additionally, it is possible to select a range of dates, by clicking on a
 date and then Shift clicking on another date.
 
 ```html
@@ -253,7 +253,8 @@ pressing the `<kbd>Home</kbd>` when the first day of the month is disabled will 
 
 If `multiple` is set, it is possible to navigate among weekdays using arrows and special keys;
 similarly, if `weekNumbers` is set, it is possible to navigate the week numbers group.
-Using the `Tab` button, the first row is reached first (weekday in `horizontal` orientation, week numbers in `vertical`),
+Using the `Tab` button, the select all button is focused first, then the first row is reached
+(weekday in `horizontal` orientation, week numbers in `vertical`),
 then the opposite group (week numbers in `horizontal` orientation, weekday in `vertical`), then the calendar days.
 
 ## Accessibility
@@ -361,6 +362,35 @@ For accessibility purposes, the component is rendered as a native table element 
 | `validity`          | -          | public  | `ValidityState`           |         | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `value`             | -          | public  | `string \| null`          | `null`  | Value of the calendar-month element in ISO format (YYYY-MM).                                                                                                                                                                                                                                                                                                                                                                                            |
 | `willValidate`      | -          | public  | `boolean`                 |         | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+#### Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Events
+
+| Name       | Type    | Description                                                                          | Inherited From         |
+| ---------- | ------- | ------------------------------------------------------------------------------------ | ---------------------- |
+| `validity` | `Event` | The validity event is dispatched whenever the validity state of the element changes. | SbbFormAssociatedMixin |
+
+### class: `SbbCalendarSelectAllElement`, `sbb-calendar-select-all`
+
+#### Properties
+
+| Name                | Attribute   | Privacy | Type                      | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ----------- | ------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`          | `disabled`  | public  | `boolean`                 | `false` | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `form`              | -           | public  | `HTMLFormElement \| null` |         | Returns the form owner of this element.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `iconName`          | `icon-name` | public  | `string`                  | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                                                                                                                                                                                                                                                                                        |
+| `name`              | `name`      | public  | `string`                  |         | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `validationMessage` | -           | public  | `string`                  |         | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -           | public  | `ValidityState`           |         | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | -           | public  | `unknown`                 |         |                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `willValidate`      | -           | public  | `boolean`                 |         | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
 
 #### Methods
 
