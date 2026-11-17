@@ -22,7 +22,11 @@ import {
   handleDistinctChange,
   i18nCalendarDateSelection,
   i18nCalendarDeselectAll,
+  i18nCalendarDeselectWeek,
+  i18nCalendarDeselectWeekday,
   i18nCalendarSelectAll,
+  i18nCalendarSelectWeek,
+  i18nCalendarSelectWeekday,
   i18nCalendarWeekNumber,
   i18nNextMonth,
   i18nNextYear,
@@ -352,6 +356,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
   private _language = new SbbLanguageController(this).withHandler(() => {
     this._monthNames = this._dateAdapter.getMonthNames('long');
+    this._setWeekdays();
     this._createMonthRows();
   });
 
@@ -1558,21 +1563,20 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                     </th>`
                   : nothing
               }
-              ${this._weekdays.map(
-                (weekDay: Weekday, index: number) => html`
+              ${this._weekdays.map((weekDay: Weekday, index: number) => {
+                // NOTE: Sundays have index 7, while their weekDayValue is 0
+                const days: Day<T>[] = weeksForSelectMultipleWeekDays.filter(
+                  (day: Day<T>) => day.weekDayValue === (index + 1) % 7,
+                );
+                return html`
                   <th class="sbb-calendar__table-header-cell">
                     ${
                       this.multiple
                         ? html`
                             <sbb-calendar-weekday
                               .value=${weekDay}
-                              @click=${() => {
-                                // NOTE: Sundays have index 7, while their weekDayValue is 0
-                                const days: Day<T>[] = weeksForSelectMultipleWeekDays.filter(
-                                  (day: Day<T>) => day.weekDayValue === (index + 1) % 7,
-                                )!;
-                                this._selectMultipleDates(days);
-                              }}
+                              aria-label=${this._weekdayAriaLabel(weekDay, days)}
+                              @click=${() => this._selectMultipleDates(days)}
                             ></sbb-calendar-weekday>
                           `
                         : html`
@@ -1581,13 +1585,16 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                           `
                     }
                   </th>
-                `,
-              )}
+                `;
+              })}
             </tr>
           </thead>
           <tbody>
             ${weeks.map((week: Day<T>[], rowIndex: number) => {
               const firstRowOffset: number = DAYS_PER_ROW - week.length;
+              const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
+                (day: Day<T>) => day.weekValue === weekNumbers[rowIndex],
+              )!;
               if (rowIndex === 0 && firstRowOffset) {
                 return html`
                   <tr>
@@ -1600,13 +1607,11 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                                   ? html`
                                       <sbb-calendar-weeknumber
                                         .value=${weekNumbers[0]}
-                                        @click=${() => {
-                                          const days: Day<T>[] =
-                                            weeksForSelectMultipleWeekNumbers.filter(
-                                              (day: Day<T>) => day.weekValue === weekNumbers[0],
-                                            )!;
-                                          this._selectMultipleDates(days);
-                                        }}
+                                        aria-label=${this._weekNumberAriaLabel(
+                                          weekNumbers[0],
+                                          days,
+                                        )}
+                                        @click=${() => this._selectMultipleDates(days)}
                                       ></sbb-calendar-weeknumber>
                                     `
                                   : html`
@@ -1638,14 +1643,11 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                                 ? html`
                                     <sbb-calendar-weeknumber
                                       .value=${weekNumbers[rowIndex]}
-                                      @click=${() => {
-                                        const days: Day<T>[] =
-                                          weeksForSelectMultipleWeekNumbers.filter(
-                                            (day: Day<T>) =>
-                                              day.weekValue === weekNumbers[rowIndex],
-                                          )!;
-                                        this._selectMultipleDates(days);
-                                      }}
+                                      aria-label=${this._weekNumberAriaLabel(
+                                        weekNumbers[rowIndex],
+                                        days,
+                                      )}
+                                      @click=${() => this._selectMultipleDates(days)}
                                     ></sbb-calendar-weeknumber>
                                   `
                                 : html`
@@ -1701,33 +1703,31 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                       <th class="sbb-calendar__table-data">
                         ${this.multiple ? this._selectAllButton(weeksForSelectMultipleWeekNumbers) : nothing}
                       </th>
-                      ${weekNumbers.map(
-                        (weekNumber: number) => html`
+                      ${weekNumbers.map((weekNumber: number) => {
+                        const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
+                          (day: Day<T>) => day.weekValue === weekNumber,
+                        )!;
+                        return html`
                           <th class="sbb-calendar__table-header-cell">
                             ${
                               this.multiple
                                 ? html`
                                     <sbb-calendar-weeknumber
                                       .value=${weekNumber}
-                                      @click=${() => {
-                                        const days: Day<T>[] =
-                                          weeksForSelectMultipleWeekNumbers.filter(
-                                            (day: Day<T>) => day.weekValue === weekNumber,
-                                          )!;
-                                        this._selectMultipleDates(days);
-                                      }}
+                                      aria-label=${this._weekNumberAriaLabel(weekNumber, days)}
+                                      @click=${() => this._selectMultipleDates(days)}
                                     ></sbb-calendar-weeknumber>
                                   `
                                 : html`
-                                    <span class="sbb-screen-reader-only"
-                                      >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumber}`}</span
-                                    >
+                                    <span class="sbb-screen-reader-only">
+                                      ${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumber}`}
+                                    </span>
                                     <span aria-hidden="true">${weekNumber}</span>
                                   `
                             }
                           </th>
-                        `,
-                      )}
+                        `;
+                      })}
                     </tr>
                   </thead>
                 `
@@ -1744,6 +1744,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                         ? html`
                             <sbb-calendar-weekday
                               .value=${weekday}
+                              aria-label=${this._weekdayAriaLabel(weekday, week)}
                               @click=${() => this._selectMultipleDates(week)}
                             >
                               ${weekday.narrow}
@@ -1810,15 +1811,39 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     });
   }
 
-  private _selectAllButton(daysOfMonth: Day<T>[]): TemplateResult {
-    const valueSet = new Set((this._value as T[]).map((d) => this._dateAdapter.toIso8601(d)));
-    const aboutToSelect = daysOfMonth.some((d) => !valueSet.has(d.value));
+  /**
+   * Returns true if at least one of the given days, which can be selected
+   * (within min/max and not filtered out), is not selected yet.
+   */
+  private _hasUnselectedDays(days: Day<T>[]): boolean {
+    const selected = new Set((this._value as T[]).map((d) => this._dateAdapter.toIso8601(d)));
+    return days.some(
+      (d) => !selected.has(d.value) && this._isDayInRange(d.value) && this._dateFilter(d.dateValue),
+    );
+  }
 
+  private _weekdayAriaLabel(weekday: Weekday, days: Day<T>[]): string {
+    return (
+      this._hasUnselectedDays(days)
+        ? i18nCalendarSelectWeekday(weekday.long)
+        : i18nCalendarDeselectWeekday(weekday.long)
+    )[this._language.current];
+  }
+
+  private _weekNumberAriaLabel(weekNumber: number, days: Day<T>[]): string {
+    return (
+      this._hasUnselectedDays(days)
+        ? i18nCalendarSelectWeek(weekNumber)
+        : i18nCalendarDeselectWeek(weekNumber)
+    )[this._language.current];
+  }
+
+  private _selectAllButton(daysOfMonth: Day<T>[]): TemplateResult {
     return html`
       <sbb-calendar-select-all
         icon-name="four-squares-small"
         aria-label=${
-          aboutToSelect
+          this._hasUnselectedDays(daysOfMonth)
             ? i18nCalendarSelectAll[this._language.current]
             : i18nCalendarDeselectAll[this._language.current]
         }

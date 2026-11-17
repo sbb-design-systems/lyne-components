@@ -12,7 +12,15 @@ import {
   tabKey,
 } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import { defaultDateAdapter, i18nCalendarDeselectAll, i18nCalendarSelectAll } from '../../core.ts';
+import {
+  defaultDateAdapter,
+  i18nCalendarDeselectAll,
+  i18nCalendarDeselectWeek,
+  i18nCalendarDeselectWeekday,
+  i18nCalendarSelectAll,
+  i18nCalendarSelectWeek,
+  i18nCalendarSelectWeekday,
+} from '../../core.ts';
 import { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 import {
   createPrice,
@@ -2105,8 +2113,161 @@ describe(`sbb-calendar`, () => {
           });
         };
 
+        const testWeekdayAndWeeknumberLabels = (orientation: 'horizontal' | 'vertical'): void => {
+          describe('weekday and weeknumber aria-label', () => {
+            const createCalendar = (): Promise<SbbCalendarElement> =>
+              fixture(html`
+                <sbb-calendar
+                  value="2025-04-08T00:00:00"
+                  orientation=${orientation}
+                  week-numbers
+                  multiple
+                >
+                  ${slottedDays()}
+                </sbb-calendar>
+              `);
+
+            const weekdayLabels = (calendar: SbbCalendarElement): (string | null)[] =>
+              Array.from(
+                calendar.shadowRoot!.querySelectorAll<SbbCalendarWeekdayElement>(
+                  'sbb-calendar-weekday',
+                ),
+                (e) => e.getAttribute('aria-label'),
+              );
+
+            const weeknumberLabels = (calendar: SbbCalendarElement): (string | null)[] =>
+              Array.from(
+                calendar.shadowRoot!.querySelectorAll<SbbCalendarWeeknumberElement>(
+                  'sbb-calendar-weeknumber',
+                ),
+                (e) => e.getAttribute('aria-label'),
+              );
+
+            const clickDay = (calendar: SbbCalendarElement, isoDate: string): void =>
+              getDayCells(calendar)
+                .find((e) => e.matches(`sbb-calendar-day[slot="${isoDate}"]`))!
+                .click();
+
+            const weekdays = [
+              'Monday',
+              'Tuesday',
+              'Wednesday',
+              'Thursday',
+              'Friday',
+              'Saturday',
+              'Sunday',
+            ];
+
+            it('describes the select action initially', async () => {
+              const calendar = await createCalendar();
+              expect(weekdayLabels(calendar)).to.be.deep.equal(
+                weekdays.map((d) => i18nCalendarSelectWeekday(d).en),
+              );
+              expect(weeknumberLabels(calendar)).to.be.deep.equal(
+                [14, 15, 16, 17, 18].map((n) => i18nCalendarSelectWeek(n).en),
+              );
+            });
+
+            it('switches the weekday label depending on the selection', async () => {
+              const calendar = await createCalendar();
+              const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
+              const mondayButton =
+                calendar.shadowRoot!.querySelectorAll<HTMLElement>('sbb-calendar-weekday')[0];
+
+              mondayButton.click();
+              await selectedSpy.calledOnce();
+              await waitForLitRender(calendar);
+              let labels = weekdayLabels(calendar);
+              expect(labels[0]).to.be.equal(i18nCalendarDeselectWeekday('Monday').en);
+              // The other weekdays are not affected
+              expect(labels.slice(1)).to.be.deep.equal(
+                weekdays.slice(1).map((d) => i18nCalendarSelectWeekday(d).en),
+              );
+
+              // Removing a single Monday makes the select action available again
+              clickDay(calendar, '2025-04-14');
+              await selectedSpy.calledTimes(2);
+              await waitForLitRender(calendar);
+              expect(weekdayLabels(calendar)[0]).to.be.equal(
+                i18nCalendarSelectWeekday('Monday').en,
+              );
+
+              mondayButton.click();
+              await selectedSpy.calledTimes(3);
+              mondayButton.click();
+              await selectedSpy.calledTimes(4);
+              await waitForLitRender(calendar);
+              labels = weekdayLabels(calendar);
+              expect(labels[0]).to.be.equal(i18nCalendarSelectWeekday('Monday').en);
+            });
+
+            it('switches the weeknumber label depending on the selection', async () => {
+              const calendar = await createCalendar();
+              const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
+              const firstWeekButton =
+                calendar.shadowRoot!.querySelectorAll<HTMLElement>('sbb-calendar-weeknumber')[0];
+
+              firstWeekButton.click();
+              await selectedSpy.calledOnce();
+              await waitForLitRender(calendar);
+              let labels = weeknumberLabels(calendar);
+              expect(labels[0]).to.be.equal(i18nCalendarDeselectWeek(14).en);
+              // The other weeks are not affected
+              expect(labels.slice(1)).to.be.deep.equal(
+                [15, 16, 17, 18].map((n) => i18nCalendarSelectWeek(n).en),
+              );
+
+              // Removing a single day of the week makes the select action available again
+              clickDay(calendar, '2025-04-03');
+              await selectedSpy.calledTimes(2);
+              await waitForLitRender(calendar);
+              labels = weeknumberLabels(calendar);
+              expect(labels[0]).to.be.equal(i18nCalendarSelectWeek(14).en);
+
+              firstWeekButton.click();
+              await selectedSpy.calledTimes(3);
+              firstWeekButton.click();
+              await selectedSpy.calledTimes(4);
+              await waitForLitRender(calendar);
+              expect(weeknumberLabels(calendar)[0]).to.be.equal(i18nCalendarSelectWeek(14).en);
+            });
+
+            it('ignores days which cannot be selected', async () => {
+              const calendar: SbbCalendarElement = await fixture(html`
+                <sbb-calendar
+                  value="2025-04-08T00:00:00"
+                  orientation=${orientation}
+                  min="2025-04-07"
+                  max="2025-04-13"
+                  week-numbers
+                  multiple
+                >
+                  ${slottedDays()}
+                </sbb-calendar>
+              `);
+              const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
+
+              // Only the 7th is an enabled Monday and only the 15th week has enabled days
+              calendar.shadowRoot!.querySelectorAll<HTMLElement>('sbb-calendar-weekday')[0].click();
+              await selectedSpy.calledOnce();
+              await waitForLitRender(calendar);
+              expect(weekdayLabels(calendar)[0]).to.be.equal(
+                i18nCalendarDeselectWeekday('Monday').en,
+              );
+
+              calendar
+                .shadowRoot!.querySelectorAll<HTMLElement>('sbb-calendar-weeknumber')[1]
+                .click();
+              await selectedSpy.calledTimes(2);
+              await waitForLitRender(calendar);
+              expect(weeknumberLabels(calendar)[1]).to.be.equal(i18nCalendarDeselectWeek(15).en);
+            });
+          });
+        };
+
         describe('horizontal', () => {
           testSelectAll('horizontal');
+          testWeekdayAndWeeknumberLabels('horizontal');
 
           it('renders', async () => {
             const calendar: SbbCalendarElement = await fixture(html`
@@ -2345,6 +2506,7 @@ describe(`sbb-calendar`, () => {
 
         describe('vertical', () => {
           testSelectAll('vertical');
+          testWeekdayAndWeeknumberLabels('vertical');
 
           it('renders', async () => {
             const calendar: SbbCalendarElement = await fixture(html`

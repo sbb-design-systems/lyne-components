@@ -1960,31 +1960,52 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
       <thead>
         <tr>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday
+              aria-label="Select every Monday in the month"
+              tabindex="0"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-label="Select every Tuesday in the month"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-label="Select every Wednesday in the month"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-label="Select every Thursday in the month"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-label="Select every Friday in the month"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-label="Select every Saturday in the month"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-label="Select every Sunday in the month"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
         </tr>
@@ -6728,31 +6749,52 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
       <thead>
         <tr>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday
+              aria-label="Select every Monday in the month"
+              tabindex="0"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-label="Select every Tuesday in the month"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-label="Select every Wednesday in the month"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-label="Select every Thursday in the month"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-label="Select every Friday in the month"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-label="Select every Saturday in the month"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-label="Select every Sunday in the month"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
         </tr>
