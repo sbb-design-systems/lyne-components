@@ -1,7 +1,6 @@
 import { type TemplateResult } from 'lit';
 
-import { i18nCalendarSelectAll, SbbLanguageController } from '../../core.ts';
-import { SbbIconNameMixin } from '../../icon/icon-name-mixin.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 import { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-element.ts';
 
 /**
@@ -10,19 +9,8 @@ import { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-element
 export class SbbCalendarSelectAllElement extends SbbIconNameMixin(SbbCalendarCellBaseElement) {
   public static override readonly elementName: string = 'sbb-calendar-select-all';
 
-  private _language = new SbbLanguageController(this).withHandler(() => this._setAriaLabel());
-
   /** @internal */
   public value: unknown;
-
-  public constructor() {
-    super();
-    this._setAriaLabel();
-  }
-
-  private _setAriaLabel(): void {
-    this.internals.ariaLabel = i18nCalendarSelectAll[this._language.current];
-  }
 
   protected override setSelectedState(): void {
     // empty

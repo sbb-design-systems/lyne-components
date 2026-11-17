@@ -21,6 +21,8 @@ import {
   getNextElementIndex,
   handleDistinctChange,
   i18nCalendarDateSelection,
+  i18nCalendarDeselectAll,
+  i18nCalendarSelectAll,
   i18nCalendarWeekNumber,
   i18nNextMonth,
   i18nNextYear,
@@ -1808,12 +1810,22 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     });
   }
 
-  private _selectAllButton(days: Day<T>[]): TemplateResult {
-    return html`<sbb-calendar-select-all
-      icon-name="four-squares-small"
-      @click=${() => this._selectMultipleDates(days)}
-      aria-describedby="month-label"
-    ></sbb-calendar-select-all>`;
+  private _selectAllButton(daysOfMonth: Day<T>[]): TemplateResult {
+    const valueSet = new Set((this._value as T[]).map((d) => this._dateAdapter.toIso8601(d)));
+    const aboutToSelect = daysOfMonth.some((d) => !valueSet.has(d.value));
+
+    return html`
+      <sbb-calendar-select-all
+        icon-name="four-squares-small"
+        aria-label=${
+          aboutToSelect
+            ? i18nCalendarSelectAll[this._language.current]
+            : i18nCalendarDeselectAll[this._language.current]
+        }
+        @click=${() => this._selectMultipleDates(daysOfMonth)}
+        aria-describedby="month-label"
+      ></sbb-calendar-select-all>
+    `;
   }
 
   /** Render the view for the month selection. */

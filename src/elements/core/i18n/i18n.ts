@@ -861,10 +861,17 @@ export const i18nCalendarWeekNumber: Record<string, string> = {
 };
 
 export const i18nCalendarSelectAll: Record<string, string> = {
-  de: 'Alle Tage des Monats auswählen oder abwählen',
-  en: 'Select or deselect all days in the month',
-  fr: 'Sélectionner ou désélectionner tous les jours du mois',
-  it: 'Selezionare o deselezionare tutti i giorni del mese',
+  de: 'Alle Tage des Monats auswählen',
+  en: 'Select all days in the month',
+  fr: 'Sélectionner tous les jours du mois',
+  it: 'Selezionare tutti i giorni del mese',
+};
+
+export const i18nCalendarDeselectAll: Record<string, string> = {
+  de: 'Alle Tage des Monats abwählen',
+  en: 'Deselect all days in the month',
+  fr: 'Désélectionner tous les jours du mois',
+  it: 'Deselezionare tutti i giorni del mese',
 };
 
 export const i18nTimetableFormSwapButtonLabel: Record<string, string> = {
