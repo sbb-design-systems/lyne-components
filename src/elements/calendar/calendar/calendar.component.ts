@@ -45,6 +45,7 @@ import {
 import { SbbIconElement } from '../../icon.pure.ts';
 import { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 import { SbbCalendarMonthElement } from '../calendar-month/calendar-month.component.ts';
+import { SbbCalendarSelectAllElement } from '../calendar-select-all/calendar-select-all.component.ts';
 import { SbbCalendarWeekdayElement } from '../calendar-weekday/calendar-weekday.component.ts';
 import { SbbCalendarWeeknumberElement } from '../calendar-weeknumber/calendar-weeknumber.component.ts';
 import { SbbCalendarYearElement } from '../calendar-year/calendar-year.component.ts';
@@ -145,6 +146,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     SbbCalendarYearElement,
     SbbIconElement,
     SbbSecondaryButtonElement,
+    SbbCalendarSelectAllElement,
   ];
   public static override styles: CSSResultGroup = [
     buttonResetStyles,
@@ -1537,7 +1539,8 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     return html`
       <div class="sbb-calendar__table-wrapper sbb-calendar__day-view">
         <div class="sbb-calendar__table-header">
-          <span>${monthLabel}</span> ${first ? this._createDayTableControls(monthLabel) : nothing}
+          <span id="month-label">${monthLabel}</span>
+          ${first ? this._createDayTableControls(monthLabel) : nothing}
         </div>
         <table
           class="sbb-calendar__table"
@@ -1547,7 +1550,11 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
           <thead>
             <tr>
               ${
-                this.weekNumbers ? html`<th class="sbb-calendar__table-header-cell"></th>` : nothing
+                this.weekNumbers
+                  ? html`<th class="sbb-calendar__table-header-cell">
+                      ${this.multiple ? this._selectAllButton(weeksForSelectMultipleWeekNumbers) : nothing}
+                    </th>`
+                  : nothing
               }
               ${this._weekdays.map(
                 (weekDay: Weekday, index: number) => html`
@@ -1676,7 +1683,8 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     return html`
       <div class="sbb-calendar__table-wrapper sbb-calendar__day-view">
         <div class="sbb-calendar__table-header">
-          <span>${monthLabel}</span> ${first ? this._createDayTableControls(monthLabel) : nothing}
+          <span id="month-label">${monthLabel}</span>
+          ${first ? this._createDayTableControls(monthLabel) : nothing}
         </div>
         <table
           class="sbb-calendar__table"
@@ -1688,7 +1696,9 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
               ? html`
                   <thead>
                     <tr>
-                      <th class="sbb-calendar__table-data"></th>
+                      <th class="sbb-calendar__table-data">
+                        ${this.multiple ? this._selectAllButton(weeksForSelectMultipleWeekNumbers) : nothing}
+                      </th>
                       ${weekNumbers.map(
                         (weekNumber: number) => html`
                           <th class="sbb-calendar__table-header-cell">
@@ -1798,6 +1808,14 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     });
   }
 
+  private _selectAllButton(days: Day<T>[]): TemplateResult {
+    return html`<sbb-calendar-select-all
+      icon-name="four-squares-small"
+      @click=${() => this._selectMultipleDates(days)}
+      aria-describedby="month-label"
+    ></sbb-calendar-select-all>`;
+  }
+
   /** Render the view for the month selection. */
   private _renderMonthView(): TemplateResult {
     return html`
@@ -1903,7 +1921,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
           <tbody>
             ${this._years.map(
               (row: number[]) =>
-                html` <tr>
+                html`<tr>
                   ${row.map((year: number) => {
                     return html`
                       <td class="sbb-calendar__table-data">

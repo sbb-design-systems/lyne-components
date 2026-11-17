@@ -1801,7 +1801,224 @@ describe(`sbb-calendar`, () => {
        * In both tests, the selected date is 08.04.2025; this month has 5 weeks (14-18)
        */
       describe('with week-numbers', () => {
+        const slottedDays = (): TemplateResult | typeof nothing =>
+          variant === 'default'
+            ? nothing
+            : variant === 'enhanced'
+              ? createSlottedDays(2025, 4, true)
+              : html`
+                  <sbb-calendar-day slot=${toIso8601(new Date('2025-04-25'))}>
+                    ${createPrice(true)}
+                  </sbb-calendar-day>
+                `;
+
+        const selectAllButton = (calendar: SbbCalendarElement): HTMLElement[] =>
+          Array.from(calendar.shadowRoot!.querySelectorAll<HTMLElement>('sbb-calendar-select-all'));
+
+        const lastSelectedDates = (spy: EventSpy<Event>): string[] =>
+          ((spy.lastEvent as SbbDateSelectedEvent<Date>).dateSelected as Date[]).map(toIso8601);
+
+        const testSelectAll = (orientation: 'horizontal' | 'vertical'): void => {
+          describe('select all', () => {
+            const april = Array.from(
+              { length: 30 },
+              (_, i) => `2025-04-${String(i + 1).padStart(2, '0')}`,
+            );
+
+            it('is rendered with multiple and week-numbers', async () => {
+              const calendar: SbbCalendarElement = await fixture(html`
+                <sbb-calendar
+                  value="2025-04-08T00:00:00"
+                  orientation=${orientation}
+                  week-numbers
+                  multiple
+                >
+                  ${slottedDays()}
+                </sbb-calendar>
+              `);
+              const buttons = selectAllButton(calendar);
+              expect(buttons.length).to.be.equal(1);
+              expect(buttons[0].getAttribute('aria-describedby')).to.be.equal('month-label');
+              expect(
+                calendar.shadowRoot!.querySelector(
+                  `#${buttons[0].getAttribute('aria-describedby')}`,
+                ),
+              ).not.to.be.null;
+              // The button is placed in the first header cell of the table
+              expect(buttons[0].closest('thead th')).to.be.equal(
+                calendar.shadowRoot!.querySelector('thead th'),
+              );
+            });
+
+            it('selects and deselects all days of the month', async () => {
+              const calendar: SbbCalendarElement = await fixture(html`
+                <sbb-calendar
+                  value="2025-04-08T00:00:00"
+                  orientation=${orientation}
+                  week-numbers
+                  multiple
+                >
+                  ${slottedDays()}
+                </sbb-calendar>
+              `);
+              const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
+              const inputSpy = new EventSpy('input');
+              const changeSpy = new EventSpy('change');
+              const selectAll = selectAllButton(calendar)[0];
+
+              // The already selected day is kept, no duplicates are created
+              selectAll.click();
+              await selectedSpy.calledOnce();
+              expect(inputSpy.count).to.be.equal(1);
+              expect(changeSpy.count).to.be.equal(1);
+              expect(lastSelectedDates(selectedSpy)).to.be.deep.equal(april);
+
+              // All days are selected: second click removes them all
+              selectAll.click();
+              await selectedSpy.calledTimes(2);
+              expect(inputSpy.count).to.be.equal(2);
+              expect(changeSpy.count).to.be.equal(2);
+              expect(lastSelectedDates(selectedSpy)).to.be.deep.equal([]);
+
+              // Third click selects them again
+              selectAll.click();
+              await selectedSpy.calledTimes(3);
+              expect(lastSelectedDates(selectedSpy)).to.be.deep.equal(april);
+            });
+
+            it('selects the remaining days when only some are selected', async () => {
+              const calendar: SbbCalendarElement = await fixture(html`
+                <sbb-calendar
+                  value="2025-04-08T00:00:00"
+                  orientation=${orientation}
+                  week-numbers
+                  multiple
+                >
+                  ${slottedDays()}
+                </sbb-calendar>
+              `);
+              const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
+
+              getDayCells(calendar)
+                .find((e) => e.matches('sbb-calendar-day[slot="2025-04-19"]'))!
+                .click();
+              await selectedSpy.calledOnce();
+              expect(lastSelectedDates(selectedSpy)).to.be.deep.equal(['2025-04-08', '2025-04-19']);
+
+              selectAllButton(calendar)[0].click();
+              await selectedSpy.calledTimes(2);
+              expect(lastSelectedDates(selectedSpy)).to.be.deep.equal(april);
+            });
+
+            it('can be activated via keyboard', async () => {
+              const calendar: SbbCalendarElement = await fixture(html`
+                <sbb-calendar
+                  value="2025-04-08T00:00:00"
+                  orientation=${orientation}
+                  week-numbers
+                  multiple
+                >
+                  ${slottedDays()}
+                </sbb-calendar>
+              `);
+              const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
+
+              selectAllButton(calendar)[0].focus();
+              await sendKeys({ press: 'Enter' });
+              await selectedSpy.calledOnce();
+              expect(lastSelectedDates(selectedSpy)).to.be.deep.equal(april);
+            });
+
+            it('selects only enabled days', async () => {
+              const calendar: SbbCalendarElement = await fixture(html`
+                <sbb-calendar
+                  value="2025-04-08T00:00:00"
+                  orientation=${orientation}
+                  min="2025-04-05"
+                  max="2025-04-25"
+                  week-numbers
+                  multiple
+                >
+                  ${slottedDays()}
+                </sbb-calendar>
+              `);
+              const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
+
+              selectAllButton(calendar)[0].click();
+              await selectedSpy.calledOnce();
+              const selected = lastSelectedDates(selectedSpy);
+              expect(selected.length).to.be.equal(21);
+              expect(selected[0]).to.be.equal('2025-04-05');
+              expect(selected[20]).to.be.equal('2025-04-25');
+            });
+
+            it('does not select days excluded by the date filter', async () => {
+              const calendar: SbbCalendarElement = await fixture(html`
+                <sbb-calendar
+                  value="2025-04-08T00:00:00"
+                  orientation=${orientation}
+                  .dateFilter=${(d: Date | null) => !!d && d.getDay() !== 0 && d.getDay() !== 6}
+                  week-numbers
+                  multiple
+                >
+                  ${slottedDays()}
+                </sbb-calendar>
+              `);
+              const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
+
+              selectAllButton(calendar)[0].click();
+              await selectedSpy.calledOnce();
+              const selected = lastSelectedDates(selectedSpy);
+              // April 2025 has 22 working days
+              expect(selected.length).to.be.equal(22);
+              expect(
+                selected.every((d) => ![0, 6].includes(new Date(`${d}T00:00:00`).getDay())),
+              ).to.be.equal(true);
+            });
+
+            it('toggles each month independently with amount 2', async () => {
+              await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
+              const calendar: SbbCalendarElement = await fixture(html`
+                <sbb-calendar
+                  value="2025-04-08T00:00:00"
+                  orientation=${orientation}
+                  amount="2"
+                  week-numbers
+                  multiple
+                >
+                  ${slottedDays()}
+                </sbb-calendar>
+              `);
+              const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
+              const buttons = selectAllButton(calendar);
+              expect(buttons.length).to.be.equal(2);
+
+              buttons[1].click();
+              await selectedSpy.calledOnce();
+              let selected = lastSelectedDates(selectedSpy);
+              expect(selected.length).to.be.equal(32);
+              expect(selected[0]).to.be.equal('2025-04-08');
+              expect(selected[1]).to.be.equal('2025-05-01');
+              expect(selected[31]).to.be.equal('2025-05-31');
+
+              buttons[0].click();
+              await selectedSpy.calledTimes(2);
+              selected = lastSelectedDates(selectedSpy);
+              expect(selected.length).to.be.equal(61);
+              expect(selected[0]).to.be.equal('2025-04-01');
+              expect(selected[60]).to.be.equal('2025-05-31');
+
+              // Deselect only the second month
+              buttons[1].click();
+              await selectedSpy.calledTimes(3);
+              expect(lastSelectedDates(selectedSpy)).to.be.deep.equal(april);
+            });
+          });
+        };
+
         describe('horizontal', () => {
+          testSelectAll('horizontal');
+
           it('renders', async () => {
             const calendar: SbbCalendarElement = await fixture(html`
               <sbb-calendar value="2025-04-08T00:00:00" week-numbers>
@@ -2038,6 +2255,8 @@ describe(`sbb-calendar`, () => {
         });
 
         describe('vertical', () => {
+          testSelectAll('vertical');
+
           it('renders', async () => {
             const calendar: SbbCalendarElement = await fixture(html`
               <sbb-calendar value="2025-04-08" orientation="vertical" week-numbers>

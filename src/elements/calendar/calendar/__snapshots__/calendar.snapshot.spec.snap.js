@@ -14,7 +14,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         January 2023
       </span>
       <sbb-secondary-button
@@ -444,7 +444,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         January 2023
       </span>
       <sbb-secondary-button
@@ -856,7 +856,7 @@ snapshots["sbb-calendar default renders in year view Shadow DOM"] =
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         January 2023
       </span>
       <sbb-secondary-button
@@ -1419,7 +1419,7 @@ snapshots["sbb-calendar default renders in month view Shadow DOM"] =
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         January 2023
       </span>
       <sbb-secondary-button
@@ -1928,7 +1928,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         January 2023
       </span>
       <sbb-secondary-button
@@ -2315,7 +2315,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         January 2023
       </span>
       <sbb-secondary-button
@@ -2763,7 +2763,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
   </div>
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         February 2023
       </span>
     </div>
@@ -3159,7 +3159,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         January 2023
       </span>
       <sbb-secondary-button
@@ -3609,7 +3609,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
   </div>
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         February 2023
       </span>
     </div>
@@ -4162,7 +4162,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         January 2023
       </span>
       <sbb-secondary-button
@@ -4747,7 +4747,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         January 2023
       </span>
       <sbb-secondary-button
@@ -5314,7 +5314,7 @@ snapshots["sbb-calendar enhanced renders in year view Shadow DOM"] =
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         January 2023
       </span>
       <sbb-secondary-button
@@ -6032,7 +6032,7 @@ snapshots["sbb-calendar enhanced renders in month view Shadow DOM"] =
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         January 2023
       </span>
       <sbb-secondary-button
@@ -6696,7 +6696,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         January 2023
       </span>
       <sbb-secondary-button
@@ -7238,7 +7238,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         January 2023
       </span>
       <sbb-secondary-button
@@ -7686,7 +7686,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
   </div>
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         February 2023
       </span>
     </div>
@@ -8237,7 +8237,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         January 2023
       </span>
       <sbb-secondary-button
@@ -8687,7 +8687,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
   </div>
   <div class="sbb-calendar__day-view sbb-calendar__table-wrapper">
     <div class="sbb-calendar__table-header">
-      <span>
+      <span id="month-label">
         February 2023
       </span>
     </div>

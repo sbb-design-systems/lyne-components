@@ -860,6 +860,13 @@ export const i18nCalendarWeekNumber: Record<string, string> = {
   it: 'Settimana',
 };
 
+export const i18nCalendarSelectAll: Record<string, string> = {
+  de: 'Alle Tage des Monats auswählen oder abwählen',
+  en: 'Select or deselect all days in the month',
+  fr: 'Sélectionner ou désélectionner tous les jours du mois',
+  it: 'Selezionare o deselezionare tutti i giorni del mese',
+};
+
 export const i18nTimetableFormSwapButtonLabel: Record<string, string> = {
   de: 'Von und Nach tauschen',
   en: 'Swap from and to',

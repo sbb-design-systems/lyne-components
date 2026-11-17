@@ -65,6 +65,7 @@ const preloadIconList = [
   'face-smiling-small',
   'folder-open-medium',
   'folder-open-small',
+  'four-squares-small',
   'glass-cocktail-small',
   'globe-small',
   'hamburger-menu-small',

@@ -3,6 +3,7 @@ import {
   SbbCalendarDayElement,
   SbbCalendarElement,
   SbbCalendarMonthElement,
+  SbbCalendarSelectAllElement,
   SbbCalendarWeekdayElement,
   SbbCalendarWeeknumberElement,
   SbbCalendarYearElement,
@@ -16,3 +17,4 @@ SbbCalendarMonthElement.define();
 SbbCalendarYearElement.define();
 SbbCalendarWeekdayElement.define();
 SbbCalendarWeeknumberElement.define();
+SbbCalendarSelectAllElement.define();
