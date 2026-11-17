@@ -17,7 +17,6 @@ export class SbbCalendarWeekdayElement extends SbbCalendarCellBaseElement {
       return;
     }
     this._value = value;
-    this.internals.ariaLabel = value.long;
   }
   public get value(): Weekday | null {
     return this._value;
