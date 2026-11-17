@@ -9,6 +9,7 @@ import {
   unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
 
 import { SbbSecondaryButtonElement } from '../../button.pure.ts';
 import {
@@ -1546,7 +1547,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     return html`
       <div class="sbb-calendar__table-wrapper sbb-calendar__day-view">
         <div class="sbb-calendar__table-header">
-          <span id="month-label">${monthLabel}</span>
+          <span>${monthLabel}</span>
           ${first ? this._createDayTableControls(monthLabel) : nothing}
         </div>
         <table
@@ -1559,7 +1560,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
               ${
                 this.weekNumbers
                   ? html`<th class="sbb-calendar__table-header-cell">
-                      ${this.multiple ? this._selectAllButton(weeksForSelectMultipleWeekNumbers) : nothing}
+                      ${this.multiple ? this._selectAllButton(monthLabel, weeksForSelectMultipleWeekNumbers) : nothing}
                     </th>`
                   : nothing
               }
@@ -1575,7 +1576,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                         ? html`
                             <sbb-calendar-weekday
                               .value=${weekDay}
-                              aria-label=${this._weekdayAriaLabel(weekDay, days)}
+                              ${ref((el?: Element): void =>
+                                this._applyElementInternalsAriaLabel(
+                                  el,
+                                  this._weekdayAriaLabel(weekDay, days),
+                                ),
+                              )}
                               @click=${() => this._selectMultipleDates(days)}
                             ></sbb-calendar-weekday>
                           `
@@ -1607,9 +1613,11 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                                   ? html`
                                       <sbb-calendar-weeknumber
                                         .value=${weekNumbers[0]}
-                                        aria-label=${this._weekNumberAriaLabel(
-                                          weekNumbers[0],
-                                          days,
+                                        ${ref((el?: Element): void =>
+                                          this._applyElementInternalsAriaLabel(
+                                            el,
+                                            this._weekNumberAriaLabel(weekNumbers[0], days),
+                                          ),
                                         )}
                                         @click=${() => this._selectMultipleDates(days)}
                                       ></sbb-calendar-weeknumber>
@@ -1643,9 +1651,11 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                                 ? html`
                                     <sbb-calendar-weeknumber
                                       .value=${weekNumbers[rowIndex]}
-                                      aria-label=${this._weekNumberAriaLabel(
-                                        weekNumbers[rowIndex],
-                                        days,
+                                      ${ref((el?: Element): void =>
+                                        this._applyElementInternalsAriaLabel(
+                                          el,
+                                          this._weekNumberAriaLabel(weekNumbers[rowIndex], days),
+                                        ),
                                       )}
                                       @click=${() => this._selectMultipleDates(days)}
                                     ></sbb-calendar-weeknumber>
@@ -1687,7 +1697,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     return html`
       <div class="sbb-calendar__table-wrapper sbb-calendar__day-view">
         <div class="sbb-calendar__table-header">
-          <span id="month-label">${monthLabel}</span>
+          <span>${monthLabel}</span>
           ${first ? this._createDayTableControls(monthLabel) : nothing}
         </div>
         <table
@@ -1701,7 +1711,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                   <thead>
                     <tr>
                       <th class="sbb-calendar__table-data">
-                        ${this.multiple ? this._selectAllButton(weeksForSelectMultipleWeekNumbers) : nothing}
+                        ${this.multiple ? this._selectAllButton(monthLabel, weeksForSelectMultipleWeekNumbers) : nothing}
                       </th>
                       ${weekNumbers.map((weekNumber: number) => {
                         const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
@@ -1714,7 +1724,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                                 ? html`
                                     <sbb-calendar-weeknumber
                                       .value=${weekNumber}
-                                      aria-label=${this._weekNumberAriaLabel(weekNumber, days)}
+                                      ${ref((el?: Element): void =>
+                                        this._applyElementInternalsAriaLabel(
+                                          el,
+                                          this._weekNumberAriaLabel(weekNumber, days),
+                                        ),
+                                      )}
                                       @click=${() => this._selectMultipleDates(days)}
                                     ></sbb-calendar-weeknumber>
                                   `
@@ -1744,7 +1759,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                         ? html`
                             <sbb-calendar-weekday
                               .value=${weekday}
-                              aria-label=${this._weekdayAriaLabel(weekday, week)}
+                              ${ref((el?: Element): void =>
+                                this._applyElementInternalsAriaLabel(
+                                  el,
+                                  this._weekdayAriaLabel(weekday, week),
+                                ),
+                              )}
                               @click=${() => this._selectMultipleDates(week)}
                             >
                               ${weekday.narrow}
@@ -1838,17 +1858,19 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     )[this._language.current];
   }
 
-  private _selectAllButton(daysOfMonth: Day<T>[]): TemplateResult {
+  private _selectAllButton(monthLabel: string, daysOfMonth: Day<T>[]): TemplateResult {
     return html`
       <sbb-calendar-select-all
         icon-name="four-squares-small"
-        aria-label=${
-          this._hasUnselectedDays(daysOfMonth)
-            ? i18nCalendarSelectAll[this._language.current]
-            : i18nCalendarDeselectAll[this._language.current]
-        }
+        ${ref((el?: Element): void =>
+          this._applyElementInternalsAriaLabel(
+            el,
+            this._hasUnselectedDays(daysOfMonth)
+              ? i18nCalendarSelectAll(monthLabel)[this._language.current]
+              : i18nCalendarDeselectAll(monthLabel)[this._language.current],
+          ),
+        )}
         @click=${() => this._selectMultipleDates(daysOfMonth)}
-        aria-describedby="month-label"
       ></sbb-calendar-select-all>
     `;
   }
@@ -1999,7 +2021,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       class="sbb-calendar__control"
       size="s"
       icon-name="chevron-small-${direction}-small"
-      aria-label=${ariaLabel}
+      ${ref((el?: Element): void => this._applyElementInternalsAriaLabel(el, ariaLabel))}
       @click=${click}
       ?disabled=${disabled}
     ></sbb-secondary-button>`;
@@ -2013,6 +2035,16 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         return this._renderMonthView();
       default:
         return nothing;
+    }
+  }
+
+  private _applyElementInternalsAriaLabel(el: Element | undefined, label: string): void {
+    if (!el) {
+      return;
+    }
+    const internals = (el as SbbElement)['internals'];
+    if (internals) {
+      internals.ariaLabel = label;
     }
   }
 

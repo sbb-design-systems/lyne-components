@@ -14,6 +14,7 @@ import {
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import {
   defaultDateAdapter,
+  i18nCalendarDateSelection,
   i18nCalendarDeselectAll,
   i18nCalendarDeselectWeek,
   i18nCalendarDeselectWeekday,
@@ -283,9 +284,12 @@ describe(`sbb-calendar`, () => {
           )!;
           expect(yearSelection).not.to.be.null;
           expect(yearSelection).dom.to.be.equal(`
-            <sbb-secondary-button aria-label="Change to date selection" class="sbb-calendar__control" icon-name="chevron-small-down-small" size="s" tabindex="0">
+            <sbb-secondary-button class="sbb-calendar__control" icon-name="chevron-small-down-small" size="s" tabindex="0">
             </sbb-secondary-button>
           `);
+          expect(elementInternals.get(yearSelection)?.ariaLabel).to.be.equals(
+            i18nCalendarDateSelection.en,
+          );
 
           const yearCells: SbbCalendarYearElement[] = Array.from(
             element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
@@ -306,9 +310,12 @@ describe(`sbb-calendar`, () => {
           )!;
           expect(monthSelection).not.to.be.null;
           expect(monthSelection).dom.to.be.equal(`
-            <sbb-secondary-button aria-label="Change to date selection" class="sbb-calendar__control" icon-name="chevron-small-down-small" size="s" tabindex="0">
+            <sbb-secondary-button  class="sbb-calendar__control" icon-name="chevron-small-down-small" size="s" tabindex="0">
             </sbb-secondary-button>
           `);
+          expect(elementInternals.get(monthSelection)?.ariaLabel).to.be.equals(
+            i18nCalendarDateSelection.en,
+          );
 
           const monthCells: SbbCalendarMonthElement[] = Array.from(
             element.shadowRoot!.querySelectorAll('sbb-calendar-month'),
@@ -1833,31 +1840,6 @@ describe(`sbb-calendar`, () => {
               (_, i) => `2025-04-${String(i + 1).padStart(2, '0')}`,
             );
 
-            it('is rendered with multiple and week-numbers', async () => {
-              const calendar: SbbCalendarElement = await fixture(html`
-                <sbb-calendar
-                  value="2025-04-08T00:00:00"
-                  orientation=${orientation}
-                  week-numbers
-                  multiple
-                >
-                  ${slottedDays()}
-                </sbb-calendar>
-              `);
-              const buttons = selectAllButton(calendar);
-              expect(buttons.length).to.be.equal(1);
-              expect(buttons[0].getAttribute('aria-describedby')).to.be.equal('month-label');
-              expect(
-                calendar.shadowRoot!.querySelector(
-                  `#${buttons[0].getAttribute('aria-describedby')}`,
-                ),
-              ).not.to.be.null;
-              // The button is placed in the first header cell of the table
-              expect(buttons[0].closest('thead th')).to.be.equal(
-                calendar.shadowRoot!.querySelector('thead th'),
-              );
-            });
-
             it('selects and deselects all days of the month', async () => {
               const calendar: SbbCalendarElement = await fixture(html`
                 <sbb-calendar
@@ -2034,8 +2016,8 @@ describe(`sbb-calendar`, () => {
                     ${slottedDays()}
                   </sbb-calendar>
                 `);
-                expect(selectAllButton(calendar)[0].getAttribute('aria-label')).to.be.equal(
-                  i18nCalendarSelectAll.en,
+                expect(elementInternals.get(selectAllButton(calendar)[0])?.ariaLabel).to.be.equal(
+                  i18nCalendarSelectAll('April 2025').en,
                 );
               });
 
@@ -2052,12 +2034,13 @@ describe(`sbb-calendar`, () => {
                 `);
                 const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
                 const getLabel = (): string | null =>
-                  selectAllButton(calendar)[0].getAttribute('aria-label');
+                  elementInternals.get(selectAllButton(calendar)[0])?.ariaLabel ?? null;
 
                 selectAllButton(calendar)[0].click();
                 await selectedSpy.calledOnce();
                 await waitForLitRender(calendar);
-                expect(getLabel()).to.be.equal(i18nCalendarDeselectAll.en);
+
+                expect(getLabel()).to.be.equal(i18nCalendarDeselectAll('April 2025').en);
 
                 // Removing a single day makes the select action available again
                 getDayCells(calendar)
@@ -2065,18 +2048,18 @@ describe(`sbb-calendar`, () => {
                   .click();
                 await selectedSpy.calledTimes(2);
                 await waitForLitRender(calendar);
-                expect(getLabel()).to.be.equal(i18nCalendarSelectAll.en);
+                expect(getLabel()).to.be.equal(i18nCalendarSelectAll('April 2025').en);
 
                 selectAllButton(calendar)[0].click();
                 await selectedSpy.calledTimes(3);
                 await waitForLitRender(calendar);
-                expect(getLabel()).to.be.equal(i18nCalendarDeselectAll.en);
+                expect(getLabel()).to.be.equal(i18nCalendarDeselectAll('April 2025').en);
 
                 // Deselecting all days restores the select label
                 selectAllButton(calendar)[0].click();
                 await selectedSpy.calledTimes(4);
                 await waitForLitRender(calendar);
-                expect(getLabel()).to.be.equal(i18nCalendarSelectAll.en);
+                expect(getLabel()).to.be.equal(i18nCalendarSelectAll('April 2025').en);
               });
 
               it('is evaluated for each month with amount 2', async () => {
@@ -2094,19 +2077,19 @@ describe(`sbb-calendar`, () => {
                 `);
                 const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
                 const labels = (): (string | null)[] =>
-                  selectAllButton(calendar).map((b) => b.getAttribute('aria-label'));
+                  selectAllButton(calendar).map((b) => elementInternals.get(b)?.ariaLabel ?? null);
 
                 expect(labels()).to.be.deep.equal([
-                  i18nCalendarSelectAll.en,
-                  i18nCalendarSelectAll.en,
+                  i18nCalendarSelectAll('April 2025').en,
+                  i18nCalendarSelectAll('May 2025').en,
                 ]);
 
                 selectAllButton(calendar)[1].click();
                 await selectedSpy.calledOnce();
                 await waitForLitRender(calendar);
                 expect(labels()).to.be.deep.equal([
-                  i18nCalendarSelectAll.en,
-                  i18nCalendarDeselectAll.en,
+                  i18nCalendarSelectAll('April 2025').en,
+                  i18nCalendarDeselectAll('May 2025').en,
                 ]);
               });
             });
@@ -2132,7 +2115,7 @@ describe(`sbb-calendar`, () => {
                 calendar.shadowRoot!.querySelectorAll<SbbCalendarWeekdayElement>(
                   'sbb-calendar-weekday',
                 ),
-                (e) => e.getAttribute('aria-label'),
+                (e) => elementInternals.get(e)!.ariaLabel,
               );
 
             const weeknumberLabels = (calendar: SbbCalendarElement): (string | null)[] =>
@@ -2140,7 +2123,7 @@ describe(`sbb-calendar`, () => {
                 calendar.shadowRoot!.querySelectorAll<SbbCalendarWeeknumberElement>(
                   'sbb-calendar-weeknumber',
                 ),
-                (e) => e.getAttribute('aria-label'),
+                (e) => elementInternals.get(e)!.ariaLabel,
               );
 
             const clickDay = (calendar: SbbCalendarElement, isoDate: string): void =>
