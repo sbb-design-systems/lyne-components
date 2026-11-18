@@ -187,6 +187,7 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
         'sbb-tooltip-open-delay',
         'sbb-tooltip-close-delay',
         'sbb-tooltip-position',
+        'sbb-tooltip-disabled',
       ],
       childList: true,
       subtree: true,
@@ -220,6 +221,7 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
       tooltip.closeDelay = triggerElement.hasAttribute('sbb-tooltip-close-delay')
         ? +triggerElement.getAttribute('sbb-tooltip-close-delay')!
         : null;
+      tooltip.disabled = triggerElement.hasAttribute('sbb-tooltip-disabled');
 
       // Read the positions from the trigger (either from the attribute or the property)
       const positions = triggerElement.hasAttribute('sbb-tooltip-position')

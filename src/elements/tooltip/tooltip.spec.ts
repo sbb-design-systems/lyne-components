@@ -548,4 +548,31 @@ describe('sbb-tooltip', () => {
       expect(element.style.getPropertyValue('--sbb-overlay-position-try-fallbacks')).to.be.empty;
     });
   });
+
+  describe('attribute usages - disabled', () => {
+    beforeEach(async () => {
+      await fixture(html`<sbb-button sbb-tooltip="Tooltip message">Button</sbb-button>`);
+      trigger = document.querySelector('sbb-button')!;
+      element = document.querySelector('.sbb-overlay-outlet sbb-tooltip')!;
+    });
+
+    it('should disable tooltip', async () => {
+      trigger.setAttribute('sbb-tooltip-disabled', '');
+      await aTimeout(50); // wait for the MutationObserver to trigger
+
+      element.open();
+      expect(element.isOpen).to.equal(false);
+    });
+
+    it('should enabled by removing sbb-tooltip-disabled attribute', async () => {
+      trigger.setAttribute('sbb-tooltip-disabled', '');
+      await aTimeout(50); // wait for the MutationObserver to trigger
+
+      trigger.removeAttribute('sbb-tooltip-disabled');
+      await aTimeout(50); // wait for the MutationObserver to trigger
+
+      element.open();
+      expect(element.isOpen).to.equal(true);
+    });
+  });
 });
