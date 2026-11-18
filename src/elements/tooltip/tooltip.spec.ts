@@ -19,6 +19,10 @@ describe('sbb-tooltip', () => {
   let openSpy: EventSpy<Event>;
   let closeSpy: EventSpy<Event>;
 
+  const defaultPositionArea = 'block-start';
+  const defaultPositionTryFallbacks =
+    'block-start span-inline-end, block-start span-inline-start, block-end,\n    block-end span-inline-end, block-end span-inline-start';
+
   describe('general behavior', () => {
     let otherElem: HTMLElement;
 
@@ -538,35 +542,45 @@ describe('sbb-tooltip', () => {
     });
 
     it('should set position CSS vars', async () => {
-      expect(element.style.getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
+      expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
         'inline-end',
       );
-      expect(element.style.getPropertyValue('--sbb-overlay-position-try-fallbacks')).to.be.equal(
-        'inline-start, block-start',
-      );
+      expect(
+        getComputedStyle(element).getPropertyValue('--sbb-overlay-position-try-fallbacks'),
+      ).to.be.equal('inline-start, block-start');
 
       trigger.setAttribute('sbb-tooltip-position', 'top');
       await aTimeout(50); // wait for the MutationObserver to trigger
-      expect(element.style.getPropertyValue('--sbb-overlay-position-area')).to.be.equal('top');
-      expect(element.style.getPropertyValue('--sbb-overlay-position-try-fallbacks')).to.be.empty;
+      expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
+        'top',
+      );
+      expect(
+        getComputedStyle(element).getPropertyValue('--sbb-overlay-position-try-fallbacks'),
+      ).to.be.equal(defaultPositionTryFallbacks);
     });
 
     it('should update position CSS vars', async () => {
       trigger.setAttribute('sbb-tooltip-position', 'top, right');
       await aTimeout(50); // wait for the MutationObserver to trigger
 
-      expect(element.style.getPropertyValue('--sbb-overlay-position-area')).to.be.equal('top');
-      expect(element.style.getPropertyValue('--sbb-overlay-position-try-fallbacks')).to.be.equal(
-        'right',
+      expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
+        'top',
       );
+      expect(
+        getComputedStyle(element).getPropertyValue('--sbb-overlay-position-try-fallbacks'),
+      ).to.be.equal('right');
     });
 
     it('should reset position CSS vars', async () => {
       trigger.removeAttribute('sbb-tooltip-position');
       await aTimeout(50); // wait for the MutationObserver to trigger
       expect(element.positions).to.be.null;
-      expect(element.style.getPropertyValue('--sbb-overlay-position-area')).to.be.empty;
-      expect(element.style.getPropertyValue('--sbb-overlay-position-try-fallbacks')).to.be.empty;
+      expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
+        defaultPositionArea,
+      );
+      expect(
+        getComputedStyle(element).getPropertyValue('--sbb-overlay-position-try-fallbacks'),
+      ).to.be.equal(defaultPositionTryFallbacks);
     });
   });
 
@@ -583,20 +597,24 @@ describe('sbb-tooltip', () => {
 
     it('should not set CSS vars by default', async () => {
       expect(element.positions).to.be.null;
-      expect(element.style.getPropertyValue('--sbb-overlay-position-area')).to.be.empty;
-      expect(element.style.getPropertyValue('--sbb-overlay-position-try-fallbacks')).to.be.empty;
+      expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
+        defaultPositionArea,
+      );
+      expect(
+        getComputedStyle(element).getPropertyValue('--sbb-overlay-position-try-fallbacks'),
+      ).to.be.equal(defaultPositionTryFallbacks);
     });
 
     it('should set CSS vars', async () => {
       element.positions = ['block-start', 'inline-end', 'inline-start'];
       await waitForLitRender(element);
 
-      expect(element.style.getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
+      expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
         'block-start',
       );
-      expect(element.style.getPropertyValue('--sbb-overlay-position-try-fallbacks')).to.be.equal(
-        'inline-end, inline-start',
-      );
+      expect(
+        getComputedStyle(element).getPropertyValue('--sbb-overlay-position-try-fallbacks'),
+      ).to.be.equal('inline-end, inline-start');
     });
 
     it('should parse comma-separated attribute', async () => {
@@ -604,10 +622,12 @@ describe('sbb-tooltip', () => {
       await waitForLitRender(element);
 
       expect(element.positions).to.be.eql(['top', 'right']);
-      expect(element.style.getPropertyValue('--sbb-overlay-position-area')).to.be.equal('top');
-      expect(element.style.getPropertyValue('--sbb-overlay-position-try-fallbacks')).to.be.equal(
-        'right',
+      expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
+        'top',
       );
+      expect(
+        getComputedStyle(element).getPropertyValue('--sbb-overlay-position-try-fallbacks'),
+      ).to.be.equal('right');
     });
 
     it('should fall back to tooltipPositions of the trigger', async () => {
@@ -620,17 +640,21 @@ describe('sbb-tooltip', () => {
       element.trigger = triggerEl;
       await waitForLitRender(element);
 
-      expect(element.style.getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
+      expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
         'inline-end',
       );
-      expect(element.style.getPropertyValue('--sbb-overlay-position-try-fallbacks')).to.be.equal(
-        'inline-start',
-      );
+      expect(
+        getComputedStyle(element).getPropertyValue('--sbb-overlay-position-try-fallbacks'),
+      ).to.be.equal('inline-start');
 
       element.positions = ['top'];
       await waitForLitRender(element);
-      expect(element.style.getPropertyValue('--sbb-overlay-position-area')).to.be.equal('top');
-      expect(element.style.getPropertyValue('--sbb-overlay-position-try-fallbacks')).to.be.empty;
+      expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
+        'top',
+      );
+      expect(
+        getComputedStyle(element).getPropertyValue('--sbb-overlay-position-try-fallbacks'),
+      ).to.be.equal(defaultPositionTryFallbacks);
     });
 
     it('should reset CSS vars', async () => {
@@ -639,8 +663,12 @@ describe('sbb-tooltip', () => {
       element.positions = null;
       await waitForLitRender(element);
 
-      expect(element.style.getPropertyValue('--sbb-overlay-position-area')).to.be.empty;
-      expect(element.style.getPropertyValue('--sbb-overlay-position-try-fallbacks')).to.be.empty;
+      expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
+        defaultPositionArea,
+      );
+      expect(
+        getComputedStyle(element).getPropertyValue('--sbb-overlay-position-try-fallbacks'),
+      ).to.be.equal(defaultPositionTryFallbacks);
     });
   });
 

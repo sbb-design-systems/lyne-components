@@ -20,6 +20,7 @@ import {
   readConfig,
   removeAriaElements,
   SbbDisabledMixin,
+  SbbDynamicStylesheetMixin,
   SbbEscapableOverlayController,
   sbbInputModalityDetector,
   SbbOpenCloseBaseElement,
@@ -66,7 +67,9 @@ const tooltipTriggers = new WeakMap<HTMLElement, SbbTooltipElement>();
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
+export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
+  SbbDisabledMixin(SbbOpenCloseBaseElement),
+) {
   public static override readonly elementName: string = 'sbb-tooltip';
   public static override readonly role = 'tooltip';
   public static override styles: CSSResultGroup = [popoverResetStyles, unsafeCSS(style)];
@@ -294,19 +297,17 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
     super.updated(changedProperties);
 
     if (changedProperties.has('positions') || changedProperties.has('trigger')) {
-      // Fall back to the default positions defined by the trigger element (if any).
       const positions =
         this.positions ??
+        // Fall back to the default positions defined by the trigger element (if any).
         (this.trigger as Partial<SbbTooltipDefaultPositions> | null)?.tooltipPositions;
       if (positions?.length) {
-        this.style.setProperty('--sbb-overlay-position-area', positions[0]);
-        this.style.setProperty(
-          '--sbb-overlay-position-try-fallbacks',
-          positions.slice(1).join(', '),
+        const positionTryFallbacks = positions.slice(1).join(', ');
+        this.dynamicStyleSheet?.replaceSync(
+          `:host {--sbb-overlay-position-area: ${positions[0]};${positionTryFallbacks.length ? ` --sbb-overlay-position-try-fallbacks: ${positionTryFallbacks}};` : ''}`,
         );
       } else {
-        this.style.removeProperty('--sbb-overlay-position-area');
-        this.style.removeProperty('--sbb-overlay-position-try-fallbacks');
+        this.dynamicStyleSheet?.replaceSync(``);
       }
     }
   }
