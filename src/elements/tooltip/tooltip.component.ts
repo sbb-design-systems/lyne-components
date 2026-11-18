@@ -43,6 +43,16 @@ export interface SbbTooltipDefaultPositions {
 const LONGPRESS_DELAY = 500;
 
 const isMobile = isAndroid || isIOS;
+
+/** Parses a comma-separated list of positions. */
+function parsePositions(value: string | null): string[] | null {
+  return (
+    value
+      ?.split(',')
+      .map((p) => p.trim())
+      .filter(Boolean) ?? null
+  );
+}
 const tooltipTriggers = new WeakMap<HTMLElement, SbbTooltipElement>();
 
 /**
@@ -124,6 +134,18 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
     return this._longPressCloseDelay ?? readConfig().tooltip?.longPressCloseDelay ?? 1500;
   }
   private _longPressCloseDelay?: number;
+
+  /**
+   * The positions of the tooltip, relative to the trigger.
+   * The first entry is the primary position (`--sbb-overlay-position-area`),
+   * the following ones are the fallback positions (`--sbb-overlay-position-try-fallbacks`).
+   * For attribute usage, provide a comma-separated list.
+   * If not set, the default positions of the trigger (`tooltipPositions`) or the CSS variables are used.
+   */
+  @property({
+    converter: { fromAttribute: parsePositions },
+  })
+  public accessor positions: string[] | null = null;
 
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController?: AbortController;
@@ -222,25 +244,7 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
         ? +triggerElement.getAttribute('sbb-tooltip-close-delay')!
         : null;
       tooltip.disabled = triggerElement.hasAttribute('sbb-tooltip-disabled');
-
-      // Read the positions from the trigger (either from the attribute or the property)
-      const positions = triggerElement.hasAttribute('sbb-tooltip-position')
-        ? triggerElement
-            .getAttribute('sbb-tooltip-position')!
-            .split(',')
-            .map((p) => p.trim())
-        : (triggerElement as unknown as SbbTooltipDefaultPositions).tooltipPositions;
-
-      if (positions && positions.length > 0) {
-        tooltip.style.setProperty('--sbb-overlay-position-area', positions[0]);
-        tooltip.style.setProperty(
-          '--sbb-overlay-position-try-fallbacks',
-          positions.slice(1).join(', '),
-        );
-      } else {
-        tooltip.style.removeProperty('--sbb-overlay-position-area');
-        tooltip.style.removeProperty('--sbb-overlay-position-try-fallbacks');
-      }
+      tooltip.positions = parsePositions(triggerElement.getAttribute('sbb-tooltip-position'));
     } else if (tooltip) {
       // The trigger or the attribute has been deleted => delete the connected tooltip
       tooltipTriggers.delete(triggerElement);
@@ -281,6 +285,27 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
 
     if ((!name || name === 'trigger') && this.hasUpdated) {
       this._attach(this.trigger);
+    }
+  }
+
+  protected override updated(changedProperties: PropertyValues<this>): void {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('positions') || changedProperties.has('trigger')) {
+      // Fall back to the default positions defined by the trigger element (if any).
+      const positions =
+        this.positions ??
+        (this.trigger as Partial<SbbTooltipDefaultPositions> | null)?.tooltipPositions;
+      if (positions?.length) {
+        this.style.setProperty('--sbb-overlay-position-area', positions[0]);
+        this.style.setProperty(
+          '--sbb-overlay-position-try-fallbacks',
+          positions.slice(1).join(', '),
+        );
+      } else {
+        this.style.removeProperty('--sbb-overlay-position-area');
+        this.style.removeProperty('--sbb-overlay-position-try-fallbacks');
+      }
     }
   }
 
