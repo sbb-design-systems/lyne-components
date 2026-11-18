@@ -129,6 +129,22 @@ describe('sbb-tooltip', () => {
       expect(element).to.match(':state(state-closed)');
     });
 
+    it('should toggle aria-describedby link on disabled', async () => {
+      expect(trigger.ariaDescribedByElements).to.deep.equal([element]);
+
+      element.disabled = true;
+      await waitForLitRender(element);
+      expect(trigger.ariaDescribedByElements).to.be.null;
+
+      element.disabled = false;
+      await waitForLitRender(element);
+      expect(trigger.ariaDescribedByElements).to.deep.equal([element]);
+
+      element.disabled = false;
+      await waitForLitRender(element);
+      expect(trigger.ariaDescribedByElements).to.deep.equal([element]);
+    });
+
     it('should open on simulated long press', async () => {
       const outsidePointerSpy = new EventSpy('overlayOutsidePointer', element);
       element.longPressCloseDelay = 200;

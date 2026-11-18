@@ -285,6 +285,8 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
 
     if ((!name || name === 'trigger') && this.hasUpdated) {
       this._attach(this.trigger);
+    } else if (name === 'disabled') {
+      this._updateTriggerDescription();
     }
   }
 
@@ -399,11 +401,22 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
     if (!this._triggerElement) {
       return;
     }
-    this._triggerElement.ariaDescribedByElements = appendAriaElements(
+    this._updateTriggerDescription();
+    this._addTriggerEventHandlers();
+  }
+
+  /** Links the tooltip to the trigger, unless the tooltip is disabled. */
+  private _updateTriggerDescription(): void {
+    if (!this._triggerElement) {
+      return;
+    }
+    const remainingElements = removeAriaElements(
       this._triggerElement.ariaDescribedByElements,
       this,
     );
-    this._addTriggerEventHandlers();
+    this._triggerElement.ariaDescribedByElements = this.disabled
+      ? remainingElements
+      : appendAriaElements(remainingElements, this);
   }
 
   private _detach(): void {
