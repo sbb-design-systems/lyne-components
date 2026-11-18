@@ -58,6 +58,7 @@ const attributeUsageArgTypes: ArgTypes = {
   'sbb-tooltip': tooltipMessage,
   'sbb-tooltip-open-delay': openDelay,
   'sbb-tooltip-close-delay': closeDelay,
+  'sbb-tooltip-disabled': disabled,
 };
 
 const defaultArgTypes: ArgTypes = {
@@ -72,6 +73,7 @@ const attributeUsageArgs: Args = {
   'sbb-tooltip': "I'm a tooltip from the [sbb-tooltip] attribute",
   'sbb-tooltip-open-delay': 250,
   'sbb-tooltip-close-delay': 250,
+  'sbb-tooltip-disabled': false,
 };
 
 const defaultArgs: Args = {
@@ -83,9 +85,9 @@ const defaultArgs: Args = {
 };
 
 const trigger = (): TemplateResult => html`
-  <sbb-button id="tooltip-trigger" style="margin-block-start: 10rem; margin-inline-start: 10rem;"
-    >Button</sbb-button
-  >
+  <sbb-button id="tooltip-trigger" style="margin-block-start: 10rem; margin-inline-start: 10rem;">
+    Button
+  </sbb-button>
 `;
 
 const Template = ({ position, tooltipMessage, ...args }: Args): TemplateResult => html`
