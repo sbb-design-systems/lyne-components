@@ -44,6 +44,8 @@ export const SbbCheckboxCommonElementMixin = <T extends AbstractConstructor<SbbE
     protected constructor() {
       super();
 
+      this.setupEventListeners();
+
       this.addController(
         new SbbPropertyWatcherController(
           this,
