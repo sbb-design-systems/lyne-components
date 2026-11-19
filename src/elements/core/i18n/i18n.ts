@@ -860,6 +860,48 @@ export const i18nCalendarWeekNumber: Record<string, string> = {
   it: 'Settimana',
 };
 
+export const i18nCalendarSelectAll = (monthYear: string): Record<string, string> => ({
+  de: `Alle Tage des Monats ${monthYear} auswählen`,
+  en: `Select all days of ${monthYear}`,
+  fr: `Sélectionner tous les jours du ${monthYear}`,
+  it: `Selezionare tutti i giorni del ${monthYear}`,
+});
+
+export const i18nCalendarDeselectAll = (monthYear: string): Record<string, string> => ({
+  de: `Alle Tage des Monats ${monthYear} abwählen`,
+  en: `Deselect all days of ${monthYear}`,
+  fr: `Désélectionner tous les jours du ${monthYear}`,
+  it: `Deselezionare tutti i giorni del ${monthYear}`,
+});
+
+export const i18nCalendarSelectWeekday = (weekday: string): Record<string, string> => ({
+  de: `Jeden ${weekday} im Monat auswählen`,
+  en: `Select every ${weekday} in the month`,
+  fr: `Sélectionner chaque ${weekday} du mois`,
+  it: `Selezionare ogni ${weekday} del mese`,
+});
+
+export const i18nCalendarDeselectWeekday = (weekday: string): Record<string, string> => ({
+  de: `Jeden ${weekday} im Monat abwählen`,
+  en: `Deselect every ${weekday} in the month`,
+  fr: `Désélectionner chaque ${weekday} du mois`,
+  it: `Deselezionare ogni ${weekday} del mese`,
+});
+
+export const i18nCalendarSelectWeek = (weekNumber: number | string): Record<string, string> => ({
+  de: `Woche ${weekNumber} auswählen`,
+  en: `Select week ${weekNumber}`,
+  fr: `Sélectionner la semaine ${weekNumber}`,
+  it: `Selezionare la settimana ${weekNumber}`,
+});
+
+export const i18nCalendarDeselectWeek = (weekNumber: number | string): Record<string, string> => ({
+  de: `Woche ${weekNumber} abwählen`,
+  en: `Deselect week ${weekNumber}`,
+  fr: `Désélectionner la semaine ${weekNumber}`,
+  it: `Deselezionare la settimana ${weekNumber}`,
+});
+
 export const i18nTimetableFormSwapButtonLabel: Record<string, string> = {
   de: 'Von und Nach tauschen',
   en: 'Swap from and to',

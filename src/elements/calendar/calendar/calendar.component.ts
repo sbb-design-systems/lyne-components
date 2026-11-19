@@ -9,6 +9,7 @@ import {
   unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ref } from 'lit/directives/ref.js';
 
 import { SbbSecondaryButtonElement } from '../../button.pure.ts';
 import {
@@ -21,6 +22,12 @@ import {
   getNextElementIndex,
   handleDistinctChange,
   i18nCalendarDateSelection,
+  i18nCalendarDeselectAll,
+  i18nCalendarDeselectWeek,
+  i18nCalendarDeselectWeekday,
+  i18nCalendarSelectAll,
+  i18nCalendarSelectWeek,
+  i18nCalendarSelectWeekday,
   i18nCalendarWeekNumber,
   i18nNextMonth,
   i18nNextYear,
@@ -45,6 +52,7 @@ import {
 import { SbbIconElement } from '../../icon.pure.ts';
 import { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 import { SbbCalendarMonthElement } from '../calendar-month/calendar-month.component.ts';
+import { SbbCalendarSelectAllElement } from '../calendar-select-all/calendar-select-all.component.ts';
 import { SbbCalendarWeekdayElement } from '../calendar-weekday/calendar-weekday.component.ts';
 import { SbbCalendarWeeknumberElement } from '../calendar-weeknumber/calendar-weeknumber.component.ts';
 import { SbbCalendarYearElement } from '../calendar-year/calendar-year.component.ts';
@@ -124,10 +132,18 @@ export interface Weekday {
   narrow: string;
 }
 
-/** Minimal configuration for tab-group keyboard navigation between cells. */
-interface SbbCalendarTabbableCell {
-  tabIndex: number;
-  focus(): void;
+interface KeyboardNavigationHandler {
+  tab?: () => HTMLElement | void;
+  shiftTab?: () => HTMLElement | void;
+  arrowKeys?: () => HTMLElement | void;
+  arrowUp?: () => HTMLElement | void;
+  arrowDown?: () => HTMLElement | void;
+  arrowLeft?: () => HTMLElement | void;
+  arrowRight?: () => HTMLElement | void;
+  home?: () => HTMLElement | void;
+  end?: () => HTMLElement | void;
+  pageUp?: () => HTMLElement | void;
+  pageDown?: () => HTMLElement | void;
 }
 
 /**
@@ -145,6 +161,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     SbbCalendarYearElement,
     SbbIconElement,
     SbbSecondaryButtonElement,
+    SbbCalendarSelectAllElement,
   ];
   public static override styles: CSSResultGroup = [
     buttonResetStyles,
@@ -329,6 +346,13 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     );
   }
 
+  private get _selectAllButtons(): SbbCalendarSelectAllElement[] {
+    return Array.from<SbbCalendarSelectAllElement>(
+      this.shadowRoot?.querySelectorAll<SbbCalendarSelectAllElement>(`sbb-calendar-select-all`) ??
+        [],
+    );
+  }
+
   /** The chosen year in the year selection view. */
   private _chosenYear?: number;
 
@@ -348,17 +372,9 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
   private _language = new SbbLanguageController(this).withHandler(() => {
     this._monthNames = this._dateAdapter.getMonthNames('long');
+    this._setWeekdays();
     this._createMonthRows();
   });
-
-  private get _tabbableGroups(): { key: string; value: () => SbbCalendarTabbableCell[] }[] {
-    const weekdays = { key: 'weekdays', value: () => this._weekdayCells };
-    const weekNumbers = { key: 'weekNumbers', value: () => this._weekNumberCells };
-    const days = { key: 'days', value: () => this._cells };
-    return this.orientation === 'vertical'
-      ? [weekNumbers, weekdays, days]
-      : [weekdays, weekNumbers, days];
-  }
 
   public constructor() {
     super();
@@ -396,6 +412,16 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
           (e): e is SbbCalendarWeeknumberElement =>
             (e as HTMLElement).localName === 'sbb-calendar-weeknumber',
         ) ?? null;
+    const resolveSelectAll = (
+      event: PointerEvent | KeyboardEvent,
+    ): SbbCalendarSelectAllElement | null =>
+      event
+        .composedPath()
+        .find(
+          (e): e is SbbCalendarSelectAllElement =>
+            (e as HTMLElement).localName === 'sbb-calendar-select-all',
+        ) ?? null;
+
     this.addEventListener('click', (event) => {
       const day = resolveDay(event);
       if (day) {
@@ -406,45 +432,322 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       const day = resolveDay(event);
       const weekday = resolveWeekday(event);
       const weekNumber = resolveWeekNumber(event);
-      if (!(day || weekday || weekNumber)) {
+      const selectAll = resolveSelectAll(event);
+      const target = day ?? weekday ?? weekNumber ?? selectAll;
+      if (!target) {
         return;
       }
 
-      if (event.key === 'Tab') {
-        const currentKey = weekday ? 'weekdays' : weekNumber ? 'weekNumbers' : 'days';
-        const availableGroups = this._tabbableGroups.filter((tg) => tg.value().length > 0);
-        const groupId = availableGroups.findIndex((tg) => tg.key === currentKey);
-        const nextIdx = event.shiftKey ? groupId - 1 : groupId + 1;
-        if (groupId === -1 || nextIdx < 0 || nextIdx >= availableGroups.length) {
-          return;
-        }
-        const next = availableGroups[nextIdx].value().find((e) => e.tabIndex === 0);
-        if (!next) {
-          return;
-        }
-        event.preventDefault();
-        next.focus();
+      const currentTable = target.closest('table') ?? target.assignedSlot?.closest('table');
+      if (!currentTable) {
+        return;
       }
 
-      if (isArrowKeyOrPageKeysPressed(event)) {
+      const weekdayWithSelectAllButtons = [...this._selectAllButtons, ...this._weekdayCells].sort(
+        (a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1),
+      );
+      const weeknumberWithSelectAllButtons = [
+        ...this._selectAllButtons,
+        ...this._weekNumberCells,
+      ].sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+      const horizontalNavigationElements: HTMLElement[] =
+        this.orientation === 'horizontal'
+          ? weekdayWithSelectAllButtons
+          : weeknumberWithSelectAllButtons;
+      const verticalNavigationElements: HTMLElement[] =
+        this.orientation === 'horizontal'
+          ? weeknumberWithSelectAllButtons
+          : weekdayWithSelectAllButtons;
+
+      const handler: KeyboardNavigationHandler | undefined = (() => {
         if (day) {
-          this._handleKeyboardEvent(event, day);
-        } else if (weekday) {
-          this._handleKeyboardEventWeek<SbbCalendarWeekdayElement>(
-            event,
-            weekday,
-            this._weekdayCells,
-          );
-        } else if (weekNumber) {
-          this._handleKeyboardEventWeek<SbbCalendarWeeknumberElement>(
-            event,
-            weekNumber,
-            this._weekNumberCells,
-          );
+          return {
+            tab: () => {
+              if (!this.multiple) {
+                return;
+              }
+
+              // Focus should land outside any of the tables
+              // The blur handler will fix the tabIndex, so we don't need to do it here.
+              this._selectAllButtons.forEach((el) => (el.tabIndex = -1));
+            },
+            shiftTab: () => {
+              if (!this.multiple) {
+                return;
+              }
+              if (this.weekNumbers) {
+                // Should select select-all-button
+                const toFocus = currentTable.querySelector('sbb-calendar-select-all');
+                this._selectAllButtons.forEach((el) => (el.tabIndex = toFocus === el ? 0 : -1));
+                return toFocus ?? undefined;
+              } else {
+                // Should select weekday
+                const weekdayElements = Array.from(
+                  currentTable.querySelectorAll('sbb-calendar-weekday') ?? [],
+                );
+                if (!weekdayElements.length) {
+                  return;
+                }
+
+                return weekdayElements.find((e) => e.tabIndex === 0) ?? weekdayElements[0];
+              }
+            },
+            arrowKeys: () => this._handleKeyboardEvent(event, day as SbbCalendarDayElement<T>),
+          };
+        } else if (selectAll) {
+          return {
+            shiftTab: () => {
+              // Focus should land outside any of the tables
+              // The blur handler will fix the tabIndex of the cells, so we don't need to do it here.
+              [...this._cells, ...this._selectAllButtons].forEach((el) => (el.tabIndex = -1));
+            },
+            tab: () => {
+              const enabledDayElements = (Array.from(currentTable.querySelectorAll('slot')) ?? [])
+                .flatMap<SbbCalendarDayElement<T>>(
+                  (e) => e.assignedElements({ flatten: true }) as SbbCalendarDayElement<T>[],
+                )
+                .filter((el) => !el.disabled)
+                .sort((a, b) => a.slot.localeCompare(b.slot));
+              return enabledDayElements.find((e) => e.tabIndex === 0) ?? enabledDayElements[0];
+            },
+            arrowRight: () =>
+              horizontalNavigationElements[
+                getNextElementIndex(
+                  event,
+                  horizontalNavigationElements.indexOf(target),
+                  horizontalNavigationElements.length,
+                )
+              ],
+            arrowLeft: () =>
+              horizontalNavigationElements[
+                getNextElementIndex(
+                  event,
+                  horizontalNavigationElements.indexOf(target),
+                  horizontalNavigationElements.length,
+                )
+              ],
+            home: () => {
+              const toFocus = this._selectAllButtons[0];
+              this._selectAllButtons.forEach((el) => (el.tabIndex = toFocus === el ? 0 : -1));
+              return toFocus;
+            },
+            end: () =>
+              horizontalNavigationElements[
+                getNextElementIndex(
+                  event,
+                  horizontalNavigationElements.length - 1,
+                  horizontalNavigationElements.length,
+                )
+              ],
+            arrowDown: () =>
+              verticalNavigationElements[
+                getNextElementIndex(
+                  event,
+                  verticalNavigationElements.indexOf(target),
+                  verticalNavigationElements.length,
+                )
+              ],
+            arrowUp: () =>
+              verticalNavigationElements[
+                getNextElementIndex(
+                  event,
+                  verticalNavigationElements.indexOf(target),
+                  verticalNavigationElements.length,
+                )
+              ],
+            pageUp: () => {
+              const toFocus = this._selectAllButtons[0];
+              this._selectAllButtons.forEach((el) => (el.tabIndex = toFocus === el ? 0 : -1));
+              return toFocus;
+            },
+            pageDown: () =>
+              verticalNavigationElements[
+                getNextElementIndex(
+                  event,
+                  verticalNavigationElements.length - 1,
+                  verticalNavigationElements.length,
+                )
+              ],
+          };
+        } else if (weekday || weekNumber) {
+          return {
+            shiftTab: () => {
+              // Focus should land outside any of the tables
+              // The blur handler will fix the tabIndex of the cells, so we don't need to do it here.
+              [...this._cells, ...this._selectAllButtons].forEach((el) => (el.tabIndex = -1));
+            },
+            tab: () => {
+              const enabledDayElements = (Array.from(currentTable.querySelectorAll('slot')) ?? [])
+                .flatMap<SbbCalendarDayElement<T>>(
+                  (e) => e.assignedElements({ flatten: true }) as SbbCalendarDayElement<T>[],
+                )
+                .filter((el) => !el.disabled)
+                .sort((a, b) => a.slot.localeCompare(b.slot));
+
+              return enabledDayElements.find((e) => e.tabIndex === 0) ?? enabledDayElements[0];
+            },
+            arrowRight: () => {
+              if (
+                (weekday && this.orientation !== 'horizontal') ||
+                (weekNumber && this.orientation !== 'vertical')
+              ) {
+                return;
+              }
+
+              return horizontalNavigationElements[
+                getNextElementIndex(
+                  event,
+                  horizontalNavigationElements.indexOf(target),
+                  horizontalNavigationElements.length,
+                )
+              ];
+            },
+            arrowLeft: () => {
+              if (
+                (weekday && this.orientation !== 'horizontal') ||
+                (weekNumber && this.orientation !== 'vertical')
+              ) {
+                return;
+              }
+
+              return horizontalNavigationElements[
+                getNextElementIndex(
+                  event,
+                  horizontalNavigationElements.indexOf(target),
+                  horizontalNavigationElements.length,
+                )
+              ];
+            },
+            home: () => {
+              if (
+                (weekday && this.orientation !== 'horizontal') ||
+                (weekNumber && this.orientation !== 'vertical')
+              ) {
+                return;
+              }
+              const toFocus = this._selectAllButtons[0];
+              this._selectAllButtons.forEach((el) => (el.tabIndex = toFocus === el ? 0 : -1));
+              return toFocus;
+            },
+            end: () => {
+              if (
+                (weekday && this.orientation !== 'horizontal') ||
+                (weekNumber && this.orientation !== 'vertical')
+              ) {
+                return;
+              }
+              return horizontalNavigationElements[
+                getNextElementIndex(
+                  event,
+                  horizontalNavigationElements.length - 1,
+                  horizontalNavigationElements.length,
+                )
+              ];
+            },
+            arrowDown: () => {
+              if (
+                (weekNumber && this.orientation !== 'horizontal') ||
+                (weekday && this.orientation !== 'vertical')
+              ) {
+                return;
+              }
+
+              return verticalNavigationElements[
+                getNextElementIndex(
+                  event,
+                  verticalNavigationElements.indexOf(target),
+                  verticalNavigationElements.length,
+                )
+              ];
+            },
+            arrowUp: () => {
+              if (
+                (weekNumber && this.orientation !== 'horizontal') ||
+                (weekday && this.orientation !== 'vertical')
+              ) {
+                return;
+              }
+
+              return verticalNavigationElements[
+                getNextElementIndex(
+                  event,
+                  verticalNavigationElements.indexOf(target),
+                  verticalNavigationElements.length,
+                )
+              ];
+            },
+            pageUp: () => {
+              if (
+                (weekNumber && this.orientation !== 'horizontal') ||
+                (weekday && this.orientation !== 'vertical')
+              ) {
+                return;
+              }
+              const toFocus = this._selectAllButtons[0];
+              this._selectAllButtons.forEach((el) => (el.tabIndex = toFocus === el ? 0 : -1));
+              return toFocus;
+            },
+            pageDown: () => {
+              if (
+                (weekNumber && this.orientation !== 'horizontal') ||
+                (weekday && this.orientation !== 'vertical')
+              ) {
+                return;
+              }
+              return verticalNavigationElements[
+                getNextElementIndex(
+                  event,
+                  verticalNavigationElements.length - 1,
+                  verticalNavigationElements.length,
+                )
+              ];
+            },
+          };
         }
+      })();
+
+      if (!handler) {
+        return;
+      }
+      const toFocus = this._elementToFocus(event, handler);
+      if (toFocus) {
+        event.preventDefault();
+        toFocus.focus();
       }
     });
     this.addEventListener('blur', () => (this._lastSelection = null));
+  }
+
+  private _elementToFocus(
+    event: KeyboardEvent,
+    handler: KeyboardNavigationHandler,
+  ): HTMLElement | void {
+    if (event.key === 'Tab' && event.shiftKey) {
+      return handler.shiftTab?.();
+    } else if (event.key === 'Tab') {
+      return handler.tab?.();
+    } else if (isArrowKeyOrPageKeysPressed(event)) {
+      const rtl = document.documentElement.matches(':dir(rtl)');
+      if (handler.arrowKeys) {
+        return handler.arrowKeys();
+      } else if (event.key === 'ArrowUp') {
+        return handler.arrowUp?.();
+      } else if (event.key === 'ArrowDown') {
+        return handler.arrowDown?.();
+      } else if ((rtl && event.key === 'ArrowRight') || event.key === 'ArrowLeft') {
+        return handler.arrowLeft?.();
+      } else if ((rtl && event.key === 'ArrowLeft') || event.key === 'ArrowRight') {
+        return handler.arrowRight?.();
+      } else if (event.key === 'Home') {
+        return handler.home?.();
+      } else if (event.key === 'End') {
+        return handler.end?.();
+      } else if (event.key === 'PageUp') {
+        return handler.pageUp?.();
+      } else if (event.key === 'PageDown') {
+        return handler.pageDown?.();
+      }
+    }
   }
 
   private readonly _sortDate = (a: T, b: T): number => this._dateAdapter.compareDate(a, b);
@@ -1090,7 +1393,8 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     if (
       eventTarget?.localName !== 'sbb-calendar-day' &&
       eventTarget?.localName !== 'sbb-calendar-weeknumber' &&
-      eventTarget?.localName !== 'sbb-calendar-weekday'
+      eventTarget?.localName !== 'sbb-calendar-weekday' &&
+      eventTarget?.localName !== 'sbb-calendar-select-all'
     ) {
       this._setTabIndex();
     }
@@ -1108,8 +1412,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   }
 
   private _setWeekFocus(): void {
-    this._weekdayCells.forEach((e, i) => (e.tabIndex = i === 0 ? 0 : -1));
-    this._weekNumberCells.forEach((e, i) => (e.tabIndex = i === 0 ? 0 : -1));
+    const setFocus = (e: HTMLElement, i: number): number =>
+      (e.tabIndex = i === 0 && !this.weekNumbers ? 0 : -1);
+
+    this._weekdayCells.forEach(setFocus);
+    this._weekNumberCells.forEach(setFocus);
+    this._selectAllButtons.forEach((e, i) => (e.tabIndex = i === 0 ? 0 : -1));
   }
 
   /** Get the element in the calendar to assign focus. */
@@ -1154,46 +1462,6 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         .map((e): string => this._dateAdapter.toIso8601(e.value! as T))
         .sort()[0];
       return cells.find((e) => e.matches(`[slot="${firstElement}"]`))! ?? null;
-    }
-  }
-
-  private _handleKeyboardEventWeek<TCell extends SbbCalendarCellBaseElement>(
-    event: KeyboardEvent,
-    cell: TCell,
-    cellArray: TCell[],
-  ): void {
-    event.preventDefault();
-
-    let nextEl: TCell;
-    switch (event.key) {
-      case 'ArrowUp':
-      case 'ArrowDown':
-      case 'ArrowLeft':
-      case 'ArrowRight': {
-        const next = getNextElementIndex(event, cellArray.indexOf(cell), cellArray.length);
-        nextEl = cellArray[next];
-        break;
-      }
-      case 'PageUp':
-      case 'Home': {
-        nextEl = cellArray[0];
-        break;
-      }
-      case 'PageDown':
-      case 'End': {
-        nextEl = cellArray[cellArray.length - 1];
-        break;
-      }
-      default: {
-        nextEl = cell;
-        break;
-      }
-    }
-
-    if (nextEl !== cell) {
-      nextEl.tabIndex = 0;
-      nextEl.focus();
-      cell.tabIndex = -1;
     }
   }
 
@@ -1537,7 +1805,8 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     return html`
       <div class="sbb-calendar__table-wrapper sbb-calendar__day-view">
         <div class="sbb-calendar__table-header">
-          <span>${monthLabel}</span> ${first ? this._createDayTableControls(monthLabel) : nothing}
+          <span>${monthLabel}</span>
+          ${first ? this._createDayTableControls(monthLabel) : nothing}
         </div>
         <table
           class="sbb-calendar__table"
@@ -1547,23 +1816,31 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
           <thead>
             <tr>
               ${
-                this.weekNumbers ? html`<th class="sbb-calendar__table-header-cell"></th>` : nothing
+                this.weekNumbers
+                  ? html`<th class="sbb-calendar__table-header-cell">
+                      ${this.multiple ? this._selectAllButton(monthLabel, weeksForSelectMultipleWeekNumbers) : nothing}
+                    </th>`
+                  : nothing
               }
-              ${this._weekdays.map(
-                (weekDay: Weekday, index: number) => html`
+              ${this._weekdays.map((weekDay: Weekday, index: number) => {
+                // NOTE: Sundays have index 7, while their weekDayValue is 0
+                const days: Day<T>[] = weeksForSelectMultipleWeekDays.filter(
+                  (day: Day<T>) => day.weekDayValue === (index + 1) % 7,
+                );
+                return html`
                   <th class="sbb-calendar__table-header-cell">
                     ${
                       this.multiple
                         ? html`
                             <sbb-calendar-weekday
                               .value=${weekDay}
-                              @click=${() => {
-                                // NOTE: Sundays have index 7, while their weekDayValue is 0
-                                const days: Day<T>[] = weeksForSelectMultipleWeekDays.filter(
-                                  (day: Day<T>) => day.weekDayValue === (index + 1) % 7,
-                                )!;
-                                this._selectMultipleDates(days);
-                              }}
+                              ${ref((el?: Element): void =>
+                                this._applyElementInternalsAriaLabel(
+                                  el,
+                                  this._weekdayAriaLabel(weekDay, days),
+                                ),
+                              )}
+                              @click=${() => this._selectMultipleDates(days)}
                             ></sbb-calendar-weekday>
                           `
                         : html`
@@ -1572,13 +1849,16 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                           `
                     }
                   </th>
-                `,
-              )}
+                `;
+              })}
             </tr>
           </thead>
           <tbody>
             ${weeks.map((week: Day<T>[], rowIndex: number) => {
               const firstRowOffset: number = DAYS_PER_ROW - week.length;
+              const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
+                (day: Day<T>) => day.weekValue === weekNumbers[rowIndex],
+              )!;
               if (rowIndex === 0 && firstRowOffset) {
                 return html`
                   <tr>
@@ -1591,13 +1871,13 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                                   ? html`
                                       <sbb-calendar-weeknumber
                                         .value=${weekNumbers[0]}
-                                        @click=${() => {
-                                          const days: Day<T>[] =
-                                            weeksForSelectMultipleWeekNumbers.filter(
-                                              (day: Day<T>) => day.weekValue === weekNumbers[0],
-                                            )!;
-                                          this._selectMultipleDates(days);
-                                        }}
+                                        ${ref((el?: Element): void =>
+                                          this._applyElementInternalsAriaLabel(
+                                            el,
+                                            this._weekNumberAriaLabel(weekNumbers[0], days),
+                                          ),
+                                        )}
+                                        @click=${() => this._selectMultipleDates(days)}
                                       ></sbb-calendar-weeknumber>
                                     `
                                   : html`
@@ -1629,14 +1909,13 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                                 ? html`
                                     <sbb-calendar-weeknumber
                                       .value=${weekNumbers[rowIndex]}
-                                      @click=${() => {
-                                        const days: Day<T>[] =
-                                          weeksForSelectMultipleWeekNumbers.filter(
-                                            (day: Day<T>) =>
-                                              day.weekValue === weekNumbers[rowIndex],
-                                          )!;
-                                        this._selectMultipleDates(days);
-                                      }}
+                                      ${ref((el?: Element): void =>
+                                        this._applyElementInternalsAriaLabel(
+                                          el,
+                                          this._weekNumberAriaLabel(weekNumbers[rowIndex], days),
+                                        ),
+                                      )}
+                                      @click=${() => this._selectMultipleDates(days)}
                                     ></sbb-calendar-weeknumber>
                                   `
                                 : html`
@@ -1676,7 +1955,8 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     return html`
       <div class="sbb-calendar__table-wrapper sbb-calendar__day-view">
         <div class="sbb-calendar__table-header">
-          <span>${monthLabel}</span> ${first ? this._createDayTableControls(monthLabel) : nothing}
+          <span>${monthLabel}</span>
+          ${first ? this._createDayTableControls(monthLabel) : nothing}
         </div>
         <table
           class="sbb-calendar__table"
@@ -1688,34 +1968,39 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
               ? html`
                   <thead>
                     <tr>
-                      <th class="sbb-calendar__table-data"></th>
-                      ${weekNumbers.map(
-                        (weekNumber: number) => html`
+                      <th class="sbb-calendar__table-data">
+                        ${this.multiple ? this._selectAllButton(monthLabel, weeksForSelectMultipleWeekNumbers) : nothing}
+                      </th>
+                      ${weekNumbers.map((weekNumber: number) => {
+                        const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
+                          (day: Day<T>) => day.weekValue === weekNumber,
+                        )!;
+                        return html`
                           <th class="sbb-calendar__table-header-cell">
                             ${
                               this.multiple
                                 ? html`
                                     <sbb-calendar-weeknumber
                                       .value=${weekNumber}
-                                      @click=${() => {
-                                        const days: Day<T>[] =
-                                          weeksForSelectMultipleWeekNumbers.filter(
-                                            (day: Day<T>) => day.weekValue === weekNumber,
-                                          )!;
-                                        this._selectMultipleDates(days);
-                                      }}
+                                      ${ref((el?: Element): void =>
+                                        this._applyElementInternalsAriaLabel(
+                                          el,
+                                          this._weekNumberAriaLabel(weekNumber, days),
+                                        ),
+                                      )}
+                                      @click=${() => this._selectMultipleDates(days)}
                                     ></sbb-calendar-weeknumber>
                                   `
                                 : html`
-                                    <span class="sbb-screen-reader-only"
-                                      >${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumber}`}</span
-                                    >
+                                    <span class="sbb-screen-reader-only">
+                                      ${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumber}`}
+                                    </span>
                                     <span aria-hidden="true">${weekNumber}</span>
                                   `
                             }
                           </th>
-                        `,
-                      )}
+                        `;
+                      })}
                     </tr>
                   </thead>
                 `
@@ -1732,6 +2017,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                         ? html`
                             <sbb-calendar-weekday
                               .value=${weekday}
+                              ${ref((el?: Element): void =>
+                                this._applyElementInternalsAriaLabel(
+                                  el,
+                                  this._weekdayAriaLabel(weekday, week),
+                                ),
+                              )}
                               @click=${() => this._selectMultipleDates(week)}
                             >
                               ${weekday.narrow}
@@ -1796,6 +2087,53 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         </td>
       `;
     });
+  }
+
+  /**
+   * Returns true if at least one of the given days, which can be selected
+   * (within min/max and not filtered out), is not selected yet.
+   */
+  private _hasUnselectedDays(days: Day<T>[]): boolean {
+    if (!Array.isArray(this._value)) {
+      return false;
+    }
+    const selected = new Set(this._value.map((d) => this._dateAdapter.toIso8601(d)));
+    return days.some(
+      (d) => !selected.has(d.value) && this._isDayInRange(d.value) && this._dateFilter(d.dateValue),
+    );
+  }
+
+  private _weekdayAriaLabel(weekday: Weekday, days: Day<T>[]): string {
+    return (
+      this._hasUnselectedDays(days)
+        ? i18nCalendarSelectWeekday(weekday.long)
+        : i18nCalendarDeselectWeekday(weekday.long)
+    )[this._language.current];
+  }
+
+  private _weekNumberAriaLabel(weekNumber: number, days: Day<T>[]): string {
+    return (
+      this._hasUnselectedDays(days)
+        ? i18nCalendarSelectWeek(weekNumber)
+        : i18nCalendarDeselectWeek(weekNumber)
+    )[this._language.current];
+  }
+
+  private _selectAllButton(monthLabel: string, daysOfMonth: Day<T>[]): TemplateResult {
+    return html`
+      <sbb-calendar-select-all
+        icon-name="four-squares-small"
+        ${ref((el?: Element): void =>
+          this._applyElementInternalsAriaLabel(
+            el,
+            this._hasUnselectedDays(daysOfMonth)
+              ? i18nCalendarSelectAll(monthLabel)[this._language.current]
+              : i18nCalendarDeselectAll(monthLabel)[this._language.current],
+          ),
+        )}
+        @click=${() => this._selectMultipleDates(daysOfMonth)}
+      ></sbb-calendar-select-all>
+    `;
   }
 
   /** Render the view for the month selection. */
@@ -1903,7 +2241,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
           <tbody>
             ${this._years.map(
               (row: number[]) =>
-                html` <tr>
+                html`<tr>
                   ${row.map((year: number) => {
                     return html`
                       <td class="sbb-calendar__table-data">
@@ -1944,7 +2282,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       class="sbb-calendar__control"
       size="s"
       icon-name="chevron-small-${direction}-small"
-      aria-label=${ariaLabel}
+      ${ref((el?: Element): void => this._applyElementInternalsAriaLabel(el, ariaLabel))}
       @click=${click}
       ?disabled=${disabled}
     ></sbb-secondary-button>`;
@@ -1958,6 +2296,16 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         return this._renderMonthView();
       default:
         return nothing;
+    }
+  }
+
+  private _applyElementInternalsAriaLabel(el: Element | undefined, label: string): void {
+    if (!el) {
+      return;
+    }
+    const internals = (el as SbbElement)['internals'];
+    if (internals) {
+      internals.ariaLabel = label;
     }
   }
 
