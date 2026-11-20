@@ -9,7 +9,6 @@ import { SbbDarkModeController } from '../../core.ts';
 import { SbbAlertElement } from './alert.component.ts';
 
 import '../../alert.ts';
-import '../../title.ts';
 import '../../link.ts';
 
 describe(`sbb-alert`, () => {
@@ -29,7 +28,7 @@ describe(`sbb-alert`, () => {
 
     alert = await fixture(
       html`<sbb-alert>
-        <sbb-title level="3">Disruption</sbb-title>
+        <h3>Disruption</h3>
         Interruption <sbb-link href="#">Link</sbb-link>
       </sbb-alert>`,
     );
@@ -60,7 +59,7 @@ describe(`sbb-alert`, () => {
 
     const alert: SbbAlertElement = await fixture(
       html`<sbb-alert style="--sbb-alert-animation-duration: 1ms">
-        <sbb-title level="3">Disruption</sbb-title>
+        <h3>Disruption</h3>
         Interruption
       </sbb-alert>`,
     );
@@ -99,23 +98,13 @@ describe(`sbb-alert`, () => {
     expect(alert.shadowRoot!.querySelector('.sbb-alert__close-button-wrapper')).to.be.null;
   });
 
-  it('should sync title size', async () => {
-    expect(alert.querySelector('sbb-title')!.visualLevel).to.be.equal('5');
-    alert.size = 'l';
-    await waitForLitRender(alert);
-
-    expect(alert.querySelector('sbb-title')!.visualLevel).to.be.equal('3');
-  });
-
   it('should sync negative property when color scheme changes', async () => {
     const link = alert.querySelector('sbb-link')!;
-    const title = alert.querySelector('sbb-title')!;
     const divider = alert.shadowRoot!.querySelector('sbb-divider')!;
     const button = alert.shadowRoot!.querySelector('sbb-transparent-button')!;
 
     expect(alert).not.to.match(':state(dark)');
     expect(link.negative, 'link negative').to.be.true;
-    expect(title.negative, 'title negative').to.be.true;
     expect(divider.negative, 'divider negative').to.be.true;
     expect(button.negative, 'button negative').to.be.true;
 
@@ -124,7 +113,6 @@ describe(`sbb-alert`, () => {
 
     expect(alert).to.match(':state(dark)');
     expect(link.negative, 'link not negative').to.be.false;
-    expect(title.negative, 'title not negative').to.be.false;
     expect(divider.negative, 'divider not negative').to.be.false;
     expect(button.negative, 'button not negative').to.be.false;
   });

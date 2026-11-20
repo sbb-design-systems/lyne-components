@@ -11,7 +11,6 @@ import type { SbbAlertElement } from './alert.component.ts';
 
 import '../../alert.ts';
 import '../../link.ts';
-import '../../title.ts';
 
 describe(`sbb-alert`, () => {
   const defaultArgs = {
@@ -34,7 +33,7 @@ describe(`sbb-alert`, () => {
     href,
   }: typeof defaultArgs): TemplateResult => html`
     <sbb-alert size=${size || nothing} ?readonly=${readonly} icon-name=${icon}>
-      ${title ? html`<sbb-title>${title}</sbb-title>` : nothing}
+      ${title ? html`<h1>${title}</h1>` : nothing}
       ${contentSlotText}${href ? html` <sbb-link href=${href}>Find out more</sbb-link>` : nothing}
     </sbb-alert>
   `;
@@ -69,7 +68,7 @@ describe(`sbb-alert`, () => {
         await setup.withFixture(
           html`<sbb-alert>
             <sbb-icon name="disruption" slot="icon"></sbb-icon>
-            <sbb-title>Slotted title</sbb-title>
+            <h1>Slotted title</h1>
             ${contentSlotText}
           </sbb-alert>`,
         );

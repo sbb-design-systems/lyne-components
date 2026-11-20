@@ -3,14 +3,9 @@ export const snapshots = {};
 
 snapshots["sbb-alert should render default properties DOM"] = 
 `<sbb-alert animation="all">
-  <sbb-title
-    level="3"
-    negative=""
-    slot="title"
-    visual-level="5"
-  >
+  <h3 slot="title">
     Interruption
-  </sbb-title>
+  </h3>
   Alert content
 </sbb-alert>
 `;
@@ -60,14 +55,9 @@ snapshots["sbb-alert should render customized properties DOM"] =
   icon-name="disruption"
   size="l"
 >
-  <sbb-title
-    level="2"
-    negative=""
-    slot="title"
-    visual-level="3"
-  >
+  <h2 slot="title">
     Interruption
-  </sbb-title>
+  </h2>
   Alert content Alert content
   <sbb-link
     href="https://www.sbb.ch"
