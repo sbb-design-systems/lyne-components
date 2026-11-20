@@ -2,6 +2,7 @@ import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-c
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { keyed } from 'lit/directives/keyed.js';
+import { ref } from 'lit/directives/ref.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
@@ -18,6 +19,24 @@ import { SbbSeatReservationElement } from './seat-reservation/seat-reservation.c
 
 import '@sbb-esta/lyne-elements/table.js';
 import '../seat-reservation.ts';
+
+const applyStyles = (
+  element: Element | undefined,
+  styles: Record<string, string | number | null | undefined>,
+): void => {
+  if (!element) {
+    return;
+  }
+
+  const elementStyle = (element as HTMLElement).style;
+  for (const [name, value] of Object.entries(styles)) {
+    if (value === null || value === undefined) {
+      elementStyle.removeProperty(name);
+    } else {
+      elementStyle.setProperty(name, `${value}`);
+    }
+  }
+};
 
 const seatReservationType: InputType = {
   control: { type: 'object' },
@@ -330,9 +349,13 @@ const defaultArgsAreaComponent: Args = {
 
 const TemplateAreaComponent = (args: Args): TemplateResult => {
   const { width, height, ...rest } = args;
-  const style = `--sbb-seat-reservation-area-width: ${width};--sbb-seat-reservation-area-height: ${height};`;
   return html`<sbb-seat-reservation-area
-    style="${style}"
+    ${ref((element) =>
+      applyStyles(element, {
+        '--sbb-seat-reservation-area-width': width,
+        '--sbb-seat-reservation-area-height': height,
+      }),
+    )}
     ${sbbSpread(rest)}
   ></sbb-seat-reservation-area>`;
 };
@@ -371,12 +394,24 @@ const defaultArgTypesGraphic: ArgTypes = {
 const defaultArgsGraphic: Args = {
   name: 'BISTRO',
   stretch: false,
-  style:
-    '--sbb-seat-reservation-graphic-width: 32;--sbb-seat-reservation-graphic-height: 32; --sbb-seat-reservation-graphic-rotation: 0',
+  width: 32,
+  height: 32,
+  rotation: 0,
 };
 
-const TemplateGraphic = (args: Args): TemplateResult =>
-  html`<sbb-seat-reservation-graphic ${sbbSpread(args)}></sbb-seat-reservation-graphic>`;
+const TemplateGraphic = (args: Args): TemplateResult => {
+  const { width, height, rotation, ...rest } = args;
+  return html`<sbb-seat-reservation-graphic
+    ${ref((element) =>
+      applyStyles(element, {
+        '--sbb-seat-reservation-graphic-width': width,
+        '--sbb-seat-reservation-graphic-height': height,
+        '--sbb-seat-reservation-graphic-rotation': rotation,
+      }),
+    )}
+    ${sbbSpread(rest)}
+  ></sbb-seat-reservation-graphic>`;
+};
 
 export const Graphic: StoryObj = {
   render: TemplateGraphic,
@@ -394,8 +429,7 @@ export const GraphicStairAreaWidth32Height32Rotation315: StoryObj = {
   args: {
     ...defaultArgsGraphic,
     name: 'STAIR_AREA',
-    style:
-      '--sbb-seat-reservation-graphic-width: 32;--sbb-seat-reservation-graphic-height: 32;--sbb-seat-reservation-graphic-rotation: 315',
+    rotation: 315,
   },
 };
 
@@ -405,7 +439,8 @@ export const GraphicCoachBorderMiddleWidth20Height128Stretch: StoryObj = {
     ...defaultArgsGraphic,
     name: 'COACH_BORDER_MIDDLE',
     stretch: true,
-    style: '--sbb-seat-reservation-graphic-width: 20;--sbb-seat-reservation-graphic-height: 128;',
+    width: 20,
+    height: 128,
   },
 };
 
@@ -699,8 +734,14 @@ const chassisTable = html`
         <tr>
           <td>
             <sbb-seat-reservation-area
-              style="--sbb-seat-reservation-area-width: 100; --sbb-seat-reservation-area-height: 50; align-self: center;
-          background: var(--sbb-color-milk)"
+              ${ref((element) =>
+                applyStyles(element, {
+                  '--sbb-seat-reservation-area-width': 100,
+                  '--sbb-seat-reservation-area-height': 50,
+                  'align-self': 'center',
+                  background: 'var(--sbb-color-milk)',
+                }),
+              )}
             ></sbb-seat-reservation-area>
           </td>
           <td>Table Restaurant<br />(Will be rendered as CSS)</td>
@@ -965,16 +1006,18 @@ const defaultArgsPlaceControl: Args = {
 
 const TemplatePlaceControl = (args: Args): TemplateResult => {
   const { rotation, textRotation } = args;
-  const style =
-    `--sbb-seat-reservation-place-control-text-scale-value: 32;` +
-    `--sbb-seat-reservation-place-control-width: 32;` +
-    `--sbb-seat-reservation-place-control-height: 32;` +
-    `--sbb-seat-reservation-place-control-rotation: ${rotation};` +
-    `--sbb-seat-reservation-place-control-text-rotation: ${textRotation};`;
   return html`${keyed(
     `${args.type}-${args.state}-${args.text}-${args.rotation}`,
     html`<sbb-seat-reservation-place-control
-      style="${style}"
+      ${ref((element) =>
+        applyStyles(element, {
+          '--sbb-seat-reservation-place-control-text-scale-value': 32,
+          '--sbb-seat-reservation-place-control-width': 32,
+          '--sbb-seat-reservation-place-control-height': 32,
+          '--sbb-seat-reservation-place-control-rotation': rotation,
+          '--sbb-seat-reservation-place-control-text-rotation': textRotation,
+        }),
+      )}
       type="${args.type}"
       state="${args.state}"
       text="${args.text}"

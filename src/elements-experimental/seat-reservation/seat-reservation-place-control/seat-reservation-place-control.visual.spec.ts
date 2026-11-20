@@ -5,8 +5,22 @@ import {
   visualRegressionFixture,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit';
+import { ref } from 'lit/directives/ref.js';
 
 import '../../seat-reservation.ts';
+
+const applyStyles = (
+  element: Element | undefined,
+  styles: Record<string, string | number>,
+): void => {
+  if (!element) {
+    return;
+  }
+
+  for (const [name, value] of Object.entries(styles)) {
+    (element as HTMLElement).style.setProperty(name, `${value}`);
+  }
+};
 
 describe('sbb-seat-reservation-place-control', () => {
   let root: HTMLElement;
@@ -35,12 +49,15 @@ describe('sbb-seat-reservation-place-control', () => {
             type="SEAT"
             state="FREE"
             text="12A"
-            style="
-              --sbb-seat-reservation-place-control-text-scale-value: 32;
-              --sbb-seat-reservation-place-control-width: 32;
-              --sbb-seat-reservation-place-control-height: 32;
-              --sbb-seat-reservation-place-control-rotation: ${rotated};
-              --sbb-seat-reservation-place-control-text-rotation: ${textRotated};"
+            ${ref((element) =>
+              applyStyles(element, {
+                '--sbb-seat-reservation-place-control-text-scale-value': 32,
+                '--sbb-seat-reservation-place-control-width': 32,
+                '--sbb-seat-reservation-place-control-height': 32,
+                '--sbb-seat-reservation-place-control-rotation': rotated,
+                '--sbb-seat-reservation-place-control-text-rotation': textRotated,
+              }),
+            )}
           ></sbb-seat-reservation-place-control>
         `);
       });
@@ -65,10 +82,13 @@ describe('sbb-seat-reservation-place-control', () => {
                 type="${placeType}"
                 state="${placeState}"
                 text="12A"
-                style="
-              --sbb-seat-reservation-place-control-text-scale-value: 32;
-              --sbb-seat-reservation-place-control-width: 32;
-              --sbb-seat-reservation-place-control-height: 32;"
+                ${ref((element) =>
+                  applyStyles(element, {
+                    '--sbb-seat-reservation-place-control-text-scale-value': 32,
+                    '--sbb-seat-reservation-place-control-width': 32,
+                    '--sbb-seat-reservation-place-control-height': 32,
+                  }),
+                )}
               ></sbb-seat-reservation-place-control>
             `,
             {
