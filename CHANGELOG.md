@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.14.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.13.3...v5.14.0) (2026-11-21)
+
+
+### Features
+
+* **tooltip:** handle `sbb-tooltip-disabled` attribute ([#5411](https://github.com/sbb-design-systems/lyne-components/issues/5411)) ([66cf707](https://github.com/sbb-design-systems/lyne-components/commit/66cf707d45521917765438e07fd795852f628c55))
+
 ## [5.13.3](https://github.com/sbb-design-systems/lyne-components/compare/v5.13.2...v5.13.3) (2026-11-16)
 
 
