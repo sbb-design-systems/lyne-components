@@ -527,7 +527,7 @@ describe('sbb-tooltip', () => {
         <div style="padding: 2rem">
           <sbb-button
             sbb-tooltip="Tooltip message"
-            sbb-tooltip-position="inline-end, inline-start, block-start"
+            sbb-tooltip-positions="inline-end, inline-start, block-start"
           >
             Button
           </sbb-button>
@@ -549,7 +549,7 @@ describe('sbb-tooltip', () => {
         getComputedStyle(element).getPropertyValue('--sbb-overlay-position-try-fallbacks'),
       ).to.be.equal('inline-start, block-start');
 
-      trigger.setAttribute('sbb-tooltip-position', 'top');
+      trigger.setAttribute('sbb-tooltip-positions', 'top');
       await aTimeout(50); // wait for the MutationObserver to trigger
       expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
         'top',
@@ -560,7 +560,7 @@ describe('sbb-tooltip', () => {
     });
 
     it('should update position CSS vars', async () => {
-      trigger.setAttribute('sbb-tooltip-position', 'top, right');
+      trigger.setAttribute('sbb-tooltip-positions', 'top, right');
       await aTimeout(50); // wait for the MutationObserver to trigger
 
       expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
@@ -572,9 +572,9 @@ describe('sbb-tooltip', () => {
     });
 
     it('should reset position CSS vars', async () => {
-      trigger.removeAttribute('sbb-tooltip-position');
+      trigger.removeAttribute('sbb-tooltip-positions');
       await aTimeout(50); // wait for the MutationObserver to trigger
-      expect(element.positions).to.be.null;
+      expect(element.positions).to.be.eql([]);
       expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
         defaultPositionArea,
       );
@@ -596,7 +596,7 @@ describe('sbb-tooltip', () => {
     });
 
     it('should not set CSS vars by default', async () => {
-      expect(element.positions).to.be.null;
+      expect(element.positions).to.be.eql([]);
       expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
         defaultPositionArea,
       );

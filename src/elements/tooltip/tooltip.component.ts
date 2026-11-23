@@ -143,15 +143,15 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
         value
           ?.split(',')
           .map((p) => p.trim())
-          .filter(Boolean) ?? null;
+          .filter(Boolean) ?? [];
     } else {
-      this._positions = value;
+      this._positions = value ?? [];
     }
   }
-  public get positions(): string[] | null {
+  public get positions(): string[] {
     return this._positions;
   }
-  private _positions: string[] | null = null;
+  private _positions: string[] = [];
 
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController?: AbortController;
@@ -215,6 +215,7 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
         'sbb-tooltip-open-delay',
         'sbb-tooltip-close-delay',
         'sbb-tooltip-position',
+        'sbb-tooltip-positions',
         'sbb-tooltip-disabled',
       ],
       childList: true,
@@ -250,7 +251,15 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
         ? +triggerElement.getAttribute('sbb-tooltip-close-delay')!
         : null;
       tooltip.disabled = triggerElement.hasAttribute('sbb-tooltip-disabled');
-      tooltip.positions = triggerElement.getAttribute('sbb-tooltip-position');
+      tooltip.positions =
+        triggerElement.getAttribute('sbb-tooltip-positions') ??
+        triggerElement.getAttribute('sbb-tooltip-position');
+
+      if (import.meta.env.DEV && triggerElement.hasAttribute('sbb-tooltip-position')) {
+        console.warn(
+          'The `sbb-tooltip-position` attribute is deprecated. Use `sbb-tooltip-positions` instead.',
+        );
+      }
     } else if (tooltip) {
       // The trigger or the attribute has been deleted => delete the connected tooltip
       tooltipTriggers.delete(triggerElement);
@@ -300,10 +309,10 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
     super.updated(changedProperties);
 
     if (changedProperties.has('positions') || changedProperties.has('trigger')) {
-      const positions =
-        this._positions ??
-        // Fall back to the default positions defined by the trigger element (if any).
-        (this.trigger as Partial<SbbTooltipDefaultPositions> | null)?.tooltipPositions;
+      const positions = this._positions.length
+        ? this._positions
+        : // Fall back to the default positions defined by the trigger element (if any).
+          (this.trigger as Partial<SbbTooltipDefaultPositions> | null)?.tooltipPositions;
       if (positions?.length) {
         const positionTryFallbacks = positions.slice(1).join(', ');
         this.dynamicStyleSheet?.replaceSync(
