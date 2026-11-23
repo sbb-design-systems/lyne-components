@@ -2,7 +2,7 @@ The `<sbb-tooltip>` component displays contextual information related to an elem
 
 <!-- #region trigger -->
 
-The standard way to use it is through the `trigger` property, referencing the element which activate the tooltip.
+The standard way to use it is through the `trigger` property, referencing the element which activates the tooltip.
 
 ```html
 <sbb-button id="tooltip-trigger">Button</sbb-button>
@@ -53,9 +53,12 @@ The tooltip uses the [CSS anchor positioning](https://developer.mozilla.org/en-U
 Specifically, it uses the "[position-area](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning/Using#setting_a_position-area)"
 and "[position-try-fallbacks](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning/Try_options_hiding#using_position-area_try_fallback_options)" CSS properties to define where the tooltip should be positioned.
 
+By default, the tooltip appears above the trigger element and, if there is insufficient space, it automatically chooses the best available position.
+
 You can control the positioning of the tooltip with the `positions` property.
 The first entry is used as primary position, the following entries as fallbacks.
-By default, it appears above the trigger element and, if there is insufficient space, it automatically chooses the best available position.
+
+The attribute accepts a comma-separated list, the property accepts either a comma-separated string or an array.
 
 ```html
 <sbb-tooltip trigger="trigger-id" positions="block-end, block-start, inline-end">
@@ -97,8 +100,8 @@ These are used if the `positions` property is not set.
 
 ### Attribute usage
 
-When using the `sbb-tooltip` attribute, you can configure the position by setting the `sbb-tooltip-position` attribute.
-The value of the attribute is a comma-separated list of positions.
+When using the `sbb-tooltip` attribute, you can configure the position by setting the `sbb-tooltip-position` attribute on the trigger element.
+The value of the attribute is a comma-separated list of positions and is applied to the `positions` property of the created tooltip.
 
 ```html
 <sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-position="block-end, block-start, inline-end">
@@ -125,6 +128,7 @@ mergeConfig({
 ## Accessibility
 
 The `<sbb-tooltip>` adds an `ariaDescribedby` reference to an element containing the tooltip's message.
+If the tooltip is disabled, the reference is removed.
 
 Avoid interactions that exclusively show a tooltip with pointer events like click and mouseenter.
 Always ensure that keyboard users can perform the same set of actions available to mouse and touch users.
