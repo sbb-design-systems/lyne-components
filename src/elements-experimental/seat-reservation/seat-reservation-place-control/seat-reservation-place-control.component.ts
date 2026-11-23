@@ -13,7 +13,7 @@ import {
   unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map.js';
+import { ref } from 'lit/directives/ref.js';
 
 import { getI18nSeatReservation } from '../common/translations.ts';
 import type { PlaceSelection, PlaceState, PlaceType, TravelDirection } from '../common/types.ts';
@@ -149,16 +149,36 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
       aria-hidden="true"
     >
       <sbb-seat-reservation-graphic
-        style=${styleMap({
-          '--sbb-seat-reservation-graphic-width': width,
-          '--sbb-seat-reservation-graphic-height': height,
-          '--sbb-seat-reservation-graphic-rotation': rotation,
-          '--sbb-seat-reservation-graphic-inverse-rotation': inverseRotationPlaceCheckIcon,
-        })}
+        ${ref((element) =>
+          this._applyStyles(element, {
+            '--sbb-seat-reservation-graphic-width': width,
+            '--sbb-seat-reservation-graphic-height': height,
+            '--sbb-seat-reservation-graphic-rotation': rotation,
+            '--sbb-seat-reservation-graphic-inverse-rotation': inverseRotationPlaceCheckIcon,
+          }),
+        )}
         .name=${name}
       ></sbb-seat-reservation-graphic>
       <span ${this.text ?? nothing} class="sbb-sr-place-ctrl__text">${text} </span>
     </div>`;
+  }
+
+  private _applyStyles(
+    element: Element | undefined,
+    styles: Record<string, string | number | null | undefined>,
+  ): void {
+    if (!element) {
+      return;
+    }
+
+    const elementStyle = (element as HTMLElement).style;
+    for (const [name, value] of Object.entries(styles)) {
+      if (value === null || value === undefined) {
+        elementStyle.removeProperty(name);
+      } else {
+        elementStyle.setProperty(name, `${value}`);
+      }
+    }
   }
 
   private _getPlaceSvg(type: PlaceType, state: PlaceState): string {
