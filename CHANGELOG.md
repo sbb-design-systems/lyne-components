@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.14.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.13.3...v5.14.0) (2026-11-23)
+
+
+### Features
+
+* **tooltip:** add positions property ([#5413](https://github.com/sbb-design-systems/lyne-components/issues/5413)) ([a4b3d43](https://github.com/sbb-design-systems/lyne-components/commit/a4b3d43e32c305b48649be200d34e59fc375a08a))
+* **tooltip:** handle `sbb-tooltip-disabled` attribute ([#5411](https://github.com/sbb-design-systems/lyne-components/issues/5411)) ([66cf707](https://github.com/sbb-design-systems/lyne-components/commit/66cf707d45521917765438e07fd795852f628c55))
+
+
+### Bug Fixes
+
+* align handling of numeric properties ([#5416](https://github.com/sbb-design-systems/lyne-components/issues/5416)) ([64fdbf4](https://github.com/sbb-design-systems/lyne-components/commit/64fdbf4b47ae4c8aa9f0d87bad60c3a128b80323))
+* **seat-reservation:** avoid setting inline styles ([#5414](https://github.com/sbb-design-systems/lyne-components/issues/5414)) ([c8df6da](https://github.com/sbb-design-systems/lyne-components/commit/c8df6da5a32798636e1c4a608af255c7dce4d0ac))
+
+
+### Code Refactoring
+
+* **tooltip:** add support for `sbb-tooltip-positions` attribute ([#5415](https://github.com/sbb-design-systems/lyne-components/issues/5415)) ([5fef59a](https://github.com/sbb-design-systems/lyne-components/commit/5fef59a2e14e33b62f43b0095d1d16021044f171))
+
 ## [5.13.3](https://github.com/sbb-design-systems/lyne-components/compare/v5.13.2...v5.13.3) (2026-11-16)
 
 
