@@ -2,6 +2,12 @@ import type { ReactiveElement } from 'lit';
 
 import type { Interface, PropertyDecorator } from './base.ts';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const NumberOrNull = (v: unknown): number | null => {
+  const result = Number(v);
+  return v == null ? null : isNaN(result) ? null : result;
+};
+
 /**
  * Decorator that forces the value of a property or getter/setter
  * to the defined type.
