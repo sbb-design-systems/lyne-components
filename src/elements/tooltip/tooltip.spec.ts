@@ -574,7 +574,7 @@ describe('sbb-tooltip', () => {
     it('should reset position CSS vars', async () => {
       trigger.removeAttribute('sbb-tooltip-positions');
       await aTimeout(50); // wait for the MutationObserver to trigger
-      expect(element.positions).to.be.null;
+      expect(element.positions).to.be.eql([]);
       expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
         defaultPositionArea,
       );
@@ -596,7 +596,7 @@ describe('sbb-tooltip', () => {
     });
 
     it('should not set CSS vars by default', async () => {
-      expect(element.positions).to.be.null;
+      expect(element.positions).to.be.eql([]);
       expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
         defaultPositionArea,
       );
