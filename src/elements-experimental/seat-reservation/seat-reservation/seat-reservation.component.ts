@@ -10,8 +10,8 @@ import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.pure.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, isServer, nothing, unsafeCSS } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common/translations.ts';
 import type {
@@ -300,10 +300,12 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem);
 
     return html`<sbb-seat-reservation-scoped
-      style=${styleMap({
-        '--sbb-seat-reservation-scoped-width': currCoachStructure.width,
-        '--sbb-seat-reservation-scoped-height': currCoachStructure.height,
-      })}
+      ${ref((element) =>
+        this._applyStyles(element, {
+          '--sbb-seat-reservation-scoped-width': currCoachStructure.width,
+          '--sbb-seat-reservation-scoped-height': currCoachStructure.height,
+        }),
+      )}
     >
       ${this._getRenderedCoachBorders(coachItem, coachDeckIndex, coachIndex)}
       ${this._getRenderedCoachElements(coachDeckIndex, coachIndex)}
@@ -348,13 +350,15 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
         class="${classMap({
           'sbb-sr-coach-has-overhanging-elements': hasOverhangingElements || false,
         })}"
-        style=${styleMap({
-          '--sbb-seat-reservation-graphic-width': coachBorderElement.dimension.w,
-          '--sbb-seat-reservation-graphic-height': coachBorderElement.dimension.h,
-          '--sbb-seat-reservation-graphic-top': coachBorderElement.position.y,
-          '--sbb-seat-reservation-graphic-left': coachBorderElement.position.x,
-          '--sbb-seat-reservation-graphic-position': 'absolute',
-        })}
+        ${ref((element) =>
+          this._applyStyles(element, {
+            '--sbb-seat-reservation-graphic-width': coachBorderElement.dimension.w,
+            '--sbb-seat-reservation-graphic-height': coachBorderElement.dimension.h,
+            '--sbb-seat-reservation-graphic-top': coachBorderElement.position.y,
+            '--sbb-seat-reservation-graphic-left': coachBorderElement.position.x,
+            '--sbb-seat-reservation-graphic-position': 'absolute',
+          }),
+        )}
         name="COACH_BORDER_MIDDLE"
         ?stretch=${true}
         role="presentation"
@@ -425,18 +429,20 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
             class="graphical-element"
           >
             <sbb-seat-reservation-place-control
-              style=${styleMap({
-                '--sbb-seat-reservation-place-control-text-scale-value': Math.min(
-                  calculatedDimension.w,
-                  calculatedDimension.h,
-                ),
-                '--sbb-seat-reservation-place-control-width': calculatedDimension.w,
-                '--sbb-seat-reservation-place-control-height': calculatedDimension.h,
-                '--sbb-seat-reservation-place-control-top': calculatedPosition.y,
-                '--sbb-seat-reservation-place-control-left': calculatedPosition.x,
-                '--sbb-seat-reservation-place-control-rotation': rotation,
-                '--sbb-seat-reservation-place-control-text-rotation': textRotation,
-              })}
+              ${ref((element) =>
+                this._applyStyles(element, {
+                  '--sbb-seat-reservation-place-control-text-scale-value': Math.min(
+                    calculatedDimension.w,
+                    calculatedDimension.h,
+                  ),
+                  '--sbb-seat-reservation-place-control-width': calculatedDimension.w,
+                  '--sbb-seat-reservation-place-control-height': calculatedDimension.h,
+                  '--sbb-seat-reservation-place-control-top': calculatedPosition.y,
+                  '--sbb-seat-reservation-place-control-left': calculatedPosition.x,
+                  '--sbb-seat-reservation-place-control-rotation': rotation,
+                  '--sbb-seat-reservation-place-control-text-rotation': textRotation,
+                }),
+              )}
               @selectplace=${(selectPlaceEvent: SbbPlaceSelectionEvent) =>
                 this._onSelectPlace(selectPlaceEvent)}
               exportparts="sbb-sr-place-part"
@@ -468,14 +474,16 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
 
     return currCoachStructure.otherElements.map((graphicElement) => {
       return html` <sbb-seat-reservation-graphic
-        style=${styleMap({
-          '--sbb-seat-reservation-graphic-width': graphicElement.dimension.w,
-          '--sbb-seat-reservation-graphic-height': graphicElement.dimension.h,
-          '--sbb-seat-reservation-graphic-top': graphicElement.position.y,
-          '--sbb-seat-reservation-graphic-left': graphicElement.position.x,
-          '--sbb-seat-reservation-graphic-position': 'absolute',
-          '--sbb-seat-reservation-graphic-rotation': graphicElement.rotation,
-        })}
+        ${ref((element) =>
+          this._applyStyles(element, {
+            '--sbb-seat-reservation-graphic-width': graphicElement.dimension.w,
+            '--sbb-seat-reservation-graphic-height': graphicElement.dimension.h,
+            '--sbb-seat-reservation-graphic-top': graphicElement.position.y,
+            '--sbb-seat-reservation-graphic-left': graphicElement.position.x,
+            '--sbb-seat-reservation-graphic-position': 'absolute',
+            '--sbb-seat-reservation-graphic-rotation': graphicElement.rotation,
+          }),
+        )}
         name=${graphicElement.icon ?? nothing}
         aria-hidden="true"
         ?stretch=${true}
@@ -504,13 +512,15 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
           class="${classMap({
             'sbb-seat-reservation-area--cursor-pointer': areaProperty !== null,
           })}"
-          style=${styleMap({
-            '--sbb-seat-reservation-area-width': graphicElement.dimension.w,
-            '--sbb-seat-reservation-area-height': graphicElement.dimension.h,
-            '--sbb-seat-reservation-area-top': graphicElement.position.y,
-            '--sbb-seat-reservation-area-left': graphicElement.position.x,
-            '--sbb-seat-reservation-area-z-index': graphicElement.position.z,
-          })}
+          ${ref((element) =>
+            this._applyStyles(element, {
+              '--sbb-seat-reservation-area-width': graphicElement.dimension.w,
+              '--sbb-seat-reservation-area-height': graphicElement.dimension.h,
+              '--sbb-seat-reservation-area-top': graphicElement.position.y,
+              '--sbb-seat-reservation-area-left': graphicElement.position.x,
+              '--sbb-seat-reservation-area-z-index': graphicElement.position.z,
+            }),
+          )}
           mounting=${graphicElement.mounting ?? nothing}
           background="dark"
           aria-hidden="true"
@@ -519,15 +529,17 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
             areaProperty
               ? html`
                   <sbb-seat-reservation-graphic
-                    style=${styleMap({
-                      '--sbb-seat-reservation-graphic-max-width': this.globalAreaIconDim.w,
-                      '--sbb-seat-reservation-graphic-max-height': this.globalAreaIconDim.h,
-                      '--sbb-seat-reservation-graphic-width': graphicElement.dimension.w,
-                      '--sbb-seat-reservation-graphic-height': graphicElement.dimension.h,
-                      '--sbb-seat-reservation-graphic-rotation': graphicElement.rotation,
-                      '--sbb-seat-reservation-graphic-padding-percent':
-                        areaProperty !== 'ENTRY_EXIT' ? this.globalAreaIconPadding : 1,
-                    })}
+                    ${ref((element) =>
+                      this._applyStyles(element, {
+                        '--sbb-seat-reservation-graphic-max-width': this.globalAreaIconDim.w,
+                        '--sbb-seat-reservation-graphic-max-height': this.globalAreaIconDim.h,
+                        '--sbb-seat-reservation-graphic-width': graphicElement.dimension.w,
+                        '--sbb-seat-reservation-graphic-height': graphicElement.dimension.h,
+                        '--sbb-seat-reservation-graphic-rotation': graphicElement.rotation,
+                        '--sbb-seat-reservation-graphic-padding-percent':
+                          areaProperty !== 'ENTRY_EXIT' ? this.globalAreaIconPadding : 1,
+                      }),
+                    )}
                     name=${areaProperty}
                     role="img"
                     aria-hidden="true"
@@ -559,14 +571,16 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
       return html`
         <sbb-seat-reservation-graphic
           id="${triggerId}"
-          style=${styleMap({
-            '--sbb-seat-reservation-graphic-width': serviceElement.dimension.w,
-            '--sbb-seat-reservation-graphic-height': serviceElement.dimension.h,
-            '--sbb-seat-reservation-graphic-top': serviceElement.position.y,
-            '--sbb-seat-reservation-graphic-left': serviceElement.position.x,
-            '--sbb-seat-reservation-graphic-position': 'absolute',
-            '--sbb-seat-reservation-graphic-rotation': serviceElement.rotation,
-          })}
+          ${ref((element) =>
+            this._applyStyles(element, {
+              '--sbb-seat-reservation-graphic-width': serviceElement.dimension.w,
+              '--sbb-seat-reservation-graphic-height': serviceElement.dimension.h,
+              '--sbb-seat-reservation-graphic-top': serviceElement.position.y,
+              '--sbb-seat-reservation-graphic-left': serviceElement.position.x,
+              '--sbb-seat-reservation-graphic-position': 'absolute',
+              '--sbb-seat-reservation-graphic-rotation': serviceElement.rotation,
+            }),
+          )}
           class="sbb-seat-reservation-graphic--cursor-pointer"
           name=${serviceElement.icon ?? nothing}
           role="img"
@@ -628,6 +642,24 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     }
 
     this.isAutoScrolling = false;
+  }
+
+  private _applyStyles(
+    element: Element | undefined,
+    styles: Record<string, string | number | null | undefined>,
+  ): void {
+    if (!element) {
+      return;
+    }
+
+    const elementStyle = (element as HTMLElement).style;
+    for (const [name, value] of Object.entries(styles)) {
+      if (value === null || value === undefined) {
+        elementStyle.removeProperty(name);
+      } else {
+        elementStyle.setProperty(name, `${value}`);
+      }
+    }
   }
 
   /**
