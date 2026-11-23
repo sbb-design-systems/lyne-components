@@ -45,15 +45,6 @@ const LONGPRESS_DELAY = 500;
 
 const isMobile = isAndroid || isIOS;
 
-/** Parses a comma-separated list of positions. */
-function parsePositions(value: string | null): string[] | null {
-  return (
-    value
-      ?.split(',')
-      .map((p) => p.trim())
-      .filter(Boolean) ?? null
-  );
-}
 const tooltipTriggers = new WeakMap<HTMLElement, SbbTooltipElement>();
 
 /**
@@ -140,15 +131,27 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
 
   /**
    * The positions of the tooltip, relative to the trigger.
+   * Provide either a comma-separated list or an array of positions.
    * The first entry is the primary position (`--sbb-overlay-position-area`),
    * the following ones are the fallback positions (`--sbb-overlay-position-try-fallbacks`).
-   * For attribute usage, provide a comma-separated list.
    * If not set, the default positions of the trigger (`tooltipPositions`) or the CSS variables are used.
    */
-  @property({
-    converter: { fromAttribute: parsePositions },
-  })
-  public accessor positions: string[] | null = null;
+  @property()
+  public set positions(value: string | string[] | null) {
+    if (typeof value === 'string') {
+      this._positions =
+        value
+          ?.split(',')
+          .map((p) => p.trim())
+          .filter(Boolean) ?? null;
+    } else {
+      this._positions = value;
+    }
+  }
+  public get positions(): string[] | null {
+    return this._positions;
+  }
+  private _positions: string[] | null = null;
 
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController?: AbortController;
@@ -247,7 +250,7 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
         ? +triggerElement.getAttribute('sbb-tooltip-close-delay')!
         : null;
       tooltip.disabled = triggerElement.hasAttribute('sbb-tooltip-disabled');
-      tooltip.positions = parsePositions(triggerElement.getAttribute('sbb-tooltip-position'));
+      tooltip.positions = triggerElement.getAttribute('sbb-tooltip-position');
     } else if (tooltip) {
       // The trigger or the attribute has been deleted => delete the connected tooltip
       tooltipTriggers.delete(triggerElement);
@@ -298,7 +301,7 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
 
     if (changedProperties.has('positions') || changedProperties.has('trigger')) {
       const positions =
-        this.positions ??
+        this._positions ??
         // Fall back to the default positions defined by the trigger element (if any).
         (this.trigger as Partial<SbbTooltipDefaultPositions> | null)?.tooltipPositions;
       if (positions?.length) {

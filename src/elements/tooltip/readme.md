@@ -53,8 +53,18 @@ The tooltip uses the [CSS anchor positioning](https://developer.mozilla.org/en-U
 Specifically, it uses the "[position-area](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning/Using#setting_a_position-area)"
 and "[position-try-fallbacks](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning/Try_options_hiding#using_position-area_try_fallback_options)" CSS properties to define where the tooltip should be positioned.
 
-You can control the positioning of the tooltip by overriding the `--sbb-overlay-position-area` and `--sbb-overlay-position-try-fallbacks` CSS variables.
+You can control the positioning of the tooltip with the `positions` property.
+The first entry is used as primary position, the following entries as fallbacks.
 By default, it appears above the trigger element and, if there is insufficient space, it automatically chooses the best available position.
+
+```html
+<sbb-tooltip trigger="trigger-id" positions="block-end, block-start, inline-end">
+  Tooltip
+</sbb-tooltip>
+```
+
+Alternatively, you can override the `--sbb-overlay-position-area` and `--sbb-overlay-position-try-fallbacks` CSS variables.
+These are used if the `positions` property is not set.
 
 ```scss
 // Primary position
@@ -64,15 +74,6 @@ By default, it appears above the trigger element and, if there is insufficient s
 --sbb-overlay-position-try-fallbacks:
   block-start span-inline-end, block-start span-inline-start, block-end, block-end span-inline-end,
   block-end span-inline-start;
-```
-
-Alternatively, you can use the `positions` property (attribute: comma-separated list).
-The first entry is used as primary position, the following entries as fallbacks.
-
-```html
-<sbb-tooltip trigger="trigger-id" positions="block-end, block-start, inline-end">
-  Tooltip
-</sbb-tooltip>
 ```
 
 > ⓘ The CSS anchor positioning feature is not yet fully [supported](https://caniuse.com/css-anchor-positioning) by all browsers.
@@ -136,15 +137,15 @@ Always ensure that keyboard users can perform the same set of actions available 
 
 #### Properties
 
-| Name                  | Attribute                | Privacy | Type                  | Default | Description                                                                                                                                                                                                                                                                                                                                                                       |
-| --------------------- | ------------------------ | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `closeDelay`          | `close-delay`            | public  | `number`              | `null`  | Close the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                                                                                                                                                                                                                                                                       |
-| `disabled`            | `disabled`               | public  | `boolean`             | `false` | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                |
-| `isOpen`              | -                        | public  | `boolean`             |         | Whether the element is open.                                                                                                                                                                                                                                                                                                                                                      |
-| `longPressCloseDelay` | `long-press-close-delay` | public  | `number`              | `1500`  | Automatically close the tooltip after it has been open by long press. Global configuration is used as default, if not set.                                                                                                                                                                                                                                                        |
-| `openDelay`           | `open-delay`             | public  | `number`              | `null`  | Open the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                                                                                                                                                                                                                                                                        |
-| `positions`           | `positions`              | public  | `string[] \| null`    | `null`  | The positions of the tooltip, relative to the trigger. The first entry is the primary position (`--sbb-overlay-position-area`), the following ones are the fallback positions (`--sbb-overlay-position-try-fallbacks`). For attribute usage, provide a comma-separated list. If not set, the default positions of the trigger (`tooltipPositions`) or the CSS variables are used. |
-| `trigger`             | `trigger`                | public  | `HTMLElement \| null` | `null`  | The element that will trigger the tooltip overlay. For attribute usage, provide an id reference.                                                                                                                                                                                                                                                                                  |
+| Name                  | Attribute                | Privacy | Type                  | Default | Description                                                                                                                                                                                                                                                                                                                                                                                  |
+| --------------------- | ------------------------ | ------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `closeDelay`          | `close-delay`            | public  | `number`              | `null`  | Close the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                                                                                                                                                                                                                                                                                  |
+| `disabled`            | `disabled`               | public  | `boolean`             | `false` | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                           |
+| `isOpen`              | -                        | public  | `boolean`             |         | Whether the element is open.                                                                                                                                                                                                                                                                                                                                                                 |
+| `longPressCloseDelay` | `long-press-close-delay` | public  | `number`              | `1500`  | Automatically close the tooltip after it has been open by long press. Global configuration is used as default, if not set.                                                                                                                                                                                                                                                                   |
+| `openDelay`           | `open-delay`             | public  | `number`              | `null`  | Open the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                                                                                                                                                                                                                                                                                   |
+| `positions`           | `positions`              | public  | `string[] \| null`    | `null`  | The positions of the tooltip, relative to the trigger. Provide either a comma-separated list or an array of positions. The first entry is the primary position (`--sbb-overlay-position-area`), the following ones are the fallback positions (`--sbb-overlay-position-try-fallbacks`). If not set, the default positions of the trigger (`tooltipPositions`) or the CSS variables are used. |
+| `trigger`             | `trigger`                | public  | `HTMLElement \| null` | `null`  | The element that will trigger the tooltip overlay. For attribute usage, provide an id reference.                                                                                                                                                                                                                                                                                             |
 
 #### Methods
 

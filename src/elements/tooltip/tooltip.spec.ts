@@ -630,6 +630,41 @@ describe('sbb-tooltip', () => {
       ).to.be.equal('right');
     });
 
+    it('should parse a comma-separated string assigned to the property', async () => {
+      element.positions = 'top, right, bottom';
+      await waitForLitRender(element);
+
+      expect(element.positions).to.be.eql(['top', 'right', 'bottom']);
+      expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
+        'top',
+      );
+      expect(
+        getComputedStyle(element).getPropertyValue('--sbb-overlay-position-try-fallbacks'),
+      ).to.be.equal('right, bottom');
+    });
+
+    it('should accept a single position as string', async () => {
+      element.positions = 'inline-end';
+      await waitForLitRender(element);
+
+      expect(element.positions).to.be.eql(['inline-end']);
+      expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
+        'inline-end',
+      );
+    });
+
+    it('should reset CSS vars when assigning an empty string', async () => {
+      element.positions = 'top, right';
+      await waitForLitRender(element);
+      element.positions = '';
+      await waitForLitRender(element);
+
+      expect(element.positions).to.be.empty;
+      expect(getComputedStyle(element).getPropertyValue('--sbb-overlay-position-area')).to.be.equal(
+        defaultPositionArea,
+      );
+    });
+
     it('should fall back to tooltipPositions of the trigger', async () => {
       const triggerEl = document.querySelector('sbb-button') as HTMLElement & {
         tooltipPositions?: string[];
