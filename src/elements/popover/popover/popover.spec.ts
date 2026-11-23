@@ -43,20 +43,21 @@ describe(`sbb-popover`, () => {
     });
   });
 
-  it('should accept null to reset numeric values', async () => {
+  it('should parse numeric values', async () => {
     element = await fixture(html`<sbb-popover></sbb-popover>`);
 
     element.openDelay = 123;
     element.closeDelay = 456;
-    await waitForLitRender(element);
-
     expect(element.openDelay).to.be.equal(123);
     expect(element.closeDelay).to.be.equal(456);
 
     element.openDelay = null;
     element.closeDelay = null;
-    await waitForLitRender(element);
+    expect(element.openDelay).to.be.equal(0);
+    expect(element.closeDelay).to.be.equal(0);
 
+    element.openDelay = 'test' as unknown as number;
+    element.closeDelay = 'test' as unknown as number;
     expect(element.openDelay).to.be.equal(0);
     expect(element.closeDelay).to.be.equal(0);
   });

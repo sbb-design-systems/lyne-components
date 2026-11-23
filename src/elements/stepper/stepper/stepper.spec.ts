@@ -430,6 +430,25 @@ describe('sbb-stepper', () => {
       element.remove();
     });
 
+    it('should parse selectedIndex', async () => {
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
+        element,
+      );
+
+      element.selectedIndex = 1;
+      await stepChangeSpy.calledOnce();
+      expect(element.selectedIndex).to.be.equal(1);
+
+      element.selectedIndex = null;
+      await waitForLitRender(element);
+      expect(element.selectedIndex).to.be.equal(1);
+
+      element.selectedIndex = 'test' as unknown as number;
+      await waitForLitRender(element);
+      expect(element.selectedIndex).to.be.equal(1);
+    });
+
     it('should select step when selected property is set before component is loaded', async () => {
       element = document.createElement('sbb-stepper');
 

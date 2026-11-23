@@ -11,6 +11,7 @@ import { property, state } from 'lit/decorators.js';
 import {
   forceType,
   isFakeMousedownFromScreenReader,
+  NumberOrNull,
   readConfig,
   sbbInputModalityDetector,
   SbbMediaQueryPointerCoarse,
@@ -47,10 +48,10 @@ export class SbbPopoverElement extends SbbNegativeMixin(SbbPopoverBaseElement) {
    *
    * @default 0
    */
-  @forceType()
+  @forceType(NumberOrNull)
   @property({ attribute: 'open-delay', type: Number })
   public set openDelay(value: number | null) {
-    this._openDelay = isNaN(value!) ? null : value;
+    this._openDelay = value;
   }
   public get openDelay(): number {
     return this._openDelay ?? readConfig().popover?.openDelay ?? 0;
@@ -63,10 +64,10 @@ export class SbbPopoverElement extends SbbNegativeMixin(SbbPopoverBaseElement) {
    *
    * @default 0
    */
-  @forceType()
+  @forceType(NumberOrNull)
   @property({ attribute: 'close-delay', type: Number })
   public set closeDelay(value: number | null) {
-    this._closeDelay = isNaN(value!) ? null : value;
+    this._closeDelay = value;
   }
   public get closeDelay(): number {
     return this._closeDelay ?? readConfig().popover?.closeDelay ?? 0;
