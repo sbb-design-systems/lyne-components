@@ -11,10 +11,12 @@ import { property } from 'lit/decorators.js';
 
 import {
   appendAriaElements,
+  forceType,
   idReference,
   isAndroid,
   isIOS,
   isZeroAnimationDuration,
+  NumberOrNull,
   popoverResetStyles,
   queueDomContentLoaded,
   readConfig,
@@ -88,8 +90,9 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
    * Open the tooltip after a given delay in milliseconds.
    * Global configuration is used as default, if not set.
    *
-   * @default null
+   * @default 0
    */
+  @forceType(NumberOrNull)
   @property({ attribute: 'open-delay', type: Number })
   public set openDelay(value: number | null) {
     this._openDelay = value;
@@ -97,14 +100,15 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
   public get openDelay(): number {
     return this._openDelay ?? readConfig().tooltip?.openDelay ?? 0;
   }
-  private _openDelay: number | null = null;
+  private _openDelay?: number | null;
 
   /**
    * Close the tooltip after a given delay in milliseconds.
    * Global configuration is used as default, if not set.
    *
-   * @default null
+   * @default 0
    */
+  @forceType(NumberOrNull)
   @property({ attribute: 'close-delay', type: Number })
   public set closeDelay(value: number | null) {
     this._closeDelay = value;
@@ -112,7 +116,7 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
   public get closeDelay(): number {
     return this._closeDelay ?? readConfig().tooltip?.closeDelay ?? 0;
   }
-  private _closeDelay: number | null = null;
+  private _closeDelay?: number | null;
 
   /**
    * Automatically close the tooltip after it has been open by long press.
@@ -120,14 +124,15 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
    *
    * @default 1500
    */
+  @forceType(NumberOrNull)
   @property({ attribute: 'long-press-close-delay', type: Number })
-  public set longPressCloseDelay(value: number) {
-    this._longPressCloseDelay = +value;
+  public set longPressCloseDelay(value: number | null) {
+    this._longPressCloseDelay = value;
   }
   public get longPressCloseDelay(): number {
     return this._longPressCloseDelay ?? readConfig().tooltip?.longPressCloseDelay ?? 1500;
   }
-  private _longPressCloseDelay?: number;
+  private _longPressCloseDelay?: number | null;
 
   /**
    * The positions of the tooltip, relative to the trigger.
