@@ -99,7 +99,7 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
   public get openDelay(): number {
     return this._openDelay ?? readConfig().tooltip?.openDelay ?? 0;
   }
-  private _openDelay: number | null = null;
+  private _openDelay?: number | null;
 
   /**
    * Close the tooltip after a given delay in milliseconds.
@@ -115,7 +115,7 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
   public get closeDelay(): number {
     return this._closeDelay ?? readConfig().tooltip?.closeDelay ?? 0;
   }
-  private _closeDelay: number | null = null;
+  private _closeDelay?: number | null;
 
   /**
    * Automatically close the tooltip after it has been open by long press.
@@ -131,7 +131,7 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
   public get longPressCloseDelay(): number {
     return this._longPressCloseDelay ?? readConfig().tooltip?.longPressCloseDelay ?? 1500;
   }
-  private _longPressCloseDelay: number | null = null;
+  private _longPressCloseDelay?: number | null;
 
   /**
    * The positions of the tooltip, relative to the trigger.

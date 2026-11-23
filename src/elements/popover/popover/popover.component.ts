@@ -55,7 +55,7 @@ export class SbbPopoverElement extends SbbNegativeMixin(SbbPopoverBaseElement) {
   public get openDelay(): number {
     return this._openDelay ?? readConfig().popover?.openDelay ?? 0;
   }
-  private _openDelay: number | null = null;
+  private _openDelay?: number | null;
 
   /**
    * Close the popover after a given delay in milliseconds.
@@ -71,7 +71,7 @@ export class SbbPopoverElement extends SbbNegativeMixin(SbbPopoverBaseElement) {
   public get closeDelay(): number {
     return this._closeDelay ?? readConfig().popover?.closeDelay ?? 0;
   }
-  private _closeDelay: number | null = null;
+  private _closeDelay?: number | null;
 
   @state() private accessor _hoverTrigger = false;
   private _openTimeout?: ReturnType<typeof setTimeout>;
