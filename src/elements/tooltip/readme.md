@@ -100,11 +100,14 @@ These are used if the `positions` property is not set.
 
 ### Attribute usage
 
-When using the `sbb-tooltip` attribute, you can configure the position by setting the `sbb-tooltip-position` attribute on the trigger element.
+When using the `sbb-tooltip` attribute, you can configure the position by setting the `sbb-tooltip-positions` attribute on the trigger element.
 The value of the attribute is a comma-separated list of positions and is applied to the `positions` property of the created tooltip.
 
 ```html
-<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-position="block-end, block-start, inline-end">
+<sbb-button
+  sbb-tooltip="Tooltip message"
+  sbb-tooltip-positions="block-end, block-start, inline-end"
+>
   Button
 </sbb-button>
 ```
@@ -148,7 +151,7 @@ Always ensure that keyboard users can perform the same set of actions available 
 | `isOpen`              | -                        | public  | `boolean`             |         | Whether the element is open.                                                                                                                                                                                                                                                                                                                                                                 |
 | `longPressCloseDelay` | `long-press-close-delay` | public  | `number`              | `1500`  | Automatically close the tooltip after it has been open by long press. Global configuration is used as default, if not set.                                                                                                                                                                                                                                                                   |
 | `openDelay`           | `open-delay`             | public  | `number`              | `null`  | Open the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                                                                                                                                                                                                                                                                                   |
-| `positions`           | `positions`              | public  | `string[] \| null`    | `null`  | The positions of the tooltip, relative to the trigger. Provide either a comma-separated list or an array of positions. The first entry is the primary position (`--sbb-overlay-position-area`), the following ones are the fallback positions (`--sbb-overlay-position-try-fallbacks`). If not set, the default positions of the trigger (`tooltipPositions`) or the CSS variables are used. |
+| `positions`           | `positions`              | public  | `string[]`            | `[]`    | The positions of the tooltip, relative to the trigger. Provide either a comma-separated list or an array of positions. The first entry is the primary position (`--sbb-overlay-position-area`), the following ones are the fallback positions (`--sbb-overlay-position-try-fallbacks`). If not set, the default positions of the trigger (`tooltipPositions`) or the CSS variables are used. |
 | `trigger`             | `trigger`                | public  | `HTMLElement \| null` | `null`  | The element that will trigger the tooltip overlay. For attribute usage, provide an id reference.                                                                                                                                                                                                                                                                                             |
 
 #### Methods
