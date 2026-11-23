@@ -11,6 +11,7 @@ import { property } from 'lit/decorators.js';
 
 import {
   appendAriaElements,
+  forceType,
   idReference,
   isAndroid,
   isIOS,
@@ -88,11 +89,12 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
    * Open the tooltip after a given delay in milliseconds.
    * Global configuration is used as default, if not set.
    *
-   * @default null
+   * @default 0
    */
+  @forceType()
   @property({ attribute: 'open-delay', type: Number })
   public set openDelay(value: number | null) {
-    this._openDelay = value;
+    this._openDelay = isNaN(value!) ? null : value;
   }
   public get openDelay(): number {
     return this._openDelay ?? readConfig().tooltip?.openDelay ?? 0;
@@ -103,11 +105,12 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
    * Close the tooltip after a given delay in milliseconds.
    * Global configuration is used as default, if not set.
    *
-   * @default null
+   * @default 0
    */
+  @forceType()
   @property({ attribute: 'close-delay', type: Number })
   public set closeDelay(value: number | null) {
-    this._closeDelay = value;
+    this._closeDelay = isNaN(value!) ? null : value;
   }
   public get closeDelay(): number {
     return this._closeDelay ?? readConfig().tooltip?.closeDelay ?? 0;
@@ -120,14 +123,15 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
    *
    * @default 1500
    */
+  @forceType()
   @property({ attribute: 'long-press-close-delay', type: Number })
-  public set longPressCloseDelay(value: number) {
-    this._longPressCloseDelay = +value;
+  public set longPressCloseDelay(value: number | null) {
+    this._longPressCloseDelay = isNaN(value!) ? null : value;
   }
   public get longPressCloseDelay(): number {
     return this._longPressCloseDelay ?? readConfig().tooltip?.longPressCloseDelay ?? 1500;
   }
-  private _longPressCloseDelay?: number;
+  private _longPressCloseDelay: number | null = null;
 
   /**
    * The positions of the tooltip, relative to the trigger.

@@ -343,6 +343,26 @@ describe('sbb-tooltip', () => {
       });
     });
 
+    it('should accept null to reset numeric values', async () => {
+      element.openDelay = 123;
+      element.closeDelay = 456;
+      element.longPressCloseDelay = 789;
+      await waitForLitRender(element);
+
+      expect(element.openDelay).to.be.equal(123);
+      expect(element.closeDelay).to.be.equal(456);
+      expect(element.longPressCloseDelay).to.be.equal(789);
+
+      element.openDelay = null;
+      element.closeDelay = null;
+      element.longPressCloseDelay = null;
+      await waitForLitRender(element);
+
+      expect(element.openDelay).to.be.equal(0);
+      expect(element.closeDelay).to.be.equal(0);
+      expect(element.longPressCloseDelay).to.be.equal(1500);
+    });
+
     describe('with delays', () => {
       beforeEach(async () => {
         element.openDelay = 200;
