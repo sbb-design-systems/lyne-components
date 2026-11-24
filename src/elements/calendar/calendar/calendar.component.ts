@@ -443,22 +443,6 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         return;
       }
 
-      const weekdayWithSelectAllButtons = [...this._selectAllButtons, ...this._weekdayCells].sort(
-        (a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1),
-      );
-      const weeknumberWithSelectAllButtons = [
-        ...this._selectAllButtons,
-        ...this._weekNumberCells,
-      ].sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
-      const horizontalNavigationElements: HTMLElement[] =
-        this.orientation === 'horizontal'
-          ? weekdayWithSelectAllButtons
-          : weeknumberWithSelectAllButtons;
-      const verticalNavigationElements: HTMLElement[] =
-        this.orientation === 'horizontal'
-          ? weeknumberWithSelectAllButtons
-          : weekdayWithSelectAllButtons;
-
       const handler: KeyboardNavigationHandler | undefined = (() => {
         if (day) {
           return {
@@ -483,7 +467,45 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
             },
             arrowKeys: () => this._handleKeyboardEvent(event, day as SbbCalendarDayElement<T>),
           };
-        } else if (selectAll) {
+        } else {
+          const weekdayWithSelectAllButtons = [
+            ...this._selectAllButtons,
+            ...this._weekdayCells,
+          ].sort((a, b) =>
+            a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1,
+          );
+          const weeknumberWithSelectAllButtons = [
+            ...this._selectAllButtons,
+            ...this._weekNumberCells,
+          ].sort((a, b) =>
+            a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1,
+          );
+          const horizontalNavigationElements: HTMLElement[] =
+            this.orientation === 'horizontal'
+              ? weekdayWithSelectAllButtons
+              : weeknumberWithSelectAllButtons;
+          const verticalNavigationElements: HTMLElement[] =
+            this.orientation === 'horizontal'
+              ? weeknumberWithSelectAllButtons
+              : weekdayWithSelectAllButtons;
+
+          // The select-all button belongs to both groups, while weekdays and week numbers
+          // only react to the keys of the axis they are laid out on.
+          const horizontalNavigationEnabled =
+            !!selectAll ||
+            (!!weekday && this.orientation === 'horizontal') ||
+            (!!weekNumber && this.orientation === 'vertical');
+          const verticalNavigationEnabled =
+            !!selectAll ||
+            (!!weekday && this.orientation === 'vertical') ||
+            (!!weekNumber && this.orientation === 'horizontal');
+          const navigate = (
+            elements: HTMLElement[],
+            enabled: boolean,
+            index: number,
+          ): HTMLElement | undefined =>
+            enabled ? elements[getNextElementIndex(event, index, elements.length)] : undefined;
+
           return {
             shiftTab: () => {
               // Focus should land outside any of the tables
@@ -499,190 +521,47 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                 )
                 .filter((el) => !el.disabled)
                 .sort((a, b) => a.slot.localeCompare(b.slot));
+
               return enabledDayElements.find((e) => e.tabIndex === 0) ?? enabledDayElements[0];
             },
             arrowRight: () =>
-              horizontalNavigationElements[
-                getNextElementIndex(
-                  event,
-                  horizontalNavigationElements.indexOf(target),
-                  horizontalNavigationElements.length,
-                )
-              ],
+              navigate(
+                horizontalNavigationElements,
+                horizontalNavigationEnabled,
+                horizontalNavigationElements.indexOf(target),
+              ),
             arrowLeft: () =>
-              horizontalNavigationElements[
-                getNextElementIndex(
-                  event,
-                  horizontalNavigationElements.indexOf(target),
-                  horizontalNavigationElements.length,
-                )
-              ],
-            home: () => horizontalNavigationElements[0],
+              navigate(
+                horizontalNavigationElements,
+                horizontalNavigationEnabled,
+                horizontalNavigationElements.indexOf(target),
+              ),
+            home: () => (horizontalNavigationEnabled ? horizontalNavigationElements[0] : undefined),
             end: () =>
-              horizontalNavigationElements[
-                getNextElementIndex(
-                  event,
-                  horizontalNavigationElements.length - 1,
-                  horizontalNavigationElements.length,
-                )
-              ],
+              navigate(
+                horizontalNavigationElements,
+                horizontalNavigationEnabled,
+                horizontalNavigationElements.length - 1,
+              ),
             arrowDown: () =>
-              verticalNavigationElements[
-                getNextElementIndex(
-                  event,
-                  verticalNavigationElements.indexOf(target),
-                  verticalNavigationElements.length,
-                )
-              ],
+              navigate(
+                verticalNavigationElements,
+                verticalNavigationEnabled,
+                verticalNavigationElements.indexOf(target),
+              ),
             arrowUp: () =>
-              verticalNavigationElements[
-                getNextElementIndex(
-                  event,
-                  verticalNavigationElements.indexOf(target),
-                  verticalNavigationElements.length,
-                )
-              ],
-            pageUp: () => verticalNavigationElements[0],
+              navigate(
+                verticalNavigationElements,
+                verticalNavigationEnabled,
+                verticalNavigationElements.indexOf(target),
+              ),
+            pageUp: () => (verticalNavigationEnabled ? verticalNavigationElements[0] : undefined),
             pageDown: () =>
-              verticalNavigationElements[
-                getNextElementIndex(
-                  event,
-                  verticalNavigationElements.length - 1,
-                  verticalNavigationElements.length,
-                )
-              ],
-          };
-        } else if (weekday || weekNumber) {
-          return {
-            shiftTab: () => {
-              // Focus should land outside any of the tables
-              // The blur handler will fix the tabIndex of the cells, so we don't need to do it here.
-              this.shadowRoot
-                ?.querySelectorAll<HTMLElement>('table [tabindex="0"]')
-                .forEach((el) => (el.tabIndex = -1));
-            },
-            tab: () => {
-              const enabledDayElements = (Array.from(currentTable.querySelectorAll('slot')) ?? [])
-                .flatMap<SbbCalendarDayElement<T>>(
-                  (e) => e.assignedElements({ flatten: true }) as SbbCalendarDayElement<T>[],
-                )
-                .filter((el) => !el.disabled)
-                .sort((a, b) => a.slot.localeCompare(b.slot));
-
-              return enabledDayElements.find((e) => e.tabIndex === 0) ?? enabledDayElements[0];
-            },
-            arrowRight: () => {
-              if (
-                (weekday && this.orientation !== 'horizontal') ||
-                (weekNumber && this.orientation !== 'vertical')
-              ) {
-                return;
-              }
-
-              return horizontalNavigationElements[
-                getNextElementIndex(
-                  event,
-                  horizontalNavigationElements.indexOf(target),
-                  horizontalNavigationElements.length,
-                )
-              ];
-            },
-            arrowLeft: () => {
-              if (
-                (weekday && this.orientation !== 'horizontal') ||
-                (weekNumber && this.orientation !== 'vertical')
-              ) {
-                return;
-              }
-
-              return horizontalNavigationElements[
-                getNextElementIndex(
-                  event,
-                  horizontalNavigationElements.indexOf(target),
-                  horizontalNavigationElements.length,
-                )
-              ];
-            },
-            home: () => {
-              if (
-                (weekday && this.orientation !== 'horizontal') ||
-                (weekNumber && this.orientation !== 'vertical')
-              ) {
-                return;
-              }
-              return horizontalNavigationElements[0];
-            },
-            end: () => {
-              if (
-                (weekday && this.orientation !== 'horizontal') ||
-                (weekNumber && this.orientation !== 'vertical')
-              ) {
-                return;
-              }
-              return horizontalNavigationElements[
-                getNextElementIndex(
-                  event,
-                  horizontalNavigationElements.length - 1,
-                  horizontalNavigationElements.length,
-                )
-              ];
-            },
-            arrowDown: () => {
-              if (
-                (weekNumber && this.orientation !== 'horizontal') ||
-                (weekday && this.orientation !== 'vertical')
-              ) {
-                return;
-              }
-
-              return verticalNavigationElements[
-                getNextElementIndex(
-                  event,
-                  verticalNavigationElements.indexOf(target),
-                  verticalNavigationElements.length,
-                )
-              ];
-            },
-            arrowUp: () => {
-              if (
-                (weekNumber && this.orientation !== 'horizontal') ||
-                (weekday && this.orientation !== 'vertical')
-              ) {
-                return;
-              }
-
-              return verticalNavigationElements[
-                getNextElementIndex(
-                  event,
-                  verticalNavigationElements.indexOf(target),
-                  verticalNavigationElements.length,
-                )
-              ];
-            },
-            pageUp: () => {
-              if (
-                (weekNumber && this.orientation !== 'horizontal') ||
-                (weekday && this.orientation !== 'vertical')
-              ) {
-                return;
-              }
-              return verticalNavigationElements[0];
-            },
-            pageDown: () => {
-              if (
-                (weekNumber && this.orientation !== 'horizontal') ||
-                (weekday && this.orientation !== 'vertical')
-              ) {
-                return;
-              }
-              return verticalNavigationElements[
-                getNextElementIndex(
-                  event,
-                  verticalNavigationElements.length - 1,
-                  verticalNavigationElements.length,
-                )
-              ];
-            },
+              navigate(
+                verticalNavigationElements,
+                verticalNavigationEnabled,
+                verticalNavigationElements.length - 1,
+              ),
           };
         }
       })();
