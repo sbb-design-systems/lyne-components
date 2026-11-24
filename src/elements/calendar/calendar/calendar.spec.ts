@@ -3467,6 +3467,53 @@ describe(`sbb-calendar`, () => {
       });
     });
 
+    describe('roving tabindex of the days', () => {
+      const slottedDays: Record<string, string[]> = {
+        default: [],
+        enhanced: Array.from({ length: 31 }, (_, i) => toIso8601(new Date(2023, 9, 1 + i))),
+        mixed: ['2023-10-25'],
+      };
+
+      Object.entries(slottedDays).forEach(([variant, slots]) => {
+        (['horizontal', 'vertical'] as const).forEach((orientation) => {
+          it(`keeps a single day tab stop while navigating (variant=${variant} orientation=${orientation})`, async () => {
+            const calendar: SbbCalendarElement = await fixture(html`
+              <sbb-calendar orientation=${orientation} multiple week-numbers>
+                ${slots.map((slot) => html`<sbb-calendar-day slot=${slot}></sbb-calendar-day>`)}
+              </sbb-calendar>
+            `);
+            await waitForLitRender(calendar);
+
+            const days = (): SbbCalendarDayElement[] => getDayCells(calendar);
+            const focusedDay = (): string | null => {
+              const focused = getFocused(calendar);
+              return focused instanceof SbbCalendarDayElement
+                ? toIso8601(focused.value!)
+                : (focused?.localName ?? null);
+            };
+
+            days()
+              .find((day) => toIso8601(day.value!) === '2023-10-10')!
+              .focus();
+            const key = orientation === 'horizontal' ? 'ArrowRight' : 'ArrowDown';
+            await press(calendar, key);
+            await press(calendar, key);
+            expect(focusedDay()).to.be.equal('2023-10-12');
+            expect(
+              days()
+                .filter((day) => day.tabIndex === 0)
+                .map((day) => toIso8601(day.value!)),
+            ).to.be.deep.equal(['2023-10-12']);
+
+            await press(calendar, `Shift+${tabKey}`);
+            expect(focusedDay()).to.be.equal('sbb-calendar-select-all');
+            await press(calendar, tabKey);
+            expect(focusedDay()).to.be.equal('2023-10-12');
+          });
+        });
+      });
+    });
+
     describe('without multiple', () => {
       it('does not trap Tab and Shift+Tab with week-numbers and amount 2', async () => {
         const calendar = await createCalendar('horizontal', 2, true, false);

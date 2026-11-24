@@ -1190,15 +1190,10 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     } else {
       nextEl = this._navigateByKeyboard(event, index, cells);
     }
-    const activeEl = (this._enhancedVariant ? document : this.shadowRoot!)
-      .activeElement as SbbCalendarCellBaseElement<T>;
-    if (nextEl !== activeEl) {
+    if (nextEl !== origin) {
+      origin.tabIndex = -1;
       nextEl.tabIndex = 0;
       nextEl.focus();
-
-      if (cells.includes(activeEl)) {
-        activeEl.tabIndex = -1;
-      }
     }
   }
 
@@ -1213,58 +1208,54 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         ? { leftRight: 1, upDown: DAYS_PER_ROW }
         : { leftRight: DAYS_PER_ROW, upDown: 1 };
 
+    const current = cells[index];
+    const findDay = (offset: number, step: number): SbbCalendarDayElement<T> =>
+      this._findEnabledDay(
+        cells,
+        this._dateAdapter.addCalendarDays(day.dateValue, offset),
+        step,
+        current,
+      );
+
     switch (evt.key) {
       case 'ArrowUp':
-        return this._findDayArrows(cells, index, day.dateValue, -arrowsOffset.upDown);
+        return findDay(-arrowsOffset.upDown, -arrowsOffset.upDown);
       case 'ArrowDown':
-        return this._findDayArrows(cells, index, day.dateValue, arrowsOffset.upDown);
+        return findDay(arrowsOffset.upDown, arrowsOffset.upDown);
       case 'ArrowLeft':
-        return this._findDayArrows(cells, index, day.dateValue, -arrowsOffset.leftRight);
+        return findDay(-arrowsOffset.leftRight, -arrowsOffset.leftRight);
       case 'ArrowRight':
-        return this._findDayArrows(cells, index, day.dateValue, arrowsOffset.leftRight);
+        return findDay(arrowsOffset.leftRight, arrowsOffset.leftRight);
       case 'PageUp': {
         if (this.orientation === 'horizontal') {
           const firstOfWeek: number = +day.dayValue % DAYS_PER_ROW || DAYS_PER_ROW;
-          const delta: number = firstOfWeek - +day.dayValue;
-          return this._findDayPageUpDown(cells, index, day, delta, arrowsOffset.upDown);
+          return findDay(firstOfWeek - +day.dayValue, arrowsOffset.upDown);
         } else {
           const offsetForVertical: number = this._dateAdapter.getFirstWeekOffset(day.dateValue);
           const weekNumber: number = Math.ceil((+day.dayValue + offsetForVertical) / DAYS_PER_ROW);
           const firstOfWeek: number = (weekNumber - 1) * DAYS_PER_ROW - offsetForVertical + 1;
-          const delta: number = firstOfWeek - +day.dayValue;
-          return this._findDayPageUpDown(cells, index, day, delta, arrowsOffset.upDown);
+          return findDay(firstOfWeek - +day.dayValue, arrowsOffset.upDown);
         }
       }
       case 'PageDown': {
         if (this.orientation === 'horizontal') {
-          const monthInBounds = +day.monthValue + 1 > 12 ? 1 : +day.monthValue + 1;
-          const yearInBounds = +day.monthValue + 1 > 12 ? +day.yearValue + 1 : +day.yearValue;
-          const firstNextMonth: T = this._dateAdapter.createDate(yearInBounds, monthInBounds, 1);
-          const lastOfMonth: number = this._dateAdapter.getDate(
-            this._dateAdapter.addCalendarDays(firstNextMonth, -1),
-          );
+          const lastOfMonth: number = this._dateAdapter.getNumDaysInMonth(day.dateValue);
           const delta: number =
-            Math.trunc((lastOfMonth - +day.dayValue!) / DAYS_PER_ROW) * DAYS_PER_ROW;
-          return this._findDayPageUpDown(cells, index, day, delta, -arrowsOffset.upDown);
+            Math.trunc((lastOfMonth - +day.dayValue) / DAYS_PER_ROW) * DAYS_PER_ROW;
+          return findDay(delta, -arrowsOffset.upDown);
         } else {
           const offsetForVertical: number = this._dateAdapter.getFirstWeekOffset(day.dateValue);
           const weekNumber: number = Math.ceil((+day.dayValue + offsetForVertical) / DAYS_PER_ROW);
           const lastOfWeek: number = weekNumber * DAYS_PER_ROW - offsetForVertical;
-          const delta: number = lastOfWeek - +day.dayValue;
-          return this._findDayPageUpDown(cells, index, day, delta, -arrowsOffset.upDown);
+          return findDay(lastOfWeek - +day.dayValue, -arrowsOffset.upDown);
         }
       }
-      case 'Home': {
-        return this._findDayFirst(cells, index, day, 1);
-      }
-      case 'End': {
-        const monthInBounds = +day.monthValue + 1 > 12 ? 1 : +day.monthValue + 1;
-        const yearInBounds = +day.monthValue + 1 > 12 ? +day.yearValue + 1 : +day.yearValue;
-        const firstNextMonth: T = this._dateAdapter.createDate(yearInBounds, monthInBounds, 1);
-        return this._findDayLast(cells, index, firstNextMonth);
-      }
+      case 'Home':
+        return findDay(1 - +day.dayValue, 1);
+      case 'End':
+        return findDay(this._dateAdapter.getNumDaysInMonth(day.dateValue) - +day.dayValue, -1);
       default:
-        return cells[index];
+        return current;
     }
   }
 
@@ -1272,80 +1263,26 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     return date < this._firstVisibleDay || date > this._lastVisibleDay;
   }
 
-  private _findDayArrows(
+  /**
+   * Starting from `date`, moves by `step` days until an enabled day is found.
+   * Returns `fallback` if the visible range is left before.
+   */
+  private _findEnabledDay(
     cells: SbbCalendarDayElement<T>[],
-    index: number,
     date: T,
-    delta: number,
+    step: number,
+    fallback: SbbCalendarDayElement<T>,
   ): SbbCalendarDayElement<T> {
-    const newDateValue = this._dateAdapter.toIso8601(
-      this._dateAdapter.addCalendarDays(date, delta),
-    );
-    if (this._isDayOutOfView(newDateValue)) {
-      return cells[index];
+    for (let current = date; ; current = this._dateAdapter.addCalendarDays(current, step)) {
+      const iso = this._dateAdapter.toIso8601(current);
+      if (this._isDayOutOfView(iso)) {
+        return fallback;
+      }
+      const cell = cells.find((e) => e.slot === iso);
+      if (cell && !cell.disabled) {
+        return cell;
+      }
     }
-    const nextCell = cells.find((e) => this._mapValueToISODate(e.value!) === newDateValue);
-    if (!nextCell || nextCell.disabled) {
-      return this._findDayArrows(cells, index, this._dateAdapter.deserialize(newDateValue)!, delta);
-    }
-    return nextCell;
-  }
-
-  private _findDayPageUpDown(
-    cells: SbbCalendarDayElement<T>[],
-    index: number,
-    day: Day<T>,
-    delta: number,
-    deltaIfDisabled: number,
-  ): SbbCalendarDayElement<T> {
-    const newDateValue = this._dateAdapter.toIso8601(
-      this._dateAdapter.addCalendarDays(day.dateValue, delta),
-    );
-    if (this._isDayOutOfView(newDateValue)) {
-      return cells[index];
-    }
-    const nextCell = cells.find((e) => this._mapValueToISODate(e.value!) === newDateValue);
-    if (!nextCell || nextCell.disabled) {
-      return this._findDayPageUpDown(cells, index, day, delta + deltaIfDisabled, deltaIfDisabled);
-    }
-    return nextCell;
-  }
-
-  private _findDayFirst(
-    cells: SbbCalendarDayElement<T>[],
-    index: number,
-    day: Day<T>,
-    date: number,
-  ): SbbCalendarDayElement<T> {
-    const newDateValue = this._dateAdapter.toIso8601(
-      this._dateAdapter.createDate(+day.yearValue, +day.monthValue, date),
-    );
-    if (this._isDayOutOfView(newDateValue)) {
-      return cells[index];
-    }
-    const nextCell = cells.find((e) => this._mapValueToISODate(e.value!) === newDateValue);
-    if (!nextCell || nextCell.disabled) {
-      return this._findDayFirst(cells, index, day, date + 1);
-    }
-    return nextCell;
-  }
-
-  private _findDayLast(
-    cells: SbbCalendarDayElement<T>[],
-    index: number,
-    firstNextMonth: T,
-  ): SbbCalendarDayElement<T> {
-    const newDateValue = this._dateAdapter.toIso8601(
-      this._dateAdapter.addCalendarDays(firstNextMonth, -1),
-    );
-    if (this._isDayOutOfView(newDateValue)) {
-      return cells[index];
-    }
-    const nextCell = cells.find((e) => this._mapValueToISODate(e.value!) === newDateValue);
-    if (!nextCell || nextCell.disabled) {
-      return this._findDayLast(cells, index, this._dateAdapter.deserialize(newDateValue)!);
-    }
-    return nextCell;
   }
 
   /**
