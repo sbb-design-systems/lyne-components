@@ -44,7 +44,6 @@ import {
   SbbFormAssociatedMixin,
   SbbLanguageController,
   screenReaderOnlyStyles,
-  THURSDAY,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 import { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
@@ -799,7 +798,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
   private _mapDateToDay(date: T): Day<T> {
     const isoDate = this._dateAdapter.toIso8601(date);
-    const { week, year } = this._getIsoWeek(date);
+    const { week, year } = this._dateAdapter.getIsoWeek(date);
     return {
       value: isoDate,
       dateValue: date,
@@ -810,23 +809,6 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       weekYearValue: year,
       weekDayValue: this._dateAdapter.getDayOfWeek(date),
     };
-  }
-
-  /**
-   * Returns the ISO 8601 week number and week-numbering year of the given date.
-   * Weeks start on Monday and belong to the year of their Thursday.
-   */
-  private _getIsoWeek(date: T): { week: number; year: number } {
-    const daysSinceMonday = (this._dateAdapter.getDayOfWeek(date) + 6) % DAYS_PER_ROW;
-    const thursday = this._dateAdapter.addCalendarDays(date, THURSDAY - 1 - daysSinceMonday);
-    const year = this._dateAdapter.getYear(thursday);
-    let dayOfYear = this._dateAdapter.getDate(thursday);
-    for (let month = 1; month < this._dateAdapter.getMonth(thursday); month++) {
-      dayOfYear += this._dateAdapter.getNumDaysInMonth(
-        this._dateAdapter.createDate(year, month, 1),
-      );
-    }
-    return { week: Math.ceil(dayOfYear / DAYS_PER_ROW), year };
   }
 
   /** Force the conversion to ISO8601 formatted string. */
