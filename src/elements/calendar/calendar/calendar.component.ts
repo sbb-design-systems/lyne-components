@@ -306,15 +306,13 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
   /** A list of calendar's cells corresponding to days, months or years depending on the view. */
   private get _cells(): SbbCalendarCellBaseElement<T>[] {
-    return Array.from<SbbCalendarCellBaseElement<T>>(
-      (this._calendarView === 'day'
-        ? (Array.from(this.shadowRoot!.querySelectorAll('slot')).flatMap((e: HTMLSlotElement) =>
-            e.assignedElements({ flatten: true }),
-          ) as SbbCalendarDayElement<T>[])
-        : this.shadowRoot?.querySelectorAll<SbbCalendarCellBaseElement<T>>(
+    return this._calendarView === 'day'
+      ? this._getDays(this.shadowRoot!)
+      : Array.from(
+          this.shadowRoot?.querySelectorAll<SbbCalendarCellBaseElement<T>>(
             `sbb-calendar-${this._calendarView}`,
-          )) ?? [],
-    );
+          ) ?? [],
+        );
   }
 
   /** A list of calendar's weekday cells. */
@@ -439,13 +437,19 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     }
   }
 
+  /** Returns the rendered or slotted days within the given root. */
+  private _getDays(root: ParentNode): SbbCalendarDayElement<T>[] {
+    return Array.from(root.querySelectorAll('slot')).flatMap(
+      (slot) => slot.assignedElements({ flatten: true }) as SbbCalendarDayElement<T>[],
+    );
+  }
+
   /** Returns the day of the given table which should receive focus when tabbing into the days. */
-  private _getDayTabStop(table: HTMLTableElement): SbbCalendarDayElement<T> | undefined {
-    const enabledDays = Array.from(table.querySelectorAll('slot'))
-      .flatMap((slot) => slot.assignedElements({ flatten: true }) as SbbCalendarDayElement<T>[])
-      .filter((day) => !day.disabled)
-      .sort((a, b) => a.slot.localeCompare(b.slot));
-    return enabledDays.find((day) => day.tabIndex === 0) ?? enabledDays[0];
+  private _getDayTabStop(table: HTMLTableElement): SbbCalendarDayElement<T> | null {
+    const days = this._getDays(table);
+    return (
+      days.find((day) => day.tabIndex === 0 && !day.disabled) ?? this._getFirstFocusableDay(days)
+    );
   }
 
   /**
@@ -1143,47 +1147,27 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
   /** Get the element in the calendar to assign focus. */
   private _getFirstFocusable(): SbbCalendarCellBaseElement<T> | null {
-    if (this._calendarView === 'day') {
-      const selectedOrCurrent =
-        this._cells.find((e) => e.matches(':state(selected)')) ??
-        this._cells.find((e) => e.matches(':state(current)'));
-      return selectedOrCurrent && !selectedOrCurrent.disabled
-        ? selectedOrCurrent
-        : this._getFirstFocusableDay();
-    } else {
-      const selectedOrCurrent =
-        this.shadowRoot?.querySelector<SbbCalendarCellBaseElement<T>>(
-          `sbb-calendar-${this._calendarView}:state(selected)`,
-        ) ??
-        this.shadowRoot?.querySelector<SbbCalendarCellBaseElement<T>>(
-          `sbb-calendar-${this._calendarView}:state(current)`,
-        );
-      return selectedOrCurrent && !selectedOrCurrent.disabled
-        ? selectedOrCurrent
-        : this.shadowRoot!.querySelector<SbbCalendarCellBaseElement<T>>(
-            `sbb-calendar-${this._calendarView}:not([disabled])`,
-          );
+    const cells = this._cells;
+    const selectedOrCurrent =
+      cells.find((e) => e.matches(':state(selected)')) ??
+      cells.find((e) => e.matches(':state(current)'));
+    if (selectedOrCurrent && !selectedOrCurrent.disabled) {
+      return selectedOrCurrent;
     }
+    return this._calendarView === 'day'
+      ? this._getFirstFocusableDay(cells as SbbCalendarDayElement<T>[])
+      : (cells.find((e) => !e.disabled) ?? null);
   }
 
   /**
-   * In `day` view in `vertical` orientation,
-   * if the first of the month is not a Monday, it is not the first rendered element in the table,
-   * so `this.shadowRoot!.querySelector('sbb-calendar-day:not([disabled])')` will return a wrong value.
-   *
-   * To solve this, the element with the lowest `value` is taken (ISO String are ordered).
+   * Returns the enabled day with the earliest date.
+   * In `vertical` orientation, the DOM order does not match the date order (e.g. if the first of
+   * the month is not a Monday), so the days are compared by their slot name (ISO string).
    */
-  private _getFirstFocusableDay(): SbbCalendarDayElement<T> | null {
-    const cells = this._cells as SbbCalendarDayElement<T>[];
-    const daysInView = cells.filter((e) => !e.disabled);
-    if (!daysInView || daysInView.length === 0) {
-      return null;
-    } else {
-      const firstElement = daysInView
-        .map((e): string => this._dateAdapter.toIso8601(e.value! as T))
-        .sort()[0];
-      return cells.find((e) => e.matches(`[slot="${firstElement}"]`))! ?? null;
-    }
+  private _getFirstFocusableDay(days: SbbCalendarDayElement<T>[]): SbbCalendarDayElement<T> | null {
+    return (
+      days.filter((day) => !day.disabled).sort((a, b) => a.slot.localeCompare(b.slot))[0] ?? null
+    );
   }
 
   private _handleKeyboardEvent(event: KeyboardEvent, day?: SbbCalendarDayElement<T>): void {
