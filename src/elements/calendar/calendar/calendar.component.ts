@@ -143,12 +143,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   public static override elementDependencies: SbbElementType[] = [
     SbbCalendarDayElement,
     SbbCalendarMonthElement,
+    SbbCalendarSelectAllElement,
     SbbCalendarWeekdayElement,
     SbbCalendarWeeknumberElement,
     SbbCalendarYearElement,
     SbbIconElement,
     SbbSecondaryButtonElement,
-    SbbCalendarSelectAllElement,
   ];
   public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
   public static readonly events = {
