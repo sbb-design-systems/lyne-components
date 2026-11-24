@@ -1,16 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
-import { sendKeys, setViewport } from '@web/test-runner-commands';
+import { sendKeys } from '@web/test-runner-commands';
 import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 import { type SinonStub, stub } from 'sinon';
 
 import type { SbbSecondaryButtonElement } from '../../button.ts';
-import {
-  elementInternalsSpy,
-  fixture,
-  sbbBreakpointLargeMinPx,
-  tabKey,
-} from '../../core/testing/private.ts';
+import { elementInternalsSpy, fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import {
   defaultDateAdapter,
@@ -369,6 +364,22 @@ describe(`sbb-calendar`, () => {
           // this works because the first element from querySelector is the first day of the month; it's not valid in vertical
           day = getDayCells(element)[0];
           expect(await day.getAttribute('slot')).to.be.equal('2023-01-01');
+        });
+
+        it('considers the amount of months for the next month button', async () => {
+          element.amount = 2;
+          element.max = new Date('2023-03-01');
+          await waitForLitRender(element);
+
+          const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
+            'sbb-secondary-button[icon-name="chevron-small-right-small"]',
+          )!;
+          expect(nextMonthButton).not.to.have.attribute('disabled');
+
+          // The next page would display February and March, which is after max
+          element.max = new Date('2023-02-28');
+          await waitForLitRender(element);
+          expect(nextMonthButton).to.have.attribute('disabled');
         });
       });
 
@@ -763,11 +774,7 @@ describe(`sbb-calendar`, () => {
           });
         });
 
-        describe('wide', () => {
-          beforeEach(async () => {
-            await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
-          });
-
+        describe('amount=2', () => {
           it('changes to year and month selection views', async function () {
             // Flaky on WebKit
             this.retries(3);
@@ -1373,11 +1380,7 @@ describe(`sbb-calendar`, () => {
             });
           });
 
-          describe('wide', () => {
-            beforeEach(async () => {
-              await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
-            });
-
+          describe('amount=2', () => {
             describe('horizontal', () => {
               beforeEach(async () => {
                 element = await fixture(html`
@@ -1393,68 +1396,12 @@ describe(`sbb-calendar`, () => {
                 `);
               });
 
-              it('it should navigate left', async () => {
-                element.focus();
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-31');
-                await sendKeys({ press: 'ArrowLeft' });
-                await waitForLitRender(element);
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-30');
-              });
-
-              it('it should navigate right', async () => {
+              it('it should navigate right into the next month', async () => {
                 element.focus();
                 expect(getDayActiveElementValue()).to.be.equal('2025-01-31');
                 await sendKeys({ press: 'ArrowRight' });
                 await waitForLitRender(element);
                 expect(getDayActiveElementValue()).to.be.equal('2025-02-01');
-              });
-
-              it('it should navigate up', async () => {
-                element.focus();
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-31');
-                await sendKeys({ press: 'ArrowUp' });
-                await waitForLitRender(element);
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-24');
-              });
-
-              it('it should navigate down', async () => {
-                element.focus();
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-31');
-                await sendKeys({ press: 'ArrowDown' });
-                await waitForLitRender(element);
-                expect(getDayActiveElementValue()).to.be.equal('2025-02-07');
-              });
-
-              it('it should navigate to first day', async () => {
-                element.focus();
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-31');
-                await sendKeys({ press: 'Home' });
-                await waitForLitRender(element);
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-01');
-              });
-
-              it('it should navigate to last day', async () => {
-                element.focus();
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-31');
-                await sendKeys({ press: 'End' });
-                await waitForLitRender(element);
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-31');
-              });
-
-              it('it should navigate to column start', async () => {
-                element.focus();
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-31');
-                await sendKeys({ press: 'PageUp' });
-                await waitForLitRender(element);
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-03');
-              });
-
-              it('it should navigate to column end', async () => {
-                element.focus();
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-31');
-                await sendKeys({ press: 'PageDown' });
-                await waitForLitRender(element);
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-31');
               });
             });
 
@@ -1473,63 +1420,7 @@ describe(`sbb-calendar`, () => {
                 `);
               });
 
-              it('it should navigate left', async () => {
-                element.focus();
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-29');
-                await sendKeys({ press: 'ArrowLeft' });
-                await waitForLitRender(element);
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-22');
-              });
-
-              it('it should navigate right', async () => {
-                element.focus();
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-29');
-                await sendKeys({ press: 'ArrowRight' });
-                await waitForLitRender(element);
-                expect(getDayActiveElementValue()).to.be.equal('2025-02-05');
-              });
-
-              it('it should navigate up', async () => {
-                element.focus();
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-29');
-                await sendKeys({ press: 'ArrowUp' });
-                await waitForLitRender(element);
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-28');
-              });
-
-              it('it should navigate down', async () => {
-                element.focus();
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-29');
-                await sendKeys({ press: 'ArrowDown' });
-                await waitForLitRender(element);
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-30');
-              });
-
-              it('it should navigate to first day', async () => {
-                element.focus();
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-29');
-                await sendKeys({ press: 'Home' });
-                await waitForLitRender(element);
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-01');
-              });
-
-              it('it should navigate to last day', async () => {
-                element.focus();
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-29');
-                await sendKeys({ press: 'End' });
-                await waitForLitRender(element);
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-31');
-              });
-
-              it('it should navigate to column start', async () => {
-                element.focus();
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-29');
-                await sendKeys({ press: 'PageUp' });
-                await waitForLitRender(element);
-                expect(getDayActiveElementValue()).to.be.equal('2025-01-27');
-              });
-
-              it('it should navigate to column end', async () => {
+              it('it should navigate to column end in the next month', async () => {
                 element.focus();
                 expect(getDayActiveElementValue()).to.be.equal('2025-01-29');
                 await sendKeys({ press: 'PageDown' });
@@ -1543,7 +1434,6 @@ describe(`sbb-calendar`, () => {
             describe('horizontal', () => {
               // the dateFilter removes 2 days each 5 and all the thursdays; start date is 2025-01-22, Wed
               beforeEach(async () => {
-                await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
                 element = await fixture(html`
                   <sbb-calendar value="2025-01-22" amount="2" orientation="horizontal">
                     ${variantDays(
@@ -1628,7 +1518,6 @@ describe(`sbb-calendar`, () => {
             describe('vertical', () => {
               // the dateFilter removes 2 days each 5 and all the thursdays; start date is 2025-01-22, Wed
               beforeEach(async () => {
-                await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
                 element = await fixture(html`
                   <sbb-calendar value="2025-01-22" amount="2" orientation="vertical">
                     ${variantDays(
@@ -1708,6 +1597,52 @@ describe(`sbb-calendar`, () => {
                 await waitForLitRender(element);
                 expect(getDayActiveElementValue()).to.be.equal('2025-01-26');
               });
+            });
+          });
+
+          describe('disabled target day', () => {
+            const createCalendarWithDisabledDay = async (
+              orientation: 'horizontal' | 'vertical',
+              value: string,
+              disabledDay: string,
+            ): Promise<void> => {
+              element = await fixture(html`
+                <sbb-calendar value=${value} orientation=${orientation}>
+                  ${variantDays([[2023, 1]], ['2023-01-05'])}
+                </sbb-calendar>
+              `);
+              element.dateFilter = (d: Date | null): boolean => !!d && toIso8601(d) !== disabledDay;
+              await waitForLitRender(element);
+              element.focus();
+              expect(getDayActiveElementValue()).to.be.equal(value);
+            };
+
+            it('it should search forward in the column if the column start is disabled (horizontal)', async () => {
+              await createCalendarWithDisabledDay('horizontal', '2023-01-15', '2023-01-01');
+              await sendKeys({ press: 'PageUp' });
+              await waitForLitRender(element);
+              expect(getDayActiveElementValue()).to.be.equal('2023-01-08');
+            });
+
+            it('it should search backward in the column if the column end is disabled (vertical)', async () => {
+              await createCalendarWithDisabledDay('vertical', '2023-01-12', '2023-01-15');
+              await sendKeys({ press: 'PageDown' });
+              await waitForLitRender(element);
+              expect(getDayActiveElementValue()).to.be.equal('2023-01-14');
+            });
+
+            it('it should search forward if the first day is disabled', async () => {
+              await createCalendarWithDisabledDay('horizontal', '2023-01-15', '2023-01-01');
+              await sendKeys({ press: 'Home' });
+              await waitForLitRender(element);
+              expect(getDayActiveElementValue()).to.be.equal('2023-01-02');
+            });
+
+            it('it should search backward if the last day is disabled', async () => {
+              await createCalendarWithDisabledDay('horizontal', '2023-01-15', '2023-01-31');
+              await sendKeys({ press: 'End' });
+              await waitForLitRender(element);
+              expect(getDayActiveElementValue()).to.be.equal('2023-01-30');
             });
           });
         });
@@ -2210,7 +2145,6 @@ describe(`sbb-calendar`, () => {
             });
 
             it('toggles each month independently with amount 2', async () => {
-              await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
               const calendar: SbbCalendarElement = await fixture(html`
                 <sbb-calendar
                   value="2025-04-08T00:00:00"
@@ -2369,7 +2303,6 @@ describe(`sbb-calendar`, () => {
               });
 
               it('is evaluated for each month with amount 2', async () => {
-                await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
                 const calendar: SbbCalendarElement = await fixture(html`
                   <sbb-calendar
                     value="2025-04-08T00:00:00"
@@ -2725,7 +2658,6 @@ describe(`sbb-calendar`, () => {
           });
 
           it('renders multiple wide', async () => {
-            await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
             const calendar: SbbCalendarElement = await fixture(html`
               <sbb-calendar value="2025-04-08T00:00:00" amount="2" week-numbers multiple>
                 ${variantDays(
@@ -2963,7 +2895,6 @@ describe(`sbb-calendar`, () => {
           });
 
           it('renders multiple wide', async () => {
-            await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
             const calendar: SbbCalendarElement = await fixture(html`
               <sbb-calendar
                 value="2025-04-08T00:00:00"
@@ -3341,7 +3272,6 @@ describe(`sbb-calendar`, () => {
 
     describe('with disabled days', () => {
       it('focuses the first enabled day of the same table with Tab', async () => {
-        await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
         const calendar: SbbCalendarElement = await fixture(html`
           <sbb-calendar
             value="2025-04-08T00:00:00"
@@ -3389,7 +3319,6 @@ describe(`sbb-calendar`, () => {
           [true, false].forEach((weekNumbers) => {
             [true, false].forEach((multiple) => {
               it(`leaves the calendar with Tab after navigating back to the first month (variant=${variant} orientation=${orientation} week-numbers=${weekNumbers} multiple=${multiple})`, async () => {
-                await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
                 const calendar: SbbCalendarElement = await fixture(html`
                   <sbb-calendar
                     orientation=${orientation}
