@@ -2146,10 +2146,10 @@ describe(`sbb-calendar`, () => {
             it('describes the select action initially', async () => {
               const calendar = await createCalendar();
               expect(weekdayLabels(calendar)).to.be.deep.equal(
-                weekdays.map((d) => i18nCalendarSelectWeekday(d).en),
+                weekdays.map((d) => i18nCalendarSelectWeekday(d, 'April 2025').en),
               );
               expect(weeknumberLabels(calendar)).to.be.deep.equal(
-                [14, 15, 16, 17, 18].map((n) => i18nCalendarSelectWeek(n).en),
+                [14, 15, 16, 17, 18].map((n) => i18nCalendarSelectWeek(n, 2025).en),
               );
             });
 
@@ -2163,10 +2163,10 @@ describe(`sbb-calendar`, () => {
               await selectedSpy.calledOnce();
               await waitForLitRender(calendar);
               let labels = weekdayLabels(calendar);
-              expect(labels[0]).to.be.equal(i18nCalendarDeselectWeekday('Monday').en);
+              expect(labels[0]).to.be.equal(i18nCalendarDeselectWeekday('Monday', 'April 2025').en);
               // The other weekdays are not affected
               expect(labels.slice(1)).to.be.deep.equal(
-                weekdays.slice(1).map((d) => i18nCalendarSelectWeekday(d).en),
+                weekdays.slice(1).map((d) => i18nCalendarSelectWeekday(d, 'April 2025').en),
               );
 
               // Removing a single Monday makes the select action available again
@@ -2174,7 +2174,7 @@ describe(`sbb-calendar`, () => {
               await selectedSpy.calledTimes(2);
               await waitForLitRender(calendar);
               expect(weekdayLabels(calendar)[0]).to.be.equal(
-                i18nCalendarSelectWeekday('Monday').en,
+                i18nCalendarSelectWeekday('Monday', 'April 2025').en,
               );
 
               mondayButton.click();
@@ -2183,7 +2183,7 @@ describe(`sbb-calendar`, () => {
               await selectedSpy.calledTimes(4);
               await waitForLitRender(calendar);
               labels = weekdayLabels(calendar);
-              expect(labels[0]).to.be.equal(i18nCalendarSelectWeekday('Monday').en);
+              expect(labels[0]).to.be.equal(i18nCalendarSelectWeekday('Monday', 'April 2025').en);
             });
 
             it('switches the weeknumber label depending on the selection', async () => {
@@ -2196,10 +2196,10 @@ describe(`sbb-calendar`, () => {
               await selectedSpy.calledOnce();
               await waitForLitRender(calendar);
               let labels = weeknumberLabels(calendar);
-              expect(labels[0]).to.be.equal(i18nCalendarDeselectWeek(14).en);
+              expect(labels[0]).to.be.equal(i18nCalendarDeselectWeek(14, 2025).en);
               // The other weeks are not affected
               expect(labels.slice(1)).to.be.deep.equal(
-                [15, 16, 17, 18].map((n) => i18nCalendarSelectWeek(n).en),
+                [15, 16, 17, 18].map((n) => i18nCalendarSelectWeek(n, 2025).en),
               );
 
               // Removing a single day of the week makes the select action available again
@@ -2207,14 +2207,54 @@ describe(`sbb-calendar`, () => {
               await selectedSpy.calledTimes(2);
               await waitForLitRender(calendar);
               labels = weeknumberLabels(calendar);
-              expect(labels[0]).to.be.equal(i18nCalendarSelectWeek(14).en);
+              expect(labels[0]).to.be.equal(i18nCalendarSelectWeek(14, 2025).en);
 
               firstWeekButton.click();
               await selectedSpy.calledTimes(3);
               firstWeekButton.click();
               await selectedSpy.calledTimes(4);
               await waitForLitRender(calendar);
-              expect(weeknumberLabels(calendar)[0]).to.be.equal(i18nCalendarSelectWeek(14).en);
+              expect(weeknumberLabels(calendar)[0]).to.be.equal(
+                i18nCalendarSelectWeek(14, 2025).en,
+              );
+            });
+
+            describe('at the turn of the year', () => {
+              const weeknumberValues = (calendar: SbbCalendarElement): number[] =>
+                Array.from(
+                  calendar.shadowRoot!.querySelectorAll<SbbCalendarWeeknumberElement>(
+                    'sbb-calendar-weeknumber',
+                  ),
+                  (e) => Number(e.value),
+                );
+
+              const cases = [
+                // 29th-31st December 2025 belong to the first week of 2026
+                { value: '2025-12-15', weeks: [49, 50, 51, 52, 1], years: [2025, 2026] },
+                // 1st-3rd January 2027 belong to the 53rd week of 2026
+                { value: '2027-01-15', weeks: [53, 1, 2, 3, 4], years: [2026, 2027] },
+                // 2020 has 53 weeks
+                { value: '2020-12-15', weeks: [49, 50, 51, 52, 53], years: [2020, 2020] },
+              ];
+
+              cases.forEach(({ value, weeks, years }) => {
+                it(`uses the ISO week and week-numbering year (${value})`, async () => {
+                  const calendar: SbbCalendarElement = await fixture(html`
+                    <sbb-calendar
+                      .value=${[new Date(`${value}T00:00:00`)]}
+                      orientation=${orientation}
+                      week-numbers
+                      multiple
+                    ></sbb-calendar>
+                  `);
+                  expect(weeknumberValues(calendar)).to.be.deep.equal(weeks);
+                  const labels = weeknumberLabels(calendar);
+                  expect(labels[0]).to.be.equal(i18nCalendarSelectWeek(weeks[0], years[0]).en);
+                  expect(labels.at(-1)).to.be.equal(
+                    i18nCalendarSelectWeek(weeks.at(-1)!, years[1]).en,
+                  );
+                });
+              });
             });
 
             it('ignores days which cannot be selected', async () => {
@@ -2237,7 +2277,7 @@ describe(`sbb-calendar`, () => {
               await selectedSpy.calledOnce();
               await waitForLitRender(calendar);
               expect(weekdayLabels(calendar)[0]).to.be.equal(
-                i18nCalendarDeselectWeekday('Monday').en,
+                i18nCalendarDeselectWeekday('Monday', 'April 2025').en,
               );
 
               calendar
@@ -2245,7 +2285,9 @@ describe(`sbb-calendar`, () => {
                 .click();
               await selectedSpy.calledTimes(2);
               await waitForLitRender(calendar);
-              expect(weeknumberLabels(calendar)[1]).to.be.equal(i18nCalendarDeselectWeek(15).en);
+              expect(weeknumberLabels(calendar)[1]).to.be.equal(
+                i18nCalendarDeselectWeek(15, 2025).en,
+              );
             });
           });
         };

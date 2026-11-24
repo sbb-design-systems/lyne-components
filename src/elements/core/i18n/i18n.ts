@@ -874,32 +874,44 @@ export const i18nCalendarDeselectAll = (monthYear: string): Record<string, strin
   it: `Deselezionare tutti i giorni del ${monthYear}`,
 });
 
-export const i18nCalendarSelectWeekday = (weekday: string): Record<string, string> => ({
-  de: `Jeden ${weekday} im Monat auswählen`,
-  en: `Select every ${weekday} in the month`,
-  fr: `Sélectionner chaque ${weekday} du mois`,
-  it: `Selezionare ogni ${weekday} del mese`,
+export const i18nCalendarSelectWeekday = (
+  weekday: string,
+  monthYear: string,
+): Record<string, string> => ({
+  de: `Jeden ${weekday} im ${monthYear} auswählen`,
+  en: `Select every ${weekday} in ${monthYear}`,
+  fr: `Sélectionner chaque ${weekday} du ${monthYear}`,
+  it: `Selezionare ogni ${weekday} del ${monthYear}`,
 });
 
-export const i18nCalendarDeselectWeekday = (weekday: string): Record<string, string> => ({
-  de: `Jeden ${weekday} im Monat abwählen`,
-  en: `Deselect every ${weekday} in the month`,
-  fr: `Désélectionner chaque ${weekday} du mois`,
-  it: `Deselezionare ogni ${weekday} del mese`,
+export const i18nCalendarDeselectWeekday = (
+  weekday: string,
+  monthYear: string,
+): Record<string, string> => ({
+  de: `Jeden ${weekday} im ${monthYear} abwählen`,
+  en: `Deselect every ${weekday} in ${monthYear}`,
+  fr: `Désélectionner chaque ${weekday} du ${monthYear}`,
+  it: `Deselezionare ogni ${weekday} del ${monthYear}`,
 });
 
-export const i18nCalendarSelectWeek = (weekNumber: number | string): Record<string, string> => ({
-  de: `Woche ${weekNumber} auswählen`,
-  en: `Select week ${weekNumber}`,
-  fr: `Sélectionner la semaine ${weekNumber}`,
-  it: `Selezionare la settimana ${weekNumber}`,
+export const i18nCalendarSelectWeek = (
+  weekNumber: number | string,
+  year: number | string,
+): Record<string, string> => ({
+  de: `Woche ${weekNumber} des Jahres ${year} auswählen`,
+  en: `Select week ${weekNumber} of year ${year}`,
+  fr: `Sélectionner la semaine ${weekNumber} de l’année ${year}`,
+  it: `Selezionare la settimana ${weekNumber} dell’anno ${year}`,
 });
 
-export const i18nCalendarDeselectWeek = (weekNumber: number | string): Record<string, string> => ({
-  de: `Woche ${weekNumber} abwählen`,
-  en: `Deselect week ${weekNumber}`,
-  fr: `Désélectionner la semaine ${weekNumber}`,
-  it: `Deselezionare la settimana ${weekNumber}`,
+export const i18nCalendarDeselectWeek = (
+  weekNumber: number | string,
+  year: number | string,
+): Record<string, string> => ({
+  de: `Woche ${weekNumber} des Jahres ${year} abwählen`,
+  en: `Deselect week ${weekNumber} of year ${year}`,
+  fr: `Désélectionner la semaine ${weekNumber} de l’année ${year}`,
+  it: `Deselezionare la settimana ${weekNumber} dell’anno ${year}`,
 });
 
 export const i18nTimetableFormSwapButtonLabel: Record<string, string> = {

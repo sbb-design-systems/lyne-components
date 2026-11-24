@@ -37,7 +37,6 @@ import {
   i18nPreviousYearRange,
   i18nYearMonthSelection,
   isArrowKeyOrPageKeysPressed,
-  MONDAY,
   plainDate,
   readConfig,
   SbbElement,
@@ -46,8 +45,6 @@ import {
   SbbLanguageController,
   screenReaderOnlyStyles,
   THURSDAY,
-  TUESDAY,
-  WEDNESDAY,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 import { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
@@ -118,7 +115,10 @@ export interface Day<T = Date> {
   monthValue: string;
   yearValue: string;
   dateValue: T;
+  /** ISO 8601 week number. */
   weekValue: number;
+  /** ISO 8601 week-numbering year, which can differ from `yearValue` at the turn of the year. */
+  weekYearValue: number;
   weekDayValue: number;
 }
 
@@ -799,40 +799,34 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
   private _mapDateToDay(date: T): Day<T> {
     const isoDate = this._dateAdapter.toIso8601(date);
+    const { week, year } = this._getIsoWeek(date);
     return {
       value: isoDate,
       dateValue: date,
       dayValue: String(this._dateAdapter.getDate(date)),
       monthValue: String(this._dateAdapter.getMonth(date)),
       yearValue: String(this._dateAdapter.getYear(date)),
-      // TODO: Improve performance of this, by keeping track of the
-      // week number while iterating through the days.
-      weekValue: this._getWeek(date),
+      weekValue: week,
+      weekYearValue: year,
       weekDayValue: this._dateAdapter.getDayOfWeek(date),
     };
   }
 
-  private _getWeek(date: T): number {
-    const firstDayOfYear = this._dateAdapter.createDate(this._dateAdapter.getYear(date), 1, 1);
-    const weekday = this._dateAdapter.getDayOfWeek(firstDayOfYear);
-
-    let weekIndex = [MONDAY, TUESDAY, WEDNESDAY, THURSDAY].includes(weekday) ? 1 : 0;
-    let weekStart = this._dateAdapter.addCalendarDays(
-      firstDayOfYear,
-      this._dateAdapter.getFirstWeekOffset(firstDayOfYear) * -1,
-    );
-    while (this._dateAdapter.compareDate(weekStart, date) <= 0) {
-      const weekEnd = this._dateAdapter.addCalendarDays(weekStart, 6);
-      if (this._dateAdapter.compareDate(date, weekEnd) <= 0) {
-        return weekIndex > 0
-          ? weekIndex
-          : this._getWeek(this._dateAdapter.addCalendarDays(firstDayOfYear, -1));
-      }
-      weekStart = this._dateAdapter.addCalendarDays(weekStart, DAYS_PER_ROW);
-      weekIndex++;
+  /**
+   * Returns the ISO 8601 week number and week-numbering year of the given date.
+   * Weeks start on Monday and belong to the year of their Thursday.
+   */
+  private _getIsoWeek(date: T): { week: number; year: number } {
+    const daysSinceMonday = (this._dateAdapter.getDayOfWeek(date) + 6) % DAYS_PER_ROW;
+    const thursday = this._dateAdapter.addCalendarDays(date, THURSDAY - 1 - daysSinceMonday);
+    const year = this._dateAdapter.getYear(thursday);
+    let dayOfYear = this._dateAdapter.getDate(thursday);
+    for (let month = 1; month < this._dateAdapter.getMonth(thursday); month++) {
+      dayOfYear += this._dateAdapter.getNumDaysInMonth(
+        this._dateAdapter.createDate(year, month, 1),
+      );
     }
-
-    throw new Error('The provided date is invalid');
+    return { week: Math.ceil(dayOfYear / DAYS_PER_ROW), year };
   }
 
   /** Force the conversion to ISO8601 formatted string. */
@@ -1479,7 +1473,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                               ${ref((el?: Element): void =>
                                 this._applyElementInternalsAriaLabel(
                                   el,
-                                  this._weekdayAriaLabel(weekDay, days),
+                                  this._weekdayAriaLabel(weekDay, monthLabel, days),
                                 ),
                               )}
                               @click=${() => this._selectMultipleDates(days)}
@@ -1662,7 +1656,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                               ${ref((el?: Element): void =>
                                 this._applyElementInternalsAriaLabel(
                                   el,
-                                  this._weekdayAriaLabel(weekday, week),
+                                  this._weekdayAriaLabel(weekday, monthLabel, week),
                                 ),
                               )}
                               @click=${() => this._selectMultipleDates(week)}
@@ -1745,19 +1739,20 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     );
   }
 
-  private _weekdayAriaLabel(weekday: Weekday, days: Day<T>[]): string {
+  private _weekdayAriaLabel(weekday: Weekday, monthLabel: string, days: Day<T>[]): string {
     return (
       this._hasUnselectedDays(days)
-        ? i18nCalendarSelectWeekday(weekday.long)
-        : i18nCalendarDeselectWeekday(weekday.long)
+        ? i18nCalendarSelectWeekday(weekday.long, monthLabel)
+        : i18nCalendarDeselectWeekday(weekday.long, monthLabel)
     )[this._language.current];
   }
 
   private _weekNumberAriaLabel(weekNumber: number, days: Day<T>[]): string {
+    const weekYear = days[0].weekYearValue;
     return (
       this._hasUnselectedDays(days)
-        ? i18nCalendarSelectWeek(weekNumber)
-        : i18nCalendarDeselectWeek(weekNumber)
+        ? i18nCalendarSelectWeek(weekNumber, weekYear)
+        : i18nCalendarDeselectWeek(weekNumber, weekYear)
     )[this._language.current];
   }
 
