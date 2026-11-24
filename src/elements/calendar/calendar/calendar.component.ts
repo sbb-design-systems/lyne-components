@@ -136,14 +136,6 @@ interface KeyboardNavigationHandler {
   tab?: () => HTMLElement | void;
   shiftTab?: () => HTMLElement | void;
   arrowKeys?: () => HTMLElement | void;
-  arrowUp?: () => HTMLElement | void;
-  arrowDown?: () => HTMLElement | void;
-  arrowLeft?: () => HTMLElement | void;
-  arrowRight?: () => HTMLElement | void;
-  home?: () => HTMLElement | void;
-  end?: () => HTMLElement | void;
-  pageUp?: () => HTMLElement | void;
-  pageDown?: () => HTMLElement | void;
 }
 
 /**
@@ -468,44 +460,6 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
             arrowKeys: () => this._handleKeyboardEvent(event, day as SbbCalendarDayElement<T>),
           };
         } else {
-          const weekdayWithSelectAllButtons = [
-            ...this._selectAllButtons,
-            ...this._weekdayCells,
-          ].sort((a, b) =>
-            a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1,
-          );
-          const weeknumberWithSelectAllButtons = [
-            ...this._selectAllButtons,
-            ...this._weekNumberCells,
-          ].sort((a, b) =>
-            a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1,
-          );
-          const horizontalNavigationElements: HTMLElement[] =
-            this.orientation === 'horizontal'
-              ? weekdayWithSelectAllButtons
-              : weeknumberWithSelectAllButtons;
-          const verticalNavigationElements: HTMLElement[] =
-            this.orientation === 'horizontal'
-              ? weeknumberWithSelectAllButtons
-              : weekdayWithSelectAllButtons;
-
-          // The select-all button belongs to both groups, while weekdays and week numbers
-          // only react to the keys of the axis they are laid out on.
-          const horizontalNavigationEnabled =
-            !!selectAll ||
-            (!!weekday && this.orientation === 'horizontal') ||
-            (!!weekNumber && this.orientation === 'vertical');
-          const verticalNavigationEnabled =
-            !!selectAll ||
-            (!!weekday && this.orientation === 'vertical') ||
-            (!!weekNumber && this.orientation === 'horizontal');
-          const navigate = (
-            elements: HTMLElement[],
-            enabled: boolean,
-            index: number,
-          ): HTMLElement | undefined =>
-            enabled ? elements[getNextElementIndex(event, index, elements.length)] : undefined;
-
           return {
             shiftTab: () => {
               // Focus should land outside any of the tables
@@ -524,51 +478,32 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
               return enabledDayElements.find((e) => e.tabIndex === 0) ?? enabledDayElements[0];
             },
-            arrowRight: () =>
-              navigate(
-                horizontalNavigationElements,
-                horizontalNavigationEnabled,
-                horizontalNavigationElements.indexOf(target),
-              ),
-            arrowLeft: () =>
-              navigate(
-                horizontalNavigationElements,
-                horizontalNavigationEnabled,
-                horizontalNavigationElements.indexOf(target),
-              ),
-            home: () => (horizontalNavigationEnabled ? horizontalNavigationElements[0] : undefined),
-            end: () =>
-              navigate(
-                horizontalNavigationElements,
-                horizontalNavigationEnabled,
-                horizontalNavigationElements.length - 1,
-              ),
-            arrowDown: () =>
-              navigate(
-                verticalNavigationElements,
-                verticalNavigationEnabled,
-                verticalNavigationElements.indexOf(target),
-              ),
-            arrowUp: () =>
-              navigate(
-                verticalNavigationElements,
-                verticalNavigationEnabled,
-                verticalNavigationElements.indexOf(target),
-              ),
-            pageUp: () => (verticalNavigationEnabled ? verticalNavigationElements[0] : undefined),
-            pageDown: () =>
-              navigate(
-                verticalNavigationElements,
-                verticalNavigationEnabled,
-                verticalNavigationElements.length - 1,
-              ),
+            arrowKeys: () => {
+              // Weekdays are navigated along the orientation axis, week numbers along the other one.
+              // The select-all buttons belong to both groups.
+              const horizontalKey = ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key);
+              const weekdayAxis = horizontalKey === (this.orientation === 'horizontal');
+              const elements: HTMLElement[] = [
+                ...this._selectAllButtons,
+                ...(weekdayAxis ? this._weekdayCells : this._weekNumberCells),
+              ].sort((a, b) =>
+                a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1,
+              );
+              const index = elements.indexOf(target);
+              if (index === -1) {
+                // The target does not belong to the group of the pressed key's axis.
+                return;
+              } else if (event.key === 'Home' || event.key === 'PageUp') {
+                return elements[0];
+              } else if (event.key === 'End' || event.key === 'PageDown') {
+                return elements[elements.length - 1];
+              }
+              return elements[getNextElementIndex(event, index, elements.length)];
+            },
           };
         }
       })();
 
-      if (!handler) {
-        return;
-      }
       const toFocus = this._elementToFocus(event, handler);
       if (toFocus) {
         event.preventDefault();
@@ -587,26 +522,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     } else if (event.key === 'Tab') {
       return handler.tab?.();
     } else if (isArrowKeyOrPageKeysPressed(event)) {
-      const rtl = document.documentElement.matches(':dir(rtl)');
-      if (handler.arrowKeys) {
-        return handler.arrowKeys();
-      } else if (event.key === 'ArrowUp') {
-        return handler.arrowUp?.();
-      } else if (event.key === 'ArrowDown') {
-        return handler.arrowDown?.();
-      } else if ((rtl && event.key === 'ArrowRight') || event.key === 'ArrowLeft') {
-        return handler.arrowLeft?.();
-      } else if ((rtl && event.key === 'ArrowLeft') || event.key === 'ArrowRight') {
-        return handler.arrowRight?.();
-      } else if (event.key === 'Home') {
-        return handler.home?.();
-      } else if (event.key === 'End') {
-        return handler.end?.();
-      } else if (event.key === 'PageUp') {
-        return handler.pageUp?.();
-      } else if (event.key === 'PageDown') {
-        return handler.pageDown?.();
-      }
+      return handler.arrowKeys?.();
     }
   }
 
