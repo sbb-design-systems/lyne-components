@@ -1,10 +1,9 @@
 import { aTimeout } from '@open-wc/testing';
-import { resetMouse, sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
+import { resetMouse, sendMouse, setViewport } from '@web/test-runner-commands';
 import { visualDiff } from '@web/test-runner-visual-regression';
 import type { TemplateResult } from 'lit';
 
 import { visualRegressionFixture } from './fixture.ts';
-import { tabKey } from './keys.ts';
 
 export function imageName(test: Mocha.Runnable): string {
   return test!.fullTitle().trim().replaceAll(', ', '-').replaceAll(' ', '_').replaceAll('.', '_');
@@ -115,19 +114,7 @@ export const visualDiffFocus: VisualDiffState = {
   with(setup: (setup: VisualDiffSetupBuilder) => void | Promise<void>): Mocha.Func {
     return async function (this: Mocha.Context) {
       const builder = await runSetupWithViewport(setup, this.test?.ctx?.['requestViewport']);
-
-      // We create a focusable element (<a>) right before the state element.
-      // We can tab once to land on the desired element.
-      const link = document.createElement(`a`);
-      link.href = '#';
-      link.classList.add('sbb-screen-reader-only');
-      // We need to copy the slot so we can ensure it's landing at the right position
-      link.slot = builder.stateElement.slot;
-      builder.stateElement.insertAdjacentElement('beforebegin', link);
-      link.focus();
-      await sendKeys({ press: tabKey });
-      link.remove();
-
+      builder.stateElement.focus({ focusVisible: true });
       await visualDiff(builder.snapshotElement, imageName(this.test!));
     };
   },
