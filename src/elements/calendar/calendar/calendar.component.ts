@@ -576,6 +576,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       return;
     }
 
+    if (changedProperties.has('orientation')) {
+      // The layout of the weeks depends on the orientation and has to be recreated,
+      // even if the displayed months do not change.
+      this._weeks = [];
+    }
+
     if (
       changedProperties.has('amount') ||
       changedProperties.has('orientation') ||

@@ -3728,6 +3728,82 @@ describe(`sbb-calendar`, () => {
     });
   });
 
+  describe('orientation change', () => {
+    /** Describes every cell of every table, so that two calendars can be compared. */
+    const tableLayout = (calendar: SbbCalendarElement): string[][][] =>
+      Array.from(calendar.shadowRoot!.querySelectorAll('table'), (table) =>
+        Array.from(table.rows, (row) =>
+          Array.from(row.cells, (cell) => {
+            const header = cell.querySelector<HTMLElement & { value: unknown }>(
+              'sbb-calendar-weekday, sbb-calendar-weeknumber, sbb-calendar-select-all',
+            );
+            return (
+              cell.querySelector('slot')?.name ??
+              (header ? `${header.localName}:${JSON.stringify(header.value ?? null)}` : null) ??
+              (cell.textContent!.trim() || 'empty')
+            );
+          }),
+        ),
+      );
+
+    const renderCalendar = (
+      orientation: 'horizontal' | 'vertical',
+      multiple: boolean,
+    ): Promise<SbbCalendarElement> =>
+      fixture(html`
+        <sbb-calendar
+          value=${multiple ? nothing : '2025-03-10T00:00:00'}
+          .value=${multiple ? [new Date(2025, 2, 10)] : nothing}
+          orientation=${orientation}
+          amount="2"
+          week-numbers
+          ?multiple=${multiple}
+        ></sbb-calendar>
+      `);
+
+    (['horizontal', 'vertical'] as const).forEach((from) => {
+      const to = from === 'horizontal' ? 'vertical' : 'horizontal';
+
+      [false, true].forEach((multiple) => {
+        it(`rebuilds the tables from ${from} to ${to}${multiple ? ' with multiple' : ''}`, async () => {
+          const expected = tableLayout(await renderCalendar(to, multiple));
+          const initial = tableLayout(await renderCalendar(from, multiple));
+          const calendar = await renderCalendar(from, multiple);
+
+          calendar.orientation = to;
+          await waitForLitRender(calendar);
+          expect(tableLayout(calendar)).to.be.deep.equal(expected);
+
+          calendar.orientation = from;
+          await waitForLitRender(calendar);
+          expect(tableLayout(calendar)).to.be.deep.equal(initial);
+        });
+      });
+    });
+
+    it('renders all week numbers after switching to vertical', async () => {
+      // March 2025 spans six weeks (9 to 14), April 2025 five weeks (14 to 18).
+      const calendar = await renderCalendar('horizontal', true);
+
+      calendar.orientation = 'vertical';
+      await waitForLitRender(calendar);
+
+      const weekNumbers = Array.from(calendar.shadowRoot!.querySelectorAll('table'), (table) =>
+        Array.from(
+          table.querySelectorAll<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber'),
+          (e) => Number(e.value),
+        ),
+      );
+      expect(weekNumbers).to.be.deep.equal([
+        [9, 10, 11, 12, 13, 14],
+        [14, 15, 16, 17, 18],
+      ]);
+      calendar.shadowRoot!.querySelectorAll('table').forEach((table) => {
+        expect(table.tBodies[0].rows.length).to.be.equal(7);
+      });
+    });
+  });
+
   describe('misconfiguration', () => {
     it('handles days with no slot', async () => {
       const elem = await fixture(html`
