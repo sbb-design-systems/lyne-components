@@ -3,6 +3,8 @@ import { resetMouse, sendMouse, setViewport } from '@web/test-runner-commands';
 import { visualDiff } from '@web/test-runner-visual-regression';
 import type { TemplateResult } from 'lit';
 
+import { sbbInputModalityDetector } from '../../a11y/input-modality-detector.ts';
+
 import { visualRegressionFixture } from './fixture.ts';
 
 export function imageName(test: Mocha.Runnable): string {
@@ -114,6 +116,8 @@ export const visualDiffFocus: VisualDiffState = {
   with(setup: (setup: VisualDiffSetupBuilder) => void | Promise<void>): Mocha.Func {
     return async function (this: Mocha.Context) {
       const builder = await runSetupWithViewport(setup, this.test?.ctx?.['requestViewport']);
+      // Patch input modality detector to force focus-visible state for visual regression tests
+      sbbInputModalityDetector['_updateState']('keyboard', null);
       builder.stateElement.focus({ focusVisible: true });
       await visualDiff(builder.snapshotElement, imageName(this.test!));
     };
