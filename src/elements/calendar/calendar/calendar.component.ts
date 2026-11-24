@@ -462,11 +462,6 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
       const handler: KeyboardNavigationHandler | undefined = (() => {
         if (day) {
           return {
-            tab: () => {
-              // Focus should land outside any of the tables
-              // The blur handler will fix the tabIndex of the cells, so we don't need to do it here.
-              this._cells.forEach((el) => (el.tabIndex = -1));
-            },
             shiftTab: () => {
               if (!this.multiple) {
                 return;
@@ -479,6 +474,13 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                 return currentTable.querySelectorAll('sbb-calendar-weekday')[0];
               }
             },
+            tab: () => {
+              // Focus should land outside any of the tables
+              // The blur handler will fix the tabIndex of the cells, so we don't need to do it here.
+              this.shadowRoot
+                ?.querySelectorAll<HTMLElement>('table [tabindex="0"]')
+                .forEach((el) => (el.tabIndex = -1));
+            },
             arrowKeys: () => this._handleKeyboardEvent(event, day as SbbCalendarDayElement<T>),
           };
         } else if (selectAll) {
@@ -486,7 +488,9 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
             shiftTab: () => {
               // Focus should land outside any of the tables
               // The blur handler will fix the tabIndex of the cells, so we don't need to do it here.
-              [...this._cells, ...this._selectAllButtons].forEach((el) => (el.tabIndex = -1));
+              this.shadowRoot
+                ?.querySelectorAll<HTMLElement>('table [tabindex="0"]')
+                .forEach((el) => (el.tabIndex = -1));
             },
             tab: () => {
               const enabledDayElements = (Array.from(currentTable.querySelectorAll('slot')) ?? [])
@@ -553,12 +557,9 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
             shiftTab: () => {
               // Focus should land outside any of the tables
               // The blur handler will fix the tabIndex of the cells, so we don't need to do it here.
-              [
-                ...this._cells,
-                ...this._selectAllButtons,
-                ...this._weekdayCells,
-                ...this._weekNumberCells,
-              ].forEach((el) => (el.tabIndex = -1));
+              this.shadowRoot
+                ?.querySelectorAll<HTMLElement>('table [tabindex="0"]')
+                .forEach((el) => (el.tabIndex = -1));
             },
             tab: () => {
               const enabledDayElements = (Array.from(currentTable.querySelectorAll('slot')) ?? [])
