@@ -526,11 +526,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                   horizontalNavigationElements.length,
                 )
               ],
-            home: () => {
-              const toFocus = horizontalNavigationElements[0];
-              this._selectAllButtons.forEach((el) => (el.tabIndex = toFocus === el ? 0 : -1));
-              return toFocus;
-            },
+            home: () => horizontalNavigationElements[0],
             end: () =>
               horizontalNavigationElements[
                 getNextElementIndex(
@@ -555,11 +551,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                   verticalNavigationElements.length,
                 )
               ],
-            pageUp: () => {
-              const toFocus = verticalNavigationElements[0];
-              this._selectAllButtons.forEach((el) => (el.tabIndex = toFocus === el ? 0 : -1));
-              return toFocus;
-            },
+            pageUp: () => verticalNavigationElements[0],
             pageDown: () =>
               verticalNavigationElements[
                 getNextElementIndex(
@@ -630,9 +622,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
               ) {
                 return;
               }
-              const toFocus = horizontalNavigationElements[0];
-              this._selectAllButtons.forEach((el) => (el.tabIndex = toFocus === el ? 0 : -1));
-              return toFocus;
+              return horizontalNavigationElements[0];
             },
             end: () => {
               if (
@@ -688,9 +678,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
               ) {
                 return;
               }
-              const toFocus = verticalNavigationElements[0];
-              this._selectAllButtons.forEach((el) => (el.tabIndex = toFocus === el ? 0 : -1));
-              return toFocus;
+              return verticalNavigationElements[0];
             },
             pageDown: () => {
               if (
