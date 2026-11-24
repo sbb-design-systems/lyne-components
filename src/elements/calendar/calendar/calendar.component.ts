@@ -304,39 +304,6 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
   private _enhancedVariant: boolean = false;
 
-  /** A list of calendar's cells corresponding to days, months or years depending on the view. */
-  private get _cells(): SbbCalendarCellBaseElement<T>[] {
-    return this._calendarView === 'day'
-      ? this._getDays(this.shadowRoot!)
-      : Array.from(
-          this.shadowRoot?.querySelectorAll<SbbCalendarCellBaseElement<T>>(
-            `sbb-calendar-${this._calendarView}`,
-          ) ?? [],
-        );
-  }
-
-  /** A list of calendar's weekday cells. */
-  private get _weekdayCells(): SbbCalendarWeekdayElement[] {
-    return Array.from<SbbCalendarWeekdayElement>(
-      this.shadowRoot?.querySelectorAll<SbbCalendarWeekdayElement>(`sbb-calendar-weekday`) ?? [],
-    );
-  }
-
-  /** A list of calendar's weeknumber cells. */
-  private get _weekNumberCells(): SbbCalendarWeeknumberElement[] {
-    return Array.from<SbbCalendarWeeknumberElement>(
-      this.shadowRoot?.querySelectorAll<SbbCalendarWeeknumberElement>(`sbb-calendar-weeknumber`) ??
-        [],
-    );
-  }
-
-  private get _selectAllButtons(): SbbCalendarSelectAllElement[] {
-    return Array.from<SbbCalendarSelectAllElement>(
-      this.shadowRoot?.querySelectorAll<SbbCalendarSelectAllElement>(`sbb-calendar-select-all`) ??
-        [],
-    );
-  }
-
   /** The chosen year in the year selection view. */
   private _chosenYear?: number;
 
@@ -378,6 +345,39 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     });
     this.addEventListener('keydown', (event) => this._handleCellKeydown(event));
     this.addEventListener('blur', () => (this._lastSelection = null));
+  }
+
+  /** A list of calendar's cells corresponding to days, months or years depending on the view. */
+  private _cells(): SbbCalendarCellBaseElement<T>[] {
+    return this._calendarView === 'day'
+      ? this._getDays(this.shadowRoot!)
+      : Array.from(
+          this.shadowRoot?.querySelectorAll<SbbCalendarCellBaseElement<T>>(
+            `sbb-calendar-${this._calendarView}`,
+          ) ?? [],
+        );
+  }
+
+  /** A list of calendar's weekday cells. */
+  private _weekdayCells(): SbbCalendarWeekdayElement[] {
+    return Array.from<SbbCalendarWeekdayElement>(
+      this.shadowRoot?.querySelectorAll<SbbCalendarWeekdayElement>(`sbb-calendar-weekday`) ?? [],
+    );
+  }
+
+  /** A list of calendar's weeknumber cells. */
+  private _weekNumberCells(): SbbCalendarWeeknumberElement[] {
+    return Array.from<SbbCalendarWeeknumberElement>(
+      this.shadowRoot?.querySelectorAll<SbbCalendarWeeknumberElement>(`sbb-calendar-weeknumber`) ??
+        [],
+    );
+  }
+
+  private _selectAllButtons(): SbbCalendarSelectAllElement[] {
+    return Array.from<SbbCalendarSelectAllElement>(
+      this.shadowRoot?.querySelectorAll<SbbCalendarSelectAllElement>(`sbb-calendar-select-all`) ??
+        [],
+    );
   }
 
   /** Returns the day, weekday, week number or select-all cell the event originates from. */
@@ -463,8 +463,8 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     const horizontalKey = ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key);
     const weekdayAxis = horizontalKey === (this.orientation === 'horizontal');
     const group: HTMLElement[] = [
-      ...this._selectAllButtons,
-      ...(weekdayAxis ? this._weekdayCells : this._weekNumberCells),
+      ...this._selectAllButtons(),
+      ...(weekdayAxis ? this._weekdayCells() : this._weekNumberCells()),
     ].sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
     const index = group.indexOf(cell);
 
@@ -963,7 +963,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     selected ??= (this._value as T[]).map((s) => this._dateAdapter.toIso8601(s));
     // Filter disabled days by matching the provided `dates` parameter against the enabled cells.
     // Since the buttons' value is set to the Day's interface value (ISO string), there's no need to deserialize it.
-    const enabledDays: string[] = (this._cells as SbbCalendarDayElement<T>[])
+    const enabledDays: string[] = (this._cells() as SbbCalendarDayElement<T>[])
       .filter((e) => !e.disabled)
       .map((e) => this._mapValueToISODate(e.value!));
     const daysToAdd: string[] = dates.filter((isoDate) => enabledDays.includes(isoDate));
@@ -1130,15 +1130,15 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   }
 
   private _setTabIndex(): void {
-    Array.from(this._cells.filter((e) => e.tabIndex === 0) ?? []).forEach(
+    Array.from(this._cells().filter((e) => e.tabIndex === 0) ?? []).forEach(
       (day) => (day.tabIndex = -1),
     );
     const setFocus = (e: HTMLElement, i: number): number =>
       (e.tabIndex = i === 0 && !this.weekNumbers ? 0 : -1);
 
-    this._weekdayCells.forEach(setFocus);
-    this._weekNumberCells.forEach(setFocus);
-    this._selectAllButtons.forEach((e, i) => (e.tabIndex = i === 0 ? 0 : -1));
+    this._weekdayCells().forEach(setFocus);
+    this._weekNumberCells().forEach(setFocus);
+    this._selectAllButtons().forEach((e, i) => (e.tabIndex = i === 0 ? 0 : -1));
     const firstFocusable = this._getFirstFocusable();
     if (firstFocusable) {
       firstFocusable.tabIndex = 0;
@@ -1147,7 +1147,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
   /** Get the element in the calendar to assign focus. */
   private _getFirstFocusable(): SbbCalendarCellBaseElement<T> | null {
-    const cells = this._cells;
+    const cells = this._cells();
     const selectedOrCurrent =
       cells.find((e) => e.matches(':state(selected)')) ??
       cells.find((e) => e.matches(':state(current)'));
@@ -1177,7 +1177,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     // Gets the currently rendered table's cell;
     // they could be days, months or years based on the current selection view.
     const origin = day ?? (event.target as SbbCalendarDayElement<T>);
-    const cells = this._cells;
+    const cells = this._cells();
     const index: number = cells.indexOf(origin);
     let nextEl: SbbCalendarCellBaseElement<T>;
     if (day) {
