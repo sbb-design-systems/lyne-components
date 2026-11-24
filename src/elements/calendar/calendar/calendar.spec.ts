@@ -3093,6 +3093,427 @@ describe(`sbb-calendar`, () => {
     });
   });
 
+  describe('keyboard navigation of the header cells and tab groups', () => {
+    type Orientation = 'horizontal' | 'vertical';
+    type HeaderCell =
+      SbbCalendarSelectAllElement | SbbCalendarWeekdayElement | SbbCalendarWeeknumberElement;
+    interface TableCells {
+      selectAll: SbbCalendarSelectAllElement | null;
+      weekdays: SbbCalendarWeekdayElement[];
+      weeknumbers: SbbCalendarWeeknumberElement[];
+      days: SbbCalendarDayElement[];
+    }
+
+    const horizontalKeys = { next: 'ArrowRight', prev: 'ArrowLeft', first: 'Home', last: 'End' };
+    const verticalKeys = { next: 'ArrowDown', prev: 'ArrowUp', first: 'PageUp', last: 'PageDown' };
+
+    const getTables = (calendar: SbbCalendarElement): TableCells[] =>
+      Array.from(calendar.shadowRoot!.querySelectorAll('table'), (table) => ({
+        selectAll: table.querySelector('sbb-calendar-select-all'),
+        weekdays: Array.from(table.querySelectorAll('sbb-calendar-weekday')),
+        weeknumbers: Array.from(table.querySelectorAll('sbb-calendar-weeknumber')),
+        days: Array.from(table.querySelectorAll('sbb-calendar-day')),
+      }));
+
+    const getFocused = (calendar: SbbCalendarElement): Element | null =>
+      calendar.shadowRoot!.activeElement ?? document.activeElement;
+
+    const label = (calendar: SbbCalendarElement, el: Element | null | undefined): string => {
+      if (!el) {
+        return String(el);
+      }
+      const tableIndex = Array.from(calendar.shadowRoot!.querySelectorAll('table')).findIndex((t) =>
+        t.contains(el),
+      );
+      const value = (el as SbbCalendarDayElement).value;
+      const text =
+        value instanceof Date ? toIso8601(value) : (el as HTMLElement).textContent?.trim();
+      return `${el.localName}(${text}) in table ${tableIndex}`;
+    };
+
+    // Compares via labels, as chai fails to print elements with big shadow trees.
+    const expectFocus = (
+      calendar: SbbCalendarElement,
+      expected: Element | null | undefined,
+      message = '',
+    ): void => {
+      const focused = getFocused(calendar) ?? (document.activeElement as Element | null);
+      expect(
+        focused === expected,
+        `${message} focused: ${label(calendar, focused)}, expected: ${label(calendar, expected)}`,
+      ).to.be.true;
+    };
+
+    // The first table contains the active day (selected value), the others the first of the month.
+    const entryDay = (tables: TableCells[], index: number): SbbCalendarDayElement =>
+      tables[index].days.find((day) =>
+        toIso8601(day.value!).endsWith(index === 0 ? '2025-04-08' : '-01'),
+      )!;
+
+    const press = async (calendar: SbbCalendarElement, key: string): Promise<void> => {
+      await sendKeys({ press: key });
+      await waitForLitRender(calendar);
+    };
+
+    const createCalendar = async (
+      orientation: Orientation,
+      amount: number,
+      weekNumbers: boolean,
+      multiple = true,
+    ): Promise<SbbCalendarElement> => {
+      return fixture(html`
+        <sbb-calendar
+          value="2025-04-08T00:00:00"
+          orientation=${orientation}
+          amount=${amount}
+          ?week-numbers=${weekNumbers}
+          ?multiple=${multiple}
+        ></sbb-calendar>
+      `);
+    };
+
+    [1, 2, 3].forEach((amount) => {
+      (['horizontal', 'vertical'] as const).forEach((orientation) => {
+        [true, false].forEach((weekNumbers) => {
+          describe(`amount=${amount} orientation=${orientation} week-numbers=${weekNumbers}`, () => {
+            let calendar: SbbCalendarElement;
+            let outsideButton: HTMLButtonElement;
+            let tables: TableCells[];
+            // Elements navigated by ArrowLeft/ArrowRight/Home/End and by ArrowUp/ArrowDown/PageUp/PageDown.
+            let horizontalGroup: HeaderCell[];
+            let verticalGroup: HeaderCell[];
+            let weekdayGroup: HeaderCell[];
+            let weeknumberGroup: HeaderCell[];
+
+            beforeEach(async () => {
+              calendar = await createCalendar(orientation, amount, weekNumbers);
+              outsideButton = document.createElement('button');
+              calendar.parentElement!.append(outsideButton);
+              tables = getTables(calendar);
+              expect(tables.length).to.be.equal(amount);
+
+              // Each group spans over all tables and contains the select-all button as first element.
+              weekdayGroup = tables.flatMap((t) => [t.selectAll, ...t.weekdays].filter((e) => !!e));
+              weeknumberGroup = tables.flatMap((t) =>
+                [t.selectAll, ...t.weeknumbers].filter((e) => !!e),
+              );
+              horizontalGroup = orientation === 'horizontal' ? weekdayGroup : weeknumberGroup;
+              verticalGroup = orientation === 'horizontal' ? weeknumberGroup : weekdayGroup;
+            });
+
+            const expectedTarget = (
+              group: HeaderCell[],
+              start: HeaderCell,
+              key: string,
+              keys: typeof horizontalKeys,
+            ): HeaderCell => {
+              const index = group.indexOf(start);
+              switch (key) {
+                case keys.next:
+                  return group[(index + 1) % group.length];
+                case keys.prev:
+                  return group[(index - 1 + group.length) % group.length];
+                case keys.first:
+                  return group[0];
+                case keys.last:
+                  return group.at(-1)!;
+                default:
+                  return start;
+              }
+            };
+
+            const startCells = (cells: (HeaderCell | null)[][]): HeaderCell[] =>
+              Array.from(new Set(cells.flatMap((c) => [c[0], c.at(-1)]).filter((e) => !!e)));
+
+            const allKeys = [...Object.values(horizontalKeys), ...Object.values(verticalKeys), 'a'];
+
+            it('navigates within the weekday group', async () => {
+              const keys = weekdayGroup === horizontalGroup ? horizontalKeys : verticalKeys;
+              const starts = startCells(tables.map((t) => t.weekdays));
+              for (const start of starts) {
+                for (const key of allKeys) {
+                  start.focus();
+                  await press(calendar, key);
+                  expectFocus(
+                    calendar,
+                    expectedTarget(weekdayGroup, start, key, keys),
+                    `${key} on ${label(calendar, start)}:`,
+                  );
+                }
+              }
+            });
+
+            if (weekNumbers) {
+              it('navigates within the weeknumber group', async () => {
+                const keys = weeknumberGroup === horizontalGroup ? horizontalKeys : verticalKeys;
+                const starts = startCells(tables.map((t) => t.weeknumbers));
+                for (const start of starts) {
+                  for (const key of allKeys) {
+                    start.focus();
+                    await press(calendar, key);
+                    expectFocus(
+                      calendar,
+                      expectedTarget(weeknumberGroup, start, key, keys),
+                      `${key} on ${label(calendar, start)}:`,
+                    );
+                  }
+                }
+              });
+
+              it('navigates in both directions from the select-all buttons', async () => {
+                for (const { selectAll } of tables) {
+                  for (const key of allKeys) {
+                    selectAll!.focus();
+                    await press(calendar, key);
+                    const expected = Object.values(horizontalKeys).includes(key)
+                      ? expectedTarget(horizontalGroup, selectAll!, key, horizontalKeys)
+                      : expectedTarget(verticalGroup, selectAll!, key, verticalKeys);
+                    expectFocus(calendar, expected, `${key} on ${label(calendar, selectAll)}:`);
+                  }
+                }
+              });
+            }
+
+            it('focuses the day of the same table with Tab from a header cell', async () => {
+              for (const [tableIndex, table] of tables.entries()) {
+                const expectedDay = entryDay(tables, tableIndex);
+                for (const start of [table.selectAll, table.weekdays[0], table.weeknumbers[0]]) {
+                  if (!start) {
+                    continue;
+                  }
+                  start.focus();
+                  await press(calendar, tabKey);
+                  expectFocus(calendar, expectedDay, `Tab on ${label(calendar, start)}:`);
+                }
+              }
+            });
+
+            it('leaves the groups with Shift+Tab from a header cell', async () => {
+              for (const table of tables) {
+                for (const start of [
+                  table.selectAll,
+                  table.weekdays[0],
+                  table.weekdays.at(-1),
+                  table.weeknumbers[0],
+                ]) {
+                  if (!start) {
+                    continue;
+                  }
+                  start.focus();
+                  await press(calendar, `Shift+${tabKey}`);
+                  expect(
+                    getFocused(calendar)?.localName,
+                    `Shift+Tab on ${label(calendar, start)}`,
+                  ).to.be.equal('sbb-secondary-button');
+                }
+              }
+            });
+
+            it('leaves the calendar with Tab from a day of every table', async () => {
+              for (const tableIndex of tables.keys()) {
+                entryDay(tables, tableIndex).focus();
+                await press(calendar, tabKey);
+                expectFocus(calendar, outsideButton, `Tab on day in table ${tableIndex}:`);
+              }
+            });
+
+            it('focuses the first header cell of the same table with Shift+Tab from a day', async () => {
+              for (const [tableIndex, table] of tables.entries()) {
+                entryDay(tables, tableIndex).focus();
+                await press(calendar, `Shift+${tabKey}`);
+                expectFocus(
+                  calendar,
+                  weekNumbers ? table.selectAll : table.weekdays[0],
+                  `Shift+Tab on day in table ${tableIndex}:`,
+                );
+              }
+            });
+
+            it('cycles through the tab groups and restores the tab order', async () => {
+              const controls =
+                calendar.shadowRoot!.querySelectorAll<HTMLElement>('.sbb-calendar__control');
+              const lastControl = controls[controls.length - 1];
+              const firstHeaderCell = weekNumbers ? tables[0].selectAll : tables[0].weekdays[0];
+              const activeDay = entryDay(tables, 0);
+
+              lastControl.focus();
+              await press(calendar, tabKey);
+              expectFocus(calendar, firstHeaderCell);
+              await press(calendar, tabKey);
+              expectFocus(calendar, activeDay);
+              await press(calendar, tabKey);
+              expectFocus(calendar, outsideButton);
+
+              await press(calendar, `Shift+${tabKey}`);
+              expectFocus(calendar, activeDay);
+              await press(calendar, `Shift+${tabKey}`);
+              expectFocus(calendar, firstHeaderCell);
+              await press(calendar, `Shift+${tabKey}`);
+              expectFocus(calendar, lastControl);
+            });
+
+            it('restores the tab order after leaving from the last table', async () => {
+              const lastTable = tables.at(-1)!;
+              const activeDay = entryDay(tables, 0);
+              (weekNumbers ? lastTable.selectAll! : lastTable.weekdays[0]).focus();
+
+              await press(calendar, tabKey);
+              expectFocus(calendar, entryDay(tables, tables.length - 1));
+              await press(calendar, tabKey);
+              expectFocus(calendar, outsideButton);
+
+              await press(calendar, `Shift+${tabKey}`);
+              expectFocus(calendar, activeDay);
+              await press(calendar, `Shift+${tabKey}`);
+              expectFocus(calendar, weekNumbers ? tables[0].selectAll : tables[0].weekdays[0]);
+            });
+          });
+        });
+      });
+    });
+
+    describe('with disabled days', () => {
+      it('focuses the first enabled day of the same table with Tab', async () => {
+        await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
+        const calendar: SbbCalendarElement = await fixture(html`
+          <sbb-calendar
+            value="2025-04-08T00:00:00"
+            amount="2"
+            week-numbers
+            multiple
+            .dateFilter=${(d: Date | null): boolean => !!d && d.getDate() > 5}
+          ></sbb-calendar>
+        `);
+        const tables = getTables(calendar);
+
+        tables[1].selectAll!.focus();
+        await press(calendar, tabKey);
+        expect(label(calendar, getFocused(calendar))).to.be.equal(
+          'sbb-calendar-day(2025-05-06) in table 1',
+        );
+
+        tables[1].weekdays[0].focus();
+        await press(calendar, tabKey);
+        expect(label(calendar, getFocused(calendar))).to.be.equal(
+          'sbb-calendar-day(2025-05-06) in table 1',
+        );
+
+        tables[0].weeknumbers[0].focus();
+        await press(calendar, tabKey);
+        expect(label(calendar, getFocused(calendar))).to.be.equal(
+          'sbb-calendar-day(2025-04-08) in table 0',
+        );
+      });
+    });
+
+    describe('without multiple', () => {
+      it('does not trap Tab and Shift+Tab with week-numbers and amount 2', async () => {
+        const calendar = await createCalendar('horizontal', 2, true, false);
+        const outside = document.createElement('button');
+        calendar.parentElement!.append(outside);
+        const tables = getTables(calendar);
+        expect(tables[0].selectAll).to.be.null;
+        expect(tables[0].weekdays.length).to.be.equal(0);
+
+        calendar.focus();
+        expect(getDayActiveElementValue()).to.be.equal('2025-04-08');
+        await press(calendar, tabKey);
+        expectFocus(calendar, outside);
+
+        await press(calendar, `Shift+${tabKey}`);
+        expect(getDayActiveElementValue()).to.be.equal('2025-04-08');
+        await press(calendar, `Shift+${tabKey}`);
+        expect(getFocused(calendar)!.localName).to.be.equal('sbb-secondary-button');
+      });
+    });
+
+    describe('event handling', () => {
+      let calendar: SbbCalendarElement;
+      let tables: TableCells[];
+
+      const dispatchKeydown = (target: Element, key: string): KeyboardEvent => {
+        const event = new KeyboardEvent('keydown', {
+          key,
+          bubbles: true,
+          composed: true,
+          cancelable: true,
+        });
+        target.dispatchEvent(event);
+        return event;
+      };
+
+      beforeEach(async () => {
+        calendar = await createCalendar('horizontal', 2, true);
+        tables = getTables(calendar);
+      });
+
+      it('prevents default if the focus is moved', async () => {
+        tables[0].weekdays[0].focus();
+        expect(dispatchKeydown(tables[0].weekdays[0], 'ArrowRight').defaultPrevented).to.be.true;
+        expectFocus(calendar, tables[0].weekdays[1]);
+
+        expect(dispatchKeydown(tables[0].weekdays[1], tabKey).defaultPrevented).to.be.true;
+        expect(dispatchKeydown(tables[0].selectAll!, 'ArrowDown').defaultPrevented).to.be.true;
+        expectFocus(calendar, tables[0].weeknumbers[0]);
+      });
+
+      it('does not prevent default for keys that do not move the focus', () => {
+        tables[0].weekdays[0].focus();
+        // Weekdays are only navigated horizontally in this orientation
+        expect(dispatchKeydown(tables[0].weekdays[0], 'ArrowDown').defaultPrevented).to.be.false;
+        expect(dispatchKeydown(tables[0].weekdays[0], 'a').defaultPrevented).to.be.false;
+        expect(dispatchKeydown(tables[0].weekdays[0], 'Enter').defaultPrevented).to.be.false;
+        expect(dispatchKeydown(tables[0].weeknumbers[0], 'ArrowRight').defaultPrevented).to.be
+          .false;
+        expectFocus(calendar, tables[0].weekdays[0]);
+      });
+
+      it('ignores keydown events of elements outside of the cells', () => {
+        const control = calendar.shadowRoot!.querySelector('.sbb-calendar__control')!;
+        expect(dispatchKeydown(control, 'ArrowRight').defaultPrevented).to.be.false;
+        expect(dispatchKeydown(control, tabKey).defaultPrevented).to.be.false;
+        expect(dispatchKeydown(control, 'Home').defaultPrevented).to.be.false;
+      });
+    });
+
+    describe('rtl', () => {
+      let calendar: SbbCalendarElement;
+
+      beforeEach(async () => {
+        document.documentElement.setAttribute('dir', 'rtl');
+        calendar = await createCalendar('horizontal', 2, true);
+      });
+
+      afterEach(() => {
+        document.documentElement.removeAttribute('dir');
+      });
+
+      it('mirrors the horizontal arrow keys of the weekday and select-all group', async () => {
+        const [first, second] = getTables(calendar);
+
+        first.weekdays[0].focus();
+        await press(calendar, 'ArrowLeft');
+        expectFocus(calendar, first.weekdays[1]);
+        await press(calendar, 'ArrowRight');
+        expectFocus(calendar, first.weekdays[0]);
+        await press(calendar, 'ArrowRight');
+        expectFocus(calendar, first.selectAll);
+        await press(calendar, 'ArrowRight');
+        expectFocus(calendar, second.weekdays.at(-1));
+        await press(calendar, 'ArrowLeft');
+        expectFocus(calendar, first.selectAll);
+
+        // Home/End and vertical keys are not affected
+        await press(calendar, 'End');
+        expectFocus(calendar, second.weekdays.at(-1));
+        await press(calendar, 'Home');
+        expectFocus(calendar, first.selectAll);
+        await press(calendar, 'ArrowDown');
+        expectFocus(calendar, first.weeknumbers[0]);
+      });
+    });
+  });
+
   describe('misconfiguration', () => {
     it('handles days with no slot', async () => {
       const elem = await fixture(html`

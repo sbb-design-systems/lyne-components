@@ -527,7 +527,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                 )
               ],
             home: () => {
-              const toFocus = this._selectAllButtons[0];
+              const toFocus = horizontalNavigationElements[0];
               this._selectAllButtons.forEach((el) => (el.tabIndex = toFocus === el ? 0 : -1));
               return toFocus;
             },
@@ -556,7 +556,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                 )
               ],
             pageUp: () => {
-              const toFocus = this._selectAllButtons[0];
+              const toFocus = verticalNavigationElements[0];
               this._selectAllButtons.forEach((el) => (el.tabIndex = toFocus === el ? 0 : -1));
               return toFocus;
             },
@@ -574,7 +574,12 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
             shiftTab: () => {
               // Focus should land outside any of the tables
               // The blur handler will fix the tabIndex of the cells, so we don't need to do it here.
-              [...this._cells, ...this._selectAllButtons].forEach((el) => (el.tabIndex = -1));
+              [
+                ...this._cells,
+                ...this._selectAllButtons,
+                ...this._weekdayCells,
+                ...this._weekNumberCells,
+              ].forEach((el) => (el.tabIndex = -1));
             },
             tab: () => {
               const enabledDayElements = (Array.from(currentTable.querySelectorAll('slot')) ?? [])
@@ -625,7 +630,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
               ) {
                 return;
               }
-              const toFocus = this._selectAllButtons[0];
+              const toFocus = horizontalNavigationElements[0];
               this._selectAllButtons.forEach((el) => (el.tabIndex = toFocus === el ? 0 : -1));
               return toFocus;
             },
@@ -683,7 +688,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
               ) {
                 return;
               }
-              const toFocus = this._selectAllButtons[0];
+              const toFocus = verticalNavigationElements[0];
               this._selectAllButtons.forEach((el) => (el.tabIndex = toFocus === el ? 0 : -1));
               return toFocus;
             },
