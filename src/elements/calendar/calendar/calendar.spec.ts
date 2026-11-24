@@ -3560,7 +3560,7 @@ describe(`sbb-calendar`, () => {
         expect(dispatchKeydown(tables[0].weekdays[0], 'ArrowRight').defaultPrevented).to.be.true;
         expectFocus(calendar, tables[0].weekdays[1]);
 
-        expect(dispatchKeydown(tables[0].weekdays[1], tabKey).defaultPrevented).to.be.true;
+        expect(dispatchKeydown(tables[0].weekdays[1], 'Tab').defaultPrevented).to.be.true;
         expect(dispatchKeydown(tables[0].selectAll!, 'ArrowDown').defaultPrevented).to.be.true;
         expectFocus(calendar, tables[0].weeknumbers[0]);
       });
@@ -3579,7 +3579,7 @@ describe(`sbb-calendar`, () => {
       it('ignores keydown events of elements outside of the cells', () => {
         const control = calendar.shadowRoot!.querySelector('.sbb-calendar__control')!;
         expect(dispatchKeydown(control, 'ArrowRight').defaultPrevented).to.be.false;
-        expect(dispatchKeydown(control, tabKey).defaultPrevented).to.be.false;
+        expect(dispatchKeydown(control, 'Tab').defaultPrevented).to.be.false;
         expect(dispatchKeydown(control, 'Home').defaultPrevented).to.be.false;
       });
     });
