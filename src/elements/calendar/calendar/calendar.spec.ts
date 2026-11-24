@@ -3406,6 +3406,67 @@ describe(`sbb-calendar`, () => {
       });
     });
 
+    describe('with the selected day in the second month', () => {
+      // The stubbed today (2023-10-10) leads to October and November 2023 being displayed.
+      const allDaysOfOctoberAndNovember = Array.from({ length: 61 }, (_, i) =>
+        toIso8601(new Date(2023, 9, 1 + i)),
+      );
+      const slottedDays: Record<string, string[]> = {
+        default: [],
+        enhanced: allDaysOfOctoberAndNovember,
+        mixed: ['2023-10-05', '2023-11-15'],
+      };
+
+      Object.entries(slottedDays).forEach(([variant, slots]) => {
+        (['horizontal', 'vertical'] as const).forEach((orientation) => {
+          [true, false].forEach((weekNumbers) => {
+            [true, false].forEach((multiple) => {
+              it(`leaves the calendar with Tab after navigating back to the first month (variant=${variant} orientation=${orientation} week-numbers=${weekNumbers} multiple=${multiple})`, async () => {
+                await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
+                const calendar: SbbCalendarElement = await fixture(html`
+                  <sbb-calendar
+                    orientation=${orientation}
+                    amount="2"
+                    ?week-numbers=${weekNumbers}
+                    ?multiple=${multiple}
+                  >
+                    ${slots.map((slot) => html`<sbb-calendar-day slot=${slot}></sbb-calendar-day>`)}
+                  </sbb-calendar>
+                `);
+                await waitForLitRender(calendar);
+                const outside = document.createElement('button');
+                calendar.parentElement!.append(outside);
+
+                const findDay = (iso: string): SbbCalendarDayElement =>
+                  getDayCells(calendar).find((day) => toIso8601(day.value!) === iso)!;
+                const focusedDay = (): string | null => {
+                  const focused = getFocused(calendar);
+                  return focused instanceof SbbCalendarDayElement
+                    ? toIso8601(focused.value!)
+                    : (focused?.localName ?? null);
+                };
+
+                // Select a day in the second month.
+                const selectedDay = findDay('2023-11-01');
+                selectedDay.focus();
+                selectedDay.click();
+                await waitForLitRender(calendar);
+                expect(selectedDay.matches(':state(selected)')).to.be.true;
+                expect(focusedDay()).to.be.equal('2023-11-01');
+
+                // Navigate back to the last day of the first month.
+                await press(calendar, orientation === 'horizontal' ? 'ArrowLeft' : 'ArrowUp');
+                expect(focusedDay()).to.be.equal('2023-10-31');
+
+                await press(calendar, tabKey);
+                expectFocus(calendar, outside, 'Tab from day 2023-10-31:');
+              });
+            });
+          });
+        });
+      });
+    });
+
     describe('without multiple', () => {
       it('does not trap Tab and Shift+Tab with week-numbers and amount 2', async () => {
         const calendar = await createCalendar('horizontal', 2, true, false);

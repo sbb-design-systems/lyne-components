@@ -463,13 +463,9 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
         if (day) {
           return {
             tab: () => {
-              if (!this.multiple) {
-                return;
-              }
-
               // Focus should land outside any of the tables
-              // The blur handler will fix the tabIndex, so we don't need to do it here.
-              this._selectAllButtons.forEach((el) => (el.tabIndex = -1));
+              // The blur handler will fix the tabIndex of the cells, so we don't need to do it here.
+              this._cells.forEach((el) => (el.tabIndex = -1));
             },
             shiftTab: () => {
               if (!this.multiple) {
@@ -477,19 +473,10 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
               }
               if (this.weekNumbers) {
                 // Should select select-all-button
-                const toFocus = currentTable.querySelector('sbb-calendar-select-all');
-                this._selectAllButtons.forEach((el) => (el.tabIndex = toFocus === el ? 0 : -1));
-                return toFocus ?? undefined;
+                return currentTable.querySelector('sbb-calendar-select-all') ?? undefined;
               } else {
                 // Should select weekday
-                const weekdayElements = Array.from(
-                  currentTable.querySelectorAll('sbb-calendar-weekday') ?? [],
-                );
-                if (!weekdayElements.length) {
-                  return;
-                }
-
-                return weekdayElements.find((e) => e.tabIndex === 0) ?? weekdayElements[0];
+                return currentTable.querySelectorAll('sbb-calendar-weekday')[0];
               }
             },
             arrowKeys: () => this._handleKeyboardEvent(event, day as SbbCalendarDayElement<T>),
@@ -1397,20 +1384,16 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     Array.from(this._cells.filter((e) => e.tabIndex === 0) ?? []).forEach(
       (day) => (day.tabIndex = -1),
     );
-    this._setWeekFocus();
-    const firstFocusable = this._getFirstFocusable();
-    if (firstFocusable) {
-      firstFocusable.tabIndex = 0;
-    }
-  }
-
-  private _setWeekFocus(): void {
     const setFocus = (e: HTMLElement, i: number): number =>
       (e.tabIndex = i === 0 && !this.weekNumbers ? 0 : -1);
 
     this._weekdayCells.forEach(setFocus);
     this._weekNumberCells.forEach(setFocus);
     this._selectAllButtons.forEach((e, i) => (e.tabIndex = i === 0 ? 0 : -1));
+    const firstFocusable = this._getFirstFocusable();
+    if (firstFocusable) {
+      firstFocusable.tabIndex = 0;
+    }
   }
 
   /** Get the element in the calendar to assign focus. */
