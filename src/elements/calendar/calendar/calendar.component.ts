@@ -13,7 +13,6 @@ import { ref } from 'lit/directives/ref.js';
 
 import { SbbSecondaryButtonElement } from '../../button.pure.ts';
 import {
-  buttonResetStyles,
   type DateAdapter,
   defaultDateAdapter,
   forceType,
@@ -25,6 +24,7 @@ import {
   i18nCalendarDeselectAll,
   i18nCalendarDeselectWeek,
   i18nCalendarDeselectWeekday,
+  i18nCalendarHeaderNavigationHint,
   i18nCalendarSelectAll,
   i18nCalendarSelectWeek,
   i18nCalendarSelectWeekday,
@@ -61,6 +61,8 @@ const MONTHS_PER_ROW: number = 4;
 const YEARS_PER_ROW: number = 4;
 const MONTHS_PER_PAGE: number = 12;
 const YEARS_PER_PAGE: number = 24;
+const WEEKDAY_HINT_ID = 'sbb-calendar-weekday-hint';
+const WEEK_NUMBER_HINT_ID = 'sbb-calendar-week-number-hint';
 
 export class SbbMonthChangeEvent<T = Date> extends Event {
   private readonly _range: readonly Day<T>[];
@@ -148,11 +150,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     SbbSecondaryButtonElement,
     SbbCalendarSelectAllElement,
   ];
-  public static override styles: CSSResultGroup = [
-    buttonResetStyles,
-    screenReaderOnlyStyles,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [screenReaderOnlyStyles, unsafeCSS(style)];
   public static readonly events = {
     dateselected: 'dateselected',
     monthchange: 'monthchange',
@@ -1452,6 +1450,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                         ? html`
                             <sbb-calendar-weekday
                               .value=${weekDay}
+                              aria-describedby=${WEEKDAY_HINT_ID}
                               ${ref((el?: Element): void =>
                                 this._applyElementInternalsAriaLabel(
                                   el,
@@ -1489,6 +1488,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                                   ? html`
                                       <sbb-calendar-weeknumber
                                         .value=${weekNumbers[0]}
+                                        aria-describedby=${WEEK_NUMBER_HINT_ID}
                                         ${ref((el?: Element): void =>
                                           this._applyElementInternalsAriaLabel(
                                             el,
@@ -1527,6 +1527,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                                 ? html`
                                     <sbb-calendar-weeknumber
                                       .value=${weekNumbers[rowIndex]}
+                                      aria-describedby=${WEEK_NUMBER_HINT_ID}
                                       ${ref((el?: Element): void =>
                                         this._applyElementInternalsAriaLabel(
                                           el,
@@ -1600,6 +1601,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                                 ? html`
                                     <sbb-calendar-weeknumber
                                       .value=${weekNumber}
+                                      aria-describedby=${WEEK_NUMBER_HINT_ID}
                                       ${ref((el?: Element): void =>
                                         this._applyElementInternalsAriaLabel(
                                           el,
@@ -1635,6 +1637,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
                         ? html`
                             <sbb-calendar-weekday
                               .value=${weekday}
+                              aria-describedby=${WEEKDAY_HINT_ID}
                               ${ref((el?: Element): void =>
                                 this._applyElementInternalsAriaLabel(
                                   el,
@@ -1739,6 +1742,11 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   }
 
   private _selectAllButton(monthLabel: string, daysOfMonth: Day<T>[]): TemplateResult {
+    // The hint for the left and right arrow keys is read first.
+    const hints =
+      this.orientation === 'horizontal'
+        ? `${WEEKDAY_HINT_ID} ${WEEK_NUMBER_HINT_ID}`
+        : `${WEEK_NUMBER_HINT_ID} ${WEEKDAY_HINT_ID}`;
     return html`
       <sbb-calendar-select-all
         icon-name="four-squares-small"
@@ -1750,6 +1758,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
               : i18nCalendarDeselectAll(monthLabel)[this._language.current],
           ),
         )}
+        aria-describedby=${hints}
         @click=${() => this._selectMultipleDates(daysOfMonth)}
       ></sbb-calendar-select-all>
     `;
@@ -1928,6 +1937,16 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     }
   }
 
+  /** Hidden descriptions referenced by the header cells via aria-describedby. */
+  private _navigationHints(): TemplateResult {
+    const hint = (id: string, cells: 'weekdays' | 'weekNumbers'): TemplateResult =>
+      html`<span id=${id} class="sbb-screen-reader-only" aria-hidden="true">
+        ${i18nCalendarHeaderNavigationHint(cells, this.orientation)[this._language.current]}
+      </span>`;
+    return html`${hint(WEEKDAY_HINT_ID, 'weekdays')}
+    ${this.weekNumbers ? hint(WEEK_NUMBER_HINT_ID, 'weekNumbers') : nothing}`;
+  }
+
   protected override render(): TemplateResult {
     if (isServer || this.hydrationRequired) {
       // TODO: We disable SSR for calendar for now. Figure out, if there is a way
@@ -1945,7 +1964,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
               this._createDayTableVertical(weeks, this._weekNumbers[i], i === 0),
             )
       }
-      ${this._getView()}
+      ${this._getView()} ${this.multiple ? this._navigationHints() : nothing}
     </div>`;
   }
 }

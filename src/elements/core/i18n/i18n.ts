@@ -874,6 +874,41 @@ export const i18nCalendarDeselectAll = (monthYear: string): Record<string, strin
   it: `Deselezionare tutti i giorni del ${monthYear}`,
 });
 
+export const i18nCalendarHeaderNavigationHint = (
+  cells: 'weekdays' | 'weekNumbers',
+  orientation: 'horizontal' | 'vertical',
+): Record<string, string> => {
+  const keys =
+    (cells === 'weekdays') === (orientation === 'horizontal')
+      ? {
+          de: 'links und rechts',
+          en: 'left and right',
+          fr: 'gauche et droite',
+          it: 'sinistra e destra',
+        }
+      : { de: 'oben und unten', en: 'up and down', fr: 'haut et bas', it: 'su e giù' };
+  const target =
+    cells === 'weekdays'
+      ? {
+          de: 'Wochentage',
+          en: 'weekdays',
+          fr: 'jours de la semaine',
+          it: 'giorni della settimana',
+        }
+      : {
+          de: 'Wochennummern',
+          en: 'week numbers',
+          fr: 'numéros de semaine',
+          it: 'numeri delle settimane',
+        };
+  return {
+    de: `Mit den Pfeiltasten ${keys.de} durch die ${target.de} navigieren.`,
+    en: `Use the ${keys.en} arrow keys to navigate through the ${target.en}.`,
+    fr: `Utilisez les flèches ${keys.fr} pour naviguer parmi les ${target.fr}.`,
+    it: `Usare le frecce ${keys.it} per navigare tra i ${target.it}.`,
+  };
+};
+
 export const i18nCalendarSelectWeekday = (
   weekday: string,
   monthYear: string,

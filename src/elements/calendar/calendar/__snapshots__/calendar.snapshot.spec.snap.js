@@ -1939,31 +1939,52 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
       <thead>
         <tr>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday
+              aria-describedby="sbb-calendar-weekday-hint"
+              tabindex="0"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-describedby="sbb-calendar-weekday-hint"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-describedby="sbb-calendar-weekday-hint"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-describedby="sbb-calendar-weekday-hint"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-describedby="sbb-calendar-weekday-hint"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-describedby="sbb-calendar-weekday-hint"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-describedby="sbb-calendar-weekday-hint"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
         </tr>
@@ -2275,6 +2296,13 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
       </tbody>
     </table>
   </div>
+  <span
+    aria-hidden="true"
+    class="sbb-screen-reader-only"
+    id="sbb-calendar-weekday-hint"
+  >
+    Use the left and right arrow keys to navigate through the weekdays.
+  </span>
 </div>
 `;
 /* end snapshot sbb-calendar default renders multiple Shadow DOM */
@@ -6680,31 +6708,52 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
       <thead>
         <tr>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="0">
+            <sbb-calendar-weekday
+              aria-describedby="sbb-calendar-weekday-hint"
+              tabindex="0"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-describedby="sbb-calendar-weekday-hint"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-describedby="sbb-calendar-weekday-hint"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-describedby="sbb-calendar-weekday-hint"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-describedby="sbb-calendar-weekday-hint"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-describedby="sbb-calendar-weekday-hint"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
           <th class="sbb-calendar__table-header-cell">
-            <sbb-calendar-weekday tabindex="-1">
+            <sbb-calendar-weekday
+              aria-describedby="sbb-calendar-weekday-hint"
+              tabindex="-1"
+            >
             </sbb-calendar-weekday>
           </th>
         </tr>
@@ -7016,6 +7065,13 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
       </tbody>
     </table>
   </div>
+  <span
+    aria-hidden="true"
+    class="sbb-screen-reader-only"
+    id="sbb-calendar-weekday-hint"
+  >
+    Use the left and right arrow keys to navigate through the weekdays.
+  </span>
 </div>
 `;
 /* end snapshot sbb-calendar enhanced renders multiple Shadow DOM */

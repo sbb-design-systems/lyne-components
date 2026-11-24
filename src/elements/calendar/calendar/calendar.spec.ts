@@ -19,6 +19,7 @@ import {
   i18nCalendarDeselectWeek,
   i18nCalendarDeselectWeekday,
   i18nCalendarSelectAll,
+  i18nCalendarHeaderNavigationHint,
   i18nCalendarSelectWeek,
   i18nCalendarSelectWeekday,
 } from '../../core.ts';
@@ -2007,6 +2008,69 @@ describe(`sbb-calendar`, () => {
             });
 
             describe('aria-label', () => {
+              it('describes the arrow key navigation depending on the orientation', async () => {
+                const calendar: SbbCalendarElement = await fixture(html`
+                  <sbb-calendar
+                    value="2025-04-08T00:00:00"
+                    orientation=${orientation}
+                    week-numbers
+                    multiple
+                  >
+                    ${slottedDays()}
+                  </sbb-calendar>
+                `);
+                const descriptions = (selector: string): string[] =>
+                  Array.from(calendar.shadowRoot!.querySelectorAll(selector), (cell) =>
+                    cell
+                      .getAttribute('aria-describedby')!
+                      .split(' ')
+                      .map((id) => calendar.shadowRoot!.getElementById(id)!)
+                      .map((hint) => {
+                        expect(hint.getAttribute('aria-hidden')).to.be.equal('true');
+                        return hint.textContent!.trim();
+                      })
+                      .join(' '),
+                  );
+                const weekdayHint = i18nCalendarHeaderNavigationHint('weekdays', orientation).en;
+                const weekNumberHint = i18nCalendarHeaderNavigationHint(
+                  'weekNumbers',
+                  orientation,
+                ).en;
+
+                expect(weekdayHint).to.contain(
+                  orientation === 'horizontal' ? 'left and right' : 'up and down',
+                );
+                expect(weekNumberHint).to.contain(
+                  orientation === 'horizontal' ? 'up and down' : 'left and right',
+                );
+                expect(descriptions('sbb-calendar-select-all')).to.be.deep.equal([
+                  orientation === 'horizontal'
+                    ? `${weekdayHint} ${weekNumberHint}`
+                    : `${weekNumberHint} ${weekdayHint}`,
+                ]);
+                expect(new Set(descriptions('sbb-calendar-weekday'))).to.be.deep.equal(
+                  new Set([weekdayHint]),
+                );
+                expect(new Set(descriptions('sbb-calendar-weeknumber'))).to.be.deep.equal(
+                  new Set([weekNumberHint]),
+                );
+              });
+
+              it('renders no week number hint without week numbers', async () => {
+                const calendar: SbbCalendarElement = await fixture(html`
+                  <sbb-calendar value="2025-04-08T00:00:00" orientation=${orientation} multiple>
+                    ${slottedDays()}
+                  </sbb-calendar>
+                `);
+                const hints = Array.from(
+                  calendar.shadowRoot!.querySelectorAll('[aria-hidden="true"][id]'),
+                  (e) => e.textContent!.trim(),
+                );
+                expect(hints).to.be.deep.equal([
+                  i18nCalendarHeaderNavigationHint('weekdays', orientation).en,
+                ]);
+              });
+
               it('describes the select action when not all days are selected', async () => {
                 const calendar: SbbCalendarElement = await fixture(html`
                   <sbb-calendar
