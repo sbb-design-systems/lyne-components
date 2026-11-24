@@ -132,12 +132,6 @@ export interface Weekday {
   narrow: string;
 }
 
-interface KeyboardNavigationHandler {
-  tab?: () => HTMLElement | void;
-  shiftTab?: () => HTMLElement | void;
-  arrowKeys?: () => HTMLElement | void;
-}
-
 /**
  * It displays a calendar which allows choosing a date.
  *
@@ -378,152 +372,107 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     // For shadow DOM compatibility we need to track this programmatically.
     this.addEventListener('focusin', () => (this._containingFocus = true));
     this.addEventListener('focusout', () => (this._containingFocus = false));
-    const resolveDay = (event: PointerEvent | KeyboardEvent): SbbCalendarDayElement<T> | null =>
-      (event.target as HTMLElement).closest<SbbCalendarDayElement<T>>('sbb-calendar-day') ??
-      event
-        .composedPath()
-        .find(
-          (e): e is SbbCalendarDayElement<T> => (e as HTMLElement).localName === 'sbb-calendar-day',
-        ) ??
-      null;
-    const resolveWeekday = (
-      event: PointerEvent | KeyboardEvent,
-    ): SbbCalendarWeekdayElement | null =>
-      event
-        .composedPath()
-        .find(
-          (e): e is SbbCalendarWeekdayElement =>
-            (e as HTMLElement).localName === 'sbb-calendar-weekday',
-        ) ?? null;
-    const resolveWeekNumber = (
-      event: PointerEvent | KeyboardEvent,
-    ): SbbCalendarWeeknumberElement | null =>
-      event
-        .composedPath()
-        .find(
-          (e): e is SbbCalendarWeeknumberElement =>
-            (e as HTMLElement).localName === 'sbb-calendar-weeknumber',
-        ) ?? null;
-    const resolveSelectAll = (
-      event: PointerEvent | KeyboardEvent,
-    ): SbbCalendarSelectAllElement | null =>
-      event
-        .composedPath()
-        .find(
-          (e): e is SbbCalendarSelectAllElement =>
-            (e as HTMLElement).localName === 'sbb-calendar-select-all',
-        ) ?? null;
-
     this.addEventListener('click', (event) => {
-      const day = resolveDay(event);
-      if (day) {
-        this._selectDate(day.value!, event);
+      const cell = this._resolveHeaderNavigationCell(event);
+      if (cell?.localName === 'sbb-calendar-day') {
+        this._selectDate((cell as SbbCalendarDayElement<T>).value!, event);
       }
     });
-    this.addEventListener('keydown', (event) => {
-      const day = resolveDay(event);
-      const weekday = resolveWeekday(event);
-      const weekNumber = resolveWeekNumber(event);
-      const selectAll = resolveSelectAll(event);
-      const target = day ?? weekday ?? weekNumber ?? selectAll;
-      if (!target) {
-        return;
-      }
-
-      const currentTable = target.closest('table') ?? target.assignedSlot?.closest('table');
-      if (!currentTable) {
-        return;
-      }
-
-      const handler: KeyboardNavigationHandler | undefined = (() => {
-        if (day) {
-          return {
-            shiftTab: () => {
-              if (!this.multiple) {
-                return;
-              }
-              if (this.weekNumbers) {
-                // Should select select-all-button
-                return currentTable.querySelector('sbb-calendar-select-all') ?? undefined;
-              } else {
-                // Should select weekday
-                return currentTable.querySelectorAll('sbb-calendar-weekday')[0];
-              }
-            },
-            tab: () => {
-              // Focus should land outside any of the tables
-              // The blur handler will fix the tabIndex of the cells, so we don't need to do it here.
-              this.shadowRoot
-                ?.querySelectorAll<HTMLElement>('table [tabindex="0"]')
-                .forEach((el) => (el.tabIndex = -1));
-            },
-            arrowKeys: () => this._handleKeyboardEvent(event, day as SbbCalendarDayElement<T>),
-          };
-        } else {
-          return {
-            shiftTab: () => {
-              // Focus should land outside any of the tables
-              // The blur handler will fix the tabIndex of the cells, so we don't need to do it here.
-              this.shadowRoot
-                ?.querySelectorAll<HTMLElement>('table [tabindex="0"]')
-                .forEach((el) => (el.tabIndex = -1));
-            },
-            tab: () => {
-              const enabledDayElements = (Array.from(currentTable.querySelectorAll('slot')) ?? [])
-                .flatMap<SbbCalendarDayElement<T>>(
-                  (e) => e.assignedElements({ flatten: true }) as SbbCalendarDayElement<T>[],
-                )
-                .filter((el) => !el.disabled)
-                .sort((a, b) => a.slot.localeCompare(b.slot));
-
-              return enabledDayElements.find((e) => e.tabIndex === 0) ?? enabledDayElements[0];
-            },
-            arrowKeys: () => {
-              // Weekdays are navigated along the orientation axis, week numbers along the other one.
-              // The select-all buttons belong to both groups.
-              const horizontalKey = ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key);
-              const weekdayAxis = horizontalKey === (this.orientation === 'horizontal');
-              const elements: HTMLElement[] = [
-                ...this._selectAllButtons,
-                ...(weekdayAxis ? this._weekdayCells : this._weekNumberCells),
-              ].sort((a, b) =>
-                a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1,
-              );
-              const index = elements.indexOf(target);
-              if (index === -1) {
-                // The target does not belong to the group of the pressed key's axis.
-                return;
-              } else if (event.key === 'Home' || event.key === 'PageUp') {
-                return elements[0];
-              } else if (event.key === 'End' || event.key === 'PageDown') {
-                return elements[elements.length - 1];
-              }
-              return elements[getNextElementIndex(event, index, elements.length)];
-            },
-          };
-        }
-      })();
-
-      const toFocus = this._elementToFocus(event, handler);
-      if (toFocus) {
-        event.preventDefault();
-        toFocus.focus();
-      }
-    });
+    this.addEventListener('keydown', (event) => this._handleCellKeydown(event));
     this.addEventListener('blur', () => (this._lastSelection = null));
   }
 
-  private _elementToFocus(
-    event: KeyboardEvent,
-    handler: KeyboardNavigationHandler,
-  ): HTMLElement | void {
-    if (event.key === 'Tab' && event.shiftKey) {
-      return handler.shiftTab?.();
-    } else if (event.key === 'Tab') {
-      return handler.tab?.();
-    } else if (isArrowKeyOrPageKeysPressed(event)) {
-      return handler.arrowKeys?.();
+  /** Returns the day, weekday, week number or select-all cell the event originates from. */
+  private _resolveHeaderNavigationCell(event: Event): HTMLElement | undefined {
+    return event
+      .composedPath()
+      .find(
+        (e): e is HTMLElement =>
+          e instanceof HTMLElement &&
+          [
+            'sbb-calendar-day',
+            'sbb-calendar-weekday',
+            'sbb-calendar-weeknumber',
+            'sbb-calendar-select-all',
+          ].includes(e.localName),
+      );
+  }
+
+  /**
+   * Each table provides two tab stops: the header cells (select-all, weekdays and week numbers)
+   * and the days. Arrow keys move within a tab stop, Tab moves between them.
+   */
+  private _handleCellKeydown(event: KeyboardEvent): void {
+    const cell = this._resolveHeaderNavigationCell(event);
+    const table = cell?.closest('table') ?? cell?.assignedSlot?.closest('table');
+    if (!cell || !table) {
+      return;
     }
+
+    const isDay = cell.localName === 'sbb-calendar-day';
+    let toFocus: HTMLElement | null | undefined;
+    if (event.key === 'Tab') {
+      if (isDay && event.shiftKey) {
+        toFocus =
+          table.querySelector('sbb-calendar-select-all') ??
+          table.querySelector('sbb-calendar-weekday');
+      } else if (!isDay && !event.shiftKey) {
+        toFocus = this._getDayTabStop(table);
+      } else {
+        // Focus should land outside any of the tables.
+        // The blur handler restores the tabIndex of the cells.
+        this.shadowRoot!.querySelectorAll<HTMLElement>('table [tabindex="0"]').forEach(
+          (el) => (el.tabIndex = -1),
+        );
+      }
+    } else if (isArrowKeyOrPageKeysPressed(event)) {
+      if (isDay) {
+        this._handleKeyboardEvent(event, cell as SbbCalendarDayElement<T>);
+      } else {
+        toFocus = this._getNextNavigationHeaderCell(event, cell);
+      }
+    }
+
+    if (toFocus) {
+      event.preventDefault();
+      toFocus.focus();
+    }
+  }
+
+  /** Returns the day of the given table which should receive focus when tabbing into the days. */
+  private _getDayTabStop(table: HTMLTableElement): SbbCalendarDayElement<T> | undefined {
+    const enabledDays = Array.from(table.querySelectorAll('slot'))
+      .flatMap((slot) => slot.assignedElements({ flatten: true }) as SbbCalendarDayElement<T>[])
+      .filter((day) => !day.disabled)
+      .sort((a, b) => a.slot.localeCompare(b.slot));
+    return enabledDays.find((day) => day.tabIndex === 0) ?? enabledDays[0];
+  }
+
+  /**
+   * Weekdays are navigated along the orientation axis, week numbers along the other one.
+   * The select-all buttons belong to both groups. Navigation spans over all tables.
+   */
+  private _getNextNavigationHeaderCell(
+    event: KeyboardEvent,
+    cell: HTMLElement,
+  ): HTMLElement | undefined {
+    const horizontalKey = ['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key);
+    const weekdayAxis = horizontalKey === (this.orientation === 'horizontal');
+    const group: HTMLElement[] = [
+      ...this._selectAllButtons,
+      ...(weekdayAxis ? this._weekdayCells : this._weekNumberCells),
+    ].sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+    const index = group.indexOf(cell);
+
+    if (index === -1) {
+      // The cell is not navigable along the axis of the pressed key.
+      return undefined;
+    } else if (event.key === 'Home' || event.key === 'PageUp') {
+      return group[0];
+    } else if (event.key === 'End' || event.key === 'PageDown') {
+      return group.at(-1);
+    }
+    return group[getNextElementIndex(event, index, group.length)];
   }
 
   private readonly _sortDate = (a: T, b: T): number => this._dateAdapter.compareDate(a, b);
