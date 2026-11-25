@@ -90,7 +90,7 @@
     "@tsdown/css": "0.23.7",
     "@types/chai": "5.2.3",
     "@types/mocha": "10.0.10",
-    "@types/node": "24.19.2",
+    "@types/node": "24.19.4",
     "@types/react": "19.3.1",
     "@typescript-eslint/eslint-plugin": "8.74.0",
     "@typescript-eslint/parser": "8.74.0",
@@ -142,7 +142,7 @@
     "vite-plugin-dts": "5.1.2"
   },
   "resolutions": {
-    "@types/node": "24.19.2",
+    "@types/node": "24.19.4",
     "@webcomponents/template-shadowroot": "0.2.1",
     "@web/dev-server-core": "1.0.4",
     "lit": "3.3.3",
