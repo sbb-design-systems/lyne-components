@@ -32,6 +32,17 @@ describe('sbb-flip-card', () => {
     assert.instanceOf(element, SbbFlipCardElement);
   });
 
+  describe('focus', () => {
+    it('should focus the flip button', () => {
+      const button = element.shadowRoot!.querySelector('.sbb-flip-card-button')!;
+
+      element.focus();
+
+      expect(document.activeElement).to.equal(element);
+      expect(element.shadowRoot!.activeElement).to.equal(button);
+    });
+  });
+
   it('should toggle on click', async () => {
     const flipSpy = new EventSpy(SbbFlipCardElement.events.flip);
     const summary: SbbFlipCardSummaryElement = element.summary!;
