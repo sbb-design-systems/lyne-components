@@ -135,6 +135,11 @@ export class SbbFlipCardElement extends SbbElement {
       : i18nReverseCard[this._language.current];
   }
 
+  /** @internal */
+  public override focus(options?: FocusOptions): void {
+    this.shadowRoot?.querySelector<HTMLButtonElement>('.sbb-flip-card-button')?.focus(options);
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-flip-card">

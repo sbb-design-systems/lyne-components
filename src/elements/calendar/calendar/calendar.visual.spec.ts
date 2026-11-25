@@ -137,20 +137,13 @@ describe('sbb-calendar', () => {
                     `);
 
                     // Focus an element on the very right side. Should not be cut!
-                    setup
-                      .withStateElement(
-                        variant === 'default'
-                          ? setup.stateElement.shadowRoot!.querySelector(
-                              'sbb-calendar-day[slot="2023-01-08"]',
-                            )!
-                          : setup.stateElement.querySelector(
-                              'sbb-calendar-day[slot="2023-01-08"]',
-                            )!,
-                      )
-                      .withPostSetupAction(() => {
-                        // Shortcut to let the stateElement be focused
-                        setup.stateElement.tabIndex = 0;
-                      });
+                    setup.withStateElement(
+                      variant === 'default'
+                        ? setup.stateElement.shadowRoot!.querySelector(
+                            'sbb-calendar-day[slot="2023-01-08"]',
+                          )!
+                        : setup.stateElement.querySelector('sbb-calendar-day[slot="2023-01-08"]')!,
+                    );
                   }),
                 );
 
@@ -303,12 +296,13 @@ describe('sbb-calendar', () => {
           it(
             state.name,
             state.with((setup) => {
-              setup.withSnapshotElement(root);
-              setup.withStateElement(
-                selected
-                  ? setup.snapshotElement.querySelector('sbb-calendar-day[slot="2023-01-20"]')!
-                  : setup.snapshotElement.querySelector('sbb-calendar-day[slot="2023-01-01"]')!,
-              );
+              setup
+                .withSnapshotElement(root)
+                .withStateElement(
+                  selected
+                    ? setup.snapshotElement.querySelector('sbb-calendar-day[slot="2023-01-20"]')!
+                    : setup.snapshotElement.querySelector('sbb-calendar-day[slot="2023-01-01"]')!,
+                );
             }),
           );
         }

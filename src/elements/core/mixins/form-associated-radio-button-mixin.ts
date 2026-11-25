@@ -144,9 +144,7 @@ export const SbbFormAssociatedRadioButtonMixin = <
       this.addEventListener?.('keydown', (e) => this._handleArrowKeyDown(e));
     }
 
-    /**
-     * @internal
-     */
+    /** @internal */
     public override focus(options?: FocusOptions): void {
       if (!this.hasAttribute('tabindex')) {
         this.addController(new SbbTemporaryFocusController(this));

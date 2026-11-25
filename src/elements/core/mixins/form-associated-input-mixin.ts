@@ -305,6 +305,7 @@ export const SbbFormAssociatedInputMixin = <
       this._assignValue(this.value);
     }
 
+    /** @internal */
     public override focus(options?: FocusOptions): void {
       super.focus(options);
       // By default, when calling focus on an input element, the cursor is placed

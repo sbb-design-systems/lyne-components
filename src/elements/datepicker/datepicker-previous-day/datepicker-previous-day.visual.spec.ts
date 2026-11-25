@@ -25,6 +25,9 @@ describe(`sbb-datepicker-previous-day`, () => {
           await setup.withFixture(html`
             <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
           `);
+          setup.withStateElement(
+            setup.snapshotElement.querySelector('sbb-datepicker-previous-day')!,
+          );
         }),
       );
 

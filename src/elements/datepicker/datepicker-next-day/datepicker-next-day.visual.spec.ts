@@ -23,6 +23,7 @@ describe(`sbb-datepicker-next-day`, () => {
         `standalone ${state.name}`,
         state.with(async (setup) => {
           await setup.withFixture(html`<sbb-datepicker-next-day></sbb-datepicker-next-day>`);
+          setup.withStateElement(setup.snapshotElement.querySelector('sbb-datepicker-next-day')!);
         }),
       );
 

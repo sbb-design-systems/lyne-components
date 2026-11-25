@@ -50,6 +50,8 @@ describe('sbb-breadcrumb-group', () => {
                     },
                   );
 
+                  setup.withStateElement(setup.snapshotElement.querySelector('sbb-breadcrumb')!);
+
                   if (variant.name === 'manually-expanded') {
                     setup.withPostSetupAction(() => {
                       const ellipsisButton = setup.snapshotElement

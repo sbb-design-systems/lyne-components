@@ -146,6 +146,17 @@ describe(`sbb-file-selector-common`, () => {
         compareToNativeInput();
       });
 
+      describe('focus', () => {
+        it('should focus the native file input', () => {
+          const fileInput = element.shadowRoot!.querySelector('input')!;
+
+          element.focus();
+
+          expect(document.activeElement).to.equal(element);
+          expect(element.shadowRoot!.activeElement).to.equal(fileInput);
+        });
+      });
+
       it('loads a file, then deletes it', async () => {
         addFiles(element, 1);
         addFiles(input, 1);
