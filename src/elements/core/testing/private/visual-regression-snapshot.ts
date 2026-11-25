@@ -115,8 +115,7 @@ export const visualDiffFocus: VisualDiffState = {
   name: 'focus',
   with(setup: (setup: VisualDiffSetupBuilder) => void | Promise<void>): Mocha.Func {
     return async function (this: Mocha.Context) {
-      // Patch input modality detector to force focus-visible state for visual regression tests
-      sbbInputModalityDetector['_updateState']('keyboard', null);
+      sbbInputModalityDetector.forceState('keyboard');
       const builder = await runSetupWithViewport(setup, this.test?.ctx?.['requestViewport']);
       builder.stateElement.focus({ focusVisible: true });
       await visualDiff(builder.snapshotElement, imageName(this.test!));

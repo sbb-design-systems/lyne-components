@@ -125,16 +125,11 @@ export class SbbSliderElement extends SbbDisabledMixin(
   }
 
   /** Reference to the inner HTMLInputElement with type='range'. */
-  private _rangeInput!: HTMLInputElement;
+  private _rangeInput?: HTMLInputElement;
 
   public constructor() {
     super();
     this.addEventListener?.('keydown', (e) => this._handleKeydown(e));
-  }
-
-  /** @internal */
-  public override focus(options?: FocusOptions): void {
-    this._rangeInput.focus(options);
   }
 
   public override connectedCallback(): void {
@@ -203,7 +198,7 @@ export class SbbSliderElement extends SbbDisabledMixin(
       event.preventDefault();
     }
 
-    if (this.readOnly) {
+    if (this.readOnly || !this._rangeInput) {
       return;
     }
 
@@ -263,7 +258,7 @@ export class SbbSliderElement extends SbbDisabledMixin(
               class="sbb-slider__range-input"
               type="range"
               @change=${() => this._dispatchChangeEvent()}
-              @input=${() => (this.value = this._rangeInput.value)}
+              @input=${() => (this.value = this._rangeInput!.value)}
               ${ref((input?: Element) => (this._rangeInput = input as HTMLInputElement))}
             />
             <div class="sbb-slider__line">

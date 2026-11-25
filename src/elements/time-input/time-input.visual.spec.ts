@@ -78,6 +78,7 @@ describe(`sbb-time-input`, () => {
           state.name,
           state.with(async (setup) => {
             await setup.withFixture(template(params));
+            setup.withStateElement(setup.snapshotElement.querySelector('sbb-time-input')!);
           }),
         );
       });
@@ -86,6 +87,7 @@ describe(`sbb-time-input`, () => {
         `disabled ${state.name}`,
         state.with(async (setup) => {
           await setup.withFixture(template({ disabled: true }));
+          setup.withStateElement(setup.snapshotElement.querySelector('sbb-time-input')!);
         }),
       );
 
@@ -93,6 +95,7 @@ describe(`sbb-time-input`, () => {
         `readonly ${state.name}`,
         state.with(async (setup) => {
           await setup.withFixture(template({ readonly: true }));
+          setup.withStateElement(setup.snapshotElement.querySelector('sbb-time-input')!);
         }),
       );
 
@@ -100,6 +103,7 @@ describe(`sbb-time-input`, () => {
         `borderless ${state.name}`,
         state.with(async (setup) => {
           await setup.withFixture(template({ borderless: true }));
+          setup.withStateElement(setup.snapshotElement.querySelector('sbb-time-input')!);
         }),
       );
     }

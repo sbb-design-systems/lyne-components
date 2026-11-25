@@ -79,6 +79,46 @@ describe(`sbb-toggle`, () => {
         expect(() => emptyToggle.focus()).not.to.throw();
         expect(document.activeElement).to.equal(firstOption);
       });
+
+      it('should not focus an option when disabled', async () => {
+        firstOption.focus();
+        element.disabled = true;
+        await waitForLitRender(element);
+
+        element.focus();
+
+        expect(document.activeElement).to.equal(firstOption);
+      });
+
+      it('should not focus an option when disabled by the form', async () => {
+        firstOption.focus();
+        element.formDisabledCallback(true);
+        await waitForLitRender(element);
+
+        element.focus();
+
+        expect(document.activeElement).to.equal(firstOption);
+      });
+
+      it('should focus the first enabled option when the checked option is disabled', async () => {
+        firstOption.disabled = true;
+        await waitForLitRender(firstOption);
+
+        element.focus();
+
+        expect(document.activeElement).to.equal(secondOption);
+      });
+
+      it('should leave focus unchanged when all options are disabled', async () => {
+        firstOption.focus();
+        firstOption.disabled = true;
+        secondOption.disabled = true;
+        await waitForLitRender(element);
+
+        element.focus();
+
+        expect(document.activeElement).to.equal(firstOption);
+      });
     });
 
     describe('value', () => {

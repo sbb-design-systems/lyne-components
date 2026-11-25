@@ -84,7 +84,12 @@ export class SbbToggleElement<T = string> extends SbbDisabledMixin(
 
   /** @internal */
   public override focus(options?: FocusOptions): void {
-    const selectedOption = this.options.find((o) => o.checked) ?? this.options[0];
+    if (this.disabled || this.formDisabled) {
+      return;
+    }
+
+    const enabledOptions = this.options.filter((option) => !option.disabled);
+    const selectedOption = enabledOptions.find((option) => option.checked) ?? enabledOptions[0];
     selectedOption?.focus(options);
   }
 
