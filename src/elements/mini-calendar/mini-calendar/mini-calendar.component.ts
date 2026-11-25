@@ -194,10 +194,10 @@ export class SbbMiniCalendarElement<T = Date> extends SbbElement {
   }
 
   /** @internal */
-  public override focus(): void {
+  public override focus(options?: FocusOptions): void {
     this._getMiniCalendarDays()
       ?.find((e) => e.tabIndex === 0)
-      ?.focus();
+      ?.focus(options);
   }
 
   public override connectedCallback(): void {

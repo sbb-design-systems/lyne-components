@@ -82,6 +82,7 @@ export class SbbToggleElement<T = string> extends SbbDisabledMixin(
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
   }
 
+  /** @internal */
   public override focus(options?: FocusOptions): void {
     const selectedOption = this.options.find((o) => o.checked) ?? this.options[0];
     selectedOption?.focus(options);
