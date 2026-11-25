@@ -455,9 +455,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   /** @internal */
-  public override focus(): void {
+  public override focus(options?: FocusOptions): void {
     // Forward focus to the trigger element.
-    this._triggerElement?.focus();
+    this._triggerElement?.focus(options);
   }
 
   /** @internal */
