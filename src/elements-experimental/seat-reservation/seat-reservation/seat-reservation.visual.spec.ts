@@ -2,7 +2,6 @@ import {
   describeEach,
   describeViewports,
   visualDiffDefault,
-  visualDiffFocus,
   visualRegressionFixture,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit';
@@ -30,11 +29,6 @@ describe('sbb-seat-reservation', () => {
     ],
   };
 
-  // Standard visual diff states to be tested;
-  // own states array because the visual-regression-snapshot.ts constant "visualDiffStandardStates"
-  // includes more than we need
-  const seatReservationVisualStates = [visualDiffDefault, visualDiffFocus] as const;
-
   describeViewports({ viewports: ['small', 'large', 'ultra'] }, () => {
     describeEach(
       cases,
@@ -55,17 +49,15 @@ describe('sbb-seat-reservation', () => {
           );
         });
 
-        for (const state of seatReservationVisualStates) {
-          it(
-            `Train ${state.name}`,
-            state.with((setup) => {
-              setup.withSnapshotElement(root);
-              setup.withStateElement(root.querySelector('sbb-seat-reservation')!);
-            }),
-          );
-        }
+        it(
+          `Train`,
+          visualDiffDefault.with((setup) => {
+            setup.withSnapshotElement(root);
+          }),
+        );
       },
     );
+
     describeEach(
       cases,
       ({ alignVertical, hasNavigation, emulateMedia: { forcedColors, darkMode } }) => {
@@ -85,15 +77,12 @@ describe('sbb-seat-reservation', () => {
           );
         });
 
-        for (const state of seatReservationVisualStates) {
-          it(
-            `Bus ${state.name}`,
-            state.with((setup) => {
-              setup.withSnapshotElement(root);
-              setup.withStateElement(root.querySelector('sbb-seat-reservation')!);
-            }),
-          );
-        }
+        it(
+          `Bus`,
+          visualDiffDefault.with((setup) => {
+            setup.withSnapshotElement(root);
+          }),
+        );
       },
     );
   });

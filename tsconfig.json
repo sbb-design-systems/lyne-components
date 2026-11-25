@@ -70,7 +70,9 @@
           "sbb-tooltip",
           "sbb-tooltip-open-delay",
           "sbb-tooltip-close-delay",
-          "sbb-tooltip-position"
+          "sbb-tooltip-disabled",
+          "sbb-tooltip-position",
+          "sbb-tooltip-positions"
         ]
       }
     ]

@@ -69,6 +69,7 @@ describe(`sbb-stepper`, () => {
           state.name,
           state.with(async (setup) => {
             await setup.withFixture(template({ linear, orientation }));
+            setup.withStateElement(setup.snapshotElement.querySelector('sbb-step-label')!);
           }),
         );
       }

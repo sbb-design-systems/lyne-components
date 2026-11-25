@@ -564,9 +564,9 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   }
 
   /** @internal */
-  public override focus(): void {
+  public override focus(options?: FocusOptions): void {
     this._resetFocus = true;
-    this._focusCell();
+    this._focusCell(options);
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -715,9 +715,9 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   }
 
   /** Focuses on a day cell prioritizing the selected day, the current day, and lastly, the first selectable day. */
-  private _focusCell(): void {
+  private _focusCell(options?: FocusOptions): void {
     if (this._resetFocus) {
-      this._getFirstFocusable()?.focus();
+      this._getFirstFocusable()?.focus(options);
       this._resetFocus = false;
     }
   }

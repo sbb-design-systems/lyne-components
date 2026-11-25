@@ -81,13 +81,12 @@ and focus related events.
 
 #### Methods
 
-| Name                | Privacy | Description                                                                                                                                                                                | Parameters              | Return    | Inherited From              |
-| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- | --------- | --------------------------- |
-| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                         | `boolean` | SbbFormAssociatedMixin      |
-| `focus`             | public  |                                                                                                                                                                                            | `options: FocusOptions` | `void`    | SbbFormAssociatedInputMixin |
-| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                         | `boolean` | SbbFormAssociatedMixin      |
-| `select`            | public  | Makes the selection equal to the current object.                                                                                                                                           |                         | `void`    | SbbFormAssociatedInputMixin |
-| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string`       | `void`    | SbbFormAssociatedMixin      |
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From              |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | --------------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin      |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin      |
+| `select`            | public  | Makes the selection equal to the current object.                                                                                                                                           |                   | `void`    | SbbFormAssociatedInputMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin      |
 
 #### Events
 

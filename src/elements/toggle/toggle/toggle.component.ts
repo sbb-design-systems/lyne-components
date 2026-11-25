@@ -82,6 +82,17 @@ export class SbbToggleElement<T = string> extends SbbDisabledMixin(
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
   }
 
+  /** @internal */
+  public override focus(options?: FocusOptions): void {
+    if (this.disabled || this.formDisabled) {
+      return;
+    }
+
+    const enabledOptions = this.options.filter((option) => !option.disabled);
+    const selectedOption = enabledOptions.find((option) => option.checked) ?? enabledOptions[0];
+    selectedOption?.focus(options);
+  }
+
   protected override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('disabled') || changedProperties.has('formDisabled')) {

@@ -11,15 +11,18 @@ import { property } from 'lit/decorators.js';
 
 import {
   appendAriaElements,
+  forceType,
   idReference,
   isAndroid,
   isIOS,
   isZeroAnimationDuration,
+  NumberOrNull,
   popoverResetStyles,
   queueDomContentLoaded,
   readConfig,
   removeAriaElements,
   SbbDisabledMixin,
+  SbbDynamicStylesheetMixin,
   SbbEscapableOverlayController,
   sbbInputModalityDetector,
   SbbOpenCloseBaseElement,
@@ -43,6 +46,7 @@ export interface SbbTooltipDefaultPositions {
 const LONGPRESS_DELAY = 500;
 
 const isMobile = isAndroid || isIOS;
+
 const tooltipTriggers = new WeakMap<HTMLElement, SbbTooltipElement>();
 
 /**
@@ -56,7 +60,9 @@ const tooltipTriggers = new WeakMap<HTMLElement, SbbTooltipElement>();
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
+export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
+  SbbDisabledMixin(SbbOpenCloseBaseElement),
+) {
   public static override readonly elementName: string = 'sbb-tooltip';
   public static override readonly role = 'tooltip';
   public static override styles: CSSResultGroup = [popoverResetStyles, unsafeCSS(style)];
@@ -84,8 +90,9 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
    * Open the tooltip after a given delay in milliseconds.
    * Global configuration is used as default, if not set.
    *
-   * @default null
+   * @default 0
    */
+  @forceType(NumberOrNull)
   @property({ attribute: 'open-delay', type: Number })
   public set openDelay(value: number | null) {
     this._openDelay = value;
@@ -93,14 +100,15 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
   public get openDelay(): number {
     return this._openDelay ?? readConfig().tooltip?.openDelay ?? 0;
   }
-  private _openDelay: number | null = null;
+  private _openDelay?: number | null;
 
   /**
    * Close the tooltip after a given delay in milliseconds.
    * Global configuration is used as default, if not set.
    *
-   * @default null
+   * @default 0
    */
+  @forceType(NumberOrNull)
   @property({ attribute: 'close-delay', type: Number })
   public set closeDelay(value: number | null) {
     this._closeDelay = value;
@@ -108,7 +116,7 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
   public get closeDelay(): number {
     return this._closeDelay ?? readConfig().tooltip?.closeDelay ?? 0;
   }
-  private _closeDelay: number | null = null;
+  private _closeDelay?: number | null;
 
   /**
    * Automatically close the tooltip after it has been open by long press.
@@ -116,14 +124,39 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
    *
    * @default 1500
    */
+  @forceType(NumberOrNull)
   @property({ attribute: 'long-press-close-delay', type: Number })
-  public set longPressCloseDelay(value: number) {
-    this._longPressCloseDelay = +value;
+  public set longPressCloseDelay(value: number | null) {
+    this._longPressCloseDelay = value;
   }
   public get longPressCloseDelay(): number {
     return this._longPressCloseDelay ?? readConfig().tooltip?.longPressCloseDelay ?? 1500;
   }
-  private _longPressCloseDelay?: number;
+  private _longPressCloseDelay?: number | null;
+
+  /**
+   * The positions of the tooltip, relative to the trigger.
+   * Provide either a comma-separated list or an array of positions.
+   * The first entry is the primary position (`--sbb-overlay-position-area`),
+   * the following ones are the fallback positions (`--sbb-overlay-position-try-fallbacks`).
+   * If not set, the default positions of the trigger (`tooltipPositions`) or the CSS variables are used.
+   */
+  @property()
+  public set positions(value: string | string[] | null) {
+    if (typeof value === 'string') {
+      this._positions =
+        value
+          ?.split(',')
+          .map((p) => p.trim())
+          .filter(Boolean) ?? [];
+    } else {
+      this._positions = value ?? [];
+    }
+  }
+  public get positions(): string[] {
+    return this._positions;
+  }
+  private _positions: string[] = [];
 
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController?: AbortController;
@@ -187,6 +220,8 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
         'sbb-tooltip-open-delay',
         'sbb-tooltip-close-delay',
         'sbb-tooltip-position',
+        'sbb-tooltip-positions',
+        'sbb-tooltip-disabled',
       ],
       childList: true,
       subtree: true,
@@ -220,24 +255,15 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
       tooltip.closeDelay = triggerElement.hasAttribute('sbb-tooltip-close-delay')
         ? +triggerElement.getAttribute('sbb-tooltip-close-delay')!
         : null;
+      tooltip.disabled = triggerElement.hasAttribute('sbb-tooltip-disabled');
+      tooltip.positions =
+        triggerElement.getAttribute('sbb-tooltip-positions') ??
+        triggerElement.getAttribute('sbb-tooltip-position');
 
-      // Read the positions from the trigger (either from the attribute or the property)
-      const positions = triggerElement.hasAttribute('sbb-tooltip-position')
-        ? triggerElement
-            .getAttribute('sbb-tooltip-position')!
-            .split(',')
-            .map((p) => p.trim())
-        : (triggerElement as unknown as SbbTooltipDefaultPositions).tooltipPositions;
-
-      if (positions && positions.length > 0) {
-        tooltip.style.setProperty('--sbb-overlay-position-area', positions[0]);
-        tooltip.style.setProperty(
-          '--sbb-overlay-position-try-fallbacks',
-          positions.slice(1).join(', '),
+      if (import.meta.env.DEV && triggerElement.hasAttribute('sbb-tooltip-position')) {
+        console.warn(
+          'The `sbb-tooltip-position` attribute is deprecated. Use `sbb-tooltip-positions` instead.',
         );
-      } else {
-        tooltip.style.removeProperty('--sbb-overlay-position-area');
-        tooltip.style.removeProperty('--sbb-overlay-position-try-fallbacks');
       }
     } else if (tooltip) {
       // The trigger or the attribute has been deleted => delete the connected tooltip
@@ -279,6 +305,27 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
 
     if ((!name || name === 'trigger') && this.hasUpdated) {
       this._attach(this.trigger);
+    } else if (name === 'disabled') {
+      this._updateTriggerDescription();
+    }
+  }
+
+  protected override updated(changedProperties: PropertyValues<this>): void {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('positions') || changedProperties.has('trigger')) {
+      const positions = this._positions.length
+        ? this._positions
+        : // Fall back to the default positions defined by the trigger element (if any).
+          (this.trigger as Partial<SbbTooltipDefaultPositions> | null)?.tooltipPositions;
+      if (positions?.length) {
+        const positionTryFallbacks = positions.slice(1).join(', ');
+        this.dynamicStyleSheet?.replaceSync(
+          `:host {--sbb-overlay-position-area: ${positions[0]};${positionTryFallbacks.length ? ` --sbb-overlay-position-try-fallbacks: ${positionTryFallbacks}};` : ''}`,
+        );
+      } else {
+        this.dynamicStyleSheet?.replaceSync(``);
+      }
     }
   }
 
@@ -372,11 +419,22 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
     if (!this._triggerElement) {
       return;
     }
-    this._triggerElement.ariaDescribedByElements = appendAriaElements(
+    this._updateTriggerDescription();
+    this._addTriggerEventHandlers();
+  }
+
+  /** Links the tooltip to the trigger, unless the tooltip is disabled. */
+  private _updateTriggerDescription(): void {
+    if (!this._triggerElement) {
+      return;
+    }
+    const remainingElements = removeAriaElements(
       this._triggerElement.ariaDescribedByElements,
       this,
     );
-    this._addTriggerEventHandlers();
+    this._triggerElement.ariaDescribedByElements = this.disabled
+      ? remainingElements
+      : appendAriaElements(remainingElements, this);
   }
 
   private _detach(): void {

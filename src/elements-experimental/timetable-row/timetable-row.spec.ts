@@ -29,6 +29,27 @@ describe(`sbb-timetable-row`, () => {
     assert.instanceOf(element, SbbTimetableRowElement);
   });
 
+  describe('focus', () => {
+    it('should focus the card button', () => {
+      const cardButton = element.shadowRoot!.querySelector('sbb-card-button')!;
+
+      element.focus();
+
+      expect(document.activeElement).to.equal(element);
+      expect(element.shadowRoot!.activeElement).to.equal(cardButton);
+    });
+
+    it('should leave focus unchanged when loading without a card button', async () => {
+      element = await fixture(html`<sbb-timetable-row loading-trip></sbb-timetable-row>`);
+      expect(element.shadowRoot!.querySelector('sbb-card-button')).to.be.null;
+      const activeElement = document.activeElement;
+
+      expect(() => element.focus()).not.to.throw();
+
+      expect(document.activeElement).to.equal(activeElement);
+    });
+  });
+
   describe('role assignment', () => {
     it('should have role="rowgroup" when not loading', async () => {
       expect(elementInternals.get(element)!.role).to.equal('rowgroup');

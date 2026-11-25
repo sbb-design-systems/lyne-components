@@ -120,6 +120,13 @@ class SbbInputModalityDetector {
   }
 
   /**
+   * Forces the input modality to the specified value. This is useful for testing scenarios.
+   */
+  public forceState(modality: SbbInputModality): void {
+    this._updateState(modality, null);
+  }
+
+  /**
    * Handles keydown events. Must be an arrow function in order to preserve the context when it gets
    * bound.
    */

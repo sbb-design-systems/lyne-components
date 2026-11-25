@@ -7,7 +7,6 @@ import {
   visualDiffDefault,
   visualDiffHover,
   visualDiffStandardStates,
-  type VisualDiffSetupBuilder,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
 import { isWebkit, ɵstateController } from '../../core.ts';
@@ -268,8 +267,6 @@ describe(`sbb-button`, () => {
   describeViewports({ viewports: ['zero'] }, () => {
     describe('CSS class', () => {
       // Picks the native element, as otherwise the inner <sbb-icon> would be used.
-      const withNativeStateElement = (setup: VisualDiffSetupBuilder): void =>
-        void setup.withStateElement(setup.snapshotElement.querySelector('button')!);
 
       describeEach(
         cssClassCases,
@@ -295,8 +292,9 @@ describe(`sbb-button`, () => {
             it(
               state.name,
               state.with((setup) => {
-                setup.withSnapshotElement(root);
-                withNativeStateElement(setup);
+                setup
+                  .withSnapshotElement(root)
+                  .withStateElement(setup.snapshotElement.querySelector('button')!);
               }),
             );
           }
@@ -307,7 +305,6 @@ describe(`sbb-button`, () => {
         'loading',
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(buttonCssClassTemplate('sbb-button', { loading: true }));
-          withNativeStateElement(setup);
         }),
       );
 
@@ -317,7 +314,6 @@ describe(`sbb-button`, () => {
           await setup.withFixture(
             buttonCssClassTemplate('sbb-button', { disabledInteractive: true }),
           );
-          withNativeStateElement(setup);
         }),
       );
 
