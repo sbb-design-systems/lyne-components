@@ -33,7 +33,8 @@ describe(`sbb-menu-button`, () => {
       new Array(3),
       (_, index) => html`
         <sbb-menu-button
-          sbb-badge=${badge && !disabled && !disabledInteractive ? badge : nothing}
+          sbb-badge=${badge ?? nothing}
+          ?sbb-badge-disabled=${badge && (disabled || disabledInteractive)}
           icon-name=${iconName || nothing}
           ?disabled=${disabled}
           ?disabled-interactive=${disabledInteractive}
