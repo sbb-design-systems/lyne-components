@@ -132,6 +132,10 @@ export class SbbSliderElement extends SbbDisabledMixin(
     this.addEventListener?.('keydown', (e) => this._handleKeydown(e));
   }
 
+  public override focus(options?: FocusOptions): void {
+    this._rangeInput.focus(options);
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
 

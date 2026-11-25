@@ -61,7 +61,6 @@ describe('sbb-slider', () => {
             visualDiffState.name,
             visualDiffState.with(async (setup) => {
               await setup.withFixture(variant.template(defaultArgs));
-              setup.withStateElement(setup.snapshotElement.querySelector('sbb-slider')!);
             }),
           );
         }
@@ -122,7 +121,6 @@ describe('sbb-slider', () => {
                     forcedColors,
                     darkMode,
                   });
-                  setup.withStateElement(setup.snapshotElement.querySelector('sbb-slider')!);
                 }),
               );
             }

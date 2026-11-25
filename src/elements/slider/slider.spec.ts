@@ -81,6 +81,15 @@ describe(`sbb-slider`, () => {
     assert.instanceOf(element, SbbSliderElement);
   });
 
+  it('should focus the native range input', () => {
+    const rangeInput = element.shadowRoot!.querySelector('input[type="range"]')!;
+
+    element.focus();
+
+    expect(document.activeElement).to.equal(element);
+    expect(element.shadowRoot!.activeElement).to.equal(rangeInput);
+  });
+
   describe(`slider behaviors`, () => {
     it('should set default value', async () => {
       element.value = null;

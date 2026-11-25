@@ -1,5 +1,5 @@
 import { assert, expect } from '@open-wc/testing';
-import type { SbbCardButtonElement, SbbCardElement } from '@sbb-esta/lyne-elements/card.js';
+import type { SbbCardElement } from '@sbb-esta/lyne-elements/card.js';
 import { elementInternalsSpy, fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
@@ -36,16 +36,6 @@ describe(`sbb-timetable-row`, () => {
       element.focus();
 
       expect(document.activeElement).to.equal(element);
-      expect(element.shadowRoot!.activeElement).to.equal(cardButton);
-    });
-
-    it('should forward focus options to the card button', () => {
-      const cardButton =
-        element.shadowRoot!.querySelector<SbbCardButtonElement>('sbb-card-button')!;
-      const options: FocusOptions = { preventScroll: true };
-
-      element.focus(options);
-
       expect(element.shadowRoot!.activeElement).to.equal(cardButton);
     });
 

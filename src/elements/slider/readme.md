@@ -95,11 +95,12 @@ The `<sbb-slider>` has the following behavior on keypress when focused:
 
 #### Methods
 
-| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
-| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
-| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
-| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
-| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters              | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                         | `boolean` | SbbFormAssociatedMixin |
+| `focus`             | public  |                                                                                                                                                                                            | `options: FocusOptions` | `void`    |                        |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                         | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string`       | `void`    | SbbFormAssociatedMixin |
 
 #### Events
 

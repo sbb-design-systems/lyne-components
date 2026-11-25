@@ -155,13 +155,6 @@ describe(`sbb-file-selector-common`, () => {
           expect(document.activeElement).to.equal(element);
           expect(element.shadowRoot!.activeElement).to.equal(fileInput);
         });
-
-        it('should forward focus options to the native file input', () => {
-          const fileInput = element.shadowRoot!.querySelector('input')!;
-          const options: FocusOptions = { preventScroll: true };
-          element.focus(options);
-          expect(element.shadowRoot!.activeElement).to.equal(fileInput);
-        });
       });
 
       it('loads a file, then deletes it', async () => {

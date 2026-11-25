@@ -66,3 +66,9 @@ This is helpful if you need a specific state of the component.
 | `now`                   | `now`                    | public  | `Date`                      | `null`  | A configured date which acts as the current date instead of the real current date. Only recommended for testing purposes.                                                                     |
 | `price`                 | `price`                  | public  | `Price`                     | `null!` | The price Prop, which consists of the data for the badge.                                                                                                                                     |
 | `trip`                  | `trip`                   | public  | `ITripItem`                 | `null!` | The trip Prop.                                                                                                                                                                                |
+
+#### Methods
+
+| Name    | Privacy | Description | Parameters              | Return | Inherited From |
+| ------- | ------- | ----------- | ----------------------- | ------ | -------------- |
+| `focus` | public  |             | `options: FocusOptions` | `void` |                |
