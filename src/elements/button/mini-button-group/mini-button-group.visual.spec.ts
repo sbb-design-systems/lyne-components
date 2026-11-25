@@ -48,6 +48,7 @@ describe('sbb-mini-button-group', () => {
                   focusOutlineDark: negative,
                   darkMode,
                 });
+                setup.withStateElement(setup.snapshotElement.querySelector('sbb-mini-button')!);
               }),
             );
           });

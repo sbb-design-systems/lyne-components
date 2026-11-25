@@ -52,7 +52,7 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   }
 
   /** @internal */
-  public override focus(options?: FocusOptions | undefined): void {
+  public override focus(options?: FocusOptions): void {
     this.shadowRoot!.querySelector<HTMLAnchorElement>('a')?.focus(options);
   }
 

@@ -119,6 +119,9 @@ describe(`sbb-expansion-panel`, () => {
                 `,
                 { forcedColors, darkMode },
               );
+              setup.withStateElement(
+                setup.snapshotElement.querySelector('sbb-expansion-panel-header')!,
+              );
             }),
           );
         }

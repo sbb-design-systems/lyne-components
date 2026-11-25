@@ -226,6 +226,7 @@ describe(`sbb-form-field`, () => {
                       forcedColors,
                       darkMode,
                     });
+                    setup.withStateElement(setup.snapshotElement.querySelector(name)!);
                   }),
                 );
 
@@ -241,6 +242,7 @@ describe(`sbb-form-field`, () => {
                       forcedColors,
                       darkMode,
                     });
+                    setup.withStateElement(setup.snapshotElement.querySelector(name)!);
                   }),
                 );
               }
@@ -420,6 +422,7 @@ describe(`sbb-form-field`, () => {
                     forcedColors,
                     darkMode,
                   });
+                  setup.withStateElement(setup.snapshotElement.querySelector(name)!);
                 }),
               );
 
@@ -435,6 +438,7 @@ describe(`sbb-form-field`, () => {
                     forcedColors,
                     darkMode,
                   });
+                  setup.withStateElement(setup.snapshotElement.querySelector(name)!);
                 }),
               );
             });

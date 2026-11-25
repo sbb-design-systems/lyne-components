@@ -108,7 +108,9 @@ describe(`sbb-tab-group`, () => {
       it(
         '',
         visualDiffFocus.with(async (setup) => {
-          setup.withSnapshotElement(element);
+          setup
+            .withSnapshotElement(element)
+            .withStateElement(setup.snapshotElement.querySelector('sbb-tab-label')!);
         }),
       );
 
@@ -126,7 +128,7 @@ describe(`sbb-tab-group`, () => {
 
     it(
       'respect content margin',
-      visualDiffFocus.with(async (setup) => {
+      visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
           <sbb-tab-group initial-selected-index="0">
             <sbb-tab-label>Tab title</sbb-tab-label>

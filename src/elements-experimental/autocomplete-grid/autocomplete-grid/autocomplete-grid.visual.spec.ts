@@ -182,6 +182,7 @@ describe('sbb-autocomplete-grid', () => {
                         : undefined,
                     },
                   );
+                  setup.withStateElement(setup.snapshotElement.querySelector('input')!);
                   setup.withPostSetupAction(() => openAutocomplete(setup));
                 }),
               );
@@ -206,6 +207,7 @@ describe('sbb-autocomplete-grid', () => {
               `state=${visualDiffState.name} size=${size}`,
               visualDiffState.with(async (setup) => {
                 await setup.withFixture(template({ ...defaultArgs, negative, size }), style);
+                setup.withStateElement(setup.snapshotElement.querySelector('input')!);
               }),
             );
           }
@@ -370,7 +372,7 @@ describe('sbb-autocomplete-grid', () => {
       'forcedColors=true',
       visualDiffFocus.with(async (setup) => {
         await setup.withFixture(template(defaultArgs), { forcedColors: true });
-
+        setup.withStateElement(setup.snapshotElement.querySelector('input')!);
         setup.withPostSetupAction(() => openAutocomplete(setup));
       }),
     );

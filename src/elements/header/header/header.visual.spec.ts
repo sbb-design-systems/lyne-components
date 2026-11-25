@@ -122,7 +122,7 @@ describe(`sbb-header`, () => {
 
         it(
           'without link',
-          visualDiffFocus.with(async (setup) => {
+          visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
               template({ size: logoOrSignet === 'signet' ? 's' : 'm', noLogoLink: true }),
               {

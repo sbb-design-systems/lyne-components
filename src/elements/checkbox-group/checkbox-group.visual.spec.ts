@@ -107,6 +107,7 @@ describe('sbb-checkbox-group', () => {
           `${orientation} ${visualDiffState.name}`,
           visualDiffState.with(async (setup) => {
             await setup.withFixture(checkboxesTemplate(args));
+            setup.withStateElement(setup.snapshotElement.querySelector('sbb-checkbox')!);
           }),
         );
       }

@@ -80,6 +80,7 @@ describe(`sbb-alert`, () => {
       'darkMode=true focus',
       visualDiffFocus.with(async (setup) => {
         await setup.withFixture(alertTemplate({ ...defaultArgs }), { darkMode: true });
+        setup.withStateElement(setup.snapshotElement.querySelector('sbb-link')!);
       }),
     );
 
