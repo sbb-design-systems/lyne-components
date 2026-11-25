@@ -89,9 +89,10 @@ The `<sbb-flip-card>` will switch to the flipped state after the user clicks on 
 
 #### Methods
 
-| Name     | Privacy | Description                             | Parameters | Return | Inherited From |
-| -------- | ------- | --------------------------------------- | ---------- | ------ | -------------- |
-| `toggle` | public  | Toggles the state of the sbb-flip-card. |            | `void` |                |
+| Name     | Privacy | Description                             | Parameters              | Return | Inherited From |
+| -------- | ------- | --------------------------------------- | ----------------------- | ------ | -------------- |
+| `focus`  | public  |                                         | `options: FocusOptions` | `void` |                |
+| `toggle` | public  | Toggles the state of the sbb-flip-card. |                         | `void` |                |
 
 #### Events
 
