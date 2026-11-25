@@ -53,7 +53,7 @@ describe(`sbb-link-list-anchor`, () => {
         it(
           state.name,
           state.with((setup) => {
-            setup.withSnapshotElement(root);
+            setup.withSnapshotElement(root).withStateElement(root.querySelector('sbb-block-link')!);
           }),
         );
       }

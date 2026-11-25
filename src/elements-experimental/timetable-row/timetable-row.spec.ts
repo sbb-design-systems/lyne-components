@@ -1,5 +1,5 @@
 import { assert, expect } from '@open-wc/testing';
-import type { SbbCardElement } from '@sbb-esta/lyne-elements/card.js';
+import type { SbbCardButtonElement, SbbCardElement } from '@sbb-esta/lyne-elements/card.js';
 import { elementInternalsSpy, fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
@@ -27,6 +27,37 @@ describe(`sbb-timetable-row`, () => {
 
   it('renders', () => {
     assert.instanceOf(element, SbbTimetableRowElement);
+  });
+
+  describe('focus', () => {
+    it('should focus the card button', () => {
+      const cardButton = element.shadowRoot!.querySelector('sbb-card-button')!;
+
+      element.focus();
+
+      expect(document.activeElement).to.equal(element);
+      expect(element.shadowRoot!.activeElement).to.equal(cardButton);
+    });
+
+    it('should forward focus options to the card button', () => {
+      const cardButton =
+        element.shadowRoot!.querySelector<SbbCardButtonElement>('sbb-card-button')!;
+      const options: FocusOptions = { preventScroll: true };
+
+      element.focus(options);
+
+      expect(element.shadowRoot!.activeElement).to.equal(cardButton);
+    });
+
+    it('should leave focus unchanged when loading without a card button', async () => {
+      element = await fixture(html`<sbb-timetable-row loading-trip></sbb-timetable-row>`);
+      expect(element.shadowRoot!.querySelector('sbb-card-button')).to.be.null;
+      const activeElement = document.activeElement;
+
+      expect(() => element.focus()).not.to.throw();
+
+      expect(document.activeElement).to.equal(activeElement);
+    });
   });
 
   describe('role assignment', () => {

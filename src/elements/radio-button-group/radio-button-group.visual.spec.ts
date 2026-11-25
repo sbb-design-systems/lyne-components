@@ -68,6 +68,7 @@ describe(`sbb-radio-button-group`, () => {
                       ${variant.template}
                     </sbb-radio-button-group>
                   `);
+                  setup.withStateElement(setup.snapshotElement.querySelector(variant.name)!);
                 }),
               );
             }
@@ -127,6 +128,7 @@ describe(`sbb-radio-button-group`, () => {
             ><sbb-radio-button></sbb-radio-button
           ></sbb-radio-button-group>`,
         );
+        setup.withStateElement(setup.snapshotElement.querySelector('sbb-radio-button')!);
       }),
     );
   });

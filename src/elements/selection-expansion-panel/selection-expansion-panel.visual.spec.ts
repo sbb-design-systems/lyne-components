@@ -114,6 +114,11 @@ describe(`sbb-selection-expansion-panel`, () => {
                     : withRadioPanel({ forceOpen: true })
                 }
               `);
+              setup.withStateElement(
+                setup.snapshotElement.querySelector(
+                  input === 'checkbox' ? 'sbb-checkbox-panel' : 'sbb-radio-button-panel',
+                )!,
+              );
             }),
           );
         }
@@ -213,6 +218,7 @@ describe(`sbb-selection-expansion-panel`, () => {
             forcedColors,
             darkMode,
           });
+          setup.withStateElement(setup.snapshotElement.querySelector('sbb-checkbox-panel')!);
         }),
       );
     });

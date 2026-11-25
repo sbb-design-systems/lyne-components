@@ -67,6 +67,7 @@ describe(`sbb-time-input`, () => {
                 : undefined,
               forcedColors,
             });
+            setup.withStateElement(setup.snapshotElement.querySelector('sbb-time-input')!);
           }),
         );
       });

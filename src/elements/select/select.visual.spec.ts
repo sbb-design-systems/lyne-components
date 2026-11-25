@@ -140,6 +140,7 @@ describe('sbb-select', () => {
                     select.focus();
                     select.open();
                   });
+                  setup.withStateElement(setup.snapshotElement.querySelector('sbb-select')!);
                 }),
               );
             }
@@ -169,6 +170,7 @@ describe('sbb-select', () => {
                     forcedColors,
                     darkMode,
                   });
+                  setup.withStateElement(setup.snapshotElement.querySelector('sbb-select')!);
                 }),
               );
             }

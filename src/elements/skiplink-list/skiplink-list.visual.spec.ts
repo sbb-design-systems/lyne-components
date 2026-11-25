@@ -20,6 +20,7 @@ describe(`sbb-skiplink-list`, () => {
         state.name,
         state.with(async (setup) => {
           await setup.withFixture(template(), { minHeight: '100px' });
+          setup.withStateElement(setup.snapshotElement.querySelector('sbb-block-link')!);
         }),
       );
     }
@@ -37,6 +38,7 @@ describe(`sbb-skiplink-list`, () => {
               `,
               { minHeight: '100px' },
             );
+            setup.withStateElement(setup.snapshotElement.querySelector('sbb-block-link')!);
           }),
         );
       }
@@ -46,6 +48,7 @@ describe(`sbb-skiplink-list`, () => {
       `title content`,
       visualDiffFocus.with(async (setup) => {
         await setup.withFixture(template('Skip to'), { minHeight: '100px' });
+        setup.withStateElement(setup.snapshotElement.querySelector('sbb-block-link')!);
       }),
     );
 
@@ -53,6 +56,7 @@ describe(`sbb-skiplink-list`, () => {
       `darkMode=true`,
       visualDiffFocus.with(async (setup) => {
         await setup.withFixture(template(), { minHeight: '100px', darkMode: true });
+        setup.withStateElement(setup.snapshotElement.querySelector('sbb-block-link')!);
       }),
     );
   });

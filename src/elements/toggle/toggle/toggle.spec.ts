@@ -53,6 +53,34 @@ describe(`sbb-toggle`, () => {
       assert.instanceOf(element, SbbToggleElement);
     });
 
+    describe('focus', () => {
+      it('should focus the checked option and forward focus options', async () => {
+        element.value = 'Value two';
+        await waitForLitRender(element);
+        const options: FocusOptions = { preventScroll: true };
+        element.focus(options);
+        expect(document.activeElement).to.equal(secondOption);
+      });
+
+      it('should focus the first option when no option is checked', async () => {
+        firstOption.checked = false;
+        await waitForLitRender(firstOption);
+        expect(element.options.every((option) => !option.checked)).to.be.true;
+
+        element.focus();
+
+        expect(document.activeElement).to.equal(firstOption);
+      });
+
+      it('should leave focus unchanged when there are no options', () => {
+        firstOption.focus();
+        const emptyToggle = new SbbToggleElement();
+
+        expect(() => emptyToggle.focus()).not.to.throw();
+        expect(document.activeElement).to.equal(firstOption);
+      });
+    });
+
     describe('value', () => {
       it('should select the correct option by setting value via attribute', async () => {
         element = await fixture(html`

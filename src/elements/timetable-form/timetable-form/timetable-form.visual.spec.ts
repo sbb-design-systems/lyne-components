@@ -151,7 +151,9 @@ describe('sbb-timetable-form', () => {
       `from field_${visualDiffFocus.name}`,
       visualDiffFocus.with(async (setup) => {
         await setup.withFixture(defaultTemplate());
-        setup.withStateElement(setup.snapshotElement.querySelector('sbb-timetable-form-field')!);
+        setup.withStateElement(
+          setup.snapshotElement.querySelector('sbb-timetable-form-field input')!,
+        );
       }),
     );
 

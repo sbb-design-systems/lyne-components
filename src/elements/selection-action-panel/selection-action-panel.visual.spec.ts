@@ -112,6 +112,11 @@ describe(`sbb-selection-action-panel`, () => {
             await setup.withFixture(
               input === 'checkbox' ? withCheckboxPanel({}) : withRadioPanel({}),
             );
+            setup.withStateElement(
+              setup.snapshotElement.querySelector(
+                input === 'checkbox' ? 'sbb-checkbox-panel' : 'sbb-radio-button-panel',
+              )!,
+            );
           }),
         );
 
@@ -128,6 +133,11 @@ describe(`sbb-selection-action-panel`, () => {
                 <div slot="content">Inner Content</div>
               </sbb-selection-expansion-panel>
             `);
+            setup.withStateElement(
+              setup.snapshotElement.querySelector(
+                input === 'checkbox' ? 'sbb-checkbox-panel' : 'sbb-radio-button-panel',
+              )!,
+            );
           }),
         );
 
@@ -244,6 +254,7 @@ describe(`sbb-selection-action-panel`, () => {
         `darkMode=true`,
         visualDiffFocus.with(async (setup) => {
           await setup.withFixture(withCheckboxPanel(params), { darkMode: true });
+          setup.withStateElement(setup.snapshotElement.querySelector('sbb-checkbox-panel')!);
         }),
       );
     });
