@@ -12,13 +12,6 @@ export class SbbCalendarSelectAllElement extends SbbIconNameMixin(SbbCalendarCel
   /** @internal */
   public value: unknown;
 
-  protected override setSelectedState(): void {
-    // empty
-  }
-  protected override setDisabledFilteredState(): void {
-    // empty
-  }
-
   protected override renderTemplate(): TemplateResult {
     return this.renderIconSlot();
   }

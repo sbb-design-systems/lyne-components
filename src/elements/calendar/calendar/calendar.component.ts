@@ -119,7 +119,7 @@ export interface Day<T = Date> {
   /** ISO 8601 week number. */
   weekValue: number;
   /** ISO 8601 week-numbering year, which can differ from `yearValue` at the turn of the year. */
-  weekYearValue: number;
+  weekYearValue?: number;
   weekDayValue: number;
 }
 
@@ -346,13 +346,35 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
 
   /** A list of calendar's cells corresponding to days, months or years depending on the view. */
   private _cells(): SbbCalendarCellBaseElement<T>[] {
-    return this._calendarView === 'day'
-      ? this._getDays(this.shadowRoot!)
-      : Array.from(
-          this.shadowRoot?.querySelectorAll<SbbCalendarCellBaseElement<T>>(
-            `sbb-calendar-${this._calendarView}`,
-          ) ?? [],
-        );
+    switch (this._calendarView) {
+      case 'month':
+        return this._monthCells();
+      case 'year':
+        return this._yearCells();
+      default:
+        return this._dayCells();
+    }
+  }
+
+  /** A list of calendar's month cells. */
+  private _yearCells(): SbbCalendarYearElement<T>[] {
+    return Array.from<SbbCalendarYearElement<T>>(
+      this.shadowRoot?.querySelectorAll<SbbCalendarYearElement<T>>(`sbb-calendar-month`) ?? [],
+    );
+  }
+
+  /** A list of calendar's month cells. */
+  private _monthCells(): SbbCalendarMonthElement<T>[] {
+    return Array.from<SbbCalendarMonthElement<T>>(
+      this.shadowRoot?.querySelectorAll<SbbCalendarMonthElement<T>>(`sbb-calendar-month`) ?? [],
+    );
+  }
+
+  /** Returns the rendered or slotted days within the given root. */
+  private _dayCells(root: ParentNode = this.shadowRoot!): SbbCalendarDayElement<T>[] {
+    return Array.from(root.querySelectorAll('slot'))
+      .flatMap((slot) => slot.assignedElements({ flatten: true }))
+      .filter((el): el is SbbCalendarDayElement<T> => el.localName === 'sbb-calendar-day');
   }
 
   /** A list of calendar's weekday cells. */
@@ -434,16 +456,9 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
     }
   }
 
-  /** Returns the rendered or slotted days within the given root. */
-  private _getDays(root: ParentNode): SbbCalendarDayElement<T>[] {
-    return Array.from(root.querySelectorAll('slot')).flatMap(
-      (slot) => slot.assignedElements({ flatten: true }) as SbbCalendarDayElement<T>[],
-    );
-  }
-
   /** Returns the day of the given table which should receive focus when tabbing into the days. */
   private _getDayTabStop(table: HTMLTableElement): SbbCalendarDayElement<T> | null {
-    const days = this._getDays(table);
+    const days = this._dayCells(table);
     return (
       days.find((day) => day.tabIndex === 0 && !day.disabled) ?? this._getFirstFocusableDay(days)
     );
@@ -1629,7 +1644,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   private _weekNumberCell(weekNumber: number, daysOfMonth: Day<T>[]): TemplateResult {
     if (this.multiple) {
       const days = daysOfMonth.filter((day: Day<T>) => day.weekValue === weekNumber);
-      const weekYear = days[0].weekYearValue;
+      const weekYear = days[0].weekYearValue!;
       const label = this._hasUnselectedDays(days)
         ? i18nCalendarSelectWeek(weekNumber, weekYear)
         : i18nCalendarDeselectWeek(weekNumber, weekYear);
