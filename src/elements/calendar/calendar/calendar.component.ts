@@ -359,7 +359,7 @@ export class SbbCalendarElement<T = Date> extends SbbFormAssociatedMixin(SbbElem
   /** A list of calendar's month cells. */
   private _yearCells(): SbbCalendarYearElement<T>[] {
     return Array.from<SbbCalendarYearElement<T>>(
-      this.shadowRoot?.querySelectorAll<SbbCalendarYearElement<T>>(`sbb-calendar-month`) ?? [],
+      this.shadowRoot?.querySelectorAll<SbbCalendarYearElement<T>>(`sbb-calendar-year`) ?? [],
     );
   }
 
