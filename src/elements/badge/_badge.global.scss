@@ -42,5 +42,9 @@ $theme: 'standard' !default;
     &:where(:not([sbb-badge-position]), [sbb-badge-position='after'])::after {
       inset-inline-end: var(--sbb-badge-position-offset);
     }
+
+    &:where([sbb-badge-disabled])::after {
+      display: none;
+    }
   }
 }

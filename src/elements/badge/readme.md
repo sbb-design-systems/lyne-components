@@ -6,6 +6,7 @@ The `sbb-badge` attribute can be applied to every element, but is mainly designe
 | -------------------- | ----------------- | ---------------------------------------------------------------------------- |
 | `sbb-badge`          | `string`          | Content displayed in badge.                                                  |
 | `sbb-badge-position` | `before \| after` | Positioning of the badge relative to the element where the badge is applied. |
+| `sbb-badge-disabled` | `boolean`         | Hides the badge.                                                             |
 
 Moreover, we provide the Sass mixin `badge` which contains the badge styling for general usage.
 
