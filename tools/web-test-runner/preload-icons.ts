@@ -76,6 +76,7 @@ const preloadIconList = [
   'ir-35',
   'ir-37',
   'link-small',
+  'lock-closed-small',
   'location-pin-map-small',
   'magnifying-glass-small',
   'minus-small',

@@ -151,6 +151,7 @@ e.g. to request a confirmation from a backend service.
 
 For important scenarios (e.g. safety-relevant actions), a `<sbb-dialog>` can be linked via the
 `confirmation-dialog` attribute (an id reference) or the `confirmationDialog` property.
+The dialog needs to placed outside the component, e.g. as a sibling or in the document body.
 When the user triggers the state change by keyboard or screen reader, the dialog is opened first
 instead of changing the state directly. Sliding with a pointer is not affected, as it is already a deliberate interaction.
 

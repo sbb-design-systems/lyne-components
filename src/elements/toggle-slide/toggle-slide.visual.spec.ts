@@ -1,40 +1,48 @@
 import { html, nothing } from 'lit';
+import { ref } from 'lit/directives/ref.js';
 
 import {
   describeEach,
   describeViewports,
   visualDiffDefault,
-  visualDiffFocus,
+  visualDiffStandardStates,
 } from '../core/testing/private.ts';
 
 import type { SbbToggleSlideElement } from './toggle-slide.component.ts';
 
-import '../icon.ts';
-import '../title.ts';
 import '../toggle-slide.ts';
 
 describe(`sbb-toggle-slide`, () => {
-  const longLabel = `For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  Cras nec dolor eget leo porttitor ultrices. Mauris sed erat nec justo posuere elementum.
-  In pharetra ante vel fringilla tincidunt. Fusce congue accumsan arcu dictum porttitor.
-  Pellentesque urna justo, lacinia at velit eu, sagittis tempus nibh.
-  Quisque vitae massa et turpis fermentum tristique.`;
-
-  const sizeCases = { size: [null, 's', 'm', 'l'] satisfies SbbToggleSlideElement['size'][] };
+  const sizeCases = {
+    size: [null, 's', 'm', 'l'] satisfies SbbToggleSlideElement['size'][],
+    checked: [false, true],
+  };
 
   const cases = {
-    ...sizeCases,
-    label: ['Label', 'Long label'],
+    checked: [false, true],
+    states: [
+      { disabled: false, readonly: false },
+      { disabled: true, readonly: false },
+      { disabled: false, readonly: true },
+    ],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    describeEach(cases, ({ size, label }) => {
+    describeEach(sizeCases, ({ size, checked }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-toggle-slide size=${size || nothing}>
-              ${label !== 'Long label' ? label : longLabel}
+            <sbb-toggle-slide size=${size || nothing} ?checked=${checked}>
+              <sbb-toggle-slide-unchecked-label>
+                Pull right to start
+              </sbb-toggle-slide-unchecked-label>
+              <sbb-toggle-slide-checked-label>Pull left to stop</sbb-toggle-slide-checked-label>
             </sbb-toggle-slide>
           `);
         }),
@@ -42,34 +50,36 @@ describe(`sbb-toggle-slide`, () => {
     });
   });
 
-  describeViewports({ viewports: ['zero'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     describeEach(
-      {
-        states: [
-          { disabled: false, readonly: false },
-          { disabled: true, readonly: false },
-          { disabled: false, readonly: true },
-        ],
-        checked: [false, true],
-        emulateMedia: [
-          { forcedColors: false, darkMode: false },
-          { forcedColors: true, darkMode: false },
-          { forcedColors: false, darkMode: true },
-        ],
-      },
+      cases,
       ({ states: { disabled, readonly }, checked, emulateMedia: { forcedColors, darkMode } }) => {
-        for (const state of [visualDiffDefault, visualDiffFocus]) {
+        for (const state of visualDiffStandardStates) {
           it(
             state.name,
             state.with(async (setup) => {
               await setup.withFixture(
                 html`
-                  <sbb-toggle-slide ?disabled=${disabled} ?checked=${checked} ?readonly=${readonly}>
-                    Label
+                  <sbb-toggle-slide ?disabled=${disabled} ?readonly=${readonly} ?checked=${checked}>
+                    <sbb-toggle-slide-unchecked-label>
+                      Pull right to start
+                    </sbb-toggle-slide-unchecked-label>
+                    <sbb-toggle-slide-checked-label>
+                      Pull left to stop
+                    </sbb-toggle-slide-checked-label>
                   </sbb-toggle-slide>
                 `,
                 { forcedColors, darkMode },
               );
+
+              // As the button is not at the center of the toggle slide, we need to forward the button when active or hover is tested.
+              if (state.name === 'active' || state.name === 'hover') {
+                setup.withStateElement(
+                  setup.snapshotElement
+                    .querySelector<SbbToggleSlideElement>('sbb-toggle-slide')!
+                    .shadowRoot!.querySelector<HTMLElement>('sbb-button-static')!,
+                );
+              }
             }),
           );
         }
@@ -77,30 +87,89 @@ describe(`sbb-toggle-slide`, () => {
     );
 
     it(
-      'custom icon',
+      'long label unchecked',
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html` <sbb-toggle-slide checked>Label</sbb-toggle-slide> `);
+        await setup.withFixture(
+          html`<sbb-toggle-slide>
+            <sbb-toggle-slide-unchecked-label>
+              Custom label with long text that needs ellipsis
+            </sbb-toggle-slide-unchecked-label>
+          </sbb-toggle-slide>`,
+        );
       }),
     );
 
-    for (const state of [visualDiffDefault, visualDiffFocus]) {
-      it(
-        `block variant ${state.name}`,
-        state.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-toggle-slide style="display: block;">
-              <sbb-title level="5" style="margin: 0;">Accessible Connection.</sbb-title>
-              <span class="sbb-text-s" style="color: var(--sbb-color-4);">
-                Show connections for accessible journeys.
-              </span>
+    it(
+      'long label checked',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-toggle-slide checked>
+            <sbb-toggle-slide-checked-label>
+              Custom label with long text that needs ellipsis
+            </sbb-toggle-slide-checked-label>
+          </sbb-toggle-slide>`,
+        );
+      }),
+    );
+
+    it(
+      'sliding progress',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-toggle-slide style="--sbb-toggle-slide-fraction: 0.5">
+            <sbb-toggle-slide-unchecked-label>
+              Custom label with long text that needs ellipsis
+            </sbb-toggle-slide-unchecked-label>
+          </sbb-toggle-slide>`,
+        );
+      }),
+    );
+
+    it(
+      'validating',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-toggle-slide
+            checked
+            ${ref((el?: Element) => {
+              if (!el) {
+                return;
+              }
+              (el as SbbToggleSlideElement)['_state'] = 'validating';
+            })}
+          >
+            <sbb-toggle-slide-unchecked-label>
+              Custom label with long text that needs ellipsis
+            </sbb-toggle-slide-unchecked-label>
+          </sbb-toggle-slide>`,
+        );
+      }),
+    );
+
+    it(
+      'custom width',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-toggle-slide style="width: 500px">
+            <sbb-toggle-slide-unchecked-label>
+              Custom label with long text that doesn't need ellipsis
+            </sbb-toggle-slide-unchecked-label>
+          </sbb-toggle-slide>`,
+        );
+      }),
+    );
+
+    it(
+      'stays in boundaries',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div style="width: 200px;">
+            <sbb-toggle-slide>
+              <sbb-toggle-slide-unchecked-label> Custom label </sbb-toggle-slide-unchecked-label>
             </sbb-toggle-slide>
-            <p class="sbb-text-xs">
-              In this example <code>&lt;sbb-toggle-slide&gt;</code> is converted to a block element
-              by setting <code>display: block</code>.
-            </p>
-          `);
-        }),
-      );
-    }
+          </div>`,
+        );
+      }),
+    );
   });
 });
