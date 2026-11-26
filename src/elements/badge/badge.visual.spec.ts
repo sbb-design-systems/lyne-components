@@ -29,6 +29,15 @@ describe(`sbb-badge`, () => {
   });
 
   describeViewports({ viewports: ['zero'] }, () => {
+    it(
+      'hides the badge when sbb-badge-disabled is set',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-icon name="user-small" sbb-badge="99" sbb-badge-disabled></sbb-icon>`,
+        );
+      }),
+    );
+
     for (const { forcedColors, darkMode } of [
       { forcedColors: false, darkMode: true },
       { forcedColors: true, darkMode: false },

@@ -34,7 +34,8 @@ describe(`sbb-menu-link`, () => {
       (_, index) => html`
         <sbb-menu-link
           href="#"
-          sbb-badge=${badge && !disabled && !disabledInteractive ? badge : nothing}
+          sbb-badge=${badge ?? nothing}
+          ?sbb-badge-disabled=${badge && (disabled || disabledInteractive)}
           icon-name=${iconName || nothing}
           ?disabled=${disabled}
           ?disabled-interactive=${disabledInteractive}
