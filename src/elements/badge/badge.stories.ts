@@ -21,30 +21,48 @@ const badgePosition: InputType = {
   options: ['before', 'after'],
 };
 
+const disabled: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   badgeContent,
   badgePosition,
+  disabled,
 };
 
 const defaultArgs: Args = {
   badgeContent: '3',
   badgePosition: 'after',
+  disabled: false,
 };
 
-const BadgeOnIconTemplate = ({ badgeContent, badgePosition }: Args): TemplateResult => html`
+const BadgeOnIconTemplate = ({
+  badgeContent,
+  badgePosition,
+  disabled,
+}: Args): TemplateResult => html`
   <sbb-icon
     sbb-badge=${badgeContent}
     sbb-badge-position=${badgePosition}
+    ?sbb-badge-disabled=${disabled}
     name="controls-small"
   ></sbb-icon>
 `;
 
-const BadgeOnHeaderButtonTemplate = ({ badgeContent, badgePosition }: Args): TemplateResult => html`
+const BadgeOnHeaderButtonTemplate = ({
+  badgeContent,
+  badgePosition,
+  disabled,
+}: Args): TemplateResult => html`
   <sbb-header-button>
     <sbb-icon
       slot="icon"
       sbb-badge=${badgeContent}
       sbb-badge-position=${badgePosition}
+      ?sbb-badge-disabled=${disabled}
       name="user-small"
     ></sbb-icon>
     User menu

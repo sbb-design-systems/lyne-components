@@ -58,6 +58,7 @@
           "popover",
           "sbb-badge",
           "sbb-badge-position",
+          "sbb-badge-disabled",
           "sbb-dialog-close",
           "sbb-focus-initial",
           "sbb-header-scroll-origin",

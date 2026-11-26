@@ -24,16 +24,16 @@ export abstract class SbbCalendarCellBaseElement<T = Date> extends SbbDisabledMi
     super();
     this.addController(
       new SbbPropertyWatcherController(this, () => this.getParent(), {
-        dateFilter: (component) => this.setDisabledFilteredState(component),
-        min: (component) => this.setDisabledFilteredState(component),
-        max: (component) => this.setDisabledFilteredState(component),
-        value: (component) => this.setSelectedState(component),
+        dateFilter: (component) => this.setDisabledFilteredState?.(component),
+        min: (component) => this.setDisabledFilteredState?.(component),
+        max: (component) => this.setDisabledFilteredState?.(component),
+        value: (component) => this.setSelectedState?.(component),
       }),
     );
   }
 
-  protected abstract setDisabledFilteredState(parent: SbbCalendarElement<T>): void;
-  protected abstract setSelectedState(parent: SbbCalendarElement<T>): void;
+  protected setDisabledFilteredState?(parent: SbbCalendarElement<T>): void;
+  protected setSelectedState?(parent: SbbCalendarElement<T>): void;
 
   protected getParent(): SbbCalendarElement<T> | null {
     return (this.getRootNode?.() as ShadowRoot)?.host?.closest<SbbCalendarElement<T>>(
