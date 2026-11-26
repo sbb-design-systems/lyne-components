@@ -18,8 +18,8 @@ or asynchronously confirm the state change.
 ## Slots
 
 The two dedicated `<sbb-toggle-slide-unchecked-label>` and `<sbb-toggle-slide-checked-label>`
-elements can be slotted into the unnamed slot to provide context-specific labels: the activation label
-is displayed while the component is unchecked, and the deactivation label is displayed while the component is checked.
+elements can be slotted into the unnamed slot to provide context-specific labels: the unchecked label
+is displayed while the component is unchecked, and the checked label is displayed while the component is checked.
 
 The slotted content is purely visual and is hidden from assistive technology.
 Therefore, an accessible name must always be provided separately via `aria-label` or `aria-labelledby`
@@ -33,7 +33,7 @@ even while the user is currently interacting with the component.
 
 While the component is `readonly`, the user can no longer change its state.
 A lock icon replaces the arrow or tick icon inside the button.
-This is useful if a state change cannot be reverted.
+This is useful if a state change cannot be undone.
 
 ```html
 <sbb-toggle-slide readonly checked aria-label="Signal state">
@@ -44,7 +44,7 @@ This is useful if a state change cannot be reverted.
 </sbb-toggle-slide>
 ```
 
-A `readonly` state can also be set programmatically once a state change has been confirmed:
+A `readonly` state could be set programmatically once a state change has been confirmed:
 
 ```ts
 toggleSlide.addEventListener('change', () => {
@@ -127,6 +127,8 @@ toggleSlide.setCustomValidity('Backend check-in failed. Please try again.');
 toggleSlide.setCustomValidity('');
 ```
 
+See e.g. https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/setCustomValidity
+
 ## Interactions
 
 The state of the component can only be changed with a deliberate interaction:
@@ -159,8 +161,9 @@ and moves the focus back to the component.
 
 ```html
 <sbb-toggle-slide
+  aria-label="Signal state"
+  aria-description="The signal is off. Would you like to turn it on?"
   confirmation-dialog="confirmation-dialog"
-  aria-label="Should the signal be turned on?"
 >
   <sbb-toggle-slide-unchecked-label>
     Pull right to turn the signal on
@@ -168,18 +171,13 @@ and moves the focus back to the component.
   <sbb-toggle-slide-checked-label>The signal is on!</sbb-toggle-slide-checked-label>
 </sbb-toggle-slide>
 <sbb-dialog id="confirmation-dialog">
-  <sbb-dialog-content id="confirmation">
-    Are you sure you want to turn on the signal?
+  <sbb-dialog-title>Confirm signal activation</sbb-dialog-title>
+  <sbb-dialog-content>
+    Do you want to turn on the signal? This action cannot be undone.
   </sbb-dialog-content>
-  <sbb-dialog-actions>
-    <sbb-secondary-button
-      sbb-dialog-close="false"
-      sbb-focus-initial
-      aria-describedby="confirmation"
-    >
-      Cancel
-    </sbb-secondary-button>
-    <sbb-button sbb-dialog-close="true" aria-describedby="confirmation">Confirm</sbb-button>
+  <sbb-dialog-actions style="justify-content: space-between">
+    <sbb-secondary-button sbb-dialog-close="false" sbb-focus-initial>Cancel</sbb-secondary-button>
+    <sbb-button sbb-dialog-close="true">Confirm</sbb-button>
   </sbb-dialog-actions>
 </sbb-dialog>
 ```
@@ -208,13 +206,6 @@ toggleSlide.addEventListener('validate', (event: SbbToggleSlideValidateEvent) =>
 });
 ```
 
-## Keyboard interaction
-
-| Keyboard                          | Action                                                                                                                    |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| <kbd>Space</kbd> (press and hold) | Starts the sliding animation towards the opposite state. <br/>As soon as the end is reached, the activation is committed. |
-| <kbd>Space</kbd> (release)        | Confirms the state change if the animation has completed; otherwise aborts it.                                            |
-
 ## Accessibility
 
 The component has the role `switch` and reflects its state via `aria-checked`,
@@ -237,6 +228,15 @@ If a [confirmation dialog](#confirmation-dialog) is linked, it is opened before 
 The state is exposed via `aria-checked`. While the `validate` event is pending, the component
 is marked as busy via `aria-busy`. A pending asynchronous validation and a failed validation are
 announced by a live region.
+
+It's recommended to describe the action or state using `aria-describedby` or `aria-description` attribute.
+
+- "Check-in toggle off – Would you like to check in for your journey?"
+- "Check-in toggle on and unavailable – You have successfully checked in."
+
+If the action can be undone:
+
+- "Check-in toggle on – You have successfully checked in."
 
 ## Complex Values
 

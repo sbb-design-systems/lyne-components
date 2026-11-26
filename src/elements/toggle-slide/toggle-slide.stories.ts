@@ -122,7 +122,9 @@ const TemplateWithHint = ({ checked, ...args }: Args): TemplateResult => html`
     <sbb-toggle-slide ${sbbSpread(args)} .checked=${checked} aria-describedby="journey-hint">
       ${labels}
     </sbb-toggle-slide>
-    <sbb-hint id="journey-hint">After the journey started, you can stop it at any time.</sbb-hint>
+    <sbb-hint id="journey-hint">
+      Once the journey has started, you can stop it at any time.
+    </sbb-hint>
   </span>
 `;
 
@@ -192,63 +194,71 @@ const TemplateWithForm = (args: Args): TemplateResult => html`
   </form>
 `;
 
-const TemplateWithConfirmationDialog = (args: Args): TemplateResult => html`
-  <div>
-    <sbb-title level="6" style="margin-block-start: 0;">Signal state</sbb-title>
-    <sbb-toggle-slide
-      ${sbbSpread(args)}
-      confirmation-dialog="confirmation-dialog"
-      @change=${(e: Event) => {
-        const toggleSlideElement = e.target as SbbToggleSlideElement;
-        if (toggleSlideElement.checked) {
-          toggleSlideElement.readOnly = true;
-        }
-      }}
-      @validate=${(e: SbbToggleSlideValidateEvent) => {
-        e.preventDefaultConditionally(
-          // Simulate a backend call with a timeout.
-          new Promise((resolve) => setTimeout(() => resolve(true), 1500)),
-        );
-      }}
-    >
-      <sbb-toggle-slide-unchecked-label>
-        Pull right to turn the signal on
-      </sbb-toggle-slide-unchecked-label>
-      <sbb-toggle-slide-checked-label>The signal is on!</sbb-toggle-slide-checked-label>
-    </sbb-toggle-slide>
-    <sbb-secondary-button
-      style="margin-block: var(--sbb-spacing-responsive-s); display: flex; width: fit-content;"
-      @click=${(e: Event) => {
-        const toggleSlideElement = (e.currentTarget as HTMLElement).parentElement!.querySelector(
-          'sbb-toggle-slide',
-        )!;
-        toggleSlideElement.checked = false;
-        toggleSlideElement.readOnly = false;
-      }}
-    >
-      Reset
-    </sbb-secondary-button>
-  </div>
-  <sbb-dialog id="confirmation-dialog">
-    <sbb-dialog-content id="confirmation">
-      Are you sure you want to turn on the signal?
-    </sbb-dialog-content>
-    <sbb-dialog-actions style="justify-content: space-between">
-      <sbb-secondary-button
-        sbb-dialog-close="false"
-        sbb-focus-initial
-        aria-describedby="confirmation"
+const TemplateWithConfirmationDialog = (args: Args): TemplateResult => {
+  const ariaDescriptionOff = 'The signal is off. Would you like to turn it on?';
+  const ariaDescriptionOn = 'The signal is on. This state cannot be undone.';
+  return html`
+    <div>
+      <sbb-title level="6" style="margin-block-start: 0;">Signal state</sbb-title>
+      <sbb-toggle-slide
+        ${sbbSpread(args)}
+        aria-description=${ariaDescriptionOff}
+        confirmation-dialog="confirmation-dialog"
+        @change=${(e: Event) => {
+          const toggleSlideElement = e.target as SbbToggleSlideElement;
+          if (toggleSlideElement.checked) {
+            toggleSlideElement.readOnly = true;
+            toggleSlideElement.ariaDescription = ariaDescriptionOn;
+          }
+        }}
+        @validate=${(e: SbbToggleSlideValidateEvent) => {
+          e.preventDefaultConditionally(
+            // Simulate a backend call with a timeout.
+            new Promise((resolve) => setTimeout(() => resolve(true), 1500)),
+          );
+        }}
       >
-        Cancel
+        <sbb-toggle-slide-unchecked-label>
+          Pull right to turn the signal on
+        </sbb-toggle-slide-unchecked-label>
+        <sbb-toggle-slide-checked-label>The signal is on!</sbb-toggle-slide-checked-label>
+      </sbb-toggle-slide>
+      <sbb-secondary-button
+        style="margin-block: var(--sbb-spacing-responsive-s); display: flex; width: fit-content;"
+        @click=${(e: Event) => {
+          const toggleSlideElement = (e.currentTarget as HTMLElement).parentElement!.querySelector(
+            'sbb-toggle-slide',
+          )!;
+          toggleSlideElement.checked = false;
+          toggleSlideElement.readOnly = false;
+          toggleSlideElement.ariaDescription = ariaDescriptionOff;
+        }}
+      >
+        Reset
       </sbb-secondary-button>
-      <sbb-button sbb-dialog-close="true" aria-describedby="confirmation">Confirm</sbb-button>
-    </sbb-dialog-actions>
-  </sbb-dialog>
-`;
+    </div>
+    <sbb-dialog id="confirmation-dialog">
+      <sbb-dialog-title>Confirm signal activation</sbb-dialog-title>
+      <sbb-dialog-content>
+        Do you want to turn on the signal? This action cannot be undone.
+      </sbb-dialog-content>
+      <sbb-dialog-actions style="justify-content: space-between">
+        <sbb-secondary-button sbb-dialog-close="false" sbb-focus-initial>
+          Cancel
+        </sbb-secondary-button>
+        <sbb-button sbb-dialog-close="true">Confirm</sbb-button>
+      </sbb-dialog-actions>
+    </sbb-dialog>
+  `;
+};
 
 const TemplateReadOnly = ({ checked, ...args }: Args): TemplateResult => html`
-  <sbb-title level="6" style="margin-block-start: 0;">Contract</sbb-title>
-  <sbb-toggle-slide ${sbbSpread(args)} .checked=${checked}>
+  <sbb-title level="6" style="margin-block-start: 0;">Contract signature</sbb-title>
+  <sbb-toggle-slide
+    ${sbbSpread(args)}
+    .checked=${checked}
+    aria-description="The contract is signed. This state cannot be undone."
+  >
     <sbb-toggle-slide-unchecked-label>
       Pull right to sign the contract
     </sbb-toggle-slide-unchecked-label>
@@ -303,7 +313,7 @@ export const ReadonlyChecked: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'aria-label': 'Sign contract',
+    'aria-label': 'Contract signature',
     readonly: true,
     checked: true,
   },
@@ -336,7 +346,7 @@ export const WithForm: StoryObj = {
 export const WithConfirmationDialog: StoryObj = {
   render: TemplateWithConfirmationDialog,
   argTypes: defaultArgTypesWithoutStates,
-  args: { ...defaultArgsWithoutStates, 'aria-label': 'Should the signal be turned on?' },
+  args: { ...defaultArgsWithoutStates, 'aria-label': 'Signal state' },
 };
 
 const meta: Meta = {
