@@ -53,6 +53,7 @@
           "no-unknown-slot": "error"
         },
         "globalAttributes": [
+          "aria-description",
           "inert",
           "popover",
           "sbb-badge",
