@@ -28,9 +28,9 @@ import style from './alert.scss?inline';
 /**
  * It displays messages which require user's attention.
  *
- * @slot - Use the unnamed slot to add content to the `sbb-alert`. At a minimum an `sbb-title` element and a descriptive text should be used.
+ * @slot - Use the unnamed slot to add content to the `sbb-alert`. At a minimum a heading element (`h1-h6`) or `sbb-title` element and a descriptive text should be used.
  * @slot icon - Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
- * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
+ * @slot title - Slot for the title. For the heading elements (`h1-h6`) and the `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
  */
 export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
   public static override readonly elementName: string = 'sbb-alert';
@@ -134,7 +134,9 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
   private _handleSlotchange(): void {
     this._syncLinks();
 
-    const title = Array.from(this.children).find((el) => el.localName === 'sbb-title');
+    const title = Array.from(this.children).find((el) =>
+      ['sbb-title', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(el.localName),
+    );
     if (title) {
       title.slot = 'title';
     }

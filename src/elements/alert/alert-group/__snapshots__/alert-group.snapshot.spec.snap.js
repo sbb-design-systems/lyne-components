@@ -8,14 +8,9 @@ snapshots["sbb-alert-group renders DOM"] =
   role="status"
 >
   <sbb-alert animation="all">
-    <sbb-title
-      level="3"
-      negative=""
-      slot="title"
-      visual-level="5"
-    >
+    <h3 slot="title">
       Interruption between Genève and Lausanne
-    </sbb-title>
+    </h3>
     The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
   </sbb-alert>
 </sbb-alert-group>
@@ -42,14 +37,9 @@ snapshots["sbb-alert-group renders with slotted DOM"] =
     Interruptions
   </span>
   <sbb-alert animation="all">
-    <sbb-title
-      level="3"
-      negative=""
-      slot="title"
-      visual-level="5"
-    >
+    <h3 slot="title">
       Interruption between Genève and Lausanne
-    </sbb-title>
+    </h3>
     The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
   </sbb-alert>
 </sbb-alert-group>

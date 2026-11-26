@@ -7,12 +7,12 @@ visual gap between each other.
 ```html
 <sbb-alert-group accessibility-title="Disruptions" accessibility-title-level="2">
   <sbb-alert size="l">
-    <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
+    <h3>Interruption between Genève and Lausanne</h3>
     The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
     <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
   </sbb-alert>
   <sbb-alert>
-    <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
+    <h3>Interruption between Berne and Olten</h3>
     Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
     construction work will take place. You have to expect changed travel times and changed
     connections. <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
@@ -29,20 +29,20 @@ Listen to the `empty` event dispatched by the group and react accordingly.
 
 ## Slots
 
-The unnamed slot is used to project an `<sbb-title>`, text content and one or more `<sbb-link>` elements.
+The unnamed slot is used to project a heading element (`h1-h6`) or `<sbb-title>`, text content and one or more `<sbb-link>` elements.
 
 The component can optionally display an `<sbb-icon>` at the component start using the `iconName` property or via custom content using the `icon` slot.
 
 ```html
 <sbb-alert icon-name="disruption">
-  <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
+  <h3>Interruption between Berne and Olten</h3>
   Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
   construction work will take place. You have to expect changed travel times and changed
   connections. <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
 </sbb-alert>
 
 <sbb-alert>
-  <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
+  <h3>Interruption between Berne and Olten</h3>
   <sbb-icon slot="icon" name="disruption"></sbb-icon>
   Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
   construction work will take place. You have to expect changed travel times and changed
@@ -57,7 +57,7 @@ use the `readonly` attribute/`readOnly` property.
 
 ```html
 <sbb-alert readonly>
-  <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
+  <h3>Interruption between Berne and Olten</h3>
   Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
   construction work will take place. You have to expect changed travel times and changed
   connections.
@@ -136,11 +136,11 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
 
 #### Slots
 
-| Name    | Description                                                                                                                        |
-| ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-|         | Use the unnamed slot to add content to the `sbb-alert`. At a minimum an `sbb-title` element and a descriptive text should be used. |
-| `icon`  | Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.                       |
-| `title` | Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.     |
+| Name    | Description                                                                                                                                                    |
+| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|         | Use the unnamed slot to add content to the `sbb-alert`. At a minimum a heading element (`h1-h6`) or `sbb-title` element and a descriptive text should be used. |
+| `icon`  | Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.                                                   |
+| `title` | Slot for the title. For the heading elements (`h1-h6`) and the `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.       |
 
 ### class: `SbbAlertGroupElement`, `sbb-alert-group`
 

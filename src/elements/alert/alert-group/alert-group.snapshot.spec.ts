@@ -7,8 +7,6 @@ import type { SbbAlertGroupElement } from './alert-group.component.ts';
 
 import '../../alert.ts';
 
-import '../../title.ts';
-
 describe(`sbb-alert-group`, () => {
   describe('renders', () => {
     let root: SbbAlertGroupElement;
@@ -17,7 +15,7 @@ describe(`sbb-alert-group`, () => {
       root = await fixture(html`
         <sbb-alert-group accessibility-title="Disruptions" accessibility-title-level="3">
           <sbb-alert>
-            <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
+            <h3>Interruption between Genève and Lausanne</h3>
             The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
           </sbb-alert>
         </sbb-alert-group>
@@ -43,7 +41,7 @@ describe(`sbb-alert-group`, () => {
         <sbb-alert-group accessibility-title-level="3">
           <span slot="accessibility-title">Interruptions</span>
           <sbb-alert>
-            <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
+            <h3>Interruption between Genève and Lausanne</h3>
             The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
           </sbb-alert>
         </sbb-alert-group>

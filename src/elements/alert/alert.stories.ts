@@ -10,19 +10,18 @@ import { SbbAlertElement, SbbAlertGroupElement } from '../alert.ts';
 import readme from './readme.md?raw';
 
 import '../link.ts';
-import '../title.ts';
 
 // Group
 
 const Template = (args: Args): TemplateResult => html`
   <sbb-alert-group ${sbbSpread(args)}>
     <sbb-alert size="l">
-      <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
+      <h3>Interruption between Genève and Lausanne</h3>
       The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
       <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
     </sbb-alert>
     <sbb-alert>
-      <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
+      <h3>Interruption between Berne and Olten</h3>
       Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
       construction work will take place. You have to expect changed travel times and changed
       connections. <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
@@ -84,7 +83,7 @@ const Default = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-alert ${sbbSpread(args)}>
-    <sbb-title level="3">${title}</sbb-title>
+    <h3>${title}</h3>
     ${contentSlotText}
   </sbb-alert>
 `;
@@ -95,7 +94,7 @@ const WithLink = ({
   ...args
 }: Args): TemplateResult => html`
   <sbb-alert ${sbbSpread(args)}>
-    <sbb-title level="3">${title}</sbb-title>
+    <h3>${title}</h3>
     ${contentSlotText} <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
   </sbb-alert>
 `;
@@ -116,7 +115,7 @@ const CustomSlots = ({
 }: Args): TemplateResult => html`
   <sbb-alert ${sbbSpread(args)}>
     <sbb-icon name="disruption" slot="icon"></sbb-icon>
-    <sbb-title level="3">${title}</sbb-title>
+    <h3>${title}</h3>
     ${contentSlotText}
   </sbb-alert>
 `;
