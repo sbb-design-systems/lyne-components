@@ -8,12 +8,12 @@ import { SbbToggleSlideElement, type SbbToggleSlideValidateEvent } from '../togg
 
 import readme from './readme.md?raw';
 
-import '../toggle-slide.ts';
 import '../button.ts';
 import '../card.ts';
 import '../dialog.ts';
 import '../form-field.ts';
 import '../title.ts';
+import '../toggle-slide.ts';
 
 const size: InputType = {
   control: {
@@ -74,7 +74,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgsWithoutStates: Args = {
   size: undefined,
-  'aria-label': 'Journey check-in state',
+  'aria-label': 'Journey check-in',
   value: 'Value',
   name: 'name',
 };
@@ -95,7 +95,10 @@ const labels = html`
   <sbb-toggle-slide-checked-label>To stop pull left</sbb-toggle-slide-checked-label>
 `;
 
-const Template = ({ checked, ...args }: Args): TemplateResult => {
+const Template = (
+  { checked, ...args }: Args,
+  onValidate?: (e: SbbToggleSlideValidateEvent) => void,
+): TemplateResult => {
   const ariaDescriptionOff =
     args.readonly || args.disabled
       ? 'The journey has finished. This state cannot be undone.'
@@ -107,6 +110,7 @@ const Template = ({ checked, ...args }: Args): TemplateResult => {
       : 'The journey has successfully started. Would you like to stop it?';
 
   return html`
+    ${title}
     <sbb-toggle-slide
       ${sbbSpread(args)}
       .checked=${checked}
@@ -117,28 +121,20 @@ const Template = ({ checked, ...args }: Args): TemplateResult => {
           ? ariaDescriptionOn
           : ariaDescriptionOff;
       }}
+      @validate=${onValidate}
     >
       ${labels}
     </sbb-toggle-slide>
   `;
 };
 
-const TemplateWithTitle = (args: Args): TemplateResult => html` ${title} ${Template(args)} `;
-
-const TemplateWithAsynchronousValidation = ({ checked, ...args }: Args): TemplateResult => html`
-  ${title}
-  <sbb-toggle-slide
-    ${sbbSpread(args)}
-    .checked=${checked}
-    @validate=${(e: SbbToggleSlideValidateEvent) => {
-      e.preventDefaultConditionally(
-        // Simulate a backend call with a timeout.
-        new Promise((resolve) => setTimeout(() => resolve(true), 1500)),
-      );
-    }}
-  >
-    ${labels}
-  </sbb-toggle-slide>
+const TemplateWithAsynchronousValidation = (args: Args): TemplateResult => html`
+  ${Template(args, (e) => {
+    e.preventDefaultConditionally(
+      // Simulate a backend call with a timeout.
+      new Promise((resolve) => setTimeout(() => resolve(true), 1500)),
+    );
+  })}
 `;
 
 const TemplateWithHint = ({ checked, ...args }: Args): TemplateResult => html`
@@ -203,12 +199,12 @@ const TemplateWithForm = (args: Args): TemplateResult => html`
   >
     <fieldset>
       <legend class="sbb-text-s">&nbsp;fieldset&nbsp;</legend>
-      ${TemplateWithTitle(args)}
+      ${Template(args)}
     </fieldset>
 
     <fieldset disabled>
       <legend class="sbb-text-s">&nbsp;disabled fieldset&nbsp;</legend>
-      ${TemplateWithTitle({ ...args, name: 'disabled' })}
+      ${Template({ ...args, name: 'disabled' })}
     </fieldset>
     <div style="margin-block: var(--sbb-spacing-responsive-s)">
       <sbb-secondary-button type="reset">Reset</sbb-secondary-button>
@@ -274,6 +270,10 @@ const TemplateWithConfirmationDialog = (args: Args): TemplateResult => {
         <sbb-button sbb-dialog-close="true">Confirm</sbb-button>
       </sbb-dialog-actions>
     </sbb-dialog>
+    <p>
+      When attempting to change the state using the keyboard, this example displays an additional
+      confirmation dialog.
+    </p>
   `;
 };
 
@@ -292,13 +292,13 @@ const TemplateReadOnly = ({ checked, ...args }: Args): TemplateResult => html`
 `;
 
 export const Default: StoryObj = {
-  render: TemplateWithTitle,
+  render: (args) => Template(args),
   argTypes: defaultArgTypes,
   args: defaultArgs,
 };
 
 export const SizeS: StoryObj = {
-  render: TemplateWithTitle,
+  render: (args) => Template(args),
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -307,7 +307,7 @@ export const SizeS: StoryObj = {
 };
 
 export const SizeM: StoryObj = {
-  render: TemplateWithTitle,
+  render: (args) => Template(args),
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -316,7 +316,7 @@ export const SizeM: StoryObj = {
 };
 
 export const SizeL: StoryObj = {
-  render: TemplateWithTitle,
+  render: (args) => Template(args),
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -325,7 +325,7 @@ export const SizeL: StoryObj = {
 };
 
 export const Checked: StoryObj = {
-  render: TemplateWithTitle,
+  render: (args) => Template(args),
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
