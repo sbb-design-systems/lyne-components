@@ -201,6 +201,7 @@ describe('sbb-autocomplete', () => {
                         : undefined,
                     },
                   );
+                  setup.withStateElement(setup.snapshotElement.querySelector('input')!);
                   setup.withPostSetupAction(() => openAutocomplete(setup));
                 }),
               );
@@ -225,6 +226,7 @@ describe('sbb-autocomplete', () => {
               `state=${visualDiffState.name} size=${size}`,
               visualDiffState.with(async (setup) => {
                 await setup.withFixture(template({ ...defaultArgs, negative, size }), style);
+                setup.withStateElement(setup.snapshotElement.querySelector('input')!);
               }),
             );
           }
@@ -489,7 +491,7 @@ describe('sbb-autocomplete', () => {
       'forcedColors=true',
       visualDiffFocus.with(async (setup) => {
         await setup.withFixture(template(defaultArgs), { forcedColors: true });
-
+        setup.withStateElement(setup.snapshotElement.querySelector('input')!);
         setup.withPostSetupAction(() => openAutocomplete(setup));
       }),
     );

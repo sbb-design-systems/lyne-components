@@ -235,12 +235,12 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
     }
   }
 
-  /** Return the list of chip elements **/
+  /** Return the list of chip elements */
   private _chipElements(): SbbChipElement<T>[] {
     return Array.from(this.querySelectorAll?.<SbbChipElement<T>>('sbb-chip') ?? []);
   }
 
-  /** Return the list of enabled chip elements **/
+  /** Return the list of enabled chip elements */
   private _enabledChipElements(): SbbChipElement<T>[] {
     return Array.from(this.querySelectorAll?.('sbb-chip:not([disabled])') ?? []);
   }
@@ -318,7 +318,7 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
 
   /**
    * Listen for keyboard events on the input
-   **/
+   */
   private _onInputKeyDown(event: KeyboardEvent): void {
     switch (event.key) {
       case 'Backspace':
@@ -341,7 +341,7 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
 
   /**
    * Handle blur event on the input
-   **/
+   */
   private _onInputBlur(): void {
     if (this.addOnBlur) {
       this._createChipFromInput('input');

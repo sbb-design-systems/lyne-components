@@ -16,7 +16,7 @@ export class SbbIconSidebarElement extends SbbElement {
   public static override readonly role = 'navigation';
   public static override styles: CSSResultGroup = [hostScrollbarStyles, unsafeCSS(style)];
 
-  /** Background color of the icon sidebar. Either `white` or `milk`. **/
+  /** Background color of the icon sidebar. Either `white` or `milk`. */
   @property({ reflect: true })
   public accessor color: 'white' | 'milk' = 'white';
 

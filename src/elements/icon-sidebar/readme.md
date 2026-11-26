@@ -251,7 +251,7 @@ information.
 
 | Name        | Attribute | Privacy | Type                                     | Default   | Description                                                                      |
 | ----------- | --------- | ------- | ---------------------------------------- | --------- | -------------------------------------------------------------------------------- |
-| `color`     | `color`   | public  | `'white' \| 'milk'`                      | `'white'` | Background color of the icon sidebar. Either `white` or `milk`. \*               |
+| `color`     | `color`   | public  | `'white' \| 'milk'`                      | `'white'` | Background color of the icon sidebar. Either `white` or `milk`.                  |
 | `container` | -         | public  | `SbbIconSidebarContainerElement \| null` |           | Returns the SbbIconSidebarContainerElement where this icon-sidebar is contained. |
 
 #### Slots

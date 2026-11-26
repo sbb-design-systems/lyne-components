@@ -430,6 +430,25 @@ describe('sbb-stepper', () => {
       element.remove();
     });
 
+    it('should parse selectedIndex', async () => {
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
+        element,
+      );
+
+      element.selectedIndex = 1;
+      await stepChangeSpy.calledOnce();
+      expect(element.selectedIndex).to.be.equal(1);
+
+      element.selectedIndex = null;
+      await waitForLitRender(element);
+      expect(element.selectedIndex).to.be.equal(1);
+
+      element.selectedIndex = 'test' as unknown as number;
+      await waitForLitRender(element);
+      expect(element.selectedIndex).to.be.equal(1);
+    });
+
     it('should select step when selected property is set before component is loaded', async () => {
       element = document.createElement('sbb-stepper');
 
@@ -883,6 +902,59 @@ describe('sbb-stepper', () => {
           <sbb-step>Step three content.</sbb-step>
         </sbb-stepper>
       `);
+    });
+
+    it('keeps focus on the selected label when navigating backwards with arrow keys', async () => {
+      const labels = element.querySelectorAll<SbbStepLabelElement>('sbb-step-label');
+      element.next();
+      element.next();
+      await waitForLitRender(element);
+      labels[2].focus();
+      expect(document.activeElement).to.equal(labels[2]);
+
+      await sendKeys({ press: 'ArrowLeft' });
+      expect(element.selectedIndex).to.equal(1);
+      expect(document.activeElement).to.equal(labels[1]);
+      expect(labels[2].disabled).to.be.true;
+
+      await sendKeys({ press: 'ArrowLeft' });
+      expect(element.selectedIndex).to.equal(0);
+      expect(document.activeElement).to.equal(labels[0]);
+      expect(labels[1].disabled).to.be.true;
+    });
+
+    it('does not move focus into the stepper when selecting a previous step from outside', async () => {
+      element.next();
+      element.next();
+      await waitForLitRender(element);
+      const outside = document.createElement('button');
+      element.after(outside);
+      outside.focus();
+      try {
+        element.previous();
+        expect(element.selectedIndex).to.equal(1);
+        expect(document.activeElement).to.equal(outside);
+      } finally {
+        outside.remove();
+      }
+    });
+
+    it('respects focus moved outside by a stepchange listener', async () => {
+      element.next();
+      element.next();
+      await waitForLitRender(element);
+      const labels = element.querySelectorAll<SbbStepLabelElement>('sbb-step-label');
+      const outside = document.createElement('button');
+      element.after(outside);
+      labels[2].focus();
+      element.addEventListener('stepchange', () => outside.focus(), { once: true });
+      try {
+        await sendKeys({ press: 'ArrowLeft' });
+        expect(element.selectedIndex).to.equal(1);
+        expect(document.activeElement).to.equal(outside);
+      } finally {
+        outside.remove();
+      }
     });
 
     it('blocks clicking the directly next step label because it is disabled by linear mode', async () => {

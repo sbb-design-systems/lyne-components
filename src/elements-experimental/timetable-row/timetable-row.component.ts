@@ -336,6 +336,11 @@ export class SbbTimetableRowElement extends SbbElement {
 
   private _language = new SbbLanguageController(this);
 
+  /** @internal */
+  public override focus(options?: FocusOptions): void {
+    this.shadowRoot?.querySelector<SbbCardButtonElement>('sbb-card-button')?.focus(options);
+  }
+
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 

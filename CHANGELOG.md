@@ -2,6 +2,51 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.14.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.13.3...v5.14.0) (2026-11-23)
+
+
+### Features
+
+* **tooltip:** add positions property ([#5413](https://github.com/sbb-design-systems/lyne-components/issues/5413)) ([a4b3d43](https://github.com/sbb-design-systems/lyne-components/commit/a4b3d43e32c305b48649be200d34e59fc375a08a))
+* **tooltip:** handle `sbb-tooltip-disabled` attribute ([#5411](https://github.com/sbb-design-systems/lyne-components/issues/5411)) ([66cf707](https://github.com/sbb-design-systems/lyne-components/commit/66cf707d45521917765438e07fd795852f628c55))
+
+
+### Bug Fixes
+
+* align handling of numeric properties ([#5416](https://github.com/sbb-design-systems/lyne-components/issues/5416)) ([64fdbf4](https://github.com/sbb-design-systems/lyne-components/commit/64fdbf4b47ae4c8aa9f0d87bad60c3a128b80323))
+* **seat-reservation:** avoid setting inline styles ([#5414](https://github.com/sbb-design-systems/lyne-components/issues/5414)) ([c8df6da](https://github.com/sbb-design-systems/lyne-components/commit/c8df6da5a32798636e1c4a608af255c7dce4d0ac))
+
+
+### Code Refactoring
+
+* **tooltip:** add support for `sbb-tooltip-positions` attribute ([#5415](https://github.com/sbb-design-systems/lyne-components/issues/5415)) ([5fef59a](https://github.com/sbb-design-systems/lyne-components/commit/5fef59a2e14e33b62f43b0095d1d16021044f171))
+
+## [5.13.3](https://github.com/sbb-design-systems/lyne-components/compare/v5.13.2...v5.13.3) (2026-11-16)
+
+
+### Bug Fixes
+
+* **flip-card:** correctly resolve accessibility-label after hydration ([#5403](https://github.com/sbb-design-systems/lyne-components/issues/5403)) ([0b909fd](https://github.com/sbb-design-systems/lyne-components/commit/0b909fd3de40ed0f35dec5d636a80220be29797b))
+* **radio-button-group:** consider `null` as valid value ([#4990](https://github.com/sbb-design-systems/lyne-components/issues/4990)) ([7db263c](https://github.com/sbb-design-systems/lyne-components/commit/7db263c67e69e891a902a7c0dfdc4b75034666c6))
+* **radio-button, radio-button-panel:** ensure correct tabindex behavior ([#5392](https://github.com/sbb-design-systems/lyne-components/issues/5392)) ([bf70096](https://github.com/sbb-design-systems/lyne-components/commit/bf70096338ffadd2430117f19143a94a7bdeec6b))
+* **stepper:** fix arrow key navigation in linear mode ([#5397](https://github.com/sbb-design-systems/lyne-components/issues/5397)) ([036b793](https://github.com/sbb-design-systems/lyne-components/commit/036b7933d71f16731a7732f0a07157f0bd96a765)), closes [#5386](https://github.com/sbb-design-systems/lyne-components/issues/5386)
+* **tooltip:** register outside pointer events only while active ([#5380](https://github.com/sbb-design-systems/lyne-components/issues/5380)) ([0d2e1a8](https://github.com/sbb-design-systems/lyne-components/commit/0d2e1a806f0e451b01139f236a6e529e2da8b823))
+
+
+### Documentation
+
+* fix various jsdoc comments ([#5406](https://github.com/sbb-design-systems/lyne-components/issues/5406)) ([e4e5e67](https://github.com/sbb-design-systems/lyne-components/commit/e4e5e6781f9b37e6d8b623ceaaf2550254355759))
+
+
+### Code Refactoring
+
+* use range media queries ([#5395](https://github.com/sbb-design-systems/lyne-components/issues/5395)) ([1c1e53c](https://github.com/sbb-design-systems/lyne-components/commit/1c1e53c7681d636a834efeca00a402821e743c0e))
+
+
+### Styles
+
+* **checkbox,radio-button:** increase readability for dark and negative modes ([#5389](https://github.com/sbb-design-systems/lyne-components/issues/5389)) ([79342b9](https://github.com/sbb-design-systems/lyne-components/commit/79342b982c1b7a6c2965b011bc93b373f43389fe)), closes [#5388](https://github.com/sbb-design-systems/lyne-components/issues/5388)
+
 ## [5.13.2](https://github.com/sbb-design-systems/lyne-components/compare/v5.13.1...v5.13.2) (2026-11-10)
 
 

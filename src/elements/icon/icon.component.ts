@@ -38,7 +38,7 @@ export class SbbIconElement extends SbbIconBase {
   public constructor() {
     super();
 
-    /** @internal **/
+    /** @internal */
     this.internals.ariaHidden = 'true';
   }
 

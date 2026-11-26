@@ -279,7 +279,7 @@ describe('sbb-chip-group', () => {
       expect(element).to.match(':state(size-s)');
     });
 
-    /** Verify whether the sync between slotted chip and the value works properly **/
+    /** Verify whether the sync between slotted chip and the value works properly */
     describe('slotted chips sync', () => {
       it('should sync slotted chips when setting value', async () => {
         // Add a chip ('chip 4')

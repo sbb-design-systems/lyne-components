@@ -72,6 +72,7 @@ export function cardActionVisualSpec(component: string): void {
             state.name,
             state.with((setup) => {
               setup.withSnapshotElement(root);
+              setup.withStateElement(setup.snapshotElement.querySelector(component)!);
             }),
           );
         }

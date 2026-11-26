@@ -8,12 +8,13 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbHorizontalFrom } from '../../core.ts';
 import {
   forceType,
   getNextElementIndex,
   isArrowKeyPressed,
+  NumberOrNull,
   SbbElement,
+  type SbbHorizontalFrom,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointLargeAndAbove,
   SbbMediaQueryBreakpointSmallAndAbove,
@@ -145,6 +146,7 @@ export class SbbStepperElement extends SbbElement {
   private _requestedSelected: SbbStepElement | null = null;
 
   /** The currently selected step index. */
+  @forceType(NumberOrNull)
   @property({ attribute: 'selected-index', type: Number })
   public set selectedIndex(index: number | null) {
     if (this._loaded && index !== null) {
@@ -276,9 +278,10 @@ export class SbbStepperElement extends SbbElement {
 
     this._setMarkerSize();
     this._setStepperHeight(step);
+    // Disabling the previously selected label can cause the browser to drop focus.
+    const focusInsideStepper = document.activeElement?.closest('sbb-stepper') === this;
     this._configureLinearMode();
-    // In case the focus is currently inside the stepper, we focus the selected step label.
-    if (document.activeElement?.closest('sbb-stepper') === this) {
+    if (focusInsideStepper) {
       this.selected?.label?.focus();
     }
   }

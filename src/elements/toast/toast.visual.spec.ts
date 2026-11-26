@@ -90,6 +90,11 @@ describe(`sbb-toast`, () => {
           { minHeight: '300px', padding: '0', darkMode: true },
         );
         setup.withPostSetupAction(() => setup.snapshotElement.querySelector('sbb-toast')!.open());
+        setup.withStateElement(
+          setup.snapshotElement
+            .querySelector('sbb-toast')!
+            .shadowRoot!.querySelector('.sbb-toast__close-button')!,
+        );
       }),
     );
   });

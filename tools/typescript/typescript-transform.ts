@@ -1,4 +1,3 @@
-/* eslint-disable import-x/no-named-as-default-member */
 import { createHash } from 'node:crypto';
 import {
   mkdirSync,

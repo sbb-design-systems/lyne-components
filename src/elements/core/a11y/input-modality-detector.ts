@@ -122,6 +122,13 @@ class SbbInputModalityDetector {
   }
 
   /**
+   * Forces the input modality to the specified value. This is useful for testing scenarios.
+   */
+  public forceState(modality: SbbInputModality): void {
+    this._updateState(modality, null);
+  }
+
+  /**
    * Whether a screen reader is currently assumed to be active.
    *
    * This is derived from fake `mousedown`/`touchstart` events, which are dispatched by screen

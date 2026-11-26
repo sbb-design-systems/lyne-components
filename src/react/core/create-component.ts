@@ -3,7 +3,6 @@
   @typescript-eslint/naming-convention,
   @typescript-eslint/naming-convention,
   @typescript-eslint/no-empty-object-type,
-  import-x/no-named-as-default-member,
 */
 /**
  * Copied from https://github.com/lit/lit/blob/main/packages/react/src/create-component.ts

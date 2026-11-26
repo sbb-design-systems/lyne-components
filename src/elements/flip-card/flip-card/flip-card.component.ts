@@ -1,5 +1,5 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, isServer, type TemplateResult, unsafeCSS } from 'lit';
+import { type CSSResultGroup, html, isServer, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 
@@ -135,6 +135,11 @@ export class SbbFlipCardElement extends SbbElement {
       : i18nReverseCard[this._language.current];
   }
 
+  /** @internal */
+  public override focus(options?: FocusOptions): void {
+    this.shadowRoot?.querySelector<HTMLButtonElement>('.sbb-flip-card-button')?.focus(options);
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-flip-card">
@@ -143,7 +148,7 @@ export class SbbFlipCardElement extends SbbElement {
           aria-expanded=${this._flipped.toString()}
           type="button"
         >
-          <span class="sbb-screen-reader-only">${until(this._accessibilityLabel(), '')}</span>
+          <span class="sbb-screen-reader-only">${until(this._accessibilityLabel(), nothing)}</span>
         </button>
         <slot name="summary" @slotchange=${() => (this.summary!.inert = this._flipped)}></slot>
         <slot name="details" @slotchange=${() => (this.details!.inert = !this._flipped)}></slot>

@@ -154,6 +154,11 @@ export const SbbFileSelectorCommonElementMixin = <
 
     protected abstract renderTemplate(input: TemplateResult): TemplateResult;
 
+    /** @internal */
+    public override focus(options?: FocusOptions): void {
+      this._hiddenInput.focus(options);
+    }
+
     public override formResetCallback(): void {
       this.files = [];
     }
