@@ -135,6 +135,28 @@ describe('NativeDateAdapter', () => {
     expect(toString(plusOneYear)).to.be.equal('15.1.2024');
   });
 
+  it('getIsoWeek should return the ISO 8601 week and week-numbering year', () => {
+    const cases = [
+      // [year, month, day, expected week, expected week-numbering year]
+      [2023, 6, 15, 24, 2023],
+      [2024, 3, 1, 9, 2024],
+      [2025, 12, 28, 52, 2025],
+      [2025, 12, 29, 1, 2026],
+      [2026, 1, 1, 1, 2026],
+      [2024, 12, 30, 1, 2025],
+      [2020, 12, 31, 53, 2020],
+      [2021, 1, 3, 53, 2020],
+      [2027, 1, 1, 53, 2026],
+      [2027, 1, 4, 1, 2027],
+    ];
+    for (const [year, month, day, week, weekYear] of cases) {
+      expect(
+        dateAdapter.getIsoWeek(new Date(year, month - 1, day)),
+        `${year}-${month}-${day}`,
+      ).to.be.deep.equal({ week, year: weekYear });
+    }
+  });
+
   it('compareDate should return the correct value', () => {
     const dateZero: Date = new Date(0);
     const dateMillennium: Date = new Date(946684800000);

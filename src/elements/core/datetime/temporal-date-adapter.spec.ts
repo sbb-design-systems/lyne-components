@@ -1,5 +1,6 @@
 import { expect } from '@open-wc/testing';
 
+import { DateAdapter } from './date-adapter.ts';
 import { TemporalDateAdapter } from './temporal-date-adapter.ts';
 
 describe('TemporalDateAdapter', () => {
@@ -163,6 +164,41 @@ describe('TemporalDateAdapter', () => {
     const plusOneYear = dateAdapter.addCalendarDays(date, 365);
     expect(plusOneYear instanceof Temporal.PlainDate).to.be.equal(true);
     expect(toString(plusOneYear)).to.be.equal('15.1.2024');
+  });
+
+  it('getIsoWeek should return the ISO 8601 week and week-numbering year', () => {
+    const cases = [
+      // [year, month, day, expected week, expected week-numbering year]
+      [2023, 6, 15, 24, 2023],
+      [2024, 3, 1, 9, 2024],
+      [2025, 12, 28, 52, 2025],
+      [2025, 12, 29, 1, 2026],
+      [2026, 1, 1, 1, 2026],
+      [2024, 12, 30, 1, 2025],
+      [2020, 12, 31, 53, 2020],
+      [2021, 1, 3, 53, 2020],
+      [2027, 1, 1, 53, 2026],
+      [2027, 1, 4, 1, 2027],
+    ];
+    for (const [year, month, day, week, weekYear] of cases) {
+      expect(
+        dateAdapter.getIsoWeek(Temporal.PlainDate.from({ year, month, day })),
+        `${year}-${month}-${day}`,
+      ).to.be.deep.equal({ week, year: weekYear });
+    }
+  });
+
+  it('getIsoWeek of the base implementation should match Temporal', () => {
+    for (
+      let date = Temporal.PlainDate.from({ year: 2010, month: 1, day: 1 });
+      date.year < 2040;
+      date = date.add({ days: 1 })
+    ) {
+      expect(
+        DateAdapter.prototype.getIsoWeek.call(dateAdapter, date),
+        date.toString(),
+      ).to.be.deep.equal({ week: date.weekOfYear, year: date.yearOfWeek });
+    }
   });
 
   it('compareDate should return the correct value', () => {

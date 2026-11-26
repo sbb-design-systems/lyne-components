@@ -860,6 +860,95 @@ export const i18nCalendarWeekNumber: Record<string, string> = {
   it: 'Settimana',
 };
 
+export const i18nCalendarSelectAll = (monthYear: string): Record<string, string> => ({
+  de: `Alle Tage des Monats ${monthYear} auswählen`,
+  en: `Select all days of ${monthYear}`,
+  fr: `Sélectionner tous les jours du ${monthYear}`,
+  it: `Selezionare tutti i giorni del ${monthYear}`,
+});
+
+export const i18nCalendarDeselectAll = (monthYear: string): Record<string, string> => ({
+  de: `Alle Tage des Monats ${monthYear} abwählen`,
+  en: `Deselect all days of ${monthYear}`,
+  fr: `Désélectionner tous les jours du ${monthYear}`,
+  it: `Deselezionare tutti i giorni del ${monthYear}`,
+});
+
+export const i18nCalendarHeaderNavigationHint = (
+  cells: 'weekdays' | 'weekNumbers',
+  orientation: 'horizontal' | 'vertical',
+): Record<string, string> => {
+  const keys =
+    (cells === 'weekdays') === (orientation === 'horizontal')
+      ? {
+          de: 'links und rechts',
+          en: 'left and right',
+          fr: 'gauche et droite',
+          it: 'sinistra e destra',
+        }
+      : { de: 'oben und unten', en: 'up and down', fr: 'haut et bas', it: 'su e giù' };
+  const target =
+    cells === 'weekdays'
+      ? {
+          de: 'Wochentage',
+          en: 'weekdays',
+          fr: 'jours de la semaine',
+          it: 'giorni della settimana',
+        }
+      : {
+          de: 'Wochennummern',
+          en: 'week numbers',
+          fr: 'numéros de semaine',
+          it: 'numeri delle settimane',
+        };
+  return {
+    de: `Mit den Pfeiltasten ${keys.de} durch die ${target.de} navigieren.`,
+    en: `Use the ${keys.en} arrow keys to navigate through the ${target.en}.`,
+    fr: `Utilisez les flèches ${keys.fr} pour naviguer parmi les ${target.fr}.`,
+    it: `Usare le frecce ${keys.it} per navigare tra i ${target.it}.`,
+  };
+};
+
+export const i18nCalendarSelectWeekday = (
+  weekday: string,
+  monthYear: string,
+): Record<string, string> => ({
+  de: `Jeden ${weekday} im ${monthYear} auswählen`,
+  en: `Select every ${weekday} in ${monthYear}`,
+  fr: `Sélectionner chaque ${weekday} du ${monthYear}`,
+  it: `Selezionare ogni ${weekday} del ${monthYear}`,
+});
+
+export const i18nCalendarDeselectWeekday = (
+  weekday: string,
+  monthYear: string,
+): Record<string, string> => ({
+  de: `Jeden ${weekday} im ${monthYear} abwählen`,
+  en: `Deselect every ${weekday} in ${monthYear}`,
+  fr: `Désélectionner chaque ${weekday} du ${monthYear}`,
+  it: `Deselezionare ogni ${weekday} del ${monthYear}`,
+});
+
+export const i18nCalendarSelectWeek = (
+  weekNumber: number | string,
+  year: number | string,
+): Record<string, string> => ({
+  de: `Woche ${weekNumber} des Jahres ${year} auswählen`,
+  en: `Select week ${weekNumber} of year ${year}`,
+  fr: `Sélectionner la semaine ${weekNumber} de l’année ${year}`,
+  it: `Selezionare la settimana ${weekNumber} dell’anno ${year}`,
+});
+
+export const i18nCalendarDeselectWeek = (
+  weekNumber: number | string,
+  year: number | string,
+): Record<string, string> => ({
+  de: `Woche ${weekNumber} des Jahres ${year} abwählen`,
+  en: `Deselect week ${weekNumber} of year ${year}`,
+  fr: `Désélectionner la semaine ${weekNumber} de l’année ${year}`,
+  it: `Deselezionare la settimana ${weekNumber} dell’anno ${year}`,
+});
+
 export const i18nTimetableFormSwapButtonLabel: Record<string, string> = {
   de: 'Von und Nach tauschen',
   en: 'Swap from and to',

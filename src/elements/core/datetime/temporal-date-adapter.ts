@@ -98,6 +98,11 @@ export class TemporalDateAdapter extends DateAdapter<Temporal.PlainDate> {
     return 1;
   }
 
+  /** Gets the ISO 8601 week number and week-numbering year of the given date. */
+  public override getIsoWeek(date: Temporal.PlainDate): { week: number; year: number } {
+    return { week: date.weekOfYear!, year: date.yearOfWeek! };
+  }
+
   /** Calculates the number of days in a month given the year and the month. */
   public getNumDaysInMonth(date: Temporal.PlainDate): number {
     return date.daysInMonth;

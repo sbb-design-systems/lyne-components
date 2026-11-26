@@ -202,6 +202,13 @@ export abstract class DateAdapter<T = any> {
    */
   getFirstWeekOffset(date: T): number;
   /**
+   * Gets the ISO 8601 week number and week-numbering year of the given date.
+   * Weeks start on Monday and belong to the year of their Thursday,
+   * e.g. 2025-12-29 is in week 1 of 2026 and 2027-01-01 is in week 53 of 2026.
+   * @param date The date to get the week of.
+   */
+  getIsoWeek(date: T): { week: number; year: number };
+  /**
    * Compares two dates.
    * @param first The first date to compare.
    * @param second The second date to compare.
