@@ -22,7 +22,7 @@ snapshots["sbb-calendar-weeknumber renders A11y tree Chrome"] =
   "children": [
     {
       "role": "button",
-      "name": "Week 27",
+      "name": "27",
       "invalid": false,
       "focusable": true
     }

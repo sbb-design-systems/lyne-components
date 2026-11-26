@@ -6,3 +6,4 @@ export * from './calendar/calendar-weekday/calendar-weekday.component.ts';
 export * from './calendar/calendar-weeknumber/calendar-weeknumber.component.ts';
 export * from './calendar/calendar/calendar.component.ts';
 export * from './calendar/common/calendar-cell-base-element.ts';
+export * from './calendar/calendar-select-all/calendar-select-all.component.ts';

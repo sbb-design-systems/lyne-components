@@ -273,6 +273,23 @@ export abstract class DateAdapter<T = any> {
   }
 
   /**
+   * Gets the ISO 8601 week number and week-numbering year of the given date.
+   * Weeks start on Monday and belong to the year of their Thursday,
+   * e.g. 2025-12-29 is in week 1 of 2026 and 2027-01-01 is in week 53 of 2026.
+   * @param date The date to get the week of.
+   */
+  public getIsoWeek(date: T): { week: number; year: number } {
+    const daysSinceMonday = (this.getDayOfWeek(date) + 6) % 7;
+    const thursday = this.addCalendarDays(date, THURSDAY - MONDAY - daysSinceMonday);
+    const year = this.getYear(thursday);
+    let dayOfYear = this.getDate(thursday);
+    for (let month = 1; month < this.getMonth(thursday); month++) {
+      dayOfYear += this.getNumDaysInMonth(this.createDate(year, month, 1));
+    }
+    return { week: Math.ceil(dayOfYear / 7), year };
+  }
+
+  /**
    * Compares two dates.
    * @param first The first date to compare.
    * @param second The second date to compare.

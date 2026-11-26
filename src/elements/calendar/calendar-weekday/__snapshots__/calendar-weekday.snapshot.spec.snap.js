@@ -22,7 +22,7 @@ snapshots["sbb-calendar-weekday renders A11y tree Chrome"] =
   "children": [
     {
       "role": "button",
-      "name": "Monday",
+      "name": "M",
       "invalid": false,
       "focusable": true
     }
