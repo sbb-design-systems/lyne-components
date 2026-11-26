@@ -212,9 +212,9 @@ const TemplateWithConfirmationDialog = (args: Args): TemplateResult => html`
       }}
     >
       <sbb-toggle-slide-unchecked-label>
-        Pull right to set the signal to green
+        Pull right to turn the signal on
       </sbb-toggle-slide-unchecked-label>
-      <sbb-toggle-slide-checked-label> The signal is green! </sbb-toggle-slide-checked-label>
+      <sbb-toggle-slide-checked-label>The signal is on!</sbb-toggle-slide-checked-label>
     </sbb-toggle-slide>
     <sbb-secondary-button
       style="margin-block: var(--sbb-spacing-responsive-s); display: flex; width: fit-content;"
@@ -231,7 +231,7 @@ const TemplateWithConfirmationDialog = (args: Args): TemplateResult => html`
   </div>
   <sbb-dialog id="confirmation-dialog">
     <sbb-dialog-content id="confirmation">
-      Are you sure you want to set the signal to green?
+      Are you sure you want to turn on the signal?
     </sbb-dialog-content>
     <sbb-dialog-actions style="justify-content: space-between">
       <sbb-secondary-button
@@ -252,7 +252,7 @@ const TemplateReadOnly = ({ checked, ...args }: Args): TemplateResult => html`
     <sbb-toggle-slide-unchecked-label>
       Pull right to sign the contract
     </sbb-toggle-slide-unchecked-label>
-    <sbb-toggle-slide-checked-label> Contract successfully signed </sbb-toggle-slide-checked-label>
+    <sbb-toggle-slide-checked-label>Contract successfully signed</sbb-toggle-slide-checked-label>
   </sbb-toggle-slide>
 `;
 
@@ -336,7 +336,7 @@ export const WithForm: StoryObj = {
 export const WithConfirmationDialog: StoryObj = {
   render: TemplateWithConfirmationDialog,
   argTypes: defaultArgTypesWithoutStates,
-  args: { ...defaultArgsWithoutStates, 'aria-label': 'Should the signal become green?' },
+  args: { ...defaultArgsWithoutStates, 'aria-label': 'Should the signal be turned on?' },
 };
 
 const meta: Meta = {

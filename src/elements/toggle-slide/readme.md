@@ -37,10 +37,10 @@ This is useful if a state change cannot be reverted.
 
 ```html
 <sbb-toggle-slide readonly checked aria-label="Signal state">
-  <sbb-toggle-slide-unchecked-label
-    >To set signal to green pull right</sbb-toggle-slide-unchecked-label
-  >
-  <sbb-toggle-slide-checked-label>The signal is green!</sbb-toggle-slide-checked-label>
+  <sbb-toggle-slide-unchecked-label>
+    Pull right to turn the signal on
+  </sbb-toggle-slide-unchecked-label>
+  <sbb-toggle-slide-checked-label>The signal is on!</sbb-toggle-slide-checked-label>
 </sbb-toggle-slide>
 ```
 
@@ -160,17 +160,17 @@ and moves the focus back to the component.
 ```html
 <sbb-toggle-slide
   confirmation-dialog="confirmation-dialog"
-  aria-label="Should the signal become green?"
+  aria-label="Should the signal be turned on?"
 >
-  <sbb-toggle-slide-unchecked-label
-    >Pull right to set the signal to green</sbb-toggle-slide-unchecked-label
-  >
-  <sbb-toggle-slide-checked-label>The signal is green!</sbb-toggle-slide-checked-label>
+  <sbb-toggle-slide-unchecked-label>
+    Pull right to turn the signal on
+  </sbb-toggle-slide-unchecked-label>
+  <sbb-toggle-slide-checked-label>The signal is on!</sbb-toggle-slide-checked-label>
 </sbb-toggle-slide>
 <sbb-dialog id="confirmation-dialog">
-  <sbb-dialog-content id="confirmation"
-    >Are you sure you want to set the signal to green?</sbb-dialog-content
-  >
+  <sbb-dialog-content id="confirmation">
+    Are you sure you want to turn on the signal?
+  </sbb-dialog-content>
   <sbb-dialog-actions>
     <sbb-secondary-button
       sbb-dialog-close="false"
