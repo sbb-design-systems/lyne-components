@@ -95,10 +95,35 @@ const labels = html`
   <sbb-toggle-slide-checked-label>To stop pull left</sbb-toggle-slide-checked-label>
 `;
 
-const Template = ({ checked, ...args }: Args): TemplateResult => html`
-  ${title}
-  <sbb-toggle-slide ${sbbSpread(args)} .checked=${checked}>${labels}</sbb-toggle-slide>
-`;
+const Template = ({ checked, ...args }: Args): TemplateResult => {
+  const ariaDescriptionOff =
+    args.readonly || args.disabled
+      ? 'The journey has finished. This state cannot be undone.'
+      : "The journey hasn't started yet. Would you like to check in?";
+
+  const ariaDescriptionOn =
+    args.readonly || args.disabled
+      ? 'The journey has successfully started. This state cannot be undone.'
+      : 'The journey has successfully started. Would you like to stop it?';
+
+  return html`
+    <sbb-toggle-slide
+      ${sbbSpread(args)}
+      .checked=${checked}
+      aria-description=${checked ? ariaDescriptionOn : ariaDescriptionOff}
+      @change=${(e: Event) => {
+        const toggleSlideElement = e.target as SbbToggleSlideElement;
+        toggleSlideElement.ariaDescription = toggleSlideElement.checked
+          ? ariaDescriptionOn
+          : ariaDescriptionOff;
+      }}
+    >
+      ${labels}
+    </sbb-toggle-slide>
+  `;
+};
+
+const TemplateWithTitle = (args: Args): TemplateResult => html` ${title} ${Template(args)} `;
 
 const TemplateWithAsynchronousValidation = ({ checked, ...args }: Args): TemplateResult => html`
   ${title}
@@ -143,7 +168,7 @@ const TemplateWithError = ({ checked, ...args }: Args): TemplateResult => html`
               resolve(false);
               const toggleSlideElement = e.target as SbbToggleSlideElement;
 
-              // Set the component into a invalid state.
+              // Set the component into an invalid state.
               toggleSlideElement.setCustomValidity(
                 'The journey could not be started. Retry later.',
               );
@@ -178,12 +203,12 @@ const TemplateWithForm = (args: Args): TemplateResult => html`
   >
     <fieldset>
       <legend class="sbb-text-s">&nbsp;fieldset&nbsp;</legend>
-      ${Template(args)}
+      ${TemplateWithTitle(args)}
     </fieldset>
 
     <fieldset disabled>
       <legend class="sbb-text-s">&nbsp;disabled fieldset&nbsp;</legend>
-      ${Template({ ...args, name: 'disabled' })}
+      ${TemplateWithTitle({ ...args, name: 'disabled' })}
     </fieldset>
     <div style="margin-block: var(--sbb-spacing-responsive-s)">
       <sbb-secondary-button type="reset">Reset</sbb-secondary-button>
@@ -267,13 +292,13 @@ const TemplateReadOnly = ({ checked, ...args }: Args): TemplateResult => html`
 `;
 
 export const Default: StoryObj = {
-  render: Template,
+  render: TemplateWithTitle,
   argTypes: defaultArgTypes,
   args: defaultArgs,
 };
 
 export const SizeS: StoryObj = {
-  render: Template,
+  render: TemplateWithTitle,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -282,7 +307,7 @@ export const SizeS: StoryObj = {
 };
 
 export const SizeM: StoryObj = {
-  render: Template,
+  render: TemplateWithTitle,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -291,7 +316,7 @@ export const SizeM: StoryObj = {
 };
 
 export const SizeL: StoryObj = {
-  render: Template,
+  render: TemplateWithTitle,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
@@ -300,7 +325,7 @@ export const SizeL: StoryObj = {
 };
 
 export const Checked: StoryObj = {
-  render: Template,
+  render: TemplateWithTitle,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,

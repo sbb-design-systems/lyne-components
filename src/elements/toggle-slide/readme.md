@@ -231,12 +231,13 @@ announced by a live region.
 
 It's recommended to describe the action or state using `aria-describedby` or `aria-description` attribute.
 
-- "Check-in toggle off – Would you like to check in for your journey?"
-- "Check-in toggle on and unavailable – You have successfully checked in."
+- "The journey hasn't started yet. Would you like to check in?"
+- "The journey has successfully started. Would you like to stop it?"
 
 If the action can be undone:
 
-- "Check-in toggle on – You have successfully checked in."
+- "The journey has successfully started. This state cannot be undone."
+- "The journey has finished. This state cannot be undone."
 
 ## Complex Values
 
