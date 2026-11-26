@@ -12,7 +12,12 @@ describe(`sbb-toggle-slide`, () => {
     let element: SbbToggleSlideElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-toggle-slide checked></sbb-toggle-slide>`);
+      element = await fixture(
+        html`<sbb-toggle-slide checked disabled>
+          <sbb-toggle-slide-unchecked-label>Pull right to start</sbb-toggle-slide-unchecked-label>
+          <sbb-toggle-slide-unchecked-label>Pull left to stop</sbb-toggle-slide-unchecked-label>
+        </sbb-toggle-slide>`,
+      );
     });
 
     it('DOM', async () => {
@@ -22,7 +27,7 @@ describe(`sbb-toggle-slide`, () => {
     it('Shadow DOM', async () => {
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
-  });
 
-  testA11yTreeSnapshot(html`<sbb-toggle-slide></sbb-toggle-slide>`);
+    testA11yTreeSnapshot();
+  });
 });
