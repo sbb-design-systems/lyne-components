@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core.ts';
+import { customElementRegistryOf, SbbElement } from '../core.ts';
 import { SbbIconNameMixin } from '../icon.pure.ts';
 import type { SbbTitleElement } from '../title.pure.ts';
 
@@ -56,7 +56,7 @@ export class SbbStatusElement extends SbbIconNameMixin(SbbElement) {
       .assignedElements()
       .find((e): e is SbbTitleElement => e.localName === 'sbb-title');
     if (title) {
-      customElements.upgrade(title);
+      customElementRegistryOf(title).upgrade(title);
       title.visualLevel = '5';
     }
   }

@@ -10,6 +10,7 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
+  customElementRegistryOf,
   forceType,
   getNextElementIndex,
   isArrowKeyPressed,
@@ -184,7 +185,7 @@ export class SbbTabGroupElement extends SbbElement {
 
   private _enabledTabs(): SbbTabLabelElement[] {
     return this.labels.filter((t) => {
-      customElements.upgrade(t);
+      customElementRegistryOf(t).upgrade(t);
       return !t.disabled;
     });
   }
@@ -213,7 +214,7 @@ export class SbbTabGroupElement extends SbbElement {
   private _initSelection(): void {
     const selectedTabLabel = this.labels[this.initialSelectedIndex];
     if (selectedTabLabel) {
-      customElements.upgrade(selectedTabLabel);
+      customElementRegistryOf(selectedTabLabel).upgrade(selectedTabLabel);
       if (
         this.initialSelectedIndex >= 0 &&
         this.initialSelectedIndex < this.labels.length &&

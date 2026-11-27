@@ -11,6 +11,7 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
+  customElementRegistryOf,
   forceType,
   forwardEvent,
   getElementPosition,
@@ -563,7 +564,7 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
   private _syncNegative(): void {
     // Links and buttons are the most expected contents which have a negative property
     this.querySelectorAll(':state(sbb-link), :state(sbb-button)')?.forEach((el: Element) => {
-      customElements.upgrade(el);
+      customElementRegistryOf(el).upgrade(el);
       (el as Element & SbbNegativeMixinType).negative = !this._darkModeController.matches();
     });
   }

@@ -9,6 +9,7 @@ import { property } from 'lit/decorators.js';
 
 import { miniButtonStyle } from '../../button/common/button-common.ts';
 import {
+  customElementRegistryOf,
   type DateAdapter,
   defaultDateAdapter,
   i18nToday,
@@ -66,7 +67,7 @@ export abstract class SbbDatepickerButtonBase<T = Date>
     this.toggleAttribute('disabled', this.disabled);
     const formField = this.closest?.('sbb-form-field');
     if (formField) {
-      customElements.upgrade?.(formField);
+      customElementRegistryOf(formField).upgrade?.(formField);
       this.negative = formField.negative;
       SbbDateInputElement.resolveAssociation(this);
       this.slot ||= this._findSlotPosition();
@@ -87,7 +88,7 @@ export abstract class SbbDatepickerButtonBase<T = Date>
         this.slot = this._findSlotPosition();
         // The sbb-date-input instance must be upgraded in order
         // for properties to be accessible.
-        customElements.upgrade?.(this.input);
+        customElementRegistryOf(this.input).upgrade?.(this.input);
         this._sync();
         this.input.addEventListener('ɵchange', () => this._sync());
       }

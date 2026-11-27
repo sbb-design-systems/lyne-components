@@ -9,6 +9,11 @@ import {
   unsafeCSS,
 } from 'lit';
 
+import {
+  getDefaultCustomElementRegistry,
+  scopedCustomElementRegistryOf,
+} from '../dom/custom-element-registry.ts';
+
 import style from './element.scss?inline';
 
 // Most of our target browsers support the :state() pseudo class, but not all of them.
@@ -436,17 +441,21 @@ export class SbbElement extends LitElement {
     }
   }
 
-  /** Register the custom element in the global CustomElementRegistry. */
-  public static define(): void {
+  /**
+   * Register the custom element and its dependencies in the given CustomElementRegistry.
+   * Defaults to the registry configured via `setDefaultCustomElementRegistry()`,
+   * or the global registry if none is configured.
+   */
+  public static define(registry: CustomElementRegistry = getDefaultCustomElementRegistry()): void {
     if (!this.elementName) {
       throw new Error(
         `The static property "elementName" is not defined on ${this.name}. Please define it to register the custom element.`,
       );
     }
 
-    const elementClass = customElements.get(this.elementName);
+    const elementClass = registry.get(this.elementName);
     if (!elementClass) {
-      customElements.define(this.elementName, this as unknown as CustomElementConstructor);
+      registry.define(this.elementName, this as unknown as CustomElementConstructor);
 
       const elementDependencies: SbbElementType[] = [];
       // eslint-disable-next-line @typescript-eslint/no-this-alias
@@ -457,7 +466,7 @@ export class SbbElement extends LitElement {
         }
         ctor = Object.getPrototypeOf(ctor);
       }
-      new Set(elementDependencies).forEach((dependency) => dependency.define());
+      new Set(elementDependencies).forEach((dependency) => dependency.define(registry));
     } else if (import.meta.env.DEV && elementClass !== this) {
       console.warn(
         `The custom element with name "${this.elementName}" is already defined. Skipping.`,
@@ -487,7 +496,29 @@ export class SbbElement extends LitElement {
     return super.finalizeStyles(collected);
   }
 
+  /**
+   * Attaches the shadow root to the custom element registry of this element,
+   * as shadow roots use the global registry by default.
+   */
+  public override attachShadow(init: ShadowRootInit): ShadowRoot {
+    const customElementRegistry = scopedCustomElementRegistryOf(this);
+    return super.attachShadow(
+      customElementRegistry && !init.customElementRegistry
+        ? { ...init, customElementRegistry }
+        : init,
+    );
+  }
+
   protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    // If this element belongs to a scoped CustomElementRegistry, templates need to be
+    // cloned with the same registry, as cloned nodes are upgraded with the global registry by default.
+    const customElementRegistry = scopedCustomElementRegistryOf(this);
+    if (customElementRegistry) {
+      this.renderOptions.creationScope = {
+        importNode: (node: Node, deep?: boolean) =>
+          document.importNode(node, { selfOnly: !deep, customElementRegistry }),
+      };
+    }
     const root = super.createRenderRoot();
     this.shadowRoot?.addEventListener('slotchange', (e) =>
       this._slotchangeHandler(e, e.target as HTMLSlotElement),

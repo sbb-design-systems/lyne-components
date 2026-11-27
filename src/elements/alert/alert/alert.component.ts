@@ -10,6 +10,7 @@ import { property } from 'lit/decorators.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
+  customElementRegistryOf,
   i18nCloseAlert,
   isZeroAnimationDuration,
   SbbDarkModeController,
@@ -142,7 +143,7 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
 
   private _syncLinks(): void {
     Array.from(this.querySelectorAll?.<SbbLinkElement>('sbb-link') ?? []).forEach((link) => {
-      customElements.upgrade(link);
+      customElementRegistryOf(link).upgrade(link);
       link.negative = this._isLightMode();
     });
   }
@@ -150,7 +151,7 @@ export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
   private _configureTitle(): void {
     const title = this.querySelector?.<SbbTitleElement>('sbb-title');
     if (title) {
-      customElements.upgrade(title);
+      customElementRegistryOf(title).upgrade(title);
       title.negative = this._isLightMode();
       title.visualLevel = this.size === 'l' ? '3' : '5';
     }

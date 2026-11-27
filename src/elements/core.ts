@@ -34,6 +34,7 @@ export * from './core/decorators/omit-empty-converter.ts';
 export * from './core/decorators/plain-date.ts';
 export * from './core/dom/animation.ts';
 export * from './core/dom/contains-pierce-shadow-dom.ts';
+export * from './core/dom/custom-element-registry.ts';
 export * from './core/dom/set-or-remove-attribute.ts';
 export * from './core/dom/platform.ts';
 export * from './core/dom/queue-dom-content-loaded.ts';

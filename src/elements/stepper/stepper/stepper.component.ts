@@ -9,6 +9,7 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
+  customElementRegistryOf,
   forceType,
   getNextElementIndex,
   isArrowKeyPressed,
@@ -163,7 +164,7 @@ export class SbbStepperElement extends SbbElement {
   public get steps(): SbbStepElement[] {
     const steps: SbbStepElement[] = [];
     this.querySelectorAll?.('sbb-step').forEach((step) => {
-      customElements.upgrade(step);
+      customElementRegistryOf(step).upgrade(step);
       steps.push(step);
     });
     return steps;
@@ -172,7 +173,7 @@ export class SbbStepperElement extends SbbElement {
   private get _enabledSteps(): SbbStepElement[] {
     return this.steps.filter((s) => {
       if (s.label) {
-        customElements.upgrade(s.label);
+        customElementRegistryOf(s.label).upgrade(s.label);
         return !s.label.disabled;
       }
       return false;
@@ -232,9 +233,9 @@ export class SbbStepperElement extends SbbElement {
 
   private _isSelectable(step: SbbStepElement | null): step is SbbStepElement {
     if (step) {
-      customElements.upgrade(step);
+      customElementRegistryOf(step).upgrade(step);
       if (step.label) {
-        customElements.upgrade(step.label);
+        customElementRegistryOf(step.label).upgrade(step.label);
         if (!this.linear && step.label.disabled) {
           return false;
         }
@@ -382,7 +383,7 @@ export class SbbStepperElement extends SbbElement {
       if (!step.label) {
         return;
       }
-      customElements.upgrade(step.label);
+      customElementRegistryOf(step.label).upgrade(step.label);
 
       step.label.disable(
         (this.linear && index > this.selectedIndex!) ||

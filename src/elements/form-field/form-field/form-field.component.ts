@@ -12,6 +12,7 @@ import type { SbbAutocompleteBaseElement } from '../../autocomplete.pure.ts';
 import type { SbbChipGroupElement } from '../../chip.pure.ts';
 import {
   appendAriaElements,
+  customElementRegistryOf,
   forceType,
   removeAriaElements,
   SbbElement,
@@ -390,8 +391,10 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
 
     if (
       nativeInputElements.includes(this._input.localName) ||
-      (customElements.get(this._input.localName) as { formAssociated?: boolean } | undefined)
-        ?.formAssociated
+      (
+        customElementRegistryOf(this._input).get(this._input.localName) as
+          { formAssociated?: boolean } | undefined
+      )?.formAssociated
     ) {
       // For native input elements we use the `for` attribute on the label to reference the input
       // via id reference.
@@ -415,8 +418,10 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   private _isInputElement(input: Element): boolean {
     return (
       nativeInputElements.includes(input.localName) ||
-      !!(customElements.get(input.localName) as { formAssociated?: boolean } | undefined)
-        ?.formAssociated
+      !!(
+        customElementRegistryOf(input).get(input.localName) as
+          { formAssociated?: boolean } | undefined
+      )?.formAssociated
     );
   }
 

@@ -1,6 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import {
+  customElementRegistryOf,
   i18nAutocompleteActionsHint,
   isAndroid,
   isIOS,
@@ -54,7 +55,7 @@ export class SbbAutocompleteRowElement extends SbbElement {
       return;
     }
     if (!option['internals']) {
-      customElements.upgrade(option);
+      customElementRegistryOf(option).upgrade(option);
     }
 
     if (hasButton) {

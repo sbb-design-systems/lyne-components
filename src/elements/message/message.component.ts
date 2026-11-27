@@ -1,6 +1,6 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbElement } from '../core.ts';
+import { customElementRegistryOf, SbbElement } from '../core.ts';
 import type { SbbTitleElement } from '../title.pure.ts';
 
 import style from './message.scss?inline';
@@ -23,7 +23,7 @@ export class SbbMessageElement extends SbbElement {
       .assignedElements()
       .find((e): e is SbbTitleElement => e.localName === 'sbb-title');
     if (title) {
-      customElements.upgrade(title);
+      customElementRegistryOf(title).upgrade(title);
       title.visualLevel = '5';
     }
   }
