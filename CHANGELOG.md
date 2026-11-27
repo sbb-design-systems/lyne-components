@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.15.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.14.0...v5.15.0) (2026-11-27)
+
+
+### Features
+
+* **badge:** add `sbb-badge-disabled` attribute ([#5422](https://github.com/sbb-design-systems/lyne-components/issues/5422)) ([163f7a7](https://github.com/sbb-design-systems/lyne-components/commit/163f7a7147ae583bdf8a48a554e149bb109e5893))
+* **calendar:** add button to select entire month ([#5407](https://github.com/sbb-design-systems/lyne-components/issues/5407)) ([ba2bc85](https://github.com/sbb-design-systems/lyne-components/commit/ba2bc850da908fddc782a25f4f86854789e1da5d))
+
 ## [5.14.0](https://github.com/sbb-design-systems/lyne-components/compare/v5.13.3...v5.14.0) (2026-11-23)
 
 
