@@ -10,6 +10,7 @@ import { property } from 'lit/decorators.js';
 
 import type { SbbInputAutocompleteEvent } from '../../autocomplete.pure.ts';
 import {
+  createElementInRegistryOf,
   forceType,
   type FormRestoreReason,
   type FormRestoreState,
@@ -415,7 +416,7 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
     if (isServer) {
       return;
     }
-    const newChip = document.createElement('sbb-chip') as SbbChipElement<T>;
+    const newChip = createElementInRegistryOf(this, 'sbb-chip') as SbbChipElement<T>;
     newChip.value = value;
     newChip.innerText = label ?? (value ? this.displayWith?.(value) : null) ?? '';
     if (

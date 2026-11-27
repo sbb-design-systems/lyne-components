@@ -9,6 +9,7 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
+  customElementRegistryOf,
   forceType,
   getNextElementIndex,
   isArrowKeyPressed,
@@ -82,7 +83,7 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
   /** The child instances of sbb-tag as an array. */
   public get tags(): SbbTagElement<T>[] {
     return Array.from(this.querySelectorAll?.<SbbTagElement<T>>('sbb-tag') ?? [], (t) => {
-      customElements.upgrade(t);
+      customElementRegistryOf(t).upgrade(t);
       return t;
     });
   }

@@ -2,6 +2,7 @@ import { type CSSResultGroup, isServer, type PropertyDeclaration, unsafeCSS } fr
 import { property } from 'lit/decorators.js';
 
 import {
+  customElementRegistryOf,
   type DateAdapter,
   defaultDateAdapter,
   i18nDateInvalid,
@@ -184,7 +185,7 @@ export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(S
     }
     for (const child of Array.from(this.closest('sbb-form-field')?.children ?? [])) {
       // Elements must be upgraded in order for the constructor to be accessible.
-      customElements.upgrade?.(child);
+      customElementRegistryOf(child).upgrade?.(child);
       if (
         (child.constructor as { sbbDateInputAssociated?: boolean }).sbbDateInputAssociated &&
         !child.hasAttribute('input') &&

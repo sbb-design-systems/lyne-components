@@ -11,7 +11,9 @@ import { property } from 'lit/decorators.js';
 
 import {
   appendAriaElements,
+  createElementInRegistry,
   forceType,
+  getDefaultCustomElementRegistry,
   idReference,
   isAndroid,
   isIOS,
@@ -242,7 +244,7 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
     if (tooltipMessage && triggerElement.isConnected) {
       if (!tooltip) {
         // Create a new sbb-tooltip in the outlet and attach it to the trigger
-        tooltip = document.createElement('sbb-tooltip');
+        tooltip = createElementInRegistry(getDefaultCustomElementRegistry(), 'sbb-tooltip');
         tooltipTriggers.set(triggerElement, tooltip);
         this._tooltipOutlet.appendChild(tooltip);
         tooltip.trigger = triggerElement;

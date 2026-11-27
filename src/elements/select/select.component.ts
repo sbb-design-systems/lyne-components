@@ -13,6 +13,7 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
+  customElementRegistryOf,
   forceType,
   type FormRestoreReason,
   type FormRestoreState,
@@ -196,7 +197,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   public get options(): SbbOptionElement<T>[] {
     const options: SbbOptionElement<T>[] = [];
     this.querySelectorAll?.<SbbOptionElement<T>>('sbb-option').forEach((option) => {
-      customElements.upgrade(option);
+      customElementRegistryOf(option).upgrade(option);
       options.push(option);
     });
     return options;

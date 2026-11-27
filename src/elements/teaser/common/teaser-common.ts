@@ -8,7 +8,11 @@ import {
 import { property } from 'lit/decorators.js';
 
 import type { SbbChipLabelElement } from '../../chip-label.pure.ts';
-import { type AbstractConstructor, SbbActionBaseElement } from '../../core.ts';
+import {
+  type AbstractConstructor,
+  customElementRegistryOf,
+  SbbActionBaseElement,
+} from '../../core.ts';
 import type { SbbTitleElement } from '../../title.pure.ts';
 
 import style from './teaser-common.scss?inline';
@@ -75,7 +79,7 @@ export const SbbTeaserCommonElementMixin = <T extends AbstractConstructor<SbbAct
         .find((e): e is SbbChipLabelElement => e.localName === 'sbb-chip-label');
 
       if (chipLabel) {
-        customElements.upgrade(chipLabel);
+        customElementRegistryOf(chipLabel).upgrade(chipLabel);
         chipLabel.color = 'charcoal';
         chipLabel.size = 'xxs';
       }
@@ -88,7 +92,7 @@ export const SbbTeaserCommonElementMixin = <T extends AbstractConstructor<SbbAct
         .find((e): e is SbbTitleElement => e.localName === 'sbb-title');
 
       if (title) {
-        customElements.upgrade(title);
+        customElementRegistryOf(title).upgrade(title);
         title.visualLevel = this.size === 'l' ? '2' : '5';
       }
     }

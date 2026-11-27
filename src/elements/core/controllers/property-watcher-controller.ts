@@ -5,6 +5,8 @@ import {
   type ReactiveControllerHost,
 } from 'lit';
 
+import { customElementRegistryOf } from '../dom/custom-element-registry.ts';
+
 type PropertyWatcherHandler<T extends LitElement> = (reference: T) => void;
 
 class PropertyWatcher<T extends LitElement> implements ReactiveController {
@@ -21,12 +23,13 @@ class PropertyWatcher<T extends LitElement> implements ReactiveController {
     private readonly _property: string,
   ) {
     if (!isServer) {
-      if (customElements.get(this._host.localName)) {
-        customElements.upgrade(this._host);
+      const registry = customElementRegistryOf(this._host);
+      if (registry.get(this._host.localName)) {
+        registry.upgrade(this._host);
       } else {
         // The host element is not yet defined, wait for its definition before upgrading
-        this._hostDefinedPromise = customElements.whenDefined(this._host.localName).then(() => {
-          customElements.upgrade(this._host);
+        this._hostDefinedPromise = registry.whenDefined(this._host.localName).then(() => {
+          registry.upgrade(this._host);
           this._hostDefinedPromise = null;
         });
       }
