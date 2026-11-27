@@ -10,6 +10,7 @@ Select your technology to get started:
 - [Plain Javascript](#plain-javascript)
 - [Angular](#angular)
 - [React/Next.js](#reactnextjs)
+- [Scoped custom element registries](#scoped-custom-element-registries)
 
 ## Plain Javascript
 
@@ -204,3 +205,65 @@ bootstrapApplication(App).catch((err) => console.error(err));
      return <SbbButton onClick={() => {}} size={size}></SbbButton>;
    }
    ```
+
+## Scoped custom element registries
+
+By default, Lyne elements are registered in the global `customElements` registry.
+In micro frontend setups, where multiple versions of Lyne (or other libraries using `sbb-*` tag names)
+coexist on the same page, the elements can be registered in a
+[scoped `CustomElementRegistry`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/CustomElementRegistry) instead.
+This requires native browser support for scoped custom element registries;
+polyfills are not supported.
+
+> ⓘ Only the `.pure.js` entry points (e.g. `@sbb-esta/lyne-elements/button.pure.js`) can be used with
+> a scoped registry. The regular entry points (e.g. `@sbb-esta/lyne-elements/button.js`) call `.define()`
+> at import time and therefore always register the elements in the global registry.
+
+Pass the registry to `define()`. All element dependencies (e.g. `sbb-icon`) are registered in the same registry:
+
+```ts
+import { SbbButtonElement } from '@sbb-esta/lyne-elements/button.pure.js';
+
+const registry = new CustomElementRegistry();
+SbbButtonElement.define(registry);
+
+const host = document.querySelector('#my-micro-frontend')!;
+const root = host.attachShadow({ mode: 'open', customElementRegistry: registry });
+root.innerHTML = `<sbb-button>Label</sbb-button>`;
+```
+
+Alternatively, configure a default registry which is used by every `define()` call without an explicit registry.
+`setDefaultCustomElementRegistry()` must be called before any element is defined
+(i.e. before calling `define()` or importing any non-pure entry point).
+Elements which are created internally (e.g. tooltips created via the `sbb-tooltip` attribute)
+also use this registry.
+
+```ts
+import {
+  getDefaultCustomElementRegistry,
+  setDefaultCustomElementRegistry,
+} from '@sbb-esta/lyne-elements/core.js';
+import { SbbButtonElement } from '@sbb-esta/lyne-elements/button.pure.js';
+
+const registry = new CustomElementRegistry();
+setDefaultCustomElementRegistry(registry);
+SbbButtonElement.define(); // registered in `registry`
+
+getDefaultCustomElementRegistry(); // returns `registry`
+setDefaultCustomElementRegistry(undefined); // resets to the global registry
+```
+
+When creating Lyne elements programmatically, they must be created in the correct registry,
+as `document.createElement()` uses the global registry.
+The following helpers are exported from `@sbb-esta/lyne-elements/core.js`:
+
+- `customElementRegistryOf(node)`: returns the registry associated with the given node,
+  falling back to the global registry.
+- `createElementInRegistryOf(context, tagName)`: creates an element in the same registry as the given context node.
+
+```ts
+import { createElementInRegistryOf } from '@sbb-esta/lyne-elements/core.js';
+
+const chip = createElementInRegistryOf(root, 'sbb-chip');
+root.querySelector('sbb-chip-group')!.appendChild(chip);
+```

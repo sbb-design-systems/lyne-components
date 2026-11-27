@@ -1,14 +1,17 @@
 import { expect } from '@open-wc/testing';
 
+import { SbbChipElement } from '../../chip/chip/chip.component.ts';
+import { SbbChipGroupElement } from '../../chip/chip-group/chip-group.component.ts';
 import { SbbHeaderButtonElement } from '../../header/header-button/header-button.component.ts';
 import { SbbIconElement } from '../../icon/icon.component.ts';
+import { SbbTooltipElement } from '../../tooltip/tooltip.component.ts';
 import {
   createElementInRegistryOf,
   customElementRegistryOf,
   getDefaultCustomElementRegistry,
   setDefaultCustomElementRegistry,
 } from '../dom/custom-element-registry.ts';
-import { waitForLitRender } from '../testing.ts';
+import { waitForCondition, waitForLitRender } from '../testing.ts';
 
 const supportsScopedRegistries = (() => {
   try {
@@ -83,5 +86,33 @@ const supportsScopedRegistries = (() => {
 
     expect(element).to.be.instanceOf(SbbIconElement);
     expect(customElementRegistryOf(element)).to.equal(registry);
+  });
+
+  it('creates chips in the registry of the chip group', async () => {
+    SbbChipGroupElement.define(registry);
+    root.innerHTML = `<sbb-chip-group></sbb-chip-group>`;
+    const chipGroup = root.querySelector<SbbChipGroupElement>('sbb-chip-group')!;
+    await waitForLitRender(chipGroup);
+
+    chipGroup.value = ['chip'];
+    await waitForLitRender(chipGroup);
+
+    const chip = chipGroup.querySelector('sbb-chip')!;
+    expect(chip).to.be.instanceOf(SbbChipElement);
+    expect(customElementRegistryOf(chip)).to.equal(registry);
+  });
+
+  it('creates tooltips in the registry the tooltip was defined in', async () => {
+    SbbTooltipElement.define(registry);
+    const trigger = document.createElement('button');
+    trigger.setAttribute('sbb-tooltip', 'Tooltip message');
+    host.appendChild(trigger);
+    await waitForCondition(() => !!document.querySelector('.sbb-overlay-outlet sbb-tooltip'));
+
+    const tooltip = document.querySelector<SbbTooltipElement>('.sbb-overlay-outlet sbb-tooltip')!;
+    expect(tooltip).to.be.instanceOf(SbbTooltipElement);
+    expect(customElementRegistryOf(tooltip)).to.equal(registry);
+    expect(tooltip.trigger).to.equal(trigger);
+    tooltip.remove();
   });
 });

@@ -30,6 +30,7 @@ import {
   SbbOpenCloseBaseElement,
   sbbOverlayOutsidePointerEventListener,
   SbbOverlayPositionController,
+  scopedCustomElementRegistryOf,
 } from '../core.ts';
 
 import style from './tooltip.scss?inline';
@@ -70,6 +71,7 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
   public static override styles: CSSResultGroup = [popoverResetStyles, unsafeCSS(style)];
 
   private static _tooltipOutlet: Element;
+  private static _definedRegistry?: CustomElementRegistry;
 
   static {
     if (!isServer) {
@@ -195,6 +197,30 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
     this.addEventListener('animationend', (e) => this._onTooltipAnimationEnd(e), { passive: true });
   }
 
+  public static override define(
+    registry: CustomElementRegistry = getDefaultCustomElementRegistry(),
+  ): void {
+    super.define(registry);
+    if (registry.get(this.elementName) === this) {
+      SbbTooltipElement._definedRegistry = registry;
+    }
+  }
+
+  /**
+   * Resolves the registry in which auto-created tooltips are created.
+   * Prefers the registry of the trigger element, then the registry this element
+   * was defined in, then the default registry.
+   */
+  private static _tooltipRegistryFor(triggerElement: HTMLElement): CustomElementRegistry {
+    return (
+      [
+        scopedCustomElementRegistryOf(triggerElement),
+        SbbTooltipElement._definedRegistry,
+        getDefaultCustomElementRegistry(),
+      ].find((registry) => registry?.get(this.elementName)) ?? getDefaultCustomElementRegistry()
+    );
+  }
+
   private static _initializeTooltipOutlet(): void {
     this._tooltipOutlet = document.createElement('div');
     this._tooltipOutlet.classList.add('sbb-overlay-outlet');
@@ -244,7 +270,7 @@ export class SbbTooltipElement extends SbbDynamicStylesheetMixin(
     if (tooltipMessage && triggerElement.isConnected) {
       if (!tooltip) {
         // Create a new sbb-tooltip in the outlet and attach it to the trigger
-        tooltip = createElementInRegistry(getDefaultCustomElementRegistry(), 'sbb-tooltip');
+        tooltip = createElementInRegistry(this._tooltipRegistryFor(triggerElement), 'sbb-tooltip');
         tooltipTriggers.set(triggerElement, tooltip);
         this._tooltipOutlet.appendChild(tooltip);
         tooltip.trigger = triggerElement;
