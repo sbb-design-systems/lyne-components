@@ -113,7 +113,7 @@
     "globals": "17.14.0",
     "husky": "9.1.7",
     "jiti": "2.7.0",
-    "lint-staged": "17.6.2",
+    "lint-staged": "17.6.3",
     "lit-analyzer": "2.0.3",
     "madge": "8.0.0",
     "njs-types": "1.0.0",
